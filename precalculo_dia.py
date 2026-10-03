@@ -212,12 +212,27 @@ def leer(ruta: Optional[str] = None) -> Optional[Dict]:
             logger.warning('[precalculo] %s no tiene la forma esperada', ruta)
             return None
         ts = float(doc.get('generado_ts') or 0.0)
+        _adjuntar_decisiones(doc)
         return {'datos': doc['datos'], 'ts': ts,
                 'edad_s': max(0.0, time.time() - ts),
                 'generado': doc.get('generado')}
     except Exception as e:
         logger.warning('[precalculo] no se pudo leer %s: %s', ruta, e)
         return None
+
+
+def _adjuntar_decisiones(doc: Dict) -> None:
+    """v323 — cuelga de cada partido su decisión ya calculada por el cron.
+
+    Sólo si sigue valiendo para el código y los datos de ESTA app (ver
+    `decisiones_dia`); si no, no toca nada y `modo_modelo.render` calcula como
+    siempre. Nunca lanza.
+    """
+    try:
+        import decisiones_dia
+        decisiones_dia.adjuntar(doc)
+    except Exception as e:
+        logger.debug('[precalculo] decisiones: %s', e)
 
 
 # De dónde se baja el día cocinado cuando el usuario pulsa «Actualizar ahora».
@@ -308,6 +323,7 @@ def descargar(url: Optional[str] = None,
             except Exception:
                 pass
     logger.info('[precalculo] bajado el publicado (%s)', doc.get('generado'))
+    _adjuntar_decisiones(doc)
     return {'datos': doc['datos'], 'ts': ts,
             'edad_s': max(0.0, time.time() - ts),
             'generado': doc.get('generado'), 'remoto': True}
@@ -532,6 +548,21 @@ def main() -> int:
         return 1
     if not escribir(datos, a.salida):
         return 1
+    # v323 — Y LAS DECISIONES DE CADA PARTIDO, PARA QUE LA APP LAS LEA.
+    #
+    # `modo_modelo.render` recalculaba en cada clic la apuesta destacada y las
+    # cuatro recomendadas de los 355 partidos del día: 21,5 s medidos en un
+    # proceso nuevo, para repetir lo que ya había calculado la pasada anterior.
+    # Se hacen aquí, una vez, en un proceso aparte que apunta de qué ficheros
+    # dependen; la app sólo las usa si esos ficheros siguen siendo los suyos.
+    # Falla en blando: sin ellas el JSON es el de siempre.
+    try:
+        import decisiones_dia
+        if not decisiones_dia.anadir(a.salida):
+            logger.warning('[precalculo] sin decisiones precalculadas: la '
+                           'app las calculará en vivo')
+    except Exception as e:
+        logger.warning('[precalculo] decisiones: %s', e)
     print(json.dumps(estado(a.salida), ensure_ascii=False, indent=1))
     return 0
 
