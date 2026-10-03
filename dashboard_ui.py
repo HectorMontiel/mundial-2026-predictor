@@ -86,6 +86,16 @@ try:
 except Exception:
     _ayuda = None
 
+# v322 — la memoria de las tarjetas, sólo en la app (ver `modo_modelo.MEMO_UI`).
+# Va en cada pasada y no una vez: `recarga_modulos` puede recargar
+# `modo_modelo` tras un despliegue y entonces la bandera vuelve a su valor de
+# fábrica, que es apagada.
+try:
+    import modo_modelo as _mm_memo
+    _mm_memo.MEMO_UI = True
+except Exception:
+    pass
+
 
 # ===========================================================================
 # v122 — LOS ATAJOS DE PRESENTACIÓN

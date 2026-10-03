@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-v322 — LA APLICACIÓN LEE LAS DECISIONES EN VEZ DE TOMARLAS EN CADA CLIC.
+v323 — LA APLICACIÓN LEE LAS DECISIONES EN VEZ DE TOMARLAS EN CADA CLIC.
 
 QUÉ RESUELVE
 ------------
@@ -79,7 +79,7 @@ def decidir(p: Dict) -> Dict:
 
     Son las dos líneas de `modo_modelo.render` copiadas tal cual, con las
     mismas llamadas y los mismos argumentos. Si `render` cambia la forma de
-    calcularlas, la prueba de equivalencia (`test_v322.py`) falla.
+    calcularlas, la prueba de equivalencia (`test_v323.py`) falla.
     """
     import modo_modelo as mm
     out = {'destacada': mm.apuesta_destacada(p),
@@ -109,6 +109,8 @@ def _llave(p: Dict) -> List:
 # la huella
 # ---------------------------------------------------------------------------
 _CACHE_SHA: Dict[str, tuple] = {}
+# Las extensiones que `.gitattributes` declara `text eol=lf`.
+TEXTO_LF = ('.csv', '.json', '.py', '.md', '.yml')
 
 
 def _sha(ruta_rel: str) -> Optional[str]:
@@ -123,9 +125,20 @@ def _sha(ruta_rel: str) -> Optional[str]:
     if c and c[0] == firma:
         return c[1]
     h = hashlib.sha1()
-    with open(ruta, 'rb') as f:
-        for trozo in iter(lambda: f.read(1 << 20), b''):
-            h.update(trozo)
+    if os.path.splitext(ruta)[1].lower() in TEXTO_LF:
+        # Lo que se compara es lo que git GUARDA. En `.gitattributes` estos
+        # ficheros son `text eol=lf`: git convierte CRLF en LF al commitear.
+        # Medido en el primer precálculo real (2026-10-03 12:48Z): el runner
+        # escribió `remates_fotmob_equipos.csv` con CRLF, el commit lo guardó
+        # con LF y la huella no casaba con lo que la app recibe — habría
+        # calculado siempre en vivo. Para leerlos (pandas, json, Python) los
+        # dos saltos de línea son lo mismo.
+        with open(ruta, 'rb') as f:
+            h.update(f.read().replace(b'\r\n', b'\n'))
+    else:
+        with open(ruta, 'rb') as f:
+            for trozo in iter(lambda: f.read(1 << 20), b''):
+                h.update(trozo)
     _CACHE_SHA[ruta] = (firma, h.hexdigest())
     return _CACHE_SHA[ruta][1]
 

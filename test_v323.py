@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-v322 — pruebas: la app LEE las decisiones que calculó el cron, y sólo cuando
+v323 — pruebas: la app LEE las decisiones que calculó el cron, y sólo cuando
 son exactamente las que ella misma calcularía.
 
 Lo que se comprueba, sobre el `pronostico_dia.json` que haya en el repo:
@@ -18,7 +18,7 @@ Lo que se comprueba, sobre el `pronostico_dia.json` que haya en el repo:
   4. `render` usa lo precalculado (no llama a `recomendadas` fuera de las
      tarjetas) y deja en cada partido lo mismo que dejaba calculando.
 
-Uso: python test_v322.py
+Uso: python test_v323.py
 """
 from __future__ import annotations
 
@@ -42,7 +42,7 @@ def canon(x):
     return json.dumps(x, sort_keys=True, ensure_ascii=False)
 
 
-TMP = tempfile.mkdtemp(prefix='v322_')
+TMP = tempfile.mkdtemp(prefix='v323_')
 RUTA = os.path.join(TMP, 'pronostico_dia.json')
 # Nada de esta prueba escribe en los ficheros del repositorio.
 os.environ['PRONOSTICOS_EMITIDOS'] = os.path.join(TMP, 'emitidos.json')
@@ -135,6 +135,21 @@ def probar_huella(doc):
     d7 = copy.deepcopy(doc)
     d7['decisiones']['red'] = 1
     check(dd.adjuntar(d7) == 0, 'si hubiera salido a la red, no se adjunta')
+    # el salto de línea: el runner puede escribir CRLF y git guarda LF
+    # (`.gitattributes`: csv/json/py son `text eol=lf`). Pasó en el primer
+    # precálculo real con `remates_fotmob_equipos.csv`.
+    _d = tempfile.mkdtemp(prefix='v323_crlf_')
+    open(os.path.join(_d, 'a.csv'), 'wb').write(b'x,y\r\n1,2\r\n')
+    open(os.path.join(_d, 'b.csv'), 'wb').write(b'x,y\n1,2\n')
+    open(os.path.join(_d, 'c.csv'), 'wb').write(b'x,y\n1,3\n')
+    _raiz = dd.RAIZ
+    try:
+        dd.RAIZ = _d
+        check(dd._sha('a.csv') == dd._sha('b.csv') != dd._sha('c.csv'),
+              'la huella iguala CRLF y LF (como git) y distingue un dato '
+              'cambiado')
+    finally:
+        dd.RAIZ = _raiz
     d3 = copy.deepcopy(doc)
     d3['decisiones']['dia'] = ['2000-01-01', '2000-01-01']
     check(dd.adjuntar(d3) == 0, 'si es otro día, no se adjunta nada')

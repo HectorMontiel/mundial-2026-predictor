@@ -222,7 +222,7 @@ def leer(ruta: Optional[str] = None) -> Optional[Dict]:
 
 
 def _adjuntar_decisiones(doc: Dict) -> None:
-    """v322 — cuelga de cada partido su decisión ya calculada por el cron.
+    """v323 — cuelga de cada partido su decisión ya calculada por el cron.
 
     Sólo si sigue valiendo para el código y los datos de ESTA app (ver
     `decisiones_dia`); si no, no toca nada y `modo_modelo.render` calcula como
@@ -548,7 +548,7 @@ def main() -> int:
         return 1
     if not escribir(datos, a.salida):
         return 1
-    # v322 — Y LAS DECISIONES DE CADA PARTIDO, PARA QUE LA APP LAS LEA.
+    # v323 — Y LAS DECISIONES DE CADA PARTIDO, PARA QUE LA APP LAS LEA.
     #
     # `modo_modelo.render` recalculaba en cada clic la apuesta destacada y las
     # cuatro recomendadas de los 355 partidos del día: 21,5 s medidos en un
