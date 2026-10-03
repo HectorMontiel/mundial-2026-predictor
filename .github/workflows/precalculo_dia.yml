@@ -192,6 +192,16 @@ jobs:
         if: steps.frescura.outputs.saltar != 'true'
         run: python precalculo_dia.py --estado
 
+      # v324 — PLAYDOIT, VIGILADO DONDE SÍ HAY RED. Es la casa donde se apuesta
+      # y sus pruebas en vivo (`test_catalogo_y_cuotas.py`) no pueden correr en
+      # un entorno sin salida a su web, donde ahora se dan por omitidas. Aquí
+      # sí hay red: si un día no devuelve ni un partido de fútbol, se avisa en
+      # el resumen de la ejecución en vez de descubrirlo por las tarjetas.
+      - name: Comprobar que Playdoit responde
+        if: steps.frescura.outputs.saltar != 'true'
+        run: |
+          python -c "import cuotas_multi as cm; n = len(cm._indice_pdt('futbol')); print('Playdoit, partidos de fútbol con cuota:', n); n or print('::warning::Playdoit no devolvió ningún partido de fútbol: las tarjetas se quedan sin su precio')" || echo "::warning::no se pudo comprobar Playdoit"
+
       - name: Publicar el día cocinado
         if: steps.frescura.outputs.saltar != 'true'
         run: |
