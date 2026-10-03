@@ -3281,7 +3281,16 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             if not con_apuesta:
                 st.caption('📅 Análisis previo (no jugable aún)')
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
-            recos = recomendadas(pick, _bloques, n=MAX_RECOMENDADAS)
+            # v323 — la misma cuenta, ya hecha por el cron si sigue valiendo
+            # (ver `decisiones_dia`); si no, se calcula aquí como siempre.
+            recos = None
+            try:
+                import decisiones_dia as _dd_t
+                recos = _dd_t.tarjeta_de_pick(pick)
+            except Exception as _e_dd:
+                logger.debug('[modo_modelo] decisión de la tarjeta: %s', _e_dd)
+            if recos is None:
+                recos = recomendadas(pick, _bloques, n=MAX_RECOMENDADAS)
             # v311 — SÓLO LO QUE SE METE. El usuario: «quiero que ya sólo me
             # des las de meter; es más importante que me digas esto se mete, y
             # que sea la única que se muestra; no quiero tanto rollo». La
@@ -3891,7 +3900,28 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         else:
             con.append(p)
 
+    try:
+        import decisiones_dia as _dd
+    except Exception:
+        _dd = None
     for p in con:
+        # v323 — LO QUE YA DECIDIÓ EL CRON, SE LEE.
+        #
+        # Las dos líneas de abajo son funciones puras de los datos del partido
+        # y de los ficheros de calibración, y se repetían en CADA pasada para
+        # CADA partido de las tres vistas: 21,5 s medidos con los 355 partidos
+        # del 2026-10-03. `precalculo_dia` las calcula una vez y
+        # `decisiones_dia.adjuntar` sólo las cuelga del partido si los ficheros
+        # de los que salieron son byte a byte los de esta app y es el mismo
+        # día; si no, `de_pick` devuelve None y se calcula como siempre. Un
+        # partido `jugado` nunca la lleva: eso cambia en vivo y se resuelve
+        # aquí, como antes.
+        _pre = (None if (p.get('jugado') or _dd is None)
+                else _dd.de_pick(p))
+        if _pre is not None:
+            p['_destacada'], p['_recomendadas'] = _pre
+            p['_recomendada'] = (p['_recomendadas'] or [None])[0]
+            continue
         p['_destacada'] = None if p.get('jugado') else apuesta_destacada(p)
         # v167 — EL FILTRO Y LA TARJETA TIENEN QUE DECIR LO MISMO.
         #
