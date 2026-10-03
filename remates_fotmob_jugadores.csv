@@ -249,22 +249,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822534,2025-09-05,selecciones,Bermuda,Lejuan Simmons,623389,D,0,18,0,0,0,0.0,,1.0,
 4822534,2025-09-05,selecciones,Bermuda,Dante Leverock,623374,D,0,9,0,0,0,0.0,,1.0,
 4822534,2025-09-05,selecciones,Bermuda,Aunde Todd,1626105,M,0,9,0,0,0,0.0,,2.0,
-4822534,2025-09-05,selecciones,Jamaica,Jahmali Waite,1352794,G,1,90,0,0,0,0.0,11.0,0.0,140000.0
-4822534,2025-09-05,selecciones,Jamaica,Dexter Lembikisa,1350598,D,1,90,2,1,0,0.09,32.0,1.0,1151796.0
-4822534,2025-09-05,selecciones,Jamaica,Richard King,1293486,D,1,90,1,0,0,0.07,34.0,1.0,435147.0
-4822534,2025-09-05,selecciones,Jamaica,Damion Lowe,621943,D,1,61,1,1,1,0.05,36.0,1.0,
-4822534,2025-09-05,selecciones,Jamaica,Gregory Leigh,488197,D,1,90,1,0,0,0.01,38.0,1.0,332152.0
-4822534,2025-09-05,selecciones,Jamaica,Isaac Hayden,489627,M,1,90,0,0,0,0.0,65.0,2.0,336975.0
-4822534,2025-09-05,selecciones,Jamaica,Tyreece Campbell,1338978,F,1,87,2,0,0,0.09,82.0,3.0,994796.0
-4822534,2025-09-05,selecciones,Jamaica,Jonathan Russell,1096390,M,1,90,1,0,0,0.08,84.0,2.0,743517.0
-4822534,2025-09-05,selecciones,Jamaica,Kasey Palmer,740171,M,1,61,1,1,1,0.05,86.0,2.0,852928.0
-4822534,2025-09-05,selecciones,Jamaica,Bailey Cadamarteri,1420266,F,1,71,7,2,0,0.85,88.0,3.0,1267833.0
-4822534,2025-09-05,selecciones,Jamaica,Renaldo Cephas,1381623,F,1,71,1,1,1,0.09,115.0,3.0,1101837.0
-4822534,2025-09-05,selecciones,Jamaica,Mason Holgate,603329,D,0,29,0,0,0,0.0,,1.0,2373360.0
-4822534,2025-09-05,selecciones,Jamaica,Karoy Anderson,1422736,M,0,29,0,0,0,0.0,,2.0,936900.0
-4822534,2025-09-05,selecciones,Jamaica,Shamar Nicholson,822742,F,0,19,1,1,1,0.1,,3.0,2094466.0
-4822534,2025-09-05,selecciones,Jamaica,Kaheim Dixon,1624340,F,0,18,0,0,0,0.0,,3.0,241765.0
-4822534,2025-09-05,selecciones,Jamaica,Ronaldo Webster,1529853,D,0,3,0,0,0,0.0,,1.0,
 4341247,2025-09-05,selecciones,Niger,Mahamadou Tanja,1372068,G,1,90,0,0,0,0.0,11.0,0.0,
 4341247,2025-09-05,selecciones,Niger,Aboubacar Camara,1699321,D,1,90,0,0,0,0.0,32.0,1.0,164373.0
 4341247,2025-09-05,selecciones,Niger,Oumar Sako,1012798,D,1,90,0,0,0,0.0,34.0,1.0,1934720.0
@@ -471,22 +455,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4196556,2025-09-05,selecciones,Chile,Rodrigo Echeverria,517555,M,0,13,0,0,0,0.0,,2.0,
 4196556,2025-09-05,selecciones,Chile,Lucas Assadi,1278686,F,0,13,0,0,0,0.0,,3.0,1336252.0
 4196556,2025-09-05,selecciones,Chile,Maximiliano Gutierrez,1404859,F,0,12,0,0,0,0.0,,3.0,1019892.0
-4822522,2025-09-05,selecciones,El Salvador,Mario Gonzalez,1261973,G,1,90,0,0,0,0.0,11.0,0.0,
-4822522,2025-09-05,selecciones,El Salvador,Julio Sibrian,1048983,D,1,90,0,0,0,0.0,32.0,1.0,50000.0
-4822522,2025-09-05,selecciones,El Salvador,Henry Romero,599868,D,1,90,1,0,0,0.04,34.0,1.0,50000.0
-4822522,2025-09-05,selecciones,El Salvador,Jorge Cruz,1309308,D,1,90,0,0,0,0.0,36.0,1.0,83720.0
-4822522,2025-09-05,selecciones,El Salvador,Diego Flores,1605562,D,1,90,0,0,0,0.0,38.0,1.0,
-4822522,2025-09-05,selecciones,El Salvador,Jefferson Valladares,1356360,D,1,46,0,0,0,0.0,72.0,1.0,80007.0
-4822522,2025-09-05,selecciones,El Salvador,Darwin Ceren,502562,M,1,46,0,0,0,0.0,74.0,2.0,50000.0
-4822522,2025-09-05,selecciones,El Salvador,Mauricio Cerritos,1410063,M,1,77,0,0,0,0.0,76.0,2.0,
-4822522,2025-09-05,selecciones,El Salvador,Brayan Landaverde,645847,M,1,62,0,0,0,0.0,78.0,2.0,
-4822522,2025-09-05,selecciones,El Salvador,Styven Vasquez,1288292,F,1,90,4,0,0,0.16,104.0,3.0,
-4822522,2025-09-05,selecciones,El Salvador,Brayan Gil,1080753,F,1,45,1,0,0,0.05,106.0,3.0,
-4822522,2025-09-05,selecciones,El Salvador,Bryan Tamacas,573593,D,0,45,1,0,0,0.03,,1.0,
-4822522,2025-09-05,selecciones,El Salvador,Marcelo Diaz,1214013,M,0,44,0,0,0,0.0,,2.0,86159.0
-4822522,2025-09-05,selecciones,El Salvador,Nathan Ordaz,1328863,F,0,45,1,0,0,0.03,,3.0,1027349.0
-4822522,2025-09-05,selecciones,El Salvador,Harold Osorio,1292371,M,0,28,2,1,1,0.26,,2.0,
-4822522,2025-09-05,selecciones,El Salvador,Rafael Tejada,1397226,F,0,13,0,0,0,0.0,,3.0,102701.0
 4689305,2025-09-06,selecciones,Cyprus,Fabiano,124127,G,1,90,0,0,0,0.0,11.0,0.0,167411.0
 4689305,2025-09-06,selecciones,Cyprus,Andreas Siikis,1457734,D,1,90,0,0,0,0.0,32.0,1.0,
 4689305,2025-09-06,selecciones,Cyprus,Christos Shelis,865217,D,1,90,3,2,0,0.13,34.0,1.0,453557.0
@@ -20580,21 +20548,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014058,2026-08-01,col_primera_a,Independiente Medellín,John Montaño,1512606,F,0,26,0,0,0,0.0,,3.0,1603063.0
 1000014058,2026-08-01,col_primera_a,Independiente Medellín,Didier Moreno,245171,M,0,7,0,0,0,0.0,,2.0,383745.0
 1000014058,2026-08-01,col_primera_a,Independiente Medellín,Diego Moreno,851912,M,0,2,1,1,1,0.08,,2.0,383873.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Pedro Gallese,116920,G,1,90,0,0,0,0.0,11.0,0.0,384634.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Keimer Sandoval,1640741,D,1,90,0,0,0,0.0,33.0,1.0,456340.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,José Moya,281530,D,1,61,0,0,0,0.0,35.0,1.0,182384.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Fernando Álvarez,1280284,D,1,90,0,0,0,0.0,37.0,1.0,1146970.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Leyser Chaverra,1289117,D,1,88,0,0,0,0.0,51.0,1.0,500932.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Edwin Velasco,496855,D,1,90,1,0,0,0.11,59.0,1.0,268404.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Daniel Giraldo,282156,M,1,90,0,0,0,0.0,73.0,2.0,248857.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Gustavo Cuéllar,207520,M,1,90,1,0,0,0.04,75.0,2.0,679318.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Steven Rodríguez,1105327,M,1,90,3,1,0,0.62,77.0,2.0,812700.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Juan Dinenno,486453,F,1,61,1,0,0,0.11,104.0,3.0,443862.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Johan Martínez,1433044,F,1,67,3,1,0,0.38,106.0,3.0,
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Ronaldo Pájaro,1353341,D,0,29,0,0,0,0.0,,1.0,875544.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Nicolás Benedetti,658135,M,0,29,0,0,0,0.0,,2.0,880652.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Kalazan Suárez,1335180,D,0,23,1,0,0,0.14,,1.0,386475.0
-1000014058,2026-08-01,col_primera_a,Deportivo Cali,Fabián Viáfara,630859,D,0,2,1,0,0,0.02,,1.0,267065.0
 1000017363,2026-08-01,par_division,Cerro Porteño,Manuel Roffo,847982,G,1,90,0,0,0,0.0,11.0,0.0,2465508.0
 1000017363,2026-08-01,par_division,Cerro Porteño,Alexis Cañete,1636611,D,1,90,2,1,0,0.0,33.0,1.0,680165.0
 1000017363,2026-08-01,par_division,Cerro Porteño,Gustavo Velázquez,497352,D,1,90,1,0,0,0.0,35.0,1.0,347599.0
@@ -20755,22 +20708,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000011166,2026-08-01,bol_division,Blooming,Matheo Ocampo,1967691,F,0,19,0,0,0,0.0,,3.0,
 1000011166,2026-08-01,bol_division,Blooming,Sharukh Espinoza,0,M,0,19,0,0,0,0.0,,2.0,
 1000011166,2026-08-01,bol_division,Blooming,Richard Spenhay,1287627,M,0,3,0,0,0,0.0,,2.0,195142.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Johan Wallens,281984,G,1,90,0,0,0,0.0,11.0,0.0,272321.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Yilson Rosales,1353352,D,1,90,0,0,0,0.0,32.0,1.0,437472.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Jesús Figueroa,1279157,D,1,90,0,0,0,0.0,34.0,1.0,364131.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Pedro Franco,187324,D,1,90,0,0,0,0.0,36.0,1.0,249996.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Jhildrey Lasso,1531184,D,1,90,1,0,0,0.03,38.0,1.0,367112.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Fabián Cantillo,1350020,M,1,90,1,1,0,0.08,64.0,2.0,250758.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Jhair Castillo,1134076,M,1,80,0,0,0,0.0,66.0,2.0,248857.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Felipe Pardo,101434,F,1,60,3,2,1,0.2,83.0,3.0,263911.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Carlos Esparragoza,1350532,M,1,60,3,0,0,0.24,85.0,2.0,324651.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Jesús Muñoz,1432967,F,1,60,0,0,0,0.0,87.0,3.0,360148.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Cristian Vergara,1404375,F,1,73,2,0,0,0.94,115.0,3.0,
-1000014059,2026-08-01,col_primera_a,Alianza FC,Yeiner Londoño,1537629,M,0,30,0,0,0,0.0,,2.0,361228.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Ever Meza,1339060,M,0,30,1,0,0,0.07,,2.0,296392.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Deinner Quiñónes,496867,F,0,30,0,0,0,0.0,,3.0,246419.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Misael Martínez,1107548,F,0,17,0,0,0,0.0,,3.0,316951.0
-1000014059,2026-08-01,col_primera_a,Alianza FC,Joseb Mosquera,1928450,D,0,10,1,0,0,0.02,,1.0,
 1000014059,2026-08-01,col_primera_a,Tolima,Miguel Ortega,797357,G,1,90,0,0,0,0.0,11.0,0.0,268625.0
 1000014059,2026-08-01,col_primera_a,Tolima,Jherson Mosquera,1362307,D,1,90,0,0,0,0.0,32.0,1.0,485775.0
 1000014059,2026-08-01,col_primera_a,Tolima,Jan Ángulo,1438665,D,1,90,0,0,0,0.0,34.0,1.0,775276.0
@@ -133549,3 +133486,58 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190742,2026-10-02,bra_serie_b,Criciúma,Gui Lobo,1734308,M,0,22,0,0,0,0.0,,2.0,423014.0
 5190742,2026-10-02,bra_serie_b,Criciúma,Romarinho,876272,F,0,22,0,0,0,0.0,,3.0,271638.0
 5190742,2026-10-02,bra_serie_b,Criciúma,Eduardo,884063,M,0,13,0,0,0,0.0,,2.0,209000.0
+5991897,2026-10-03,selecciones,El Salvador,Mario González,1261973,G,1,90,0,0,0,0.0,11.0,0.0,81294.0
+5991897,2026-10-03,selecciones,El Salvador,Danis Alejandro Cruz Cerros,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991897,2026-10-03,selecciones,El Salvador,Rudy Clavel,689262,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5991897,2026-10-03,selecciones,El Salvador,Jorge Cruz,1309308,D,1,90,0,0,0,0.0,36.0,1.0,71969.0
+5991897,2026-10-03,selecciones,El Salvador,Alejandro Ismael Henríquez Ferru,0,D,1,90,0,0,0,0.0,38.0,1.0,
+5991897,2026-10-03,selecciones,El Salvador,Marcelo Díaz,1214013,M,1,90,0,0,0,0.0,64.0,2.0,86159.0
+5991897,2026-10-03,selecciones,El Salvador,Christian Martínez,708876,M,1,90,0,0,0,0.0,66.0,2.0,66166.0
+5991897,2026-10-03,selecciones,El Salvador,Rafael Tejada,1397226,F,1,90,0,0,0,0.0,83.0,3.0,91300.0
+5991897,2026-10-03,selecciones,El Salvador,Nathan Ordaz,1328863,F,1,90,0,0,0,0.0,85.0,3.0,1790442.0
+5991897,2026-10-03,selecciones,El Salvador,Harold Osorio,1292371,M,1,70,1,0,0,0.0,87.0,2.0,
+5991897,2026-10-03,selecciones,El Salvador,Brayan Gil,1080753,F,1,90,3,1,0,0.0,115.0,3.0,4487044.0
+5991897,2026-10-03,selecciones,Jamaica,Andre Blake,525631,G,1,90,0,0,0,0.0,11.0,0.0,119276.0
+5991897,2026-10-03,selecciones,Jamaica,Joel Latibeaudiere,863822,D,1,90,0,0,0,0.0,33.0,1.0,2392571.0
+5991897,2026-10-03,selecciones,Jamaica,Richard King,1293486,D,1,90,0,0,0,0.0,35.0,1.0,335455.0
+5991897,2026-10-03,selecciones,Jamaica,Miguel Freckleton,1420822,D,1,90,0,0,0,0.0,37.0,1.0,541461.0
+5991897,2026-10-03,selecciones,Jamaica,Kyle Ming,1613021,M,1,90,0,0,0,0.0,62.0,2.0,
+5991897,2026-10-03,selecciones,Jamaica,Karoy Anderson,1422736,M,1,90,0,0,0,0.0,64.0,2.0,631602.0
+5991897,2026-10-03,selecciones,Jamaica,Courtney Clarke,1235101,M,1,90,1,0,0,0.0,66.0,2.0,153947.0
+5991897,2026-10-03,selecciones,Jamaica,Ronaldo Webster,1529853,M,1,90,2,0,0,0.0,68.0,2.0,426988.0
+5991897,2026-10-03,selecciones,Jamaica,Javon East,919525,F,1,83,2,2,2,0.0,84.0,3.0,520802.0
+5991897,2026-10-03,selecciones,Jamaica,Kaheim Dixon,1624340,F,1,90,1,0,0,0.0,86.0,3.0,359712.0
+5991897,2026-10-03,selecciones,Jamaica,Bailey Cadamarteri,1420266,F,1,57,4,0,0,0.0,105.0,3.0,2132669.0
+5991897,2026-10-03,selecciones,Jamaica,Tyreece Campbell,1338978,F,0,24,1,0,0,0.0,,3.0,1606158.0
+5991897,2026-10-03,selecciones,Jamaica,Jahmarie Nolan,1752411,F,0,33,2,2,0,0.0,,3.0,
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Alejandro Rodríguez,1513661,G,1,90,0,0,0,0.0,11.0,0.0,662043.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Fabián Viáfara,630859,D,1,84,0,0,0,0.0,32.0,1.0,272210.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,José Caldera,1302803,D,1,90,1,1,1,0.1,34.0,1.0,542299.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Fernando Álvarez,1280284,D,1,90,0,0,0,0.0,36.0,1.0,1178201.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Edwin Velasco,496855,D,1,90,0,0,0,0.0,38.0,1.0,295327.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Leyser Chaverra,1289117,M,1,90,1,0,0,0.23,64.0,2.0,736432.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Gustavo Cuéllar,207520,M,1,90,0,0,0,0.0,66.0,2.0,553097.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Johan Martínez,1433044,F,1,71,2,0,0,0.08,83.0,3.0,
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Emanuel Reynoso,797871,M,1,64,1,1,0,0.01,85.0,2.0,795484.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Eduard Bello,495825,F,1,90,1,0,0,0.05,87.0,3.0,581297.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Juan Dinenno,486453,F,1,84,1,1,1,0.11,115.0,3.0,423922.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Steven Rodríguez,1105327,F,0,26,0,0,0,0.0,,3.0,927272.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Alexis Manyoma,1332390,M,0,19,1,1,1,0.03,,2.0,1187965.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Keimer Sandoval,1640741,D,0,6,0,0,0,0.0,,1.0,719621.0
+1000014176,2026-10-03,col_primera_a,Deportivo Cali,Daniel Giraldo,282156,M,0,6,0,0,0,0.0,,2.0,264799.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Eduar Esteban,1706922,G,1,90,0,0,0,0.0,11.0,0.0,
+1000014176,2026-10-03,col_primera_a,Alianza FC,Kevin Moreno,1031643,D,1,90,3,2,0,0.05,33.0,1.0,313847.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Jesús Figueroa,1279157,D,1,90,1,0,0,0.04,35.0,1.0,381574.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Juan Viveros,1473800,D,1,90,1,0,0,0.1,37.0,1.0,367214.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Israel Alba,971619,D,1,90,0,0,0,0.0,51.0,1.0,250197.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Jhildrey Lasso,1531184,D,1,82,1,1,0,0.02,59.0,1.0,335523.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Deinner Quiñónes,496867,M,1,46,0,0,0,0.0,72.0,2.0,242240.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Ever Meza,1339060,M,1,55,0,0,0,0.0,74.0,2.0,303968.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Jhair Castillo,1134076,M,1,90,3,0,0,0.06,76.0,2.0,253364.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Jesús Muñoz,1432967,M,1,71,0,0,0,0.0,78.0,2.0,418869.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Cristian Vergara,1404375,F,1,71,1,0,0,0.04,115.0,3.0,
+1000014176,2026-10-03,col_primera_a,Alianza FC,Leyner Palacios,1683587,M,0,45,2,1,1,0.03,,2.0,190080.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Wiston Fernández,934315,M,0,35,0,0,0,0.0,,2.0,259988.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Misael Martínez,1107548,F,0,19,0,0,0,0.0,,3.0,296144.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Charly Villegas,1724711,F,0,19,1,0,0,0.04,,3.0,417186.0
+1000014176,2026-10-03,col_primera_a,Alianza FC,Josy Pérez,1800326,M,0,8,0,0,0,0.0,,2.0,270765.0
