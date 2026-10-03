@@ -1143,22 +1143,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689329,2025-09-09,selecciones,Ukraine,Mykola Shaparenko,629559,M,0,15,1,1,0,0.02,,2.0,6432721.0
 4689329,2025-09-09,selecciones,Ukraine,Nazar Voloshyn,1395882,F,0,15,1,1,0,0.02,,3.0,6323016.0
 4689329,2025-09-09,selecciones,Ukraine,Bogdan Mykhaylychenko,629902,D,0,4,0,0,0,0.0,,1.0,1122337.0
-4822524,2025-09-09,selecciones,Guatemala,Nicholas Hagen,960923,G,1,90,0,0,0,0.0,11.0,0.0,
-4822524,2025-09-09,selecciones,Guatemala,Jose Ardon,1003325,D,1,90,3,0,0,0.33,32.0,1.0,
-4822524,2025-09-09,selecciones,Guatemala,Jose Carlos Pinto,423070,D,1,90,0,0,0,0.0,34.0,1.0,
-4822524,2025-09-09,selecciones,Guatemala,Nicolas Samayoa,928507,D,1,90,0,0,0,0.0,36.0,1.0,
-4822524,2025-09-09,selecciones,Guatemala,José Morales,1104411,D,1,90,0,0,0,0.0,38.0,1.0,
-4822524,2025-09-09,selecciones,Guatemala,Aaron Herrera,847991,D,1,84,1,0,0,0.04,72.0,1.0,1065598.0
-4822524,2025-09-09,selecciones,Guatemala,Jonathan Franco,1418087,M,1,90,0,0,0,0.0,74.0,2.0,
-4822524,2025-09-09,selecciones,Guatemala,Jose Rosales,782403,M,1,87,1,0,0,0.01,76.0,2.0,
-4822524,2025-09-09,selecciones,Guatemala,Rudy Munoz,1477459,M,1,71,0,0,0,0.0,78.0,2.0,
-4822524,2025-09-09,selecciones,Guatemala,Oscar Santis,1204475,F,1,71,2,1,1,0.56,104.0,3.0,
-4822524,2025-09-09,selecciones,Guatemala,Arquimides Ordonez,1269658,F,1,46,0,0,0,0.0,106.0,3.0,181749.0
-4822524,2025-09-09,selecciones,Guatemala,Rubio Rubin,570980,F,0,44,0,0,0,0.0,,3.0,147356.0
-4822524,2025-09-09,selecciones,Guatemala,Kevin Ramirez,1288341,M,0,19,0,0,0,0.0,,2.0,
-4822524,2025-09-09,selecciones,Guatemala,Darwin Lom,1131954,F,0,19,0,0,0,0.0,,3.0,
-4822524,2025-09-09,selecciones,Guatemala,Rodrigo Saravia,725294,M,0,6,0,0,0,0.0,,2.0,
-4822524,2025-09-09,selecciones,Guatemala,Oscar Castellanos,988814,M,0,3,0,0,0,0.0,,2.0,
 4822525,2025-09-09,selecciones,El Salvador,Mario Gonzalez,1261973,G,1,90,0,0,0,0.0,11.0,0.0,
 4822525,2025-09-09,selecciones,El Salvador,Julio Sibrian,1048983,D,1,90,0,0,0,0.0,33.0,1.0,
 4822525,2025-09-09,selecciones,El Salvador,Henry Romero,599868,D,1,90,0,0,0,0.0,35.0,1.0,50000.0
@@ -15158,22 +15142,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115887,2026-07-24,argentina,Vélez Sarsfield,Diego Valdés,390758,M,0,12,1,0,0,0.09,,2.0,1705572.0
 5115887,2026-07-24,argentina,Vélez Sarsfield,Luca Feler,1911034,M,0,2,0,0,0,0.0,,2.0,
 5115887,2026-07-24,argentina,Vélez Sarsfield,Dilan Godoy,1765407,F,0,1,0,0,0,0.0,,3.0,1402178.0
-5115887,2026-07-24,argentina,Instituto,Marcos Ledesma,591557,G,1,90,0,0,0,0.0,11.0,0.0,710269.0
-5115887,2026-07-24,argentina,Instituto,Jonathan Galván,615932,D,1,90,0,0,0,0.0,33.0,1.0,541598.0
-5115887,2026-07-24,argentina,Instituto,Leonel Mosevich,690435,D,1,90,2,0,0,0.11,35.0,1.0,560832.0
-5115887,2026-07-24,argentina,Instituto,Fernando Alarcón,647928,D,1,90,3,0,0,0.23,37.0,1.0,790856.0
-5115887,2026-07-24,argentina,Instituto,Giuliano Cerato,1098253,M,1,90,1,0,0,0.03,62.0,2.0,912704.0
-5115887,2026-07-24,argentina,Instituto,Gustavo Abregú,960080,M,1,59,0,0,0,0.0,64.0,2.0,275918.0
-5115887,2026-07-24,argentina,Instituto,Matías Gallardo,1653420,M,1,76,1,0,0,0.04,66.0,2.0,605213.0
-5115887,2026-07-24,argentina,Instituto,Diego Sosa,867739,M,1,90,2,0,0,0.47,68.0,2.0,374829.0
-5115887,2026-07-24,argentina,Instituto,Jhon Córdoba,1390351,M,1,76,0,0,0,0.0,84.0,2.0,1057509.0
-5115887,2026-07-24,argentina,Instituto,Alex Luna,1314218,M,1,66,3,1,0,0.1,86.0,2.0,5562615.0
-5115887,2026-07-24,argentina,Instituto,Matías Tissera,832836,F,1,66,3,1,0,0.69,105.0,3.0,530893.0
-5115887,2026-07-24,argentina,Instituto,Ignacio Méndez,847986,M,0,31,0,0,0,0.0,,2.0,448612.0
-5115887,2026-07-24,argentina,Instituto,Jeremías Lázaro,1609545,M,0,24,2,0,0,0.05,,2.0,667088.0
-5115887,2026-07-24,argentina,Instituto,Nicolás Guerra,864260,F,0,24,2,0,0,0.84,,3.0,380541.0
-5115887,2026-07-24,argentina,Instituto,Facundo Suárez,971269,F,0,14,0,0,0,0.0,,3.0,345692.0
-5115887,2026-07-24,argentina,Instituto,Matías Fonseca,1110568,F,0,14,0,0,0,0.0,,3.0,534417.0
 5115884,2026-07-24,argentina,Racing Club,Facundo Cambeses,723492,G,1,90,0,0,0,0.0,11.0,0.0,2468254.0
 5115884,2026-07-24,argentina,Racing Club,Ezequiel Cannavo,1216082,D,1,90,0,0,0,0.0,32.0,1.0,1965654.0
 5115884,2026-07-24,argentina,Racing Club,Nazareno Colombo,1074976,D,1,90,2,1,1,0.13,34.0,1.0,1666245.0
@@ -17207,21 +17175,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115877,2026-07-26,argentina,Estudiantes,Lucas Alario,269222,F,0,5,0,0,0,0.0,,3.0,322298.0
 5115877,2026-07-26,argentina,Estudiantes,Edwuin Cetré,924959,F,0,5,0,0,0,0.0,,3.0,2026764.0
 5115877,2026-07-26,argentina,Estudiantes,José Sosa,18518,M,0,4,0,0,0,0.0,,2.0,296481.0
-5115877,2026-07-26,argentina,Independiente,Rodrigo Rey,443465,G,1,90,0,0,0,0.0,11.0,0.0,817696.0
-5115877,2026-07-26,argentina,Independiente,Leonardo Godoy,630500,D,1,84,1,0,0,0.02,32.0,1.0,957226.0
-5115877,2026-07-26,argentina,Independiente,Juan Fedorco,1299451,D,1,90,1,0,0,0.08,34.0,1.0,703878.0
-5115877,2026-07-26,argentina,Independiente,Sebastián Valdéz,1086733,D,1,90,1,1,0,0.24,36.0,1.0,1190995.0
-5115877,2026-07-26,argentina,Independiente,Facundo Zabala,1033290,D,1,90,1,0,0,0.02,38.0,1.0,1308177.0
-5115877,2026-07-26,argentina,Independiente,Mateo Pérez Curci,1821854,M,1,90,2,0,0,0.17,64.0,2.0,777520.0
-5115877,2026-07-26,argentina,Independiente,Iván Marcone,157868,M,1,90,0,0,0,0.0,66.0,2.0,433904.0
-5115877,2026-07-26,argentina,Independiente,Maximiliano Gutiérrez,1404859,F,1,84,1,0,0,0.0,83.0,3.0,981013.0
-5115877,2026-07-26,argentina,Independiente,Santiago Gabriel Montiel,1435714,M,1,90,2,1,1,0.21,85.0,2.0,2757353.0
-5115877,2026-07-26,argentina,Independiente,Matías Abaldo,1398532,F,1,63,1,0,0,0.08,87.0,3.0,6205894.0
-5115877,2026-07-26,argentina,Independiente,Gabriel Ávalos,425711,F,1,89,4,2,1,0.58,115.0,3.0,643789.0
-5115877,2026-07-26,argentina,Independiente,Maximiliano Meza,469616,F,0,27,0,0,0,0.0,,3.0,584642.0
-5115877,2026-07-26,argentina,Independiente,Santiago Arias,207642,D,0,6,0,0,0,0.0,,1.0,865614.0
-5115877,2026-07-26,argentina,Independiente,David Martínez,1457715,M,0,6,0,0,0,0.0,,2.0,
-5115877,2026-07-26,argentina,Independiente,Kevin Lomónaco,1206583,D,0,1,0,0,0,0.0,,1.0,10159957.0
 1000014049,2026-07-26,col_primera_a,Águilas Doradas,Jorge Soto,1393528,G,1,90,0,0,0,0.0,11.0,0.0,302672.0
 1000014049,2026-07-26,col_primera_a,Águilas Doradas,Jhon Meléndez,1333447,D,1,90,0,0,0,0.0,32.0,1.0,554250.0
 1000014049,2026-07-26,col_primera_a,Águilas Doradas,Andrés Mosquera,205863,D,1,90,0,0,0,0.0,34.0,1.0,331020.0
@@ -27101,22 +27054,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190642,2026-08-07,bra_serie_b,Operário,Vinícius Mingotti,1072282,F,0,31,1,0,0,0.03,,3.0,173124.0
 5190642,2026-08-07,bra_serie_b,Operário,Maguinho,755230,D,0,19,2,0,0,0.04,,1.0,230176.0
 5190642,2026-08-07,bra_serie_b,Operário,Maxwell,646352,F,0,9,0,0,0,0.0,,3.0,151450.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Alex Alves,1173478,G,1,90,0,0,0,0.0,11.0,0.0,103680.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Rodrigo Ferreira,1189948,D,1,90,2,0,0,0.06,32.0,1.0,120590.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Hélder,267678,D,1,90,0,0,0,0.0,34.0,1.0,85427.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Jemerson,449666,D,1,90,0,0,0,0.0,36.0,1.0,245973.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Mário Sérgio,267848,D,1,56,0,0,0,0.0,38.0,1.0,80921.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Romisson,267918,M,1,90,0,0,0,0.0,73.0,2.0,
-5190642,2026-08-07,bra_serie_b,São Bernardo,Foguinho,500467,M,1,76,1,1,0,0.02,75.0,2.0,88647.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Dudu Miraíma,1179045,M,1,76,2,0,0,0.08,77.0,2.0,
-5190642,2026-08-07,bra_serie_b,São Bernardo,Hyoran,558122,F,1,64,0,0,0,0.0,103.0,3.0,259937.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Felipe Garcia,162662,F,1,90,1,0,0,0.07,105.0,3.0,50000.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Pedrinho,935288,F,1,64,2,1,1,0.68,107.0,3.0,238618.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Pará,535584,D,0,34,0,0,0,0.0,,1.0,58024.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Daniel Davi,1944506,F,0,26,1,0,0,0.04,,3.0,
-5190642,2026-08-07,bra_serie_b,São Bernardo,Pedro Vitor,957550,F,0,26,5,3,1,0.53,,3.0,160294.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Lucas Lima,1357756,M,0,14,1,1,1,0.52,,2.0,299624.0
-5190642,2026-08-07,bra_serie_b,São Bernardo,Marcão,675917,M,0,14,0,0,0,0.0,,2.0,80960.0
 1000016446,2026-08-07,bol_division,ABB,Aldair Riascos,1786815,G,1,90,0,0,0,0.0,11.0,0.0,
 1000016446,2026-08-07,bol_division,ABB,Denilson Gutiérrez,1369538,D,1,90,0,0,0,0.0,32.0,1.0,140530.0
 1000016446,2026-08-07,bol_division,ABB,Augusto Seimandi,1612704,D,1,90,2,0,0,0.0,34.0,1.0,169202.0
@@ -35976,22 +35913,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190645,2026-08-11,bra_serie_b,Avaí,João Vittor,1944703,D,0,20,1,0,0,0.07,,1.0,
 5190645,2026-08-11,bra_serie_b,Avaí,Hyan,1636514,M,0,13,1,1,0,0.02,,2.0,
 5190645,2026-08-11,bra_serie_b,Avaí,Gabriel Cipriano,1726399,F,0,2,0,0,0,0.0,,3.0,
-5190645,2026-08-11,bra_serie_b,CRB,Vitor,1079328,G,1,90,0,0,0,0.0,11.0,0.0,329099.0
-5190645,2026-08-11,bra_serie_b,CRB,Kevin,673730,D,1,90,0,0,0,0.0,32.0,1.0,188341.0
-5190645,2026-08-11,bra_serie_b,CRB,Matheus Bressan,428671,D,1,90,1,1,1,0.13,34.0,1.0,221421.0
-5190645,2026-08-11,bra_serie_b,CRB,Lyncon,1490050,D,1,90,0,0,0,0.0,36.0,1.0,283820.0
-5190645,2026-08-11,bra_serie_b,CRB,Lucas Lovat,673728,D,1,90,1,0,0,0.02,38.0,1.0,268599.0
-5190645,2026-08-11,bra_serie_b,CRB,Pedro Castro,304626,M,1,88,2,0,0,0.05,65.0,2.0,211265.0
-5190645,2026-08-11,bra_serie_b,CRB,Thiago Rodrigues,1284942,F,1,80,4,0,0,0.2,82.0,3.0,776965.0
-5190645,2026-08-11,bra_serie_b,CRB,Crystopher,1333091,M,1,70,1,0,0,0.08,84.0,2.0,238489.0
-5190645,2026-08-11,bra_serie_b,CRB,Danielzinho,750064,M,1,70,2,2,0,0.07,86.0,2.0,583882.0
-5190645,2026-08-11,bra_serie_b,CRB,Dadá Belmonte,1134034,F,1,90,2,0,0,0.06,88.0,3.0,252928.0
-5190645,2026-08-11,bra_serie_b,CRB,Mikael,933819,F,1,79,3,0,0,0.13,115.0,3.0,808666.0
-5190645,2026-08-11,bra_serie_b,CRB,Geovane,1232090,M,0,20,2,0,0,0.06,,2.0,227208.0
-5190645,2026-08-11,bra_serie_b,CRB,Patrick de Lucca,1213449,M,0,20,0,0,0,0.0,,2.0,547435.0
-5190645,2026-08-11,bra_serie_b,CRB,João Neto,1268757,F,0,11,0,0,0,0.0,,3.0,
-5190645,2026-08-11,bra_serie_b,CRB,Guilherme Pato,1173681,F,0,10,0,0,0,0.0,,3.0,291018.0
-5190645,2026-08-11,bra_serie_b,CRB,Luizão,866506,M,0,2,0,0,0,0.0,,2.0,199593.0
 1000012928,2026-08-11,libertadores,Fluminense,Fábio,30441,G,1,90,0,0,0,0.0,11.0,0.0,1098726.0
 1000012928,2026-08-11,libertadores,Fluminense,Guga,941490,D,1,90,1,0,0,0.02,32.0,1.0,1516198.0
 1000012928,2026-08-11,libertadores,Fluminense,Ignácio,967692,D,1,90,1,0,0,0.04,34.0,1.0,1414029.0
@@ -133381,30 +133302,182 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5868475,2026-10-02,esp_hypermotion,Real Oviedo,Enzo Perez,2140585,M,0,25,1,0,0,0.02,,2.0,
 5868475,2026-10-02,esp_hypermotion,Real Oviedo,Victor Mingo,1580553,F,0,17,0,0,0,0.0,,3.0,472146.0
 5868475,2026-10-02,esp_hypermotion,Real Oviedo,Nacho Vidal,640238,D,0,7,1,0,0,0.02,,1.0,776798.0
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Julani Archibald,505019,G,1,90,0,0,0,0.0,11,0,98141
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Malique Roberts,1240554,D,1,90,0,0,0,0.0,32,1,
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Rico Browne,1290869,D,1,90,0,0,0,0.0,34,1,262117
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Jordan Bowery,149895,D,1,90,0,0,0,0.0,36,1,146030
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Micaah Garnette,1634296,D,1,90,1,0,0,0.0,38,1,
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Theo Wharton,672489,M,1,90,0,0,0,0.0,65,2,50000
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Tiquanny Williams,1261522,M,1,90,5,3,1,0.0,82,2,
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Romaine Sawyers,173410,M,1,74,2,1,0,0.0,84,2,138267
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Omari Sterling-James,563227,M,1,61,1,0,0,0.0,86,2,
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Kyle Kelly,1423787,M,1,90,3,2,1,0.0,88,2,
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Harry Panayiotou,316685,F,1,61,1,0,0,0.0,115,3,103680
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Yohannes Mitchum,845497,M,0,29,1,0,0,0.0,,2,
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Nequan Browne,1349574,M,0,17,1,0,0,0.0,,2,
-5991926,2026-10-02,selecciones,St. Kitts and Nevis,Tyreece Simpson,1089729,F,0,29,1,1,1,0.0,,3,142529
-5991926,2026-10-02,selecciones,Cuba,Ismael Morgado,1377894,G,1,90,0,0,0,0.0,11,0,
-5991926,2026-10-02,selecciones,Cuba,Alejandro Delgado,1583857,D,1,90,0,0,0,0.0,32,1,
-5991926,2026-10-02,selecciones,Cuba,Karel Espino,1056343,D,1,90,2,0,0,0.0,34,1,
-5991926,2026-10-02,selecciones,Cuba,Karel Pérez,1650485,D,1,90,0,0,0,0.0,36,1,
-5991926,2026-10-02,selecciones,Cuba,Eloy Nebreda,2139622,D,1,90,0,0,0,0.0,38,1,
-5991926,2026-10-02,selecciones,Cuba,Yunior Pérez,1240620,M,1,90,3,2,2,0.0,64,2,
-5991926,2026-10-02,selecciones,Cuba,Marcos Campo,1650488,M,1,66,2,0,0,0.0,66,2,
-5991926,2026-10-02,selecciones,Cuba,Dairon Reyes,1196415,F,1,90,4,1,0,0.0,83,3,
-5991926,2026-10-02,selecciones,Cuba,Diego Catasus,1768812,M,1,66,1,1,1,0.0,85,2,147998
-5991926,2026-10-02,selecciones,Cuba,Michael Camejo,1817649,M,1,82,2,1,0,0.0,87,2,
-5991926,2026-10-02,selecciones,Cuba,Luis Paradela,1056340,F,1,90,4,1,0,0.0,115,3,122157
-5991926,2026-10-02,selecciones,Cuba,Daniel Díaz,1421729,F,0,24,3,0,0,0.0,,3,205786
-5991926,2026-10-02,selecciones,Cuba,Didier Reinoso,1817653,F,0,8,1,1,0,0.0,,3,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Julani Archibald,505019,G,1,90,0,0,0,0.0,11.0,0.0,98141.0
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Malique Roberts,1240554,D,1,90,0,0,0,0.0,32.0,1.0,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Rico Browne,1290869,D,1,90,0,0,0,0.0,34.0,1.0,262117.0
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Jordan Bowery,149895,D,1,90,0,0,0,0.0,36.0,1.0,146030.0
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Micaah Garnette,1634296,D,1,90,1,0,0,0.0,38.0,1.0,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Theo Wharton,672489,M,1,90,0,0,0,0.0,65.0,2.0,50000.0
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Tiquanny Williams,1261522,M,1,90,5,3,1,0.0,82.0,2.0,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Romaine Sawyers,173410,M,1,74,2,1,0,0.0,84.0,2.0,138267.0
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Omari Sterling-James,563227,M,1,61,1,0,0,0.0,86.0,2.0,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Kyle Kelly,1423787,M,1,90,3,2,1,0.0,88.0,2.0,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Harry Panayiotou,316685,F,1,61,1,0,0,0.0,115.0,3.0,103680.0
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Yohannes Mitchum,845497,M,0,29,1,0,0,0.0,,2.0,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Nequan Browne,1349574,M,0,17,1,0,0,0.0,,2.0,
+5991926,2026-10-02,selecciones,St. Kitts and Nevis,Tyreece Simpson,1089729,F,0,29,1,1,1,0.0,,3.0,142529.0
+5991926,2026-10-02,selecciones,Cuba,Ismael Morgado,1377894,G,1,90,0,0,0,0.0,11.0,0.0,
+5991926,2026-10-02,selecciones,Cuba,Alejandro Delgado,1583857,D,1,90,0,0,0,0.0,32.0,1.0,
+5991926,2026-10-02,selecciones,Cuba,Karel Espino,1056343,D,1,90,2,0,0,0.0,34.0,1.0,
+5991926,2026-10-02,selecciones,Cuba,Karel Pérez,1650485,D,1,90,0,0,0,0.0,36.0,1.0,
+5991926,2026-10-02,selecciones,Cuba,Eloy Nebreda,2139622,D,1,90,0,0,0,0.0,38.0,1.0,
+5991926,2026-10-02,selecciones,Cuba,Yunior Pérez,1240620,M,1,90,3,2,2,0.0,64.0,2.0,
+5991926,2026-10-02,selecciones,Cuba,Marcos Campo,1650488,M,1,66,2,0,0,0.0,66.0,2.0,
+5991926,2026-10-02,selecciones,Cuba,Dairon Reyes,1196415,F,1,90,4,1,0,0.0,83.0,3.0,
+5991926,2026-10-02,selecciones,Cuba,Diego Catasus,1768812,M,1,66,1,1,1,0.0,85.0,2.0,147998.0
+5991926,2026-10-02,selecciones,Cuba,Michael Camejo,1817649,M,1,82,2,1,0,0.0,87.0,2.0,
+5991926,2026-10-02,selecciones,Cuba,Luis Paradela,1056340,F,1,90,4,1,0,0.0,115.0,3.0,122157.0
+5991926,2026-10-02,selecciones,Cuba,Daniel Díaz,1421729,F,0,24,3,0,0,0.0,,3.0,205786.0
+5991926,2026-10-02,selecciones,Cuba,Didier Reinoso,1817653,F,0,8,1,1,0,0.0,,3.0,
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Jorge Emanuel Broun,113696,G,1,90,0,0,0,0.0,11.0,0.0,410636.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Moisés González,1075230,D,1,58,0,0,0,0.0,33.0,1.0,216882.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Osvaldo González,50590,D,1,90,0,0,0,0.0,35.0,1.0,50000.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Miguel Barbieri,742681,D,1,90,3,1,0,0.0,37.0,1.0,297896.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Tomás Roco,1504601,D,1,58,1,0,0,0.0,51.0,1.0,
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Yerco Oyanedel,950814,D,1,90,1,1,0,0.0,59.0,1.0,209160.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Bryan Ogaz,1530785,M,1,72,0,0,0,0.0,73.0,2.0,221619.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Luis Rojas,1109129,M,1,79,1,0,0,0.0,75.0,2.0,210417.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Cristhofer Mesías,1023388,M,1,46,1,0,0,0.0,77.0,2.0,359756.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Rogelio Funes Mori,190511,F,1,72,0,0,0,0.0,104.0,3.0,303238.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Cecilio Waterman,312159,F,1,90,1,0,0,0.0,106.0,3.0,232159.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,David Retamal,1481526,D,0,32,0,0,0,0.0,,1.0,347332.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Harol Salgado,1340660,F,0,32,0,0,0,0.0,,3.0,200682.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Facundo Mater,1095779,M,0,18,0,0,0,0.0,,2.0,242874.0
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Iam González,1609463,F,0,18,2,0,0,0.0,,3.0,
+1000013235,2026-10-02,chi_primera,Universidad de Concepción,Diego Sabando,1804984,F,0,11,0,0,0,0.0,,3.0,
+1000013235,2026-10-02,chi_primera,Huachipato,Sebastián Mella,1611214,G,1,90,0,0,0,0.0,11.0,0.0,384041.0
+1000013235,2026-10-02,chi_primera,Huachipato,Cristián Toro,1241581,D,1,90,0,0,0,0.0,32.0,1.0,338332.0
+1000013235,2026-10-02,chi_primera,Huachipato,Nicolás Vargas,295233,D,1,90,0,0,0,0.0,34.0,1.0,155300.0
+1000013235,2026-10-02,chi_primera,Huachipato,Rafael Caroca,131104,D,1,90,0,0,0,0.0,36.0,1.0,221524.0
+1000013235,2026-10-02,chi_primera,Huachipato,Harold Antiñirre,1375802,D,1,89,2,0,0,0.0,38.0,1.0,231558.0
+1000013235,2026-10-02,chi_primera,Huachipato,Claudio Sepúlveda,304364,M,1,90,0,0,0,0.0,65.0,2.0,256280.0
+1000013235,2026-10-02,chi_primera,Huachipato,Mario Briceño,771903,F,1,90,4,1,0,0.0,83.0,3.0,356534.0
+1000013235,2026-10-02,chi_primera,Huachipato,Maicol León,1241907,M,1,79,0,0,0,0.0,85.0,2.0,
+1000013235,2026-10-02,chi_primera,Huachipato,Kevin Altez,1436184,F,1,67,1,0,0,0.0,87.0,3.0,
+1000013235,2026-10-02,chi_primera,Huachipato,Sergio Núñez,1189431,F,1,67,2,2,1,0.0,104.0,3.0,245171.0
+1000013235,2026-10-02,chi_primera,Huachipato,Maximiliano Rodríguez,965603,F,1,79,1,0,0,0.0,106.0,3.0,452403.0
+1000013235,2026-10-02,chi_primera,Huachipato,Ezequiel Cañete,1131702,M,0,23,1,0,0,0.0,,2.0,167033.0
+1000013235,2026-10-02,chi_primera,Huachipato,Lionel Altamirano,440913,F,0,23,3,2,1,0.0,,3.0,302285.0
+1000013235,2026-10-02,chi_primera,Huachipato,Nicolás Cárcamo,1609479,M,0,11,0,0,0,0.0,,2.0,
+1000013235,2026-10-02,chi_primera,Huachipato,Cris Martínez,274374,F,0,11,0,0,0,0.0,,3.0,189079.0
+1000013235,2026-10-02,chi_primera,Huachipato,Claudio Torres,1257138,M,0,1,0,0,0,0.0,,2.0,334306.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Alex Alves,1173478,G,1,90,0,0,0,0.0,11.0,0.0,149299.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Hélder,267678,D,1,31,0,0,0,0.0,33.0,1.0,85226.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Jemerson,449666,D,1,90,1,1,1,0.06,35.0,1.0,157422.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Luizão,1354537,D,1,90,1,0,0,0.01,37.0,1.0,150689.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Rodrigo Ferreira,1189948,M,1,60,1,1,0,0.03,62.0,2.0,170991.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Foguinho,500467,M,1,60,0,0,0,0.0,64.0,2.0,117176.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Dudu Miraíma,1179045,M,1,76,1,0,0,0.02,66.0,2.0,
+5190740,2026-10-02,bra_serie_b,São Bernardo,Mário Sérgio,267848,M,1,90,0,0,0,0.0,68.0,2.0,79787.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Fabrício Daniel,1233937,M,1,60,0,0,0,0.0,84.0,2.0,163801.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Pedrinho,935288,M,1,90,3,1,1,0.17,86.0,2.0,250224.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Felipe Garcia,162662,F,1,90,2,0,0,0.05,105.0,3.0,60000.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Marcão,675917,M,0,59,0,0,0,0.0,,2.0,71843.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Hugo Sanches,969835,D,0,30,0,0,0,0.0,,1.0,
+5190740,2026-10-02,bra_serie_b,São Bernardo,Lucas Lima,1357756,M,0,30,2,1,1,0.12,,2.0,192429.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Lucas Fernandes,738724,M,0,30,1,1,0,0.11,,2.0,268313.0
+5190740,2026-10-02,bra_serie_b,São Bernardo,Romisson,267918,M,0,14,0,0,0,0.0,,2.0,
+5190740,2026-10-02,bra_serie_b,CRB,Vitor,1079328,G,1,90,0,0,0,0.0,11.0,0.0,305236.0
+5190740,2026-10-02,bra_serie_b,CRB,Kevin,673730,D,1,90,1,0,0,0.03,32.0,1.0,212543.0
+5190740,2026-10-02,bra_serie_b,CRB,Bressan,428671,D,1,90,3,0,0,0.79,34.0,1.0,325802.0
+5190740,2026-10-02,bra_serie_b,CRB,Lyncon,1490050,D,1,90,1,1,0,0.01,36.0,1.0,343708.0
+5190740,2026-10-02,bra_serie_b,CRB,Reverson,1460508,D,1,76,2,0,0,0.03,38.0,1.0,177397.0
+5190740,2026-10-02,bra_serie_b,CRB,Pedro Castro,304626,M,1,89,2,0,0,0.03,65.0,2.0,274827.0
+5190740,2026-10-02,bra_serie_b,CRB,Thiaguinho,1284942,F,1,83,4,3,1,0.66,82.0,3.0,835085.0
+5190740,2026-10-02,bra_serie_b,CRB,Crystopher,1333091,M,1,90,4,0,0,0.09,84.0,2.0,409308.0
+5190740,2026-10-02,bra_serie_b,CRB,Danielzinho,750064,M,1,76,0,0,0,0.0,86.0,2.0,642863.0
+5190740,2026-10-02,bra_serie_b,CRB,Dadá Belmonte,1134034,F,1,89,4,1,0,0.09,88.0,3.0,389108.0
+5190740,2026-10-02,bra_serie_b,CRB,Mikael,933819,F,1,90,2,1,0,0.04,115.0,3.0,1022603.0
+5190740,2026-10-02,bra_serie_b,CRB,Lucas Lovat,673728,D,0,14,0,0,0,0.0,,1.0,300403.0
+5190740,2026-10-02,bra_serie_b,CRB,Vinicius Barata,1463480,F,0,14,0,0,0,0.0,,3.0,331995.0
+5190740,2026-10-02,bra_serie_b,CRB,João Neto,1268757,F,0,7,2,1,0,0.13,,3.0,
+5190740,2026-10-02,bra_serie_b,CRB,Geovane,1232090,M,0,1,0,0,0,0.0,,2.0,218040.0
+5190740,2026-10-02,bra_serie_b,CRB,Ygor,1127282,F,0,1,1,1,0,0.01,,3.0,320509.0
+5103566,2026-10-02,brasil,São Paulo,Carlos Coronel,658563,G,1,90,0,0,0,0.0,11.0,0.0,1145462.0
+5103566,2026-10-02,brasil,São Paulo,Pablo Maia,1313924,D,1,90,1,1,0,0.09,33.0,1.0,5582946.0
+5103566,2026-10-02,brasil,São Paulo,Robert Arboleda,342941,D,1,90,1,0,0,0.11,35.0,1.0,633182.0
+5103566,2026-10-02,brasil,São Paulo,Rafael Tolói,127374,D,1,64,0,0,0,0.0,37.0,1.0,424022.0
+5103566,2026-10-02,brasil,São Paulo,Pedro Lima,1610952,M,1,73,4,1,0,0.28,72.0,2.0,5921221.0
+5103566,2026-10-02,brasil,São Paulo,Damián Bobadilla,1252913,M,1,64,0,0,0,0.0,74.0,2.0,9312066.0
+5103566,2026-10-02,brasil,São Paulo,Marcos Antônio,890205,M,1,90,0,0,0,0.0,76.0,2.0,13689615.0
+5103566,2026-10-02,brasil,São Paulo,Iago,845984,M,1,67,1,1,0,0.01,78.0,2.0,2299594.0
+5103566,2026-10-02,brasil,São Paulo,Artur,754504,F,1,90,5,3,0,0.15,103.0,3.0,8260068.0
+5103566,2026-10-02,brasil,São Paulo,Luciano,399130,F,1,90,3,1,1,0.84,105.0,3.0,1071177.0
+5103566,2026-10-02,brasil,São Paulo,Ryan Francisco,1699022,F,1,64,1,0,0,0.18,107.0,3.0,6672060.0
+5103566,2026-10-02,brasil,São Paulo,Newton,1578668,M,0,26,1,0,0,0.05,,2.0,2224866.0
+5103566,2026-10-02,brasil,São Paulo,Danielzinho,493553,M,0,26,1,1,0,0.06,,2.0,1084466.0
+5103566,2026-10-02,brasil,São Paulo,Gustavo Santana,1997436,F,0,26,1,0,0,0.05,,3.0,
+5103566,2026-10-02,brasil,São Paulo,Wendell,487867,D,0,23,1,0,0,0.01,,1.0,1213506.0
+5103566,2026-10-02,brasil,São Paulo,Victor Sá,660846,F,0,17,0,0,0,0.0,,3.0,1707713.0
+5103566,2026-10-02,brasil,Santos,Diógenes,1272356,G,1,90,0,0,0,0.0,11.0,0.0,643222.0
+5103566,2026-10-02,brasil,Santos,Rodinei,400256,D,1,90,1,0,0,0.08,32.0,1.0,351286.0
+5103566,2026-10-02,brasil,Santos,Lucas Veríssimo,699694,D,1,90,0,0,0,0.0,34.0,1.0,2344525.0
+5103566,2026-10-02,brasil,Santos,Willian Arão,305713,D,1,90,0,0,0,0.0,36.0,1.0,559445.0
+5103566,2026-10-02,brasil,Santos,Gonzalo Escobar,751010,D,1,90,0,0,0,0.0,38.0,1.0,971724.0
+5103566,2026-10-02,brasil,Santos,Christian Oliva,925841,M,1,90,0,0,0,0.0,64.0,2.0,1145550.0
+5103566,2026-10-02,brasil,Santos,Arthur,654044,M,1,54,0,0,0,0.0,66.0,2.0,1994121.0
+5103566,2026-10-02,brasil,Santos,Álvaro Barreal,959915,F,1,46,0,0,0,0.0,83.0,3.0,8430169.0
+5103566,2026-10-02,brasil,Santos,Lima,671606,M,1,46,0,0,0,0.0,85.0,2.0,1427190.0
+5103566,2026-10-02,brasil,Santos,Éverton,528348,F,1,76,2,1,0,0.04,87.0,3.0,3333738.0
+5103566,2026-10-02,brasil,Santos,Gabriel Barbosa,450848,F,1,86,3,2,2,0.4,115.0,3.0,3898158.0
+5103566,2026-10-02,brasil,Santos,Philippe Coutinho,184536,M,0,44,0,0,0,0.0,,2.0,1379654.0
+5103566,2026-10-02,brasil,Santos,Gustavo Henrique,1744831,M,0,45,1,0,0,0.02,,2.0,
+5103566,2026-10-02,brasil,Santos,Gabriel Menino,1137671,M,0,36,1,0,0,0.02,,2.0,6955177.0
+5103566,2026-10-02,brasil,Santos,Rony,796732,F,0,14,1,1,0,0.05,,3.0,3943303.0
+5103566,2026-10-02,brasil,Santos,Thaciano,687496,M,0,4,0,0,0,0.0,,2.0,1092691.0
+1000019545,2026-10-02,argentina,Independiente,Rodrigo Rey,443465,G,1,90,0,0,0,0.0,11.0,0.0,962650.0
+1000019545,2026-10-02,argentina,Independiente,Leonardo Godoy,630500,D,1,88,2,0,0,0.2,32.0,1.0,906643.0
+1000019545,2026-10-02,argentina,Independiente,Juan Fedorco,1299451,D,1,90,0,0,0,0.0,34.0,1.0,692570.0
+1000019545,2026-10-02,argentina,Independiente,Franco Calderón,1039685,D,1,90,0,0,0,0.0,36.0,1.0,864027.0
+1000019545,2026-10-02,argentina,Independiente,Ramiro Martino,2135266,D,1,62,0,0,0,0.0,38.0,1.0,
+1000019545,2026-10-02,argentina,Independiente,Mateo Pérez Curci,1821854,M,1,73,0,0,0,0.0,73.0,2.0,1631492.0
+1000019545,2026-10-02,argentina,Independiente,Iván Marcone,157868,M,1,90,0,0,0,0.0,75.0,2.0,487652.0
+1000019545,2026-10-02,argentina,Independiente,Maximiliano Meza,469616,M,1,44,2,1,1,0.13,77.0,2.0,521414.0
+1000019545,2026-10-02,argentina,Independiente,Santiago Gabriel Montiel,1435714,F,1,90,1,0,0,0.02,103.0,3.0,2734476.0
+1000019545,2026-10-02,argentina,Independiente,Iván Morales,785840,F,1,87,1,0,0,0.02,105.0,3.0,1079640.0
+1000019545,2026-10-02,argentina,Independiente,Matías Abaldo,1398532,F,1,62,0,0,0,0.0,107.0,3.0,6829601.0
+1000019545,2026-10-02,argentina,Independiente,Nahuel Banegas,1098367,D,0,28,0,0,0,0.0,,1.0,761977.0
+1000019545,2026-10-02,argentina,Independiente,Lautaro Millán,1647589,M,0,28,2,1,0,0.08,,2.0,
+1000019545,2026-10-02,argentina,Independiente,Felipe Tempone,1929752,F,0,17,0,0,0,0.0,,3.0,
+1000019545,2026-10-02,argentina,Independiente,Ezequiel Ávila,361724,F,0,3,0,0,0,0.0,,3.0,980669.0
+1000019545,2026-10-02,argentina,Independiente,Santiago Arias,207642,D,0,2,0,0,0,0.0,,1.0,857668.0
+1000019545,2026-10-02,argentina,Instituto,Marcos Ledesma,591557,G,1,90,0,0,0,0.0,11.0,0.0,859788.0
+1000019545,2026-10-02,argentina,Instituto,Agustín Massaccesi,1606849,D,1,90,1,0,0,0.02,33.0,1.0,347398.0
+1000019545,2026-10-02,argentina,Instituto,Leonel Mosevich,690435,D,1,90,1,0,0,0.15,35.0,1.0,817482.0
+1000019545,2026-10-02,argentina,Instituto,Jonathan Galván,615932,D,1,90,1,0,0,0.02,37.0,1.0,541924.0
+1000019545,2026-10-02,argentina,Instituto,Giuliano Cerato,1098253,M,1,45,1,1,0,0.27,72.0,2.0,1213421.0
+1000019545,2026-10-02,argentina,Instituto,Gustavo Abregú,960080,M,1,81,0,0,0,0.0,74.0,2.0,395205.0
+1000019545,2026-10-02,argentina,Instituto,Matías Gallardo,1653420,M,1,87,1,1,1,0.04,76.0,2.0,623183.0
+1000019545,2026-10-02,argentina,Instituto,Diego Sosa,867739,M,1,90,0,0,0,0.0,78.0,2.0,560192.0
+1000019545,2026-10-02,argentina,Instituto,Jeremías Lázaro,1609545,F,1,81,2,1,1,0.23,103.0,3.0,747993.0
+1000019545,2026-10-02,argentina,Instituto,Matías Tissera,832836,F,1,66,1,1,0,0.08,105.0,3.0,376916.0
+1000019545,2026-10-02,argentina,Instituto,Alex Luna,1314218,F,1,90,3,1,1,0.16,107.0,3.0,4928724.0
+1000019545,2026-10-02,argentina,Instituto,Hernán de la Fuente,900404,D,0,45,1,1,1,0.52,,1.0,246297.0
+1000019545,2026-10-02,argentina,Instituto,Facundo Suárez,971269,F,0,24,0,0,0,0.0,,3.0,272611.0
+1000019545,2026-10-02,argentina,Instituto,Ignacio Méndez,847986,M,0,9,0,0,0,0.0,,2.0,437834.0
+1000019545,2026-10-02,argentina,Instituto,Lucas Sanseviero,1362672,F,0,9,0,0,0,0.0,,3.0,737432.0
+1000019545,2026-10-02,argentina,Instituto,Jonás Acevedo,882460,M,0,3,1,0,0,0.12,,2.0,281730.0
+5991895,2026-10-02,selecciones,Suriname,Etienne Vaessen,665170,G,1,90,0,0,0,0.0,11.0,0.0,1652165.0
+5991895,2026-10-02,selecciones,Suriname,Liam van Gelderen,942380,D,1,90,1,1,0,0.0,32.0,1.0,161000.0
+5991895,2026-10-02,selecciones,Suriname,Myenty Abena,523380,D,1,90,0,0,0,0.0,34.0,1.0,339046.0
+5991895,2026-10-02,selecciones,Suriname,Shaquille Pinas,820490,D,1,90,1,0,0,0.0,36.0,1.0,1375157.0
+5991895,2026-10-02,selecciones,Suriname,Yannick Leliendal,1282233,D,1,90,1,0,0,0.0,38.0,1.0,1334446.0
+5991895,2026-10-02,selecciones,Suriname,Shiloh Zand,1522438,M,1,90,2,1,0,0.0,64.0,2.0,534195.0
+5991895,2026-10-02,selecciones,Suriname,Kenneth Paal,564816,D,1,83,1,0,0,0.0,66.0,1.0,1332904.0
+5991895,2026-10-02,selecciones,Suriname,Denzel Jubitana,841022,M,1,66,3,2,0,0.0,83.0,2.0,527297.0
+5991895,2026-10-02,selecciones,Suriname,Justin Lonwijk,820469,M,1,90,0,0,0,0.0,85.0,2.0,393908.0
+5991895,2026-10-02,selecciones,Suriname,Richonell Margaret,1014841,F,1,66,2,2,0,0.0,87.0,3.0,678087.0
+5991895,2026-10-02,selecciones,Suriname,Gyrano Kerk,519134,F,1,83,1,1,0,0.0,115.0,3.0,1641863.0
+5991895,2026-10-02,selecciones,Suriname,Djenairo Daniëls,1180289,F,0,24,1,1,0,0.0,,3.0,322028.0
+5991895,2026-10-02,selecciones,Guatemala,Kenderson Navarro,1272883,G,1,90,0,0,0,0.0,11.0,0.0,199835.0
+5991895,2026-10-02,selecciones,Guatemala,Aarón Herrera,847991,D,1,90,0,0,0,0.0,32.0,1.0,658380.0
+5991895,2026-10-02,selecciones,Guatemala,Allen Yanes,725295,D,1,90,0,0,0,0.0,34.0,1.0,
+5991895,2026-10-02,selecciones,Guatemala,Nicolás Samayoa,928507,D,1,90,0,0,0,0.0,36.0,1.0,327925.0
+5991895,2026-10-02,selecciones,Guatemala,José Morales,1104411,D,1,90,0,0,0,0.0,38.0,1.0,309006.0
+5991895,2026-10-02,selecciones,Guatemala,Jorge Aparicio,528123,M,1,90,0,0,0,0.0,64.0,2.0,
+5991895,2026-10-02,selecciones,Guatemala,José Rosales,782403,M,1,90,0,0,0,0.0,66.0,2.0,124253.0
+5991895,2026-10-02,selecciones,Guatemala,Matthew Evans,1520737,M,1,90,0,0,0,0.0,83.0,2.0,607358.0
+5991895,2026-10-02,selecciones,Guatemala,Olger Escobar,1650206,M,1,90,0,0,0,0.0,85.0,2.0,524413.0
+5991895,2026-10-02,selecciones,Guatemala,William Fajardo,971173,M,1,90,0,0,0,0.0,87.0,2.0,
+5991895,2026-10-02,selecciones,Guatemala,Jefry Bantes,1477458,F,1,82,1,0,0,0.0,115.0,3.0,
+5991895,2026-10-02,selecciones,Guatemala,Jonathan Franco,1418087,M,0,30,1,0,0,0.0,,2.0,
