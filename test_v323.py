@@ -268,6 +268,11 @@ def probar_registro(doc):
     pintadas = []
     _t = mm.tarjeta
     mm.tarjeta = lambda *a, **k: pintadas.append(1) or _t(*a, **k)
+    # v324 — los partidos sin nada que meter van a su desplegable (lo prueba
+    # `test_v324.py`); aquí se mide sólo el «de 20 en 20», así que se dejan
+    # todos en la lista: con los del día puede que no lleguen a 20 los demás.
+    _nq = mm.nada_que_meter
+    mm.nada_que_meter = lambda p: False
     try:
         mm.TARJETAS_POR_PAGINA = 200
         with pg.lote():
@@ -282,6 +287,7 @@ def probar_registro(doc):
         despues, n_despues = _leido(pg), len(pintadas)
     finally:
         mm.tarjeta = _t
+        mm.nada_que_meter = _nq
         mm.TARJETAS_POR_PAGINA = pagina
     check(n_despues <= pagina < n_antes,
           'se pintan %d tarjetas en vez de %d' % (n_despues, n_antes))
