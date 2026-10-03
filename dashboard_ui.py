@@ -955,7 +955,20 @@ def plantilla_cacheada(_motor_id: int, home: str, away: str, arbitro: str = None
     return MOTOR.plantilla(home, away, arbitro=arbitro, fase=fase, estadio=estadio)
 
 
-MOTOR = cargar_motor()
+# v323 — EL MOTOR DEL MUNDIAL SE CARGA DONDE SE USA, Y NO EN CADA ARRANQUE.
+#
+# Estaba aquí, en lo alto del script, así que la primera visita de cada
+# proceso lo cargaba entero aunque fuera a «Apuestas del Día», que no lo usa:
+# sólo lo leen la vista del Mundial (al final de este fichero, después de que
+# todas las demás vistas hayan terminado con `st.stop()`) y las dos funciones
+# de arriba, que sólo se llaman desde ella. Se carga justo antes de esa vista;
+# `cargar_motor` sigue siendo `st.cache_resource`, así que se carga una vez
+# por proceso igual que antes. Medido el 2026-10-03: cargarlo cuesta 2,05 s
+# y +436 MB de memoria (215 → 651 MB) en un contenedor de 1 GB, que la
+# primera visita a «Apuestas del Día» ya no paga. Ojo: no es el único que lo
+# carga — `partidos_jugados._nombres` lo pide (vía `selecciones_dia`) cuando
+# hay selecciones entre los partidos terminados del día, para unificar sus
+# nombres; ese caso sigue pagándolo.
 
 
 # ===========================================================================
@@ -9519,6 +9532,7 @@ if _clave_comp != 'mundial':
     render_liga_club(_clave_comp, NOMBRES_LIGAS[_clave_comp])
     st.stop()
 
+MOTOR = cargar_motor()
 if not MOTOR.listo:
     st.error(
         f"❌ **El motor de predicción no pudo inicializarse.**\n\n"
