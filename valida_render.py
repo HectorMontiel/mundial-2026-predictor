@@ -196,6 +196,32 @@ VISTAS_EXTRA = {
         'textos': ['Análisis previo'],
         'que': 'la vista de MAÑANA',
     },
+    # v323 — DESDE QUE SÓLO SE EJECUTA LA VISTA ELEGIDA, LAS OTRAS TRES SE
+    # PRUEBAN COMO ÉSTA. Antes se generaban siempre —escondidas con CSS— y
+    # cualquier fallo suyo saltaba abriendo «Hoy»; ahora sólo se ejecutan si
+    # se eligen, así que hay que elegirlas.
+    #
+    # Y en «Estado» se PULSA el envío de Telegram: es exactamente el caso que
+    # tiró la página en la v177.2 (`KeyError: parlay_base`, un botón pulsado
+    # con la vista de hoy escondida). La huella es el botón de descarga que
+    # sólo aparece si el documento se armó.
+    'estado': {
+        'sesion': {'_vista_principal': 'estado'},
+        'textos': ['Simulador de bankroll'],
+        'que': 'la vista de ESTADO',
+        'pulsar': [('tg_send_hoy', 'envío de todo lo de hoy desde Estado',
+                    'dl_dia_completo')],
+    },
+    'combi': {
+        'sesion': {'_vista_principal': 'combi'},
+        'textos': ['Combinadas que cruzan'],
+        'que': 'la vista de COMBINADAS',
+    },
+    'pasado': {
+        'sesion': {'_vista_principal': 'pasado'},
+        'textos': ['pasado mañana'],
+        'que': 'la vista de PASADO MAÑANA',
+    },
 }
 
 FALLOS = []
@@ -275,6 +301,46 @@ def valida(vista, pedido, timeout=900):
             check(True, f'{vista}: está el {que}')
     for clave_boton, que, huella in (pedido.get('pulsar') or []):
         pulsa(at, clave_boton, que, huella, vista)
+    if 'Apuestas del Día' in vista:
+        ver_mas(at, vista)
+
+
+def _tarjetas_pintadas(at, clave='mm'):
+    """Cuántas tarjetas hay en pantalla: cada una lleva su «Ver ficha»."""
+    return sum(1 for b in getattr(at, 'button', [])
+               if str(getattr(b, 'key', '') or '').startswith(
+                   'mm_ir_%s_' % clave))
+
+
+def ver_mas(at, vista):
+    """
+    v323 — LAS TARJETAS VAN DE 20 EN 20, Y «VER MÁS» TRAE LAS SIGUIENTES.
+
+    Se comprueba lo que el usuario vería: como mucho 20 al abrir y, si hay
+    más, que el botón exista, que pulsarlo no rompa nada y que después haya
+    MÁS tarjetas que antes. Un botón que no cambia la lista pasaría el «no
+    lanzó excepción» y estaría roto igual.
+    """
+    antes = _tarjetas_pintadas(at)
+    check(antes <= 20, f'{vista}: se pintan como mucho 20 tarjetas al abrir '
+                       f'({antes})')
+    boton = [b for b in getattr(at, 'button', [])
+             if str(getattr(b, 'key', '') or '') == 'mm_ver_mas']
+    if not boton:
+        print(f'   [{vista}] sin «Ver más»: la lista de hoy cabe en una '
+              f'página ({antes} tarjetas)', flush=True)
+        return
+    try:
+        boton[0].click().run()
+    except Exception as e:
+        check(False, f'{vista}: al pulsar «Ver más» ({type(e).__name__}: {e})')
+        return
+    if at.exception:
+        check(False, f'{vista}: «Ver más» lanzó {at.exception[0].message}')
+        return
+    despues = _tarjetas_pintadas(at)
+    check(despues > antes,
+          f'{vista}: «Ver más» trae más tarjetas ({antes} → {despues})')
 
 
 def pulsa(at, clave_boton, que, huella, vista):
@@ -360,17 +426,10 @@ def valida_vista_extra(clave, pedido, timeout=900):
                      f'({at.exception[0].message})')
         return
     check(True, f'{que} carga sin excepciones')
-    # QUÉ COMPRUEBA ESTE BLOQUE, Y QUÉ NO.
+    # QUÉ COMPRUEBA ESTE BLOQUE.
     #
-    # Desde la v177.2 las cuatro vistas se RENDERIZAN siempre y sólo se
-    # oculta por CSS la que no toca —hay que dejarlas en el árbol o
-    # Streamlit se lleva el `session_state` de sus widgets, ver §27.9—.
-    # `AppTest` no sabe nada de CSS, así que este check dice «el texto se
-    # generó», no «el usuario lo ve». Sigue valiendo para lo que vale:
-    # detecta que el cuerpo de esa vista dejó de producirse.
-    #
-    # La comprobación FUERTE de que la vista cambió es la de abajo, sobre
-    # `session_state`. Ésa sí falla si el selector no hace su trabajo.
+    # v323 — desde que sólo se ejecuta la vista elegida, «se genera» quiere
+    # decir «se ve»: ya no hay vistas escondidas por CSS en el árbol.
     t = textos(at)
     for exigido in (pedido.get('textos') or []):
         check(exigido in t, f'{que}: «{exigido}» se genera')
@@ -395,26 +454,19 @@ def valida_vista_extra(clave, pedido, timeout=900):
     # de estilo que esconde las vistas se emitía al final de la pasada, y
     # hasta que llegaba seguía aplicada la de la pasada anterior. Medido
     # en el navegador: **153 s enseñando la vista equivocada.**
-    marcas = []
-    for md in getattr(at, 'markdown', []):
-        v = str(md.value)
-        if 'st-key-vista_' in v:
-            marcas.append('estilo')
-        elif '.mm-merc' in v:
-            marcas.append('vistas')
-    check('estilo' in marcas,
-          f'{que}: se emite el estilo que esconde las vistas')
-    if 'estilo' in marcas and 'vistas' in marcas:
-        check(marcas.index('estilo') < marcas.index('vistas'),
-              f'{que}: el estilo va ANTES del cuerpo de las vistas '
-              f'(si no, el navegador enseña la vista anterior toda la '
-              f'pasada)')
-    # Y la vista escondida no gasta el tiempo de nadie: sus tarjetas no se
-    # dibujan. El botón «Ver ficha» lleva la clave de la vista dentro.
-    otra = 'mm' if destino == 'manana' else 'man'
+    #
+    # v323 — EL ESTILO QUE ESCONDÍA LAS VISTAS YA NO EXISTE, y su check (que
+    # fuera ANTES del cuerpo, v178) se sustituye por el que importa ahora:
+    # que la vista NO elegida no se genere en absoluto. Si se generara, el
+    # usuario la vería debajo de la suya — ya no hay CSS que la esconda.
+    check('⚽ Partidos de hoy (' not in t,
+          f'{que}: la lista de HOY no se genera con otra vista elegida')
+    otra = 'mm' if destino != 'hoy' else 'man'
     botones = [str(getattr(b, 'key', '') or '') for b in getattr(at, 'button', [])]
     check(not any(k.startswith('mm_ir_%s_' % otra) for k in botones),
-          f'{que}: la vista escondida no pinta sus tarjetas')
+          f'{que}: la vista no elegida no pinta sus tarjetas')
+    for clave_boton, que_b, huella in (pedido.get('pulsar') or []):
+        pulsa(at, clave_boton, que_b, huella, que)
 
 
 def main():
@@ -430,7 +482,10 @@ def main():
         objetivo = VISTAS
     for vista, pedido in objetivo.items():
         valida(vista, pedido)
-    if not pedidas:
+    # v323 — las otras vistas de «Apuestas del Día» van con ella: desde que
+    # sólo se ejecuta la elegida, validar la pantalla sin elegirlas dejaría
+    # cuatro de sus cinco vistas sin abrir.
+    if not pedidas or any('apuestas' in x.lower() for x in pedidas):
         for clave, pedido in VISTAS_EXTRA.items():
             valida_vista_extra(clave, pedido)
     print()
