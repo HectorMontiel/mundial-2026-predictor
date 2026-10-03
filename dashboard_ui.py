@@ -5063,6 +5063,24 @@ CLAVE_VISTA_PRINCIPAL = '_vista_principal'
 VISTAS_PRINCIPALES = ('hoy', 'manana', 'pasado', 'combi', 'estado')
 
 
+def _ev_recupera(clave, opciones=None):
+    """v323 — repone la copia del widget de una vista que no se ejecutó."""
+    try:
+        import estado_vistas as _evr
+        _evr.recupera(st, clave, opciones)
+    except Exception as e:
+        logger.debug('[vistas] recupera %s: %s', clave, e)
+
+
+def _ev_apunta(clave, valor):
+    """v323 — guarda la copia del widget (ver `estado_vistas`)."""
+    try:
+        import estado_vistas as _eva
+        _eva.apunta(st, clave, valor)
+    except Exception as e:
+        logger.debug('[vistas] apunta %s: %s', clave, e)
+
+
 def render_alpha_finder():
     """v26 (§4.1-§4.2): Apuestas del Día + simulador Montecarlo de bankroll."""
     # v299 — El día que gobierna TODA la pantalla. Se pinta el mando sobre la
@@ -6966,12 +6984,14 @@ def render_alpha_finder():
 
             if _dest_p:
                 cbp1, cbp2 = st.columns([3, 1])
+                _ev_recupera('prono_ir_sel', list(_dest_p.keys()))
                 _sel_p = cbp1.selectbox(
                     "📊 Ver las estadísticas de un partido de la lista",
                     list(_dest_p.keys()), key='prono_ir_sel',
                     help="Abre la vista de su competición con el partido "
                          "cargado: historial, forma, todos los mercados y el "
                          "constructor de combinadas.")
+                _ev_apunta('prono_ir_sel', _sel_p)
                 if cbp2.button("Ir al partido →", key='prono_ir_btn',
                                width='stretch', type='primary'):
                     import navegacion as _nav_p2
@@ -7110,9 +7130,11 @@ def render_alpha_finder():
                 etq = (f"{icono}{p.get('partido','?')} — {p.get('apuesta','?')} "
                        f"(prob {(p.get('prob') or 0)*100:.0f} % {precio})")
                 opciones[etq] = p
+            _ev_recupera('patas_sel', list(opciones.keys()))
             elegidas_lbl = st.multiselect(
                 "Elige 2–4 patas y púlsalo abajo para combinar:",
                 list(opciones.keys()), max_selections=6, key='patas_sel')
+            _ev_apunta('patas_sel', list(elegidas_lbl))
             if st.button("🧩 Calcular Parlay", key='patas_btn', type="primary") \
                     and len(elegidas_lbl) >= 2:
                 from match_parlay import combinar_patas
@@ -7143,7 +7165,9 @@ def render_alpha_finder():
                         "que los partidos publicados terminan y se registran sus "
                         "resultados (rendimiento_real.db).")
             else:
+                _ev_recupera('rm_mes', meses)
                 mes_sel = st.selectbox("Mes", meses, key='rm_mes')
+                _ev_apunta('rm_mes', mes_sel)
                 inf = rm.informe_mes(mes_sel)
                 if inf.get('n'):
                     m1, m2, m3, m4 = st.columns(4)
@@ -7219,9 +7243,12 @@ def render_alpha_finder():
                         unsafe_allow_html=True)
         with st.container(key='caja_ev_extremo'):
             st.divider()
-            if st.checkbox(f"⚠️ Mostrar {len(extremo)} picks de EV extremo "
-                           "(alta incertidumbre)", value=False,
-                           key='ev_extremo_tog') and extremo:
+            _ev_recupera('ev_extremo_tog')
+            _ev_tog = st.checkbox(f"⚠️ Mostrar {len(extremo)} picks de EV "
+                                  "extremo (alta incertidumbre)", value=False,
+                                  key='ev_extremo_tog')
+            _ev_apunta('ev_extremo_tog', bool(_ev_tog))
+            if _ev_tog and extremo:
                 st.warning("Estos picks tienen un EV inusualmente alto (>+15 %). "
                            "En el histórico, ese tramo acertó **15 pp por debajo** "
                            "de lo que el modelo prometía y su ROI fue 12 pp peor: "
@@ -7234,11 +7261,15 @@ def render_alpha_finder():
         with st.expander("🪜 Reto Escalera (interés compuesto)"):
             import reto_escalera as re_esc
             c1, c2 = st.columns(2)
+            _ev_recupera('esc_cap')
+            _ev_recupera('esc_frac')
             cap0 = c1.number_input("Capital inicial", 10.0, 1e6, 100.0, step=10.0,
                                    key='esc_cap')
             frac = c2.slider("Porcentaje del capital por día", 10, 100, 100,
                              key='esc_frac',
                              help="100 % = all-in: un solo fallo liquida la banca.") / 100
+            _ev_apunta('esc_cap', cap0)
+            _ev_apunta('esc_frac', int(round(frac * 100)))
             esc = re_esc.construir((r.get('capa1') or []) + (r.get('capa2') or []),
                                    capital=cap0, fraccion=frac)
             if not esc.get('picks'):
@@ -7450,6 +7481,10 @@ def render_alpha_finder():
                    "ve la varianza antes de arriesgar un peso.")
         import montecarlo_sim as mc
         c1, c2, c3, c4 = st.columns(4)
+        for _k_mc in ('mc_bank', 'mc_n'):
+            _ev_recupera(_k_mc)
+        _ev_recupera('mc_liga', list(NOMBRES_LIGAS.keys()))
+        _ev_recupera('mc_estr', list(mc.ESTRATEGIAS.keys()))
         bank0 = c1.number_input("Bankroll inicial", 50.0, 1e6, 1000.0, step=50.0,
                                 key='mc_bank')
         liga_mc = c2.selectbox("Rendimiento de", list(NOMBRES_LIGAS.keys()),
@@ -7458,6 +7493,10 @@ def render_alpha_finder():
             "Estrategia", list(mc.ESTRATEGIAS.keys()),
             format_func=lambda k: mc.ESTRATEGIAS[k][0], key='mc_estr')
         n_bets = c4.slider("Apuestas a simular", 20, 500, 100, key='mc_n')
+        _ev_apunta('mc_bank', bank0)
+        _ev_apunta('mc_liga', liga_mc)
+        _ev_apunta('mc_estr', estrategia)
+        _ev_apunta('mc_n', n_bets)
         par = mc.parametros_de_liga(liga_mc)
         st.caption(f"Parámetros: win-rate {par['win_rate']*100:.1f} %, cuota media "
                    f"{par['odds_mean']} ± {par['odds_std']} — fuente: {par['fuente']}.")
@@ -7645,12 +7684,22 @@ def render_alpha_finder():
     # OCULTAR, no borrar (§27.9): borrar se lleva por delante el
     # `session_state` de los widgets de la vista escondida y tira la página
     # con `KeyError: parlay_base` al pulsar cualquier botón.
-    _ocultas = ''.join('.st-key-vista_%s{display:none !important;}' % k
-                       for k in _ROTULO if k != _vista)
-    if _ocultas:
-        st.markdown('<style>%s</style>' % _ocultas, unsafe_allow_html=True)
-    # `key` pone una clase CSS `st-key-vista_<clave>` en el contenedor,
-    # que es lo que permite esconderlo desde la hoja de estilo.
+    # v323 — Y DESDE AHORA NO SE ESCONDE NADA: SÓLO SE EJECUTA LA ELEGIDA.
+    #
+    # Las cinco vistas se ejecutaban en cada pasada para que sus widgets
+    # llegaran vivos al final (§27.9) y cuatro se escondían con CSS. Medido el
+    # 2026-10-03 (AppTest, 355 partidos, sobre la v322 que ya recuerda las
+    # tarjetas): abrir 10,6 s → 2,7 s y cambiar de hoy a mañana 39,8 s →
+    # 13,3 s con este cambio y el de 20 en 20. Ahora sólo corre la elegida; lo que el usuario
+    # dejó en los controles de las otras lo guarda una copia con clave propia
+    # (`estado_vistas`) y se repone al volver, así que no se pierde nada y no
+    # puede volver el `KeyError: parlay_base` de la v177.2: aquel salía de
+    # BORRAR widgets ya creados (`st.empty`), y aquí no se crea ninguno que
+    # luego se borre. Lo único que las vistas escondidas hacían fuera de la
+    # pantalla —anotar en el registro de pronósticos— se sigue haciendo (ver
+    # `modo_modelo.anotar_sin_pintar`).
+    # Los contenedores se quedan, con su clave: ordenan la pantalla y su
+    # clase `st-key-vista_<clave>` sigue sirviendo para darles estilo.
     _slots = {k: st.container(key='vista_%s' % k) for k, _ in _VISTAS}
     _tab_hoy = _slots['hoy']
     _tab_manana = _slots['manana']
@@ -7662,34 +7711,72 @@ def render_alpha_finder():
     # cambio que reordena las pestañas sería mezclar dos cosas que conviene
     # poder revisar por separado.
     _tab_modelo = _tab_jugar = _tab_todos = _tab_pata = _tab_hoy
+
+    # v323 — LA LISTA Y SUS FILTROS, EN UN FRAGMENTO.
+    #
+    # Cambiar «Ordenar por», una casilla o pulsar «Ver más» rehacía la página
+    # ENTERA: la Capa 1, los indicadores, la exportación y las cinco vistas.
+    # Con `st.fragment` sólo se rehace la lista. OJO, medido el 2026-10-03: el
+    # PRIMER filtro tarda más que en la v322 (4,2 → 11,0 s en AppTest, que
+    # rehace la página entera; en el navegador sólo la lista): la v322 ya
+    # tenía en memoria las 200 tarjetas que pintaba al abrir, y aquí al filtrar
+    # aparecen tarjetas que nunca se habían calculado. Se aceptó a cambio de
+    # abrir en 2,7 s en vez de 10,6 y cambiar de día en 13 en vez de 40. «Ver ficha del partido» sigue
+    # rehaciendo la app entera: `st.rerun()` sin `scope` es de toda la app
+    # aunque se llame desde dentro de un fragmento, que es lo que necesita la
+    # navegación a otra competición.
+    def _lista_dia(_lista, _que='', **_kw):
+        try:
+            import modo_modelo as _mm_f
+            import pronosticos_guardados as _pg_f
+            with _pg_f.lote():        # v216: una escritura, no una por pick
+                _mm_f.render(st, _lista, navegar=_ir_al_partido, **_kw)
+        except Exception as _e_f:
+            logger.exception('[modo_modelo%s] fallo al pintar', _que)
+            st.caption(f"La lista de apuestas no está disponible "
+                       f"({type(_e_f).__name__}). Las demás pestañas siguen "
+                       f"funcionando.")
+    if hasattr(st, 'fragment'):
+        _lista_dia = st.fragment(_lista_dia)
+
+    def _anotar_vista(_lista):
+        """Lo que una vista escondida hacía sin pintar: anotar sus partidos."""
+        try:
+            import modo_modelo as _mm_a
+            import pronosticos_guardados as _pg_a
+            with _pg_a.lote():
+                _mm_a.anotar_sin_pintar(_lista)
+        except Exception as _e_a:
+            logger.debug('[vistas] anotar: %s', _e_a)
+
     with _tab_hoy:
         try:
             import modo_modelo as _mm
             import pronosticos_guardados as _pgl
-            # `pintar` sólo dibuja las tarjetas de la vista que se está
-            # mirando. Las otras siguen ejecutándose —sus controles tienen
-            # que llegar vivos al final de la pasada— pero no pintan
-            # doscientas tarjetas detrás de un `display:none`.
+            # (Hasta la v322 `pintar=False` ejecutaba las vistas no elegidas
+            # sin dibujar sus tarjetas; desde la v323 no se ejecutan: ver
+            # `_lista_dia` y `_anotar_vista`.)
             #
             # v216 — Y TODA LA PASADA ESCRIBE UNA SOLA VEZ. Cada `guardar`
             # volcaba el fichero entero a disco: 157 escrituras completas en
             # una pasada, 94,8 s de los 206 que costaba la vista. El lote las
             # junta en una, y su `__exit__` garantiza el volcado aunque el
             # cuerpo lance.
-            with _pgl.lote():
-                # v232 — el MISMO filtro para los partidos acabados, que se
-                # piden dentro de `render` y por tanto no pasaban por `_filtra`.
-                # v238 — cuantos partidos hay HOY del deporte elegido, para
-                # que una lista vacia pueda decir «los hay, no los tenemos aun»
-                # en vez de «no hay partidos que cumplan el filtro».
-                _juego_hoy = 0
-                if _deps_sel:
-                    _con_juego = r.get('deportes_con_juego') or {}
-                    _juego_hoy = sum(int(_con_juego.get(_d) or 0)
-                                     for _d in _deps_sel)
-                _mm.render(st, _pron_hoy, navegar=_ir_al_partido, clave='mm',
-                           dia=_HOY_S, pintar=(_vista == 'hoy'),
+            # v232 — el MISMO filtro para los partidos acabados, que se
+            # piden dentro de `render` y por tanto no pasaban por `_filtra`.
+            # v238 — cuantos partidos hay HOY del deporte elegido, para
+            # que una lista vacia pueda decir «los hay, no los tenemos aun»
+            # en vez de «no hay partidos que cumplan el filtro».
+            _juego_hoy = 0
+            if _deps_sel:
+                _con_juego = r.get('deportes_con_juego') or {}
+                _juego_hoy = sum(int(_con_juego.get(_d) or 0)
+                                 for _d in _deps_sel)
+            if _vista == 'hoy':
+                _lista_dia(_pron_hoy, clave='mm', dia=_HOY_S,
                            filtro=_filtra, juego_hoy=_juego_hoy)
+            else:
+                _anotar_vista(_pron_hoy)
         except Exception as _e_mm:
             logger.exception('[modo_modelo] fallo al pintar')
             st.caption(f"La lista de apuestas no está disponible "
@@ -7712,23 +7799,16 @@ def render_alpha_finder():
         # durante la noche, y ese movimiento es justo el canal que este
         # proyecto mide. Se enseña el análisis entero y se dice por qué todavía
         # no hay apuesta, en vez de proponer una que mañana no valdrá.
-        if not _pron_man:
+        if _vista != 'manana':
+            _anotar_vista(_pron_man)
+        elif not _pron_man:
             st.subheader(f"🗓️ Partidos de MAÑANA · {_MANANA_S} (hora de CDMX)")
             st.info("Todavía no hay partidos de mañana en el barrido. Las "
                     "casas suelen abrir línea 2-4 días antes, así que esto se "
                     "llena solo a lo largo del día.")
         else:
-            try:
-                import modo_modelo as _mm_man
-                import pronosticos_guardados as _pgm
-                with _pgm.lote():       # v216: una escritura, no una por pick
-                    _mm_man.render(
-                        st, _pron_man, navegar=_ir_al_partido, clave='man',
-                        con_apuesta=False, pintar=(_vista == 'manana'),
-                        titulo=f"🗓️ Partidos de mañana · {_MANANA_S} (CDMX)")
-            except Exception as _e_m:
-                logger.exception('[modo_modelo/manana] fallo al pintar')
-                st.caption(f"Lista no disponible ({type(_e_m).__name__}).")
+            _lista_dia(_pron_man, '/manana', clave='man', con_apuesta=False,
+                       titulo=f"🗓️ Partidos de mañana · {_MANANA_S} (CDMX)")
     _tab_ev, _tab_prob = _tab_jugar, _tab_pata
     with _tab_pasado:
         # v250 - EL DIA DESPUES DE MANANA.
@@ -7741,27 +7821,22 @@ def render_alpha_finder():
         # las lineas se mueven durante la noche y la cuota que se ve ahora no
         # es la que habra. Se ensena el analisis entero y se dice que todavia
         # no es una apuesta.
-        if not _pron_pas:
+        if _vista != 'pasado':
+            _anotar_vista(_pron_pas)
+        elif not _pron_pas:
             st.subheader(f"🗓️ Partidos de PASADO MAÑANA · {_PASADO_S} (hora de CDMX)")
             st.info("Todavía no hay partidos de pasado mañana en el barrido. "
                     "Las casas suelen abrir línea 2-4 días antes, así que esto "
                     "se llena solo a lo largo del día.")
         else:
-            try:
-                import modo_modelo as _mm_pas
-                import pronosticos_guardados as _pgp
-                with _pgp.lote():
-                    _mm_pas.render(
-                        st, _pron_pas, navegar=_ir_al_partido, clave='pas',
-                        con_apuesta=False, pintar=(_vista == 'pasado'),
-                        titulo=f"🗓️ Partidos de pasado mañana · {_PASADO_S} (CDMX)")
-            except Exception as _e_p:
-                logger.exception('[modo_modelo/pasado] fallo al pintar')
-                st.caption(f"Lista no disponible ({type(_e_p).__name__}).")
-    with _tab_estado:
-        _render_estado_sistema()
-    with _tab_combi:
-        _render_combinadas(r)
+            _lista_dia(_pron_pas, '/pasado', clave='pas', con_apuesta=False,
+                       titulo=f"🗓️ Partidos de pasado mañana · {_PASADO_S} (CDMX)")
+    if _vista == 'estado':
+        with _tab_estado:
+            _render_estado_sistema()
+    if _vista == 'combi':
+        with _tab_combi:
+            _render_combinadas(r)
 
     # Lo que antes eran tres pestañas cae ahora DENTRO de la vista de hoy, cada
     # cosa en su desplegable y cerrada, para que la primera pantalla siga siendo
@@ -7772,346 +7847,356 @@ def render_alpha_finder():
     # exactamente el fallo que la v131 dejó escrito —se llamaba antes de
     # definirse y la vista moría con UnboundLocalError—, y aquí no hace falta:
     # `with A, B:` anida los dos contextos sin tocar una sola línea del cuerpo.
-    with _tab_hoy:
-        st.divider()
-    with _tab_todos, st.expander(f"📋 Tabla completa del día "
-                                 f"({len(_pron_hoy)})"):
-        _render_todos_los_partidos()
-    with _tab_prob, st.expander(f"🟡 Sólo como pata de combinada "
-                                f"({len(_s2_hoy)})"):
-        _render_maxima_confianza(r)
+    # v323 — todo lo de abajo es contenido de la vista de HOY: con otra
+    # vista elegida no se ejecuta (ver la nota de arriba, junto a
+    # `_slots`).
+    if _vista == 'hoy':
+        with _tab_hoy:
+            st.divider()
+        with _tab_todos, st.expander(f"📋 Tabla completa del día "
+                                     f"({len(_pron_hoy)})"):
+            _render_todos_los_partidos()
+        with _tab_prob, st.expander(f"🟡 Sólo como pata de combinada "
+                                    f"({len(_s2_hoy)})"):
+            _render_maxima_confianza(r)
 
-    # LA VENTAJA DE PRECIO NO DESAPARECE AL SIMPLIFICAR: CAMBIA DE SITIO.
-    #
-    # Es el único criterio con percentil 5 positivo medido en todo el proyecto
-    # (+1,73 % en el tramo de juicio). Que la pantalla principal pase a ordenar
-    # por probabilidad del modelo es una decisión de producto; borrar lo único
-    # que tiene rentabilidad demostrada sería otra cosa muy distinta.
-    #
-    # Va en un desplegable dentro de la vista de hoy, y se abre solo cuando hay
-    # algo dentro: un día con Sección 1 vacía no roba sitio, y un día con picks
-    # los enseña sin que haya que buscarlos.
-    with _tab_ev, st.expander(
-            f"💎 Ventaja de precio — lo único con rentabilidad medida "
-            f"({len(_s1_hoy)})", expanded=bool(_s1_hoy)):
-        # -------------------------------------------------------------------
-        # v128 — LAS DOS SECCIONES, ARRIBA DEL TODO.
+        # LA VENTAJA DE PRECIO NO DESAPARECE AL SIMPLIFICAR: CAMBIA DE SITIO.
         #
-        # Es la respuesta a «quiero ver apuestas en la capa 1 que sí pueda
-        # ganar». La lista que había debajo se ordenaba por el EV del modelo,
-        # que es el criterio medido en −4,66 % a −6,52 % sobre 37.158 apuestas.
-        # No se borra —sigue justo debajo, entera— pero deja de ser lo primero
-        # que se ve, porque lo primero que se ve es lo que se juega.
+        # Es el único criterio con percentil 5 positivo medido en todo el proyecto
+        # (+1,73 % en el tramo de juicio). Que la pantalla principal pase a ordenar
+        # por probabilidad del modelo es una decisión de producto; borrar lo único
+        # que tiene rentabilidad demostrada sería otra cosa muy distinta.
         #
-        # Arriba sólo suben los canales con p5 de bootstrap positivo en el
-        # tramo que no se usó para elegirlos. Hoy son dos, y los dos aprueban
-        # raspando: ver `clasificador.secciones_del_dia`.
-        # -------------------------------------------------------------------
-        # v131: ya filtradas por el selector de deporte de arriba. `r` sigue
-        # intacto para Telegram y la exportación.
-        _s1 = _s1_f
-        _s2 = _s2_f
-        # v298 — HOY O MAÑANA, TAMBIEN AQUI.
-        #
-        # El usuario: «Capa uno sólo me da apuestas de hoy, a pesar de que
-        # aplique el filtro de mañana». El selector de día existía sólo en
-        # Soñadoras; aquí los días se agrupaban con un encabezado, así que los
-        # de mañana quedaban al final de la lista y parecían no existir.
-        #
-        # Filtra las DOS secciones con un solo mando, porque separar «hoy» en
-        # una y no en la otra es peor que no tenerlo.
-        # v299 — usa el mando que ya se pintó arriba, sobre la Capa 1. Aquí
-        # se pintaba un SEGUNDO selector con la misma clave, y dos radios de
-        # Streamlit compartiendo `key` se pisan: el de abajo reescribía la
-        # elección del de arriba en cada pasada.
-        _s1 = solo_del_dia(_s1, _modo_dia)
-        _s2 = solo_del_dia(_s2, _modo_dia)
-        _CANALES = {
-            'precio_local': ('💰 Ventaja de precio al local',
-                             'Una casa blanda paga por encima del precio justo '
-                             'de Pinnacle. No depende de que el modelo acierte: '
-                             'son dos precios del mismo suceso.'),
-            # v297 — sin esta entrada los picks de visitante salían en la
-            # Sección 1 sin título ni explicación, que es peor que no salir.
-            'precio_visitante': ('✈️ Ventaja de precio al visitante',
-                                 'Lo mismo, pero al equipo de fuera. Estuvo '
-                                 'cerrado hasta que hubo bastantes partidos '
-                                 'para medirlo: rinde +2,75 % en la mitad del '
-                                 'histórico que no se usó para elegirlo. Más '
-                                 'fino que el local — en la otra mitad se '
-                                 'queda en +0,26 %, pegado a cero.'),
-            'tenis_90': ('🎾 Tenis con probabilidad ≥ 90 %',
-                         'La única banda del proyecto con p5 positivo. Cuotas '
-                         'cortas (~1,15 de media): se gana por volumen y un '
-                         'solo precio malo se come varias apuestas buenas.'),
-        }
-        _seccion(f"✅ Sección 1 — para jugar en solitario ({len(_s1)})",
-                 'los únicos canales con percentil 5 positivo medido',
-                 'ok' if _s1 else 'mira')
-        if _s1:
-            for _canal, (_tit, _sub) in _CANALES.items():
-                _grupo = [p for p in _s1 if p.get('canal') == _canal]
-                if not _grupo:
-                    continue
-                st.markdown(f"**{_tit}** — {_sub}")
-                st.caption('Por qué está aquí: ' + (_grupo[0].get('motivo') or ''))
-                _tarjetas(_grupo, "")
-            st.caption(
-                "⚠️ **La mejor apuesta disponible no es una apuesta ganadora "
-                "garantizada.** Los dos canales de arriba aprueban el listón "
-                "del proyecto por poco: p5 +1,73 % el de precio y +0,18 % el "
-                "del tenis. Con una racha mala se ponen en negativo. Aquí no "
-                "se promete ROI: se promete que es lo único que la medición "
-                "sostiene.")
-        else:
-            st.info(
-                "**Hoy no hay nada en la Sección 1, y eso es un resultado, no "
-                "un fallo.** Sólo suben aquí dos cosas: fútbol donde una casa "
-                "paga por encima del precio justo de Pinnacle **al lado "
-                "local**, y tenis con probabilidad ≥ 90 % y precio publicado. "
-                "El resto de picks del día están abajo, con su motivo. "
-                "Forzar una apuesta porque la pantalla se ve vacía es "
-                "exactamente lo que este sistema existe para evitar.")
-        if _s2:
-            # v131: con filtro puesto, el total del día ya no describe lo que
-            # se está viendo; manda lo que hay delante.
-            _n2 = len(_s2) if _deps_sel else (r.get('n_seccion2')
-                                              or len(_s2))
-            with st.expander(f"🟡 NO JUGAR EN SOLITARIO — sólo como pata de "
-                             f"una combinada ({_n2})", expanded=False):
-                st.warning(
-                    "⚠️ **Estos picks NO se juegan solos.** Tienen "
-                    "probabilidad alta y cuota que no compensa: sueltos "
-                    "pierden dinero. Sirven para **inflar la cuota** de una "
-                    "combinada que parta de la Sección 1, y aun así cada uno "
-                    "empeora el valor del boleto.")
+        # Va en un desplegable dentro de la vista de hoy, y se abre solo cuando hay
+        # algo dentro: un día con Sección 1 vacía no roba sitio, y un día con picks
+        # los enseña sin que haya que buscarlos.
+        with _tab_ev, st.expander(
+                f"💎 Ventaja de precio — lo único con rentabilidad medida "
+                f"({len(_s1_hoy)})", expanded=bool(_s1_hoy)):
+            # -------------------------------------------------------------------
+            # v128 — LAS DOS SECCIONES, ARRIBA DEL TODO.
+            #
+            # Es la respuesta a «quiero ver apuestas en la capa 1 que sí pueda
+            # ganar». La lista que había debajo se ordenaba por el EV del modelo,
+            # que es el criterio medido en −4,66 % a −6,52 % sobre 37.158 apuestas.
+            # No se borra —sigue justo debajo, entera— pero deja de ser lo primero
+            # que se ve, porque lo primero que se ve es lo que se juega.
+            #
+            # Arriba sólo suben los canales con p5 de bootstrap positivo en el
+            # tramo que no se usó para elegirlos. Hoy son dos, y los dos aprueban
+            # raspando: ver `clasificador.secciones_del_dia`.
+            # -------------------------------------------------------------------
+            # v131: ya filtradas por el selector de deporte de arriba. `r` sigue
+            # intacto para Telegram y la exportación.
+            _s1 = _s1_f
+            _s2 = _s2_f
+            # v298 — HOY O MAÑANA, TAMBIEN AQUI.
+            #
+            # El usuario: «Capa uno sólo me da apuestas de hoy, a pesar de que
+            # aplique el filtro de mañana». El selector de día existía sólo en
+            # Soñadoras; aquí los días se agrupaban con un encabezado, así que los
+            # de mañana quedaban al final de la lista y parecían no existir.
+            #
+            # Filtra las DOS secciones con un solo mando, porque separar «hoy» en
+            # una y no en la otra es peor que no tenerlo.
+            # v299 — usa el mando que ya se pintó arriba, sobre la Capa 1. Aquí
+            # se pintaba un SEGUNDO selector con la misma clave, y dos radios de
+            # Streamlit compartiendo `key` se pisan: el de abajo reescribía la
+            # elección del de arriba en cada pasada.
+            _s1 = solo_del_dia(_s1, _modo_dia)
+            _s2 = solo_del_dia(_s2, _modo_dia)
+            _CANALES = {
+                'precio_local': ('💰 Ventaja de precio al local',
+                                 'Una casa blanda paga por encima del precio justo '
+                                 'de Pinnacle. No depende de que el modelo acierte: '
+                                 'son dos precios del mismo suceso.'),
+                # v297 — sin esta entrada los picks de visitante salían en la
+                # Sección 1 sin título ni explicación, que es peor que no salir.
+                'precio_visitante': ('✈️ Ventaja de precio al visitante',
+                                     'Lo mismo, pero al equipo de fuera. Estuvo '
+                                     'cerrado hasta que hubo bastantes partidos '
+                                     'para medirlo: rinde +2,75 % en la mitad del '
+                                     'histórico que no se usó para elegirlo. Más '
+                                     'fino que el local — en la otra mitad se '
+                                     'queda en +0,26 %, pegado a cero.'),
+                'tenis_90': ('🎾 Tenis con probabilidad ≥ 90 %',
+                             'La única banda del proyecto con p5 positivo. Cuotas '
+                             'cortas (~1,15 de media): se gana por volumen y un '
+                             'solo precio malo se come varias apuestas buenas.'),
+            }
+            _seccion(f"✅ Sección 1 — para jugar en solitario ({len(_s1)})",
+                     'los únicos canales con percentil 5 positivo medido',
+                     'ok' if _s1 else 'mira')
+            if _s1:
+                for _canal, (_tit, _sub) in _CANALES.items():
+                    _grupo = [p for p in _s1 if p.get('canal') == _canal]
+                    if not _grupo:
+                        continue
+                    st.markdown(f"**{_tit}** — {_sub}")
+                    st.caption('Por qué está aquí: ' + (_grupo[0].get('motivo') or ''))
+                    _tarjetas(_grupo, "")
                 st.caption(
-                    "Combinarlos entre sí no arregla el problema, lo "
-                    "multiplica: EV combinado = Π(1+EVᵢ)−1, así que tres "
-                    "patas al −4,76 % dan −13,62 %. Están aquí porque saber "
-                    "por qué algo NO se juega vale tanto como la lista de lo "
-                    "que sí.")
-                if _n2 > len(_s2):
-                    st.caption(f"Se muestran {len(_s2)} de {_n2}, las de mayor "
-                               f"probabilidad.")
-                for _p in _s2[:12]:
-                    st.markdown(
-                        f"- **{_p.get('apuesta','?')}** · {_p.get('partido','?')} "
-                        f"({_p.get('liga','')}) · "
-                        + (f"@ {_p['cuota']} · " if _p.get('cuota') else '')
-                        + f"{(_p.get('prob') or 0)*100:.0f} % — "
-                        f"{_p.get('motivo','')}")
-                if len(_s2) > 12:
-                    st.caption(f"…y {len(_s2)-12} más, en la lista completa de "
-                               f"abajo.")
+                    "⚠️ **La mejor apuesta disponible no es una apuesta ganadora "
+                    "garantizada.** Los dos canales de arriba aprueban el listón "
+                    "del proyecto por poco: p5 +1,73 % el de precio y +0,18 % el "
+                    "del tenis. Con una racha mala se ponen en negativo. Aquí no "
+                    "se promete ROI: se promete que es lo único que la medición "
+                    "sostiene.")
+            else:
+                st.info(
+                    "**Hoy no hay nada en la Sección 1, y eso es un resultado, no "
+                    "un fallo.** Sólo suben aquí dos cosas: fútbol donde una casa "
+                    "paga por encima del precio justo de Pinnacle **al lado "
+                    "local**, y tenis con probabilidad ≥ 90 % y precio publicado. "
+                    "El resto de picks del día están abajo, con su motivo. "
+                    "Forzar una apuesta porque la pantalla se ve vacía es "
+                    "exactamente lo que este sistema existe para evitar.")
+            if _s2:
+                # v131: con filtro puesto, el total del día ya no describe lo que
+                # se está viendo; manda lo que hay delante.
+                _n2 = len(_s2) if _deps_sel else (r.get('n_seccion2')
+                                                  or len(_s2))
+                with st.expander(f"🟡 NO JUGAR EN SOLITARIO — sólo como pata de "
+                                 f"una combinada ({_n2})", expanded=False):
+                    st.warning(
+                        "⚠️ **Estos picks NO se juegan solos.** Tienen "
+                        "probabilidad alta y cuota que no compensa: sueltos "
+                        "pierden dinero. Sirven para **inflar la cuota** de una "
+                        "combinada que parta de la Sección 1, y aun así cada uno "
+                        "empeora el valor del boleto.")
+                    st.caption(
+                        "Combinarlos entre sí no arregla el problema, lo "
+                        "multiplica: EV combinado = Π(1+EVᵢ)−1, así que tres "
+                        "patas al −4,76 % dan −13,62 %. Están aquí porque saber "
+                        "por qué algo NO se juega vale tanto como la lista de lo "
+                        "que sí.")
+                    if _n2 > len(_s2):
+                        st.caption(f"Se muestran {len(_s2)} de {_n2}, las de mayor "
+                                   f"probabilidad.")
+                    for _p in _s2[:12]:
+                        st.markdown(
+                            f"- **{_p.get('apuesta','?')}** · {_p.get('partido','?')} "
+                            f"({_p.get('liga','')}) · "
+                            + (f"@ {_p['cuota']} · " if _p.get('cuota') else '')
+                            + f"{(_p.get('prob') or 0)*100:.0f} % — "
+                            f"{_p.get('motivo','')}")
+                    if len(_s2) > 12:
+                        st.caption(f"…y {len(_s2)-12} más, en la lista completa de "
+                                   f"abajo.")
 
-        # v136 — LA CALCULADORA DE COMBINADAS.
-        #
-        # El encargo pedía «sugerir un parlay con EV positivo» combinando
-        # picks de la Sección 2. No se puede: todos tienen EV negativo —es lo
-        # que los puso ahí— y `Π(1+EVᵢ)−1` sobre números menores que 1 sigue
-        # siendo menor que 1. Lo que sí se puede, y es lo que hay aquí, es
-        # calcular el EV de VERDAD y enseñarlo antes de confirmar nada.
-        #
-        # Se parte siempre de la Sección 1 y se admite UNA pata de relleno.
-        # Ver `parlay_ev` para la aritmética y las reglas.
-        # v190 — Y AQUÍ IGUAL, que éste es el que tiró la página.
-        #
-        # `parlay_base` vivía dentro de `if _s1:`. Un día sin picks en la
-        # Sección 1 —o un «Actualizar» que la deja vacía— y la clave se va.
-        # El cuerpo ya está envuelto en un `try/except` que enseña
-        # «Calculadora no disponible», así que dejarlo vivo con la lista
-        # vacía no rompe nada: sólo mantiene el widget registrado.
-        if not _s1:
-            st.markdown('<style>.st-key-caja_parlay'
-                        '{display:none !important;}</style>',
-                        unsafe_allow_html=True)
-        with st.container(key='caja_parlay'):
-            with st.expander("🧮 Arma tu combinada — con el EV calculado antes "
-                             "de jugarla", expanded=False):
-                try:
-                    import parlay_ev as _pev
-                    _op_base = {
-                        f"{p.get('apuesta','?')} · {p.get('partido','?')}"
-                        f" @ {p.get('cuota','—')}": p for p in _s1}
-                    _sel_base = st.selectbox(
-                        "Pata base — de la Sección 1, la única con ventaja de "
-                        "precio medida", list(_op_base.keys()),
-                        key='parlay_base')
-                    _aptos = [p for p in _s2
-                              if (p.get('prob') or 0) >= _pev.PROB_MINIMA_RELLENO
-                              and p.get('cuota')]
-                    _op_rell = {'(ninguna — juega la pata sola)': None}
-                    for p in _aptos[:15]:
-                        _op_rell[f"{p.get('apuesta','?')} · "
-                                 f"{p.get('partido','?')} @ {p.get('cuota')} · "
-                                 f"{(p.get('prob') or 0)*100:.0f} %"] = p
-                    if len(_op_rell) == 1:
-                        st.caption(
-                            f"Hoy ninguna pata de la Sección 2 llega al "
-                            f"{_pev.PROB_MINIMA_RELLENO*100:.0f} % de "
-                            f"probabilidad que exige el relleno, así que sólo "
-                            f"cabe la pata sola.")
-                    _sel_rell = st.selectbox(
-                        "Pata de relleno — como mucho UNA, y cada una empeora "
-                        "el boleto", list(_op_rell.keys()), key='parlay_rell')
-                    _base_p = _op_base.get(_sel_base)
-                    _rell_p = _op_rell.get(_sel_rell)
-                    _res = _pev.evaluar(_base_p,
-                                        [_rell_p] if _rell_p else [])
-                    _c1, _c2, _c3 = st.columns(3)
-                    _c1.metric("EV del boleto",
-                               f"{(_res['ev'] or 0)*100:+.2f} %"
-                               if _res['ev'] is not None else '—')
-                    _c2.metric("Cuota combinada",
-                               f"{_res['cuota']:.2f}" if _res.get('cuota')
-                               else '—')
-                    _c3.metric("Prob. conjunta",
-                               f"{(_res['prob'] or 0)*100:.0f} %"
-                               if _res.get('prob') is not None else '—')
-                    if _res['ok']:
-                        st.success(_res['motivo'])
-                    else:
-                        st.error(_res['motivo'])
-                    for _a in _res.get('avisos') or []:
-                        st.warning(_a)
-                    _patas = [_base_p] + ([_rell_p] if _rell_p else [])
-                    st.caption("La cuenta, para que no haya que creérsela:  \n"
-                               f"`EV = {_pev.texto_formula(_patas)}`")
-                except Exception as _e_pev:
-                    st.caption(f"Calculadora no disponible ahora "
-                               f"({type(_e_pev).__name__}).")
-        st.divider()
-
-        # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
-        # v134: el filtro de deporte NO llegaba aquí. Al filtrar por MLB,
-        # la Selección del Día seguía enseñando fútbol — el usuario vio
-        # «Cusco FC vs Juan Pablo II» con el filtro puesto en béisbol.
-        # `r` sigue intacto: se filtra la copia que se pinta.
-        elite = _filtra(r.get('elite'))
-        if elite:
-            import kelly_simultaneo as ks
-            bank = float(st.session_state.get('bankroll', 0) or 1000)
-            con_stake = ks.stakes_jornada(elite, bank)
-            for t, s in zip(elite, con_stake):
-                t['stake_txt'] = (f"{s['stake']:.0f} u ({s['stake_pct']*100:.1f} %)"
-                                  if s['stake_pct'] > 0 else '—')
-            expo = sum(s['stake_pct'] for s in con_stake)
-            st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
-                       f"bankroll. Nunca se arriesga más del 20 % en un mismo día."  # v82: el texto
-                       # decía ⅛ y la v81 subió la fracción a ¼ tras
-                       # medirla; un pie que miente sobre cuánto se
-                       # arriesga es peor que no tenerlo.
-                       )
-        # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
-        import traductor_quant as tq
-        platino = [t for t in elite if t.get('platino')]
-        if platino:
-            st.subheader(tq.t('evc_platino', ES_PRO))
-            st.caption(tq.tooltip('evc_platino'))
-            _tarjetas(platino, "")
-        _tarjetas([t for t in elite if t.get('evc') and not t.get('platino')],
-                  tq.t('evc', ES_PRO))
-        if not ES_PRO:
-            st.caption(tq.tooltip('evc'))
-        _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
-
-        # v47: SELECCIÓN DEL DÍA — la Capa 1 nunca queda vacía. Si hoy no hubo
-        # ningún 1X2 con cuota real y confirmación, se promueven las mejores
-        # oportunidades por valor esperado (con aviso honesto).
-        seleccion = _filtra(r.get('seleccion_dia'))
-        if not elite and seleccion:
-            st.subheader("⭐ Selección del Día — mejor valor disponible")
-            st.info("Hoy ninguna apuesta reunió cuota real + confirmación profesional. "
-                    "Estas son las de mayor valor esperado del día. Úsalas con stake "
-                    "prudente: no llevan el sello de la línea sharp.")
-            _tarjetas(seleccion, "")
-
-        # v31 (§5): CAPA 2 — alta confianza SIN cuota real (modo analítico)
-        capa2 = _filtra(r.get('capa2'))
-        if capa2:
+            # v136 — LA CALCULADORA DE COMBINADAS.
+            #
+            # El encargo pedía «sugerir un parlay con EV positivo» combinando
+            # picks de la Sección 2. No se puede: todos tienen EV negativo —es lo
+            # que los puso ahí— y `Π(1+EVᵢ)−1` sobre números menores que 1 sigue
+            # siendo menor que 1. Lo que sí se puede, y es lo que hay aquí, es
+            # calcular el EV de VERDAD y enseñarlo antes de confirmar nada.
+            #
+            # Se parte siempre de la Sección 1 y se admite UNA pata de relleno.
+            # Ver `parlay_ev` para la aritmética y las reglas.
+            # v190 — Y AQUÍ IGUAL, que éste es el que tiró la página.
+            #
+            # `parlay_base` vivía dentro de `if _s1:`. Un día sin picks en la
+            # Sección 1 —o un «Actualizar» que la deja vacía— y la clave se va.
+            # El cuerpo ya está envuelto en un `try/except` que enseña
+            # «Calculadora no disponible», así que dejarlo vivo con la lista
+            # vacía no rompe nada: sólo mantiene el widget registrado.
+            if not _s1:
+                st.markdown('<style>.st-key-caja_parlay'
+                            '{display:none !important;}</style>',
+                            unsafe_allow_html=True)
+            with st.container(key='caja_parlay'):
+                with st.expander("🧮 Arma tu combinada — con el EV calculado antes "
+                                 "de jugarla", expanded=False):
+                    try:
+                        import parlay_ev as _pev
+                        _op_base = {
+                            f"{p.get('apuesta','?')} · {p.get('partido','?')}"
+                            f" @ {p.get('cuota','—')}": p for p in _s1}
+                        _ev_recupera('parlay_base', list(_op_base.keys()))
+                        _sel_base = st.selectbox(
+                            "Pata base — de la Sección 1, la única con ventaja de "
+                            "precio medida", list(_op_base.keys()),
+                            key='parlay_base')
+                        _ev_apunta('parlay_base', _sel_base)
+                        _aptos = [p for p in _s2
+                                  if (p.get('prob') or 0) >= _pev.PROB_MINIMA_RELLENO
+                                  and p.get('cuota')]
+                        _op_rell = {'(ninguna — juega la pata sola)': None}
+                        for p in _aptos[:15]:
+                            _op_rell[f"{p.get('apuesta','?')} · "
+                                     f"{p.get('partido','?')} @ {p.get('cuota')} · "
+                                     f"{(p.get('prob') or 0)*100:.0f} %"] = p
+                        if len(_op_rell) == 1:
+                            st.caption(
+                                f"Hoy ninguna pata de la Sección 2 llega al "
+                                f"{_pev.PROB_MINIMA_RELLENO*100:.0f} % de "
+                                f"probabilidad que exige el relleno, así que sólo "
+                                f"cabe la pata sola.")
+                        _ev_recupera('parlay_rell', list(_op_rell.keys()))
+                        _sel_rell = st.selectbox(
+                            "Pata de relleno — como mucho UNA, y cada una empeora "
+                            "el boleto", list(_op_rell.keys()), key='parlay_rell')
+                        _ev_apunta('parlay_rell', _sel_rell)
+                        _base_p = _op_base.get(_sel_base)
+                        _rell_p = _op_rell.get(_sel_rell)
+                        _res = _pev.evaluar(_base_p,
+                                            [_rell_p] if _rell_p else [])
+                        _c1, _c2, _c3 = st.columns(3)
+                        _c1.metric("EV del boleto",
+                                   f"{(_res['ev'] or 0)*100:+.2f} %"
+                                   if _res['ev'] is not None else '—')
+                        _c2.metric("Cuota combinada",
+                                   f"{_res['cuota']:.2f}" if _res.get('cuota')
+                                   else '—')
+                        _c3.metric("Prob. conjunta",
+                                   f"{(_res['prob'] or 0)*100:.0f} %"
+                                   if _res.get('prob') is not None else '—')
+                        if _res['ok']:
+                            st.success(_res['motivo'])
+                        else:
+                            st.error(_res['motivo'])
+                        for _a in _res.get('avisos') or []:
+                            st.warning(_a)
+                        _patas = [_base_p] + ([_rell_p] if _rell_p else [])
+                        st.caption("La cuenta, para que no haya que creérsela:  \n"
+                                   f"`EV = {_pev.texto_formula(_patas)}`")
+                    except Exception as _e_pev:
+                        st.caption(f"Calculadora no disponible ahora "
+                                   f"({type(_e_pev).__name__}).")
             st.divider()
-            st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
-                         if ES_PRO else "🎯 Apuestas sugeridas (sin cuota confirmada)")
-            # v73: la Capa 2 ya NO es «sin cuota». Muchos de estos partidos tienen
-            # precio real y lo que no alcanzan es un filtro de élite (casi siempre
-            # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
-            # cuota son los que ninguna casa ha abierto todavía.
-            _con = sum(1 for t in capa2 if t.get('cuota'))
-            st.info(
-                f"Partidos donde el modelo está muy seguro pero que **no "
-                f"recomendamos jugar sueltos**: {_con} tienen una cuota tan "
-                f"baja que apenas compensa el riesgo, y el resto todavía no "
-                f"tiene precio. Sirven para combinar.")
-            _tarjetas(capa2, "")
 
-        # v37 (§6): sección destacada de Ambos Marcan (BTTS)
-        btts = _filtra(r.get('btts_destacado'))
-        if btts:
+            # v27 (§5+§7): stakes por Kelly SIMULTÁNEO (⅛, cap global 20 %)
+            # v134: el filtro de deporte NO llegaba aquí. Al filtrar por MLB,
+            # la Selección del Día seguía enseñando fútbol — el usuario vio
+            # «Cusco FC vs Juan Pablo II» con el filtro puesto en béisbol.
+            # `r` sigue intacto: se filtra la copia que se pinta.
+            elite = _filtra(r.get('elite'))
+            if elite:
+                import kelly_simultaneo as ks
+                bank = float(st.session_state.get('bankroll', 0) or 1000)
+                con_stake = ks.stakes_jornada(elite, bank)
+                for t, s in zip(elite, con_stake):
+                    t['stake_txt'] = (f"{s['stake']:.0f} u ({s['stake_pct']*100:.1f} %)"
+                                      if s['stake_pct'] > 0 else '—')
+                expo = sum(s['stake_pct'] for s in con_stake)
+                st.caption(f"💼 Exposición total de la jornada: {expo*100:.1f} % del "
+                           f"bankroll. Nunca se arriesga más del 20 % en un mismo día."  # v82: el texto
+                           # decía ⅛ y la v81 subió la fracción a ¼ tras
+                           # medirla; un pie que miente sobre cuánto se
+                           # arriesga es peor que no tenerlo.
+                           )
+            # v28: Traductor Quant — etiquetas según el modo Principiante/Pro (v14)
+            import traductor_quant as tq
+            platino = [t for t in elite if t.get('platino')]
+            if platino:
+                st.subheader(tq.t('evc_platino', ES_PRO))
+                st.caption(tq.tooltip('evc_platino'))
+                _tarjetas(platino, "")
+            _tarjetas([t for t in elite if t.get('evc') and not t.get('platino')],
+                      tq.t('evc', ES_PRO))
+            if not ES_PRO:
+                st.caption(tq.tooltip('evc'))
+            _tarjetas([t for t in elite if not t.get('evc')], "⭐ Picks de élite")
+
+            # v47: SELECCIÓN DEL DÍA — la Capa 1 nunca queda vacía. Si hoy no hubo
+            # ningún 1X2 con cuota real y confirmación, se promueven las mejores
+            # oportunidades por valor esperado (con aviso honesto).
+            seleccion = _filtra(r.get('seleccion_dia'))
+            if not elite and seleccion:
+                st.subheader("⭐ Selección del Día — mejor valor disponible")
+                st.info("Hoy ninguna apuesta reunió cuota real + confirmación profesional. "
+                        "Estas son las de mayor valor esperado del día. Úsalas con stake "
+                        "prudente: no llevan el sello de la línea sharp.")
+                _tarjetas(seleccion, "")
+
+            # v31 (§5): CAPA 2 — alta confianza SIN cuota real (modo analítico)
+            capa2 = _filtra(r.get('capa2'))
+            if capa2:
+                st.divider()
+                st.subheader("🎯 Capa 2 — Predicciones de Alta Confianza"
+                             if ES_PRO else "🎯 Apuestas sugeridas (sin cuota confirmada)")
+                # v73: la Capa 2 ya NO es «sin cuota». Muchos de estos partidos tienen
+                # precio real y lo que no alcanzan es un filtro de élite (casi siempre
+                # la cuota mínima de 1.50 en favoritos muy cortos). Los que salen sin
+                # cuota son los que ninguna casa ha abierto todavía.
+                _con = sum(1 for t in capa2 if t.get('cuota'))
+                st.info(
+                    f"Partidos donde el modelo está muy seguro pero que **no "
+                    f"recomendamos jugar sueltos**: {_con} tienen una cuota tan "
+                    f"baja que apenas compensa el riesgo, y el resto todavía no "
+                    f"tiene precio. Sirven para combinar.")
+                _tarjetas(capa2, "")
+
+            # v37 (§6): sección destacada de Ambos Marcan (BTTS)
+            btts = _filtra(r.get('btts_destacado'))
+            if btts:
+                st.divider()
+                st.subheader("⚽ Ambos Marcan (BTTS)")
+                # v75: el texto anterior decía "uno de los mercados mejor calibrados del
+                # sistema". La medición lo desmiente y no se puede seguir afirmando:
+                # sobre 15.950 partidos fuera de muestra de 20 ligas, el Weibull de BTTS
+                # da Brier 0.24880 frente a 0.24891 de contestar siempre la tasa base de
+                # la liga — no discrimina — y el cierre de 1X2 + O/U 2.5 ya lo hace
+                # mejor (0.24559). Se mantiene la sección (la pidió el usuario en v43)
+                # con la etiqueta honesta.
+                st.caption("Picks con confianza > 60 %"
+                           + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
+                              for p in btts) else ". ")
+                           + "⚠️ Comprobado sobre 15.950 partidos: acertar «ambos "
+                             "marcan» con el modelo **no es mejor que mirar la "
+                             "media de la liga**. Aquí lo único que puede hacer "
+                             "buena una apuesta es que la cuota esté alta, no la "
+                             "probabilidad.")
+                _tarjetas(btts, "")
+
+            # v91 — LAS COMBINADAS, AL FINAL. Cargan motores de liga y corren Monte
+            # Carlo; cuando vivían antes de las pestañas, todo lo importante (Máximo
+            # Valor, Máxima Confianza) esperaba a que terminaran. Aquí abajo cuestan
+            # lo mismo pero ya no retrasan nada.
+        # v178 — LAS COMBINADAS DEL DÍA SON CONTENIDO DE HOY, Y SE CALCULAN
+        # CUANDO SE PIDEN.
+        #
+        # Estaban fuera de los cuatro contenedores de vista, así que eran el único
+        # trozo de la pantalla de hoy que se colaba en «Mañana» y en «Estado». Y no
+        # eran un trozo cualquiera: medido con el barrido ya en memoria, **67,3 s
+        # de los 106,2 que costaba la primera carga** se iban aquí —
+        # `construir_parlay_partido` carga el motor de cuatro ligas y pide los
+        # remates por jugador a ESPN— para llenar un desplegable que arranca
+        # CERRADO. Nadie estaba mirando eso mientras se calculaba.
+        #
+        # La casilla se recuerda entre sesiones igual que el resto de filtros: quien
+        # use las combinadas la enciende una vez y vuelven a ser automáticas, que es
+        # lo que se pidió al quitarles el botón. Quien no, deja de pagarlas.
+        #
+        # El WIDGET se crea siempre —está dentro del `with`, sin condición— porque
+        # un widget que no llega vivo al final de la pasada desaparece de
+        # `st.session_state`; lo que se condiciona es el CÁLCULO.
+        with _tab_hoy:
             st.divider()
-            st.subheader("⚽ Ambos Marcan (BTTS)")
-            # v75: el texto anterior decía "uno de los mercados mejor calibrados del
-            # sistema". La medición lo desmiente y no se puede seguir afirmando:
-            # sobre 15.950 partidos fuera de muestra de 20 ligas, el Weibull de BTTS
-            # da Brier 0.24880 frente a 0.24891 de contestar siempre la tasa base de
-            # la liga — no discrimina — y el cierre de 1X2 + O/U 2.5 ya lo hace
-            # mejor (0.24559). Se mantiene la sección (la pidió el usuario en v43)
-            # con la etiqueta honesta.
-            st.caption("Picks con confianza > 60 %"
-                       + (" y EV > +1 % donde hay cuota real. " if any(p.get('cuota')
-                          for p in btts) else ". ")
-                       + "⚠️ Comprobado sobre 15.950 partidos: acertar «ambos "
-                         "marcan» con el modelo **no es mejor que mirar la "
-                         "media de la liga**. Aquí lo único que puede hacer "
-                         "buena una apuesta es que la cuota esté alta, no la "
-                         "probabilidad.")
-            _tarjetas(btts, "")
-
-        # v91 — LAS COMBINADAS, AL FINAL. Cargan motores de liga y corren Monte
-        # Carlo; cuando vivían antes de las pestañas, todo lo importante (Máximo
-        # Valor, Máxima Confianza) esperaba a que terminaran. Aquí abajo cuestan
-        # lo mismo pero ya no retrasan nada.
-    # v178 — LAS COMBINADAS DEL DÍA SON CONTENIDO DE HOY, Y SE CALCULAN
-    # CUANDO SE PIDEN.
-    #
-    # Estaban fuera de los cuatro contenedores de vista, así que eran el único
-    # trozo de la pantalla de hoy que se colaba en «Mañana» y en «Estado». Y no
-    # eran un trozo cualquiera: medido con el barrido ya en memoria, **67,3 s
-    # de los 106,2 que costaba la primera carga** se iban aquí —
-    # `construir_parlay_partido` carga el motor de cuatro ligas y pide los
-    # remates por jugador a ESPN— para llenar un desplegable que arranca
-    # CERRADO. Nadie estaba mirando eso mientras se calculaba.
-    #
-    # La casilla se recuerda entre sesiones igual que el resto de filtros: quien
-    # use las combinadas la enciende una vez y vuelven a ser automáticas, que es
-    # lo que se pidió al quitarles el botón. Quien no, deja de pagarlas.
-    #
-    # El WIDGET se crea siempre —está dentro del `with`, sin condición— porque
-    # un widget que no llega vivo al final de la pasada desaparece de
-    # `st.session_state`; lo que se condiciona es el CÁLCULO.
-    with _tab_hoy:
-        st.divider()
-        if _prefv is not None:
-            _prefv.recordar(st, '_combinadas_dia', por_defecto=False)
-        _quiere_combis = st.checkbox(
-            "🎲 Calcular las combinadas del día",
-            key='_combinadas_dia',
-            help="Arma combinadas de un solo partido con los mejores "
-                 "encuentros del día. Carga el motor de cuatro ligas y pide "
-                 "los remates por jugador, así que tarda; por eso no se hace "
-                 "sola. La casilla se recuerda: enciéndela una vez y vuelve a "
-                 "salir siempre.")
-        if _prefv is not None:
-            _prefv.guardar('_combinadas_dia', bool(_quiere_combis))
-        if _quiere_combis and _vista == 'hoy':
-            _render_combinada_segura(pdd)
-            _render_combinadas_dia()
-        elif not _quiere_combis:
-            st.caption("Las combinadas del día están apagadas: marca la "
-                       "casilla y aparecen aquí. ⚠️ Recuerda que combinar "
-                       "empeora el valor del boleto —el EV combinado es "
-                       "Π(1+EVᵢ)−1— así que tres patas flojas multiplican la "
-                       "pérdida, no la ganancia.")
+            _ev_recupera('_combinadas_dia')
+            if _prefv is not None:
+                _prefv.recordar(st, '_combinadas_dia', por_defecto=False)
+            _quiere_combis = st.checkbox(
+                "🎲 Calcular las combinadas del día",
+                key='_combinadas_dia',
+                help="Arma combinadas de un solo partido con los mejores "
+                     "encuentros del día. Carga el motor de cuatro ligas y pide "
+                     "los remates por jugador, así que tarda; por eso no se hace "
+                     "sola. La casilla se recuerda: enciéndela una vez y vuelve a "
+                     "salir siempre.")
+            _ev_apunta('_combinadas_dia', bool(_quiere_combis))
+            if _prefv is not None:
+                _prefv.guardar('_combinadas_dia', bool(_quiere_combis))
+            if _quiere_combis and _vista == 'hoy':
+                _render_combinada_segura(pdd)
+                _render_combinadas_dia()
+            elif not _quiere_combis:
+                st.caption("Las combinadas del día están apagadas: marca la "
+                           "casilla y aparecen aquí. ⚠️ Recuerda que combinar "
+                           "empeora el valor del boleto —el EV combinado es "
+                           "Π(1+EVᵢ)−1— así que tres patas flojas multiplican la "
+                           "pérdida, no la ganancia.")
 
     # v178 — el estilo que esconde las vistas ya NO va aquí: se emite arriba,
     # antes de crear los contenedores, o el navegador pasa toda la pasada

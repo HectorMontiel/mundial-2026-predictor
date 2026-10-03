@@ -12439,49 +12439,50 @@ def test_la_vista_elegida_no_se_pierde():
           "usa un selector con clave")
     check('segmented_control' in cuerpo,
           "y es un control con estado de servidor")
-    # v177.2 — SE OCULTAN, NO SE DESCARTAN, y la diferencia costo una
+    # v177.2 — NO SE BORRAN WIDGETS YA CREADOS, y la diferencia costo una
     # regresion. Vaciar el slot al final del render pinta bien y se
     # lleva por delante el `session_state` de los widgets de la vista
     # oculta: estando en «Estado», pulsar «Actualizar ahora» reventaba
-    # con `KeyError: parlay_base`. Con `st.tabs` no pasaba porque
-    # renderiza las cuatro pestañas y todas quedan en el arbol; el
-    # arreglo devuelve esa propiedad.
+    # con `KeyError: parlay_base`.
     check('_slot.empty()' not in cuerpo,
-          "las vistas ocultas NO se borran del arbol")
-    check('display:none' in cuerpo,
-          "se esconden por CSS, que es lo que hacia `st.tabs`")
+          "las vistas no se borran del arbol despues de crearlas")
     check("st.container(key='vista_%s' % k)" in cuerpo,
           "cada vista tiene su contenedor con clave")
-    # v178 — Y EL ORDEN, QUE ES LO QUE ESTABA ROTO DE VERDAD.
+    # v323 — Y DESDE AQUI SOLO SE EJECUTA LA VISTA ELEGIDA.
     #
-    # Con el estilo al final de la funcion, la regla llegaba al navegador
-    # la ultima: durante toda la pasada seguia aplicada la del render
-    # anterior, o sea que pulsar «Mañana» dejaba la pantalla enseñando
-    # los partidos de hoy. Medido en el navegador antes del arreglo:
-    # **153 s con la vista equivocada delante**, y ni la suite ni
-    # `valida_render` podian verlo porque los dos miraban el estado de
-    # sesion, que era correcto.
-    _i_estilo = cuerpo.find("_ocultas = ''.join")
-    _i_slots = cuerpo.find("_slots = {k: st.container")
-    check(_i_estilo != -1 and _i_slots != -1 and _i_estilo < _i_slots,
-          "el CSS que esconde las vistas se emite ANTES de crear los "
-          "contenedores (si vuelve al final, el navegador enseña la "
-          "vista anterior toda la pasada)")
-    # Y la vista que no se ve no gasta el tiempo de nadie. Medido: de los
-    # 60,4 s que costaba cambiar de pestaña con los datos ya en memoria,
-    # 40,2 se iban en dibujar tarjetas escondidas por `display:none`.
-    # v250 — pasaron a ser TRES con el dia de pasado manana. Lo que el check
-    # protege no es el numero sino que NINGUNA pinte sin ser la elegida, asi
-    # que se compara contra las listas de dias que hay, no contra un 2 fijo.
+    # Hasta la v322 las cinco vistas se ejecutaban siempre y cuatro se
+    # escondian con CSS (v177.2/v178), para que sus widgets llegaran vivos al
+    # final de la pasada. Medido el 2026-10-03 sobre la v322: abrir la pantalla
+    # 10,6 s y pasar a mañana 39,8 s; ahora 2,7 s y 13,3 s.
+    # Ahora no se esconde nada —no hay CSS que esconda vistas— y lo que el
+    # usuario dejo en los controles de una vista que no se ejecuta lo guarda
+    # una copia con clave propia (`estado_vistas`), que se repone al volver.
+    # El `KeyError: parlay_base` no puede volver: salia de BORRAR widgets ya
+    # creados, y aqui no se crea ninguno que luego se borre (lo comprueban
+    # `valida_render` pulsando Telegram desde «Estado» y `test_v323`).
+    check("display:none !important;}' % k" not in cuerpo,
+          "ya no se esconden vistas con CSS: solo se ejecuta la elegida")
+    check("_ev_recupera('parlay_base'" in cuerpo
+          and "_ev_apunta('parlay_base'" in cuerpo,
+          "la eleccion de la combinada se conserva con su copia al cambiar "
+          "de vista")
+    # Y la vista que no se ve no gasta el tiempo de nadie, pero SIGUE
+    # anotando sus partidos en el registro de pronosticos, que es lo unico
+    # que hacia fuera de la pantalla cuando se ejecutaba escondida.
+    # v250 — son TRES listas con el dia de pasado manana. Se compara contra
+    # las listas de dias que hay, no contra un 3 fijo.
     # se lee del FUENTE y no se importa: `dashboard_ui` es un script de
     # Streamlit y al importarlo se ejecuta la pantalla entera.
     import re as _re
     _m = _re.search(r'VISTAS_PRINCIPALES = \(([^)]*)\)', dash)
     _decl = _m.group(1) if _m else ''
     _n_listas = len([k for k in ('hoy', 'manana', 'pasado') if k in _decl])
-    check(cuerpo.count("pintar=(_vista ==") == _n_listas,
-          "las %d listas de partidos solo pintan sus tarjetas cuando "
-          "su vista es la elegida" % _n_listas)
+    check(cuerpo.count("_lista_dia(_pron_") == _n_listas,
+          "las %d listas de partidos solo se pintan cuando su vista es la "
+          "elegida" % _n_listas)
+    check(cuerpo.count("_anotar_vista(_pron_") == _n_listas,
+          "y las %d, cuando no se ven, siguen anotando sus partidos"
+          % _n_listas)
     import inspect
     check('pintar' in inspect.signature(mm_render_sig()).parameters,
           "`modo_modelo.render` acepta `pintar`")

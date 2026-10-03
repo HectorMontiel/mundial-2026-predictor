@@ -298,6 +298,10 @@ def _bloque_tenis(st, pick: Dict) -> None:
 # tres, las tres «no meter»). La principal sí puede ser roja —es la única
 # forma de decir «esto es lo mejor que hay y no llega»—, las demás no.
 MAX_RECOMENDADAS = 4        # la principal y hasta tres alternativas
+# v323 — TARJETAS DE 20 EN 20. Una tarjeta nueva cuesta ~0,4-0,5 s (la v322
+# recuerda las ya pintadas; medido el 2026-10-03: 107 s las 200 de «Hoy» en
+# frío) y casi nadie baja de la vigésima. El resto sale con «Ver más», sin rehacer la página.
+TARJETAS_POR_PAGINA = 20
 ANCHO_CANDIDATAS = 12       # v241: entre cuántas se elige esas tres
 # El AJUSTE de orden es uno solo para las dos pestañas; sus widgets no
 # pueden compartir clave (Streamlit lo prohíbe). Ver `render`.
@@ -3783,6 +3787,89 @@ def _dia_de(pronosticos: List[Dict]) -> str:
         return ''
 
 
+def _entra_en_lista(p: Dict) -> bool:
+    """Si `render` mete este partido en la lista principal (`con`)."""
+    if p.get('jugado'):
+        return True
+    if p.get('sin_modelo') or p.get('prob') is None:
+        return not p.get('sin_cuota', True)
+    return True
+
+
+def anotar_como_tarjeta(p: Dict) -> bool:
+    """
+    v323 — Lo que `tarjeta()` anota en el registro, sin pintar la tarjeta.
+
+    Las mismas ramas y la misma lista que la tarjeta guarda (`metidas` de las
+    recomendadas): con modelo, la versión con córners, tarjetas y remates; sin
+    modelo propio, la regla de mercado; jugado o sin datos, nada. Se pregunta
+    antes si ya está anotado —`guardar` es de sólo-inserción— para no pagar
+    la cuenta de un partido que no va a escribir nada.
+    """
+    try:
+        import pronosticos_guardados as _pgs
+        if p.get('jugado') or _pgs.ya_anotado(p):
+            return False
+        if p.get('solo_mercado'):
+            _r = p.get('_recomendadas')
+            if _r is None:
+                _r = recomendadas(p, None, n=MAX_RECOMENDADAS)
+            return bool(_pgs.guardar(p, metidas(list(_r))))
+        if p.get('sin_modelo') or p.get('prob') is None:
+            return False
+        recos = None
+        try:
+            import decisiones_dia as _dd_a
+            recos = _dd_a.tarjeta_de_pick(p)
+        except Exception:
+            recos = None
+        if recos is None:
+            _rm = remates_tarjeta(p)
+            recos = recomendadas(
+                p, {'Córners': corners_tarjeta(p),
+                    'Tarjetas': tarjetas_tarjeta(p),
+                    'Remates': (_rm or {}).get('totales'),
+                    'Remates a puerta': (_rm or {}).get('a_puerta')},
+                n=MAX_RECOMENDADAS)
+        return bool(_pgs.guardar(p, metidas(recos)))
+    except Exception as e:
+        logger.debug('[modo_modelo] anotar como tarjeta: %s', e)
+        return False
+
+
+def anotar_sin_pintar(pronosticos: List[Dict]) -> int:
+    """
+    v323 — El barrido de anotaciones de `render`, para una vista que no se
+    ejecuta.
+
+    Hasta la v322 las vistas escondidas se ejecutaban con `pintar=False`, y lo
+    único que dejaban fuera de la pantalla era esto: anotar en el registro de
+    pronósticos los partidos evaluados que aún no lo estaban, con su
+    recomendación sin bloques. Se hace aquí igual —mismos partidos, misma
+    lista, sólo-inserción— sin pagar los widgets ni la ordenación.
+    """
+    n = 0
+    try:
+        import pronosticos_guardados as _pgs
+        try:
+            import decisiones_dia as _dd_s
+        except Exception:
+            _dd_s = None
+        for p in (pronosticos or []):
+            if not isinstance(p, dict) or p.get('jugado'):
+                continue
+            if not _entra_en_lista(p) or _pgs.ya_anotado(p):
+                continue
+            _pre = _dd_s.de_pick(p) if _dd_s is not None else None
+            _r = (_pre[1] if _pre is not None
+                  else recomendadas(p, None, n=MAX_RECOMENDADAS))
+            if _r and _pgs.guardar(p, _r):
+                n += 1
+    except Exception as e:
+        logger.debug('[modo_modelo] anotar sin pintar: %s', e)
+    return n
+
+
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 200, con_apuesta: bool = True,
            titulo: str = '⚽ Partidos de hoy',
@@ -3974,6 +4061,25 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     except Exception:
         _pref = None
     _k_orden = '%s_orden' % clave
+    # v323 — desde que sólo se ejecuta la vista elegida, sus widgets no viven
+    # mientras se mira otra y Streamlit borra su estado. La copia con clave
+    # propia lo repone ANTES de crearlos (ver `estado_vistas`); va antes de
+    # las preferencias para que mande lo elegido en ESTA sesión, como cuando
+    # la vista seguía viva escondida.
+    try:
+        import estado_vistas as _ev
+    except Exception:
+        _ev = None
+    _k_altas = '%s_solo_altas' % clave
+    _k_fis = '%s_solo_fisicos' % clave
+    _k_gan = '%s_solo_ganador' % clave
+    _k_estado = '%s_estado_partido' % clave
+    if _ev is not None:
+        _ev.recupera(st, _k_orden, list(ORDENES))
+        _ev.recupera(st, _k_altas)
+        _ev.recupera(st, _k_fis)
+        _ev.recupera(st, _k_gan)
+        _ev.recupera(st, _k_estado, ESTADOS)
     if _pref is not None:
         # el VALOR se comparte, la CLAVE no puede: ver
         # `preferencias_usuario.sincronizar`.
@@ -4035,7 +4141,6 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     # «Hoy (33)» mientras la lista enseñaba 163. El número de la pestaña ya
     # contaba sólo los jugables, así que el defecto nuevo hace que la lista
     # diga lo mismo que el rótulo que la abre.
-    _k_estado = '%s_estado_partido' % clave
     if _pref is not None:
         _pref.recordar(st, _k_estado, por_defecto=ESTADO_SIN_JUGAR)
     estado_sel = st.radio(
@@ -4085,6 +4190,12 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                == '1X2']
         _quito.append('ganador')
 
+    if _ev is not None:
+        _ev.apunta(st, _k_orden, etq_orden)
+        _ev.apunta(st, _k_altas, bool(solo_altas))
+        _ev.apunta(st, _k_fis, bool(solo_fisicos))
+        _ev.apunta(st, _k_gan, bool(solo_ganador))
+        _ev.apunta(st, _k_estado, estado_sel)
     if _pref is not None:
         _pref.confirmar(st, _k_orden, CLAVE_ORDEN, etq_orden)
         _pref.guardar('%s_solo_altas' % clave, bool(solo_altas))
@@ -4176,10 +4287,43 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         else:
             st.info('No hay partidos que cumplan el filtro.')
     elif pintar:
-        for i, p in enumerate(con[:maximo]):
+        # v323 — DE 20 EN 20, Y EL RESTO CON «VER MÁS».
+        #
+        # Se pintaban hasta 200 tarjetas en cada pasada: 107 s en frío al
+        # abrir «Apuestas del Día» y 36 s al pasar a mañana (medido el
+        # 2026-10-03 sobre la v322). La lista, su orden y sus filtros son los mismos; sólo
+        # se dibujan las primeras 20 y el botón trae las siguientes. Al cambiar
+        # un filtro o el orden se vuelve a las 20 primeras, que es lo que se
+        # espera de una lista nueva.
+        _k_ver = '%s_ver' % clave
+        _firma = (str(etq_orden), bool(solo_altas), bool(solo_fisicos),
+                  bool(solo_ganador), str(estado_sel), len(con))
+        try:
+            if st.session_state.get(_k_ver + '_firma') != _firma:
+                st.session_state[_k_ver] = TARJETAS_POR_PAGINA
+                st.session_state[_k_ver + '_firma'] = _firma
+            n_ver = int(st.session_state.get(_k_ver) or TARJETAS_POR_PAGINA)
+        except Exception:
+            n_ver = TARJETAS_POR_PAGINA
+        n_ver = max(1, min(n_ver, maximo))
+        for i, p in enumerate(con[:n_ver]):
             tarjeta(st, p, navegar=navegar, n_boton=i, con_apuesta=con_apuesta)
-        if len(con) > maximo:
-            st.caption('Se muestran %d de %d.' % (maximo, len(con)))
+        if len(con) > n_ver:
+            st.caption('Se muestran %d de %d.' % (n_ver, len(con)))
+        if len(con) > n_ver and n_ver < maximo:
+            def _mas(_k=_k_ver, _n=n_ver):
+                st.session_state[_k] = _n + TARJETAS_POR_PAGINA
+            st.button('Ver más (%d)' % min(TARJETAS_POR_PAGINA,
+                                           min(len(con), maximo) - n_ver),
+                      key='%s_ver_mas' % clave, on_click=_mas,
+                      width='stretch')
+        # Lo que la tarjeta ANOTA no puede depender de cuántas se pintan: el
+        # registro de pronósticos guardaba la versión de la tarjeta (con
+        # córners, tarjetas y remates) de las 200 primeras. Se sigue
+        # guardando esa misma versión de las que ahora esperan detrás de
+        # «Ver más», en el mismo orden. Ver `anotar_como_tarjeta`.
+        for p in con[n_ver:maximo]:
+            anotar_como_tarjeta(p)
 
     # v176 — EL PARTIDO QUE NADIE MIRÓ TAMBIÉN DEJA RASTRO.
     #
