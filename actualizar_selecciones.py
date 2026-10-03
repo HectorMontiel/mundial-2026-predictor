@@ -102,7 +102,13 @@ def nuevos(historico: pd.DataFrame, espn: pd.DataFrame) -> pd.DataFrame:
     hist['date'] = pd.to_datetime(hist['date'])
     e = espn.copy()
     e['date'] = pd.to_datetime(e['date'])
-    e = e[e['date'] > hist['date'].max()].dropna(
+    # Una semana hacia atrás y no «después del último»: ESPN publica tarde
+    # los partidos nocturnos, y uno del mismo día que el último ya guardado
+    # se quedaría fuera para siempre. Los repetidos se descartan abajo por
+    # `MATCH_ID`. (En la primera pasada el último era del 2026-07-15 y venía
+    # de Kaggle; desde entonces el final del histórico sale de aquí mismo, con
+    # los mismos códigos, así que la ventana no puede duplicar un partido.)
+    e = e[e['date'] > hist['date'].max() - pd.Timedelta(days=7)].dropna(
         subset=['home_goals', 'away_goals'])
     cat = _catalogo()
     filas = []

@@ -1,8 +1,8 @@
 {
   "América de Cali": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "America Mineiro W",
-    "ratio": 0.6667,
+    "candidato": "America MG",
+    "ratio": 0.64,
     "visto": "2026-10-03"
   },
   "Atletico Balboa": {
@@ -19,9 +19,9 @@
   },
   "Atlético Tucumán": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico-MG",
-    "ratio": 0.7407,
-    "visto": "2026-10-02"
+    "candidato": "Atletico Atlanta",
+    "ratio": 0.75,
+    "visto": "2026-10-03"
   },
   "Atlético de San Luis": {
     "contexto": "cuotas_mx→futbol",
@@ -31,9 +31,9 @@
   },
   "Barracas Central": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rosario Central 2",
-    "ratio": 0.6061,
-    "visto": "2026-09-30"
+    "candidato": "Central Esp.",
+    "ratio": 0.5185,
+    "visto": "2026-10-03"
   },
   "Belgrano (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
@@ -67,8 +67,8 @@
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Athletic Club U20",
-    "ratio": 0.3448,
+    "candidato": "Club A. Guemes",
+    "ratio": 0.48,
     "visto": "2026-10-03"
   },
   "Cruz Azul": {
@@ -79,8 +79,8 @@
   },
   "Defensor Sporting": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Saku Sporting W",
-    "ratio": 0.6667,
+    "candidato": "Sporting Cascades",
+    "ratio": 0.4706,
     "visto": "2026-10-03"
   },
   "Deportivo Moquegua": {
@@ -91,9 +91,9 @@
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.7429,
-    "visto": "2026-10-02"
+    "candidato": "Deportivo Paraguayo",
+    "ratio": 0.6486,
+    "visto": "2026-10-03"
   },
   "Estudiantes de La Plata": {
     "contexto": "cuotas_mx→futbol",
@@ -103,21 +103,21 @@
   },
   "Estudiantes de Río Cuarto": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CA Estudiantes",
-    "ratio": 0.5641,
+    "candidato": "Rio Verde",
+    "ratio": 0.2941,
     "visto": "2026-10-03"
   },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real San Joaquin",
-    "ratio": 0.4444,
+    "candidato": "San Lorenzo",
+    "ratio": 0.4516,
     "visto": "2026-10-03"
   },
   "Gimnasia y Esgrima (Jujuy)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia L.P.",
-    "ratio": 0.5556,
-    "visto": "2026-10-02"
+    "candidato": "Gimnasia y Tiro",
+    "ratio": 0.6154,
+    "visto": "2026-10-03"
   },
   "Independiente Medellín": {
     "contexto": "cuotas_mx→futbol",
@@ -181,14 +181,14 @@
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "City London",
-    "ratio": 0.3636,
+    "candidato": "London City Lionesses W",
+    "ratio": 0.5581,
     "visto": "2026-10-03"
   },
   "Montevideo Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mulbarton Wanderers",
-    "ratio": 0.6667,
+    "candidato": "S. Wanderers",
+    "ratio": 0.6452,
     "visto": "2026-10-03"
   },
   "Nueva Chicago": {
@@ -201,13 +201,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Fortuna Hjorring W",
     "ratio": 0.4375,
-    "visto": "2026-09-26"
+    "visto": "2026-10-03"
   },
   "Racing (Montevideo)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Club 2",
-    "ratio": 0.4667,
-    "visto": "2026-09-24"
+    "candidato": "Racing Louisville W",
+    "ratio": 0.6471,
+    "visto": "2026-10-03"
   },
   "Real Betis": {
     "candidato": "Real Bedford W",
@@ -241,14 +241,14 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford",
-    "ratio": 0.5926,
+    "candidato": "Real Santander",
+    "ratio": 0.5517,
     "visto": "2026-10-03"
   },
   "San Antonio FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Luis W",
-    "ratio": 0.5263,
+    "candidato": "San Martin T.",
+    "ratio": 0.6087,
     "visto": "2026-10-03"
   },
   "San Diego FC": {
@@ -261,7 +261,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sportivo Italiano",
     "ratio": 0.7273,
-    "visto": "2026-09-25"
+    "visto": "2026-10-03"
   },
   "Técnico Universitario": {
     "candidato": "Tecnico U.",
@@ -299,8 +299,8 @@
   },
   "Ayr United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.7368,
+    "candidato": "Galway United W",
+    "ratio": 0.7826,
     "visto": "2026-10-03"
   },
   "Queen's Park": {
@@ -317,7 +317,7 @@
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
+    "candidato": "CK United",
     "ratio": 0.6087,
     "visto": "2026-10-03"
   },
@@ -383,8 +383,8 @@
   },
   "Peterborough United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sheppey United",
-    "ratio": 0.5455,
+    "candidato": "Mervue United",
+    "ratio": 0.625,
     "visto": "2026-10-03"
   },
   "Sheffield Wednesday": {
@@ -395,57 +395,57 @@
   },
   "Boston United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6154,
-    "visto": "2026-10-02"
+    "candidato": "CK United",
+    "ratio": 0.6364,
+    "visto": "2026-10-03"
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford",
-    "ratio": 0.5714,
+    "candidato": "Real Santander",
+    "ratio": 0.4667,
     "visto": "2026-10-03"
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6429,
-    "visto": "2026-10-02"
+    "candidato": "CK United",
+    "ratio": 0.6667,
+    "visto": "2026-10-03"
   },
   "Rotherham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.5517,
-    "visto": "2026-10-02"
+    "candidato": "Mervue United",
+    "ratio": 0.6207,
+    "visto": "2026-10-03"
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.5333,
+    "candidato": "CK United",
+    "ratio": 0.6154,
     "visto": "2026-10-03"
   },
   "Scunthorpe United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6,
-    "visto": "2026-10-02"
+    "candidato": "CK United",
+    "ratio": 0.6154,
+    "visto": "2026-10-03"
   },
   "Hartlepool United": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Mandel United",
     "ratio": 0.6667,
-    "visto": "2026-10-02"
+    "visto": "2026-10-03"
   },
   "Southend United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6429,
-    "visto": "2026-10-02"
+    "candidato": "Sheppey United",
+    "ratio": 0.6897,
+    "visto": "2026-10-03"
   },
   "Sutton United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mandel United",
-    "ratio": 0.6154,
-    "visto": "2026-10-02"
+    "candidato": "CK United",
+    "ratio": 0.6364,
+    "visto": "2026-10-03"
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
@@ -461,9 +461,9 @@
   },
   "San Miguel": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo W",
-    "ratio": 0.4762,
-    "visto": "2026-10-01"
+    "candidato": "San Felipe",
+    "ratio": 0.6,
+    "visto": "2026-10-03"
   },
   "Central Norte": {
     "contexto": "cuotas_mx→futbol",
@@ -485,9 +485,9 @@
   },
   "Internacional Santa Tecla": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union de Santa Fe W",
-    "ratio": 0.5714,
-    "visto": "2026-10-02"
+    "candidato": "CD Santa Cruz",
+    "ratio": 0.4737,
+    "visto": "2026-10-03"
   },
   "Cruz Azul Hidalgo": {
     "contexto": "cuotas_mx→futbol",
@@ -533,9 +533,9 @@
   },
   "Mineros de Zacatecas": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Zacatecas Mineros",
-    "ratio": 0.4865,
-    "visto": "2026-09-23"
+    "candidato": "Mineros de Fresnillo",
+    "ratio": 0.65,
+    "visto": "2026-10-03"
   },
   "Club Jaiba Brava": {
     "contexto": "cuotas_mx→futbol",
@@ -551,9 +551,9 @@
   },
   "Sportivo Trinidense": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sportivo Barracas",
-    "ratio": 0.6111,
-    "visto": "2026-09-26"
+    "candidato": "Sportivo Italiano",
+    "ratio": 0.6667,
+    "visto": "2026-10-03"
   },
   "Minnesota United FC": {
     "contexto": "cuotas_mx→futbol",
@@ -581,25 +581,25 @@
   },
   "Deportivo Morón": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Riestra 2",
+    "candidato": "Deportivo Paraguayo",
     "ratio": 0.6471,
-    "visto": "2026-10-01"
+    "visto": "2026-10-03"
   },
   "Mitre (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Academia del Balompie",
-    "ratio": 0.3913,
-    "visto": "2026-10-02"
+    "candidato": "Delfines Del Este",
+    "ratio": 0.5714,
+    "visto": "2026-10-03"
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Miguel",
+    "candidato": "San Felipe",
     "ratio": 0.6316,
     "visto": "2026-10-03"
   },
   "San Martín (San Juan)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin Burzaco",
+    "candidato": "San Marino Academy W",
     "ratio": 0.6486,
     "visto": "2026-10-03"
   },
@@ -611,8 +611,8 @@
   },
   "Deportivo Maipú": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.75,
+    "candidato": "Deportivo Paraguayo",
+    "ratio": 0.7059,
     "visto": "2026-10-03"
   },
   "Racing (Córdoba)": {
@@ -623,13 +623,13 @@
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cruz A.",
-    "ratio": 0.4,
-    "visto": "2026-10-02"
+    "candidato": "CD Santa Cruz",
+    "ratio": 0.3243,
+    "visto": "2026-10-03"
   },
   "New Mexico United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
+    "candidato": "CK United",
     "ratio": 0.6154,
     "visto": "2026-10-03"
   },
@@ -647,15 +647,15 @@
   },
   "C.D. Platense": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Platense 2",
-    "ratio": 0.7273,
-    "visto": "2026-09-29"
+    "candidato": "Platense Municipal",
+    "ratio": 0.5333,
+    "visto": "2026-10-03"
   },
   "Colón (Santa Fe)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union de Santa Fe W",
-    "ratio": 0.7097,
-    "visto": "2026-10-01"
+    "candidato": "CD Santa Cruz",
+    "ratio": 0.5926,
+    "visto": "2026-10-03"
   },
   "Almirante Brown": {
     "contexto": "cuotas_mx→futbol",
@@ -671,75 +671,75 @@
   },
   "Cheltenham Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.6,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.4828,
+    "visto": "2026-10-03"
   },
   "Fleetwood Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.4138,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.5,
+    "visto": "2026-10-03"
   },
   "Mansfield Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Hanwell Town",
-    "ratio": 0.6923,
+    "candidato": "Newbridge Town",
+    "ratio": 0.5714,
     "visto": "2026-10-03"
   },
   "Crawley Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Yate Town",
-    "ratio": 0.6667,
+    "candidato": "Newbridge Town",
+    "ratio": 0.5385,
     "visto": "2026-10-03"
   },
   "Aldershot Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.4828,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.5,
+    "visto": "2026-10-03"
   },
   "Harrogate Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.6897,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.5714,
+    "visto": "2026-10-03"
   },
   "Grimsby Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.5185,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.5385,
+    "visto": "2026-10-03"
   },
   "Yeovil Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.4615,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.56,
+    "visto": "2026-10-03"
   },
   "Shrewsbury Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.4667,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.6207,
+    "visto": "2026-10-03"
   },
   "Northampton Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Barton Town",
-    "ratio": 0.6667,
+    "candidato": "Newbridge Town",
+    "ratio": 0.4667,
     "visto": "2026-10-03"
   },
   "Swindon Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.4444,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.6154,
+    "visto": "2026-10-03"
   },
   "FC Halifax Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.4667,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.4138,
+    "visto": "2026-10-03"
   },
   "Houston Dynamo FC": {
     "contexto": "cuotas_mx→futbol",
@@ -755,39 +755,39 @@
   },
   "Sporting Gijón": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Saku Sporting W",
-    "ratio": 0.5926,
+    "candidato": "Sporting Cascades",
+    "ratio": 0.5806,
     "visto": "2026-10-03"
   },
   "Boston River": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Boston Utd",
-    "ratio": 0.6364,
+    "candidato": "River Plate W",
+    "ratio": 0.4348,
     "visto": "2026-10-03"
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico-MG",
-    "ratio": 0.7097,
-    "visto": "2026-10-02"
+    "candidato": "Atletico Atlanta",
+    "ratio": 0.7222,
+    "visto": "2026-10-03"
   },
   "Atlético Goianiense": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Atletico GO",
     "ratio": 0.7333,
-    "visto": "2026-10-02"
+    "visto": "2026-10-03"
   },
   "Club Atlético Morelia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Social Atletico Television W",
-    "ratio": 0.6383,
-    "visto": "2026-10-02"
+    "candidato": "Atletico Colina",
+    "ratio": 0.7222,
+    "visto": "2026-10-03"
   },
   "Atlético Junior": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Atletico GO",
     "ratio": 0.7692,
-    "visto": "2026-10-02"
+    "visto": "2026-10-03"
   },
   "Atletico Rafaela": {
     "contexto": "cuotas_mx→futbol",
@@ -827,9 +827,9 @@
   },
   "Forest Green Rovers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Bristol Rovers",
-    "ratio": 0.6061,
-    "visto": "2026-10-02"
+    "candidato": "Letterkenny Rovers",
+    "ratio": 0.5405,
+    "visto": "2026-10-03"
   },
   "Tranmere Rovers": {
     "contexto": "cuotas_mx→futbol",
@@ -851,8 +851,8 @@
   },
   "AFC Wimbledon": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Fylde",
-    "ratio": 0.5455,
+    "candidato": "AFC Toronto W",
+    "ratio": 0.5,
     "visto": "2026-10-03"
   },
   "AFC Hornchurch": {
@@ -907,7 +907,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "America MG",
     "ratio": 0.72,
-    "visto": "2026-10-02"
+    "visto": "2026-10-03"
   },
   "Los Chankas": {
     "contexto": "cuotas_mx→futbol",
@@ -965,14 +965,14 @@
   },
   "Oldham Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Redcar Athletic",
-    "ratio": 0.7333,
+    "candidato": "Athletic Club U20",
+    "ratio": 0.5,
     "visto": "2026-10-03"
   },
   "Wigan Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Redcar Athletic",
-    "ratio": 0.6897,
+    "candidato": "Athletic Club U20",
+    "ratio": 0.5161,
     "visto": "2026-10-03"
   },
   "Unión (Santa Fe)": {
@@ -989,14 +989,14 @@
   },
   "Huddersfield Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carmarthen Town",
-    "ratio": 0.4375,
-    "visto": "2026-10-02"
+    "candidato": "Newbridge Town",
+    "ratio": 0.4516,
+    "visto": "2026-10-03"
   },
   "Luton Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Barton Town",
-    "ratio": 0.7619,
+    "candidato": "Newbridge Town",
+    "ratio": 0.5,
     "visto": "2026-10-03"
   },
   "Fortaleza CEIF": {
@@ -1037,14 +1037,14 @@
   },
   "Gimnasia (Mendoza)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia L.P.",
-    "ratio": 0.6429,
-    "visto": "2026-10-02"
+    "candidato": "Gimnasia y Tiro",
+    "ratio": 0.6452,
+    "visto": "2026-10-03"
   },
   "Deportivo Riestra": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.7059,
+    "candidato": "Deportivo Paraguayo",
+    "ratio": 0.6667,
     "visto": "2026-10-03"
   },
   "Central Córdoba (Santiago del Estero)": {
@@ -1055,20 +1055,44 @@
   },
   "Raith Rovers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Bristol Rovers",
-    "ratio": 0.7692,
+    "candidato": "Sligo Rovers W",
+    "ratio": 0.6667,
     "visto": "2026-10-03"
   },
   "Doncaster Rovers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Bristol Rovers",
-    "ratio": 0.6,
+    "candidato": "Letterkenny Rovers",
+    "ratio": 0.5882,
     "visto": "2026-10-03"
   },
   "Milton Keynes Dons": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "SE Dons",
     "ratio": 0.48,
+    "visto": "2026-10-03"
+  },
+  "Bristol Rovers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sligo Rovers W",
+    "ratio": 0.6923,
+    "visto": "2026-10-03"
+  },
+  "Plymouth Argyle": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Plymouth Parkway",
+    "ratio": 0.7742,
+    "visto": "2026-10-03"
+  },
+  "El Paso Locomotive FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Atl. Paso",
+    "ratio": 0.4615,
+    "visto": "2026-10-03"
+  },
+  "Rosario Central": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "AD Rosario",
+    "ratio": 0.56,
     "visto": "2026-10-03"
   }
 }
