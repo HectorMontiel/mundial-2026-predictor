@@ -170,34 +170,39 @@ def probar_huella(doc):
     check(canon(p[dd.CLAVE_PICK]) == a, '`de_pick` entrega copias')
 
 
+class _Caja:
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *a):
+        return False
+
+
+class St:
+    """Un Streamlit de mentira: los widgets devuelven su valor por defecto."""
+    session_state = {}
+
+    def __getattr__(self, n):
+        def f(*a, **k):
+            if n == 'columns':
+                k_ = a[0] if a else 2
+                return [_Caja() for _ in range(k_ if isinstance(k_, int) else len(k_))]
+            if n in ('expander', 'container'):
+                return _Caja()
+            if n == 'selectbox':
+                return 'Hora'
+            if n == 'radio':
+                import modo_modelo as mm
+                return mm.ESTADO_TODOS
+            return False
+        return f
+
+
 def probar_render(doc):
     """`render` lee lo precalculado y deja lo mismo que calculando."""
     import decisiones_dia as dd
     import modo_modelo as mm
 
-    class _Caja:
-        def __enter__(self):
-            return self
-
-        def __exit__(self, *a):
-            return False
-
-    class St:
-        session_state = {}
-
-        def __getattr__(self, n):
-            def f(*a, **k):
-                if n == 'columns':
-                    k_ = a[0] if a else 2
-                    return [_Caja() for _ in range(k_ if isinstance(k_, int) else len(k_))]
-                if n in ('expander', 'container'):
-                    return _Caja()
-                if n == 'selectbox':
-                    return 'Hora'
-                if n == 'radio':
-                    return mm.ESTADO_TODOS
-                return False
-            return f
     import pronosticos_guardados as pg
     check(pg.FICHERO.startswith(TMP), 'el registro de la prueba va a un temporal')
     pg.recargar()
@@ -223,6 +228,120 @@ def probar_render(doc):
            != canon([q.get(c) for c in ('_destacada', '_recomendadas', '_recomendada')])]
     check(not dif, '`render` deja en cada partido lo mismo que calculando '
           '(%d partidos)%s' % (len(lista_v), '' if not dif else ': %s' % dif[:3]))
+
+
+def _registro(pg, nombre):
+    """Apunta el registro de pronósticos a un temporal vacío."""
+    pg.FICHERO = os.path.join(TMP, nombre)
+    if os.path.exists(pg.FICHERO):
+        os.remove(pg.FICHERO)
+    pg.recargar()
+
+
+def _leido(pg):
+    """El registro sin la fecha de anotación (es la de hoy en los dos)."""
+    pg.volcar()
+    d = json.load(open(pg.FICHERO, encoding='utf-8')) if os.path.exists(pg.FICHERO) else {}
+    return canon({k: {c: v for c, v in e.items() if c != 'anotado'}
+                  for k, e in d.items()})
+
+
+def probar_registro(doc):
+    """
+    PASO 2 — el registro de pronósticos emitidos no cambia por pintar menos.
+
+    Antes: la vista visible pintaba hasta 200 tarjetas (cada una anota su
+    versión con córners, tarjetas y remates) y las escondidas se ejecutaban
+    con `pintar=False` (anotando la versión sin bloques). Ahora se pintan 20,
+    y las escondidas no se ejecutan. Lo anotado tiene que ser idéntico.
+    """
+    import modo_modelo as mm
+    import pronosticos_guardados as pg
+    import decisiones_dia as dd
+    st = St()
+    base = copy.deepcopy(doc)
+    dd.adjuntar(base)
+    lista = [p for p in base['datos']['pronosticos']][:45]
+    # 1) la vista visible: 200 tarjetas pintadas (como antes) contra 20
+    _registro(pg, 'antes.json')
+    pagina = mm.TARJETAS_POR_PAGINA
+    pintadas = []
+    _t = mm.tarjeta
+    mm.tarjeta = lambda *a, **k: pintadas.append(1) or _t(*a, **k)
+    try:
+        mm.TARJETAS_POR_PAGINA = 200
+        with pg.lote():
+            mm.render(st, copy.deepcopy(lista), pintar=True)
+        antes, n_antes = _leido(pg), len(pintadas)
+        _registro(pg, 'despues.json')
+        del pintadas[:]
+        st.session_state.clear()
+        mm.TARJETAS_POR_PAGINA = pagina
+        with pg.lote():
+            mm.render(st, copy.deepcopy(lista), pintar=True)
+        despues, n_despues = _leido(pg), len(pintadas)
+    finally:
+        mm.tarjeta = _t
+        mm.TARJETAS_POR_PAGINA = pagina
+    check(n_despues <= pagina < n_antes,
+          'se pintan %d tarjetas en vez de %d' % (n_despues, n_antes))
+    check(antes == despues and len(json.loads(antes)) > 0,
+          'el registro es idéntico pintando %d o %d tarjetas (%d partidos)'
+          % (n_antes, n_despues, len(json.loads(antes))))
+    # 2) una vista escondida: antes `render(pintar=False)`, ahora
+    #    `anotar_sin_pintar`
+    _registro(pg, 'oculta_antes.json')
+    with pg.lote():
+        mm.render(st, copy.deepcopy(lista), pintar=False)
+    antes = _leido(pg)
+    _registro(pg, 'oculta_despues.json')
+    with pg.lote():
+        n = mm.anotar_sin_pintar(copy.deepcopy(lista))
+    despues = _leido(pg)
+    check(antes == despues and n == len(json.loads(antes)) > 0,
+          'una vista que no se ejecuta anota lo mismo que cuando se '
+          'ejecutaba escondida (%d partidos)' % n)
+    # 3) y sin decisiones precalculadas (JSON viejo), lo mismo
+    viejo = copy.deepcopy(doc)
+    viejo.pop('decisiones')
+    lista_v = [p for p in viejo['datos']['pronosticos']][:45]
+    _registro(pg, 'viejo.json')
+    with pg.lote():
+        mm.anotar_sin_pintar(copy.deepcopy(lista_v))
+    check(_leido(pg) == despues,
+          'con un JSON sin decisiones se anota exactamente lo mismo')
+
+
+def probar_vistas():
+    """PASO 2 — las copias de los controles de una vista que no se ejecuta."""
+    import estado_vistas as ev
+    st = St()
+    st.session_state.clear()
+    st.session_state['mm_orden'] = 'Hora'
+    ev.apunta(st, 'mm_orden', 'Apuesta recomendada')
+    ev.recupera(st, 'mm_orden', ['Hora', 'Apuesta recomendada'])
+    check(st.session_state['mm_orden'] == 'Hora',
+          'si el widget ya vive en la pasada, la copia no lo pisa')
+    del st.session_state['mm_orden']        # lo que hace Streamlit al ocultar
+    ev.recupera(st, 'mm_orden', ['Hora', 'Apuesta recomendada'])
+    check(st.session_state.get('mm_orden') == 'Apuesta recomendada',
+          'al volver a la vista, el control recupera lo que el usuario dejó')
+    ev.apunta(st, 'parlay_base', 'una pata que hoy ya no está')
+    ev.recupera(st, 'parlay_base', ['otra'])
+    check('parlay_base' not in st.session_state,
+          'una copia que ya no es opción válida no se repone (no revienta '
+          'el selector)')
+    ev.apunta(st, 'patas_sel', ['a', 'zz'])
+    ev.recupera(st, 'patas_sel', ['a', 'b'])
+    check(st.session_state.get('patas_sel') == ['a'],
+          'en una selección múltiple sólo vuelven las opciones que siguen')
+    src = open('dashboard_ui.py', encoding='utf-8').read()
+    check("display:none !important;}' % k" not in src,
+          'ya no se esconden vistas con CSS: sólo se ejecuta la elegida')
+    check('st.fragment(_lista_dia)' in src,
+          'la lista y sus filtros van en un fragmento')
+    check(src.count('_anotar_vista(') >= 4,
+          'las vistas que no se ejecutan siguen anotando sus partidos')
 
 
 def probar_selecciones():
@@ -298,6 +417,9 @@ if __name__ == '__main__':
     print('\n=== 4. render ===')
     probar_render(doc)
     probar_cableado()
+    print('\n=== 5. paso 2: pintar sólo lo que se ve ===')
+    probar_registro(doc)
+    probar_vistas()
     print('\n=== selecciones: el motor al día ===')
     probar_selecciones()
     shutil.rmtree(TMP, ignore_errors=True)
