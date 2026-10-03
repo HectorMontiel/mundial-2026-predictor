@@ -469,6 +469,7 @@ def entrenar(guardar: bool = True) -> Dict:
            'corte_juicio': str(corte.date()), 'n': int(len(df)),
            'n_juicio': int(len(jui)), 'codigos': codigos, 'rasgos': RASGOS,
            'medicion': {}, 'modelos': {}, 'patrones': patrones(df)}
+    oos = {}       # v326 — lo que predijo cada corrector en el juicio
     for nombre, (y_col, p_col) in OBJETIVOS.items():
         e = ele.dropna(subset=[y_col, p_col])
         j = jui.dropna(subset=[y_col, p_col])
@@ -554,6 +555,11 @@ def entrenar(guardar: bool = True) -> Dict:
                        'temporada (zonas y 4+ goles)' if temporada else
                        'forma reciente' if nuevos else 'tabla y medias'),
             'activo': activo}
+        if activo:
+            import pandas as _pd
+            oos[nombre] = _pd.Series(
+                p_v4 if tabla_t else p_v3 if temporada else
+                p_new if nuevos else p_v1, index=j.index)
         logger.info('[patrones] %-16s mejora %+.5f p5 %+.5f (%s) -> %s',
                     nombre, dif.mean(), p5,
                     'v2' if nuevos else 'v1', 'ACTIVO' if activo else 'apagado')
@@ -565,6 +571,14 @@ def entrenar(guardar: bool = True) -> Dict:
                 categorical_feature=['liga_cod']), num_boost_round=RONDAS)
             doc['modelos'][nombre] = final.model_to_string()
             doc.setdefault('rasgos_modelo', {})[nombre] = list(rasgos_ok)
+    try:
+        doc['btts_derivada'] = _btts_derivada(ele, jui, oos, rng)
+        logger.info('[patrones] ambos marcan derivado: mejora %+.5f p5 %+.5f -> %s',
+                    doc['btts_derivada'].get('mejora', 0),
+                    doc['btts_derivada'].get('p5', 0),
+                    'ACTIVO' if doc['btts_derivada'].get('activo') else 'apagado')
+    except Exception as e:
+        logger.warning('[patrones] ambos marcan derivado: %s', e)
     if guardar:
         tmp = FICHERO + '.nuevo'
         with open(tmp, 'w', encoding='utf-8', newline='\n') as f:
@@ -572,6 +586,76 @@ def entrenar(guardar: bool = True) -> Dict:
         os.replace(tmp, FICHERO)
         olvidar()
     return doc
+
+
+# ---------------------------------------------------------------------------
+# v326 — AMBOS MARCAN, DERIVADO DE «MARCA EL LOCAL» Y «MARCA EL VISITANTE».
+#
+# El usuario: «si hay ligas donde hay ambos marcan y los dos equipos en su
+# histórico reciente tienen buena cantidad de goles, podríamos poner ambos
+# marcan». Medido en `_v326_patrones.py` (80.830 partidos): en esos partidos
+# ambos marcan pasa el 60-63 % y el modelo crudo decía 54-55 %; pero el
+# corrector directo de «ambos marcan» no le gana al calibrador por liga (p5
+# negativo, igual que en la v302). Lo que SÍ funciona es construirlo con los
+# dos correctores que ya ganan —«marca el local» y «marca el visitante»—:
+# ambos marcan es que marquen los dos.
+#
+# La mezcla (una logística sobre el producto, las dos marginales y el ambos
+# marcan de siempre) se ajusta con la primera mitad del juicio y se juzga en
+# la segunda, contra el calibrador por liga. Se activa sólo con p5 > 0, y se
+# vuelve a decidir cada semana con `recalibrar.yml`.
+# ---------------------------------------------------------------------------
+def _z_btts(ph, pa, pb):
+    import numpy as np
+    ph, pa, pb = (np.clip(np.asarray(x, dtype=float), 1e-3, 1 - 1e-3)
+                  for x in (ph, pa, pb))
+    return np.column_stack([_logit(ph * pa), _logit(ph), _logit(pa), _logit(pb)])
+
+
+def _btts_derivada(ele, jui, oos, rng) -> Dict:
+    import numpy as np
+    from sklearn.linear_model import LogisticRegression
+    if 'marca_local' not in oos or 'marca_visitante' not in oos:
+        return {'activo': False, 'motivo': 'falta un corrector de «marca»'}
+    j = jui.loc[oos['marca_local'].index.intersection(oos['marca_visitante'].index)]
+    j = j.dropna(subset=['btts_real', 'p_btts'])
+    pb = _base_calibrada(ele.dropna(subset=['btts_real', 'p_btts']), j,
+                         'btts_real', 'p_btts')
+    Z = _z_btts(oos['marca_local'].loc[j.index], oos['marca_visitante'].loc[j.index], pb)
+    y = j['btts_real'].astype(int).to_numpy()
+    mitad = len(j) // 2               # el juicio va en orden de fecha
+    mez = LogisticRegression(C=10.0, max_iter=2000).fit(Z[:mitad], y[:mitad])
+    p2 = mez.predict_proba(Z[mitad:])[:, 1]
+    dif = _ll(y[mitad:], pb[mitad:]) - _ll(y[mitad:], p2)
+    idx = rng.integers(0, len(dif), size=(2000, len(dif)))
+    p5 = float(np.percentile(dif[idx].mean(axis=1), 5))
+    activo = bool(dif.mean() > 0 and p5 > 0)
+    final = LogisticRegression(C=10.0, max_iter=2000).fit(Z, y)
+    tabla = {}
+    for nom, pr in (('calibrador', pb[mitad:]), ('derivada', p2)):
+        s = pr >= 0.60
+        tabla[nom] = {'n': int(s.sum()),
+                      'prometido': round(float(pr[s].mean()), 3) if s.any() else None,
+                      'real': round(float(y[mitad:][s].mean()), 3) if s.any() else None}
+    return {'activo': activo, 'mejora': round(float(dif.mean()), 5),
+            'p5': round(p5, 5), 'n_juicio': int(len(dif)),
+            'coef': [float(c) for c in final.coef_[0]],
+            'intercepto': float(final.intercept_[0]),
+            'si_60_o_mas': tabla}
+
+
+def btts_derivada(ph: float, pa: float, p_btts: float) -> Optional[float]:
+    """Ambos marcan con lo aprendido, o None si no está activo. Nunca lanza."""
+    try:
+        b = (cargar() or {}).get('btts_derivada') or {}
+        if not b.get('activo') or not b.get('coef'):
+            return None
+        z = _z_btts([ph], [pa], [p_btts])[0]
+        v = b['intercepto'] + sum(c * x for c, x in zip(b['coef'], z))
+        return 1.0 / (1.0 + math.exp(-v))
+    except Exception as e:
+        logger.debug('[patrones] ambos marcan derivado: %s', e)
+        return None
 
 
 # ---------------------------------------------------------------------------
@@ -838,7 +922,29 @@ def ajustar(pick: Dict, ahora=None) -> bool:
                 nuevo_lado[k] = round(_mover(pv, d_), 4)
             ge[lado] = _ordenada(nuevo_lado)
         pick['goles_equipo'] = ge
+        # v326 — ambos marcan, con los dos «marca» ya corregidos
+        btts_info = None
+        try:
+            ph_n = _p((ge.get('local') or {}).get('0.5'))
+            pa_n = _p((ge.get('visitante') or {}).get('0.5'))
+            b_ = pick.get('board') or {}
+            pb_v = _p(b_.get('Ambos marcan: Sí'))
+            if ph_n is not None and pa_n is not None and pb_v is not None:
+                nuevo = btts_derivada(ph_n, pa_n, pb_v)
+                if nuevo is not None:
+                    nuevo = round(min(0.99, max(0.01, nuevo)), 3)
+                    b_['Ambos marcan: Sí'] = nuevo
+                    b_['Ambos marcan: No'] = round(1 - nuevo, 3)
+                    for m in (pick.get('mercados') or []):
+                        if m.get('apuesta') == 'Ambos marcan: Sí':
+                            m['prob'] = nuevo
+                        elif m.get('apuesta') == 'Ambos marcan: No':
+                            m['prob'] = round(1 - nuevo, 3)
+                    btts_info = {'antes': round(pb_v, 3), 'despues': nuevo}
+        except Exception as _e_b:
+            logger.debug('[patrones] ambos marcan %s: %s', pick.get('partido'), _e_b)
         pick['patron_liga'] = {
+            'btts': btts_info,
             'tercio_local': tercio(f.get('pct_h')),
             'tercio_visitante': tercio(f.get('pct_a')),
             'desplazamiento': {k: round(v, 3) for k, v in cambios.items()},
