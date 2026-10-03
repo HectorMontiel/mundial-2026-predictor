@@ -53,7 +53,11 @@ def probar_regla():
     check(abs(mm.prob_favorito({'partido': 'A vs B', 'board': {'Gana A': 0.7, 'Gana B': 0.1}}) - 0.7) < 1e-9,
           'y si no hay casa, del modelo')
     src = open('modo_modelo.py', encoding='utf-8').read()
-    check('corners_equipo_sin_favorito(v, _fav)' in src, 'la regla está en la decisión de «meter»')
+    # v324 — las reglas de «meter» se juntaron en `_motivo_fuera`, que usan la
+    # línea elegida y la que la sustituye
+    check('corners_equipo_sin_favorito(v, fav)' in src
+          and '_motivo_fuera(v, _fav, _lam_ck)' in src,
+          'la regla está en la decisión de «meter»')
 
 
 if __name__ == '__main__':

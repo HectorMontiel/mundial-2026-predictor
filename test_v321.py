@@ -61,7 +61,10 @@ def probar_regla():
     g = {'veredicto': 'meter', 'mercado': 'Goles', 'pick': {'mercado': 'Goles', 'apuesta': 'Goles: Menos de 3.5'}}
     check(mm.corners_margen_corto(g, lam) is None, 'a los goles no se les aplica (medido: no ayuda)')
     src = open('modo_modelo.py', encoding='utf-8').read()
-    check('corners_margen_corto(v, _lam_ck)' in src, 'la regla está en la decisión de «meter»')
+    # v324 — ver `_motivo_fuera`
+    check('corners_margen_corto(v, lam)' in src
+          and '_motivo_fuera(v, _fav, _lam_ck)' in src,
+          'la regla está en la decisión de «meter»')
 
 
 if __name__ == '__main__':

@@ -1914,14 +1914,22 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
             _lam_ck = lambdas_corners(pick, bloques)
             for v in _vers:
                 if v.get('veredicto') == _vp.METER:
-                    _fuera = _vp.franja_futbol(v)
-                    if not _fuera:
-                        _fuera = corners_equipo_sin_favorito(v, _fav)
-                    if not _fuera:
-                        _fuera = corners_margen_corto(v, _lam_ck)
+                    _fuera = _motivo_fuera(v, _fav, _lam_ck)
                     if _fuera:
                         v['veredicto'] = _vp.NO_METER
                         v.setdefault('razones', []).append(_fuera)
+            # v324 — SI LA LÍNEA ELEGIDA NO SE METE, OTRA DEL MISMO MERCADO
+            # QUE SÍ. Ver `_otra_linea_que_se_mete`.
+            _lineas = None
+            for _k, v in enumerate(_vers):
+                if v.get('veredicto') == _vp.METER:
+                    continue
+                if _lineas is None:
+                    _lineas = _lineas_dignas(pick, bloques)
+                _otra = _otra_linea_que_se_mete(pick, v['pick'], _lineas,
+                                                _fav, _lam_ck)
+                if _otra is not None:
+                    _vers[_k] = _otra
             _vers.sort(key=lambda v: (v['veredicto'] != _vp.METER,
                                       -float(v.get('prob_ajustada') or 0)))
             candidatas = []
@@ -1985,6 +1993,97 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
     for _i, _c in enumerate(candidatas[:n]):
         _c['puesto_valor'] = _i + 1
     return candidatas[:n]
+
+
+def _motivo_fuera(v: Dict, fav: Optional[float], lam: Dict) -> Optional[str]:
+    """Por qué un «meter» del veredicto NO se mete en la tarjeta (la franja
+    de fútbol de la v312 y las dos reglas de córners), o None."""
+    import veredicto_pick as _vp
+    return (_vp.franja_futbol(v) or corners_equipo_sin_favorito(v, fav)
+            or corners_margen_corto(v, lam))
+
+
+# v324 — LA LÍNEA QUE SE METE, NO SÓLO LA MÁS PROBABLE.
+#
+# El usuario: «quiero que valides si de verdad no hay nada que meter… y los
+# que sí deben tener algo, hay que mejorarlo». Medido en `_v324_nada.py`: la
+# réplica de la v312 (610 partidos del 19-sep al 3-oct, última foto previa a
+# cada uno, precios de Playdoit, históricos recortados), pero guardando TODAS
+# las líneas de cada mercado y no sólo la que preselecciona `valor_apuesta`.
+#
+# El defecto: `valor_apuesta.mejores` se queda con UNA línea por mercado —la
+# más probable— y la regla de «meter» (franja 70-80 %, cuota < 1,35,
+# córners) se aplica DESPUÉS. Si esa línea se pasa de la franja («Menos de
+# 3,5» al 84 %), el mercado entero quedaba fuera aunque otra línea suya
+# («Más de 1,5» al 76 %) cumpliera todo. De ahí salían muchos «Nada que
+# meter»: en esos partidos, las líneas que pasaban la regla y nadie miraba
+# acertaron el 78,9 %, más que lo que ya se metía (77,5 %).
+#
+# Ahora, cuando la línea elegida no se mete, se busca en el MISMO mercado la
+# línea que sí, con la misma regla; si hay varias, la de más probabilidad
+# corregida. Lo que ya se metía no se toca. Resultado (simulación de la
+# tarjeta, días ≤ 26-sep para elegir / 27-sep → 3-oct para juzgar):
+#
+#                       antes                     ahora
+#     elige          77,0 % (435, 100 rojos)   77,7 % (461, 103 rojos)
+#     juzga          78,2 % (307,  67 rojos)   78,5 % (344,  74 rojos)
+#     sin nada       118 de 610 partidos       102 de 610
+#
+# Las 90 apuestas que entran aciertan 79,5 % / 78,4 % en los dos tramos
+# (goles de equipo 47, córners 28, goles 10, doble oportunidad 5); las 26
+# que desplazan, 61,5 %.
+# Mismo acierto o algo más, con más partidos con algo que meter.
+#
+# Y lo que se probó y NO se adopta: rescatar en los partidos sin nada la
+# apuesta de la franja con cuota ≥ 1,35 (en esos partidos acertó 83 % al
+# elegir, pero 4 casos al juzgar; en el resto de partidos esa misma apuesta
+# acierta ~70 %). Es ruido, no un patrón.
+def _lineas_dignas(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
+    """Todas las líneas que `valor_apuesta.mejores` consideraría (los mismos
+    mínimos), de todos los mercados. Nunca lanza."""
+    try:
+        import valor_apuesta as va
+        filas = va.candidatos(pick, bloques) or []
+        dignas = [f for f in filas
+                  if f.get('score') is not None
+                  and f['prob'] >= va.PROB_SUELO_DURO
+                  and f['prob'] <= va.PROB_MAXIMA_RECO
+                  and (f.get('cuota') or 0.0) >= va.CUOTA_DECENTE]
+        return dignas or [f for f in filas if f.get('cuota')]
+    except Exception as e:
+        logger.debug('[modo_modelo] líneas: %s', e)
+        return []
+
+
+def _otra_linea_que_se_mete(pick: Dict, malo: Dict, lineas: List[Dict],
+                            fav: Optional[float], lam: Dict) -> Optional[Dict]:
+    """El veredicto de la línea del mismo mercado que `malo` que sí se mete
+    (la de más probabilidad corregida; a igualdad, la de más cuota), o None."""
+    import veredicto_pick as _vp
+    mercado = str(malo.get('mercado') or '')
+    mejor = None
+    for f in lineas:
+        if (str(f.get('mercado') or '') != mercado
+                or f.get('apuesta') == malo.get('apuesta')):
+            continue
+        try:
+            c = _enriquece(pick, dict(
+                f, baja_probabilidad=malo.get('baja_probabilidad'),
+                puesto_valor=malo.get('puesto_valor')))
+            v = dict(_vp.evaluar(c, con_contexto=False), pick=c)
+        except Exception as e:
+            logger.debug('[modo_modelo] otra línea: %s', e)
+            continue
+        if v.get('veredicto') != _vp.METER or _motivo_fuera(v, fav, lam):
+            continue
+        # a igual probabilidad («Más de 7» y «Más de 7.5» de córners salen
+        # con la misma), la que paga más
+        if mejor is None or ((float(v.get('prob_ajustada') or 0),
+                              float(c.get('cuota') or 0))
+                             > (float(mejor.get('prob_ajustada') or 0),
+                                float(mejor['pick'].get('cuota') or 0))):
+            mejor = v
+    return mejor
 
 
 # v320 — LOS CÓRNERS DE UN EQUIPO, SÓLO CON FAVORITO CLARO.
@@ -3870,6 +3969,130 @@ def anotar_sin_pintar(pronosticos: List[Dict]) -> int:
     return n
 
 
+def nada_que_meter(p: Dict) -> bool:
+    """
+    v324 — Si la tarjeta de este partido (sin jugar) no mete nada.
+
+    La misma cuenta que la tarjeta: con modelo, `metidas` de las recomendadas
+    con córners, tarjetas y remates, leídas del precálculo del cron (ver
+    `decisiones_dia`); sin modelo propio, la regla de mercado; sin modelo ni
+    regla, nada. Si el precálculo no vale y las recomendadas sin bloques ya
+    meten algo, la respuesta es «no» sin más cuenta (los bloques no quitan un
+    «meter»: van detrás en el orden). Si no se puede saber sin calcular los
+    bloques —0,1 s por partido, cientos de partidos—, se dice que no y el
+    partido se queda en la lista como siempre. Nunca lanza.
+    """
+    try:
+        if not isinstance(p, dict) or p.get('jugado'):
+            return False
+        if p.get('solo_mercado'):
+            _r = p.get('_recomendadas')
+            if _r is None:
+                _r = recomendadas(p, None, n=MAX_RECOMENDADAS)
+            return not metidas(list(_r or []))
+        if p.get('sin_modelo') or p.get('prob') is None:
+            return True
+        recos = None
+        try:
+            import decisiones_dia as _dd_n
+            recos = _dd_n.tarjeta_de_pick(p)
+        except Exception:
+            recos = None
+        if recos is not None:
+            return not metidas(recos)
+        return False
+    except Exception as e:
+        logger.debug('[modo_modelo] nada que meter: %s', e)
+        return False
+
+
+def por_que_no(p: Dict) -> str:
+    """v324 — En una línea, por qué este partido no tiene nada que meter:
+    la apuesta que más se acercó y la regla que la deja fuera."""
+    if p.get('solo_mercado'):
+        return ('sin modelo propio, y ningún precio de la casa entra en su '
+                'regla (80-90 %, cuota 1,10-1,35)')
+    if p.get('sin_modelo') or p.get('prob') is None:
+        return 'sin modelo propio para esta competición'
+    recos = None
+    try:
+        import decisiones_dia as _dd_w
+        recos = _dd_w.tarjeta_de_pick(p)
+    except Exception:
+        recos = None
+    if recos is None:
+        recos = p.get('_recomendadas') or []
+    r = recos[0] if recos else None
+    if not r:
+        return 'ninguna apuesta llega al 50 % con una cuota de 1,20 o más'
+    try:
+        import veredicto_pick as _vp
+        pm = r.get('prob_meter')
+        pm = float(pm if pm is not None else r.get('prob'))
+        cuota = r.get('cuota')
+        mercado = str(r.get('mercado') or '')
+        txt = '%s (%.0f %%%s)' % (r.get('apuesta'), 100 * pm,
+                                   ', cuota %.2f' % float(cuota) if cuota else '')
+        if mercado in _vp.MERCADOS_NO_METER_FUTBOL:
+            por = '«%s» falla más de lo que promete' % mercado
+        elif pm < _vp.METER_FUTBOL_MIN:
+            por = 'no llega al %d %%' % round(100 * _vp.METER_FUTBOL_MIN)
+        elif pm > _vp.METER_FUTBOL_MAX:
+            por = ('pasa del %d %%: ahí falla más de lo que promete'
+                   % round(100 * _vp.METER_FUTBOL_MAX))
+        elif cuota and float(cuota) >= _vp.CUOTA_METER_FUTBOL_MAX:
+            por = ('cuota de %.2f o más: ahí salen más rojos'
+                   % _vp.CUOTA_METER_FUTBOL_MAX)
+        elif mercado == 'Córners':
+            por = 'córners sin favorito claro o con la línea pegada a lo esperado'
+        else:
+            por = 'no pasa la regla de «meter»'
+        return 'la más cercana, %s: %s' % (txt, por)
+    except Exception as e:
+        logger.debug('[modo_modelo] por qué no: %s', e)
+        return 'ninguna apuesta pasa la regla de «meter»'
+
+
+def _pintar_sin_nada(st, partidos: List[Dict], clave: str, *,
+                     navegar: Optional[Callable] = None,
+                     con_apuesta: bool = True) -> None:
+    """v324 — El desplegable de los partidos sin nada que meter: una línea
+    por partido y, si se pide, sus tarjetas (de 20 en 20, como la lista).
+    Lo que no se pinta no hace falta anotarlo: ver el comentario en `render`."""
+    with st.expander('🚫 Sin nada que meter (%d)' % len(partidos),
+                     expanded=False):
+        st.caption('Ninguna de sus apuestas pasa la regla de «meter». '
+                   'Medido del 19-sep al 3-oct: la mejor apuesta de estos '
+                   'partidos acertó el 66 %; lo que sí se mete, el 78 %.')
+        lineas = []
+        for p in partidos:
+            lineas.append('- **%s** · %s · %s — %s' % (
+                p.get('hora_txt') or '—', p.get('partido') or '—',
+                p.get('liga') or '—', por_que_no(p)))
+        st.markdown('\n'.join(lineas))
+        ver = st.toggle('Ver sus tarjetas', key='%s_sin_nada_ver' % clave,
+                        help='Con todo su análisis, aunque no haya nada '
+                             'que meter.')
+        if ver:
+            _k = '%s_sin_nada_n' % clave
+            try:
+                n_ver = int(st.session_state.get(_k) or TARJETAS_POR_PAGINA)
+            except Exception:
+                n_ver = TARJETAS_POR_PAGINA
+            for i, p in enumerate(partidos[:n_ver]):
+                tarjeta(st, p, navegar=navegar, n_boton=1000 + i,
+                        con_apuesta=con_apuesta)
+            if len(partidos) > n_ver:
+                st.caption('Se muestran %d de %d.' % (n_ver, len(partidos)))
+
+                def _mas(_k=_k, _n=n_ver):
+                    st.session_state[_k] = _n + TARJETAS_POR_PAGINA
+                st.button('Ver más (%d)' % min(TARJETAS_POR_PAGINA,
+                                               len(partidos) - n_ver),
+                          key='%s_sin_nada_mas' % clave, on_click=_mas,
+                          width='stretch')
+
+
 def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
            clave: str = 'mm', maximo: int = 200, con_apuesta: bool = True,
            titulo: str = '⚽ Partidos de hoy',
@@ -4210,6 +4433,27 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         con.sort(key=lambda p: -float((p.get('_recomendada') or {})
                                       .get('prob') or 0.0))
 
+    # v324 — LOS PARTIDOS SIN NADA QUE METER, APARTE Y A LA VISTA.
+    #
+    # El usuario: «no quiero que se vean las que no debo meter, pero tampoco
+    # quiero no tener visibilidad de esos partidos». Medido el 2026-10-03: de
+    # 178 partidos de fútbol por jugar, 85 decían «🚫 Nada que meter» y se
+    # mezclaban con los que sí. Salen de la lista principal a un desplegable
+    # al final, con la hora, la liga y el porqué en una línea, y sus tarjetas
+    # a un clic. Es el mismo veredicto de la tarjeta (ver `nada_que_meter`):
+    # si no se puede saber sin pagar la cuenta entera, el partido se queda en
+    # la lista como siempre.
+    #
+    # El registro de pronósticos no cambia: la tarjeta de un partido sin nada
+    # que meter no anota nada (`guardar` ignora una lista vacía) y el barrido
+    # de abajo lo anota igual que antes.
+    _sin_nada = []
+    if pintar:
+        _sin_nada = [p for p in con if nada_que_meter(p)]
+        if _sin_nada:
+            _ids_sn = {id(p) for p in _sin_nada}
+            con = [p for p in con if id(p) not in _ids_sn]
+
     st.subheader('%s (%d)' % (titulo, len(con)))
     if n_altas:
         st.caption('%d con una apuesta por encima del %d %%.'
@@ -4237,7 +4481,11 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         # más probablemente vació la lista. Decir «ninguno llega al 60 %»
         # cuando lo que pasa es que todos están jugados manda a mirar el sitio
         # equivocado.
-        if _antes_de_filtrar and 'sin_jugar' in _quito:
+        if _sin_nada:
+            st.info('Ninguno de los **%d** partidos de esta lista tiene algo '
+                    'que meter. Están abajo, en «🚫 Sin nada que meter», con '
+                    'el porqué de cada uno.' % len(_sin_nada))
+        elif _antes_de_filtrar and 'sin_jugar' in _quito:
             st.info(
                 'Los **%d** partidos de esta lista ya están finalizados. '
                 'Cambia «Mostrar» a **Finalizados** para ver qué acertó el '
@@ -4324,6 +4572,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         # «Ver más», en el mismo orden. Ver `anotar_como_tarjeta`.
         for p in con[n_ver:maximo]:
             anotar_como_tarjeta(p)
+
+    if _sin_nada:
+        _pintar_sin_nada(st, _sin_nada, clave, navegar=navegar,
+                         con_apuesta=con_apuesta)
 
     # v176 — EL PARTIDO QUE NADIE MIRÓ TAMBIÉN DEJA RASTRO.
     #
