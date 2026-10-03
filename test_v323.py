@@ -225,6 +225,59 @@ def probar_render(doc):
           '(%d partidos)%s' % (len(lista_v), '' if not dif else ': %s' % dif[:3]))
 
 
+def probar_selecciones():
+    """
+    El motor de selecciones, al día (`actualizar_selecciones`).
+
+    Medido antes de cambiar nada, fuera de muestra (146 partidos del
+    2026-07-16 al 2026-10-03): log-loss 1,0171 con el estado congelado el
+    2026-07-15 y 0,9884 con el estado al día (mejora p5 +0,0153).
+    """
+    import pandas as pd
+    import actualizar_selecciones as asel
+    hist = pd.DataFrame([
+        {'MATCH_ID': '20260701_MEX_COL', 'date': '2026-07-01',
+         'home_team': 'MEX', 'away_team': 'COL', 'home_goals': 1,
+         'away_goals': 1, 'tournament': 'Friendly', 'city': 'X',
+         'country': 'Y', 'neutral': False, 'stadium': None,
+         'elo_diff': 0.0, 'home_xg': 1.0, 'away_xg': 1.0,
+         'home_shots_on': 3, 'away_shots_on': 3, 'home_yellow': 1,
+         'away_yellow': 1, 'home_red': 0, 'away_red': 0}])
+    espn = pd.DataFrame([
+        {'date': '2026-06-30', 'home_team': 'Mexico', 'away_team': 'Japan',
+         'home_goals': 2, 'away_goals': 0, 'tournament': 'Amistoso',
+         'neutral': False},
+        {'date': '2026-09-05', 'home_team': 'Mexico', 'away_team': 'Japan',
+         'home_goals': 2, 'away_goals': 0, 'tournament': 'Amistoso',
+         'neutral': False},
+        {'date': '2026-09-06', 'home_team': 'Mexico Women',
+         'away_team': 'Japan Women', 'home_goals': 1, 'away_goals': 0,
+         'tournament': 'Women Friendly', 'neutral': True},
+    ])
+    n = asel.nuevos(hist, espn)
+    check(len(n) == 1 and n.iloc[0]['home_team'] == 'MEX'
+          and n.iloc[0]['away_team'] == 'JPN',
+          'sólo entra lo posterior al histórico, absoluto masculino y con el '
+          'código del motor (%d)' % len(n))
+    check(list(n.columns) == list(hist.columns)
+          and pd.notna(n.iloc[0]['home_xg']),
+          'con las mismas columnas y las métricas del generador, como el '
+          'resto del histórico')
+    h2 = pd.concat([hist, n], ignore_index=True)
+    check(len(asel.nuevos(h2, espn)) == 0,
+          'repetirlo no añade nada')
+    # el estado publicado no puede quedarse atrás del histórico
+    h = pd.read_csv('historico_partidos.csv', usecols=['date'])
+    ts = json.load(open('team_stats.json', encoding='utf-8'))
+    check(ts.get('ultima_fecha_historico') == str(h['date'].max())[:10],
+          'team_stats.json es el del último partido del histórico (%s)'
+          % ts.get('ultima_fecha_historico'))
+    wf = open('.github/workflows/precalculo_dia.yml', encoding='utf-8').read()
+    check('python actualizar_selecciones.py' in wf
+          and 'historico_partidos.csv team_stats.json' in wf,
+          'el precálculo lo actualiza y lo publica')
+
+
 def probar_cableado():
     src = open('precalculo_dia.py', encoding='utf-8').read()
     check('decisiones_dia.anadir(a.salida)' in src,
@@ -245,6 +298,8 @@ if __name__ == '__main__':
     print('\n=== 4. render ===')
     probar_render(doc)
     probar_cableado()
+    print('\n=== selecciones: el motor al día ===')
+    probar_selecciones()
     shutil.rmtree(TMP, ignore_errors=True)
     print('\n' + '=' * 40)
     print('TODO OK' if not FALLOS else '%d FALLOS' % len(FALLOS))
