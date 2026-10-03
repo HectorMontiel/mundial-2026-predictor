@@ -1,8 +1,8 @@
 {
   "América de Cali": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "America MG",
-    "ratio": 0.64,
+    "candidato": "Sol de America",
+    "ratio": 0.4828,
     "visto": "2026-10-03"
   },
   "Atletico Balboa": {
@@ -109,8 +109,8 @@
   },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo",
-    "ratio": 0.4516,
+    "candidato": "San Luis",
+    "ratio": 0.4286,
     "visto": "2026-10-03"
   },
   "Gimnasia y Esgrima (Jujuy)": {
@@ -133,9 +133,9 @@
   },
   "Independiente Santa Fe": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente FBC",
-    "ratio": 0.7692,
-    "visto": "2026-09-29"
+    "candidato": "CD Santa Cruz",
+    "ratio": 0.4571,
+    "visto": "2026-10-03"
   },
   "Independiente del Valle": {
     "contexto": "cuotas_mx→futbol",
@@ -157,9 +157,9 @@
   },
   "Jaguares de Córdoba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Talleres Cordoba W",
+    "candidato": "Talleres Cordoba",
     "ratio": 0.6857,
-    "visto": "2026-10-02"
+    "visto": "2026-10-03"
   },
   "Las Palmas": {
     "contexto": "cuotas_mx→futbol",
@@ -205,8 +205,8 @@
   },
   "Racing (Montevideo)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Louisville W",
-    "ratio": 0.6471,
+    "candidato": "Racing Cordoba",
+    "ratio": 0.6452,
     "visto": "2026-10-03"
   },
   "Real Betis": {
@@ -241,8 +241,8 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Santander",
-    "ratio": 0.5517,
+    "candidato": "Real Madrid C",
+    "ratio": 0.6429,
     "visto": "2026-10-03"
   },
   "San Antonio FC": {
@@ -329,8 +329,8 @@
   },
   "São Bernardo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Paulo W",
-    "ratio": 0.5714,
+    "candidato": "Sao Jose EC",
+    "ratio": 0.4348,
     "visto": "2026-10-03"
   },
   "Nacional Asunción": {
@@ -401,8 +401,8 @@
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Santander",
-    "ratio": 0.4667,
+    "candidato": "Real Madrid C",
+    "ratio": 0.5517,
     "visto": "2026-10-03"
   },
   "Carlisle United": {
@@ -419,14 +419,14 @@
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CK United",
-    "ratio": 0.6154,
+    "candidato": "Bechem United",
+    "ratio": 0.6667,
     "visto": "2026-10-03"
   },
   "Scunthorpe United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CK United",
-    "ratio": 0.6154,
+    "candidato": "Bechem United",
+    "ratio": 0.6667,
     "visto": "2026-10-03"
   },
   "Hartlepool United": {
@@ -473,7 +473,7 @@
   },
   "Chacarita Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Boca Juniors W",
+    "candidato": "Boca Juniors",
     "ratio": 0.6897,
     "visto": "2026-10-03"
   },
@@ -773,8 +773,8 @@
   },
   "Atlético Goianiense": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico GO",
-    "ratio": 0.7333,
+    "candidato": "Atletico Colina",
+    "ratio": 0.7059,
     "visto": "2026-10-03"
   },
   "Club Atlético Morelia": {
@@ -785,8 +785,8 @@
   },
   "Atlético Junior": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico GO",
-    "ratio": 0.7692,
+    "candidato": "Atletico-MG",
+    "ratio": 0.6923,
     "visto": "2026-10-03"
   },
   "Atletico Rafaela": {
@@ -803,8 +803,8 @@
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Villa San Carlos",
-    "ratio": 0.4444,
+    "candidato": "Sportivo Italiano",
+    "ratio": 0.6486,
     "visto": "2026-10-03"
   },
   "Wycombe Wanderers": {
@@ -905,8 +905,8 @@
   },
   "América Mineiro": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "America MG",
-    "ratio": 0.72,
+    "candidato": "Sol de America",
+    "ratio": 0.4828,
     "visto": "2026-10-03"
   },
   "Los Chankas": {
@@ -1031,7 +1031,7 @@
   },
   "Argentinos Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Boca Juniors W",
+    "candidato": "Boca Juniors",
     "ratio": 0.6,
     "visto": "2026-10-03"
   },

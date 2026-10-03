@@ -6214,23 +6214,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5187284,2026-03-27,selecciones,Cape Verde,Jorginho Soares,1344679,D,1,63,2,0,0,0.0,87.0,1.0,94259.0
 5187284,2026-03-27,selecciones,Cape Verde,Dailon Rocha Livramento,1309634,F,1,63,1,1,1,0.0,115.0,3.0,1120945.0
 5187284,2026-03-27,selecciones,Cape Verde,Laros Duarte,665167,M,0,21,1,0,0,0.0,,2.0,720915.0
-5159760,2026-03-28,selecciones,Canada,Dayne St. Clair,1026105,G,1,90,0,0,0,0.0,11.0,0.0,1434198.0
-5159760,2026-03-28,selecciones,Canada,Niko Sigur,1494508,D,1,90,1,0,0,0.0,32.0,1.0,4039873.0
-5159760,2026-03-28,selecciones,Canada,Joel Waterman,1100258,D,1,90,0,0,0,0.0,34.0,1.0,1484395.0
-5159760,2026-03-28,selecciones,Canada,Kamal Miller,1027412,D,1,75,0,0,0,0.0,36.0,1.0,1281780.0
-5159760,2026-03-28,selecciones,Canada,Richie Laryea,729506,D,1,90,2,0,0,0.0,38.0,1.0,470837.0
-5159760,2026-03-28,selecciones,Canada,Tajon Buchanan,1026135,M,1,90,0,0,0,0.0,72.0,2.0,10585711.0
-5159760,2026-03-28,selecciones,Canada,Nathan Saliba,1216798,M,1,86,2,1,0,0.0,74.0,2.0,
-5159760,2026-03-28,selecciones,Canada,Mathieu Choinière,943428,M,1,64,1,0,0,0.0,76.0,2.0,607754.0
-5159760,2026-03-28,selecciones,Canada,Ali Ahmed,1359536,F,1,63,1,0,0,0.0,78.0,3.0,1221622.0
-5159760,2026-03-28,selecciones,Canada,Jonathan David,939569,F,1,87,5,4,2,0.0,104.0,3.0,33527970.0
-5159760,2026-03-28,selecciones,Canada,Cyle Larin,544312,F,1,64,2,0,0,0.0,106.0,3.0,2302809.0
-5159760,2026-03-28,selecciones,Canada,Marcelo Flores,1186513,F,0,27,0,0,0,0.0,,3.0,855162.0
-5159760,2026-03-28,selecciones,Canada,Jonathan Osorio,432605,M,0,26,0,0,0,0.0,,2.0,676957.0
-5159760,2026-03-28,selecciones,Canada,Daniel Jebbison,1253827,F,0,26,1,0,0,0.0,,3.0,5516851.0
-5159760,2026-03-28,selecciones,Canada,Derek Cornelius,847629,D,0,15,0,0,0,0.0,,1.0,4393625.0
-5159760,2026-03-28,selecciones,Canada,Ralph Priso-Mbongue,1082109,M,0,4,0,0,0,0.0,,2.0,647355.0
-5159760,2026-03-28,selecciones,Canada,Liam Millar,932308,F,0,3,0,0,0,0.0,,3.0,948161.0
 5159760,2026-03-28,selecciones,Iceland,Elías Ólafsson,841966,G,1,90,0,0,0,0.0,11.0,0.0,1806240.0
 5159760,2026-03-28,selecciones,Iceland,Victor Pálsson,161937,D,1,90,0,0,0,0.0,32.0,1.0,173956.0
 5159760,2026-03-28,selecciones,Iceland,Sverrir Ingi Ingason,213873,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -134759,3 +134742,31 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019547,2026-10-03,argentina,San Lorenzo,Gustavo Del Prete,848182,F,0,37,0,0,0,0.0,,3.0,677919.0
 1000019547,2026-10-03,argentina,San Lorenzo,Teo Pagano,1729352,D,0,24,0,0,0,0.0,,1.0,904336.0
 1000019547,2026-10-03,argentina,San Lorenzo,Juan Álvarez,848153,M,0,17,0,0,0,0.0,,2.0,449694.0
+6006644,2026-10-03,selecciones,Canada,Owen Goodman,1415372,G,1,90,0,0,0,0.0,11.0,0.0,641814.0
+6006644,2026-10-03,selecciones,Canada,Niko Sigur,1494508,D,1,63,1,0,0,0.0,32.0,1.0,2367489.0
+6006644,2026-10-03,selecciones,Canada,Luc De Fougerolles,1399943,D,1,90,0,0,0,0.0,34.0,1.0,3548845.0
+6006644,2026-10-03,selecciones,Canada,Ralph Priso-Mbongue,1082109,D,1,90,0,0,0,0.0,36.0,1.0,537482.0
+6006644,2026-10-03,selecciones,Canada,Richard Chukwu,1580701,D,1,90,0,0,0,0.0,38.0,1.0,748075.0
+6006644,2026-10-03,selecciones,Canada,Liam Millar,932308,M,1,63,3,0,0,0.0,72.0,2.0,2332220.0
+6006644,2026-10-03,selecciones,Canada,Stephen Eustaquio,816223,M,1,90,0,0,0,0.0,74.0,2.0,4382488.0
+6006644,2026-10-03,selecciones,Canada,Nathan Saliba,1216798,M,1,63,2,0,0,0.0,76.0,2.0,8882446.0
+6006644,2026-10-03,selecciones,Canada,Jacob Shaffelburg,1023943,M,1,63,2,2,2,0.0,78.0,2.0,1279542.0
+6006644,2026-10-03,selecciones,Canada,Daniel Jebbison,1253827,F,1,63,3,0,0,0.0,104.0,3.0,9971208.0
+6006644,2026-10-03,selecciones,Canada,Jonathan David,939569,F,1,62,1,0,0,0.0,106.0,3.0,33314574.0
+6006644,2026-10-03,selecciones,Canada,Jamie Knight-Lebel,1524014,D,0,25,1,0,0,0.0,,1.0,619403.0
+6006644,2026-10-03,selecciones,Canada,Mathieu Choinière,943428,M,0,27,1,0,0,0.0,,2.0,560788.0
+6006644,2026-10-03,selecciones,Canada,Jacen Russell-Rowe,1106866,F,0,27,1,1,0,0.0,,3.0,4903324.0
+6006644,2026-10-03,selecciones,Canada,Tajon Buchanan,1026135,F,0,27,2,0,0,0.0,,3.0,13061615.0
+6006644,2026-10-03,selecciones,Peru,Diego Romero,1133039,G,1,90,0,0,0,0.0,11.0,0.0,901127.0
+6006644,2026-10-03,selecciones,Peru,Oliver Sonne,1060617,D,1,90,0,0,0,0.0,32.0,1.0,2543841.0
+6006644,2026-10-03,selecciones,Peru,Miguel Araujo,427202,D,1,90,0,0,0,0.0,34.0,1.0,278449.0
+6006644,2026-10-03,selecciones,Peru,Alfonso Barco,1276864,D,1,45,1,0,0,0.0,36.0,1.0,764566.0
+6006644,2026-10-03,selecciones,Peru,Marcos López,823209,D,1,90,0,0,0,0.0,38.0,1.0,2418658.0
+6006644,2026-10-03,selecciones,Peru,Bassco Soyer,1520634,M,1,90,0,0,0,0.0,72.0,2.0,
+6006644,2026-10-03,selecciones,Peru,Oslimg Mora,1048042,M,1,90,0,0,0,0.0,74.0,2.0,366939.0
+6006644,2026-10-03,selecciones,Peru,Wilder Cartagena,427216,M,1,90,0,0,0,0.0,76.0,2.0,462418.0
+6006644,2026-10-03,selecciones,Peru,Yoshimar Yotún,116911,M,1,90,0,0,0,0.0,78.0,2.0,237290.0
+6006644,2026-10-03,selecciones,Peru,Jairo Vélez,526949,M,1,73,1,0,0,0.0,95.0,2.0,478527.0
+6006644,2026-10-03,selecciones,Peru,Álex Valera,1133998,F,1,90,0,0,0,0.0,115.0,3.0,825635.0
+6006644,2026-10-03,selecciones,Peru,Jairo Concha,988208,M,0,17,1,0,0,0.0,,2.0,845054.0
+6006644,2026-10-03,selecciones,Peru,Gianluca Lapadula,231521,F,0,45,1,0,0,0.0,,3.0,314320.0
