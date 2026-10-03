@@ -84,6 +84,96 @@ from typing import Callable, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
+# ===========================================================================
+# v322 — LA MEMORIA DE LA INTERFAZ: CADA CLIC YA NO RECALCULA CADA TARJETA.
+#
+# Medido el 2026-10-03, en producción y en esta máquina:
+#
+#   · producción, «Apuestas del Día» con «Todas»: el primer bloque sale a los
+#     5,7 s, pero la página no termina de pintarse hasta los ~121 s (2.080
+#     bloques). Con «Sólo principales» (4 partidos) tarda 4,4 s: el coste va
+#     por tarjeta, no por la plataforma.
+#   · local, con AppTest: la primera pasada 197 s y la SEGUNDA —con todo ya
+#     cargado— 34 s. Streamlit rehace el script entero en cada clic, así que
+#     esos 34 s se pagan al tocar cualquier filtro.
+#   · el perfil de esa segunda pasada (cProfile, 67 s con su sobrecoste):
+#     `quien_remata_tarjeta` 40,9 s (61 %), `corners_tarjeta` 8,9 s,
+#     `_rendimiento` 3,3 s, `remates_tarjeta` 2,6 s. Las cuatro devuelven lo
+#     MISMO en cada pasada: dependen del partido y de ficheros que sólo cambian
+#     con el precálculo, no del clic.
+#
+# Así que se recuerdan. La llave es el partido y lo que cada función lee del
+# pick, más la FIRMA DE LOS DATOS (fecha de modificación de los ficheros que
+# alimentan estas tarjetas): cuando el precálculo sube datos nuevos, la firma
+# cambia y todo se recalcula. Y, aun sin cambio de firma, nada vive más de
+# 10 minutos, el mismo plazo que `_capa1_en_vivo`.
+#
+# APAGADA POR DEFECTO. Sólo la enciende `dashboard_ui`. Las simulaciones
+# (`_v312_patrones`, `_v310_replay_semana`) llaman a estas mismas funciones
+# moviendo `historico_real.FECHA` y no deben ver nada recordado; las pruebas
+# tampoco. Se devuelve siempre una COPIA, para que quien pinte no pueda
+# estropear lo guardado.
+# ===========================================================================
+MEMO_UI = False
+_MEMO_TTL_S = 600.0
+_MEMO_MAX = 6000
+_MEMO: Dict = {}
+_FIRMA_FICHEROS = (
+    'pronostico_dia.json', 'lineas_jugador_dia.json', 'alineaciones_dia.json',
+    'goleadores_cache.json', 'cuotas_mx.json', 'remates_fotmob_jugadores.csv',
+    'remates_fotmob_equipos.csv', 'corners_fotmob.json', 'corners_tabla.json',
+)
+_firma_cache = [0.0, None]
+
+
+def _firma_datos():
+    """Las fechas de modificación de los ficheros de las tarjetas (1 s de vida)."""
+    import os
+    import time
+    ahora = time.monotonic()
+    if _firma_cache[1] is not None and ahora - _firma_cache[0] < 1.0:
+        return _firma_cache[1]
+    base = os.path.dirname(os.path.abspath(__file__))
+    firma = []
+    for nombre in _FIRMA_FICHEROS:
+        try:
+            firma.append(os.stat(os.path.join(base, nombre)).st_mtime_ns)
+        except OSError:
+            firma.append(None)
+    try:
+        import historico_real as _hr
+        firma.append(getattr(_hr, 'FECHA', None))
+    except Exception:
+        firma.append(None)
+    _firma_cache[0], _firma_cache[1] = ahora, tuple(firma)
+    return _firma_cache[1]
+
+
+def _memo_ui(nombre: str, llave, calcula: Callable):
+    """`calcula()` recordado por `llave` si la memoria está encendida."""
+    if not MEMO_UI:
+        return calcula()
+    import copy
+    import time
+    k = (nombre, llave, _firma_datos())
+    ahora = time.monotonic()
+    hit = _MEMO.get(k)
+    if hit is not None and ahora - hit[0] < _MEMO_TTL_S:
+        return copy.deepcopy(hit[1])
+    valor = calcula()
+    if len(_MEMO) >= _MEMO_MAX:
+        _MEMO.clear()
+    _MEMO[k] = (ahora, copy.deepcopy(valor))
+    return valor
+
+
+def _llave_json(x) -> str:
+    import json
+    try:
+        return json.dumps(x, sort_keys=True, default=str)
+    except Exception:
+        return repr(x)
+
 # Ligas que el plan llama «principales»: las que concentran volumen y donde el
 # mercado está más trabajado. La lista es corta a propósito — todo lo que no
 # esté aquí cuenta como secundaria, y así una competición nueva entra por
@@ -132,6 +222,11 @@ def _rendimiento(pick: Dict) -> Optional[Dict]:
     h, a = _equipos(pick)
     if not clave or not h or not a:
         return None
+    return _memo_ui('rendimiento', (str(clave), h, a),
+                    lambda: _rendimiento_crudo(clave, h, a))
+
+
+def _rendimiento_crudo(clave, h: str, a: str) -> Optional[Dict]:
     try:
         import rendimiento_equipos as rq
         r = rq.resumen_partido(str(clave), h, a)
@@ -668,6 +763,15 @@ def corners_tarjeta(pick: Dict) -> Optional[Dict]:
     h, a = _equipos(pick)
     if not h or not a:
         return None
+    _imp = pick.get('implicitas') or {}
+    _lin = (_imp.get('corners'), _imp.get('corners_home'),
+            _imp.get('corners_away'))
+    return _memo_ui('corners', (clave, h, a, _llave_json(_lin)),
+                    lambda: _corners_tarjeta_crudo(clave, h, a, *_lin))
+
+
+def _corners_tarjeta_crudo(clave: str, h: str, a: str, lin_tot, lin_home,
+                           lin_away) -> Optional[Dict]:
     try:
         import rendimiento_equipos as rq
         eq = rq.corners_equipo(clave, h, a)
@@ -677,11 +781,10 @@ def corners_tarjeta(pick: Dict) -> Optional[Dict]:
     if not eq:
         return None
     # v166/v169 — con las líneas REALES de la casa: total y cada bando.
-    _imp = pick.get('implicitas') or {}
     return _filas_de(eq, '⛳', 'corners',
-                     lineas_casa=_imp.get('corners'),
-                     lineas_home=_imp.get('corners_home'),
-                     lineas_away=_imp.get('corners_away'))
+                     lineas_casa=lin_tot,
+                     lineas_home=lin_home,
+                     lineas_away=lin_away)
 
 
 def _linea_de_la_casa(lineas: Optional[Dict], media: float) -> Optional[float]:
@@ -1167,10 +1270,16 @@ def quien_remata_tarjeta(pick: Dict, tope: int = 3) -> Optional[Dict]:
     h, a = _equipos(pick)
     if not h or not a:
         return None
+    fecha = str(pick.get('fecha') or '')[:10]
+    return _memo_ui('quien_remata', (clave, h, a, fecha, tope),
+                    lambda: _quien_remata_crudo(clave, h, a, fecha, tope))
+
+
+def _quien_remata_crudo(clave: str, h: str, a: str, fecha: str,
+                        tope: int) -> Optional[Dict]:
     try:
         import remates_jugador as rjg
-        return rjg.partido(clave, h, a, str(pick.get('fecha') or '')[:10],
-                           en_vivo=False, tope=tope)
+        return rjg.partido(clave, h, a, fecha, en_vivo=False, tope=tope)
     except Exception as e:
         logger.debug('[modo_modelo] quién remata en %s: %s', clave, e)
         return None
