@@ -9769,26 +9769,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5213043,2026-06-10,selecciones,Costa Rica,Doryan Rodriguez,1294826,F,0,9,0,0,0,0.0,,3.0,
 5213043,2026-06-10,selecciones,Costa Rica,Orlando Sinclair,967020,F,0,9,0,0,0,0.0,,3.0,
 5213043,2026-06-10,selecciones,Costa Rica,John Ruiz,1407566,D,0,8,0,0,0,0.0,,1.0,245240.0
-5418307,2026-06-10,selecciones,Argentina,Gerónimo Rulli,245555,G,1,90,0,0,0,0.0,11.0,0.0,5638375.0
-5418307,2026-06-10,selecciones,Argentina,Agustín Giay,1358345,D,1,70,0,0,0,0.0,32.0,1.0,13897427.0
-5418307,2026-06-10,selecciones,Argentina,Nicolás Otamendi,174321,D,1,58,0,0,0,0.0,34.0,1.0,979023.0
-5418307,2026-06-10,selecciones,Argentina,Lisandro Martínez,847983,D,1,46,0,0,0,0.0,36.0,1.0,40812416.0
-5418307,2026-06-10,selecciones,Argentina,Facundo Medina,812652,D,1,90,0,0,0,0.0,38.0,1.0,20050209.0
-5418307,2026-06-10,selecciones,Argentina,Giuliano Simeone,1226147,M,1,70,2,2,0,0.0,72.0,2.0,44758504.0
-5418307,2026-06-10,selecciones,Argentina,Giovani Lo Celso,604126,M,1,46,0,0,0,0.0,74.0,2.0,12298559.0
-5418307,2026-06-10,selecciones,Argentina,Exequiel Palacios,693599,M,1,46,0,0,0,0.0,76.0,2.0,32240347.0
-5418307,2026-06-10,selecciones,Argentina,Valentín Barco,1272440,M,1,45,2,1,1,0.0,78.0,2.0,30853266.0
-5418307,2026-06-10,selecciones,Argentina,Nico Paz,1347574,M,1,58,4,1,0,0.0,104.0,2.0,64579626.0
-5418307,2026-06-10,selecciones,Argentina,José López,1216079,F,1,46,0,0,0,0.0,106.0,3.0,22821489.0
-5418307,2026-06-10,selecciones,Argentina,Cristian Romero,789066,D,0,44,0,0,0,0.0,,1.0,57715315.0
-5418307,2026-06-10,selecciones,Argentina,Alexis Mac Allister,831489,M,0,45,3,0,0,0.0,,2.0,94361974.0
-5418307,2026-06-10,selecciones,Argentina,Enzo Fernández,1137705,M,0,45,1,1,0,0.0,,2.0,100424263.0
-5418307,2026-06-10,selecciones,Argentina,Rodrigo De Paul,324578,M,0,44,0,0,0,0.0,,2.0,11208895.0
-5418307,2026-06-10,selecciones,Argentina,Lautaro Martínez,690230,F,0,45,1,0,0,0.0,,3.0,72159897.0
-5418307,2026-06-10,selecciones,Argentina,Nicolás González,841672,M,0,32,0,0,0,0.0,,2.0,22297682.0
-5418307,2026-06-10,selecciones,Argentina,Thiago Almada,955271,M,0,32,1,1,1,0.0,,2.0,22202535.0
-5418307,2026-06-10,selecciones,Argentina,Gonzalo Montiel,687008,D,0,20,0,0,0,0.0,,1.0,2736101.0
-5418307,2026-06-10,selecciones,Argentina,Lionel Messi,30981,F,0,20,1,1,1,0.0,,3.0,14203769.0
 5418307,2026-06-10,selecciones,Iceland,Elías Ólafsson,841966,G,1,90,0,0,0,0.0,11.0,0.0,1866214.0
 5418307,2026-06-10,selecciones,Iceland,Victor Pálsson,161937,D,1,70,0,0,0,0.0,32.0,1.0,179908.0
 5418307,2026-06-10,selecciones,Iceland,Daníel Grétarsson,289237,D,1,70,1,0,0,0.0,34.0,1.0,542963.0
@@ -26050,37 +26030,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844830,2026-08-06,leagues_cup,Queretaro FC,Carlos Villanueva,350568,D,0,3,0,0,0,0.0,,1.0,357816.0
 5844830,2026-08-06,leagues_cup,Queretaro FC,Erik Dueñas,1166561,M,0,3,0,0,0,0.0,,2.0,672425.0
 5844830,2026-08-06,leagues_cup,Queretaro FC,Sergio Garcia Brothers,2090277,M,0,3,0,0,0,0.0,,2.0,
-5109818,2026-08-06,usl_championship,FC Tulsa,Dane Jacomen,1381135,G,1,90,0,0,0,0.0,11.0,0.0,65115.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Ian,1712469,D,1,90,0,0,0,0.0,33.0,1.0,
-5109818,2026-08-06,usl_championship,FC Tulsa,Abdoulaye Cissoko,1172998,D,1,90,1,0,0,0.0,35.0,1.0,58730.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Lamar Batista,860075,D,1,90,0,0,0,0.0,37.0,1.0,50000.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Joel Sangwa,1626133,D,1,90,0,0,0,0.0,51.0,1.0,
-5109818,2026-08-06,usl_championship,FC Tulsa,Lucas Stauffer,923977,D,1,87,1,0,0,0.0,59.0,1.0,50000.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Bailey Sparks,1171033,M,1,64,0,0,0,0.0,72.0,2.0,155520.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Jamie Webber,851104,M,1,90,1,1,1,0.0,74.0,2.0,50000.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Jeorgio Kocevski,1613722,M,1,90,1,0,0,0.0,76.0,2.0,134930.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Arquímides Ordóñez,1269658,F,1,74,2,0,0,0.0,78.0,3.0,103260.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Logan Dorsey,1060334,F,1,74,1,1,0,0.0,115.0,3.0,97256.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Stefan Lukic,1364155,M,0,26,0,0,0,0.0,,2.0,50000.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Giordano Colli,1207848,M,0,16,0,0,0,0.0,,2.0,62558.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Kalil ElMedkhar,1244942,F,0,16,1,1,0,0.0,,3.0,67514.0
-5109818,2026-08-06,usl_championship,FC Tulsa,Delentz Pierre,1355679,D,0,3,0,0,0,0.0,,1.0,229753.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Danny Vitiello,1079451,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Jack Gurr,1170733,D,1,90,1,0,0,0.0,32.0,1.0,60000.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Chibuike Ukaegbu,1615719,D,1,79,0,0,0,0.0,34.0,1.0,256074.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Jared Timmer,1172907,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Lee Desmond,556023,D,1,90,2,1,0,0.0,38.0,1.0,50000.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Daniel Crisostomo,1073942,M,1,90,0,0,0,0.0,64.0,2.0,50000.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Mark-Anthony Kaye,632748,M,1,42,0,0,0,0.0,66.0,2.0,482959.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Blake Willey,1520638,M,1,79,1,1,0,0.0,83.0,2.0,511255.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Memo Rodríguez,621886,M,1,90,1,0,0,0.0,85.0,2.0,134475.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Mayele Malango,1178821,F,1,45,1,0,0,0.0,87.0,3.0,50000.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Tyler Wolff,1166552,F,1,45,1,1,0,0.0,115.0,3.0,155190.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Aaron Essel,1320050,D,0,48,0,0,0,0.0,,1.0,253900.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Tim Leibold,458997,D,0,44,0,0,0,0.0,,1.0,131084.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Kyle Edwards,647068,F,0,45,2,1,0,0.0,,3.0,50000.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Pep Casas,1708523,M,0,11,0,0,0,0.0,,2.0,67597.0
-5109818,2026-08-06,usl_championship,Sacramento Republic FC,Forster Ajago,1600917,F,0,11,1,0,0,0.0,,3.0,83192.0
 1000012458,2026-08-06,bra_copa,Fortaleza,João Ricardo,498728,G,1,90,0,0,0,0.0,11.0,0.0,299602.0
 1000012458,2026-08-06,bra_copa,Fortaleza,Maílton,1086537,D,1,90,1,0,0,0.0,32.0,1.0,1438641.0
 1000012458,2026-08-06,bra_copa,Fortaleza,Lucas Gazal,1362665,D,1,90,0,0,0,0.0,34.0,1.0,784631.0
@@ -134856,3 +134805,76 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109978,2026-10-03,usl_championship,Rhode Island FC,Eric Klein,1647608,M,0,18,0,0,0,0.0,,2.0,320211.0
 5109978,2026-10-03,usl_championship,Rhode Island FC,Zachary Herivaux,729986,M,0,18,1,1,0,0.0,,2.0,50000.0
 5109978,2026-10-03,usl_championship,Rhode Island FC,Nikolai Pierre,1843221,F,0,11,0,0,0,0.0,,3.0,
+5109981,2026-10-04,usl_championship,FC Tulsa,Dane Jacomen,1381135,G,1,90,0,0,0,0.0,11.0,0.0,81636.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Ian,1712469,D,1,60,0,0,0,0.0,33.0,1.0,
+5109981,2026-10-04,usl_championship,FC Tulsa,Abdoulaye Cissoko,1172998,D,1,83,0,0,0,0.0,35.0,1.0,84282.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Lamar Batista,860075,D,1,90,0,0,0,0.0,37.0,1.0,50000.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Owen Damm,1252869,M,1,90,0,0,0,0.0,51.0,2.0,130563.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Lucas Stauffer,923977,D,1,90,0,0,0,0.0,59.0,1.0,50000.0
+5109981,2026-10-04,usl_championship,FC Tulsa,William Wilson,1255515,F,1,60,1,0,0,0.0,72.0,3.0,
+5109981,2026-10-04,usl_championship,FC Tulsa,Boubacar Diallo,1356036,M,1,60,0,0,0,0.0,74.0,2.0,135168.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Jeorgio Kocevski,1613722,M,1,90,0,0,0,0.0,76.0,2.0,86355.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Arquímides Ordóñez,1269658,F,1,86,2,1,1,0.0,78.0,3.0,83260.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Logan Dorsey,1060334,F,1,90,1,0,0,0.0,115.0,3.0,95140.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Joel Sangwa,1626133,D,0,30,0,0,0,0.0,,1.0,
+5109981,2026-10-04,usl_championship,FC Tulsa,Jamie Webber,851104,M,0,30,0,0,0,0.0,,2.0,55773.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Kalil ElMedkhar,1244942,F,0,30,0,0,0,0.0,,3.0,60900.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Delentz Pierre,1355679,D,0,7,0,0,0,0.0,,1.0,208141.0
+5109981,2026-10-04,usl_championship,FC Tulsa,Wilson Eisner,1715116,D,0,4,0,0,0,0.0,,1.0,221386.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Danny Vitiello,1079451,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Freddy Kleemann,1246735,D,1,90,2,0,0,0.0,32.0,1.0,103680.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Jared Timmer,1172907,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Lee Desmond,556023,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Ryan Spaulding,1195444,D,1,54,0,0,0,0.0,38.0,1.0,50000.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Daniel Crisostomo,1073942,M,1,69,0,0,0,0.0,64.0,2.0,50000.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Kyle Edwards,647068,F,1,90,4,1,0,0.0,66.0,3.0,50000.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Alfredo Midence,1644458,M,1,45,1,0,0,0.0,83.0,2.0,81776.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Blake Willey,1520638,M,1,90,0,0,0,0.0,85.0,2.0,417178.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Arturo Rodríguez,1056536,F,1,46,0,0,0,0.0,87.0,3.0,50000.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Forster Ajago,1600917,F,1,78,1,1,0,0.0,115.0,3.0,83192.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Jack Gurr,1170733,D,0,44,0,0,0,0.0,,1.0,91835.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Memo Rodríguez,621886,M,0,45,2,1,1,0.0,,2.0,86064.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Michelle Benítez,772825,D,0,36,0,0,0,0.0,,1.0,89022.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Pep Casas,1708523,M,0,21,0,0,0,0.0,,2.0,72454.0
+5109981,2026-10-04,usl_championship,Sacramento Republic FC,Cal Jennings,1169331,F,0,12,1,1,0,0.0,,3.0,55936.0
+6162939,2026-10-04,selecciones,Argentina,Emiliano Martínez,268375,G,1,79,0,0,0,0.0,11.0,0.0,13577624.0
+6162939,2026-10-04,selecciones,Argentina,Agustín Giay,1358345,D,1,63,0,0,0,0.0,32.0,1.0,14146610.0
+6162939,2026-10-04,selecciones,Argentina,Cristian Romero,789066,D,1,45,1,0,0,0.0,34.0,1.0,56787269.0
+6162939,2026-10-04,selecciones,Argentina,Lisandro Martínez,847983,D,1,46,0,0,0,0.0,36.0,1.0,29269722.0
+6162939,2026-10-04,selecciones,Argentina,Facundo Medina,812652,D,1,63,0,0,0,0.0,38.0,1.0,14476168.0
+6162939,2026-10-04,selecciones,Argentina,Nico Paz,1347574,M,1,45,4,2,1,0.0,72.0,2.0,75705921.0
+6162939,2026-10-04,selecciones,Argentina,Enzo Fernández,1137705,M,1,69,1,1,0,0.0,74.0,2.0,119483341.0
+6162939,2026-10-04,selecciones,Argentina,Alexis Mac Allister,831489,M,1,69,2,2,0,0.0,76.0,2.0,61910890.0
+6162939,2026-10-04,selecciones,Argentina,Gianluca Prestianni,1363660,F,1,45,1,1,1,0.0,78.0,3.0,20492233.0
+6162939,2026-10-04,selecciones,Argentina,Lautaro Martínez,690230,F,1,69,4,4,1,0.0,104.0,3.0,76856759.0
+6162939,2026-10-04,selecciones,Argentina,Julián Álvarez,974753,F,1,45,5,2,1,0.0,106.0,3.0,112452793.0
+6162939,2026-10-04,selecciones,Argentina,Leonardo Balerdi,958464,D,0,44,0,0,0,0.0,,1.0,15641990.0
+6162939,2026-10-04,selecciones,Argentina,Tomás Palacios,1344726,D,0,44,0,0,0,0.0,,1.0,7006267.0
+6162939,2026-10-04,selecciones,Argentina,Matias Soulé,1280082,M,0,45,1,0,0,0.0,,2.0,40588001.0
+6162939,2026-10-04,selecciones,Argentina,Franco Mastantuono,1607566,F,0,45,2,2,1,0.0,,3.0,51873721.0
+6162939,2026-10-04,selecciones,Argentina,Leonel Flores,1899030,F,0,45,3,1,0,0.0,,3.0,
+6162939,2026-10-04,selecciones,Argentina,Giuliano Simeone,1226147,M,0,26,2,1,1,0.0,,2.0,46816961.0
+6162939,2026-10-04,selecciones,Argentina,Nicolás González,841672,M,0,27,1,0,0,0.0,,2.0,22456394.0
+6162939,2026-10-04,selecciones,Argentina,Exequiel Palacios,693599,M,0,21,0,0,0,0.0,,2.0,25984110.0
+6162939,2026-10-04,selecciones,Argentina,Valentín Barco,1272440,M,0,21,1,0,0,0.0,,2.0,45172265.0
+6162939,2026-10-04,selecciones,Argentina,Santiago Castro,1282008,F,0,21,2,1,0,0.0,,3.0,41698579.0
+6162939,2026-10-04,selecciones,Argentina,Gerónimo Rulli,245555,G,0,11,0,0,0,0.0,,0.0,6241627.0
+6162939,2026-10-04,selecciones,Burkina Faso,Abdoul Guira,2337171,G,1,90,0,0,0,0.0,11.0,0.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Donatien Bama,2337168,,1,90,0,0,0,0.0,32.0,,
+6162939,2026-10-04,selecciones,Burkina Faso,Bachirou Yaméogo,1400915,M,1,90,0,0,0,0.0,34.0,2.0,140987.0
+6162939,2026-10-04,selecciones,Burkina Faso,Cyril Dao,1422724,D,1,46,0,0,0,0.0,36.0,1.0,536468.0
+6162939,2026-10-04,selecciones,Burkina Faso,Moumouni Diallo,2337169,,1,58,0,0,0,0.0,38.0,,
+6162939,2026-10-04,selecciones,Burkina Faso,Franck Alain Kante,2337170,M,1,45,1,0,0,0.0,73.0,2.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Chec Bebel Doumbia,1869843,M,1,85,0,0,0,0.0,75.0,2.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Hasamadou Ouédraogo,1844080,M,1,58,0,0,0,0.0,77.0,2.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Dylann Kam,1679906,F,1,46,0,0,0,0.0,103.0,3.0,220656.0
+6162939,2026-10-04,selecciones,Burkina Faso,Papus Naser Ouattara,1790026,F,1,76,1,1,0,0.0,105.0,3.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Jack Diarra,1581057,F,1,58,1,0,0,0.0,107.0,3.0,477503.0
+6162939,2026-10-04,selecciones,Burkina Faso,Fadil Barro,2337172,D,0,44,0,0,0,0.0,,1.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Abdel Kone,2337176,M,0,44,0,0,0,0.0,,2.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Muhammad Zongo,1844035,M,0,44,0,0,0,0.0,,2.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Mikael Coulibaly,2337174,D,0,32,0,0,0,0.0,,1.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Moussa Ky,2337177,F,0,32,0,0,0,0.0,,3.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Ousmane Camara,1649346,F,0,32,0,0,0,0.0,,3.0,115872.0
+6162939,2026-10-04,selecciones,Burkina Faso,Razack Sanou,1847886,F,0,14,0,0,0,0.0,,3.0,
+6162939,2026-10-04,selecciones,Burkina Faso,Salif Tietietta,1663200,M,0,5,0,0,0,0.0,,2.0,
