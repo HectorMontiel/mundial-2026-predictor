@@ -6559,26 +6559,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5137675,2026-03-31,selecciones,Egypt,Haissem Hassan,971787,F,0,22,0,0,0,0.0,,3.0,5298316.0
 5137675,2026-03-31,selecciones,Egypt,Mahmoud Saber,1291391,M,0,8,0,0,0,0.0,,2.0,811244.0
 5137675,2026-03-31,selecciones,Egypt,Hossam Abdelmaguid,1384425,D,0,5,0,0,0,0.0,,1.0,1254292.0
-5083234,2026-03-31,selecciones,United States,Matt Freese,1026065,G,1,90,0,0,0,0.0,11.0,0.0,1140554.0
-5083234,2026-03-31,selecciones,United States,Alex Freeman,1338696,D,1,79,0,0,0,0.0,32.0,1.0,1776146.0
-5083234,2026-03-31,selecciones,United States,Chris Richards,950829,D,1,90,0,0,0,0.0,34.0,1.0,17738812.0
-5083234,2026-03-31,selecciones,United States,Auston Trusty,688271,D,1,90,0,0,0,0.0,36.0,1.0,4558358.0
-5083234,2026-03-31,selecciones,United States,Antonee Robinson,662428,D,1,45,1,0,0,0.0,38.0,1.0,39713445.0
-5083234,2026-03-31,selecciones,United States,Weston McKennie,848266,M,1,45,1,0,0,0.0,73.0,2.0,15776164.0
-5083234,2026-03-31,selecciones,United States,Sebastian Berhalter,1136096,M,1,79,1,1,0,0.0,75.0,2.0,2418532.0
-5083234,2026-03-31,selecciones,United States,Aidan Morris,1136097,M,1,79,1,1,0,0.0,77.0,2.0,6649375.0
-5083234,2026-03-31,selecciones,United States,Timothy Weah,889536,M,1,67,1,0,0,0.0,103.0,2.0,23525199.0
-5083234,2026-03-31,selecciones,United States,Christian Pulisic,688295,F,1,45,3,0,0,0.0,105.0,3.0,47365970.0
-5083234,2026-03-31,selecciones,United States,Malik Tillman,1126058,M,1,67,2,1,0,0.0,107.0,2.0,41022589.0
-5083234,2026-03-31,selecciones,United States,Max Arfsten,1348329,D,0,44,0,0,0,0.0,,1.0,2552674.0
-5083234,2026-03-31,selecciones,United States,Tanner Tessmann,1057433,M,0,44,0,0,0,0.0,,2.0,12068311.0
-5083234,2026-03-31,selecciones,United States,Patrick Agyemang,1439800,F,0,44,0,0,0,0.0,,3.0,8675469.0
-5083234,2026-03-31,selecciones,United States,Joseph Scally,959696,D,0,23,0,0,0,0.0,,1.0,13264421.0
-5083234,2026-03-31,selecciones,United States,Folarin Balogun,982677,F,0,23,1,0,0,0.0,,3.0,19646291.0
-5083234,2026-03-31,selecciones,United States,Brenden Aaronson,952322,M,0,11,1,0,0,0.0,,2.0,19522838.0
-5083234,2026-03-31,selecciones,United States,Cristian Roldan,621946,M,0,11,0,0,0,0.0,,2.0,2069556.0
-5083234,2026-03-31,selecciones,United States,Giovanni Reyna,1071179,M,0,11,0,0,0,0.0,,2.0,10398269.0
-5083234,2026-03-31,selecciones,United States,Mark McKenzie,924485,D,0,1,0,0,0,0.0,,1.0,6389546.0
 5279748,2026-03-31,selecciones,Republic of Ireland,Caoimhín Kelleher,776689,G,1,61,0,0,0,0.0,11.0,0.0,28414997.0
 5279748,2026-03-31,selecciones,Republic of Ireland,John Egan,295062,D,1,72,0,0,0,0.0,33.0,1.0,752404.0
 5279748,2026-03-31,selecciones,Republic of Ireland,Nathan Collins,961306,D,1,90,0,0,0,0.0,35.0,1.0,29456799.0
@@ -7280,28 +7260,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5449531,2026-05-16,selecciones,Grenada,Deanroy Phillip,1934616,F,0,12,0,0,0,0.0,,3.0,
 5449531,2026-05-16,selecciones,Grenada,Raheem Raeburn,1934615,F,0,12,0,0,0,0.0,,3.0,
 5449531,2026-05-16,selecciones,Grenada,Narshon Sylvester,1934614,M,0,5,0,0,0,0.0,,2.0,
-5217284,2026-05-23,selecciones,Mexico,Raúl Rangel,1227878,G,1,46,0,0,0,0.0,11.0,0.0,6448820.0
-5217284,2026-05-23,selecciones,Mexico,Israel Reyes,1074586,D,1,46,0,0,0,0.0,32.0,1.0,3077240.0
-5217284,2026-05-23,selecciones,Mexico,Luis Romo,921174,D,1,62,0,0,0,0.0,34.0,1.0,1958037.0
-5217284,2026-05-23,selecciones,Mexico,Alejandro Gómez,1010407,D,1,62,0,0,0,0.0,36.0,1.0,1894715.0
-5217284,2026-05-23,selecciones,Mexico,Jesús Gallardo,597976,D,1,45,1,0,0,0.0,38.0,1.0,2302681.0
-5217284,2026-05-23,selecciones,Mexico,Érik Lira,971628,D,1,71,0,0,0,0.0,65.0,1.0,11582494.0
-5217284,2026-05-23,selecciones,Mexico,Brian Gutiérrez,1170238,M,1,71,2,2,1,0.0,84.0,2.0,6629017.0
-5217284,2026-05-23,selecciones,Mexico,Gilberto Mora,1670377,M,1,45,3,1,0,0.0,86.0,2.0,7398197.0
-5217284,2026-05-23,selecciones,Mexico,Roberto Alvarado,720737,M,1,62,3,3,0,0.0,103.0,2.0,6002616.0
-5217284,2026-05-23,selecciones,Mexico,Armando González,1456983,F,1,45,1,1,0,0.0,105.0,3.0,2907667.0
-5217284,2026-05-23,selecciones,Mexico,Alexis Vega,728365,F,1,62,2,0,0,0.0,107.0,3.0,5475447.0
-5217284,2026-05-23,selecciones,Mexico,Carlos Acevedo,751164,G,0,44,0,0,0,0.0,,0.0,2138935.0
-5217284,2026-05-23,selecciones,Mexico,Jorge Sánchez,727586,D,0,44,0,0,0,0.0,,1.0,1704129.0
-5217284,2026-05-23,selecciones,Mexico,Mateo Chávez,1432212,D,0,44,0,0,0,0.0,,1.0,4921361.0
-5217284,2026-05-23,selecciones,Mexico,Edson Álvarez,783505,M,0,44,0,0,0,0.0,,2.0,18171644.0
-5217284,2026-05-23,selecciones,Mexico,Guillermo Martínez,558539,F,0,45,2,1,1,0.0,,3.0,1171745.0
-5217284,2026-05-23,selecciones,Mexico,Kevin Castañeda,951049,M,0,28,1,0,0,0.0,,2.0,2326408.0
-5217284,2026-05-23,selecciones,Mexico,Isaías Violante,1197375,F,0,29,0,0,0,0.0,,3.0,6351740.0
-5217284,2026-05-23,selecciones,Mexico,Eduardo Águila,1428481,D,0,28,0,0,0,0.0,,1.0,2535313.0
-5217284,2026-05-23,selecciones,Mexico,Luis Chávez,527616,M,0,28,1,0,0,0.0,,2.0,4560923.0
-5217284,2026-05-23,selecciones,Mexico,Iker Fimbres,1513010,M,0,19,0,0,0,0.0,,2.0,4392800.0
-5217284,2026-05-23,selecciones,Mexico,Luis Gabriel Rey,1222037,M,0,19,0,0,0,0.0,,2.0,1211714.0
 5217284,2026-05-23,selecciones,Ghana,Benjamin Asare,1806615,G,1,76,0,0,0,0.0,11.0,0.0,
 5217284,2026-05-23,selecciones,Ghana,Jan Gyamerah,458602,D,1,90,0,0,0,0.0,32.0,1.0,388348.0
 5217284,2026-05-23,selecciones,Ghana,Oscar Naasei Oppong,1637886,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -15308,20 +15266,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5702729,2026-07-24,sudamericana,O'Higgins,Nicolás Garrido,1252230,D,0,11,0,0,0,0.0,,1.0,293775.0
 5702729,2026-07-24,sudamericana,O'Higgins,Martín Maturana,1457406,M,0,11,0,0,0,0.0,,2.0,262724.0
 5702729,2026-07-24,sudamericana,O'Higgins,Thiago Vecino,1073659,F,0,8,0,0,0,0.0,,3.0,316213.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Joseph Batrouni,1724710,G,1,90,0,0,0,0.0,11.0,0.0,86919.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Alex Crognale,825695,D,1,90,5,1,0,0.0,33.0,1.0,50000.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Santiago Suárez,1344756,D,1,90,0,0,0,0.0,35.0,1.0,
-5109845,2026-07-25,usl_championship,San Antonio FC,Mitchell Taintor,776966,D,1,90,0,0,0,0.0,37.0,1.0,50000.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Akeem Ward,1025952,D,1,90,0,0,0,0.0,51.0,1.0,50000.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Emil Cuello,1026067,D,1,90,3,0,0,0.0,59.0,1.0,50000.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Cristian Parano,934891,M,1,73,4,2,1,0.0,72.0,2.0,69250.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Mikey Maldonado,1376134,M,1,90,0,0,0,0.0,74.0,2.0,57600.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Lucio Berrón,1727112,M,1,90,0,0,0,0.0,76.0,2.0,79540.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Jorge Hernández,971585,M,1,89,3,1,0,0.0,78.0,2.0,81819.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Christian Sorto,1064711,F,1,73,1,0,0,0.0,115.0,3.0,94688.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Curt Calov,1760419,M,0,17,1,1,0,0.0,,2.0,94228.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Diogo Pacheco,1355567,F,0,17,1,1,0,0.0,,3.0,51746.0
-5109845,2026-07-25,usl_championship,San Antonio FC,Nicky Hernandez,1197526,M,0,1,0,0,0,0.0,,2.0,50000.0
 5071232,2026-07-25,mls,DC United,Sean Johnson,198426,G,1,90,0,0,0,0.0,11.0,0.0,118781.0
 5071232,2026-07-25,mls,DC United,Silvan Hefti,678384,D,1,90,1,0,0,0.02,32.0,1.0,338559.0
 5071232,2026-07-25,mls,DC United,Lucas Bartlett,1338938,D,1,90,1,0,0,0.11,34.0,1.0,810472.0
@@ -18013,37 +17957,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109848,2026-07-26,usl_championship,Sporting JAX,Ahmad Al-Qaq,1727104,F,1,90,0,0,0,0.0,107.0,3.0,65183.0
 5109848,2026-07-26,usl_championship,Sporting JAX,Rafferty Pedder,1562361,M,0,45,2,0,0,0.0,,2.0,98351.0
 5109848,2026-07-26,usl_championship,Sporting JAX,Ventura Alvarado,415706,D,0,25,0,0,0,0.0,,1.0,
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Jacob Jackson,1339415,G,1,90,0,0,0,0.0,11.0,0.0,112787.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Quinton Elliot,1780532,D,1,74,0,0,0,0.0,32.0,1.0,
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Nico Gordon,1159160,D,1,90,1,0,0,0.0,34.0,1.0,80622.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Zackery Farnsworth,1190745,D,1,90,0,0,0,0.0,36.0,1.0,
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Omari Glasgow,1240376,F,1,90,3,0,0,0.0,38.0,3.0,143192.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Fidel Barajas,1406105,F,1,74,2,1,0,0.0,72.0,3.0,1701439.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Nick Ross,181255,M,1,90,0,0,0,0.0,74.0,2.0,50000.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Ryuga Nakamura,1358343,M,1,56,0,0,0,0.0,76.0,2.0,87210.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Ilijah Paul,1082953,F,1,90,3,2,1,0.0,78.0,3.0,85698.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Sebastian Lletget,411629,M,1,90,0,0,0,0.0,104.0,2.0,55928.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Anisse Saidi,1732772,F,1,56,2,1,0,0.0,106.0,3.0,327695.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Belmar Joseph,1650450,M,0,34,2,0,0,0.0,,2.0,183759.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Wesley Leggett,1447989,F,0,34,1,1,0,0.0,,3.0,97153.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Joel Garcia,1626139,D,0,16,3,1,0,0.0,,1.0,118556.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Stuart Ritchie,1372216,D,0,16,0,0,0,0.0,,1.0,106194.0
-5109852,2026-07-26,usl_championship,Monterey Bay FC,Kelsey Egwu,1682712,D,0,1,0,0,0,0.0,,1.0,128318.0
-5109852,2026-07-26,usl_championship,Orange County SC,Alexander Rando,1257972,G,1,90,0,0,0,0.0,11.0,0.0,
-5109852,2026-07-26,usl_championship,Orange County SC,Nicola Ciotta,1769553,D,1,90,0,0,0,0.0,32.0,1.0,150316.0
-5109852,2026-07-26,usl_championship,Orange County SC,Tom Brewitt,858006,D,1,90,1,1,1,0.0,34.0,1.0,50000.0
-5109852,2026-07-26,usl_championship,Orange County SC,Garrison Tubbs,1170742,D,1,90,0,0,0,0.0,36.0,1.0,171018.0
-5109852,2026-07-26,usl_championship,Orange County SC,Nico Benalcázar,1338699,D,1,90,0,0,0,0.0,38.0,1.0,109990.0
-5109852,2026-07-26,usl_championship,Orange County SC,Efren Solis,1804503,M,1,79,0,0,0,0.0,72.0,2.0,
-5109852,2026-07-26,usl_championship,Orange County SC,Ousmane Sylla,1614618,M,1,86,1,0,0,0.0,74.0,2.0,98809.0
-5109852,2026-07-26,usl_championship,Orange County SC,Stephen Kelly,955005,M,1,90,1,0,0,0.0,76.0,2.0,84816.0
-5109852,2026-07-26,usl_championship,Orange County SC,Chris Hegardt,1138504,F,1,89,3,0,0,0.0,78.0,3.0,285472.0
-5109852,2026-07-26,usl_championship,Orange County SC,Lyam MacKinnon,1472288,F,1,79,2,2,0,0.0,104.0,3.0,67177.0
-5109852,2026-07-26,usl_championship,Orange County SC,Yaniv Bazini,1634983,F,1,90,1,1,0,0.0,106.0,3.0,136141.0
-5109852,2026-07-26,usl_championship,Orange County SC,Josh Martinez,1368923,M,0,11,0,0,0,0.0,,2.0,
-5109852,2026-07-26,usl_championship,Orange County SC,Ethan Zubak,738060,F,0,11,0,0,0,0.0,,3.0,123631.0
-5109852,2026-07-26,usl_championship,Orange County SC,Ryan Doghman,739732,D,0,4,0,0,0,0.0,,1.0,50000.0
-5109852,2026-07-26,usl_championship,Orange County SC,Mouhamadou War,1503398,D,0,1,0,0,0,0.0,,1.0,118099.0
 5109846,2026-07-26,usl_championship,Charleston Battery,Luis Zamudio,1076859,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5109846,2026-07-26,usl_championship,Charleston Battery,Douglas Martínez,844926,D,1,65,0,0,0,0.0,32.0,1.0,50000.0
 5109846,2026-07-26,usl_championship,Charleston Battery,Graham Smith,924435,D,1,90,2,2,0,0.0,34.0,1.0,57600.0
@@ -23706,21 +23619,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109867,2026-08-02,usl_championship,Sporting JAX,Edgardo Rito,495686,D,0,14,0,0,0,0.0,,1.0,65794.0
 5109867,2026-08-02,usl_championship,Sporting JAX,Jacob Evans,1348312,M,0,14,0,0,0,0.0,,2.0,50000.0
 5109867,2026-08-02,usl_championship,Sporting JAX,Jean Mota,305454,M,0,14,1,1,0,0.0,,2.0,180854.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Triston Henry,1067383,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Nykolas Sessock,1542157,D,1,68,0,0,0,0.0,32.0,1.0,
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Benjamin Ofeimu,942835,D,1,90,0,0,0,0.0,34.0,1.0,145922.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Aarón Guillén,729785,D,1,90,0,0,0,0.0,36.0,1.0,82176.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Themi Antonoglou,1259223,D,1,90,2,1,1,0.0,38.0,1.0,68676.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Giorgio Probo,1644436,M,1,90,1,0,0,0.0,55.0,2.0,66205.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Marc Ybarra,1341112,M,1,90,0,0,0,0.0,74.0,2.0,60000.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Carson Locker,1767539,M,1,79,1,0,0,0.0,76.0,2.0,654850.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Christian Pinzón,1308379,F,1,68,1,0,0,0.0,95.0,3.0,66495.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Oalex Anderson,521306,F,1,79,1,0,0,0.0,114.0,3.0,50000.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Johnny Rodriguez,1253163,F,1,90,3,0,0,0.0,116.0,3.0,110477.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Blake Pope,1252109,D,0,22,0,0,0,0.0,,1.0,
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Abraham Okyere,1276879,M,0,22,0,0,0,0.0,,2.0,156852.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Benjamin Mines,848653,F,0,11,0,0,0,0.0,,3.0,150147.0
-5109860,2026-08-02,usl_championship,Las Vegas Lights FC,Manuel Arteaga,242923,F,0,11,0,0,0,0.0,,3.0,80656.0
 5109860,2026-08-02,usl_championship,Phoenix Rising FC,Patrick Rakovsky,278865,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5109860,2026-08-02,usl_championship,Phoenix Rising FC,Luke Biasi,1341109,D,1,71,0,0,0,0.0,32.0,1.0,69173.0
 5109860,2026-08-02,usl_championship,Phoenix Rising FC,Pape Mar Boye,1611497,D,1,90,1,0,0,0.0,34.0,1.0,150302.0
@@ -134877,3 +134775,123 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109979,2026-10-04,usl_championship,Oakland Roots SC,Peter Wilson,627857,F,0,33,0,0,0,0.0,,3.0,89368.0
 5109979,2026-10-04,usl_championship,Oakland Roots SC,Keegan Tingey,1439996,D,0,12,0,0,0,0.0,,1.0,62575.0
 5109979,2026-10-04,usl_championship,Oakland Roots SC,Tucker Lepley,1083234,M,0,1,0,0,0,0.0,,2.0,67245.0
+5991875,2026-10-04,selecciones,United States,Diego Kochen,1529648,G,1,90,0,0,0,0.0,11.0,0.0,1827372.0
+5991875,2026-10-04,selecciones,United States,Alex Freeman,1338696,D,1,90,1,0,0,0.0,32.0,1.0,5303542.0
+5991875,2026-10-04,selecciones,United States,Chris Richards,950829,D,1,90,1,0,0,0.0,34.0,1.0,28055044.0
+5991875,2026-10-04,selecciones,United States,Auston Trusty,688271,D,1,90,0,0,0,0.0,36.0,1.0,3376290.0
+5991875,2026-10-04,selecciones,United States,Antonee Robinson,662428,D,1,90,1,0,0,0.0,38.0,1.0,21105351.0
+5991875,2026-10-04,selecciones,United States,Cavan Sullivan,1630736,M,1,65,1,1,1,0.0,72.0,2.0,7153903.0
+5991875,2026-10-04,selecciones,United States,Sebastian Berhalter,1136096,M,1,82,0,0,0,0.0,74.0,2.0,6021805.0
+5991875,2026-10-04,selecciones,United States,Tyler Adams,729769,M,1,90,0,0,0,0.0,76.0,2.0,21862532.0
+5991875,2026-10-04,selecciones,United States,Giovanni Reyna,1071179,M,1,82,0,0,0,0.0,78.0,2.0,3908131.0
+5991875,2026-10-04,selecciones,United States,Julian Hall,1489675,F,1,65,1,1,1,0.0,104.0,3.0,6203884.0
+5991875,2026-10-04,selecciones,United States,Malik Tillman,1126058,M,1,88,2,1,1,0.0,106.0,2.0,26227619.0
+5991875,2026-10-04,selecciones,United States,Yunus Musah,1137272,M,0,25,0,0,0,0.0,,2.0,15960702.0
+5991875,2026-10-04,selecciones,United States,Justin Ellis,1626138,F,0,25,1,1,0,0.0,,3.0,1182509.0
+5991875,2026-10-04,selecciones,United States,Brooklyn Raines,1303876,M,0,8,0,0,0,0.0,,2.0,2085937.0
+5991875,2026-10-04,selecciones,United States,Peyton Miller,1473789,F,0,8,0,0,0,0.0,,3.0,4904484.0
+5991875,2026-10-04,selecciones,United States,Mathis Albert,1692797,F,0,2,0,0,0,0.0,,3.0,725133.0
+5991875,2026-10-04,selecciones,Mexico,Raúl Rangel,1227878,G,1,90,0,0,0,0.0,11.0,0.0,8931234.0
+5991875,2026-10-04,selecciones,Mexico,Israel Reyes,1074586,D,1,90,0,0,0,0.0,32.0,1.0,7032353.0
+5991875,2026-10-04,selecciones,Mexico,Diego Campillo,1169763,D,1,90,1,0,0,0.0,34.0,1.0,3616202.0
+5991875,2026-10-04,selecciones,Mexico,Johan Vásquez,914103,D,1,90,0,0,0,0.0,36.0,1.0,12449741.0
+5991875,2026-10-04,selecciones,Mexico,Jesús Gallardo,597976,D,1,46,0,0,0,0.0,38.0,1.0,1608678.0
+5991875,2026-10-04,selecciones,Mexico,Roberto Alvarado,720737,M,1,81,1,1,0,0.0,72.0,2.0,10609234.0
+5991875,2026-10-04,selecciones,Mexico,Érik Lira,971628,D,1,81,0,0,0,0.0,74.0,1.0,15809486.0
+5991875,2026-10-04,selecciones,Mexico,Luis Romo,921174,D,1,45,2,0,0,0.0,76.0,1.0,2308956.0
+5991875,2026-10-04,selecciones,Mexico,Orbelín Pineda,559986,M,1,66,0,0,0,0.0,78.0,2.0,3759855.0
+5991875,2026-10-04,selecciones,Mexico,Santiago Sandoval,1786010,M,1,66,0,0,0,0.0,95.0,2.0,7844697.0
+5991875,2026-10-04,selecciones,Mexico,Santiago Giménez,954092,F,1,72,1,0,0,0.0,115.0,3.0,19270946.0
+5991875,2026-10-04,selecciones,Mexico,Mateo Chávez,1432212,D,0,44,0,0,0,0.0,,1.0,4829945.0
+5991875,2026-10-04,selecciones,Mexico,Luis Chávez,527616,M,0,44,0,0,0,0.0,,2.0,1882351.0
+5991875,2026-10-04,selecciones,Mexico,Álvaro Fidalgo,895954,M,0,24,0,0,0,0.0,,2.0,5298224.0
+5991875,2026-10-04,selecciones,Mexico,Isaías Violante,1197375,F,0,24,1,0,0,0.0,,3.0,6905131.0
+5991875,2026-10-04,selecciones,Mexico,Armando González,1456983,F,0,18,0,0,0,0.0,,3.0,6644832.0
+5991875,2026-10-04,selecciones,Mexico,Everardo López,1353113,D,0,9,0,0,0,0.0,,1.0,3396842.0
+5991875,2026-10-04,selecciones,Mexico,Obed Vargas,1254394,M,0,9,0,0,0,0.0,,2.0,14215348.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Triston Henry,1067383,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Nykolas Sessock,1542157,D,1,70,0,0,0,0.0,32.0,1.0,63914.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Benjamin Ofeimu,942835,D,1,90,0,0,0,0.0,34.0,1.0,149021.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Aarón Guillén,729785,D,1,90,0,0,0,0.0,36.0,1.0,96339.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Themi Antonoglou,1259223,D,1,90,1,0,0,0.0,38.0,1.0,67793.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Giorgio Probo,1644436,M,1,90,0,0,0,0.0,55.0,2.0,51590.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Kyle Scott,759820,M,1,60,0,0,0,0.0,74.0,2.0,91411.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Carson Locker,1767539,M,1,90,3,2,0,0.0,76.0,2.0,541105.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Christian Pinzón,1308379,M,1,90,3,2,0,0.0,95.0,2.0,63772.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Manuel Arteaga,242923,F,1,90,6,3,1,0.0,114.0,3.0,84177.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Johnny Rodriguez,1253163,F,1,85,1,0,0,0.0,116.0,3.0,135374.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Marc Ybarra,1341112,M,0,30,0,0,0,0.0,,2.0,103680.0
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Blake Pope,1252109,D,0,20,0,0,0,0.0,,1.0,
+5109983,2026-10-04,usl_championship,Las Vegas Lights FC,Nate Jones,1610220,D,0,5,0,0,0,0.0,,1.0,65556.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Joseph Batrouni,1724710,G,1,90,0,0,0,0.0,11.0,0.0,102964.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Akeem Ward,1025952,D,1,90,1,0,0,0.0,32.0,1.0,89369.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Alex Crognale,825695,D,1,90,1,1,0,0.0,34.0,1.0,50000.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Mitchell Taintor,776966,D,1,90,1,0,0,0.0,36.0,1.0,50000.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Santiago Suárez,1344756,D,1,90,5,3,0,0.0,38.0,1.0,
+5109983,2026-10-04,usl_championship,San Antonio FC,Nicky Hernandez,1197526,M,1,25,0,0,0,0.0,72.0,2.0,50000.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Mikey Maldonado,1376134,M,1,90,0,0,0,0.0,74.0,2.0,115697.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Lucio Berrón,1727112,M,1,70,0,0,0,0.0,76.0,2.0,66895.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Emil Cuello,1026067,D,1,90,5,0,0,0.0,78.0,1.0,50000.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Christian Sorto,1064711,F,1,46,0,0,0,0.0,104.0,3.0,132772.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Cristian Parano,934891,M,1,70,0,0,0,0.0,106.0,2.0,104065.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Lilian Ricol,1601768,F,0,65,1,1,0,0.0,,3.0,
+5109983,2026-10-04,usl_championship,San Antonio FC,Luis Paredes,1435963,F,0,7,0,0,0,0.0,,3.0,67104.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Luke Haakenson,1166264,F,0,37,0,0,0,0.0,,3.0,96115.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Nelson Blanco,1175223,D,0,20,0,0,0,0.0,,1.0,50000.0
+5109983,2026-10-04,usl_championship,San Antonio FC,Diogo Pacheco,1355567,F,0,20,0,0,0,0.0,,3.0,50000.0
+5991934,2026-10-04,selecciones,Belize,Woodrow West,503069,G,1,90,0,0,0,0.0,11.0,0.0,
+5991934,2026-10-04,selecciones,Belize,Jahryl Smith,1650949,D,1,90,0,0,0,0.0,32.0,1.0,
+5991934,2026-10-04,selecciones,Belize,Jaylen Lennan,1650941,D,1,90,0,0,0,0.0,34.0,1.0,
+5991934,2026-10-04,selecciones,Belize,Freybin Pagoada,1765669,D,1,90,0,0,0,0.0,36.0,1.0,
+5991934,2026-10-04,selecciones,Belize,Deshawon Nembhard,1170725,D,1,90,0,0,0,0.0,38.0,1.0,120265.0
+5991934,2026-10-04,selecciones,Belize,Darrel Myvett,1261610,M,1,90,0,0,0,0.0,65.0,2.0,
+5991934,2026-10-04,selecciones,Belize,Nahjib Guerra,624094,M,1,90,3,0,0,0.0,82.0,2.0,
+5991934,2026-10-04,selecciones,Belize,Jordi Polanco,624101,M,1,51,1,1,0,0.0,84.0,2.0,
+5991934,2026-10-04,selecciones,Belize,Owen Sosa,1650940,M,1,71,2,0,0,0.0,86.0,2.0,
+5991934,2026-10-04,selecciones,Belize,Krisean López,953891,M,1,90,0,0,0,0.0,88.0,2.0,
+5991934,2026-10-04,selecciones,Belize,Horace Ávila,1373501,F,1,90,0,0,0,0.0,115.0,3.0,
+5991934,2026-10-04,selecciones,Belize,Moisés Hernández,1687863,F,0,19,1,0,0,0.0,,3.0,
+5991934,2026-10-04,selecciones,French Guiana,Stéphane Roman,0,G,1,90,0,0,0,0.0,11.0,0.0,
+5991934,2026-10-04,selecciones,French Guiana,Mickaël Colino,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991934,2026-10-04,selecciones,French Guiana,Jimmy Benice,0,D,1,90,0,0,0,0.0,34.0,1.0,
+5991934,2026-10-04,selecciones,French Guiana,Donovan Sini,0,D,1,90,0,0,0,0.0,36.0,1.0,
+5991934,2026-10-04,selecciones,French Guiana,Yohan Damien Marmot,0,D,1,90,0,0,0,0.0,38.0,1.0,
+5991934,2026-10-04,selecciones,French Guiana,Thomas Vancaeyezeele,936220,D,1,90,1,1,0,0.0,64.0,1.0,50000.0
+5991934,2026-10-04,selecciones,French Guiana,Zedan Charlec,1544917,M,1,90,1,1,0,0.0,66.0,2.0,
+5991934,2026-10-04,selecciones,French Guiana,Yvelin Nozile,1695196,F,1,89,3,0,0,0.0,83.0,3.0,
+5991934,2026-10-04,selecciones,French Guiana,Marcio Andelmon,0,,1,90,0,0,0,0.0,85.0,,
+5991934,2026-10-04,selecciones,French Guiana,Calvin Soga,0,,1,90,0,0,0,0.0,87.0,,
+5991934,2026-10-04,selecciones,French Guiana,Joël Sarrucco,1112946,F,1,90,0,0,0,0.0,115.0,3.0,
+5991934,2026-10-04,selecciones,French Guiana,Jules Haabo,859850,F,0,32,3,1,1,0.0,,3.0,
+5109987,2026-10-04,usl_championship,Orange County SC,Alexander Rando,1257972,G,1,90,0,0,0,0.0,11.0,0.0,66616.0
+5109987,2026-10-04,usl_championship,Orange County SC,Jaylin Lindsey,924434,D,1,46,0,0,0,0.0,32.0,1.0,95744.0
+5109987,2026-10-04,usl_championship,Orange County SC,Tom Brewitt,858006,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5109987,2026-10-04,usl_championship,Orange County SC,Tyson Espy,1781044,D,1,90,0,0,0,0.0,36.0,1.0,443519.0
+5109987,2026-10-04,usl_championship,Orange County SC,Ryan Doghman,739732,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
+5109987,2026-10-04,usl_championship,Orange County SC,Marcelo Palomino,1136257,M,1,68,0,0,0,0.0,72.0,2.0,67994.0
+5109987,2026-10-04,usl_championship,Orange County SC,Ousmane Sylla,1614618,M,1,90,2,2,1,0.0,74.0,2.0,69333.0
+5109987,2026-10-04,usl_championship,Orange County SC,Kevin Partida,937937,M,1,62,0,0,0,0.0,76.0,2.0,50000.0
+5109987,2026-10-04,usl_championship,Orange County SC,Chris Hegardt,1138504,M,1,90,3,1,0,0.0,78.0,2.0,269958.0
+5109987,2026-10-04,usl_championship,Orange County SC,Mouhamadou War,1503398,D,1,80,3,2,0,0.0,104.0,1.0,84931.0
+5109987,2026-10-04,usl_championship,Orange County SC,Lyam MacKinnon,1472288,F,1,68,1,0,0,0.0,106.0,3.0,60178.0
+5109987,2026-10-04,usl_championship,Orange County SC,Nico Benalcázar,1338699,D,0,44,0,0,0,0.0,,1.0,68821.0
+5109987,2026-10-04,usl_championship,Orange County SC,Stephen Kelly,955005,M,0,28,0,0,0,0.0,,2.0,69685.0
+5109987,2026-10-04,usl_championship,Orange County SC,Brandon Cambridge,1439802,F,0,22,1,0,0,0.0,,3.0,72039.0
+5109987,2026-10-04,usl_championship,Orange County SC,Yaniv Bazini,1634983,F,0,22,1,0,0,0.0,,3.0,80557.0
+5109987,2026-10-04,usl_championship,Orange County SC,Ethan Zubak,738060,F,0,10,1,0,0,0.0,,3.0,83304.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Jacob Jackson,1339415,G,1,90,0,0,0,0.0,11.0,0.0,63090.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Joel Garcia,1626139,D,1,75,0,0,0,0.0,32.0,1.0,231558.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Quinton Elliot,1780532,D,1,90,0,0,0,0.0,34.0,1.0,
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Zackery Farnsworth,1190745,D,1,90,2,1,1,0.0,36.0,1.0,154509.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Stuart Ritchie,1372216,D,1,89,0,0,0,0.0,38.0,1.0,117828.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Nick Ross,181255,M,1,90,1,0,0,0.0,73.0,2.0,93873.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Ryuga Nakamura,1358343,M,1,64,1,0,0,0.0,75.0,2.0,152002.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Fidel Barajas,1406105,F,1,90,2,1,0,0.0,77.0,3.0,1387664.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Diego Otoya,1364473,F,1,45,1,0,0,0.0,103.0,3.0,159266.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Ilijah Paul,1082953,F,1,89,3,3,0,0.0,105.0,3.0,85698.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Sebastian Lletget,411629,M,1,90,2,1,1,0.0,107.0,2.0,50000.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Wesley Leggett,1447989,F,0,45,1,0,0,0.0,,3.0,89980.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Judson,575317,M,0,26,0,0,0,0.0,,2.0,132762.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Belmar Joseph,1650450,M,0,15,0,0,0,0.0,,2.0,94084.0
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Ballack Villasana,1921664,M,0,1,1,0,0,0.0,,2.0,
+5109987,2026-10-04,usl_championship,Monterey Bay FC,Facundo Canete,1350176,M,0,1,0,0,0,0.0,,2.0,
