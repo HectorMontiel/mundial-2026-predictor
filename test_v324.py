@@ -139,16 +139,22 @@ def probar_nada(doc):
     check(n_nada > 0 and not distintos,
           '`nada_que_meter` coincide con la tarjeta (%d sin nada)%s'
           % (n_nada, '' if not distintos else ': %s' % distintos[:3]))
-    viejo = copy.deepcopy(ps)
-    for p in viejo:
-        p.pop(dd.CLAVE_PICK, None)
-        p['_recomendadas'] = mm.recomendadas(p, None, n=mm.MAX_RECOMENDADAS)
-    escondidos = [p.get('partido') for p in viejo
-                  if mm.nada_que_meter(p) and not (
-                      p.get('sin_modelo') or p.get('prob') is None
-                      or p.get('solo_mercado'))]
-    check(not escondidos, 'sin precálculo no se esconde ningún partido con '
-          'modelo (no se sabe sin pagar la cuenta)')
+    # v327 — sin la decisión del cron (pasada la medianoche UTC) ya no se
+    # deja el partido en la lista: se calcula aquí, y tiene que decir lo mismo
+    # que el cron
+    con_modelo = [p for p in ps if not (p.get('sin_modelo') or p.get('prob') is None
+                                        or p.get('solo_mercado'))
+                  and dd.tarjeta_de_pick(p) is not None][:25]
+    distintos_vivo = []
+    for p in con_modelo:
+        q = copy.deepcopy(p)
+        q.pop(dd.CLAVE_PICK, None)
+        q['_recomendadas'] = mm.recomendadas(q, None, n=mm.MAX_RECOMENDADAS)
+        if mm.nada_que_meter(q) != (not mm.metidas(dd.tarjeta_de_pick(p))):
+            distintos_vivo.append(p.get('partido'))
+    check(con_modelo and not distintos_vivo,
+          'sin precálculo se calcula aquí y dice lo mismo que el cron (%d)%s'
+          % (len(con_modelo), '' if not distintos_vivo else ': %s' % distintos_vivo[:3]))
     textos = [mm.por_que_no(p) for p in ps if mm.nada_que_meter(p)]
     check(textos and all(isinstance(t, str) and t for t in textos),
           'cada partido sin nada trae su porqué (%d)' % len(textos))
@@ -214,8 +220,14 @@ def probar_render(doc):
     registro igual."""
     import modo_modelo as mm
     import pronosticos_guardados as pg
+    import time as _time
+    import horario as _hz
     lista = [p for p in doc['datos']['pronosticos'] if not p.get('jugado')][:60]
-    sin_nada = {p.get('partido') for p in lista if mm.nada_que_meter(p)}
+    # v327 — los que ya empezaron salen de «sin jugar» antes de llegar aquí
+    _empezo = lambda p: (_hz._a_utc(p.get('inicio')) is not None
+                         and _hz._a_utc(p.get('inicio')).timestamp() <= _time.time())
+    sin_nada = {p.get('partido') for p in lista
+                if mm.nada_que_meter(p) and not _empezo(p)}
     pintadas = []
     _t, _nq = mm.tarjeta, mm.nada_que_meter
     mm.tarjeta = lambda st, p, **k: pintadas.append(p.get('partido')) or _t(st, p, **k)

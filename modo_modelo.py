@@ -3895,6 +3895,118 @@ def _entra_en_lista(p: Dict) -> bool:
     return True
 
 
+def recos_tarjeta(p: Dict) -> list:
+    """
+    v327 — Las recomendadas de la TARJETA (con córners, tarjetas y remates).
+
+    Las del cron si siguen valiendo (`decisiones_dia`); si no —pasada la
+    medianoche UTC hasta el siguiente precálculo, o con un precálculo de otro
+    código—, la misma cuenta aquí, recordada por partido (`_memo_ui`) para no
+    pagarla en cada pasada. Nunca lanza.
+    """
+    try:
+        import decisiones_dia as _dd_r
+        r = _dd_r.tarjeta_de_pick(p)
+        if r is not None:
+            return r
+    except Exception:
+        pass
+
+    def _calcula():
+        _rm = remates_tarjeta(p)
+        return recomendadas(
+            p, {'Córners': corners_tarjeta(p),
+                'Tarjetas': tarjetas_tarjeta(p),
+                'Remates': (_rm or {}).get('totales'),
+                'Remates a puerta': (_rm or {}).get('a_puerta')},
+            n=MAX_RECOMENDADAS)
+    try:
+        return _memo_ui('recos_tarjeta', (str(p.get('clave_liga') or ''),
+                                          str(p.get('partido') or ''),
+                                          str(p.get('inicio') or '')),
+                        _calcula) or []
+    except Exception as e:
+        logger.debug('[modo_modelo] recos de la tarjeta: %s', e)
+        return []
+
+
+# v327 — CUÁNTO DURA UN PARTIDO, PARA DECIR «EN JUEGO» SIN MARCADOR. El fútbol
+# es el de `partidos_jugados.HORAS_PARTIDO`; los demás, su duración habitual.
+DURACION_H = {'Fútbol': 2.5, 'MLB': 3.5, 'KBO': 3.5, 'NFL': 3.5, 'NBA': 2.75,
+              'Tenis': 3.0}
+
+
+def sacar_empezados(pronosticos: List[Dict], jugados: List[Dict],
+                    ahora: Optional[float] = None) -> List[Dict]:
+    """
+    v327 — LO QUE YA EMPEZÓ NO ES «SIN JUGAR», AUNQUE EL PRECÁLCULO SEA DE ANTES.
+
+    El usuario, a las 18:00: «los partidos de las ocho de la mañana me siguen
+    apareciendo en Sin jugar». El precálculo trae TODOS los partidos del día
+    —también los que ya empezaron— y sólo el cron los archivaba; la pantalla
+    no miraba la hora. Ahora sí: un partido cuyo inicio ya pasó sale de «Sin
+    jugar» en el momento, y pasa a los finalizados como lo archiva el cron
+    (`partidos_jugados.archivar_del_pronostico`): «En juego» mientras dura, con
+    la apuesta que se recomendaba antes de empezar. Si el archivo del día ya
+    lo trae, no se repite.
+
+    Antes de archivarlo se anota en el registro de pronósticos exactamente
+    como lo anotaba su tarjeta (`anotar_como_tarjeta`): el registro no cambia.
+    """
+    import time as _t
+    try:
+        import horario as hz
+        import partidos_jugados as pj
+        import pronosticos_guardados as pg
+    except Exception as e:
+        logger.debug('[modo_modelo] sacar empezados: %s', e)
+        return list(pronosticos or [])
+    ahora = float(ahora if ahora is not None else _t.time())
+    llaves = {}
+    for j in jugados or []:
+        if isinstance(j, dict):
+            llaves.setdefault(str(j.get('clave_liga') or ''), []).append(j)
+    fuera, archivados = [], []
+    for p in pronosticos or []:
+        if not isinstance(p, dict) or p.get('jugado'):
+            fuera.append(p)
+            continue
+        ini = hz._a_utc(p.get('inicio'))
+        if ini is None or ini.timestamp() > ahora:
+            fuera.append(p)
+            continue
+        try:
+            anotar_como_tarjeta(p)
+        except Exception:
+            pass
+        mismos = llaves.get(str(p.get('clave_liga') or '')) or []
+        if any(pj._llave(p) == pj._llave(j) or pj._misma_cita(p, j)
+               for j in mismos):
+            continue
+        q = dict(p)
+        q['jugado'] = True
+        q['archivado_del_pronostico'] = True
+        q['archivado_ts'] = ahora
+        try:
+            if q.get('solo_mercado'):
+                _r = metidas(list(q.get('_recomendadas') or
+                                  recomendadas(p, None, n=MAX_RECOMENDADAS)))
+            elif q.get('sin_modelo') or q.get('prob') is None:
+                _r = []
+            else:
+                _r = metidas(recos_tarjeta(p))
+            q['recomendadas_previas'] = [dict(pg._fila(r), origen='archivo')
+                                         for r in _r]
+        except Exception as e:
+            logger.debug('[modo_modelo] previas de %s: %s', p.get('partido'), e)
+            q['recomendadas_previas'] = []
+        dur = DURACION_H.get(str(q.get('deporte') or 'Fútbol'), 3.0)
+        if q.get('goles_home') is None and ini.timestamp() + dur * 3600 > ahora:
+            q['en_juego'] = True
+        archivados.append(q)
+    return fuera + archivados
+
+
 def anotar_como_tarjeta(p: Dict) -> bool:
     """
     v323 — Lo que `tarjeta()` anota en el registro, sin pintar la tarjeta.
@@ -3916,21 +4028,7 @@ def anotar_como_tarjeta(p: Dict) -> bool:
             return bool(_pgs.guardar(p, metidas(list(_r))))
         if p.get('sin_modelo') or p.get('prob') is None:
             return False
-        recos = None
-        try:
-            import decisiones_dia as _dd_a
-            recos = _dd_a.tarjeta_de_pick(p)
-        except Exception:
-            recos = None
-        if recos is None:
-            _rm = remates_tarjeta(p)
-            recos = recomendadas(
-                p, {'Córners': corners_tarjeta(p),
-                    'Tarjetas': tarjetas_tarjeta(p),
-                    'Remates': (_rm or {}).get('totales'),
-                    'Remates a puerta': (_rm or {}).get('a_puerta')},
-                n=MAX_RECOMENDADAS)
-        return bool(_pgs.guardar(p, metidas(recos)))
+        return bool(_pgs.guardar(p, metidas(recos_tarjeta(p))))
     except Exception as e:
         logger.debug('[modo_modelo] anotar como tarjeta: %s', e)
         return False
@@ -3979,8 +4077,8 @@ def nada_que_meter(p: Dict) -> bool:
     regla, nada. Si el precálculo no vale y las recomendadas sin bloques ya
     meten algo, la respuesta es «no» sin más cuenta (los bloques no quitan un
     «meter»: van detrás en el orden). Si no se puede saber sin calcular los
-    bloques —0,1 s por partido, cientos de partidos—, se dice que no y el
-    partido se queda en la lista como siempre. Nunca lanza.
+    bloques, se calcula aquí y se recuerda (`recos_tarjeta`, v327). Nunca
+    lanza.
     """
     try:
         if not isinstance(p, dict) or p.get('jugado'):
@@ -3998,9 +4096,17 @@ def nada_que_meter(p: Dict) -> bool:
             recos = _dd_n.tarjeta_de_pick(p)
         except Exception:
             recos = None
-        if recos is not None:
-            return not metidas(recos)
-        return False
+        if recos is None:
+            # v327 — sin la decisión del cron (pasada la medianoche UTC hasta
+            # el siguiente precálculo) se dejaba el partido en la lista, y el
+            # usuario volvía a ver lo que no se mete justo a las 18:00. Ahora
+            # se calcula aquí, recordado. Si sin bloques ya mete algo, los
+            # bloques no se lo quitan (van detrás en el orden): no hace falta.
+            _r = p.get('_recomendadas')
+            if _r and metidas(list(_r)):
+                return False
+            recos = recos_tarjeta(p)
+        return not metidas(recos)
     except Exception as e:
         logger.debug('[modo_modelo] nada que meter: %s', e)
         return False
@@ -4014,14 +4120,7 @@ def por_que_no(p: Dict) -> str:
                 'regla (80-90 %, cuota 1,10-1,35)')
     if p.get('sin_modelo') or p.get('prob') is None:
         return 'sin modelo propio para esta competición'
-    recos = None
-    try:
-        import decisiones_dia as _dd_w
-        recos = _dd_w.tarjeta_de_pick(p)
-    except Exception:
-        recos = None
-    if recos is None:
-        recos = p.get('_recomendadas') or []
+    recos = recos_tarjeta(p)
     r = recos[0] if recos else None
     if not r:
         return 'ninguna apuesta llega al 50 % con una cuota de 1,20 o más'
@@ -4171,6 +4270,9 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         except Exception as e:
             logger.debug('[modo_modelo] partidos jugados: %s', e)
 
+    # v327 — ver `sacar_empezados`
+    if pintar:
+        pronosticos = sacar_empezados(list(pronosticos or []), jugados)
     con, sin = [], []
     for p in (list(pronosticos or []) + jugados):
         if not isinstance(p, dict):
@@ -4440,9 +4542,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     # 178 partidos de fútbol por jugar, 85 decían «🚫 Nada que meter» y se
     # mezclaban con los que sí. Salen de la lista principal a un desplegable
     # al final, con la hora, la liga y el porqué en una línea, y sus tarjetas
-    # a un clic. Es el mismo veredicto de la tarjeta (ver `nada_que_meter`):
-    # si no se puede saber sin pagar la cuenta entera, el partido se queda en
-    # la lista como siempre.
+    # a un clic. Es el mismo veredicto de la tarjeta (ver `nada_que_meter`).
+    # v327 — y ya no depende de que valga la decisión del cron: sin ella se
+    # calcula aquí. Antes el partido se quedaba en la lista, y a partir de la
+    # medianoche UTC (las 18:00 en CDMX) volvía a verse lo que no se mete.
     #
     # El registro de pronósticos no cambia: la tarjeta de un partido sin nada
     # que meter no anota nada (`guardar` ignora una lista vacía) y el barrido

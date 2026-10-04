@@ -19305,8 +19305,10 @@ def test_los_partidos_acabados_salen_del_precalculo_y_no_de_la_red():
         # EL DIA EN CURSO CADUCA, y el de ayer no. A las 18:00 faltan los
         # partidos de la noche, asi que servir un precalculo de la manana
         # seria enseniar una lista corta como si estuviera completa.
-        import datetime as _dt
-        hoy = _dt.datetime.now().strftime('%Y-%m-%d')
+        # v327 — «hoy» es el de CDMX, como en `partidos_jugados` (v305): con
+        # la fecha del servidor (UTC) esta prueba fallaba de 00:00 a 06:00 UTC
+        import dia_picks as _dp_t
+        hoy = _dp_t.hoy_local().strftime('%Y-%m-%d')
         tocada['red'] = False
         with open(ruta, 'w', encoding='utf-8') as f:
             json.dump({'dia': hoy, 'ts': time.time() - 20 * 3600,
