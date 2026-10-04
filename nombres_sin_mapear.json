@@ -91,14 +91,14 @@
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maipu",
-    "ratio": 0.6667,
+    "candidato": "Deportivo Espanol",
+    "ratio": 0.7429,
     "visto": "2026-10-04"
   },
   "Estudiantes de La Plata": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes Rio Cuarto",
-    "ratio": 0.6667,
+    "candidato": "Estudiantes L.P.",
+    "ratio": 0.7895,
     "visto": "2026-10-04"
   },
   "Estudiantes de Río Cuarto": {
@@ -517,7 +517,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Paraguayo",
     "ratio": 0.7222,
-    "visto": "2026-10-03"
+    "visto": "2026-10-04"
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
@@ -527,9 +527,9 @@
   },
   "Cúcuta Deportivo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.5455,
-    "visto": "2026-10-03"
+    "candidato": "Deportivo Maipu",
+    "ratio": 0.5806,
+    "visto": "2026-10-04"
   },
   "Mineros de Zacatecas": {
     "contexto": "cuotas_mx→futbol",
@@ -599,9 +599,9 @@
   },
   "San Martín (San Juan)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Marino Academy W",
-    "ratio": 0.6486,
-    "visto": "2026-10-03"
+    "candidato": "San Martin T.",
+    "ratio": 0.7097,
+    "visto": "2026-10-04"
   },
   "Deportivo Maldonado": {
     "contexto": "cuotas_mx→futbol",
@@ -623,8 +623,8 @@
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Santa Cruz",
-    "ratio": 0.2941,
+    "candidato": "Santa Cruz RJ",
+    "ratio": 0.3243,
     "visto": "2026-10-04"
   },
   "New Mexico United": {
@@ -667,7 +667,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Defensores de Glew",
     "ratio": 0.75,
-    "visto": "2026-10-03"
+    "visto": "2026-10-04"
   },
   "Cheltenham Town": {
     "contexto": "cuotas_mx→futbol",
@@ -773,8 +773,8 @@
   },
   "Atlético Goianiense": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Colina",
-    "ratio": 0.7059,
+    "candidato": "Social Atletico Television",
+    "ratio": 0.4889,
     "visto": "2026-10-04"
   },
   "Club Atlético Morelia": {
@@ -791,9 +791,9 @@
   },
   "Atletico Rafaela": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico F.C.",
-    "ratio": 0.7143,
-    "visto": "2026-10-02"
+    "candidato": "Social Atletico Television",
+    "ratio": 0.5238,
+    "visto": "2026-10-04"
   },
   "San Martín (Tucumán)": {
     "contexto": "cuotas_mx→futbol",
@@ -1105,6 +1105,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Leones de Rosario",
     "ratio": 0.7333,
+    "visto": "2026-10-04"
+  },
+  "Chicago Fire FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Nueva Chicago",
+    "ratio": 0.56,
     "visto": "2026-10-04"
   }
 }
