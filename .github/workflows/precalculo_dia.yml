@@ -93,6 +93,15 @@ jobs:
           fi
           EDAD=$(( ( $(date -u +%s) - SEG ) / 60 ))
           echo "El dia se cocino hace $EDAD min (umbral $FRESCURA_MINUTOS) — $GEN"
+          # v327 — UN PRECÁLCULO DE AYER (UTC) NO ES FRESCO. Las decisiones
+          # precalculadas sólo valen el mismo día (`decisiones_dia._dia`), así
+          # que a medianoche UTC —las 18:00 en CDMX— dejaban de servir y esta
+          # pasada se saltaba el cocinado por «fresco» hasta 100 min más.
+          if [ "$(date -u -d "$GEN" +%F)" != "$(date -u +%F)" ]; then
+            echo "Cocinado otro día (UTC): se cocina."
+            echo "saltar=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
           if [ "$EDAD" -lt "$FRESCURA_MINUTOS" ] && [ "$EDAD" -ge 0 ]; then
             echo "Fresco: esta pasada no hace nada."
             echo "saltar=true" >> "$GITHUB_OUTPUT"
