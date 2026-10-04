@@ -3263,7 +3263,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             _ck = corners_tarjeta(pick)
             _tj = tarjetas_tarjeta(pick)
             _rm = remates_tarjeta(pick)
-            _qr = quien_remata_tarjeta(pick)
+            # v328 — «quién remata» ya no va en la tarjeta (ver
+            # `_analisis_conciso_html`): no se calcula. Era la pieza más cara
+            # de la tarjeta (40,9 s de 67 medidos en la v322). Sigue en la
+            # ficha del partido.
+            _qr = None
 
         # ---- 1) las apuestas recomendadas, o por qué no las hay -------
         #
@@ -3630,7 +3634,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         # mete, y es la única que se muestra; no quiero tanto rollo». Arriba
         # quedan las «🎯 meter»; aquí, sólo información (resultado, quién
         # remata). `_filas_de_mercados` se conserva por si se vuelve a pedir.
-        filas.append(_quien_remata_compacto(_qr))
+        # v328 — «quién remata» sale de la tarjeta: ver `_analisis_conciso_html`
         # v310 — «💎 Remate con valor» YA NO SE PINTA. Medido con las
         # cuotas reales de Playdoit que el bot guarda desde el 2026-08-23
         # (`_v310_remates_cuotas.py`: 16.932 líneas de 499 partidos, modelo
@@ -3654,12 +3658,14 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
 
         # ---- 3) y todo el detalle, plegado ------------------------------
         with st.expander('🔍 Análisis'):
-            _tira = _tira_estabilidad(pick.get('clave_liga'))
-            if _tira:
-                st.markdown(_tira, unsafe_allow_html=True)
             for _pq in _porque_detalle:
                 st.caption(_pq)
-            _analisis_completo(st, pick, b, rec, _ck, _tj, _rm, _qr)
+            # v328 — corto y sólo lo medido; lo demás, en la ficha
+            _con = _analisis_conciso_html(pick, b, _ck, _tj)
+            if _con:
+                st.markdown(_con, unsafe_allow_html=True)
+            else:
+                st.caption('No hay más detalle medido de este partido.')
             if navegar is not None:
                 if st.button('Ver ficha del partido',
                              key='mm_ir_%s_%d' % (clave_vista, n_boton),
@@ -3685,10 +3691,112 @@ def _sin_historico_html(pick: Dict, stat: str, icono: str) -> str:
     return '<div class="mm-fis mm-nd">%s %s</div>' % (icono, _html_e.escape(txt))
 
 
+def _num1(x) -> str:
+    """Un decimal con coma, como se lee en México."""
+    return ('%.1f' % float(x)).replace('.', ',')
+
+
+def _corto(nombre: str) -> str:
+    n = str(nombre or '').strip()
+    return n if len(n) <= 16 else n[:15] + '…'
+
+
+def _analisis_conciso_html(pick: Dict, b: Dict, _ck, _tj) -> str:
+    """
+    v328 — EL ANÁLISIS DE LA TARJETA: CORTO Y SÓLO LO MEDIDO.
+
+    El usuario, con la captura de Estados Unidos–México delante: «mira toda
+    la basura que hay en el análisis del partido cuando estamos en apuestas
+    del día; dice "sin medir" cuando no debería. Prefiero que no haya nada o
+    que muestres información verídica, con un historial preciso, y no tanto
+    texto: muy específico, conciso, alto nivel».
+
+    Lo que queda, una línea por cosa y sin insignias:
+      · goles esperados, más de 2,5 y ambos marcan — el modelo de goles,
+        medido en 80.830 partidos (`patrones_liga`, v326);
+      · córners y tarjetas esperados, sólo si la competición los publica de
+        verdad (no los «estimados») — medidos en la v319: lo que promete
+        70-80 % acierta 73,5 % (córners) y 72,4 % (tarjetas);
+      · en los otros deportes, el total esperado.
+
+    Lo que sale: remates y remates a puerta (fallan más de lo que prometen:
+    v312, fuera de «meter»), «quién remata» (como apuesta pierde −9,6 %, v310),
+    las insignias «destacado» y «calibración sin medir», y la tira de
+    estabilidad. Todo sigue en «Ver ficha del partido».
+    """
+    h, a = _equipos(pick)
+    lineas = []
+    if str(pick.get('deporte') or 'Fútbol') == 'Fútbol':
+        # Los goles que la tarjeta ya enseña: el total de `goles_lambda` (el de
+        # la razón de la apuesta) y, por equipo, lo que implica su «marca»
+        # corregido (λ = −ln(1 − p)), que suma lo mismo. `goles_xg` es la
+        # lambda ANTES de esas correcciones y no cuadraba (2,0 contra 2,6).
+        import math as _m
+        ge = pick.get('goles_equipo') or {}
+
+        def _lam(lado):
+            q = _p_o_none((ge.get(lado) or {}).get('0.5'))
+            return -_m.log(1.0 - q) if q is not None and 0 < q < 1 else None
+        lh, la = _lam('local'), _lam('visitante')
+        tot = _p_o_none(pick.get('goles_lambda'))
+        if tot is None and lh is not None and la is not None:
+            tot = lh + la
+        partes = []
+        if tot is not None:
+            partes.append('<b>%s</b> esperados%s' % (
+                _num1(tot), (' (%s %s · %s %s)' % (_corto(h), _num1(lh),
+                                                   _corto(a), _num1(la)))
+                if lh is not None and la is not None else ''))
+        p25 = _p_o_none((b or {}).get(_ETQ_OVER))
+        if p25 is not None:
+            partes.append('más de 2,5: <b>%.0f %%</b>' % (100 * p25))
+        pb = _p_o_none((b or {}).get('Ambos marcan: Sí'))
+        if pb is not None:
+            partes.append('ambos marcan: <b>%.0f %%</b>' % (100 * pb))
+        if partes:
+            lineas.append('⚽ Goles · ' + ' · '.join(partes))
+        for bloque, icono, nombre in ((_ck, '⛳', 'Córners'),
+                                      (_tj, '🟨', 'Tarjetas')):
+            if not bloque or (bloque.get('origen') or 'observado') == 'estimado':
+                continue
+            med = {str(f.get('etiqueta')): f.get('media')
+                   for f in (bloque.get('filas') or [])}
+            t_, l_, v_ = med.get('Total'), med.get('Local'), med.get('Visita')
+            if t_ is None:
+                continue
+            lineas.append('%s %s · <b>%s</b> esperados%s' % (
+                icono, nombre, _num1(t_),
+                (' (%s %s · %s %s)' % (_corto(h), _num1(l_), _corto(a), _num1(v_)))
+                if l_ is not None and v_ is not None else ''))
+    else:
+        tot = _p_o_none(pick.get('total_esperado'))
+        if tot is not None:
+            unidad = str(((pick.get('totales') or {}).get('unidad')) or 'puntos')
+            lineas.append('%s %s esperados: <b>%s</b>%s' % (
+                _ICONO_TOTAL.get(unidad, '📊'), unidad.capitalize(), _num1(tot),
+                (' (%s)' % pick['marcador_esperado'])
+                if pick.get('marcador_esperado') else ''))
+    if not lineas:
+        return ''
+    return ''.join('<div class="mm-ck-fila">%s</div>' % l for l in lineas)
+
+
+def _p_o_none(x) -> Optional[float]:
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return None
+    return v if v == v else None
+
+
 def _analisis_completo(st, pick: Dict, b: Dict, rec, _ck, _tj, _rm, _qr
                        ) -> None:
     """
     Lo que antes ocupaba la tarjeta entera, ahora a un clic.
+
+    v328 — LA TARJETA YA NO LO LLAMA: su «🔍 Análisis» es
+    `_analisis_conciso_html`. Se conserva entero, como `_filas_de_mercados`
+    en la v311, por si se vuelve a pedir.
 
     Se conserva ENTERO y sin resumir: los bloques con sus tres filas, el
     párrafo de «Estimado», el árbitro, las rachas y el aviso de cordura. La

@@ -8704,15 +8704,20 @@ def test_la_tarjeta_no_pinta_remates_por_equipo():
     # ENSEÑEN, no donde; asi que se comprueban los dos sitios.
     src = open('modo_modelo.py', encoding='utf-8').read()
     cuerpo = src.split('def tarjeta(st, pick')[-1]
-    check('quien_remata_tarjeta(pick)' in cuerpo
-          and '_quien_remata_compacto' in cuerpo,
-          "la tarjeta sigue enseñando quien remata, en fila compacta")
+    # v328 — EL USUARIO PIDIÓ LO CONTRARIO: «mira toda la basura que hay en
+    # el análisis… muy específico, conciso, alto nivel». «Quién remata» sale
+    # de la tarjeta de Apuestas del Día (como apuesta pierde −9,6 %, v310) y
+    # ni se calcula; sigue en la ficha del partido.
+    check('quien_remata_tarjeta(pick)' not in cuerpo.split('def _analisis_completo')[0]
+          and '_quien_remata_compacto(_qr)' not in cuerpo,
+          "v328: la tarjeta ya no enseña ni calcula quién remata")
     check('remates_tarjeta(pick)' in cuerpo,
-          "y v166: los remates por equipo se calculan para la tarjeta")
-    detalle = src.split('def _analisis_completo')[-1]
-    check('_bloque_quien_remata_html' in detalle
-          and '_bloque_remates_html' in detalle,
-          "y su detalle completo vive en el desplegable")
+          "y v166: los remates por equipo se calculan para la tarjeta "
+          "(entran en la decisión, no en pantalla)")
+    ui = open('dashboard_ui.py', encoding='utf-8').read()
+    ficha = ui.split('def render_liga_club(')[1].split('\ndef ')[0]
+    check('remates por jugador' in ficha,
+          "y el detalle por jugador sigue en la ficha del partido")
     import modo_modelo as mm
     # v307 — equipos que no están en ninguna fuente: Uruguay ya trae remates
     # observados (Flashscore) y Danubio–Racing dejó de ser estimado.
@@ -12171,9 +12176,9 @@ def test_manana_enseña_lo_mismo_que_hoy():
           and 'elif not con_apuesta' not in trozo,
           "`con_apuesta` ya solo decide la ETIQUETA, no si hay apuesta")
 
-    # el contexto y los mercados tambien se pintan en las dos vistas
-    for pieza in ('_bloque_contexto',
-                  '_tira_estabilidad', 'recomendadas('):
+    # el contexto y los mercados tambien se pintan en las dos vistas (v328:
+    # la tira de estabilidad ya no va en la tarjeta: ver `_analisis_conciso_html`)
+    for pieza in ('_bloque_contexto', 'recomendadas('):
         check(pieza in cuerpo, f"mañana tambien pinta {pieza}")
 
 
