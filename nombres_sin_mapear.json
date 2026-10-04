@@ -187,9 +187,9 @@
   },
   "Montevideo Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "S. Wanderers",
-    "ratio": 0.6452,
-    "visto": "2026-10-03"
+    "candidato": "Racing Montevideo",
+    "ratio": 0.5405,
+    "visto": "2026-10-04"
   },
   "Nueva Chicago": {
     "contexto": "cuotas_mx→futbol",
@@ -467,9 +467,9 @@
   },
   "Central Norte": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Barracas Central 2",
-    "ratio": 0.5161,
-    "visto": "2026-10-01"
+    "candidato": "Central Cordoba",
+    "ratio": 0.7143,
+    "visto": "2026-10-04"
   },
   "Chacarita Juniors": {
     "contexto": "cuotas_mx→futbol",
@@ -505,7 +505,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Paraguayo",
     "ratio": 0.7647,
-    "visto": "2026-10-03"
+    "visto": "2026-10-04"
   },
   "All Boys": {
     "contexto": "cuotas_mx→futbol",
@@ -545,9 +545,9 @@
   },
   "Sportivo Ameliano": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sportivo Iteno",
-    "ratio": 0.7742,
-    "visto": "2026-09-24"
+    "candidato": "Sportivo Barracas",
+    "ratio": 0.6471,
+    "visto": "2026-10-04"
   },
   "Sportivo Trinidense": {
     "contexto": "cuotas_mx→futbol",
@@ -593,8 +593,8 @@
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Felipe",
-    "ratio": 0.6316,
+    "candidato": "San Luis",
+    "ratio": 0.5882,
     "visto": "2026-10-04"
   },
   "San Martín (San Juan)": {
@@ -1091,14 +1091,20 @@
   },
   "Rosario Central": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Norte",
-    "ratio": 0.5,
+    "candidato": "Central Cordoba",
+    "ratio": 0.4667,
     "visto": "2026-10-04"
   },
   "Vancouver Whitecaps": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Vancouver Rise W",
     "ratio": 0.7273,
+    "visto": "2026-10-04"
+  },
+  "Leones Negros": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Leones de Rosario",
+    "ratio": 0.7333,
     "visto": "2026-10-04"
   }
 }
