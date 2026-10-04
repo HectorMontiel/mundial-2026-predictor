@@ -15529,20 +15529,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103562,2026-07-25,brasil,Chapecoense,Marcinho,833990,F,0,45,1,1,1,0.61,,3.0,533409.0
 5103562,2026-07-25,brasil,Chapecoense,Bruno Pacheco,754373,D,0,10,0,0,0,0.0,,1.0,362625.0
 5103562,2026-07-25,brasil,Chapecoense,Vinícius Balieiro,1206576,M,0,7,0,0,0,0.0,,2.0,316441.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Ethan Bandré,1346730,G,1,90,0,0,0,0.0,11.0,0.0,57600.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Pacifique Niyongabire,915626,M,1,67,1,0,0,0.0,32.0,2.0,70992.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Jacob Erlandson,1338758,D,1,90,1,0,0,0.0,34.0,1.0,50000.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Salvatore Mazzaferro,1500407,D,1,90,0,0,0,0.0,36.0,1.0,187200.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Kwame Awuah,825620,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,James Murphy,780567,M,1,90,2,0,0,0.0,64.0,2.0,57600.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Bolu Akinyode,675538,D,1,90,0,0,0,0.0,66.0,1.0,50000.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Christian Torres,1166560,M,1,54,0,0,0,0.0,83.0,2.0,
-5109850,2026-07-25,usl_championship,Loudoun United FC,Thorleifur Úlfarsson,1195273,F,1,90,2,1,0,0.0,85.0,3.0,83192.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Richard Aman,1459269,M,1,86,0,0,0,0.0,87.0,2.0,
-5109850,2026-07-25,usl_championship,Loudoun United FC,Abdellatif Aboukoura,1252526,F,1,90,2,1,1,0.0,115.0,3.0,132857.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Pedro Santos,281628,F,0,36,0,0,0,0.0,,3.0,50000.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Noah Adnan,1719157,D,0,23,0,0,0,0.0,,1.0,230644.0
-5109850,2026-07-25,usl_championship,Loudoun United FC,Sean Young,1309795,M,0,4,0,0,0,0.0,,2.0,96424.0
 5115882,2026-07-25,argentina,Talleres,Ezequiel Unsain,618946,G,1,90,0,0,0,0.0,11.0,0.0,1462678.0
 5115882,2026-07-25,argentina,Talleres,Santiago Fernández,1437367,D,1,45,1,0,0,0.02,33.0,1.0,2823703.0
 5115882,2026-07-25,argentina,Talleres,Román Riquelme,1277345,D,1,90,0,0,0,0.0,35.0,1.0,821011.0
@@ -27802,23 +27788,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844845,2026-08-08,leagues_cup,Leon,Luis Valadez,1658882,M,0,17,0,0,0,0.0,,2.0,
 5844845,2026-08-08,leagues_cup,Leon,José Alvarado,921579,F,0,17,1,0,0,0.0,,3.0,1186644.0
 5844845,2026-08-08,leagues_cup,Leon,Christopher Mora,1708022,D,0,12,0,0,0,0.0,,1.0,
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Victor Bernardes,1189602,G,1,90,0,0,0,0.0,11.0,0.0,235141.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Gabriel Inocêncio,1172407,D,1,90,1,0,0,0.02,32.0,1.0,182750.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Ericson,905495,D,1,61,0,0,0,0.0,34.0,1.0,
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Wallace,450002,D,1,90,1,1,0,0.04,36.0,1.0,142156.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Patrick Brey,937517,D,1,90,1,0,0,0.02,38.0,1.0,150756.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Matheus Sales,583764,M,1,90,0,0,0,0.0,64.0,2.0,224179.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Everton Morelli,879585,M,1,90,0,0,0,0.0,66.0,2.0,156614.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Zé Hugo,1359528,F,1,89,3,2,0,0.25,83.0,3.0,
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Rafael Gava,762031,M,1,76,1,0,0,0.02,85.0,2.0,166984.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Wesley Santos,1895029,F,1,61,1,0,0,0.08,87.0,3.0,
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Hygor,730760,F,1,61,3,0,0,0.68,115.0,3.0,122880.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Badaró,1805132,D,0,29,1,1,1,0.07,,1.0,
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Arthur Caíke,449837,F,0,29,0,0,0,0.0,,3.0,169540.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Jefferson Nem,751532,F,0,29,2,0,0,0.1,,3.0,186345.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Marco Antônio,1391241,M,0,14,0,0,0,0.0,,2.0,143523.0
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Pedrinho,1847897,D,0,1,0,0,0,0.0,,1.0,
-5190639,2026-08-08,bra_serie_b,Botafogo SP,Yuri,1776096,M,0,1,0,0,0,0.0,,2.0,
 1000013190,2026-08-08,chi_primera,Coquimbo Unido,Diego Sánchez,249596,G,1,90,0,0,0,0.0,11.0,0.0,158466.0
 1000013190,2026-08-08,chi_primera,Coquimbo Unido,Francisco Salinas,1343554,D,1,90,2,2,0,0.0,32.0,1.0,912892.0
 1000013190,2026-08-08,chi_primera,Coquimbo Unido,Benjamín Gazzolo,1122649,D,1,90,0,0,0,0.0,34.0,1.0,244025.0
@@ -28165,22 +28134,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5851077,2026-08-08,per_liga1,Atlético Grau,Diego Barreto,872685,M,0,22,2,1,0,0.0,,2.0,146030.0
 5851077,2026-08-08,per_liga1,Atlético Grau,Ignacio Tapia,772309,D,0,5,0,0,0,0.0,,1.0,203380.0
 5851077,2026-08-08,per_liga1,Atlético Grau,Yamir Ruidíaz,1711024,F,0,5,2,0,0,0.0,,3.0,194492.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Helton Leite,449653,G,1,90,0,0,0,0.0,11.0,0.0,205698.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Nathan Camargo,1366063,D,1,46,0,0,0,0.0,32.0,1.0,
-5190648,2026-08-08,bra_serie_b,Vila Nova,Douglas Mendes,1406628,D,1,79,1,0,0,0.04,34.0,1.0,1123473.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Breno,1791139,D,1,90,1,0,0,0.02,36.0,1.0,
-5190648,2026-08-08,bra_serie_b,Vila Nova,Higor,1693772,D,1,90,2,1,0,0.03,38.0,1.0,625471.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Everton,1034321,M,1,64,0,0,0,0.0,72.0,2.0,653046.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,João Vieira,1462413,M,1,90,3,0,0,0.12,74.0,2.0,556106.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Higor Meritão,1033100,M,1,46,0,0,0,0.0,76.0,2.0,675305.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Janderson,1045975,M,1,79,3,0,0,0.1,78.0,2.0,799424.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,André Luis,656372,F,1,90,0,0,0,0.0,104.0,3.0,318911.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Marquinhos,175644,F,1,90,2,0,0,0.08,106.0,3.0,323665.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Hayner,765156,D,0,44,0,0,0,0.0,,1.0,193057.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Dudu,1376786,M,0,45,4,0,0,0.16,,2.0,
-5190648,2026-08-08,bra_serie_b,Vila Nova,Dellatorre,278723,F,0,26,1,0,0,0.01,,3.0,332019.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Tiago Pagnussat,574664,D,0,11,0,0,0,0.0,,1.0,210835.0
-5190648,2026-08-08,bra_serie_b,Vila Nova,Emerson,1446567,F,0,11,0,0,0,0.0,,3.0,
 1000018868,2026-08-08,ven_primera,Monagas SC,Eduardo Lima,243303,G,1,90,0,0,0,0.0,11.0,0.0,98141.0
 1000018868,2026-08-08,ven_primera,Monagas SC,Alexis Rodas,950414,D,1,90,0,0,0,0.0,33.0,1.0,168973.0
 1000018868,2026-08-08,ven_primera,Monagas SC,Nicolás Henry,1269446,D,1,90,0,0,0,0.0,35.0,1.0,154652.0
@@ -31676,20 +31629,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5887565,2026-08-09,primeira,Academico Viseu,Cristian Ferreira,892175,M,0,17,0,0,0,0.0,,2.0,421655.0
 5887565,2026-08-09,primeira,Academico Viseu,Lorougnon Gohi,1695981,F,0,17,0,0,0,0.0,,3.0,423559.0
 5887565,2026-08-09,primeira,Academico Viseu,Dominik Steczyk,949666,F,0,11,0,0,0,0.0,,3.0,282629.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Eric Dick,924432,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Logan Neidlinger,1615795,D,1,74,0,0,0,0.0,32.0,1.0,137342.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Paco Craig,783608,D,1,90,1,0,0,0.0,34.0,1.0,50000.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Anthony Herbert,1347962,D,1,90,1,0,0,0.0,36.0,1.0,50000.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Alejandro Mitrano,1044783,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Loïc Mesanvi,1349074,F,1,83,1,0,0,0.0,72.0,3.0,110477.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Josh O'Brien,1393400,M,1,90,2,1,0,0.0,74.0,2.0,99450.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Cameron Lindley,924497,M,1,90,0,0,0,0.0,76.0,2.0,50000.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Jack Blake,421766,M,1,90,2,1,0,0.0,78.0,2.0,50000.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Bruno Rendón,1349934,F,1,74,1,0,0,0.0,104.0,3.0,
-5109883,2026-08-09,usl_championship,Indy Eleven,Edward Kizza,1246572,F,1,90,2,2,1,0.0,106.0,3.0,68827.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Nabi Kibunguchy,1244947,D,0,16,0,0,0,0.0,,1.0,50000.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Noble Okello,1016092,M,0,16,0,0,0,0.0,,2.0,95207.0
-5109883,2026-08-09,usl_championship,Indy Eleven,Makel Rasheed,1793931,D,0,7,0,0,0,0.0,,1.0,70206.0
 5109883,2026-08-09,usl_championship,Hartford Athletic,Antony Siaha,1175236,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5109883,2026-08-09,usl_championship,Hartford Athletic,TJ Presthus,1724681,D,1,90,1,1,0,0.0,32.0,1.0,72797.0
 5109883,2026-08-09,usl_championship,Hartford Athletic,Jordan Scarlett,888046,D,1,90,2,1,1,0.0,34.0,1.0,50000.0
@@ -134819,3 +134758,99 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991935,2026-10-03,selecciones,Saint Vincent and The Grenadines,Micah Joseph,1768007,M,1,90,2,1,0,0.0,85.0,2.0,
 5991935,2026-10-03,selecciones,Saint Vincent and The Grenadines,Kirtney Franklyn,1650154,D,1,72,1,0,0,0.0,87.0,1.0,
 5991935,2026-10-03,selecciones,Saint Vincent and The Grenadines,Oalex Anderson,521306,F,1,60,5,4,3,0.0,115.0,3.0,50000.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Jordan Farr,1078951,G,1,90,1,1,1,0.0,11.0,0.0,50000.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Pacifique Niyongabire,915626,D,1,79,3,1,0,0.0,32.0,1.0,66136.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Noah Adnan,1719157,D,1,90,0,0,0,0.0,34.0,1.0,101383.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Bolu Akinyode,675538,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Kwame Awuah,825620,D,1,90,1,0,0,0.0,38.0,1.0,50000.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,James Murphy,780567,M,1,80,3,2,0,0.0,64.0,2.0,92533.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Rida Zouhir,1216799,M,1,69,6,0,0,0.0,66.0,2.0,232662.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Christian Torres,1166560,F,1,73,0,0,0,0.0,83.0,3.0,50000.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Akil Watts,1079296,M,1,90,3,1,0,0.0,85.0,2.0,241249.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Abdellatif Aboukoura,1252526,F,1,90,5,1,0,0.0,87.0,3.0,96747.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Edward Davis,1374959,F,1,90,7,0,0,0.0,115.0,3.0,968992.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Liam Butts,1647585,F,0,21,0,0,0,0.0,,3.0,
+5109985,2026-10-03,usl_championship,Loudoun United FC,Giorgi Lomtadze,1241617,F,0,17,1,0,0,0.0,,3.0,83047.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Pedro Santos,281628,M,0,11,0,0,0,0.0,,2.0,50000.0
+5109985,2026-10-03,usl_championship,Loudoun United FC,Sean Young,1309795,M,0,10,0,0,0,0.0,,2.0,150663.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Eric Dick,924432,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Makel Rasheed,1793931,D,1,90,1,0,0,0.0,32.0,1.0,58623.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Anthony Herbert,1347962,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Nabi Kibunguchy,1244947,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Alejandro Mitrano,1044783,D,1,90,1,1,0,0.0,38.0,1.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Joe Hafferty,1256231,D,1,90,1,0,0,0.0,72.0,1.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Josh O'Brien,1393400,M,1,64,2,0,0,0.0,74.0,2.0,68062.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Cameron Lindley,924497,M,1,77,0,0,0,0.0,76.0,2.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Aodhan Quinn,639374,D,1,46,0,0,0,0.0,78.0,1.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Loïc Mesanvi,1349074,F,1,89,2,0,0,0.0,104.0,3.0,110477.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Bruno Rendón,1349934,F,1,77,1,1,1,0.0,106.0,3.0,
+5109985,2026-10-03,usl_championship,Indy Eleven,Mohamed Omar,1615692,M,0,44,0,0,0,0.0,,2.0,58535.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Malik Henry-Scott,1606022,F,0,26,0,0,0,0.0,,3.0,84531.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Paco Craig,783608,D,0,13,0,0,0,0.0,,1.0,50000.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Edward Kizza,1246572,F,0,13,0,0,0,0.0,,3.0,62295.0
+5109985,2026-10-03,usl_championship,Indy Eleven,Hesron Barry,1627007,D,0,1,0,0,0,0.0,,1.0,53899.0
+5103569,2026-10-03,brasil,Atlético-MG,Gabriel Delfim,1412963,G,1,90,0,0,0,0.0,11.0,0.0,608558.0
+5103569,2026-10-03,brasil,Atlético-MG,Natanael,1173565,D,1,90,0,0,0,0.0,32.0,1.0,5016295.0
+5103569,2026-10-03,brasil,Atlético-MG,Lyanco,654045,D,1,90,0,0,0,0.0,34.0,1.0,2482217.0
+5103569,2026-10-03,brasil,Atlético-MG,Vitor Hugo,307070,D,1,23,0,0,0,0.0,36.0,1.0,630082.0
+5103569,2026-10-03,brasil,Atlético-MG,Renan Lodi,793876,D,1,90,3,1,0,0.2,38.0,1.0,10674850.0
+5103569,2026-10-03,brasil,Atlético-MG,Mamady Cissé,1898808,M,1,57,0,0,0,0.0,64.0,2.0,1947201.0
+5103569,2026-10-03,brasil,Atlético-MG,Maycon,732294,M,1,90,0,0,0,0.0,66.0,2.0,1553959.0
+5103569,2026-10-03,brasil,Atlético-MG,Tomás Cuello,834605,F,1,90,0,0,0,0.0,83.0,3.0,6385907.0
+5103569,2026-10-03,brasil,Atlético-MG,Fred,322049,M,1,90,2,1,0,0.12,85.0,2.0,2125339.0
+5103569,2026-10-03,brasil,Atlético-MG,Bernard,265116,F,1,72,1,1,1,0.11,87.0,3.0,683156.0
+5103569,2026-10-03,brasil,Atlético-MG,Reinier,1075046,F,1,57,1,0,0,0.03,115.0,3.0,1861282.0
+5103569,2026-10-03,brasil,Atlético-MG,Léo Duarte,750056,D,0,67,0,0,0,0.0,,1.0,1837624.0
+5103569,2026-10-03,brasil,Atlético-MG,Victor Hugo,1363368,M,0,33,0,0,0,0.0,,2.0,9321170.0
+5103569,2026-10-03,brasil,Atlético-MG,Mateo Cassierra,639061,F,0,32,1,0,0,0.05,,3.0,8297341.0
+5103569,2026-10-03,brasil,Atlético-MG,Alexsander,1391210,M,0,18,0,0,0,0.0,,2.0,6493049.0
+5103569,2026-10-03,brasil,Atlético-MG,Igor Gomes,902694,M,0,1,0,0,0,0.0,,2.0,1393282.0
+5103569,2026-10-03,brasil,RB Bragantino,Tiago Volpi,409017,G,1,90,0,0,0,0.0,11.0,0.0,659971.0
+5103569,2026-10-03,brasil,RB Bragantino,Agustín Sant'Anna,704019,D,1,45,1,0,0,0.05,32.0,1.0,2268370.0
+5103569,2026-10-03,brasil,RB Bragantino,Guzmán Rodríguez,1132936,D,1,90,0,0,0,0.0,34.0,1.0,2343038.0
+5103569,2026-10-03,brasil,RB Bragantino,Gustavo Marques,1262152,D,1,90,2,0,0,0.13,36.0,1.0,3515944.0
+5103569,2026-10-03,brasil,RB Bragantino,Juninho Capixaba,844510,D,1,90,0,0,0,0.0,38.0,1.0,7149808.0
+5103569,2026-10-03,brasil,RB Bragantino,Alix,1231596,M,1,6,0,0,0,0.0,65.0,2.0,3643464.0
+5103569,2026-10-03,brasil,RB Bragantino,Wallace Yan,1640270,F,1,68,1,1,0,0.07,82.0,3.0,6703231.0
+5103569,2026-10-03,brasil,RB Bragantino,Ramires,960494,M,1,76,1,1,0,0.03,84.0,2.0,2079538.0
+5103569,2026-10-03,brasil,RB Bragantino,Fabinho,1249293,M,1,45,1,0,0,0.04,86.0,2.0,5823833.0
+5103569,2026-10-03,brasil,RB Bragantino,Fernando,896256,F,1,90,8,1,0,0.4,88.0,3.0,1188286.0
+5103569,2026-10-03,brasil,RB Bragantino,Eduardo Sasha,215051,F,1,76,2,2,0,0.25,115.0,3.0,918263.0
+5103569,2026-10-03,brasil,RB Bragantino,Eduardo Santos,920420,D,0,84,0,0,0,0.0,,1.0,755088.0
+5103569,2026-10-03,brasil,RB Bragantino,Ignacio Sosa,1375764,M,0,44,0,0,0,0.0,,2.0,6224771.0
+5103569,2026-10-03,brasil,RB Bragantino,Henry Mosquera,1407217,F,0,45,4,1,0,0.12,,3.0,2698103.0
+5103569,2026-10-03,brasil,RB Bragantino,Lucas Barbosa,1256634,M,0,22,3,1,0,0.16,,2.0,5898599.0
+5103569,2026-10-03,brasil,RB Bragantino,Isidro Pitta,1033279,F,0,14,0,0,0,0.0,,3.0,9026991.0
+5103569,2026-10-03,brasil,RB Bragantino,José Herrera,1372718,F,0,14,0,0,0,0.0,,3.0,
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Victor Souza,1189602,G,1,90,0,0,0,0.0,11.0,0.0,408533.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Pedrinho,1946533,D,1,87,1,0,0,0.02,32.0,1.0,
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Ericson,905495,D,1,90,0,0,0,0.0,34.0,1.0,
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Vilar,1390279,D,1,90,2,1,0,0.48,36.0,1.0,
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Patrick Brey,937517,D,1,90,1,0,0,0.04,38.0,1.0,290541.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Leandro Maciel,753077,M,1,87,3,0,0,0.05,65.0,2.0,250191.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Zé Hugo,1359528,F,1,68,0,0,0,0.0,82.0,3.0,
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Everton Morelli,879585,M,1,90,5,1,0,0.19,84.0,2.0,338287.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Rafael Gava,762031,M,1,88,0,0,0,0.0,86.0,2.0,252703.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Matheus Sales,583764,F,1,68,1,0,0,0.01,88.0,3.0,275084.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Hygor,730760,F,1,90,1,0,0,0.32,115.0,3.0,265420.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Wesley,1895029,F,0,22,1,1,0,0.02,,3.0,
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Kelvin,1358147,F,0,22,1,0,0,0.02,,3.0,271030.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Gabriel Inocêncio,1172407,D,0,3,0,0,0,0.0,,1.0,232380.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Arthur Caíke,449837,F,0,3,0,0,0,0.0,,3.0,246426.0
+5190739,2026-10-03,bra_serie_b,Botafogo SP,Thiago Moraes,1290658,M,0,2,0,0,0,0.0,,2.0,
+5190739,2026-10-03,bra_serie_b,Vila Nova,Helton Leite,449653,G,1,90,0,0,0,0.0,11.0,0.0,257108.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Hayner,765156,D,1,90,0,0,0,0.0,32.0,1.0,214981.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Douglas Mendes,1406628,D,1,90,0,0,0,0.0,34.0,1.0,1032087.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Tiago Pagnussat,574664,D,1,90,0,0,0,0.0,36.0,1.0,266883.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Higor,1693772,D,1,90,0,0,0,0.0,38.0,1.0,573660.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,João Vieira,1462413,M,1,86,0,0,0,0.0,64.0,2.0,572172.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Dudu,1376786,M,1,90,3,2,0,0.1,66.0,2.0,
+5190739,2026-10-03,bra_serie_b,Vila Nova,Everton,1034321,F,1,61,0,0,0,0.0,83.0,3.0,637133.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Marquinhos,175644,M,1,70,0,0,0,0.0,85.0,2.0,373387.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Janderson,1045975,F,1,86,2,1,1,0.12,87.0,3.0,951701.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,André Luis,656372,F,1,70,0,0,0,0.0,115.0,3.0,396131.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Emerson,1446567,F,0,29,0,0,0,0.0,,3.0,
+5190739,2026-10-03,bra_serie_b,Vila Nova,Higor Meritão,1033100,M,0,20,0,0,0,0.0,,2.0,688571.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Lincoln,887684,F,0,20,0,0,0,0.0,,3.0,331987.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Willian,815946,D,0,4,0,0,0,0.0,,1.0,213507.0
+5190739,2026-10-03,bra_serie_b,Vila Nova,Dodô,494029,M,0,4,0,0,0,0.0,,2.0,201799.0
