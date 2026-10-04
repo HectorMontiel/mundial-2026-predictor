@@ -14350,21 +14350,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103551,2026-07-22,brasil,Palmeiras,Riquelme Fillipi,1664487,F,0,10,0,0,0,0.0,,3.0,
 5103551,2026-07-22,brasil,Palmeiras,Lucas Evangelista,452269,M,0,1,0,0,0,0.0,,2.0,1798952.0
 5103551,2026-07-22,brasil,Palmeiras,Heittor,1826072,F,0,1,0,0,0,0.0,,3.0,
-5115874,2026-07-23,argentina,Belgrano,Manuel Vicentini,369831,G,1,90,0,0,0,0.0,11.0,0.0,305984.0
-5115874,2026-07-23,argentina,Belgrano,Leonardo Morales,795485,D,1,90,0,0,0,0.0,32.0,1.0,822869.0
-5115874,2026-07-23,argentina,Belgrano,Alexis Maldonado,743052,D,1,90,0,0,0,0.0,34.0,1.0,1140329.0
-5115874,2026-07-23,argentina,Belgrano,Lisandro López,182456,D,1,90,0,0,0,0.0,36.0,1.0,518791.0
-5115874,2026-07-23,argentina,Belgrano,Adrián Spörle,743009,D,1,90,0,0,0,0.0,38.0,1.0,350640.0
-5115874,2026-07-23,argentina,Belgrano,Franco Vázquez,270774,M,1,90,2,1,0,0.14,64.0,2.0,711145.0
-5115874,2026-07-23,argentina,Belgrano,Adrián Sánchez,1118246,M,1,90,0,0,0,0.0,66.0,2.0,1863164.0
-5115874,2026-07-23,argentina,Belgrano,Emiliano Ariel Rigoni,371543,F,1,80,1,0,0,0.07,83.0,3.0,793055.0
-5115874,2026-07-23,argentina,Belgrano,Lucas Zelarayán,322965,M,1,81,4,0,0,0.23,85.0,2.0,1787089.0
-5115874,2026-07-23,argentina,Belgrano,Juan Velázquez,1644112,F,1,68,0,0,0,0.0,87.0,3.0,1748176.0
-5115874,2026-07-23,argentina,Belgrano,Nicolás Fernández,566676,F,1,61,4,2,1,0.94,115.0,3.0,2126286.0
-5115874,2026-07-23,argentina,Belgrano,Lucas Passerini,564614,F,0,29,1,1,0,0.02,,3.0,1238179.0
-5115874,2026-07-23,argentina,Belgrano,Santiago Longo,1132245,M,0,22,0,0,0,0.0,,2.0,1643092.0
-5115874,2026-07-23,argentina,Belgrano,Francisco González Metilli,748843,M,0,10,1,1,1,0.08,,2.0,1127083.0
-5115874,2026-07-23,argentina,Belgrano,Ramiro Hernandes,1652019,M,0,9,0,0,0,0.0,,2.0,807011.0
 5115874,2026-07-23,argentina,Rosario Central,Jeremías Ledesma,486981,G,1,90,0,0,0,0.0,11.0,0.0,
 5115874,2026-07-23,argentina,Rosario Central,Emanuel Coronel,874620,D,1,90,1,0,0,0.07,32.0,1.0,1710516.0
 5115874,2026-07-23,argentina,Rosario Central,Facundo Mallo,727099,D,1,90,0,0,0,0.0,34.0,1.0,657462.0
@@ -15159,22 +15144,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103562,2026-07-25,brasil,Chapecoense,Marcinho,833990,F,0,45,1,1,1,0.61,,3.0,533409.0
 5103562,2026-07-25,brasil,Chapecoense,Bruno Pacheco,754373,D,0,10,0,0,0,0.0,,1.0,362625.0
 5103562,2026-07-25,brasil,Chapecoense,Vinícius Balieiro,1206576,M,0,7,0,0,0,0.0,,2.0,316441.0
-5115882,2026-07-25,argentina,Talleres,Ezequiel Unsain,618946,G,1,90,0,0,0,0.0,11.0,0.0,1462678.0
-5115882,2026-07-25,argentina,Talleres,Santiago Fernández,1437367,D,1,45,1,0,0,0.02,33.0,1.0,2823703.0
-5115882,2026-07-25,argentina,Talleres,Román Riquelme,1277345,D,1,90,0,0,0,0.0,35.0,1.0,821011.0
-5115882,2026-07-25,argentina,Talleres,Valentín Fascendini,1606009,D,1,90,0,0,0,0.0,37.0,1.0,1155636.0
-5115882,2026-07-25,argentina,Talleres,Timoteo Chamorro,1732523,M,1,90,5,2,0,0.32,62.0,2.0,643182.0
-5115882,2026-07-25,argentina,Talleres,Federico Fattori,616508,M,1,85,0,0,0,0.0,64.0,2.0,615260.0
-5115882,2026-07-25,argentina,Talleres,Matías Galarza,1277340,M,1,90,0,0,0,0.0,66.0,2.0,5638653.0
-5115882,2026-07-25,argentina,Talleres,Gabriel Báez,647991,M,1,82,1,0,0,0.01,68.0,2.0,453752.0
-5115882,2026-07-25,argentina,Talleres,Giovanni Baroni,1783366,M,1,56,0,0,0,0.0,84.0,2.0,
-5115882,2026-07-25,argentina,Talleres,Franco Cristaldo,543317,M,1,90,1,0,0,0.15,86.0,2.0,1849149.0
-5115882,2026-07-25,argentina,Talleres,Ronaldo Martínez,659738,F,1,56,0,0,0,0.0,105.0,3.0,2385940.0
-5115882,2026-07-25,argentina,Talleres,Augusto Schott,1200762,D,0,45,1,1,0,0.17,,1.0,1081558.0
-5115882,2026-07-25,argentina,Talleres,Valentín Depietri,1088084,F,0,34,3,1,0,0.17,,3.0,380269.0
-5115882,2026-07-25,argentina,Talleres,Rick,1044317,F,0,34,4,1,0,0.26,,3.0,1756912.0
-5115882,2026-07-25,argentina,Talleres,Emiliano Chiavassa,1739039,F,0,8,1,0,0,0.04,,3.0,628028.0
-5115882,2026-07-25,argentina,Talleres,Valentín Dávila,1695460,F,0,5,0,0,0,0.0,,3.0,1261152.0
 1000013179,2026-07-25,chi_primera,Huachipato,Christian Bravo,1686405,G,1,90,0,0,0,0.0,11.0,0.0,
 1000013179,2026-07-25,chi_primera,Huachipato,Nelson Guaiquil,1478292,D,1,72,1,0,0,0.0,32.0,1.0,
 1000013179,2026-07-25,chi_primera,Huachipato,Rafael Caroca,131104,D,1,90,2,1,1,0.0,34.0,1.0,198083.0
@@ -135678,3 +135647,79 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019554,2026-10-04,argentina,Aldosivi,Agustín Palavecino,1311635,F,0,37,1,0,0,0.01,,3.0,629872.0
 1000019554,2026-10-04,argentina,Aldosivi,Francisco Perruzzi,1318266,M,0,26,0,0,0,0.0,,2.0,519801.0
 1000019554,2026-10-04,argentina,Aldosivi,Nicolás Cordero,1020747,F,0,26,1,1,0,0.05,,3.0,580928.0
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Sebastian Turbyfield,1241631,G,1,90,0,0,0,0.0,11.0,0.0,
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Christopher Louisy,1241632,D,1,90,1,0,0,0.0,32.0,1.0,
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Kyle Belizaire,1626083,D,1,90,1,0,0,0.0,34.0,1.0,
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Anthony Stewart,280652,D,1,90,0,0,0,0.0,36.0,1.0,60000.0
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Steven Sessegnon,866687,D,1,90,2,0,0,0.0,38.0,1.0,316260.0
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Schuyler Sean Selver,0,M,1,90,0,0,0,0.0,72.0,2.0,
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Mackenson Cadet,931591,M,1,85,1,0,0,0.0,74.0,2.0,
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Sean Clare,729738,M,1,90,5,1,1,0.0,76.0,2.0,174145.0
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Junior Paul,1372744,M,1,90,2,0,0,0.0,78.0,2.0,
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Dominic Hutchinson,1300379,M,1,90,4,2,1,0.0,104.0,2.0,
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Billy Forbes,500764,F,1,76,5,0,0,0.0,106.0,3.0,149894.0
+5991942,2026-10-04,selecciones,Turks and Caicos Islands,Emmanuel Martin,1626084,F,0,28,3,1,0,0.0,,3.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Frankie Beckles,1626098,G,1,90,0,0,0,0.0,11.0,0.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Sam Sharma,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Kristian Javier,1240826,D,1,90,0,0,0,0.0,34.0,1.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Ikyjah Williams,1240821,D,1,90,0,0,0,0.0,36.0,1.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,T'Khoy Morton,1651682,D,1,90,0,0,0,0.0,38.0,1.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,T'Sharne Gallimore,1219867,M,1,90,0,0,0,0.0,65.0,2.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Tyler Forbes,1091096,M,1,90,1,0,0,0.0,82.0,2.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Joel Mars,1650867,M,1,90,0,0,0,0.0,84.0,2.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Robert Green,1240831,M,1,90,0,0,0,0.0,86.0,2.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Rush Broderick,2007730,M,1,90,0,0,0,0.0,88.0,2.0,
+5991942,2026-10-04,selecciones,British Virgin Islands,Javaun Splatt,1203669,F,1,90,1,0,0,0.0,115.0,3.0,
+5991954,2026-10-04,selecciones,Bahamas,Ian Paul Lowe,0,G,1,90,0,0,0,0.0,11.0,0.0,
+5991954,2026-10-04,selecciones,Bahamas,Prince Cooper,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991954,2026-10-04,selecciones,Bahamas,Lance Carroll,1767323,D,1,78,1,0,0,0.0,34.0,1.0,
+5991954,2026-10-04,selecciones,Bahamas,Omar Chemaly,1767352,D,1,90,0,0,0,0.0,36.0,1.0,
+5991954,2026-10-04,selecciones,Bahamas,Quinton Carey,1102721,D,1,90,0,0,0,0.0,38.0,1.0,
+5991954,2026-10-04,selecciones,Bahamas,Nathan Wells,1032828,M,1,90,2,0,0,0.0,64.0,2.0,
+5991954,2026-10-04,selecciones,Bahamas,Christopher Rahming,1544553,M,1,90,5,0,0,0.0,66.0,2.0,
+5991954,2026-10-04,selecciones,Bahamas,Omari Bain,1687112,F,1,90,0,0,0,0.0,83.0,3.0,
+5991954,2026-10-04,selecciones,Bahamas,William Bayles,1767358,M,1,90,4,2,1,0.0,85.0,2.0,
+5991954,2026-10-04,selecciones,Bahamas,Marcel Joseph,623510,M,1,90,4,0,0,0.0,87.0,2.0,
+5991954,2026-10-04,selecciones,Bahamas,Brandon Adderley,1650879,F,1,90,7,1,0,0.0,115.0,3.0,
+5991954,2026-10-04,selecciones,Bahamas,Peter Julmis,1242350,F,0,45,4,1,1,0.0,,3.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Dylan Ramos,1260941,G,1,90,0,0,0,0.0,11.0,0.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Jett Blaschka,1240289,D,1,90,0,0,0,0.0,32.0,1.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Axel Bartsch,1240295,D,1,90,0,0,0,0.0,34.0,1.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Quinn Farrell,1240296,D,1,90,0,0,0,0.0,36.0,1.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Andrew Shaffer,1625124,D,1,90,0,0,0,0.0,38.0,1.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Rakeem Joseph,1261768,M,1,45,1,0,0,0.0,72.0,2.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Christopher Griffith,0,M,1,90,0,0,0,0.0,74.0,2.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Joshua Ramos,1240291,M,1,90,2,1,0,0.0,76.0,2.0,170824.0
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Naqwan Henry,1566105,M,1,65,3,3,2,0.0,78.0,2.0,
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Jannick Liburd,1166305,M,1,78,1,1,0,0.0,104.0,2.0,191491.0
+5991954,2026-10-04,selecciones,U.S. Virgin Islands,Connor Bass,0,,1,90,0,0,0,0.0,106.0,,
+1000019544,2026-10-04,argentina,Talleres,Ezequiel Unsain,618946,G,1,90,0,0,0,0.0,11.0,0.0,1441069.0
+1000019544,2026-10-04,argentina,Talleres,Augusto Schott,1200762,D,1,90,0,0,0,0.0,32.0,1.0,974772.0
+1000019544,2026-10-04,argentina,Talleres,Matías Catalán,427912,D,1,90,1,0,0,0.07,34.0,1.0,390679.0
+1000019544,2026-10-04,argentina,Talleres,Román Riquelme,1277345,D,1,90,0,0,0,0.0,36.0,1.0,1418706.0
+1000019544,2026-10-04,argentina,Talleres,Gabriel Báez,647991,D,1,90,0,0,0,0.0,38.0,1.0,453752.0
+1000019544,2026-10-04,argentina,Talleres,Juan Sforza,1200743,M,1,90,2,0,0,0.04,64.0,2.0,1311960.0
+1000019544,2026-10-04,argentina,Talleres,Matías Galarza,1277340,M,1,90,0,0,0,0.0,66.0,2.0,5835062.0
+1000019544,2026-10-04,argentina,Talleres,Rick,1044317,F,1,81,2,2,0,0.05,83.0,3.0,1766694.0
+1000019544,2026-10-04,argentina,Talleres,Franco Cristaldo,543317,M,1,80,1,1,0,0.03,85.0,2.0,1765375.0
+1000019544,2026-10-04,argentina,Talleres,Valentín Depietri,1088084,F,1,89,3,1,0,0.16,87.0,3.0,366774.0
+1000019544,2026-10-04,argentina,Talleres,Diego Valoyes,783809,F,1,90,5,1,0,0.34,115.0,3.0,822326.0
+1000019544,2026-10-04,argentina,Talleres,Giovanni Baroni,1783366,M,0,10,1,1,0,0.03,,2.0,
+1000019544,2026-10-04,argentina,Talleres,Valentín Dávila,1695460,F,0,9,0,0,0,0.0,,3.0,2091897.0
+1000019544,2026-10-04,argentina,Talleres,Emiliano Chiavassa,1739039,F,0,1,0,0,0,0.0,,3.0,644738.0
+1000019544,2026-10-04,argentina,Belgrano,Manuel Vicentini,369831,G,1,90,0,0,0,0.0,11.0,0.0,275320.0
+1000019544,2026-10-04,argentina,Belgrano,Leonardo Morales,795485,D,1,78,1,0,0,0.03,32.0,1.0,764261.0
+1000019544,2026-10-04,argentina,Belgrano,Alexis Maldonado,743052,D,1,90,0,0,0,0.0,34.0,1.0,1055262.0
+1000019544,2026-10-04,argentina,Belgrano,Lisandro López,182456,D,1,90,0,0,0,0.0,36.0,1.0,580624.0
+1000019544,2026-10-04,argentina,Belgrano,Adrián Spörle,743009,D,1,90,0,0,0,0.0,38.0,1.0,499224.0
+1000019544,2026-10-04,argentina,Belgrano,Emiliano Ariel Rigoni,371543,M,1,78,1,0,0,0.03,72.0,2.0,1007646.0
+1000019544,2026-10-04,argentina,Belgrano,Adrián Sánchez,1118246,M,1,90,0,0,0,0.0,74.0,2.0,2180185.0
+1000019544,2026-10-04,argentina,Belgrano,Franco Vázquez,270774,M,1,78,0,0,0,0.0,76.0,2.0,711107.0
+1000019544,2026-10-04,argentina,Belgrano,Francisco González Metilli,748843,M,1,60,0,0,0,0.0,78.0,2.0,1143025.0
+1000019544,2026-10-04,argentina,Belgrano,Lucas Zelarayán,322965,M,1,90,4,1,0,0.26,95.0,2.0,1762256.0
+1000019544,2026-10-04,argentina,Belgrano,Lucas Passerini,564614,F,1,71,1,0,0,0.02,115.0,3.0,1287315.0
+1000019544,2026-10-04,argentina,Belgrano,Ramiro Hernandes,1652019,M,0,30,2,1,1,0.25,,2.0,955118.0
+1000019544,2026-10-04,argentina,Belgrano,Nicolás Fernández,566676,F,0,19,2,0,0,0.15,,3.0,2127410.0
+1000019544,2026-10-04,argentina,Belgrano,Alcides Benítez,1732714,D,0,12,0,0,0,0.0,,1.0,1763264.0
+1000019544,2026-10-04,argentina,Belgrano,Santiago Longo,1132245,M,0,12,0,0,0,0.0,,2.0,1617096.0
+1000019544,2026-10-04,argentina,Belgrano,Juan Velázquez,1644112,F,0,12,0,0,0,0.0,,3.0,1629787.0
