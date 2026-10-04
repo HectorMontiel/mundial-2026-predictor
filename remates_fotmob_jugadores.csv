@@ -756,21 +756,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4341345,2025-09-08,selecciones,Equatorial Guinea,Álex Masogo,1624059,M,0,3,3,1,0,0.0,,2.0,
 4341345,2025-09-08,selecciones,Equatorial Guinea,Gael Akogo Esono,1312561,F,0,3,0,0,0,0.0,,3.0,
 4341345,2025-09-08,selecciones,Equatorial Guinea,Loren Zúñiga,1218287,F,0,3,0,0,0,0.0,,3.0,
-4689283,2025-09-08,selecciones,Kosovo,Arijanet Muric,760752,G,1,90,0,0,0,0.0,11.0,0.0,5532352.0
-4689283,2025-09-08,selecciones,Kosovo,Ilir Krasniqi,1373723,D,1,90,0,0,0,0.0,32.0,1.0,673905.0
-4689283,2025-09-08,selecciones,Kosovo,Lumbardh Dellova,1067805,D,1,90,0,0,0,0.0,34.0,1.0,265429.0
-4689283,2025-09-08,selecciones,Kosovo,Fidan Aliti,521203,D,1,90,1,0,0,0.05,36.0,1.0,1002378.0
-4689283,2025-09-08,selecciones,Kosovo,Dion Gallapeni,1729818,D,1,90,0,0,0,0.0,38.0,1.0,760074.0
-4689283,2025-09-08,selecciones,Kosovo,Mergim Vojvoda,560945,D,1,90,0,0,0,0.0,72.0,1.0,2397696.0
-4689283,2025-09-08,selecciones,Kosovo,Leon Avdullahu,1478148,M,1,90,1,1,0,0.04,74.0,2.0,11409499.0
-4689283,2025-09-08,selecciones,Kosovo,Elvis Rexhbecaj,839038,M,1,85,3,2,1,0.64,76.0,2.0,2287375.0
-4689283,2025-09-08,selecciones,Kosovo,Florent Muslija,848666,M,1,89,2,1,0,0.37,78.0,2.0,1080260.0
-4689283,2025-09-08,selecciones,Kosovo,Vedat Muriqi,517052,F,1,59,1,1,1,0.08,104.0,3.0,4492354.0
-4689283,2025-09-08,selecciones,Kosovo,Albion Rrahmani,1379468,F,1,60,2,0,0,0.3,106.0,3.0,3585839.0
-4689283,2025-09-08,selecciones,Kosovo,Muharrem Jashari,857133,M,0,30,1,0,0,0.01,,2.0,740036.0
-4689283,2025-09-08,selecciones,Kosovo,Fisnik Asllani,1219540,F,0,31,0,0,0,0.0,,3.0,10386108.0
-4689283,2025-09-08,selecciones,Kosovo,Lindon Emerllahu,1379459,M,0,6,0,0,0,0.0,,2.0,1128868.0
-4689283,2025-09-08,selecciones,Kosovo,Veldin Hodza,1190351,M,0,1,0,0,0,0.0,,2.0,4387114.0
 4341351,2025-09-08,selecciones,Guinea,Moussa Camara,848177,G,1,90,0,0,0,0.0,11.0,0.0,
 4341351,2025-09-08,selecciones,Guinea,Dembo Sylla,1399999,M,1,90,0,0,0,0.0,32.0,2.0,588151.0
 4341351,2025-09-08,selecciones,Guinea,Mouctar Diakhaby,561198,D,1,90,0,0,0,0.0,34.0,1.0,1708345.0
@@ -5937,27 +5922,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5267352,2026-03-27,selecciones,Panama,César Yanis,1137803,M,1,90,1,0,0,0.0,84.0,2.0,189079.0
 5267352,2026-03-27,selecciones,Panama,Yoel Bárcenas,526710,M,1,90,1,1,1,0.0,86.0,2.0,727065.0
 5267352,2026-03-27,selecciones,Panama,Cecilio Waterman,312159,F,1,90,0,0,0,0.0,105.0,3.0,255088.0
-5154117,2026-03-27,selecciones,Austria,Alexander Schlager,450739,G,1,46,0,0,0,0.0,11.0,0.0,1521042.0
-5154117,2026-03-27,selecciones,Austria,Stefan Posch,557325,D,1,80,2,2,1,0.0,32.0,1.0,4821045.0
-5154117,2026-03-27,selecciones,Austria,Kevin Danso,754126,D,1,46,0,0,0,0.0,34.0,1.0,27286893.0
-5154117,2026-03-27,selecciones,Austria,Marco Friedl,767789,D,1,61,0,0,0,0.0,36.0,1.0,13330440.0
-5154117,2026-03-27,selecciones,Austria,Phillipp Mwene,423812,M,1,46,0,0,0,0.0,38.0,2.0,898686.0
-5154117,2026-03-27,selecciones,Austria,Florian Grillitsch,617044,M,1,46,0,0,0,0.0,64.0,2.0,1447897.0
-5154117,2026-03-27,selecciones,Austria,Nicolas Seiwald,1024672,M,1,90,1,1,1,0.0,66.0,2.0,19769231.0
-5154117,2026-03-27,selecciones,Austria,Christoph Baumgartner,747718,M,1,61,2,1,0,0.0,83.0,2.0,13735893.0
-5154117,2026-03-27,selecciones,Austria,Marcel Sabitzer,215151,M,1,80,1,1,1,0.0,85.0,2.0,5668000.0
-5154117,2026-03-27,selecciones,Austria,Romano Schmid,749488,M,1,46,0,0,0,0.0,87.0,2.0,14823454.0
-5154117,2026-03-27,selecciones,Austria,Michael Gregoritsch,198316,F,1,62,3,1,1,0.0,115.0,3.0,2101646.0
-5154117,2026-03-27,selecciones,Austria,Florian Wiegele,1514693,G,0,44,0,0,0,0.0,,0.0,516079.0
-5154117,2026-03-27,selecciones,Austria,Philipp Lienhart,643724,D,0,44,0,0,0,0.0,,1.0,7415494.0
-5154117,2026-03-27,selecciones,Austria,Alexander Prass,1027194,M,0,44,0,0,0,0.0,,2.0,5870188.0
-5154117,2026-03-27,selecciones,Austria,Paul Wanner,1327149,M,0,44,0,0,0,0.0,,2.0,18289861.0
-5154117,2026-03-27,selecciones,Austria,Patrick Wimmer,1073498,F,0,44,0,0,0,0.0,,3.0,14823302.0
-5154117,2026-03-27,selecciones,Austria,Michael Svoboda,951921,D,0,29,0,0,0,0.0,,1.0,1178910.0
-5154117,2026-03-27,selecciones,Austria,Carney Chukwuemeka,1089685,M,0,29,1,1,1,0.0,,2.0,20780811.0
-5154117,2026-03-27,selecciones,Austria,Marko Arnautovic,110148,F,0,29,0,0,0,0.0,,3.0,1637845.0
-5154117,2026-03-27,selecciones,Austria,David Affengruber,1073980,D,0,10,0,0,0,0.0,,1.0,10197852.0
-5154117,2026-03-27,selecciones,Austria,Sasa Kalajdzic,858198,F,0,10,1,0,0,0.0,,3.0,1500012.0
 5154117,2026-03-27,selecciones,Ghana,Lawrence Ati-Zigi,615411,G,1,90,0,0,0,0.0,11.0,0.0,895297.0
 5154117,2026-03-27,selecciones,Ghana,Alexander Djiku,407765,D,1,90,0,0,0,0.0,33.0,1.0,2363550.0
 5154117,2026-03-27,selecciones,Ghana,Caleb Yirenkyi,1615927,M,1,70,0,0,0,0.0,35.0,2.0,3438742.0
@@ -134895,461 +134859,553 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109987,2026-10-04,usl_championship,Monterey Bay FC,Belmar Joseph,1650450,M,0,15,0,0,0,0.0,,2.0,94084.0
 5109987,2026-10-04,usl_championship,Monterey Bay FC,Ballack Villasana,1921664,M,0,1,1,0,0,0.0,,2.0,
 5109987,2026-10-04,usl_championship,Monterey Bay FC,Facundo Canete,1350176,M,0,1,0,0,0,0.0,,2.0,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Beatrice Beretta,1400017,G,1,90,0,0,0,0.0,11,0,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Alessia Carcassi,1819781,M,1,90,0,0,0,0.0,32,2,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Tecla Pettenuzzo,887249,D,1,90,1,1,0,0.0,34,1,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Caroline Pleidrup,905164,D,1,90,0,0,0,0.0,36,1,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Michela Giordano,1091633,D,1,90,2,0,0,0.0,38,1,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Elisha Sulola,1137388,D,1,90,0,0,0,0.0,64,1,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Melissa Bellucci,1091636,M,1,73,1,0,0,0.0,66,2,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Emilie Mece,2088412,F,1,90,3,0,0,0.0,83,3,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Kinga Kozak,1403317,M,1,90,0,0,0,0.0,85,2,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Chanté-Mary Dompig,1184955,F,1,83,2,0,0,0.0,87,3,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Marija Banušić,809161,F,1,90,0,0,0,0.0,115,3,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Gabriella Langella,1595783,M,0,17,0,0,0,0.0,,2,
-5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Olga Massombo,1682414,F,0,7,0,0,0,0.0,,3,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Margot Shore,1718212,G,1,90,0,0,0,0.0,11,0,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Federica Veritti,1544733,D,1,70,0,0,0,0.0,33,1,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Carmen Menayo,887336,D,1,90,0,0,0,0.0,35,1,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Sofie Svava,728914,D,1,86,0,0,0,0.0,37,1,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Agnese Bonfantini,1184712,F,1,90,1,0,0,0.0,62,3,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Freja Olofsson,1031774,M,1,90,0,0,0,0.0,64,2,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Riola Xhemaili,1298873,F,1,90,2,1,1,0.0,66,3,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Emilie Bosshard Haavi,121234,F,1,90,2,0,0,0.0,68,3,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Giuseppina Moraca,1292180,F,1,90,3,1,0,0.0,85,3,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Tessa Wullaert,858292,F,1,90,3,3,1,0.0,104,3,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Valentina Giacinti,859269,F,1,75,3,3,0,0.0,106,3,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Dominika Čonč,791429,D,0,20,0,0,0,0.0,,1,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Francesca Pittaccio,1290617,M,0,15,0,0,0,0.0,,2,
-5977776,2026-10-04,fem_italia,Calcio Como 1907,Martyna Wiankowska,1028799,D,0,4,0,0,0,0.0,,1,
-5882310,2026-10-04,fem_espana,Granada,Yohana Gómez,1345411,G,1,90,0,0,0,0.0,11,0,
-5882310,2026-10-04,fem_espana,Granada,Jennifer López,1435102,D,1,90,1,0,0,0.0,32,1,
-5882310,2026-10-04,fem_espana,Granada,Juliana Cardozo,1102362,D,1,90,0,0,0,0.0,34,1,
-5882310,2026-10-04,fem_espana,Granada,Leles,1345418,M,1,90,1,0,0,0.0,36,2,
-5882310,2026-10-04,fem_espana,Granada,Paula Perea,1256318,D,1,64,2,0,0,0.0,38,1,
-5882310,2026-10-04,fem_espana,Granada,Naiara Sanmartín,1872421,D,1,90,2,0,0,0.0,72,1,
-5882310,2026-10-04,fem_espana,Granada,Daniela Miñambres,1688654,M,1,90,1,0,0,0.0,74,2,
-5882310,2026-10-04,fem_espana,Granada,Miku Kojima,1345288,M,1,90,3,2,0,0.0,76,2,
-5882310,2026-10-04,fem_espana,Granada,Elene Guridi,1345401,M,1,75,0,0,0,0.0,78,2,
-5882310,2026-10-04,fem_espana,Granada,Raquel Gil,1546938,D,1,88,1,0,0,0.0,104,1,
-5882310,2026-10-04,fem_espana,Granada,Vera Molina,1810718,F,1,64,0,0,0,0.0,106,3,
-5882310,2026-10-04,fem_espana,Granada,Blanca Muñoz,1552985,D,0,26,0,0,0,0.0,,1,
-5882310,2026-10-04,fem_espana,Granada,Bárbara Lopez,1406593,F,0,26,2,2,0,0.0,,3,
-5882310,2026-10-04,fem_espana,Granada,Ana Martos,2009849,M,0,15,0,0,0,0.0,,2,
-5882310,2026-10-04,fem_espana,Granada,Iris Santiago,1686810,F,0,2,1,0,0,0.0,,3,
-5882310,2026-10-04,fem_espana,Eibar,Anna Wellmann,1345232,G,1,90,0,0,0,0.0,11,0,
-5882310,2026-10-04,fem_espana,Eibar,Simona Botero,1676741,D,1,90,0,0,0,0.0,33,1,
-5882310,2026-10-04,fem_espana,Eibar,Carla Andrés,1546582,D,1,90,0,0,0,0.0,35,1,
-5882310,2026-10-04,fem_espana,Eibar,Alimata Bélem,1464863,D,1,90,0,0,0,0.0,37,1,
-5882310,2026-10-04,fem_espana,Eibar,Aitana Zumárraga,1807281,D,1,90,0,0,0,0.0,51,1,
-5882310,2026-10-04,fem_espana,Eibar,Samara Ortíz,1265955,D,1,72,1,0,0,0.0,59,1,
-5882310,2026-10-04,fem_espana,Eibar,Sara Martín,1686809,M,1,81,2,1,0,0.0,72,2,
-5882310,2026-10-04,fem_espana,Eibar,Noe Fernandez,2155729,M,1,90,0,0,0,0.0,74,2,
-5882310,2026-10-04,fem_espana,Eibar,Adela Rico,1807299,M,1,90,2,0,0,0.0,76,2,
-5882310,2026-10-04,fem_espana,Eibar,Emma Moreno,1679320,M,1,90,0,0,0,0.0,78,2,
-5882310,2026-10-04,fem_espana,Eibar,Carmen Álvarez,1261808,F,1,66,5,1,0,0.0,115,3,
-5882310,2026-10-04,fem_espana,Eibar,Ángeles,1044199,F,0,24,0,0,0,0.0,,3,
-5882310,2026-10-04,fem_espana,Eibar,Nerea Sánchez,1728025,M,0,18,0,0,0,0.0,,2,
-5882307,2026-10-04,fem_espana,UD Tenerife,Nayluisa Cáceres,1345714,G,1,90,0,0,0,0.0,11,0,
-5882307,2026-10-04,fem_espana,UD Tenerife,Cinta Rodríguez,1259196,D,1,64,1,0,0,0.0,33,1,
-5882307,2026-10-04,fem_espana,UD Tenerife,Pola,1640798,M,1,90,1,1,0,0.0,35,2,
-5882307,2026-10-04,fem_espana,UD Tenerife,Patri,1044308,D,1,90,1,1,1,0.0,37,1,
-5882307,2026-10-04,fem_espana,UD Tenerife,Aleksandra Zaremba,1195383,D,1,90,0,0,0,0.0,51,1,
-5882307,2026-10-04,fem_espana,UD Tenerife,Aithiara,1044307,D,1,90,1,0,0,0.0,59,1,
-5882307,2026-10-04,fem_espana,UD Tenerife,Annahita Zamanian,965168,M,1,86,2,2,0,0.0,73,2,
-5882307,2026-10-04,fem_espana,UD Tenerife,Henar Muiña,1676467,M,1,90,2,0,0,0.0,75,2,
-5882307,2026-10-04,fem_espana,UD Tenerife,Ariadna Mingueza,1345249,M,1,72,2,1,0,0.0,77,2,
-5882307,2026-10-04,fem_espana,UD Tenerife,Natalia Padilla,1301790,F,1,90,3,1,0,0.0,104,3,
-5882307,2026-10-04,fem_espana,UD Tenerife,Paulina Gramaglia,1360361,F,1,64,3,0,0,0.0,106,3,
-5882307,2026-10-04,fem_espana,UD Tenerife,Noelia Salazar,1401717,M,0,26,0,0,0,0.0,,2,
-5882307,2026-10-04,fem_espana,UD Tenerife,Iratxe Pérez,1807366,F,0,26,5,3,1,0.0,,3,
-5882307,2026-10-04,fem_espana,UD Tenerife,Marina Martí,1401721,F,0,18,1,1,0,0.0,,3,
-5882307,2026-10-04,fem_espana,UD Tenerife,Lys Tiwa,2263538,F,0,4,2,0,0,0.0,,3,
-5882307,2026-10-04,fem_espana,Logroño United,María Miralles,1546586,G,1,90,0,0,0,0.0,11,0,
-5882307,2026-10-04,fem_espana,Logroño United,Comfort Yeboah,1796052,D,1,46,0,0,0,0.0,32,1,
-5882307,2026-10-04,fem_espana,Logroño United,Rebeca da Silva,1747841,D,1,90,0,0,0,0.0,34,1,
-5882307,2026-10-04,fem_espana,Logroño United,Marta Masferrer,1807887,D,1,90,0,0,0,0.0,36,1,
-5882307,2026-10-04,fem_espana,Logroño United,Annelie Leitner,1546580,D,1,90,0,0,0,0.0,38,1,
-5882307,2026-10-04,fem_espana,Logroño United,Catalina Ongaro,1888963,M,1,76,0,0,0,0.0,73,2,
-5882307,2026-10-04,fem_espana,Logroño United,Daiana Falfán,1366901,M,1,90,0,0,0,0.0,75,2,
-5882307,2026-10-04,fem_espana,Logroño United,Ximena Velazco,1465795,M,1,76,0,0,0,0.0,77,2,
-5882307,2026-10-04,fem_espana,Logroño United,Maria Barquero,1807233,F,1,58,0,0,0,0.0,103,3,
-5882307,2026-10-04,fem_espana,Logroño United,Cristina Redondo,1685141,F,1,76,2,1,1,0.0,105,3,
-5882307,2026-10-04,fem_espana,Logroño United,Isina,1546926,M,1,90,1,0,0,0.0,107,2,
-5882307,2026-10-04,fem_espana,Logroño United,Justina Morcillo,1544914,D,0,45,1,0,0,0.0,,1,
-5882307,2026-10-04,fem_espana,Logroño United,Ana Franco,1044254,F,0,32,1,1,0,0.0,,3,
-5882307,2026-10-04,fem_espana,Logroño United,Margarita Giménez,1691630,M,0,14,0,0,0,0.0,,2,
-5882307,2026-10-04,fem_espana,Logroño United,Flavine Mawete,1408454,F,0,14,1,1,0,0.0,,3,
-5882307,2026-10-04,fem_espana,Logroño United,Francisca Altgelt,1798437,F,0,14,0,0,0,0.0,,3,
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Youri Schoonderwaldt,1076956,G,1,61,0,0,0,0.0,11,0,305396
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Andreas Verstraeten,1553434,D,1,82,1,0,0,0.0,33,1,1456680
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Gabin Blancquart,1596083,D,1,90,1,0,0,0.0,35,1,163931
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Éanna Clancy,1375733,D,1,90,1,0,0,0.0,37,1,243540
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Philip Heise,276700,D,1,82,2,1,0,0.0,72,1,84658
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Tristan Schenkhuizen,1645924,M,1,61,1,1,0,0.0,74,2,273062
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Mohammed Odriss,1526785,M,1,90,0,0,0,0.0,76,2,190316
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Raf Vullers,1868450,M,1,90,0,0,0,0.0,78,2,
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Nassim Ait Mouhou,1791688,F,1,90,1,1,0,0.0,103,3,206944
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Leon Schmidt,1735838,M,1,72,4,3,1,0.0,105,2,
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Edhy Zuliani,1429122,F,1,72,1,0,0,0.0,107,3,296540
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Ismail M'Hand,1359804,M,0,29,2,0,0,0.0,,2,271862
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Amir Rais,1553378,M,0,18,1,1,1,0.0,,2,313186
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Mattheos Tsigkas,1692859,F,0,18,0,0,0,0.0,,3,
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Michael Davis,1290362,D,0,8,0,0,0,0.0,,1,146028
-5832894,2026-10-04,ned_eerste,VVV-Venlo,Yousri El Anbri,1688530,M,0,8,0,0,0,0.0,,2,183788
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Justin Treichel,1665417,G,1,90,0,0,0,0.0,11,0,264254
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Lucas Beerten,1323635,D,1,90,1,0,0,0.0,33,1,182558
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Dario van den Buijs,604344,D,1,79,0,0,0,0.0,35,1,93198
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Marco Tol,873580,D,1,90,1,0,0,0.0,37,1,211840
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Koen Jansen,1243250,D,1,60,0,0,0,0.0,62,1,230400
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Joshua Nisbet,1016158,M,1,90,0,0,0,0.0,64,2,256710
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Xander van den Berg,1576570,M,1,69,1,0,0,0.0,66,2,
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Bram Marsman,1606593,D,1,90,1,1,0,0.0,68,1,239419
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Cain Seedorf,1224913,F,1,60,1,1,0,0.0,84,3,158706
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Dyon Dorenbosch,1393107,M,1,61,0,0,0,0.0,86,2,251124
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Anthony van den Hurk,243461,F,1,90,0,0,0,0.0,105,3,185119
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Beatrice Beretta,1400017,G,1,90,0,0,0,0.0,11.0,0.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Alessia Carcassi,1819781,M,1,90,0,0,0,0.0,32.0,2.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Tecla Pettenuzzo,887249,D,1,90,1,1,0,0.0,34.0,1.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Caroline Pleidrup,905164,D,1,90,0,0,0,0.0,36.0,1.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Michela Giordano,1091633,D,1,90,2,0,0,0.0,38.0,1.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Elisha Sulola,1137388,D,1,90,0,0,0,0.0,64.0,1.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Melissa Bellucci,1091636,M,1,73,1,0,0,0.0,66.0,2.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Emilie Mece,2088412,F,1,90,3,0,0,0.0,83.0,3.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Kinga Kozak,1403317,M,1,90,0,0,0,0.0,85.0,2.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Chanté-Mary Dompig,1184955,F,1,83,2,0,0,0.0,87.0,3.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Marija Banušić,809161,F,1,90,0,0,0,0.0,115.0,3.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Gabriella Langella,1595783,M,0,17,0,0,0,0.0,,2.0,
+5977776,2026-10-04,fem_italia,S.S.D. Napoli Femminile,Olga Massombo,1682414,F,0,7,0,0,0,0.0,,3.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Margot Shore,1718212,G,1,90,0,0,0,0.0,11.0,0.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Federica Veritti,1544733,D,1,70,0,0,0,0.0,33.0,1.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Carmen Menayo,887336,D,1,90,0,0,0,0.0,35.0,1.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Sofie Svava,728914,D,1,86,0,0,0,0.0,37.0,1.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Agnese Bonfantini,1184712,F,1,90,1,0,0,0.0,62.0,3.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Freja Olofsson,1031774,M,1,90,0,0,0,0.0,64.0,2.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Riola Xhemaili,1298873,F,1,90,2,1,1,0.0,66.0,3.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Emilie Bosshard Haavi,121234,F,1,90,2,0,0,0.0,68.0,3.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Giuseppina Moraca,1292180,F,1,90,3,1,0,0.0,85.0,3.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Tessa Wullaert,858292,F,1,90,3,3,1,0.0,104.0,3.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Valentina Giacinti,859269,F,1,75,3,3,0,0.0,106.0,3.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Dominika Čonč,791429,D,0,20,0,0,0,0.0,,1.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Francesca Pittaccio,1290617,M,0,15,0,0,0,0.0,,2.0,
+5977776,2026-10-04,fem_italia,Calcio Como 1907,Martyna Wiankowska,1028799,D,0,4,0,0,0,0.0,,1.0,
+5882310,2026-10-04,fem_espana,Granada,Yohana Gómez,1345411,G,1,90,0,0,0,0.0,11.0,0.0,
+5882310,2026-10-04,fem_espana,Granada,Jennifer López,1435102,D,1,90,1,0,0,0.0,32.0,1.0,
+5882310,2026-10-04,fem_espana,Granada,Juliana Cardozo,1102362,D,1,90,0,0,0,0.0,34.0,1.0,
+5882310,2026-10-04,fem_espana,Granada,Leles,1345418,M,1,90,1,0,0,0.0,36.0,2.0,
+5882310,2026-10-04,fem_espana,Granada,Paula Perea,1256318,D,1,64,2,0,0,0.0,38.0,1.0,
+5882310,2026-10-04,fem_espana,Granada,Naiara Sanmartín,1872421,D,1,90,2,0,0,0.0,72.0,1.0,
+5882310,2026-10-04,fem_espana,Granada,Daniela Miñambres,1688654,M,1,90,1,0,0,0.0,74.0,2.0,
+5882310,2026-10-04,fem_espana,Granada,Miku Kojima,1345288,M,1,90,3,2,0,0.0,76.0,2.0,
+5882310,2026-10-04,fem_espana,Granada,Elene Guridi,1345401,M,1,75,0,0,0,0.0,78.0,2.0,
+5882310,2026-10-04,fem_espana,Granada,Raquel Gil,1546938,D,1,88,1,0,0,0.0,104.0,1.0,
+5882310,2026-10-04,fem_espana,Granada,Vera Molina,1810718,F,1,64,0,0,0,0.0,106.0,3.0,
+5882310,2026-10-04,fem_espana,Granada,Blanca Muñoz,1552985,D,0,26,0,0,0,0.0,,1.0,
+5882310,2026-10-04,fem_espana,Granada,Bárbara Lopez,1406593,F,0,26,2,2,0,0.0,,3.0,
+5882310,2026-10-04,fem_espana,Granada,Ana Martos,2009849,M,0,15,0,0,0,0.0,,2.0,
+5882310,2026-10-04,fem_espana,Granada,Iris Santiago,1686810,F,0,2,1,0,0,0.0,,3.0,
+5882310,2026-10-04,fem_espana,Eibar,Anna Wellmann,1345232,G,1,90,0,0,0,0.0,11.0,0.0,
+5882310,2026-10-04,fem_espana,Eibar,Simona Botero,1676741,D,1,90,0,0,0,0.0,33.0,1.0,
+5882310,2026-10-04,fem_espana,Eibar,Carla Andrés,1546582,D,1,90,0,0,0,0.0,35.0,1.0,
+5882310,2026-10-04,fem_espana,Eibar,Alimata Bélem,1464863,D,1,90,0,0,0,0.0,37.0,1.0,
+5882310,2026-10-04,fem_espana,Eibar,Aitana Zumárraga,1807281,D,1,90,0,0,0,0.0,51.0,1.0,
+5882310,2026-10-04,fem_espana,Eibar,Samara Ortíz,1265955,D,1,72,1,0,0,0.0,59.0,1.0,
+5882310,2026-10-04,fem_espana,Eibar,Sara Martín,1686809,M,1,81,2,1,0,0.0,72.0,2.0,
+5882310,2026-10-04,fem_espana,Eibar,Noe Fernandez,2155729,M,1,90,0,0,0,0.0,74.0,2.0,
+5882310,2026-10-04,fem_espana,Eibar,Adela Rico,1807299,M,1,90,2,0,0,0.0,76.0,2.0,
+5882310,2026-10-04,fem_espana,Eibar,Emma Moreno,1679320,M,1,90,0,0,0,0.0,78.0,2.0,
+5882310,2026-10-04,fem_espana,Eibar,Carmen Álvarez,1261808,F,1,66,5,1,0,0.0,115.0,3.0,
+5882310,2026-10-04,fem_espana,Eibar,Ángeles,1044199,F,0,24,0,0,0,0.0,,3.0,
+5882310,2026-10-04,fem_espana,Eibar,Nerea Sánchez,1728025,M,0,18,0,0,0,0.0,,2.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Nayluisa Cáceres,1345714,G,1,90,0,0,0,0.0,11.0,0.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Cinta Rodríguez,1259196,D,1,64,1,0,0,0.0,33.0,1.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Pola,1640798,M,1,90,1,1,0,0.0,35.0,2.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Patri,1044308,D,1,90,1,1,1,0.0,37.0,1.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Aleksandra Zaremba,1195383,D,1,90,0,0,0,0.0,51.0,1.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Aithiara,1044307,D,1,90,1,0,0,0.0,59.0,1.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Annahita Zamanian,965168,M,1,86,2,2,0,0.0,73.0,2.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Henar Muiña,1676467,M,1,90,2,0,0,0.0,75.0,2.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Ariadna Mingueza,1345249,M,1,72,2,1,0,0.0,77.0,2.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Natalia Padilla,1301790,F,1,90,3,1,0,0.0,104.0,3.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Paulina Gramaglia,1360361,F,1,64,3,0,0,0.0,106.0,3.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Noelia Salazar,1401717,M,0,26,0,0,0,0.0,,2.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Iratxe Pérez,1807366,F,0,26,5,3,1,0.0,,3.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Marina Martí,1401721,F,0,18,1,1,0,0.0,,3.0,
+5882307,2026-10-04,fem_espana,UD Tenerife,Lys Tiwa,2263538,F,0,4,2,0,0,0.0,,3.0,
+5882307,2026-10-04,fem_espana,Logroño United,María Miralles,1546586,G,1,90,0,0,0,0.0,11.0,0.0,
+5882307,2026-10-04,fem_espana,Logroño United,Comfort Yeboah,1796052,D,1,46,0,0,0,0.0,32.0,1.0,
+5882307,2026-10-04,fem_espana,Logroño United,Rebeca da Silva,1747841,D,1,90,0,0,0,0.0,34.0,1.0,
+5882307,2026-10-04,fem_espana,Logroño United,Marta Masferrer,1807887,D,1,90,0,0,0,0.0,36.0,1.0,
+5882307,2026-10-04,fem_espana,Logroño United,Annelie Leitner,1546580,D,1,90,0,0,0,0.0,38.0,1.0,
+5882307,2026-10-04,fem_espana,Logroño United,Catalina Ongaro,1888963,M,1,76,0,0,0,0.0,73.0,2.0,
+5882307,2026-10-04,fem_espana,Logroño United,Daiana Falfán,1366901,M,1,90,0,0,0,0.0,75.0,2.0,
+5882307,2026-10-04,fem_espana,Logroño United,Ximena Velazco,1465795,M,1,76,0,0,0,0.0,77.0,2.0,
+5882307,2026-10-04,fem_espana,Logroño United,Maria Barquero,1807233,F,1,58,0,0,0,0.0,103.0,3.0,
+5882307,2026-10-04,fem_espana,Logroño United,Cristina Redondo,1685141,F,1,76,2,1,1,0.0,105.0,3.0,
+5882307,2026-10-04,fem_espana,Logroño United,Isina,1546926,M,1,90,1,0,0,0.0,107.0,2.0,
+5882307,2026-10-04,fem_espana,Logroño United,Justina Morcillo,1544914,D,0,45,1,0,0,0.0,,1.0,
+5882307,2026-10-04,fem_espana,Logroño United,Ana Franco,1044254,F,0,32,1,1,0,0.0,,3.0,
+5882307,2026-10-04,fem_espana,Logroño United,Margarita Giménez,1691630,M,0,14,0,0,0,0.0,,2.0,
+5882307,2026-10-04,fem_espana,Logroño United,Flavine Mawete,1408454,F,0,14,1,1,0,0.0,,3.0,
+5882307,2026-10-04,fem_espana,Logroño United,Francisca Altgelt,1798437,F,0,14,0,0,0,0.0,,3.0,
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Youri Schoonderwaldt,1076956,G,1,61,0,0,0,0.0,11.0,0.0,305396.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Andreas Verstraeten,1553434,D,1,82,1,0,0,0.0,33.0,1.0,1456680.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Gabin Blancquart,1596083,D,1,90,1,0,0,0.0,35.0,1.0,163931.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Éanna Clancy,1375733,D,1,90,1,0,0,0.0,37.0,1.0,243540.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Philip Heise,276700,D,1,82,2,1,0,0.0,72.0,1.0,84658.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Tristan Schenkhuizen,1645924,M,1,61,1,1,0,0.0,74.0,2.0,273062.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Mohammed Odriss,1526785,M,1,90,0,0,0,0.0,76.0,2.0,190316.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Raf Vullers,1868450,M,1,90,0,0,0,0.0,78.0,2.0,
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Nassim Ait Mouhou,1791688,F,1,90,1,1,0,0.0,103.0,3.0,206944.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Leon Schmidt,1735838,M,1,72,4,3,1,0.0,105.0,2.0,
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Edhy Zuliani,1429122,F,1,72,1,0,0,0.0,107.0,3.0,296540.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Ismail M'Hand,1359804,M,0,29,2,0,0,0.0,,2.0,271862.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Amir Rais,1553378,M,0,18,1,1,1,0.0,,2.0,313186.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Mattheos Tsigkas,1692859,F,0,18,0,0,0,0.0,,3.0,
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Michael Davis,1290362,D,0,8,0,0,0,0.0,,1.0,146028.0
+5832894,2026-10-04,ned_eerste,VVV-Venlo,Yousri El Anbri,1688530,M,0,8,0,0,0,0.0,,2.0,183788.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Justin Treichel,1665417,G,1,90,0,0,0,0.0,11.0,0.0,264254.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Lucas Beerten,1323635,D,1,90,1,0,0,0.0,33.0,1.0,182558.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Dario van den Buijs,604344,D,1,79,0,0,0,0.0,35.0,1.0,93198.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Marco Tol,873580,D,1,90,1,0,0,0.0,37.0,1.0,211840.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Koen Jansen,1243250,D,1,60,0,0,0,0.0,62.0,1.0,230400.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Joshua Nisbet,1016158,M,1,90,0,0,0,0.0,64.0,2.0,256710.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Xander van den Berg,1576570,M,1,69,1,0,0,0.0,66.0,2.0,
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Bram Marsman,1606593,D,1,90,1,1,0,0.0,68.0,1.0,239419.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Cain Seedorf,1224913,F,1,60,1,1,0,0.0,84.0,3.0,158706.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Dyon Dorenbosch,1393107,M,1,61,0,0,0,0.0,86.0,2.0,251124.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Anthony van den Hurk,243461,F,1,90,0,0,0,0.0,105.0,3.0,185119.0
 5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Rayan Khoums,2337543,,0,30,0,0,0,0.0,,,
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Joey Sleegers,466834,M,0,30,0,0,0,0.0,,2,87098
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Mitchell Paulissen,295087,M,0,29,0,0,0,0.0,,2,85998
-5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Guilherme Peixoto,1671048,M,0,11,0,0,0,0.0,,2,679411
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Akane Okuma,1714774,G,1,90,0,0,0,0.0,11,0,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Anna Patten,1224338,D,1,90,0,0,0,0.0,33,1,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Mathilde Harviken,1031790,D,1,90,0,0,0,0.0,35,1,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Océane Deslandes,1246632,D,1,90,1,0,0,0.02,37,1,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Lynn Wilms,1091618,D,1,90,1,0,0,0.18,62,1,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Justine Kielland,944746,M,1,63,0,0,0,0.0,64,2,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Miri Taylor,1359554,M,1,90,3,2,0,0.13,66,2,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Noëlle Maritz,646111,D,1,81,2,1,1,0.22,68,1,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Chasity Grant,1215011,M,1,73,1,0,0,0.06,84,2,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Lucia Kendall,1609367,M,1,90,5,1,0,0.21,86,2,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Amalie Vangsgaard,566231,F,1,81,2,1,0,0.21,105,3,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Maya Hijikata,1619992,M,0,27,0,0,0,0.0,,2,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Georgia Mullett,1414471,F,0,17,1,0,0,0.28,,3,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Lily Murphy,1679833,M,0,9,0,0,0,0.0,,2,
-5981657,2026-10-04,fem_inglaterra,Aston Villa,Rachel Maltby,1729832,M,0,9,0,0,0,0.0,,2,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Pauline Peyraud-Magnin,887466,G,1,90,0,0,0,0.0,11,0,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Molly Bartrip,1082565,D,1,90,1,1,0,0.08,33,1,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Aimee Everett,1536960,D,1,90,0,0,0,0.0,35,1,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Teyah Goldie,1241548,D,1,70,0,0,0,0.0,37,1,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Allyson Swaby,1055708,D,1,90,0,0,0,0.0,62,1,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Fuka Tsunoda,1810767,M,1,90,1,0,0,0.04,64,2,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Shanade Hopcroft,1562962,M,1,70,0,0,0,0.0,66,2,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Lexi Lloyd-Smith,1564143,F,1,90,2,0,0,0.05,68,3,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Abbie Larkin,1262482,F,1,90,3,2,1,0.13,84,3,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Annabel Blanchard,1136500,M,1,70,2,0,0,0.05,86,2,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Bethany England,915252,F,1,89,2,1,0,0.08,105,3,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Molly Sharpe,1249581,M,0,20,0,0,0,0.0,,2,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Sierra Enge,1455364,M,0,20,0,0,0,0.0,,2,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Shannon O'Brien,1137290,F,0,20,1,0,0,0.5,,3,
-5981657,2026-10-04,fem_inglaterra,Crystal Palace,Kirsty Howat,1091519,F,0,1,0,0,0,0.0,,3,
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Aitor Fraga,1529105,G,1,90,0,0,0,0.0,11,0,1323554
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Jon Garro,1553777,D,1,90,2,1,0,0.11,32,1,
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Iker Ropero,1642588,D,1,69,0,0,0,0.0,34,1,442034
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Iker Calderón,1819365,D,1,81,0,0,0,0.0,36,1,462434
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Jon Balda,1323983,D,1,90,1,0,0,0.02,38,1,1122143
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Tomy Carbonell,1796849,M,1,81,0,0,0,0.0,64,2,1595564
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Ibai Aguirre,1810849,M,1,69,0,0,0,0.0,66,2,1862837
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Dani Díaz,1712125,F,1,66,2,1,0,0.19,83,3,2227809
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Gorka Gorosabel,1579469,M,1,90,2,1,1,0.54,85,2,1663025
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Lander Astiazarán,1697371,M,1,90,6,2,0,0.48,87,2,
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Gorka Carrera,1431291,F,1,90,2,1,1,0.67,115,3,3415425
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Alex Lebarbier,1426185,M,0,24,0,0,0,0.0,,2,598970
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Unax Ayo,1863806,D,0,21,0,0,0,0.0,,1,576894
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Jon Eceizabarrena,1560755,M,0,21,2,0,0,0.18,,2,305980
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Unax Agote,1418670,D,0,9,0,0,0,0.0,,1,279724
-5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Joan Oleaga,1697390,M,0,9,0,0,0,0.0,,2,380959
-5868478,2026-10-04,esp_hypermotion,Granada,Alberto Flores,1329320,G,1,90,0,0,0,0.0,11,0,524095
-5868478,2026-10-04,esp_hypermotion,Granada,Juanjo,1825696,D,1,90,2,0,0,0.03,33,1,
-5868478,2026-10-04,esp_hypermotion,Granada,Manu Lama,1226848,D,1,90,2,0,0,0.46,35,1,1068971
-5868478,2026-10-04,esp_hypermotion,Granada,Benedikt Gimber,667788,D,1,45,1,0,0,0.01,37,1,1128755
-5868478,2026-10-04,esp_hypermotion,Granada,Sergio López,952529,D,1,90,0,0,0,0.0,71,1,1021849
-5868478,2026-10-04,esp_hypermotion,Granada,Diego Hormigo,1403389,D,1,46,0,0,0,0.0,73,1,
-5868478,2026-10-04,esp_hypermotion,Granada,Rubén Alcaraz,639144,M,1,90,2,0,0,0.04,75,2,252703
-5868478,2026-10-04,esp_hypermotion,Granada,Gerard Gumbau,522234,M,1,90,3,1,0,0.12,77,2,690484
-5868478,2026-10-04,esp_hypermotion,Granada,Angelo Garcia,2140587,D,1,46,0,0,0,0.0,79,1,
-5868478,2026-10-04,esp_hypermotion,Granada,José Arnáiz,639133,F,1,84,4,2,2,1.02,104,3,501696
-5868478,2026-10-04,esp_hypermotion,Granada,Chinaza Onouha,2140601,F,1,45,1,0,0,0.02,106,3,
-5868478,2026-10-04,esp_hypermotion,Granada,Diego Pampín,881124,D,0,45,1,1,0,0.25,,1,661190
-5868478,2026-10-04,esp_hypermotion,Granada,Pedro Alemañ,1308894,M,0,45,3,0,0,0.39,,2,1388492
-5868478,2026-10-04,esp_hypermotion,Granada,Mario Jiménez,1800640,F,0,45,1,0,0,0.04,,3,
-5868478,2026-10-04,esp_hypermotion,Granada,Sergio Rodelas,1436230,F,0,45,2,0,0,0.15,,3,759775
-5868478,2026-10-04,esp_hypermotion,Granada,Jorge Pascual,1336006,F,0,6,1,1,1,0.84,,3,1695765
-5981660,2026-10-04,fem_inglaterra,West Ham United,Constance Picaud,1246631,G,1,90,0,0,0,0.0,11,0,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Nadine Riesen,1380227,D,1,90,0,0,0,0.0,32,1,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Laia Codina,1083800,D,1,90,0,0,0,0.0,34,1,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Saki Kumagai,129931,M,1,90,0,0,0,0.0,36,2,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Estelle Cascarino,734731,D,1,90,0,0,0,0.0,38,1,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Seraina Piubel,888015,M,1,81,0,0,0,0.0,72,2,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Katie Zelem,1082553,M,1,90,0,0,0,0.0,74,2,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Oona Siren,1179968,M,1,90,0,0,0,0.0,76,2,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Inès Belloumou,1127401,D,1,90,0,0,0,0.0,78,1,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Viviane Asseyi,890339,F,1,90,0,0,0,0.0,104,3,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Kelly Gago,1303607,F,1,69,0,0,0,0.0,106,3,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Leila Wandeler,1640198,F,0,21,0,0,0,0.0,,3,
-5981660,2026-10-04,fem_inglaterra,West Ham United,Ylinn Tennebø,1076666,M,0,9,0,0,0,0.0,,2,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Hannah Hampton,1081975,G,1,90,0,0,0,0.0,11,0,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Lucy Bronze,646031,D,1,90,0,0,0,0.0,33,1,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Kadeisha Buchanan,646129,D,1,77,2,0,0,0.09,35,1,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Veerle Buurman,1648650,D,1,90,0,0,0,0.0,37,1,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Ellie Carpenter,773361,D,1,90,3,0,0,0.15,72,1,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Keira Walsh,809517,M,1,90,5,1,1,0.6,74,2,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Wieke Kaptein,1406578,M,1,90,0,0,0,0.0,76,2,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Sandy Baltimore,851315,D,1,65,1,0,0,0.09,78,1,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Maika Hamano,1441762,F,1,90,2,1,1,0.61,103,3,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Melvine Malard,887471,F,1,65,3,1,1,0.21,105,3,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Sjoeke Nüsken,1106904,M,1,45,1,0,0,0.39,107,2,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Alexia Potter,1580519,M,0,44,0,0,0,0.0,,2,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Agnes Beever-Jones,1226631,F,0,25,2,0,0,0.67,,3,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Alyssa Thompson,1412460,F,0,25,2,0,0,0.08,,3,
-5981660,2026-10-04,fem_inglaterra,Chelsea,Katie McCabe,887711,D,0,13,0,0,0,0.0,,1,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Stina Johannes,896085,G,1,90,0,0,0,0.0,11,0,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Joelle Wedemeyer,734709,D,1,73,0,0,0,0.0,32,1,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Lieske Carleer,1684317,D,1,86,0,0,0,0.0,34,1,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Camilla Küver,1195311,D,1,90,7,3,0,0.0,36,1,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Sarai Linder,884218,D,1,90,1,0,0,0.0,38,1,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Svenja Huth,294952,F,1,90,0,0,0,0.0,73,3,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Katharina Piljić,1345245,M,1,61,2,1,0,0.0,75,2,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Janina Minge,896372,M,1,90,3,1,0,0.0,77,2,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Ella Peddemors,1091627,M,1,90,4,1,1,0.0,103,2,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Lara Prašnikar,898505,F,1,74,3,1,0,0.0,105,3,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Cora Zicai,1238107,F,1,61,3,0,0,0.0,107,3,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Lena Lattwein,889551,M,0,29,1,1,0,0.0,,2,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Kessya Bussy,1192872,F,0,29,1,0,0,0.0,,3,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Thea Bjelde,784540,D,0,17,0,0,0,0.0,,1,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Anny Kerim,1651904,D,0,16,2,2,1,0.0,,1,
-5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Sophia Kleinherne,1095778,D,0,4,0,0,0,0.0,,1,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Jule Baum,1345202,G,1,90,0,0,0,0.0,11,0,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Annaleen Böhler,1732707,D,1,90,0,0,0,0.0,33,1,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Svea Stoldt,1732698,D,1,90,1,0,0,0.0,35,1,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Jaqueline Dönges,1732697,D,1,90,0,0,0,0.0,37,1,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Magou Doucouré,1216362,D,1,90,0,0,0,0.0,51,1,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Carla Morich,1732709,F,1,90,1,0,0,0.0,59,3,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Camilla Linberg,661089,M,1,71,2,1,1,0.0,73,2,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Leïla Peneau,1544572,M,1,58,1,0,0,0.0,75,2,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Pauline Machtens,1638291,M,1,83,0,0,0,0.0,77,2,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Nikola Karczewska,1214973,F,1,72,0,0,0,0.0,104,3,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Paulina Bartz,1544143,M,1,90,1,1,0,0.0,106,2,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Lotta Wrede,1805577,M,0,13,0,0,0,0.0,,2,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Jonna Wrede,1805571,D,0,19,2,1,0,0.0,,1,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Lena Martens,2029920,D,0,19,0,0,0,0.0,,1,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Melanie Brunnthaler,1091597,F,0,18,0,0,0,0.0,,3,
-5934541,2026-10-04,fem_alemania,Hamburger SV,Nigar Mirzəliyeva,1555861,D,0,7,1,1,0,0.0,,1,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Laura Giuliani,859260,G,1,90,0,0,0,0.0,11,0,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Greta Stegemann,896366,D,1,90,0,0,0,0.0,33,1,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Luzie Zähringer,1679725,D,1,61,0,0,0,0.0,35,1,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Janina Hechler,896307,D,1,90,0,0,0,0.0,37,1,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Maximiliane Rall,889199,M,1,90,0,0,0,0.0,51,2,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Lenelotte Mueller,2148780,D,1,61,0,0,0,0.0,59,1,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Adriana Achcińska,1207565,M,1,74,2,0,0,0.0,73,2,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Dafina Redzepi,2148787,M,1,90,3,0,0,0.0,75,2,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Chantal Hagel,1301450,M,1,61,0,0,0,0.0,77,2,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Mira Arouna,2148793,F,1,77,3,0,0,0.0,104,3,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Nicole Billa,856554,F,1,90,1,0,0,0.0,106,3,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Julia Mickenhagen,1611336,D,0,29,2,0,0,0.0,,1,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Leonie Schetter,2148789,M,0,29,1,0,0,0.0,,2,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Verena Wieder,887424,F,0,29,6,2,0,0.0,,3,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Muriel Duerr,2029921,M,0,16,1,0,0,0.0,,2,
-5934540,2026-10-04,fem_alemania,VfB Stuttgart,Jana Beuschlein,1002644,F,0,13,2,2,0,0.0,,3,
-5934540,2026-10-04,fem_alemania,Union Berlin,Nadine Böhi,1715836,G,1,90,0,0,0,0.0,11,0,
-5934540,2026-10-04,fem_alemania,Union Berlin,Tomke Schneider,1685492,D,1,90,0,0,0,0.0,32,1,
-5934540,2026-10-04,fem_alemania,Union Berlin,Amber Tysiak,1309054,D,1,90,0,0,0,0.0,34,1,
-5934540,2026-10-04,fem_alemania,Union Berlin,Samantha Steuerwald,1190570,D,1,90,1,1,1,0.0,36,1,
-5934540,2026-10-04,fem_alemania,Union Berlin,Judit Pujols,1438602,D,1,77,1,0,0,0.0,38,1,
-5934540,2026-10-04,fem_alemania,Union Berlin,Lina Hausicke,892685,M,1,90,3,3,2,0.0,64,2,
-5934540,2026-10-04,fem_alemania,Union Berlin,Lia Kamber,1897164,M,1,66,1,0,0,0.0,66,2,
-5934540,2026-10-04,fem_alemania,Union Berlin,Jill Janssens,1375220,D,1,83,3,1,1,0.0,83,1,
-5934540,2026-10-04,fem_alemania,Union Berlin,Eileen Campbell,1549669,F,1,77,2,1,0,0.0,85,3,
-5934540,2026-10-04,fem_alemania,Union Berlin,Naika Reissner,1806048,F,1,66,2,1,0,0.0,87,3,
-5934540,2026-10-04,fem_alemania,Union Berlin,Nele Bauereisen,1546271,F,1,90,1,1,0,0.0,115,3,
-5934540,2026-10-04,fem_alemania,Union Berlin,Jella Veit,1544201,D,0,24,1,0,0,0.0,,1,
-5934540,2026-10-04,fem_alemania,Union Berlin,Sophie Weidauer,1093741,F,0,24,1,0,0,0.0,,3,
-5934540,2026-10-04,fem_alemania,Union Berlin,Judith Steinert,898121,D,0,13,1,1,0,0.0,,1,
-5934540,2026-10-04,fem_alemania,Union Berlin,Dina Orschmann,1190322,M,0,13,1,0,0,0.0,,2,
-5934540,2026-10-04,fem_alemania,Union Berlin,Anna Weiß,896291,D,0,7,0,0,0,0.0,,1,
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Rubén Yánez,477594,G,1,90,0,0,0,0.0,11,0,687857
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Jorge Sáenz,573780,D,1,90,1,1,0,0.13,33,1,505811
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Aimar Duñabeitia,1580248,D,1,90,0,0,0,0.0,35,1,386535
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Andrés Cuenca,1665439,D,1,46,0,0,0,0.0,37,1,1242592
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Guille Rosas,1120109,D,1,90,2,1,1,0.11,72,1,1694856
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Manu Rodríguez,1842890,M,1,90,1,0,0,0.04,74,2,1438844
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Alex Corredera,874045,M,1,90,0,0,0,0.0,76,2,682810
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Pablo García,1091369,M,1,46,0,0,0,0.0,78,2,516481
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Enol Prendes,1748414,F,1,58,0,0,0,0.0,103,3,352240
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Antonio Casas,1010186,F,1,45,4,3,2,1.24,105,3,424525
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Gaspar Campos,1116736,F,1,75,2,1,0,0.12,107,3,1546532
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Diego Sánchez,1236451,D,0,45,1,0,0,0.0,,1,1564524
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Iker Martínez,1670129,D,0,45,1,0,0,0.05,,1,
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Alejo Sarco,1617224,F,0,44,0,0,0,0.0,,3,2042351
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Diego Matabuena,1971125,M,0,32,0,0,0,0.0,,2,
-5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Miguel Conde,1833800,F,0,15,1,1,0,0.04,,3,
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Coke Carrillo,1308413,G,1,90,0,0,0,0.0,11,0,
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Pablo Gavian,1838575,M,1,90,1,1,0,0.03,33,2,
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Kike Ribes,1609347,D,1,90,0,0,0,0.0,35,1,490105
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Anxo Rodriguez,1842712,D,1,61,0,0,0,0.0,37,1,1069065
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Germain Milla,1910012,M,1,61,1,0,0,0.0,72,2,785225
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Adria Capdevila,1721088,M,1,90,1,0,0,0.02,74,2,534744
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Pablo Meixus,1426067,D,1,90,0,0,0,0.0,76,1,517823
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Joel López,1092372,M,1,89,0,0,0,0.0,78,2,406148
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Aldrine Kibet,2136736,F,1,82,1,1,1,0.05,103,3,716182
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Álvaro Marin,1552439,F,1,82,2,0,0,0.7,105,3,482956
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Oscar Marcos,1697454,F,1,90,4,4,1,0.49,107,3,816723
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Ángel Arcos,1700562,F,0,29,2,2,0,0.09,,3,708114
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Vladimir Silva,1797312,F,0,29,1,0,0,0.02,,3,
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,David Sueiro,2299895,D,0,8,0,0,0,0.0,,1,
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Jorge Perez-Lafuente,2299893,F,0,8,1,0,0,0.1,,3,
-5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Jan Oliveras,1329533,D,0,1,0,0,0,0.0,,1,462828
-5981659,2026-10-04,fem_inglaterra,Everton,Courtney Brosnan,1082595,G,1,90,0,0,0,0.0,11,0,
-5981659,2026-10-04,fem_inglaterra,Everton,Hannah Blundell,887427,D,1,90,0,0,0,0.0,32,1,
-5981659,2026-10-04,fem_inglaterra,Everton,Naomi Layzell,1182839,D,1,90,1,0,0,0.02,34,1,
-5981659,2026-10-04,fem_inglaterra,Everton,Hannah Silcock,1406665,D,1,62,1,1,0,0.03,36,1,
-5981659,2026-10-04,fem_inglaterra,Everton,Mayumi Pacheco,1082564,D,1,90,0,0,0,0.0,38,1,
-5981659,2026-10-04,fem_inglaterra,Everton,Ruby Mace,1130961,D,1,90,4,3,2,0.36,64,1,
-5981659,2026-10-04,fem_inglaterra,Everton,Honoka Hayashi,1240212,M,1,85,3,1,0,0.23,66,2,
-5981659,2026-10-04,fem_inglaterra,Everton,Yuka Momiki,980950,F,1,85,2,1,0,0.07,83,3,
-5981659,2026-10-04,fem_inglaterra,Everton,Rosa van Gool,1578196,M,1,62,1,0,0,0.06,85,2,
-5981659,2026-10-04,fem_inglaterra,Everton,Ornella Vignola,1302357,M,1,90,2,2,0,0.05,87,2,
-5981659,2026-10-04,fem_inglaterra,Everton,Zara Kramžar,1408450,F,1,31,1,0,0,0.1,115,3,
-5981659,2026-10-04,fem_inglaterra,Everton,Holly McNamara,1319365,F,0,59,0,0,0,0.0,,3,
-5981659,2026-10-04,fem_inglaterra,Everton,Rion Ishikawa,1444047,D,0,28,0,0,0,0.0,,1,
-5981659,2026-10-04,fem_inglaterra,Everton,Hannah Cain,1000849,F,0,28,2,1,0,0.07,,3,
-5981659,2026-10-04,fem_inglaterra,Everton,Hikaru Kitagawa,1627763,D,0,5,0,0,0,0.0,,1,
-5981659,2026-10-04,fem_inglaterra,Everton,Clare Wheeler,1231013,M,0,5,0,0,0,0.0,,2,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Sophie Baggaley,939626,G,1,90,0,0,0,0.0,11,0,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Marie Levasseur,1315310,D,1,90,0,0,0,0.0,32,1,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Millie Turner,939849,D,1,90,1,0,0,0.01,34,1,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Neve Herron,1686848,D,1,90,3,0,0,0.3,36,1,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Rebecca McKenna,1077530,D,1,90,0,0,0,0.0,38,1,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Asato Miyagawa,1055850,M,1,90,0,0,0,0.0,64,2,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Lisa Naalsund,314998,M,1,88,1,0,0,0.04,66,2,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Lily Crosthwaite,1314649,F,1,90,1,0,0,0.03,83,3,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Geum-Min Lee,646764,M,1,59,1,0,0,0.07,85,2,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Océane Hurtré,1214987,F,1,90,2,1,1,0.21,87,3,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Chancelle Effa Effa,1406595,F,1,60,0,0,0,0.0,115,3,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Suzu Amano,1620100,M,0,31,0,0,0,0.0,,2,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Veatriki Sarri,1243898,F,0,30,1,0,0,0.02,,3,
-5981659,2026-10-04,fem_inglaterra,Birmingham City,Wilma Leidhammar,1397114,M,0,2,0,0,0,0.0,,2,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Lize Kop,887265,G,1,90,0,0,0,0.0,11,0,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Caitlin Dijkstra,1215012,D,1,46,0,0,0,0.0,32,1,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Toko Koga,1627765,D,1,90,0,0,0,0.0,34,1,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Amanda Nildén,1050882,D,1,90,1,0,0,0.11,36,1,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Julie Blakstad,1031793,D,1,90,4,1,0,0.28,38,1,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Signe Gaupset,1285343,M,1,90,2,0,0,0.11,64,2,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Drew Spence,884402,M,1,90,1,0,0,0.02,66,2,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Olivia Holdt,1030313,M,1,90,4,0,0,0.14,83,2,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Victoria Pelova,1055898,M,1,68,2,1,1,0.51,85,2,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Kirsty Hanson,1082557,F,1,45,1,0,0,0.09,87,3,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Cathinka Tandberg,1140227,F,1,90,2,0,0,0.36,115,3,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Ellia Morris,1257462,D,0,44,0,0,0,0.0,,1,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Matilda Vinberg,1241170,F,0,45,1,0,0,0.71,,3,
-5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Shekiera Martinez,1023081,F,0,22,0,0,0,0.0,,3,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Elene Lete,1345396,G,1,90,0,0,0,0.0,11,0,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Jana Fernández,1178011,D,1,90,1,0,0,0.05,32,1,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Isa Kardinaal,1578194,D,1,90,0,0,0,0.0,34,1,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Mapi León,829862,D,1,90,2,0,0,0.06,36,1,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Lucía Corrales,1473593,D,1,85,1,1,0,0.04,38,1,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Grace Geyoro,851322,M,1,89,2,1,0,0.41,64,2,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Daniela Arques,1401716,M,1,90,0,0,0,0.0,66,2,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Kadidiatou Diani,646079,F,1,85,3,3,2,1.7,83,3,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Alexia Putellas,462289,M,1,89,2,2,2,0.19,85,2,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Daniëlle van de Donk,646178,M,1,90,6,1,1,1.89,87,2,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Freya Godfrey,1476362,F,1,71,0,0,0,0.0,115,3,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Nicole Anyomi,889542,F,0,19,2,1,0,0.79,,3,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Janni Thomsen,931206,D,0,5,0,0,0,0.0,,1,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Delphine Cascarino,734744,F,0,5,1,1,1,0.07,,3,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,María Pérez,1302356,M,0,1,0,0,0,0.0,,2,
-5981655,2026-10-04,fem_inglaterra,London City Lionesses,Isobel Goodwin,1228965,F,0,1,0,0,0,0.0,,3,
-5981658,2026-10-04,fem_inglaterra,Brighton,Chiamaka Nnadozie,1055607,G,1,90,0,0,0,0.0,11,0,
-5981658,2026-10-04,fem_inglaterra,Brighton,Caitlin Hayes,1556453,D,1,90,2,0,0,0.07,33,1,
-5981658,2026-10-04,fem_inglaterra,Brighton,Gabrielle George,973674,D,1,90,1,1,1,0.36,35,1,
-5981658,2026-10-04,fem_inglaterra,Brighton,Manuela Vanegas,1194937,D,1,72,1,0,0,0.01,37,1,
-5981658,2026-10-04,fem_inglaterra,Brighton,Kiko Seike,1135672,F,1,89,4,3,2,0.71,62,3,
-5981658,2026-10-04,fem_inglaterra,Brighton,Maisie Symonds,1229263,M,1,90,3,1,1,0.19,64,2,
-5981658,2026-10-04,fem_inglaterra,Brighton,Lia Wälti,646116,M,1,72,0,0,0,0.0,66,2,
-5981658,2026-10-04,fem_inglaterra,Brighton,Olivia Garcia,1623163,F,1,90,4,0,0,0.67,68,3,
-5981658,2026-10-04,fem_inglaterra,Brighton,Fran Kirby,646037,M,1,90,3,1,1,0.67,84,2,
-5981658,2026-10-04,fem_inglaterra,Brighton,Jelena Čanković,908528,M,1,60,0,0,0,0.0,86,2,
-5981658,2026-10-04,fem_inglaterra,Brighton,Olaug Tvedten,791202,F,1,89,4,2,0,0.78,105,3,
-5981658,2026-10-04,fem_inglaterra,Brighton,Marisa Olislagers,1355959,D,0,30,3,1,0,0.36,,1,
-5981658,2026-10-04,fem_inglaterra,Brighton,Maelys Mpomé,1313679,D,0,18,0,0,0,0.0,,1,
-5981658,2026-10-04,fem_inglaterra,Brighton,Emilie Marie Joramo,939529,M,0,18,0,0,0,0.0,,2,
-5981658,2026-10-04,fem_inglaterra,Brighton,Emily Murphy,1130801,F,0,1,0,0,0,0.0,,3,
-5981658,2026-10-04,fem_inglaterra,Brighton,Sophie Peskett,1604094,F,0,1,0,0,0,0.0,,3,
-5981658,2026-10-04,fem_inglaterra,Charlton,Sophie Whitehouse,1194491,G,1,90,0,0,0,0.0,11,0,
-5981658,2026-10-04,fem_inglaterra,Charlton,Ashleigh Neville,1082583,D,1,55,0,0,0,0.0,32,1,
-5981658,2026-10-04,fem_inglaterra,Charlton,Elisha N'Dow,1181746,D,1,90,1,0,0,0.05,34,1,
-5981658,2026-10-04,fem_inglaterra,Charlton,Lucia Lobato,1380865,D,1,90,0,0,0,0.0,36,1,
-5981658,2026-10-04,fem_inglaterra,Charlton,Hawa Cissoko,851317,D,1,76,0,0,0,0.0,38,1,
-5981658,2026-10-04,fem_inglaterra,Charlton,Keira Flannery,1402198,M,1,90,0,0,0,0.0,65,2,
-5981658,2026-10-04,fem_inglaterra,Charlton,Cassandra Korhonen,1130068,M,1,55,2,2,1,0.84,82,2,
-5981658,2026-10-04,fem_inglaterra,Charlton,Emily van Egmond,271435,M,1,76,0,0,0,0.0,84,2,
-5981658,2026-10-04,fem_inglaterra,Charlton,Leah Davidson,1125739,M,1,88,0,0,0,0.0,86,2,
-5981658,2026-10-04,fem_inglaterra,Charlton,Jodie Hutton,1181747,M,1,90,0,0,0,0.0,88,2,
-5981658,2026-10-04,fem_inglaterra,Charlton,Lorena Azzaro,1544615,F,1,90,0,0,0,0.0,115,3,
-5981658,2026-10-04,fem_inglaterra,Charlton,Glória Siber,1554608,D,0,35,0,0,0,0.0,,1,
-5981658,2026-10-04,fem_inglaterra,Charlton,Gillian Kenney,1813645,F,0,35,0,0,0,0.0,,3,
-5981658,2026-10-04,fem_inglaterra,Charlton,Ellie Mason,971800,D,0,14,0,0,0,0.0,,1,
-5981658,2026-10-04,fem_inglaterra,Charlton,Katie Lockwood,1349366,M,0,14,0,0,0,0.0,,2,
-5981658,2026-10-04,fem_inglaterra,Charlton,Lucy Fitzgerald,1578155,F,0,2,0,0,0,0.0,,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Katriina Talaslahti,1178358,G,1,90,0,0,0,0.0,11,0,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Léna Goetsch,1201852,D,1,90,0,0,0,0.0,32,1,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Annaïg Butel,646082,D,1,90,0,0,0,0.0,34,1,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Claudine Meffometou,342804,D,1,80,0,0,0,0.0,36,1,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Charlotte Fernandes,880219,M,1,90,0,0,0,0.0,38,2,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Emelyne Laurent,887469,F,1,90,0,0,0,0.0,72,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Cyrielle Blanc,1345939,M,1,62,0,0,0,0.0,74,2,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Laurie Cance,964591,M,1,56,0,0,0,0.0,76,2,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Sanaâ Mssoudy,1464953,F,1,46,0,0,0,0.0,78,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Lucie Calba,1680285,F,1,62,0,0,0,0.0,104,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Cindy Caputo,898061,F,1,90,1,1,0,0.02,106,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Shana Chossenotte,1346008,F,0,45,3,1,1,0.37,,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Erin Cesarini,1408463,M,0,34,0,0,0,0.0,,2,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Batcheba Louis,1130842,F,0,28,1,0,0,0.04,,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Louna Ribadeira,1292202,F,0,28,0,0,0,0.0,,3,
-5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Kethna Louis,1261791,D,0,10,0,0,0,0.0,,1,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Katarzyna Kiedrzynek,851313,G,1,90,0,0,0,0.0,11,0,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Jade Le Guilly,1214977,D,1,90,0,0,0,0.0,32,1,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Tara Elimbi,1437224,D,1,90,1,0,0,0.02,34,1,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Griedge Mbock Bathy Nka,646080,D,1,90,1,0,0,0.13,36,1,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Thiniba Samoura,1345949,D,1,90,0,0,0,0.0,38,1,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Yayá,1611592,M,1,61,1,0,0,0.21,73,2,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Anaïs Ebayilin,1609066,M,1,90,1,0,0,0.09,75,2,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Jennifer Echegini,1402043,M,1,61,1,1,1,0.14,77,2,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Sakina Karchaoui,773395,M,1,71,0,0,0,0.0,103,2,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Rasheedat Ajibade,1031781,F,1,71,2,2,1,0.45,105,3,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Léa-Laëtitia Morissaint,1810500,F,1,90,5,4,1,0.97,107,3,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Olga Carmona,1043806,D,0,29,1,1,0,0.12,,1,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Jackie Groenen,856251,M,0,29,1,1,0,0.12,,2,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Alyssa Charlier,2189040,M,0,19,0,0,0,0.0,,2,
-5901173,2026-10-04,fem_francia,Paris Saint Germain,Florianne Jourde,1807444,M,0,19,0,0,0,0.0,,2,
-5181883,2026-10-04,selecciones,Azerbaijan,Emil Balayev,304890,G,1,90,0,0,0,0.0,11,0,231652
-5181883,2026-10-04,selecciones,Azerbaijan,Rahil Məmmədov,652285,D,1,90,0,0,0,0.0,33,1,137570
-5181883,2026-10-04,selecciones,Azerbaijan,Bədavi Hüseynov,251855,D,1,90,0,0,0,0.0,35,1,87098
-5181883,2026-10-04,selecciones,Azerbaijan,Rəhman Daşdəmirov,1441450,D,1,90,0,0,0,0.0,37,1,212454
-5181883,2026-10-04,selecciones,Azerbaijan,Tellur Mütallimov,763300,M,1,88,2,0,0,0.04,72,2,153512
-5181883,2026-10-04,selecciones,Azerbaijan,Abdulakh Khaybulaev,1351085,M,1,64,2,2,1,0.99,74,2,237155
-5181883,2026-10-04,selecciones,Azerbaijan,Aleksey İsayev,688887,M,1,80,0,0,0,0.0,76,2,558355
-5181883,2026-10-04,selecciones,Azerbaijan,Rüfat Abbasov,1387408,D,1,90,0,0,0,0.0,78,1,1115576
-5181883,2026-10-04,selecciones,Azerbaijan,Tural Bayramov,1119168,M,1,45,1,0,0,0.28,103,2,1427933
-5181883,2026-10-04,selecciones,Azerbaijan,Mahir Emreli,464251,F,1,90,3,2,0,0.12,105,3,473522
-5181883,2026-10-04,selecciones,Azerbaijan,Oruc Mammadov,1863490,M,1,64,3,2,0,0.25,107,2,
-5181883,2026-10-04,selecciones,Azerbaijan,Vüsal İsgəndərli,857642,F,0,45,1,0,0,0.06,,3,157746
-5181883,2026-10-04,selecciones,Azerbaijan,Emil Səfərov,1312262,M,0,26,0,0,0,0.0,,2,338973
-5181883,2026-10-04,selecciones,Azerbaijan,Renat Dadashov,749737,F,0,26,1,1,0,0.22,,3,241867
-5181883,2026-10-04,selecciones,Azerbaijan,Ceyhun Nuriyev,1308425,M,0,10,0,0,0,0.0,,2,359140
-5181883,2026-10-04,selecciones,Azerbaijan,Elvin Bədəlov,557588,D,0,2,0,0,0,0.0,,1,232689
-5181883,2026-10-04,selecciones,Lithuania,Tomas Švedkauskas,362197,G,1,90,0,0,0,0.0,11,0,50000
-5181883,2026-10-04,selecciones,Lithuania,Vilius Armalas,948709,D,1,90,0,0,0,0.0,33,1,479043
-5181883,2026-10-04,selecciones,Lithuania,Edgaras Utkus,973827,D,1,45,1,0,0,0.03,35,1,1233839
-5181883,2026-10-04,selecciones,Lithuania,Rokas Lekiatas,1360601,D,1,83,1,1,0,0.07,37,1,50000
-5181883,2026-10-04,selecciones,Lithuania,Adrian Lickūnas,1841063,M,1,67,1,0,0,0.02,72,2,272871
-5181883,2026-10-04,selecciones,Lithuania,Modestas Vorobjovas,463746,M,1,46,0,0,0,0.0,74,2,194340
-5181883,2026-10-04,selecciones,Lithuania,Gvidas Gineitis,1421505,M,1,90,2,0,0,0.1,76,2,10051197
-5181883,2026-10-04,selecciones,Lithuania,Justas Lasickas,652962,D,1,90,2,0,0,0.1,78,1,377104
-5181883,2026-10-04,selecciones,Lithuania,Vykintas Slivka,527840,M,1,68,2,1,0,0.21,103,2,79221
-5181883,2026-10-04,selecciones,Lithuania,Armandas Kučys,1312274,F,1,90,2,1,0,0.41,105,3,493541
-5181883,2026-10-04,selecciones,Lithuania,Artūr Dolžnikov,1065982,F,1,90,1,0,0,0.1,107,3,269821
-5181883,2026-10-04,selecciones,Lithuania,Kipras Kažukolovas,1379498,D,0,44,0,0,0,0.0,,1,356340
-5181883,2026-10-04,selecciones,Lithuania,Lukas Michelbrink,1701764,M,0,44,0,0,0,0.0,,2,998498
-5181883,2026-10-04,selecciones,Lithuania,Motiejus Burba,1178624,M,0,23,0,0,0,0.0,,2,141445
-5181883,2026-10-04,selecciones,Lithuania,Eligijus Jankauskas,762882,F,0,22,1,0,0,0.1,,3,239033
-5181883,2026-10-04,selecciones,Lithuania,Ignas Venckus,1246937,M,0,7,0,0,0,0.0,,2,141552
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Joey Sleegers,466834,M,0,30,0,0,0,0.0,,2.0,87098.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Mitchell Paulissen,295087,M,0,29,0,0,0,0.0,,2.0,85998.0
+5832894,2026-10-04,ned_eerste,Roda JC Kerkrade,Guilherme Peixoto,1671048,M,0,11,0,0,0,0.0,,2.0,679411.0
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Akane Okuma,1714774,G,1,90,0,0,0,0.0,11.0,0.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Anna Patten,1224338,D,1,90,0,0,0,0.0,33.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Mathilde Harviken,1031790,D,1,90,0,0,0,0.0,35.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Océane Deslandes,1246632,D,1,90,1,0,0,0.02,37.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Lynn Wilms,1091618,D,1,90,1,0,0,0.18,62.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Justine Kielland,944746,M,1,63,0,0,0,0.0,64.0,2.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Miri Taylor,1359554,M,1,90,3,2,0,0.13,66.0,2.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Noëlle Maritz,646111,D,1,81,2,1,1,0.22,68.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Chasity Grant,1215011,M,1,73,1,0,0,0.06,84.0,2.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Lucia Kendall,1609367,M,1,90,5,1,0,0.21,86.0,2.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Amalie Vangsgaard,566231,F,1,81,2,1,0,0.21,105.0,3.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Maya Hijikata,1619992,M,0,27,0,0,0,0.0,,2.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Georgia Mullett,1414471,F,0,17,1,0,0,0.28,,3.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Lily Murphy,1679833,M,0,9,0,0,0,0.0,,2.0,
+5981657,2026-10-04,fem_inglaterra,Aston Villa,Rachel Maltby,1729832,M,0,9,0,0,0,0.0,,2.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Pauline Peyraud-Magnin,887466,G,1,90,0,0,0,0.0,11.0,0.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Molly Bartrip,1082565,D,1,90,1,1,0,0.08,33.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Aimee Everett,1536960,D,1,90,0,0,0,0.0,35.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Teyah Goldie,1241548,D,1,70,0,0,0,0.0,37.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Allyson Swaby,1055708,D,1,90,0,0,0,0.0,62.0,1.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Fuka Tsunoda,1810767,M,1,90,1,0,0,0.04,64.0,2.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Shanade Hopcroft,1562962,M,1,70,0,0,0,0.0,66.0,2.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Lexi Lloyd-Smith,1564143,F,1,90,2,0,0,0.05,68.0,3.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Abbie Larkin,1262482,F,1,90,3,2,1,0.13,84.0,3.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Annabel Blanchard,1136500,M,1,70,2,0,0,0.05,86.0,2.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Bethany England,915252,F,1,89,2,1,0,0.08,105.0,3.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Molly Sharpe,1249581,M,0,20,0,0,0,0.0,,2.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Sierra Enge,1455364,M,0,20,0,0,0,0.0,,2.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Shannon O'Brien,1137290,F,0,20,1,0,0,0.5,,3.0,
+5981657,2026-10-04,fem_inglaterra,Crystal Palace,Kirsty Howat,1091519,F,0,1,0,0,0,0.0,,3.0,
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Aitor Fraga,1529105,G,1,90,0,0,0,0.0,11.0,0.0,1323554.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Jon Garro,1553777,D,1,90,2,1,0,0.11,32.0,1.0,
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Iker Ropero,1642588,D,1,69,0,0,0,0.0,34.0,1.0,442034.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Iker Calderón,1819365,D,1,81,0,0,0,0.0,36.0,1.0,462434.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Jon Balda,1323983,D,1,90,1,0,0,0.02,38.0,1.0,1122143.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Tomy Carbonell,1796849,M,1,81,0,0,0,0.0,64.0,2.0,1595564.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Ibai Aguirre,1810849,M,1,69,0,0,0,0.0,66.0,2.0,1862837.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Dani Díaz,1712125,F,1,66,2,1,0,0.19,83.0,3.0,2227809.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Gorka Gorosabel,1579469,M,1,90,2,1,1,0.54,85.0,2.0,1663025.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Lander Astiazarán,1697371,M,1,90,6,2,0,0.48,87.0,2.0,
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Gorka Carrera,1431291,F,1,90,2,1,1,0.67,115.0,3.0,3415425.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Alex Lebarbier,1426185,M,0,24,0,0,0,0.0,,2.0,598970.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Unax Ayo,1863806,D,0,21,0,0,0,0.0,,1.0,576894.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Jon Eceizabarrena,1560755,M,0,21,2,0,0,0.18,,2.0,305980.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Unax Agote,1418670,D,0,9,0,0,0,0.0,,1.0,279724.0
+5868478,2026-10-04,esp_hypermotion,Real Sociedad B,Joan Oleaga,1697390,M,0,9,0,0,0,0.0,,2.0,380959.0
+5868478,2026-10-04,esp_hypermotion,Granada,Alberto Flores,1329320,G,1,90,0,0,0,0.0,11.0,0.0,524095.0
+5868478,2026-10-04,esp_hypermotion,Granada,Juanjo,1825696,D,1,90,2,0,0,0.03,33.0,1.0,
+5868478,2026-10-04,esp_hypermotion,Granada,Manu Lama,1226848,D,1,90,2,0,0,0.46,35.0,1.0,1068971.0
+5868478,2026-10-04,esp_hypermotion,Granada,Benedikt Gimber,667788,D,1,45,1,0,0,0.01,37.0,1.0,1128755.0
+5868478,2026-10-04,esp_hypermotion,Granada,Sergio López,952529,D,1,90,0,0,0,0.0,71.0,1.0,1021849.0
+5868478,2026-10-04,esp_hypermotion,Granada,Diego Hormigo,1403389,D,1,46,0,0,0,0.0,73.0,1.0,
+5868478,2026-10-04,esp_hypermotion,Granada,Rubén Alcaraz,639144,M,1,90,2,0,0,0.04,75.0,2.0,252703.0
+5868478,2026-10-04,esp_hypermotion,Granada,Gerard Gumbau,522234,M,1,90,3,1,0,0.12,77.0,2.0,690484.0
+5868478,2026-10-04,esp_hypermotion,Granada,Angelo Garcia,2140587,D,1,46,0,0,0,0.0,79.0,1.0,
+5868478,2026-10-04,esp_hypermotion,Granada,José Arnáiz,639133,F,1,84,4,2,2,1.02,104.0,3.0,501696.0
+5868478,2026-10-04,esp_hypermotion,Granada,Chinaza Onouha,2140601,F,1,45,1,0,0,0.02,106.0,3.0,
+5868478,2026-10-04,esp_hypermotion,Granada,Diego Pampín,881124,D,0,45,1,1,0,0.25,,1.0,661190.0
+5868478,2026-10-04,esp_hypermotion,Granada,Pedro Alemañ,1308894,M,0,45,3,0,0,0.39,,2.0,1388492.0
+5868478,2026-10-04,esp_hypermotion,Granada,Mario Jiménez,1800640,F,0,45,1,0,0,0.04,,3.0,
+5868478,2026-10-04,esp_hypermotion,Granada,Sergio Rodelas,1436230,F,0,45,2,0,0,0.15,,3.0,759775.0
+5868478,2026-10-04,esp_hypermotion,Granada,Jorge Pascual,1336006,F,0,6,1,1,1,0.84,,3.0,1695765.0
+5981660,2026-10-04,fem_inglaterra,West Ham United,Constance Picaud,1246631,G,1,90,0,0,0,0.0,11.0,0.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Nadine Riesen,1380227,D,1,90,0,0,0,0.0,32.0,1.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Laia Codina,1083800,D,1,90,0,0,0,0.0,34.0,1.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Saki Kumagai,129931,M,1,90,0,0,0,0.0,36.0,2.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Estelle Cascarino,734731,D,1,90,0,0,0,0.0,38.0,1.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Seraina Piubel,888015,M,1,81,0,0,0,0.0,72.0,2.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Katie Zelem,1082553,M,1,90,0,0,0,0.0,74.0,2.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Oona Siren,1179968,M,1,90,0,0,0,0.0,76.0,2.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Inès Belloumou,1127401,D,1,90,0,0,0,0.0,78.0,1.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Viviane Asseyi,890339,F,1,90,0,0,0,0.0,104.0,3.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Kelly Gago,1303607,F,1,69,0,0,0,0.0,106.0,3.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Leila Wandeler,1640198,F,0,21,0,0,0,0.0,,3.0,
+5981660,2026-10-04,fem_inglaterra,West Ham United,Ylinn Tennebø,1076666,M,0,9,0,0,0,0.0,,2.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Hannah Hampton,1081975,G,1,90,0,0,0,0.0,11.0,0.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Lucy Bronze,646031,D,1,90,0,0,0,0.0,33.0,1.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Kadeisha Buchanan,646129,D,1,77,2,0,0,0.09,35.0,1.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Veerle Buurman,1648650,D,1,90,0,0,0,0.0,37.0,1.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Ellie Carpenter,773361,D,1,90,3,0,0,0.15,72.0,1.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Keira Walsh,809517,M,1,90,5,1,1,0.6,74.0,2.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Wieke Kaptein,1406578,M,1,90,0,0,0,0.0,76.0,2.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Sandy Baltimore,851315,D,1,65,1,0,0,0.09,78.0,1.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Maika Hamano,1441762,F,1,90,2,1,1,0.61,103.0,3.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Melvine Malard,887471,F,1,65,3,1,1,0.21,105.0,3.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Sjoeke Nüsken,1106904,M,1,45,1,0,0,0.39,107.0,2.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Alexia Potter,1580519,M,0,44,0,0,0,0.0,,2.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Agnes Beever-Jones,1226631,F,0,25,2,0,0,0.67,,3.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Alyssa Thompson,1412460,F,0,25,2,0,0,0.08,,3.0,
+5981660,2026-10-04,fem_inglaterra,Chelsea,Katie McCabe,887711,D,0,13,0,0,0,0.0,,1.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Stina Johannes,896085,G,1,90,0,0,0,0.0,11.0,0.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Joelle Wedemeyer,734709,D,1,73,0,0,0,0.0,32.0,1.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Lieske Carleer,1684317,D,1,86,0,0,0,0.0,34.0,1.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Camilla Küver,1195311,D,1,90,7,3,0,0.0,36.0,1.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Sarai Linder,884218,D,1,90,1,0,0,0.0,38.0,1.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Svenja Huth,294952,F,1,90,0,0,0,0.0,73.0,3.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Katharina Piljić,1345245,M,1,61,2,1,0,0.0,75.0,2.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Janina Minge,896372,M,1,90,3,1,0,0.0,77.0,2.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Ella Peddemors,1091627,M,1,90,4,1,1,0.0,103.0,2.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Lara Prašnikar,898505,F,1,74,3,1,0,0.0,105.0,3.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Cora Zicai,1238107,F,1,61,3,0,0,0.0,107.0,3.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Lena Lattwein,889551,M,0,29,1,1,0,0.0,,2.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Kessya Bussy,1192872,F,0,29,1,0,0,0.0,,3.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Thea Bjelde,784540,D,0,17,0,0,0,0.0,,1.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Anny Kerim,1651904,D,0,16,2,2,1,0.0,,1.0,
+5934541,2026-10-04,fem_alemania,VfL Wolfsburg,Sophia Kleinherne,1095778,D,0,4,0,0,0,0.0,,1.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Jule Baum,1345202,G,1,90,0,0,0,0.0,11.0,0.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Annaleen Böhler,1732707,D,1,90,0,0,0,0.0,33.0,1.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Svea Stoldt,1732698,D,1,90,1,0,0,0.0,35.0,1.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Jaqueline Dönges,1732697,D,1,90,0,0,0,0.0,37.0,1.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Magou Doucouré,1216362,D,1,90,0,0,0,0.0,51.0,1.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Carla Morich,1732709,F,1,90,1,0,0,0.0,59.0,3.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Camilla Linberg,661089,M,1,71,2,1,1,0.0,73.0,2.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Leïla Peneau,1544572,M,1,58,1,0,0,0.0,75.0,2.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Pauline Machtens,1638291,M,1,83,0,0,0,0.0,77.0,2.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Nikola Karczewska,1214973,F,1,72,0,0,0,0.0,104.0,3.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Paulina Bartz,1544143,M,1,90,1,1,0,0.0,106.0,2.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Lotta Wrede,1805577,M,0,13,0,0,0,0.0,,2.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Jonna Wrede,1805571,D,0,19,2,1,0,0.0,,1.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Lena Martens,2029920,D,0,19,0,0,0,0.0,,1.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Melanie Brunnthaler,1091597,F,0,18,0,0,0,0.0,,3.0,
+5934541,2026-10-04,fem_alemania,Hamburger SV,Nigar Mirzəliyeva,1555861,D,0,7,1,1,0,0.0,,1.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Laura Giuliani,859260,G,1,90,0,0,0,0.0,11.0,0.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Greta Stegemann,896366,D,1,90,0,0,0,0.0,33.0,1.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Luzie Zähringer,1679725,D,1,61,0,0,0,0.0,35.0,1.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Janina Hechler,896307,D,1,90,0,0,0,0.0,37.0,1.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Maximiliane Rall,889199,M,1,90,0,0,0,0.0,51.0,2.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Lenelotte Mueller,2148780,D,1,61,0,0,0,0.0,59.0,1.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Adriana Achcińska,1207565,M,1,74,2,0,0,0.0,73.0,2.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Dafina Redzepi,2148787,M,1,90,3,0,0,0.0,75.0,2.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Chantal Hagel,1301450,M,1,61,0,0,0,0.0,77.0,2.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Mira Arouna,2148793,F,1,77,3,0,0,0.0,104.0,3.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Nicole Billa,856554,F,1,90,1,0,0,0.0,106.0,3.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Julia Mickenhagen,1611336,D,0,29,2,0,0,0.0,,1.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Leonie Schetter,2148789,M,0,29,1,0,0,0.0,,2.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Verena Wieder,887424,F,0,29,6,2,0,0.0,,3.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Muriel Duerr,2029921,M,0,16,1,0,0,0.0,,2.0,
+5934540,2026-10-04,fem_alemania,VfB Stuttgart,Jana Beuschlein,1002644,F,0,13,2,2,0,0.0,,3.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Nadine Böhi,1715836,G,1,90,0,0,0,0.0,11.0,0.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Tomke Schneider,1685492,D,1,90,0,0,0,0.0,32.0,1.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Amber Tysiak,1309054,D,1,90,0,0,0,0.0,34.0,1.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Samantha Steuerwald,1190570,D,1,90,1,1,1,0.0,36.0,1.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Judit Pujols,1438602,D,1,77,1,0,0,0.0,38.0,1.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Lina Hausicke,892685,M,1,90,3,3,2,0.0,64.0,2.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Lia Kamber,1897164,M,1,66,1,0,0,0.0,66.0,2.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Jill Janssens,1375220,D,1,83,3,1,1,0.0,83.0,1.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Eileen Campbell,1549669,F,1,77,2,1,0,0.0,85.0,3.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Naika Reissner,1806048,F,1,66,2,1,0,0.0,87.0,3.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Nele Bauereisen,1546271,F,1,90,1,1,0,0.0,115.0,3.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Jella Veit,1544201,D,0,24,1,0,0,0.0,,1.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Sophie Weidauer,1093741,F,0,24,1,0,0,0.0,,3.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Judith Steinert,898121,D,0,13,1,1,0,0.0,,1.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Dina Orschmann,1190322,M,0,13,1,0,0,0.0,,2.0,
+5934540,2026-10-04,fem_alemania,Union Berlin,Anna Weiß,896291,D,0,7,0,0,0,0.0,,1.0,
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Rubén Yánez,477594,G,1,90,0,0,0,0.0,11.0,0.0,687857.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Jorge Sáenz,573780,D,1,90,1,1,0,0.13,33.0,1.0,505811.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Aimar Duñabeitia,1580248,D,1,90,0,0,0,0.0,35.0,1.0,386535.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Andrés Cuenca,1665439,D,1,46,0,0,0,0.0,37.0,1.0,1242592.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Guille Rosas,1120109,D,1,90,2,1,1,0.11,72.0,1.0,1694856.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Manu Rodríguez,1842890,M,1,90,1,0,0,0.04,74.0,2.0,1438844.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Alex Corredera,874045,M,1,90,0,0,0,0.0,76.0,2.0,682810.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Pablo García,1091369,M,1,46,0,0,0,0.0,78.0,2.0,516481.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Enol Prendes,1748414,F,1,58,0,0,0,0.0,103.0,3.0,352240.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Antonio Casas,1010186,F,1,45,4,3,2,1.24,105.0,3.0,424525.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Gaspar Campos,1116736,F,1,75,2,1,0,0.12,107.0,3.0,1546532.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Diego Sánchez,1236451,D,0,45,1,0,0,0.0,,1.0,1564524.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Iker Martínez,1670129,D,0,45,1,0,0,0.05,,1.0,
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Alejo Sarco,1617224,F,0,44,0,0,0,0.0,,3.0,2042351.0
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Diego Matabuena,1971125,M,0,32,0,0,0,0.0,,2.0,
+5868480,2026-10-04,esp_hypermotion,Sporting Gijón,Miguel Conde,1833800,F,0,15,1,1,0,0.04,,3.0,
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Coke Carrillo,1308413,G,1,90,0,0,0,0.0,11.0,0.0,
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Pablo Gavian,1838575,M,1,90,1,1,0,0.03,33.0,2.0,
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Kike Ribes,1609347,D,1,90,0,0,0,0.0,35.0,1.0,490105.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Anxo Rodriguez,1842712,D,1,61,0,0,0,0.0,37.0,1.0,1069065.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Germain Milla,1910012,M,1,61,1,0,0,0.0,72.0,2.0,785225.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Adria Capdevila,1721088,M,1,90,1,0,0,0.02,74.0,2.0,534744.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Pablo Meixus,1426067,D,1,90,0,0,0,0.0,76.0,1.0,517823.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Joel López,1092372,M,1,89,0,0,0,0.0,78.0,2.0,406148.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Aldrine Kibet,2136736,F,1,82,1,1,1,0.05,103.0,3.0,716182.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Álvaro Marin,1552439,F,1,82,2,0,0,0.7,105.0,3.0,482956.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Oscar Marcos,1697454,F,1,90,4,4,1,0.49,107.0,3.0,816723.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Ángel Arcos,1700562,F,0,29,2,2,0,0.09,,3.0,708114.0
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Vladimir Silva,1797312,F,0,29,1,0,0,0.02,,3.0,
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,David Sueiro,2299895,D,0,8,0,0,0,0.0,,1.0,
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Jorge Perez-Lafuente,2299893,F,0,8,1,0,0,0.1,,3.0,
+5868480,2026-10-04,esp_hypermotion,Celta Fortuna,Jan Oliveras,1329533,D,0,1,0,0,0,0.0,,1.0,462828.0
+5981659,2026-10-04,fem_inglaterra,Everton,Courtney Brosnan,1082595,G,1,90,0,0,0,0.0,11.0,0.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Hannah Blundell,887427,D,1,90,0,0,0,0.0,32.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Naomi Layzell,1182839,D,1,90,1,0,0,0.02,34.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Hannah Silcock,1406665,D,1,62,1,1,0,0.03,36.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Mayumi Pacheco,1082564,D,1,90,0,0,0,0.0,38.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Ruby Mace,1130961,D,1,90,4,3,2,0.36,64.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Honoka Hayashi,1240212,M,1,85,3,1,0,0.23,66.0,2.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Yuka Momiki,980950,F,1,85,2,1,0,0.07,83.0,3.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Rosa van Gool,1578196,M,1,62,1,0,0,0.06,85.0,2.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Ornella Vignola,1302357,M,1,90,2,2,0,0.05,87.0,2.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Zara Kramžar,1408450,F,1,31,1,0,0,0.1,115.0,3.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Holly McNamara,1319365,F,0,59,0,0,0,0.0,,3.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Rion Ishikawa,1444047,D,0,28,0,0,0,0.0,,1.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Hannah Cain,1000849,F,0,28,2,1,0,0.07,,3.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Hikaru Kitagawa,1627763,D,0,5,0,0,0,0.0,,1.0,
+5981659,2026-10-04,fem_inglaterra,Everton,Clare Wheeler,1231013,M,0,5,0,0,0,0.0,,2.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Sophie Baggaley,939626,G,1,90,0,0,0,0.0,11.0,0.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Marie Levasseur,1315310,D,1,90,0,0,0,0.0,32.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Millie Turner,939849,D,1,90,1,0,0,0.01,34.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Neve Herron,1686848,D,1,90,3,0,0,0.3,36.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Rebecca McKenna,1077530,D,1,90,0,0,0,0.0,38.0,1.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Asato Miyagawa,1055850,M,1,90,0,0,0,0.0,64.0,2.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Lisa Naalsund,314998,M,1,88,1,0,0,0.04,66.0,2.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Lily Crosthwaite,1314649,F,1,90,1,0,0,0.03,83.0,3.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Geum-Min Lee,646764,M,1,59,1,0,0,0.07,85.0,2.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Océane Hurtré,1214987,F,1,90,2,1,1,0.21,87.0,3.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Chancelle Effa Effa,1406595,F,1,60,0,0,0,0.0,115.0,3.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Suzu Amano,1620100,M,0,31,0,0,0,0.0,,2.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Veatriki Sarri,1243898,F,0,30,1,0,0,0.02,,3.0,
+5981659,2026-10-04,fem_inglaterra,Birmingham City,Wilma Leidhammar,1397114,M,0,2,0,0,0,0.0,,2.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Lize Kop,887265,G,1,90,0,0,0,0.0,11.0,0.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Caitlin Dijkstra,1215012,D,1,46,0,0,0,0.0,32.0,1.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Toko Koga,1627765,D,1,90,0,0,0,0.0,34.0,1.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Amanda Nildén,1050882,D,1,90,1,0,0,0.11,36.0,1.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Julie Blakstad,1031793,D,1,90,4,1,0,0.28,38.0,1.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Signe Gaupset,1285343,M,1,90,2,0,0,0.11,64.0,2.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Drew Spence,884402,M,1,90,1,0,0,0.02,66.0,2.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Olivia Holdt,1030313,M,1,90,4,0,0,0.14,83.0,2.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Victoria Pelova,1055898,M,1,68,2,1,1,0.51,85.0,2.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Kirsty Hanson,1082557,F,1,45,1,0,0,0.09,87.0,3.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Cathinka Tandberg,1140227,F,1,90,2,0,0,0.36,115.0,3.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Ellia Morris,1257462,D,0,44,0,0,0,0.0,,1.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Matilda Vinberg,1241170,F,0,45,1,0,0,0.71,,3.0,
+5981655,2026-10-04,fem_inglaterra,Tottenham Hotspur,Shekiera Martinez,1023081,F,0,22,0,0,0,0.0,,3.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Elene Lete,1345396,G,1,90,0,0,0,0.0,11.0,0.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Jana Fernández,1178011,D,1,90,1,0,0,0.05,32.0,1.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Isa Kardinaal,1578194,D,1,90,0,0,0,0.0,34.0,1.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Mapi León,829862,D,1,90,2,0,0,0.06,36.0,1.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Lucía Corrales,1473593,D,1,85,1,1,0,0.04,38.0,1.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Grace Geyoro,851322,M,1,89,2,1,0,0.41,64.0,2.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Daniela Arques,1401716,M,1,90,0,0,0,0.0,66.0,2.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Kadidiatou Diani,646079,F,1,85,3,3,2,1.7,83.0,3.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Alexia Putellas,462289,M,1,89,2,2,2,0.19,85.0,2.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Daniëlle van de Donk,646178,M,1,90,6,1,1,1.89,87.0,2.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Freya Godfrey,1476362,F,1,71,0,0,0,0.0,115.0,3.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Nicole Anyomi,889542,F,0,19,2,1,0,0.79,,3.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Janni Thomsen,931206,D,0,5,0,0,0,0.0,,1.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Delphine Cascarino,734744,F,0,5,1,1,1,0.07,,3.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,María Pérez,1302356,M,0,1,0,0,0,0.0,,2.0,
+5981655,2026-10-04,fem_inglaterra,London City Lionesses,Isobel Goodwin,1228965,F,0,1,0,0,0,0.0,,3.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Chiamaka Nnadozie,1055607,G,1,90,0,0,0,0.0,11.0,0.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Caitlin Hayes,1556453,D,1,90,2,0,0,0.07,33.0,1.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Gabrielle George,973674,D,1,90,1,1,1,0.36,35.0,1.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Manuela Vanegas,1194937,D,1,72,1,0,0,0.01,37.0,1.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Kiko Seike,1135672,F,1,89,4,3,2,0.71,62.0,3.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Maisie Symonds,1229263,M,1,90,3,1,1,0.19,64.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Lia Wälti,646116,M,1,72,0,0,0,0.0,66.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Olivia Garcia,1623163,F,1,90,4,0,0,0.67,68.0,3.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Fran Kirby,646037,M,1,90,3,1,1,0.67,84.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Jelena Čanković,908528,M,1,60,0,0,0,0.0,86.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Olaug Tvedten,791202,F,1,89,4,2,0,0.78,105.0,3.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Marisa Olislagers,1355959,D,0,30,3,1,0,0.36,,1.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Maelys Mpomé,1313679,D,0,18,0,0,0,0.0,,1.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Emilie Marie Joramo,939529,M,0,18,0,0,0,0.0,,2.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Emily Murphy,1130801,F,0,1,0,0,0,0.0,,3.0,
+5981658,2026-10-04,fem_inglaterra,Brighton,Sophie Peskett,1604094,F,0,1,0,0,0,0.0,,3.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Sophie Whitehouse,1194491,G,1,90,0,0,0,0.0,11.0,0.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Ashleigh Neville,1082583,D,1,55,0,0,0,0.0,32.0,1.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Elisha N'Dow,1181746,D,1,90,1,0,0,0.05,34.0,1.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Lucia Lobato,1380865,D,1,90,0,0,0,0.0,36.0,1.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Hawa Cissoko,851317,D,1,76,0,0,0,0.0,38.0,1.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Keira Flannery,1402198,M,1,90,0,0,0,0.0,65.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Cassandra Korhonen,1130068,M,1,55,2,2,1,0.84,82.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Emily van Egmond,271435,M,1,76,0,0,0,0.0,84.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Leah Davidson,1125739,M,1,88,0,0,0,0.0,86.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Jodie Hutton,1181747,M,1,90,0,0,0,0.0,88.0,2.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Lorena Azzaro,1544615,F,1,90,0,0,0,0.0,115.0,3.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Glória Siber,1554608,D,0,35,0,0,0,0.0,,1.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Gillian Kenney,1813645,F,0,35,0,0,0,0.0,,3.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Ellie Mason,971800,D,0,14,0,0,0,0.0,,1.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Katie Lockwood,1349366,M,0,14,0,0,0,0.0,,2.0,
+5981658,2026-10-04,fem_inglaterra,Charlton,Lucy Fitzgerald,1578155,F,0,2,0,0,0,0.0,,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Katriina Talaslahti,1178358,G,1,90,0,0,0,0.0,11.0,0.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Léna Goetsch,1201852,D,1,90,0,0,0,0.0,32.0,1.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Annaïg Butel,646082,D,1,90,0,0,0,0.0,34.0,1.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Claudine Meffometou,342804,D,1,80,0,0,0,0.0,36.0,1.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Charlotte Fernandes,880219,M,1,90,0,0,0,0.0,38.0,2.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Emelyne Laurent,887469,F,1,90,0,0,0,0.0,72.0,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Cyrielle Blanc,1345939,M,1,62,0,0,0,0.0,74.0,2.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Laurie Cance,964591,M,1,56,0,0,0,0.0,76.0,2.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Sanaâ Mssoudy,1464953,F,1,46,0,0,0,0.0,78.0,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Lucie Calba,1680285,F,1,62,0,0,0,0.0,104.0,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Cindy Caputo,898061,F,1,90,1,1,0,0.02,106.0,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Shana Chossenotte,1346008,F,0,45,3,1,1,0.37,,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Erin Cesarini,1408463,M,0,34,0,0,0,0.0,,2.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Batcheba Louis,1130842,F,0,28,1,0,0,0.04,,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Louna Ribadeira,1292202,F,0,28,0,0,0,0.0,,3.0,
+5901173,2026-10-04,fem_francia,Fleury Merogis U.S,Kethna Louis,1261791,D,0,10,0,0,0,0.0,,1.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Katarzyna Kiedrzynek,851313,G,1,90,0,0,0,0.0,11.0,0.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Jade Le Guilly,1214977,D,1,90,0,0,0,0.0,32.0,1.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Tara Elimbi,1437224,D,1,90,1,0,0,0.02,34.0,1.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Griedge Mbock Bathy Nka,646080,D,1,90,1,0,0,0.13,36.0,1.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Thiniba Samoura,1345949,D,1,90,0,0,0,0.0,38.0,1.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Yayá,1611592,M,1,61,1,0,0,0.21,73.0,2.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Anaïs Ebayilin,1609066,M,1,90,1,0,0,0.09,75.0,2.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Jennifer Echegini,1402043,M,1,61,1,1,1,0.14,77.0,2.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Sakina Karchaoui,773395,M,1,71,0,0,0,0.0,103.0,2.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Rasheedat Ajibade,1031781,F,1,71,2,2,1,0.45,105.0,3.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Léa-Laëtitia Morissaint,1810500,F,1,90,5,4,1,0.97,107.0,3.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Olga Carmona,1043806,D,0,29,1,1,0,0.12,,1.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Jackie Groenen,856251,M,0,29,1,1,0,0.12,,2.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Alyssa Charlier,2189040,M,0,19,0,0,0,0.0,,2.0,
+5901173,2026-10-04,fem_francia,Paris Saint Germain,Florianne Jourde,1807444,M,0,19,0,0,0,0.0,,2.0,
+5181883,2026-10-04,selecciones,Azerbaijan,Emil Balayev,304890,G,1,90,0,0,0,0.0,11.0,0.0,231652.0
+5181883,2026-10-04,selecciones,Azerbaijan,Rahil Məmmədov,652285,D,1,90,0,0,0,0.0,33.0,1.0,137570.0
+5181883,2026-10-04,selecciones,Azerbaijan,Bədavi Hüseynov,251855,D,1,90,0,0,0,0.0,35.0,1.0,87098.0
+5181883,2026-10-04,selecciones,Azerbaijan,Rəhman Daşdəmirov,1441450,D,1,90,0,0,0,0.0,37.0,1.0,212454.0
+5181883,2026-10-04,selecciones,Azerbaijan,Tellur Mütallimov,763300,M,1,88,2,0,0,0.04,72.0,2.0,153512.0
+5181883,2026-10-04,selecciones,Azerbaijan,Abdulakh Khaybulaev,1351085,M,1,64,2,2,1,0.99,74.0,2.0,237155.0
+5181883,2026-10-04,selecciones,Azerbaijan,Aleksey İsayev,688887,M,1,80,0,0,0,0.0,76.0,2.0,558355.0
+5181883,2026-10-04,selecciones,Azerbaijan,Rüfat Abbasov,1387408,D,1,90,0,0,0,0.0,78.0,1.0,1115576.0
+5181883,2026-10-04,selecciones,Azerbaijan,Tural Bayramov,1119168,M,1,45,1,0,0,0.28,103.0,2.0,1427933.0
+5181883,2026-10-04,selecciones,Azerbaijan,Mahir Emreli,464251,F,1,90,3,2,0,0.12,105.0,3.0,473522.0
+5181883,2026-10-04,selecciones,Azerbaijan,Oruc Mammadov,1863490,M,1,64,3,2,0,0.25,107.0,2.0,
+5181883,2026-10-04,selecciones,Azerbaijan,Vüsal İsgəndərli,857642,F,0,45,1,0,0,0.06,,3.0,157746.0
+5181883,2026-10-04,selecciones,Azerbaijan,Emil Səfərov,1312262,M,0,26,0,0,0,0.0,,2.0,338973.0
+5181883,2026-10-04,selecciones,Azerbaijan,Renat Dadashov,749737,F,0,26,1,1,0,0.22,,3.0,241867.0
+5181883,2026-10-04,selecciones,Azerbaijan,Ceyhun Nuriyev,1308425,M,0,10,0,0,0,0.0,,2.0,359140.0
+5181883,2026-10-04,selecciones,Azerbaijan,Elvin Bədəlov,557588,D,0,2,0,0,0,0.0,,1.0,232689.0
+5181883,2026-10-04,selecciones,Lithuania,Tomas Švedkauskas,362197,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5181883,2026-10-04,selecciones,Lithuania,Vilius Armalas,948709,D,1,90,0,0,0,0.0,33.0,1.0,479043.0
+5181883,2026-10-04,selecciones,Lithuania,Edgaras Utkus,973827,D,1,45,1,0,0,0.03,35.0,1.0,1233839.0
+5181883,2026-10-04,selecciones,Lithuania,Rokas Lekiatas,1360601,D,1,83,1,1,0,0.07,37.0,1.0,50000.0
+5181883,2026-10-04,selecciones,Lithuania,Adrian Lickūnas,1841063,M,1,67,1,0,0,0.02,72.0,2.0,272871.0
+5181883,2026-10-04,selecciones,Lithuania,Modestas Vorobjovas,463746,M,1,46,0,0,0,0.0,74.0,2.0,194340.0
+5181883,2026-10-04,selecciones,Lithuania,Gvidas Gineitis,1421505,M,1,90,2,0,0,0.1,76.0,2.0,10051197.0
+5181883,2026-10-04,selecciones,Lithuania,Justas Lasickas,652962,D,1,90,2,0,0,0.1,78.0,1.0,377104.0
+5181883,2026-10-04,selecciones,Lithuania,Vykintas Slivka,527840,M,1,68,2,1,0,0.21,103.0,2.0,79221.0
+5181883,2026-10-04,selecciones,Lithuania,Armandas Kučys,1312274,F,1,90,2,1,0,0.41,105.0,3.0,493541.0
+5181883,2026-10-04,selecciones,Lithuania,Artūr Dolžnikov,1065982,F,1,90,1,0,0,0.1,107.0,3.0,269821.0
+5181883,2026-10-04,selecciones,Lithuania,Kipras Kažukolovas,1379498,D,0,44,0,0,0,0.0,,1.0,356340.0
+5181883,2026-10-04,selecciones,Lithuania,Lukas Michelbrink,1701764,M,0,44,0,0,0,0.0,,2.0,998498.0
+5181883,2026-10-04,selecciones,Lithuania,Motiejus Burba,1178624,M,0,23,0,0,0,0.0,,2.0,141445.0
+5181883,2026-10-04,selecciones,Lithuania,Eligijus Jankauskas,762882,F,0,22,1,0,0,0.1,,3.0,239033.0
+5181883,2026-10-04,selecciones,Lithuania,Ignas Venckus,1246937,M,0,7,0,0,0,0.0,,2.0,141552.0
+5981661,2026-10-04,fem_inglaterra,Manchester City,Ayaka Yamashita,980943,G,1,90,0,0,0,0.0,11.0,0.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Carlotta Wamser,1195319,D,1,62,0,0,0,0.0,32.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Jade Rose,1418332,D,1,90,0,0,0,0.0,34.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Alex Greenwood,646033,D,1,90,0,0,0,0.0,36.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Niamh Charles,884269,D,1,62,0,0,0,0.0,38.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Yui Hasegawa,829874,M,1,90,0,0,0,0.0,64.0,2.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Sam Coffey,1362487,M,1,70,0,0,0,0.0,66.0,2.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Aoba Fujino,1442299,F,1,89,1,0,0,0.02,83.0,3.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Beth Mead,892705,F,1,62,3,0,0,0.22,85.0,3.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Lauren Hemp,888145,F,1,90,2,2,2,0.36,87.0,3.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Khadija Shaw,971405,F,1,90,2,2,1,0.3,115.0,3.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Kerstin Casparij,1356010,D,0,28,1,1,1,0.03,,1.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Iman Beney,1715837,F,0,28,0,0,0,0.0,,3.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Mary Fowler,1055684,F,0,28,0,0,0,0.0,,3.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Laura Blindkilde,1131573,M,0,20,0,0,0,0.0,,2.0,
+5981661,2026-10-04,fem_inglaterra,Manchester City,Grace Clinton,1182840,M,0,1,0,0,0,0.0,,2.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Anneke Borbe,898511,G,1,90,0,0,0,0.0,11.0,0.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Emily Fox,1266128,D,1,81,1,1,0,0.1,32.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Leah Williamson,941576,D,1,90,0,0,0,0.0,34.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Lotte Wubben-Moy,1192394,D,1,90,4,1,0,0.24,36.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Ona Batlle,1044313,D,1,81,0,0,0,0.0,38.0,1.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Kyra Cooney-Cross,1111984,M,1,90,0,0,0,0.0,64.0,2.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Georgia Stanway,886706,M,1,68,1,0,0,0.03,66.0,2.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Lisa Baum,1638167,M,1,68,3,2,1,1.01,83.0,2.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Kim Little,324991,M,1,90,0,0,0,0.0,85.0,2.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Mariona Caldentey,835903,M,1,44,1,1,0,0.04,87.0,2.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Alessia Russo,1185212,F,1,90,2,1,1,0.12,115.0,3.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Caitlin Foord,271434,F,0,46,1,0,0,0.04,,3.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Olivia Smith,1514063,F,0,22,1,1,0,0.05,,3.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Stina Blackstenius,773402,F,0,22,0,0,0,0.0,,3.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Smilla Holmberg,1357677,D,0,9,0,0,0,0.0,,1.0,
+5981661,2026-10-04,fem_inglaterra,Arsenal,Selina Cerci,1002647,F,0,9,2,2,0,0.08,,3.0,
+5181877,2026-10-04,selecciones,Malta,Henry Bonello,485565,G,1,90,0,0,0,0.0,11.0,0.0,140760.0
+5181877,2026-10-04,selecciones,Malta,Juan Corbalan,946255,D,1,72,1,1,0,0.04,32.0,1.0,158493.0
+5181877,2026-10-04,selecciones,Malta,Kurt Shaw,1101509,D,1,90,0,0,0,0.0,34.0,1.0,154996.0
+5181877,2026-10-04,selecciones,Malta,Enrico Pepe,183043,D,1,45,1,0,0,0.05,36.0,1.0,104800.0
+5181877,2026-10-04,selecciones,Malta,Ryan Camenzuli,532497,D,1,90,0,0,0,0.0,38.0,1.0,163100.0
+5181877,2026-10-04,selecciones,Malta,Brandon Paiber,898058,M,1,90,0,0,0,0.0,64.0,2.0,192949.0
+5181877,2026-10-04,selecciones,Malta,Alexander Satariano,1205177,M,1,90,1,0,0,0.18,66.0,2.0,341448.0
+5181877,2026-10-04,selecciones,Malta,Joseph Mbong,553785,F,1,72,3,2,0,0.22,83.0,3.0,185553.0
+5181877,2026-10-04,selecciones,Malta,Teddy Teuma,720733,M,1,56,2,2,1,0.19,85.0,2.0,829203.0
+5181877,2026-10-04,selecciones,Malta,Ilyas Chouaref,995447,F,1,85,2,1,0,0.07,87.0,3.0,2803635.0
+5181877,2026-10-04,selecciones,Malta,Irvin Cardona,769931,F,1,90,0,0,0,0.0,115.0,3.0,1775273.0
+5181877,2026-10-04,selecciones,Malta,Gabriel Mentz,1275195,D,0,44,0,0,0,0.0,,1.0,144843.0
+5181877,2026-10-04,selecciones,Malta,Paul Mbong,1180521,F,0,34,2,0,0,0.02,,3.0,247787.0
+5181877,2026-10-04,selecciones,Malta,Carlo Lonardelli,1304524,D,0,18,0,0,0,0.0,,1.0,370335.0
+5181877,2026-10-04,selecciones,Malta,Zach Muscat,525467,D,0,18,0,0,0,0.0,,1.0,154570.0
+5181877,2026-10-04,selecciones,Malta,Andrea Zammit,1314463,F,0,6,0,0,0,0.0,,3.0,367432.0
+5181877,2026-10-04,selecciones,Andorra,Iker Álvarez,1101270,G,1,90,0,0,0,0.0,11.0,0.0,956589.0
+5181877,2026-10-04,selecciones,Andorra,Biel Borrà,1677239,D,1,90,0,0,0,0.0,32.0,1.0,
+5181877,2026-10-04,selecciones,Andorra,Max Llovera,674240,D,1,90,0,0,0,0.0,34.0,1.0,
+5181877,2026-10-04,selecciones,Andorra,Ian Olivera,1581138,D,1,90,0,0,0,0.0,36.0,1.0,
+5181877,2026-10-04,selecciones,Andorra,Moisés San Nicolás,388024,D,1,84,0,0,0,0.0,38.0,1.0,113210.0
+5181877,2026-10-04,selecciones,Andorra,Álex Martínez,807846,M,1,70,2,0,0,0.06,72.0,2.0,160490.0
+5181877,2026-10-04,selecciones,Andorra,Ot Remolins,1564542,M,1,90,1,0,0,0.02,74.0,2.0,
+5181877,2026-10-04,selecciones,Andorra,Pau Babot,1695137,M,1,90,1,1,0,0.05,76.0,2.0,
+5181877,2026-10-04,selecciones,Andorra,Arón Rodrigo,1499307,M,1,90,1,0,0,0.01,78.0,2.0,
+5181877,2026-10-04,selecciones,Andorra,Albert Rosas,1091359,F,1,90,2,1,0,0.04,104.0,3.0,208180.0
+5181877,2026-10-04,selecciones,Andorra,Guillaume López,1177220,F,1,90,4,1,0,0.36,106.0,3.0,158257.0
+5181877,2026-10-04,selecciones,Andorra,Jordi Aláez,753800,F,0,20,1,0,0,0.01,,3.0,157399.0
+5181877,2026-10-04,selecciones,Andorra,Christian García,973849,D,0,6,0,0,0,0.0,,1.0,145187.0
+5181818,2026-10-04,selecciones,Kosovo,Amir Saipi,1053716,G,1,90,0,0,0,0.0,11.0,0.0,1274773.0
+5181818,2026-10-04,selecciones,Kosovo,Lumbardh Dellova,1067805,D,1,90,1,1,0,0.01,33.0,1.0,682179.0
+5181818,2026-10-04,selecciones,Kosovo,Ilir Krasniqi,1373723,D,1,90,0,0,0,0.0,35.0,1.0,934222.0
+5181818,2026-10-04,selecciones,Kosovo,Ron Raçi,1768687,D,1,90,0,0,0,0.0,37.0,1.0,314111.0
+5181818,2026-10-04,selecciones,Kosovo,Mërgim Vojvoda,560945,M,1,90,1,0,0,0.03,62.0,2.0,2052498.0
+5181818,2026-10-04,selecciones,Kosovo,Leon Avdullahu,1478148,M,1,90,0,0,0,0.0,64.0,2.0,36984526.0
+5181818,2026-10-04,selecciones,Kosovo,Veldin Hodža,1190351,M,1,81,3,2,0,0.41,66.0,2.0,4298055.0
+5181818,2026-10-04,selecciones,Kosovo,Dion Gallapeni,1729818,M,1,90,0,0,0,0.0,68.0,2.0,4041975.0
+5181818,2026-10-04,selecciones,Kosovo,Edon Zhegrova,862616,M,1,81,2,1,0,0.07,84.0,2.0,11851285.0
+5181818,2026-10-04,selecciones,Kosovo,Baton Zabërgja,1382371,F,1,67,0,0,0,0.0,86.0,3.0,918897.0
+5181818,2026-10-04,selecciones,Kosovo,Vedat Muriqi,517052,F,1,66,0,0,0,0.0,105.0,3.0,3786895.0
+5181818,2026-10-04,selecciones,Kosovo,Fisnik Asllani,1219540,F,0,23,1,1,1,0.22,,3.0,40451897.0
+5181818,2026-10-04,selecciones,Kosovo,Milot Rashica,660165,F,0,21,1,0,0,0.09,,3.0,1746832.0
+5181818,2026-10-04,selecciones,Kosovo,Vesel Demaku,919376,M,0,9,0,0,0,0.0,,2.0,233738.0
+5181818,2026-10-04,selecciones,Kosovo,Ermal Krasniqi,1315511,F,0,9,1,0,0,0.09,,3.0,882891.0
+5181818,2026-10-04,selecciones,Kosovo,Meriton Korenica,946399,F,0,2,0,0,0,0.0,,3.0,1640544.0
+5181818,2026-10-04,selecciones,Austria,Alexander Schlager,450739,G,1,90,0,0,0,0.0,11.0,0.0,1470321.0
+5181818,2026-10-04,selecciones,Austria,Stefan Posch,557325,D,1,90,1,0,0,0.03,32.0,1.0,3883205.0
+5181818,2026-10-04,selecciones,Austria,Felix Bacher,951498,D,1,90,0,0,0,0.0,34.0,1.0,5369090.0
+5181818,2026-10-04,selecciones,Austria,Kevin Danso,754126,D,1,90,1,0,0,0.04,36.0,1.0,18680638.0
+5181818,2026-10-04,selecciones,Austria,Konrad Laimer,526827,D,1,90,1,1,0,0.02,38.0,1.0,38388501.0
+5181818,2026-10-04,selecciones,Austria,Nicolas Seiwald,1024672,M,1,77,1,0,0,0.06,64.0,2.0,22440675.0
+5181818,2026-10-04,selecciones,Austria,Xaver Schlager,620027,M,1,90,2,0,0,0.16,66.0,2.0,10317427.0
+5181818,2026-10-04,selecciones,Austria,Patrick Wimmer,1073498,F,1,62,1,0,0,0.07,83.0,3.0,13520437.0
+5181818,2026-10-04,selecciones,Austria,Romano Schmid,749488,M,1,62,0,0,0,0.0,85.0,2.0,14235575.0
+5181818,2026-10-04,selecciones,Austria,Alexander Prass,1027194,F,1,62,1,0,0,0.01,87.0,3.0,9958612.0
+5181818,2026-10-04,selecciones,Austria,Michael Gregoritsch,198316,F,1,90,3,2,0,0.04,115.0,3.0,1162492.0
+5181818,2026-10-04,selecciones,Austria,Christoph Lang,1232205,M,0,28,2,1,1,0.06,,2.0,689425.0
+5181818,2026-10-04,selecciones,Austria,Marco Grüll,1024292,F,0,28,0,0,0,0.0,,3.0,2516377.0
+5181818,2026-10-04,selecciones,Austria,Saša Kalajdžić,858198,F,0,28,0,0,0,0.0,,3.0,2515947.0
+5181818,2026-10-04,selecciones,Austria,Maximilian Wöber,701149,D,0,13,0,0,0,0.0,,1.0,1602101.0
