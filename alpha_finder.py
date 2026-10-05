@@ -2929,12 +2929,31 @@ def _picks_nba() -> Dict[str, List[Dict]]:
 
         fixtures = mn.fixtures_nba(dias=2)
         if not fixtures:
-            # respaldo: el calendario de las casas (v88: Pinnacle y Bovada;
-            # Betexplorer detrás). No dicen si es pretemporada: se deduce de
-            # la fecha (`tipo_por_fecha`).
+            # respaldo: el calendario de las casas. Medido en el primer
+            # precálculo de la v330 (2026-10-05): ESPN no responde desde
+            # GitHub Actions (tampoco a la NFL) y Pinnacle/Bovada sólo cotizan
+            # la temporada regular — 17 partidos del 20 al 22 de octubre y
+            # ninguno de la pretemporada de esa misma noche. Playdoit, que es
+            # la casa del usuario, sí la cotiza («NBA, Pretemporada»), así que
+            # se juntan las dos. Las casas no dicen si es pretemporada: lo
+            # dice el nombre de la competición en Playdoit o, si no, la fecha
+            # (`tipo_por_fecha`). Betexplorer queda detrás si no hay nada.
             import betexplorer_scraper as bx
             import source_resilience as sr
             import cuotas_multi as _cm
+
+            def _de_playdoit():
+                out = []
+                for v in (_cm._indice_pdt('nba') or {}).values():
+                    lg = str(v.get('liga') or '').lower()
+                    if 'nba' not in lg or not v.get('home') or not v.get('away'):
+                        continue
+                    pre = any(x in lg for x in ('pretemp', 'pre-season', 'preseason'))
+                    out.append({'home': v['home'], 'away': v['away'],
+                                'inicio': v.get('fecha'),
+                                'tipo': 'pretemporada' if pre else None,
+                                'cuotas': v.get('cuotas')})
+                return out
 
             def _de_cuotas_multi():
                 out = []
@@ -2944,7 +2963,16 @@ def _picks_nba() -> Dict[str, List[Dict]]:
                             out.append({'home': v['home'], 'away': v['away'],
                                         'inicio': v.get('fecha')})
                 return out
-            cadena = sr.Cadena('cuotas NBA', [('Pinnacle/Bovada', _de_cuotas_multi),
+
+            def _casas():
+                out = []
+                for f_ in (_de_playdoit, _de_cuotas_multi):
+                    try:
+                        out += f_() or []
+                    except Exception as e_:
+                        logger.info('[alpha/nba] calendario %s: %s', f_.__name__, e_)
+                return out
+            cadena = sr.Cadena('cuotas NBA', [('Playdoit + Pinnacle/Bovada', _casas),
                                               ('Betexplorer', bx.cuotas_baloncesto_hoy)])
             for m in (cadena.obtener(lambda d: d is not None and len(d) > 0) or []):
                 ch, ca = nh.codigo(m.get('home')), nh.codigo(m.get('away'))
@@ -2957,9 +2985,11 @@ def _picks_nba() -> Dict[str, List[Dict]]:
                 except Exception:
                     ini, fe = None, str(hoy_utc().date())
                 fixtures.append({'fecha': fe, 'inicio': ini,
-                                 'home': m['home'], 'away': m['away'],
+                                 'home': nh.nombre_largo(ch), 'away': nh.nombre_largo(ca),
                                  'abrev_home': ch, 'abrev_away': ca,
-                                 'tipo': mn.tipo_por_fecha(fe)})
+                                 'tipo': m.get('tipo') or mn.tipo_por_fecha(fe),
+                                 'casa': 'Playdoit' if m.get('cuotas') else None,
+                                 'cuotas_fuente': m.get('cuotas')})
         if not fixtures:
             logger.info('[alpha] NBA: sin partidos en la ventana.')
             return salida
@@ -2993,6 +3023,15 @@ def _picks_nba() -> Dict[str, List[Dict]]:
                 mejor = _cu.get('mejor') or {}
             except Exception:
                 _cu, mejor = {}, {}
+            # si el emparejador no lo encuentra (Playdoit escribe «PHI 76ers»),
+            # el precio que traía el propio calendario de la casa
+            _cf = fx.get('cuotas_fuente') or {}
+            if not ((mejor.get('home') or {}).get('cuota')
+                    and (mejor.get('away') or {}).get('cuota')) \
+                    and _cf.get('home') and _cf.get('away'):
+                mejor = {l_: {'cuota': float(_cf[l_]), 'casa': fx.get('casa')}
+                         for l_ in ('home', 'away')}
+                _cu = {'mejor': mejor, 'casas': {fx.get('casa'): dict(_cf)}}
             ph, pa = pred['prob_home_sin_empate'], pred['prob_away_sin_empate']
             fila = {**base,
                     'apuesta': f'Gana {h}' if ph >= 0.5 else f'Gana {a}',

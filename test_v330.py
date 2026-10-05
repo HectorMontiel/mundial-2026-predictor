@@ -192,6 +192,34 @@ def main():
           and any('NBA:' in i_ for i_ in s.get('incidencias') or []),
           'deporte NBA y la incidencia del barrido: %s' % (s.get('incidencias') or [''])[-1])
 
+    # 6b — sin ESPN (pasa en GitHub Actions): el calendario de Playdoit, que
+    # sí cotiza la pretemporada, con sus nombres abreviados
+    pdt = {'a': {'home': 'PHI 76ers', 'away': 'NY Knicks', 'liga': 'NBA, Pretemporada',
+                 'fecha': '2026-10-22T23:00:00Z', 'cuotas': {'home': 2.05, 'away': 1.78}},
+           'b': {'home': 'Sydney Kings', 'away': 'Perth Wildcats', 'liga': 'NBL',
+                 'fecha': '2026-10-22T09:00:00Z', 'cuotas': {'home': 1.5, 'away': 2.6}},
+           'c': {'home': 'Real Madrid', 'away': 'Panathinaikos', 'liga': 'Euroliga',
+                 'fecha': '2026-10-22T19:00:00Z', 'cuotas': {'home': 1.5, 'away': 2.6}}}
+    orig = (mn.fixtures_nba, cm.cuotas_partido, af._cuotas_de_totales, af.hoy_utc,
+            cm._indice_pdt, cm._indice, cm._indice_bov)
+    try:
+        mn.fixtures_nba = lambda dias=2: []
+        cm.cuotas_partido = lambda *a, **k: {}
+        af._cuotas_de_totales = lambda ps, dep: 0
+        af.hoy_utc = lambda: pd.Timestamp('2026-10-22')
+        cm._indice_pdt = lambda dep: pdt if dep == 'nba' else {}
+        cm._indice = cm._indice_bov = lambda dep: {}
+        s2 = af._picks_nba()
+    finally:
+        (mn.fixtures_nba, cm.cuotas_partido, af._cuotas_de_totales, af.hoy_utc,
+         cm._indice_pdt, cm._indice, cm._indice_bov) = orig
+    pr2 = s2.get('pronosticos') or []
+    check(len(pr2) == 1 and pr2[0]['partido'] == 'Philadelphia 76ers vs New York Knicks'
+          and pr2[0].get('pretemporada')
+          and pr2[0].get('implicitas', {}).get('1x2_cuotas') == {'home': 2.05, 'away': 1.78},
+          'sin ESPN: la pretemporada de Playdoit entra (nombres largos, su precio) '
+          'y las ligas que no son NBA no: %s' % [q.get('partido') for q in pr2])
+
     # 7 ---------------------------------------------------------------
     import partidos_jugados as pj
     q = {'partido': 'LA Clippers vs Los Angeles Lakers', 'deporte': 'NBA'}

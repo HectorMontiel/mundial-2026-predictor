@@ -79,6 +79,22 @@ _CIUDAD = {'la': 'los', 'ny': 'new', 'okc': 'oklahoma', 'gs': 'golden',
            'sa': 'san', 'no': 'new', 'nueva': 'new'}
 
 
+# el nombre de HOY de cada franquicia, para enseñar
+_LARGO = {c: l for l, c in EQUIPOS.items()
+          if l not in ('New Jersey Nets', 'Charlotte Bobcats', 'Seattle SuperSonics',
+                       'New Orleans Hornets', 'Los Angeles Clippers')}
+
+
+def nombre_largo(c: str) -> str:
+    return _LARGO.get(str(c or '').upper(), str(c or ''))
+
+
+# abreviaturas de equipo que no son el código de tres letras del proyecto
+_ABREV = {'NY': 'NYK', 'GS': 'GSW', 'SA': 'SAS', 'NO': 'NOP', 'NOR': 'NOP',
+          'UTAH': 'UTA', 'WSH': 'WAS', 'PHO': 'PHX', 'BRK': 'BKN', 'BKL': 'BKN',
+          'CHO': 'CHA', 'NJ': 'BKN', 'LA': None}
+
+
 def codigo(nombre) -> Optional[str]:
     """Nombre (de la casa que sea) o código → código de tres letras."""
     n = str(nombre or '').strip()
@@ -94,6 +110,9 @@ def codigo(nombre) -> Optional[str]:
         return c
     # con ciudad, la ciudad tiene que ser la del equipo: «Sydney Kings» o
     # «Perth Wildcats» juegan la pretemporada y NO son los Kings de Sacramento
+    # o la abreviatura del equipo delante: «PHI 76ers», «NY Knicks» (Playdoit)
+    if _ABREV.get(partes[0].upper(), partes[0].upper()) == c:
+        return c
     ciudad = _CIUDAD.get(partes[0], partes[0])
     for largo, cc in EQUIPOS.items():
         if cc == c and largo.lower().split()[0] == ciudad:
