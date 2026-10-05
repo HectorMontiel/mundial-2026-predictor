@@ -21339,22 +21339,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013180,2026-08-02,chi_primera,Huachipato,Sebastián Mella,1611214,G,0,20,0,0,0,0.0,,0.0,329676.0
 1000013180,2026-08-02,chi_primera,Huachipato,Luciano Arriagada,1130584,F,0,5,0,0,0,0.0,,3.0,228060.0
 1000013180,2026-08-02,chi_primera,Huachipato,Freddy Alegria,2120312,F,0,5,0,0,0,0.0,,3.0,
-1000017365,2026-08-02,par_division,Libertad,Rodrigo Morínigo,940259,G,1,90,0,0,0,0.0,11.0,0.0,598314.0
-1000017365,2026-08-02,par_division,Libertad,Alan Benítez,497395,D,1,90,0,0,0,0.0,32.0,1.0,248857.0
-1000017365,2026-08-02,par_division,Libertad,Robert Rojas,846980,D,1,90,2,0,0,0.0,34.0,1.0,638638.0
-1000017365,2026-08-02,par_division,Libertad,Nicolás Freire,427046,D,1,21,0,0,0,0.0,36.0,1.0,234285.0
-1000017365,2026-08-02,par_division,Libertad,Matías Espinoza,741142,D,1,90,1,0,0,0.0,38.0,1.0,580114.0
-1000017365,2026-08-02,par_division,Libertad,Rodrigo Villalba,1613171,M,1,69,2,1,0,0.0,72.0,2.0,
-1000017365,2026-08-02,par_division,Libertad,Federico Carrizo,202202,M,1,57,1,0,0,0.0,74.0,2.0,248857.0
-1000017365,2026-08-02,par_division,Libertad,Lucas Sanabria,1073739,M,1,90,1,1,0,0.0,76.0,2.0,488801.0
-1000017365,2026-08-02,par_division,Libertad,Marcelo Fernández,1274403,M,1,46,0,0,0,0.0,78.0,2.0,
-1000017365,2026-08-02,par_division,Libertad,Agustín Manzur,918114,F,1,45,3,0,0,0.0,104.0,3.0,1313702.0
-1000017365,2026-08-02,par_division,Libertad,Rodrigo Vera,1787414,F,1,52,1,1,1,0.0,106.0,3.0,
-1000017365,2026-08-02,par_division,Libertad,Néstor Giménez,834633,D,0,69,0,0,0,0.0,,1.0,697792.0
-1000017365,2026-08-02,par_division,Libertad,Alexis Fretes,1671342,D,0,44,0,0,0,0.0,,1.0,996533.0
-1000017365,2026-08-02,par_division,Libertad,Joaquín Bogarín,1787416,M,0,45,1,0,0,0.0,,2.0,1408241.0
-1000017365,2026-08-02,par_division,Libertad,Gilberto Flores,1354562,D,0,33,0,0,0,0.0,,1.0,1157161.0
-1000017365,2026-08-02,par_division,Libertad,Christian Martínez,1459740,M,0,21,0,0,0,0.0,,2.0,
 1000011169,2026-08-02,bol_division,Always Ready,Alain Baroja,116339,G,1,90,0,0,0,0.0,11.0,0.0,75186.0
 1000011169,2026-08-02,bol_division,Always Ready,Carlitos Rodriguez,1666612,D,1,90,1,0,0,0.0,32.0,1.0,492357.0
 1000011169,2026-08-02,bol_division,Always Ready,Richet Gómez,929518,D,1,90,1,0,0,0.0,34.0,1.0,168730.0
@@ -135769,3 +135753,35 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019552,2026-10-05,argentina,Racing Club,Adrián Fernández,1274326,M,0,14,0,0,0,0.0,,2.0,
 1000019552,2026-10-05,argentina,Racing Club,Matko Miljevic,981079,M,0,7,0,0,0,0.0,,2.0,2657029.0
 1000019552,2026-10-05,argentina,Racing Club,Alejandro Tello,1714933,M,0,1,0,0,0,0.0,,2.0,
+1000017426,2026-10-05,par_division,Recoleta,Oscar Toledo,1215642,G,1,90,0,0,0,0.0,11.0,0.0,
+1000017426,2026-10-05,par_division,Recoleta,Facundo Echeguren,1712466,D,1,82,1,0,0,0.0,32.0,1.0,842213.0
+1000017426,2026-10-05,par_division,Recoleta,Marcos Pereira,1787452,D,1,90,0,0,0,0.0,34.0,1.0,337064.0
+1000017426,2026-10-05,par_division,Recoleta,Lucas Monzón,1606816,D,1,90,1,0,0,0.0,36.0,1.0,562440.0
+1000017426,2026-10-05,par_division,Recoleta,Pedro Ríos,1903977,D,1,82,1,1,0,0.0,38.0,1.0,
+1000017426,2026-10-05,par_division,Recoleta,Brahian Ferreira,1794960,M,1,90,0,0,0,0.0,72.0,2.0,521003.0
+1000017426,2026-10-05,par_division,Recoleta,Ronal Domínguez,1458809,M,1,71,0,0,0,0.0,74.0,2.0,241456.0
+1000017426,2026-10-05,par_division,Recoleta,Alexander Franco,1350581,M,1,82,0,0,0,0.0,76.0,2.0,
+1000017426,2026-10-05,par_division,Recoleta,Wilfrido Báez,570683,M,1,45,1,0,0,0.0,78.0,2.0,404131.0
+1000017426,2026-10-05,par_division,Recoleta,Renzo Martino,1832666,F,1,90,4,0,0,0.0,104.0,3.0,
+1000017426,2026-10-05,par_division,Recoleta,Aldo González,1336656,F,1,90,3,1,1,0.0,106.0,3.0,297838.0
+1000017426,2026-10-05,par_division,Recoleta,Manuel Schupp,1787448,M,0,45,1,0,0,0.0,,2.0,662727.0
+1000017426,2026-10-05,par_division,Recoleta,José Espínola,1556404,D,0,19,0,0,0,0.0,,1.0,767961.0
+1000017426,2026-10-05,par_division,Recoleta,Claudio Figueredo,1709500,D,0,8,0,0,0,0.0,,1.0,288090.0
+1000017426,2026-10-05,par_division,Recoleta,Claudio Garay,858024,M,0,8,0,0,0,0.0,,2.0,207632.0
+1000017426,2026-10-05,par_division,Recoleta,Paul Charpentier,861187,F,0,8,2,0,0,0.0,,3.0,413403.0
+1000017426,2026-10-05,par_division,Libertad,Rodrigo Morínigo,940259,G,1,90,0,0,0,0.0,11.0,0.0,726421.0
+1000017426,2026-10-05,par_division,Libertad,Gilberto Flores,1354562,D,1,83,0,0,0,0.0,32.0,1.0,1301541.0
+1000017426,2026-10-05,par_division,Libertad,Robert Rojas,846980,D,1,90,1,0,0,0.0,34.0,1.0,650331.0
+1000017426,2026-10-05,par_division,Libertad,Nicolás Freire,427046,D,1,46,0,0,0,0.0,36.0,1.0,240317.0
+1000017426,2026-10-05,par_division,Libertad,Néstor Giménez,834633,D,1,90,0,0,0,0.0,38.0,1.0,702464.0
+1000017426,2026-10-05,par_division,Libertad,Federico Carrizo,202202,M,1,90,2,1,0,0.0,72.0,2.0,270813.0
+1000017426,2026-10-05,par_division,Libertad,Marcelo Fernández,1274403,M,1,45,1,0,0,0.0,74.0,2.0,
+1000017426,2026-10-05,par_division,Libertad,Lucas Sanabria,1073739,M,1,90,0,0,0,0.0,76.0,2.0,464838.0
+1000017426,2026-10-05,par_division,Libertad,Iván Franco,929167,M,1,64,0,0,0,0.0,78.0,2.0,759002.0
+1000017426,2026-10-05,par_division,Libertad,Gustavo Aguilar,1354560,F,1,90,2,0,0,0.0,104.0,3.0,473847.0
+1000017426,2026-10-05,par_division,Libertad,Elvio Vera,1359268,F,1,89,6,3,2,0.0,106.0,3.0,557395.0
+1000017426,2026-10-05,par_division,Libertad,Rodrigo Villalba,1613171,D,0,45,2,0,0,0.0,,1.0,
+1000017426,2026-10-05,par_division,Libertad,Thiago Fernández,1787415,D,0,45,1,1,0,0.0,,1.0,1052740.0
+1000017426,2026-10-05,par_division,Libertad,Joaquín Bogarín,1787416,M,0,26,0,0,0,0.0,,2.0,1222546.0
+1000017426,2026-10-05,par_division,Libertad,Hugo Fernández,1037294,M,0,7,0,0,0,0.0,,2.0,372871.0
+1000017426,2026-10-05,par_division,Libertad,Christian Martínez,1459740,M,0,1,0,0,0,0.0,,2.0,
