@@ -1573,22 +1573,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822551,2025-10-10,selecciones,Costa Rica,Álvaro Zamora,1401581,F,0,18,1,0,0,0.36,,3.0,637164.0
 4822551,2025-10-10,selecciones,Costa Rica,Allan Cruz,693496,M,0,1,0,0,0,0.0,,2.0,
 4822551,2025-10-10,selecciones,Costa Rica,Carlos Mora,1202707,D,0,45,1,0,0,0.17,,1.0,1011589.0
-4822552,2025-10-10,selecciones,Nicaragua,Miguel Rodriguez,1527317,G,1,90,0,0,0,0.0,11.0,0.0,
-4822552,2025-10-10,selecciones,Nicaragua,Josue Quijano,503263,D,1,90,0,0,0,0.0,32.0,1.0,
-4822552,2025-10-10,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,1,0,0,0.07,34.0,1.0,
-4822552,2025-10-10,selecciones,Nicaragua,Christian Reyes,730468,D,1,90,1,0,0,0.02,36.0,1.0,
-4822552,2025-10-10,selecciones,Nicaragua,Oscar Acevedo,1141649,D,1,83,0,0,0,0.0,38.0,1.0,
-4822552,2025-10-10,selecciones,Nicaragua,Henry Nino,859309,D,1,46,0,0,0,0.0,65.0,1.0,
-4822552,2025-10-10,selecciones,Nicaragua,Juan Barrera,435170,M,1,90,0,0,0,0.0,82.0,2.0,
-4822552,2025-10-10,selecciones,Nicaragua,Matias Belli Moldskred,936340,M,1,46,0,0,0,0.0,84.0,2.0,
-4822552,2025-10-10,selecciones,Nicaragua,Bancy Hernandez,1558434,F,1,90,2,1,0,0.03,86.0,3.0,
-4822552,2025-10-10,selecciones,Nicaragua,Byron Bonilla,1032173,F,1,67,2,0,0,0.08,88.0,3.0,
-4822552,2025-10-10,selecciones,Nicaragua,Ariagner Smith,624696,F,1,68,4,0,0,0.34,115.0,3.0,88954.0
-4822552,2025-10-10,selecciones,Nicaragua,Jacob Montes,1283365,M,0,44,0,0,0,0.0,,2.0,149035.0
-4822552,2025-10-10,selecciones,Nicaragua,Junior Arteaga,1057781,M,0,45,1,1,0,0.05,,2.0,
-4822552,2025-10-10,selecciones,Nicaragua,Anyelo Velasquez,1634225,F,0,23,1,1,0,0.01,,3.0,
-4822552,2025-10-10,selecciones,Nicaragua,Jorge Garcia,852103,F,0,22,0,0,0,0.0,,3.0,
-4822552,2025-10-10,selecciones,Nicaragua,Widman Talavera,1141589,F,0,7,0,0,0,0.0,,3.0,
 4689411,2025-10-11,selecciones,Albania,Thomas Strakosha,403049,G,1,90,0,0,0,0.0,11.0,0.0,1523395.0
 4689411,2025-10-11,selecciones,Albania,Elseid Hysaj,293160,D,1,90,0,0,0,0.0,32.0,1.0,943858.0
 4689411,2025-10-11,selecciones,Albania,Arlind Ajeti,263796,D,1,90,0,0,0,0.0,34.0,1.0,556666.0
@@ -14460,22 +14444,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115887,2026-07-24,argentina,Vélez Sarsfield,Diego Valdés,390758,M,0,12,1,0,0,0.09,,2.0,1705572.0
 5115887,2026-07-24,argentina,Vélez Sarsfield,Luca Feler,1911034,M,0,2,0,0,0,0.0,,2.0,
 5115887,2026-07-24,argentina,Vélez Sarsfield,Dilan Godoy,1765407,F,0,1,0,0,0,0.0,,3.0,1402178.0
-5115884,2026-07-24,argentina,Racing Club,Facundo Cambeses,723492,G,1,90,0,0,0,0.0,11.0,0.0,2468254.0
-5115884,2026-07-24,argentina,Racing Club,Ezequiel Cannavo,1216082,D,1,90,0,0,0,0.0,32.0,1.0,1965654.0
-5115884,2026-07-24,argentina,Racing Club,Nazareno Colombo,1074976,D,1,90,2,1,1,0.13,34.0,1.0,1666245.0
-5115884,2026-07-24,argentina,Racing Club,Gonzalo Escudero,1528896,D,1,90,0,0,0,0.0,36.0,1.0,323481.0
-5115884,2026-07-24,argentina,Racing Club,Pacha Espino,526968,D,1,59,1,0,0,0.02,38.0,1.0,893670.0
-5115884,2026-07-24,argentina,Racing Club,Santiago Sosa,958860,D,1,90,1,1,0,0.06,55.0,1.0,6536974.0
-5115884,2026-07-24,argentina,Racing Club,Matías Zaracho,787262,M,1,90,2,1,0,0.51,74.0,2.0,3619337.0
-5115884,2026-07-24,argentina,Racing Club,Matko Miljevic,981079,M,1,83,5,2,1,0.46,76.0,2.0,3937156.0
-5115884,2026-07-24,argentina,Racing Club,Alejandro Tello,1714933,M,1,59,0,0,0,0.0,95.0,2.0,
-5115884,2026-07-24,argentina,Racing Club,Santiago Solari,1357993,F,1,67,5,2,0,0.18,114.0,3.0,1887852.0
-5115884,2026-07-24,argentina,Racing Club,Tomás Conechny,688827,F,1,45,1,0,0,0.03,116.0,3.0,1491719.0
-5115884,2026-07-24,argentina,Racing Club,Lautaro Díaz,1111937,F,0,45,1,0,0,0.03,,3.0,1086660.0
-5115884,2026-07-24,argentina,Racing Club,Ulises Ortegoza,1086839,M,0,31,0,0,0,0.0,,2.0,945388.0
-5115884,2026-07-24,argentina,Racing Club,Ignacio Rodríguez,1244348,M,0,31,0,0,0,0.0,,2.0,
-5115884,2026-07-24,argentina,Racing Club,Duván Vergara,731802,F,0,23,0,0,0,0.0,,3.0,1582496.0
-5115884,2026-07-24,argentina,Racing Club,Matías Kranevitter,412762,M,0,7,0,0,0,0.0,,2.0,313524.0
 5115879,2026-07-24,argentina,Gimnasia Mendoza,César Rigamonti,270775,G,1,90,0,0,0,0.0,11.0,0.0,319649.0
 5115879,2026-07-24,argentina,Gimnasia Mendoza,Luciano Paredes,1372927,D,1,82,1,1,0,0.02,32.0,1.0,458102.0
 5115879,2026-07-24,argentina,Gimnasia Mendoza,Diego Mondino,830954,D,1,90,0,0,0,0.0,34.0,1.0,279206.0
@@ -15194,22 +15162,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5803902,2026-07-25,polonia,Cracovia,Vincent Burlet,1640211,F,0,24,1,0,0,0.08,,3.0,1067394.0
 5803902,2026-07-25,polonia,Cracovia,Dominik Pila,1116699,M,0,1,0,0,0,0.0,,2.0,491195.0
 5803902,2026-07-25,polonia,Cracovia,Mateusz Praszelik,920851,M,0,1,0,0,0,0.0,,2.0,483365.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Lucas Bruera,800702,G,1,90,0,0,0,0.0,11.0,0.0,160786.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Matías Valenti,1440175,D,1,90,1,0,0,0.07,33.0,1.0,431275.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Sergio Ojeda,430682,D,1,90,1,1,1,0.34,35.0,1.0,308664.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Agustín Quiroga,1457716,D,1,90,2,1,0,0.05,37.0,1.0,469125.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Gonzalo González,1373618,M,1,90,0,0,0,0.0,62.0,2.0,390290.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Francisco Romero,841231,M,1,90,0,0,0,0.0,64.0,2.0,316780.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Siro Rosané,1200765,M,1,68,2,0,0,0.14,66.0,2.0,628629.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Facundo Cobos,723495,M,1,68,0,0,0,0.0,68.0,2.0,269388.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Tomás González,1451614,M,1,90,0,0,0,0.0,84.0,2.0,331762.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Mauro Valiente,964376,M,1,58,1,0,0,0.03,86.0,2.0,355181.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Yeison Moreno,1353567,F,1,58,0,0,0,0.0,105.0,3.0,176512.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Javier Ferreira,639062,F,0,32,0,0,0,0.0,,3.0,341101.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Juan Fernando Garro,257868,F,0,32,0,0,0,0.0,,3.0,172710.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Fernando Rodríguez,1310319,D,0,22,1,0,0,0.03,,1.0,132834.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Nicolás Talpone,741193,M,0,22,0,0,0,0.0,,2.0,298607.0
-5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Francesco Lo Celso,1108679,M,0,1,0,0,0,0.0,,2.0,390063.0
 1000015431,2026-07-25,per_liga1,Sport Huancayo,Ángel Zamudio,846745,G,1,90,0,0,0,0.0,11.0,0.0,264759.0
 1000015431,2026-07-25,per_liga1,Sport Huancayo,Jean Falconí,1432700,D,1,55,0,0,0,0.0,32.0,1.0,198362.0
 1000015431,2026-07-25,per_liga1,Sport Huancayo,Marcelo Gaona,1400558,D,1,90,0,0,0,0.0,34.0,1.0,361770.0
@@ -19257,22 +19209,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014063,2026-07-31,col_primera_a,Bucaramanga,Keyson Quinto,2035165,M,0,29,0,0,0,0.0,,2.0,
 1000014063,2026-07-31,col_primera_a,Bucaramanga,Aldair Zárate,1343211,F,0,29,1,0,0,0.02,,3.0,508907.0
 1000014063,2026-07-31,col_primera_a,Bucaramanga,Brandon Caicedo,1054273,F,0,9,0,0,0,0.0,,3.0,406003.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Roameth Romaña,1706656,G,1,90,0,0,0,0.0,11.0,0.0,193767.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Juan Pertúz,1477855,D,1,90,0,0,0,0.0,32.0,1.0,450571.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Howell Mena,1332955,D,1,90,1,0,0,0.02,34.0,1.0,334164.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Francisco Meza,307477,D,1,90,2,2,1,0.16,36.0,1.0,271858.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Jhojan Escobar,1634973,D,1,90,0,0,0,0.0,38.0,1.0,324656.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Néider Ospina,1357404,M,1,81,0,0,0,0.0,63.0,2.0,386288.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Marlon Sierra,1641131,M,1,11,0,0,0,0.0,65.0,2.0,266139.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Kelvin Osorio,793928,M,1,63,1,1,0,0.04,67.0,2.0,264799.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Luis Miranda,1021584,M,1,90,0,0,0,0.0,84.0,2.0,275537.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Jhon Vásquez,763962,M,1,81,2,0,0,0.08,86.0,2.0,275537.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Yorleys Mena Palacios,205957,F,1,63,2,1,0,0.48,115.0,3.0,326800.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Juan Castilla,1171062,M,0,79,0,0,0,0.0,,2.0,591463.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Joel Contreras,1432978,F,0,27,0,0,0,0.0,,3.0,252482.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Carlos Cortés,1272260,F,0,27,0,0,0,0.0,,3.0,383995.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Dennys Quintero,834670,D,0,9,0,0,0,0.0,,1.0,270981.0
-1000014063,2026-07-31,col_primera_a,Llaneros FC,Juan Ramírez,1564151,M,0,9,0,0,0,0.0,,2.0,474987.0
 5115914,2026-08-01,argentina,Racing Club,Facundo Cambeses,723492,G,1,90,0,0,0,0.0,11.0,0.0,2689012.0
 5115914,2026-08-01,argentina,Racing Club,Gastón Martirena,1133119,D,1,46,0,0,0,0.0,32.0,1.0,2472032.0
 5115914,2026-08-01,argentina,Racing Club,Nazareno Colombo,1074976,D,1,46,0,0,0,0.0,34.0,1.0,1834471.0
@@ -21371,22 +21307,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109858,2026-08-02,usl_championship,Birmingham Legion FC,Serge Ngoma,1190660,F,0,14,0,0,0,0.0,,3.0,670583.0
 5109858,2026-08-02,usl_championship,Birmingham Legion FC,Amir Daley,1624479,D,0,2,0,0,0,0.0,,1.0,
 5109858,2026-08-02,usl_championship,Birmingham Legion FC,Sebastián Saucedo,622027,F,0,2,0,0,0,0.0,,3.0,
-1000014066,2026-08-02,col_primera_a,América de Cali,Juan Montoya,1463603,G,1,90,0,0,0,0.0,11.0,0.0,162908.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Yhorman Hurtado,727084,D,1,90,0,0,0,0.0,32.0,1.0,298324.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Brayan Córdoba,1130737,D,1,90,1,0,0,0.11,34.0,1.0,380488.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Dany Rosero,492639,D,1,73,2,2,2,0.55,36.0,1.0,240317.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Omar Bertel,950570,D,1,63,0,0,0,0.0,38.0,1.0,510217.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Luis Quiñones,425810,M,1,63,1,1,1,0.08,72.0,2.0,348768.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Rafael Carrascal,425781,M,1,90,1,0,0,0.01,74.0,2.0,512672.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Josen Escobar,1532240,M,1,80,1,0,0,0.02,76.0,2.0,2127398.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Edson Tortolero,726362,M,1,90,2,2,0,0.04,78.0,2.0,290869.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Yeison Guzmán,924269,F,1,90,4,3,2,0.52,104.0,3.0,1506848.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Tomás Ángel,1236377,F,1,73,1,0,0,0.05,106.0,3.0,920482.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Marcos Mina,1249636,D,0,27,0,0,0,0.0,,1.0,264922.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Jhon Palacios,1732963,F,0,27,0,0,0,0.0,,3.0,1470172.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Cristian Tovar,851057,D,0,17,0,0,0,0.0,,1.0,286041.0
-1000014066,2026-08-02,col_primera_a,América de Cali,Kevin Angulo,1744375,F,0,17,4,2,2,0.29,,3.0,
-1000014066,2026-08-02,col_primera_a,América de Cali,Juan Aponzá,1751996,M,0,10,0,0,0,0.0,,2.0,
 1000013180,2026-08-02,chi_primera,Universidad de Chile,Gabriel Castellón,524833,G,1,90,0,0,0,0.0,11.0,0.0,354694.0
 1000013180,2026-08-02,chi_primera,Universidad de Chile,Fabián Hormazábal,558244,D,1,90,1,0,0,0.0,33.0,1.0,1095546.0
 1000013180,2026-08-02,chi_primera,Universidad de Chile,Nicolás Ramírez,610500,D,1,90,0,0,0,0.0,35.0,1.0,346719.0
@@ -135765,3 +135685,87 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019558,2026-10-04,argentina,Tigre,Martín Garay,939965,M,0,5,0,0,0,0.0,,2.0,563617.0
 1000019558,2026-10-04,argentina,Tigre,Alfio Oviedo,588773,F,0,5,0,0,0,0.0,,3.0,325420.0
 1000019558,2026-10-04,argentina,Tigre,Manuel Fernández,1709066,F,0,5,0,0,0,0.0,,3.0,420873.0
+5991888,2026-10-05,selecciones,Nicaragua,Brandón Mayorga,1768923,G,1,90,0,0,0,0.0,11.0,0.0,
+5991888,2026-10-05,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,0,0,0,0.0,32.0,1.0,171578.0
+5991888,2026-10-05,selecciones,Nicaragua,Marvin Fletes,1141522,D,1,90,0,0,0,0.0,34.0,1.0,
+5991888,2026-10-05,selecciones,Nicaragua,Christian Reyes,730468,D,1,90,2,0,0,0.0,36.0,1.0,50000.0
+5991888,2026-10-05,selecciones,Nicaragua,Emmanuel Gómez,1527616,D,1,90,0,0,0,0.0,38.0,1.0,163996.0
+5991888,2026-10-05,selecciones,Nicaragua,Ramón Estrada,0,,1,90,0,0,0,0.0,64.0,,
+5991888,2026-10-05,selecciones,Nicaragua,Osmin Salinas,1609724,M,1,85,2,0,0,0.0,66.0,2.0,
+5991888,2026-10-05,selecciones,Nicaragua,Raheem Giusseppe Cole Martínez,0,,1,90,0,0,0,0.0,83.0,,
+5991888,2026-10-05,selecciones,Nicaragua,Widman Talavera,1141589,F,1,73,2,0,0,0.0,85.0,3.0,
+5991888,2026-10-05,selecciones,Nicaragua,Byron Bonilla,1032173,F,1,90,1,0,0,0.0,87.0,3.0,
+5991888,2026-10-05,selecciones,Nicaragua,Jaime Moreno,495524,F,1,90,5,1,1,0.0,115.0,3.0,217373.0
+5991888,2026-10-05,selecciones,Nicaragua,Óscar Acevedo,1141649,D,0,5,1,0,0,0.0,,1.0,
+5991888,2026-10-05,selecciones,Dominican Republic,Xavier Valdez,1357558,G,1,90,0,0,0,0.0,11.0,0.0,117248.0
+5991888,2026-10-05,selecciones,Dominican Republic,Jéremy Báez,1648062,D,1,90,0,0,0,0.0,32.0,1.0,
+5991888,2026-10-05,selecciones,Dominican Republic,Edgar Pujol,1418028,D,1,90,1,0,0,0.0,34.0,1.0,
+5991888,2026-10-05,selecciones,Dominican Republic,Luiyi de Lucas,1135659,D,1,84,1,0,0,0.0,36.0,1.0,232378.0
+5991888,2026-10-05,selecciones,Dominican Republic,Noah Dollenmayer,1455534,D,1,90,1,0,0,0.0,38.0,1.0,144982.0
+5991888,2026-10-05,selecciones,Dominican Republic,Daniel Flores,1422716,M,1,84,1,0,0,0.0,64.0,2.0,248234.0
+5991888,2026-10-05,selecciones,Dominican Republic,Jean López,1024183,M,1,90,1,0,0,0.0,66.0,2.0,150443.0
+5991888,2026-10-05,selecciones,Dominican Republic,Peter González,1229280,F,1,90,1,0,0,0.0,83.0,3.0,1590134.0
+5991888,2026-10-05,selecciones,Dominican Republic,Heinz Mörschel,770523,M,1,89,2,1,1,0.0,85.0,2.0,556370.0
+5991888,2026-10-05,selecciones,Dominican Republic,Juan Familia-Castillo,872988,D,1,90,0,0,0,0.0,87.0,1.0,167339.0
+5991888,2026-10-05,selecciones,Dominican Republic,Juan Pineda,1350021,F,1,79,1,0,0,0.0,115.0,3.0,283328.0
+5991888,2026-10-05,selecciones,Dominican Republic,Lucas Bretón,1648064,M,0,45,2,1,1,0.0,,2.0,
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Roameth Romaña,1706656,G,1,90,0,0,0,0.0,11.0,0.0,229757.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Brandon Churi,1529863,D,1,90,0,0,0,0.0,32.0,1.0,
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Alejandro Moralez,1249743,D,1,90,0,0,0,0.0,34.0,1.0,323752.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Francisco Meza,307477,D,1,90,4,2,1,0.42,36.0,1.0,302992.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Jimmy Medranda,486461,D,1,90,0,0,0,0.0,38.0,1.0,214989.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Juan Castilla,1171062,M,1,84,1,0,0,0.02,65.0,2.0,435905.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Néider Ospina,1357404,F,1,58,1,0,0,0.02,82.0,3.0,368760.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Juan Ramírez,1564151,M,1,90,0,0,0,0.0,84.0,2.0,471985.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Luis Miranda,1021584,M,1,58,1,1,0,0.01,86.0,2.0,287143.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Frank Castañeda,922695,F,1,60,0,0,0,0.0,88.0,3.0,685515.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Yorleys Mena Palacios,205957,F,1,90,1,1,0,0.07,115.0,3.0,350714.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Marlon Sierra,1641131,M,0,32,1,0,0,0.02,,2.0,249996.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Daniel Mantilla,981043,M,0,32,0,0,0,0.0,,2.0,275537.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Jhon Vásquez,763962,F,0,30,2,1,0,0.3,,3.0,291851.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Joel Contreras,1432978,F,0,6,1,0,0,0.07,,3.0,303590.0
+1000014174,2026-10-05,col_primera_a,Llaneros FC,Kelvin Osorio,793928,M,0,1,0,0,0,0.0,,2.0,248656.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Jean,643686,G,1,90,0,0,0,0.0,11.0,0.0,337886.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Mateo Castillo,1648059,D,1,90,0,0,0,0.0,32.0,1.0,1635148.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Cristian Tovar,851057,D,1,90,1,1,1,0.14,34.0,1.0,281649.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Dany Rosero,492639,D,1,90,0,0,0,0.0,36.0,1.0,260648.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Omar Bertel,950570,D,1,90,1,0,0,0.02,38.0,1.0,526832.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Yani Quintero,1513180,M,1,67,2,0,0,0.24,64.0,2.0,478056.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Josen Escobar,1532240,M,1,90,0,0,0,0.0,66.0,2.0,2484124.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Luis Quiñones,425810,F,1,90,3,1,0,0.14,83.0,3.0,297838.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Yeison Guzmán,924269,M,1,90,3,1,0,0.23,85.0,2.0,1852582.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Jhon Murillo,423024,F,1,82,1,1,0,0.06,87.0,3.0,318269.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Tomás Ángel,1236377,F,1,67,1,1,0,0.04,115.0,3.0,967406.0
+1000014174,2026-10-05,col_primera_a,América de Cali,José Cavadía,1709861,M,0,23,0,0,0,0.0,,2.0,923455.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Jorge Valencia,1042106,F,0,23,1,1,1,0.08,,3.0,803477.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Jhon Palacios,1732963,F,0,8,0,0,0,0.0,,3.0,1470172.0
+1000014174,2026-10-05,col_primera_a,América de Cali,Camilo Amú,1928983,M,0,1,0,0,0,0.0,,2.0,
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Lautaro Herrera,1445268,G,1,90,0,0,0,0.0,11.0,0.0,
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Juan Antonini,1231183,D,1,90,1,0,0,0.16,33.0,1.0,301878.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Gonzalo Maffini,1223816,D,1,90,1,1,0,0.02,35.0,1.0,324556.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Matías Valenti,1440175,D,1,90,1,0,0,0.21,37.0,1.0,450026.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Gonzalo González,1373618,D,1,46,0,0,0,0.0,51.0,1.0,577395.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Fernando Rodríguez,1310319,D,1,90,0,0,0,0.0,59.0,1.0,344305.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Tomás González,1451614,M,1,90,0,0,0,0.0,73.0,2.0,360386.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Alejandro Cabrera,930564,M,1,90,2,0,0,0.05,75.0,2.0,437869.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Gabriel Alanís,586720,M,1,90,0,0,0,0.0,77.0,2.0,470354.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Ibrahim Hesar,977824,F,1,68,1,0,0,0.07,104.0,3.0,306981.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Martín Garnerone,1039683,F,1,69,0,0,0,0.0,106.0,3.0,302560.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Yeison Moreno,1353567,F,0,45,2,0,0,0.04,,3.0,366013.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Mauro Valiente,964376,F,0,22,2,1,1,0.16,,3.0,348826.0
+1000019552,2026-10-05,argentina,Estudiantes de Río Cuarto,Joaquín Rivero,2119645,F,0,21,0,0,0,0.0,,3.0,
+1000019552,2026-10-05,argentina,Racing Club,Facundo Cambeses,723492,G,1,90,0,0,0,0.0,11.0,0.0,3797416.0
+1000019552,2026-10-05,argentina,Racing Club,Ezequiel Cannavo,1216082,D,1,90,0,0,0,0.0,32.0,1.0,2191525.0
+1000019552,2026-10-05,argentina,Racing Club,Mateo Martínez,1844287,D,1,75,0,0,0,0.0,34.0,1.0,
+1000019552,2026-10-05,argentina,Racing Club,Gonzalo Escudero,1528896,D,1,90,0,0,0,0.0,36.0,1.0,558974.0
+1000019552,2026-10-05,argentina,Racing Club,Ignacio Rodríguez,1244348,D,1,90,1,1,0,0.09,38.0,1.0,
+1000019552,2026-10-05,argentina,Racing Club,Ulises Ortegoza,1086839,M,1,76,1,0,0,0.05,73.0,2.0,1261472.0
+1000019552,2026-10-05,argentina,Racing Club,Leonel Pérez,1516025,M,1,90,0,0,0,0.0,75.0,2.0,7626133.0
+1000019552,2026-10-05,argentina,Racing Club,Gastón Lodico,917619,M,1,90,1,0,0,0.06,77.0,2.0,2291409.0
+1000019552,2026-10-05,argentina,Racing Club,Lautaro Díaz,1111937,F,1,83,0,0,0,0.0,103.0,3.0,1404596.0
+1000019552,2026-10-05,argentina,Racing Club,Adrián Martínez,882933,F,1,90,2,2,1,0.66,105.0,3.0,2092383.0
+1000019552,2026-10-05,argentina,Racing Club,Tomás Conechny,688827,F,1,89,2,2,1,0.64,107.0,3.0,1790460.0
+1000019552,2026-10-05,argentina,Racing Club,Matías Pérez,1130624,D,0,15,0,0,0,0.0,,1.0,1778900.0
+1000019552,2026-10-05,argentina,Racing Club,Adrián Fernández,1274326,M,0,14,0,0,0,0.0,,2.0,
+1000019552,2026-10-05,argentina,Racing Club,Matko Miljevic,981079,M,0,7,0,0,0,0.0,,2.0,2657029.0
+1000019552,2026-10-05,argentina,Racing Club,Alejandro Tello,1714933,M,0,1,0,0,0,0.0,,2.0,
