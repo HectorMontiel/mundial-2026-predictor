@@ -200,6 +200,18 @@ def _leer_precalculo(dia: str, permitir_viejo: bool = False):
 
 HORAS_PARTIDO = 2.5          # un partido que empezó hace más, ya terminó
 
+# v329 — cuánto dura un partido de cada deporte (el fútbol, el de arriba)
+DURACION_H = {'Fútbol': HORAS_PARTIDO, 'MLB': 3.5, 'KBO': 3.5, 'NFL': 3.5,
+              'NBA': 2.75, 'Tenis': 3.0}
+
+
+def _deporte(p: Dict) -> str:
+    return str((p or {}).get('deporte') or 'Fútbol')
+
+
+def duracion_h(p: Dict) -> float:
+    return DURACION_H.get(_deporte(p), 3.0)
+
 
 # ---------------------------------------------------------------------------
 # v309 — SE ARCHIVA EN CUANTO EMPIEZA, CON LA APUESTA QUE SE RECOMENDÓ
@@ -489,6 +501,8 @@ def poner_marcadores(partidos: List[Dict], dia: str,
     for p in partidos or []:
         if p.get('goles_home') is not None:
             continue
+        if _deporte(p) != 'Fútbol':
+            continue                 # v329: los demás, en `marcadores_otros`
         ini = hz._a_utc(p.get('inicio'))
         if ini is None or ini.timestamp() + 1.75 * 3600 > ahora:
             continue                 # aún no puede haber terminado
@@ -622,7 +636,13 @@ def archivar_del_pronostico(dia: str, ruta_pronostico: str,
         return []
     fuera = []
     for p in pr:
-        if not isinstance(p, dict) or str(p.get('deporte') or '') != 'Fútbol':
+        # v329 — TODOS LOS DEPORTES, NO SÓLO EL FÚTBOL. El usuario: «cuando
+        # selecciono Finalizados sigue sin darme bien el filtro». El domingo
+        # 2026-10-04 pasaron por el pronóstico 217 partidos de tenis, 14 de la
+        # NFL y 2 de la MLB, y en «Finalizados» no salía ninguno: este archivo
+        # sólo guardaba fútbol, y en cuanto el precálculo los soltaba se
+        # perdían de las dos listas.
+        if not isinstance(p, dict):
             continue
         if dp.dia_de(p) != dia:
             continue
@@ -638,12 +658,157 @@ def archivar_del_pronostico(dia: str, ruta_pronostico: str,
             q['pronostico_ts'] = generado_ts
         if not (ya and _llave(q) in ya):
             q['recomendadas_previas'] = _recomendadas_previas(p)
-        m = _marcador(q)
+        m = _marcador(q) if _deporte(q) == 'Fútbol' else None
         if m:
             q['goles_home'], q['goles_away'] = m
             q['marcador_fuente'] = 'historico'
         fuera.append(q)
     return fuera
+
+
+# ---------------------------------------------------------------------------
+# v329 — EL MARCADOR DE LOS DEMÁS DEPORTES (sólo en el cron: sale a la red)
+# ---------------------------------------------------------------------------
+def _marcador_nfl(p: Dict, largo) -> Optional[tuple]:
+    """Puntos (local, visitante) del histórico de nflverse."""
+    try:
+        import nfl_datos as nd
+        import pandas as pd
+        par = str(p.get('partido') or '')
+        if ' vs ' not in par or largo is None:
+            return None
+        h, a = (nd.abreviatura(x.strip()) for x in par.split(' vs ', 1))
+        if not h or not a:
+            return None
+        ini = pd.Timestamp(str(p.get('inicio') or p.get('fecha'))[:10])
+        c = largo[(largo['home'] == h) & (largo['away'] == a)
+                  & largo['home_score'].notna()]
+        c = c[(pd.to_datetime(c['gameday']) - ini).abs() <= pd.Timedelta(days=1)]
+        if len(c):
+            r = c.iloc[-1]
+            return float(r['home_score']), float(r['away_score'])
+    except Exception as e:
+        logger.debug('[jugados] NFL %s: %s', p.get('partido'), e)
+    return None
+
+
+def _marcador_mlb(p: Dict, res: Dict) -> Optional[tuple]:
+    """Carreras (local, visitante). El partido se escribe «visita @ local»."""
+    try:
+        import name_mapper
+        par = str(p.get('partido') or '')
+        if ' @ ' in par:
+            a, h = (x.strip() for x in par.split(' @ ', 1))
+        elif ' vs ' in par:
+            h, a = (x.strip() for x in par.split(' vs ', 1))
+        else:
+            return None
+        lista = res.get((name_mapper.normalizar(h), name_mapper.normalizar(a))) or []
+        dia = dia_de_partido(p)
+        for fecha, r in lista:
+            if str(fecha)[:10] in (dia, str(p.get('fecha') or '')[:10]):
+                return float(r['goles_home']), float(r['goles_away'])
+    except Exception as e:
+        logger.debug('[jugados] MLB %s: %s', p.get('partido'), e)
+    return None
+
+
+def _marcador_tenis(p: Dict, res: Dict) -> Optional[tuple]:
+    """Sets (primer jugador, segundo) — el que ganó, con más sets."""
+    try:
+        import liquidador as lq
+        par = str(p.get('partido') or '')
+        if ' vs ' not in par:
+            return None
+        j1, j2 = (x.strip() for x in par.split(' vs ', 1))
+        k1, k2 = lq._clave_tenista(j1), lq._clave_tenista(j2)
+        if not k1 or not k2:
+            return None
+        lista = res.get(tuple(sorted((k1, k2)))) or []
+        dia = dia_de_partido(p)
+        import pandas as pd
+        for fecha, r in lista:
+            try:
+                dif = abs((pd.Timestamp(str(fecha)[:10]) - pd.Timestamp(dia)).days)
+            except Exception:
+                continue
+            if dif > 1:
+                continue
+            g = r.get('_ganador')
+            sets = [x for x in (r.get('sets') or []) if x is not None]
+            if g not in (k1, k2):
+                continue
+            if len(sets) == 2:
+                hi, lo = max(sets), min(sets)
+            else:
+                return None          # sin sets no se inventa un marcador
+            return (float(hi), float(lo)) if g == k1 else (float(lo), float(hi))
+    except Exception as e:
+        logger.debug('[jugados] tenis %s: %s', p.get('partido'), e)
+    return None
+
+
+def dia_de_partido(p: Dict) -> str:
+    try:
+        import dia_picks as dp
+        return dp.dia_de(p)
+    except Exception:
+        return str(p.get('fecha') or '')[:10]
+
+
+def marcadores_otros(partidos: List[Dict], dia: str, ahora: float = None) -> int:
+    """
+    v329 — El marcador de la NFL (nflverse, ya en el repo), la MLB (su API) y
+    el tenis (ESPN y los CSV que acumula el proyecto), con las mismas fuentes
+    que usa `liquidador`. Sólo los que ya deberían haber terminado. Lo que no
+    se encuentra se queda sin marcador —«marcador pendiente»— en vez de
+    inventarse. Devuelve cuántos rellenó. Nunca lanza.
+    """
+    import time
+    ahora = float(ahora if ahora is not None else time.time())
+    try:
+        import horario as hz
+        import pandas as pd
+    except Exception:
+        return 0
+    faltan = []
+    for p in partidos or []:
+        if p.get('goles_home') is not None or _deporte(p) == 'Fútbol':
+            continue
+        ini = hz._a_utc(p.get('inicio'))
+        if ini is None or ini.timestamp() + 0.7 * duracion_h(p) * 3600 > ahora:
+            continue
+        faltan.append(p)
+    if not faltan:
+        return 0
+    desde = (pd.Timestamp(dia) - pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+    hasta = (pd.Timestamp(dia) + pd.Timedelta(days=1)).strftime('%Y-%m-%d')
+    deps = {_deporte(p) for p in faltan}
+    largo = res_mlb = res_ten = None
+    try:
+        if 'NFL' in deps:
+            import nfl_nflverse as nv
+            largo = nv.cargar()
+        if 'MLB' in deps:
+            import liquidador as lq
+            res_mlb = lq._resultados_mlb(desde, hasta)
+        if 'Tenis' in deps:
+            import liquidador as lq
+            res_ten = lq._resultados_tenis(desde, hasta)
+    except Exception as e:
+        logger.warning('[jugados] resultados de otros deportes: %s', e)
+    n = 0
+    for p in faltan:
+        dep = _deporte(p)
+        m = (_marcador_nfl(p, largo) if dep == 'NFL' else
+             _marcador_mlb(p, res_mlb or {}) if dep == 'MLB' else
+             _marcador_tenis(p, res_ten or {}) if dep == 'Tenis' else None)
+        if m:
+            p['goles_home'], p['goles_away'] = m
+            p['marcador_fuente'] = {'NFL': 'nflverse', 'MLB': 'mlb_statsapi',
+                                    'Tenis': 'espn'}.get(dep, 'otro')
+            n += 1
+    return n
 
 
 _CAMPOS_MARCADOR = ('goles_home', 'goles_away', 'marcador_fuente')
@@ -752,6 +917,8 @@ def escribir_dia(dia: str, ruta: str = '',
         # histórico y, si no, FotMob (selecciones, femenil, ligas chicas)
         _n = poner_marcadores(partidos, dia)
         logger.info('[jugados] marcadores rellenados: %d', _n)
+        _n2 = marcadores_otros(partidos, dia)
+        logger.info('[jugados] marcadores de otros deportes: %d', _n2)
         partidos.sort(key=lambda p: str(p.get('inicio') or ''))
         doc = {'dia': str(dia), 'ts': time.time(),
                'generado': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
@@ -767,7 +934,12 @@ def escribir_dia(dia: str, ruta: str = '',
         return 0
 
 
-def de_dia(dia: str, maximo: int = 200) -> List[Dict]:
+# v329 — con el tenis dentro un día pasa de 300 partidos acabados; la lista
+# se pinta de 20 en 20, así que el tope sólo evita que crezca sin medida
+MAXIMO_DIA = 600
+
+
+def de_dia(dia: str, maximo: int = MAXIMO_DIA) -> List[Dict]:
     """
     Los partidos jugados de `dia`, con la forma que espera `modo_modelo.tarjeta`.
 
@@ -830,7 +1002,7 @@ def _para_la_vista(partidos: List[Dict], ahora: float = None) -> List[Dict]:
         if q.get('goles_home') is None and hz is not None \
                 and not q.get('aplazado'):
             ini = hz._a_utc(q.get('inicio'))
-            if ini is not None and ini.timestamp() + HORAS_PARTIDO * 3600 > ahora:
+            if ini is not None and ini.timestamp() + duracion_h(q) * 3600 > ahora:
                 q['en_juego'] = True
         fuera.append(q)
     return fuera

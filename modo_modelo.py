@@ -4038,10 +4038,8 @@ def recos_tarjeta(p: Dict) -> list:
         return []
 
 
-# v327 — CUÁNTO DURA UN PARTIDO, PARA DECIR «EN JUEGO» SIN MARCADOR. El fútbol
-# es el de `partidos_jugados.HORAS_PARTIDO`; los demás, su duración habitual.
-DURACION_H = {'Fútbol': 2.5, 'MLB': 3.5, 'KBO': 3.5, 'NFL': 3.5, 'NBA': 2.75,
-              'Tenis': 3.0}
+# v327 — cuánto dura un partido, para decir «en juego» sin marcador: ver
+# `partidos_jugados.DURACION_H` (v329, una sola tabla para los dos sitios)
 
 
 def sacar_empezados(pronosticos: List[Dict], jugados: List[Dict],
@@ -4108,7 +4106,7 @@ def sacar_empezados(pronosticos: List[Dict], jugados: List[Dict],
         except Exception as e:
             logger.debug('[modo_modelo] previas de %s: %s', p.get('partido'), e)
             q['recomendadas_previas'] = []
-        dur = DURACION_H.get(str(q.get('deporte') or 'Fútbol'), 3.0)
+        dur = pj.duracion_h(q)
         if q.get('goles_home') is None and ini.timestamp() + dur * 3600 > ahora:
             q['en_juego'] = True
         archivados.append(q)
