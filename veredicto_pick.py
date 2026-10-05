@@ -364,7 +364,9 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     # subía hasta 10 puntos (Colts el 2026-10-04: modelo 59,8 % → 69,8 % →
     # «meter»). En la NFL lo medido es la mezcla con la casa que se hace justo
     # debajo (`PESO_MODELO_NFL`), y esa sí cumple lo que promete.
-    es_nfl = str(p.get('deporte') or '') == 'NFL'
+    # v330 — y la NBA igual: decide la mezcla medida (`PESO_MODELO_NBA`).
+    _dep = str(p.get('deporte') or '')
+    es_nfl = _dep in ('NFL', 'NBA')
     if es_nfl:
         c = {'delta': 0.0, 'medido': False, 'veredicto_banda': None, 'n': 0}
     else:
@@ -413,6 +415,9 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
             razones.append(
                 f"el {prob:.0%} se sostiene: {c['real']:.0%} real en "
                 f"{c['n']} picks de este mercado")
+    elif es_nfl and _dep == 'NBA':
+        razones.append('en la NBA decide la casa con un 10 % del modelo '
+                       '(medido en 19 temporadas)')
     elif es_nfl:
         razones.append('en la NFL decide el modelo junto con la casa '
                        '(medido en 27 temporadas)')
@@ -429,6 +434,17 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
             razones.append(conc['razon'])
 
     mete = ajustada >= UMBRAL_METER
+    # v330 — la pretemporada de la NBA no se recomienda: no hay un solo
+    # partido suyo en el histórico de cierres con el que medirla, y los
+    # titulares juegan poco.
+    if mete and _dep == 'NBA' and p.get('pretemporada'):
+        mete = False
+        razones.insert(0, 'pretemporada: no se mide ni se recomienda')
+    # y sin el precio de la casa no se mete: lo medido es la MEZCLA, y el
+    # modelo solo (0,6187 de log-loss contra 0,6027 de la casa) no basta
+    if mete and _dep == 'NBA' and not conc.get('hay'):
+        mete = False
+        razones.insert(0, 'sin el precio de la casa para mezclar: no se recomienda')
     if not mete and c['medido'] and c['veredicto_banda'] != 'optimista':
         razones.append(f'queda por debajo del {UMBRAL_METER:.0%} que pide '
                        f'una pata de combinada')

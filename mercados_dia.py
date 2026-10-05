@@ -283,13 +283,13 @@ def mercados_de_fila(p: Dict) -> List[Dict]:
                              prob=(v / 100.0) if v is not None else None,
                              informativo=True))
 
-    # NFL: el marcador que predice el modelo
-    if dep == 'NFL':
+    # NFL y NBA (v330): el marcador que predice el modelo
+    if dep in ('NFL', 'NBA'):
         for campo, etq in (('marcador_esperado', 'Marcador esperado'),
                            ('margen_esperado', 'Margen esperado'),
                            ('total_esperado', 'Total esperado')):
             if p.get(campo) is not None:
-                fuera.append(mercado('NFL · modelo', etq, informativo=True,
+                fuera.append(mercado('%s · modelo' % dep, etq, informativo=True,
                                      nota=str(p[campo])))
 
     # el precio de referencia del mercado, que NO es una oferta de nadie

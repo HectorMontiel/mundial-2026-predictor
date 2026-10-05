@@ -95,11 +95,37 @@ PESO_MODELO = 0.5
 # (342); con un cuarto, lo prometido y lo real van juntos (71,3 → 69,9 %).
 PESO_MODELO_NFL = 0.25
 
+# v330 — EN LA NBA, UN 10 % PARA EL MODELO Y UN 90 % PARA LA CASA.
+#
+# Medido en `_v330_nba.py` con 19 temporadas (2007-08 → 2025-26) contra el
+# cierre de la casa sin margen, cada temporada con un modelo que no la vio. El
+# peso se eligió con 2010-16 y se juzgó en 2017-26 (10.707 partidos):
+#
+#                 log-loss elige   log-loss juzga   «meter» (≥65 %) juzga
+#     mitad y mitad    0,58604          0,60636
+#     un cuarto        0,58389          0,60342       promete 75,7 · real 76,0
+#     un décimo        0,58338          0,60271       promete 76,0 · real 75,6
+#     sólo la casa     0,58342          0,60272
+#
+# La casa de la NBA sabe las bajas del día y el modelo no: lo que sabe el
+# modelo que la casa no (el calendario, el nivel de cada equipo) ya está en
+# su precio. En el más/menos con líneas alternativas el décimo también es lo
+# que mejor promete lo que cumple (log-loss elige 0,60064, dentro de ±1,5
+# puntos por banda en 2017-26).
+PESO_MODELO_NBA = 0.10
+
+# deportes sin empate cuyo «1X2» llega con dos lados y cuya mezcla con la
+# casa está medida (el tenis llega igual y no lo está)
+DOS_VIAS_MEDIDOS = ('NFL', 'NBA')
+
 
 def peso_modelo(pick: Optional[Dict]) -> float:
     """Cuánto pesa el modelo frente a la casa en este deporte."""
-    if str((pick or {}).get('deporte') or '') == 'NFL':
+    dep = str((pick or {}).get('deporte') or '')
+    if dep == 'NFL':
         return PESO_MODELO_NFL
+    if dep == 'NBA':
+        return PESO_MODELO_NBA
     return PESO_MODELO
 
 # Margen admisible de un libro de dos o tres salidas. Por debajo de 1 no es un
@@ -207,10 +233,10 @@ def prob_mercado(pick: Dict, apuesta: str,
                             c1x2.get('away')])
         # v325 — la NFL no tiene empate: su «1X2» llega con dos lados y el
         # libro de tres no se podía de-marginar, así que la NFL decidía SIN la
-        # casa (y con la corrección por bandas del fútbol encima). Sólo NFL: el
-        # tenis llega igual, pero su mezcla con la casa no está medida.
+        # casa (y con la corrección por bandas del fútbol encima). Sólo NFL y
+        # NBA (v330): el tenis llega igual, pero su mezcla no está medida.
         if (probs is None and c1x2.get('draw') is None
-                and str((pick or {}).get('deporte') or '') == 'NFL'):
+                and str((pick or {}).get('deporte') or '') in DOS_VIAS_MEDIDOS):
             dos = demarginar([c1x2.get('home'), c1x2.get('away')])
             probs = [dos[0], None, dos[1]] if dos else None
         if probs:

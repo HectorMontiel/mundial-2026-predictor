@@ -2896,72 +2896,176 @@ def _picks_kbo() -> Dict[str, List[Dict]]:
 
 
 def _picks_nba() -> Dict[str, List[Dict]]:
-    """NBA (v34 §4): cuotas reales EN CUANTO arranque la temporada. Fuera de
-    temporada (julio) ninguna fuente devuelve partidos y no se consulta nada."""
-    salida = {'capa1': [], 'capa2': [], 'evaluados': 0, 'cobertura': {}}
-    try:
-        import betexplorer_scraper as bx
-        import source_resilience as sr
+    """NBA (v330): TODOS los partidos del día a `pronosticos`, con el modelo
+    de `modelo_nba` (19 temporadas, medido contra el cierre) y el precio de
+    las casas, igual que la NFL. Fuera de temporada (julio-septiembre) no se
+    consulta nada.
 
+    v330 — HASTA AQUÍ LA NBA NO SALÍA EN «APUESTAS DEL DÍA». Esta rama sólo
+    publicaba capa 1 y capa 2 con el motor de `engines/nba_engine` (5
+    temporadas, sin cuotas con las que medirlo) y ningún `pronosticos`, que
+    es lo que pinta las tarjetas. Ahora cada partido lleva su tablero
+    («Gana X» de los dos lados), las cuotas de los dos lados para mezclar con
+    la casa (`concordancia.PESO_MODELO_NBA`, 10 % modelo) y el más/menos
+    puntos con las líneas de la casa. La pretemporada sale marcada y no se
+    recomienda: no hay un solo partido suyo en el histórico con el que
+    medirla."""
+    salida = {'capa1': [], 'capa2': [], 'pronosticos': [], 'incidencias': [],
+              'evaluados': 0, 'cobertura': {}}
+    try:
         # v88 — la ventana de temporada vivía en `odds_api`, que se retira. Se
         # declara aquí: la NBA va de octubre a junio.
         _m = hoy_utc().month
         if not (_m >= 10 or _m <= 6):
             logger.info("[alpha] NBA fuera de temporada: barrido omitido.")
             return salida
+        import modelo_nba as mn
+        import nba_historico as nh
+        modelo = mn.NBAModelo.cargar()
+        if modelo is None:
+            salida['incidencias'].append('NBA omitida: falta modelos/nba_v330.json '
+                                         'o historico_nba_largo.csv')
+            return salida
 
-        # v88: el eslabón de The Odds API se retira (401 en todas las ligas).
-        # Pinnacle y Bovada cubren la NBA vía `cuotas_multi` en cuanto arranca
-        # la temporada — medido: 57 partidos de NBA en el tablón de Pinnacle.
-        def _de_cuotas_multi():
+        fixtures = mn.fixtures_nba(dias=2)
+        if not fixtures:
+            # respaldo: el calendario de las casas (v88: Pinnacle y Bovada;
+            # Betexplorer detrás). No dicen si es pretemporada: se deduce de
+            # la fecha (`tipo_por_fecha`).
+            import betexplorer_scraper as bx
+            import source_resilience as sr
             import cuotas_multi as _cm
-            out = []
-            for idx in (_cm._indice('nba'), _cm._indice_bov('nba')):
-                for v in (idx or {}).values():
-                    c = v.get('cuotas') or {}
-                    if v.get('home') and v.get('away') and \
-                            c.get('home') and c.get('away'):
-                        out.append({'home': v['home'], 'away': v['away'],
-                                    'odd_home': c['home'], 'odd_away': c['away'],
-                                    # v106: hora de inicio (ISO UTC completo)
-                                    'inicio': v.get('fecha')})
-            return out
 
-        cadena = sr.Cadena('cuotas NBA', [('Pinnacle/Bovada', _de_cuotas_multi),
-                                          ('Betexplorer', bx.cuotas_baloncesto_hoy)])
-        partidos = cadena.obtener(lambda d: d is not None and len(d) > 0) or []
-        if not partidos:
+            def _de_cuotas_multi():
+                out = []
+                for idx in (_cm._indice('nba'), _cm._indice_bov('nba')):
+                    for v in (idx or {}).values():
+                        if v.get('home') and v.get('away'):
+                            out.append({'home': v['home'], 'away': v['away'],
+                                        'inicio': v.get('fecha')})
+                return out
+            cadena = sr.Cadena('cuotas NBA', [('Pinnacle/Bovada', _de_cuotas_multi),
+                                              ('Betexplorer', bx.cuotas_baloncesto_hoy)])
+            for m in (cadena.obtener(lambda d: d is not None and len(d) > 0) or []):
+                ch, ca = nh.codigo(m.get('home')), nh.codigo(m.get('away'))
+                if not ch or not ca:
+                    continue
+                try:
+                    f = pd.to_datetime(m.get('inicio'))
+                    f = f.tz_convert(None) if f.tzinfo else f
+                    ini, fe = f.strftime('%Y-%m-%d %H:%M:%S'), f.strftime('%Y-%m-%d')
+                except Exception:
+                    ini, fe = None, str(hoy_utc().date())
+                fixtures.append({'fecha': fe, 'inicio': ini,
+                                 'home': m['home'], 'away': m['away'],
+                                 'abrev_home': ch, 'abrev_away': ca,
+                                 'tipo': mn.tipo_por_fecha(fe)})
+        if not fixtures:
+            logger.info('[alpha] NBA: sin partidos en la ventana.')
             return salida
-        from engines.nba_engine import NBAEngine
-        eng = NBAEngine().cargar_modelo()
-        if not eng.listo:
-            return salida
-        for m in partidos:
-            pred = eng.predecir(m['home'], m['away'])
-            if 'error' not in pred:                       # v98: contador
-                salida['evaluados'] += 1
-                salida['cobertura']['NBA'] = salida['cobertura'].get('NBA', 0) + 1
-            if 'error' in pred:
+
+        import cuotas_multi as cm
+        vistos = set()
+        for fx in fixtures:
+            h, a = fx['home'], fx['away']
+            clave = (fx['abrev_home'], fx['abrev_away'], fx.get('fecha'))
+            if clave in vistos:
                 continue
-            for nombre, prob, cuota in ((m['home'], pred['prob_home'], m['odd_home']),
-                                        (m['away'], pred['prob_away'], m['odd_away'])):
-                ev = round(cuota * prob - 1, 4)
-                base = {'deporte': 'NBA', 'liga': 'NBA',
-                        'clave_liga': 'nba',
-                        'partido': f"{m['home']} vs {m['away']}",
-                        'fecha': str(hoy_utc().date()),
-                        'inicio': m.get('inicio'),          # v106
-                        'mercado': 'Moneyline', 'apuesta': f'Gana {nombre}',
-                        'prob': round(prob, 3),
-                        'cuota_justa': round(1 / max(prob, 1e-6), 2)}
-                if prob > UMBRAL_CONF['NBA'] and ev > MIN_EV and cuota > MIN_CUOTA:
-                    salida['capa1'].append({**base, 'cuota': round(cuota, 2),
-                                            'ev': ev, 'valor': '🟢'})
-                elif prob > CONF_CAPA2:
-                    salida['capa2'].append({**base, 'cuota': None, 'ev': None,
-                                            'valor': '🎯'})
+            vistos.add(clave)
+            salida['evaluados'] += 1
+            salida['cobertura']['NBA'] = salida['cobertura'].get('NBA', 0) + 1
+            es_pre = fx.get('tipo') == 'pretemporada'
+            base = {'deporte': 'NBA', 'liga': 'NBA', 'clave_liga': 'nba',
+                    'partido': f'{h} vs {a}',
+                    'fecha': fx.get('fecha') or str(hoy_utc().date()),
+                    'inicio': fx.get('inicio'), 'mercado': 'Moneyline'}
+            if es_pre:
+                base.update({'pretemporada': True, 'nota': mn.NOTA_PRETEMPORADA})
+            pred = modelo.predecir_partido(fx['abrev_home'], fx['abrev_away'],
+                                           fecha=fx.get('fecha'),
+                                           tipo=fx.get('tipo') or 'regular')
+            if 'error' in pred:
+                salida.setdefault('sin_modelo', []).append(
+                    {**base, 'motivo': pred['error']})
+                continue
+            try:
+                _cu = cm.cuotas_partido('nba', h, a, fecha=fx.get('fecha'))
+                mejor = _cu.get('mejor') or {}
+            except Exception:
+                _cu, mejor = {}, {}
+            ph, pa = pred['prob_home_sin_empate'], pred['prob_away_sin_empate']
+            fila = {**base,
+                    'apuesta': f'Gana {h}' if ph >= 0.5 else f'Gana {a}',
+                    'prob': round(max(ph, pa), 3),
+                    'board': {f'Gana {h}': ph, f'Gana {a}': pa},
+                    'cuota': (mejor.get('home' if ph >= 0.5 else 'away')
+                              or {}).get('cuota'),
+                    'margen_esperado': pred['margen_esperado'],
+                    'total_esperado': pred['total_esperado'],
+                    'marcador_esperado': '%d–%d' % (pred['pts_home_esperado'],
+                                                    pred['pts_away_esperado'])}
+            # las cuotas de LOS DOS lados: sin ellas no hay mezcla con la casa
+            # ni candidatas (v193, lo mismo que en la NFL)
+            _ch = (mejor.get('home') or {}).get('cuota')
+            _ca = (mejor.get('away') or {}).get('cuota')
+            if _ch and _ca:
+                fila['implicitas'] = {'1x2_cuotas': {'home': _ch, 'away': _ca}}
+            salida['pronosticos'].append(fila)
+
+            # capa 2 para la pestaña de la NBA: la probabilidad con la que
+            # decide la app (90 % casa) y el precio de TUS casas
+            if es_pre:
+                continue
+            try:
+                import concordancia as _conc
+                dos = _conc.demarginar([_ch, _ca]) if _ch and _ca else None
+            except Exception:
+                dos = None
+            for lado, nombre, pm in (('home', h, ph), ('away', a, pa)):
+                pmez = (_conc.mezclar(pm, dos[0 if lado == 'home' else 1],
+                                      _conc.PESO_MODELO_NBA) if dos else None)
+                if pmez is None or pmez < 0.65:
+                    continue
+                _pa = cm.precio_accionable(_cu, lado) or {}
+                precio = _pa.get('cuota')
+                pick = {**base, 'apuesta': f'Gana {nombre}', 'lado': lado,
+                        'prob': round(float(pmez), 3),
+                        'cuota_justa': round(1 / max(float(pmez), 1e-6), 2),
+                        'cuota': round(float(precio), 2) if precio else None,
+                        'casa': _pa.get('casa'), 'valor': '🎯',
+                        'margen_esperado': pred['margen_esperado'],
+                        'total_esperado': pred['total_esperado']}
+                if precio:
+                    pick['ev'] = round(float(precio) * float(pmez) - 1, 4)
+                    pick['ev_negativo'] = bool(pick['ev'] <= 0)
+                salida['capa2'].append(pick)
+
+        # el más/menos puntos: primero el precio de la casa (Pinnacle, con sus
+        # líneas alternativas) y luego la probabilidad del modelo EN ESAS
+        # líneas, que son las que se pueden jugar
+        _todas = list(salida['pronosticos']) + list(salida['capa2'])
+        try:
+            _cuotas_de_totales(_todas, 'nba')
+        except Exception as e:
+            logger.debug('[alpha/nba] cuotas de total: %s', e)
+        n_tot = 0
+        for p in _todas:
+            if p.get('total_esperado') is None:
+                continue
+            ls = list(((p.get('implicitas') or {}).get('totales_cuotas') or {}).keys())
+            t = modelo.totales({'total_esperado': p['total_esperado']}, ls)
+            if t:
+                p['totales'] = t
+                n_tot += 1
+        n_pre = sum(1 for p in salida['pronosticos'] if p.get('pretemporada'))
+        n_cu = sum(1 for p in salida['pronosticos'] if p.get('implicitas'))
+        salida['incidencias'].append(
+            'ℹ️ NBA: %d partidos (%d de pretemporada, que no se recomiendan), '
+            '%d con cuota de los dos lados, %d con más/menos puntos.'
+            % (len(salida['pronosticos']), n_pre, n_cu, n_tot))
     except Exception as e:
         logger.warning(f"[alpha] NBA omitido: {type(e).__name__}: {e}")
+        salida['incidencias'].append(f'NBA omitida: {type(e).__name__}: {e}')
     return salida
 
 

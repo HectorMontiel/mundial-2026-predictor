@@ -185,6 +185,11 @@ jobs:
           python -m engines.mlb_engine    || echo "::warning::MLB con avisos"
           python -m engines.tennis_engine atp wta || echo "::warning::tenis con avisos"
           python -m engines.nba_engine    || echo "::warning::NBA con avisos"
+          # v330 — el histórico largo de la NBA (19 temporadas con el cierre
+          # de la casa) con lo que nba_api acaba de añadir: es de donde
+          # `modelo_nba` saca el estado de cada equipo para Apuestas del Día.
+          # Sin red se queda el último commiteado (lo añade `historico_*.csv`).
+          python nba_historico.py         || echo "::warning::histórico largo de la NBA sin actualizar"
           # v97 — KBO. Naver publica los resultados el mismo dia, asi que el
           # estado del modelo puede ir al dia igual que el de la MLB.
           python -m engines.kbo_engine    || echo "::warning::KBO con avisos"

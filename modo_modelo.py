@@ -595,6 +595,13 @@ def _bloque_goles_html(pick: Dict, board: Dict) -> str:
 _ICONO_TOTAL = {'carreras': '⚾', 'puntos': '🏈', 'juegos': '🎾'}
 
 
+def _icono_total(pick: Dict, unidad: str) -> str:
+    """v330 — los puntos de la NBA son 🏀, no 🏈."""
+    if str((pick or {}).get('deporte') or '') == 'NBA':
+        return '🏀'
+    return _ICONO_TOTAL.get(unidad, '📊')
+
+
 def _bloque_totales_html(pick: Dict) -> str:
     """
     v229 — EL TOTAL DE LOS DEPORTES QUE NO SON FÚTBOL.
@@ -618,7 +625,7 @@ def _bloque_totales_html(pick: Dict) -> str:
     if not lineas:
         return ''
     unidad = str(tot.get('unidad') or 'puntos')
-    icono = _ICONO_TOTAL.get(unidad, '📊')
+    icono = _icono_total(pick, unidad)
     try:
         centro = '%.1f' % float(tot.get('centro'))
     except (TypeError, ValueError):
@@ -1799,6 +1806,9 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             'p_mercado': _p_mercado,        # v243
             # v310 — el veredicto exige cuota mínima sólo en fútbol
             'deporte': str(pick.get('deporte') or 'Fútbol'),
+            # v330 — la pretemporada de la NBA no se recomienda, y quien lo
+            # decide (`veredicto_pick`) sólo ve esta fila
+            'pretemporada': bool(pick.get('pretemporada')),
             'ev': (None if _mej.get('score') is None
                    else _mej['score'] - 1.0),
             'score': _mej.get('score'),
@@ -3773,7 +3783,7 @@ def _analisis_conciso_html(pick: Dict, b: Dict, _ck, _tj) -> str:
         if tot is not None:
             unidad = str(((pick.get('totales') or {}).get('unidad')) or 'puntos')
             lineas.append('%s %s esperados: <b>%s</b>%s' % (
-                _ICONO_TOTAL.get(unidad, '📊'), unidad.capitalize(), _num1(tot),
+                _icono_total(pick, unidad), unidad.capitalize(), _num1(tot),
                 (' (%s)' % pick['marcador_esperado'])
                 if pick.get('marcador_esperado') else ''))
     if not lineas:
@@ -4238,7 +4248,16 @@ def por_que_no(p: Dict) -> str:
         mercado = str(r.get('mercado') or '')
         txt = '%s (%.0f %%%s)' % (r.get('apuesta'), 100 * pm,
                                    ', cuota %.2f' % float(cuota) if cuota else '')
-        if mercado in _vp.MERCADOS_NO_METER_FUTBOL:
+        dep = str(p.get('deporte') or 'Fútbol')
+        if p.get('pretemporada'):
+            # v330 — la pretemporada (NBA) no se recomienda nunca
+            por = 'pretemporada: no se mide ni se recomienda'
+        elif dep != 'Fútbol':
+            # v330 — la franja 70-80 % es del fútbol; los demás deportes
+            # meten desde el listón general
+            por = ('no llega al %d %%' % round(100 * _vp.UMBRAL_METER)
+                   if pm < _vp.UMBRAL_METER else 'no pasa la regla de «meter»')
+        elif mercado in _vp.MERCADOS_NO_METER_FUTBOL:
             por = '«%s» falla más de lo que promete' % mercado
         elif pm < _vp.METER_FUTBOL_MIN:
             por = 'no llega al %d %%' % round(100 * _vp.METER_FUTBOL_MIN)
