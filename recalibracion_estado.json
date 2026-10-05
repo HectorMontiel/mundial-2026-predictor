@@ -1,98 +1,98 @@
 {
- "generado": "2026-09-28T13:28:09Z",
+ "generado": "2026-10-05T13:46:06Z",
  "pasos": [
   {
    "paso": "1. ledger (re-predice el histórico con los modelos de hoy)",
    "ok": true,
-   "segundos": 5034.2,
-   "detalle": "futbol: 78134 filas (+114) | deportes: 329995 filas (+183) | totales: 80829 filas | total: 407800 filas"
+   "segundos": 2915.6,
+   "detalle": "futbol: 78175 filas (+41) | deportes: 337706 filas (+7711) | totales: 80855 filas | total: 415610 filas"
   },
   {
    "paso": "2. calibración de confianza (acierto real por banda)",
    "ok": true,
-   "segundos": 22.0,
-   "detalle": "89290 predicciones medidas · umbral 0.70"
+   "segundos": 18.6,
+   "detalle": "89099 predicciones medidas · umbral 0.70"
   },
   {
    "paso": "3. techo de acierto por liga",
    "ok": true,
-   "segundos": 10.6,
-   "detalle": "37 ligas · correlación 0.7352 · publicado"
+   "segundos": 6.0,
+   "detalle": "37 ligas · correlación 0.7429 · publicado"
   },
   {
    "paso": "4. banda de EV rentable",
    "ok": true,
-   "segundos": 0.5,
-   "detalle": "banda EV [0.040, 0.120] · piso de probabilidad 0.60"
+   "segundos": 0.2,
+   "detalle": "banda EV [0.030, 0.130] · piso de probabilidad 0.60"
   },
   {
    "paso": "5. qué deportes tienen edge validado",
    "ok": true,
-   "segundos": 2.9,
+   "segundos": 1.7,
    "detalle": "con edge validado: ['Fútbol', 'KBO', 'NFL']"
   },
   {
    "paso": "6. peso del encogimiento al mercado",
    "ok": true,
-   "segundos": 2.1,
-   "detalle": "w global 0.25 · 31 ligas adoptadas · log-loss 0.0216"
+   "segundos": 1.0,
+   "detalle": "w global 0.25 · 27 ligas adoptadas · log-loss 0.0169"
   },
   {
    "paso": "7. autopsia de los picks publicados",
    "ok": true,
-   "segundos": 0.6,
+   "segundos": 0.3,
    "detalle": "318 picks liquidados · acierto 69.2% vs prometido 71.7% · brecha -2.5% · 1 segmento(s) con brecha significativa"
   },
   {
    "paso": "8. calibración adaptativa (aprende de lo liquidado)",
    "ok": true,
-   "segundos": 14.1,
+   "segundos": 8.2,
    "detalle": "6 nodos · fuentes {'ledger_goles': 4, 'produccion': 4} · n global 318"
   },
   {
    "paso": "9. calibración por banda de cuota (isotónica walk-forward)",
    "ok": true,
-   "segundos": 1.0,
-   "detalle": "n=124185 · bandas=5"
+   "segundos": 0.6,
+   "detalle": "n=124017 · bandas=5"
   },
   {
    "paso": "10. liquidar los pronósticos ya jugados",
    "ok": true,
-   "segundos": 14.9,
-   "detalle": "24 partidos, 45 picks liquidados"
+   "segundos": 2.6,
+   "detalle": "34 partidos, 73 picks liquidados"
   },
   {
    "paso": "11. curva por línea del mercado de goles",
    "ok": true,
-   "segundos": 0.8,
-   "detalle": "APAGADA · log-loss sin 0.61109 / con 0.61064 · p5 +0.00019 · sesgo Under -0.6 -> +2.5 pp"
+   "segundos": 0.5,
+   "detalle": "APAGADA · log-loss sin 0.61108 / con 0.61077 · p5 -0.00018 · sesgo Under -0.4 -> -6.4 pp"
   },
   {
    "paso": "12. ledger del hándicap asiático",
    "ok": true,
-   "segundos": 93.5,
-   "detalle": "77840 partidos · -0,50 dijo 0.440 pasa 0.440 · +0,00 dijo 0.598 pasa 0.596 · +0,50 dijo 0.703 pasa 0.702"
+   "segundos": 45.6,
+   "detalle": "77881 partidos · -0,50 dijo 0.440 pasa 0.440 · +0,00 dijo 0.598 pasa 0.596 · +0,50 dijo 0.703 pasa 0.702"
   },
   {
    "paso": "13. memoria de errores por equipo",
    "ok": true,
-   "segundos": 0.4,
-   "detalle": "1,326 equipos · sesgo medio +0.0111 · desv 0.4196 · hasta 2026-09-24"
+   "segundos": 0.2,
+   "detalle": "1,327 equipos · sesgo medio +0.0132 · desv 0.4165 · hasta 2026-10-02"
   },
   {
    "paso": "14. selector de apuestas (aprende cuál tomar)",
    "ok": true,
-   "segundos": 190.5,
-   "detalle": "3,185,074 apuestas · log-loss 0.53894 -> 0.53437 · p5 +0.00440 · ROI -4.07 % (n=21,177)"
+   "segundos": 129.3,
+   "detalle": "3,201,831 apuestas · log-loss 0.54045 -> 0.53591 · p5 +0.00438 · ROI -4.45 % (n=20,961)"
   },
   {
    "paso": "15. radar de errores de cuota (dónde mirar)",
    "ok": true,
-   "segundos": 2.9,
-   "detalle": "55,982 partidos · AUC 0.6948 · barriendo el 20 % mejor, 1.88x errores · capturas propias: 4,523 filas en 9 días"
+   "segundos": 1.7,
+   "detalle": "60,147 partidos · AUC 0.6566 · barriendo el 20 % mejor, 1.66x errores · capturas propias: 9,027 filas en 16 días"
   }
  ],
  "ok": 15,
  "fallos": [],
- "segundos_total": 5391.0
+ "segundos_total": 3132.1
 }

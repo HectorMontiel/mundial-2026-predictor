@@ -1,28 +1,28 @@
 {
- "generado": "2026-09-28T12:36:15Z",
+ "generado": "2026-10-05T13:14:26Z",
  "n_folds": 5,
  "inicio_train": 0.5,
- "filas": 78134,
+ "filas": 78175,
  "ligas": 63,
- "con_cuota_mercado": 60796,
- "con_cuota_pinnacle": 51811,
+ "con_cuota_mercado": 60837,
+ "con_cuota_pinnacle": 51773,
  "rango": [
   "2018-02-24",
-  "2026-09-24"
+  "2026-10-02"
  ],
  "fallos": {},
  "por_liga": {
   "eng_league_two": {
-   "n": 4331,
-   "con_cuota": 4325
+   "n": 4336,
+   "con_cuota": 4330
   },
   "eng_league_one": {
-   "n": 4294,
-   "con_cuota": 4290
+   "n": 4296,
+   "con_cuota": 4292
   },
   "eng_national": {
-   "n": 4256,
-   "con_cuota": 4241
+   "n": 4268,
+   "con_cuota": 4253
   },
   "leagues_cup": {
    "n": 3360,
@@ -49,8 +49,8 @@
    "con_cuota": 2430
   },
   "esp_hypermotion": {
-   "n": 2050,
-   "con_cuota": 2045
+   "n": 2056,
+   "con_cuota": 2051
   },
   "argentina": {
    "n": 1876,
@@ -169,8 +169,8 @@
    "con_cuota": 760
   },
   "sco_championship": {
-   "n": 755,
-   "con_cuota": 755
+   "n": 757,
+   "con_cuota": 757
   },
   "mex_expansion": {
    "n": 701,
@@ -181,8 +181,8 @@
    "con_cuota": 0
   },
   "irlanda": {
-   "n": 672,
-   "con_cuota": 672
+   "n": 670,
+   "con_cuota": 670
   },
   "slv_primera": {
    "n": 670,
@@ -261,8 +261,8 @@
    "con_cuota": 0
   },
   "mls": {
-   "n": 16,
-   "con_cuota": 16
+   "n": 32,
+   "con_cuota": 32
   }
  }
 }

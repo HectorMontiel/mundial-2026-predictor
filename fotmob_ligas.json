@@ -227,7 +227,7 @@
   "eng_championship": {
    "id": 48,
    "nombre": "Championship",
-   "solape": 1.0,
+   "solape": 0.958,
    "equipos": 24,
    "origen": "conocido",
    "slug": "championship"
@@ -379,7 +379,7 @@
   "ecu_liga_pro": {
    "id": 246,
    "nombre": "Serie A",
-   "solape": 1.0,
+   "solape": 0.938,
    "equipos": 16,
    "origen": "conocido",
    "slug": "serie-a"
@@ -483,8 +483,8 @@
   "ind_isl": {
    "id": 9478,
    "nombre": "Indian Super League",
-   "solape": 0.857,
-   "equipos": 14,
+   "solape": 0.769,
+   "equipos": 13,
    "origen": "conocido",
    "slug": "indian-super-league"
   },
