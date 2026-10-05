@@ -108,22 +108,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689250,2025-09-04,selecciones,Slovakia,Lubomir Tupta,701202,F,0,7,0,0,0,0.0,,3.0,488066.0
 4689250,2025-09-04,selecciones,Slovakia,Robert Bozenik,922622,F,0,7,0,0,0,0.0,,3.0,3920990.0
 4689250,2025-09-04,selecciones,Slovakia,Lászlo Bénes,629112,M,0,1,0,0,0,0.0,,2.0,1590502.0
-4689270,2025-09-04,selecciones,Poland,Lukasz Skorupski,178732,G,1,90,0,0,0,0.0,11.0,0.0,2194383.0
-4689270,2025-09-04,selecciones,Poland,Matty Cash,729731,D,1,90,3,1,1,0.08,32.0,1.0,22194956.0
-4689270,2025-09-04,selecciones,Poland,Przemyslaw Wisniewski,934862,D,1,83,0,0,0,0.0,34.0,1.0,1623874.0
-4689270,2025-09-04,selecciones,Poland,Jan Bednarek,490868,D,1,90,0,0,0,0.0,36.0,1.0,8345451.0
-4689270,2025-09-04,selecciones,Poland,Jakub Kiwior,1021834,D,1,90,0,0,0,0.0,38.0,1.0,35385014.0
-4689270,2025-09-04,selecciones,Poland,Bartosz Slisz,742332,M,1,90,0,0,0,0.0,64.0,2.0,2506903.0
-4689270,2025-09-04,selecciones,Poland,Piotr Zielinski,362212,M,1,71,1,0,0,0.01,66.0,2.0,8589425.0
-4689270,2025-09-04,selecciones,Poland,Jakub Kaminski,1067260,M,1,90,1,1,0,0.02,83.0,2.0,7307295.0
-4689270,2025-09-04,selecciones,Poland,Sebastian Szymanski,765466,M,1,71,1,0,0,0.2,85.0,2.0,13875064.0
-4689270,2025-09-04,selecciones,Poland,Nicola Zalewski,1053714,M,1,71,0,0,0,0.0,87.0,2.0,15142932.0
-4689270,2025-09-04,selecciones,Poland,Robert Lewandowski,93447,F,1,63,0,0,0,0.0,115.0,3.0,9975061.0
-4689270,2025-09-04,selecciones,Poland,Karol Swiderski,558136,F,0,27,0,0,0,0.0,,3.0,2486001.0
-4689270,2025-09-04,selecciones,Poland,Pawel Wszolek,206695,D,0,19,0,0,0,0.0,,1.0,331249.0
-4689270,2025-09-04,selecciones,Poland,Bartosz Kapustka,433675,M,0,19,0,0,0,0.0,,2.0,800102.0
-4689270,2025-09-04,selecciones,Poland,Kamil Grosicki,69541,F,0,19,0,0,0,0.0,,3.0,271261.0
-4689270,2025-09-04,selecciones,Poland,Tomasz Kedziora,306174,D,0,7,0,0,0,0.0,,1.0,1212714.0
 4341346,2025-09-04,selecciones,Liberia,Tommy Songo,686825,G,1,90,0,0,0,0.0,11.0,0.0,
 4341346,2025-09-04,selecciones,Liberia,Mark Pabai,979962,D,1,78,0,0,0,0.0,32.0,1.0,183279.0
 4341346,2025-09-04,selecciones,Liberia,Natus Swen,1649533,D,1,11,0,0,0,0.0,34.0,1.0,
@@ -218,21 +202,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689269,2025-09-04,selecciones,Malta,Jodi Jones,613181,M,0,16,0,0,0,0.0,,2.0,224429.0
 4689269,2025-09-04,selecciones,Malta,Adam Overend,1302476,F,0,16,0,0,0,0.0,,3.0,
 4689269,2025-09-04,selecciones,Malta,Jake Azzopardi,1684562,M,0,4,0,0,0,0.0,,2.0,
-4689339,2025-09-04,selecciones,Georgia,Giorgi Mamardashvili,948800,G,1,90,0,0,0,0.0,11.0,0.0,38373278.0
-4689339,2025-09-04,selecciones,Georgia,Otar Kakabadze,463993,M,1,85,0,0,0,0.0,32.0,2.0,
-4689339,2025-09-04,selecciones,Georgia,Guram Kashia,157630,D,1,90,1,0,0,0.01,34.0,1.0,121817.0
-4689339,2025-09-04,selecciones,Georgia,Saba Goglichidze,1507697,D,1,90,0,0,0,0.0,36.0,1.0,12446404.0
-4689339,2025-09-04,selecciones,Georgia,Luka Lochoshvili,784175,D,1,68,1,0,0,0.4,38.0,1.0,580942.0
-4689339,2025-09-04,selecciones,Georgia,Giorgi Tsitaishvili,939061,M,1,46,0,0,0,0.0,72.0,2.0,1673240.0
-4689339,2025-09-04,selecciones,Georgia,Giorgi Kochorashvili,953958,M,1,90,2,0,0,0.05,74.0,2.0,4770025.0
-4689339,2025-09-04,selecciones,Georgia,Anzor Mekvabishvili,1176843,M,1,81,2,0,0,0.23,76.0,2.0,1355937.0
-4689339,2025-09-04,selecciones,Georgia,Zuriko Davitashvili,966146,F,1,90,2,2,1,0.27,78.0,3.0,11462901.0
-4689339,2025-09-04,selecciones,Georgia,Georges Mikautadze,1117069,F,1,90,0,0,0,0.0,104.0,3.0,22664165.0
-4689339,2025-09-04,selecciones,Georgia,Khvicha Kvaratskhelia,900433,F,1,90,4,2,1,0.15,106.0,3.0,70642017.0
-4689339,2025-09-04,selecciones,Georgia,Nika Gagnidze,1167597,M,0,45,1,0,0,0.03,,2.0,454383.0
-4689339,2025-09-04,selecciones,Georgia,Irakli Azarovi,1067263,D,0,22,1,0,0,0.02,,1.0,4249668.0
-4689339,2025-09-04,selecciones,Georgia,Giorgi Guliashvili,1065640,F,0,9,1,0,0,0.01,,3.0,1356023.0
-4689339,2025-09-04,selecciones,Georgia,Giorgi Gocholeishvili,1179835,D,0,5,0,0,0,0.0,,1.0,1975160.0
 4822534,2025-09-05,selecciones,Bermuda,Dale Eve,513480,G,1,90,0,0,0,0.0,11.0,0.0,
 4822534,2025-09-05,selecciones,Bermuda,Reece Jones,1418057,D,1,90,0,0,0,0.0,32.0,1.0,
 4822534,2025-09-05,selecciones,Bermuda,Harry Twite,1650139,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -360,22 +329,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689327,2025-09-05,selecciones,Azerbaijan,Anatoliy Nuriyev,923171,M,0,28,0,0,0,0.0,,2.0,179695.0
 4689327,2025-09-05,selecciones,Azerbaijan,Ceyhun Nuriyev,1308425,M,0,28,0,0,0,0.0,,2.0,330077.0
 4689327,2025-09-05,selecciones,Azerbaijan,Qismat Aliyev,672833,D,0,18,0,0,0,0.0,,1.0,208973.0
-4689328,2025-09-05,selecciones,Ukraine,Anatoliy Trubin,1022350,G,1,90,0,0,0,0.0,11.0,0.0,33698327.0
-4689328,2025-09-05,selecciones,Ukraine,Yukhym Konoplya,1054026,D,1,90,0,0,0,0.0,32.0,1.0,4330736.0
-4689328,2025-09-05,selecciones,Ukraine,Ilya Zabarnyi,1140003,D,1,90,1,0,0,0.35,34.0,1.0,51048301.0
-4689328,2025-09-05,selecciones,Ukraine,Mykola Matviyenko,656667,D,1,90,0,0,0,0.0,36.0,1.0,21834671.0
-4689328,2025-09-05,selecciones,Ukraine,Oleksandr Zinchenko,623621,M,1,87,0,0,0,0.0,38.0,2.0,17061380.0
-4689328,2025-09-05,selecciones,Ukraine,Oleksandr Zubkov,655636,F,1,76,0,0,0,0.0,71.0,3.0,6873603.0
-4689328,2025-09-05,selecciones,Ukraine,Ivan Kaliuzhnyi,1178609,M,1,90,1,0,0,0.3,73.0,2.0,1513421.0
-4689328,2025-09-05,selecciones,Ukraine,Georgiy Sudakov,1192398,M,1,83,1,1,0,0.04,75.0,2.0,17921732.0
-4689328,2025-09-05,selecciones,Ukraine,Yehor Yarmoliuk,1157236,M,1,83,1,0,0,0.04,77.0,2.0,21241224.0
-4689328,2025-09-05,selecciones,Ukraine,Oleksiy Hutsuliak,620553,F,1,90,1,0,0,0.1,79.0,3.0,1722255.0
-4689328,2025-09-05,selecciones,Ukraine,Artem Dovbyk,655696,F,1,76,2,1,0,0.16,115.0,3.0,32351932.0
-4689328,2025-09-05,selecciones,Ukraine,Oleksandr Nazarenko,975983,F,0,14,0,0,0,0.0,,3.0,831619.0
-4689328,2025-09-05,selecciones,Ukraine,Vladyslav Vanat,1231648,F,0,14,1,1,0,0.39,,3.0,16189777.0
-4689328,2025-09-05,selecciones,Ukraine,Artem Bondarenko,1116325,M,0,8,0,0,0,0.0,,2.0,11279432.0
-4689328,2025-09-05,selecciones,Ukraine,Oleg Ocheretko,1192419,M,0,8,0,0,0,0.0,,2.0,1258946.0
-4689328,2025-09-05,selecciones,Ukraine,Nazar Voloshyn,1395882,F,0,3,0,0,0,0.0,,3.0,4492902.0
 4689371,2025-09-05,selecciones,Faroe Islands,Mattias Lamhauge,1067673,G,1,90,0,0,0,0.0,11.0,0.0,336086.0
 4689371,2025-09-05,selecciones,Faroe Islands,Odmar Færø,138124,D,1,90,0,0,0,0.0,33.0,1.0,50000.0
 4689371,2025-09-05,selecciones,Faroe Islands,Gunnar Vatnhamar,551281,D,1,90,1,0,0,0.05,35.0,1.0,50000.0
@@ -2043,20 +1996,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689288,2025-10-13,selecciones,Kosovo,Lindon Emerllahu,1379459,M,0,19,0,0,0,0.0,,2.0,1127840.0
 4689288,2025-10-13,selecciones,Kosovo,Edon Zhegrova,862616,F,0,19,0,0,0,0.0,,3.0,25157496.0
 4689288,2025-10-13,selecciones,Kosovo,Albion Rrahmani,1379468,F,0,1,0,0,0,0.0,,3.0,5888182.0
-4689255,2025-10-13,selecciones,Northern Ireland,Bailey Peacock-Farrell,698500,G,1,90,0,0,0,0.0,11.0,0.0,803867.0
-4689255,2025-10-13,selecciones,Northern Ireland,Trai Hume,1067763,D,1,90,1,0,0,0.02,33.0,1.0,18209892.0
-4689255,2025-10-13,selecciones,Northern Ireland,Daniel Ballard,974268,D,1,90,0,0,0,0.0,35.0,1.0,10880388.0
-4689255,2025-10-13,selecciones,Northern Ireland,Patrick McNair,575780,D,1,75,0,0,0,0.0,37.0,1.0,1787448.0
-4689255,2025-10-13,selecciones,Northern Ireland,Brodie Spencer,1367702,D,1,90,1,1,0,0.02,51.0,1.0,1101387.0
-4689255,2025-10-13,selecciones,Northern Ireland,Justin Devenny,1336751,M,1,90,1,0,0,0.02,59.0,2.0,8895386.0
-4689255,2025-10-13,selecciones,Northern Ireland,Ethan Galbraith,1077926,M,1,90,2,1,0,0.09,72.0,2.0,1109721.0
-4689255,2025-10-13,selecciones,Northern Ireland,Alistair McCann,928440,M,1,75,1,0,0,0.02,74.0,2.0,1931740.0
-4689255,2025-10-13,selecciones,Northern Ireland,Shea Charles,1281452,M,1,90,1,0,0,0.1,76.0,2.0,16271355.0
-4689255,2025-10-13,selecciones,Northern Ireland,Isaac Price,1246270,M,1,90,2,0,0,0.05,78.0,2.0,1617155.0
-4689255,2025-10-13,selecciones,Northern Ireland,Jamie Reid,406928,F,1,45,1,0,0,0.11,115.0,3.0,340817.0
-4689255,2025-10-13,selecciones,Northern Ireland,Josh Magennis,180137,F,0,45,1,0,0,0.07,,3.0,336732.0
-4689255,2025-10-13,selecciones,Northern Ireland,Callum Marshall,1327325,F,0,15,1,1,0,0.11,,3.0,2181415.0
-4689255,2025-10-13,selecciones,Northern Ireland,Paul Smyth,712737,F,0,15,0,0,0,0.0,,3.0,622674.0
 4689256,2025-10-13,selecciones,Slovakia,Martin Dubravka,72241,G,1,90,0,0,0,0.0,11.0,0.0,962744.0
 4689256,2025-10-13,selecciones,Slovakia,Norbert Gyömbér,291655,D,1,90,0,0,0,0.0,32.0,1.0,405746.0
 4689256,2025-10-13,selecciones,Slovakia,Milan Skriniar,309328,D,1,90,0,0,0,0.0,34.0,1.0,15037986.0
@@ -2152,22 +2091,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4341299,2025-10-14,selecciones,Congo,Gedeon Nongo,1792296,M,0,18,0,0,0,0.0,,2.0,
 4341299,2025-10-14,selecciones,Congo,Ismael Ankobo,792247,F,0,18,0,0,0,0.0,,3.0,
 4341299,2025-10-14,selecciones,Congo,Ceti Taty,1727936,D,0,2,0,0,0,0.0,,1.0,
-4689490,2025-10-14,selecciones,Italy,Gianluigi Donnarumma,618878,G,1,90,0,0,0,0.0,11.0,0.0,50071744.0
-4689490,2025-10-14,selecciones,Italy,Giovanni Di Lorenzo,414906,D,1,90,0,0,0,0.0,33.0,1.0,14524256.0
-4689490,2025-10-14,selecciones,Italy,Gianluca Mancini,588687,D,1,90,2,1,1,0.41,35.0,1.0,17756193.0
-4689490,2025-10-14,selecciones,Italy,Riccardo Calafiori,1105912,D,1,90,1,1,0,0.08,37.0,1.0,49269568.0
-4689490,2025-10-14,selecciones,Italy,Andrea Cambiaso,1078846,M,1,85,1,0,0,0.04,71.0,2.0,38834152.0
-4689490,2025-10-14,selecciones,Italy,Nicolo Barella,541820,M,1,90,1,0,0,0.05,73.0,2.0,70992650.0
-4689490,2025-10-14,selecciones,Italy,Manuel Locatelli,624166,M,1,85,0,0,0,0.0,75.0,2.0,32733885.0
-4689490,2025-10-14,selecciones,Italy,Sandro Tonali,867414,M,1,89,3,1,0,0.06,77.0,2.0,64995353.0
-4689490,2025-10-14,selecciones,Italy,Federico Dimarco,605224,M,1,90,1,0,0,0.04,79.0,2.0,45229074.0
-4689490,2025-10-14,selecciones,Italy,Mateo Retegui,905546,F,1,89,5,2,2,1.11,104.0,3.0,29603587.0
-4689490,2025-10-14,selecciones,Italy,Giacomo Raspadori,951743,F,1,45,1,0,0,0.04,106.0,3.0,25052763.0
-4689490,2025-10-14,selecciones,Italy,Francesco Pio Esposito,1367618,F,0,45,1,1,0,0.3,,3.0,27223713.0
-4689490,2025-10-14,selecciones,Italy,Leonardo Spinazzola,215242,D,0,5,0,0,0,0.0,,1.0,2066308.0
-4689490,2025-10-14,selecciones,Italy,Bryan Cristante,299799,M,0,5,0,0,0,0.0,,2.0,16700000.0
-4689490,2025-10-14,selecciones,Italy,Nicolo Cambiaghi,1044029,F,0,1,0,0,0,0.0,,3.0,10095664.0
-4689490,2025-10-14,selecciones,Italy,Roberto Piccoli,1017401,F,0,1,0,0,0,0.0,,3.0,14383203.0
 4689490,2025-10-14,selecciones,Israel,Omri Glazer,766812,G,1,90,0,0,0,0.0,11.0,0.0,1760237.0
 4689490,2025-10-14,selecciones,Israel,Eliazer Dasa,451209,D,1,89,0,0,0,0.0,32.0,1.0,640372.0
 4689490,2025-10-14,selecciones,Israel,Or Blorian,1091999,D,1,90,0,0,0,0.0,34.0,1.0,371939.0
@@ -2263,21 +2186,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689357,2025-10-14,selecciones,Armenia,Artur Miranyan,546185,F,0,19,0,0,0,0.0,,3.0,227404.0
 4689357,2025-10-14,selecciones,Armenia,Edgar Grigoryan,1190510,D,0,18,0,0,0,0.0,,1.0,50000.0
 4689357,2025-10-14,selecciones,Armenia,Vahan Bichakhchyan,765236,F,0,9,0,0,0,0.0,,3.0,698078.0
-4689358,2025-10-14,selecciones,Hungary,Balazs Toth,861001,G,1,90,0,0,0,0.0,11.0,0.0,551383.0
-4689358,2025-10-14,selecciones,Hungary,Loic Nego,179873,D,1,90,0,0,0,0.0,32.0,1.0,476470.0
-4689358,2025-10-14,selecciones,Hungary,Willi Orban,278856,D,1,90,0,0,0,0.0,34.0,1.0,7967535.0
-4689358,2025-10-14,selecciones,Hungary,Attila Szalai,749648,D,1,90,3,2,1,0.73,36.0,1.0,1141339.0
-4689358,2025-10-14,selecciones,Hungary,Milos Kerkez,1195281,D,1,79,0,0,0,0.0,38.0,1.0,63947408.0
-4689358,2025-10-14,selecciones,Hungary,András Schäfer,836726,M,1,38,0,0,0,0.0,73.0,2.0,2374706.0
-4689358,2025-10-14,selecciones,Hungary,Callum Styles,748856,D,1,79,0,0,0,0.0,75.0,1.0,2138691.0
-4689358,2025-10-14,selecciones,Hungary,Dominik Szoboszlai,846005,M,1,90,4,3,1,0.53,77.0,2.0,77800069.0
-4689358,2025-10-14,selecciones,Hungary,Bendeguz Bolla,888904,D,1,58,2,0,0,0.14,103.0,1.0,1842471.0
-4689358,2025-10-14,selecciones,Hungary,Barnabas Varga,796504,F,1,90,2,0,0,0.22,105.0,3.0,1630166.0
-4689358,2025-10-14,selecciones,Hungary,Roland Sallai,583601,D,1,90,6,2,0,0.27,107.0,1.0,10635522.0
-4689358,2025-10-14,selecciones,Hungary,Alex Toth,1449690,M,0,52,0,0,0,0.0,,2.0,2606582.0
-4689358,2025-10-14,selecciones,Hungary,Daniel Lukacs,801344,F,0,32,0,0,0,0.0,,3.0,365309.0
-4689358,2025-10-14,selecciones,Hungary,Marton Dardai,1153342,D,0,11,0,0,0,0.0,,1.0,2182566.0
-4689358,2025-10-14,selecciones,Hungary,Milan Vitalis,1197823,M,0,11,0,0,0,0.0,,2.0,775073.0
 4877426,2025-10-14,selecciones,Qatar,Mahmud Abunada,1213141,G,1,90,0,0,0,0.0,11.0,0.0,364665.0
 4877426,2025-10-14,selecciones,Qatar,Ayoub Al Oui,1432180,D,1,71,1,0,0,0.0,32.0,1.0,
 4877426,2025-10-14,selecciones,Qatar,Pedro Miguel,734637,D,1,90,1,1,1,0.0,34.0,1.0,
@@ -5382,23 +5290,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5067291,2026-03-26,selecciones,Wales,Liam Cullen,872996,M,0,64,1,0,0,0.17,,2.0,2221003.0
 5067291,2026-03-26,selecciones,Wales,Mark Harris,819872,F,0,46,1,0,0,0.09,,3.0,689700.0
 5067291,2026-03-26,selecciones,Wales,Sorba Thomas,812982,F,0,36,1,0,0,0.03,,3.0,4578232.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Nikola Vasilj,466867,G,1,90,0,0,0,0.0,11.0,0.0,2314312.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Amar Dedic,958010,D,1,112,2,0,0,0.07,32.0,1.0,18465235.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Nikola Katic,725655,D,1,120,2,1,0,0.03,34.0,1.0,1266255.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Tarik Muharemovic,1250485,D,1,90,0,0,0,0.0,36.0,1.0,12206122.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Sead Kolasinac,304345,D,1,62,0,0,0,0.0,38.0,1.0,3271457.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Esmir Bajraktarevic,1346860,F,1,120,1,0,0,0.14,72.0,3.0,4495959.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Ivan Sunjic,541551,M,1,78,0,0,0,0.0,74.0,2.0,770923.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Benjamin Tahirovic,1415104,M,1,61,0,0,0,0.0,76.0,2.0,3888456.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Amar Memic,1300385,M,1,74,0,0,0,0.0,78.0,2.0,2067424.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Edin Dzeko,15403,F,1,90,1,1,1,0.26,104.0,3.0,1087053.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Ermedin Demirovic,840241,F,1,120,4,2,0,0.48,106.0,3.0,21993026.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Ivan Basic,1179875,M,0,58,1,0,0,0.04,,2.0,820663.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Kerim Alajbegovic,1684401,F,0,58,3,1,0,0.08,,3.0,10343925.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Dzenis Burnic,660148,M,0,16,0,0,0,0.0,,2.0,577469.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Haris Tabakovic,388903,F,0,12,0,0,0,0.0,,3.0,1736379.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Amir Hadziahmetovic,639558,M,0,1,0,0,0,0.0,,2.0,2391884.0
-5067291,2026-03-26,selecciones,Bosnia-Herzegovina,Armin Gigovic,1057426,M,0,1,0,0,0,0.0,,2.0,3942620.0
 5067288,2026-03-26,selecciones,Ukraine,Anatoliy Trubin,1022350,G,1,90,0,0,0,0.0,11.0,0.0,33482694.0
 5067288,2026-03-26,selecciones,Ukraine,Oleksandr Tymchyk,792674,D,1,90,1,0,0,0.02,32.0,1.0,3585222.0
 5067288,2026-03-26,selecciones,Ukraine,Ilya Zabarnyi,1140003,D,1,90,0,0,0,0.0,34.0,1.0,45214572.0
@@ -5464,20 +5355,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5067287,2026-03-26,selecciones,Northern Ireland,Paul Smyth,712737,M,0,22,0,0,0,0.0,,2.0,581708.0
 5067287,2026-03-26,selecciones,Northern Ireland,Jamie Reid,406928,F,0,11,1,0,0,0.1,,3.0,340817.0
 5067287,2026-03-26,selecciones,Northern Ireland,Josh Magennis,180137,F,0,11,0,0,0,0.0,,3.0,253103.0
-5067289,2026-03-26,selecciones,Türkiye,Ugurcan Çakir,603669,G,1,90,0,0,0,0.0,11.0,0.0,15617660.0
-5067289,2026-03-26,selecciones,Türkiye,Mert Müldür,904098,D,1,90,0,0,0,0.0,32.0,1.0,5367310.0
-5067289,2026-03-26,selecciones,Türkiye,Samet Akaydin,424380,D,1,90,0,0,0,0.0,34.0,1.0,665899.0
-5067289,2026-03-26,selecciones,Türkiye,Abdülkerim Bardakci,291399,D,1,90,1,0,0,0.02,36.0,1.0,5003079.0
-5067289,2026-03-26,selecciones,Türkiye,Ferdi Kadioglu,774448,D,1,90,2,1,1,0.83,38.0,1.0,28202558.0
-5067289,2026-03-26,selecciones,Türkiye,Ismail Yüksek,1183589,M,1,90,2,0,0,0.04,64.0,2.0,11053257.0
-5067289,2026-03-26,selecciones,Türkiye,Hakan Çalhanoglu,304733,M,1,89,6,0,0,0.18,66.0,2.0,14376714.0
-5067289,2026-03-26,selecciones,Türkiye,Baris Alper Yilmaz,890232,F,1,78,0,0,0,0.0,83.0,3.0,20845800.0
-5067289,2026-03-26,selecciones,Türkiye,Arda Güler,1253890,M,1,89,4,1,0,0.29,85.0,2.0,71285523.0
-5067289,2026-03-26,selecciones,Türkiye,Kenan Yildiz,1412132,M,1,90,1,0,0,0.04,87.0,2.0,67977255.0
-5067289,2026-03-26,selecciones,Türkiye,Kerem Aktürkoglu,1117570,F,1,90,0,0,0,0.0,115.0,3.0,22395083.0
-5067289,2026-03-26,selecciones,Türkiye,Orkun Kökcü,935409,M,0,12,0,0,0,0.0,,2.0,32779297.0
-5067289,2026-03-26,selecciones,Türkiye,Ozan Kabak,845990,D,0,1,0,0,0,0.0,,1.0,2301356.0
-5067289,2026-03-26,selecciones,Türkiye,Irfan Kahveci,316544,F,0,1,0,0,0,0.0,,3.0,2337201.0
 5067289,2026-03-26,selecciones,Romania,Ionut Radu,681213,G,1,90,0,0,0,0.0,11.0,0.0,5113461.0
 5067289,2026-03-26,selecciones,Romania,Andrei Ratiu,970578,D,1,90,1,0,0,0.03,32.0,1.0,13528238.0
 5067289,2026-03-26,selecciones,Romania,Radu Dragusin,1203661,D,1,90,0,0,0,0.0,34.0,1.0,26273706.0
@@ -6473,21 +6350,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5067302,2026-03-31,selecciones,Denmark,Anders Dreyer,641344,F,0,4,0,0,0,0.0,,3.0,11355113.0
 5067302,2026-03-31,selecciones,Denmark,Kasper Waarts Høgh,934960,F,0,15,1,1,1,0.07,,3.0,10682681.0
 5067302,2026-03-31,selecciones,Denmark,Mathias Jensen,650616,M,0,1,0,0,0,0.0,,2.0,12370716.0
-5067300,2026-03-31,selecciones,Sweden,Kristoffer Nordfeldt,73462,G,1,90,0,0,0,0.0,11.0,0.0,207359.0
-5067300,2026-03-31,selecciones,Sweden,Gustaf Lagerbielke,919848,D,1,90,2,1,1,0.63,33.0,1.0,2362298.0
-5067300,2026-03-31,selecciones,Sweden,Carl Starfelt,497662,D,1,90,0,0,0,0.0,35.0,1.0,4727722.0
-5067300,2026-03-31,selecciones,Sweden,Victor Nilsson Lindelöf,258269,D,1,90,0,0,0,0.0,37.0,1.0,5475241.0
-5067300,2026-03-31,selecciones,Sweden,Daniel Svensson,1209228,M,1,90,1,0,0,0.08,62.0,2.0,25790934.0
-5067300,2026-03-31,selecciones,Sweden,Yasin Ayari,1168311,M,1,89,1,1,0,0.03,64.0,2.0,38975541.0
-5067300,2026-03-31,selecciones,Sweden,Jesper Karlström,322003,M,1,69,0,0,0,0.0,66.0,2.0,2307253.0
-5067300,2026-03-31,selecciones,Sweden,Gabriel Gudmundsson,744494,D,1,90,0,0,0,0.0,68.0,1.0,17024357.0
-5067300,2026-03-31,selecciones,Sweden,Anthony Elanga,1050166,F,1,69,1,1,1,0.13,84.0,3.0,46318121.0
-5067300,2026-03-31,selecciones,Sweden,Benjamin Nygren,931605,M,1,81,0,0,0,0.0,86.0,2.0,6512402.0
-5067300,2026-03-31,selecciones,Sweden,Viktor Gyökeres,664500,F,1,90,1,1,1,0.68,105.0,3.0,68365396.0
-5067300,2026-03-31,selecciones,Sweden,Besfort Zeneli,1338361,M,0,21,1,0,0,0.17,,2.0,4416678.0
-5067300,2026-03-31,selecciones,Sweden,Lucas Bergvall,1386775,M,0,21,1,1,0,0.07,,2.0,54943522.0
-5067300,2026-03-31,selecciones,Sweden,Gustav Lundgren,1268849,F,0,9,1,0,0,0.03,,3.0,1072699.0
-5067300,2026-03-31,selecciones,Sweden,Mattias Svanberg,647900,M,0,1,0,0,0,0.0,,2.0,12256581.0
 5067300,2026-03-31,selecciones,Poland,Kamil Grabara,760722,G,1,90,0,0,0,0.0,11.0,0.0,14080262.0
 5067300,2026-03-31,selecciones,Poland,Przemyslaw Wisniewski,934862,D,1,90,1,0,0,0.27,33.0,1.0,1553965.0
 5067300,2026-03-31,selecciones,Poland,Jan Bednarek,490868,D,1,90,0,0,0,0.0,35.0,1.0,7726205.0
@@ -8958,25 +8820,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5084645,2026-06-06,selecciones,Germany,Leon Goretzka,343748,M,0,10,0,0,0,0.0,,2.0,10844143.0
 5084645,2026-06-06,selecciones,Germany,Maximilian Beier,1047667,M,0,10,0,0,0,0.0,,2.0,42276937.0
 5084645,2026-06-06,selecciones,Germany,Nadiem Amiri,614449,M,0,10,1,0,0,0.0,,2.0,17103886.0
-5154126,2026-06-06,selecciones,Belgium,Thibaut Courtois,170323,G,1,90,0,0,0,0.0,11.0,0.0,11491499.0
-5154126,2026-06-06,selecciones,Belgium,Thomas Meunier,277771,D,1,80,1,0,0,0.0,32.0,1.0,1279444.0
-5154126,2026-06-06,selecciones,Belgium,Nathan Ngoy,1252070,D,1,90,2,2,0,0.0,34.0,1.0,12009259.0
-5154126,2026-06-06,selecciones,Belgium,Brandon Mechele,445873,D,1,90,3,1,0,0.0,36.0,1.0,2178122.0
-5154126,2026-06-06,selecciones,Belgium,Timothy Castagne,465750,D,1,73,0,0,0,0.0,38.0,1.0,11526536.0
-5154126,2026-06-06,selecciones,Belgium,Amadou Onana,1185748,M,1,66,1,0,0,0.0,64.0,2.0,51801133.0
-5154126,2026-06-06,selecciones,Belgium,Youri Tielemans,465960,M,1,74,2,0,0,0.0,66.0,2.0,39101697.0
-5154126,2026-06-06,selecciones,Belgium,Leandro Trossard,318615,F,1,74,4,3,1,0.0,83.0,3.0,17002183.0
-5154126,2026-06-06,selecciones,Belgium,Kevin De Bruyne,169200,M,1,80,4,3,1,0.0,85.0,2.0,11312839.0
-5154126,2026-06-06,selecciones,Belgium,Jérémy Doku,942368,F,1,74,1,0,0,0.0,87.0,3.0,78062081.0
-5154126,2026-06-06,selecciones,Belgium,Charles De Ketelaere,1095432,M,1,66,2,1,1,0.0,115.0,2.0,44021116.0
-5154126,2026-06-06,selecciones,Belgium,Hans Vanaken,203666,M,0,25,0,0,0,0.0,,2.0,4689065.0
-5154126,2026-06-06,selecciones,Belgium,Romelu Lukaku,181276,F,0,24,1,0,0,0.0,,3.0,10827994.0
-5154126,2026-06-06,selecciones,Belgium,Maxim De Cuyper,1134871,D,0,17,0,0,0,0.0,,1.0,24962504.0
-5154126,2026-06-06,selecciones,Belgium,Axel Witsel,39591,M,0,17,0,0,0,0.0,,2.0,1154326.0
-5154126,2026-06-06,selecciones,Belgium,Dodi Lukébakio,688876,F,0,16,3,1,1,0.0,,3.0,21788015.0
-5154126,2026-06-06,selecciones,Belgium,Matias Fernandez-Pardo,1444231,F,0,16,1,0,0,0.0,,3.0,26387643.0
-5154126,2026-06-06,selecciones,Belgium,Diego Moreira,1342754,M,0,10,1,0,0,0.0,,2.0,19996146.0
-5154126,2026-06-06,selecciones,Belgium,Nicolas Raskin,863869,M,0,10,1,1,1,0.0,,2.0,12226378.0
 5154126,2026-06-06,selecciones,Tunisia,Abdelmouhib Chamakh,1718458,G,1,90,0,0,0,0.0,11.0,0.0,554400.0
 5154126,2026-06-06,selecciones,Tunisia,Adem Arous,1797902,D,1,79,0,0,0,0.0,32.0,1.0,1574498.0
 5154126,2026-06-06,selecciones,Tunisia,Montassar Talbi,846392,D,1,90,1,0,0,0.0,34.0,1.0,6419313.0
@@ -10617,22 +10460,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4667785,2026-06-21,selecciones,Japan,Ayumu Seko,857120,D,0,12,0,0,0,0.0,,1.0,2539138.0
 4667785,2026-06-21,selecciones,Japan,Yuito Suzuki,1134467,M,0,12,0,0,0,0.0,,2.0,13707399.0
 4667785,2026-06-21,selecciones,Japan,Keisuke Goto,1436730,F,0,6,0,0,0,0.0,,3.0,3310886.0
-4667807,2026-06-22,selecciones,France,Mike Maignan,466439,G,1,90,0,0,0,0.0,11.0,0.0,22221313.0
-4667807,2026-06-22,selecciones,France,Jules Koundé,705450,D,1,83,0,0,0,0.0,32.0,1.0,63865873.0
-4667807,2026-06-22,selecciones,France,Dayot Upamecano,658554,D,1,90,0,0,0,0.0,34.0,1.0,38918284.0
-4667807,2026-06-22,selecciones,France,William Saliba,955406,D,1,90,1,0,0,0.05,36.0,1.0,97359035.0
-4667807,2026-06-22,selecciones,France,Lucas Digne,210111,D,1,90,0,0,0,0.0,38.0,1.0,9928576.0
-4667807,2026-06-22,selecciones,France,Kouadio Koné,1016132,M,1,90,1,0,0,0.03,64.0,2.0,55020682.0
-4667807,2026-06-22,selecciones,France,Adrien Rabiot,352879,M,1,90,1,0,0,0.57,66.0,2.0,19552343.0
-4667807,2026-06-22,selecciones,France,Ousmane Dembélé,692984,F,1,68,4,2,1,0.64,83.0,3.0,95808627.0
-4667807,2026-06-22,selecciones,France,Michael Olise,1029063,F,1,68,3,0,0,0.16,85.0,3.0,170630650.0
-4667807,2026-06-22,selecciones,France,Bradley Barcola,1297165,F,1,83,1,0,0,0.02,87.0,3.0,70662905.0
-4667807,2026-06-22,selecciones,France,Kylian Mbappé,701154,F,1,89,8,3,2,1.23,115.0,3.0,112913112.0
-4667807,2026-06-22,selecciones,France,Rayan Cherki,1104053,M,0,22,0,0,0,0.0,,2.0,70659174.0
-4667807,2026-06-22,selecciones,France,Désiré Doué,1339208,F,0,22,0,0,0,0.0,,3.0,99692299.0
-4667807,2026-06-22,selecciones,France,Malo Gusto,1197250,D,0,7,0,0,0,0.0,,1.0,45917927.0
-4667807,2026-06-22,selecciones,France,Maghnes Akliouche,1305618,F,0,7,0,0,0,0.0,,3.0,54409713.0
-4667807,2026-06-22,selecciones,France,Marcus Thuram,621562,F,0,1,0,0,0,0.0,,3.0,54224686.0
 4667807,2026-06-22,selecciones,Iraq,Ahmed Basil Fadhil,1132570,G,1,90,0,0,0,0.0,11.0,0.0,
 4667807,2026-06-22,selecciones,Iraq,Hussein Ali,1092563,D,1,90,0,0,0,0.0,32.0,1.0,384357.0
 4667807,2026-06-22,selecciones,Iraq,Zaid Tahseen,1420369,D,1,60,0,0,0,0.0,34.0,1.0,197397.0
@@ -14460,22 +14287,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115879,2026-07-24,argentina,Gimnasia Mendoza,Nahuel Barboza,1437343,M,0,8,0,0,0,0.0,,2.0,325361.0
 5115879,2026-07-24,argentina,Gimnasia Mendoza,Valentino Simoni,1752409,F,0,8,1,1,0,0.56,,3.0,518518.0
 5115879,2026-07-24,argentina,Gimnasia Mendoza,Lautaro Carrera,1616638,M,0,7,0,0,0,0.0,,2.0,416499.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Alan Aguerre,246172,G,1,24,0,0,0,0.0,11.0,0.0,445617.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Santiago Moyano,856317,D,1,70,0,0,0,0.0,32.0,1.0,497760.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Alejandro Maciel,907957,D,1,90,0,0,0,0.0,34.0,1.0,456019.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Facundo Mansilla Zahir,1205837,D,1,90,0,0,0,0.0,36.0,1.0,351324.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Leonardo Marchi,1199876,D,1,90,0,0,0,0.0,38.0,1.0,344785.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Fernando Martínez,1243610,M,1,70,0,0,0,0.0,72.0,2.0,373533.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Matías Vera,629749,M,1,78,1,0,0,0.05,74.0,2.0,363878.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Tiago Cravero,1516002,M,1,90,0,0,0,0.0,76.0,2.0,365191.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Diego Barrera,1435861,M,1,90,0,0,0,0.0,78.0,2.0,931303.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Ezequiel Naya,1276035,F,1,78,2,1,0,0.22,104.0,3.0,510155.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Michael Santos,675102,F,1,90,5,2,0,1.16,106.0,3.0,379107.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Javier Vallejos,1513012,G,0,66,0,0,0,0.0,,0.0,356266.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,José Gómez,1312178,D,0,20,0,0,0,0.0,,1.0,
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Alan Daian Laprida,1847386,F,0,20,0,0,0,0.0,,3.0,
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Lucas González,1088057,M,0,12,0,0,0,0.0,,2.0,957936.0
-5115879,2026-07-24,argentina,Central Córdoba de Santiago,Martín Cuitiño,2099184,F,0,12,0,0,0,0.0,,3.0,
 1000011157,2026-07-24,bol_division,Aurora,Rubén Cordano,832397,G,1,90,0,0,0,0.0,11.0,0.0,184829.0
 1000011157,2026-07-24,bol_division,Aurora,Leandro Barro,1710545,D,1,89,0,0,0,0.0,33.0,1.0,
 1000011157,2026-07-24,bol_division,Aurora,René Barbosa,1016306,D,1,90,1,0,0,0.0,35.0,1.0,
@@ -16058,22 +15869,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013173,2026-07-25,chi_primera,Deportes Limache,Gonzalo Sosa,805662,F,0,26,3,2,0,0.0,,3.0,243402.0
 1000013173,2026-07-25,chi_primera,Deportes Limache,Carlos Morales,1714719,D,0,7,0,0,0,0.0,,1.0,
 1000013173,2026-07-25,chi_primera,Deportes Limache,Marcos Arturia,988065,F,0,1,0,0,0,0.0,,3.0,232020.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Ignacio Arce,306529,G,1,90,0,0,0,0.0,11.0,0.0,902008.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Facundo Miño,1380869,D,1,86,0,0,0,0.0,33.0,1.0,895257.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Cristian Paz,615905,D,1,90,0,0,0,0.0,35.0,1.0,698153.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Carlos Quintana,113615,D,1,90,1,0,0,0.04,37.0,1.0,382067.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Mariano Bracamonte,1441888,D,1,90,0,0,0,0.0,51.0,1.0,329811.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Nicolás Sansotre,752875,D,1,90,0,0,0,0.0,59.0,1.0,626791.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Braian Sánchez,848187,M,1,69,1,1,1,0.43,72.0,2.0,88564.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Milton Céliz,394125,M,1,90,1,1,0,0.03,74.0,2.0,233047.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Pablo Monje,1605853,M,1,86,0,0,0,0.0,76.0,2.0,518438.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Antony Alonso,1021588,M,1,61,1,1,1,0.7,78.0,2.0,792838.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Alexander Díaz,962674,F,1,61,1,1,1,0.11,115.0,3.0,918922.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Yonatan Goitía,902983,D,0,29,1,0,0,0.07,,1.0,413110.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Nicolás Benegas,742643,F,0,29,0,0,0,0.0,,3.0,393229.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Tomás González,1347380,F,0,21,0,0,0,0.0,,3.0,438694.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Ignacio Gariglio,1201809,D,0,4,0,0,0,0.0,,1.0,170995.0
-5115876,2026-07-26,argentina,Deportivo Riestra,Nicólas Watson,1432908,M,0,4,0,0,0,0.0,,2.0,382890.0
 5115876,2026-07-26,argentina,Boca Juniors,Álvaro Montero,498457,G,1,90,0,0,0,0.0,11.0,0.0,1793408.0
 5115876,2026-07-26,argentina,Boca Juniors,Malcom Braida,938003,D,1,90,0,0,0,0.0,32.0,1.0,1321928.0
 5115876,2026-07-26,argentina,Boca Juniors,Lautaro Di Lollo,1385954,D,1,90,0,0,0,0.0,34.0,1.0,7626443.0
@@ -19501,22 +19296,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017363,2026-08-01,par_division,Cerro Porteño,Ariel Gamarra,1613475,M,0,36,1,0,0,0.0,,2.0,668554.0
 1000017363,2026-08-01,par_division,Cerro Porteño,Carlos Franco,1840869,F,0,25,1,1,0,0.0,,3.0,1438041.0
 1000017363,2026-08-01,par_division,Cerro Porteño,Cesar Bobadilla,1940091,M,0,13,0,0,0,0.0,,2.0,1011362.0
-1000017363,2026-08-01,par_division,Luqueño,Nicolás Campisi,561036,G,1,90,0,0,0,0.0,11.0,0.0,103680.0
-1000017363,2026-08-01,par_division,Luqueño,Jonathan Diaz,0,D,1,90,0,0,0,0.0,33.0,1.0,
-1000017363,2026-08-01,par_division,Luqueño,Adrián Brizuela,1483506,D,1,90,0,0,0,0.0,35.0,1.0,463038.0
-1000017363,2026-08-01,par_division,Luqueño,Axel Balbuena,1817619,D,1,90,0,0,0,0.0,37.0,1.0,559145.0
-1000017363,2026-08-01,par_division,Luqueño,Lucas Morales,1268485,D,1,90,1,1,0,0.0,51.0,1.0,691700.0
-1000017363,2026-08-01,par_division,Luqueño,Santiago Ocampos,1241951,D,1,46,0,0,0,0.0,59.0,1.0,335724.0
-1000017363,2026-08-01,par_division,Luqueño,Lautaro Comas,684722,M,1,62,0,0,0,0.0,72.0,2.0,275537.0
-1000017363,2026-08-01,par_division,Luqueño,Aldo Maíz,922006,M,1,90,3,0,0,0.0,74.0,2.0,341644.0
-1000017363,2026-08-01,par_division,Luqueño,Samuel Beltrán,1662132,M,1,46,0,0,0,0.0,76.0,2.0,
-1000017363,2026-08-01,par_division,Luqueño,Óscar Ruiz,274394,M,1,77,0,0,0,0.0,78.0,2.0,279031.0
-1000017363,2026-08-01,par_division,Luqueño,Walter González,618713,F,1,62,2,0,0,0.0,115.0,3.0,307461.0
-1000017363,2026-08-01,par_division,Luqueño,Giovanni Bogado,888641,M,0,44,0,0,0,0.0,,2.0,397968.0
-1000017363,2026-08-01,par_division,Luqueño,Iván Maggi,1092984,F,0,44,0,0,0,0.0,,3.0,425541.0
-1000017363,2026-08-01,par_division,Luqueño,Marcelo Ojeda,1910581,M,0,28,1,1,0,0.0,,2.0,
-1000017363,2026-08-01,par_division,Luqueño,Marcelo Pérez,1042570,F,0,28,0,0,0,0.0,,3.0,439242.0
-1000017363,2026-08-01,par_division,Luqueño,Tomás Muro,1337212,M,0,13,1,0,0,0.0,,2.0,535917.0
 5115907,2026-08-01,argentina,Estudiantes,Fernando Muslera,56829,G,1,90,0,0,0,0.0,11.0,0.0,652585.0
 5115907,2026-08-01,argentina,Estudiantes,Eric Meza,1201768,D,1,90,1,1,0,0.22,32.0,1.0,1695270.0
 5115907,2026-08-01,argentina,Estudiantes,Santiago Núñez,1315102,D,1,90,0,0,0,0.0,34.0,1.0,1569929.0
@@ -23500,22 +23279,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000012448,2026-08-02,bra_copa,Remo,Bill,940855,F,0,13,0,0,0,0.0,,3.0,
 1000012448,2026-08-02,bra_copa,Remo,Edson Fernando,1069712,M,0,7,0,0,0,0.0,,2.0,332815.0
 1000012448,2026-08-02,bra_copa,Remo,Matheus Alexandre,1247716,D,0,1,0,0,0,0.0,,1.0,858704.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Matías Dufour,1436132,G,1,90,0,0,0,0.0,11.0,0.0,563260.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,César Benítez,204018,D,1,90,1,0,0,0.0,32.0,1.0,278225.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Agustín Da Silveira,1258853,D,1,90,0,0,0,0.0,34.0,1.0,423359.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Bruno Valdez,315632,D,1,90,0,0,0,0.0,36.0,1.0,264799.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Sergio Mendoza,559426,D,1,90,0,0,0,0.0,38.0,1.0,260448.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Ariel Gauto,1613311,M,1,90,1,1,0,0.0,65.0,2.0,
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Tomás Rayer,1392213,F,1,60,1,0,0,0.0,82.0,3.0,444677.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Gustavo Viera,478236,M,1,71,0,0,0,0.0,84.0,2.0,248656.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Luis De la Cruz,253848,M,1,60,0,0,0,0.0,86.0,2.0,
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Tobías Morinigo,1367338,F,1,71,3,0,0,0.0,88.0,3.0,1042069.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Clementino González,1019892,F,1,83,2,2,1,0.0,115.0,3.0,365298.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Luis Abreu,1736983,M,0,30,2,2,2,0.0,,2.0,496128.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Nicolás Maná,434405,F,0,30,1,1,0,0.0,,3.0,285133.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Jorge Marcelino,1754228,M,0,19,0,0,0,0.0,,2.0,365380.0
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Alan Cano,1503341,M,0,19,0,0,0,0.0,,2.0,
-1000017364,2026-08-03,par_division,Sportivo Trinidense,Oscar Giménez,721250,F,0,7,0,0,0,0.0,,3.0,281664.0
 5793903,2026-08-03,sco_premiership,Celtic,Viljami Sinisalo,1185782,G,1,90,0,0,0,0.0,11.0,0.0,1020477.0
 5793903,2026-08-03,sco_premiership,Celtic,Alistair Johnston,1055426,D,1,90,0,0,0,0.0,32.0,1.0,5987181.0
 5793903,2026-08-03,sco_premiership,Celtic,Cameron Carter-Vickers,643589,D,1,90,1,0,0,0.03,34.0,1.0,9806713.0
@@ -135785,35 +135548,343 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017426,2026-10-05,par_division,Libertad,Joaquín Bogarín,1787416,M,0,26,0,0,0,0.0,,2.0,1222546.0
 1000017426,2026-10-05,par_division,Libertad,Hugo Fernández,1037294,M,0,7,0,0,0,0.0,,2.0,372871.0
 1000017426,2026-10-05,par_division,Libertad,Christian Martínez,1459740,M,0,1,0,0,0,0.0,,2.0,
-5181927,2026-10-05,selecciones,Cyprus,Fabiano,124127,G,1,90,0,0,0,0.0,11,0,102723
-5181927,2026-10-05,selecciones,Cyprus,Leonidas Konomis,1602136,D,1,90,1,0,0,0.02,32,1,
-5181927,2026-10-05,selecciones,Cyprus,Hector Kyprianou,1076138,M,1,90,0,0,0,0.0,34,2,1356751
-5181927,2026-10-05,selecciones,Cyprus,Nikolas Panayiotou,988798,D,1,90,0,0,0,0.0,36,1,637317
-5181927,2026-10-05,selecciones,Cyprus,Giorgios Malekkides,680791,D,1,90,1,0,0,0.21,38,1,219467
-5181927,2026-10-05,selecciones,Cyprus,Grigoris Kastanos,625797,M,1,89,1,0,0,0.02,64,2,654218
-5181927,2026-10-05,selecciones,Cyprus,Kostakis Artymatas,398530,D,1,67,1,0,0,0.02,66,1,232378
-5181927,2026-10-05,selecciones,Cyprus,Marcus Edwards,637744,F,1,90,5,2,1,0.42,83,3,6009246
-5181927,2026-10-05,selecciones,Cyprus,Loizos Loizou,1050203,F,1,58,2,2,0,0.11,85,3,2048236
-5181927,2026-10-05,selecciones,Cyprus,Andronikos Kakoullis,938543,F,1,58,2,0,0,0.06,87,3,650497
-5181927,2026-10-05,selecciones,Cyprus,Ioannis Pittas,653963,F,1,67,3,0,0,0.43,115,3,1602297
-5181927,2026-10-05,selecciones,Cyprus,Ioannis Kosti,750828,M,0,32,3,3,1,0.77,,2,802486
-5181927,2026-10-05,selecciones,Cyprus,Stavros Georgiou,1248035,F,0,32,0,0,0,0.0,,3,437168
-5181927,2026-10-05,selecciones,Cyprus,Charalampos Kyriakou,480909,M,0,23,0,0,0,0.0,,2,361489
-5181927,2026-10-05,selecciones,Cyprus,Angelos Neofytou,1413301,F,0,23,0,0,0,0.0,,3,333918
-5181927,2026-10-05,selecciones,Cyprus,Nicholas Tsaroulla,1206282,M,0,1,0,0,0,0.0,,2,
-5181927,2026-10-05,selecciones,Latvia,Rihards Matrevics,807745,G,1,90,0,0,0,0.0,11,0,84900
-5181927,2026-10-05,selecciones,Latvia,Deniss Meļņiks,1415282,D,1,90,0,0,0,0.0,33,1,156516
-5181927,2026-10-05,selecciones,Latvia,Oskars Vientiess,1388271,D,1,90,0,0,0,0.0,35,1,171573
-5181927,2026-10-05,selecciones,Latvia,Daniels Balodis,1032263,D,1,90,0,0,0,0.0,37,1,168401
-5181927,2026-10-05,selecciones,Latvia,Raivis Jurkovskis,632243,D,1,90,0,0,0,0.0,51,1,50000
-5181927,2026-10-05,selecciones,Latvia,Andrejs Cigaņiks,839642,D,1,90,2,0,0,0.04,59,1,126558
-5181927,2026-10-05,selecciones,Latvia,Eduards Dašķevičs,1295622,F,1,74,2,1,1,0.05,72,3,339278
-5181927,2026-10-05,selecciones,Latvia,Lūkass Vapne,1197667,M,1,45,1,0,0,0.02,74,2,340316
-5181927,2026-10-05,selecciones,Latvia,Dmitrijs Zelenkovs,1080582,D,1,88,1,0,0,0.01,76,1,238542
-5181927,2026-10-05,selecciones,Latvia,Markuss Strods,1690586,F,1,46,0,0,0,0.0,78,3,210749
-5181927,2026-10-05,selecciones,Latvia,Vladislavs Gutkovskis,310642,F,1,60,3,0,0,0.34,115,3,166260
-5181927,2026-10-05,selecciones,Latvia,Danila Patijčuks,1453220,M,0,45,1,0,0,0.06,,2,141185
-5181927,2026-10-05,selecciones,Latvia,Kristers Čudars,1073189,M,0,44,0,0,0,0.0,,2,58289
-5181927,2026-10-05,selecciones,Latvia,Roberts Uldriķis,690207,F,0,30,1,0,0,0.02,,3,359810
-5181927,2026-10-05,selecciones,Latvia,Albert Aleksanjan,1637865,F,0,16,1,0,0,0.2,,3,192245
-5181927,2026-10-05,selecciones,Latvia,Aleksejs Saveļjevs,841707,M,0,2,0,0,0,0.0,,2,103680
+5181927,2026-10-05,selecciones,Cyprus,Fabiano,124127,G,1,90,0,0,0,0.0,11.0,0.0,102723.0
+5181927,2026-10-05,selecciones,Cyprus,Leonidas Konomis,1602136,D,1,90,1,0,0,0.02,32.0,1.0,
+5181927,2026-10-05,selecciones,Cyprus,Hector Kyprianou,1076138,M,1,90,0,0,0,0.0,34.0,2.0,1356751.0
+5181927,2026-10-05,selecciones,Cyprus,Nikolas Panayiotou,988798,D,1,90,0,0,0,0.0,36.0,1.0,637317.0
+5181927,2026-10-05,selecciones,Cyprus,Giorgios Malekkides,680791,D,1,90,1,0,0,0.21,38.0,1.0,219467.0
+5181927,2026-10-05,selecciones,Cyprus,Grigoris Kastanos,625797,M,1,89,1,0,0,0.02,64.0,2.0,654218.0
+5181927,2026-10-05,selecciones,Cyprus,Kostakis Artymatas,398530,D,1,67,1,0,0,0.02,66.0,1.0,232378.0
+5181927,2026-10-05,selecciones,Cyprus,Marcus Edwards,637744,F,1,90,5,2,1,0.42,83.0,3.0,6009246.0
+5181927,2026-10-05,selecciones,Cyprus,Loizos Loizou,1050203,F,1,58,2,2,0,0.11,85.0,3.0,2048236.0
+5181927,2026-10-05,selecciones,Cyprus,Andronikos Kakoullis,938543,F,1,58,2,0,0,0.06,87.0,3.0,650497.0
+5181927,2026-10-05,selecciones,Cyprus,Ioannis Pittas,653963,F,1,67,3,0,0,0.43,115.0,3.0,1602297.0
+5181927,2026-10-05,selecciones,Cyprus,Ioannis Kosti,750828,M,0,32,3,3,1,0.77,,2.0,802486.0
+5181927,2026-10-05,selecciones,Cyprus,Stavros Georgiou,1248035,F,0,32,0,0,0,0.0,,3.0,437168.0
+5181927,2026-10-05,selecciones,Cyprus,Charalampos Kyriakou,480909,M,0,23,0,0,0,0.0,,2.0,361489.0
+5181927,2026-10-05,selecciones,Cyprus,Angelos Neofytou,1413301,F,0,23,0,0,0,0.0,,3.0,333918.0
+5181927,2026-10-05,selecciones,Cyprus,Nicholas Tsaroulla,1206282,M,0,1,0,0,0,0.0,,2.0,
+5181927,2026-10-05,selecciones,Latvia,Rihards Matrevics,807745,G,1,90,0,0,0,0.0,11.0,0.0,84900.0
+5181927,2026-10-05,selecciones,Latvia,Deniss Meļņiks,1415282,D,1,90,0,0,0,0.0,33.0,1.0,156516.0
+5181927,2026-10-05,selecciones,Latvia,Oskars Vientiess,1388271,D,1,90,0,0,0,0.0,35.0,1.0,171573.0
+5181927,2026-10-05,selecciones,Latvia,Daniels Balodis,1032263,D,1,90,0,0,0,0.0,37.0,1.0,168401.0
+5181927,2026-10-05,selecciones,Latvia,Raivis Jurkovskis,632243,D,1,90,0,0,0,0.0,51.0,1.0,50000.0
+5181927,2026-10-05,selecciones,Latvia,Andrejs Cigaņiks,839642,D,1,90,2,0,0,0.04,59.0,1.0,126558.0
+5181927,2026-10-05,selecciones,Latvia,Eduards Dašķevičs,1295622,F,1,74,2,1,1,0.05,72.0,3.0,339278.0
+5181927,2026-10-05,selecciones,Latvia,Lūkass Vapne,1197667,M,1,45,1,0,0,0.02,74.0,2.0,340316.0
+5181927,2026-10-05,selecciones,Latvia,Dmitrijs Zelenkovs,1080582,D,1,88,1,0,0,0.01,76.0,1.0,238542.0
+5181927,2026-10-05,selecciones,Latvia,Markuss Strods,1690586,F,1,46,0,0,0,0.0,78.0,3.0,210749.0
+5181927,2026-10-05,selecciones,Latvia,Vladislavs Gutkovskis,310642,F,1,60,3,0,0,0.34,115.0,3.0,166260.0
+5181927,2026-10-05,selecciones,Latvia,Danila Patijčuks,1453220,M,0,45,1,0,0,0.06,,2.0,141185.0
+5181927,2026-10-05,selecciones,Latvia,Kristers Čudars,1073189,M,0,44,0,0,0,0.0,,2.0,58289.0
+5181927,2026-10-05,selecciones,Latvia,Roberts Uldriķis,690207,F,0,30,1,0,0,0.02,,3.0,359810.0
+5181927,2026-10-05,selecciones,Latvia,Albert Aleksanjan,1637865,F,0,16,1,0,0,0.2,,3.0,192245.0
+5181927,2026-10-05,selecciones,Latvia,Aleksejs Saveļjevs,841707,M,0,2,0,0,0,0.0,,2.0,103680.0
+5991919,2026-10-05,selecciones,Guadeloupe,Davy Rouyard,1079541,G,1,90,0,0,0,0.0,11.0,0.0,149155.0
+5991919,2026-10-05,selecciones,Guadeloupe,Sulyvan Darase,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991919,2026-10-05,selecciones,Guadeloupe,Yonel Raddas,0,D,1,90,0,0,0,0.0,34.0,1.0,
+5991919,2026-10-05,selecciones,Guadeloupe,Kenjy Montantin,0,D,1,90,0,0,0,0.0,36.0,1.0,
+5991919,2026-10-05,selecciones,Guadeloupe,Fabien Geran,0,D,1,90,0,0,0,0.0,38.0,1.0,
+5991919,2026-10-05,selecciones,Guadeloupe,Mickaël Alphonse,465965,D,1,90,3,0,0,0.0,64.0,1.0,
+5991919,2026-10-05,selecciones,Guadeloupe,Kendy Giblaca,0,,1,90,0,0,0,0.0,66.0,,
+5991919,2026-10-05,selecciones,Guadeloupe,Mathis Citronnelle,0,,1,90,0,0,0,0.0,83.0,,
+5991919,2026-10-05,selecciones,Guadeloupe,Ange-Freddy Plumain,395116,M,1,75,1,0,0,0.0,85.0,2.0,250720.0
+5991919,2026-10-05,selecciones,Guadeloupe,Djamalee Boisne,2297207,F,1,90,5,0,0,0.0,87.0,3.0,
+5991919,2026-10-05,selecciones,Guadeloupe,Jonathan Gamby,0,,1,90,0,0,0,0.0,115.0,,
+5991919,2026-10-05,selecciones,Saint Lucia,Vino Barclette,1261460,G,1,90,0,0,0,0.0,11.0,0.0,
+5991919,2026-10-05,selecciones,Saint Lucia,Ajani Louis,1934542,D,1,90,0,0,0,0.0,32.0,1.0,
+5991919,2026-10-05,selecciones,Saint Lucia,Doneal Lionel,1934543,D,1,90,0,0,0,0.0,34.0,1.0,
+5991919,2026-10-05,selecciones,Saint Lucia,Terell Thomas,589126,D,1,90,0,0,0,0.0,36.0,1.0,103680.0
+5991919,2026-10-05,selecciones,Saint Lucia,Shaquan Nelson,1650457,D,1,90,0,0,0,0.0,38.0,1.0,
+5991919,2026-10-05,selecciones,Saint Lucia,Gregson President,1261492,F,1,90,0,0,0,0.0,64.0,3.0,
+5991919,2026-10-05,selecciones,Saint Lucia,Kurt Frederick,501173,M,1,90,1,1,0,0.0,66.0,2.0,
+5991919,2026-10-05,selecciones,Saint Lucia,Arkell Jude-Boyd,1424756,D,1,90,1,1,0,0.0,83.0,1.0,283100.0
+5991919,2026-10-05,selecciones,Saint Lucia,Caniggia Ginola Elva,560114,F,1,90,0,0,0,0.0,85.0,3.0,107770.0
+5991919,2026-10-05,selecciones,Saint Lucia,Donavan Phillip,1786169,F,1,90,2,1,0,0.0,87.0,3.0,316563.0
+5991919,2026-10-05,selecciones,Saint Lucia,Kegan Caull,1768907,F,1,83,2,1,1,0.0,115.0,3.0,
+1000019548,2026-10-05,argentina,Deportivo Riestra,Ignacio Arce,306529,G,1,90,0,0,0,0.0,11.0,0.0,792368.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Nicolás Sansotre,752875,D,1,90,0,0,0,0.0,32.0,1.0,669676.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Juan Cruz Randazzo,492640,D,1,90,0,0,0,0.0,34.0,1.0,274005.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Cristian Paz,615905,D,1,90,0,0,0,0.0,36.0,1.0,671289.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Mariano Bracamonte,1441888,D,1,90,2,0,0,0.03,38.0,1.0,493494.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Braian Sánchez,848187,M,1,86,1,1,0,0.04,72.0,2.0,229558.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Milton Céliz,394125,M,1,90,1,1,1,0.1,74.0,2.0,402704.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Pablo Monje,1605853,M,1,90,0,0,0,0.0,76.0,2.0,641576.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Yonatan Goitía,902983,M,1,46,0,0,0,0.0,78.0,2.0,395171.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Agustín Graneros,1118167,F,1,46,0,0,0,0.0,104.0,3.0,513777.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Antony Alonso,1021588,F,1,77,1,1,0,0.02,106.0,3.0,1040809.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Pedro Ramírez,1200663,D,0,45,1,0,0,0.04,,1.0,1189380.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Tomás González,1347380,F,0,45,1,1,0,0.07,,3.0,559736.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Gabriel Obredor,1451719,M,0,13,0,0,0,0.0,,2.0,295801.0
+1000019548,2026-10-05,argentina,Deportivo Riestra,Ángel Almada,1277215,M,0,4,0,0,0,0.0,,2.0,443763.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Alan Aguerre,246172,G,1,90,0,0,0,0.0,11.0,0.0,397578.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Santiago Moyano,856317,D,1,18,0,0,0,0.0,32.0,1.0,634395.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Felipe Aguilar,425777,D,1,90,0,0,0,0.0,34.0,1.0,464657.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Alejandro Maciel,907957,D,1,90,0,0,0,0.0,36.0,1.0,678659.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Darío Cáceres,922919,D,1,73,1,0,0,0.02,38.0,1.0,450014.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Matías Vera,629749,M,1,90,0,0,0,0.0,65.0,2.0,527559.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Leonardo Sequeira,795724,F,1,90,2,1,0,0.07,82.0,3.0,463513.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Marco Iacobellis,1097396,M,1,90,3,1,0,0.08,84.0,2.0,342833.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Lucas González,1088057,M,1,74,1,0,0,0.02,86.0,2.0,1101194.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Diego Barrera,1435861,F,1,58,0,0,0,0.0,88.0,3.0,1253583.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Michael Santos,675102,F,1,58,3,1,1,0.3,115.0,3.0,520987.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Fernando Martínez,1243610,D,0,72,0,0,0,0.0,,1.0,362791.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Nicolás Garrido,1826552,D,0,32,0,0,0,0.0,,1.0,
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Lucas Varaldo,1216071,F,0,32,0,0,0,0.0,,3.0,390995.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Leonardo Marchi,1199876,D,0,17,0,0,0,0.0,,1.0,326376.0
+1000019548,2026-10-05,argentina,Central Córdoba de Santiago,Tiziano Ramirez,0,D,0,16,0,0,0,0.0,,1.0,
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Víctor Samudio,425715,G,1,90,0,0,0,0.0,11.0,0.0,240913.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,César Benítez,204018,D,1,90,0,0,0,0.0,32.0,1.0,240713.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Agustín Da Silveira,1258853,D,1,90,0,0,0,0.0,34.0,1.0,438863.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Axel Cañete,1634833,D,1,90,0,0,0,0.0,36.0,1.0,
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Diego Melgarejo,951025,D,1,90,0,0,0,0.0,38.0,1.0,248857.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Ariel Gauto,1613311,M,1,84,0,0,0,0.0,65.0,2.0,
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Nicolás Maná,434405,F,1,64,0,0,0,0.0,82.0,3.0,274438.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Gustavo Viera,478236,M,1,90,3,1,1,0.0,84.0,2.0,301653.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Tomás Rayer,1392213,M,1,84,1,1,1,0.0,86.0,2.0,437358.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Tobías Morinigo,1367338,F,1,78,1,1,0,0.0,88.0,3.0,1036198.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Néstor Camacho,69155,F,1,64,3,2,1,0.0,115.0,3.0,308161.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Faustino Barone,1437182,F,0,26,1,0,0,0.0,,3.0,905316.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Junior Gamarra,0,F,0,26,0,0,0,0.0,,3.0,
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Joel Román,624584,F,0,12,0,0,0,0.0,,3.0,
+1000017428,2026-10-05,par_division,Sportivo Trinidense,David Villalba,922003,D,0,6,0,0,0,0.0,,1.0,195535.0
+1000017428,2026-10-05,par_division,Sportivo Trinidense,Luis De la Cruz,253848,D,0,6,0,0,0,0.0,,1.0,
+1000017428,2026-10-05,par_division,Luqueño,Nicolás Campisi,561036,G,1,90,0,0,0,0.0,11.0,0.0,149299.0
+1000017428,2026-10-05,par_division,Luqueño,Miguel Barreto,1111491,D,1,90,0,0,0,0.0,32.0,1.0,255192.0
+1000017428,2026-10-05,par_division,Luqueño,Adrián Brizuela,1483506,D,1,45,1,1,0,0.0,34.0,1.0,347613.0
+1000017428,2026-10-05,par_division,Luqueño,Facundo Wiechniak,1607001,D,1,90,1,0,0,0.0,36.0,1.0,371619.0
+1000017428,2026-10-05,par_division,Luqueño,Alexis Cantero,1458556,D,1,90,0,0,0,0.0,38.0,1.0,775572.0
+1000017428,2026-10-05,par_division,Luqueño,Fernando Benítez,1131320,M,1,73,0,0,0,0.0,65.0,2.0,263903.0
+1000017428,2026-10-05,par_division,Luqueño,Lautaro Comas,684722,F,1,58,1,0,0,0.0,82.0,3.0,287143.0
+1000017428,2026-10-05,par_division,Luqueño,Thiago Franco,1845451,M,1,46,0,0,0,0.0,84.0,2.0,
+1000017428,2026-10-05,par_division,Luqueño,Giovanni Bogado,888641,M,1,90,3,0,0,0.0,86.0,2.0,399379.0
+1000017428,2026-10-05,par_division,Luqueño,Óscar Ruiz,274394,F,1,78,1,1,0,0.0,88.0,3.0,279943.0
+1000017428,2026-10-05,par_division,Luqueño,Iván Maggi,1092984,F,1,90,5,4,2,0.0,115.0,3.0,528521.0
+1000017428,2026-10-05,par_division,Luqueño,Santiago Ocampos,1241951,D,0,44,0,0,0,0.0,,1.0,334549.0
+1000017428,2026-10-05,par_division,Luqueño,Aldo Maíz,922006,M,0,44,0,0,0,0.0,,2.0,332250.0
+1000017428,2026-10-05,par_division,Luqueño,Marcelo Ojeda,1910581,M,0,32,1,0,0,0.0,,2.0,
+1000017428,2026-10-05,par_division,Luqueño,Tomás Muro,1337212,M,0,17,0,0,0,0.0,,2.0,414049.0
+1000017428,2026-10-05,par_division,Luqueño,Marcelo Pérez,1042570,F,0,12,2,1,0,0.0,,3.0,462617.0
+5181844,2026-10-05,selecciones,Romania,Ottó Hindrich,1159532,G,1,90,0,0,0,0.0,11.0,0.0,1881770.0
+5181844,2026-10-05,selecciones,Romania,Andrei Rațiu,970578,D,1,90,0,0,0,0.0,32.0,1.0,19479261.0
+5181844,2026-10-05,selecciones,Romania,Andrei Coubiș,1377221,D,1,90,0,0,0,0.0,34.0,1.0,850879.0
+5181844,2026-10-05,selecciones,Romania,Matei Cristian Ilie,1197741,D,1,90,1,0,0,0.09,36.0,1.0,2116796.0
+5181844,2026-10-05,selecciones,Romania,Nicușor Bancu,559954,M,1,45,1,0,0,0.03,38.0,2.0,645722.0
+5181844,2026-10-05,selecciones,Romania,Vlad Dragomir,759567,M,1,90,1,0,0,0.03,64.0,2.0,1426222.0
+5181844,2026-10-05,selecciones,Romania,Răzvan Marin,574844,M,1,69,0,0,0,0.0,66.0,2.0,2213462.0
+5181844,2026-10-05,selecciones,Romania,Dennis Man,805767,F,1,90,2,1,0,0.07,83.0,3.0,15878639.0
+5181844,2026-10-05,selecciones,Romania,Nicolae Stanciu,308516,M,1,69,3,1,0,0.06,85.0,2.0,964404.0
+5181844,2026-10-05,selecciones,Romania,Darius Olaru,817821,M,1,69,1,0,0,0.03,87.0,2.0,2514436.0
+5181844,2026-10-05,selecciones,Romania,Florin Tănase,531047,M,1,83,1,1,0,0.06,115.0,2.0,840312.0
+5181844,2026-10-05,selecciones,Romania,Lisav Naif Eissat,1413851,D,0,44,0,0,0,0.0,,1.0,1842597.0
+5181844,2026-10-05,selecciones,Romania,Alexandru Cicâldau,770163,M,0,21,1,1,0,0.03,,2.0,1531229.0
+5181844,2026-10-05,selecciones,Romania,Ianis Hagi,645107,M,0,21,1,0,0,0.04,,2.0,869238.0
+5181844,2026-10-05,selecciones,Romania,Valentin Mihăilă,890266,F,0,21,1,0,0,0.08,,3.0,2421462.0
+5181844,2026-10-05,selecciones,Romania,Cătălin Cîrjan,1136455,M,0,7,0,0,0,0.0,,2.0,2772309.0
+5181844,2026-10-05,selecciones,Sweden,Viktor Johansson,546252,G,1,90,0,0,0,0.0,11.0,0.0,13071638.0
+5181844,2026-10-05,selecciones,Sweden,Felix Beijmo,628816,D,1,90,0,0,0,0.0,32.0,1.0,2058177.0
+5181844,2026-10-05,selecciones,Sweden,Eric Smith,531327,D,1,90,1,0,0,0.02,34.0,1.0,2122843.0
+5181844,2026-10-05,selecciones,Sweden,Victor Nilsson Lindelöf,258269,D,1,90,1,0,0,0.14,36.0,1.0,3455237.0
+5181844,2026-10-05,selecciones,Sweden,Gabriel Gudmundsson,744494,M,1,54,0,0,0,0.0,38.0,2.0,29510503.0
+5181844,2026-10-05,selecciones,Sweden,Alexander Bernhardsson,1014688,M,1,89,1,0,0,0.11,72.0,2.0,1643265.0
+5181844,2026-10-05,selecciones,Sweden,Lucas Bergvall,1386775,M,1,90,0,0,0,0.0,74.0,2.0,50773238.0
+5181844,2026-10-05,selecciones,Sweden,Jesper Karlström,322003,M,1,54,0,0,0,0.0,76.0,2.0,2662684.0
+5181844,2026-10-05,selecciones,Sweden,Sebastian Nanasi,1156569,M,1,77,3,1,0,0.57,78.0,2.0,18008922.0
+5181844,2026-10-05,selecciones,Sweden,Besfort Zeneli,1338361,M,1,75,0,0,0,0.0,104.0,2.0,6405051.0
+5181844,2026-10-05,selecciones,Sweden,Viktor Gyökeres,664500,F,1,90,4,1,1,1.11,106.0,3.0,69225187.0
+5181844,2026-10-05,selecciones,Sweden,Daniel Svensson,1209228,M,0,36,1,0,0,0.14,,2.0,23955881.0
+5181844,2026-10-05,selecciones,Sweden,Hugo Larsson,1339269,M,0,36,0,0,0,0.0,,2.0,36017234.0
+5181844,2026-10-05,selecciones,Sweden,Hugo Bolin,1351569,M,0,15,0,0,0,0.0,,2.0,7712172.0
+5181844,2026-10-05,selecciones,Sweden,Samuel Dahl,1085674,D,0,14,0,0,0,0.0,,1.0,17488686.0
+5181844,2026-10-05,selecciones,Sweden,Hampus Skoglund,1526772,D,0,1,1,0,0,0.84,,1.0,3730480.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Martin Zlomislić,857661,G,1,90,0,0,0,0.0,11.0,0.0,1465380.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Zinedin Smajlović,1457854,D,1,63,1,0,0,0.02,32.0,1.0,2282417.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Nikola Katić,725655,D,1,90,0,0,0,0.0,34.0,1.0,1381921.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Tarik Muharemović,1250485,D,1,90,1,0,0,0.03,36.0,1.0,23786274.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Sead Kolašinac,304345,D,1,90,1,0,0,0.17,38.0,1.0,2175437.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Amar Memić,1300385,M,1,90,0,0,0,0.0,72.0,2.0,2568315.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Armin Gigović,1057426,M,1,89,0,0,0,0.0,74.0,2.0,2165002.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Ivan Bašić,1179875,M,1,90,3,1,1,0.85,76.0,2.0,972626.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Ermin Mahmić,1528815,M,1,63,1,0,0,0.04,78.0,2.0,2403139.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Ermedin Demirović,840241,F,1,78,1,0,0,0.07,104.0,3.0,15443572.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Haris Tabaković,388903,F,1,78,0,0,0,0.0,106.0,3.0,2465878.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Benjamin Tahirović,1415104,M,0,27,1,0,0,0.02,,2.0,3964235.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Esmir Bajraktarević,1346860,F,0,27,0,0,0,0.0,,3.0,9972361.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Jovo Lukić,1174844,F,0,12,0,0,0,0.0,,3.0,1340998.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Samed Baždar,1284492,F,0,12,0,0,0,0.0,,3.0,1266811.0
+5181843,2026-10-05,selecciones,Bosnia-Herzegovina,Stjepan Radeljić,653982,D,0,1,0,0,0,0.0,,1.0,1389206.0
+5181843,2026-10-05,selecciones,Poland,Marcin Bułka,863455,G,1,90,0,0,0,0.0,11.0,0.0,12766756.0
+5181843,2026-10-05,selecciones,Poland,Matty Cash,729731,D,1,63,1,0,0,0.04,32.0,1.0,24140884.0
+5181843,2026-10-05,selecciones,Poland,Jan Bednarek,490868,D,1,90,1,0,0,0.04,34.0,1.0,8485898.0
+5181843,2026-10-05,selecciones,Poland,Jakub Kiwior,1021834,D,1,90,2,0,0,0.17,36.0,1.0,37173601.0
+5181843,2026-10-05,selecciones,Poland,Przemysław Frankowski,402419,M,1,90,4,1,0,0.11,38.0,2.0,4081491.0
+5181843,2026-10-05,selecciones,Poland,Piotr Zieliński,362212,M,1,90,3,0,0,0.25,64.0,2.0,7796524.0
+5181843,2026-10-05,selecciones,Poland,Wiktor Nowak,1395322,M,1,89,1,1,0,0.13,66.0,2.0,1505599.0
+5181843,2026-10-05,selecciones,Poland,Karol Świderski,558136,F,1,63,2,1,0,0.58,83.0,3.0,2730834.0
+5181843,2026-10-05,selecciones,Poland,Sebastian Szymański,765466,M,1,90,1,1,0,0.17,85.0,2.0,13356620.0
+5181843,2026-10-05,selecciones,Poland,Nicola Zalewski,1053714,M,1,90,0,0,0,0.0,87.0,2.0,23228976.0
+5181843,2026-10-05,selecciones,Poland,Mateusz Żukowski,908847,F,1,89,3,0,0,0.09,115.0,3.0,1134664.0
+5181843,2026-10-05,selecciones,Poland,Norbert Wojtuszek,1156126,D,0,27,0,0,0,0.0,,1.0,1934242.0
+5181843,2026-10-05,selecciones,Poland,Marcel Reguła,1580955,F,0,27,0,0,0,0.0,,3.0,6925036.0
+5181843,2026-10-05,selecciones,Poland,Kacper Urbański,1121295,M,0,1,0,0,0,0.0,,2.0,1841492.0
+5181843,2026-10-05,selecciones,Poland,Oskar Pietuszewski,1647807,F,0,1,0,0,0,0.0,,3.0,24151796.0
+5181807,2026-10-05,selecciones,Ukraine,Anatoliy Trubin,1022350,G,1,90,0,0,0,0.0,11.0,0.0,17869066.0
+5181807,2026-10-05,selecciones,Ukraine,Illia Krupskyi,1252039,D,1,90,0,0,0,0.0,32.0,1.0,1946753.0
+5181807,2026-10-05,selecciones,Ukraine,Ilya Zabarnyi,1140003,D,1,90,0,0,0,0.0,34.0,1.0,31208941.0
+5181807,2026-10-05,selecciones,Ukraine,Eduard Sarapiy,1270729,D,1,90,1,0,0,0.13,36.0,1.0,1892686.0
+5181807,2026-10-05,selecciones,Ukraine,Taras Mykhavko,1410340,D,1,90,1,0,0,0.01,38.0,1.0,13442279.0
+5181807,2026-10-05,selecciones,Ukraine,Oleg Ocheretko,1192419,M,1,70,1,0,0,0.04,64.0,2.0,5728737.0
+5181807,2026-10-05,selecciones,Ukraine,Yegor Nazaryna,728941,M,1,86,2,0,0,0.15,66.0,2.0,1304170.0
+5181807,2026-10-05,selecciones,Ukraine,Viktor Tsigankov,564847,F,1,90,0,0,0,0.0,83.0,3.0,10621373.0
+5181807,2026-10-05,selecciones,Ukraine,Igor Krasnopir,1516142,F,1,60,2,0,0,0.27,85.0,3.0,1562539.0
+5181807,2026-10-05,selecciones,Ukraine,Vladyslav Veleten,1305617,F,1,60,1,0,0,0.04,87.0,3.0,1096466.0
+5181807,2026-10-05,selecciones,Ukraine,Matviy Ponomarenko,1577424,F,1,60,2,0,0,0.42,115.0,3.0,4099975.0
+5181807,2026-10-05,selecciones,Ukraine,Maksym Khlan,1163207,F,0,30,1,1,0,0.03,,3.0,2292820.0
+5181807,2026-10-05,selecciones,Ukraine,Roman Yaremchuk,643690,F,0,30,1,1,1,0.25,,3.0,1717793.0
+5181807,2026-10-05,selecciones,Ukraine,Vladyslav Vanat,1231648,F,0,30,2,0,0,0.06,,3.0,14345848.0
+5181807,2026-10-05,selecciones,Ukraine,Oleksandr Pikhalyonok,851182,M,0,20,3,0,0,0.28,,2.0,1858787.0
+5181807,2026-10-05,selecciones,Ukraine,Ivan Varfolomeev,1232216,M,0,4,0,0,0,0.0,,2.0,1171471.0
+5181807,2026-10-05,selecciones,Hungary,Balázs Tóth,861001,G,1,90,0,0,0,0.0,11.0,0.0,771041.0
+5181807,2026-10-05,selecciones,Hungary,Attila Osváth,643975,D,1,90,2,0,0,0.03,32.0,1.0,250239.0
+5181807,2026-10-05,selecciones,Hungary,Willi Orbán,278856,D,1,90,1,0,0,0.06,34.0,1.0,2366069.0
+5181807,2026-10-05,selecciones,Hungary,Márk Csinger,1436365,D,1,90,1,1,1,0.51,36.0,1.0,1246855.0
+5181807,2026-10-05,selecciones,Hungary,Zsolt Nagy,502570,F,1,90,0,0,0,0.0,38.0,3.0,853527.0
+5181807,2026-10-05,selecciones,Hungary,András Schäfer,836726,M,1,72,1,0,0,0.03,64.0,2.0,2338076.0
+5181807,2026-10-05,selecciones,Hungary,Dominik Szoboszlai,846005,M,1,87,0,0,0,0.0,66.0,2.0,122859701.0
+5181807,2026-10-05,selecciones,Hungary,Dániel Lukács,801344,F,1,61,0,0,0,0.0,83.0,3.0,789567.0
+5181807,2026-10-05,selecciones,Hungary,Milán Vitális,1197823,M,1,90,1,0,0,0.03,85.0,2.0,1547979.0
+5181807,2026-10-05,selecciones,Hungary,Alex Tóth,1449690,M,1,62,1,1,0,0.04,87.0,2.0,17668187.0
+5181807,2026-10-05,selecciones,Hungary,Milan Toth,1235103,M,1,72,1,1,1,0.48,115.0,2.0,353687.0
+5181807,2026-10-05,selecciones,Hungary,Tamás Szucs,1315571,M,0,29,0,0,0,0.0,,2.0,1541992.0
+5181807,2026-10-05,selecciones,Hungary,Gabor Jurek,1345051,F,0,28,2,1,0,0.13,,3.0,292686.0
+5181807,2026-10-05,selecciones,Hungary,Rajmund Tóth,1562891,M,0,18,0,0,0,0.0,,2.0,1087989.0
+5181807,2026-10-05,selecciones,Hungary,Jozsef Szalai,1310449,F,0,18,0,0,0,0.0,,3.0,314727.0
+5181807,2026-10-05,selecciones,Hungary,Áron Csongvai,1114366,M,0,3,0,0,0,0.0,,2.0,1203825.0
+5181806,2026-10-05,selecciones,Northern Ireland,Pierce Charles,1420144,G,1,90,0,0,0,0.0,11.0,0.0,1651382.0
+5181806,2026-10-05,selecciones,Northern Ireland,Tom Atcheson,1443861,D,1,86,3,0,0,0.24,33.0,1.0,1023165.0
+5181806,2026-10-05,selecciones,Northern Ireland,Ruairi McConville,1355258,D,1,90,3,2,0,0.06,35.0,1.0,5979838.0
+5181806,2026-10-05,selecciones,Northern Ireland,Ciaron Brown,816368,D,1,90,1,0,0,0.03,37.0,1.0,1023019.0
+5181806,2026-10-05,selecciones,Northern Ireland,Trai Hume,1067763,D,1,90,0,0,0,0.0,62.0,1.0,29775462.0
+5181806,2026-10-05,selecciones,Northern Ireland,Shea Charles,1281452,M,1,90,1,0,0,0.03,64.0,2.0,15128842.0
+5181806,2026-10-05,selecciones,Northern Ireland,Ethan Galbraith,1077926,M,1,65,0,0,0,0.0,66.0,2.0,2171826.0
+5181806,2026-10-05,selecciones,Northern Ireland,Justin Devenny,1336751,M,1,90,0,0,0,0.0,68.0,2.0,13010370.0
+5181806,2026-10-05,selecciones,Northern Ireland,Patrick Kelly,1395985,M,1,74,0,0,0,0.0,84.0,2.0,981477.0
+5181806,2026-10-05,selecciones,Northern Ireland,Isaac Price,1246270,M,1,86,2,1,0,0.82,86.0,2.0,5239563.0
+5181806,2026-10-05,selecciones,Northern Ireland,Jamie Donley,1211646,M,1,74,4,1,0,0.24,105.0,2.0,1593273.0
+5181806,2026-10-05,selecciones,Northern Ireland,Brodie Spencer,1367702,D,0,25,0,0,0,0.0,,1.0,1156429.0
+5181806,2026-10-05,selecciones,Northern Ireland,Josh Magennis,180137,F,0,16,1,1,0,0.42,,3.0,231342.0
+5181806,2026-10-05,selecciones,Northern Ireland,Kieran Morrison,1439550,F,0,16,0,0,0,0.0,,3.0,
+5181806,2026-10-05,selecciones,Northern Ireland,Paddy McNair,575780,D,0,4,0,0,0,0.0,,1.0,1132919.0
+5181806,2026-10-05,selecciones,Northern Ireland,Callum Marshall,1327325,F,0,4,0,0,0,0.0,,3.0,1634345.0
+5181806,2026-10-05,selecciones,Georgia,Giorgi Mamardashvili,948800,G,1,90,0,0,0,0.0,11.0,0.0,35623295.0
+5181806,2026-10-05,selecciones,Georgia,Otar Kakabadze,463993,D,1,90,0,0,0,0.0,32.0,1.0,547379.0
+5181806,2026-10-05,selecciones,Georgia,Saba Sazonov,1179368,D,1,90,0,0,0,0.0,34.0,1.0,455130.0
+5181806,2026-10-05,selecciones,Georgia,Lasha Dvali,436553,D,1,90,1,0,0,0.02,36.0,1.0,744357.0
+5181806,2026-10-05,selecciones,Georgia,Luka Lochoshvili,784175,D,1,90,0,0,0,0.0,38.0,1.0,1826907.0
+5181806,2026-10-05,selecciones,Georgia,Giorgi Kochorashvili,953958,M,1,46,0,0,0,0.0,64.0,2.0,1816385.0
+5181806,2026-10-05,selecciones,Georgia,Anzor Mekvabishvili,1176843,M,1,65,0,0,0,0.0,66.0,2.0,1605026.0
+5181806,2026-10-05,selecciones,Georgia,Gizo Mamageishvili,1382325,M,1,74,0,0,0,0.0,83.0,2.0,685618.0
+5181806,2026-10-05,selecciones,Georgia,Zuriko Davitashvili,966146,F,1,65,1,1,0,0.12,85.0,3.0,12015100.0
+5181806,2026-10-05,selecciones,Georgia,Khvicha Kvaratskhelia,900433,F,1,90,1,0,0,0.06,87.0,3.0,101401549.0
+5181806,2026-10-05,selecciones,Georgia,Budu Zivzivadze,674242,F,1,86,2,0,0,0.08,115.0,3.0,1132288.0
+5181806,2026-10-05,selecciones,Georgia,Giorgi Tsitaishvili,939061,F,0,45,1,1,0,0.03,,3.0,2165163.0
+5181806,2026-10-05,selecciones,Georgia,Giorgi Chakvetadze,837847,M,0,25,1,0,0,0.02,,2.0,3447036.0
+5181806,2026-10-05,selecciones,Georgia,Nodar Lominadze,1270528,M,0,25,0,0,0,0.0,,2.0,362416.0
+5181806,2026-10-05,selecciones,Georgia,Irakli Yegoian,1434603,M,0,16,0,0,0,0.0,,2.0,1884937.0
+5181806,2026-10-05,selecciones,Georgia,Georges Mikautadze,1117069,F,0,4,0,0,0,0.0,,3.0,33232790.0
+5181795,2026-10-05,selecciones,Italy,Gianluigi Donnarumma,618878,G,1,90,0,0,0,0.0,11.0,0.0,50219824.0
+5181795,2026-10-05,selecciones,Italy,Giovanni Di Lorenzo,414906,D,1,55,1,0,0,0.04,32.0,1.0,6034764.0
+5181795,2026-10-05,selecciones,Italy,Gianluca Mancini,588687,D,1,90,0,0,0,0.0,34.0,1.0,17855568.0
+5181795,2026-10-05,selecciones,Italy,Alessandro Bastoni,805451,D,1,90,0,0,0,0.0,36.0,1.0,58220687.0
+5181795,2026-10-05,selecciones,Italy,Matteo Ruggeri,1051097,D,1,56,1,0,0,0.05,38.0,1.0,25511311.0
+5181795,2026-10-05,selecciones,Italy,Nicolò Barella,541820,M,1,70,0,0,0,0.0,73.0,2.0,56295708.0
+5181795,2026-10-05,selecciones,Italy,Alessandro Romano,1705649,M,1,90,1,1,0,0.01,75.0,2.0,1827967.0
+5181795,2026-10-05,selecciones,Italy,Issa Doumbia,1339345,M,1,90,4,2,0,0.63,77.0,2.0,13564973.0
+5181795,2026-10-05,selecciones,Italy,Antonio Vergara,1320863,M,1,84,1,0,0,0.15,103.0,2.0,6447305.0
+5181795,2026-10-05,selecciones,Italy,Gianluca Scamacca,721089,F,1,56,3,1,1,0.19,105.0,3.0,20868092.0
+5181795,2026-10-05,selecciones,Italy,Daniel Maldini,1072054,F,1,90,1,0,0,0.05,107.0,3.0,10419778.0
+5181795,2026-10-05,selecciones,Italy,Michael Kayode,1429912,D,0,35,0,0,0,0.0,,1.0,62691383.0
+5181795,2026-10-05,selecciones,Italy,Riccardo Calafiori,1105912,D,0,34,1,1,1,0.04,,1.0,63339699.0
+5181795,2026-10-05,selecciones,Italy,Francesco Pio Esposito,1367618,F,0,34,1,1,1,0.74,,3.0,34331370.0
+5181795,2026-10-05,selecciones,Italy,Sandro Tonali,867414,M,0,20,1,0,0,0.05,,2.0,92970459.0
+5181795,2026-10-05,selecciones,Italy,Davide Frattesi,815431,M,0,6,0,0,0,0.0,,2.0,20783705.0
+5181795,2026-10-05,selecciones,Türkiye,Uğurcan Çakir,603669,G,1,90,0,0,0,0.0,11.0,0.0,18410155.0
+5181795,2026-10-05,selecciones,Türkiye,Zeki Çelik,867225,M,1,90,0,0,0,0.0,33.0,2.0,12173375.0
+5181795,2026-10-05,selecciones,Türkiye,Ozan Kabak,845990,D,1,90,1,1,0,0.04,35.0,1.0,6755019.0
+5181795,2026-10-05,selecciones,Türkiye,Abdülkerim Bardakci,291399,D,1,90,1,0,0,0.03,37.0,1.0,3500746.0
+5181795,2026-10-05,selecciones,Türkiye,Ferdi Kadıoğlu,774448,D,1,88,0,0,0,0.0,62.0,1.0,41174643.0
+5181795,2026-10-05,selecciones,Türkiye,Salih Özcan,738064,M,1,90,2,2,0,0.1,64.0,2.0,2324601.0
+5181795,2026-10-05,selecciones,Türkiye,Ismail Yüksek,1183589,M,1,79,0,0,0,0.0,66.0,2.0,13717837.0
+5181795,2026-10-05,selecciones,Türkiye,Eren Elmalı,1041660,D,1,90,1,0,0,0.18,68.0,1.0,4399286.0
+5181795,2026-10-05,selecciones,Türkiye,İrfan Kahveci,316544,F,1,70,1,0,0,0.02,84.0,3.0,2073621.0
+5181795,2026-10-05,selecciones,Türkiye,Aral Şimşir,1126769,M,1,70,3,1,1,0.49,86.0,2.0,9572865.0
+5181795,2026-10-05,selecciones,Türkiye,Yunus Akgün,845991,M,1,88,2,1,0,0.19,105.0,2.0,19148055.0
+5181795,2026-10-05,selecciones,Türkiye,Bartuğ Elmaz,1216728,M,0,20,0,0,0,0.0,,2.0,1477702.0
+5181795,2026-10-05,selecciones,Türkiye,İlhan Fakılı,1642084,F,0,20,1,0,0,0.07,,3.0,1688136.0
+5181795,2026-10-05,selecciones,Türkiye,Kerem Aktürkoglu,1117570,F,0,11,1,0,0,0.08,,3.0,21678767.0
+5181795,2026-10-05,selecciones,Türkiye,Deniz Gül,1406300,F,0,2,1,0,0,0.1,,3.0,4839543.0
+5181795,2026-10-05,selecciones,Türkiye,Oğuz Aydın,1092015,F,0,2,0,0,0,0.0,,3.0,6232626.0
+5181794,2026-10-05,selecciones,France,Guillaume Restes,1524210,G,1,90,0,0,0,0.0,11.0,0.0,18988954.0
+5181794,2026-10-05,selecciones,France,Jules Koundé,705450,D,1,90,1,0,0,0.03,32.0,1.0,58575585.0
+5181794,2026-10-05,selecciones,France,Leny Yoro,1358581,D,1,90,0,0,0,0.0,34.0,1.0,64213544.0
+5181794,2026-10-05,selecciones,France,Maxence Lacroix,950485,D,1,90,1,0,0,0.02,36.0,1.0,61125128.0
+5181794,2026-10-05,selecciones,France,Andy Diouf,1254297,M,1,90,0,0,0,0.0,38.0,2.0,23842465.0
+5181794,2026-10-05,selecciones,France,Maghnes Akliouche,1305618,F,1,60,2,0,0,0.05,73.0,3.0,56659932.0
+5181794,2026-10-05,selecciones,France,Manu Koné,1016132,M,1,61,1,0,0,0.01,75.0,2.0,56079759.0
+5181794,2026-10-05,selecciones,France,Eduardo Camavinga,1015185,M,1,88,1,0,0,0.02,77.0,2.0,59931683.0
+5181794,2026-10-05,selecciones,France,Ousmane Dembélé,692984,F,1,60,5,0,0,0.22,103.0,3.0,89136737.0
+5181794,2026-10-05,selecciones,France,Estéban Lepaul,1280225,F,1,90,3,1,0,0.38,105.0,3.0,24658449.0
+5181794,2026-10-05,selecciones,France,Bradley Barcola,1297165,F,1,72,2,1,0,0.13,107.0,3.0,103457558.0
+5181794,2026-10-05,selecciones,France,Rayan Cherki,1104053,M,0,30,2,2,1,0.34,,2.0,103452096.0
+5181794,2026-10-05,selecciones,France,Michael Olise,1029063,F,0,30,4,3,2,0.76,,3.0,198061698.0
+5181794,2026-10-05,selecciones,France,Lucas Da Cunha,1076647,M,0,29,0,0,0,0.0,,2.0,22534524.0
+5181794,2026-10-05,selecciones,France,Désiré Doué,1339208,F,0,18,1,1,1,0.04,,3.0,119708643.0
+5181794,2026-10-05,selecciones,France,Adrien Rabiot,352879,M,0,2,0,0,0,0.0,,2.0,14865100.0
+5181794,2026-10-05,selecciones,Belgium,Maarten Vandevoordt,972200,G,1,90,0,0,0,0.0,11.0,0.0,15104514.0
+5181794,2026-10-05,selecciones,Belgium,Timothy Castagne,465750,D,1,90,0,0,0,0.0,32.0,1.0,7152640.0
+5181794,2026-10-05,selecciones,Belgium,Nathan Ngoy,1252070,D,1,90,1,0,0,0.04,34.0,1.0,17582754.0
+5181794,2026-10-05,selecciones,Belgium,Brandon Mechele,445873,D,1,90,0,0,0,0.0,36.0,1.0,2406781.0
+5181794,2026-10-05,selecciones,Belgium,Joaquin Seys,1489449,D,1,90,0,0,0,0.0,38.0,1.0,23832221.0
+5181794,2026-10-05,selecciones,Belgium,Nicolas Raskin,863869,M,1,90,1,0,0,0.23,73.0,2.0,14468411.0
+5181794,2026-10-05,selecciones,Belgium,Roméo Lavia,1190867,M,1,87,0,0,0,0.0,75.0,2.0,25721170.0
+5181794,2026-10-05,selecciones,Belgium,Hans Vanaken,203666,M,1,87,0,0,0,0.0,77.0,2.0,3728980.0
+5181794,2026-10-05,selecciones,Belgium,Dodi Lukébakio,688876,F,1,70,2,1,1,0.3,103.0,3.0,15658911.0
+5181794,2026-10-05,selecciones,Belgium,Romelu Lukaku,181276,F,1,70,1,1,0,0.02,105.0,3.0,5984766.0
+5181794,2026-10-05,selecciones,Belgium,Diego Moreira,1342754,F,1,87,0,0,0,0.0,107.0,3.0,26460743.0
+5181794,2026-10-05,selecciones,Belgium,Charles De Ketelaere,1095432,M,0,20,0,0,0,0.0,,2.0,42844691.0
+5181794,2026-10-05,selecciones,Belgium,Mika Godts,1396372,F,0,20,0,0,0,0.0,,3.0,32864867.0
+5181794,2026-10-05,selecciones,Belgium,Mandela Keita,1239749,M,0,3,0,0,0,0.0,,2.0,23322649.0
+5181794,2026-10-05,selecciones,Belgium,Loïs Openda,747767,F,0,3,0,0,0,0.0,,3.0,24871232.0
+5181794,2026-10-05,selecciones,Belgium,Leandro Trossard,318615,F,0,3,0,0,0,0.0,,3.0,19006601.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Guilherme Fernandes,1532197,G,1,90,0,0,0,0.0,11.0,0.0,788797.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Daniel Budesca,1617612,D,1,90,0,0,0,0.0,32.0,1.0,1136244.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Nélson Monte,534473,D,1,90,0,0,0,0.0,34.0,1.0,453370.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Rubén Alves,717021,D,1,90,0,0,0,0.0,36.0,1.0,370396.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Dani Tasende,1202049,D,1,90,1,1,0,0.08,38.0,1.0,563373.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Eder García,1422602,M,1,67,1,1,1,0.06,73.0,2.0,
+5868474,2026-10-05,esp_hypermotion,Córdoba,Ismael Ruiz,1203885,M,1,90,2,1,1,0.08,75.0,2.0,1359740.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Adnane Ghailan,1642593,M,1,84,3,0,0,0.17,77.0,2.0,
+5868474,2026-10-05,esp_hypermotion,Córdoba,Cristian Carracedo,1221257,F,1,84,0,0,0,0.0,103.0,3.0,751878.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Percan,1321439,F,1,76,6,3,1,1.53,105.0,3.0,294924.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Diego Bri,1158927,D,1,67,1,0,0,0.02,107.0,1.0,580779.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Damián Cáceres,1217911,M,0,23,0,0,0,0.0,,2.0,404454.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Kevin Medina,1213117,F,0,23,2,0,0,0.06,,3.0,478268.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Enol Rodríguez,1231073,F,0,14,0,0,0,0.0,,3.0,819698.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Egoitz Muñoz,1560045,D,0,6,0,0,0,0.0,,1.0,411935.0
+5868474,2026-10-05,esp_hypermotion,Córdoba,Théo Zidane,1368330,M,0,6,0,0,0,0.0,,2.0,346648.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Dani Martín,882408,G,1,90,0,0,0,0.0,11.0,0.0,553841.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,César Álvarez,1585840,D,1,67,0,0,0,0.0,32.0,1.0,592241.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Neal Viereck,1426166,D,1,90,0,0,0,0.0,34.0,1.0,288156.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Anthony Landázuri,708877,D,1,90,0,0,0,0.0,36.0,1.0,283331.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,David Rodríguez,1197723,D,1,76,0,0,0,0.0,38.0,1.0,575756.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Gerard Valentín,670416,M,1,46,0,0,0,0.0,72.0,2.0,233352.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Fabricio,1693583,M,1,90,0,0,0,0.0,74.0,2.0,341378.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Juanjo,1292813,M,1,87,1,0,0,0.01,76.0,2.0,455317.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Iván Chapela,1130568,M,1,57,1,0,0,0.04,78.0,2.0,445782.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Enric Gallego,639458,F,1,45,2,0,0,0.08,104.0,3.0,314664.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Christian Gomis,1204802,F,1,90,2,1,1,0.39,106.0,3.0,750770.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Dani Fernández,1647543,M,0,45,2,0,0,0.09,,2.0,
+5868474,2026-10-05,esp_hypermotion,Tenerife,Nacho Gil,639136,M,0,44,0,0,0,0.0,,2.0,212835.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Grant-Leon Ranos,1280025,F,0,33,1,1,1,0.06,,3.0,668402.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Roko Jureškin,1072743,D,0,23,0,0,0,0.0,,1.0,256708.0
+5868474,2026-10-05,esp_hypermotion,Tenerife,Jorge Moreno,1288206,D,0,14,1,0,0,0.1,,1.0,520677.0

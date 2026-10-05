@@ -61,14 +61,14 @@
   },
   "Cienciano del Cusco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ind. del Valle",
-    "ratio": 0.4375,
+    "candidato": "Academia del Balompie",
+    "ratio": 0.5,
     "visto": "2026-10-05"
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club Lujan",
-    "ratio": 0.6364,
+    "candidato": "Racing Club 2",
+    "ratio": 0.4,
     "visto": "2026-10-05"
   },
   "Cruz Azul": {
@@ -85,7 +85,7 @@
   },
   "Deportivo Moquegua": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maipu",
+    "candidato": "Deportivo Muniz",
     "ratio": 0.7273,
     "visto": "2026-10-05"
   },
@@ -97,8 +97,8 @@
   },
   "Estudiantes de La Plata": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes L.P.",
-    "ratio": 0.7895,
+    "candidato": "Estudiantes L.P. 2",
+    "ratio": 0.75,
     "visto": "2026-10-05"
   },
   "Estudiantes de Río Cuarto": {
@@ -1037,9 +1037,9 @@
   },
   "Gimnasia (Mendoza)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia y Tiro",
-    "ratio": 0.6452,
-    "visto": "2026-10-04"
+    "candidato": "Gimnasia L.P. 2",
+    "ratio": 0.6,
+    "visto": "2026-10-05"
   },
   "Deportivo Riestra": {
     "contexto": "cuotas_mx→futbol",
