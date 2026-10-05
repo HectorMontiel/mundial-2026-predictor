@@ -1048,22 +1048,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822525,2025-09-09,selecciones,Suriname,Anfernee Dijksteel,798661,D,0,20,0,0,0,0.0,,1.0,1051728.0
 4822525,2025-09-09,selecciones,Suriname,Dion Malone,110184,M,0,4,0,0,0,0.0,,2.0,263390.0
 4822525,2025-09-09,selecciones,Suriname,Jaden Montnor,1317096,M,0,4,0,0,0,0.0,,2.0,827398.0
-4822549,2025-09-10,selecciones,Costa Rica,Keylor Navas,51949,G,1,90,0,0,0,0.0,11.0,0.0,778422.0
-4822549,2025-09-10,selecciones,Costa Rica,Juan Pablo Vargas,734283,D,1,90,2,2,1,0.45,33.0,1.0,
-4822549,2025-09-10,selecciones,Costa Rica,Alexis Gamboa,942986,D,1,90,1,0,0,0.17,35.0,1.0,
-4822549,2025-09-10,selecciones,Costa Rica,Julio Cascante,279274,D,1,85,0,0,0,0.0,37.0,1.0,654698.0
-4822549,2025-09-10,selecciones,Costa Rica,Carlos Mora,1202707,D,1,82,2,1,0,0.1,51.0,1.0,995085.0
-4822549,2025-09-10,selecciones,Costa Rica,Joseph Mora,242931,D,1,89,1,0,0,0.02,59.0,1.0,
-4822549,2025-09-10,selecciones,Costa Rica,Kenneth Vargas,1237185,F,1,82,2,1,1,0.26,73.0,3.0,
-4822549,2025-09-10,selecciones,Costa Rica,Orlando Galo,988815,M,1,89,2,1,0,0.17,75.0,2.0,253390.0
-4822549,2025-09-10,selecciones,Costa Rica,Josimar Alcocer,1296660,F,1,90,4,1,0,0.16,77.0,3.0,4085440.0
-4822549,2025-09-10,selecciones,Costa Rica,Alonso Martinez,1024424,F,1,90,5,4,1,0.59,104.0,3.0,5449600.0
-4822549,2025-09-10,selecciones,Costa Rica,Manfred Ugalde,1016738,F,1,90,4,1,0,0.12,106.0,3.0,18980801.0
-4822549,2025-09-10,selecciones,Costa Rica,Kenay Myrie,1641118,D,0,8,0,0,0,0.0,,1.0,
-4822549,2025-09-10,selecciones,Costa Rica,Andy Rojas,1452765,F,0,8,0,0,0,0.0,,3.0,
-4822549,2025-09-10,selecciones,Costa Rica,Anthony Contreras,1073924,F,0,5,0,0,0,0.0,,3.0,282302.0
-4822549,2025-09-10,selecciones,Costa Rica,Alejandro Bran,1290740,M,0,1,0,0,0,0.0,,2.0,
-4822549,2025-09-10,selecciones,Costa Rica,Ariel Lassiter,564832,M,0,1,1,0,0,0.02,,2.0,299818.0
 4822550,2025-09-10,selecciones,Honduras,Edrick Menjivar,562677,G,1,90,0,0,0,0.0,11.0,0.0,
 4822550,2025-09-10,selecciones,Honduras,Julian Martinez,1447414,D,1,90,1,0,0,0.03,33.0,1.0,392425.0
 4822550,2025-09-10,selecciones,Honduras,Andy Nájar,198453,D,1,90,0,0,0,0.0,35.0,1.0,135761.0
@@ -3842,21 +3826,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4822557,2025-11-19,selecciones,Honduras,Carlos Pineda,848541,M,0,15,0,0,0,0.0,,2.0,
 4822557,2025-11-19,selecciones,Honduras,Marlon Ramirez,422425,F,0,15,1,0,0,0.05,,3.0,
 4822557,2025-11-19,selecciones,Honduras,Jorge Benguche,590757,F,0,14,0,0,0,0.0,,3.0,
-4822558,2025-11-19,selecciones,Haiti,Johny Placide,103468,G,1,90,0,0,0,0.0,11.0,0.0,224869.0
-4822558,2025-11-19,selecciones,Haiti,Carlens Arcus,634110,D,1,84,0,0,0,0.0,32.0,1.0,1036535.0
-4822558,2025-11-19,selecciones,Haiti,Ricardo Ade,532700,D,1,90,0,0,0,0.0,34.0,1.0,293804.0
-4822558,2025-11-19,selecciones,Haiti,Hannes Delcroix,822716,D,1,90,0,0,0,0.0,36.0,1.0,1761663.0
-4822558,2025-11-19,selecciones,Haiti,Duke Lacroix,649744,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
-4822558,2025-11-19,selecciones,Haiti,Don Deedson Louicius,1079194,F,1,63,1,1,1,0.2,64.0,3.0,
-4822558,2025-11-19,selecciones,Haiti,Leverton Pierre,899318,M,1,90,1,1,0,0.03,66.0,2.0,168557.0
-4822558,2025-11-19,selecciones,Haiti,Josué Casimir,1199382,M,1,90,0,0,0,0.0,83.0,2.0,5645127.0
-4822558,2025-11-19,selecciones,Haiti,Jean-Ricner Bellegarde,769166,M,1,90,0,0,0,0.0,85.0,2.0,20928038.0
-4822558,2025-11-19,selecciones,Haiti,Ruben Providence,1200016,M,1,84,2,1,1,0.46,87.0,2.0,262991.0
-4822558,2025-11-19,selecciones,Haiti,Frantzdy Pierrot,833641,F,1,32,1,0,0,0.16,115.0,3.0,1738764.0
-4822558,2025-11-19,selecciones,Haiti,Duckens Nazon,525445,F,0,58,3,1,0,0.77,,3.0,917324.0
-4822558,2025-11-19,selecciones,Haiti,Martin Experience,1181438,D,0,27,0,0,0,0.0,,1.0,261547.0
-4822558,2025-11-19,selecciones,Haiti,Carl Sainte,1107287,D,0,6,1,0,0,0.02,,1.0,74246.0
-4822558,2025-11-19,selecciones,Haiti,Stephane Lambese,674482,M,0,6,0,0,0,0.0,,2.0,95078.0
 4822558,2025-11-19,selecciones,Nicaragua,Alyer Lopez,1420502,G,1,90,0,0,0,0.0,11.0,0.0,
 4822558,2025-11-19,selecciones,Nicaragua,Josue Quijano,503263,D,1,90,2,0,0,0.02,32.0,1.0,
 4822558,2025-11-19,selecciones,Nicaragua,Justing Cano,1650210,D,1,90,1,1,0,0.21,34.0,1.0,
@@ -14381,22 +14350,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115886,2026-07-23,argentina,Sarmiento,Julián Mavilla,1509418,M,0,6,0,0,0,0.0,,2.0,515911.0
 5115886,2026-07-23,argentina,Sarmiento,Diego Churín,113608,F,0,6,1,0,0,0.07,,3.0,364973.0
 5115886,2026-07-23,argentina,Sarmiento,Gastón González,1039687,F,0,1,0,0,0,0.0,,3.0,968866.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Brayan Cortés,424153,G,1,90,0,0,0,0.0,11.0,0.0,963933.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Franco Paredes,1137661,D,1,90,1,0,0,0.02,32.0,1.0,570198.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Francisco Álvarez,920404,D,1,90,0,0,0,0.0,34.0,1.0,2750433.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Érik Godoy,316878,D,1,38,0,0,0,0.0,36.0,1.0,433335.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Sebastián Prieto,841913,D,1,90,1,1,1,0.35,38.0,1.0,582656.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Alan Lescano,1342579,M,1,90,2,2,1,0.41,72.0,2.0,6131465.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Lucas Gómez,1609797,M,1,46,0,0,0,0.0,74.0,2.0,919570.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Nicolás Oroz,543304,M,1,90,1,0,0,0.1,76.0,2.0,764799.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Facundo Jainikoski,1843096,M,1,72,1,0,0,0.14,78.0,2.0,1327786.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Iván Morales,785840,F,1,45,1,0,0,0.06,104.0,3.0,632359.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Gastón Verón,918846,F,1,80,3,1,0,0.18,106.0,3.0,1462130.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Kevin Coronel,1575797,D,0,52,1,0,0,0.04,,1.0,939499.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Kevin Gutiérrez,905265,M,0,45,1,0,0,0.05,,2.0,2034043.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Tomás Molina,728323,F,0,44,0,0,0,0.0,,3.0,1585763.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Diego Porcel,1648046,F,0,18,1,1,1,0.18,,3.0,1071692.0
-5115886,2026-07-23,argentina,Argentinos Juniors,Hernán López,1037535,M,0,10,0,0,0,0.0,,2.0,2431871.0
 1000009033,2026-07-22,ecu_liga_pro,Universidad Católica,Johan Lara,1053708,G,1,90,0,0,0,0.0,11.0,0.0,239667.0
 1000009033,2026-07-22,ecu_liga_pro,Universidad Católica,Darwin Nazareno,1828986,D,1,90,3,0,0,0.0,32.0,1.0,224913.0
 1000009033,2026-07-22,ecu_liga_pro,Universidad Católica,Luis Cangá,579738,D,1,90,1,0,0,0.0,34.0,1.0,326711.0
@@ -15007,20 +14960,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5071236,2026-07-25,mls,Charlotte FC,Tyger Smalls,1618023,F,0,19,0,0,0,0.0,,3.0,153489.0
 5071236,2026-07-25,mls,Charlotte FC,Brandt Bronico,828769,M,0,8,0,0,0,0.0,,2.0,758362.0
 5071236,2026-07-25,mls,Charlotte FC,Archie Goodwin,1232133,F,0,8,0,0,0,0.0,,3.0,873460.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Cristopher Fiermarín,1195101,G,1,90,0,0,0,0.0,11.0,0.0,1354050.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Carlos Romaña,1221306,D,1,90,0,0,0,0.0,33.0,1.0,320980.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,José Ortiz,1071475,D,1,90,0,0,0,0.0,35.0,1.0,790585.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,José García,1562699,D,1,90,1,0,0,0.02,37.0,1.0,667981.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Kevin Londoño,802799,D,1,90,0,0,0,0.0,51.0,1.0,402718.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Omar Albornoz,861556,D,1,83,1,0,0,0.01,59.0,1.0,247237.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Jhon Salazar,629672,M,1,61,0,0,0,0.0,73.0,2.0,
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Fabry Castro,466633,M,1,90,0,0,0,0.0,75.0,2.0,264799.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Leonardo Flores,921607,M,1,69,1,0,0,0.02,77.0,2.0,311808.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Luciano Pons,412815,F,1,90,2,1,0,0.26,104.0,3.0,465843.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Fabián Sambueza,615929,F,1,90,0,0,0,0.0,106.0,3.0,312131.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Emerson Batalla,1190851,M,0,29,3,1,1,0.17,,2.0,1694963.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Aldair Zárate,1343211,F,0,21,1,0,0,0.03,,3.0,510520.0
-1000014052,2026-07-25,col_primera_a,Bucaramanga,Fredy Hinestroza,323438,M,0,7,0,0,0,0.0,,2.0,255315.0
 5115885,2026-07-25,argentina,River Plate,Santiago Beltrán,1652014,G,1,90,0,0,0,0.0,11.0,0.0,1957288.0
 5115885,2026-07-25,argentina,River Plate,Gonzalo Montiel,687008,D,1,90,1,0,0,0.06,32.0,1.0,2254445.0
 5115885,2026-07-25,argentina,River Plate,Lucas Martínez Quarta,638771,D,1,90,0,0,0,0.0,34.0,1.0,2230624.0
@@ -15271,22 +15210,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Fernando Rodríguez,1310319,D,0,22,1,0,0,0.03,,1.0,132834.0
 5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Nicolás Talpone,741193,M,0,22,0,0,0,0.0,,2.0,298607.0
 5115878,2026-07-25,argentina,Estudiantes de Río Cuarto,Francesco Lo Celso,1108679,M,0,1,0,0,0,0.0,,2.0,390063.0
-5115878,2026-07-25,argentina,Tigre,Felipe Zenobio,1198479,G,1,90,0,0,0,0.0,11.0,0.0,2584790.0
-5115878,2026-07-25,argentina,Tigre,Guillermo Soto,917976,D,1,90,1,0,0,0.04,32.0,1.0,296652.0
-5115878,2026-07-25,argentina,Tigre,Alan Barrionuevo,1041082,D,1,90,1,0,0,0.02,34.0,1.0,975441.0
-5115878,2026-07-25,argentina,Tigre,Juan Villalba,1727696,D,1,90,0,0,0,0.0,36.0,1.0,526976.0
-5115878,2026-07-25,argentina,Tigre,Federico Álvarez,450769,D,1,90,1,0,0,0.05,38.0,1.0,462157.0
-5115878,2026-07-25,argentina,Tigre,Santiago González,1630645,M,1,46,0,0,0,0.0,64.0,2.0,1706928.0
-5115878,2026-07-25,argentina,Tigre,Martín Garay,939965,M,1,77,0,0,0,0.0,66.0,2.0,449051.0
-5115878,2026-07-25,argentina,Tigre,Tiago Serrago,1609504,F,1,77,0,0,0,0.0,83.0,3.0,1380009.0
-5115878,2026-07-25,argentina,Tigre,Elías Cabrera,1400295,M,1,90,5,1,0,0.2,85.0,2.0,1364127.0
-5115878,2026-07-25,argentina,Tigre,Sebastián Medina,1270044,F,1,62,0,0,0,0.0,87.0,3.0,408394.0
-5115878,2026-07-25,argentina,Tigre,Alfio Oviedo,588773,F,1,62,1,0,0,0.12,115.0,3.0,356115.0
-5115878,2026-07-25,argentina,Tigre,Jalil Elías,647992,M,0,45,1,0,0,0.12,,2.0,967069.0
-5115878,2026-07-25,argentina,Tigre,Gonzalo Martínez,585907,M,0,28,5,3,0,0.24,,2.0,271185.0
-5115878,2026-07-25,argentina,Tigre,Ignacio Russo,1200023,F,0,28,1,0,0,0.05,,3.0,3467696.0
-5115878,2026-07-25,argentina,Tigre,Santiago López,1485158,F,0,13,2,0,0,0.2,,3.0,2023954.0
-5115878,2026-07-25,argentina,Tigre,Ignacio Peluffo,1834280,F,0,13,0,0,0,0.0,,3.0,
 1000015431,2026-07-25,per_liga1,Sport Huancayo,Ángel Zamudio,846745,G,1,90,0,0,0,0.0,11.0,0.0,264759.0
 1000015431,2026-07-25,per_liga1,Sport Huancayo,Jean Falconí,1432700,D,1,55,0,0,0,0.0,32.0,1.0,198362.0
 1000015431,2026-07-25,per_liga1,Sport Huancayo,Marcelo Gaona,1400558,D,1,90,0,0,0,0.0,34.0,1.0,361770.0
@@ -17558,22 +17481,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186561,2026-07-26,china,Shenzhen Peng City,Wesley,656562,F,1,90,2,1,1,0.0,115.0,3.0,
 5186561,2026-07-26,china,Shenzhen Peng City,Dalong Xia,1285303,F,0,42,0,0,0,0.0,,3.0,232708.0
 5186561,2026-07-26,china,Shenzhen Peng City,Jianfei Zhao,977081,D,0,41,2,0,0,0.0,,1.0,357295.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Jefersson Martínez,279007,G,1,90,0,0,0,0.0,11.0,0.0,240317.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Daniel Rivera,1371032,D,1,90,3,1,0,0.26,32.0,1.0,459241.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Edwin Herrera,952530,D,1,90,1,0,0,0.01,34.0,1.0,594058.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Jermein Peña,1414103,D,1,90,1,0,0,0.04,36.0,1.0,833007.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Yeison Suárez,921771,D,1,90,0,0,0,0.0,38.0,1.0,559559.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Juan Ríos,727086,M,1,90,0,0,0,0.0,64.0,2.0,336017.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Fabián Ángel,1188381,M,1,46,0,0,0,0.0,66.0,2.0,378668.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Cristian Barrios,972467,F,1,67,1,0,0,0.06,83.0,3.0,1209088.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Jannenson Sarmiento,1437346,M,1,45,1,0,0,0.04,85.0,2.0,680517.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Kevin Pérez,1248701,F,1,72,1,0,0,0.02,87.0,3.0,444172.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Guillermo Paiva,1000532,F,1,90,5,2,1,0.39,115.0,3.0,831383.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Guillermo Celis,490025,M,0,44,0,0,0,0.0,,2.0,361168.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Yimmi Chará,244298,M,0,45,1,0,0,0.07,,2.0,333338.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Joel Canchimbo,1527100,F,0,23,0,0,0,0.0,,3.0,1073614.0
-1000014047,2026-07-26,col_primera_a,Junior FC,Déiber Caicedo,888637,F,0,18,0,0,0,0.0,,3.0,827075.0
-1000014047,2026-07-26,col_primera_a,Junior FC,José Munive,2035433,D,0,1,0,0,0,0.0,,1.0,
 5109848,2026-07-26,usl_championship,Sporting JAX,Jake McGuire,825635,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5109848,2026-07-26,usl_championship,Sporting JAX,Wahab Ackwei,1059395,D,1,65,1,0,0,0.0,33.0,1.0,50000.0
 5109848,2026-07-26,usl_championship,Sporting JAX,Ryan Edwards,330468,D,1,90,0,0,0,0.0,35.0,1.0,99208.0
@@ -135745,3 +135652,116 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014215,2026-10-04,col_primera_a,Once Caldas,Edwin Torres,1028609,F,0,28,1,0,0,0.04,,3.0,
 1000014215,2026-10-04,col_primera_a,Once Caldas,Dayro Moreno,50111,F,0,15,0,0,0,0.0,,3.0,439746.0
 1000014215,2026-10-04,col_primera_a,Once Caldas,Juan Nieto,466647,M,0,1,0,0,0,0.0,,2.0,
+5991948,2026-10-04,selecciones,Aruba,Matthew Lentink,212183,G,1,90,0,0,0,0.0,11.0,0.0,
+5991948,2026-10-04,selecciones,Aruba,Tyrese Gijsbertha,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991948,2026-10-04,selecciones,Aruba,Nickenson Paul,646663,D,1,90,1,0,0,0.0,34.0,1.0,
+5991948,2026-10-04,selecciones,Aruba,Bradley Martis,931552,D,1,90,0,0,0,0.0,36.0,1.0,
+5991948,2026-10-04,selecciones,Aruba,Rainey Breinburg,1553392,D,1,45,1,0,0,0.0,38.0,1.0,
+5991948,2026-10-04,selecciones,Aruba,Justin Peterson,0,,1,90,0,0,0,0.0,64.0,,
+5991948,2026-10-04,selecciones,Aruba,Roviën Ostiana,1400223,M,1,60,3,0,0,0.0,66.0,2.0,
+5991948,2026-10-04,selecciones,Aruba,Mishawn Molina,1566453,M,1,60,6,2,0,0.0,83.0,2.0,
+5991948,2026-10-04,selecciones,Aruba,Justin Figaroa,2323126,M,1,90,0,0,0,0.0,85.0,2.0,
+5991948,2026-10-04,selecciones,Aruba,Gello Robertha,1897376,M,1,90,4,2,0,0.0,87.0,2.0,
+5991948,2026-10-04,selecciones,Aruba,Carlito Fermina,949169,F,1,90,4,2,1,0.0,115.0,3.0,
+5991948,2026-10-04,selecciones,Aruba,Gianni Vandepitte,1934377,M,0,30,1,0,0,0.0,,2.0,
+5991948,2026-10-04,selecciones,Aruba,Kymani Nedd,1634433,F,0,45,2,0,0,0.0,,3.0,
+5991948,2026-10-04,selecciones,Aruba,Alljereau Mercera,1432175,F,0,30,3,2,1,0.0,,3.0,
+5991948,2026-10-04,selecciones,Anguilla,Jelanie Lawrence,1625108,G,1,90,0,0,0,0.0,11.0,0.0,
+5991948,2026-10-04,selecciones,Anguilla,Javis Jones,1240852,D,1,90,0,0,0,0.0,32.0,1.0,
+5991948,2026-10-04,selecciones,Anguilla,Nathaniel Owen,1767432,D,1,66,2,1,1,0.0,34.0,1.0,
+5991948,2026-10-04,selecciones,Anguilla,Sedu Bradshaw,1240846,D,1,90,0,0,0,0.0,36.0,1.0,
+5991948,2026-10-04,selecciones,Anguilla,Tjivari Leveret-Francisca,1767431,D,1,90,1,0,0,0.0,38.0,1.0,
+5991948,2026-10-04,selecciones,Anguilla,Jauron Gayle,1240856,M,1,66,1,1,0,0.0,72.0,2.0,
+5991948,2026-10-04,selecciones,Anguilla,Kayne Connor,1625110,M,1,90,1,0,0,0.0,74.0,2.0,
+5991948,2026-10-04,selecciones,Anguilla,Gemain Hughes,624298,M,1,90,1,0,0,0.0,76.0,2.0,
+5991948,2026-10-04,selecciones,Anguilla,Jayvon Lloyd,1650870,M,1,90,0,0,0,0.0,78.0,2.0,
+5991948,2026-10-04,selecciones,Anguilla,Carlton Carty,0,,1,90,0,0,0,0.0,104.0,,
+5991948,2026-10-04,selecciones,Anguilla,Tarique Jackson,1767426,F,1,90,0,0,0,0.0,106.0,3.0,
+5991948,2026-10-04,selecciones,Anguilla,Antonio Fleming,1768014,F,0,59,1,1,1,0.0,,3.0,
+5991886,2026-10-05,selecciones,Costa Rica,Keylor Navas,51949,G,1,90,0,0,0,0.0,11.0,0.0,681085.0
+5991886,2026-10-05,selecciones,Costa Rica,Yerlan Andrés Sosa Chavarría,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991886,2026-10-05,selecciones,Costa Rica,Juan Pablo Vargas,734283,D,1,90,0,0,0,0.0,34.0,1.0,992452.0
+5991886,2026-10-05,selecciones,Costa Rica,Francisco Calvo,272005,D,1,90,0,0,0,0.0,36.0,1.0,531826.0
+5991886,2026-10-05,selecciones,Costa Rica,Ronald Matarrita,498045,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
+5991886,2026-10-05,selecciones,Costa Rica,Kenyel Jaheim Michel Vargas,0,M,1,90,0,0,0,0.0,72.0,2.0,
+5991886,2026-10-05,selecciones,Costa Rica,Celso Borges,51953,M,1,90,0,0,0,0.0,74.0,2.0,50000.0
+5991886,2026-10-05,selecciones,Costa Rica,Sebastián Acuña,1410207,M,1,58,1,0,0,0.0,76.0,2.0,169521.0
+5991886,2026-10-05,selecciones,Costa Rica,Carlos Mora,1202707,M,1,59,1,1,1,0.0,78.0,2.0,1624276.0
+5991886,2026-10-05,selecciones,Costa Rica,Andrey Soto,1329626,M,1,65,2,1,1,0.0,104.0,2.0,174267.0
+5991886,2026-10-05,selecciones,Costa Rica,Orlando Sinclair,967020,F,1,81,2,0,0,0.0,106.0,3.0,73852.0
+5991886,2026-10-05,selecciones,Costa Rica,Josimar Alcócer,1296660,F,0,31,3,0,0,0.0,,3.0,3980840.0
+5991886,2026-10-05,selecciones,Haiti,Josué Duverger,899023,G,1,90,0,0,0,0.0,11.0,0.0,
+5991886,2026-10-05,selecciones,Haiti,Carlens Arcus,634110,D,1,90,1,0,0,0.0,32.0,1.0,1034367.0
+5991886,2026-10-05,selecciones,Haiti,Jean-Kévin Duverne,769168,D,1,90,0,0,0,0.0,34.0,1.0,1349530.0
+5991886,2026-10-05,selecciones,Haiti,Hannes Delcroix,822716,D,1,90,0,0,0,0.0,36.0,1.0,1378942.0
+5991886,2026-10-05,selecciones,Haiti,Duke Lacroix,649744,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
+5991886,2026-10-05,selecciones,Haiti,Danley Jean Jacques,1329461,M,1,90,0,0,0,0.0,64.0,2.0,1820348.0
+5991886,2026-10-05,selecciones,Haiti,Carl Sainté,1107287,D,1,90,0,0,0,0.0,66.0,1.0,69402.0
+5991886,2026-10-05,selecciones,Haiti,Don Deedson Louicius,1079194,M,1,90,0,0,0,0.0,83.0,2.0,685520.0
+5991886,2026-10-05,selecciones,Haiti,Fabrice Picault,580600,F,1,90,0,0,0,0.0,85.0,3.0,82460.0
+5991886,2026-10-05,selecciones,Haiti,Ruben Providence,1200016,F,1,66,1,0,0,0.0,87.0,3.0,262023.0
+5991886,2026-10-05,selecciones,Haiti,Wilson Isidor,887703,F,1,89,2,0,0,0.0,115.0,3.0,21441211.0
+5991886,2026-10-05,selecciones,Haiti,Jean-Ricner Bellegarde,769166,M,0,45,1,0,0,0.0,,2.0,13608508.0
+5991886,2026-10-05,selecciones,Haiti,Frantzdy Pierrot,833641,F,0,1,1,0,0,0.0,,3.0,775743.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Diego Novoa,72994,G,1,90,0,0,0,0.0,11.0,0.0,293709.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,José Ortiz,1071475,D,1,90,0,0,0,0.0,33.0,1.0,969272.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Carlos Romaña,1221306,D,1,90,0,0,0,0.0,35.0,1.0,300409.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,José García,1562699,D,1,90,0,0,0,0.0,37.0,1.0,892109.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Nilson Castrillón,739740,D,1,85,0,0,0,0.0,51.0,1.0,215973.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Fredy Hinestroza,323438,D,1,74,2,2,1,0.08,59.0,1.0,239373.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Felix Charrupí,1387848,M,1,90,1,1,0,0.05,73.0,2.0,402507.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Fabry Castro,466633,M,1,90,0,0,0,0.0,75.0,2.0,250197.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Emerson Batalla,1190851,M,1,85,5,1,1,1.02,77.0,2.0,1639207.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Fabián Sambueza,615929,F,1,74,0,0,0,0.0,104.0,3.0,292979.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Luciano Pons,412815,F,1,84,4,0,0,0.18,106.0,3.0,556145.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Aldair Gutiérrez,1319785,D,0,16,0,0,0,0.0,,1.0,320899.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Omar Albornoz,861556,D,0,16,0,0,0,0.0,,1.0,373701.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Brandon Caicedo,1054273,F,0,6,0,0,0,0.0,,3.0,436121.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Leonardo Flores,921607,M,0,5,0,0,0,0.0,,2.0,388453.0
+1000014173,2026-10-04,col_primera_a,Bucaramanga,Adrián Murillo,1813505,F,0,5,0,0,0,0.0,,3.0,
+1000014173,2026-10-04,col_primera_a,Junior FC,Jefersson Martínez,279007,G,1,90,0,0,0,0.0,11.0,0.0,240317.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Jermein Peña,1414103,D,1,90,1,1,0,0.02,32.0,1.0,1088466.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Daniel Rivera,1371032,D,1,45,2,0,0,0.08,34.0,1.0,517872.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Pablo Ortíz,1186360,D,1,90,0,0,0,0.0,36.0,1.0,442955.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Yeison Suárez,921771,D,1,90,2,1,0,0.06,38.0,1.0,786399.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Guillermo Celis,490025,M,1,81,1,1,0,0.17,64.0,2.0,386281.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Fabián Ángel,1188381,M,1,66,1,1,0,0.05,66.0,2.0,487519.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Déiber Caicedo,888637,F,1,66,0,0,0,0.0,83.0,3.0,588316.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Teofilo Gutiérrez,98220,M,1,90,0,0,0,0.0,85.0,2.0,346065.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Jesús Rivas,1031796,F,1,66,0,0,0,0.0,87.0,3.0,827557.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Luis Muriel,196484,F,1,90,8,3,1,2.05,115.0,3.0,919392.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Daniel Socarras,1911026,D,0,45,1,0,0,0.22,,1.0,
+1000014173,2026-10-04,col_primera_a,Junior FC,Harold Rivera,344059,M,0,24,3,0,0,0.41,,2.0,241657.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Kevin Pérez,1248701,F,0,24,1,1,0,0.08,,3.0,414244.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Bryan Castrillón,1225452,F,0,24,4,0,0,0.25,,3.0,602812.0
+1000014173,2026-10-04,col_primera_a,Junior FC,Guillermo Paiva,1000532,F,0,9,0,0,0,0.0,,3.0,843309.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Gonzalo Siri Payer,1608394,G,1,90,0,0,0,0.0,11.0,0.0,
+1000019558,2026-10-04,argentina,Argentinos Juniors,Franco Paredes,1137661,D,1,77,0,0,0,0.0,32.0,1.0,466175.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Mateo Mendoza,1436206,D,1,90,1,1,0,0.02,34.0,1.0,2232112.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Francisco Álvarez,920404,D,1,90,1,0,0,0.1,36.0,1.0,4272999.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Sebastián Prieto,841913,D,1,90,0,0,0,0.0,38.0,1.0,729565.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Kevin Gutiérrez,905265,D,1,90,2,1,1,0.06,55.0,1.0,2072650.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Hernán López,1037535,M,1,72,3,0,0,0.31,74.0,2.0,2466285.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Matías Giménez,1025559,M,1,60,1,0,0,0.02,76.0,2.0,1128248.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Nicolás Oroz,543304,M,1,90,1,1,0,0.02,95.0,2.0,995962.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Gastón Verón,918846,F,1,72,1,1,1,0.06,114.0,3.0,1144769.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Tomás Molina,728323,F,1,90,0,0,0,0.0,116.0,3.0,1856604.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Facundo Carrizo,1842716,D,0,30,1,1,0,0.04,,1.0,733340.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Facundo Jainikoski,1843096,F,0,18,1,0,0,0.03,,3.0,2294413.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Diego Porcel,1648046,F,0,18,1,0,0,0.02,,3.0,1198344.0
+1000019558,2026-10-04,argentina,Argentinos Juniors,Franco Vázquez,1648045,D,0,13,0,0,0,0.0,,1.0,703918.0
+1000019558,2026-10-04,argentina,Tigre,Felipe Zenobio,1198479,G,1,90,0,0,0,0.0,11.0,0.0,3886886.0
+1000019558,2026-10-04,argentina,Tigre,Valentín Moreno,1520633,D,1,85,1,0,0,0.01,32.0,1.0,1127885.0
+1000019558,2026-10-04,argentina,Tigre,Joaquín Laso,622269,D,1,90,0,0,0,0.0,34.0,1.0,540497.0
+1000019558,2026-10-04,argentina,Tigre,Alan Barrionuevo,1041082,D,1,90,0,0,0,0.0,36.0,1.0,1241064.0
+1000019558,2026-10-04,argentina,Tigre,Federico Álvarez,450769,D,1,90,0,0,0,0.0,38.0,1.0,577109.0
+1000019558,2026-10-04,argentina,Tigre,Jabes Saralegui,1413189,M,1,58,2,2,0,0.85,72.0,2.0,3885667.0
+1000019558,2026-10-04,argentina,Tigre,Santiago González,1630645,M,1,85,3,0,0,0.15,74.0,2.0,1688791.0
+1000019558,2026-10-04,argentina,Tigre,Bruno Leyes,1277904,M,1,90,0,0,0,0.0,76.0,2.0,1606005.0
+1000019558,2026-10-04,argentina,Tigre,Santiago López,1485158,M,1,90,1,1,0,0.02,78.0,2.0,2098159.0
+1000019558,2026-10-04,argentina,Tigre,Ignacio Russo,1200023,F,1,85,1,0,0,0.22,104.0,3.0,4995590.0
+1000019558,2026-10-04,argentina,Tigre,Jerónimo Dómina,1436222,F,1,90,4,1,1,0.38,106.0,3.0,1961098.0
+1000019558,2026-10-04,argentina,Tigre,Ignacio Peluffo,1834280,F,0,32,1,0,0,0.05,,3.0,
+1000019558,2026-10-04,argentina,Tigre,Martín Garay,939965,M,0,5,0,0,0,0.0,,2.0,563617.0
+1000019558,2026-10-04,argentina,Tigre,Alfio Oviedo,588773,F,0,5,0,0,0,0.0,,3.0,325420.0
+1000019558,2026-10-04,argentina,Tigre,Manuel Fernández,1709066,F,0,5,0,0,0,0.0,,3.0,420873.0
