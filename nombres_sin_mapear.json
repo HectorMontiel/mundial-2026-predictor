@@ -61,15 +61,15 @@
   },
   "Cienciano del Cusco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ind. Valle del Cauca",
-    "ratio": 0.5263,
-    "visto": "2026-09-28"
+    "candidato": "Ind. del Valle",
+    "ratio": 0.4375,
+    "visto": "2026-10-05"
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Club Lujan",
     "ratio": 0.6364,
-    "visto": "2026-10-04"
+    "visto": "2026-10-05"
   },
   "Cruz Azul": {
     "contexto": "cuotas_mx→futbol",
@@ -84,22 +84,22 @@
     "visto": "2026-10-03"
   },
   "Deportivo Moquegua": {
-    "candidato": "Deportivo Moron",
     "contexto": "cuotas_mx→futbol",
+    "candidato": "Deportivo Maipu",
     "ratio": 0.7273,
-    "visto": "2026-09-20"
+    "visto": "2026-10-05"
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Espanol",
     "ratio": 0.7429,
-    "visto": "2026-10-04"
+    "visto": "2026-10-05"
   },
   "Estudiantes de La Plata": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Estudiantes L.P.",
     "ratio": 0.7895,
-    "visto": "2026-10-04"
+    "visto": "2026-10-05"
   },
   "Estudiantes de Río Cuarto": {
     "contexto": "cuotas_mx→futbol",
@@ -261,7 +261,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sp. Luqueno",
     "ratio": 0.7692,
-    "visto": "2026-10-04"
+    "visto": "2026-10-05"
   },
   "Técnico Universitario": {
     "candidato": "Tecnico U.",
@@ -775,7 +775,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Social Atletico Television",
     "ratio": 0.4889,
-    "visto": "2026-10-04"
+    "visto": "2026-10-05"
   },
   "Club Atlético Morelia": {
     "contexto": "cuotas_mx→futbol",
@@ -907,13 +907,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "America De Cali",
     "ratio": 0.6,
-    "visto": "2026-10-04"
+    "visto": "2026-10-05"
   },
   "Los Chankas": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Los Andes",
+    "candidato": "Los Cabos",
     "ratio": 0.7,
-    "visto": "2026-09-27"
+    "visto": "2026-10-05"
   },
   "Pumas UNAM": {
     "contexto": "cuotas_mx→futbol",
@@ -952,16 +952,16 @@
     "visto": "2026-10-03"
   },
   "Red Bull Bragantino": {
-    "contexto": "cuotas_mx→futbol",
-    "candidato": "Red Arrows",
-    "ratio": 0.4138,
-    "visto": "2026-10-04"
+    "contexto": "oddsapi",
+    "candidato": "Bragantino-SP",
+    "ratio": 0.625,
+    "visto": "2026-10-05"
   },
   "Atlético-MG": {
     "contexto": "oddsapi",
     "candidato": "Atletico Mineiro",
     "ratio": 0.7407,
-    "visto": "2026-10-03"
+    "visto": "2026-10-05"
   },
   "Oldham Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1111,6 +1111,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Nueva Chicago",
     "ratio": 0.56,
-    "visto": "2026-10-04"
+    "visto": "2026-10-05"
+  },
+  "Athletico-PR": {
+    "contexto": "oddsapi",
+    "candidato": "Atletico Mineiro",
+    "ratio": 0.7143,
+    "visto": "2026-10-05"
+  },
+  "Atlético Grau": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Social Atletico Television",
+    "ratio": 0.4615,
+    "visto": "2026-10-05"
   }
 }
