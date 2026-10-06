@@ -970,21 +970,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4689329,2025-09-09,selecciones,Ukraine,Mykola Shaparenko,629559,M,0,15,1,1,0,0.02,,2.0,6432721.0
 4689329,2025-09-09,selecciones,Ukraine,Nazar Voloshyn,1395882,F,0,15,1,1,0,0.02,,3.0,6323016.0
 4689329,2025-09-09,selecciones,Ukraine,Bogdan Mykhaylychenko,629902,D,0,4,0,0,0,0.0,,1.0,1122337.0
-4822525,2025-09-09,selecciones,El Salvador,Mario Gonzalez,1261973,G,1,90,0,0,0,0.0,11.0,0.0,
-4822525,2025-09-09,selecciones,El Salvador,Julio Sibrian,1048983,D,1,90,0,0,0,0.0,33.0,1.0,
-4822525,2025-09-09,selecciones,El Salvador,Henry Romero,599868,D,1,90,0,0,0,0.0,35.0,1.0,50000.0
-4822525,2025-09-09,selecciones,El Salvador,Ronald Rodriguez,821253,D,1,70,1,0,0,0.11,37.0,1.0,63693.0
-4822525,2025-09-09,selecciones,El Salvador,Jefferson Valladares,1356360,D,1,90,1,0,0,0.01,51.0,1.0,80007.0
-4822525,2025-09-09,selecciones,El Salvador,Diego Flores,1605562,D,1,90,0,0,0,0.0,59.0,1.0,
-4822525,2025-09-09,selecciones,El Salvador,Darwin Ceren,502562,M,1,90,0,0,0,0.0,73.0,2.0,50000.0
-4822525,2025-09-09,selecciones,El Salvador,Mauricio Cerritos,1410063,M,1,83,1,0,0,0.02,75.0,2.0,
-4822525,2025-09-09,selecciones,El Salvador,Brayan Landaverde,645847,M,1,69,0,0,0,0.0,77.0,2.0,
-4822525,2025-09-09,selecciones,El Salvador,Nathan Ordaz,1328863,F,1,44,1,1,0,0.02,104.0,3.0,965526.0
-4822525,2025-09-09,selecciones,El Salvador,Brayan Gil,1080753,F,1,90,7,1,0,0.72,106.0,3.0,
-4822525,2025-09-09,selecciones,El Salvador,Styven Vasquez,1288292,F,0,46,0,0,0,0.0,,3.0,
-4822525,2025-09-09,selecciones,El Salvador,Joshua Perez,812604,F,0,21,0,0,0,0.0,,3.0,
-4822525,2025-09-09,selecciones,El Salvador,Harold Osorio,1292371,M,0,20,0,0,0,0.0,,2.0,
-4822525,2025-09-09,selecciones,El Salvador,Noel Rivera,1664791,M,0,7,0,0,0,0.0,,2.0,88135.0
 4822525,2025-09-09,selecciones,Suriname,Etienne Vaessen,665170,G,1,90,0,0,0,0.0,11.0,0.0,1441169.0
 4822525,2025-09-09,selecciones,Suriname,Liam van Gelderen,942380,D,1,70,0,0,0,0.0,32.0,1.0,660009.0
 4822525,2025-09-09,selecciones,Suriname,Radinio Balker,957358,D,1,90,1,1,1,0.13,34.0,1.0,594210.0
@@ -14255,38 +14240,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190621,2026-07-23,bra_serie_b,Athletic Club,Dixon Vera,1354140,F,0,38,0,0,0,0.0,,3.0,425846.0
 5190621,2026-07-23,bra_serie_b,Athletic Club,Wilinton Aponzá,1292408,F,0,29,2,0,0,0.08,,3.0,163245.0
 5190621,2026-07-23,bra_serie_b,Athletic Club,Yarlen,1622637,F,0,13,2,1,0,0.05,,3.0,1349293.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Tomás Marchiori,886331,G,1,90,0,0,0,0.0,11.0,0.0,1656941.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Joaquín García,1200718,D,1,90,0,0,0,0.0,32.0,1.0,2414168.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Thiago Silvero,1662972,D,1,90,0,0,0,0.0,34.0,1.0,889819.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Lisandro Magallán,211110,D,1,90,0,0,0,0.0,36.0,1.0,1088559.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Elías Gómez,509189,D,1,90,0,0,0,0.0,38.0,1.0,1169655.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Rodrigo Aliendro,618716,M,1,90,1,1,0,0.13,64.0,2.0,534186.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Claudio Baeza,360799,M,1,78,0,0,0,0.0,66.0,2.0,1236574.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Tobías Andrada,1761527,F,1,88,0,0,0,0.0,83.0,3.0,8682440.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Manuel Lanzini,210276,M,1,78,1,1,1,0.4,85.0,2.0,506614.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Matías Pellegrini,954660,F,1,63,2,0,0,0.14,87.0,3.0,992811.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Florián Monzón,1200720,F,1,89,1,1,0,0.03,115.0,3.0,1911298.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Álex Verón,1782368,F,0,27,2,2,0,0.21,,3.0,770465.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Lucas Robertone,787440,M,0,12,0,0,0,0.0,,2.0,1158947.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Diego Valdés,390758,M,0,12,1,0,0,0.09,,2.0,1705572.0
-5115887,2026-07-24,argentina,Vélez Sarsfield,Luca Feler,1911034,M,0,2,0,0,0,0.0,,2.0,
-5115887,2026-07-24,argentina,Vélez Sarsfield,Dilan Godoy,1765407,F,0,1,0,0,0,0.0,,3.0,1402178.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,César Rigamonti,270775,G,1,90,0,0,0,0.0,11.0,0.0,319649.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Luciano Paredes,1372927,D,1,82,1,1,0,0.02,32.0,1.0,458102.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Diego Mondino,830954,D,1,90,0,0,0,0.0,34.0,1.0,279206.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Ezequiel Muñoz,164029,D,1,90,0,0,0,0.0,36.0,1.0,394658.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Matías Recalde,1268082,D,1,90,0,0,0,0.0,38.0,1.0,
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Esteban Fernández,1562792,M,1,64,3,2,0,0.1,73.0,2.0,397417.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Fermín Antonini,731939,M,1,82,1,1,0,0.02,75.0,2.0,277175.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Facundo Lencioni,1520154,M,1,90,5,0,0,0.25,77.0,2.0,1026176.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Blas Armoa,839634,F,1,45,1,0,0,0.02,103.0,3.0,367001.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Agustín Módica,1552554,F,1,83,6,1,1,0.52,105.0,3.0,985121.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Ignacio Sabatini,1398373,F,1,90,1,0,0,0.04,107.0,3.0,308500.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Julián Ceballos,1634835,M,0,45,1,0,0,0.03,,2.0,751574.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Luciano Cingolani,1217961,F,0,26,2,2,0,0.06,,3.0,422627.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Nahuel Barboza,1437343,M,0,8,0,0,0,0.0,,2.0,325361.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Valentino Simoni,1752409,F,0,8,1,1,0,0.56,,3.0,518518.0
-5115879,2026-07-24,argentina,Gimnasia Mendoza,Lautaro Carrera,1616638,M,0,7,0,0,0,0.0,,2.0,416499.0
 1000011157,2026-07-24,bol_division,Aurora,Rubén Cordano,832397,G,1,90,0,0,0,0.0,11.0,0.0,184829.0
 1000011157,2026-07-24,bol_division,Aurora,Leandro Barro,1710545,D,1,89,0,0,0,0.0,33.0,1.0,
 1000011157,2026-07-24,bol_division,Aurora,René Barbosa,1016306,D,1,90,1,0,0,0.0,35.0,1.0,
@@ -15792,22 +15745,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115880,2026-07-25,argentina,Banfield,Federico Medina,1608141,M,0,18,0,0,0,0.0,,2.0,357213.0
 5115880,2026-07-25,argentina,Banfield,Federico Anselmo,589348,F,0,18,0,0,0,0.0,,3.0,333050.0
 5115880,2026-07-25,argentina,Banfield,Neyder Moreno,876842,M,0,11,1,0,0,0.1,,2.0,280221.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Juan Cozzani,926330,G,1,90,0,0,0,0.0,11.0,0.0,1999007.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Agustín Lagos,1083898,D,1,90,0,0,0,0.0,32.0,1.0,505482.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Ignacio Vázquez,1033115,D,1,90,3,1,0,0.09,34.0,1.0,1477299.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Mateo Mendía,1644153,D,1,90,0,0,0,0.0,36.0,1.0,492759.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Tomás Silva,1336637,D,1,90,0,0,0,0.0,38.0,1.0,1712565.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Iván Gómez,770895,M,1,64,0,0,0,0.0,64.0,2.0,722065.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Martín Barrios,940001,M,1,80,0,0,0,0.0,66.0,2.0,372844.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Guido Mainero,841947,F,1,90,1,0,0,0.02,83.0,3.0,748887.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Nicolás Retamar,1057439,M,1,90,3,1,0,0.17,85.0,2.0,478643.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Juan Gauto,1218336,F,1,80,0,0,0,0.0,87.0,3.0,1165569.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Leonardo Heredia,809620,F,1,64,2,0,0,0.18,115.0,3.0,1051324.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Pablo Ferreira,1437025,M,0,26,0,0,0,0.0,,2.0,447172.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Nicolás López,362194,F,0,26,4,1,0,0.21,,3.0,846709.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Gonzalo Lencina,1030998,F,0,10,2,1,0,0.72,,3.0,425221.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Bautista Merlini,740126,F,0,10,1,1,1,0.05,,3.0,266632.0
-5115883,2026-07-25,argentina,Club Atlético Platense,Felipe Bussio,1662973,M,0,1,0,0,0,0.0,,2.0,704566.0
 1000015430,2026-07-25,per_liga1,Universitario de Deportes,Diego Romero,1133039,G,1,90,0,0,0,0.0,11.0,0.0,600801.0
 1000015430,2026-07-25,per_liga1,Universitario de Deportes,Andy Polo,263619,D,1,90,0,0,0,0.0,32.0,1.0,516130.0
 1000015430,2026-07-25,per_liga1,Universitario de Deportes,Caín Fara,834676,D,1,90,0,0,0,0.0,34.0,1.0,166614.0
@@ -19280,22 +19217,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014058,2026-08-01,col_primera_a,Independiente Medellín,John Montaño,1512606,F,0,26,0,0,0,0.0,,3.0,1603063.0
 1000014058,2026-08-01,col_primera_a,Independiente Medellín,Didier Moreno,245171,M,0,7,0,0,0,0.0,,2.0,383745.0
 1000014058,2026-08-01,col_primera_a,Independiente Medellín,Diego Moreno,851912,M,0,2,1,1,1,0.08,,2.0,383873.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Manuel Roffo,847982,G,1,90,0,0,0,0.0,11.0,0.0,2465508.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Alexis Cañete,1636611,D,1,90,2,1,0,0.0,33.0,1.0,680165.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Gustavo Velázquez,497352,D,1,90,1,0,0,0.0,35.0,1.0,347599.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Matías Pérez,1130624,D,1,90,0,0,0,0.0,37.0,1.0,1715580.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Fabricio Domínguez,955333,M,1,46,0,0,0,0.0,62.0,2.0,986104.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Robert Piris,244899,M,1,77,1,0,0,0.0,64.0,2.0,506366.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Jorge Morel,688291,M,1,90,4,3,2,0.0,66.0,2.0,1031266.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Blás Riveros,729090,M,1,46,0,0,0,0.0,68.0,2.0,700869.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Jonathan Torres,662089,M,1,54,3,2,0,0.0,84.0,2.0,772771.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Cecilio Domínguez,301391,M,1,65,1,1,0,0.0,86.0,2.0,377319.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Pablo Vegetti,466164,F,1,90,3,2,1,0.0,105.0,3.0,492155.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Guillermo Benítez,571609,D,0,44,0,0,0,0.0,,1.0,248857.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Derlis Rodríguez,900003,M,0,44,0,0,0,0.0,,2.0,529989.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Ariel Gamarra,1613475,M,0,36,1,0,0,0.0,,2.0,668554.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Carlos Franco,1840869,F,0,25,1,1,0,0.0,,3.0,1438041.0
-1000017363,2026-08-01,par_division,Cerro Porteño,Cesar Bobadilla,1940091,M,0,13,0,0,0,0.0,,2.0,1011362.0
 5115907,2026-08-01,argentina,Estudiantes,Fernando Muslera,56829,G,1,90,0,0,0,0.0,11.0,0.0,652585.0
 5115907,2026-08-01,argentina,Estudiantes,Eric Meza,1201768,D,1,90,1,1,0,0.22,32.0,1.0,1695270.0
 5115907,2026-08-01,argentina,Estudiantes,Santiago Núñez,1315102,D,1,90,0,0,0,0.0,34.0,1.0,1569929.0
@@ -19472,22 +19393,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017368,2026-08-01,par_division,Sportivo Ameliano,Luis Ortiz,1042092,M,0,27,1,0,0,0.0,,2.0,
 1000017368,2026-08-01,par_division,Sportivo Ameliano,Marcelo Camargo,0,M,0,26,0,0,0,0.0,,2.0,
 1000017368,2026-08-01,par_division,Sportivo Ameliano,Bruno López,1925112,F,0,20,0,0,0,0.0,,3.0,130000.0
-1000017368,2026-08-01,par_division,2 de Mayo,Nicolás Rossi,1249290,G,1,90,0,0,0,0.0,11.0,0.0,284784.0
-1000017368,2026-08-01,par_division,2 de Mayo,Alberto Espínola,308590,D,1,26,0,0,0,0.0,32.0,1.0,238475.0
-1000017368,2026-08-01,par_division,2 de Mayo,Pedro Sosa,1642554,D,1,90,0,0,0,0.0,34.0,1.0,253459.0
-1000017368,2026-08-01,par_division,2 de Mayo,César Ramírez,1579231,D,1,90,0,0,0,0.0,36.0,1.0,391558.0
-1000017368,2026-08-01,par_division,2 de Mayo,César Castro,1693777,D,1,90,2,2,0,0.0,38.0,1.0,266738.0
-1000017368,2026-08-01,par_division,2 de Mayo,Marcos Gómez,1339408,M,1,90,0,0,0,0.0,65.0,2.0,397968.0
-1000017368,2026-08-01,par_division,2 de Mayo,Marcelo González,589519,F,1,77,0,0,0,0.0,82.0,3.0,154597.0
-1000017368,2026-08-01,par_division,2 de Mayo,Óscar Romero,1626718,M,1,90,2,0,0,0.0,84.0,2.0,296630.0
-1000017368,2026-08-01,par_division,2 de Mayo,Alexis Fariña,1458741,M,1,77,0,0,0,0.0,86.0,2.0,828167.0
-1000017368,2026-08-01,par_division,2 de Mayo,Pedro Delvalle,1137312,F,1,71,2,1,0,0.0,88.0,3.0,287599.0
-1000017368,2026-08-01,par_division,2 de Mayo,Jorge Sanguina,834637,F,1,78,2,1,0,0.0,115.0,3.0,440836.0
-1000017368,2026-08-01,par_division,2 de Mayo,Rodrigo Gómez,1736534,D,0,64,0,0,0,0.0,,1.0,883606.0
-1000017368,2026-08-01,par_division,2 de Mayo,Ángel Aguilera,1787367,M,0,19,0,0,0,0.0,,2.0,391608.0
-1000017368,2026-08-01,par_division,2 de Mayo,Alexis Villalba,1036576,D,0,13,0,0,0,0.0,,1.0,320963.0
-1000017368,2026-08-01,par_division,2 de Mayo,Alan Gómez,1443927,M,0,13,0,0,0,0.0,,2.0,
-1000017368,2026-08-01,par_division,2 de Mayo,Tobías Cervera,1378924,F,0,12,0,0,0,0.0,,3.0,394453.0
 1000014065,2026-08-01,col_primera_a,Águilas Doradas,Jorge Soto,1393528,G,1,90,0,0,0,0.0,11.0,0.0,248857.0
 1000014065,2026-08-01,col_primera_a,Águilas Doradas,Jhon Meléndez,1333447,D,1,90,3,2,0,0.09,32.0,1.0,543246.0
 1000014065,2026-08-01,col_primera_a,Águilas Doradas,Andrés Mosquera,205863,D,1,90,0,0,0,0.0,34.0,1.0,278024.0
@@ -135888,3 +135793,145 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5868474,2026-10-05,esp_hypermotion,Tenerife,Grant-Leon Ranos,1280025,F,0,33,1,1,1,0.06,,3.0,668402.0
 5868474,2026-10-05,esp_hypermotion,Tenerife,Roko Jureškin,1072743,D,0,23,0,0,0,0.0,,1.0,256708.0
 5868474,2026-10-05,esp_hypermotion,Tenerife,Jorge Moreno,1288206,D,0,14,1,0,0,0.1,,1.0,520677.0
+5991900,2026-10-05,selecciones,Martinique,Emmanuel Vermignon,532547,G,1,90,0,0,0,0.0,11.0,0.0,
+5991900,2026-10-05,selecciones,Martinique,Joris Moutachy,1177966,D,1,90,0,0,0,0.0,32.0,1.0,80334.0
+5991900,2026-10-05,selecciones,Martinique,Boris Moltenis,950487,D,1,90,1,0,0,0.0,34.0,1.0,106132.0
+5991900,2026-10-05,selecciones,Martinique,Harold Voyer,1311670,D,1,90,1,0,0,0.0,36.0,1.0,641389.0
+5991900,2026-10-05,selecciones,Martinique,Yanis Lelin,1786009,D,1,90,2,0,0,0.0,38.0,1.0,243886.0
+5991900,2026-10-05,selecciones,Martinique,Jonathan Varane,1250510,M,1,85,1,1,0,0.0,64.0,2.0,2059934.0
+5991900,2026-10-05,selecciones,Martinique,Christof Jougon,859509,M,1,90,0,0,0,0.0,66.0,2.0,
+5991900,2026-10-05,selecciones,Martinique,Kévin Appin,964579,M,1,90,0,0,0,0.0,83.0,2.0,412556.0
+5991900,2026-10-05,selecciones,Martinique,Ludovic Blas,693171,M,1,90,5,1,0,0.0,85.0,2.0,7832958.0
+5991900,2026-10-05,selecciones,Martinique,Janis Antiste,1131220,M,1,74,2,2,1,0.0,87.0,2.0,945650.0
+5991900,2026-10-05,selecciones,Martinique,Brighton Labeau,769932,F,1,90,3,1,0,0.0,115.0,3.0,479502.0
+5991900,2026-10-05,selecciones,El Salvador,Mario González,1261973,G,1,90,0,0,0,0.0,11.0,0.0,81294.0
+5991900,2026-10-05,selecciones,El Salvador,Jefferson Valladares,1356360,D,1,90,2,1,1,0.0,32.0,1.0,80877.0
+5991900,2026-10-05,selecciones,El Salvador,Julio Sibrián,1048983,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5991900,2026-10-05,selecciones,El Salvador,Jorge Cruz,1309308,D,1,90,0,0,0,0.0,36.0,1.0,71969.0
+5991900,2026-10-05,selecciones,El Salvador,Alejandro Ismael Henríquez Ferru,0,D,1,90,0,0,0,0.0,38.0,1.0,
+5991900,2026-10-05,selecciones,El Salvador,Marcelo Díaz,1214013,M,1,90,1,0,0,0.0,72.0,2.0,86159.0
+5991900,2026-10-05,selecciones,El Salvador,Mauricio Cerritos,1410063,M,1,90,0,0,0,0.0,74.0,2.0,50000.0
+5991900,2026-10-05,selecciones,El Salvador,Christian Martínez,708876,M,1,90,1,0,0,0.0,76.0,2.0,66166.0
+5991900,2026-10-05,selecciones,El Salvador,Rafael Tejada,1397226,M,1,90,0,0,0,0.0,78.0,2.0,91300.0
+5991900,2026-10-05,selecciones,El Salvador,Brayan Gil,1080753,F,1,90,1,1,0,0.0,104.0,3.0,4487044.0
+5991900,2026-10-05,selecciones,El Salvador,Styven Vásquez,1288292,F,1,90,0,0,0,0.0,106.0,3.0,170957.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Manuel Roffo,847982,G,1,90,0,0,0,0.0,11.0,0.0,2342415.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Iván Ramírez,497399,D,1,90,0,0,0,0.0,32.0,1.0,864996.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Gustavo Velázquez,497352,D,1,90,0,0,0,0.0,34.0,1.0,394075.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Lucas Quintana,1458735,D,1,90,2,1,0,0.0,36.0,1.0,
+1000017423,2026-10-05,par_division,Cerro Porteño,Guillermo Benítez,571609,D,1,90,2,0,0,0.0,38.0,1.0,264799.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Jorge Morel,688291,M,1,45,1,1,0,0.0,65.0,2.0,1123706.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Ignacio Aliseda,952526,F,1,78,2,1,0,0.0,82.0,3.0,1373236.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Carlos Chena,1958023,M,1,65,0,0,0,0.0,84.0,2.0,
+1000017423,2026-10-05,par_division,Cerro Porteño,Jonathan Torres,662089,M,1,60,3,1,0,0.0,86.0,2.0,828218.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Juan Iturbe,245572,F,1,60,2,0,0,0.0,88.0,3.0,413231.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Pablo Vegetti,466164,F,1,90,1,0,0,0.0,115.0,3.0,595450.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Robert Piris,244899,M,0,45,1,0,0,0.0,,2.0,514135.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Derlis Rodríguez,900003,M,0,30,1,0,0,0.0,,2.0,509466.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Sergio Araújo,190669,F,0,30,1,0,0,0.0,,3.0,330605.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Cesar Bobadilla,1940091,M,0,25,0,0,0,0.0,,2.0,861824.0
+1000017423,2026-10-05,par_division,Cerro Porteño,Fabricio Domínguez,955333,M,0,12,0,0,0,0.0,,2.0,1096889.0
+1000017423,2026-10-05,par_division,2 de Mayo,Nicolás Rossi,1249290,G,1,90,0,0,0,0.0,11.0,0.0,286041.0
+1000017423,2026-10-05,par_division,2 de Mayo,Alexis Villalva,1036576,D,1,90,0,0,0,0.0,33.0,1.0,296173.0
+1000017423,2026-10-05,par_division,2 de Mayo,Pedro Sosa,1642554,D,1,90,0,0,0,0.0,35.0,1.0,325784.0
+1000017423,2026-10-05,par_division,2 de Mayo,César Ramírez,1579231,D,1,90,0,0,0,0.0,37.0,1.0,360660.0
+1000017423,2026-10-05,par_division,2 de Mayo,Alberto Espínola,308590,D,1,90,0,0,0,0.0,51.0,1.0,254217.0
+1000017423,2026-10-05,par_division,2 de Mayo,César Castro,1693777,D,1,75,0,0,0,0.0,59.0,1.0,324530.0
+1000017423,2026-10-05,par_division,2 de Mayo,Alan Gómez,1443927,M,1,68,2,1,1,0.0,72.0,2.0,
+1000017423,2026-10-05,par_division,2 de Mayo,Luis Delgadillo,1867174,M,1,45,1,0,0,0.0,74.0,2.0,
+1000017423,2026-10-05,par_division,2 de Mayo,Óscar Romero,1626718,M,1,90,0,0,0,0.0,76.0,2.0,340622.0
+1000017423,2026-10-05,par_division,2 de Mayo,Matías Moya,814811,M,1,76,1,0,0,0.0,78.0,2.0,254293.0
+1000017423,2026-10-05,par_division,2 de Mayo,Tobías Cervera,1378924,F,1,75,3,1,1,0.0,115.0,3.0,348962.0
+1000017423,2026-10-05,par_division,2 de Mayo,Marcos Gómez,1339408,M,0,44,0,0,0,0.0,,2.0,388920.0
+1000017423,2026-10-05,par_division,2 de Mayo,Pedro Delvalle,1137312,F,0,22,1,0,0,0.0,,3.0,279943.0
+1000017423,2026-10-05,par_division,2 de Mayo,Ulises Coronel,1680050,D,0,15,0,0,0,0.0,,1.0,264840.0
+1000017423,2026-10-05,par_division,2 de Mayo,Matías Cáceres,724324,F,0,15,1,0,0,0.0,,3.0,247759.0
+1000017423,2026-10-05,par_division,2 de Mayo,Estifen Díaz,1553802,M,0,14,0,0,0,0.0,,2.0,504709.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Tomás Marchiori,886331,G,1,90,0,0,0,0.0,11.0,0.0,1482328.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Joaquín García,1200718,D,1,90,0,0,0,0.0,32.0,1.0,2468141.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Thiago Silvero,1662972,D,1,90,1,1,0,0.08,34.0,1.0,1182276.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Lisandro Magallán,211110,D,1,90,1,1,0,0.06,36.0,1.0,1127774.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Elías Gómez,509189,D,1,90,0,0,0,0.0,38.0,1.0,1148144.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Rodrigo Aliendro,618716,M,1,90,1,0,0,0.03,64.0,2.0,579251.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Lucas Robertone,787440,M,1,90,2,1,0,0.04,66.0,2.0,1423074.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Thiago Aguirre,1981156,F,1,70,0,0,0,0.0,83.0,3.0,
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Manuel Lanzini,210276,M,1,9,0,0,0,0.0,85.0,2.0,534159.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Juan Policella,2099187,F,1,14,1,1,0,0.45,87.0,3.0,
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Ronaldo Martínez,659738,F,1,90,2,2,2,1.15,115.0,3.0,2408338.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Diego Valdés,390758,M,0,81,1,0,0,0.13,,2.0,1705572.0
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Simón Escobar,1844310,D,0,76,1,0,0,0.02,,1.0,
+1000019551,2026-10-05,argentina,Vélez Sarsfield,Luca Feler,1911034,M,0,20,0,0,0,0.0,,2.0,868489.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Juan Cozzani,926330,G,1,90,0,0,0,0.0,11.0,0.0,2055922.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Agustín Lagos,1083898,D,1,90,2,0,0,0.82,32.0,1.0,615044.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Mateo Mendía,1644153,D,1,90,1,0,0,0.07,34.0,1.0,573537.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Víctor Cuesta,167569,D,1,90,1,0,0,0.02,36.0,1.0,398832.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Tomás Silva,1336637,D,1,90,0,0,0,0.0,38.0,1.0,2200639.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Maximiliano Amarfil,1386069,M,1,65,1,0,0,0.12,64.0,2.0,1378766.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Martín Barrios,940001,M,1,90,1,0,0,0.04,66.0,2.0,473089.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Guido Mainero,841947,F,1,65,2,0,0,0.1,83.0,3.0,1294075.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Bautista Merlini,740126,M,1,65,3,2,1,0.95,85.0,2.0,266141.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Nicolás Retamar,1057439,F,1,89,0,0,0,0.0,87.0,3.0,747488.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Bruno Sepúlveda,741669,F,1,71,2,0,0,0.13,115.0,3.0,316909.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Franco Zapiola,1276036,M,0,25,1,1,1,0.02,,2.0,1441192.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Iván Gómez,770895,M,0,25,1,1,0,0.29,,2.0,892534.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Gastón Togni,832164,F,0,25,0,0,0,0.0,,3.0,1191672.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Gonzalo Lencina,1030998,F,0,19,1,0,0,0.06,,3.0,592012.0
+1000019551,2026-10-05,argentina,Club Atlético Platense,Juan Gauto,1218336,F,0,1,0,0,0,0.0,,3.0,1379568.0
+1000019549,2026-10-05,argentina,Estudiantes,Fernando Muslera,56829,G,1,90,0,0,0,0.0,11.0,0.0,686357.0
+1000019549,2026-10-05,argentina,Estudiantes,Eros Mancuso,1249664,D,1,90,1,0,0,0.06,32.0,1.0,2306651.0
+1000019549,2026-10-05,argentina,Estudiantes,Santiago Núñez,1315102,D,1,90,1,0,0,0.02,34.0,1.0,1758464.0
+1000019549,2026-10-05,argentina,Estudiantes,Leandro González Pírez,256609,D,1,90,0,0,0,0.0,36.0,1.0,413209.0
+1000019549,2026-10-05,argentina,Estudiantes,Gastón Benedetti,1214100,D,1,90,0,0,0,0.0,38.0,1.0,1930282.0
+1000019549,2026-10-05,argentina,Estudiantes,Ezequiel Piovi,793315,M,1,24,0,0,0,0.0,64.0,2.0,827766.0
+1000019549,2026-10-05,argentina,Estudiantes,Baltasar Rodríguez,1362433,M,1,90,2,0,0,0.18,66.0,2.0,4569089.0
+1000019549,2026-10-05,argentina,Estudiantes,Joaquín Tobio Burgos,1685812,F,1,89,2,0,0,0.49,83.0,3.0,1390004.0
+1000019549,2026-10-05,argentina,Estudiantes,Miguel Monsalve,1350730,M,1,68,0,0,0,0.0,85.0,2.0,4494752.0
+1000019549,2026-10-05,argentina,Estudiantes,Edwuin Cetré,924959,F,1,90,5,3,1,0.87,87.0,3.0,2350174.0
+1000019549,2026-10-05,argentina,Estudiantes,Adolfo Gaich,957220,F,1,68,1,0,0,0.03,115.0,3.0,985279.0
+1000019549,2026-10-05,argentina,Estudiantes,Bautista Kociubinski,1201582,M,0,65,0,0,0,0.0,,2.0,329950.0
+1000019549,2026-10-05,argentina,Estudiantes,Guido Carrillo,267894,F,0,22,2,0,0,0.24,,3.0,488530.0
+1000019549,2026-10-05,argentina,Estudiantes,Fabricio Pérez,1680411,F,0,22,3,2,2,0.92,,3.0,3023551.0
+1000019549,2026-10-05,argentina,Estudiantes,Santiago Arzamendia,860661,D,0,1,0,0,0,0.0,,1.0,1484780.0
+1000019549,2026-10-05,argentina,Estudiantes,José Sosa,18518,M,0,1,0,0,0,0.0,,2.0,297725.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,César Rigamonti,270775,G,1,90,0,0,0,0.0,11.0,0.0,382935.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Luciano Paredes,1372927,D,1,90,0,0,0,0.0,32.0,1.0,662040.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Diego Mondino,830954,D,1,90,0,0,0,0.0,34.0,1.0,292734.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Ezequiel Muñoz,164029,D,1,90,3,0,0,0.3,36.0,1.0,474765.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Matías Recalde,1268082,D,1,90,0,0,0,0.0,38.0,1.0,
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Fermín Antonini,731939,M,1,74,0,0,0,0.0,64.0,2.0,276974.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Tomás O'Connor,1372669,M,1,46,0,0,0,0.0,66.0,2.0,683706.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Matías Vargas,642766,F,1,74,2,0,0,0.12,83.0,3.0,2561475.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Esteban Fernández,1562792,M,1,89,1,1,0,0.31,85.0,2.0,456440.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Facundo Lencioni,1520154,F,1,90,3,0,0,0.27,87.0,3.0,1773231.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Agustín Módica,1552554,F,1,82,1,1,0,0.07,115.0,3.0,1691589.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Julián Ceballos,1634835,M,0,44,0,0,0,0.0,,2.0,851928.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Nahuel Barboza,1437343,M,0,16,0,0,0,0.0,,2.0,314646.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Blas Armoa,839634,F,0,16,0,0,0,0.0,,3.0,497946.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Valentino Simoni,1752409,F,0,8,0,0,0,0.0,,3.0,829100.0
+1000019549,2026-10-05,argentina,Gimnasia Mendoza,Santiago Rodríguez,690398,F,0,1,0,0,0,0.0,,3.0,432420.0
+5991928,2026-10-05,selecciones,Cuba,Ismael Morgado,1377894,G,1,90,0,0,0,0.0,11.0,0.0,
+5991928,2026-10-05,selecciones,Cuba,Alejandro Delgado,1583857,D,1,90,0,0,0,0.0,32.0,1.0,
+5991928,2026-10-05,selecciones,Cuba,Karel Espino,1056343,D,1,90,0,0,0,0.0,34.0,1.0,
+5991928,2026-10-05,selecciones,Cuba,Karel Pérez,1650485,D,1,85,1,0,0,0.0,36.0,1.0,
+5991928,2026-10-05,selecciones,Cuba,Eloy Nebreda,2139622,D,1,90,1,0,0,0.0,38.0,1.0,
+5991928,2026-10-05,selecciones,Cuba,Yunior Pérez,1240620,M,1,85,2,2,1,0.0,64.0,2.0,
+5991928,2026-10-05,selecciones,Cuba,Marcos Campo,1650488,M,1,90,0,0,0,0.0,66.0,2.0,
+5991928,2026-10-05,selecciones,Cuba,Dairon Reyes,1196415,F,1,90,6,0,0,0.0,83.0,3.0,
+5991928,2026-10-05,selecciones,Cuba,Diego Catasus,1768812,M,1,90,2,0,0,0.0,85.0,2.0,147998.0
+5991928,2026-10-05,selecciones,Cuba,Michael Camejo,1817649,M,1,74,2,1,0,0.0,87.0,2.0,
+5991928,2026-10-05,selecciones,Cuba,Luis Paradela,1056340,F,1,64,5,1,0,0.0,115.0,3.0,122157.0
+5991928,2026-10-05,selecciones,Cuba,Pedro Bravo,1768811,D,0,5,2,0,0,0.0,,1.0,
+5991928,2026-10-05,selecciones,Cuba,Daniel Díaz,1421729,F,0,26,3,1,1,0.0,,3.0,205786.0
+5991928,2026-10-05,selecciones,Cuba,Didier Reinoso,1817653,F,0,16,1,1,0,0.0,,3.0,
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Julani Archibald,505019,G,1,90,0,0,0,0.0,11.0,0.0,98141.0
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Malique Roberts,1240554,D,1,90,0,0,0,0.0,32.0,1.0,
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Rico Browne,1290869,D,1,90,0,0,0,0.0,34.0,1.0,262117.0
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Jordan Bowery,149895,D,1,90,0,0,0,0.0,36.0,1.0,146030.0
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Micaah Garnette,1634296,D,1,90,1,0,0,0.0,38.0,1.0,
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Romaine Sawyers,173410,M,1,80,1,0,0,0.0,72.0,2.0,138267.0
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Theo Wharton,672489,M,1,61,1,0,0,0.0,74.0,2.0,50000.0
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Yohannes Mitchum,845497,M,1,90,0,0,0,0.0,76.0,2.0,
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Kyle Kelly,1423787,M,1,90,1,0,0,0.0,78.0,2.0,
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Tiquanny Williams,1261522,F,1,90,4,2,2,0.0,104.0,3.0,
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Omari Sterling-James,563227,M,1,61,4,3,0,0.0,106.0,2.0,
+5991928,2026-10-05,selecciones,St. Kitts and Nevis,Savi-K Morton,1934311,M,0,29,1,0,0,0.0,,2.0,

@@ -63,13 +63,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Academia del Balompie",
     "ratio": 0.5,
-    "visto": "2026-10-05"
+    "visto": "2026-10-06"
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Club 2",
-    "ratio": 0.4,
-    "visto": "2026-10-05"
+    "candidato": "Olimpia Asuncion",
+    "ratio": 0.5,
+    "visto": "2026-10-06"
   },
   "Cruz Azul": {
     "contexto": "cuotas_mx→futbol",
@@ -87,7 +87,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Muniz",
     "ratio": 0.7273,
-    "visto": "2026-10-05"
+    "visto": "2026-10-06"
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
@@ -123,7 +123,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Independiente FBC",
     "ratio": 0.7179,
-    "visto": "2026-09-30"
+    "visto": "2026-10-06"
   },
   "Independiente Rivadavia": {
     "contexto": "cuotas_mx→futbol",
@@ -133,9 +133,9 @@
   },
   "Independiente Santa Fe": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Santa Ana",
-    "ratio": 0.3871,
-    "visto": "2026-10-04"
+    "candidato": "Independiente FBC",
+    "ratio": 0.7692,
+    "visto": "2026-10-06"
   },
   "Independiente del Valle": {
     "contexto": "cuotas_mx→futbol",
@@ -311,9 +311,9 @@
   },
   "Atlético Nacional": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Balboa",
-    "ratio": 0.6875,
-    "visto": "2026-09-28"
+    "candidato": "Nacional Asuncion",
+    "ratio": 0.4706,
+    "visto": "2026-10-06"
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
@@ -341,9 +341,9 @@
   },
   "Club Atlético La Paz": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico F.C.",
-    "ratio": 0.625,
-    "visto": "2026-10-02"
+    "candidato": "Racing Club 2",
+    "ratio": 0.303,
+    "visto": "2026-10-06"
   },
   "Sporting JAX": {
     "contexto": "cuotas_mx→futbol",
@@ -443,15 +443,15 @@
   },
   "Sutton United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CK United",
-    "ratio": 0.6364,
-    "visto": "2026-10-03"
+    "candidato": "Spalding United",
+    "ratio": 0.6429,
+    "visto": "2026-10-06"
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Transilvania Sport Academy",
-    "ratio": 0.4103,
-    "visto": "2026-10-02"
+    "candidato": "Sport Boys",
+    "ratio": 0.4348,
+    "visto": "2026-10-06"
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
@@ -605,9 +605,9 @@
   },
   "Deportivo Maldonado": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Camioneros",
-    "ratio": 0.7179,
-    "visto": "2026-10-03"
+    "candidato": "Deportivo Santani",
+    "ratio": 0.7222,
+    "visto": "2026-10-06"
   },
   "Deportivo Maipú": {
     "contexto": "cuotas_mx→futbol",
@@ -955,7 +955,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Qingdao Red Lions",
     "ratio": 0.3333,
-    "visto": "2026-10-05"
+    "visto": "2026-10-06"
   },
   "Atlético-MG": {
     "contexto": "cuotas_mx→futbol",
@@ -983,9 +983,9 @@
   },
   "Gimnasia La Plata": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia Mendoza 2",
-    "ratio": 0.6286,
-    "visto": "2026-10-01"
+    "candidato": "Gimnasia L.P. 2",
+    "ratio": 0.7742,
+    "visto": "2026-10-06"
   },
   "Huddersfield Town": {
     "contexto": "cuotas_mx→futbol",
@@ -1025,9 +1025,9 @@
   },
   "Boca Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cuenca Juniors",
-    "ratio": 0.7692,
-    "visto": "2026-10-02"
+    "candidato": "Shenzhen Juniors",
+    "ratio": 0.5714,
+    "visto": "2026-10-06"
   },
   "Argentinos Juniors": {
     "contexto": "cuotas_mx→futbol",
@@ -1124,5 +1124,35 @@
     "candidato": "Social Atletico Television",
     "ratio": 0.4615,
     "visto": "2026-10-05"
+  },
+  "São Paulo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sao Bernardo",
+    "ratio": 0.5714,
+    "visto": "2026-10-06"
+  },
+  "Qingdao Hainiu": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Qingdao Red Lions",
+    "ratio": 0.6452,
+    "visto": "2026-10-06"
+  },
+  "BEIJING GUOAN": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Beijing Technology",
+    "ratio": 0.5806,
+    "visto": "2026-10-06"
+  },
+  "West Ham United": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Mombasa United",
+    "ratio": 0.6207,
+    "visto": "2026-10-06"
+  },
+  "San Antonio Bulo Bulo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "SA Bulo Bulo",
+    "ratio": 0.7273,
+    "visto": "2026-10-06"
   }
 }
