@@ -19056,22 +19056,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Kener Arce,207771,D,0,29,0,0,0,0.0,,1.0,88857.0
 1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Carlos Estupiñán,1922561,M,0,29,2,1,0,0.0,,2.0,
 1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Marco Carrasco,497320,M,0,14,1,0,0,0.0,,2.0,98141.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Ángel Sánchez,1458550,G,1,90,0,0,0,0.0,11.0,0.0,270255.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Ronald Peralta,1795619,D,1,63,1,0,0,0.0,32.0,1.0,351013.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Julio González,497328,D,1,90,0,0,0,0.0,34.0,1.0,295673.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Andrea Falabella,1435223,D,1,90,1,0,0,0.0,36.0,1.0,396902.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Abel Paredes,860957,D,1,90,0,0,0,0.0,38.0,1.0,269524.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Walter Rodríguez,860889,M,1,90,2,0,0,0.0,65.0,2.0,250197.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Luis Ayala,1782148,F,1,70,0,0,0,0.0,82.0,3.0,
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Valentín Larralde,1186691,M,1,64,2,0,0,0.0,84.0,2.0,351766.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Raúl Cabral,1709065,M,1,90,0,0,0,0.0,86.0,2.0,811921.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Edgar Páez,1645373,F,1,63,3,2,0,0.0,88.0,3.0,
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Richard Torales,1453346,F,1,40,2,0,0,0.0,115.0,3.0,418632.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Cristhian Ocampos,1033282,F,0,50,5,1,0,0.0,,3.0,357748.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Estivel Moreira,951493,M,0,27,1,1,1,0.0,,2.0,279348.0
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Luis Ortiz,1042092,M,0,27,1,0,0,0.0,,2.0,
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Marcelo Camargo,0,M,0,26,0,0,0,0.0,,2.0,
-1000017368,2026-08-01,par_division,Sportivo Ameliano,Bruno López,1925112,F,0,20,0,0,0,0.0,,3.0,130000.0
 1000014065,2026-08-01,col_primera_a,Águilas Doradas,Jorge Soto,1393528,G,1,90,0,0,0,0.0,11.0,0.0,248857.0
 1000014065,2026-08-01,col_primera_a,Águilas Doradas,Jhon Meléndez,1333447,D,1,90,3,2,0,0.09,32.0,1.0,543246.0
 1000014065,2026-08-01,col_primera_a,Águilas Doradas,Andrés Mosquera,205863,D,1,90,0,0,0,0.0,34.0,1.0,278024.0
@@ -20904,22 +20888,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017367,2026-08-02,par_division,Olimpia,Tim Payne,324305,D,0,21,1,1,1,0.0,,1.0,196580.0
 1000017367,2026-08-02,par_division,Olimpia,Richard Ortiz,292481,M,0,21,0,0,0,0.0,,2.0,257782.0
 1000017367,2026-08-02,par_division,Olimpia,Franco Alfonso,1408581,F,0,15,0,0,0,0.0,,3.0,497434.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Carlos Servín,68482,G,1,90,0,0,0,0.0,11.0,0.0,225803.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Víctor Cabañas,1634832,D,1,90,2,0,0,0.0,32.0,1.0,367440.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Brian Blasi,693432,D,1,90,0,0,0,0.0,34.0,1.0,267266.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Javier Vallejos,1458798,D,1,65,1,0,0,0.0,36.0,1.0,
-1000017367,2026-08-02,par_division,Rubio Ñú,Pedro Álvarez,1458739,D,1,90,0,0,0,0.0,38.0,1.0,
-1000017367,2026-08-02,par_division,Rubio Ñú,Rodrigo Rojas,71324,M,1,65,1,1,0,0.0,64.0,2.0,259121.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Cristian Nuñez,918511,M,1,90,0,0,0,0.0,66.0,2.0,280969.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Elías Alfonso,1346620,F,1,46,0,0,0,0.0,83.0,3.0,363075.0
-1000017367,2026-08-02,par_division,Rubio Ñú,William Mendieta,202710,M,1,75,0,0,0,0.0,85.0,2.0,254417.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Sergio Fretes,938681,F,1,45,2,1,0,0.0,87.0,3.0,307367.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Rodrigo Ruiz Díaz,823684,F,1,90,0,0,0,0.0,115.0,3.0,383920.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Marcelo Acosta,1299635,M,0,44,0,0,0,0.0,,2.0,369574.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Estiven Pérez,1061256,F,0,45,1,0,0,0.0,,3.0,371744.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Mariano Ramos,1903936,D,0,25,0,0,0,0.0,,1.0,389342.0
-1000017367,2026-08-02,par_division,Rubio Ñú,Carlos Giménez,1910568,D,0,25,0,0,0,0.0,,1.0,
-1000017367,2026-08-02,par_division,Rubio Ñú,Mauricio de Carvalho,1840193,F,0,15,1,0,0,0.0,,3.0,
 5853450,2026-08-02,rumania,Rapid Bucuresti,Mihai Aioani,943864,G,1,90,0,0,0,0.0,11.0,0.0,
 5853450,2026-08-02,rumania,Rapid Bucuresti,Denis Ciobotariu,943868,D,1,90,1,0,0,0.0,32.0,1.0,632220.0
 5853450,2026-08-02,rumania,Rapid Bucuresti,Daniel Graovac,466868,D,1,90,0,0,0,0.0,34.0,1.0,101999.0
@@ -136172,3 +136140,80 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5181782,2026-10-06,selecciones,Slovenia,Žan Vipotnik,1249531,F,1,79,2,0,0,0.28,115.0,3.0,13808195.0
 5181782,2026-10-06,selecciones,Slovenia,Žan Celar,752558,F,0,11,0,0,0,0.0,,3.0,659417.0
 5181782,2026-10-06,selecciones,Slovenia,Srdjan Kuzmić,1382364,D,0,1,0,0,0,0.0,,1.0,1988636.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Ángel Sánchez,1458550,G,1,90,0,0,0,0.0,11.0,0.0,344766.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Ronald Peralta,1795619,D,1,90,0,0,0,0.0,32.0,1.0,407826.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Hugo Javier Benítez,1336658,D,1,90,0,0,0,0.0,34.0,1.0,250278.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Luca Falabella,1435223,D,1,90,2,1,0,0.0,36.0,1.0,580541.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Abel Paredes,860957,D,1,90,0,0,0,0.0,38.0,1.0,314026.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Estivel Moreira,951493,M,1,60,0,0,0,0.0,64.0,2.0,279348.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Walter Rodríguez,860889,M,1,79,0,0,0,0.0,66.0,2.0,266139.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Luis Ayala,1782148,F,1,70,2,1,0,0.0,83.0,3.0,
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Valentín Larralde,1186691,M,1,60,0,0,0,0.0,85.0,2.0,351153.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Edgar Páez,1645373,F,1,46,0,0,0,0.0,87.0,3.0,
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Cristhian Ocampos,1033282,F,1,90,4,1,0,0.0,115.0,3.0,421349.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Luis Ortiz,1042092,M,0,44,0,0,0,0.0,,2.0,
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Raúl Cabral,1709065,M,0,30,0,0,0,0.0,,2.0,864297.0
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Marcelo Camargo,2174992,M,0,30,0,0,0,0.0,,2.0,
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Fredy Vera,1042113,F,0,20,0,0,0,0.0,,3.0,
+1000017424,2026-10-06,par_division,Sportivo Ameliano,Richard Torales,1453346,F,0,11,1,1,1,0.0,,3.0,382817.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Franco Fragueda,1025392,G,1,90,0,0,0,0.0,11.0,0.0,348654.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Rodi Ferreira,730600,D,1,90,1,0,0,0.0,32.0,1.0,269898.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Javier Vallejos,1458798,D,1,90,1,1,0,0.0,34.0,1.0,
+1000017424,2026-10-06,par_division,Rubio Ñú,Pedro Álvarez,1458739,D,1,90,0,0,0,0.0,36.0,1.0,
+1000017424,2026-10-06,par_division,Rubio Ñú,Víctor Cabañas,1634832,D,1,90,2,0,0,0.0,38.0,1.0,330962.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Tobías Leiva,1607563,M,1,90,2,0,0,0.0,64.0,2.0,360660.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Cristian Nuñez,918511,M,1,90,0,0,0,0.0,66.0,2.0,248857.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Sergio Fretes,938681,F,1,80,2,2,2,0.0,83.0,3.0,291520.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Octavio Alfonso,1736528,M,1,67,3,0,0,0.0,85.0,2.0,336405.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Lucas Montiel,1910428,F,1,60,1,0,0,0.0,87.0,3.0,
+1000017424,2026-10-06,par_division,Rubio Ñú,Rodrigo Ruiz Díaz,823684,F,1,59,2,1,0,0.0,115.0,3.0,409608.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Estiven Pérez,1061256,F,0,31,4,0,0,0.0,,3.0,408418.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Carlos Giménez,1910568,D,0,30,0,0,0,0.0,,1.0,
+1000017424,2026-10-06,par_division,Rubio Ñú,Rodrigo Rojas,71324,M,0,23,0,0,0,0.0,,2.0,293709.0
+1000017424,2026-10-06,par_division,Rubio Ñú,Mariano Ramos,1903936,D,0,10,0,0,0,0.0,,1.0,376614.0
+5991955,2026-10-06,selecciones,St. Martin,Sébastien Raphose,715619,G,1,90,0,0,0,0.0,11.0,0.0,
+5991955,2026-10-06,selecciones,St. Martin,Malik Denis,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991955,2026-10-06,selecciones,St. Martin,Belony Dumas,492144,D,1,90,0,0,0,0.0,34.0,1.0,
+5991955,2026-10-06,selecciones,St. Martin,Fabien Fonrose,1618063,D,1,90,2,0,0,0.0,36.0,1.0,
+5991955,2026-10-06,selecciones,St. Martin,Stéphan Varsovie,608211,D,1,90,0,0,0,0.0,38.0,1.0,
+5991955,2026-10-06,selecciones,St. Martin,Mattéo Makhabe,1428561,M,1,90,3,2,1,0.0,73.0,2.0,
+5991955,2026-10-06,selecciones,St. Martin,David Chevalier,0,M,1,90,0,0,0,0.0,75.0,2.0,
+5991955,2026-10-06,selecciones,St. Martin,Yanis Montantin,1744292,M,1,90,2,1,0,0.0,77.0,2.0,
+5991955,2026-10-06,selecciones,St. Martin,Pierre-Bertrand Arné,1374263,M,1,45,2,1,1,0.0,103.0,2.0,
+5991955,2026-10-06,selecciones,St. Martin,Axel Rigobert,1539518,F,1,90,4,3,3,0.0,105.0,3.0,
+5991955,2026-10-06,selecciones,St. Martin,Jordan Alexandre,1610096,F,1,73,9,3,1,0.0,107.0,3.0,
+5991955,2026-10-06,selecciones,Bahamas,Vance Wheaton,1767355,G,1,90,0,0,0,0.0,11.0,0.0,
+5991955,2026-10-06,selecciones,Bahamas,Omar Chemaly,1767352,D,1,90,0,0,0,0.0,33.0,1.0,
+5991955,2026-10-06,selecciones,Bahamas,Lance Carroll,1767323,D,1,90,0,0,0,0.0,35.0,1.0,
+5991955,2026-10-06,selecciones,Bahamas,Re'John Elfong Ene,0,D,1,90,0,0,0,0.0,37.0,1.0,
+5991955,2026-10-06,selecciones,Bahamas,Nathan Wells,1032828,M,1,90,0,0,0,0.0,51.0,2.0,
+5991955,2026-10-06,selecciones,Bahamas,Quinton Carey,1102721,D,1,90,0,0,0,0.0,59.0,1.0,
+5991955,2026-10-06,selecciones,Bahamas,Michael Massey,1650884,M,1,90,2,0,0,0.0,72.0,2.0,
+5991955,2026-10-06,selecciones,Bahamas,William Bayles,1767358,M,1,90,2,1,0,0.0,74.0,2.0,
+5991955,2026-10-06,selecciones,Bahamas,Christopher Rahming,1544553,M,1,90,0,0,0,0.0,76.0,2.0,
+5991955,2026-10-06,selecciones,Bahamas,Marcel Joseph,623510,M,1,90,0,0,0,0.0,78.0,2.0,
+5991955,2026-10-06,selecciones,Bahamas,Brandon Adderley,1650879,F,1,90,2,0,0,0.0,115.0,3.0,
+5991955,2026-10-06,selecciones,Bahamas,Omari Bain,1687112,M,0,18,1,1,0,0.0,,2.0,
+5991943,2026-10-06,selecciones,Montserrat,Trent Carter-Rodgers,1650209,G,1,90,0,0,0,0.0,11.0,0.0,
+5991943,2026-10-06,selecciones,Montserrat,Lucas Kirnon,1307667,D,1,90,0,0,0,0.0,32.0,1.0,
+5991943,2026-10-06,selecciones,Montserrat,Nico Gordon,1159160,D,1,90,0,0,0,0.0,34.0,1.0,153169.0
+5991943,2026-10-06,selecciones,Montserrat,Jeriel Dorsett,1113824,D,1,90,1,0,0,0.0,36.0,1.0,443776.0
+5991943,2026-10-06,selecciones,Montserrat,Mackye Townsend-West,1113357,D,1,79,1,0,0,0.0,38.0,1.0,
+5991943,2026-10-06,selecciones,Montserrat,Brandon Barzey,1306601,M,1,45,1,1,0,0.0,72.0,2.0,
+5991943,2026-10-06,selecciones,Montserrat,Brandon Comley,621869,M,1,90,0,0,0,0.0,74.0,2.0,117556.0
+5991943,2026-10-06,selecciones,Montserrat,Alex Dyer,98961,M,1,90,0,0,0,0.0,76.0,2.0,
+5991943,2026-10-06,selecciones,Montserrat,Lenni Cirino,1211624,M,1,90,0,0,0,0.0,78.0,2.0,163436.0
+5991943,2026-10-06,selecciones,Montserrat,Lyle Taylor,156937,F,1,90,4,3,2,0.0,104.0,3.0,
+5991943,2026-10-06,selecciones,Montserrat,Ashley Boatswain,1613563,F,1,90,1,1,1,0.0,106.0,3.0,
+5991943,2026-10-06,selecciones,Montserrat,Dominic Richmond,1583918,M,0,11,1,0,0,0.0,,2.0,
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Sebastian Turbyfield,1241631,G,1,90,0,0,0,0.0,11.0,0.0,
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Christopher Louisy,1241632,D,1,71,1,1,0,0.0,32.0,1.0,
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Kyle Belizaire,1626083,D,1,90,0,0,0,0.0,34.0,1.0,
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Anthony Stewart,280652,D,1,90,0,0,0,0.0,36.0,1.0,60000.0
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Steven Sessegnon,866687,D,1,84,2,0,0,0.0,38.0,1.0,316260.0
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Schuyler Sean Selver,0,M,1,90,0,0,0,0.0,72.0,2.0,
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Sean Clare,729738,M,1,90,0,0,0,0.0,74.0,2.0,174145.0
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Mackenson Cadet,931591,M,1,90,0,0,0,0.0,76.0,2.0,
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Junior Paul,1372744,M,1,90,0,0,0,0.0,78.0,2.0,
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Billy Forbes,500764,F,1,90,2,1,1,0.0,104.0,3.0,149894.0
+5991943,2026-10-06,selecciones,Turks and Caicos Islands,Dominic Hutchinson,1300379,M,1,90,0,0,0,0.0,106.0,2.0,
