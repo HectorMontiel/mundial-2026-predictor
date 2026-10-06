@@ -5825,21 +5825,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5147837,2026-03-28,selecciones,Japan,Daiki Hashioka,878296,D,0,13,0,0,0,0.0,,1.0,1163815.0
 5147837,2026-03-28,selecciones,Japan,Daichi Kamada,621515,M,0,12,0,0,0,0.0,,2.0,10257108.0
 5147837,2026-03-28,selecciones,Japan,Kento Shiogai,1611223,F,0,12,1,0,0,0.0,,3.0,4552296.0
-5267317,2026-03-28,selecciones,South Korea,Hyeon-Woo Jo,433265,G,1,90,0,0,0,0.0,11.0,0.0,545161.0
-5267317,2026-03-28,selecciones,South Korea,Yu-Min Cho,925642,D,1,90,0,0,0,0.0,33.0,1.0,
-5267317,2026-03-28,selecciones,South Korea,Min-Jae Kim,828159,D,1,90,0,0,0,0.0,35.0,1.0,37875573.0
-5267317,2026-03-28,selecciones,South Korea,Tae-Hyeon Kim,1053477,D,1,90,0,0,0,0.0,37.0,1.0,
-5267317,2026-03-28,selecciones,South Korea,Moon-Hwan Kim,828273,M,1,90,0,0,0,0.0,62.0,2.0,643250.0
-5267317,2026-03-28,selecciones,South Korea,Jin-Gyu Kim,622980,M,1,90,0,0,0,0.0,64.0,2.0,523557.0
-5267317,2026-03-28,selecciones,South Korea,Jin-Seob Park,925647,M,1,90,0,0,0,0.0,66.0,2.0,996232.0
-5267317,2026-03-28,selecciones,South Korea,Young-Woo Seol,1132818,M,1,80,1,0,0,0.0,68.0,2.0,
-5267317,2026-03-28,selecciones,South Korea,Jun-Ho Bae,1386482,M,1,58,1,0,0,0.0,84.0,2.0,530000.0
-5267317,2026-03-28,selecciones,South Korea,Hee-Chan Hwang,620026,F,1,58,2,0,0,0.0,86.0,3.0,12084597.0
-5267317,2026-03-28,selecciones,South Korea,Hyun-Gyu Oh,1044299,F,1,58,2,1,0,0.0,105.0,3.0,8344986.0
-5267317,2026-03-28,selecciones,South Korea,Kang-In Lee,940976,M,0,32,1,0,0,0.0,,2.0,25393356.0
-5267317,2026-03-28,selecciones,South Korea,Seung-Ho Paik,848102,M,0,45,2,1,0,0.0,,2.0,1721476.0
-5267317,2026-03-28,selecciones,South Korea,Heung-Min Son,212867,F,0,32,1,0,0,0.0,,3.0,14220809.0
-5267317,2026-03-28,selecciones,South Korea,Ji-Sung Eom,1107283,F,0,10,2,0,0,0.0,,3.0,1860331.0
 5267317,2026-03-28,selecciones,Ivory Coast,Yahia Fofana,873566,G,1,90,0,0,0,0.0,11.0,0.0,6734751.0
 5267317,2026-03-28,selecciones,Ivory Coast,Guéla Doué,1395704,D,1,79,1,1,0,0.0,32.0,1.0,21700058.0
 5267317,2026-03-28,selecciones,Ivory Coast,Emmanuel Agbadou,1114979,D,1,90,1,1,0,0.0,34.0,1.0,23720503.0
@@ -135966,3 +135951,54 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991898,2026-10-06,selecciones,Jamaica,Kaheim Dixon,1624340,F,1,89,1,0,0,0.0,103.0,3.0,359712.0
 5991898,2026-10-06,selecciones,Jamaica,Javon East,919525,F,1,62,1,0,0,0.0,105.0,3.0,520802.0
 5991898,2026-10-06,selecciones,Jamaica,Tyreece Campbell,1338978,F,1,79,1,1,1,0.0,107.0,3.0,1606158.0
+6368651,2026-10-06,selecciones,South Korea,Hyeon-Woo Jo,433265,G,1,90,0,0,0,0.0,11.0,0.0,381012.0
+6368651,2026-10-06,selecciones,South Korea,Tae-Hyun Kim,947492,D,1,90,0,0,0,0.0,32.0,1.0,
+6368651,2026-10-06,selecciones,South Korea,Han-Beom Lee,1232253,D,1,90,0,0,0,0.0,34.0,1.0,3604596.0
+6368651,2026-10-06,selecciones,South Korea,Tae-Hyeon Kim,1053477,D,1,90,0,0,0,0.0,36.0,1.0,770375.0
+6368651,2026-10-06,selecciones,South Korea,Hyun-Taek Cho,1136082,D,1,90,1,1,0,0.0,38.0,1.0,594602.0
+6368651,2026-10-06,selecciones,South Korea,Kang-In Lee,940976,M,1,90,0,0,0,0.0,72.0,2.0,30951441.0
+6368651,2026-10-06,selecciones,South Korea,Jin-Seob Park,925647,M,1,90,0,0,0,0.0,74.0,2.0,680255.0
+6368651,2026-10-06,selecciones,South Korea,Jae-Sung Lee,523749,M,1,90,0,0,0,0.0,76.0,2.0,1509857.0
+6368651,2026-10-06,selecciones,South Korea,Hee-Chan Hwang,620026,M,1,90,0,0,0,0.0,78.0,2.0,5071704.0
+6368651,2026-10-06,selecciones,South Korea,Se-Hun Oh,688340,F,1,71,2,1,1,0.0,104.0,3.0,1001417.0
+6368651,2026-10-06,selecciones,South Korea,Heung-Min Son,212867,F,1,71,4,3,1,0.0,106.0,3.0,8559396.0
+6368651,2026-10-06,selecciones,South Korea,In-Beom Hwang,623698,M,0,45,1,1,0,0.0,,2.0,4973181.0
+6368651,2026-10-06,selecciones,South Korea,Hyeon-Gyu Oh,1044299,F,0,19,2,0,0,0.0,,3.0,16158162.0
+6368651,2026-10-06,selecciones,Uzbekistan,Abduvohid Nematov,1259187,G,1,90,0,0,0,0.0,11.0,0.0,848427.0
+6368651,2026-10-06,selecciones,Uzbekistan,Behruzjon Karimov,1898281,D,1,90,1,0,0,0.0,32.0,1.0,
+6368651,2026-10-06,selecciones,Uzbekistan,Abdukodir Khusanov,1362998,D,1,90,0,0,0,0.0,34.0,1.0,62966895.0
+6368651,2026-10-06,selecciones,Uzbekistan,Jakhongir Urozov,1477513,D,1,90,0,0,0,0.0,36.0,1.0,937923.0
+6368651,2026-10-06,selecciones,Uzbekistan,Sherzod Nasrulloev,1258316,D,1,90,0,0,0,0.0,38.0,1.0,571649.0
+6368651,2026-10-06,selecciones,Uzbekistan,Odildzhon Khamrobekov,619697,M,1,69,2,1,0,0.0,65.0,2.0,517317.0
+6368651,2026-10-06,selecciones,Uzbekistan,Dostonbek Khamdamov,619508,M,1,45,2,1,0,0.0,82.0,2.0,321901.0
+6368651,2026-10-06,selecciones,Uzbekistan,Azizjon Ganiev,629823,M,1,90,0,0,0,0.0,84.0,2.0,1163188.0
+6368651,2026-10-06,selecciones,Uzbekistan,Akmal Mozgovoy,929168,M,1,83,1,1,0,0.0,86.0,2.0,1001246.0
+6368651,2026-10-06,selecciones,Uzbekistan,Abbosbek Fayzullayev,1249993,M,1,83,1,1,0,0.0,88.0,2.0,9290438.0
+6368651,2026-10-06,selecciones,Uzbekistan,Eldor Shomurodov,619513,M,1,90,1,0,0,0.0,115.0,2.0,5735477.0
+6368651,2026-10-06,selecciones,Uzbekistan,Sherzod Esanov,1477517,M,0,45,1,0,0,0.0,,2.0,142187.0
+6368651,2026-10-06,selecciones,Uzbekistan,Azizbek Amonov,933051,F,0,45,1,0,0,0.0,,3.0,78828.0
+6368651,2026-10-06,selecciones,Uzbekistan,Khusayin Norchaev,1256495,F,0,21,2,0,0,0.0,,3.0,354118.0
+6368652,2026-10-06,selecciones,China,Dianzuo Liu,259250,G,1,90,0,0,0,0.0,11.0,0.0,299305.0
+6368652,2026-10-06,selecciones,China,Yang Li,1059847,D,1,90,0,0,0,0.0,33.0,1.0,264599.0
+6368652,2026-10-06,selecciones,China,Tyias Browning,419196,D,1,90,0,0,0,0.0,35.0,1.0,264599.0
+6368652,2026-10-06,selecciones,China,Zhunyi Gao,648366,D,1,90,0,0,0,0.0,37.0,1.0,272210.0
+6368652,2026-10-06,selecciones,China,Wenneng Xie,1248506,M,1,90,0,0,0,0.0,62.0,2.0,868774.0
+6368652,2026-10-06,selecciones,China,Shenghao Huang,1776387,M,1,90,0,0,0,0.0,64.0,2.0,438564.0
+6368652,2026-10-06,selecciones,China,Shangyuan Wang,465720,M,1,90,0,0,0,0.0,66.0,2.0,449854.0
+6368652,2026-10-06,selecciones,China,Yang Liu,768634,M,1,90,1,1,0,0.0,68.0,2.0,446689.0
+6368652,2026-10-06,selecciones,China,Bunyamin Abdusalam,1913204,F,1,90,0,0,0,0.0,84.0,3.0,1144257.0
+6368652,2026-10-06,selecciones,China,Shihao Wei,570357,F,1,59,1,1,0,0.0,86.0,3.0,573974.0
+6368652,2026-10-06,selecciones,China,Ziming Wang,915251,F,1,90,0,0,0,0.0,105.0,3.0,326800.0
+6368652,2026-10-06,selecciones,China,Mingrui Yang,1660335,M,0,10,1,0,0,0.0,,2.0,1029131.0
+6368652,2026-10-06,selecciones,Tajikistan,Rustam Yatimov,1059627,G,1,90,0,0,0,0.0,11.0,0.0,1541983.0
+6368652,2026-10-06,selecciones,Tajikistan,Alicon Karomatullozoda,1262248,D,1,90,0,0,0,0.0,32.0,1.0,
+6368652,2026-10-06,selecciones,Tajikistan,Vakhdat Khanonov,1007728,D,1,90,1,1,1,0.0,34.0,1.0,193059.0
+6368652,2026-10-06,selecciones,Tajikistan,Mekhrubon Karimov,1364203,D,1,90,0,0,0,0.0,36.0,1.0,
+6368652,2026-10-06,selecciones,Tajikistan,Tabrezi Islomov,693970,D,1,90,0,0,0,0.0,38.0,1.0,110062.0
+6368652,2026-10-06,selecciones,Tajikistan,Amirbek Dzhuraboev,547892,M,1,84,1,0,0,0.0,65.0,2.0,99160.0
+6368652,2026-10-06,selecciones,Tajikistan,Shervoni Mabatshoev,1007726,M,1,90,0,0,0,0.0,82.0,2.0,234983.0
+6368652,2026-10-06,selecciones,Tajikistan,Alisher Dzhalilov,247672,M,1,67,2,0,0,0.0,84.0,2.0,97915.0
+6368652,2026-10-06,selecciones,Tajikistan,Parvizdzhon Umarbaev,412233,M,1,90,1,0,0,0.0,86.0,2.0,160452.0
+6368652,2026-10-06,selecciones,Tajikistan,Ehson Panjshanbe,1007721,M,1,84,2,1,0,0.0,88.0,2.0,
+6368652,2026-10-06,selecciones,Tajikistan,Sheriddin Boboev,939042,F,1,80,2,1,0,0.0,115.0,3.0,170720.0
+6368652,2026-10-06,selecciones,Tajikistan,Nozim Babadzhanov,675779,M,0,6,1,1,0,0.0,,2.0,
