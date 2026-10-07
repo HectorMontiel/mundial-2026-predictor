@@ -62485,3 +62485,535 @@ capturado,clave_liga,fecha,partido,lado,equipo,n_bajas,n_lesion,n_sancion,jugado
 2026-10-07T21:21:40Z,isr_premier,2026-10-10,Hapoel Petah Tikva vs Maccabi Netanya,away,Maccabi Netanya,2,2,0,Wylan Cyprien; Naftali Balay
 2026-10-07T21:21:40Z,isr_premier,2026-10-10,Maccabi Tel Aviv vs Bnei Sakhnin,home,Maccabi Tel Aviv,3,2,1,Kervin Andrade; Mohamed Aly Camara; Ion Nicolăescu
 2026-10-07T21:21:40Z,isr_premier,2026-10-10,Maccabi Tel Aviv vs Bnei Sakhnin,away,Bnei Sakhnin,1,1,0,Maroun Gantus
+2026-10-07T22:55:52Z,mls,2026-10-10,Toronto FC vs CF Montréal,home,Toronto FC,2,2,0,Djordje Mihailović; Nelson Palacio
+2026-10-07T22:55:52Z,mls,2026-10-10,Toronto FC vs CF Montréal,away,CF Montréal,4,4,0,Brayan Vera; Daniel Pereira; Bode Hidalgo; Josh Nteziryayo
+2026-10-07T22:55:52Z,mls,2026-10-10,Chicago Fire FC vs New York City FC,home,Chicago Fire FC,2,2,0,Anton Salétros; André Franco
+2026-10-07T22:55:52Z,mls,2026-10-10,Chicago Fire FC vs New York City FC,away,New York City FC,6,6,0,Keaton Parks; Maxi Moralez; Talles Magno; Arnau Farnós; Kai Trewin; Drew Baiera
+2026-10-07T22:55:52Z,liga_mx,2026-10-10,Puebla vs León,home,Puebla,3,3,0,Kevin Velasco; Eduardo Mustre; Eduardo Navarro
+2026-10-07T22:55:52Z,liga_mx,2026-10-10,Puebla vs León,away,León,2,2,0,Luis Valadez; Ángel Estrada
+2026-10-07T22:55:52Z,liga_mx,2026-10-10,Tigres vs Toluca,home,Tigres,5,5,0,Francisco Reyes; Osvaldo Rodríguez; Marco Farfán; Jesús Angulo; Marcelo Flores
+2026-10-07T22:55:52Z,liga_mx,2026-10-10,Tigres vs Toluca,away,Toluca,4,4,0,Franco Romero; Hugo González; Iván López; Marcel Ruíz
+2026-10-07T22:55:52Z,premier,2026-10-10,Arsenal vs Leeds United,home,Arsenal,7,7,0,Ben White; Cristhian Mosquera; Ezri Konsa; William Saliba; Max Dowman; Christos Tzolis; Kai Havertz
+2026-10-07T22:55:52Z,premier,2026-10-10,Arsenal vs Leeds United,away,Leeds United,3,3,0,Joe Rodon; Harry Wilson; Mateo Joseph
+2026-10-07T22:55:52Z,premier,2026-10-10,Aston Villa vs Brentford,home,Aston Villa,7,7,0,Modou Kéba Cissé; Marco Bizot; Ian Maatsen; Pau Torres; Leon Goretzka; Brian Madjo; Amadou Onana
+2026-10-07T22:55:52Z,premier,2026-10-10,Aston Villa vs Brentford,away,Brentford,7,7,0,Mikkel Damsgaard; Dango Ouattara; Nathan Collins; Mathias Jensen; Joshua Dasilva; Sepp van den Berg; Antoni Milambo
+2026-10-07T22:55:52Z,premier,2026-10-10,Chelsea vs AFC Bournemouth,home,Chelsea,6,6,0,Marco Palestra; Moisés Caicedo; Reece James; Emanuel Emegha; Jamie Gittens; João Pedro
+2026-10-07T22:55:52Z,premier,2026-10-10,Chelsea vs AFC Bournemouth,away,AFC Bournemouth,6,6,0,Julián Araujo; Veljko Milosavljević; Alex Scott; Junior Kroupi; Justin Kluivert; Amine Adli
+2026-10-07T22:55:52Z,premier,2026-10-10,Ipswich Town vs Fulham,home,Ipswich Town,2,1,1,Jack Taylor; Abdul Fatawu
+2026-10-07T22:55:52Z,premier,2026-10-10,Ipswich Town vs Fulham,away,Fulham,2,2,0,Kenny Tete; Tom Cairney
+2026-10-07T22:55:52Z,premier,2026-10-10,Sunderland vs Brighton & Hove Albion,home,Sunderland,4,4,0,Daniel Ballard; Habib Diarra; Brian Brobbey; Romaine Mundle
+2026-10-07T22:55:52Z,premier,2026-10-10,Sunderland vs Brighton & Hove Albion,away,Brighton & Hove Albion,11,11,0,Yasin Ayari; Lewis Dunk; Mats Wieffer; Pascal Struijk; Jack Hinshelwood; Evan Ferguson; Femi Azeez; Kaoru Mitoma; Stefanos Tzimas; Yankuba Minteh; Zadok Yohanna
+2026-10-07T22:55:52Z,premier,2026-10-10,Manchester United vs Tottenham Hotspur,home,Manchester United,9,9,0,Karl Darlow; Tom Heaton; Matthijs de Ligt; Noussair Mazraoui; Kobbie Mainoo; Manuel Ugarte; Amad Diallo; Benjamin Šeško; Marcus Rashford
+2026-10-07T22:55:52Z,premier,2026-10-10,Manchester United vs Tottenham Hotspur,away,Tottenham Hotspur,7,7,0,Dejan Kulusevski; Jan Paul van Hecke; Micky van de Ven; Pedro Porro; Xavi Simons; Mykhaylo Mudryk; Wilson Odobert
+2026-10-07T22:55:52Z,laliga,2026-10-09,Málaga vs Espanyol,home,Málaga,5,5,0,Diego Murillo; Aarón Ochoa; Jens-Lys Cajuste; Juan Cruz; Julen Lobete
+2026-10-07T22:55:52Z,laliga,2026-10-09,Málaga vs Espanyol,away,Espanyol,3,3,0,Jofre Carreras; Javi Hernández; Kike García
+2026-10-07T22:55:52Z,laliga,2026-10-10,Rayo Vallecano vs Athletic Club,home,Rayo Vallecano,4,4,0,Augusto Batalla; Adrià Pedrosa; Iván Balliu; Luiz Felipe
+2026-10-07T22:55:52Z,laliga,2026-10-10,Rayo Vallecano vs Athletic Club,away,Athletic Club,3,3,0,Maroan Sannadi; Unai Eguiluz; Nico Williams
+2026-10-07T22:55:52Z,laliga,2026-10-10,Deportivo Alavés vs Atlético Madrid,home,Deportivo Alavés,3,3,0,Ville Koski; Facundo Garcés; Mikel Rodríguez
+2026-10-07T22:55:52Z,laliga,2026-10-10,Deportivo Alavés vs Atlético Madrid,away,Atlético Madrid,2,2,0,Lee Kang-In; Alejandro Grimaldo
+2026-10-07T22:55:52Z,laliga,2026-10-10,Barcelona vs Getafe,home,Barcelona,5,5,0,Joan García; Andreas Christensen; Frenkie de Jong; Raphinha; Roony Bardghji
+2026-10-07T22:55:52Z,laliga,2026-10-10,Barcelona vs Getafe,away,Getafe,4,4,0,Abdelkabir Abqar; Christantus Uche; Juanmi; Martín Satriano
+2026-10-07T22:55:52Z,laliga,2026-10-10,Real Madrid vs Villarreal,home,Real Madrid,5,5,0,Éder Militao; Ibrahima Konaté; Federico Valverde; Kylian Mbappé; Rodrygo
+2026-10-07T22:55:52Z,laliga,2026-10-10,Real Madrid vs Villarreal,away,Villarreal,2,2,0,Tajon Buchanan; Ilias Akhomach
+2026-10-07T22:55:52Z,serie_a,2026-10-10,Genoa vs Fiorentina,home,Genoa,4,4,0,Franz-Ethan Meichtry; Elias Havel; Lorenzo Colombo; Lorenzo Venturino
+2026-10-07T22:55:52Z,serie_a,2026-10-10,Genoa vs Fiorentina,away,Fiorentina,1,1,0,Fabiano Parisi
+2026-10-07T22:55:52Z,serie_a,2026-10-10,Inter vs Parma,home,Inter,1,1,0,John Stones
+2026-10-07T22:55:52Z,serie_a,2026-10-10,Inter vs Parma,away,Parma,3,3,0,Pontus Almqvist; Dominik Drobnič; Hans Nicolussi Caviglia
+2026-10-07T22:55:52Z,serie_a,2026-10-10,Napoli vs Frosinone,home,Napoli,6,6,0,Frank Anguissa; Alessandro Buongiorno; Mathías Olivera; Alisson Santos; Antonio Vergara; Scott McTominay
+2026-10-07T22:55:52Z,serie_a,2026-10-10,Napoli vs Frosinone,away,Frosinone,4,4,0,Aleksa Terzić; Daniel Bîrligea; Florian Grillitsch; Antonio Raimondo
+2026-10-07T22:55:52Z,bundesliga,2026-10-09,Borussia Dortmund vs Werder Bremen,home,Borussia Dortmund,6,6,0,Emre Can; Filippo Mane; Nico Schlotterbeck; Giannis Konstantelias; Julian Ryerson; Justin Lerma
+2026-10-07T22:55:52Z,bundesliga,2026-10-09,Borussia Dortmund vs Werder Bremen,away,Werder Bremen,8,8,0,Skelly Alvero; Moussa N'Diaye; Felix Agu; Jens Stage; Senne Lynen; Justin Njinmah; Keke Topp; Salim Musah
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Augsburg vs Bayern München,home,Augsburg,6,6,0,Noahkai Banks; Anton Kade; Faik Sakar; Sima Suso; Tim Breithaupt; Steve Mounié
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Augsburg vs Bayern München,away,Bayern München,1,1,0,Jamal Musiala
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Hoffenheim vs Hamburger SV,home,Hoffenheim,1,1,0,Bernardo
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Hoffenheim vs Hamburger SV,away,Hamburger SV,7,6,1,Kofi Amoako; Immanuël Pherai; Mario Vušković; Albert Grønbæk; Miro Muheim; Alexander Røssing; Terem Moffi
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Mainz 05 vs Bayer Leverkusen,home,Mainz 05,5,5,0,Robin Zentner; Dominik Kohr; Paul Nebel; Silvan Widmer; Silas Katompa Mvumpa
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Mainz 05 vs Bayer Leverkusen,away,Bayer Leverkusen,3,3,0,Kennet Eichhorn; Guéla Doué; Montrell Culbreath
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Paderborn vs VfB Stuttgart,home,Paderborn,4,4,0,Marcel Hoffmeier; Nyamekye Awortwie-Grant; Sebastian Klaas; Timur Gayret
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Paderborn vs VfB Stuttgart,away,VfB Stuttgart,7,7,0,Ameen Al Dakhil; Dan-Axel Zagadou; Lorenz Assignon; Luca Jaquez; Nikolas Nartey; Justin Diehl; Tiago Tomás
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Union Berlin vs Elversberg,home,Union Berlin,6,6,0,Josip Juranović; Andrej Ilić; Andrik Markgraf; Marvin Friedrich; Stanley N'Soki; Oliver Burke
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,Union Berlin vs Elversberg,away,Elversberg,1,1,0,Tom Zimmerschied
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,RB Leipzig vs Eintracht Frankfurt,home,RB Leipzig,5,5,0,Christoph Baumgartner; Assan Ouédraogo; Rocco Reitz; Brajan Gruda; Marc Guiu
+2026-10-07T22:55:52Z,bundesliga,2026-10-10,RB Leipzig vs Eintracht Frankfurt,away,Eintracht Frankfurt,3,3,0,Farès Chaïbi; Jeremiaha Maluze; Jessic Ngankam
+2026-10-07T22:55:52Z,ligue_1,2026-10-09,Lens vs Lyon,home,Lens,5,5,0,Maik Nawrocki; Samson Baidoo; Jhoanner Chávez; Saud Abdulhamid; Yacine Titraoui
+2026-10-07T22:55:52Z,ligue_1,2026-10-09,Lens vs Lyon,away,Lyon,2,2,0,Nicolás Tagliafico; Moussa Niakhaté
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Lille vs Le Havre,home,Lille,2,2,0,Tanguy Nianzou; Hamza Igamane
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Lille vs Le Havre,away,Le Havre,3,3,0,Lionel Mpasi-Nzau; Stephan Zagadou; Felix Mambimbi
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Brest vs Angers,home,Brest,4,4,0,Raphaël Le Guen; Noah Edjouma; Mamady Diambou; Brendan Chardonnet
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Brest vs Angers,away,Angers,0,0,0,
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Lorient vs Paris FC,home,Lorient,4,4,0,Bandiougou Fadiga; Noah Mbamba; Panos Katseris; Mohamed Bamba
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Lorient vs Paris FC,away,Paris FC,3,3,0,Emmanuel Mbemba; Nhoa Sangui; Otávio
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Monaco vs Toulouse,home,Monaco,3,2,1,Mamadou Coulibaly; Paris Brunner; Stanis Idumbo
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Monaco vs Toulouse,away,Toulouse,1,1,0,Rasmus Nicolaisen
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Paris Saint-Germain vs Le Mans,home,Paris Saint-Germain,2,2,0,Warren Zaïre-Emery; Ferrán Torres
+2026-10-07T22:55:52Z,ligue_1,2026-10-10,Paris Saint-Germain vs Le Mans,away,Le Mans,4,3,1,Djibril Sidibé; Lucas Buadés; Martin Rossignol; Erwan Colas
+2026-10-07T22:55:52Z,eredivisie,2026-10-09,PSV Eindhoven vs SC Heerenveen,home,PSV Eindhoven,6,6,0,Adamo Nagalo; Sam Lammers; Kilian Sildillia; Alassane Pléa; Sami Ouaissa; Jerdy Schouten
+2026-10-07T22:55:52Z,eredivisie,2026-10-09,PSV Eindhoven vs SC Heerenveen,away,SC Heerenveen,3,3,0,Dirk Proper; Mats Egbring; Mees Hilgers
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Go Ahead Eagles vs Sparta Rotterdam,home,Go Ahead Eagles,1,1,0,Pim Saathof
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Go Ahead Eagles vs Sparta Rotterdam,away,Sparta Rotterdam,0,0,0,
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Feyenoord vs AZ Alkmaar,home,Feyenoord,5,5,0,Gijs Smal; Jordan Bos; Jakub Moder; Bart Nieuwkoop; Thomas Beelen
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Feyenoord vs AZ Alkmaar,away,AZ Alkmaar,2,2,0,Denso Kasius; Stije Resink
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Fortuna Sittard vs FC Twente,home,Fortuna Sittard,3,3,0,Siebe Wylin; Sven Simons; Iván Márquez
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Fortuna Sittard vs FC Twente,away,FC Twente,2,2,0,Kristian Hlynsson; Stav Lemkin
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Ajax vs NEC Nijmegen,home,Ajax,4,4,0,Kasper Dolberg; Aaron Bouwman; Simon Adingra; Daley Blind
+2026-10-07T22:55:52Z,eredivisie,2026-10-10,Ajax vs NEC Nijmegen,away,NEC Nijmegen,3,3,0,Emre Mor; Deveron Fonville; Ahmetcan Kaplan
+2026-10-07T22:55:52Z,primeira,2026-10-09,Moreirense vs Gil Vicente,home,Moreirense,0,0,0,
+2026-10-07T22:55:52Z,primeira,2026-10-09,Moreirense vs Gil Vicente,away,Gil Vicente,3,3,0,Walace França; Arthur Tchaptchet; Mohamed Bamba
+2026-10-07T22:55:52Z,primeira,2026-10-09,Braga vs Sporting CP,home,Braga,2,2,0,Gustaf Lagerbielke; Sikou Niakaté
+2026-10-07T22:55:52Z,primeira,2026-10-09,Braga vs Sporting CP,away,Sporting CP,4,3,1,Zeno Debast; Moncef Zekri; Ibrahima Ba; Nuno Santos
+2026-10-07T22:55:52Z,primeira,2026-10-10,Casa Pia AC vs Santa Clara,home,Casa Pia AC,0,0,0,
+2026-10-07T22:55:52Z,primeira,2026-10-10,Casa Pia AC vs Santa Clara,away,Santa Clara,1,1,0,MT
+2026-10-07T22:55:52Z,primeira,2026-10-10,Marítimo vs FC Porto,home,Marítimo,1,1,0,Nathanael Ogbeta
+2026-10-07T22:55:52Z,primeira,2026-10-10,Marítimo vs FC Porto,away,FC Porto,5,5,0,João Costa; Seko Fofana; Nehuén Pérez; Zaidu Sanusi; Vasco Sousa
+2026-10-07T22:55:52Z,primeira,2026-10-10,Académico Viseu vs Estoril,home,Académico Viseu,0,0,0,
+2026-10-07T22:55:52Z,primeira,2026-10-10,Académico Viseu vs Estoril,away,Estoril,0,0,0,
+2026-10-07T22:55:52Z,brasil,2026-10-07,Vitória vs Chapecoense,home,Vitória,8,8,0,Ramon; Gabriel Baralhas; Nathan Mendes; Anderson Pato; Camutanga; Riccieli; Edu; Dudu
+2026-10-07T22:55:52Z,brasil,2026-10-07,Vitória vs Chapecoense,away,Chapecoense,4,4,0,Heitor; Max; Rafael Carvalheira; Robert
+2026-10-07T22:55:52Z,brasil,2026-10-07,Botafogo vs Vasco da Gama,home,Botafogo,3,3,0,Edenílson; Jordan Barrera; Kaio
+2026-10-07T22:55:52Z,brasil,2026-10-07,Botafogo vs Vasco da Gama,away,Vasco da Gama,3,2,1,Andrés Gómez; Carlos Cuesta; Brenner
+2026-10-07T22:55:52Z,brasil,2026-10-08,Cruzeiro vs São Paulo,home,Cruzeiro,4,4,0,Kenji; Lucas Daniel Romero; Luis Sinisterra; Gabriel Pec
+2026-10-07T22:55:52Z,brasil,2026-10-08,Cruzeiro vs São Paulo,away,São Paulo,9,9,0,Marcos Antônio; Iago; Danielzinho; Luciano; Rafael; Domingos Duarte; Nicolas; Aurélio Buta; Lucas Moura
+2026-10-07T22:55:52Z,brasil,2026-10-08,Santos vs Flamengo,home,Santos,3,3,0,Arthur; Gabriel Brazão; Vinicius Lira
+2026-10-07T22:55:52Z,brasil,2026-10-08,Santos vs Flamengo,away,Flamengo,6,4,0,Anthony Valencia; Guillermo Varela; Giorgian De Arrascaeta; Gonzalo Plata; Ayrton Lucas; Evertton Araújo
+2026-10-07T22:55:52Z,brasil,2026-10-08,Athletico Paranaense vs Atlético-MG,home,Athletico Paranaense,4,2,2,Odair Hellmann; Juan Aguirre; Gastón Benavídez; Claudinho
+2026-10-07T22:55:52Z,brasil,2026-10-08,Athletico Paranaense vs Atlético-MG,away,Atlético-MG,5,5,0,Mateo Cassierra; Vitor Hugo; Gustavo Scarpa; Everson; Ruan
+2026-10-07T22:55:52Z,brasil,2026-10-09,Fluminense vs Coritiba,home,Fluminense,6,4,2,Agustín Canobbio; Nonato; Renê; Germán Cano; Alisson; John Kennedy
+2026-10-07T22:55:52Z,brasil,2026-10-09,Fluminense vs Coritiba,away,Coritiba,3,3,0,Tinga; Brian Ocampo; Lucas Ronier
+2026-10-07T22:55:52Z,brasil,2026-10-09,Palmeiras vs Bahia,home,Palmeiras,3,2,1,Abel Ferreira; Paulinho; Jefté
+2026-10-07T22:55:52Z,brasil,2026-10-09,Palmeiras vs Bahia,away,Bahia,2,2,0,Michel Araújo; Léo Vieira
+2026-10-07T22:55:52Z,brasil,2026-10-10,Vasco da Gama vs Remo,home,Vasco da Gama,2,2,0,Carlos Cuesta; Brenner
+2026-10-07T22:55:52Z,brasil,2026-10-10,Vasco da Gama vs Remo,away,Remo,5,4,1,Edson Fernando; Matheus Felipe; Jája; Mayk; João Lucas
+2026-10-07T22:55:52Z,argentina,2026-10-09,Aldosivi vs Sarmiento,home,Aldosivi,3,2,1,Joaquín Pombo; Néstor Breitenbruch; Alan Sosa
+2026-10-07T22:55:52Z,argentina,2026-10-09,Aldosivi vs Sarmiento,away,Sarmiento,3,3,0,Lucas Suárez; Carlos Villalba; Joel Godoy
+2026-10-07T22:55:52Z,argentina,2026-10-09,Gimnasia LP vs Atlético Tucumán,home,Gimnasia LP,3,3,0,Germán Conti; Jeremías Merlo; Gonzalo Errecalde
+2026-10-07T22:55:52Z,argentina,2026-10-09,Gimnasia LP vs Atlético Tucumán,away,Atlético Tucumán,5,5,0,Leandro Díaz; Pedro Canelo; Kevin Ortíz; Gastón Suso; Martín Benítez
+2026-10-07T22:55:52Z,argentina,2026-10-09,Instituto vs Boca Juniors,home,Instituto,2,2,0,Jhon Córdoba; Luca Rafaelli
+2026-10-07T22:55:52Z,argentina,2026-10-09,Instituto vs Boca Juniors,away,Boca Juniors,7,7,0,Alan Velasco; Tomás Belmonte; Camilo Rey Domenech; Tomás Aranda; Adam Bareiro; Agustín Marchesín; Rodrigo Andrés Battaglia
+2026-10-07T22:55:52Z,argentina,2026-10-10,Unión vs Defensa y Justicia,home,Unión,2,2,0,Lautaro Vargas; Federico Gomes Gerth
+2026-10-07T22:55:52Z,argentina,2026-10-10,Unión vs Defensa y Justicia,away,Defensa y Justicia,3,3,0,Fernando Román; Aarón Molinas; Lucas Souto
+2026-10-07T22:55:52Z,argentina,2026-10-10,Barracas Central vs Huracán,home,Barracas Central,3,3,0,Tomás Porra; Lucas Emanuel Gamba; Manuel Duarte
+2026-10-07T22:55:52Z,argentina,2026-10-10,Barracas Central vs Huracán,away,Huracán,0,0,0,
+2026-10-07T22:55:52Z,argentina,2026-10-10,Central Córdoba de Santiago vs Estudiantes,home,Central Córdoba de Santiago,2,2,0,Santiago Moyano; Fernando Juárez
+2026-10-07T22:55:52Z,argentina,2026-10-10,Central Córdoba de Santiago vs Estudiantes,away,Estudiantes,5,5,0,Ezequiel Piovi; Jalil Elías; Gabriel Neves; Joaquín Correa; Tiago Palacios
+2026-10-07T22:55:52Z,argentina,2026-10-10,Tigre vs Banfield,home,Tigre,5,5,0,Mauro Méndez; Gonzalo Martínez; Nicolás Dubersarsky; Ramón Arias; Simón Rivero
+2026-10-07T22:55:52Z,argentina,2026-10-10,Tigre vs Banfield,away,Banfield,4,4,0,Lautaro Gómez; Alexander Machado; Favio Álvarez; Manuel Arteaga
+2026-10-07T22:55:52Z,noruega,2026-10-09,Brann vs Viking,home,Brann,6,5,1,Kristall Ingason; Ulrik Mathisen; Kjartan Kjartansson; Nana Boakye; Sondre Tronstad; Sakarias Opsahl
+2026-10-07T22:55:52Z,noruega,2026-10-09,Brann vs Viking,away,Viking,5,5,0,Sondre Bjørshol; Nicholas D'Agostino; Anders Bærtelsen; Veton Berisha; Martin Roseth
+2026-10-07T22:55:52Z,noruega,2026-10-10,Bodø/Glimt vs Kristiansund,home,Bodø/Glimt,5,5,0,Nikita Haikin; Magnus Bech Riisnæs; Jostein Gundersen; Håkon Evjen; August Mikkelsen
+2026-10-07T22:55:52Z,noruega,2026-10-10,Bodø/Glimt vs Kristiansund,away,Kristiansund,2,2,0,Frederik Flex; Zymer Bytyqi
+2026-10-07T22:55:52Z,noruega,2026-10-10,Rosenborg vs Sandefjord,home,Rosenborg,3,3,0,Johan Bakke; Iver Fossum; Dino Islamović
+2026-10-07T22:55:52Z,noruega,2026-10-10,Rosenborg vs Sandefjord,away,Sandefjord,4,4,0,Devon Koswal; Marcus Melchior; Nikolaj Möller; Filip Loftesnes-Bjune
+2026-10-07T22:55:52Z,suecia,2026-10-09,IFK Göteborg vs Västerås SK,home,IFK Göteborg,6,5,1,Hjörtur Hermannsson; Adam Bergmark Wiberg; August Erlingmark; Alexander Jallow; Ramon-Pascal Lundqvist; Arbnor Muçolli
+2026-10-07T22:55:52Z,suecia,2026-10-09,IFK Göteborg vs Västerås SK,away,Västerås SK,1,1,0,Jonathan Ring
+2026-10-07T22:55:52Z,suecia,2026-10-10,AIK vs Brommapojkarna,home,AIK,12,12,0,Lukas Bergquist; Kevin Filling; Adrián Helm; Dino Beširović; Fredrik Nissen; Diogo Tomas; Martin Ellingsen; Sotirios Papagiannopoulos; Taha Ayari; Ibrahim Cissé; Charlie Pavey; Andreas Redkin
+2026-10-07T22:55:52Z,suecia,2026-10-10,AIK vs Brommapojkarna,away,Brommapojkarna,1,1,0,Oliver Berg
+2026-10-07T22:55:52Z,suecia,2026-10-10,GAIS vs Sirius,home,GAIS,4,4,0,Róbert Thorkelsson; Christos Gravius; Kevin Holmén; Gustav Lundgren
+2026-10-07T22:55:52Z,suecia,2026-10-10,GAIS vs Sirius,away,Sirius,3,2,1,Marcus Lindberg; Otso Liimatta; Matthias Nartey
+2026-10-07T22:55:52Z,suecia,2026-10-10,Mjällby vs Degerfors,home,Mjällby,2,2,0,Villum Dalsgaard; Timo Stavitski
+2026-10-07T22:55:52Z,suecia,2026-10-10,Mjällby vs Degerfors,away,Degerfors,3,2,1,Karim Boutera; Kazper Karlsson; Juhani Pikkarainen
+2026-10-07T22:55:52Z,finlandia,2026-10-08,HJK vs VPS,home,HJK,1,1,0,Amara Nallo
+2026-10-07T22:55:52Z,finlandia,2026-10-08,HJK vs VPS,away,VPS,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-08,KuPS vs AC Oulu,home,KuPS,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-08,KuPS vs AC Oulu,away,AC Oulu,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-09,SJK vs FC Lahti,home,SJK,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-09,SJK vs FC Lahti,away,FC Lahti,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-10,TPS vs FF Jaro,home,TPS,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-10,TPS vs FF Jaro,away,FF Jaro,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-10,IFK Mariehamn vs Ilves,home,IFK Mariehamn,0,0,0,
+2026-10-07T22:55:52Z,finlandia,2026-10-10,IFK Mariehamn vs Ilves,away,Ilves,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-08,CFR Cluj vs Universitatea Cluj,home,CFR Cluj,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-08,CFR Cluj vs Universitatea Cluj,away,Universitatea Cluj,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-09,Corvinul Hunedoara vs FC Voluntari,home,Corvinul Hunedoara,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-09,Corvinul Hunedoara vs FC Voluntari,away,FC Voluntari,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-09,Sepsi OSK vs Dinamo București,home,Sepsi OSK,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-09,Sepsi OSK vs Dinamo București,away,Dinamo București,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-10,Botoșani vs UTA Arad,home,Botoșani,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-10,Botoșani vs UTA Arad,away,UTA Arad,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-10,FCSB vs Oțelul Galați,home,FCSB,0,0,0,
+2026-10-07T22:55:52Z,rumania,2026-10-10,FCSB vs Oțelul Galați,away,Oțelul Galați,0,0,0,
+2026-10-07T22:55:52Z,irlanda,2026-10-08,Shamrock Rovers vs Drogheda United,home,Shamrock Rovers,3,3,0,Enda Stevens; Daniel Grant; Daniel Mândroiu
+2026-10-07T22:55:52Z,irlanda,2026-10-08,Shamrock Rovers vs Drogheda United,away,Drogheda United,3,3,0,Keegan Ancelin; James Bolger; Owen Lambe
+2026-10-07T22:55:52Z,irlanda,2026-10-09,Shelbourne vs Sligo Rovers,home,Shelbourne,1,0,1,Daniel Kelly
+2026-10-07T22:55:52Z,irlanda,2026-10-09,Shelbourne vs Sligo Rovers,away,Sligo Rovers,4,4,0,Trey George; Daire Patton; Jad Hakiki; Conor Reynolds
+2026-10-07T22:55:52Z,turquia,2026-10-09,Galatasaray vs Kasımpaşa,home,Galatasaray,4,4,0,Roland Sallai; Wilfried Singo; Mario Lemina; Günay Güvenc
+2026-10-07T22:55:52Z,turquia,2026-10-09,Galatasaray vs Kasımpaşa,away,Kasımpaşa,3,3,0,Adrian Benedyczak; Mortadha Ben Ouanes; Kamil Cörekci
+2026-10-07T22:55:52Z,turquia,2026-10-10,Gençlerbirliği vs Amed Sportif,home,Gençlerbirliği,3,3,0,Adama Traoré; Cheikh Niasse; Kévin Rodrigues
+2026-10-07T22:55:52Z,turquia,2026-10-10,Gençlerbirliği vs Amed Sportif,away,Amed Sportif,3,3,0,Muhammed Yildirim; Collins Sor; Dilhan Demir
+2026-10-07T22:55:52Z,turquia,2026-10-10,Alanyaspor vs Erzurumspor FK,home,Alanyaspor,1,1,0,Maestro
+2026-10-07T22:55:52Z,turquia,2026-10-10,Alanyaspor vs Erzurumspor FK,away,Erzurumspor FK,0,0,0,
+2026-10-07T22:55:52Z,turquia,2026-10-10,Samsunspor vs Trabzonspor,home,Samsunspor,4,4,0,Afonso Sousa; Fatih Kaya; Elayis Tavşan; Kouadou Assoumou
+2026-10-07T22:55:52Z,turquia,2026-10-10,Samsunspor vs Trabzonspor,away,Trabzonspor,8,8,0,Aral Şimşir; Ernest Muçi; Stefan Savić; Mehmet Umut Nayir; Onuralp Çevikkan; Ruslan Malinovsky; Okay Yokuşlu; Tim Jabol-Folcarelli
+2026-10-07T22:55:52Z,turquia,2026-10-10,Rizespor vs Fenerbahçe,home,Rizespor,2,2,0,Qazim Laçi; Khusniddin Alikulov
+2026-10-07T22:55:52Z,turquia,2026-10-10,Rizespor vs Fenerbahçe,away,Fenerbahçe,3,3,0,Mert Müldür; Amara Diouf; Jayden Oosterwolde
+2026-10-07T22:55:52Z,dinamarca,2026-10-09,Nordsjælland vs OB,home,Nordsjælland,3,3,0,Tobias Salquist; Souleymane Alio; Araphat Mohammed
+2026-10-07T22:55:52Z,dinamarca,2026-10-09,Nordsjælland vs OB,away,OB,4,4,0,Ismahila Ouédraogo; Peter Therkildsen; Jona Niemiec; William Martin
+2026-10-07T22:55:52Z,china,2026-10-09,Qingdao Hainiu vs Beijing Guoan,home,Qingdao Hainiu,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-09,Qingdao Hainiu vs Beijing Guoan,away,Beijing Guoan,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-09,Shenzhen Peng City vs Henan FC,home,Shenzhen Peng City,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-09,Shenzhen Peng City vs Henan FC,away,Henan FC,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-09,Zhejiang Professional vs Shanghai Port,home,Zhejiang Professional,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-09,Zhejiang Professional vs Shanghai Port,away,Shanghai Port,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-10,Chengdu Rongcheng FC vs Tianjin Jinmen Tiger,home,Chengdu Rongcheng FC,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-10,Chengdu Rongcheng FC vs Tianjin Jinmen Tiger,away,Tianjin Jinmen Tiger,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-10,Shanghai Shenhua vs Yunnan Yukun,home,Shanghai Shenhua,0,0,0,
+2026-10-07T22:55:52Z,china,2026-10-10,Shanghai Shenhua vs Yunnan Yukun,away,Yunnan Yukun,0,0,0,
+2026-10-07T22:55:52Z,polonia,2026-10-09,Wieczysta Kraków vs Wisła Płock,home,Wieczysta Kraków,1,1,0,Stefan Feiertag
+2026-10-07T22:55:52Z,polonia,2026-10-09,Wieczysta Kraków vs Wisła Płock,away,Wisła Płock,1,1,0,Dani Pacheco
+2026-10-07T22:55:52Z,polonia,2026-10-09,Raków Częstochowa vs GKS Katowice,home,Raków Częstochowa,2,2,0,Adriano; Erick Otieno
+2026-10-07T22:55:52Z,polonia,2026-10-09,Raków Częstochowa vs GKS Katowice,away,GKS Katowice,5,5,0,Szymon Bartlewicz; Adam Zrelák; Adrian Błąd; Rafał Strączek; Aleksander Paluszek
+2026-10-07T22:55:52Z,polonia,2026-10-10,Cracovia vs Zagłębie Lubin,home,Cracovia,1,1,0,Filip Marchwiński
+2026-10-07T22:55:52Z,polonia,2026-10-10,Cracovia vs Zagłębie Lubin,away,Zagłębie Lubin,0,0,0,
+2026-10-07T22:55:52Z,polonia,2026-10-10,Śląsk Wrocław vs Lech Poznań,home,Śląsk Wrocław,3,3,0,Piotr Samiec-Talar; Damian Warchoł; Michał Mokrzycki
+2026-10-07T22:55:52Z,polonia,2026-10-10,Śląsk Wrocław vs Lech Poznań,away,Lech Poznań,6,6,0,João Moutinho; Patrik Wålemark; Antoni Kozubal; Kamil Jakóbczyk; Ali Gholizadeh; Alex Douglas
+2026-10-07T22:55:52Z,polonia,2026-10-10,Jagiellonia Białystok vs Górnik Zabrze,home,Jagiellonia Białystok,1,1,0,Ousmane Sow
+2026-10-07T22:55:52Z,polonia,2026-10-10,Jagiellonia Białystok vs Górnik Zabrze,away,Górnik Zabrze,0,0,0,
+2026-10-07T22:55:52Z,aut_bundesliga,2026-10-10,Grazer AK vs Salzburg,home,Grazer AK,3,3,0,Tobias Koch; Souleyman Mandey; Tim Trummer
+2026-10-07T22:55:52Z,aut_bundesliga,2026-10-10,Grazer AK vs Salzburg,away,Salzburg,5,5,0,Damir Redzic; Filip Matijašević; Johannes Moser; Gaoussou Diakite; Soumaïla Diabaté
+2026-10-07T22:55:52Z,aut_bundesliga,2026-10-10,WSG Tirol vs Ried,home,WSG Tirol,1,1,0,Quincy Butler
+2026-10-07T22:55:52Z,aut_bundesliga,2026-10-10,WSG Tirol vs Ried,away,Ried,2,2,0,Fabian Rossdorfer; Dominik Stoger
+2026-10-07T22:55:52Z,aut_bundesliga,2026-10-10,Austria Wien vs Sturm Graz,home,Austria Wien,4,4,0,Daniel Nnodim; Philipp Wiesinger; Noah Botić; Manprit Sarkaria
+2026-10-07T22:55:52Z,aut_bundesliga,2026-10-10,Austria Wien vs Sturm Graz,away,Sturm Graz,6,5,1,Jürgen Heil; Otar Kiteishvili; Filip Rózga; Leon Grgić; Seedy Jatta; Emran Soglo
+2026-10-07T22:55:52Z,rus_premier,2026-10-09,FC Rostov vs Akron Togliatti,home,FC Rostov,3,3,0,Aleksey Mironov; German Ignatov; Ilya Zhbanov
+2026-10-07T22:55:52Z,rus_premier,2026-10-09,FC Rostov vs Akron Togliatti,away,Akron Togliatti,2,2,0,Gilson Benchimol; Yuri Zheleznov
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,FC Orenburg vs Dynamo Makhachkala,home,FC Orenburg,4,4,0,Benjamín Bosch; Dmitriy Vasiljev; Maksim Savelyev; Maxim Rudakov
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,FC Orenburg vs Dynamo Makhachkala,away,Dynamo Makhachkala,2,2,0,Aleksandr Sandrachuk; Idar Shumakhov
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,Fakel vs Lokomotiv Moscow,home,Fakel,2,1,1,Matvey Bardachev; Stanislav Magkeev
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,Fakel vs Lokomotiv Moscow,away,Lokomotiv Moscow,1,1,0,Georgiy Dzhikiya
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,Krylya Sovetov Samara vs Spartak Moscow,home,Krylya Sovetov Samara,0,0,0,
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,Krylya Sovetov Samara vs Spartak Moscow,away,Spartak Moscow,2,2,0,Ruslan Litvinov; Daniil Zorin
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,FC Krasnodar vs Zenit St. Petersburg,home,FC Krasnodar,1,1,0,Nikita Krivtsov
+2026-10-07T22:55:52Z,rus_premier,2026-10-10,FC Krasnodar vs Zenit St. Petersburg,away,Zenit St. Petersburg,1,1,0,Wendel
+2026-10-07T22:55:52Z,gre_super_league,2026-10-10,AEK Athens vs OFI Crete,home,AEK Athens,1,1,0,Barnabás Varga
+2026-10-07T22:55:52Z,gre_super_league,2026-10-10,AEK Athens vs OFI Crete,away,OFI Crete,3,3,0,Pavlos Kenourgiakis; Thiago Romano; Nikos Marinakis
+2026-10-07T22:55:52Z,gre_super_league,2026-10-10,Asteras Tripolis vs Atromitos,home,Asteras Tripolis,3,3,0,Vasilios Chatziemmanouil; Panagiotis Deligiannidis; Issiaga Sylla
+2026-10-07T22:55:52Z,gre_super_league,2026-10-10,Asteras Tripolis vs Atromitos,away,Atromitos,2,2,0,Georgios Tzovaras; Cristopher Núnez
+2026-10-07T22:55:52Z,suiza,2026-10-10,FC Zürich vs Thun,home,FC Zürich,7,7,0,Sebastian Walker; Alexander Hack; Damienus Reverson; Ilan Sauter; Selmin Hodza; Chris Kablan; Yevgen Morozov
+2026-10-07T22:55:52Z,suiza,2026-10-10,FC Zürich vs Thun,away,Thun,4,3,1,Marco Bürki; Mats Seiler; Marc Gutbub; Genís Montolio
+2026-10-07T22:55:52Z,suiza,2026-10-10,Lugano vs Luzern,home,Lugano,5,3,2,Elias Pihlström; Uran Bislimi; Renato Steffen; Kevin Behrens; Claudio Cassano
+2026-10-07T22:55:52Z,suiza,2026-10-10,Lugano vs Luzern,away,Luzern,3,2,1,Andrejs Cigaņiks; Pius Dorn; Jerome Bieler
+2026-10-07T22:55:52Z,suiza,2026-10-10,Servette vs Sion,home,Servette,6,6,0,David Datro Fofana; Alonzo Vincent; Léo Besson; Timothé Cognat; Yoan Severin; Jérémy Frick
+2026-10-07T22:55:52Z,suiza,2026-10-10,Servette vs Sion,away,Sion,3,2,1,Fodé Sylla; Donat Rrudhani; Kreshnik Hajrizi
+2026-10-07T22:55:52Z,eng_championship,2026-10-09,West Ham United vs Queens Park Rangers,home,West Ham United,3,2,1,Mohamadou Kanté; Joël Veltman; Tomás Souček
+2026-10-07T22:55:52Z,eng_championship,2026-10-09,West Ham United vs Queens Park Rangers,away,Queens Park Rangers,6,5,1,Dennis Cirkin; Tariq Lamptey; Richard Kone; Ilias Chair; Boy Kemper; Karamoko Dembélé
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Charlton Athletic vs Bristol City,home,Charlton Athletic,6,6,0,Collins Sichenje; Kayne Ramsay; Will Mannion; Matt Godden; Nathaniel Chalobah; Billy Koumetio
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Charlton Athletic vs Bristol City,away,Bristol City,1,1,0,Luke McNally
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Swansea City vs Norwich City,home,Swansea City,2,2,0,Josh Key; Cameron Burgess
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Swansea City vs Norwich City,away,Norwich City,5,5,0,Mohamed Touré; Gabriel Forsyth; Lucien Mahovo; Ali Ahmed; Mirko Topić
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,West Bromwich Albion vs Birmingham City,home,West Bromwich Albion,2,2,0,Nolan Galves; Michael Johnston
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,West Bromwich Albion vs Birmingham City,away,Birmingham City,1,1,0,Marc Leonard
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Blackburn Rovers vs Cardiff City,home,Blackburn Rovers,6,6,0,Yuri Ribeiro; Scott Wharton; Augustus Kargbo; Mathias Jørgensen; Yuki Ohashi; Lewis Miller
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Blackburn Rovers vs Cardiff City,away,Cardiff City,5,5,0,Rubin Colwill; Isaak Davies; Dylan Lawlor; Calum Chambers; William Fish
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Bolton Wanderers vs Stoke City,home,Bolton Wanderers,2,2,0,Luca Stephenson; Lewis Brunt
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Bolton Wanderers vs Stoke City,away,Stoke City,3,3,0,Svante Ingelsson; Ato Ampah; Aaron Cresswell
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Derby County vs Wrexham,home,Derby County,6,6,0,Charlie Taylor; Jacob Widell Zetterström; Craig Forsyth; Derry Murkin; Matthew Clarke; Patrick Agyemang
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Derby County vs Wrexham,away,Wrexham,6,6,0,Nathan Broadhead; Oliver Rathbone; Max Cleworth; Sebastian Revan; George Thomason; Liberato Cacace
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Middlesbrough vs Wolverhampton Wanderers,home,Middlesbrough,1,1,0,Alfie Jones
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Middlesbrough vs Wolverhampton Wanderers,away,Wolverhampton Wanderers,3,3,0,Raul Jiménez; Rafiki Saïd; Yerson Mosquera
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Preston North End vs Millwall,home,Preston North End,2,2,0,Brad Potts; Alistair McCann
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Preston North End vs Millwall,away,Millwall,6,6,0,Lukas Bornhøft Jensen; Josh Coburn; Casper de Norre; Tristan Crama; Ryan Leonard; Mihailo Ivanović
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Sheffield United vs Lincoln City,home,Sheffield United,5,5,0,Tyrese Campbell; Sam McCallum; Harrison Burrows; Femi Seriki; Ryan Oné
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Sheffield United vs Lincoln City,away,Lincoln City,3,3,0,Mason Melia; Thomas Hamer; Tendayi Darikwa
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Watford vs Burnley,home,Watford,5,5,0,Jordan Zemura; Edoardo Bove; Jeremy Ngakia; Kwadwo Baah; Marc Bola
+2026-10-07T22:55:52Z,eng_championship,2026-10-10,Watford vs Burnley,away,Burnley,6,6,0,Jaydon Banel; Bashir Humphreys; Ashley Barnes; Dastan Satpaev; Jordan Beyer; Josh Cullen
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Notts County vs Oxford United,home,Notts County,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Notts County vs Oxford United,away,Oxford United,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Plymouth Argyle vs AFC Wimbledon,home,Plymouth Argyle,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Plymouth Argyle vs AFC Wimbledon,away,AFC Wimbledon,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Bradford City vs Leyton Orient,home,Bradford City,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Bradford City vs Leyton Orient,away,Leyton Orient,1,1,0,Oliver Nnonyelu Dovin
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Cambridge United vs Blackpool,home,Cambridge United,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Cambridge United vs Blackpool,away,Blackpool,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Doncaster Rovers vs Burton Albion,home,Doncaster Rovers,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Doncaster Rovers vs Burton Albion,away,Burton Albion,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Huddersfield Town vs Sheffield Wednesday,home,Huddersfield Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Huddersfield Town vs Sheffield Wednesday,away,Sheffield Wednesday,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Leicester City vs Peterborough United,home,Leicester City,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Leicester City vs Peterborough United,away,Peterborough United,1,1,0,Matthew Garbett
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Mansfield Town vs Bromley,home,Mansfield Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Mansfield Town vs Bromley,away,Bromley,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Milton Keynes Dons vs Reading,home,Milton Keynes Dons,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Milton Keynes Dons vs Reading,away,Reading,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Stevenage vs Wigan Athletic,home,Stevenage,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Stevenage vs Wigan Athletic,away,Wigan Athletic,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Stockport County vs Barnsley,home,Stockport County,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Stockport County vs Barnsley,away,Barnsley,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Wycombe Wanderers vs Luton Town,home,Wycombe Wanderers,0,0,0,
+2026-10-07T22:55:52Z,eng_league_one,2026-10-10,Wycombe Wanderers vs Luton Town,away,Luton Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Oldham Athletic vs Accrington Stanley,home,Oldham Athletic,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Oldham Athletic vs Accrington Stanley,away,Accrington Stanley,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Swindon Town vs Crewe Alexandra,home,Swindon Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Swindon Town vs Crewe Alexandra,away,Crewe Alexandra,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Bristol Rovers vs Barnet,home,Bristol Rovers,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Bristol Rovers vs Barnet,away,Barnet,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Cheltenham Town vs Salford City,home,Cheltenham Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Cheltenham Town vs Salford City,away,Salford City,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Crawley Town vs Chesterfield,home,Crawley Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Crawley Town vs Chesterfield,away,Chesterfield,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Fleetwood Town vs Walsall,home,Fleetwood Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Fleetwood Town vs Walsall,away,Walsall,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Newport County vs Colchester United,home,Newport County,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Newport County vs Colchester United,away,Colchester United,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Port Vale vs Grimsby Town,home,Port Vale,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Port Vale vs Grimsby Town,away,Grimsby Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Rotherham United vs Gillingham,home,Rotherham United,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Rotherham United vs Gillingham,away,Gillingham,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Shrewsbury Town vs Exeter City,home,Shrewsbury Town,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Shrewsbury Town vs Exeter City,away,Exeter City,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Tranmere Rovers vs Rochdale,home,Tranmere Rovers,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,Tranmere Rovers vs Rochdale,away,Rochdale,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,York City vs Northampton Town,home,York City,0,0,0,
+2026-10-07T22:55:52Z,eng_league_two,2026-10-10,York City vs Northampton Town,away,Northampton Town,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-09,Sutton United vs Boreham Wood,home,Sutton United,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-09,Sutton United vs Boreham Wood,away,Boreham Wood,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Altrincham vs Aldershot Town,home,Altrincham,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Altrincham vs Aldershot Town,away,Aldershot Town,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Carlisle United vs Kidderminster Harriers,home,Carlisle United,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Carlisle United vs Kidderminster Harriers,away,Kidderminster Harriers,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,AFC Fylde vs Scunthorpe United,home,AFC Fylde,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,AFC Fylde vs Scunthorpe United,away,Scunthorpe United,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Boston United vs Southend United,home,Boston United,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Boston United vs Southend United,away,Southend United,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,FC Halifax Town vs Gateshead FC,home,FC Halifax Town,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,FC Halifax Town vs Gateshead FC,away,Gateshead FC,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Hornchurch vs Eastleigh,home,Hornchurch,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Hornchurch vs Eastleigh,away,Eastleigh,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Tamworth vs Barrow,home,Tamworth,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Tamworth vs Barrow,away,Barrow,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Wealdstone vs Yeovil Town,home,Wealdstone,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Wealdstone vs Yeovil Town,away,Yeovil Town,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Woking vs Harrogate Town,home,Woking,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Woking vs Harrogate Town,away,Harrogate Town,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Worthing vs Solihull Moors,home,Worthing,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Worthing vs Solihull Moors,away,Solihull Moors,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Forest Green Rovers vs Hartlepool United,home,Forest Green Rovers,0,0,0,
+2026-10-07T22:55:52Z,eng_national,2026-10-10,Forest Green Rovers vs Hartlepool United,away,Hartlepool United,0,0,0,
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Dundee United vs Hibernian,home,Dundee United,2,2,0,Emmanuel Agyei; Mehdi Merghem
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Dundee United vs Hibernian,away,Hibernian,4,4,0,Marko Ivezić; Kanayochukwu Megwa; Jordan Obita; Rocky Bushiri
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Falkirk vs Dundee FC,home,Falkirk,6,6,0,Joseph Gardner; Conor McLeod; Finn Yeats; Ethan Laidlaw; Keelan Adams; Aidan Nesbitt
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Falkirk vs Dundee FC,away,Dundee FC,1,1,0,Ashley Hay
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Heart of Midlothian vs St. Mirren,home,Heart of Midlothian,4,4,0,Blair Spittal; Tom Renaud; Malachi Fagan-Walcott; Craig Halkett
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Heart of Midlothian vs St. Mirren,away,St. Mirren,5,5,0,Samuel Ramos; Liam Donnelly; Malik Dijksteel; Jonah Ayunga; Keanu Baccus
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Rangers vs Kilmarnock,home,Rangers,5,5,0,Daisuke Yokota; Lawrence Shankland; Tuur Rommens; Youssef Chermiti; José Cifuentes
+2026-10-07T22:55:52Z,sco_premiership,2026-10-10,Rangers vs Kilmarnock,away,Kilmarnock,1,1,0,Robbie Deas
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Arbroath vs Greenock Morton,home,Arbroath,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Arbroath vs Greenock Morton,away,Greenock Morton,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Ayr United vs Dunfermline Athletic,home,Ayr United,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Ayr United vs Dunfermline Athletic,away,Dunfermline Athletic,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Inverness Caledonian Thistle vs Stenhousemuir,home,Inverness Caledonian Thistle,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Inverness Caledonian Thistle vs Stenhousemuir,away,Stenhousemuir,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Livingston vs Partick Thistle,home,Livingston,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Livingston vs Partick Thistle,away,Partick Thistle,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Raith Rovers vs Queen's Park,home,Raith Rovers,0,0,0,
+2026-10-07T22:55:52Z,sco_championship,2026-10-10,Raith Rovers vs Queen's Park,away,Queen's Park,0,0,0,
+2026-10-07T22:55:52Z,esp_hypermotion,2026-10-10,AD Ceuta FC vs Sabadell,home,AD Ceuta FC,1,1,0,Kenneth Obinna Mamah
+2026-10-07T22:55:52Z,esp_hypermotion,2026-10-10,AD Ceuta FC vs Sabadell,away,Sabadell,1,1,0,Nicholas Gioacchini
+2026-10-07T22:55:52Z,esp_hypermotion,2026-10-10,Eldense vs Córdoba,home,Eldense,3,3,0,Pau Cabanes; David Ruiz; Mariano Carmona
+2026-10-07T22:55:52Z,esp_hypermotion,2026-10-10,Eldense vs Córdoba,away,Córdoba,2,2,0,Jacobo Marti; Adilson
+2026-10-07T22:55:52Z,esp_hypermotion,2026-10-10,Celta Fortuna vs Real Sociedad B,home,Celta Fortuna,4,2,2,Pablo Meixus; Anxo Rodriguez; Bernard Somuah; Andrés Antañón
+2026-10-07T22:55:52Z,esp_hypermotion,2026-10-10,Celta Fortuna vs Real Sociedad B,away,Real Sociedad B,1,0,1,Arkaitz Mariezkurrena
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-09,Avellino vs Sampdoria,home,Avellino,3,3,0,Lorenco Šimić; Andrea Favilli; Daniel Fila
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-09,Avellino vs Sampdoria,away,Sampdoria,4,3,1,Oliver Abildgaard; Danel Sinani; Bjorn Meijer; Mattia Viti
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Benevento vs Cesena,home,Benevento,3,3,0,Pier Luigi Simonetti; Raffaele Romano; Simone Verdi
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Benevento vs Cesena,away,Cesena,1,1,0,Jonathan Klinsmann
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Empoli vs Palermo,home,Empoli,0,0,0,
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Empoli vs Palermo,away,Palermo,4,4,0,Gabriel Strefezza; Hernani; Mattia Perin; Jesse Joronen
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Südtirol vs Ascoli,home,Südtirol,2,2,0,Niklas Pyyhtiä; Hamza El Kaouakibi
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Südtirol vs Ascoli,away,Ascoli,0,0,0,
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Virtus Entella vs Juve Stabia,home,Virtus Entella,0,0,0,
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Virtus Entella vs Juve Stabia,away,Juve Stabia,0,0,0,
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,LR Vicenza vs Pisa,home,LR Vicenza,0,0,0,
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,LR Vicenza vs Pisa,away,Pisa,0,0,0,
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Arezzo vs Cremonese,home,Arezzo,0,0,0,
+2026-10-07T22:55:52Z,ita_serie_b,2026-10-10,Arezzo vs Cremonese,away,Cremonese,2,2,0,Tommaso Barbieri; David Stückler
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Dunkerque vs Annecy FC,home,Dunkerque,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Dunkerque vs Annecy FC,away,Annecy FC,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Montpellier vs Grenoble,home,Montpellier,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Montpellier vs Grenoble,away,Grenoble,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Nancy vs Guingamp,home,Nancy,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Nancy vs Guingamp,away,Guingamp,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Pau vs Laval,home,Pau,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Pau vs Laval,away,Laval,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Sochaux vs Boulogne,home,Sochaux,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-09,Sochaux vs Boulogne,away,Boulogne,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-10,Clermont Foot vs Red Star,home,Clermont Foot,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-10,Clermont Foot vs Red Star,away,Red Star,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-10,Nantes vs Reims,home,Nantes,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-10,Nantes vs Reims,away,Reims,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-10,Saint-Étienne vs Rodez,home,Saint-Étienne,0,0,0,
+2026-10-07T22:55:52Z,fra_ligue2,2026-10-10,Saint-Étienne vs Rodez,away,Rodez,0,0,0,
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-09,Eintracht Braunschweig vs Holstein Kiel,home,Eintracht Braunschweig,2,2,0,Robin Heußer; Frederik Jäkel
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-09,Eintracht Braunschweig vs Holstein Kiel,away,Holstein Kiel,4,3,1,David Zec; Moritz Reimers; Frederik Roslyng; Lasse Rosenboom
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-09,FC Heidenheim vs Kaiserslautern,home,FC Heidenheim,1,1,0,Sirlord Conteh
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-09,FC Heidenheim vs Kaiserslautern,away,Kaiserslautern,3,3,0,Naatan Skyttä; Owen Gibs; Ivan Prtajin
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,Darmstadt vs Energie Cottbus,home,Darmstadt,3,3,0,Fabian Nürnberger; Luca Marseiler; Merveille Papela
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,Darmstadt vs Energie Cottbus,away,Energie Cottbus,2,2,0,Erik Engelhardt; Julian Guttau
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,Magdeburg vs Hannover 96,home,Magdeburg,1,1,0,Lubambo Musonda
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,Magdeburg vs Hannover 96,away,Hannover 96,2,2,0,Mustapha Bundu; Jean Hugonet
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,VfL Osnabrück vs Dynamo Dresden,home,VfL Osnabrück,1,1,0,Ismail Badjie
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,VfL Osnabrück vs Dynamo Dresden,away,Dynamo Dresden,3,3,0,Lennart Grill; Lars Bünning; Kenneth Schmidt
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,1. FC Nürnberg vs Wolfsburg,home,1. FC Nürnberg,2,2,0,Mikayil Faye; Styopa Mkrtchyan
+2026-10-07T22:55:52Z,ger_bundesliga2,2026-10-10,1. FC Nürnberg vs Wolfsburg,away,Wolfsburg,1,1,0,Christian Eriksen
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-09,SK Beveren vs Lommel,home,SK Beveren,4,3,1,Johannes Schenk; Kurt Abrahams; Ilyes Najim; Viktor Boone
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-09,SK Beveren vs Lommel,away,Lommel,7,7,0,Sam De Grand; Dries Wouters; Ralf Seuntjens; Sverre Halseth Nypan; Henry Oware; Jesper Tolinsson; Jhon Banguera
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,Cercle Brugge vs Anderlecht,home,Cercle Brugge,4,4,0,Omotayo Adaramola; Abdoulie Manneh; Joel Ndala; Charles Herrmann
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,Cercle Brugge vs Anderlecht,away,Anderlecht,4,4,0,Giulian Biancone; Killian Sardella; Ilay Camara; Lucas Hey
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,RAAL La Louvière vs Club Brugge,home,RAAL La Louvière,2,2,0,Bryan Soumaré; Mouhamed Belkheir
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,RAAL La Louvière vs Club Brugge,away,Club Brugge,2,2,0,Hugo Siquet; Joel Ordóñez
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,Genk vs Kortrijk,home,Genk,4,4,0,Christian Akpan; Kenan Haroun; Adrián Palacios; Ken Nkuba
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,Genk vs Kortrijk,away,Kortrijk,1,1,0,Matthew Anderson
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,Zulte Waregem vs Gent,home,Zulte Waregem,2,2,0,Dirk Asare; Wilguens Paugain
+2026-10-07T22:55:52Z,bel_pro_league,2026-10-10,Zulte Waregem vs Gent,away,Gent,3,3,0,Lászlo Bénes; Mouhamed Ngom; Matisse Samoise
+2026-10-07T22:55:52Z,jpn_j1,2026-10-09,Kashima Antlers vs Gamba Osaka,home,Kashima Antlers,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-09,Kashima Antlers vs Gamba Osaka,away,Gamba Osaka,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-09,Kashiwa Reysol vs Vissel Kobe,home,Kashiwa Reysol,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-09,Kashiwa Reysol vs Vissel Kobe,away,Vissel Kobe,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,Cerezo Osaka vs Yokohama F.Marinos,home,Cerezo Osaka,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,Cerezo Osaka vs Yokohama F.Marinos,away,Yokohama F.Marinos,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,Avispa Fukuoka vs Fagiano Okayama FC,home,Avispa Fukuoka,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,Avispa Fukuoka vs Fagiano Okayama FC,away,Fagiano Okayama FC,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,FC Tokyo vs Urawa Red Diamonds,home,FC Tokyo,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,FC Tokyo vs Urawa Red Diamonds,away,Urawa Red Diamonds,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,Kyoto Sanga FC vs Machida Zelvia,home,Kyoto Sanga FC,0,0,0,
+2026-10-07T22:55:52Z,jpn_j1,2026-10-10,Kyoto Sanga FC vs Machida Zelvia,away,Machida Zelvia,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,Colegiales vs Tristán Suárez,home,Colegiales,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,Colegiales vs Tristán Suárez,away,Tristán Suárez,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,Almagro vs Chacarita Juniors,home,Almagro,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,Almagro vs Chacarita Juniors,away,Chacarita Juniors,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,Quilmes vs Agropecuario,home,Quilmes,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,Quilmes vs Agropecuario,away,Agropecuario,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,CA Ferrocarril Midland vs Atlético Rafaela,home,CA Ferrocarril Midland,0,0,0,
+2026-10-07T22:55:52Z,arg_primera_nacional,2026-10-10,CA Ferrocarril Midland vs Atlético Rafaela,away,Atlético Rafaela,0,0,0,
+2026-10-07T22:55:52Z,col_primera_a,2026-10-08,Atlético Nacional vs Tolima,home,Atlético Nacional,6,6,0,Andrés Sarmiento; Marlos Moreno; Cristian Arango; Alfredo Morelos; Nicolás Rodríguez; Elkin Rivero
+2026-10-07T22:55:52Z,col_primera_a,2026-10-08,Atlético Nacional vs Tolima,away,Tolima,1,1,0,Cristian Trujillo
+2026-10-07T22:55:52Z,col_primera_a,2026-10-09,Fortaleza FC vs Millonarios,home,Fortaleza FC,1,1,0,Richardson Rivas
+2026-10-07T22:55:52Z,col_primera_a,2026-10-09,Fortaleza FC vs Millonarios,away,Millonarios,6,6,0,Jorge Arias; Samuel Martín; Carlos Sarabia; Mateo García; Rodrigo Contreras; Jhomier Guerrero
+2026-10-07T22:55:52Z,col_primera_a,2026-10-09,Alianza FC vs Águilas Doradas,home,Alianza FC,0,0,0,
+2026-10-07T22:55:52Z,col_primera_a,2026-10-09,Alianza FC vs Águilas Doradas,away,Águilas Doradas,0,0,0,
+2026-10-07T22:55:52Z,col_primera_a,2026-10-10,Once Caldas vs Llaneros FC,home,Once Caldas,0,0,0,
+2026-10-07T22:55:52Z,col_primera_a,2026-10-10,Once Caldas vs Llaneros FC,away,Llaneros FC,1,1,0,Jhojan Escobar
+2026-10-07T22:55:52Z,col_primera_a,2026-10-10,Deportivo Pereira vs Deportivo Cali,home,Deportivo Pereira,1,0,1,Jorge Bermúdez
+2026-10-07T22:55:52Z,col_primera_a,2026-10-10,Deportivo Pereira vs Deportivo Cali,away,Deportivo Cali,4,4,0,Avilés Hurtado; Nicolás Benedetti; Kalazan Suárez; Ronaldo Pájaro
+2026-10-07T22:55:52Z,usl_championship,2026-10-09,Lexington SC vs FC Tulsa,home,Lexington SC,0,0,0,
+2026-10-07T22:55:52Z,usl_championship,2026-10-09,Lexington SC vs FC Tulsa,away,FC Tulsa,0,0,0,
+2026-10-07T22:55:52Z,usl_championship,2026-10-10,Sporting JAX vs Birmingham Legion FC,home,Sporting JAX,0,0,0,
+2026-10-07T22:55:52Z,usl_championship,2026-10-10,Sporting JAX vs Birmingham Legion FC,away,Birmingham Legion FC,0,0,0,
+2026-10-07T22:55:52Z,usl_championship,2026-10-10,Charleston Battery vs Louisville City FC,home,Charleston Battery,0,0,0,
+2026-10-07T22:55:52Z,usl_championship,2026-10-10,Charleston Battery vs Louisville City FC,away,Louisville City FC,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Almere City FC vs FC Eindhoven,home,Almere City FC,1,1,0,Mees Hoedemakers
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Almere City FC vs FC Eindhoven,away,FC Eindhoven,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,De Graafschap vs Jong FC Utrecht,home,De Graafschap,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,De Graafschap vs Jong FC Utrecht,away,Jong FC Utrecht,1,1,0,Oualid Agougil
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,FC Dordrecht vs FC Emmen,home,FC Dordrecht,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,FC Dordrecht vs FC Emmen,away,FC Emmen,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,FC Volendam vs Vitesse,home,FC Volendam,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,FC Volendam vs Vitesse,away,Vitesse,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Heracles vs RKC Waalwijk,home,Heracles,1,1,0,Fabian de Keijzer
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Heracles vs RKC Waalwijk,away,RKC Waalwijk,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Jong Ajax vs VVV-Venlo,home,Jong Ajax,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Jong Ajax vs VVV-Venlo,away,VVV-Venlo,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Jong AZ Alkmaar vs FC Den Bosch,home,Jong AZ Alkmaar,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Jong AZ Alkmaar vs FC Den Bosch,away,FC Den Bosch,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,NAC Breda vs MVV Maastricht,home,NAC Breda,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,NAC Breda vs MVV Maastricht,away,MVV Maastricht,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Roda JC Kerkrade vs Jong PSV,home,Roda JC Kerkrade,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,Roda JC Kerkrade vs Jong PSV,away,Jong PSV,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,TOP Oss vs Helmond Sport,home,TOP Oss,0,0,0,
+2026-10-07T22:55:52Z,ned_eerste,2026-10-09,TOP Oss vs Helmond Sport,away,Helmond Sport,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-07,América-MG vs Fortaleza,home,América-MG,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-07,América-MG vs Fortaleza,away,Fortaleza,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-07,CRB vs Atlético-GO,home,CRB,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-07,CRB vs Atlético-GO,away,Atlético-GO,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-07,Vila Nova vs Cuiabá,home,Vila Nova,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-07,Vila Nova vs Cuiabá,away,Cuiabá,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-08,Ceará vs Criciúma,home,Ceará,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-08,Ceará vs Criciúma,away,Criciúma,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-08,Náutico vs Novorizontino,home,Náutico,0,0,0,
+2026-10-07T22:55:52Z,bra_serie_b,2026-10-08,Náutico vs Novorizontino,away,Novorizontino,0,0,0,
+2026-10-07T22:55:52Z,per_liga1,2026-10-08,Club Deportivo Moquegua vs Cienciano,home,Club Deportivo Moquegua,2,1,1,Nicolás Chávez; Kevin Ruiz
+2026-10-07T22:55:52Z,per_liga1,2026-10-08,Club Deportivo Moquegua vs Cienciano,away,Cienciano,0,0,0,
+2026-10-07T22:55:52Z,per_liga1,2026-10-08,Atlético Grau vs Los Chankas,home,Atlético Grau,2,2,0,Adrián De La Cruz; Lucas Acevedo
+2026-10-07T22:55:52Z,per_liga1,2026-10-08,Atlético Grau vs Los Chankas,away,Los Chankas,1,0,1,Christian Velarde
+2026-10-07T22:55:52Z,per_liga1,2026-10-10,Deportivo Garcilaso vs Sport Huancayo,home,Deportivo Garcilaso,0,0,0,
+2026-10-07T22:55:52Z,per_liga1,2026-10-10,Deportivo Garcilaso vs Sport Huancayo,away,Sport Huancayo,1,1,0,Franco Caballero
+2026-10-07T22:55:52Z,per_liga1,2026-10-10,Asociación Deportiva Tarma vs FC Cajamarca,home,Asociación Deportiva Tarma,0,0,0,
+2026-10-07T22:55:52Z,per_liga1,2026-10-10,Asociación Deportiva Tarma vs FC Cajamarca,away,FC Cajamarca,1,1,0,José Gallardo
+2026-10-07T22:55:52Z,per_liga1,2026-10-10,Comerciantes Unidos vs ADC Juan Pablo II,home,Comerciantes Unidos,1,0,1,Agustín Rodríguez
+2026-10-07T22:55:52Z,per_liga1,2026-10-10,Comerciantes Unidos vs ADC Juan Pablo II,away,ADC Juan Pablo II,2,2,0,Fabio Agurto; Nicolás Leguizamón
+2026-10-07T22:55:52Z,uru_primera,2026-10-09,Montevideo City Torque vs Danubio,home,Montevideo City Torque,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-09,Montevideo City Torque vs Danubio,away,Danubio,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-09,Deportivo Maldonado vs Liverpool FC,home,Deportivo Maldonado,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-09,Deportivo Maldonado vs Liverpool FC,away,Liverpool FC,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-10,Defensor Sporting vs Cerro,home,Defensor Sporting,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-10,Defensor Sporting vs Cerro,away,Cerro,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-10,Montevideo Wanderers vs Boston River,home,Montevideo Wanderers,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-10,Montevideo Wanderers vs Boston River,away,Boston River,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-10,Club Atletico Peñarol vs Club Atlético Progreso,home,Club Atletico Peñarol,0,0,0,
+2026-10-07T22:55:52Z,uru_primera,2026-10-10,Club Atletico Peñarol vs Club Atlético Progreso,away,Club Atlético Progreso,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-09,Libertad vs Leones del Norte,home,Libertad,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-09,Libertad vs Leones del Norte,away,Leones del Norte,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-09,Delfín vs Mushuc Runa,home,Delfín,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-09,Delfín vs Mushuc Runa,away,Mushuc Runa,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-10,Independiente del Valle vs Aucas,home,Independiente del Valle,3,3,0,Carlos González; Juan Cazares; Guido Villar
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-10,Independiente del Valle vs Aucas,away,Aucas,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-10,Manta vs Técnico Universitario,home,Manta,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-10,Manta vs Técnico Universitario,away,Técnico Universitario,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-10,Guayaquil City vs Emelec,home,Guayaquil City,0,0,0,
+2026-10-07T22:55:52Z,ecu_liga_pro,2026-10-10,Guayaquil City vs Emelec,away,Emelec,0,0,0,
+2026-10-07T22:55:52Z,slv_primera,2026-10-09,CD FAS vs Alianza FC,home,CD FAS,0,0,0,
+2026-10-07T22:55:52Z,slv_primera,2026-10-09,CD FAS vs Alianza FC,away,Alianza FC,0,0,0,
+2026-10-07T22:55:52Z,slv_primera,2026-10-10,Inca Aruba vs CD Platense Municipal,home,Inca Aruba,0,0,0,
+2026-10-07T22:55:52Z,slv_primera,2026-10-10,Inca Aruba vs CD Platense Municipal,away,CD Platense Municipal,0,0,0,
+2026-10-07T22:55:52Z,slv_primera,2026-10-10,Fuerte San Francisco vs CD Cacahuatique,home,Fuerte San Francisco,0,0,0,
+2026-10-07T22:55:52Z,slv_primera,2026-10-10,Fuerte San Francisco vs CD Cacahuatique,away,CD Cacahuatique,0,0,0,
+2026-10-07T22:55:52Z,bol_division,2026-10-09,San Antonio Bulo Bulo vs Real Tomayapo,home,San Antonio Bulo Bulo,0,0,0,
+2026-10-07T22:55:52Z,bol_division,2026-10-09,San Antonio Bulo Bulo vs Real Tomayapo,away,Real Tomayapo,0,0,0,
+2026-10-07T22:55:52Z,bol_division,2026-10-10,Universitario de Vinto vs CDT Real Oruro,home,Universitario de Vinto,0,0,0,
+2026-10-07T22:55:52Z,bol_division,2026-10-10,Universitario de Vinto vs CDT Real Oruro,away,CDT Real Oruro,0,0,0,
+2026-10-07T22:55:52Z,par_division,2026-10-10,Sportivo San Lorenzo vs Sportivo Trinidense,home,Sportivo San Lorenzo,0,0,0,
+2026-10-07T22:55:52Z,par_division,2026-10-10,Sportivo San Lorenzo vs Sportivo Trinidense,away,Sportivo Trinidense,0,0,0,
+2026-10-07T22:55:52Z,crc_fpd,2026-10-09,Inter San Carlos vs Municipal Pérez Zeledón,home,Inter San Carlos,0,0,0,
+2026-10-07T22:55:52Z,crc_fpd,2026-10-09,Inter San Carlos vs Municipal Pérez Zeledón,away,Municipal Pérez Zeledón,0,0,0,
+2026-10-07T22:55:52Z,crc_fpd,2026-10-10,Sporting FC vs C.S. Cartaginés,home,Sporting FC,0,0,0,
+2026-10-07T22:55:52Z,crc_fpd,2026-10-10,Sporting FC vs C.S. Cartaginés,away,C.S. Cartaginés,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-09,Alebrijes Oaxaca vs Correcaminos de la UAT,home,Alebrijes Oaxaca,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-09,Alebrijes Oaxaca vs Correcaminos de la UAT,away,Correcaminos de la UAT,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-09,Tapatío vs Atlético La Paz,home,Tapatío,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-09,Tapatío vs Atlético La Paz,away,Atlético La Paz,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-10,Tepatitlán FC vs Atlético Morelia,home,Tepatitlán FC,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-10,Tepatitlán FC vs Atlético Morelia,away,Atlético Morelia,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-10,Tlaxcala FC vs Piratas,home,Tlaxcala FC,0,0,0,
+2026-10-07T22:55:52Z,mex_expansion,2026-10-10,Tlaxcala FC vs Piratas,away,Piratas,0,0,0,
+2026-10-07T22:55:52Z,chi_primera,2026-10-10,Cobresal vs Universidad de Concepción,home,Cobresal,0,0,0,
+2026-10-07T22:55:52Z,chi_primera,2026-10-10,Cobresal vs Universidad de Concepción,away,Universidad de Concepción,2,0,2,Cristhofer Mesías; Osvaldo González
+2026-10-07T22:55:52Z,chi_primera,2026-10-10,Huachipato vs O'Higgins,home,Huachipato,2,2,0,Rodrigo Odriozola; José Castro
+2026-10-07T22:55:52Z,chi_primera,2026-10-10,Huachipato vs O'Higgins,away,O'Higgins,3,3,0,Martín Maturana; Miguel Brizuela; Bryan Rabello
+2026-10-07T22:55:52Z,ven_primera,2026-10-10,Portuguesa FC vs Deportivo La Guaira,home,Portuguesa FC,0,0,0,
+2026-10-07T22:55:52Z,ven_primera,2026-10-10,Portuguesa FC vs Deportivo La Guaira,away,Deportivo La Guaira,0,0,0,
+2026-10-07T22:55:52Z,ven_primera,2026-10-10,Deportivo Táchira vs Universidad Central,home,Deportivo Táchira,0,0,0,
+2026-10-07T22:55:52Z,ven_primera,2026-10-10,Deportivo Táchira vs Universidad Central,away,Universidad Central,0,0,0,
+2026-10-07T22:55:52Z,ind_isl,2026-10-10,Bengaluru FC vs SC Delhi,home,Bengaluru FC,0,0,0,
+2026-10-07T22:55:52Z,ind_isl,2026-10-10,Bengaluru FC vs SC Delhi,away,SC Delhi,0,0,0,
+2026-10-07T22:55:52Z,ind_isl,2026-10-10,FC Goa vs Chennaiyin FC,home,FC Goa,0,0,0,
+2026-10-07T22:55:52Z,ind_isl,2026-10-10,FC Goa vs Chennaiyin FC,away,Chennaiyin FC,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-09,Al Kholood vs Al Qadsiah,home,Al Kholood,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-09,Al Kholood vs Al Qadsiah,away,Al Qadsiah,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-09,Al Fateh FC vs Al Ahli,home,Al Fateh FC,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-09,Al Fateh FC vs Al Ahli,away,Al Ahli,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-09,Al Nassr FC vs Al Diriyah,home,Al Nassr FC,1,1,0,Sultan Al Ghannam
+2026-10-07T22:55:52Z,ksa_pro,2026-10-09,Al Nassr FC vs Al Diriyah,away,Al Diriyah,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-10,Al Hazem vs Neom SC,home,Al Hazem,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-10,Al Hazem vs Neom SC,away,Neom SC,1,1,0,Alaa Al Hejji
+2026-10-07T22:55:52Z,ksa_pro,2026-10-10,Al-Ettifaq vs Al Khaleej,home,Al-Ettifaq,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-10,Al-Ettifaq vs Al Khaleej,away,Al Khaleej,0,0,0,
+2026-10-07T22:55:52Z,ksa_pro,2026-10-10,Al Hilal vs Al Ittihad,home,Al Hilal,3,3,0,Theo Hernández; Ali Lajami; Salem Al Dawsari
+2026-10-07T22:55:52Z,ksa_pro,2026-10-10,Al Hilal vs Al Ittihad,away,Al Ittihad,5,5,0,Hassan Kadish; Houssem Aouar; Hamed Al Ghamdi; Ahmed Sharahili; Saad Al Mosa
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Hapoel Haifa vs Maccabi Petach Tikva,home,Hapoel Haifa,2,1,1,Yaad Gonen; William Agada
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Hapoel Haifa vs Maccabi Petach Tikva,away,Maccabi Petach Tikva,1,1,0,Franck Rivollier
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Ironi Tiberias vs Hapoel Beer Sheva,home,Ironi Tiberias,4,1,3,Sambinha; Niv Gotlieb; David Keltjens; Haroun Shapso
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Ironi Tiberias vs Hapoel Beer Sheva,away,Hapoel Beer Sheva,1,1,0,Itay Rotman
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Hapoel Ironi Kiryat Shmona vs Hapoel Tel Aviv,home,Hapoel Ironi Kiryat Shmona,0,0,0,
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Hapoel Ironi Kiryat Shmona vs Hapoel Tel Aviv,away,Hapoel Tel Aviv,1,1,0,Stav Turiel
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Hapoel Petah Tikva vs Maccabi Netanya,home,Hapoel Petah Tikva,2,1,1,Karim Kimvuidi; Eric Bille
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Hapoel Petah Tikva vs Maccabi Netanya,away,Maccabi Netanya,2,2,0,Wylan Cyprien; Naftali Balay
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Maccabi Tel Aviv vs Bnei Sakhnin,home,Maccabi Tel Aviv,3,2,1,Kervin Andrade; Mohamed Aly Camara; Ion Nicolăescu
+2026-10-07T22:55:52Z,isr_premier,2026-10-10,Maccabi Tel Aviv vs Bnei Sakhnin,away,Bnei Sakhnin,1,1,0,Maroun Gantus

@@ -139,9 +139,9 @@
   },
   "Independiente del Valle": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Delfines Del Este",
-    "ratio": 0.45,
-    "visto": "2026-09-22"
+    "candidato": "Ind. Valle del Cauca",
+    "ratio": 0.4762,
+    "visto": "2026-10-07"
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
@@ -473,8 +473,8 @@
   },
   "Chacarita Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Boca Juniors",
-    "ratio": 0.6897,
+    "candidato": "Boca Juniors 2",
+    "ratio": 0.6452,
     "visto": "2026-10-07"
   },
   "Cerro Largo": {
@@ -953,9 +953,9 @@
   },
   "Red Bull Bragantino": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Qingdao Red Lions",
-    "ratio": 0.3333,
-    "visto": "2026-10-06"
+    "candidato": "Chattanooga Red Wolves",
+    "ratio": 0.2439,
+    "visto": "2026-10-07"
   },
   "Atlético-MG": {
     "contexto": "cuotas_mx→futbol",
@@ -1199,8 +1199,8 @@
   },
   "1. FC Union Berlin": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union Touarga",
-    "ratio": 0.4667,
+    "candidato": "Tasmania Berlin",
+    "ratio": 0.5625,
     "visto": "2026-10-07"
   },
   "Stockport County": {
@@ -1277,8 +1277,8 @@
   },
   "Sporting San José": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "GV San Jose",
-    "ratio": 0.7143,
+    "candidato": "San Martin S.J. 2",
+    "ratio": 0.5455,
     "visto": "2026-10-07"
   },
   "Universidad Católica": {
@@ -1411,6 +1411,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Leones del Norte",
     "ratio": 0.5455,
+    "visto": "2026-10-07"
+  },
+  "Bayern Munich": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Bayern II",
+    "ratio": 0.7273,
+    "visto": "2026-10-07"
+  },
+  "RB Leipzig": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Chemie Leipzig",
+    "ratio": 0.6667,
     "visto": "2026-10-07"
   }
 }
