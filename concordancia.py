@@ -256,6 +256,49 @@ def prob_mercado(pick: Dict, apuesta: str,
             return probs[0] if etb.rstrip('.').endswith(('sí', 'si')) \
                 else probs[1]
 
+    # ---- goles de UN equipo (fútbol) -------------------------------------
+    #
+    # v337 — ANTES DE LOS GOLES DEL PARTIDO, Y NO CAEN EN ELLOS.
+    #
+    # «Goles Boca: Más de 1.5» entraba en la rama de abajo («goles» está en el
+    # mercado) y se de-marginaba con la línea 1,5 del TOTAL del partido. Medido
+    # en la simulación de la tarjeta (`_v337_ligas.py`, 4.776 candidatas):
+    # equipo «más de 1,5» decía 73,0 % y pasó 41,2 %; «más de 2,5» 52,7 % → 20,0 %;
+    # «menos de 1,5» 27,0 % → 58,8 %. Era el precio del partido, no del
+    # equipo. Ahora se usan las cuotas del equipo (`implicitas['goles_home']`
+    # / `['goles_away']`) y, si la casa no las da, no hay precio.
+    #
+    # El precio entra en la probabilidad corregida (mezcla 50/50, v243) y en
+    # la regla de «meter» de la v335, así que el error contaminaba las dos.
+    # Simulación de la tarjeta rehecha (765 partidos): goles por equipo
+    # 78,2 → 85,5 %; total 80,4 % (178 rojos) → 82,2 % (166 rojos); juicio
+    # 1-6 oct 78,0 → 81,8 % (p5 +2,35).
+    if merc == 'goles equipo' or (etb.startswith('goles ')
+                                  and not etb.startswith('goles:')
+                                  and ':' in etb):
+        lin = _linea(et)
+        nombre = etb[len('goles '):].split(':', 1)[0].strip()
+        clave = ('goles_home' if home and nombre == home else
+                 'goles_away' if away and nombre == away else None)
+        if not clave or not lin:
+            return None
+        tabla = imp.get(clave) or {}
+        dato = tabla.get(lin)
+        if dato is None:
+            for k, v in tabla.items():
+                try:
+                    if abs(float(k) - float(lin)) < 1e-9:
+                        dato = v
+                        break
+                except (TypeError, ValueError):
+                    continue
+        if not isinstance(dato, dict):
+            return None
+        probs = demarginar([dato.get('mas'), dato.get('menos')])
+        if not probs:
+            return None
+        return probs[0] if _es_mas(etb) else probs[1]
+
     # ---- goles (fútbol) --------------------------------------------------
     if 'goles' in merc or etb.startswith('goles'):
         lin = _linea(et)
