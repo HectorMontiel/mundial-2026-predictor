@@ -1,8 +1,8 @@
 {
- "generado": "2026-10-07T10:10:50Z",
- "revisados": 222,
+ "generado": "2026-10-07T11:45:39Z",
+ "revisados": 224,
  "descartados": {
-  "el corto tiene un token que el largo no": 212,
+  "el corto tiene un token que el largo no": 214,
   "una sola palabra: no hay apellido que comprobar": 5,
   "una inicial del corto no casa con ningun token": 3
  },
@@ -22,7 +22,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-07T10:10:50Z",
+   "ultima_vez": "2026-10-07T11:45:39Z",
    "primera_vez": "2026-09-27T20:27:10Z"
   },
   "cruz azul hidalgo": {
@@ -58,7 +58,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5185,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-07T10:10:50Z",
+   "ultima_vez": "2026-10-07T11:45:39Z",
    "primera_vez": "2026-10-07T01:50:20Z"
   }
  }
