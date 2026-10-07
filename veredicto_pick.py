@@ -685,11 +685,17 @@ def pintar(st, veredictos: List[Dict], titulo: str = '',
     if not veredictos:
         return
     trozos = [CSS] if con_estilos else []
+    # v339 — envuelto en `vp-lista` para que la capa visual pueda plegarlo
+    # cuando la misma tarjeta ya enseña esas apuestas en su bloque grande
+    # (`mm-rec-si`, con cuota y lo que devuelve): eran la misma apuesta dos
+    # veces seguidas.
+    trozos.append('<div class="vp-lista">')
     if titulo:
         trozos.append('<div style="font-size:.8rem;opacity:.7;'
                       'margin:.4rem 0 .2rem">%s</div>' % _esc(titulo))
     for v in veredictos:
         trozos.append(html(v, (v.get('pick') or {}).get('apuesta', '')))
+    trozos.append('</div>')
     st.markdown(''.join(trozos), unsafe_allow_html=True)
 
 

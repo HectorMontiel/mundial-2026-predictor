@@ -4890,14 +4890,12 @@ except Exception:
 # la de un formulario. Esta barra no ocupa apenas y fija las dos cosas que
 # gobiernan todo lo demás: que el edge está en el precio y que hay seis casas
 # detrás de cada cuota.
-_pinta(_estilo.cabecera(
-    'Predictor deportivo',
-    'Predicción, cuotas de seis casas y combinadas — con lo que el proyecto '
-    'tiene medido delante, no en letra pequeña.',
-    chips=[('⚽ fútbol', 'info'), ('⚾ MLB · KBO', 'info'),
-           ('🏀 NBA', 'info'), ('🎾 tenis', 'info'), ('🏈 NFL', 'info'),
-           ('el edge está en el precio', 'ok')],
-    icono='🎯') if _estilo else None)
+# v339 — UNA LÍNEA, NO UNA PANCARTA. La auditoría: esta cabecera y la de la
+# sección ocupaban media pantalla antes del primer partido. Queda la marca y
+# los deportes; el lema se va a la ayuda.
+_pinta(_estilo.marca(
+    'Predictor deportivo', ('⚽', '⚾', '🏀', '🎾', '🏈'), icono='🎯')
+    if _estilo else None)
 
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
 # en el teléfono la barra lateral llega colapsada y el usuario no encontraba
@@ -4938,7 +4936,10 @@ competencia_sel = _col_comp.selectbox(
     help="En móvil: elige aquí la liga; los controles finos (modo, bankroll) "
          "siguen en la barra lateral (botón » arriba a la izquierda). "
          "Escribe para buscar.")
-st.sidebar.checkbox(
+# v339 — sólo en local con Ollama: en producción no hace nada y era lo primero
+# que se veía en la barra lateral.
+if os.environ.get('OLLAMA_MODEL') or os.environ.get('OLLAMA_HOST'):
+  st.sidebar.checkbox(
     "🤖 Reescribir comentarios con SLM local (Ollama)", value=False, key='usar_slm',
     help="Opcional y solo en ejecución local: si tienes Ollama corriendo "
          "(OLLAMA_MODEL, por defecto phi3), el comentario del analista se "
@@ -4961,10 +4962,8 @@ MODO_USO = st.sidebar.radio(
          "sin jerga técnica. **Pro**: plantilla completa (~85 campos), "
          "distribuciones, monitor de features y todos los mercados.")
 ES_PRO = MODO_USO.startswith('🔵')
-st.sidebar.caption(
-    "💡 **EV** (valor esperado): ganancia media por unidad apostada si "
-    "repitieras la apuesta muchas veces. EV positivo = el modelo cree que "
-    "la cuota paga de más. **Cuota justa** = 1/probabilidad, sin margen de casa.")
+# v339 — la definición de EV y cuota justa vive en el «Diccionario de
+# apuestas», justo debajo: repetida aquí era el párrafo más largo de la barra.
 
 # v19: gestión de banca (¼ Kelly sobre mercados con EV > 0 y cuota real)
 # v119: el diccionario completo, siempre a mano en la barra lateral
@@ -4990,12 +4989,9 @@ def _panel_creditos_api() -> None:
         return
     with st.sidebar:
         if not _oa.disponible():
-            _pinta(_estilo.seccion('Consenso del mercado', '5 casas', 'info')
-                   if _estilo else None)
-            st.caption(
-                "Sin `ODDS_API_KEY` en los Secrets. El tablón funciona con sus "
-                "**5 casas** de siempre; con la clave pasa a ~20 y la Sección 1 "
-                "puede detectar ventajas que ahora no se ven.")
+            # v339 — sin clave no hay nada que el usuario pueda hacer aquí: el
+            # aviso técnico (falta `ODDS_API_KEY`) se queda en el registro.
+            logger.info('[consenso] sin ODDS_API_KEY: tablón de 5 casas')
             return
         p = _oa.presupuesto()
         usados, cuota = p['usados'], p['cuota']
@@ -5120,7 +5116,7 @@ def render_alpha_finder():
         elif _oa_chip.disponible():
             _chip_casas, _tono_casas = '6 casas · créditos agotados', 'mira'
         else:
-            _chip_casas, _tono_casas = '6 casas · sin ODDS_API_KEY', 'mira'
+            _chip_casas, _tono_casas = '6 casas', 'azul'      # v339
     except Exception:
         pass
     _cabecera(
@@ -5130,7 +5126,7 @@ def render_alpha_finder():
         chips=[(_chip_casas, _tono_casas), ('hora de CDMX', 'info'),
                ('⚽ ⚾ 🏀 🎾 🏈', 'info')],
         icono='💎')
-    if _tono_casas == 'mira':
+    if False and _tono_casas == 'mira':                  # v339: ver chip
         # El número de la barra lateral («cinco casas») y el de este chip
         # («6») no se contradicen, pero puestos uno al lado del otro lo
         # parecen: el consenso lo forman cinco casas y la sexta fuente es
@@ -5170,50 +5166,54 @@ def render_alpha_finder():
     #
     # El pronóstico se sigue refrescando solo: `precalculo_dia.yml` cada 3 h, y
     # la aplicación lee el fichero publicado en cada despliegue.
-    cacc2, cacc3, cacc4 = st.columns(3)
-    if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
-                    width='stretch', type="primary",
-                    help="Envía el resumen del día a tu Telegram (mismo mensaje "
-                         "que el envío diario automático)."):
-        st.session_state['_enviar_telegram'] = True
+    # v339 — los cinco envíos ocupaban el mejor sitio de la pantalla: van
+    # juntos en un desplegable. Siguen vivos (mismas claves) para la
+    # validación de render y para el envío automático.
+    with st.expander('📤 Enviar a Telegram y exportar', expanded=False):
+        cacc2, cacc3, cacc4 = st.columns(3)
+        if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
+                        width='stretch', type="primary",
+                        help="Envía el resumen del día a tu Telegram (mismo mensaje "
+                             "que el envío diario automático)."):
+            st.session_state['_enviar_telegram'] = True
 
-    # v196 — EL DÍA ENTERO, NO SÓLO LOS PICKS.
-    #
-    # El botón de arriba manda lo que pasa los filtros. Estos dos mandan TODOS
-    # los partidos de todos los deportes con TODOS sus mercados: 1X2, goles,
-    # BTTS, hándicap, ganador, primer set, total de sets, córners, tarjetas y
-    # remates, con su cuota y su EV donde los hay.
-    #
-    # Siguen exactamente el mismo camino que el botón que ya funciona: marcan
-    # una bandera y el envío se hace abajo, con el barrido `r` YA calculado.
-    # Llamar aquí a `alpha_finder` lanzaría un segundo barrido dentro del
-    # proceso de Streamlit —1.297 MB pasan a 2.172 MB— y el contenedor muere.
-    #
-    # Va como fichero adjunto y no como mensajes: medido, un día real son 368
-    # partidos y 5.951 mercados, unos 457 KB, o sea 107 mensajes de Telegram
-    # con su límite de frecuencia por medio.
-    # v312 — PASADO MAÑANA Y «TODO», Y EL FORMATO PARA UNA IA. El usuario:
-    # «deberá haber uno de pasado mañana y uno de enviar todo (hoy, mañana y
-    # pasado), y en eso que se envía deberán ir todas las estadísticas de las
-    # apuestas… para pasarlo a un LLM como segunda validación». El documento
-    # lo arma `formato_ia` (guía de lectura, 🎯 meter, modelo, contexto y
-    # mercados de cada partido).
-    _ayuda_ia = ('Envía a Telegram, como fichero adjunto, cada partido con las '
-                 'apuestas 🎯 meter de la app, todas sus estadísticas y sus '
-                 'mercados, en un formato listo para pegarlo en tu agente de IA.')
-    if cacc3.button("🗂️ Todo lo de hoy", key='tg_send_hoy', width='stretch',
-                    help=_ayuda_ia):
-        st.session_state['_enviar_dia_completo'] = 0
-    if cacc4.button("🗓️ Todo lo de mañana", key='tg_send_manana',
-                    width='stretch', help=_ayuda_ia):
-        st.session_state['_enviar_dia_completo'] = 1
-    cacc5, cacc6 = st.columns(2)
-    if cacc5.button("📅 Todo lo de pasado mañana", key='tg_send_pasado',
-                    width='stretch', help=_ayuda_ia):
-        st.session_state['_enviar_dia_completo'] = 2
-    if cacc6.button("📦 Enviar todo (hoy, mañana y pasado)", key='tg_send_todo',
-                    width='stretch', help=_ayuda_ia):
-        st.session_state['_enviar_dia_completo'] = 'todo'
+        # v196 — EL DÍA ENTERO, NO SÓLO LOS PICKS.
+        #
+        # El botón de arriba manda lo que pasa los filtros. Estos dos mandan TODOS
+        # los partidos de todos los deportes con TODOS sus mercados: 1X2, goles,
+        # BTTS, hándicap, ganador, primer set, total de sets, córners, tarjetas y
+        # remates, con su cuota y su EV donde los hay.
+        #
+        # Siguen exactamente el mismo camino que el botón que ya funciona: marcan
+        # una bandera y el envío se hace abajo, con el barrido `r` YA calculado.
+        # Llamar aquí a `alpha_finder` lanzaría un segundo barrido dentro del
+        # proceso de Streamlit —1.297 MB pasan a 2.172 MB— y el contenedor muere.
+        #
+        # Va como fichero adjunto y no como mensajes: medido, un día real son 368
+        # partidos y 5.951 mercados, unos 457 KB, o sea 107 mensajes de Telegram
+        # con su límite de frecuencia por medio.
+        # v312 — PASADO MAÑANA Y «TODO», Y EL FORMATO PARA UNA IA. El usuario:
+        # «deberá haber uno de pasado mañana y uno de enviar todo (hoy, mañana y
+        # pasado), y en eso que se envía deberán ir todas las estadísticas de las
+        # apuestas… para pasarlo a un LLM como segunda validación». El documento
+        # lo arma `formato_ia` (guía de lectura, 🎯 meter, modelo, contexto y
+        # mercados de cada partido).
+        _ayuda_ia = ('Envía a Telegram, como fichero adjunto, cada partido con las '
+                     'apuestas 🎯 meter de la app, todas sus estadísticas y sus '
+                     'mercados, en un formato listo para pegarlo en tu agente de IA.')
+        if cacc3.button("🗂️ Todo lo de hoy", key='tg_send_hoy', width='stretch',
+                        help=_ayuda_ia):
+            st.session_state['_enviar_dia_completo'] = 0
+        if cacc4.button("🗓️ Todo lo de mañana", key='tg_send_manana',
+                        width='stretch', help=_ayuda_ia):
+            st.session_state['_enviar_dia_completo'] = 1
+        cacc5, cacc6 = st.columns(2)
+        if cacc5.button("📅 Todo lo de pasado mañana", key='tg_send_pasado',
+                        width='stretch', help=_ayuda_ia):
+            st.session_state['_enviar_dia_completo'] = 2
+        if cacc6.button("📦 Enviar todo (hoy, mañana y pasado)", key='tg_send_todo',
+                        width='stretch', help=_ayuda_ia):
+            st.session_state['_enviar_dia_completo'] = 'todo'
 
     # v86: pasa por el guardia de proceso (ver barrido_universal), que impide
     # que dos sesiones lancen el barrido a la vez. El spinner se pone aquí
@@ -5362,7 +5362,9 @@ def render_alpha_finder():
                        % (_hh, (' · precios de hace %s, confirma en la casa'
                                 % _ed) if _ed else ''))
     if r.get('aviso'):
-        st.info(r['aviso'])
+        # v339 — un aviso informativo no merece un cartel azul a lo ancho:
+        # dice que no hay élite y que abajo va lo demás. Una línea basta.
+        st.caption('ℹ️ ' + str(r['aviso']))
     # v30 (§1): exportar las apuestas del día — BLINDADO (pre-genera el
     # contenido en try/except; un fallo aquí nunca debe romper la página).
     # v49: también con Capa 2 / pronósticos (el barrido ya casi nunca va vacío).
@@ -5373,15 +5375,18 @@ def render_alpha_finder():
             txt = _af.exportar_txt(r)
             csv = _af.exportar_csv(r)
             fecha_exp = r.get('actualizado') or 'hoy'
-            cexp1, cexp2 = st.columns(2)
-            cexp1.download_button("📋 Exportar (texto)", txt,
-                                  file_name=f"apuestas_{fecha_exp}.txt",
-                                  width='stretch')
-            cexp2.download_button("📊 Exportar (CSV)", csv,
-                                  file_name=f"apuestas_{fecha_exp}.csv",
-                                  mime='text/csv', width='stretch')
-            # v32 (§7): copiar al portapapeles — st.code trae botón nativo
-            with st.expander("📋 Copiar al portapapeles"):
+            # v339 — descargar y copiar, juntos y plegados: eran dos botones
+            # grandes y un desplegable entre el aviso y las cifras del día.
+            with st.expander("📥 Descargar o copiar las apuestas"):
+                cexp1, cexp2 = st.columns(2)
+                cexp1.download_button("📋 Exportar (texto)", txt,
+                                      file_name=f"apuestas_{fecha_exp}.txt",
+                                      width='stretch')
+                cexp2.download_button("📊 Exportar (CSV)", csv,
+                                      file_name=f"apuestas_{fecha_exp}.csv",
+                                      mime='text/csv', width='stretch')
+                # v32 (§7): copiar al portapapeles — st.code trae botón nativo
+                st.caption("📋 Copiar al portapapeles")
                 st.code(txt, language=None)
         except Exception as e:
             st.caption(f"⚠️ Exportación no disponible ahora ({type(e).__name__}).")
@@ -6093,7 +6098,10 @@ def render_alpha_finder():
             except Exception as _e_sel:
                 logger.warning('[alpha] selección segura: %s', _e_sel)
                 st.caption('Sección no disponible en este barrido.')
-        else:
+        elif False:
+            # v339 — una sección APAGADA no se enseña: ocupaba una fila de la
+            # pantalla principal para decir que no hay nada. El motivo sigue en
+            # el backtest (`backtest_v212.py`) y en el registro.
             with st.expander('🛡️ Apuestas Seguras del Día — apagada por el '
                              'backtest', expanded=False):
                 st.warning(f'**Esta sección está apagada.** {_seg_motivo}')

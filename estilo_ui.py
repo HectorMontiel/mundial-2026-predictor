@@ -525,6 +525,293 @@ section[data-testid="stSidebar"] .block-container { padding-top: 1.2rem; }
 </style>
 """
 
+# ===========================================================================
+# v339 — LIQUID GLASS: LA CAPA QUE VA ENCIMA
+# ===========================================================================
+# El usuario: «más intuitiva, más fácil de leer, más visual, menos texto, más
+# moderna, más Liquid Glass… minimalista, que sea fácil de entender qué meter
+# y qué no». La auditoría (capturas en escritorio y móvil, 2026-10-07):
+#   · todo pesaba lo mismo: paneles casi transparentes sobre fondo plano, sin
+#     profundidad que separe «lo que importa» de «lo que acompaña»;
+#   · el veredicto («meter») tenía el mismo tamaño que un pie de página.
+#
+# Esto NO sustituye a la hoja de la v122: va DESPUÉS y la sobreescribe. Así
+# las ~100 llamadas a sus componentes siguen funcionando y, si esta capa
+# falla, la app se ve como antes. Sólo presentación: ni un número cambia.
+#
+# EL LENGUAJE
+#   · fondo profundo con tres luces difusas (verde, índigo, cian) fijas: da
+#     profundidad sin imágenes;
+#   · superficies de cristal: blanco al 4-8 %, desenfoque 18-24 px,
+#     saturación, filo de luz arriba (inset) y borde de 1 px al 10 %;
+#   · Inter como letra (una petición a Google Fonts, se cachea), cifras
+#     tabulares;
+#   · el color SIGUE significando decisión: verde = meter, ámbar = míralo,
+#     rojo = no, índigo = información.
+CSS_VIDRIO = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --ok: #34d399; --ok-2: #10b981; --mira: #fbbf24; --no: #f87171; --info: #818cf8;
+  --fondo-0: #060a12;
+  --vidrio:  rgba(255,255,255,.045);
+  --vidrio2: rgba(255,255,255,.075);
+  --vidrio3: rgba(255,255,255,.11);
+  --filo:    rgba(255,255,255,.09);
+  --filo2:   rgba(255,255,255,.17);
+  --brillo:  inset 0 1px 0 rgba(255,255,255,.07), inset 0 0 0 1px rgba(255,255,255,.02);
+  --sombra-v: 0 10px 40px -12px rgba(0,0,0,.55), 0 2px 8px -2px rgba(0,0,0,.35);
+  --desenfoque: blur(20px) saturate(150%);
+  --radio: 20px; --radio-s: 14px; --radio-p: 999px;
+  --letra: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* ---- el lienzo -------------------------------------------------------- */
+.stApp {
+  background:
+    radial-gradient(60vw 45vh at 8% -5%,  rgba(16,185,129,.20), transparent 70%),
+    radial-gradient(55vw 50vh at 95% 5%,  rgba(99,102,241,.22), transparent 70%),
+    radial-gradient(70vw 50vh at 50% 110%, rgba(14,165,233,.12), transparent 70%),
+    var(--fondo-0) !important;
+  background-attachment: fixed !important;
+}
+.stApp, .stApp p, .stApp li, .stApp label, .stApp button, .stApp input,
+.stApp textarea, .stApp div[data-baseweb] { font-family: var(--letra) !important; }
+.stApp p, .stApp li { font-size: .95rem; }
+header[data-testid="stHeader"] {
+  background: rgba(6,10,18,.55) !important;
+  backdrop-filter: var(--desenfoque); -webkit-backdrop-filter: var(--desenfoque);
+  border-bottom: 1px solid var(--filo);
+}
+.block-container { padding-top: 3.2rem !important; max-width: 1240px !important; }
+
+/* ---- barra lateral: una lámina de cristal ----------------------------- */
+section[data-testid="stSidebar"] {
+  background: rgba(10,15,26,.62) !important;
+  backdrop-filter: var(--desenfoque); -webkit-backdrop-filter: var(--desenfoque);
+  border-right: 1px solid var(--filo) !important;
+}
+section[data-testid="stSidebar"] div[data-testid="stCaptionContainer"] p { font-size: .78rem; }
+
+/* ---- superficies de cristal ------------------------------------------- */
+div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)),
+div[data-testid="stExpander"],
+.hero, .kpi, div[data-testid="stMetric"], .tm-wrap, .vacio {
+  background: linear-gradient(160deg, var(--vidrio2), var(--vidrio)) !important;
+  border: 1px solid var(--filo) !important;
+  border-radius: var(--radio) !important;
+  backdrop-filter: var(--desenfoque); -webkit-backdrop-filter: var(--desenfoque);
+  box-shadow: var(--sombra-v), var(--brillo) !important;
+}
+div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)) { padding: .35rem .25rem; }
+div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)):hover {
+  border-color: var(--filo2) !important; transform: translateY(-2px);
+}
+/* el cristal dentro del cristal no se repite */
+div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)) div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)),
+div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)) div[data-testid="stExpander"] {
+  background: rgba(255,255,255,.025) !important; box-shadow: none !important;
+  backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+div[data-testid="stExpander"] { border-radius: var(--radio-s) !important; }
+div[data-testid="stExpander"] summary { padding: .7rem .9rem !important; }
+div[data-testid="stExpander"] summary:hover { background: var(--vidrio) !important; }
+
+/* ---- cabeceras: compactas, que no se coman la pantalla --------------- */
+.hero { padding: .95rem 1.15rem 1rem !important; margin: .1rem 0 .8rem !important; }
+.hero::after { height: 1px !important; opacity: .55 !important; }
+.hero h1 { font-size: 1.45rem !important; font-weight: 800 !important; letter-spacing: -.03em; }
+.hero .sub { font-size: .86rem !important; opacity: .66 !important; }
+h1, h2, h3, h4 { font-family: var(--letra) !important; letter-spacing: -.025em !important; }
+h3 { font-weight: 750 !important; }
+
+/* ---- cifras del día ---------------------------------------------------- */
+.kpi, div[data-testid="stMetric"] { padding: .85rem 1rem !important; }
+.kpi::before { width: 0 !important; }
+.kpi b, div[data-testid="stMetricValue"] {
+  font-size: 1.9rem !important; font-weight: 800 !important; letter-spacing: -.04em !important;
+}
+div[data-testid="stMetricValue"] p { font-size: inherit !important; font-weight: inherit !important;
+                                     letter-spacing: inherit !important; line-height: 1.1 !important; }
+.kpi u, div[data-testid="stMetricLabel"] p {
+  font-size: .68rem !important; letter-spacing: .08em !important; opacity: .6 !important;
+  text-transform: uppercase; font-weight: 700 !important;
+}
+
+/* ---- botones: píldoras ------------------------------------------------- */
+.stButton > button, .stDownloadButton > button, .stFormSubmitButton > button,
+div[data-testid="stPopover"] > div > button {
+  border-radius: var(--radio-p) !important;
+  background: var(--vidrio2) !important;
+  border: 1px solid var(--filo) !important;
+  backdrop-filter: var(--desenfoque); -webkit-backdrop-filter: var(--desenfoque);
+  box-shadow: var(--brillo) !important;
+  font-weight: 600 !important; padding: .45rem 1.05rem !important;
+}
+.stButton > button:hover, .stDownloadButton > button:hover {
+  background: var(--vidrio3) !important; border-color: var(--filo2) !important;
+}
+.stButton > button[kind="primary"], .stDownloadButton > button[kind="primary"],
+button[data-testid="stBaseButton-primary"] {
+  background: linear-gradient(135deg, #34d399, #0ea5e9) !important;
+  color: #04121c !important; border: 0 !important; font-weight: 750 !important;
+  box-shadow: 0 8px 26px -6px rgba(52,211,153,.55), var(--brillo) !important;
+}
+
+/* ---- controles segmentados y radios en píldora ------------------------ */
+div[data-testid="stButtonGroup"] button {
+  border-radius: var(--radio-p) !important; border: 1px solid var(--filo) !important;
+  background: var(--vidrio) !important; margin-right: .3rem !important;
+  font-weight: 600 !important;
+}
+div[data-testid="stButtonGroup"] button[kind$="Active"],
+div[data-testid="stButtonGroup"] button[aria-checked="true"],
+div[data-testid="stButtonGroup"] button[aria-pressed="true"] {
+  background: rgba(52,211,153,.16) !important; border-color: rgba(52,211,153,.55) !important;
+  color: var(--ok) !important;
+}
+div[role="radiogroup"] label {
+  background: var(--vidrio) !important; border: 1px solid var(--filo) !important;
+  border-radius: var(--radio-p) !important; padding: .32rem .85rem !important;
+}
+div[role="radiogroup"] label:has(input:checked) {
+  background: rgba(52,211,153,.14) !important; border-color: rgba(52,211,153,.5) !important;
+}
+div[role="radiogroup"] label:has(input:checked) p { color: var(--ok) !important; font-weight: 650; }
+div[role="radiogroup"] label > div:first-child { display: none !important; }
+
+/* ---- entradas y desplegables ------------------------------------------ */
+div[data-baseweb="select"] > div, div[data-testid="stTextInput"] input,
+div[data-testid="stNumberInput"] input, div[data-testid="stDateInput"] input {
+  background: var(--vidrio) !important; border: 1px solid var(--filo) !important;
+  border-radius: var(--radio-s) !important;
+}
+div[data-baseweb="popover"] ul, div[data-baseweb="menu"] {
+  background: rgba(14,20,34,.92) !important;
+  backdrop-filter: var(--desenfoque); -webkit-backdrop-filter: var(--desenfoque);
+  border: 1px solid var(--filo) !important; border-radius: var(--radio-s) !important;
+}
+div[data-testid="stCheckbox"] label span[role="checkbox"],
+div[data-testid="stCheckbox"] label > span:first-child { border-radius: 6px !important; }
+
+/* ---- avisos: cristal con una luz del color de su significado ---------- */
+div[data-testid="stAlert"] > div {
+  background: var(--vidrio) !important; border: 1px solid var(--filo) !important;
+  border-radius: var(--radio-s) !important;
+  backdrop-filter: var(--desenfoque); -webkit-backdrop-filter: var(--desenfoque);
+}
+div[data-testid="stAlertContentInfo"]    { box-shadow: inset 3px 0 0 var(--info); }
+div[data-testid="stAlertContentSuccess"] { box-shadow: inset 3px 0 0 var(--ok); }
+div[data-testid="stAlertContentWarning"] { box-shadow: inset 3px 0 0 var(--mira); }
+div[data-testid="stAlertContentError"]   { box-shadow: inset 3px 0 0 var(--no); }
+
+/* ---- píldoras: con filo de cristal ------------------------------------ */
+.pild { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        box-shadow: var(--brillo); font-weight: 650 !important; }
+
+/* ---- texto secundario: más discreto, para que mande lo importante ----- */
+div[data-testid="stCaptionContainer"] p, .stCaption { opacity: .58 !important; font-size: .8rem !important; }
+
+/* ---- la marca: una línea, no una pancarta ----------------------------- */
+.marca { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap;
+         margin: 0 0 .9rem; }
+.marca .logo { width: 34px; height: 34px; border-radius: 11px; display: grid;
+               place-items: center; font-size: 1.05rem;
+               background: linear-gradient(135deg, rgba(52,211,153,.35), rgba(129,140,248,.35));
+               border: 1px solid var(--filo2); box-shadow: var(--brillo); }
+.marca b { font-size: 1.12rem; font-weight: 800; letter-spacing: -.03em; }
+.marca .dep { display: flex; gap: .3rem; margin-left: auto; flex-wrap: wrap; }
+.marca .dep span { font-size: .78rem; padding: .18rem .55rem; border-radius: 999px;
+                   background: var(--vidrio); border: 1px solid var(--filo); }
+
+/* ---- LA TARJETA DEL PARTIDO: el veredicto manda --------------------- */
+.stApp .mm-cab { margin: .1rem 0 .35rem; }
+.stApp .mm-cab-p { font-size: 1.12rem; font-weight: 800; letter-spacing: -.025em; line-height: 1.25; }
+.stApp .mm-cab-m { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .35rem; }
+.stApp .mm-cab-m span { font-size: .72rem; font-weight: 600; padding: .14rem .55rem;
+                        border-radius: 999px; background: var(--vidrio);
+                        border: 1px solid var(--filo); opacity: .85; }
+.stApp .mm-estado { display: inline-flex; align-items: center; gap: .45rem;
+                    font-size: .8rem; font-weight: 700; padding: .3rem .75rem;
+                    border-radius: 999px; margin: .25rem 0 .3rem;
+                    border: 1px solid var(--filo); background: var(--vidrio2); }
+.stApp .mm-estado b { font-size: 1.05rem; font-weight: 800; letter-spacing: .02em;
+                      font-variant-numeric: tabular-nums; }
+.stApp .mm-estado.vivo { color: var(--mira); border-color: rgba(251,191,36,.45);
+                         background: rgba(251,191,36,.10); }
+.stApp .mm-estado.vivo::before { content: ''; width: 7px; height: 7px; border-radius: 50%;
+                                 background: var(--mira); box-shadow: 0 0 0 4px rgba(251,191,36,.2);
+                                 animation: latido 1.6s ease-in-out infinite; }
+@keyframes latido { 50% { opacity: .35 } }
+/* «meter»: cristal verde con luz; la apuesta, grande */
+.stApp .mm-rec-si {
+  background: linear-gradient(135deg, rgba(52,211,153,.20), rgba(14,165,233,.06)) !important;
+  border: 1px solid rgba(52,211,153,.50) !important; border-radius: 16px !important;
+  padding: .75rem .95rem !important; margin: .45rem 0 !important;
+  box-shadow: 0 12px 34px -14px rgba(52,211,153,.55), var(--brillo) !important;
+}
+.stApp .mm-rec-si .mm-rec-tit { color: var(--ok); opacity: 1 !important; font-size: .66rem !important; letter-spacing: .12em !important; }
+.stApp .mm-rec-ap { font-size: 1.12rem !important; font-weight: 800 !important; letter-spacing: -.02em; }
+.stApp .mm-rec-cu { font-size: .86rem !important; opacity: .9 !important; font-variant-numeric: tabular-nums; }
+.stApp .mm-rec-ambar {
+  background: linear-gradient(135deg, rgba(251,191,36,.14), rgba(251,191,36,.03)) !important;
+  border: 1px solid rgba(251,191,36,.42) !important; border-radius: 16px !important;
+}
+.stApp .mm-rec-no {
+  background: var(--vidrio) !important; border: 1px dashed var(--filo2) !important;
+  border-radius: 14px !important; opacity: .72 !important;
+}
+.stApp .mm-rec-rz { opacity: .65 !important; }
+/* la lista «se mete» y el bloque grande eran la misma apuesta dos veces:
+   si la tarjeta tiene el bloque (con cuota), la lista se pliega */
+div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)):has(.mm-rec-si) .vp-lista { display: none; }
+/* filas de veredicto: cristal con la luz de su color a la izquierda */
+.stApp .vp {
+  background: var(--vidrio) !important; border: 1px solid var(--filo) !important;
+  border-left-width: 1px !important; border-radius: 14px !important;
+  padding: .5rem .8rem !important; margin: .3rem 0 !important;
+  box-shadow: inset 3px 0 0 var(--vp-c), var(--brillo) !important;
+}
+.stApp .vp[style*="--ok"] {
+  background: linear-gradient(135deg, rgba(52,211,153,.14), rgba(52,211,153,.03)) !important;
+  border-color: rgba(52,211,153,.38) !important;
+}
+.stApp .vp-ap { font-size: .95rem !important; font-weight: 650 !important; }
+.stApp .vp-n { font-size: 1.05rem !important; font-weight: 800 !important; }
+.stApp .vp-pb { width: 96px !important; height: 8px !important; border-radius: 8px !important;
+                background: rgba(255,255,255,.08) !important; }
+.stApp .vp-pb > i { border-radius: 8px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--vp-c) 35%, transparent), var(--vp-c)) !important; }
+/* filas de mercado y validación */
+.stApp .mm-fc { border-top: 1px solid var(--filo) !important; padding: .15rem 0; }
+.stApp .mm-fc-n { font-weight: 650 !important; }
+.stApp .mm-val-res { background: var(--vidrio2) !important; border: 1px solid var(--filo) !important;
+                     border-radius: 14px !important; box-shadow: var(--brillo); }
+.stApp .mm-val { border-top: 1px solid var(--filo) !important; }
+.stApp .mm-otros { opacity: .5 !important; letter-spacing: .12em !important; }
+.stApp .mm-barra, .stApp .mm-1x2 { border-radius: 8px !important; }
+
+/* ---- barras de desplazamiento finas ----------------------------------- */
+*::-webkit-scrollbar { width: 9px; height: 9px; }
+*::-webkit-scrollbar-thumb { background: rgba(255,255,255,.12); border-radius: 9px; }
+*::-webkit-scrollbar-track { background: transparent; }
+
+@media (max-width: 768px) {
+  .block-container { padding-top: 2.8rem !important; }
+  .hero { padding: .75rem .9rem .8rem !important; }
+  .hero h1 { font-size: 1.2rem !important; }
+  .hero .sub { display: none; }
+  .kpi b, div[data-testid="stMetricValue"] { font-size: 1.45rem !important; }
+  div[data-testid="stVerticalBlock"]:has(> div[data-testid="stElementContainer"] :is(.mm-cab, .match)):hover { transform: none; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  :root { --vidrio: rgba(255,255,255,.07); --vidrio2: rgba(255,255,255,.1); }
+  * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
+}
+</style>
+"""
+
 _TONOS = {'ok': 'var(--ok)', 'mira': 'var(--mira)', 'no': 'var(--no)',
           'azul': 'var(--info)', 'info': 'var(--tenue)'}
 
@@ -536,7 +823,8 @@ def _color(tono: str) -> str:
 def aplicar(st) -> None:
     """Inyecta los estilos. Un fallo aquí no puede costar la aplicación."""
     try:
-        st.markdown(CSS, unsafe_allow_html=True)
+        # v339 — la capa de cristal va DESPUÉS: sobreescribe sin romper
+        st.markdown(CSS + CSS_VIDRIO, unsafe_allow_html=True)
     except Exception as e:
         logger.debug(f'[estilo] no aplicado: {type(e).__name__}: {e}')
 
@@ -582,6 +870,17 @@ def cabecera(titulo: str, subtitulo: str = '', chips=(), icono: str = '') -> str
         f'<h1>{_esc(icono) + " " if icono else ""}{_esc(titulo)}</h1>'
         + (f'<p class="sub">{_esc(subtitulo)}</p>' if subtitulo else '')
         + ch + '</div>')
+
+
+def marca(nombre: str, deportes=(), icono: str = '🎯') -> str:
+    """v339 — la barra de marca en UNA línea: logo, nombre y deportes.
+
+    Sustituye a la pancarta de la v122 arriba del todo. La auditoría la midió
+    como la mitad de la primera pantalla junto con la cabecera de la sección:
+    dos pancartas antes de ver un solo partido."""
+    dep = ''.join('<span>%s</span>' % _esc(d) for d in deportes)
+    return ('<div class="marca"><span class="logo">%s</span><b>%s</b>'
+            '<span class="dep">%s</span></div>' % (_esc(icono), _esc(nombre), dep))
 
 
 def seccion(titulo: str, sub: str = '', tono: str = 'ok') -> str:

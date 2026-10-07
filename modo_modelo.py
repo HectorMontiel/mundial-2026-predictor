@@ -3313,14 +3313,25 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
     h, a = _equipos(pick)
     clave_vista = str(pick.get('_clave_vista', 'x'))
     _porque_detalle = []          # v302: el «por qué» largo, al desplegable
+    _ctx_html = None              # v339: el contexto, plegado tras la apuesta
     _corr = {}                    # v302: apuesta -> probabilidad corregida
     with st.container(border=True):
         meta = [str(pick.get('deporte') or 'Fútbol'),
                 str(pick.get('liga') or '')]
         if pick.get('hora_txt'):
             meta.append('🕐 %s' % pick['hora_txt'])
-        st.markdown('**%s**  \n%s' % (pick.get('partido', '?'),
-                                      ' · '.join([m for m in meta if m])))
+        # v339 — la cabecera de la tarjeta: el partido en grande y lo demás en
+        # píldoras, en vez de dos renglones de texto del mismo peso. El nombre
+        # del partido va ENTERO y sin escapar apóstrofos (`quote=False`), así
+        # que «Newell's Old Boys vs Lanús» se sigue encontrando igual.
+        import html as _h
+        st.markdown(
+            '<div class="mm-cab"><div class="mm-cab-p">%s</div>'
+            '<div class="mm-cab-m">%s</div></div>'
+            % (_h.escape(str(pick.get('partido', '?')), quote=False),
+               ''.join('<span>%s</span>' % _h.escape(m, quote=False)
+                       for m in meta if m)),
+            unsafe_allow_html=True)
 
         sin_modelo = bool(pick.get('sin_modelo') or pick.get('prob') is None)
         if pick.get('solo_mercado'):
@@ -3366,18 +3377,23 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 st.markdown('### ⏸️ Aplazado')
                 st.caption('El partido no se jugó. Sus apuestas no cuentan '
                            '(la casa las anula).')
+            # v339 — el estado del partido es una INSIGNIA, no un título: el
+            # título competía con el partido y con la apuesta.
             elif gh is not None and ga is not None:
-                st.markdown('### ✅ Finalizado — %d &nbsp;–&nbsp; %d'
-                            % (int(gh), int(ga)))
+                st.markdown('<div class="mm-estado fin">✅ Finalizado '
+                            '<b>%d – %d</b></div>' % (int(gh), int(ga)),
+                            unsafe_allow_html=True)
             elif pick.get('en_juego'):
                 # v309 — se archiva en cuanto empieza (ver
                 # `partidos_jugados`); mientras no haya marcador y no hayan
                 # pasado 2,5 h, decir «Finalizado» sería inventar un final.
-                st.markdown('### ⏱️ En juego')
-                st.caption('La apuesta de abajo es la que se recomendó antes '
-                           'del inicio; el marcador llega al terminar.')
+                st.markdown('<div class="mm-estado vivo">⏱️ En juego</div>',
+                            unsafe_allow_html=True)
+                st.caption('Apuesta recomendada antes del inicio · el marcador '
+                           'llega al terminar.')
             else:
-                st.markdown('### ✅ Finalizado')
+                st.markdown('<div class="mm-estado fin">✅ Finalizado</div>',
+                            unsafe_allow_html=True)
                 st.caption('Marcador pendiente: la fuente aún no lo publica.')
             st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
             # v177 — el pronóstico que se emitió, liquidado contra el
@@ -3455,7 +3471,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         else:
             if not con_apuesta:
                 st.caption('📅 Análisis previo (no jugable aún)')
-            st.markdown(_bloque_contexto(pick), unsafe_allow_html=True)
+            # v339 — EL CONTEXTO VA DESPUÉS DE LA APUESTA, Y PLEGADO. La
+            # auditoría: ocho renglones de cara a cara, forma, tabla y bajas
+            # ANTES de «se mete». Se calcula aquí y se pinta encima de los
+            # mercados, en un desplegable: primero la decisión, luego el porqué.
+            _ctx_html = _bloque_contexto(pick)
             # v323 — la misma cuenta, ya hecha por el cron si sigue valiendo
             # (ver `decisiones_dia`); si no, se calcula aquí como siempre.
             recos = None
@@ -3718,8 +3738,16 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             # v302 — la tira de estabilidad (seis iconos y sus rótulos) baja
             # al desplegable: es contexto de la liga, no del partido, y era un
             # bloque entero entre la apuesta y los mercados.
+            if _ctx_html:
+                with st.expander('📊 Contexto del partido'):
+                    st.markdown(_ctx_html, unsafe_allow_html=True)
+                _ctx_html = None
             st.markdown('<div class="mm-otros">📊 MERCADOS</div>'
                         + ''.join(filas), unsafe_allow_html=True)
+        if _ctx_html:                 # v339: sin mercados, el contexto igual
+            with st.expander('📊 Contexto del partido'):
+                st.markdown(_ctx_html, unsafe_allow_html=True)
+            _ctx_html = None
 
         if str(pick.get('deporte') or '') == 'Tenis':
             _bloque_tenis(st, pick)
