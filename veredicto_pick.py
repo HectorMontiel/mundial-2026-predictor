@@ -44,6 +44,7 @@ FUERZA: cuánto margen le sobra al sí, o cuánto le falta al no.
 """
 
 import logging
+import re
 from typing import Dict, List, Optional
 
 logger = logging.getLogger('veredicto_pick')
@@ -160,7 +161,47 @@ def franja_futbol(v: Dict) -> Optional[str]:
     if c is not None and c >= CUOTA_METER_FUTBOL_MAX:
         return 'cuota %.2f: a partir de %.2f salen más rojos' % (
             c, CUOTA_METER_FUTBOL_MAX)
+    if mercado == 'Goles' and _LINEA_25.search(
+            str(v.get('apuesta') or pick.get('apuesta') or '')):
+        return 'la línea 2,5 de goles acierta menos de lo que promete'
     return None
+
+
+# v331 — LA LÍNEA 2,5 DEL TOTAL DE GOLES NO SE «METE».
+#
+# El usuario: «quiero que analices los patrones de las rojas… haz hipótesis,
+# método científico y simulaciones; tiene que haber algo mejor, sin bajar las
+# cuotas a 1,20». Se probaron diez hipótesis (`_v331_hipotesis.py`) contra el
+# control «quitar el mismo número de apuestas de menor probabilidad» —que es
+# subir el mínimo, lo fácil—: volatilidad, sesgo del modelo con el equipo,
+# inicio de temporada, descanso, Pinnacle, casa contra Pinnacle, corrector de
+# λ, calibración reciente de la liga, favorito, empate. NINGUNA gana sola, y
+# todas juntas en un LightGBM ganan 0,0-0,5 pts según el año: el modelo ya
+# lleva dentro lo que dicen los equipos. Tampoco avisa un rojo del equipo
+# (tras rojo 73,7 % vs tras verde 74,0 %, 62 mil apuestas de goles).
+#
+# Lo que SÍ aparece, mirando lo prometido contra lo acertado por tipo de
+# apuesta en la franja 70-80 % (`_v331_linea_25.py`):
+#
+#                        prometía   acertó
+#   histórico Más de 2,5    72 %     66 %    (344; mirar y juzgar iguales)
+#   histórico Menos de 2,5  73 %     68-70 % (1.736)
+#   histórico 2,5 por año   73 %     66 / 68 / 68 / 69 %  (2023 a 2026)
+#   reales de la app        73 %     61 %    (18 «meter», 26-sep a 6-oct)
+#   simulación tarjeta      72 %     71 %    (21, frente a 78 % del resto)
+#   Más de 1,5 / Menos 3,5  75 / 74  75 / 74 (cumplen)
+#
+# Quitarla, con la regla de hoy ya aplicada: histórico juzgar 74,2 → 74,5 %
+# (p5 +0,19; frente al control +0,18, p5 +0,07); reales 75,4 → 76,0 % al
+# mirar y 74,8 → 75,0 % al juzgar. Simulación de la tarjeta REHECHA con este
+# código (`_v324_nada.py --rehacer`, 765 partidos, 20-sep a 6-oct, la tarjeta
+# sube otra apuesta cuando quita la 2,5): mirar 78,4 → 78,7 %, juzgar 76,2 →
+# 76,2 %, total 77,6 % (982, 220 rojos) → 77,8 % (955, 212 rojos). Salen 31
+# que acertaban 71,0 %; entran 4 que aciertan 75 %.
+# Es poco —son el 2-3 % de las «meter»— pero es lo único de las once
+# hipótesis que cumple las tres pruebas. Sólo el TOTAL de goles: los goles
+# por equipo a 2,5 no están medidos.
+_LINEA_25 = re.compile(r'(Más|Menos) de 2\.5$')
 # Cuánto puede corregir la fiabilidad medida. Topado porque una banda con
 # muestra corta puede tener una brecha grande por azar, y sin tope esa brecha
 # se convertiría en una corrección enorme.
