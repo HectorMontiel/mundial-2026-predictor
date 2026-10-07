@@ -1,0 +1,868 @@
+dia,deporte,clave_liga,liga,partido,home,away,goles_home,goles_away,categoria,mercado,apuesta,prob,prob_modelo,cuota,casa,verde
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Ceuta vs Sociedad B,Ceuta,Sociedad B,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.752,0.7643,1.267,,1
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Ceuta vs Sociedad B,Ceuta,Sociedad B,3.0,1.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7314,0.7158,1.25,,1
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Ceuta vs Sociedad B,Ceuta,Sociedad B,3.0,1.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta: Menos de 10.5,0.7177,0.7177,1.4,,1
+2026-09-26,Fútbol,selecciones,Eliminatorias Copa Africana,South Africa vs Guinea,South Africa,Guinea,2.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles South Africa: Más de 0.5,0.8636,0.8801,1.25,,1
+2026-09-26,Fútbol,selecciones,Eliminatorias Copa Africana,South Africa vs Guinea,South Africa,Guinea,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.6577,0.679,1.455,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovenia vs Scotland,Slovenia,Scotland,0.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Scotland: Más de 0.5,0.8112,0.7641,1.4,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovenia vs Scotland,Slovenia,Scotland,0.0,0.0,OTROS (Doble y goles),Doble y goles,Scotland o empate y menos de 4.5,0.7826,0.5702,1.4,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovenia vs Scotland,Slovenia,Scotland,0.0,0.0,CÓRNERS,Córners,Córners: Menos de 12,0.7411,0.8028,1.2,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovenia vs Scotland,Slovenia,Scotland,0.0,0.0,RESULTADO,Doble oportunidad,Slovenia o Scotland,0.7314,0.692,1.364,,0
+2026-09-26,Fútbol,uru_primera,Primera División (Uruguay),Progreso vs Racing (Montevideo),Progreso,Racing (Montevideo),2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7942,0.8107,1.2,,1
+2026-09-26,Fútbol,uru_primera,Primera División (Uruguay),Progreso vs Racing (Montevideo),Progreso,Racing (Montevideo),2.0,1.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7314,0.7427,1.222,,1
+2026-09-26,Fútbol,eng_league_one,EFL League One,Wycombe vs Reading,Wycombe,Reading,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7891,0.7983,1.2,,1
+2026-09-26,Fútbol,eng_league_one,EFL League One,Wycombe vs Reading,Wycombe,Reading,2.0,2.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7314,0.7033,1.222,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Bristol Rvs vs Exeter,Bristol Rvs,Exeter,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7406,0.7479,1.273,,0
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Bristol Rvs vs Exeter,Bristol Rvs,Exeter,1.0,0.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7314,0.7211,1.286,,1
+2026-09-26,Fútbol,eng_national,National League,Kidderminster vs Yeovil,Kidderminster,Yeovil,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7477,0.7679,1.273,,0
+2026-09-26,Fútbol,eng_national,National League,Southend vs Barrow,Southend,Barrow,2.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7972,0.8252,1.2,,0
+2026-09-26,Fútbol,eng_league_one,EFL League One,Plymouth vs Burton,Plymouth,Burton,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7978,0.8179,1.2,,1
+2026-09-26,Fútbol,eng_league_one,EFL League One,Plymouth vs Burton,Plymouth,Burton,0.0,1.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7411,0.7599,1.3,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Fleetwood Town vs Rochdale,Fleetwood Town,Rochdale,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7549,0.7641,1.25,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Fleetwood Town vs Rochdale,Fleetwood Town,Rochdale,1.0,2.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7314,0.6812,1.222,,1
+2026-09-26,Fútbol,eng_national,National League,Aldershot vs Tamworth,Aldershot,Tamworth,5.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7731,0.7895,1.222,,0
+2026-09-26,Fútbol,eng_national,National League,Aldershot vs Tamworth,Aldershot,Tamworth,5.0,1.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.6702,0.6389,1.455,,1
+2026-09-26,Fútbol,eng_national,National League,Aldershot vs Tamworth,Aldershot,Tamworth,5.0,1.0,RESULTADO,Doble oportunidad,Tamworth o empate,0.6551,0.5865,1.471,,0
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Rotherham vs Crewe,Rotherham,Crewe,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7688,0.7716,1.222,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Rotherham vs Crewe,Rotherham,Crewe,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7314,0.7154,1.25,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Rotherham vs Crewe,Rotherham,Crewe,1.0,1.0,RESULTADO,Doble oportunidad,Rotherham o empate,0.7164,0.7234,1.308,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Cheltenham vs Chesterfield,Cheltenham,Chesterfield,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7843,0.8026,1.222,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Cheltenham vs Chesterfield,Cheltenham,Chesterfield,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.7314,0.7022,1.455,,0
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Cheltenham vs Chesterfield,Cheltenham,Chesterfield,2.0,1.0,RESULTADO,Doble oportunidad,Chesterfield o empate,0.6812,0.5819,1.35,,0
+2026-09-26,Fútbol,eng_league_two,EFL League Two,York vs Gillingham,York,Gillingham,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7903,0.8029,1.2,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,York vs Gillingham,York,Gillingham,3.0,0.0,CÓRNERS,Córners,Córners: Más de 8.5,0.6995,0.6148,1.222,,0
+2026-09-26,Fútbol,eng_league_one,EFL League One,Cambridge vs AFC Wimbledon,Cambridge,AFC Wimbledon,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7513,0.7629,1.267,,1
+2026-09-26,Fútbol,eng_league_one,EFL League One,Cambridge vs AFC Wimbledon,Cambridge,AFC Wimbledon,1.0,1.0,CÓRNERS,Córners,Córners: Más de 8.5,0.7314,0.7195,1.364,,1
+2026-09-26,Fútbol,eng_national,National League,Boston Utd vs Fylde,Boston Utd,Fylde,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7738,0.7948,1.231,,1
+2026-09-26,Fútbol,eng_national,National League,Boston Utd vs Fylde,Boston Utd,Fylde,0.0,1.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.6818,0.6575,1.455,,0
+2026-09-26,Fútbol,eng_national,National League,Boston Utd vs Fylde,Boston Utd,Fylde,0.0,1.0,RESULTADO,Doble oportunidad,Fylde o empate,0.6603,0.5968,1.471,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Swindon vs Accrington,Swindon,Accrington,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7726,0.7898,1.231,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Swindon vs Accrington,Swindon,Accrington,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7411,0.825,1.222,,0
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Swindon vs Accrington,Swindon,Accrington,1.0,1.0,RESULTADO,Doble oportunidad,Swindon o empate,0.7095,0.684,1.333,,1
+2026-09-26,Fútbol,eng_national,National League,Worthing vs Halifax,Worthing,Halifax,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7809,0.7926,1.2,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Shrewsbury vs Colchester,Shrewsbury,Colchester,2.0,2.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.735,0.7484,1.286,,0
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Shrewsbury vs Colchester,Shrewsbury,Colchester,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7315,0.7436,1.3,,0
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Shrewsbury vs Colchester,Shrewsbury,Colchester,2.0,2.0,RESULTADO,Doble oportunidad,Shrewsbury o Colchester,0.7314,0.7074,1.3,,0
+2026-09-26,Fútbol,eng_league_one,EFL League One,Stockport vs Peterboro,Stockport,Peterboro,1.0,0.0,CÓRNERS,Córners,Córners: Más de 8.5,0.7411,0.7961,1.25,,1
+2026-09-26,Fútbol,eng_league_one,EFL League One,Stockport vs Peterboro,Stockport,Peterboro,1.0,0.0,RESULTADO,1X2,Gana Stockport,0.7179,0.653,1.32,,1
+2026-09-26,Fútbol,eng_league_one,EFL League One,Stockport vs Peterboro,Stockport,Peterboro,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7129,0.7474,1.375,,1
+2026-09-26,Fútbol,eng_national,National League,Sutton vs Forest Green,Sutton,Forest Green,3.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7593,0.7764,1.25,,1
+2026-09-26,Fútbol,eng_national,National League,Sutton vs Forest Green,Sutton,Forest Green,3.0,3.0,RESULTADO,Doble oportunidad,Forest Green o empate,0.6833,0.6385,1.385,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Tranmere vs Walsall,Tranmere,Walsall,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7621,0.7742,1.25,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Tranmere vs Walsall,Tranmere,Walsall,1.0,1.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7411,0.833,1.2,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Tranmere vs Walsall,Tranmere,Walsall,1.0,1.0,RESULTADO,Doble oportunidad,Tranmere o Walsall,0.7314,0.7035,1.308,,0
+2026-09-26,Fútbol,eng_national,National League,Harrogate vs Eastleigh,Harrogate,Eastleigh,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7861,0.8029,1.2,,1
+2026-09-26,Fútbol,eng_national,National League,Scunthorpe vs Hartlepool,Scunthorpe,Hartlepool,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7986,0.828,1.2,,0
+2026-09-26,Fútbol,eng_national,National League,Scunthorpe vs Hartlepool,Scunthorpe,Hartlepool,4.0,1.0,RESULTADO,Doble oportunidad,Scunthorpe o empate,0.7164,0.7356,1.308,,1
+2026-09-26,Fútbol,eng_national,National League,Wealdstone vs Gateshead,Wealdstone,Gateshead,4.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7848,0.8003,1.2,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Newport County vs Grimsby,Newport County,Grimsby,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7513,0.7629,1.267,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Newport County vs Grimsby,Newport County,Grimsby,2.0,1.0,CÓRNERS,Córners,Córners: Más de 8.5,0.7411,0.7814,1.3,,1
+2026-09-26,Fútbol,eng_national,National League,Solihull vs Boreham Wood,Solihull,Boreham Wood,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.6985,0.7168,1.364,,1
+2026-09-26,Fútbol,eng_national,National League,Solihull vs Boreham Wood,Solihull,Boreham Wood,0.0,3.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.695,0.6644,1.4,,0
+2026-09-26,Fútbol,eng_national,National League,Carlisle vs Woking,Carlisle,Woking,2.0,5.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7851,0.801,1.2,,0
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Granada vs Andorra,Granada,Andorra,2.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7401,0.7469,1.273,,0
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Granada vs Andorra,Granada,Andorra,2.0,3.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7314,0.7382,1.273,,1
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Granada vs Andorra,Granada,Andorra,2.0,3.0,RESULTADO,Doble oportunidad,Granada o empate,0.7188,0.7448,1.3,,0
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,Heracles Almelo vs Vitesse,Heracles Almelo,Vitesse,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7483,0.7543,1.25,,1
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,Heracles Almelo vs Vitesse,Heracles Almelo,Vitesse,2.0,0.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7314,0.6742,1.455,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,San Marino vs Finland,San Marino,Finland,0.0,7.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7411,0.765,1.333,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,San Marino vs Finland,San Marino,Finland,0.0,7.0,AMBOS MARCAN,BTTS,Ambos marcan: No,0.729,0.7571,1.303,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,San Marino vs Finland,San Marino,Finland,0.0,7.0,OTROS (Doble y goles),Doble y goles,San Marino o Finland y más de 2.5,0.7155,0.734,1.286,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,San Marino vs Finland,San Marino,Finland,0.0,7.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7,0.7256,1.4,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Iceland vs Estonia,Iceland,Estonia,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7755,0.7863,1.231,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Iceland vs Estonia,Iceland,Estonia,1.0,1.0,OTROS (Doble y goles),Doble y goles,Iceland o empate y más de 1.5,0.748,0.7254,1.231,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Iceland vs Estonia,Iceland,Estonia,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 11,0.7411,0.7958,1.32,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Iceland vs Estonia,Iceland,Estonia,1.0,1.0,RESULTADO,1X2,Gana Iceland,0.7396,0.7327,1.273,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Bulgaria vs Luxembourg,Bulgaria,Luxembourg,1.0,2.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Bulgaria: Más de 0.5,0.8519,0.8802,1.4,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Bulgaria vs Luxembourg,Bulgaria,Luxembourg,1.0,2.0,CÓRNERS,Córners,Córners: Menos de 11,0.7411,0.7758,1.273,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Bulgaria vs Luxembourg,Bulgaria,Luxembourg,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6647,0.6436,1.375,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Faroe Islands vs Kazakhstan,Faroe Islands,Kazakhstan,1.0,1.0,OTROS (Doble y goles),Doble y goles,Faroe Islands o Kazakhstan y menos de 5.5,0.8321,0.6743,1.231,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Faroe Islands vs Kazakhstan,Faroe Islands,Kazakhstan,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7747,0.7847,1.231,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Faroe Islands vs Kazakhstan,Faroe Islands,Kazakhstan,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 11,0.7372,0.7513,1.333,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Faroe Islands vs Kazakhstan,Faroe Islands,Kazakhstan,1.0,1.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7372,0.7372,1.286,,1
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Tenerife vs Cadiz,Tenerife,Cadiz,1.0,1.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Visita: Más de 1.5,0.8073,0.8073,1.2,,1
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Tenerife vs Cadiz,Tenerife,Cadiz,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7757,0.7855,1.222,,1
+2026-09-26,Fútbol,esp_hypermotion,LaLiga Hypermotion,Tenerife vs Cadiz,Tenerife,Cadiz,1.0,1.0,TARJETAS,Tarjetas,Tarjetas: Más de 3.5,0.6906,0.6906,1.455,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Oldham vs Salford,Oldham,Salford,1.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7765,0.787,1.222,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Oldham vs Salford,Oldham,Salford,1.0,4.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7411,0.7922,1.25,,1
+2026-09-26,Fútbol,eng_league_two,EFL League Two,Oldham vs Salford,Oldham,Salford,1.0,4.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.694,0.694,1.3,,0
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,FC Volendam vs VVV-Venlo,FC Volendam,VVV-Venlo,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7216,0.732,1.3,,1
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,FC Volendam vs VVV-Venlo,FC Volendam,VVV-Venlo,3.0,2.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.7058,0.7037,1.364,,1
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,FC Volendam vs VVV-Venlo,FC Volendam,VVV-Venlo,3.0,2.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.6995,0.6138,1.4,,1
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,FC Emmen vs TOP Oss,FC Emmen,TOP Oss,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7459,0.7643,1.273,,1
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,FC Emmen vs TOP Oss,FC Emmen,TOP Oss,1.0,0.0,CÓRNERS,Córners,Córners: Más de 9.5,0.7314,0.6868,1.455,,1
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,MVV Maastricht vs Helmond Sport,MVV Maastricht,Helmond Sport,2.0,0.0,CÓRNERS,Córners,Córners: Más de 8.5,0.6785,0.5785,1.455,,0
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,NAC Breda vs FC Eindhoven,NAC Breda,FC Eindhoven,4.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.731,0.7508,1.3,,0
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,NAC Breda vs FC Eindhoven,NAC Breda,FC Eindhoven,4.0,2.0,RESULTADO,1X2,Gana NAC Breda,0.7092,0.6669,1.35,,1
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Cruz Azul Hidalgo vs Leones Negros,Cruz Azul Hidalgo,Leones Negros,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7925,0.8157,1.2,,1
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Cruz Azul Hidalgo vs Leones Negros,Cruz Azul Hidalgo,Leones Negros,1.0,2.0,CÓRNERS,Córners,Córners: Más de 8.5,0.7314,0.673,1.4,,1
+2026-09-26,Fútbol,uru_primera,Primera División (Uruguay),Cerro Largo vs Nacional,Cerro Largo,Nacional,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7685,0.7973,1.267,,1
+2026-09-26,Fútbol,uru_primera,Primera División (Uruguay),Cerro Largo vs Nacional,Cerro Largo,Nacional,0.0,2.0,CÓRNERS,Córners,Córners: Más de 7.5,0.6915,0.5915,1.273,,1
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,Roda JC Kerkrade vs RKC Waalwijk,Roda JC Kerkrade,RKC Waalwijk,2.0,0.0,CÓRNERS,Córners,Córners: Más de 8.5,0.6995,0.6076,1.455,,0
+2026-09-26,Fútbol,ned_eerste,Eerste Divisie,Roda JC Kerkrade vs RKC Waalwijk,Roda JC Kerkrade,RKC Waalwijk,2.0,0.0,RESULTADO,Doble oportunidad,Roda JC Kerkrade o empate,0.6913,0.6572,1.4,,1
+2026-09-26,Fútbol,mex_femenil,Liga MX Femenil,Querétaro vs Atlas,Querétaro,Atlas,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.8035,0.8239,1.2,,0
+2026-09-26,Fútbol,mex_femenil,Liga MX Femenil,Querétaro vs Atlas,Querétaro,Atlas,0.0,1.0,RESULTADO,Doble oportunidad,Atlas o empate,0.6964,0.68,1.42,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Almirante Brown vs Acassuso,Almirante Brown,Acassuso,0.0,1.0,RESULTADO,Doble oportunidad,Almirante Brown o Acassuso,0.7275,0.6581,1.3,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Almirante Brown vs Acassuso,Almirante Brown,Acassuso,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6618,0.6832,1.444,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovakia vs Moldova,Slovakia,Moldova,2.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Slovakia: Más de 1.5,0.801,0.8006,1.267,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovakia vs Moldova,Slovakia,Moldova,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7763,0.7879,1.231,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovakia vs Moldova,Slovakia,Moldova,2.0,0.0,OTROS (Doble y goles),Doble y goles,Slovakia o Moldova y más de 1.5,0.7713,0.7949,1.2,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Slovakia vs Moldova,Slovakia,Moldova,2.0,0.0,CÓRNERS,Córners,Córners: Menos de 12,0.7411,0.8167,1.231,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,North Macedonia vs Switzerland,North Macedonia,Switzerland,0.0,3.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Local: Más de 1.5,0.7813,0.7813,1.2,,0
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,North Macedonia vs Switzerland,North Macedonia,Switzerland,0.0,3.0,RESULTADO,1X2,Gana Switzerland,0.7229,0.724,1.333,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,North Macedonia vs Switzerland,North Macedonia,Switzerland,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7226,0.7361,1.333,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,North Macedonia vs Switzerland,North Macedonia,Switzerland,0.0,3.0,OTROS (Doble y goles),Doble y goles,Switzerland o empate y más de 1.5,0.7221,0.7483,1.333,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Albania vs Belarus,Albania,Belarus,2.0,0.0,OTROS (Doble y goles),Doble y goles,Albania o Belarus y menos de 5.5,0.8293,0.6813,1.222,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Albania vs Belarus,Albania,Belarus,2.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 6.5,0.7649,0.7649,1.222,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Albania vs Belarus,Albania,Belarus,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.746,0.7496,1.273,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Albania vs Belarus,Albania,Belarus,2.0,0.0,CÓRNERS,Córners,Córners: Menos de 12,0.7411,0.8167,1.2,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Czech Republic vs Croatia,Czech Republic,Croatia,1.0,2.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Croatia: Más de 0.5,0.8506,0.8063,1.2,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Czech Republic vs Croatia,Czech Republic,Croatia,1.0,2.0,OTROS (Doble y goles),Doble y goles,Czech Republic o Croatia y menos de 5.5,0.811,0.6483,1.3,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Czech Republic vs Croatia,Czech Republic,Croatia,1.0,2.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.802,0.802,1.25,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,Czech Republic vs Croatia,Czech Republic,Croatia,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7634,0.7845,1.273,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,England vs Spain,England,Spain,2.0,3.0,OTROS (Doble y goles),Doble y goles,England o Spain y menos de 5.5,0.811,0.6574,1.3,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,England vs Spain,England,Spain,2.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7857,0.7967,1.222,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,England vs Spain,England,Spain,2.0,3.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.768,0.768,1.222,,1
+2026-09-26,Fútbol,selecciones,Liga de Naciones UEFA,England vs Spain,England,Spain,2.0,3.0,CÓRNERS,Córners,Córners: Menos de 12,0.7411,0.8087,1.222,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Quilmes vs Güemes,Quilmes,Güemes,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7739,0.8056,1.25,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Quilmes vs Güemes,Quilmes,Güemes,2.0,0.0,RESULTADO,1X2,Gana Quilmes,0.6735,0.6132,1.429,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Ciudad de Bolívar vs Chaco For Ever,Ciudad de Bolívar,Chaco For Ever,2.0,1.0,RESULTADO,Doble oportunidad,Ciudad de Bolívar o Chaco For Ever,0.7056,0.642,1.375,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Ciudad de Bolívar vs Chaco For Ever,Ciudad de Bolívar,Chaco For Ever,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6891,0.705,1.375,,0
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Operário PR vs Ceará,Operário PR,Ceará,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7881,0.7985,1.2,,0
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Operário PR vs Ceará,Operário PR,Ceará,2.0,2.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7411,0.8235,1.222,,1
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Operário PR vs Ceará,Operário PR,Ceará,2.0,2.0,RESULTADO,Doble oportunidad,Operário PR o Ceará,0.7314,0.7301,1.308,,0
+2026-09-26,Fútbol,par_division,División Profesional (Paraguay),Rubio Ñú vs 2 de Mayo,Rubio Ñú,2 de Mayo,2.0,2.0,RESULTADO,Doble oportunidad,Rubio Ñú o 2 de Mayo,0.7314,0.6882,1.333,,0
+2026-09-26,Fútbol,par_division,División Profesional (Paraguay),Rubio Ñú vs 2 de Mayo,Rubio Ñú,2 de Mayo,2.0,2.0,CÓRNERS,Córners,Córners: Más de 7.5,0.6987,0.5987,1.364,,0
+2026-09-26,Fútbol,par_division,División Profesional (Paraguay),Rubio Ñú vs 2 de Mayo,Rubio Ñú,2 de Mayo,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.6671,0.6746,1.4,,1
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Náutico vs Sport,Náutico,Sport,3.0,1.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Local: Más de 3.5,0.7411,0.7411,1.308,,1
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Náutico vs Sport,Náutico,Sport,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7361,0.77,1.333,,0
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Náutico vs Sport,Náutico,Sport,3.0,1.0,RESULTADO,Doble oportunidad,Náutico o empate,0.6992,0.7042,1.375,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,United States vs Peru,United States,Peru,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7692,0.7962,1.25,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,United States vs Peru,United States,Peru,4.0,1.0,OTROS (Doble y goles),Doble y goles,United States o Peru y menos de 5.5,0.7317,0.7439,1.2,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,United States vs Peru,United States,Peru,4.0,1.0,TARJETAS,Tarjetas,Tarjetas: Más de 1.5,0.724,0.724,1.25,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,United States vs Peru,United States,Peru,4.0,1.0,RESULTADO,1X2,Gana United States,0.6926,0.6813,1.417,,1
+2026-09-26,Fútbol,uru_primera,Primera División (Uruguay),Peñarol vs Boston River,Peñarol,Boston River,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7411,0.795,1.222,,1
+2026-09-26,Fútbol,uru_primera,Primera División (Uruguay),Peñarol vs Boston River,Peñarol,Boston River,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.736,0.7388,1.273,,1
+2026-09-26,Fútbol,uru_primera,Primera División (Uruguay),Peñarol vs Boston River,Peñarol,Boston River,2.0,1.0,RESULTADO,1X2,Gana Peñarol,0.6924,0.6585,1.429,,1
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Goiás vs Atlético Goianiense,Goiás,Atlético Goianiense,0.0,1.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7411,0.7636,1.3,,0
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Goiás vs Atlético Goianiense,Goiás,Atlético Goianiense,0.0,1.0,RESULTADO,Doble oportunidad,Goiás o Atlético Goianiense,0.7314,0.7055,1.333,,1
+2026-09-26,Fútbol,bra_serie_b,Brasileirão Série B,Goiás vs Atlético Goianiense,Goiás,Atlético Goianiense,0.0,1.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Visita: Más de 2.5,0.7054,0.7054,1.333,,0
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Deportivo Madryn vs Central Norte,Deportivo Madryn,Central Norte,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6577,0.6679,1.429,,1
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Tlaxcala FC vs Cancún FC,Tlaxcala FC,Cancún FC,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.761,0.7797,1.25,,1
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Tlaxcala FC vs Cancún FC,Tlaxcala FC,Cancún FC,4.0,1.0,CÓRNERS,Córners,Córners: Más de 8.5,0.704,0.6292,1.455,,0
+2026-09-26,Fútbol,par_division,División Profesional (Paraguay),Sportivo Trinidense vs Cerro Porteño,Sportivo Trinidense,Cerro Porteño,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7913,0.8133,1.2,,1
+2026-09-26,Fútbol,par_division,División Profesional (Paraguay),Sportivo Trinidense vs Cerro Porteño,Sportivo Trinidense,Cerro Porteño,2.0,1.0,RESULTADO,Doble oportunidad,Sportivo Trinidense o Cerro Porteño,0.7314,0.6995,1.308,,1
+2026-09-26,Fútbol,par_division,División Profesional (Paraguay),Sportivo Trinidense vs Cerro Porteño,Sportivo Trinidense,Cerro Porteño,2.0,1.0,CÓRNERS,Córners,Córners: Más de 7.5,0.6995,0.6142,1.455,,1
+2026-09-26,Fútbol,liga_mx,Liga MX,Cruz Azul vs Toluca,Cruz Azul,Toluca,3.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7952,0.8072,1.2,,0
+2026-09-26,Fútbol,liga_mx,Liga MX,Cruz Azul vs Toluca,Cruz Azul,Toluca,3.0,3.0,CÓRNERS,Córners,Córners: Más de 8.5,0.7314,0.743,1.286,,1
+2026-09-26,Fútbol,liga_mx,Liga MX,Cruz Azul vs Toluca,Cruz Azul,Toluca,3.0,3.0,RESULTADO,Doble oportunidad,Cruz Azul o Toluca,0.7314,0.6668,1.32,,0
+2026-09-26,Fútbol,usl_championship,USL Championship,Detroit City FC vs Colorado Springs Switchbacks FC,Detroit City FC,Colorado Springs Switchbacks FC,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7425,0.7574,1.273,,1
+2026-09-26,Fútbol,usl_championship,USL Championship,Indy Eleven vs Miami FC,Indy Eleven,Miami FC,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7558,0.784,1.273,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,Canada vs Chile,Canada,Chile,1.0,0.0,OTROS (Doble y goles),Doble y goles,Canada o empate y menos de 4.5,0.7755,0.6403,1.231,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,Canada vs Chile,Canada,Chile,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7337,0.7458,1.286,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Colegiales vs Chacarita Juniors,Colegiales,Chacarita Juniors,2.0,1.0,RESULTADO,Doble oportunidad,Colegiales o Chacarita Juniors,0.7314,0.6986,1.32,,1
+2026-09-26,Fútbol,arg_primera_nacional,Primera Nacional,Colegiales vs Chacarita Juniors,Colegiales,Chacarita Juniors,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6847,0.7003,1.385,,0
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Venados FC vs Club Atlético Morelia,Venados FC,Club Atlético Morelia,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.775,0.7808,1.2,,1
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Venados FC vs Club Atlético Morelia,Venados FC,Club Atlético Morelia,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7285,0.6603,1.4,,0
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Venados FC vs Club Atlético Morelia,Venados FC,Club Atlético Morelia,2.0,1.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.6699,0.6266,1.455,,1
+2026-09-26,Fútbol,usl_championship,USL Championship,Charleston Battery vs Rhode Island FC,Charleston Battery,Rhode Island FC,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7529,0.7635,1.25,,1
+2026-09-26,Fútbol,usl_championship,USL Championship,Charleston Battery vs Rhode Island FC,Charleston Battery,Rhode Island FC,2.0,0.0,RESULTADO,Doble oportunidad,Charleston Battery o empate,0.7026,0.6004,1.3,,1
+2026-09-26,Fútbol,liga_mx,Liga MX,Guadalajara Chivas vs Queretaro,Guadalajara Chivas,Queretaro,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7907,0.7982,1.2,,1
+2026-09-26,Fútbol,liga_mx,Liga MX,Guadalajara Chivas vs Queretaro,Guadalajara Chivas,Queretaro,0.0,2.0,CÓRNERS,Córners,Córners: Menos de 13,0.7411,0.7975,1.273,,0
+2026-09-26,Fútbol,col_primera_a,Categoría Primera A,Cúcuta Deportivo vs Llaneros FC,Cúcuta Deportivo,Llaneros FC,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7763,0.7959,1.222,,1
+2026-09-26,Fútbol,col_primera_a,Categoría Primera A,Cúcuta Deportivo vs Llaneros FC,Cúcuta Deportivo,Llaneros FC,2.0,1.0,RESULTADO,Doble oportunidad,Cúcuta Deportivo o Llaneros FC,0.7314,0.6849,1.308,,1
+2026-09-26,Fútbol,col_primera_a,Categoría Primera A,Cúcuta Deportivo vs Llaneros FC,Cúcuta Deportivo,Llaneros FC,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.6533,0.5533,1.455,,1
+2026-09-26,Fútbol,mls,MLS,CF Montreal vs FC Cincinnati,CF Montreal,FC Cincinnati,3.0,1.0,CÓRNERS,Córners,Córners: Menos de 13,0.7411,0.8051,1.231,,1
+2026-09-26,Fútbol,mls,MLS,CF Montreal vs FC Cincinnati,CF Montreal,FC Cincinnati,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7364,0.7493,1.3,,1
+2026-09-26,Fútbol,mls,MLS,CF Montreal vs FC Cincinnati,CF Montreal,FC Cincinnati,3.0,1.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.696,0.6621,1.4,,1
+2026-09-26,Fútbol,mls,MLS,Charlotte vs Chicago Fire,Charlotte,Chicago Fire,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7436,0.7638,1.3,,1
+2026-09-26,Fútbol,mls,MLS,Charlotte vs Chicago Fire,Charlotte,Chicago Fire,0.0,1.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7314,0.7316,1.235,,1
+2026-09-26,Fútbol,mls,MLS,Charlotte vs Chicago Fire,Charlotte,Chicago Fire,0.0,1.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.6806,0.6419,1.417,,0
+2026-09-26,Fútbol,mls,MLS,Atlanta Utd vs New York City,Atlanta Utd,New York City,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7969,0.8106,1.2,,1
+2026-09-26,Fútbol,mls,MLS,Atlanta Utd vs New York City,Atlanta Utd,New York City,2.0,2.0,CÓRNERS,Córners,Córners: Más de 7,0.7428,0.8363,1.25,,0
+2026-09-26,Fútbol,mls,MLS,Atlanta Utd vs New York City,Atlanta Utd,New York City,2.0,2.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7276,0.7276,1.3,,1
+2026-09-26,Fútbol,mls,MLS,Philadelphia Union vs Orlando City,Philadelphia Union,Orlando City,4.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 5.5,0.7959,0.8172,1.222,,0
+2026-09-26,Fútbol,mls,MLS,Philadelphia Union vs Orlando City,Philadelphia Union,Orlando City,4.0,2.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7784,0.7784,1.3,,0
+2026-09-26,Fútbol,mls,MLS,Philadelphia Union vs Orlando City,Philadelphia Union,Orlando City,4.0,2.0,CÓRNERS,Córners,Córners Local: Menos de 7.5,0.704,0.6335,1.455,,1
+2026-09-26,Fútbol,slv_primera,Primera División (El Salvador),Luis Ángel Firpo vs Águila,Luis Ángel Firpo,Águila,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7344,0.7412,1.273,,1
+2026-09-26,Fútbol,mls,MLS,Seattle Sounders vs Minnesota United,Seattle Sounders,Minnesota United,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7709,0.7772,1.231,,1
+2026-09-26,Fútbol,mls,MLS,Seattle Sounders vs Minnesota United,Seattle Sounders,Minnesota United,3.0,1.0,CÓRNERS,Córners,Córners: Menos de 13,0.7411,0.8305,1.273,,1
+2026-09-26,Fútbol,mls,MLS,Seattle Sounders vs Minnesota United,Seattle Sounders,Minnesota United,3.0,1.0,RESULTADO,Doble oportunidad,Seattle Sounders o empate,0.7086,0.6988,1.364,,1
+2026-09-26,Fútbol,usl_championship,USL Championship,San Antonio FC vs Tampa Bay Rowdies,San Antonio FC,Tampa Bay Rowdies,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7397,0.7518,1.273,,1
+2026-09-26,Fútbol,mls,MLS,Nashville SC vs Toronto FC,Nashville SC,Toronto FC,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7588,0.7753,1.273,,1
+2026-09-26,Fútbol,mls,MLS,Nashville SC vs Toronto FC,Nashville SC,Toronto FC,2.0,0.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.746,0.8419,1.2,,1
+2026-09-26,Fútbol,mls,MLS,Nashville SC vs Toronto FC,Nashville SC,Toronto FC,2.0,0.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.6894,0.6894,1.25,,0
+2026-09-26,Fútbol,mls,MLS,Austin FC vs San Diego FC,Austin FC,San Diego FC,3.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7974,0.8116,1.2,,0
+2026-09-26,Fútbol,mls,MLS,Austin FC vs San Diego FC,Austin FC,San Diego FC,3.0,3.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7411,0.8086,1.222,,0
+2026-09-26,Fútbol,mls,MLS,Austin FC vs San Diego FC,Austin FC,San Diego FC,3.0,3.0,RESULTADO,Doble oportunidad,Austin FC o empate,0.6953,0.6938,1.417,,1
+2026-09-26,Fútbol,mls,MLS,Houston Dynamo vs Sporting Kansas City,Houston Dynamo,Sporting Kansas City,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.8021,0.8211,1.2,,1
+2026-09-26,Fútbol,mls,MLS,Houston Dynamo vs Sporting Kansas City,Houston Dynamo,Sporting Kansas City,0.0,2.0,CÓRNERS,Córners,Córners: Menos de 12,0.7423,0.8354,1.231,,1
+2026-09-26,Fútbol,mls,MLS,Houston Dynamo vs Sporting Kansas City,Houston Dynamo,Sporting Kansas City,0.0,2.0,TARJETAS,Tarjetas,Tarjetas: Menos de 4.5,0.7074,0.7074,1.4,,0
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Dorados de Sinaloa vs Durango,Dorados de Sinaloa,Durango,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7522,0.7622,1.25,,0
+2026-09-26,Fútbol,mex_expansion,Liga de Expansión MX,Dorados de Sinaloa vs Durango,Dorados de Sinaloa,Durango,0.0,1.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.7029,0.6252,1.455,,0
+2026-09-26,Fútbol,usl_championship,USL Championship,New Mexico United vs Sacramento Republic FC,New Mexico United,Sacramento Republic FC,2.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7463,0.7503,1.25,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,Mexico vs Colombia,Mexico,Colombia,1.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Colombia: Más de 0.5,0.8346,0.7927,1.333,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,Mexico vs Colombia,Mexico,Colombia,1.0,1.0,OTROS (Doble y goles),Doble y goles,Mexico o Colombia y menos de 5.5,0.8142,0.6511,1.25,,0
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,Mexico vs Colombia,Mexico,Colombia,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7477,0.7532,1.25,,1
+2026-09-26,Fútbol,selecciones,Amistosos internacionales,Mexico vs Colombia,Mexico,Colombia,1.0,1.0,RESULTADO,Doble oportunidad,Mexico o empate,0.6621,0.5934,1.455,,1
+2026-09-26,Fútbol,col_primera_a,Categoría Primera A,Atlético Junior vs Independiente Medellín,Atlético Junior,Independiente Medellín,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7422,0.7422,1.25,,1
+2026-09-26,Fútbol,col_primera_a,Categoría Primera A,Atlético Junior vs Independiente Medellín,Atlético Junior,Independiente Medellín,2.0,0.0,RESULTADO,Doble oportunidad,Atlético Junior o Independiente Medellín,0.7314,0.6867,1.3,,1
+2026-09-26,Fútbol,col_primera_a,Categoría Primera A,Atlético Junior vs Independiente Medellín,Atlético Junior,Independiente Medellín,2.0,0.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7135,0.6467,1.4,,1
+2026-09-26,Fútbol,mls,MLS,Real Salt Lake vs New England Revolution,Real Salt Lake,New England Revolution,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7924,0.8101,1.222,,1
+2026-09-26,Fútbol,mls,MLS,Real Salt Lake vs New England Revolution,Real Salt Lake,New England Revolution,3.0,0.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.7563,0.7563,1.286,,1
+2026-09-26,Fútbol,mls,MLS,Real Salt Lake vs New England Revolution,Real Salt Lake,New England Revolution,3.0,0.0,CÓRNERS,Córners,Córners: Menos de 13,0.7411,0.8301,1.286,,1
+2026-09-26,Fútbol,slv_primera,Primera División (El Salvador),Isidro Metapán vs Cacahuatique,Isidro Metapán,Cacahuatique,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7423,0.757,1.273,,1
+2026-09-26,Fútbol,slv_primera,Primera División (El Salvador),Isidro Metapán vs Cacahuatique,Isidro Metapán,Cacahuatique,2.0,0.0,RESULTADO,1X2,Gana Isidro Metapán,0.6694,0.6368,1.417,,1
+2026-09-26,Fútbol,usl_championship,USL Championship,Orange County SC vs Pittsburgh Riverhounds,Orange County SC,Pittsburgh Riverhounds,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.6724,0.6851,1.4,,0
+2026-09-26,Fútbol,usl_championship,USL Championship,Oakland Roots vs Phoenix Rising FC,Oakland Roots,Phoenix Rising FC,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7622,0.7702,1.222,,1
+2026-09-26,Fútbol,usl_championship,USL Championship,Oakland Roots vs Phoenix Rising FC,Oakland Roots,Phoenix Rising FC,3.0,0.0,RESULTADO,Doble oportunidad,Oakland Roots o empate,0.6994,0.6881,1.375,,1
+2026-09-26,Fútbol,usl_championship,USL Championship,Monterey Bay vs Lexington,Monterey Bay,Lexington,2.0,3.0,RESULTADO,Doble oportunidad,Lexington o empate,0.7095,0.6917,1.333,,1
+2026-09-26,Fútbol,mls,MLS,San Jose Earthquakes vs Portland Timbers,San Jose Earthquakes,Portland Timbers,3.0,1.0,CÓRNERS,Córners,Córners: Menos de 12,0.7411,0.7716,1.3,,0
+2026-09-26,Fútbol,mls,MLS,San Jose Earthquakes vs Portland Timbers,San Jose Earthquakes,Portland Timbers,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7185,0.7375,1.35,,1
+2026-09-26,Fútbol,mls,MLS,San Jose Earthquakes vs Portland Timbers,San Jose Earthquakes,Portland Timbers,3.0,1.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.7018,0.6649,1.385,,1
+2026-09-26,Fútbol,mls,MLS,Vancouver Whitecaps vs DC United,Vancouver Whitecaps,DC United,3.0,3.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.799,0.799,1.25,,1
+2026-09-26,Fútbol,mls,MLS,Vancouver Whitecaps vs DC United,Vancouver Whitecaps,DC United,3.0,3.0,RESULTADO,1X2,Gana Vancouver Whitecaps,0.7471,0.6883,1.25,,0
+2026-09-26,Fútbol,mls,MLS,Vancouver Whitecaps vs DC United,Vancouver Whitecaps,DC United,3.0,3.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7351,0.7485,1.312,,0
+2026-09-26,Fútbol,liga_mx,Liga MX,Santos Laguna vs Pachuca,Santos Laguna,Pachuca,,,CÓRNERS,Córners,Córners Visita: Menos de 6.5,0.741,0.7563,1.333,,1
+2026-09-26,Fútbol,liga_mx,Liga MX,Santos Laguna vs Pachuca,Santos Laguna,Pachuca,,,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Visita: Más de 3.5,0.7266,0.7266,1.35,,0
+2026-09-26,Fútbol,liga_mx,Liga MX,Tigres UANL vs Puebla,Tigres UANL,Puebla,,,CÓRNERS,Córners,Córners: Menos de 13,0.7411,0.7696,1.286,,1
+2026-09-26,Fútbol,liga_mx,Liga MX,Tigres UANL vs Puebla,Tigres UANL,Puebla,,,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Visita: Más de 2.5,0.6814,0.6814,1.364,,0
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,China vs New Zealand,China,New Zealand,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7639,0.7711,1.222,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,China vs New Zealand,China,New Zealand,0.0,3.0,RESULTADO,Doble oportunidad,China o New Zealand,0.7411,0.759,1.3,,1
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Valladolid vs Cordoba,Valladolid,Cordoba,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7459,0.7585,1.273,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Seychelles vs Sri Lanka,Seychelles,Sri Lanka,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7614,0.7741,1.231,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Seychelles vs Sri Lanka,Seychelles,Sri Lanka,0.0,3.0,RESULTADO,Doble oportunidad,Sri Lanka o empate,0.6701,0.628,1.455,,1
+2026-09-27,Fútbol,ned_eerste,Eerste Divisie,De Graafschap vs FC Den Bosch,De Graafschap,FC Den Bosch,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 5.5,0.779,0.8037,1.222,,1
+2026-09-27,Fútbol,ned_eerste,Eerste Divisie,De Graafschap vs FC Den Bosch,De Graafschap,FC Den Bosch,1.0,0.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.7295,0.6959,1.273,,0
+2026-09-27,Fútbol,ned_eerste,Eerste Divisie,De Graafschap vs FC Den Bosch,De Graafschap,FC Den Bosch,1.0,0.0,RESULTADO,Doble oportunidad,De Graafschap o empate,0.7216,0.751,1.3,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Lithuania vs Azerbaijan,Lithuania,Azerbaijan,1.0,1.0,OTROS (Doble y goles),Doble y goles,Lithuania o Azerbaijan y menos de 4.5,0.8026,0.6021,1.364,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Lithuania vs Azerbaijan,Lithuania,Azerbaijan,1.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Lithuania: Más de 0.5,0.7907,0.7451,1.357,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Lithuania vs Azerbaijan,Lithuania,Azerbaijan,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 11,0.7372,0.7513,1.273,,1
+2026-09-27,Fútbol,bra_serie_b,Brasileirão Série B,Criciúma vs Avaí,Criciúma,Avaí,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7577,0.7822,1.273,,1
+2026-09-27,Fútbol,bra_serie_b,Brasileirão Série B,Criciúma vs Avaí,Criciúma,Avaí,3.0,0.0,CÓRNERS,Córners,Córners: Más de 8.5,0.6899,0.5899,1.273,,0
+2026-09-27,Fútbol,uru_primera,Primera División (Uruguay),Central Español Fútbol Club vs Liverpool,Central Español Fútbol Club,Liverpool,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7861,0.8063,1.222,,1
+2026-09-27,Fútbol,uru_primera,Primera División (Uruguay),Central Español Fútbol Club vs Liverpool,Central Español Fútbol Club,Liverpool,1.0,2.0,CÓRNERS,Córners,Córners: Más de 7.5,0.704,0.6403,1.3,,1
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Mallorca vs Almeria,Mallorca,Almeria,0.0,1.0,RESULTADO,Doble oportunidad,Mallorca o Almeria,0.7314,0.6695,1.3,,1
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Mallorca vs Almeria,Mallorca,Almeria,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7257,0.752,1.333,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Denmark vs Wales,Denmark,Wales,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7905,0.8063,1.222,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Denmark vs Wales,Denmark,Wales,2.0,0.0,OTROS (Doble y goles),Doble y goles,Denmark o empate y más de 1.5,0.7707,0.7549,1.25,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Denmark vs Wales,Denmark,Wales,2.0,0.0,CÓRNERS,Córners,Córners: Menos de 12,0.7378,0.7521,1.32,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Denmark vs Wales,Denmark,Wales,2.0,0.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.715,0.715,1.364,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Serbia vs Netherlands,Serbia,Netherlands,1.0,2.0,OTROS (Doble y goles),Doble y goles,Netherlands o empate y menos de 5.5,0.8031,0.7817,1.2,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Serbia vs Netherlands,Serbia,Netherlands,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.773,0.7935,1.25,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Serbia vs Netherlands,Serbia,Netherlands,1.0,2.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Local: Más de 1.5,0.7557,0.7557,1.25,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Serbia vs Netherlands,Serbia,Netherlands,1.0,2.0,CÓRNERS,Córners,Córners Local: Menos de 4.5,0.7314,0.7343,1.2,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Austria vs Kosovo,Austria,Kosovo,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7515,0.7718,1.286,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Austria vs Kosovo,Austria,Kosovo,3.0,1.0,CÓRNERS,Córners,Córners: Menos de 11,0.7411,0.8174,1.222,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Austria vs Kosovo,Austria,Kosovo,3.0,1.0,OTROS (Doble y goles),Doble y goles,Austria o empate y más de 1.5,0.7313,0.7179,1.4,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Austria vs Kosovo,Austria,Kosovo,3.0,1.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.7247,0.7247,1.25,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Gibraltar vs Andorra,Gibraltar,Andorra,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 0.5,0.8,0.8168,1.2,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Gibraltar vs Andorra,Gibraltar,Andorra,0.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Gibraltar: Más de 0.5,0.7887,0.7942,1.8,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Gibraltar vs Andorra,Gibraltar,Andorra,0.0,0.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7314,0.7313,1.364,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Gibraltar vs Andorra,Gibraltar,Andorra,0.0,0.0,OTROS (Doble y goles),Doble y goles,Gibraltar o empate y menos de 3.5,0.7288,0.5706,1.52,,1
+2026-09-27,Fútbol,fem_espana,"Liga F (España, femenil)",Deportivo de A Coruña vs Espanyol,Deportivo de A Coruña,Espanyol,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7839,0.788,1.2,,1
+2026-09-27,Fútbol,fem_espana,"Liga F (España, femenil)",Deportivo de A Coruña vs Espanyol,Deportivo de A Coruña,Espanyol,1.0,1.0,RESULTADO,Doble oportunidad,Deportivo de A Coruña o Espanyol,0.7314,0.71,1.3,,0
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Malta vs Liechtenstein,Malta,Liechtenstein,2.0,0.0,RESULTADO,1X2,Gana Malta,0.7434,0.813,1.231,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Malta vs Liechtenstein,Malta,Liechtenstein,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7318,0.7524,1.3,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Malta vs Liechtenstein,Malta,Liechtenstein,2.0,0.0,AMBOS MARCAN,BTTS,Ambos marcan: No,0.7032,0.6921,1.375,,1
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Burgos vs Eldense,Burgos,Eldense,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7568,0.7678,1.25,,1
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Burgos vs Eldense,Burgos,Eldense,1.0,0.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7314,0.6817,1.222,,1
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Eibar vs Las Palmas,Eibar,Las Palmas,3.0,2.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7411,0.787,1.2,,1
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Eibar vs Las Palmas,Eibar,Las Palmas,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7284,0.7489,1.32,,0
+2026-09-27,Fútbol,esp_hypermotion,LaLiga Hypermotion,Eibar vs Las Palmas,Eibar,Las Palmas,3.0,2.0,RESULTADO,Doble oportunidad,Eibar o Las Palmas,0.7215,0.6515,1.3,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Jordan vs Syria,Jordan,Syria,1.0,1.0,RESULTADO,1X2,Gana Jordan,0.6951,0.6605,1.429,,0
+2026-09-27,Fútbol,mex_femenil,Liga MX Femenil,Puebla vs Monterrey,Puebla,Monterrey,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 6.5,0.7102,0.7238,1.35,,1
+2026-09-27,Fútbol,liga_mx,Liga MX,UNAM Pumas vs Atl. San Luis,UNAM Pumas,Atl. San Luis,2.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7992,0.8206,1.2,,1
+2026-09-27,Fútbol,liga_mx,Liga MX,UNAM Pumas vs Atl. San Luis,UNAM Pumas,Atl. San Luis,2.0,3.0,CÓRNERS,Córners,Córners: Menos de 12,0.7411,0.7653,1.25,,0
+2026-09-27,Fútbol,uru_primera,Primera División (Uruguay),Juventud vs Cerro,Juventud,Cerro,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7828,0.7997,1.222,,1
+2026-09-27,Fútbol,uru_primera,Primera División (Uruguay),Juventud vs Cerro,Juventud,Cerro,0.0,0.0,CÓRNERS,Córners,Córners: Más de 6.5,0.6954,0.5954,1.2,,0
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Atlanta vs Agropecuario,Atlanta,Agropecuario,1.0,0.0,RESULTADO,Doble oportunidad,Atlanta o Agropecuario,0.704,0.6384,1.35,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Atlanta vs Agropecuario,Atlanta,Agropecuario,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6531,0.6659,1.444,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Defensores de Belgrano vs Ferro Carril Oeste,Defensores de Belgrano,Ferro Carril Oeste,0.0,1.0,RESULTADO,Doble oportunidad,Defensores de Belgrano o empate,0.71,0.6887,1.333,,0
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Defensores de Belgrano vs Ferro Carril Oeste,Defensores de Belgrano,Ferro Carril Oeste,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.7032,0.705,1.32,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Almagro vs Nueva Chicago,Almagro,Nueva Chicago,0.0,1.0,RESULTADO,Doble oportunidad,Almagro o Nueva Chicago,0.7157,0.648,1.385,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Almagro vs Nueva Chicago,Almagro,Nueva Chicago,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6969,0.7136,1.364,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Los Andes vs Deportivo Morón,Los Andes,Deportivo Morón,2.0,1.0,RESULTADO,Doble oportunidad,Los Andes o Deportivo Morón,0.7314,0.6742,1.4,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Los Andes vs Deportivo Morón,Los Andes,Deportivo Morón,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.7011,0.7008,1.32,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Germany vs Greece,Germany,Greece,0.0,1.0,OTROS (Doble y goles),Doble y goles,Germany o empate y menos de 5.5,0.8031,0.812,1.2,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Germany vs Greece,Germany,Greece,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7755,0.7864,1.231,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Germany vs Greece,Germany,Greece,0.0,1.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7411,0.7903,1.222,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Germany vs Greece,Germany,Greece,0.0,1.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta: Menos de 10.5,0.6989,0.6989,1.429,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Israel vs Republic of Ireland,Israel,Republic of Ireland,0.0,3.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Republic of Ireland: Más de 0.5,0.8423,0.8026,1.333,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Israel vs Republic of Ireland,Israel,Republic of Ireland,0.0,3.0,OTROS (Doble y goles),Doble y goles,Israel o Republic of Ireland y menos de 5.5,0.8154,0.627,1.3,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Israel vs Republic of Ireland,Israel,Republic of Ireland,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7426,0.7419,1.267,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Israel vs Republic of Ireland,Israel,Republic of Ireland,0.0,3.0,CÓRNERS,Córners,Córners: Más de 6,0.7414,0.8339,1.231,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Norway vs Portugal,Norway,Portugal,1.0,2.0,OTROS (Doble y goles),Doble y goles,Norway o Portugal y menos de 5.5,0.7841,0.6491,1.35,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Norway vs Portugal,Norway,Portugal,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7496,0.7679,1.286,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Norway vs Portugal,Norway,Portugal,1.0,2.0,CÓRNERS,Córners,Córners: Menos de 11,0.7314,0.7432,1.333,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones UEFA,Norway vs Portugal,Norway,Portugal,1.0,2.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.6805,0.6417,1.417,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Guyana vs Cayman Islands,Guyana,Cayman Islands,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7226,0.734,1.3,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Guyana vs Cayman Islands,Guyana,Cayman Islands,2.0,0.0,OTROS (Doble y goles),Doble y goles,Guyana o empate y más de 2.5,0.7213,0.7231,1.286,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Guyana vs Cayman Islands,Guyana,Cayman Islands,2.0,0.0,AMBOS MARCAN,BTTS,Ambos marcan: No,0.7058,0.6829,1.364,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Guyana vs Cayman Islands,Guyana,Cayman Islands,2.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Guyana: Más de 2.5,0.6853,0.6595,1.455,,0
+2026-09-27,Fútbol,bra_serie_b,Brasileirão Série B,CRB vs Cuiabá,CRB,Cuiabá,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7907,0.8154,1.222,,1
+2026-09-27,Fútbol,bra_serie_b,Brasileirão Série B,CRB vs Cuiabá,CRB,Cuiabá,3.0,0.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7304,0.6644,1.222,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Patronato vs San Martín (San Juan),Patronato,San Martín (San Juan),3.0,0.0,RESULTADO,Doble oportunidad,Patronato o San Martín (San Juan),0.7153,0.6478,1.4,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Patronato vs San Martín (San Juan),Patronato,San Martín (San Juan),3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6828,0.6924,1.375,,0
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Midland vs Tristán Suárez,Midland,Tristán Suárez,0.0,1.0,RESULTADO,Doble oportunidad,Midland o Tristán Suárez,0.7314,0.6926,1.364,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Midland vs Tristán Suárez,Midland,Tristán Suárez,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.7084,0.7244,1.333,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Deportivo Maipú vs Temperley,Deportivo Maipú,Temperley,1.0,0.0,RESULTADO,Doble oportunidad,Deportivo Maipú o Temperley,0.7314,0.7085,1.32,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Racing (Córdoba) vs Godoy Cruz Antonio Tomba,Racing (Córdoba),Godoy Cruz Antonio Tomba,2.0,3.0,RESULTADO,Doble oportunidad,Godoy Cruz Antonio Tomba o empate,0.6853,0.6374,1.375,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Bolivia vs Paraguay,Bolivia,Paraguay,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7391,0.767,1.3,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Bolivia vs Paraguay,Bolivia,Paraguay,0.0,2.0,OTROS (Doble y goles),Doble y goles,Paraguay o empate y más de 1.5,0.7213,0.7288,1.4,,1
+2026-09-27,Fútbol,selecciones,Amistosos internacionales,Bolivia vs Paraguay,Bolivia,Paraguay,0.0,2.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Bolivia: Más de 0.5,0.6514,0.6514,1.8,,0
+2026-09-27,Fútbol,slv_primera,Primera División (El Salvador),Alianza FC vs Inca Aruba,Alianza FC,Inca Aruba,1.0,1.0,RESULTADO,1X2,Gana Alianza FC,0.6569,0.6199,1.471,,0
+2026-09-27,Fútbol,col_primera_a,Categoría Primera A,Jaguares de Córdoba vs Alianza FC,Jaguares de Córdoba,Alianza FC,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7664,0.7761,1.222,,1
+2026-09-27,Fútbol,col_primera_a,Categoría Primera A,Jaguares de Córdoba vs Alianza FC,Jaguares de Córdoba,Alianza FC,1.0,2.0,RESULTADO,Doble oportunidad,Jaguares de Córdoba o Alianza FC,0.7314,0.7027,1.32,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Gimnasia y Tiro (Salta) vs Atletico Rafaela,Gimnasia y Tiro (Salta),Atletico Rafaela,1.0,0.0,RESULTADO,Doble oportunidad,Gimnasia y Tiro (Salta) o Atletico Rafaela,0.7314,0.6863,1.32,,1
+2026-09-27,Fútbol,arg_primera_nacional,Primera Nacional,Gimnasia y Tiro (Salta) vs Atletico Rafaela,Gimnasia y Tiro (Salta),Atletico Rafaela,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.6704,0.6878,1.417,,1
+2026-09-27,Fútbol,uru_primera,Primera División (Uruguay),Defensor Sporting vs Danubio,Defensor Sporting,Danubio,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7732,0.7911,1.231,,1
+2026-09-27,Fútbol,uru_primera,Primera División (Uruguay),Defensor Sporting vs Danubio,Defensor Sporting,Danubio,1.0,0.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7411,0.7828,1.25,,1
+2026-09-27,Fútbol,uru_primera,Primera División (Uruguay),Defensor Sporting vs Danubio,Defensor Sporting,Danubio,1.0,0.0,RESULTADO,Doble oportunidad,Defensor Sporting o empate,0.7131,0.7377,1.32,,1
+2026-09-27,Fútbol,bra_serie_b,Brasileirão Série B,Fortaleza vs Athletic,Fortaleza,Athletic,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7936,0.8095,1.2,,0
+2026-09-27,Fútbol,bra_serie_b,Brasileirão Série B,Fortaleza vs Athletic,Fortaleza,Athletic,2.0,2.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7411,0.7892,1.222,,0
+2026-09-27,Fútbol,mls,MLS,Columbus Crew vs Inter Miami,Columbus Crew,Inter Miami,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 11,0.7411,0.7859,1.308,,1
+2026-09-27,Fútbol,mls,MLS,Columbus Crew vs Inter Miami,Columbus Crew,Inter Miami,2.0,1.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.7154,0.675,1.333,,1
+2026-09-27,Fútbol,mls,MLS,Columbus Crew vs Inter Miami,Columbus Crew,Inter Miami,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.6991,0.7252,1.385,,1
+2026-09-27,Fútbol,slv_primera,Primera División (El Salvador),CD Municipal Limeño vs CD FAS,CD Municipal Limeño,CD FAS,1.0,3.0,RESULTADO,Doble oportunidad,CD FAS o empate,0.7131,0.703,1.308,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Haiti vs Costa Rica,Haiti,Costa Rica,2.0,0.0,OTROS (Doble y goles),Doble y goles,Haiti o Costa Rica y menos de 4.5,0.7667,0.6172,1.462,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Haiti vs Costa Rica,Haiti,Costa Rica,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7448,0.7621,1.273,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Haiti vs Costa Rica,Haiti,Costa Rica,2.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Haiti: Más de 0.5,0.7383,0.7383,1.25,,1
+2026-09-27,Fútbol,col_primera_a,Categoría Primera A,Fortaleza CEIF vs Deportes Tolima,Fortaleza CEIF,Deportes Tolima,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7704,0.7879,1.231,,0
+2026-09-27,Fútbol,col_primera_a,Categoría Primera A,Fortaleza CEIF vs Deportes Tolima,Fortaleza CEIF,Deportes Tolima,2.0,2.0,RESULTADO,Doble oportunidad,Fortaleza CEIF o Deportes Tolima,0.7314,0.7216,1.32,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Curaçao vs Nicaragua,Curaçao,Nicaragua,6.0,1.0,RESULTADO,1X2,Gana Curaçao,0.6889,0.6472,1.425,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Dominica vs Puerto Rico,Dominica,Puerto Rico,0.0,2.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Dominica: Más de 0.5,0.7688,0.7688,1.667,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Dominica vs Puerto Rico,Dominica,Puerto Rico,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7481,0.7686,1.273,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Dominica vs Puerto Rico,Dominica,Puerto Rico,0.0,2.0,OTROS (Doble y goles),Doble y goles,Dominica o Puerto Rico y más de 1.5,0.6516,0.5809,1.52,,1
+2026-09-27,Fútbol,mex_femenil,Liga MX Femenil,Tigres vs Atlético de San Luis,Tigres,Atlético de San Luis,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7909,0.7969,1.22,,0
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Trinidad and Tobago vs Dominican Republic,Trinidad and Tobago,Dominican Republic,1.0,2.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Trinidad and Tobago: Más de 0.5,0.8249,0.8249,1.25,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Trinidad and Tobago vs Dominican Republic,Trinidad and Tobago,Dominican Republic,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.774,0.7938,1.222,,1
+2026-09-27,Fútbol,selecciones,Liga de Naciones CONCACAF,Trinidad and Tobago vs Dominican Republic,Trinidad and Tobago,Dominican Republic,1.0,2.0,OTROS (Doble y goles),Doble y goles,Trinidad and Tobago o empate y menos de 4.5,0.6948,0.6611,1.636,,0
+2026-09-27,Fútbol,liga_mx,Liga MX,Club Leon vs Juarez,Club Leon,Juarez,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7963,0.8148,1.2,,1
+2026-09-27,Fútbol,liga_mx,Liga MX,Necaxa vs Club America,Necaxa,Club America,,,CÓRNERS,Córners,Córners: Más de 8,0.7324,0.7449,1.308,,0
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,Japan vs Venezuela,Japan,Venezuela,2.0,1.0,OTROS (Doble y goles),Doble y goles,Japan o empate y más de 1.5,0.7559,0.6951,1.2,,1
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,Japan vs Venezuela,Japan,Venezuela,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.6519,0.6674,1.455,,1
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,South Korea vs Uruguay,South Korea,Uruguay,1.0,4.0,GOLES DE CADA EQUIPO,Goles equipo,Goles South Korea: Más de 0.5,0.8277,0.7705,1.333,,1
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,South Korea vs Uruguay,South Korea,Uruguay,1.0,4.0,OTROS (Doble y goles),Doble y goles,South Korea o Uruguay y menos de 4.5,0.7726,0.577,1.455,,0
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,South Korea vs Uruguay,South Korea,Uruguay,1.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7336,0.7396,1.273,,0
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,Tajikistan vs Palestine,Tajikistan,Palestine,2.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7699,0.7831,1.222,,0
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,Tajikistan vs Palestine,Tajikistan,Palestine,2.0,4.0,RESULTADO,Doble oportunidad,Tajikistan o Palestine,0.7314,0.711,1.333,,1
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,Kyrgyzstan vs Maldives,Kyrgyzstan,Maldives,5.0,0.0,OTROS (Doble y goles),Doble y goles,Kyrgyzstan o empate y menos de 5.5,0.7455,0.8243,1.2,,1
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,Kyrgyzstan vs Maldives,Kyrgyzstan,Maldives,5.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7336,0.7396,1.273,,1
+2026-09-28,Fútbol,selecciones,Amistosos internacionales,Kyrgyzstan vs Maldives,Kyrgyzstan,Maldives,5.0,0.0,AMBOS MARCAN,BTTS,Ambos marcan: No,0.6826,0.6706,1.444,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Zimbabwe vs DR Congo,Zimbabwe,DR Congo,1.0,2.0,GOLES DE CADA EQUIPO,Goles equipo,Goles DR Congo: Más de 0.5,0.8387,0.8304,1.222,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Zimbabwe vs DR Congo,Zimbabwe,DR Congo,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.6613,0.6862,1.455,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Central African Republic vs Burkina Faso,Central African Republic,Burkina Faso,0.0,1.0,OTROS (Doble y goles),Doble y goles,Burkina Faso o empate y menos de 4.5,0.7764,0.6988,1.2,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Central African Republic vs Burkina Faso,Central African Republic,Burkina Faso,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.772,0.7897,1.222,,0
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Equatorial Guinea vs Sierra Leone,Equatorial Guinea,Sierra Leone,1.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Equatorial Guinea: Más de 0.5,0.7914,0.7494,1.364,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Equatorial Guinea vs Sierra Leone,Equatorial Guinea,Sierra Leone,1.0,0.0,RESULTADO,Doble oportunidad,Equatorial Guinea o Sierra Leone,0.7389,0.719,1.35,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Georgia vs Ukraine,Georgia,Ukraine,0.0,0.0,OTROS (Doble y goles),Doble y goles,Georgia o Ukraine y menos de 5.5,0.8299,0.6835,1.308,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Georgia vs Ukraine,Georgia,Ukraine,0.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Ukraine: Más de 0.5,0.8142,0.7394,1.364,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Georgia vs Ukraine,Georgia,Ukraine,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7484,0.7656,1.286,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Georgia vs Ukraine,Georgia,Ukraine,0.0,0.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7451,0.8157,1.235,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Latvia vs Cyprus,Latvia,Cyprus,0.0,0.0,OTROS (Doble y goles),Doble y goles,Latvia o Cyprus y menos de 4.5,0.8113,0.6355,1.417,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Latvia vs Cyprus,Latvia,Cyprus,0.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Cyprus: Más de 0.5,0.7752,0.6997,1.4,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Latvia vs Cyprus,Latvia,Cyprus,0.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7712,0.7712,1.286,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Latvia vs Cyprus,Latvia,Cyprus,0.0,0.0,CÓRNERS,Córners,Córners: Más de 6,0.7514,0.8452,1.2,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Armenia vs Montenegro,Armenia,Montenegro,2.0,3.0,OTROS (Doble y goles),Doble y goles,Armenia o Montenegro y menos de 5.5,0.8257,0.6729,1.286,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Armenia vs Montenegro,Armenia,Montenegro,2.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7476,0.7528,1.273,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Armenia vs Montenegro,Armenia,Montenegro,2.0,3.0,CÓRNERS,Córners,Córners: Menos de 12,0.7452,0.8167,1.231,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Armenia vs Montenegro,Armenia,Montenegro,2.0,3.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.6655,0.6655,1.25,,1
+2026-09-28,Fútbol,esp_hypermotion,LaLiga Hypermotion,Leganes vs Castellon,Leganes,Castellon,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7282,0.7571,1.333,,1
+2026-09-28,Fútbol,esp_hypermotion,LaLiga Hypermotion,Leganes vs Castellon,Leganes,Castellon,0.0,2.0,RESULTADO,Doble oportunidad,Leganes o Castellon,0.7277,0.6587,1.308,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Sweden vs Poland,Sweden,Poland,3.0,1.0,OTROS (Doble y goles),Doble y goles,Sweden o empate y menos de 5.5,0.8169,0.698,1.308,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Sweden vs Poland,Sweden,Poland,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.781,0.7974,1.231,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Sweden vs Poland,Sweden,Poland,3.0,1.0,CÓRNERS,Córners,Córners: Menos de 12,0.7667,0.8667,1.2,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Sweden vs Poland,Sweden,Poland,3.0,1.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.6825,0.6825,1.2,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Northern Ireland vs Hungary,Northern Ireland,Hungary,0.0,0.0,OTROS (Doble y goles),Doble y goles,Hungary o empate y menos de 4.5,0.8191,0.6831,1.364,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Northern Ireland vs Hungary,Northern Ireland,Hungary,0.0,0.0,CÓRNERS,Córners,Córners Local: Menos de 5.5,0.7451,0.761,1.3,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Northern Ireland vs Hungary,Northern Ireland,Hungary,0.0,0.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.694,0.694,1.222,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Northern Ireland vs Hungary,Northern Ireland,Hungary,0.0,0.0,OTROS (Remates a puerta),Remates a puerta,Remates a puerta Visita: Más de 2.5,0.6922,0.6922,1.35,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Romania vs Bosnia and Herzegovina,Romania,Bosnia and Herzegovina,2.0,4.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Romania: Más de 0.5,0.8404,0.7988,1.286,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Romania vs Bosnia and Herzegovina,Romania,Bosnia and Herzegovina,2.0,4.0,OTROS (Doble y goles),Doble y goles,Romania o empate y menos de 5.5,0.8331,0.7104,1.32,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Romania vs Bosnia and Herzegovina,Romania,Bosnia and Herzegovina,2.0,4.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7451,0.7895,1.235,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Romania vs Bosnia and Herzegovina,Romania,Bosnia and Herzegovina,2.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7366,0.764,1.333,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Belgium vs France,Belgium,France,0.0,1.0,OTROS (Doble y goles),Doble y goles,Belgium o France y menos de 5.5,0.8058,0.6941,1.308,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Belgium vs France,Belgium,France,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7953,0.816,1.222,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Belgium vs France,Belgium,France,0.0,1.0,CÓRNERS,Córners,Córners: Menos de 12,0.7451,0.7908,1.222,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Belgium vs France,Belgium,France,0.0,1.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.7368,0.7368,1.25,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Turkey vs Italy,Turkey,Italy,1.0,4.0,OTROS (Doble y goles),Doble y goles,Turkey o Italy y menos de 5.5,0.8052,0.6699,1.333,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Turkey vs Italy,Turkey,Italy,1.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7818,0.7805,1.2,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Turkey vs Italy,Turkey,Italy,1.0,4.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.7547,0.7547,1.222,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones UEFA,Turkey vs Italy,Turkey,Italy,1.0,4.0,CÓRNERS,Córners,Córners: Menos de 12,0.7451,0.8012,1.2,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Guadeloupe vs Barbados,Guadeloupe,Barbados,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.775,0.7958,1.222,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Guadeloupe vs Barbados,Guadeloupe,Barbados,2.0,2.0,OTROS (Doble y goles),Doble y goles,Guadeloupe o empate y más de 1.5,0.753,0.8518,1.714,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Tunisia vs Botswana,Tunisia,Botswana,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7421,0.7566,1.273,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Tunisia vs Botswana,Tunisia,Botswana,2.0,2.0,OTROS (Doble y goles),Doble y goles,Tunisia o empate y más de 1.5,0.7363,0.7961,1.25,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Tunisia vs Botswana,Tunisia,Botswana,2.0,2.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Tunisia: Más de 1.5,0.7313,0.735,1.4,,1
+2026-09-28,Fútbol,selecciones,Eliminatorias Copa Africana,Tunisia vs Botswana,Tunisia,Botswana,2.0,2.0,AMBOS MARCAN,BTTS,Ambos marcan: No,0.7132,0.6869,1.333,,0
+2026-09-28,Fútbol,par_division,División Profesional (Paraguay),Sportivo San Lorenzo vs Deportivo Recoleta,Sportivo San Lorenzo,Deportivo Recoleta,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7364,0.7452,1.273,,0
+2026-09-28,Fútbol,par_division,División Profesional (Paraguay),Sportivo San Lorenzo vs Deportivo Recoleta,Sportivo San Lorenzo,Deportivo Recoleta,0.0,0.0,RESULTADO,Doble oportunidad,Deportivo Recoleta o empate,0.7023,0.7297,1.364,,1
+2026-09-28,Fútbol,mex_femenil,Liga MX Femenil,Atlante vs Pumas,Atlante,Pumas,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7847,0.8032,1.22,,1
+2026-09-28,Fútbol,mex_femenil,Liga MX Femenil,Atlante vs Pumas,Atlante,Pumas,0.0,0.0,RESULTADO,1X2,Gana Pumas,0.7075,0.655,1.36,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Suriname vs Martinique,Suriname,Martinique,2.0,1.0,OTROS (Doble y goles),Doble y goles,Suriname o empate y menos de 4.5,0.7927,0.6968,1.25,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Suriname vs Martinique,Suriname,Martinique,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.734,0.7404,1.273,,1
+2026-09-28,Fútbol,par_division,División Profesional (Paraguay),Libertad vs Club Olimpia,Libertad,Club Olimpia,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7361,0.761,1.3,,1
+2026-09-28,Fútbol,par_division,División Profesional (Paraguay),Libertad vs Club Olimpia,Libertad,Club Olimpia,0.0,1.0,RESULTADO,Doble oportunidad,Libertad o Club Olimpia,0.7314,0.7048,1.308,,1
+2026-09-28,Fútbol,bra_serie_b,Brasileirão Série B,América Mineiro vs Juventude,América Mineiro,Juventude,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7804,0.7949,1.222,,1
+2026-09-28,Fútbol,bra_serie_b,Brasileirão Série B,América Mineiro vs Juventude,América Mineiro,Juventude,0.0,1.0,RESULTADO,Doble oportunidad,América Mineiro o Juventude,0.7314,0.6871,1.32,,1
+2026-09-28,Fútbol,mex_femenil,Liga MX Femenil,Club León vs CF América,Club León,CF América,0.0,5.0,RESULTADO,1X2,Gana CF América,0.7525,0.767,1.25,,1
+2026-09-28,Fútbol,mex_femenil,Liga MX Femenil,Club León vs CF América,Club León,CF América,0.0,5.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7096,0.7226,1.35,,1
+2026-09-28,Fútbol,uru_primera,Primera División (Uruguay),Montevideo Wanderers vs Albion FC,Montevideo Wanderers,Albion FC,2.0,1.0,RESULTADO,Doble oportunidad,Montevideo Wanderers o Albion FC,0.7387,0.7532,1.3,,1
+2026-09-28,Fútbol,uru_primera,Primera División (Uruguay),Montevideo Wanderers vs Albion FC,Montevideo Wanderers,Albion FC,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7359,0.7524,1.3,,1
+2026-09-28,Fútbol,uru_primera,Primera División (Uruguay),Montevideo Wanderers vs Albion FC,Montevideo Wanderers,Albion FC,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.7021,0.6228,1.4,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Jamaica vs Honduras,Jamaica,Honduras,0.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Jamaica: Más de 0.5,0.8539,0.8229,1.222,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Jamaica vs Honduras,Jamaica,Honduras,0.0,1.0,OTROS (Doble y goles),Doble y goles,Jamaica o empate y menos de 4.5,0.7926,0.6556,1.32,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Jamaica vs Honduras,Jamaica,Honduras,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7628,0.7714,1.222,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Saint Kitts and Nevis vs Grenada,Saint Kitts and Nevis,Grenada,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7799,0.7906,1.2,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Saint Kitts and Nevis vs Grenada,Saint Kitts and Nevis,Grenada,3.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Saint Kitts and Nevis: Más de 0.5,0.7704,0.7704,1.25,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Saint Kitts and Nevis vs Grenada,Saint Kitts and Nevis,Grenada,3.0,0.0,OTROS (Doble y goles),Doble y goles,Saint Kitts and Nevis o empate y menos de 4.5,0.6755,0.6817,1.9,,1
+2026-09-28,Fútbol,mex_femenil,Liga MX Femenil,Necaxa vs Toluca,Necaxa,Toluca,0.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 6.5,0.774,0.7774,1.25,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Guatemala vs El Salvador,Guatemala,El Salvador,6.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Guatemala: Más de 0.5,0.8509,0.8169,1.2,,1
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Guatemala vs El Salvador,Guatemala,El Salvador,6.0,0.0,OTROS (Doble y goles),Doble y goles,Guatemala o empate y menos de 4.5,0.7926,0.6557,1.333,,0
+2026-09-28,Fútbol,selecciones,Liga de Naciones CONCACAF,Guatemala vs El Salvador,Guatemala,El Salvador,6.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7543,0.7663,1.25,,0
+2026-09-29,Fútbol,selecciones,Amistosos internacionales,Australia vs Brazil,Australia,Brazil,2.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7922,0.8067,1.2,,0
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Lesotho vs Morocco,Lesotho,Morocco,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7271,0.7119,1.25,,0
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Burundi vs Algeria,Burundi,Algeria,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7462,0.7501,1.25,,1
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Burundi vs Algeria,Burundi,Algeria,2.0,2.0,RESULTADO,1X2,Gana Algeria,0.7329,0.7668,1.286,,0
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Ethiopia vs Senegal,Ethiopia,Senegal,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7299,0.7486,1.3,,0
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Mozambique vs Sudan,Mozambique,Sudan,4.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Mozambique: Más de 0.5,0.797,0.7607,1.25,,1
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Cape Verde vs Rwanda,Cape Verde,Rwanda,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.761,0.7678,1.222,,1
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Ghana vs Gambia,Ghana,Gambia,2.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7466,0.7509,1.25,,0
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Finland vs Belarus,Finland,Belarus,0.0,0.0,CÓRNERS,Córners,Córners: Menos de 12,0.7451,0.7742,1.222,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Finland vs Belarus,Finland,Belarus,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7311,0.74,1.308,,0
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Uganda vs Libya,Uganda,Libya,1.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Uganda: Más de 0.5,0.7845,0.7356,1.286,,1
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Uganda vs Libya,Uganda,Libya,1.0,0.0,RESULTADO,Doble oportunidad,Uganda o Libya,0.7358,0.691,1.333,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Moldova vs Faroe Islands,Moldova,Faroe Islands,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 11,0.7451,0.7513,1.25,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Moldova vs Faroe Islands,Moldova,Faroe Islands,1.0,1.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.7394,0.7394,1.222,,0
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Zambia vs Togo,Zambia,Togo,2.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Zambia: Más de 0.5,0.7881,0.7291,1.273,,1
+2026-09-29,Fútbol,eng_national,National League,Boreham Wood vs Kidderminster,Boreham Wood,Kidderminster,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7653,0.7884,1.25,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,San Marino vs Albania,San Marino,Albania,0.0,3.0,AMBOS MARCAN,BTTS,Ambos marcan: No,0.7499,0.7793,1.235,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,San Marino vs Albania,San Marino,Albania,0.0,3.0,CÓRNERS,Córners,Córners: Menos de 12,0.7452,0.8167,1.25,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,San Marino vs Albania,San Marino,Albania,0.0,3.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.7386,0.7386,1.333,,0
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Spain vs Croatia,Spain,Croatia,4.0,1.0,RESULTADO,1X2,Gana Spain,0.7616,0.7871,1.222,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Spain vs Croatia,Spain,Croatia,4.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Spain: Más de 1.5,0.7586,0.6808,1.25,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Spain vs Croatia,Spain,Croatia,4.0,1.0,CÓRNERS,Córners,Córners: Menos de 12,0.7554,0.8554,1.2,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Spain vs Croatia,Spain,Croatia,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7268,0.7445,1.333,,0
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Slovenia vs North Macedonia,Slovenia,North Macedonia,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.788,0.7929,1.2,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Slovenia vs North Macedonia,Slovenia,North Macedonia,2.0,0.0,CÓRNERS,Córners,Córners: Menos de 11,0.7451,0.7603,1.286,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Slovakia vs Kazakhstan,Slovakia,Kazakhstan,2.0,1.0,RESULTADO,1X2,Gana Slovakia,0.7592,0.7548,1.231,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Slovakia vs Kazakhstan,Slovakia,Kazakhstan,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 12,0.7452,0.8167,1.286,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Bulgaria vs Estonia,Bulgaria,Estonia,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7786,0.7741,1.2,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Bulgaria vs Estonia,Bulgaria,Estonia,0.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 6.5,0.7657,0.7657,1.286,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Bulgaria vs Estonia,Bulgaria,Estonia,0.0,0.0,CÓRNERS,Córners,Córners: Menos de 12,0.7451,0.8084,1.2,,0
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Bulgaria vs Estonia,Bulgaria,Estonia,0.0,0.0,RESULTADO,Doble oportunidad,Bulgaria o Estonia,0.7451,0.756,1.3,,0
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Czech Republic vs England,Czech Republic,England,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7947,0.8147,1.222,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Czech Republic vs England,Czech Republic,England,0.0,2.0,RESULTADO,1X2,Gana England,0.739,0.6972,1.286,,1
+2026-09-29,Fútbol,eng_national,National League,Halifax vs Boston Utd,Halifax,Boston Utd,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7629,0.7692,1.222,,1
+2026-09-29,Fútbol,eng_national,National League,Hartlepool vs Harrogate,Hartlepool,Harrogate,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7765,0.7963,1.222,,0
+2026-09-29,Fútbol,eng_national,National League,Hornchurch vs Aldershot,Hornchurch,Aldershot,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7703,0.7714,1.2,,1
+2026-09-29,Fútbol,eng_national,National League,Hornchurch vs Aldershot,Hornchurch,Aldershot,2.0,1.0,RESULTADO,Doble oportunidad,Hornchurch o empate,0.7196,0.6955,1.308,,1
+2026-09-29,Fútbol,eng_national,National League,Gateshead vs Altrincham,Gateshead,Altrincham,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7966,0.824,1.2,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Scotland vs Switzerland,Scotland,Switzerland,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.757,0.7493,1.231,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Scotland vs Switzerland,Scotland,Switzerland,0.0,3.0,CÓRNERS,Córners,Córners: Menos de 11,0.7451,0.8042,1.3,,1
+2026-09-29,Fútbol,eng_national,National League,Barrow vs Scunthorpe,Barrow,Scunthorpe,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7841,0.7989,1.2,,1
+2026-09-29,Fútbol,eng_national,National League,Forest Green vs Wealdstone,Forest Green,Wealdstone,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7646,0.7869,1.25,,1
+2026-09-29,Fútbol,eng_national,National League,Woking vs Solihull,Woking,Solihull,2.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7719,0.791,1.231,,0
+2026-09-29,Fútbol,eng_national,National League,Fylde vs Carlisle,Fylde,Carlisle,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7471,0.7657,1.267,,1
+2026-09-29,Fútbol,eng_national,National League,Yeovil vs Worthing,Yeovil,Worthing,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7692,0.7818,1.222,,1
+2026-09-29,Fútbol,eng_national,National League,Yeovil vs Worthing,Yeovil,Worthing,1.0,1.0,RESULTADO,Doble oportunidad,Yeovil o empate,0.7112,0.6886,1.333,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Luxembourg vs Iceland,Luxembourg,Iceland,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7606,0.7565,1.231,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Luxembourg vs Iceland,Luxembourg,Iceland,0.0,3.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.7451,0.7653,1.303,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones UEFA,Luxembourg vs Iceland,Luxembourg,Iceland,0.0,3.0,RESULTADO,Doble oportunidad,Luxembourg o Iceland,0.7389,0.73,1.32,,1
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Congo vs Cameroon,Congo,Cameroon,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7698,0.7853,1.222,,1
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Liberia vs Mali,Liberia,Mali,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7783,0.7874,1.2,,1
+2026-09-29,Fútbol,selecciones,Eliminatorias Copa Africana,Gabon vs Niger,Gabon,Niger,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7673,0.7653,1.2,,1
+2026-09-29,Fútbol,col_primera_a,Categoría Primera A,Deportivo Pereira vs Independiente Santa Fe,Deportivo Pereira,Independiente Santa Fe,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7721,0.7913,1.231,,1
+2026-09-29,Fútbol,col_primera_a,Categoría Primera A,Deportivo Pereira vs Independiente Santa Fe,Deportivo Pereira,Independiente Santa Fe,1.0,2.0,RESULTADO,Doble oportunidad,Deportivo Pereira o Independiente Santa Fe,0.7239,0.6726,1.3,,1
+2026-09-29,Fútbol,slv_primera,Primera División (El Salvador),Atletico Balboa vs Cacahuatique,Atletico Balboa,Cacahuatique,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7632,0.7722,1.222,,1
+2026-09-29,Fútbol,slv_primera,Primera División (El Salvador),Atletico Balboa vs Cacahuatique,Atletico Balboa,Cacahuatique,0.0,2.0,RESULTADO,Doble oportunidad,Atletico Balboa o Cacahuatique,0.7389,0.7053,1.308,,1
+2026-09-29,Fútbol,bra_serie_b,Brasileirão Série B,Botafogo-SP vs Ponte Preta,Botafogo-SP,Ponte Preta,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7856,0.7913,1.2,,1
+2026-09-29,Fútbol,bra_serie_b,Brasileirão Série B,Botafogo-SP vs Ponte Preta,Botafogo-SP,Ponte Preta,2.0,0.0,RESULTADO,1X2,Gana Botafogo-SP,0.7398,0.7323,1.267,,1
+2026-09-29,Fútbol,selecciones,Amistosos internacionales,Mexico vs Peru,Mexico,Peru,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7531,0.7563,1.25,,1
+2026-09-29,Fútbol,selecciones,Amistosos internacionales,Mexico vs Peru,Mexico,Peru,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.7389,0.7025,1.273,,1
+2026-09-29,Fútbol,col_primera_a,Categoría Primera A,Independiente Medellín vs Millonarios,Independiente Medellín,Millonarios,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7372,0.7633,1.3,,0
+2026-09-29,Fútbol,col_primera_a,Categoría Primera A,Independiente Medellín vs Millonarios,Independiente Medellín,Millonarios,2.0,2.0,RESULTADO,Doble oportunidad,Independiente Medellín o empate,0.7202,0.7233,1.308,,1
+2026-09-29,Fútbol,selecciones,Liga de Naciones CONCACAF,Belize vs Saint Vincent and the Grenadines,Belize,Saint Vincent and the Grenadines,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7466,0.751,1.25,,0
+2026-09-29,Fútbol,selecciones,Liga de Naciones CONCACAF,Belize vs Saint Vincent and the Grenadines,Belize,Saint Vincent and the Grenadines,0.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Belize: Más de 0.5,0.7216,0.7216,1.3,,0
+2026-09-30,Fútbol,selecciones,Amistosos internacionales,Seychelles vs Sri Lanka,Seychelles,Sri Lanka,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7698,0.7909,1.231,,1
+2026-09-30,Fútbol,selecciones,Amistosos internacionales,Lithuania vs Andorra,Lithuania,Andorra,3.0,0.0,RESULTADO,Doble oportunidad,Lithuania o empate,0.873,0.873,1.1,,1
+2026-09-30,Fútbol,champions_femenil,Champions League femenina,Paris FC vs Arsenal,Paris FC,Arsenal,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7875,0.8088,1.22,,1
+2026-09-30,Fútbol,champions_femenil,Champions League femenina,BK Häcken vs Juventus,BK Häcken,Juventus,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7785,0.7907,1.22,,1
+2026-09-30,Fútbol,eng_national,National League,Eastleigh vs Southend,Eastleigh,Southend,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7852,0.8012,1.2,,1
+2026-09-30,Fútbol,champions_femenil,Champions League femenina,Benfica vs Bayern München,Benfica,Bayern München,0.0,3.0,RESULTADO,1X2,Gana Bayern München,0.7592,0.754,1.27,,1
+2026-09-30,Fútbol,champions_femenil,Champions League femenina,OL Lyonnes vs Chelsea,OL Lyonnes,Chelsea,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7497,0.7591,1.28,,1
+2026-09-30,Fútbol,usl_championship,USL Championship,Miami FC vs Sporting JAX,Miami FC,Sporting JAX,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7537,0.7652,1.25,,0
+2026-09-30,Fútbol,usl_championship,USL Championship,Brooklyn FC vs Detroit City FC,Brooklyn FC,Detroit City FC,1.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7431,0.7586,1.273,,0
+2026-09-30,Fútbol,usl_championship,USL Championship,Brooklyn FC vs Detroit City FC,Brooklyn FC,Detroit City FC,1.0,3.0,RESULTADO,Doble oportunidad,Detroit City FC o empate,0.7062,0.6243,1.32,,1
+2026-09-30,Fútbol,selecciones,Amistosos internacionales,Argentina vs Bolivia,Argentina,Bolivia,4.0,0.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.7451,0.805,1.25,,0
+2026-09-30,Fútbol,selecciones,Amistosos internacionales,Argentina vs Bolivia,Argentina,Bolivia,4.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 4.5,0.7345,0.7345,1.273,,1
+2026-09-30,Fútbol,usl_championship,USL Championship,FC Tulsa vs New Mexico United,FC Tulsa,New Mexico United,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7486,0.7429,1.222,,0
+2026-09-30,Fútbol,usl_championship,USL Championship,FC Tulsa vs New Mexico United,FC Tulsa,New Mexico United,1.0,0.0,RESULTADO,Doble oportunidad,FC Tulsa o empate,0.7111,0.6253,1.3,,1
+2026-09-30,Fútbol,col_primera_a,Categoría Primera A,Atlético Nacional vs Atlético Junior,Atlético Nacional,Atlético Junior,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7704,0.7715,1.2,,1
+2026-09-30,Fútbol,usl_championship,USL Championship,Sacramento Republic FC vs Las Vegas Lights FC,Sacramento Republic FC,Las Vegas Lights FC,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7464,0.7652,1.273,,0
+2026-10-01,Fútbol,selecciones,Amistosos internacionales,Panama vs New Zealand,Panama,New Zealand,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7304,0.7496,1.3,,1
+2026-10-01,Fútbol,selecciones,Amistosos internacionales,Japan vs Ecuador,Japan,Ecuador,0.0,0.0,RESULTADO,Doble oportunidad,Japan o empate,0.801,0.801,1.111,,1
+2026-10-01,Fútbol,selecciones,Amistosos internacionales,Japan vs Ecuador,Japan,Ecuador,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7516,0.761,1.25,,0
+2026-10-01,Fútbol,selecciones,Amistosos internacionales,Uzbekistan vs Syria,Uzbekistan,Syria,4.0,1.0,RESULTADO,Doble oportunidad,Uzbekistan o empate,0.918,0.918,1.1,,1
+2026-10-01,Fútbol,selecciones,Amistosos internacionales,Uzbekistan vs Syria,Uzbekistan,Syria,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7468,0.7449,1.231,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Azerbaijan vs Liechtenstein,Azerbaijan,Liechtenstein,0.0,0.0,RESULTADO,1X2,Gana Azerbaijan,0.813,0.813,1.133,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Azerbaijan vs Liechtenstein,Azerbaijan,Liechtenstein,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7849,0.8052,1.231,,0
+2026-10-01,Fútbol,champions_femenil,Champions League femenina,Austria Wien vs Inter,Austria Wien,Inter,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7517,0.7657,1.28,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Germany vs Serbia,Germany,Serbia,2.0,0.0,RESULTADO,1X2,Gana Germany,0.752,0.752,1.2,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Germany vs Serbia,Germany,Serbia,2.0,0.0,CÓRNERS,Córners,Córners: Menos de 12,0.7451,0.7939,1.273,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Malta vs Gibraltar,Malta,Gibraltar,1.0,1.0,RESULTADO,1X2,Gana Malta,0.7541,0.7651,1.25,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Malta vs Gibraltar,Malta,Gibraltar,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 11,0.7451,0.7581,1.3,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Greece vs Netherlands,Greece,Netherlands,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7825,0.7819,1.2,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Greece vs Netherlands,Greece,Netherlands,2.0,2.0,CÓRNERS,Córners,Córners: Menos de 10.5,0.7451,0.7641,1.333,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Wales vs Norway,Wales,Norway,2.0,1.0,RESULTADO,Doble oportunidad,Norway o empate,0.725,0.725,1.1,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Wales vs Norway,Wales,Norway,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7943,0.8139,1.222,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Republic of Ireland vs Austria,Republic of Ireland,Austria,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7847,0.7863,1.2,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Republic of Ireland vs Austria,Republic of Ireland,Austria,2.0,2.0,CÓRNERS,Córners,Córners: Menos de 11,0.7569,0.8569,1.231,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Denmark vs Portugal,Denmark,Portugal,2.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7867,0.7902,1.2,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Denmark vs Portugal,Denmark,Portugal,2.0,4.0,CÓRNERS,Córners,Córners: Menos de 12,0.7451,0.8115,1.308,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Israel vs Kosovo,Israel,Kosovo,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7587,0.7528,1.231,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones UEFA,Israel vs Kosovo,Israel,Kosovo,0.0,0.0,CÓRNERS,Córners,Córners: Menos de 11,0.7451,0.7987,1.267,,1
+2026-10-01,Fútbol,champions_femenil,Champions League femenina,Manchester City vs Real Madrid,Manchester City,Real Madrid,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7604,0.776,1.25,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones CONCACAF,Dominica vs Guyana,Dominica,Guyana,1.0,5.0,RESULTADO,1X2,Gana Guyana,0.7471,0.7458,1.222,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones CONCACAF,Curaçao vs Trinidad and Tobago,Curaçao,Trinidad and Tobago,1.0,0.0,RESULTADO,1X2,Gana Curaçao,0.7016,0.6616,1.333,,1
+2026-10-01,Fútbol,bra_serie_b,Brasileirão Série B,Athletic vs Sport,Athletic,Sport,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7734,0.7915,1.231,,1
+2026-10-01,Fútbol,bra_serie_b,Brasileirão Série B,Athletic vs Sport,Athletic,Sport,1.0,2.0,RESULTADO,Doble oportunidad,Athletic o Sport,0.7389,0.7077,1.32,,1
+2026-10-01,Fútbol,bra_serie_b,Brasileirão Série B,Novorizontino vs Goiás,Novorizontino,Goiás,3.0,0.0,RESULTADO,Doble oportunidad,Novorizontino o empate,0.8339,0.8339,1.133,,1
+2026-10-01,Fútbol,bra_serie_b,Brasileirão Série B,Novorizontino vs Goiás,Novorizontino,Goiás,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7786,0.7912,1.222,,1
+2026-10-01,Fútbol,bra_serie_b,Brasileirão Série B,Novorizontino vs Goiás,Novorizontino,Goiás,3.0,0.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7389,0.7082,1.286,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones CONCACAF,Cayman Islands vs Puerto Rico,Cayman Islands,Puerto Rico,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7357,0.7603,1.3,,1
+2026-10-01,Fútbol,slv_primera,Primera División (El Salvador),Inca Aruba vs CD Municipal Limeño,Inca Aruba,CD Municipal Limeño,2.0,1.0,RESULTADO,Doble oportunidad,Inca Aruba o CD Municipal Limeño,0.7357,0.6907,1.3,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones CONCACAF,Dominican Republic vs Haiti,Dominican Republic,Haiti,1.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7826,0.811,1.222,,0
+2026-10-01,Fútbol,mls,MLS,Seattle Sounders vs Sporting Kansas City,Seattle Sounders,Sporting Kansas City,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7451,0.7755,1.25,,0
+2026-10-01,Fútbol,selecciones,Liga de Naciones CONCACAF,Nicaragua vs Costa Rica,Nicaragua,Costa Rica,0.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7863,0.8033,1.2,,1
+2026-10-01,Fútbol,selecciones,Liga de Naciones CONCACAF,Nicaragua vs Costa Rica,Nicaragua,Costa Rica,0.0,3.0,RESULTADO,1X2,Gana Costa Rica,0.7445,0.7268,1.222,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Kazakhstan vs Moldova,Kazakhstan,Moldova,1.0,2.0,RESULTADO,Doble oportunidad,Kazakhstan o empate,0.884,0.884,1.2,,0
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Cyprus vs Armenia,Cyprus,Armenia,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.752,0.7728,1.286,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Cyprus vs Armenia,Cyprus,Armenia,2.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7411,0.7411,1.2,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Latvia vs Montenegro,Latvia,Montenegro,1.0,2.0,RESULTADO,Doble oportunidad,Montenegro o empate,0.703,0.703,1.2,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Latvia vs Montenegro,Latvia,Montenegro,1.0,2.0,CÓRNERS,Córners,Córners: Menos de 12,0.7456,0.8284,1.2,,1
+2026-10-02,Fútbol,fem_alemania,"Frauen-Bundesliga (Alemania, femenil)",Bayer Leverkusen vs Werder Bremen,Bayer Leverkusen,Werder Bremen,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7786,0.7923,1.23,,0
+2026-10-02,Fútbol,esp_hypermotion,LaLiga Hypermotion,Eldense vs Oviedo,Eldense,Oviedo,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.773,0.7907,1.231,,0
+2026-10-02,Fútbol,esp_hypermotion,LaLiga Hypermotion,Eldense vs Oviedo,Eldense,Oviedo,4.0,1.0,RESULTADO,Doble oportunidad,Eldense o Oviedo,0.7389,0.7182,1.333,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Ukraine vs Northern Ireland,Ukraine,Northern Ireland,0.0,3.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.702,0.702,1.333,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Faroe Islands vs Slovakia,Faroe Islands,Slovakia,1.0,1.0,RESULTADO,Doble oportunidad,Slovakia o empate,0.819,0.819,1.125,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Faroe Islands vs Slovakia,Faroe Islands,Slovakia,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7837,0.7927,1.222,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Hungary vs Georgia,Hungary,Georgia,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7675,0.7704,1.231,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Hungary vs Georgia,Hungary,Georgia,1.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 6.5,0.764,0.764,1.222,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Poland vs Romania,Poland,Romania,6.0,0.0,RESULTADO,Doble oportunidad,Poland o empate,0.847,0.847,1.167,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Poland vs Romania,Poland,Romania,6.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7969,0.8106,1.2,,0
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,France vs Italy,France,Italy,1.0,1.0,RESULTADO,Doble oportunidad,France o empate,0.851,0.851,1.125,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,France vs Italy,France,Italy,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7712,0.79,1.25,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Belgium vs Turkey,Belgium,Turkey,3.0,0.0,RESULTADO,Doble oportunidad,Belgium o empate,0.787,0.787,1.167,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones UEFA,Belgium vs Turkey,Belgium,Turkey,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7546,0.778,1.286,,1
+2026-10-02,Fútbol,ned_eerste,Eerste Divisie,Helmond Sport vs Heracles Almelo,Helmond Sport,Heracles Almelo,2.0,2.0,RESULTADO,Doble oportunidad,Heracles Almelo o empate,0.849,0.849,1.111,,1
+2026-10-02,Fútbol,ned_eerste,Eerste Divisie,Helmond Sport vs Heracles Almelo,Helmond Sport,Heracles Almelo,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7516,0.7609,1.25,,1
+2026-10-02,Fútbol,argentina,Primera División (Argentina),Independiente vs Instituto,Independiente,Instituto,1.0,4.0,RESULTADO,Doble oportunidad,Independiente o empate,0.7263,0.7464,1.308,,0
+2026-10-02,Fútbol,bra_serie_b,Brasileirão Série B,São Bernardo vs CRB,São Bernardo,CRB,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7276,0.753,1.333,,0
+2026-10-02,Fútbol,brasil,Brasileirão Serie A,Sao Paulo vs Santos,Sao Paulo,Santos,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7564,0.7785,1.267,,1
+2026-10-02,Fútbol,brasil,Brasileirão Serie A,Sao Paulo vs Santos,Sao Paulo,Santos,1.0,2.0,CÓRNERS,Córners,Córners: Más de 8,0.7451,0.7956,1.286,,1
+2026-10-02,Fútbol,brasil,Brasileirão Serie A,Sao Paulo vs Santos,Sao Paulo,Santos,1.0,2.0,RESULTADO,Doble oportunidad,Sao Paulo o Santos,0.7389,0.7228,1.3,,1
+2026-10-02,Fútbol,chi_primera,Campeonato Nacional,Universidad de Concepción vs Huachipato,Universidad de Concepción,Huachipato,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7621,0.7741,1.25,,1
+2026-10-02,Fútbol,bra_serie_b,Brasileirão Série B,Londrina vs Criciúma,Londrina,Criciúma,0.0,2.0,RESULTADO,Doble oportunidad,Londrina o Criciúma,0.7318,0.6816,1.308,,1
+2026-10-02,Fútbol,bra_serie_b,Brasileirão Série B,Juventude vs Operário PR,Juventude,Operário PR,3.0,0.0,RESULTADO,Doble oportunidad,Juventude o empate,0.8283,0.8283,1.167,,1
+2026-10-02,Fútbol,bra_serie_b,Brasileirão Série B,Juventude vs Operário PR,Juventude,Operário PR,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7855,0.7911,1.2,,1
+2026-10-02,Fútbol,selecciones,Amistosos internacionales,Colombia vs Paraguay,Colombia,Paraguay,0.0,1.0,RESULTADO,Doble oportunidad,Colombia o empate,0.86,0.86,1.154,,0
+2026-10-02,Fútbol,selecciones,Liga de Naciones CONCACAF,Martinique vs Honduras,Martinique,Honduras,2.0,1.0,RESULTADO,Doble oportunidad,Honduras o empate,0.74,0.74,1.154,,0
+2026-10-02,Fútbol,selecciones,Liga de Naciones CONCACAF,Martinique vs Honduras,Martinique,Honduras,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7244,0.7376,1.3,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones CONCACAF,Barbados vs Bermuda,Barbados,Bermuda,4.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Bermuda: Más de 0.5,0.7663,0.7663,1.273,,1
+2026-10-02,Fútbol,argentina,Primera División (Argentina),Boca Juniors vs Union de Santa Fe,Boca Juniors,Union de Santa Fe,3.0,0.0,RESULTADO,Doble oportunidad,Boca Juniors o empate,0.7419,0.7419,1.143,,1
+2026-10-02,Fútbol,argentina,Primera División (Argentina),Boca Juniors vs Union de Santa Fe,Boca Juniors,Union de Santa Fe,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7577,0.7697,1.25,,1
+2026-10-02,Fútbol,argentina,Primera División (Argentina),Boca Juniors vs Union de Santa Fe,Boca Juniors,Union de Santa Fe,3.0,0.0,CÓRNERS,Córners,Córners: Menos de 11.5,0.7454,0.8235,1.2,,1
+2026-10-02,Fútbol,bra_serie_b,Brasileirão Série B,Fortaleza vs Náutico,Fortaleza,Náutico,1.0,1.0,RESULTADO,Doble oportunidad,Fortaleza o empate,0.8425,0.8425,1.182,,1
+2026-10-02,Fútbol,bra_serie_b,Brasileirão Série B,Fortaleza vs Náutico,Fortaleza,Náutico,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7655,0.7977,1.273,,1
+2026-10-02,Fútbol,bra_serie_b,Brasileirão Série B,Fortaleza vs Náutico,Fortaleza,Náutico,1.0,1.0,CÓRNERS,Córners,Córners: Menos de 12.5,0.7451,0.7956,1.25,,1
+2026-10-02,Fútbol,mex_expansion,Liga de Expansión MX,Correcaminos UAT vs Cruz Azul Hidalgo,Correcaminos UAT,Cruz Azul Hidalgo,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7844,0.7995,1.2,,1
+2026-10-02,Fútbol,selecciones,Liga de Naciones CONCACAF,El Salvador vs Jamaica,El Salvador,Jamaica,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7516,0.761,1.25,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Chesterfield vs Tranmere,Chesterfield,Tranmere,4.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7902,0.8026,1.2,,1
+2026-10-03,Fútbol,esp_hypermotion,LaLiga Hypermotion,Albacete vs Eibar,Albacete,Eibar,1.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7459,0.7586,1.273,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,Finland vs Albania,Finland,Albania,2.0,1.0,RESULTADO,Doble oportunidad,Finland o empate,0.7267,0.71,1.308,,1
+2026-10-03,Fútbol,uru_primera,Primera División (Uruguay),Liverpool vs Progreso,Liverpool,Progreso,3.0,2.0,RESULTADO,Doble oportunidad,Liverpool o empate,0.8685,0.8685,1.177,,1
+2026-10-03,Fútbol,uru_primera,Primera División (Uruguay),Liverpool vs Progreso,Liverpool,Progreso,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7366,0.7537,1.3,,0
+2026-10-03,Fútbol,bra_serie_b,Brasileirão Série B,Avaí vs Ceará,Avaí,Ceará,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7974,0.817,1.2,,1
+2026-10-03,Fútbol,bra_serie_b,Brasileirão Série B,Avaí vs Ceará,Avaí,Ceará,0.0,1.0,RESULTADO,Doble oportunidad,Avaí o Ceará,0.7389,0.7037,1.333,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Grimsby vs Shrewsbury,Grimsby,Shrewsbury,1.0,2.0,RESULTADO,Doble oportunidad,Grimsby o empate,0.7235,0.7235,1.177,,0
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Grimsby vs Shrewsbury,Grimsby,Shrewsbury,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7546,0.7695,1.267,,1
+2026-10-03,Fútbol,eng_league_one,EFL League One,Reading vs Bradford,Reading,Bradford,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7266,0.7401,1.308,,1
+2026-10-03,Fútbol,eng_league_one,EFL League One,Reading vs Bradford,Reading,Bradford,1.0,1.0,RESULTADO,Doble oportunidad,Reading o empate,0.7028,0.6562,1.333,,1
+2026-10-03,Fútbol,eng_league_one,EFL League One,Leyton Orient vs Plymouth,Leyton Orient,Plymouth,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.792,0.8062,1.2,,1
+2026-10-03,Fútbol,sco_championship,Scottish Championship,Livingston vs Ayr,Livingston,Ayr,1.0,2.0,RESULTADO,Doble oportunidad,Livingston o empate,0.7042,0.7042,1.154,,0
+2026-10-03,Fútbol,sco_championship,Scottish Championship,Livingston vs Ayr,Livingston,Ayr,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7642,0.7741,1.222,,1
+2026-10-03,Fútbol,eng_national,National League,Eastleigh vs Woking,Eastleigh,Woking,1.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7782,0.7872,1.2,,1
+2026-10-03,Fútbol,eng_national,National League,Harrogate vs Hornchurch,Harrogate,Hornchurch,3.0,0.0,RESULTADO,Doble oportunidad,Harrogate o empate,0.7207,0.7207,1.177,,1
+2026-10-03,Fútbol,eng_national,National League,Harrogate vs Hornchurch,Harrogate,Hornchurch,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.782,0.7948,1.2,,1
+2026-10-03,Fútbol,eng_national,National League,Hartlepool vs Tamworth,Hartlepool,Tamworth,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7854,0.8015,1.2,,1
+2026-10-03,Fútbol,eng_national,National League,Gateshead vs Worthing,Gateshead,Worthing,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7823,0.8079,1.222,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Rochdale vs Swindon,Rochdale,Swindon,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7702,0.785,1.231,,0
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Rochdale vs Swindon,Rochdale,Swindon,1.0,0.0,RESULTADO,Doble oportunidad,Rochdale o empate,0.7139,0.702,1.333,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Gillingham vs Newport County,Gillingham,Newport County,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7401,0.7547,1.286,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Salford vs Fleetwood Town,Salford,Fleetwood Town,1.0,0.0,RESULTADO,Doble oportunidad,Salford o empate,0.7175,0.7175,1.177,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Salford vs Fleetwood Town,Salford,Fleetwood Town,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7651,0.7643,1.222,,0
+2026-10-03,Fútbol,eng_national,National League,Yeovil vs Boston Utd,Yeovil,Boston Utd,6.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7873,0.8054,1.2,,1
+2026-10-03,Fútbol,eng_national,National League,Yeovil vs Boston Utd,Yeovil,Boston Utd,6.0,0.0,RESULTADO,Doble oportunidad,Yeovil o empate,0.7221,0.7255,1.3,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Exeter vs Rotherham,Exeter,Rotherham,1.0,0.0,RESULTADO,Doble oportunidad,Exeter o Rotherham,0.7389,0.7208,1.3,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Exeter vs Rotherham,Exeter,Rotherham,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7337,0.7594,1.32,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Crewe vs Bristol Rvs,Crewe,Bristol Rvs,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.746,0.7523,1.267,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Crewe vs Bristol Rvs,Crewe,Bristol Rvs,3.0,1.0,RESULTADO,Doble oportunidad,Crewe o Bristol Rvs,0.7389,0.7295,1.3,,1
+2026-10-03,Fútbol,eng_league_two,EFL League Two,Accrington vs Cheltenham,Accrington,Cheltenham,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7784,0.8014,1.231,,1
+2026-10-03,Fútbol,eng_national,National League,Boreham Wood vs Altrincham,Boreham Wood,Altrincham,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7308,0.7603,1.32,,1
+2026-10-03,Fútbol,eng_national,National League,Southend vs Fylde,Southend,Fylde,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7447,0.7619,1.273,,1
+2026-10-03,Fútbol,sco_championship,Scottish Championship,Morton vs Raith Rvs,Morton,Raith Rvs,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7404,0.7593,1.286,,1
+2026-10-03,Fútbol,eng_national,National League,Aldershot vs Carlisle,Aldershot,Carlisle,1.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7798,0.8029,1.222,,1
+2026-10-03,Fútbol,eng_national,National League,Aldershot vs Carlisle,Aldershot,Carlisle,1.0,3.0,RESULTADO,Doble oportunidad,Carlisle o empate,0.7055,0.623,1.32,,1
+2026-10-03,Fútbol,eng_league_one,EFL League One,Burton vs Huddersfield,Burton,Huddersfield,1.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7597,0.7797,1.267,,1
+2026-10-03,Fútbol,eng_national,National League,Barrow vs Wealdstone,Barrow,Wealdstone,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7872,0.8052,1.2,,1
+2026-10-03,Fútbol,eng_national,National League,Kidderminster vs Sutton,Kidderminster,Sutton,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7539,0.7655,1.25,,1
+2026-10-03,Fútbol,esp_hypermotion,LaLiga Hypermotion,Almeria vs Burgos,Almeria,Burgos,2.0,1.0,RESULTADO,Doble oportunidad,Almeria o empate,0.7063,0.7063,1.154,,1
+2026-10-03,Fútbol,esp_hypermotion,LaLiga Hypermotion,Almeria vs Burgos,Almeria,Burgos,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7272,0.7465,1.32,,1
+2026-10-03,Fútbol,ned_eerste,Eerste Divisie,Vitesse vs NAC Breda,Vitesse,NAC Breda,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7417,0.7558,1.273,,1
+2026-10-03,Fútbol,fem_alemania,"Frauen-Bundesliga (Alemania, femenil)",Eintracht Frankfurt vs Bayern München,Eintracht Frankfurt,Bayern München,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7032,0.7016,1.34,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,Belarus vs San Marino,Belarus,San Marino,4.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7563,0.7602,1.25,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,Iceland vs Bulgaria,Iceland,Bulgaria,3.0,0.0,RESULTADO,Doble oportunidad,Iceland o empate,0.723,0.723,1.125,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,Iceland vs Bulgaria,Iceland,Bulgaria,3.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 6.5,0.7883,0.7883,1.286,,1
+2026-10-03,Fútbol,fem_francia,"Première Ligue (Francia, femenil)",Le Havre vs Saint Malo,Le Havre,Saint Malo,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.746,0.7598,1.28,,1
+2026-10-03,Fútbol,fem_francia,"Première Ligue (Francia, femenil)",Le Havre vs Saint Malo,Le Havre,Saint Malo,2.0,0.0,RESULTADO,Doble oportunidad,Le Havre o empate,0.7066,0.657,1.32,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,Croatia vs England,Croatia,England,0.0,7.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7958,0.8084,1.2,,1
+2026-10-03,Fútbol,fem_francia,"Première Ligue (Francia, femenil)",Nantes vs Montpellier,Nantes,Montpellier,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7503,0.7669,1.27,,1
+2026-10-03,Fútbol,fem_francia,"Première Ligue (Francia, femenil)",Nantes vs Montpellier,Nantes,Montpellier,1.0,1.0,RESULTADO,Doble oportunidad,Nantes o empate,0.7204,0.686,1.3,,1
+2026-10-03,Fútbol,esp_hypermotion,LaLiga Hypermotion,Cadiz vs Leganes,Cadiz,Leganes,4.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7933,0.8088,1.2,,0
+2026-10-03,Fútbol,esp_hypermotion,LaLiga Hypermotion,Cadiz vs Leganes,Cadiz,Leganes,4.0,0.0,RESULTADO,Doble oportunidad,Cadiz o Leganes,0.7343,0.6875,1.333,,1
+2026-10-03,Fútbol,fem_francia,"Première Ligue (Francia, femenil)",Strasbourg vs Marseille,Strasbourg,Marseille,3.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7445,0.7607,1.28,,1
+2026-10-03,Fútbol,selecciones,Amistosos internacionales,Canada vs Peru,Canada,Peru,2.0,0.0,RESULTADO,Doble oportunidad,Canada o empate,0.902,0.902,1.111,,1
+2026-10-03,Fútbol,selecciones,Amistosos internacionales,Canada vs Peru,Canada,Peru,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7341,0.7467,1.286,,1
+2026-10-03,Fútbol,ned_eerste,Eerste Divisie,RKC Waalwijk vs FC Emmen,RKC Waalwijk,FC Emmen,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7321,0.7426,1.286,,1
+2026-10-03,Fútbol,arg_primera_nacional,Primera Nacional,Deportivo Morón vs All Boys,Deportivo Morón,All Boys,2.0,1.0,RESULTADO,Doble oportunidad,Deportivo Morón o empate,0.8207,0.8207,1.177,,1
+2026-10-03,Fútbol,arg_primera_nacional,Primera Nacional,Deportivo Morón vs All Boys,Deportivo Morón,All Boys,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.7208,0.7304,1.3,,0
+2026-10-03,Fútbol,ned_eerste,Eerste Divisie,FC Den Bosch vs FC Dordrecht,FC Den Bosch,FC Dordrecht,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7018,0.7112,1.333,,1
+2026-10-03,Fútbol,arg_primera_nacional,Primera Nacional,Tristán Suárez vs Quilmes,Tristán Suárez,Quilmes,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 2.5,0.7081,0.7239,1.333,,1
+2026-10-03,Fútbol,ned_eerste,Eerste Divisie,Almere City vs FC Volendam,Almere City,FC Volendam,1.0,0.0,AMBOS MARCAN,BTTS,Ambos marcan: Sí,0.7046,0.6317,1.333,,0
+2026-10-03,Fútbol,ned_eerste,Eerste Divisie,Almere City vs FC Volendam,Almere City,FC Volendam,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7005,0.7086,1.333,,0
+2026-10-03,Fútbol,ned_eerste,Eerste Divisie,FC Eindhoven vs De Graafschap,FC Eindhoven,De Graafschap,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7044,0.7164,1.333,,1
+2026-10-03,Fútbol,uru_primera,Primera División (Uruguay),Albion FC vs Defensor Sporting,Albion FC,Defensor Sporting,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.76,0.7742,1.25,,0
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,Spain vs Czech Republic,Spain,Czech Republic,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7718,0.779,1.231,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,Switzerland vs Slovenia,Switzerland,Slovenia,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.733,0.7426,1.3,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,North Macedonia vs Scotland,North Macedonia,Scotland,0.0,2.0,RESULTADO,Doble oportunidad,Scotland o empate,0.863,0.863,1.125,,1
+2026-10-03,Fútbol,selecciones,Liga de Naciones UEFA,North Macedonia vs Scotland,North Macedonia,Scotland,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7825,0.7819,1.2,,1
+2026-10-03,Fútbol,fem_francia,"Première Ligue (Francia, femenil)",Paris FC vs Lens,Paris FC,Lens,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7328,0.7495,1.3,,0
+2026-10-03,Fútbol,bra_serie_b,Brasileirão Série B,Atlético Goianiense vs América Mineiro,Atlético Goianiense,América Mineiro,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7528,0.766,1.267,,1
+2026-10-03,Fútbol,selecciones,Amistosos internacionales,Ivory Coast vs Cameroon,Ivory Coast,Cameroon,0.0,1.0,RESULTADO,Doble oportunidad,Ivory Coast o empate,0.875,0.875,1.154,,0
+2026-10-03,Fútbol,bra_serie_b,Brasileirão Série B,Cuiabá vs Ponte Preta,Cuiabá,Ponte Preta,2.0,0.0,RESULTADO,1X2,Gana Cuiabá,0.7057,0.7057,1.143,,1
+2026-10-03,Fútbol,bra_serie_b,Brasileirão Série B,Cuiabá vs Ponte Preta,Cuiabá,Ponte Preta,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7721,0.8045,1.267,,1
+2026-10-03,Fútbol,par_division,División Profesional (Paraguay),Guaraní vs Sportivo San Lorenzo,Guaraní,Sportivo San Lorenzo,1.0,1.0,RESULTADO,Doble oportunidad,Guaraní o empate,0.8539,0.8539,1.111,,1
+2026-10-03,Fútbol,par_division,División Profesional (Paraguay),Guaraní vs Sportivo San Lorenzo,Guaraní,Sportivo San Lorenzo,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7504,0.7792,1.286,,1
+2026-10-03,Fútbol,argentina,Primera División (Argentina),Atl. Tucuman vs Barracas Central,Atl. Tucuman,Barracas Central,2.0,3.0,RESULTADO,Doble oportunidad,Atl. Tucuman o Barracas Central,0.7389,0.7046,1.333,,1
+2026-10-03,Fútbol,slv_primera,Primera División (El Salvador),Águila vs Cacahuatique,Águila,Cacahuatique,4.0,1.0,RESULTADO,Doble oportunidad,Águila o empate,0.8103,0.8103,1.154,,1
+2026-10-03,Fútbol,uru_primera,Primera División (Uruguay),Deportivo Maldonado vs Central Español Fútbol Club,Deportivo Maldonado,Central Español Fútbol Club,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7582,0.7831,1.273,,1
+2026-10-03,Fútbol,col_primera_a,Categoría Primera A,Deportes Tolima vs Boyacá Chicó FC,Deportes Tolima,Boyacá Chicó FC,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7381,0.7486,1.273,,0
+2026-10-03,Fútbol,col_primera_a,Categoría Primera A,Deportes Tolima vs Boyacá Chicó FC,Deportes Tolima,Boyacá Chicó FC,0.0,0.0,RESULTADO,1X2,Gana Deportes Tolima,0.7167,0.7125,1.32,,0
+2026-10-03,Fútbol,bra_serie_b,Brasileirão Série B,Botafogo-SP vs Vila Nova,Botafogo-SP,Vila Nova,0.0,1.0,RESULTADO,Doble oportunidad,Botafogo-SP o empate,0.72,0.7008,1.308,,0
+2026-10-03,Fútbol,par_division,División Profesional (Paraguay),Deportivo Recoleta vs Libertad,Deportivo Recoleta,Libertad,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7873,0.8053,1.2,,1
+2026-10-03,Fútbol,usl_championship,USL Championship,Detroit City FC vs Birmingham Legion FC,Detroit City FC,Birmingham Legion FC,1.0,0.0,RESULTADO,Doble oportunidad,Detroit City FC o empate,0.8544,0.8544,1.167,,1
+2026-10-03,Fútbol,usl_championship,USL Championship,Detroit City FC vs Birmingham Legion FC,Detroit City FC,Birmingham Legion FC,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7608,0.7674,1.222,,0
+2026-10-03,Fútbol,usl_championship,USL Championship,Lexington vs El Paso Locomotive FC,Lexington,El Paso Locomotive FC,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7689,0.7686,1.2,,1
+2026-10-03,Fútbol,slv_primera,Primera División (El Salvador),Isidro Metapán vs Atletico Balboa,Isidro Metapán,Atletico Balboa,3.0,2.0,RESULTADO,Doble oportunidad,Isidro Metapán o empate,0.7682,0.7682,1.133,,1
+2026-10-03,Fútbol,usl_championship,USL Championship,Brooklyn FC vs Rhode Island FC,Brooklyn FC,Rhode Island FC,1.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7774,0.7855,1.2,,1
+2026-10-03,Fútbol,usl_championship,USL Championship,Tampa Bay Rowdies vs Miami FC,Tampa Bay Rowdies,Miami FC,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.788,0.8068,1.2,,1
+2026-10-03,Fútbol,usl_championship,USL Championship,Tampa Bay Rowdies vs Miami FC,Tampa Bay Rowdies,Miami FC,1.0,2.0,RESULTADO,1X2,Gana Tampa Bay Rowdies,0.7167,0.702,1.32,,0
+2026-10-03,Fútbol,selecciones,Amistosos internacionales,Argentina vs Burkina Faso,Argentina,Burkina Faso,7.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7522,0.7502,1.222,,1
+2026-10-03,Fútbol,selecciones,Amistosos internacionales,Argentina vs Burkina Faso,Argentina,Burkina Faso,7.0,0.0,AMBOS MARCAN,BTTS,Ambos marcan: No,0.7432,0.7824,1.222,,1
+2026-10-03,Fútbol,mex_expansion,Liga de Expansión MX,Cancún FC vs Tapatío,Cancún FC,Tapatío,1.0,0.0,RESULTADO,Doble oportunidad,Cancún FC o empate,0.8648,0.8648,1.177,,1
+2026-10-03,Fútbol,mex_expansion,Liga de Expansión MX,Piratas vs Alebrijes de Oaxaca,Piratas,Alebrijes de Oaxaca,4.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7642,0.7742,1.222,,1
+2026-10-03,Fútbol,mex_expansion,Liga de Expansión MX,Piratas vs Alebrijes de Oaxaca,Piratas,Alebrijes de Oaxaca,4.0,0.0,RESULTADO,1X2,Gana Piratas,0.7295,0.7165,1.273,,1
+2026-10-03,Fútbol,usl_championship,USL Championship,Colorado Springs Switchbacks FC vs Oakland Roots,Colorado Springs Switchbacks FC,Oakland Roots,0.0,0.0,RESULTADO,Doble oportunidad,Colorado Springs Switchbacks FC o empate,0.7796,0.7796,1.167,,1
+2026-10-03,Fútbol,mex_expansion,Liga de Expansión MX,Club Atlético Morelia vs Tlaxcala FC,Club Atlético Morelia,Tlaxcala FC,1.0,1.0,RESULTADO,Doble oportunidad,Club Atlético Morelia o empate,0.79,0.79,1.133,,1
+2026-10-03,Fútbol,mex_expansion,Liga de Expansión MX,Club Atlético Morelia vs Tlaxcala FC,Club Atlético Morelia,Tlaxcala FC,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7884,0.8076,1.2,,1
+2026-10-03,Fútbol,mex_expansion,Liga de Expansión MX,Durango vs Mineros de Zacatecas,Durango,Mineros de Zacatecas,4.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7379,0.7482,1.273,,1
+2026-10-03,Fútbol,usl_championship,USL Championship,Orange County SC vs Monterey Bay,Orange County SC,Monterey Bay,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7927,0.8162,1.2,,1
+2026-10-03,Fútbol,selecciones,Amistosos internacionales,United States vs Mexico,United States,Mexico,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7506,0.7615,1.267,,1
+2026-10-03,Fútbol,selecciones,Amistosos internacionales,United States vs Mexico,United States,Mexico,3.0,0.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7452,0.8184,1.25,,0
+2026-10-03,Fútbol,usl_championship,USL Championship,Las Vegas Lights FC vs San Antonio FC,Las Vegas Lights FC,San Antonio FC,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7469,0.7516,1.25,,0
+2026-10-04,Fútbol,fem_italia,"Serie A (Italia, femenil)",S.S.D. Napoli Femminile vs Calcio Como 1907,S.S.D. Napoli Femminile,Calcio Como 1907,1.0,2.0,RESULTADO,Doble oportunidad,S.S.D. Napoli Femminile o Calcio Como 1907,0.7427,0.742,1.3,,1
+2026-10-04,Fútbol,fem_italia,"Serie A (Italia, femenil)",S.S.D. Napoli Femminile vs Calcio Como 1907,S.S.D. Napoli Femminile,Calcio Como 1907,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7405,0.7451,1.26,,1
+2026-10-04,Fútbol,fem_alemania,"Frauen-Bundesliga (Alemania, femenil)",VfL Wolfsburg vs Hamburger SV,VfL Wolfsburg,Hamburger SV,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 5.5,0.7861,0.8072,1.21,,1
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Sociedad B vs Granada,Sociedad B,Granada,2.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.732,0.7446,1.3,,1
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Sociedad B vs Granada,Sociedad B,Granada,2.0,3.0,RESULTADO,Doble oportunidad,Sociedad B o Granada,0.7213,0.6696,1.308,,1
+2026-10-04,Fútbol,ned_eerste,Eerste Divisie,VVV-Venlo vs Roda JC Kerkrade,VVV-Venlo,Roda JC Kerkrade,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7909,0.8125,1.2,,1
+2026-10-04,Fútbol,fem_italia,"Serie A (Italia, femenil)",Milan vs Juventus,Milan,Juventus,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7423,0.7392,1.25,,1
+2026-10-04,Fútbol,fem_alemania,"Frauen-Bundesliga (Alemania, femenil)",VfB Stuttgart vs Union Berlin,VfB Stuttgart,Union Berlin,0.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7626,0.7619,1.24,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Malta vs Andorra,Malta,Andorra,1.0,0.0,CÓRNERS,Córners,Córners: Más de 5.5,0.7451,0.8026,1.2,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Kosovo vs Austria,Kosovo,Austria,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7273,0.7311,1.3,,1
+2026-10-04,Fútbol,uru_primera,Primera División (Uruguay),Boston River vs Juventud,Boston River,Juventud,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.751,0.7688,1.273,,1
+2026-10-04,Fútbol,uru_primera,Primera División (Uruguay),Boston River vs Juventud,Boston River,Juventud,0.0,0.0,RESULTADO,Doble oportunidad,Boston River o Juventud,0.7451,0.7591,1.32,,0
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Castellon vs Ceuta,Castellon,Ceuta,1.0,1.0,RESULTADO,1X2,Gana Castellon,0.7545,0.7277,1.2,,0
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Las Palmas vs Valladolid,Las Palmas,Valladolid,2.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7524,0.7715,1.273,,0
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Las Palmas vs Valladolid,Las Palmas,Valladolid,2.0,2.0,RESULTADO,Doble oportunidad,Las Palmas o Valladolid,0.7338,0.6863,1.3,,0
+2026-10-04,Fútbol,fem_espana,"Liga F (España, femenil)",Barcelona vs Real Madrid,Barcelona,Real Madrid,7.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 5.5,0.7754,0.7972,1.23,,0
+2026-10-04,Fútbol,fem_espana,"Liga F (España, femenil)",Valencia vs Real Sociedad,Valencia,Real Sociedad,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7766,0.7998,1.25,,0
+2026-10-04,Fútbol,argentina,Primera División (Argentina),Huracan vs Aldosivi,Huracan,Aldosivi,1.0,0.0,RESULTADO,Doble oportunidad,Huracan o empate,0.7323,0.7323,1.154,,1
+2026-10-04,Fútbol,selecciones,Amistosos internacionales,Egypt vs South Africa,Egypt,South Africa,0.0,1.0,RESULTADO,Doble oportunidad,Egypt o empate,0.811,0.811,1.133,,0
+2026-10-04,Fútbol,selecciones,Amistosos internacionales,Egypt vs South Africa,Egypt,South Africa,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7493,0.7563,1.25,,1
+2026-10-04,Fútbol,mex_expansion,Liga de Expansión MX,Leones Negros vs Dorados de Sinaloa,Leones Negros,Dorados de Sinaloa,6.0,3.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7811,0.8079,1.222,,0
+2026-10-04,Fútbol,arg_primera_nacional,Primera Nacional,Agropecuario vs Midland,Agropecuario,Midland,0.0,0.0,RESULTADO,Doble oportunidad,Agropecuario o Midland,0.7169,0.6619,1.32,,0
+2026-10-04,Fútbol,arg_primera_nacional,Primera Nacional,Chacarita Juniors vs Patronato,Chacarita Juniors,Patronato,1.0,0.0,RESULTADO,Doble oportunidad,Chacarita Juniors o Patronato,0.735,0.689,1.333,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Netherlands vs Serbia,Netherlands,Serbia,2.0,1.0,RESULTADO,1X2,Gana Netherlands,0.827,0.827,1.2,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Netherlands vs Serbia,Netherlands,Serbia,2.0,1.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7169,0.6264,1.267,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Republic of Ireland vs Israel,Republic of Ireland,Israel,1.0,1.0,RESULTADO,Doble oportunidad,Republic of Ireland o Israel,0.7438,0.745,1.3,,0
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Republic of Ireland vs Israel,Republic of Ireland,Israel,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7272,0.731,1.3,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Portugal vs Norway,Portugal,Norway,2.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Norway: Más de 0.5,0.76,0.5872,1.25,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Portugal vs Norway,Portugal,Norway,2.0,1.0,CÓRNERS,Córners,Córners: Más de 7,0.7169,0.6494,1.267,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Wales vs Denmark,Wales,Denmark,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7493,0.7563,1.273,,0
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Wales vs Denmark,Wales,Denmark,0.0,1.0,CÓRNERS,Córners,Córners: Menos de 12,0.7451,0.8109,1.231,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Greece vs Germany,Greece,Germany,0.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Greece: Más de 0.5,0.779,0.6437,1.333,,0
+2026-10-04,Fútbol,selecciones,Liga de Naciones UEFA,Greece vs Germany,Greece,Germany,0.0,0.0,CÓRNERS,Córners,Córners: Más de 7,0.7364,0.6923,1.25,,0
+2026-10-04,Fútbol,selecciones,Liga de Naciones CONCACAF,Guyana vs Dominica,Guyana,Dominica,8.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7399,0.7256,1.222,,1
+2026-10-04,Fútbol,uru_primera,Primera División (Uruguay),Cerro vs Montevideo Wanderers,Cerro,Montevideo Wanderers,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7899,0.802,1.2,,1
+2026-10-04,Fútbol,uru_primera,Primera División (Uruguay),Cerro vs Montevideo Wanderers,Cerro,Montevideo Wanderers,0.0,2.0,RESULTADO,Doble oportunidad,Cerro o Montevideo Wanderers,0.7348,0.6885,1.308,,1
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Sabadell vs Andorra,Sabadell,Andorra,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7517,0.7576,1.25,,1
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Sabadell vs Andorra,Sabadell,Andorra,0.0,0.0,RESULTADO,Doble oportunidad,Sabadell o Andorra,0.7169,0.6495,1.333,,0
+2026-10-04,Fútbol,col_primera_a,Categoría Primera A,Deportivo Pasto vs Fortaleza CEIF,Deportivo Pasto,Fortaleza CEIF,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.784,0.7988,1.2,,1
+2026-10-04,Fútbol,col_primera_a,Categoría Primera A,Deportivo Pasto vs Fortaleza CEIF,Deportivo Pasto,Fortaleza CEIF,0.0,0.0,RESULTADO,Doble oportunidad,Deportivo Pasto o Fortaleza CEIF,0.7371,0.6939,1.32,,0
+2026-10-04,Fútbol,esp_hypermotion,LaLiga Hypermotion,Girona vs Mallorca,Girona,Mallorca,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7432,0.7468,1.267,,0
+2026-10-04,Fútbol,arg_primera_nacional,Primera Nacional,Central Norte vs Racing (Córdoba),Central Norte,Racing (Córdoba),1.0,1.0,RESULTADO,Doble oportunidad,Central Norte o empate,0.7783,0.7783,1.177,,1
+2026-10-04,Fútbol,arg_primera_nacional,Primera Nacional,San Martín (San Juan) vs Almagro,San Martín (San Juan),Almagro,1.0,2.0,RESULTADO,Doble oportunidad,San Martín (San Juan) o empate,0.8119,0.8119,1.125,,0
+2026-10-04,Fútbol,arg_primera_nacional,Primera Nacional,Güemes vs Colegiales,Güemes,Colegiales,0.0,1.0,RESULTADO,Doble oportunidad,Güemes o Colegiales,0.7169,0.6352,1.32,,1
+2026-10-04,Fútbol,arg_primera_nacional,Primera Nacional,Godoy Cruz Antonio Tomba vs Los Andes,Godoy Cruz Antonio Tomba,Los Andes,2.0,1.0,RESULTADO,Doble oportunidad,Godoy Cruz Antonio Tomba o empate,0.8253,0.8253,1.111,,1
+2026-10-04,Fútbol,col_primera_a,Categoría Primera A,Cúcuta Deportivo vs Deportivo Pereira,Cúcuta Deportivo,Deportivo Pereira,4.0,0.0,RESULTADO,Doble oportunidad,Cúcuta Deportivo o empate,0.844,0.844,1.167,,1
+2026-10-04,Fútbol,col_primera_a,Categoría Primera A,Cúcuta Deportivo vs Deportivo Pereira,Cúcuta Deportivo,Deportivo Pereira,4.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7374,0.7637,1.3,,0
+2026-10-04,Fútbol,arg_primera_nacional,Primera Nacional,San Martín (Tucumán) vs Gimnasia y Tiro (Salta),San Martín (Tucumán),Gimnasia y Tiro (Salta),1.0,0.0,RESULTADO,Doble oportunidad,San Martín (Tucumán) o empate,0.7751,0.7751,1.167,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones CONCACAF,Puerto Rico vs Cayman Islands,Puerto Rico,Cayman Islands,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7396,0.7369,1.25,,0
+2026-10-04,Fútbol,usl_championship,USL Championship,New Mexico United vs Phoenix Rising FC,New Mexico United,Phoenix Rising FC,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7944,0.8195,1.2,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones CONCACAF,Trinidad and Tobago vs Curaçao,Trinidad and Tobago,Curaçao,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7712,0.7882,1.222,,1
+2026-10-04,Fútbol,argentina,Primera División (Argentina),Argentinos Jrs vs Tigre,Argentinos Jrs,Tigre,2.0,1.0,RESULTADO,Doble oportunidad,Argentinos Jrs o empate,0.7568,0.7568,1.182,,1
+2026-10-04,Fútbol,uru_primera,Primera División (Uruguay),Racing (Montevideo) vs Peñarol,Racing (Montevideo),Peñarol,0.0,1.0,RESULTADO,Doble oportunidad,Racing (Montevideo) o Peñarol,0.7389,0.721,1.3,,1
+2026-10-04,Fútbol,mex_femenil,Liga MX Femenil,Chivas vs FC Juárez,Chivas,FC Juárez,1.0,0.0,RESULTADO,Doble oportunidad,Chivas o empate,0.7239,0.716,1.33,,1
+2026-10-04,Fútbol,col_primera_a,Categoría Primera A,Atlético Bucaramanga vs Atlético Junior,Atlético Bucaramanga,Atlético Junior,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7426,0.7577,1.273,,0
+2026-10-04,Fútbol,selecciones,Liga de Naciones CONCACAF,Costa Rica vs Haiti,Costa Rica,Haiti,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7753,0.7813,1.2,,1
+2026-10-04,Fútbol,argentina,Primera División (Argentina),Estudiantes Rio Cuarto vs Racing Club,Estudiantes Rio Cuarto,Racing Club,1.0,2.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7436,0.7443,1.25,,1
+2026-10-04,Fútbol,slv_primera,Primera División (El Salvador),CD FAS vs Inca Aruba,CD FAS,Inca Aruba,1.0,1.0,RESULTADO,1X2,Gana CD FAS,0.7194,0.7283,1.286,,0
+2026-10-04,Fútbol,mex_femenil,Liga MX Femenil,Pachuca vs Toluca,Pachuca,Toluca,1.0,2.0,RESULTADO,Doble oportunidad,Pachuca o empate,0.7325,0.736,1.3,,0
+2026-10-04,Fútbol,col_primera_a,Categoría Primera A,Llaneros FC vs América de Cali,Llaneros FC,América de Cali,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7574,0.7726,1.25,,1
+2026-10-04,Fútbol,col_primera_a,Categoría Primera A,Llaneros FC vs América de Cali,Llaneros FC,América de Cali,1.0,2.0,RESULTADO,Doble oportunidad,Llaneros FC o América de Cali,0.7389,0.6984,1.32,,1
+2026-10-04,Fútbol,selecciones,Liga de Naciones CONCACAF,Nicaragua vs Dominican Republic,Nicaragua,Dominican Republic,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7877,0.8061,1.2,,1
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,Ecuador vs Panama,Ecuador,Panama,1.0,1.0,RESULTADO,Doble oportunidad,Ecuador o empate,0.907,0.907,1.167,,1
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,Ecuador vs Panama,Ecuador,Panama,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.767,0.7798,1.222,,1
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,Japan vs New Zealand,Japan,New Zealand,2.0,1.0,RESULTADO,1X2,Gana Japan,0.895,0.895,1.2,,1
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,Japan vs New Zealand,Japan,New Zealand,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7699,0.7856,1.222,,1
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,DR Congo vs Uganda,DR Congo,Uganda,1.0,1.0,RESULTADO,Doble oportunidad,DR Congo o empate,0.895,0.895,1.154,,1
+2026-10-05,Fútbol,par_division,División Profesional (Paraguay),Deportivo Recoleta vs Libertad,Deportivo Recoleta,Libertad,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7873,0.8053,1.2,,1
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,Uganda vs DR Congo,Uganda,DR Congo,1.0,1.0,RESULTADO,Doble oportunidad,DR Congo o empate,0.717,0.717,1.154,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Cyprus vs Latvia,Cyprus,Latvia,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7753,0.786,1.231,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Cyprus vs Latvia,Cyprus,Latvia,2.0,1.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7607,0.7607,1.286,,1
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,Rwanda vs Kenya,Rwanda,Kenya,0.0,0.0,RESULTADO,Doble oportunidad,Rwanda o Kenya,0.737,0.739,1.333,,0
+2026-10-05,Fútbol,esp_hypermotion,LaLiga Hypermotion,Cordoba vs Tenerife,Cordoba,Tenerife,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7493,0.759,1.267,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Romania vs Sweden,Romania,Sweden,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7931,0.803,1.2,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Romania vs Sweden,Romania,Sweden,0.0,1.0,CÓRNERS,Córners,Córners: Más de 6,0.706,0.6087,1.286,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Montenegro vs Armenia,Montenegro,Armenia,0.0,0.0,RESULTADO,Doble oportunidad,Montenegro o empate,0.898,0.898,1.125,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Montenegro vs Armenia,Montenegro,Armenia,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7979,0.8126,1.2,,0
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,France vs Belgium,France,Belgium,4.0,1.0,RESULTADO,Doble oportunidad,France o empate,0.855,0.855,1.143,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,France vs Belgium,France,Belgium,4.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7769,0.7891,1.231,,0
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Italy vs Turkey,Italy,Turkey,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7786,0.7926,1.231,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Northern Ireland vs Georgia,Northern Ireland,Georgia,0.0,0.0,CÓRNERS,Córners,Córners: Más de 6,0.7323,0.7197,1.3,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Northern Ireland vs Georgia,Northern Ireland,Georgia,0.0,0.0,TARJETAS,Tarjetas,Tarjetas: Más de 2.5,0.7085,0.7085,1.2,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Bosnia and Herzegovina vs Poland,Bosnia and Herzegovina,Poland,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7272,0.7323,1.308,,0
+2026-10-05,Fútbol,selecciones,Liga de Naciones UEFA,Bosnia and Herzegovina vs Poland,Bosnia and Herzegovina,Poland,1.0,0.0,RESULTADO,Doble oportunidad,Poland o empate,0.7201,0.729,1.32,,0
+2026-10-05,Fútbol,selecciones,Amistosos internacionales,Liechtenstein vs Gibraltar,Liechtenstein,Gibraltar,0.0,2.0,RESULTADO,Doble oportunidad,Liechtenstein o Gibraltar,0.7323,0.718,1.32,,1
+2026-10-05,Fútbol,argentina,Primera División (Argentina),Dep. Riestra vs Central Cordoba,Dep. Riestra,Central Cordoba,1.0,1.0,RESULTADO,Doble oportunidad,Dep. Riestra o empate,0.7254,0.7254,1.182,,1
+2026-10-05,Fútbol,par_division,División Profesional (Paraguay),Sportivo Trinidense vs Sportivo Luqueño,Sportivo Trinidense,Sportivo Luqueño,3.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7473,0.767,1.273,,0
+2026-10-05,Fútbol,argentina,Primera División (Argentina),Estudiantes L.P. vs Gimnasia Mendoza,Estudiantes L.P.,Gimnasia Mendoza,3.0,0.0,RESULTADO,Doble oportunidad,Estudiantes L.P. o empate,0.7553,0.7553,1.167,,1
+2026-10-05,Fútbol,argentina,Primera División (Argentina),Estudiantes L.P. vs Gimnasia Mendoza,Estudiantes L.P.,Gimnasia Mendoza,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7838,0.8017,1.222,,1
+2026-10-05,Fútbol,argentina,Primera División (Argentina),Velez Sarsfield vs Platense,Velez Sarsfield,Platense,2.0,2.0,RESULTADO,Doble oportunidad,Velez Sarsfield o Platense,0.7326,0.6834,1.333,,0
+2026-10-05,Fútbol,selecciones,Liga de Naciones CONCACAF,Martinique vs El Salvador,Martinique,El Salvador,1.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Martinique: Más de 0.5,0.7603,0.7603,1.273,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones CONCACAF,Martinique vs El Salvador,Martinique,El Salvador,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7309,0.7343,1.273,,1
+2026-10-05,Fútbol,par_division,División Profesional (Paraguay),Cerro Porteño vs 2 de Mayo,Cerro Porteño,2 de Mayo,0.0,2.0,RESULTADO,Doble oportunidad,Cerro Porteño o empate,0.7171,0.7171,1.125,,0
+2026-10-05,Fútbol,par_division,División Profesional (Paraguay),Cerro Porteño vs 2 de Mayo,Cerro Porteño,2 de Mayo,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7686,0.7949,1.25,,1
+2026-10-05,Tenis,atp,ATP,Terence Atmane vs Bernard Tomic,Terence Atmane,Bernard Tomic,1.0,2.0,TENIS,1X2,Gana Terence Atmane,0.7291,0.6785,1.373,,0
+2026-10-05,Tenis,atp,ATP,Michael Zheng vs Federico Agustin Gomez,Michael Zheng,Federico Agustin Gomez,2.0,1.0,TENIS,1X2,Gana Michael Zheng,0.8311,0.8311,1.153,,1
+2026-10-05,Tenis,atp,ATP,Jacquet K. vs Zhang T.,Jacquet K.,Zhang T.,2.0,0.0,TENIS,1X2,Gana Jacquet K.,0.8827,0.8827,1.06,,1
+2026-10-05,Tenis,atp,ATP,Seong Chan Hong vs Rei Sakamoto,Seong Chan Hong,Rei Sakamoto,0.0,2.0,TENIS,1X2,Gana Rei Sakamoto,0.7451,0.7699,1.266,,1
+2026-10-05,Tenis,atp,ATP,Martin Damm vs Pavel Kotov,Martin Damm,Pavel Kotov,1.0,2.0,TENIS,1X2,Gana Martin Damm,0.7169,0.6498,1.493,,0
+2026-10-05,Tenis,wta,WTA,Noma Noha Akugue vs Elena Micic,Noma Noha Akugue,Elena Micic,2.0,0.0,TENIS,1X2,Gana Noma Noha Akugue,0.7342,0.6872,1.429,,1
+2026-10-05,Tenis,wta,WTA,Xinxin Yao vs Aliaksandra Sasnovich,Xinxin Yao,Aliaksandra Sasnovich,0.0,2.0,TENIS,1X2,Gana Aliaksandra Sasnovich,0.8428,0.8428,1.124,,1
+2026-10-05,Tenis,atp,ATP,Alexander Shevchenko vs Yoshihito Nishioka,Alexander Shevchenko,Yoshihito Nishioka,0.0,2.0,TENIS,1X2,Gana Alexander Shevchenko,0.7248,0.6736,1.461,,0
+2026-10-05,Tenis,atp,ATP,Jie Cui vs Aleksandar Vukic,Jie Cui,Aleksandar Vukic,1.0,2.0,TENIS,1X2,Gana Aleksandar Vukic,0.7275,0.6766,1.463,,1
+2026-10-05,Tenis,wta,WTA,Dalma Galfi vs Julia Grabher,Dalma Galfi,Julia Grabher,2.0,0.0,TENIS,1X2,Gana Dalma Galfi,0.7218,0.6702,1.47,,1
+2026-10-05,Tenis,atp,ATP,Alex Bolt vs Lloyd Harris,Alex Bolt,Lloyd Harris,0.0,2.0,TENIS,1X2,Gana Lloyd Harris,0.7472,0.7714,1.191,,1
+2026-10-05,Tenis,atp,ATP,Rio Noguchi vs Alexandre Muller,Rio Noguchi,Alexandre Muller,1.0,2.0,TENIS,1X2,Gana Alexandre Muller,0.7345,0.6879,1.433,,1
+2026-10-05,Tenis,atp,ATP,Kimmer Coppejans vs Nishesh Basavareddy,Kimmer Coppejans,Nishesh Basavareddy,2.0,0.0,TENIS,1X2,Gana Nishesh Basavareddy,0.8192,0.8192,1.166,,0
+2026-10-05,Tenis,atp,ATP,Mattia Bellucci vs Elias Ymer,Mattia Bellucci,Elias Ymer,2.0,1.0,TENIS,1X2,Gana Mattia Bellucci,0.7724,0.7966,1.15,,1
+2026-10-05,Tenis,atp,ATP,Chak Lam Coleman Wong vs Cruz Hewitt,Chak Lam Coleman Wong,Cruz Hewitt,2.0,0.0,TENIS,1X2,Gana Chak Lam Coleman Wong,0.7439,0.7451,1.231,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones CONCACAF,Bermuda vs Barbados,Bermuda,Barbados,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7015,0.7106,1.333,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones CONCACAF,Guatemala vs Suriname,Guatemala,Suriname,1.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7496,0.7569,1.25,,0
+2026-10-05,Fútbol,col_primera_a,Categoría Primera A,Independiente Medellín vs Independiente Santa Fe,Independiente Medellín,Independiente Santa Fe,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7202,0.739,1.32,,1
+2026-10-05,Fútbol,argentina,Primera División (Argentina),Banfield vs Rosario Central,Banfield,Rosario Central,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.791,0.8043,1.2,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones CONCACAF,Honduras vs Jamaica,Honduras,Jamaica,1.0,1.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Honduras: Más de 0.5,0.7951,0.722,1.25,,1
+2026-10-05,Fútbol,selecciones,Liga de Naciones CONCACAF,Honduras vs Jamaica,Honduras,Jamaica,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7809,0.7926,1.2,,1
+2026-10-06,Fútbol,selecciones,Amistosos internacionales,South Korea vs Uzbekistan,South Korea,Uzbekistan,2.0,0.0,RESULTADO,Doble oportunidad,South Korea o empate,0.851,0.851,1.143,,1
+2026-10-06,Fútbol,selecciones,Amistosos internacionales,South Korea vs Uzbekistan,South Korea,Uzbekistan,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7813,0.7934,1.2,,1
+2026-10-06,Fútbol,selecciones,Amistosos internacionales,China vs Tajikistan,China,Tajikistan,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7746,0.78,1.2,,1
+2026-10-06,Fútbol,selecciones,Amistosos internacionales,China vs Tajikistan,China,Tajikistan,0.0,1.0,RESULTADO,Doble oportunidad,China o Tajikistan,0.7391,0.742,1.3,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Kazakhstan vs Faroe Islands,Kazakhstan,Faroe Islands,2.0,2.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7663,0.7663,1.3,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Kazakhstan vs Faroe Islands,Kazakhstan,Faroe Islands,2.0,2.0,CÓRNERS,Córners,Córners: Menos de 12,0.7282,0.6847,1.25,,0
+2026-10-06,Fútbol,selecciones,Amistosos internacionales,Algeria vs Niger,Algeria,Niger,2.0,1.0,RESULTADO,1X2,Gana Algeria,0.861,0.861,1.2,,1
+2026-10-06,Fútbol,selecciones,Amistosos internacionales,Jordan vs Venezuela,Jordan,Venezuela,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7586,0.7606,1.222,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Albania vs San Marino,Albania,San Marino,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7632,0.7617,1.231,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Albania vs San Marino,Albania,San Marino,2.0,1.0,CÓRNERS,Córners,Córners: Menos de 12,0.7445,0.7972,1.3,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Switzerland vs North Macedonia,Switzerland,North Macedonia,3.0,0.0,TARJETAS,Tarjetas,Tarjetas: Menos de 5.5,0.7871,0.7871,1.222,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Switzerland vs North Macedonia,Switzerland,North Macedonia,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7423,0.7534,1.286,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,England vs Czech Republic,England,Czech Republic,3.0,0.0,RESULTADO,1X2,Gana England,0.807,0.807,1.143,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,England vs Czech Republic,England,Czech Republic,3.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 2.5,0.7178,0.7122,1.3,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Moldova vs Slovakia,Moldova,Slovakia,0.0,4.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7685,0.7845,1.25,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Moldova vs Slovakia,Moldova,Slovakia,0.0,4.0,CÓRNERS,Córners,Córners: Menos de 12,0.732,0.7148,1.3,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Croatia vs Spain,Croatia,Spain,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 4.5,0.7426,0.754,1.286,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Croatia vs Spain,Croatia,Spain,1.0,2.0,RESULTADO,1X2,Gana Spain,0.7366,0.7314,1.286,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Scotland vs Slovenia,Scotland,Slovenia,1.0,2.0,RESULTADO,Doble oportunidad,Scotland o empate,0.772,0.772,1.182,,0
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Scotland vs Slovenia,Scotland,Slovenia,1.0,2.0,CÓRNERS,Córners,Córners: Menos de 12,0.7445,0.8027,1.231,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Luxembourg vs Bulgaria,Luxembourg,Bulgaria,0.0,2.0,CÓRNERS,Córners,Córners: Más de 6,0.7445,0.7607,1.2,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Luxembourg vs Bulgaria,Luxembourg,Bulgaria,0.0,2.0,RESULTADO,Doble oportunidad,Luxembourg o empate,0.7177,0.681,1.32,,0
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Belarus vs Finland,Belarus,Finland,1.0,0.0,GOLES DE CADA EQUIPO,Goles equipo,Goles Finland: Más de 0.5,0.7619,0.673,1.286,,0
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Belarus vs Finland,Belarus,Finland,1.0,0.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7484,0.8381,1.2,,0
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Estonia vs Iceland,Estonia,Iceland,0.0,0.0,CÓRNERS,Córners,Córners: Más de 6.5,0.7445,0.8012,1.222,,1
+2026-10-06,Fútbol,selecciones,Liga de Naciones UEFA,Estonia vs Iceland,Estonia,Iceland,0.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7361,0.7501,1.308,,1
+2026-10-06,Fútbol,par_division,División Profesional (Paraguay),Sportivo Ameliano vs Rubio Ñú,Sportivo Ameliano,Rubio Ñú,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7656,0.7769,1.222,,1
+2026-10-06,Fútbol,par_division,División Profesional (Paraguay),Club Olimpia vs Nacional Asunción,Club Olimpia,Nacional Asunción,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7808,0.8073,1.222,,1
+2026-10-06,Fútbol,par_division,División Profesional (Paraguay),Club Olimpia vs Nacional Asunción,Club Olimpia,Nacional Asunción,1.0,1.0,RESULTADO,Doble oportunidad,Club Olimpia o Nacional Asunción,0.738,0.6961,1.333,,0
+2026-10-06,Tenis,wta,WTA,Warona Mdlulwa vs Sabrina Olimjanova,Warona Mdlulwa,Sabrina Olimjanova,0.0,2.0,TENIS,1X2,Gana Sabrina Olimjanova,0.8528,0.8528,1.091,,1
+2026-10-06,Tenis,atp,ATP,Michael Zheng vs Nicolas Mejia,Michael Zheng,Nicolas Mejia,0.0,2.0,TENIS,1X2,Gana Michael Zheng,0.7445,0.7976,1.213,,0
+2026-10-06,Tenis,atp,ATP,Mustafa Ege Sik vs Philip Sekulic,Mustafa Ege Sik,Philip Sekulic,0.0,2.0,TENIS,1X2,Gana Philip Sekulic,0.8541,0.8541,1.124,,1
+2026-10-06,Tenis,wta,WTA,Andreea Prisacariu vs Anastasiia Nikolaieva,Andreea Prisacariu,Anastasiia Nikolaieva,2.0,0.0,TENIS,1X2,Gana Andreea Prisacariu,0.8621,0.8621,1.08,,1
+2026-10-06,Tenis,wta,WTA,Brune A. vs Ebster A. L.,Brune A.,Ebster A. L.,2.0,1.0,TENIS,1X2,Gana Brune A.,0.856,0.856,1.08,,1
+2026-10-06,Tenis,wta,WTA,Kei Yau Cheung vs Florentine Dekkers,Kei Yau Cheung,Florentine Dekkers,0.0,2.0,TENIS,1X2,Gana Florentine Dekkers,0.773,0.7972,1.14,,1
+2026-10-06,Tenis,wta,WTA,Valeria Garnevska vs Sonja Zhenikhova,Valeria Garnevska,Sonja Zhenikhova,0.0,2.0,TENIS,1X2,Gana Sonja Zhenikhova,0.7312,0.7113,1.329,,1
+2026-10-06,Tenis,wta,WTA,Serife Pelin Sari vs Gloria Levinsky,Serife Pelin Sari,Gloria Levinsky,0.0,2.0,TENIS,1X2,Gana Gloria Levinsky,0.7323,0.7279,1.24,,1
+2026-10-06,Tenis,wta,WTA,Aliesia Reva vs Eva Iurina,Aliesia Reva,Eva Iurina,2.0,0.0,TENIS,1X2,Gana Aliesia Reva,0.7355,0.7597,1.17,,1
+2026-10-06,Tenis,wta,WTA,Jessica Bertoldo vs Leticia Romanova,Jessica Bertoldo,Leticia Romanova,2.0,0.0,TENIS,1X2,Gana Jessica Bertoldo,0.7292,0.7032,1.321,,1
+2026-10-06,Tenis,wta,WTA,Antonia Ruzic vs Alicia Dudeney,Antonia Ruzic,Alicia Dudeney,1.0,2.0,TENIS,1X2,Gana Antonia Ruzic,0.7321,0.7152,1.337,,0
+2026-10-06,Tenis,wta,WTA,Emiliana Arango vs Ayla Aksu,Emiliana Arango,Ayla Aksu,0.0,2.0,TENIS,1X2,Gana Emiliana Arango,0.7279,0.6816,1.405,,0
+2026-10-06,Tenis,atp,ATP,Matthew Dellavedova vs Zhao Zhao,Matthew Dellavedova,Zhao Zhao,2.0,0.0,TENIS,1X2,Gana Matthew Dellavedova,0.8045,0.8045,1.111,,1
+2026-10-06,Tenis,atp,ATP,Mattia Nannelli vs Rodion Chetverikov,Mattia Nannelli,Rodion Chetverikov,2.0,1.0,TENIS,1X2,Gana Mattia Nannelli,0.8863,0.8863,1.055,,1
+2026-10-06,Tenis,atp,ATP,Aleksandar Mitev vs Giannicola Misasi,Aleksandar Mitev,Giannicola Misasi,0.0,2.0,TENIS,1X2,Gana Giannicola Misasi,0.8427,0.8427,1.1,,1
+2026-10-06,Tenis,atp,ATP,Mattia Bellucci vs Alexandre Muller,Mattia Bellucci,Alexandre Muller,2.0,0.0,TENIS,1X2,Gana Mattia Bellucci,0.723,0.6343,1.444,,1
+2026-10-06,Tenis,wta,WTA,Defne Cirpanli vs Anastasia Safta,Defne Cirpanli,Anastasia Safta,1.0,2.0,TENIS,1X2,Gana Anastasia Safta,0.7445,0.7651,1.234,,1
+2026-10-06,Tenis,wta,WTA,Mirjana Jovanovic vs Emma Slavikova,Mirjana Jovanovic,Emma Slavikova,2.0,0.0,TENIS,1X2,Gana Emma Slavikova,0.7282,0.6993,1.338,,0
+2026-10-06,Tenis,wta,WTA,Daria Yesypchuk vs Ida Wobker,Daria Yesypchuk,Ida Wobker,2.0,0.0,TENIS,1X2,Gana Ida Wobker,0.7231,0.6661,1.402,,0
+2026-10-06,Tenis,wta,WTA,Mdlulwa W. vs Olimjanova S.,Mdlulwa W.,Olimjanova S.,0.0,2.0,TENIS,1X2,Gana Olimjanova S.,0.8309,0.8309,1.1,,1
+2026-10-06,Tenis,atp,ATP,Axel Nefve vs Alec Beckley,Axel Nefve,Alec Beckley,0.0,2.0,TENIS,1X2,Gana Alec Beckley,0.729,0.7025,1.328,,1
+2026-10-06,Tenis,wta,WTA,Nastasja Schunk vs Marie Weckerle,Nastasja Schunk,Marie Weckerle,2.0,0.0,TENIS,1X2,Gana Nastasja Schunk,0.8802,0.8802,1.083,,1
+2026-10-06,Tenis,atp,ATP,Mihail Ivanov vs Alexander Vasilev,Mihail Ivanov,Alexander Vasilev,0.0,2.0,TENIS,1X2,Gana Alexander Vasilev,0.8622,0.8622,1.1,,1
+2026-10-06,Tenis,wta,WTA,Cristiana Nicoleta Todoni vs Georgina Groth,Cristiana Nicoleta Todoni,Georgina Groth,2.0,0.0,TENIS,1X2,Gana Cristiana Nicoleta Todoni,0.8132,0.8132,1.171,,1
+2026-10-06,Tenis,wta,WTA,Romane Longueville vs Charlotte Pikkaart,Romane Longueville,Charlotte Pikkaart,1.0,2.0,TENIS,1X2,Gana Romane Longueville,0.7577,0.7819,1.186,,0
+2026-10-06,Tenis,wta,WTA,Gina Marie Dittmann vs Madelief Hageman,Gina Marie Dittmann,Madelief Hageman,0.0,2.0,TENIS,1X2,Gana Gina Marie Dittmann,0.723,0.665,1.422,,0
+2026-10-06,Tenis,atp,ATP,Vlad Cristian Breazu vs Antoni Fabre,Vlad Cristian Breazu,Antoni Fabre,2.0,0.0,TENIS,1X2,Gana Vlad Cristian Breazu,0.723,0.6444,1.478,,1
+2026-10-06,Tenis,wta,WTA,Cirpanli D. vs Safta A.,Cirpanli D.,Safta A.,1.0,2.0,TENIS,1X2,Gana Safta A.,0.7445,0.758,1.22,,1
+2026-10-06,Tenis,atp,ATP,Darrshan Suresh vs Preston Brown,Darrshan Suresh,Preston Brown,0.0,2.0,TENIS,1X2,Gana Preston Brown,0.7421,0.746,1.273,,1
+2026-10-06,Tenis,wta,WTA,Lola Radivojevic vs Oksana Selekhmeteva,Lola Radivojevic,Oksana Selekhmeteva,0.0,2.0,TENIS,1X2,Gana Oksana Selekhmeteva,0.7282,0.6893,1.386,,1
+2026-10-06,Tenis,wta,WTA,Aysegul Mert vs Viktoria Hruncakova,Aysegul Mert,Viktoria Hruncakova,1.0,2.0,TENIS,1X2,Gana Viktoria Hruncakova,0.723,0.6459,1.439,,1
+2026-10-06,Tenis,atp,ATP,Lorenzo Berto vs Manuel Mazza,Lorenzo Berto,Manuel Mazza,0.0,2.0,TENIS,1X2,Gana Manuel Mazza,0.7307,0.7093,1.33,,1
+2026-10-06,Tenis,wta,WTA,Julia Stusek vs Kaat Coppez,Julia Stusek,Kaat Coppez,2.0,0.0,TENIS,1X2,Gana Julia Stusek,0.8734,0.8734,1.099,,1
+2026-10-06,Tenis,wta,WTA,Oz I. vs Herazo Gonzalez M.,Oz I.,Herazo Gonzalez M.,2.0,0.0,TENIS,1X2,Gana Oz I.,0.8858,0.8858,1.06,,1
+2026-10-06,Tenis,wta,WTA,Lucie Petruzelova vs Jana Kovackova,Lucie Petruzelova,Jana Kovackova,0.0,2.0,TENIS,1X2,Gana Jana Kovackova,0.8569,0.8569,1.113,,1
+2026-10-06,Tenis,wta,WTA,Curmi F. vs Laron M.,Curmi F.,Laron M.,2.0,0.0,TENIS,1X2,Gana Curmi F.,0.8585,0.8585,1.06,,1
+2026-10-06,Tenis,wta,WTA,Baotong Xu vs Miroslava Medvedeva,Baotong Xu,Miroslava Medvedeva,2.0,0.0,TENIS,1X2,Gana Miroslava Medvedeva,0.723,0.6523,1.437,,0
+2026-10-06,Tenis,wta,WTA,Gabriela Ce vs Marie Mettraux,Gabriela Ce,Marie Mettraux,2.0,0.0,TENIS,1X2,Gana Gabriela Ce,0.7081,0.6177,1.481,,1
+2026-10-06,Tenis,wta,WTA,Oliver Sanchez M. vs Zantedeschi A.,Oliver Sanchez M.,Zantedeschi A.,0.0,2.0,TENIS,1X2,Gana Zantedeschi A.,0.861,0.861,1.08,,1
+2026-10-06,Tenis,wta,WTA,Sabine Rutlauka vs Denisa Zoldakova,Sabine Rutlauka,Denisa Zoldakova,0.0,2.0,TENIS,1X2,Gana Denisa Zoldakova,0.8354,0.8354,1.11,,1
