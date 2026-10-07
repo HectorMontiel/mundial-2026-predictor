@@ -76,8 +76,34 @@ def probar_la_tarjeta():
     check('<div class="vp-lista">' in vp, 'la lista «se mete» va envuelta')
 
 
+def probar_las_secciones():
+    """La segunda fase: filtros en una fila, ficha técnica plegada en cada
+    deporte, patas de la Soñadora como tarjetas y gráficos sobre cristal."""
+    mm = open('modo_modelo.py', encoding='utf-8').read()
+    check('c_est, c_ord, c_fil = st.columns([3, 2, 2])' in mm,
+          'los filtros de la lista van en una fila')
+    check("with st.expander('⚙️ Filtros'" in mm, 'las casillas, plegadas en «Filtros»')
+    for clave in ("key='%s_solo_altas' % clave", "key='%s_solo_fisicos' % clave",
+                  "key='%s_solo_ganador' % clave", 'key=_k_orden', 'key=_k_estado'):
+        check(clave in mm, 'sigue la clave %s' % clave)
+    d = open('dashboard_ui.py', encoding='utf-8').read()
+    check('def _ficha_tecnica(' in d and d.count('_ficha_tecnica(') >= 7,
+          'la ficha técnica plegada en los seis deportes')
+    check("st.expander('🔬 Ficha técnica del modelo')" in d,
+          'y en la vista de cada liga')
+    check("_col_grp, _col_lig = st.columns([3, 2])" in d,
+          'el grupo de ligas y la liga, en una fila')
+    s = open('sonadora_ui.py', encoding='utf-8').read()
+    check('_eu.patas([' in s, 'las patas de la Soñadora son tarjetas')
+    import estilo_ui as eu
+    check('.stPlotlyChart .main-svg' in eu.CSS_VIDRIO, 'los gráficos, sobre cristal')
+    check('--pc:' in eu.pata('x', 1.3, tono='ok'), 'la pata conserva su color de veredicto')
+
+
 if __name__ == '__main__':
-    print('=== 1. la capa de cristal ===')
+    print('=== 0. las secciones ===')
+    probar_las_secciones()
+    print('\n=== 1. la capa de cristal ===')
     probar_la_capa()
     print('\n=== 2. la pantalla principal ===')
     probar_la_pantalla()

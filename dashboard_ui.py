@@ -155,6 +155,14 @@ def _olvidar_seleccion_muerta(clave: str, opciones) -> None:
         pass
 
 
+def _ficha_tecnica(texto: str) -> None:
+    """v339 — los datos del modelo (con cuántos partidos se entrenó, su
+    precisión en el backtest, las fuentes) van plegados: sirven para auditar,
+    no para decidir, y eran el primer renglón de cada deporte."""
+    with st.expander('🔬 Ficha técnica del modelo'):
+        st.caption(texto)
+
+
 def _seccion(titulo: str, sub: str = '', tono: str = 'ok') -> None:
     """Cabecera de sección. Sin capa visual, cae al `####` de siempre."""
     if _estilo is not None:
@@ -4291,43 +4299,46 @@ def render_liga_club(clave: str, nombre_liga: str):
         icono='⚽')
     if _ayuda is not None:
         _ayuda.render(st, 'liga')
-    st.caption(
-        f"Datos reales ({fuente_liga}) al **{motor.fecha_estado}** · "
-        f"Precisión backtesting 1X2: **{motor.metadata['precision_validacion']*100:.1f} %** "
-        f"(línea base ELO {motor.metadata['precision_linea_base_elo']*100:.1f} %"
-        + (f", favorito del mercado {motor.metadata['precision_mercado_cuotas']*100:.1f} %"
-           if motor.metadata.get('precision_mercado_cuotas') else '') + ")"
-    )
-    # v70 (Mejora D): la familia de clasificador se elige por liga. Se muestra
-    # cuando NO es el ensemble por defecto, que es cuando aporta información.
-    _FAMILIAS_UI = {
-        'logistica': 'regresión logística regularizada',
-        'logistica_base': 'regresión logística sobre el vector base',
-        'elo_logit': 'logística calibrada sobre el ELO',
-        'gbm_regular': 'GBM regularizado',
-        'blend_elo': 'mezcla ensemble + ELO calibrado',
-        'beta': 'ensemble con beta calibration',
-    }
-    _fam = motor.metadata.get('familia_modelo')
-    if _fam and _fam not in ('ensemble', None):
+    # v339 — la ficha técnica (precisión del backtest, tipo de modelo,
+    # encogimiento, fuentes) se pliega: es para auditar, no para decidir.
+    with st.expander('🔬 Ficha técnica del modelo'):
         st.caption(
-            f"🧩 Modelo de esta competición: **{_FAMILIAS_UI.get(_fam, _fam)}**. "
-            f"En ligas con pocos datos, un modelo grande aprende ruido en vez "
-            f"de señal; aquí se eligió el que mejor acertó en las pruebas.")
-    try:
-        import distributions as _d
-        _s = _d.factor_shrink(clave)
-        if _s < 1.0:
+            f"Datos reales ({fuente_liga}) al **{motor.fecha_estado}** · "
+            f"Precisión backtesting 1X2: **{motor.metadata['precision_validacion']*100:.1f} %** "
+            f"(línea base ELO {motor.metadata['precision_linea_base_elo']*100:.1f} %"
+            + (f", favorito del mercado {motor.metadata['precision_mercado_cuotas']*100:.1f} %"
+               if motor.metadata.get('precision_mercado_cuotas') else '') + ")"
+        )
+        # v70 (Mejora D): la familia de clasificador se elige por liga. Se muestra
+        # cuando NO es el ensemble por defecto, que es cuando aporta información.
+        _FAMILIAS_UI = {
+            'logistica': 'regresión logística regularizada',
+            'logistica_base': 'regresión logística sobre el vector base',
+            'elo_logit': 'logística calibrada sobre el ELO',
+            'gbm_regular': 'GBM regularizado',
+            'blend_elo': 'mezcla ensemble + ELO calibrado',
+            'beta': 'ensemble con beta calibration',
+        }
+        _fam = motor.metadata.get('familia_modelo')
+        if _fam and _fam not in ('ensemble', None):
             st.caption(
-                f"📉 Goles esperados con encogimiento **s={_s:.2f}**: los "
-                f"regresores separaban demasiado las dos λ. Afecta al marcador "
-                f"exacto y a los mercados de goles, no al 1X2.")
-    except Exception:
-        pass
-    if LEAGUES[clave].get('formato') == 'api_football':
-        st.info("ℹ️ Fuentes: API-Football (2022-24, marcadores de 90') + FBref "
-                "(resto e incluida la temporada en curso). La forma se actualiza "
-                "con cada corrida del pipeline.")
+                f"🧩 Modelo de esta competición: **{_FAMILIAS_UI.get(_fam, _fam)}**. "
+                f"En ligas con pocos datos, un modelo grande aprende ruido en vez "
+                f"de señal; aquí se eligió el que mejor acertó en las pruebas.")
+        try:
+            import distributions as _d
+            _s = _d.factor_shrink(clave)
+            if _s < 1.0:
+                st.caption(
+                    f"📉 Goles esperados con encogimiento **s={_s:.2f}**: los "
+                    f"regresores separaban demasiado las dos λ. Afecta al marcador "
+                    f"exacto y a los mercados de goles, no al 1X2.")
+        except Exception:
+            pass
+        if LEAGUES[clave].get('formato') == 'api_football':
+            st.info("ℹ️ Fuentes: API-Football (2022-24, marcadores de 90') + FBref "
+                    "(resto e incluida la temporada en curso). La forma se actualiza "
+                    "con cada corrida del pipeline.")
     # v58: PRÓXIMOS PARTIDOS de la liga (fixtures ESPN) — el usuario elige el
     # partido real y se autorrellenan los selectores de local/visitante.
     try:
@@ -6260,7 +6271,9 @@ def render_alpha_finder():
     if _prefu is not None:
         _prefu.recordar(st, '_filtro_grupo_liga', _GRUPOS_LIGA,
                         'Todas')
-    _grupo_liga = st.radio(
+    # v339 — el grupo de ligas y la liga, en UNA fila (eran dos con título)
+    _col_grp, _col_lig = st.columns([3, 2])
+    _grupo_liga = _col_grp.radio(
         'Competiciones', _GRUPOS_LIGA,
         horizontal=True, key='_filtro_grupo_liga', label_visibility='collapsed',
         help='«Secundaria» es toda competición de FÚTBOL que no está en la '
@@ -6307,8 +6320,9 @@ def render_alpha_finder():
     if st.session_state.get('_filtro_liga') not in _opciones_liga:
         st.session_state.pop('_filtro_liga', None)
     if len(_opciones_liga) > 2:
-        _liga_sel = st.selectbox(
+        _liga_sel = _col_lig.selectbox(
             'Liga', _opciones_liga, key='_filtro_liga',
+            label_visibility='collapsed',
             format_func=lambda x: (x if x == _LIGA_TODAS
                                    else '%s (%d)' % (x, _cuenta_liga.get(x, 0))),
             help='Sólo salen las competiciones que TIENEN partidos hoy, '
@@ -8279,7 +8293,7 @@ def render_mlb():
                      f"({_dias} d)")
     else:
         _frescura = "⚠️ el estado del modelo no registra fechas"
-    st.caption(
+    _ficha_tecnica(
         f"Modelo entrenado con {md.get('n_juegos')} juegos "
         f"(MLB StatsAPI oficial, {md.get('temporadas', '2015-actual')}) · "
         f"precisión backtest {md.get('precision_validacion')*100:.1f} % "
@@ -8402,7 +8416,7 @@ def render_kbo():
     else:
         _frescura = "⚠️ el estado del modelo no registra fechas"
     _wf = md.get('walk_forward') or {}
-    st.caption(
+    _ficha_tecnica(
         f"Modelo entrenado con {md.get('n_juegos')} juegos "
         f"(Naver Sports, 2008-actual) · precisión backtest "
         f"{md.get('precision_validacion', 0)*100:.1f} % "
@@ -8584,7 +8598,7 @@ def render_nba():
         st.error(f"Motor NBA no disponible: {eng.error}")
         return
     md = eng.metadata
-    st.caption(f"Entrenado con {md.get('n_juegos')} juegos (nba_api 2021-26) · "
+    _ficha_tecnica(f"Entrenado con {md.get('n_juegos')} juegos (nba_api 2021-26) · "
                f"precisión backtest {md.get('precision_validacion')*100:.1f} % "
                f"(ELO {md.get('precision_linea_base_elo')*100:.1f} %) · "
                f"incluye el CDI (desincronización circadiana). {md.get('modo')}")
@@ -8674,7 +8688,7 @@ def render_nfl():
         pass
     _cm = cal.get('contra_mercado') or {}
     _n = len(hist[hist['tipo'].isin(('regular', 'playoffs'))]) if 'tipo' in hist else len(hist)
-    st.caption(
+    _ficha_tecnica(
         f"Entrenado con {_n} partidos de la NFL "
         f"({str(hist['fecha'].min())[:10]} → {str(hist['fecha'].max())[:10]}) — "
         f"marcador y estadística de equipo de ESPN."
@@ -8965,7 +8979,7 @@ def render_tennis():
     _uni = md.get('validacion_por_universo') or {}
     _princ = (_uni.get('circuito_principal') or {}).get('precision')
     _nuevas = (_uni.get('categorias_nuevas') or {}).get('precision')
-    st.caption(
+    _ficha_tecnica(
         f"Entrenado con {md.get('n_partidos')} partidos "
         f"({eng.circuito.upper()} · {md.get('fuente_datos', 'Kaggle')}) · "
         f"precisión **{_pct(_princ) if _princ else _pct(md.get('precision_validacion'))}** "
@@ -9124,7 +9138,7 @@ def render_tennis():
             m2.metric(f"Gana {p2}", f"{pred['prob_away']*100:.0f} %",
                       f"cuota justa {1/max(pred['prob_away'],1e-6):.2f}")
             st.caption(f"En {sup.lower()}, el modelo favorece a "
-                       f"**{p1 if pred['prob_home']>=0.5 else p2}**. "
+                       f"**{(p1 if pred['prob_home']>=0.5 else p2).strip()}**. "
                        "El mercado de tenis (cuotas de cierre) es más preciso "
                        "que nuestro modelo — herramienta de análisis, no de EV.")
             # v51: PLANTILLA COMPLETA de mercados de tenis (la que pidió el
@@ -9640,7 +9654,7 @@ _cabecera(
     icono='🌍')
 if _ayuda is not None:
     _ayuda.render(st, 'selecciones')
-st.caption(
+_ficha_tecnica(
     f"Enfrenta a **cualquiera de las {len(MOTOR.equipos)} selecciones "
     f"nacionales** del histórico: amistosos, Nations League, clasificatorias y "
     f"torneos continentales, masculinos y femeninos · "

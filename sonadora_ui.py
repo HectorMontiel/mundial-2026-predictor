@@ -328,13 +328,25 @@ def render(st, r: Dict, dia: Optional[str] = None,
                            % ((_sel['prob_total'] or 0) * 100))
                 _c3.metric('Verdes', '%d de %d'
                            % (_sel['n_verdes'], len(_sel['patas'])))
-                for _q in _sel['patas']:
-                    st.markdown(
-                        '%s **%s** · %s _(%s)_ — @%.2f · **%.0f %%**'
-                        % ('🟢' if _q['verde'] else '🔴',
-                           _q.get('apuesta', '?'), _q.get('partido', '?'),
-                           _q.get('liga', ''), _q['cuota'],
-                           (_q['prob'] or 0) * 100))
+                # v339 — las patas como tarjetas (la apuesta manda, la cuota a
+                # la derecha, el partido debajo) y no como renglones de texto.
+                try:
+                    import estilo_ui as _eu
+                    st.markdown(_eu.patas([
+                        _eu.pata(('🟢 ' if _q['verde'] else '🔴 ')
+                                 + str(_q.get('apuesta', '?')), _q['cuota'],
+                                 _q['prob'], mercado='%s · %s' % (
+                                     _q.get('partido', '?'), _q.get('liga', '')),
+                                 tono='ok' if _q['verde'] else 'no')
+                        for _q in _sel['patas']]), unsafe_allow_html=True)
+                except Exception:
+                    for _q in _sel['patas']:
+                        st.markdown(
+                            '%s **%s** · %s _(%s)_ — @%.2f · **%.0f %%**'
+                            % ('🟢' if _q['verde'] else '🔴',
+                               _q.get('apuesta', '?'), _q.get('partido', '?'),
+                               _q.get('liga', ''), _q['cuota'],
+                               (_q['prob'] or 0) * 100))
                 st.caption(_sel['motivo'])
                 # La probabilidad de un parlay se desploma con cada pata, y
                 # enseñar sólo la cuota invita a pedir veinte.

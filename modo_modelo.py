@@ -4623,67 +4623,58 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                           'Hora')
         _pref.recordar(st, '%s_solo_altas' % clave, por_defecto=False)
         _pref.recordar(st, '%s_solo_fisicos' % clave, por_defecto=False)
-    c1, c2 = st.columns([3, 2])
-    with c1:
-        etq_orden = st.selectbox('Ordenar por', list(ORDENES),
-                                 key=_k_orden,
-                                 help='Se recuerda entre las dos '
-                                      'pestañas y entre sesiones.')
-    with c2:
-        # v176 — la casilla vale AHORA TAMBIEN EN MAÑANA. Estaba
-        # apagada alli porque mañana no tenia recomendacion que
-        # filtrar; desde que la tiene, esconderla dejaria la pestaña
-        # con menos control que la de hoy sin ningun motivo.
-        solo_altas = st.checkbox('Sólo alta probabilidad (%d %%)'
-                                 % (UMBRAL_ALTA * 100),
-                                 key='%s_solo_altas' % clave,
-                                 help='Deja sólo las apuestas que llegan '
-                                      'al %d %% Y se pueden contrastar con '
-                                      'el precio de la casa sin separarse '
-                                      'más de %d puntos. Una cifra alta que '
-                                      'nadie ha podido contradecir no entra '
-                                      'aquí.'
-                                      % (UMBRAL_ALTA * 100, 15))
-        solo_fisicos = st.checkbox('Sólo con córners y tarjetas',
-                                   key='%s_solo_fisicos' % clave,
-                                   help='Deja sólo las competiciones que '
-                                        'publican esas estadísticas de verdad. '
-                                        'El resto también las enseña, pero '
-                                        'estimadas a partir de sus goles.')
-        # v250 — «QUIERO FILTRAR POR GANADOR».
-        #
-        # «En esa vista me vas a enseñar y ordenar los que sean ganadores; en
-        # donde tú digas "gana tal", ahí es donde quiero que me muestres.»
-        #
-        # Los otros filtros cortan por CÓMO de buena es la apuesta; éste corta
-        # por QUÉ mercado es, que es una pregunta distinta y no se podía hacer.
-        # Y ordena por probabilidad, porque en una lista de ganadores lo que se
-        # busca es el más claro primero.
-        solo_ganador = st.checkbox('Sólo ganador (1X2)',
-                                   key='%s_solo_ganador' % clave,
-                                   help='Deja sólo los partidos cuya apuesta '
-                                        'recomendada es a quién gana, y los '
-                                        'ordena del más probable al menos.')
-
-    # v219 — EL FILTRO QUE FALTABA: jugado o sin jugar.
-    #
-    # La lista mezclaba las dos cosas y el desequilibrio es grande — en la
-    # captura del usuario, 130 finalizados de 163. Los finalizados sirven para
-    # mirar el histórico de aciertos (los puntos verdes y rojos) y los que no
-    # se han jugado son los únicos que se pueden apostar: son dos usos
-    # distintos de la misma pantalla y no pueden compartir lista sin estorbarse.
-    #
-    # Por defecto SIN JUGAR, y no es un capricho: la pestaña de arriba dice
-    # «Hoy (33)» mientras la lista enseñaba 163. El número de la pestaña ya
-    # contaba sólo los jugables, así que el defecto nuevo hace que la lista
-    # diga lo mismo que el rótulo que la abre.
+    # v339 — LOS FILTROS DE LA LISTA, EN UNA FILA. La auditoría: «Ordenar
+    # por», tres casillas y «Mostrar» ocupaban cinco renglones antes del
+    # primer partido. Ahora: lo que se muestra (píldoras), el orden (sin
+    # rótulo) y las casillas plegadas en «Filtros», que dice cuántas hay
+    # puestas. Mismas claves: se recuerdan igual y la validación las encuentra.
     if _pref is not None:
         _pref.recordar(st, _k_estado, por_defecto=ESTADO_SIN_JUGAR)
-    estado_sel = st.radio(
-        'Mostrar', ESTADOS, key=_k_estado, horizontal=True,
-        help='«Sin jugar» son los que todavía se pueden apostar. '
-             '«Finalizados» enseñan el pronóstico previo con su resultado, '
-             'para ver qué acertó y qué no.')
+    c_est, c_ord, c_fil = st.columns([3, 2, 2])
+    with c_est:
+        # v219 — jugado o sin jugar: por defecto SIN JUGAR, que es lo que dice
+        # el número de la pestaña de arriba.
+        estado_sel = st.radio(
+            'Mostrar', ESTADOS, key=_k_estado, horizontal=True,
+            label_visibility='collapsed',
+            help='«Sin jugar» son los que todavía se pueden apostar. '
+                 '«Finalizados» enseñan el pronóstico previo con su resultado, '
+                 'para ver qué acertó y qué no.')
+    with c_ord:
+        etq_orden = st.selectbox('Ordenar por', list(ORDENES),
+                                 key=_k_orden, label_visibility='collapsed',
+                                 format_func=lambda o: '↕ %s' % o,
+                                 help='Se recuerda entre las dos '
+                                      'pestañas y entre sesiones.')
+    _n_fil = sum(bool(st.session_state.get(k)) for k in
+                 ('%s_solo_altas' % clave, '%s_solo_fisicos' % clave,
+                  '%s_solo_ganador' % clave))
+    with c_fil:
+        with st.expander('⚙️ Filtros' + (' · %d' % _n_fil if _n_fil else '')):
+            # v176 — la casilla vale también en MAÑANA (ver historia en git).
+            solo_altas = st.checkbox('Sólo alta probabilidad (%d %%)'
+                                     % (UMBRAL_ALTA * 100),
+                                     key='%s_solo_altas' % clave,
+                                     help='Deja sólo las apuestas que llegan '
+                                          'al %d %% Y se pueden contrastar con '
+                                          'el precio de la casa sin separarse '
+                                          'más de %d puntos. Una cifra alta que '
+                                          'nadie ha podido contradecir no entra '
+                                          'aquí.'
+                                          % (UMBRAL_ALTA * 100, 15))
+            solo_fisicos = st.checkbox('Sólo con córners y tarjetas',
+                                       key='%s_solo_fisicos' % clave,
+                                       help='Deja sólo las competiciones que '
+                                            'publican esas estadísticas de verdad. '
+                                            'El resto también las enseña, pero '
+                                            'estimadas a partir de sus goles.')
+            # v250 — «quiero filtrar por ganador»: corta por QUÉ mercado es y
+            # ordena del más probable al menos.
+            solo_ganador = st.checkbox('Sólo ganador (1X2)',
+                                       key='%s_solo_ganador' % clave,
+                                       help='Deja sólo los partidos cuya apuesta '
+                                            'recomendada es a quién gana, y los '
+                                            'ordena del más probable al menos.')
 
     # Cuantos habia ANTES de las casillas. Sin esto, una lista vacia no puede
     # decir si es que no hay partidos o es que el filtro se los llevo, y son

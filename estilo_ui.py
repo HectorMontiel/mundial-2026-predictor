@@ -713,6 +713,32 @@ div[data-testid="stAlertContentError"]   { box-shadow: inset 3px 0 0 var(--no); 
 /* ---- texto secundario: más discreto, para que mande lo importante ----- */
 div[data-testid="stCaptionContainer"] p, .stCaption { opacity: .58 !important; font-size: .8rem !important; }
 
+/* ---- gráficos: sobre cristal, sin la caja opaca del tema -------------- */
+.stPlotlyChart, div[data-testid="stVegaLiteChart"], div[data-testid="stArrowVegaLiteChart"] {
+  background: linear-gradient(160deg, var(--vidrio2), var(--vidrio)) !important;
+  border: 1px solid var(--filo); border-radius: 16px; padding: .45rem .5rem;
+  box-shadow: var(--brillo);
+}
+.stPlotlyChart .main-svg { background: transparent !important; }
+.stPlotlyChart .bg { fill: transparent !important; }
+.stPlotlyChart .gridlayer path, .stPlotlyChart .xgrid, .stPlotlyChart .ygrid {
+  stroke: rgba(255,255,255,.06) !important; }
+.stPlotlyChart .hoverlayer .hovertext path { fill: rgba(14,20,34,.94) !important;
+  stroke: rgba(255,255,255,.18) !important; }
+/* tablas de datos: con el mismo filo */
+div[data-testid="stDataFrame"], div[data-testid="stTable"] {
+  border: 1px solid var(--filo) !important; border-radius: 14px !important;
+  overflow: hidden; box-shadow: var(--brillo);
+}
+
+/* ---- patas de combinada y filas compactas: cristal ------------------- */
+.stApp .pata { background: linear-gradient(160deg, var(--vidrio2), var(--vidrio)) !important;
+               border: 1px solid var(--filo) !important; border-radius: 14px !important;
+               box-shadow: inset 3px 0 0 var(--pc, transparent), var(--brillo);
+               padding: .6rem .85rem !important; }
+.stApp .pata .q { font-size: .98rem; font-weight: 700; }
+.stApp .pata .c { font-family: var(--letra) !important; font-size: 1.2rem; font-weight: 800; }
+
 /* ---- la marca: una línea, no una pancarta ----------------------------- */
 .marca { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap;
          margin: 0 0 .9rem; }
@@ -1187,7 +1213,8 @@ def pata(apuesta: str, cuota, prob=None, mercado: str = '',
     except (TypeError, ValueError):
         c_txt = '—'
     return (
-        f'<div class="pata" style="border-left:3px solid {_color(tono)}">'
+        f'<div class="pata" style="border-left:3px solid {_color(tono)};'
+        f'--pc:{_color(tono)}">'
         f'<div><div class="q">{_esc(apuesta)}</div>'
         + (f'<div class="m">{" · ".join(bajo)}</div>' if bajo else '')
         + (f'<div class="m" style="margin-top:.28rem">{marcas}</div>'
