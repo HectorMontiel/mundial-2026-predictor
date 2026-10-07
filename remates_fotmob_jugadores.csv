@@ -7051,28 +7051,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5418294,2026-05-31,selecciones,Jordan,Mohammad Al-Daoud,600844,M,0,13,0,0,0,0.0,,2.0,
 5418294,2026-05-31,selecciones,Jordan,Yousef Qashi,1418647,M,0,13,0,0,0,0.0,,2.0,
 5418294,2026-05-31,selecciones,Jordan,Mohammad Abuzraiq,1059129,F,0,12,0,0,0,0.0,,3.0,
-5217285,2026-05-31,selecciones,Mexico,Raúl Rangel,1227878,G,1,46,0,0,0,0.0,11.0,0.0,7416142.0
-5217285,2026-05-31,selecciones,Mexico,Jorge Sánchez,727586,D,1,46,0,0,0,0.0,32.0,1.0,1612506.0
-5217285,2026-05-31,selecciones,Mexico,Edson Álvarez,783505,M,1,60,0,0,0,0.0,34.0,2.0,16354479.0
-5217285,2026-05-31,selecciones,Mexico,Johan Vásquez,914103,D,1,74,2,1,1,0.0,36.0,1.0,15501772.0
-5217285,2026-05-31,selecciones,Mexico,Mateo Chávez,1432212,D,1,60,0,0,0,0.0,38.0,1.0,5007950.0
-5217285,2026-05-31,selecciones,Mexico,Luis Romo,921174,D,1,74,1,0,0,0.0,64.0,1.0,1958037.0
-5217285,2026-05-31,selecciones,Mexico,Luis Chávez,527616,M,1,60,3,0,0,0.0,66.0,2.0,4542490.0
-5217285,2026-05-31,selecciones,Mexico,Orbelín Pineda,559986,M,1,46,0,0,0,0.0,83.0,2.0,4686643.0
-5217285,2026-05-31,selecciones,Mexico,Álvaro Fidalgo,895954,M,1,60,3,1,0,0.0,85.0,2.0,6687371.0
-5217285,2026-05-31,selecciones,Mexico,Alexis Vega,728365,F,1,60,2,1,0,0.0,87.0,3.0,5147602.0
-5217285,2026-05-31,selecciones,Mexico,Guillermo Martínez,558539,F,1,46,0,0,0,0.0,115.0,3.0,1117487.0
-5217285,2026-05-31,selecciones,Mexico,Guillermo Ochoa,31047,G,0,44,0,0,0,0.0,,0.0,128224.0
-5217285,2026-05-31,selecciones,Mexico,Israel Reyes,1074586,D,0,44,0,0,0,0.0,,1.0,3692688.0
-5217285,2026-05-31,selecciones,Mexico,César Huerta,977404,F,0,44,0,0,0,0.0,,3.0,4726664.0
-5217285,2026-05-31,selecciones,Mexico,Santiago Giménez,954092,F,0,45,1,0,0,0.0,,3.0,22315335.0
-5217285,2026-05-31,selecciones,Mexico,César Montes,664644,D,0,30,0,0,0,0.0,,1.0,6023387.0
-5217285,2026-05-31,selecciones,Mexico,Érik Lira,971628,D,0,30,0,0,0,0.0,,1.0,12740743.0
-5217285,2026-05-31,selecciones,Mexico,Jesús Gallardo,597976,D,0,30,0,0,0,0.0,,1.0,2124700.0
-5217285,2026-05-31,selecciones,Mexico,Gilberto Mora,1670377,M,0,30,1,0,0,0.0,,2.0,8507926.0
-5217285,2026-05-31,selecciones,Mexico,Julián Quiñones,720560,F,0,30,0,0,0,0.0,,3.0,12139266.0
-5217285,2026-05-31,selecciones,Mexico,Alejandro Gómez,1010407,D,0,16,0,0,0,0.0,,1.0,1926278.0
-5217285,2026-05-31,selecciones,Mexico,Obed Vargas,1254394,M,0,16,0,0,0,0.0,,2.0,11157185.0
 5217285,2026-05-31,selecciones,Australia,Mathew Ryan,185644,G,1,90,0,0,0,0.0,11.0,0.0,1809548.0
 5217285,2026-05-31,selecciones,Australia,Alessandro Circati,1318686,D,1,90,0,0,0,0.0,33.0,1.0,13897427.0
 5217285,2026-05-31,selecciones,Australia,Harry Souttar,671518,D,1,90,0,0,0,0.0,35.0,1.0,3788181.0
@@ -136328,27 +136306,63 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190749,2026-10-07,bra_serie_b,Juventude,Luis Amarilla,497400,F,0,33,1,1,0,0.03,,3.0,314853.0
 5190749,2026-10-07,bra_serie_b,Juventude,Titi,78911,D,0,18,0,0,0,0.0,,1.0,136261.0
 5190749,2026-10-07,bra_serie_b,Juventude,Juan Christian,1459546,F,0,18,1,1,0,0.1,,3.0,160715.0
-5991936,2026-10-07,selecciones,French Guiana,Stéphane Roman,0,G,1,90,0,0,0,0.0,11,0,
-5991936,2026-10-07,selecciones,French Guiana,Mickaël Colino,0,D,1,90,0,0,0,0.0,32,1,
-5991936,2026-10-07,selecciones,French Guiana,Thomas Vancaeyezeele,936220,D,1,90,0,0,0,0.0,34,1,50000
-5991936,2026-10-07,selecciones,French Guiana,Donovan Sini,0,D,1,90,0,0,0,0.0,36,1,
-5991936,2026-10-07,selecciones,French Guiana,Larry Atia,0,D,1,90,0,0,0,0.0,38,1,
-5991936,2026-10-07,selecciones,French Guiana,Guy Anakaba,2337204,M,1,74,1,0,0,0.0,64,2,
-5991936,2026-10-07,selecciones,French Guiana,Zedan Charlec,1544917,M,1,90,1,0,0,0.0,66,2,
-5991936,2026-10-07,selecciones,French Guiana,Yvelin Nozile,1695196,F,1,90,1,1,1,0.0,83,3,
-5991936,2026-10-07,selecciones,French Guiana,Marcio Andelmon,0,,1,90,0,0,0,0.0,85,,
-5991936,2026-10-07,selecciones,French Guiana,Calvin Soga,0,,1,90,0,0,0,0.0,87,,
-5991936,2026-10-07,selecciones,French Guiana,Joël Sarrucco,1112946,F,1,55,2,1,0,0.0,115,3,
-5991936,2026-10-07,selecciones,Belize,Woodrow West,503069,G,1,90,0,0,0,0.0,11,0,
-5991936,2026-10-07,selecciones,Belize,Jahryl Smith,1650949,D,1,72,2,0,0,0.0,32,1,
-5991936,2026-10-07,selecciones,Belize,Jaylen Lennan,1650941,D,1,90,0,0,0,0.0,34,1,
-5991936,2026-10-07,selecciones,Belize,Freybin Pagoada,1765669,D,1,90,0,0,0,0.0,36,1,
-5991936,2026-10-07,selecciones,Belize,Nahjib Guerra,624094,D,1,90,0,0,0,0.0,38,1,
-5991936,2026-10-07,selecciones,Belize,Darrel Myvett,1261610,M,1,90,0,0,0,0.0,65,2,
-5991936,2026-10-07,selecciones,Belize,Michael Joseph Palacio,1678708,M,1,58,1,0,0,0.0,82,2,
-5991936,2026-10-07,selecciones,Belize,Andir Chi,1765668,M,1,90,1,0,0,0.0,84,2,
-5991936,2026-10-07,selecciones,Belize,Owen Sosa,1650940,M,1,68,1,0,0,0.0,86,2,
-5991936,2026-10-07,selecciones,Belize,Krisean López,953891,M,1,90,3,0,0,0.0,88,2,
-5991936,2026-10-07,selecciones,Belize,Daijon Daniels,0,,1,90,0,0,0,0.0,115,,
-5991936,2026-10-07,selecciones,Belize,Warren Moss,1650943,M,0,22,1,1,0,0.0,,2,
-5991936,2026-10-07,selecciones,Belize,Desmond Wade,1240652,F,0,22,2,0,0,0.0,,3,
+5991936,2026-10-07,selecciones,French Guiana,Stéphane Roman,0,G,1,90,0,0,0,0.0,11.0,0.0,
+5991936,2026-10-07,selecciones,French Guiana,Mickaël Colino,0,D,1,90,0,0,0,0.0,32.0,1.0,
+5991936,2026-10-07,selecciones,French Guiana,Thomas Vancaeyezeele,936220,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5991936,2026-10-07,selecciones,French Guiana,Donovan Sini,0,D,1,90,0,0,0,0.0,36.0,1.0,
+5991936,2026-10-07,selecciones,French Guiana,Larry Atia,0,D,1,90,0,0,0,0.0,38.0,1.0,
+5991936,2026-10-07,selecciones,French Guiana,Guy Anakaba,2337204,M,1,74,1,0,0,0.0,64.0,2.0,
+5991936,2026-10-07,selecciones,French Guiana,Zedan Charlec,1544917,M,1,90,1,0,0,0.0,66.0,2.0,
+5991936,2026-10-07,selecciones,French Guiana,Yvelin Nozile,1695196,F,1,90,1,1,1,0.0,83.0,3.0,
+5991936,2026-10-07,selecciones,French Guiana,Marcio Andelmon,0,,1,90,0,0,0,0.0,85.0,,
+5991936,2026-10-07,selecciones,French Guiana,Calvin Soga,0,,1,90,0,0,0,0.0,87.0,,
+5991936,2026-10-07,selecciones,French Guiana,Joël Sarrucco,1112946,F,1,55,2,1,0,0.0,115.0,3.0,
+5991936,2026-10-07,selecciones,Belize,Woodrow West,503069,G,1,90,0,0,0,0.0,11.0,0.0,
+5991936,2026-10-07,selecciones,Belize,Jahryl Smith,1650949,D,1,72,2,0,0,0.0,32.0,1.0,
+5991936,2026-10-07,selecciones,Belize,Jaylen Lennan,1650941,D,1,90,0,0,0,0.0,34.0,1.0,
+5991936,2026-10-07,selecciones,Belize,Freybin Pagoada,1765669,D,1,90,0,0,0,0.0,36.0,1.0,
+5991936,2026-10-07,selecciones,Belize,Nahjib Guerra,624094,D,1,90,0,0,0,0.0,38.0,1.0,
+5991936,2026-10-07,selecciones,Belize,Darrel Myvett,1261610,M,1,90,0,0,0,0.0,65.0,2.0,
+5991936,2026-10-07,selecciones,Belize,Michael Joseph Palacio,1678708,M,1,58,1,0,0,0.0,82.0,2.0,
+5991936,2026-10-07,selecciones,Belize,Andir Chi,1765668,M,1,90,1,0,0,0.0,84.0,2.0,
+5991936,2026-10-07,selecciones,Belize,Owen Sosa,1650940,M,1,68,1,0,0,0.0,86.0,2.0,
+5991936,2026-10-07,selecciones,Belize,Krisean López,953891,M,1,90,3,0,0,0.0,88.0,2.0,
+5991936,2026-10-07,selecciones,Belize,Daijon Daniels,0,,1,90,0,0,0,0.0,115.0,,
+5991936,2026-10-07,selecciones,Belize,Warren Moss,1650943,M,0,22,1,1,0,0.0,,2.0,
+5991936,2026-10-07,selecciones,Belize,Desmond Wade,1240652,F,0,22,2,0,0,0.0,,3.0,
+6368654,2026-10-07,selecciones,Mexico,Álex Padilla,1401997,G,1,90,0,0,0,0.0,11.0,0.0,
+6368654,2026-10-07,selecciones,Mexico,Dagoberto Espinoza,1576897,D,1,64,1,0,0,0.0,32.0,1.0,1970905.0
+6368654,2026-10-07,selecciones,Mexico,Israel Reyes,1074586,D,1,90,2,0,0,0.0,34.0,1.0,7032353.0
+6368654,2026-10-07,selecciones,Mexico,Everardo López,1353113,D,1,90,1,0,0,0.0,36.0,1.0,3396842.0
+6368654,2026-10-07,selecciones,Mexico,Jesús Gallardo,597976,D,1,64,1,1,0,0.0,38.0,1.0,1608678.0
+6368654,2026-10-07,selecciones,Mexico,Obed Vargas,1254394,M,1,72,2,1,0,0.0,73.0,2.0,14215348.0
+6368654,2026-10-07,selecciones,Mexico,Érik Lira,971628,M,1,64,1,0,0,0.0,75.0,2.0,15809486.0
+6368654,2026-10-07,selecciones,Mexico,Álvaro Fidalgo,895954,M,1,82,1,0,0,0.0,77.0,2.0,5298224.0
+6368654,2026-10-07,selecciones,Mexico,Roberto Alvarado,720737,M,1,64,1,1,0,0.0,103.0,2.0,10609234.0
+6368654,2026-10-07,selecciones,Mexico,Armando González,1456983,F,1,64,1,0,0,0.0,105.0,3.0,6644832.0
+6368654,2026-10-07,selecciones,Mexico,Germán Berterame,743536,F,1,72,0,0,0,0.0,107.0,3.0,12854157.0
+6368654,2026-10-07,selecciones,Mexico,Johan Vásquez,914103,D,0,26,0,0,0,0.0,,1.0,12449741.0
+6368654,2026-10-07,selecciones,Mexico,Jorge Sánchez,727586,D,0,26,0,0,0,0.0,,1.0,1883003.0
+6368654,2026-10-07,selecciones,Mexico,Denzell García,1347199,M,0,26,1,0,0,0.0,,2.0,9116678.0
+6368654,2026-10-07,selecciones,Mexico,Isaías Violante,1197375,F,0,26,1,0,0,0.0,,3.0,6905131.0
+6368654,2026-10-07,selecciones,Mexico,Santiago Giménez,954092,F,0,26,1,0,0,0.0,,3.0,19270946.0
+6368654,2026-10-07,selecciones,Mexico,Hugo Camberos,1603101,M,0,18,1,0,0,0.0,,2.0,
+6368654,2026-10-07,selecciones,Mexico,Santiago Sandoval,1786010,F,0,18,0,0,0,0.0,,3.0,7844697.0
+6368654,2026-10-07,selecciones,Mexico,Jeremy Márquez,1125498,M,0,8,0,0,0,0.0,,2.0,7133959.0
+6368654,2026-10-07,selecciones,Chile,Lawrence Vigouroux,501380,G,1,90,0,0,0,0.0,11.0,0.0,757212.0
+6368654,2026-10-07,selecciones,Chile,Diego Ulloa,1334617,D,1,90,0,0,0,0.0,32.0,1.0,629683.0
+6368654,2026-10-07,selecciones,Chile,Jonathan Villagra,1129024,D,1,90,0,0,0,0.0,34.0,1.0,949013.0
+6368654,2026-10-07,selecciones,Chile,Paulo Díaz,447556,D,1,90,0,0,0,0.0,36.0,1.0,1296587.0
+6368654,2026-10-07,selecciones,Chile,Gabriel Suazo,659490,D,1,90,0,0,0,0.0,38.0,1.0,2743671.0
+6368654,2026-10-07,selecciones,Chile,Vicente Pizarro,1133369,M,1,85,1,1,1,0.0,64.0,2.0,3884709.0
+6368654,2026-10-07,selecciones,Chile,Felipe Loyola,1343374,M,1,90,0,0,0,0.0,66.0,2.0,6550818.0
+6368654,2026-10-07,selecciones,Chile,Maximiliano Gutiérrez,1404859,F,1,78,3,1,1,0.0,83.0,3.0,2148945.0
+6368654,2026-10-07,selecciones,Chile,Rodrigo Echeverría,517555,M,1,46,0,0,0,0.0,85.0,2.0,1811440.0
+6368654,2026-10-07,selecciones,Chile,Darío Osorio,1329007,M,1,84,0,0,0,0.0,87.0,2.0,14784381.0
+6368654,2026-10-07,selecciones,Chile,Gonzalo Tapia,1108614,F,1,89,4,2,0,0.0,115.0,3.0,4203546.0
+6368654,2026-10-07,selecciones,Chile,Felipe Méndez,848123,M,0,44,0,0,0,0.0,,2.0,1158599.0
+6368654,2026-10-07,selecciones,Chile,César Pérez,1338317,M,0,12,0,0,0,0.0,,2.0,2221481.0
+6368654,2026-10-07,selecciones,Chile,Ben Brereton,820581,F,0,6,1,0,0,0.0,,3.0,4570078.0
+6368654,2026-10-07,selecciones,Chile,Matías Sepúlveda,832032,M,0,5,0,0,0,0.0,,2.0,896933.0
+6368654,2026-10-07,selecciones,Chile,Igor Lichnovsky,298327,D,0,1,0,0,0,0.0,,1.0,414742.0
+6368654,2026-10-07,selecciones,Chile,Lucas Cepeda,1280756,F,0,1,0,0,0,0.0,,3.0,1671254.0
