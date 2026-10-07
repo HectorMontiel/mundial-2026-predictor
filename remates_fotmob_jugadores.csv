@@ -6558,21 +6558,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5067219,2026-04-01,selecciones,Bolivia,Lucas Macazaga,1728927,D,0,23,1,1,0,0.0,,1.0,
 5067219,2026-04-01,selecciones,Bolivia,Fernando Nava,1535424,F,0,20,2,1,0,0.0,,3.0,
 5067219,2026-04-01,selecciones,Bolivia,Enzo Monteiro,1535427,F,0,1,1,0,0,0.0,,3.0,107000.0
-5154125,2026-04-01,selecciones,Canada,Maxime Crépeau,464919,G,1,90,0,0,0,0.0,11.0,0.0,1267706.0
-5154125,2026-04-01,selecciones,Canada,Niko Sigur,1494508,D,1,90,1,1,0,0.0,32.0,1.0,3952466.0
-5154125,2026-04-01,selecciones,Canada,Joel Waterman,1100258,D,1,90,0,0,0,0.0,34.0,1.0,1499993.0
-5154125,2026-04-01,selecciones,Canada,Ralph Priso-Mbongue,1082109,D,1,90,0,0,0,0.0,36.0,1.0,765174.0
-5154125,2026-04-01,selecciones,Canada,Richie Laryea,729506,D,1,90,0,0,0,0.0,38.0,1.0,446275.0
-5154125,2026-04-01,selecciones,Canada,Liam Millar,932308,M,1,76,1,1,0,0.0,72.0,2.0,959452.0
-5154125,2026-04-01,selecciones,Canada,Ismaël Koné,1288119,M,1,90,0,0,0,0.0,74.0,2.0,17202327.0
-5154125,2026-04-01,selecciones,Canada,Nathan Saliba,1216798,M,1,58,2,0,0,0.0,76.0,2.0,
-5154125,2026-04-01,selecciones,Canada,Marcelo Flores,1186513,M,1,76,1,0,0,0.0,78.0,2.0,796741.0
-5154125,2026-04-01,selecciones,Canada,Jonathan David,939569,F,1,90,0,0,0,0.0,104.0,3.0,30175173.0
-5154125,2026-04-01,selecciones,Canada,Tani Oluwaseyi,1338740,F,1,58,5,2,0,0.0,106.0,3.0,6628536.0
-5154125,2026-04-01,selecciones,Canada,Kamal Miller,1027412,D,0,64,1,0,0,0.0,,1.0,1290450.0
-5154125,2026-04-01,selecciones,Canada,Ali Ahmed,1359536,M,0,14,1,1,0,0.0,,2.0,1418035.0
-5154125,2026-04-01,selecciones,Canada,Jonathan Osorio,432605,M,0,32,1,0,0,0.0,,2.0,676957.0
-5154125,2026-04-01,selecciones,Canada,Junior Hoilett,113465,F,0,14,1,1,0,0.0,,3.0,267593.0
 5154125,2026-04-01,selecciones,Tunisia,Abdelmouhib Chamakh,0,G,1,90,0,0,0,0.0,11.0,0.0,
 5154125,2026-04-01,selecciones,Tunisia,Moutaz Neffati,1413151,D,1,90,0,0,0,0.0,32.0,1.0,844539.0
 5154125,2026-04-01,selecciones,Tunisia,Alaa Ghram,1173774,D,1,90,0,0,0,0.0,34.0,1.0,1429166.0
@@ -6884,28 +6869,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5629370,2026-05-29,fem_francia,Paris FC,Théa Greboval,1002037,D,0,24,0,0,0,0.0,,1.0,
 5629370,2026-05-29,fem_francia,Paris FC,Sharlie Yerro,1823062,M,0,24,0,0,0,0.0,,2.0,
 5629370,2026-05-29,fem_francia,Paris FC,Lorena Azzaro,1544615,F,0,5,0,0,0,0.0,,3.0,
-5098971,2026-05-31,selecciones,United States,Matt Turner,729988,G,1,46,0,0,0,0.0,11.0,0.0,1499611.0
-5098971,2026-05-31,selecciones,United States,Alex Freeman,1338696,D,1,45,1,0,0,0.0,33.0,1.0,2557650.0
-5098971,2026-05-31,selecciones,United States,Mark McKenzie,924485,D,1,46,0,0,0,0.0,35.0,1.0,6456437.0
-5098971,2026-05-31,selecciones,United States,Tim Ream,198444,D,1,46,0,0,0,0.0,37.0,1.0,72000.0
-5098971,2026-05-31,selecciones,United States,Sergiño Dest,892816,D,1,45,1,1,1,0.0,72.0,1.0,19406643.0
-5098971,2026-05-31,selecciones,United States,Sebastian Berhalter,1136096,M,1,76,2,0,0,0.0,74.0,2.0,3030298.0
-5098971,2026-05-31,selecciones,United States,Tyler Adams,729769,M,1,46,0,0,0,0.0,76.0,2.0,26965703.0
-5098971,2026-05-31,selecciones,United States,Antonee Robinson,662428,D,1,45,1,0,0,0.0,78.0,1.0,32167890.0
-5098971,2026-05-31,selecciones,United States,Giovanni Reyna,1071179,M,1,46,0,0,0,0.0,103.0,2.0,7954675.0
-5098971,2026-05-31,selecciones,United States,Ricardo Pepi,1036401,F,1,45,2,0,0,0.0,105.0,3.0,26200000.0
-5098971,2026-05-31,selecciones,United States,Christian Pulisic,688295,F,1,45,2,1,1,0.0,107.0,3.0,44558052.0
-5098971,2026-05-31,selecciones,United States,Chris Brady,1245998,G,0,44,0,0,0,0.0,,0.0,2222301.0
-5098971,2026-05-31,selecciones,United States,Auston Trusty,688271,D,0,44,0,0,0,0.0,,1.0,5707032.0
-5098971,2026-05-31,selecciones,United States,Joseph Scally,959696,D,0,44,0,0,0,0.0,,1.0,10744181.0
-5098971,2026-05-31,selecciones,United States,Miles Robinson,825623,D,0,44,0,0,0,0.0,,1.0,1996919.0
-5098971,2026-05-31,selecciones,United States,Cristian Roldan,621946,M,0,45,1,0,0,0.0,,2.0,1928900.0
-5098971,2026-05-31,selecciones,United States,Malik Tillman,1126058,M,0,44,0,0,0,0.0,,2.0,34469753.0
-5098971,2026-05-31,selecciones,United States,Max Arfsten,1348329,M,0,44,0,0,0,0.0,,2.0,2827167.0
-5098971,2026-05-31,selecciones,United States,Timothy Weah,889536,M,0,45,1,0,0,0.0,,2.0,22648889.0
-5098971,2026-05-31,selecciones,United States,Weston McKennie,848266,M,0,45,1,0,0,0.0,,2.0,19089158.0
-5098971,2026-05-31,selecciones,United States,Folarin Balogun,982677,F,0,45,4,3,1,0.0,,3.0,23772012.0
-5098971,2026-05-31,selecciones,United States,Alex Zendejas,621882,F,0,14,1,0,0,0.0,,3.0,9703820.0
 5098971,2026-05-31,selecciones,Senegal,Mory Diaw,466436,G,1,90,0,0,0,0.0,11.0,0.0,1160271.0
 5098971,2026-05-31,selecciones,Senegal,Krépin Diatta,837061,D,1,90,0,0,0,0.0,33.0,1.0,3453070.0
 5098971,2026-05-31,selecciones,Senegal,Abdoulaye Seck,588626,D,1,46,0,0,0,0.0,35.0,1.0,204919.0
@@ -136301,3 +136264,37 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190750,2026-10-06,bra_serie_b,São Bernardo,Pedro Vitor,957550,F,0,17,0,0,0,0.0,,3.0,176965.0
 5190750,2026-10-06,bra_serie_b,São Bernardo,Romisson,267918,M,0,12,0,0,0,0.0,,2.0,
 5190750,2026-10-06,bra_serie_b,São Bernardo,Lucas Rian,1616627,F,0,12,0,0,0,0.0,,3.0,190794.0
+5991876,2026-10-07,selecciones,United States,Brian Schwake,1169991,G,1,90,0,0,0,0.0,11.0,0.0,387621.0
+5991876,2026-10-07,selecciones,United States,Alex Freeman,1338696,D,1,90,2,0,0,0.0,32.0,1.0,5303542.0
+5991876,2026-10-07,selecciones,United States,Chris Richards,950829,D,1,90,0,0,0,0.0,34.0,1.0,28055044.0
+5991876,2026-10-07,selecciones,United States,George Campbell,1047586,D,1,74,0,0,0,0.0,36.0,1.0,1945930.0
+5991876,2026-10-07,selecciones,United States,Auston Trusty,688271,D,1,74,0,0,0,0.0,38.0,1.0,3376290.0
+5991876,2026-10-07,selecciones,United States,Brooklyn Raines,1303876,M,1,61,0,0,0,0.0,64.0,2.0,2085937.0
+5991876,2026-10-07,selecciones,United States,Giovanni Reyna,1071179,M,1,46,0,0,0,0.0,66.0,2.0,3908131.0
+5991876,2026-10-07,selecciones,United States,Yunus Musah,1137272,M,1,46,0,0,0,0.0,83.0,2.0,15960702.0
+5991876,2026-10-07,selecciones,United States,Malik Tillman,1126058,M,1,74,0,0,0,0.0,85.0,2.0,26227619.0
+5991876,2026-10-07,selecciones,United States,Mathis Albert,1692797,F,1,61,0,0,0,0.0,87.0,3.0,725133.0
+5991876,2026-10-07,selecciones,United States,Justin Ellis,1626138,F,1,45,1,1,1,0.0,115.0,3.0,1182509.0
+5991876,2026-10-07,selecciones,United States,Sergiño Dest,892816,D,0,44,0,0,0,0.0,,1.0,23450403.0
+5991876,2026-10-07,selecciones,United States,Sebastian Berhalter,1136096,M,0,45,1,0,0,0.0,,2.0,6021805.0
+5991876,2026-10-07,selecciones,United States,Julian Hall,1489675,F,0,45,1,0,0,0.0,,3.0,6203884.0
+5991876,2026-10-07,selecciones,United States,Tyler Adams,729769,M,0,29,0,0,0,0.0,,2.0,21862532.0
+5991876,2026-10-07,selecciones,United States,Cole Campbell,1288195,F,0,29,0,0,0,0.0,,3.0,7325145.0
+5991876,2026-10-07,selecciones,United States,Antonee Robinson,662428,D,0,16,0,0,0,0.0,,1.0,21105351.0
+5991876,2026-10-07,selecciones,United States,Neil Pierre,1517896,D,0,16,0,0,0,0.0,,1.0,853428.0
+5991876,2026-10-07,selecciones,United States,Adri Mehmeti,1715268,M,0,16,0,0,0,0.0,,2.0,6650293.0
+5991876,2026-10-07,selecciones,Canada,Dayne St. Clair,1026105,G,1,90,0,0,0,0.0,11.0,0.0,1685701.0
+5991876,2026-10-07,selecciones,Canada,Niko Sigur,1494508,D,1,90,0,0,0,0.0,32.0,1.0,2367489.0
+5991876,2026-10-07,selecciones,Canada,Luc De Fougerolles,1399943,D,1,90,2,1,0,0.0,34.0,1.0,3548845.0
+5991876,2026-10-07,selecciones,Canada,Ralph Priso-Mbongue,1082109,D,1,90,0,0,0,0.0,36.0,1.0,537482.0
+5991876,2026-10-07,selecciones,Canada,Richie Laryea,729506,D,1,90,0,0,0,0.0,38.0,1.0,508574.0
+5991876,2026-10-07,selecciones,Canada,Liam Millar,932308,F,1,66,1,0,0,0.0,72.0,3.0,2332220.0
+5991876,2026-10-07,selecciones,Canada,Nathan Saliba,1216798,M,1,90,0,0,0,0.0,74.0,2.0,8882446.0
+5991876,2026-10-07,selecciones,Canada,Stephen Eustaquio,816223,M,1,45,1,1,0,0.0,76.0,2.0,4382488.0
+5991876,2026-10-07,selecciones,Canada,Jacob Shaffelburg,1023943,F,1,72,1,1,0,0.0,78.0,3.0,1279542.0
+5991876,2026-10-07,selecciones,Canada,Jonathan David,939569,F,1,90,0,0,0,0.0,104.0,3.0,33314574.0
+5991876,2026-10-07,selecciones,Canada,Tani Oluwaseyi,1338740,F,1,65,1,0,0,0.0,106.0,3.0,8402606.0
+5991876,2026-10-07,selecciones,Canada,Mathieu Choinière,943428,M,0,44,0,0,0,0.0,,2.0,560788.0
+5991876,2026-10-07,selecciones,Canada,Daniel Jebbison,1253827,F,0,25,0,0,0,0.0,,3.0,9971208.0
+5991876,2026-10-07,selecciones,Canada,Jacen Russell-Rowe,1106866,F,0,25,0,0,0,0.0,,3.0,4903324.0
+5991876,2026-10-07,selecciones,Canada,Promise David,1252132,F,0,18,1,0,0,0.0,,3.0,16899727.0
