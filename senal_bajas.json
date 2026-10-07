@@ -1,11 +1,11 @@
 {
- "generado": "2026-10-07T11:52Z",
+ "generado": "2026-10-07T13:27Z",
  "partidos_registrados": 29,
  "senales": 7,
  "umbral": 0.02,
  "minimo": 300,
  "con_cierre": 7,
- "clv_medio": 0.0,
+ "clv_medio": 0.002915451895043735,
  "clv_p5": null,
  "liquidadas": 0,
  "acierto": null,

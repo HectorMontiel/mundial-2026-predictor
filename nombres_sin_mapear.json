@@ -323,9 +323,9 @@
   },
   "Hartford Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Forfar Athletic",
-    "ratio": 0.75,
-    "visto": "2026-09-22"
+    "candidato": "Athletic Club U20",
+    "ratio": 0.4706,
+    "visto": "2026-10-07"
   },
   "São Bernardo": {
     "contexto": "cuotas_mx→futbol",
@@ -967,13 +967,13 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Athletic Club U20",
     "ratio": 0.5,
-    "visto": "2026-10-03"
+    "visto": "2026-10-07"
   },
   "Wigan Athletic": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Athletic Club U20",
     "ratio": 0.5161,
-    "visto": "2026-10-03"
+    "visto": "2026-10-07"
   },
   "Unión (Santa Fe)": {
     "contexto": "cuotas_mx→futbol",
@@ -1049,8 +1049,8 @@
   },
   "Central Córdoba (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ind. del Valle",
-    "ratio": 0.3333,
+    "candidato": "Central Cordoba 2",
+    "ratio": 0.6154,
     "visto": "2026-10-07"
   },
   "Raith Rovers": {
@@ -1151,8 +1151,8 @@
   },
   "San Antonio Bulo Bulo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo 2",
-    "ratio": 0.4118,
+    "candidato": "San Martin S.J. 2",
+    "ratio": 0.4324,
     "visto": "2026-10-07"
   },
   "Stade Laval": {
@@ -1345,6 +1345,36 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Chattanooga Red Wolves",
     "ratio": 0.45,
+    "visto": "2026-10-07"
+  },
+  "Aston Villa": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Villa Valle",
+    "ratio": 0.4545,
+    "visto": "2026-10-07"
+  },
+  "Charlton Athletic": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Athletic Club U20",
+    "ratio": 0.4706,
+    "visto": "2026-10-07"
+  },
+  "Dunfermline Athletic": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Athletic Club U20",
+    "ratio": 0.4324,
+    "visto": "2026-10-07"
+  },
+  "Club Brugge": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Athletic Club U20",
+    "ratio": 0.4286,
+    "visto": "2026-10-07"
+  },
+  "Sporting Club Delhi": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Athletic Club U20",
+    "ratio": 0.4444,
     "visto": "2026-10-07"
   }
 }
