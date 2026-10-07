@@ -1,7 +1,7 @@
 {
- "generado": "2026-10-06T22:38:09Z",
- "fixtures_revisados": 23,
- "ya_casaban": 19,
+ "generado": "2026-10-07T00:13:41Z",
+ "fixtures_revisados": 76,
+ "ya_casaban": 56,
  "min_parecido": 0.82,
  "alias": {
   "sint truiden": {
@@ -30,6 +30,15 @@
    "lado_ancla": "gateshead",
    "ultima_vez": "2026-09-27T01:31:13Z",
    "primera_vez": "2026-09-27T01:31:13Z"
+  },
+  "al qadisiyah": {
+   "canonico": "al qadsiah",
+   "parecido": 0.9091,
+   "visto_en": "Al Kholood vs Al Qadsiah",
+   "liga": "ksa_pro",
+   "lado_ancla": "al kholood",
+   "ultima_vez": "2026-10-07T00:13:41Z",
+   "primera_vez": "2026-10-07T00:13:41Z"
   }
  }
 }
