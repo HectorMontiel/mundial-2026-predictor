@@ -34737,21 +34737,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190656,2026-08-14,bra_serie_b,Londrina,Gilberto,265619,F,0,21,2,0,0,0.07,,3.0,129711.0
 5190656,2026-08-14,bra_serie_b,Londrina,Kevyn,1526931,D,0,13,1,1,0,0.16,,1.0,90656.0
 5190656,2026-08-14,bra_serie_b,Londrina,Raí,820656,F,0,2,0,0,0,0.0,,3.0,162976.0
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Vinicius,1636515,G,1,90,0,0,0,0.0,11.0,0.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Sergio Palacios,1532951,D,1,90,0,0,0,0.0,33.0,1.0,1137134.0
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Diego Leão,1937502,D,1,90,0,0,0,0.0,35.0,1.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Gustavo Almeida,1936798,D,1,90,0,0,0,0.0,37.0,1.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Juan,1936789,M,1,76,0,0,0,0.0,62.0,2.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,André Lima,1248916,M,1,90,1,0,0,0.08,64.0,2.0,273197.0
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Léo Gomes,934247,M,1,90,3,0,0,0.25,66.0,2.0,190619.0
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Baianinho,1436043,M,1,90,2,1,0,0.08,68.0,2.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,David da Hora,1265991,M,1,90,0,0,0,0.0,84.0,2.0,429937.0
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Élvis,265703,M,1,90,3,2,0,0.19,86.0,2.0,103680.0
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Brandão,1550696,F,1,82,5,3,1,0.59,105.0,3.0,323174.0
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Miguel,1766569,M,0,14,0,0,0,0.0,,2.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Gustavo Teles,1800471,M,0,8,0,0,0,0.0,,2.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,Matheus Souza,2139754,D,0,1,0,0,0,0.0,,1.0,
-5190649,2026-08-14,bra_serie_b,Ponte Preta,João Damião,1929042,F,0,1,0,0,0,0.0,,3.0,
 5190649,2026-08-14,bra_serie_b,Náutico,Muriel,121848,G,1,90,0,0,0,0.0,11.0,0.0,66991.0
 5190649,2026-08-14,bra_serie_b,Náutico,Arnaldo,659758,D,1,79,0,0,0,0.0,32.0,1.0,50000.0
 5190649,2026-08-14,bra_serie_b,Náutico,Betão,1653469,D,1,90,1,0,0,0.03,34.0,1.0,158569.0
@@ -36990,22 +36975,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013200,2026-08-15,chi_primera,Universidad de Chile,Nicolás Fernández,864365,D,0,11,0,0,0,0.0,,1.0,273709.0
 1000013200,2026-08-15,chi_primera,Universidad de Chile,Gonzalo Reyna,1813134,M,0,11,1,1,1,0.0,,2.0,457791.0
 1000013200,2026-08-15,chi_primera,Universidad de Chile,Juan Lucero,561043,F,0,11,0,0,0,0.0,,3.0,455477.0
-5190658,2026-08-15,bra_serie_b,Juventude,Pedro Rocha,1460458,G,1,90,0,0,0,0.0,11.0,0.0,
-5190658,2026-08-15,bra_serie_b,Juventude,Rodrigo Sam,637668,D,1,90,1,0,0,0.03,33.0,1.0,329792.0
-5190658,2026-08-15,bra_serie_b,Juventude,Titi,78911,D,1,90,1,1,0,0.06,35.0,1.0,94626.0
-5190658,2026-08-15,bra_serie_b,Juventude,Marcos Paulo,1366061,D,1,90,1,0,0,0.01,37.0,1.0,758665.0
-5190658,2026-08-15,bra_serie_b,Juventude,Aderlan,568920,M,1,73,0,0,0,0.0,72.0,2.0,201056.0
-5190658,2026-08-15,bra_serie_b,Juventude,Raí,1334428,M,1,90,2,0,0,0.05,74.0,2.0,451810.0
-5190658,2026-08-15,bra_serie_b,Juventude,Lucas Mineiro,750088,M,1,59,0,0,0,0.0,76.0,2.0,486262.0
-5190658,2026-08-15,bra_serie_b,Juventude,Diogo Barbosa,231683,M,1,90,0,0,0,0.0,78.0,2.0,210210.0
-5190658,2026-08-15,bra_serie_b,Juventude,Alisson Safira,793924,F,1,73,3,1,0,0.1,103.0,3.0,639733.0
-5190658,2026-08-15,bra_serie_b,Juventude,Luis Amarilla,497400,F,1,59,2,1,0,0.44,105.0,3.0,335988.0
-5190658,2026-08-15,bra_serie_b,Juventude,Marcos Paulo,974867,F,1,68,1,0,0,0.49,107.0,3.0,331706.0
-5190658,2026-08-15,bra_serie_b,Juventude,Luan Gonçalves,1653493,D,0,31,1,0,0,0.08,,1.0,
-5190658,2026-08-15,bra_serie_b,Juventude,Alan Kardec,92935,F,0,31,0,0,0,0.0,,3.0,239025.0
-5190658,2026-08-15,bra_serie_b,Juventude,Gabriel Pires,394585,M,0,22,3,0,0,0.17,,2.0,493731.0
-5190658,2026-08-15,bra_serie_b,Juventude,Raí Ramos,1088049,D,0,17,1,1,0,0.04,,1.0,221421.0
-5190658,2026-08-15,bra_serie_b,Juventude,Lucas Alves,1467462,F,0,17,0,0,0,0.0,,3.0,311605.0
 5190658,2026-08-15,bra_serie_b,Fortaleza,João Ricardo,498728,G,1,90,0,0,0,0.0,11.0,0.0,299602.0
 5190658,2026-08-15,bra_serie_b,Fortaleza,Maílton,1086537,D,1,90,0,0,0,0.0,32.0,1.0,1438641.0
 5190658,2026-08-15,bra_serie_b,Fortaleza,Lucas Gazal,1362665,D,1,90,0,0,0,0.0,34.0,1.0,784631.0
@@ -136298,3 +136267,64 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5991876,2026-10-07,selecciones,Canada,Daniel Jebbison,1253827,F,0,25,0,0,0,0.0,,3.0,9971208.0
 5991876,2026-10-07,selecciones,Canada,Jacen Russell-Rowe,1106866,F,0,25,0,0,0,0.0,,3.0,4903324.0
 5991876,2026-10-07,selecciones,Canada,Promise David,1252132,F,0,18,1,0,0,0.0,,3.0,16899727.0
+5071211,2026-10-07,mls,Chicago Fire FC,Josh Cohen,1073995,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5071211,2026-10-07,mls,Chicago Fire FC,Jonathan Dean,1170975,D,1,90,0,0,0,0.0,32.0,1.0,498024.0
+5071211,2026-10-07,mls,Chicago Fire FC,Jack Elliott,830664,D,1,90,2,1,0,0.15,34.0,1.0,1203558.0
+5071211,2026-10-07,mls,Chicago Fire FC,Mbekezeli Mbokazi,1719066,D,1,90,0,0,0,0.0,36.0,1.0,1461805.0
+5071211,2026-10-07,mls,Chicago Fire FC,Leonardo Barroso,1525424,D,1,90,1,1,0,0.04,38.0,1.0,1206622.0
+5071211,2026-10-07,mls,Chicago Fire FC,Anton Salétros,482204,M,1,45,1,0,0,0.04,73.0,2.0,1492154.0
+5071211,2026-10-07,mls,Chicago Fire FC,Djé D'Avilla,1525182,M,1,90,0,0,0,0.0,75.0,2.0,3927135.0
+5071211,2026-10-07,mls,Chicago Fire FC,Maren Haile-Selassie,861753,F,1,90,5,2,1,1.1,77.0,3.0,912857.0
+5071211,2026-10-07,mls,Chicago Fire FC,Philip Zinckernagel,449279,F,1,76,5,1,1,1.44,103.0,3.0,2155329.0
+5071211,2026-10-07,mls,Chicago Fire FC,Johan Gómez,1057432,M,1,89,3,0,0,0.83,105.0,2.0,433070.0
+5071211,2026-10-07,mls,Chicago Fire FC,Jonathan Bamba,466478,F,1,76,2,1,1,0.09,107.0,3.0,2119407.0
+5071211,2026-10-07,mls,Chicago Fire FC,Mauricio Pineda,1136089,M,0,45,1,0,0,0.09,,2.0,448914.0
+5071211,2026-10-07,mls,Chicago Fire FC,Puso Dithejane,1646522,F,0,14,1,1,0,0.03,,3.0,810714.0
+5071211,2026-10-07,mls,Chicago Fire FC,Robert Lewandowski,93447,F,0,14,1,0,0,0.1,,3.0,8527749.0
+5071211,2026-10-07,mls,Chicago Fire FC,Dawid Poręba,1338760,M,0,1,0,0,0,0.0,,2.0,175265.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Yohei Takaoka,648356,G,1,90,0,0,0,0.0,11.0,0.0,1639536.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Rui Modesto,1188665,D,1,90,1,0,0,0.02,32.0,1.0,1280817.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Mathías Laborda,1036108,D,1,90,3,1,1,0.14,34.0,1.0,1936749.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Tristan Blackmon,925326,D,1,90,0,0,0,0.0,36.0,1.0,1980736.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Tate Johnson,1368139,D,1,73,0,0,0,0.0,38.0,1.0,2243549.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Oliver Larraz,1246571,M,1,89,0,0,0,0.0,64.0,2.0,596031.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Aleksa Cvetković,1665196,M,1,45,1,0,0,0.06,66.0,2.0,298598.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Cheikh Sabaly,950967,F,1,58,1,0,0,0.03,83.0,3.0,2102078.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Ryan Gauld,318605,M,1,90,1,0,0,0.17,85.0,2.0,1973956.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Emmanuel Sabbi,848008,F,1,57,0,0,0,0.0,87.0,3.0,1534326.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Brian White,933760,F,1,90,4,0,0,0.34,115.0,3.0,3946606.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Thomas Müller,116772,M,0,44,0,0,0,0.0,,2.0,1731800.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Bruno Caicedo,1691091,F,0,33,2,1,0,0.21,,3.0,1496514.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Yadaly Diaby,1317338,F,0,32,2,0,0,0.12,,3.0,812558.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Sam Adekugbe,498143,D,0,17,0,0,0,0.0,,1.0,117679.0
+5071211,2026-10-07,mls,Vancouver Whitecaps,Rayan Elloumi,1685596,F,0,1,0,0,0,0.0,,3.0,1511614.0
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Vinicius,1636515,G,1,90,0,0,0,0.0,11.0,0.0,
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Diego Leão,1937502,D,1,90,0,0,0,0.0,33.0,1.0,
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Gabriel Caran,1795370,D,1,90,0,0,0,0.0,35.0,1.0,
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Danilo,498624,D,1,90,2,1,0,0.06,37.0,1.0,149299.0
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Sergio Palacios,1532951,M,1,90,0,0,0,0.0,62.0,2.0,1193937.0
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Rodrigo Souza,500605,M,1,90,0,0,0,0.0,64.0,2.0,142549.0
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Denis,1613176,M,1,55,2,0,0,0.11,66.0,2.0,
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Diego Porfírio,1334351,M,1,90,0,0,0,0.0,68.0,2.0,224018.0
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Emanuell Ferreira,1525143,M,1,71,4,0,0,0.23,85.0,2.0,
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Peu,1406477,F,1,71,1,0,0,0.04,104.0,3.0,317592.0
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Brandão,1550696,F,1,90,1,0,0,0.03,106.0,3.0,294928.0
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Gustavo Teles,1800471,M,0,35,0,0,0,0.0,,2.0,
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Miguel,1766569,M,0,19,0,0,0,0.0,,2.0,
+5190749,2026-10-07,bra_serie_b,Ponte Preta,Nicolas Silva,1478296,M,0,19,1,1,0,0.05,,2.0,
+5190749,2026-10-07,bra_serie_b,Juventude,Jandrei,844089,G,1,90,0,0,0,0.0,11.0,0.0,313857.0
+5190749,2026-10-07,bra_serie_b,Juventude,Rodrigo Sam,637668,D,1,90,0,0,0,0.0,33.0,1.0,420791.0
+5190749,2026-10-07,bra_serie_b,Juventude,Messias,749382,D,1,72,0,0,0,0.0,35.0,1.0,545252.0
+5190749,2026-10-07,bra_serie_b,Juventude,Gabriel,1041081,D,1,90,1,0,0,0.01,37.0,1.0,202276.0
+5190749,2026-10-07,bra_serie_b,Juventude,Aderlan,568920,M,1,90,1,1,0,0.03,72.0,2.0,230590.0
+5190749,2026-10-07,bra_serie_b,Juventude,Gabriel Pires,394585,M,1,90,3,0,0,0.1,74.0,2.0,252789.0
+5190749,2026-10-07,bra_serie_b,Juventude,Raí,1334428,M,1,57,1,1,1,0.02,76.0,2.0,641560.0
+5190749,2026-10-07,bra_serie_b,Juventude,Diogo Barbosa,231683,M,1,90,0,0,0,0.0,78.0,2.0,243892.0
+5190749,2026-10-07,bra_serie_b,Juventude,Fábio Lima,1358662,F,1,57,2,0,0,0.11,103.0,3.0,219689.0
+5190749,2026-10-07,bra_serie_b,Juventude,Alisson Safira,793924,F,1,72,2,0,0,0.27,105.0,3.0,852181.0
+5190749,2026-10-07,bra_serie_b,Juventude,Mandaca,1254655,F,1,26,1,0,0,0.02,107.0,3.0,1407994.0
+5190749,2026-10-07,bra_serie_b,Juventude,Marcos Paulo MP,974867,F,0,64,2,2,1,0.16,,3.0,356954.0
+5190749,2026-10-07,bra_serie_b,Juventude,Lucas Mineiro,750088,M,0,33,0,0,0,0.0,,2.0,493228.0
+5190749,2026-10-07,bra_serie_b,Juventude,Luis Amarilla,497400,F,0,33,1,1,0,0.03,,3.0,314853.0
+5190749,2026-10-07,bra_serie_b,Juventude,Titi,78911,D,0,18,0,0,0,0.0,,1.0,136261.0
+5190749,2026-10-07,bra_serie_b,Juventude,Juan Christian,1459546,F,0,18,1,1,0,0.1,,3.0,160715.0
