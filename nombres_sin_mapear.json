@@ -1163,8 +1163,8 @@
   },
   "Queens Park Rangers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Hong Kong Rangers U22",
-    "ratio": 0.55,
+    "candidato": "Brora Rangers",
+    "ratio": 0.5625,
     "visto": "2026-10-07"
   },
   "Gamba Osaka": {
@@ -1199,8 +1199,8 @@
   },
   "1. FC Union Berlin": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union Touarga",
-    "ratio": 0.4667,
+    "candidato": "Union Clodiense",
+    "ratio": 0.5,
     "visto": "2026-10-07"
   },
   "Stockport County": {
@@ -1223,14 +1223,14 @@
   },
   "Partick Thistle": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Strathspey Thistle",
-    "ratio": 0.5455,
+    "candidato": "Buckie Thistle",
+    "ratio": 0.6897,
     "visto": "2026-10-07"
   },
   "Inverness Caledonian Thistle": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Strathspey Thistle",
-    "ratio": 0.3913,
+    "candidato": "Buckie Thistle",
+    "ratio": 0.4762,
     "visto": "2026-10-07"
   },
   "Virtus Entella": {
@@ -1333,6 +1333,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Santa Cruz U20",
     "ratio": 0.64,
+    "visto": "2026-10-07"
+  },
+  "Rayo Vallecano": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rayo Zuliano",
+    "ratio": 0.6923,
+    "visto": "2026-10-07"
+  },
+  "Urawa Red Diamonds": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Chattanooga Red Wolves",
+    "ratio": 0.45,
     "visto": "2026-10-07"
   }
 }
