@@ -206,6 +206,15 @@ jobs:
         if: steps.frescura.outputs.saltar != 'true'
         run: python precalculo_dia.py --estado
 
+      # v338 — ¿LAS BAJAS AVISAN ANTES QUE LA CUOTA? El barrido de arriba ya
+      # apuntó en `senal_bajas.csv` lo que movieron las bajas y la cuota de
+      # Playdoit de ese momento (`alpha_finder` → `senal_bajas.registrar`).
+      # Aquí se mide contra el cierre y el resultado; el informe dice cuándo
+      # hay muestra para decidir. No apuesta nada.
+      - name: Medir la señal de las bajas
+        if: steps.frescura.outputs.saltar != 'true'
+        run: python senal_bajas.py --medir || echo "::warning::señal de bajas sin medir"
+
       # v324 — PLAYDOIT, VIGILADO DONDE SÍ HAY RED. Es la casa donde se apuesta
       # y sus pruebas en vivo (`test_catalogo_y_cuotas.py`) no pueden correr en
       # un entorno sin salida a su web, donde ahora se dan por omitidas. Aquí
@@ -248,7 +257,7 @@ jobs:
           #
           # El bucle anade lo que hay y se salta lo que no, sin tragarse un
           # fallo real en los ficheros que SI estan.
-          for _f in historico_partidos.csv team_stats.json historico_nfl_largo.csv lineas_jugador_dia.json lineas_jugador_hist remates_fotmob_jugadores.csv remates_fotmob_equipos.csv remates_fotmob_vacios.txt fotmob_ligas.json bajas_dia.json bajas_historico.csv historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json resultados_fotmob.csv.gz resultados_flashscore.csv.gz resultados_flashscore_reciente.csv.gz rutas_flashscore.json historia_flashscore.json; do
+          for _f in historico_partidos.csv team_stats.json historico_nfl_largo.csv lineas_jugador_dia.json lineas_jugador_hist remates_fotmob_jugadores.csv remates_fotmob_equipos.csv remates_fotmob_vacios.txt fotmob_ligas.json bajas_dia.json bajas_historico.csv senal_bajas.csv senal_bajas.json historico_selecciones.csv historico_mex_femenil.csv historico_champions_femenil.csv historico_fem_inglaterra.csv historico_fem_espana.csv historico_fem_alemania.csv historico_fem_francia.csv historico_fem_italia.csv motor_goles.json pronostico_dia.json archivo_contexto.json ponches_snapshots.csv jugados_dia.json alias_equipos.json alias_auto_nombres.json mercado_dia.json nombres_sin_mapear.json resultados_fotmob.csv.gz resultados_flashscore.csv.gz resultados_flashscore_reciente.csv.gz rutas_flashscore.json historia_flashscore.json; do
             if [ -e "$_f" ]; then
               git add "$_f" || echo "::warning::git add de $_f fallo"
             fi

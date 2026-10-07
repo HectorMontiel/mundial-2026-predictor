@@ -4348,6 +4348,14 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
         logger.info(f'[alpha] bajas aplicadas a {_n_baj} partidos')
     except Exception as e:
         logger.warning(f'[alpha] bajas no aplicadas: {e}')
+    # v338 — y se apunta lo que movieron, con la cuota de ese momento, para
+    # medir si las bajas avisan antes que la cuota (`senal_bajas`). Sólo
+    # escribe en GitHub Actions; nunca tumba el barrido.
+    try:
+        import senal_bajas as _sb
+        _sb.registrar(r.get('pronosticos') or [])
+    except Exception as e:
+        logger.debug(f'[alpha] señal de bajas no registrada: {e}')
     capa1 = list(r.get('elite') or [])
     for p in capa1:
         p.setdefault('deporte', 'Fútbol')
