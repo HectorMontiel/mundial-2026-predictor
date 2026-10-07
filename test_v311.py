@@ -43,6 +43,11 @@ def probar_una_de_resultado():
          'cuota': 1.22, 'bloque': 'goles', 'etiqueta': 'Total'},
     ]
     orig_m, orig_e = va.mejores, vp.evaluar_lista
+    # v335 — donde la casa cotiza, «meter» exige su precio (`p_mercado`): se
+    # le da uno de acuerdo con el modelo para seguir probando la mecánica.
+    import concordancia as _conc
+    orig_pm = _conc.prob_mercado
+    _conc.prob_mercado = lambda pick, apuesta, mercado='': 0.80
     va.mejores = lambda pick, bloques, n=3: [dict(f) for f in filas]
     vp.evaluar_lista = lambda cands, con_contexto=False: [
         {'pick': c, 'veredicto': 'meter' if c['prob'] >= .65 else 'no_meter',
@@ -53,6 +58,7 @@ def probar_una_de_resultado():
                              'deporte': 'Fútbol'}, None, n=4)
     finally:
         va.mejores, vp.evaluar_lista = orig_m, orig_e
+        _conc.prob_mercado = orig_pm
     merc = [x['mercado'] for x in r]
     res = [m for m in merc if m in mm.FAMILIA_RESULTADO]
     check(len(res) == 1, 'una sola apuesta de resultado por partido (%s)' % merc)

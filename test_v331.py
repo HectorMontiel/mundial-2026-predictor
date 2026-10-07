@@ -29,10 +29,12 @@ def check(cond, msg):
         FALLOS.append(msg)
 
 
-def motivo(apuesta, mercado='Goles', prob=0.75, cuota=1.28, dep='Fútbol'):
+def motivo(apuesta, mercado='Goles', prob=0.75, cuota=1.28, dep='Fútbol',
+           casa=0.78):
+    """v335 — con `p_mercado`: donde la casa cotiza, sin su precio no se mete."""
     import veredicto_pick as vp
     v = {'pick': {'deporte': dep, 'apuesta': apuesta, 'mercado': mercado,
-                  'cuota': cuota},
+                  'cuota': cuota, 'p_mercado': casa},
          'mercado': mercado, 'prob_ajustada': prob}
     return vp.franja_futbol(v)
 

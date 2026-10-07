@@ -154,17 +154,69 @@ def franja_futbol(v: Dict) -> Optional[str]:
     mercado = str(v.get('mercado') or pick.get('mercado') or '')
     if mercado in MERCADOS_NO_METER_FUTBOL:
         return '«%s» falla más de lo que promete' % mercado
-    p = _f(v.get('prob_ajustada'))
-    if p is None or not (METER_FUTBOL_MIN <= p <= METER_FUTBOL_MAX):
-        return 'fuera de la franja 70-80 %, donde se cumple lo prometido'
-    c = _f(v.get('cuota') if v.get('cuota') is not None else pick.get('cuota'))
-    if c is not None and c >= CUOTA_METER_FUTBOL_MAX:
-        return 'cuota %.2f: a partir de %.2f salen más rojos' % (
-            c, CUOTA_METER_FUTBOL_MAX)
     if mercado == 'Goles' and _LINEA_25.search(
             str(v.get('apuesta') or pick.get('apuesta') or '')):
         return 'la línea 2,5 de goles acierta menos de lo que promete'
+    p = _f(v.get('prob_ajustada'))
+    c = _f(v.get('cuota') if v.get('cuota') is not None else pick.get('cuota'))
+    if mercado in MERCADOS_CON_PRECIO:
+        # v335 — donde la casa cotiza, decide su precio (ver abajo)
+        pm = _f(v.get('p_mercado') if v.get('p_mercado') is not None
+                else pick.get('p_mercado'))
+        if pm is None or c is None:
+            return 'sin precio de la casa para comprobarla'
+        if p is None or p < METER_CASA_MODELO_MIN:
+            return 'el modelo no llega al %.0f %%' % (100 * METER_CASA_MODELO_MIN)
+        if pm < METER_CASA_MIN:
+            return 'la casa la ve al %.0f %%: por debajo del %.0f %%' % (
+                100 * pm, 100 * METER_CASA_MIN)
+        if c < METER_CASA_CUOTA_MIN:
+            return 'cuota %.2f: por debajo de %.2f paga muy poco' % (
+                c, METER_CASA_CUOTA_MIN)
+        if c >= CUOTA_METER_FUTBOL_MAX:
+            return 'cuota %.2f: a partir de %.2f salen más rojos' % (
+                c, CUOTA_METER_FUTBOL_MAX)
+        return None
+    if p is None or not (METER_FUTBOL_MIN <= p <= METER_FUTBOL_MAX):
+        return 'fuera de la franja 70-80 %, donde se cumple lo prometido'
+    if c is not None and c >= CUOTA_METER_FUTBOL_MAX:
+        return 'cuota %.2f: a partir de %.2f salen más rojos' % (
+            c, CUOTA_METER_FUTBOL_MAX)
     return None
+
+
+# v335 — DONDE LA CASA COTIZA, «METER» LO DECIDE SU PRECIO, NO SÓLO EL MODELO.
+#
+# El usuario: «no entiendo cómo es que mejora pero no nos da más verdes»;
+# después eligió «ambas» (esta es la A). La v334 (`_v334_avanzado.py`) midió
+# que, a IGUAL número de apuestas, la probabilidad de la casa sin margen
+# elige mejores partidos que el modelo (+1,5 a +2,4 pts, p5 > 0) y que un
+# apilado le da peso ≈ 1 al precio y ≈ 0 al modelo. El modelo no sabe nada que
+# el precio no sepa; donde hay precio, el precio manda.
+#
+# LA REGLA, elegida con los días de mirar de la simulación de la tarjeta
+# (`_v335_meter_casa.py`: la que más verdes da manteniendo el volumen de hoy
+# ±5 % y la cuota media ≥ 1,20, lo acordado con el usuario): casa sin margen
+# ≥ 74 %, modelo ≥ 70 % (las dos de acuerdo) y cuota entre 1,15 y 1,35. Si la
+# casa no da precio de ESA apuesta, no se mete: no hay con qué comprobarla.
+#
+#                         ANTES                       DESPUÉS
+#   simulación, mirar     78,7 % · 611 · 130 rojos    81,4 % · 581 · 108 rojos
+#   (Playdoit, 20-30 sep) cuota 1,246 · −2,1 %        cuota 1,213 · −1,4 %
+#   simulación, juzgar    76,2 % · 344 ·  82 rojos    78,5 % · 340 ·  73 rojos
+#   (1-6 oct)             cuota 1,238 · −5,7 %        cuota 1,214 · −4,9 %
+#   histórico, juzgar     77,3 % · 2.119 rojos        79,0 % · 1.407 rojos
+#   (2024-08 a 2026-10)   cuota 1,228 · −5,3 %        cuota 1,204 · −5,0 %
+#
+# Histórico: +1,63 pts con p5 +0,92 en 664 días, mejor en las dos mitades y
+# en 8 de 9 años (2021 igual). En la simulación el p5 de los 6 días de juicio
+# es −1,00: pocos días, no peor. LO QUE CUESTA: la cuota media baja de ~1,24 a
+# ~1,21; el rendimiento por peso queda igual o un poco mejor. Córners y
+# tarjetas, sin precio, siguen con la franja 70-80 % del modelo.
+MERCADOS_CON_PRECIO = ('Goles', 'Goles equipo', '1X2', 'Doble oportunidad', 'BTTS')
+METER_CASA_MIN = 0.74
+METER_CASA_MODELO_MIN = 0.70
+METER_CASA_CUOTA_MIN = 1.15
 
 
 # v331 — LA LÍNEA 2,5 DEL TOTAL DE GOLES NO SE «METE».

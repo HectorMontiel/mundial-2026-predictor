@@ -43,15 +43,27 @@ def probar_el_meter():
                                                  'Remates a puerta', 'Handicap'},
           'y sin los mercados que fallan más de lo que prometen')
 
-    def ev(prob, cuota, mercado='Goles', dep='Fútbol'):
+    # v335 — donde la casa cotiza (goles, ganador, doble…) decide su precio:
+    # casa sin margen ≥ 74 %, modelo ≥ 70 %, cuota 1,15-1,35. Por eso el
+    # pick lleva `p_mercado`; sin él, esas apuestas no se meten.
+    def ev(prob, cuota, mercado='Goles', dep='Fútbol', casa=0.78):
         v = vp.evaluar({'apuesta': 'x', 'mercado': mercado, 'prob': prob,
                         'cuota': cuota, 'deporte': dep})
-        v['pick'] = {'deporte': dep, 'mercado': mercado, 'cuota': cuota}
+        v['pick'] = {'deporte': dep, 'mercado': mercado, 'cuota': cuota,
+                     'p_mercado': casa}
         if v['veredicto'] == vp.METER and vp.franja_futbol(v):
             return vp.NO_METER
         return v['veredicto']
     check(ev(.75, 1.25) == vp.METER, 'un 75 % a 1,25 en goles se mete')
-    check(ev(.84, 1.20) == vp.NO_METER, 'un 84 % no (ahí sale 67 %)')
+    # v312 medía que el modelo al 80-85 % acertaba 67 %. Con la casa de
+    # acuerdo deja de pasar (v335: 83,3 % en 395 apuestas de la simulación),
+    # así que lo que se vigila ahora es que SIN la casa no entre.
+    check(ev(.84, 1.20, casa=0.70) == vp.NO_METER,
+          'un 84 % del modelo sin la casa de acuerdo no se mete')
+    check(ev(.84, 1.20, casa=0.82) == vp.METER,
+          'y con la casa de acuerdo sí (v335: 83,3 % medido)')
+    check(ev(.75, 1.25, casa=None) == vp.NO_METER,
+          'sin precio de la casa, una apuesta de goles no se mete')
     check(ev(.75, 1.40) == vp.NO_METER, 'a cuota 1,40 no')
     check(ev(.75, 1.25, 'Doble y goles') == vp.NO_METER,
           '«doble y goles» no se mete')

@@ -1885,6 +1885,11 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
         logger.debug('[modo_modelo] valor: %s', e)
         filas = []
     candidatas = [_enriquece(pick, f, i + 1) for i, f in enumerate(filas)]
+    # v335 — y las que respalda la casa, aunque el Score no las preseleccione
+    try:
+        candidatas += _candidatas_de_la_casa(pick, bloques, candidatas)
+    except Exception as e:
+        logger.debug('[modo_modelo] candidatas de la casa: %s', e)
 
     # v241 — SE ELIGE CON EL MISMO NUMERO CON EL QUE SE PINTA.
     #
@@ -1940,8 +1945,10 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
                                                 _fav, _lam_ck)
                 if _otra is not None:
                     _vers[_k] = _otra
+            # v335 — entre las «meter», primero la que la casa ve más segura
+            # (donde hay precio); sin precio, la probabilidad corregida.
             _vers.sort(key=lambda v: (v['veredicto'] != _vp.METER,
-                                      -float(v.get('prob_ajustada') or 0)))
+                                      -float(_prioridad_meter(v) or 0)))
             candidatas = []
             for v in _vers:
                 v['pick']['veredicto_vp'] = v.get('veredicto')
@@ -2003,6 +2010,57 @@ def recomendadas(pick: Dict, bloques: Optional[Dict] = None,
     for _i, _c in enumerate(candidatas[:n]):
         _c['puesto_valor'] = _i + 1
     return candidatas[:n]
+
+
+def _prioridad_meter(v: Dict) -> Optional[float]:
+    """v335 — con qué se ordena una «meter»: el precio de la casa sin margen
+    si la casa cotiza esa apuesta, la probabilidad corregida si no."""
+    import veredicto_pick as _vp
+    pk = v.get('pick') or {}
+    if (v.get('veredicto') == _vp.METER
+            and str(v.get('mercado') or pk.get('mercado') or '') in _vp.MERCADOS_CON_PRECIO
+            and pk.get('p_mercado') is not None):
+        return pk.get('p_mercado')
+    return v.get('prob_ajustada')
+
+
+def _candidatas_de_la_casa(pick: Dict, bloques: Optional[Dict],
+                           ya: list) -> list:
+    """v335 — LAS APUESTAS QUE RESPALDA LA CASA, AUNQUE EL SCORE NO LAS ELIJA.
+
+    `valor_apuesta.mejores` preselecciona doce por Score —el valor según el
+    modelo— y quita todo lo que baje de cuota 1,20. Con eso, la regla de la
+    v335 (casa sin margen ≥ 74 %, modelo ≥ 70 %, cuota 1,15-1,35; ver
+    `veredicto_pick.MERCADOS_CON_PRECIO`) casi nunca veía sus apuestas: la
+    simulación rehecha con sólo la regla dio 77,8 → 77,7 % y 955 → 761
+    apuestas, porque las que la casa ve más seguras no llegaban a evaluarse.
+    Aquí se añaden, de cualquier línea, las que cumplen de entrada la regla
+    de la casa, para que el veredicto las juzgue con las demás."""
+    import valor_apuesta as va
+    import veredicto_pick as _vp
+    if str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+        return []
+    vistas = {str(c.get('apuesta')) for c in ya}
+    salida = []
+    for f in va.candidatos(pick, bloques or {}):
+        ap = str(f.get('apuesta') or '')
+        if ap in vistas or str(f.get('mercado') or '') not in _vp.MERCADOS_CON_PRECIO:
+            continue
+        c, p = f.get('cuota'), f.get('prob')
+        if c is None or p is None:
+            continue
+        # el modelo se comprueba después con su probabilidad CORREGIDA; aquí
+        # sólo se descarta lo que no tiene ninguna opción
+        if not (_vp.METER_CASA_CUOTA_MIN <= float(c) < _vp.CUOTA_METER_FUTBOL_MAX) \
+                or float(p) < 0.65:
+            continue
+        e = _enriquece(pick, f, len(ya) + len(salida) + 1)
+        pm = e.get('p_mercado')
+        if pm is None or float(pm) < _vp.METER_CASA_MIN:
+            continue
+        salida.append(e)
+        vistas.add(ap)
+    return salida
 
 
 def _motivo_fuera(v: Dict, fav: Optional[float], lam: Dict) -> Optional[str]:
