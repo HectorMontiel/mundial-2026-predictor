@@ -473,8 +473,8 @@
   },
   "Chacarita Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cuenca Juniors",
-    "ratio": 0.7097,
+    "candidato": "Boca Juniors",
+    "ratio": 0.6897,
     "visto": "2026-10-07"
   },
   "Cerro Largo": {
@@ -1103,9 +1103,9 @@
   },
   "Leones Negros": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Leones de Rosario",
-    "ratio": 0.7333,
-    "visto": "2026-10-04"
+    "candidato": "Leones del Norte",
+    "ratio": 0.6207,
+    "visto": "2026-10-07"
   },
   "Chicago Fire FC": {
     "contexto": "cuotas_mx→futbol",
@@ -1199,8 +1199,8 @@
   },
   "1. FC Union Berlin": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union Clodiense",
-    "ratio": 0.5,
+    "candidato": "Union Touarga",
+    "ratio": 0.4667,
     "visto": "2026-10-07"
   },
   "Stockport County": {
@@ -1405,6 +1405,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Real Santander",
     "ratio": 0.5,
+    "visto": "2026-10-07"
+  },
+  "Leones": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Leones del Norte",
+    "ratio": 0.5455,
     "visto": "2026-10-07"
   }
 }
