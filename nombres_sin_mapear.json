@@ -145,8 +145,8 @@
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.5185,
+    "candidato": "Inter Allies",
+    "ratio": 0.6087,
     "visto": "2026-10-08"
   },
   "Inter de San Carlos": {
@@ -181,9 +181,9 @@
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Bristol City U21",
-    "ratio": 0.4211,
-    "visto": "2026-10-06"
+    "candidato": "Stoke City U21",
+    "ratio": 0.5,
+    "visto": "2026-10-08"
   },
   "Montevideo Wanderers": {
     "contexto": "cuotas_mx→futbol",
@@ -389,9 +389,9 @@
   },
   "Sheffield Wednesday": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sheffield Wed U21",
-    "ratio": 0.7222,
-    "visto": "2026-09-25"
+    "candidato": "Sheffield Utd U21",
+    "ratio": 0.6111,
+    "visto": "2026-10-08"
   },
   "Boston United": {
     "contexto": "cuotas_mx→futbol",
@@ -635,9 +635,9 @@
   },
   "Sacramento Republic FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Czech Republic",
+    "candidato": "Czech Republic W",
     "ratio": 0.6667,
-    "visto": "2026-10-03"
+    "visto": "2026-10-08"
   },
   "Gimnasia y Tiro (Salta)": {
     "contexto": "cuotas_mx→futbol",
@@ -677,9 +677,9 @@
   },
   "Fleetwood Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5,
-    "visto": "2026-10-03"
+    "candidato": "Fleetwood U21",
+    "ratio": 0.7407,
+    "visto": "2026-10-08"
   },
   "Mansfield Town": {
     "contexto": "cuotas_mx→futbol",
@@ -989,9 +989,9 @@
   },
   "Huddersfield Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.4516,
-    "visto": "2026-10-03"
+    "candidato": "Huddersfield U21",
+    "ratio": 0.7879,
+    "visto": "2026-10-08"
   },
   "Luton Town": {
     "contexto": "cuotas_mx→futbol",
@@ -1205,9 +1205,9 @@
   },
   "Stockport County": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Nairn County",
-    "ratio": 0.5714,
-    "visto": "2026-10-07"
+    "candidato": "Stockport U21",
+    "ratio": 0.7586,
+    "visto": "2026-10-08"
   },
   "Newport County": {
     "contexto": "cuotas_mx→futbol",
@@ -1355,8 +1355,8 @@
   },
   "Charlton Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Athletic Club U20",
-    "ratio": 0.4706,
+    "candidato": "Charlton U21",
+    "ratio": 0.6207,
     "visto": "2026-10-08"
   },
   "Dunfermline Athletic": {
@@ -1385,8 +1385,8 @@
   },
   "West Bromwich Albion": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "West Ham",
-    "ratio": 0.4286,
+    "candidato": "West Brom U21",
+    "ratio": 0.6061,
     "visto": "2026-10-08"
   },
   "Cercle Brugge KSV": {
@@ -1397,8 +1397,8 @@
   },
   "Sport Huancayo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Herk Sport Hasselt W",
-    "ratio": 0.5,
+    "candidato": "Sport PB",
+    "ratio": 0.5455,
     "visto": "2026-10-08"
   },
   "Real Oruro": {
@@ -1487,8 +1487,8 @@
   },
   "Sport Boys": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Herk Sport Hasselt W",
-    "ratio": 0.5,
+    "candidato": "Sport PB",
+    "ratio": 0.7778,
     "visto": "2026-10-08"
   },
   "Real Potosí": {
@@ -1517,8 +1517,8 @@
   },
   "Inter Kashi": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.5926,
+    "candidato": "Inter Allies",
+    "ratio": 0.6957,
     "visto": "2026-10-08"
   },
   "Al Shabab": {
@@ -1529,8 +1529,8 @@
   },
   "Preston North End": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "North District",
-    "ratio": 0.4516,
+    "candidato": "Preston U21",
+    "ratio": 0.5714,
     "visto": "2026-10-08"
   },
   "Bolton Wanderers": {
@@ -1561,6 +1561,36 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sparta Prague U19",
     "ratio": 0.5455,
+    "visto": "2026-10-08"
+  },
+  "Ipswich Town": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Ipswich U21",
+    "ratio": 0.6957,
+    "visto": "2026-10-08"
+  },
+  "Brighton & Hove Albion": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Brighton U21",
+    "ratio": 0.5294,
+    "visto": "2026-10-08"
+  },
+  "Birmingham Legion FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Birmingham U21",
+    "ratio": 0.7097,
+    "visto": "2026-10-08"
+  },
+  "Nottingham Forest": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Nottingham U21",
+    "ratio": 0.7097,
+    "visto": "2026-10-08"
+  },
+  "Hull City": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Hull U21",
+    "ratio": 0.6667,
     "visto": "2026-10-08"
   }
 }
