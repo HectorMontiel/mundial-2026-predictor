@@ -25,8 +25,8 @@
   },
   "Atlético de San Luis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico F.C.",
-    "ratio": 0.625,
+    "candidato": "Atletico-MG",
+    "ratio": 0.5806,
     "visto": "2026-10-08"
   },
   "Barracas Central": {
@@ -139,8 +139,8 @@
   },
   "Independiente del Valle": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ind. Valle del Cauca",
-    "ratio": 0.4762,
+    "candidato": "Leones del Norte",
+    "ratio": 0.4103,
     "visto": "2026-10-08"
   },
   "Inter Miami CF": {
@@ -211,8 +211,8 @@
   },
   "Real Betis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Santander",
-    "ratio": 0.5,
+    "candidato": "Real Madrid B",
+    "ratio": 0.5217,
     "visto": "2026-10-08"
   },
   "Real Madrid": {
@@ -235,8 +235,8 @@
   },
   "Real Sociedad": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Cundinamarca",
-    "ratio": 0.5333,
+    "candidato": "Real Madrid B",
+    "ratio": 0.5385,
     "visto": "2026-10-08"
   },
   "Real Valladolid": {
@@ -247,14 +247,14 @@
   },
   "San Antonio FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.4444,
+    "candidato": "San Martin Mendoza",
+    "ratio": 0.4828,
     "visto": "2026-10-08"
   },
   "San Diego FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.4,
+    "candidato": "San Miguel",
+    "ratio": 0.6316,
     "visto": "2026-10-08"
   },
   "Sportivo Luqueño": {
@@ -311,8 +311,8 @@
   },
   "Atlético Nacional": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico F.C.",
-    "ratio": 0.6897,
+    "candidato": "Atletico-MG",
+    "ratio": 0.6429,
     "visto": "2026-10-08"
   },
   "Loudoun United FC": {
@@ -341,8 +341,8 @@
   },
   "Club Atlético La Paz": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico F.C.",
-    "ratio": 0.625,
+    "candidato": "Atletico-MG",
+    "ratio": 0.5806,
     "visto": "2026-10-08"
   },
   "Sporting JAX": {
@@ -401,8 +401,8 @@
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Cundinamarca",
-    "ratio": 0.4848,
+    "candidato": "Real Madrid B",
+    "ratio": 0.5517,
     "visto": "2026-10-08"
   },
   "Carlisle United": {
@@ -569,8 +569,8 @@
   },
   "San Jose Earthquakes": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.3333,
+    "candidato": "San Martin Mendoza",
+    "ratio": 0.4211,
     "visto": "2026-10-08"
   },
   "D.C. United": {
@@ -593,14 +593,14 @@
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.48,
+    "candidato": "San Miguel",
+    "ratio": 0.6316,
     "visto": "2026-10-08"
   },
   "San Martín (San Juan)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.4571,
+    "candidato": "San Martin Mendoza",
+    "ratio": 0.6486,
     "visto": "2026-10-08"
   },
   "Deportivo Maldonado": {
@@ -791,14 +791,14 @@
   },
   "Atletico Rafaela": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico F.C.",
-    "ratio": 0.7143,
+    "candidato": "Atletico-MG",
+    "ratio": 0.6667,
     "visto": "2026-10-08"
   },
   "San Martín (Tucumán)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atl. Tucuman",
-    "ratio": 0.6897,
+    "candidato": "San Martin Mendoza",
+    "ratio": 0.7222,
     "visto": "2026-10-08"
   },
   "Sportivo San Lorenzo": {
@@ -947,8 +947,8 @@
   },
   "San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.4444,
+    "candidato": "San Martin Mendoza",
+    "ratio": 0.5517,
     "visto": "2026-10-08"
   },
   "Red Bull Bragantino": {
@@ -1127,9 +1127,9 @@
   },
   "São Paulo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Luis",
-    "ratio": 0.5882,
-    "visto": "2026-10-06"
+    "candidato": "Sao Raimundo RR U20",
+    "ratio": 0.5,
+    "visto": "2026-10-08"
   },
   "Qingdao Hainiu": {
     "contexto": "cuotas_mx→futbol",
@@ -1331,8 +1331,8 @@
   },
   "Santa Clara": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Colon Santa Fe 2",
-    "ratio": 0.4444,
+    "candidato": "Santa Amalia",
+    "ratio": 0.6957,
     "visto": "2026-10-08"
   },
   "Rayo Vallecano": {
@@ -1349,9 +1349,9 @@
   },
   "Aston Villa": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Villa Valle",
-    "ratio": 0.4545,
-    "visto": "2026-10-07"
+    "candidato": "Villa Santa Brigida",
+    "ratio": 0.3333,
+    "visto": "2026-10-08"
   },
   "Charlton Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1397,14 +1397,14 @@
   },
   "Sport Huancayo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sport PB",
-    "ratio": 0.5455,
+    "candidato": "Herk Sport Hasselt W",
+    "ratio": 0.5,
     "visto": "2026-10-08"
   },
   "Real Oruro": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Santander",
-    "ratio": 0.5,
+    "candidato": "Real Madrid B",
+    "ratio": 0.5217,
     "visto": "2026-10-08"
   },
   "Leones": {
@@ -1487,14 +1487,14 @@
   },
   "Sport Boys": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sport PB",
-    "ratio": 0.7778,
+    "candidato": "Herk Sport Hasselt W",
+    "ratio": 0.5,
     "visto": "2026-10-08"
   },
   "Real Potosí": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Santander",
-    "ratio": 0.48,
+    "candidato": "Real Madrid B",
+    "ratio": 0.5,
     "visto": "2026-10-08"
   },
   "AD San Carlos": {
@@ -1644,6 +1644,12 @@
   "Zenit St Petersburg": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Zenit U19",
+    "ratio": 0.5,
+    "visto": "2026-10-08"
+  },
+  "Las Vegas Lights FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Las Palmas C",
     "ratio": 0.5,
     "visto": "2026-10-08"
   }

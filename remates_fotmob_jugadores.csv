@@ -12698,22 +12698,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5104948,2026-07-18,noruega,Brann,Niklas Castro,630366,F,0,27,1,0,0,0.05,,3.0,603046.0
 5104948,2026-07-18,noruega,Brann,Sævar Atli Magnusson,683355,F,0,21,0,0,0,0.0,,3.0,1261684.0
 5104948,2026-07-18,noruega,Brann,Bård Finne,313825,F,0,7,0,0,0,0.0,,3.0,401782.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Carlos Grados,547739,G,1,90,0,0,0,0.0,11.0,0.0,199727.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Aldair Perleche,617767,D,1,90,3,0,0,0.0,32.0,1.0,157738.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Cristian Enciso,497341,D,1,90,0,0,0,0.0,34.0,1.0,168155.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Juan Lojas,147990,D,1,90,1,0,0,0.0,36.0,1.0,
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Jimmy Jiménez,1898417,D,1,55,0,0,0,0.0,38.0,1.0,177485.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Edgar Lastre,1201258,M,1,63,3,2,2,0.0,72.0,2.0,267874.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Cristian Mejía,973729,M,1,84,2,0,0,0.0,74.0,2.0,221969.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Ricardo Chipao,1797168,M,1,90,0,0,0,0.0,76.0,2.0,221723.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Yorman Zapata,1268812,M,1,90,2,1,0,0.0,78.0,2.0,300152.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Allonso Dávila,1697459,F,1,84,2,1,0,0.0,104.0,3.0,240528.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Bryan Angulo,617597,F,1,55,1,1,0,0.0,106.0,3.0,195321.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Nicolás Amasifuén,1432694,D,0,35,1,1,0,0.0,,1.0,430833.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Jefferson Collazos,824770,F,0,35,1,1,0,0.0,,3.0,124416.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Claudio Ramírez,1898418,M,0,27,1,0,0,0.0,,2.0,
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Kevin Ruiz,547852,M,0,6,0,0,0,0.0,,2.0,103428.0
-1000013497,2026-07-18,per_liga1,Club Deportivo Moquegua,Nicolas Chávez,497359,M,0,6,0,0,0,0.0,,2.0,124416.0
 1000013497,2026-07-18,per_liga1,Comerciantes Unidos,Matías Córdova,1253279,G,1,90,0,0,0,0.0,11.0,0.0,175274.0
 1000013497,2026-07-18,per_liga1,Comerciantes Unidos,Renato Rojas,936919,D,1,90,1,0,0,0.0,32.0,1.0,236371.0
 1000013497,2026-07-18,per_liga1,Comerciantes Unidos,Piero Guzmán,1344768,D,1,90,0,0,0,0.0,34.0,1.0,274513.0
@@ -13086,21 +13070,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186552,2026-07-18,china,Zhejiang Professional,Felippe Cardoso,916351,F,0,20,0,0,0,0.0,,3.0,770070.0
 5186552,2026-07-18,china,Zhejiang Professional,Hao Fang,1187247,D,0,10,0,0,0,0.0,,1.0,348765.0
 5186552,2026-07-18,china,Zhejiang Professional,Jin Cheng,539074,M,0,10,0,0,0,0.0,,2.0,248656.0
-1000013493,2026-07-18,per_liga1,Cienciano,Ítalo Espinoza,1036089,G,1,90,0,0,0,0.0,11.0,0.0,194623.0
-1000013493,2026-07-18,per_liga1,Cienciano,Claudio Núñez,903076,D,1,90,1,1,0,0.0,32.0,1.0,235211.0
-1000013493,2026-07-18,per_liga1,Cienciano,Maximiliano Amondarain,427446,D,1,90,2,0,0,0.0,34.0,1.0,212877.0
-1000013493,2026-07-18,per_liga1,Cienciano,Kevin Becerra,1246012,D,1,65,0,0,0,0.0,36.0,1.0,277109.0
-1000013493,2026-07-18,per_liga1,Cienciano,Marcos Martinich,952501,D,1,90,0,0,0,0.0,38.0,1.0,181119.0
-1000013493,2026-07-18,per_liga1,Cienciano,Santiago Arias,921303,M,1,90,2,1,0,0.0,64.0,2.0,154049.0
-1000013493,2026-07-18,per_liga1,Cienciano,Gerson Barreto,547835,M,1,90,3,0,0,0.0,66.0,2.0,183636.0
-1000013493,2026-07-18,per_liga1,Cienciano,Cristian Souza,841483,F,1,90,4,2,0,0.0,83.0,3.0,242654.0
-1000013493,2026-07-18,per_liga1,Cienciano,Alejandro Hohberg,561723,M,1,28,1,1,1,0.0,85.0,2.0,
-1000013493,2026-07-18,per_liga1,Cienciano,Neri Bandiera,623864,F,1,6,0,0,0,0.0,87.0,3.0,
-1000013493,2026-07-18,per_liga1,Cienciano,Carlos Garcés,424444,F,1,66,0,0,0,0.0,115.0,3.0,376452.0
-1000013493,2026-07-18,per_liga1,Cienciano,Ademar Robles,1605257,M,0,52,0,0,0,0.0,,2.0,246573.0
-1000013493,2026-07-18,per_liga1,Cienciano,Carlos Cabello,951736,D,0,32,1,0,0,0.0,,1.0,251761.0
-1000013493,2026-07-18,per_liga1,Cienciano,Rotceh Aguilar,1194628,D,0,25,0,0,0,0.0,,1.0,340035.0
-1000013493,2026-07-18,per_liga1,Cienciano,Matías Succar,982363,F,0,24,0,0,0,0.0,,3.0,257980.0
 1000013493,2026-07-18,per_liga1,FBC Melgar,Jorge Cabezudo,1248691,G,1,90,0,0,0,0.0,11.0,0.0,286911.0
 1000013493,2026-07-18,per_liga1,FBC Melgar,Matías Lazo,1202976,D,1,90,1,0,0,0.0,32.0,1.0,1138536.0
 1000013493,2026-07-18,per_liga1,FBC Melgar,Juan Escobar,747701,D,1,90,1,0,0,0.0,34.0,1.0,346128.0
@@ -136555,35 +136524,97 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 6145876,2026-10-08,finlandia,VPS,Henri Salomaa,1169428,F,0,45,1,0,0,0.0,,3.0,198508.0
 6145876,2026-10-08,finlandia,VPS,Dren Terrnava,1269985,M,0,23,0,0,0,0.0,,2.0,167085.0
 6145876,2026-10-08,finlandia,VPS,Casper Holmelund,1400429,F,0,5,0,0,0,0.0,,3.0,204163.0
-5853456,2026-10-08,rumania,CFR Cluj,Octavian Vâlceanu,1026346,G,1,90,0,0,0,0.0,11,0,77436
-5853456,2026-10-08,rumania,CFR Cluj,Christopher Braun,736514,D,1,90,0,0,0,0.0,33,1,100324
-5853456,2026-10-08,rumania,CFR Cluj,Iva Gelashvili,1210616,D,1,90,0,0,0,0.0,35,1,288036
-5853456,2026-10-08,rumania,CFR Cluj,Simão Rocha,1079238,D,1,90,0,0,0,0.0,37,1,249324
-5853456,2026-10-08,rumania,CFR Cluj,Viktor Kun,1368328,D,1,75,0,0,0,0.0,72,1,
-5853456,2026-10-08,rumania,CFR Cluj,Ovidiu Perianu,1068660,M,1,90,1,0,0,0.0,74,2,295683
-5853456,2026-10-08,rumania,CFR Cluj,Ervin Omić,1343255,M,1,83,2,1,0,0.0,76,2,288821
-5853456,2026-10-08,rumania,CFR Cluj,Camora,45335,D,1,90,0,0,0,0.0,78,1,164739
-5853456,2026-10-08,rumania,CFR Cluj,Andrei Cordea,950600,F,1,74,2,0,0,0.0,103,3,1646259
-5853456,2026-10-08,rumania,CFR Cluj,Stefan Dražić,485707,F,1,74,2,1,1,0.0,105,3,104174
-5853456,2026-10-08,rumania,CFR Cluj,Adi Nalić,826594,M,1,58,2,1,0,0.0,107,2,71681
-5853456,2026-10-08,rumania,CFR Cluj,Andres Sfait,1474507,F,0,32,2,0,0,0.0,,3,226979
-5853456,2026-10-08,rumania,CFR Cluj,Renato Pantalon,978957,D,0,15,0,0,0,0.0,,1,119361
-5853456,2026-10-08,rumania,CFR Cluj,Billel Omrani,279189,F,0,16,1,0,0,0.0,,3,114471
-5853456,2026-10-08,rumania,CFR Cluj,Sergiu Buș,177510,F,0,15,0,0,0,0.0,,3,202593
-5853456,2026-10-08,rumania,CFR Cluj,Amin Ziblim,1965780,M,0,7,0,0,0,0.0,,2,
-5853456,2026-10-08,rumania,Universitatea Cluj,Ştefan Lefter,1106564,G,1,90,0,0,0,0.0,11,0,720917
-5853456,2026-10-08,rumania,Universitatea Cluj,Dino Mikanović,343434,D,1,90,0,0,0,0.0,32,1,134388
-5853456,2026-10-08,rumania,Universitatea Cluj,Iulian Cristea,769657,D,1,90,1,0,0,0.0,34,1,846902
-5853456,2026-10-08,rumania,Universitatea Cluj,Dorin Codrea,1025713,M,1,90,0,0,0,0.0,36,2,615363
-5853456,2026-10-08,rumania,Universitatea Cluj,Alexandru Chipciu,196456,D,1,90,2,1,0,0.0,38,1,134916
-5853456,2026-10-08,rumania,Universitatea Cluj,Pedro Pinho,1356298,M,1,45,1,0,0,0.0,64,2,759461
-5853456,2026-10-08,rumania,Universitatea Cluj,Ovidiu Bic,815900,M,1,90,1,0,0,0.0,66,2,549668
-5853456,2026-10-08,rumania,Universitatea Cluj,Issouf Macalou,1227360,F,1,88,4,2,2,0.0,83,3,731409
-5853456,2026-10-08,rumania,Universitatea Cluj,Dan Nistor,249761,M,1,45,1,1,0,0.0,85,2,86333
-5853456,2026-10-08,rumania,Universitatea Cluj,Oucasse Mendy,1227330,F,1,73,3,1,1,0.0,87,3,638011
-5853456,2026-10-08,rumania,Universitatea Cluj,Alibek Aliev,614170,F,1,46,0,0,0,0.0,115,3,336688
-5853456,2026-10-08,rumania,Universitatea Cluj,Mouhamadou Drammeh,1197029,M,0,45,1,1,0,0.0,,2,208043
-5853456,2026-10-08,rumania,Universitatea Cluj,Jovo Lukić,1174844,F,0,44,0,0,0,0.0,,3,1340998
-5853456,2026-10-08,rumania,Universitatea Cluj,Marius Ștefănescu,1069276,F,0,45,1,0,0,0.0,,3,301838
-5853456,2026-10-08,rumania,Universitatea Cluj,Jug Stanojev,1179483,F,0,17,0,0,0,0.0,,3,663441
-5853456,2026-10-08,rumania,Universitatea Cluj,Adams Friday,1392221,D,0,2,0,0,0,0.0,,1,304149
+5853456,2026-10-08,rumania,CFR Cluj,Octavian Vâlceanu,1026346,G,1,90,0,0,0,0.0,11.0,0.0,77436.0
+5853456,2026-10-08,rumania,CFR Cluj,Christopher Braun,736514,D,1,90,0,0,0,0.0,33.0,1.0,100324.0
+5853456,2026-10-08,rumania,CFR Cluj,Iva Gelashvili,1210616,D,1,90,0,0,0,0.0,35.0,1.0,288036.0
+5853456,2026-10-08,rumania,CFR Cluj,Simão Rocha,1079238,D,1,90,0,0,0,0.0,37.0,1.0,249324.0
+5853456,2026-10-08,rumania,CFR Cluj,Viktor Kun,1368328,D,1,75,0,0,0,0.0,72.0,1.0,
+5853456,2026-10-08,rumania,CFR Cluj,Ovidiu Perianu,1068660,M,1,90,1,0,0,0.0,74.0,2.0,295683.0
+5853456,2026-10-08,rumania,CFR Cluj,Ervin Omić,1343255,M,1,83,2,1,0,0.0,76.0,2.0,288821.0
+5853456,2026-10-08,rumania,CFR Cluj,Camora,45335,D,1,90,0,0,0,0.0,78.0,1.0,164739.0
+5853456,2026-10-08,rumania,CFR Cluj,Andrei Cordea,950600,F,1,74,2,0,0,0.0,103.0,3.0,1646259.0
+5853456,2026-10-08,rumania,CFR Cluj,Stefan Dražić,485707,F,1,74,2,1,1,0.0,105.0,3.0,104174.0
+5853456,2026-10-08,rumania,CFR Cluj,Adi Nalić,826594,M,1,58,2,1,0,0.0,107.0,2.0,71681.0
+5853456,2026-10-08,rumania,CFR Cluj,Andres Sfait,1474507,F,0,32,2,0,0,0.0,,3.0,226979.0
+5853456,2026-10-08,rumania,CFR Cluj,Renato Pantalon,978957,D,0,15,0,0,0,0.0,,1.0,119361.0
+5853456,2026-10-08,rumania,CFR Cluj,Billel Omrani,279189,F,0,16,1,0,0,0.0,,3.0,114471.0
+5853456,2026-10-08,rumania,CFR Cluj,Sergiu Buș,177510,F,0,15,0,0,0,0.0,,3.0,202593.0
+5853456,2026-10-08,rumania,CFR Cluj,Amin Ziblim,1965780,M,0,7,0,0,0,0.0,,2.0,
+5853456,2026-10-08,rumania,Universitatea Cluj,Ştefan Lefter,1106564,G,1,90,0,0,0,0.0,11.0,0.0,720917.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Dino Mikanović,343434,D,1,90,0,0,0,0.0,32.0,1.0,134388.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Iulian Cristea,769657,D,1,90,1,0,0,0.0,34.0,1.0,846902.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Dorin Codrea,1025713,M,1,90,0,0,0,0.0,36.0,2.0,615363.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Alexandru Chipciu,196456,D,1,90,2,1,0,0.0,38.0,1.0,134916.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Pedro Pinho,1356298,M,1,45,1,0,0,0.0,64.0,2.0,759461.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Ovidiu Bic,815900,M,1,90,1,0,0,0.0,66.0,2.0,549668.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Issouf Macalou,1227360,F,1,88,4,2,2,0.0,83.0,3.0,731409.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Dan Nistor,249761,M,1,45,1,1,0,0.0,85.0,2.0,86333.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Oucasse Mendy,1227330,F,1,73,3,1,1,0.0,87.0,3.0,638011.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Alibek Aliev,614170,F,1,46,0,0,0,0.0,115.0,3.0,336688.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Mouhamadou Drammeh,1197029,M,0,45,1,1,0,0.0,,2.0,208043.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Jovo Lukić,1174844,F,0,44,0,0,0,0.0,,3.0,1340998.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Marius Ștefănescu,1069276,F,0,45,1,0,0,0.0,,3.0,301838.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Jug Stanojev,1179483,F,0,17,0,0,0,0.0,,3.0,663441.0
+5853456,2026-10-08,rumania,Universitatea Cluj,Adams Friday,1392221,D,0,2,0,0,0,0.0,,1.0,304149.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Carlos Grados,547739,G,1,90,0,0,0,0.0,11.0,0.0,178673.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,José Granda,346017,D,1,46,0,0,0,0.0,33.0,1.0,
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Juan Lojas,147990,D,1,86,3,1,0,0.0,35.0,1.0,
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Cristian Enciso,497341,D,1,90,2,1,0,0.0,37.0,1.0,167954.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Aldair Perleche,617767,M,1,90,0,0,0,0.0,62.0,2.0,165187.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Cristian Mejía,973729,M,1,46,0,0,0,0.0,64.0,2.0,192526.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Ricardo Chipao,1797168,M,1,90,2,1,0,0.0,66.0,2.0,212178.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Jimmy Jiménez,1898417,M,1,90,0,0,0,0.0,68.0,2.0,193427.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Diego Ramírez,547855,M,1,78,0,0,0,0.0,85.0,2.0,144691.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Edgar Lastre,1201258,F,1,90,2,1,0,0.0,104.0,3.0,256439.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Bryan Angulo,617597,F,1,62,1,0,0,0.0,106.0,3.0,195321.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Yhonier López,1477845,D,0,45,3,1,0,0.0,,1.0,
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Claudio Ramírez,1898418,M,0,44,0,0,0,0.0,,2.0,
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Jeferson Collazos,824770,F,0,28,0,0,0,0.0,,3.0,168890.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Marcello Negrón,1898412,F,0,12,0,0,0,0.0,,3.0,229205.0
+1000017250,2026-10-08,per_liga1,Club Deportivo Moquegua,Edgar Santillán,2131111,M,0,4,0,0,0,0.0,,2.0,103680.0
+1000017250,2026-10-08,per_liga1,Cienciano,Gonzalo Falcón,921251,G,1,90,0,0,0,0.0,11.0,0.0,256947.0
+1000017250,2026-10-08,per_liga1,Cienciano,Claudio Núñez,903076,D,1,90,2,2,0,0.0,32.0,1.0,211667.0
+1000017250,2026-10-08,per_liga1,Cienciano,Maximiliano Amondarain,427446,D,1,90,2,0,0,0.0,34.0,1.0,221969.0
+1000017250,2026-10-08,per_liga1,Cienciano,Kevin Becerra,1246012,D,1,90,1,1,0,0.0,36.0,1.0,259461.0
+1000017250,2026-10-08,per_liga1,Cienciano,Marcos Martinich,952501,D,1,90,2,1,0,0.0,38.0,1.0,181119.0
+1000017250,2026-10-08,per_liga1,Cienciano,Henry Caparó,1737299,M,1,90,2,0,0,0.0,64.0,2.0,
+1000017250,2026-10-08,per_liga1,Cienciano,Ademar Robles,1605257,M,1,90,0,0,0,0.0,66.0,2.0,212877.0
+1000017250,2026-10-08,per_liga1,Cienciano,Neri Ricardo Bandiera,623864,F,1,66,3,2,1,0.0,83.0,3.0,336455.0
+1000017250,2026-10-08,per_liga1,Cienciano,Ray Sandoval,547750,M,1,60,3,1,0,0.0,85.0,2.0,171371.0
+1000017250,2026-10-08,per_liga1,Cienciano,Cristian Souza,841483,F,1,85,5,3,0,0.0,87.0,3.0,288493.0
+1000017250,2026-10-08,per_liga1,Cienciano,Carlos Garcés,424444,F,1,85,2,1,1,0.0,115.0,3.0,351928.0
+1000017250,2026-10-08,per_liga1,Cienciano,Matías Succar,982363,F,0,30,1,0,0,0.0,,3.0,383026.0
+1000017250,2026-10-08,per_liga1,Cienciano,Gonzalo Aguirre,1434947,M,0,24,1,1,0,0.0,,2.0,239897.0
+1000017250,2026-10-08,per_liga1,Cienciano,Rotceh Aguilar,1194628,D,0,5,0,0,0,0.0,,1.0,263382.0
+1000017250,2026-10-08,per_liga1,Cienciano,Didier La Torre,1198467,F,0,5,1,0,0,0.0,,3.0,236411.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Edward McGinty,829101,G,1,90,0,0,0,0.0,11.0,0.0,
+5100976,2026-10-08,irlanda,Shamrock Rovers,Daniel Cleary,680030,D,1,90,0,0,0,0.0,33.0,1.0,
+5100976,2026-10-08,irlanda,Shamrock Rovers,Roberto Lopes,230134,D,1,90,0,0,0,0.0,35.0,1.0,50000.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Lee Grace,648611,D,1,45,2,0,0,0.27,37.0,1.0,50000.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Tunmise Sobowale,949667,D,1,90,0,0,0,0.0,62.0,1.0,110438.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Matthew Healy,1206281,M,1,90,1,1,0,0.03,64.0,2.0,270689.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Dylan Watts,641044,M,1,60,1,0,0,0.05,66.0,2.0,50000.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Jake Mulraney,685725,M,1,90,0,0,0,0.0,68.0,2.0,50000.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Jack Byrne,661902,M,1,68,0,0,0,0.0,84.0,2.0,50000.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Graham Burke,301367,F,1,61,2,2,1,0.25,86.0,3.0,50000.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,John McGovern,1400984,F,1,60,3,3,2,0.33,105.0,3.0,53589.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Cory O'Sullivan,1378319,D,0,44,0,0,0,0.0,,1.0,260070.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Naj Razi,1469649,M,0,30,0,0,0,0.0,,2.0,138499.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Jonathan Afolabi,798653,F,0,30,0,0,0,0.0,,3.0,88598.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,Aaron Greene,197116,F,0,29,1,0,0,0.19,,3.0,50000.0
+5100976,2026-10-08,irlanda,Shamrock Rovers,John O'Sullivan,1612456,M,0,22,0,0,0,0.0,,2.0,75736.0
+5100976,2026-10-08,irlanda,Drogheda United,Fynn Talley,1187238,G,1,90,0,0,0,0.0,11.0,0.0,63673.0
+5100976,2026-10-08,irlanda,Drogheda United,Andrew Quinn,1190122,D,1,90,0,0,0,0.0,33.0,1.0,64449.0
+5100976,2026-10-08,irlanda,Drogheda United,Conor Keeley,747264,D,1,90,1,0,0,0.04,35.0,1.0,92342.0
+5100976,2026-10-08,irlanda,Drogheda United,Leo Burney,1710549,D,1,46,0,0,0,0.0,37.0,1.0,66895.0
+5100976,2026-10-08,irlanda,Drogheda United,Edwin Agbaje,1420125,D,1,90,0,0,0,0.0,71.0,1.0,145013.0
+5100976,2026-10-08,irlanda,Drogheda United,Ethan O'Brien,1621330,M,1,62,0,0,0,0.0,73.0,2.0,74364.0
+5100976,2026-10-08,irlanda,Drogheda United,Brandon Kavanagh,928435,M,1,90,2,2,1,0.13,75.0,2.0,147481.0
+5100976,2026-10-08,irlanda,Drogheda United,Shane Farrell,936722,M,1,90,2,0,0,0.04,77.0,2.0,62575.0
+5100976,2026-10-08,irlanda,Drogheda United,Conor Kane,825812,D,1,90,0,0,0,0.0,79.0,1.0,50000.0
+5100976,2026-10-08,irlanda,Drogheda United,Ryan Markey,2075513,F,1,71,2,1,0,0.19,104.0,3.0,65606.0
+5100976,2026-10-08,irlanda,Drogheda United,Warren Davis,1441589,F,1,62,0,0,0,0.0,106.0,3.0,154445.0
+5100976,2026-10-08,irlanda,Drogheda United,James Bolger,1661270,D,0,44,0,0,0,0.0,,1.0,140749.0
+5100976,2026-10-08,irlanda,Drogheda United,Jago Godden,1572678,M,0,28,2,0,0,0.18,,2.0,86895.0
+5100976,2026-10-08,irlanda,Drogheda United,Mark Doyle,734061,F,0,28,0,0,0,0.0,,3.0,98821.0
+5100976,2026-10-08,irlanda,Drogheda United,Thomas Oluwa,1032781,F,0,18,0,0,0,0.0,,3.0,83192.0
