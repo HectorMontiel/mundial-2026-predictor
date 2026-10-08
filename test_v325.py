@@ -91,15 +91,39 @@ def probar_modelo():
     est = m.estado_v325
     # el peso de un QB llega como mucho a 1 / (1 - QB_DECAY) = 10 partidos
     mejor_qb = max(est.qb, key=lambda q: est.qb_valor(q) if est.qb[q].w > 5 else -9)
+    # en el primer partido cuyo local no lo tenga ya (si no, no hay «mejor»)
+    con_qb = pend.dropna(subset=['home_qb_id', 'away_qb_id'])
+    gq = con_qb[con_qb['home_qb_id'] != mejor_qb].iloc[0]
+    rq = m.predecir_partido(gq['home'], gq['away'], fecha=gq['gameday'])
     m2 = copy.copy(m)
     m2.pendientes = pend.copy()
-    i = m2.pendientes.index[(m2.pendientes['home'] == g['home'])
-                            & (m2.pendientes['away'] == g['away'])][0]
+    i = m2.pendientes.index[(m2.pendientes['home'] == gq['home'])
+                            & (m2.pendientes['away'] == gq['away'])][0]
     m2.pendientes.loc[i, 'home_qb_id'] = mejor_qb
-    r3 = m2.predecir_partido(g['home'], g['away'], fecha=g['gameday'])
-    check(r3['prob_home_sin_empate'] > r1['prob_home_sin_empate'],
-          'con un QB mejor, el local sube (%.3f → %.3f)'
-          % (r1['prob_home_sin_empate'], r3['prob_home_sin_empate']))
+    # v341 — cambiar de QB enciende también «QB nuevo», que el modelo castiga
+    # (-1,31 puntos de margen). Con DAL-TB (2026-10-08) el previsto es Dak
+    # Prescott (0,022 EPA por dropback) y el mejor Brock Purdy (0,068): el
+    # valor suma +1,13 y el debut resta 1,31, y el local bajaba 0,739 → 0,733.
+    # El signo del QB era bueno; la prueba mezclaba los dos efectos. Se miden
+    # por separado: el mismo QB mejor sin contarlo como nuevo...
+    m2.estado_v325 = copy.deepcopy(est)
+    m2.estado_v325.ultimo_qb[gq['home']] = mejor_qb
+    r3 = m2.predecir_partido(gq['home'], gq['away'], fecha=gq['gameday'])
+    check(r3['prob_home_sin_empate'] > rq['prob_home_sin_empate'],
+          'con un QB mejor, el local sube (%s %s: %.3f → %.3f)'
+          % (gq['home'], gq['away'], rq['prob_home_sin_empate'],
+             r3['prob_home_sin_empate']))
+    # ...y, con los dos nuevos, el mejor contra un suplente cualquiera
+    m2.estado_v325 = est
+    r_mejor = m2.predecir_partido(gq['home'], gq['away'], fecha=gq['gameday'])
+    m2.pendientes.loc[i, 'home_qb_id'] = 'suplente-sin-historial'
+    r_sup = m2.predecir_partido(gq['home'], gq['away'], fecha=gq['gameday'])
+    check(r_mejor['prob_home_sin_empate'] > r_sup['prob_home_sin_empate'],
+          'entre dos QB nuevos, el mejor le gana al suplente (%.3f > %.3f)'
+          % (r_mejor['prob_home_sin_empate'], r_sup['prob_home_sin_empate']))
+    check(r_sup['prob_home_sin_empate'] < rq['prob_home_sin_empate'],
+          'y con un suplente en lugar del previsto, el local baja (%.3f → %.3f)'
+          % (rq['prob_home_sin_empate'], r_sup['prob_home_sin_empate']))
     # sin el histórico largo, el de siempre
     import nfl_nflverse as nv
     real = nv.SALIDA

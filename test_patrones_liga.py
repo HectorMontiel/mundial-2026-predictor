@@ -69,11 +69,18 @@ def probar_solo_lo_que_gano():
     med = doc.get('medicion') or {}
     mods = doc.get('modelos') or {}
     for k, v in med.items():
+        if k in pl.SOLO_MEDIDOS:
+            continue
         gana = v['mejora'] > 0 and v['p5'] > 0
         check(gana == (k in mods),
               '%s: activo sólo si ganó con p5 > 0 (mejora %+.5f, p5 %+.5f)'
               % (k, v['mejora'], v['p5']))
-    check('btts' not in mods, 'ambos marcan NO se corrige: no pasó')
+    # v341 — el directo puede pasar la puerta por un pelo (2026-10-05: p5
+    # +0,00009), pero «ambos marcan» lo pone el derivado de los dos «marca»
+    b = med.get('btts') or {}
+    check('btts' not in mods and not b.get('activo'),
+          'ambos marcan NO se corrige directo: se mide (mejora %+.5f, p5 %+.5f)'
+          ' y lo pone el derivado' % (b.get('mejora', 0), b.get('p5', 0)))
     check(len(doc.get('codigos') or {}) >= 40,
           'aprende de todas las ligas con histórico (%d)'
           % len(doc.get('codigos') or {}))

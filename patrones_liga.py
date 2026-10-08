@@ -152,6 +152,14 @@ PARAMS = dict(objective='binary', learning_rate=0.03, num_leaves=15,
               bagging_fraction=0.8, bagging_freq=1, lambda_l2=5.0,
               verbose=-1, seed=302)
 RONDAS = 400
+# v341 — se miden pero no se guardan. «Ambos marcan» lo pone el derivado de
+# los dos «marca» (v326), y `ajustar` nunca leyó el corrector directo: con la
+# recalibración del 2026-10-05 el directo pasó la puerta por un pelo (mejora
+# +0,00100, p5 +0,00009; una semana antes +0,00034 y p5 -0,00054) y quedó
+# guardado sin usarse. El derivado gana el triple (+0,00315, p5 +0,00208).
+# Si algún día el directo le gana al derivado, se mide aparte, no se cuela.
+SOLO_MEDIDOS = {'btts': 'lo pone el derivado de «marca el local» y '
+                        '«marca el visitante», que gana más'}
 # Un corrector no puede mover una probabilidad sin límite: si la liga o los
 # rasgos vienen raros, mejor quedarse cerca del modelo que inventar.
 MAX_DESPLAZAMIENTO_LOGIT = 1.0
@@ -555,6 +563,10 @@ def entrenar(guardar: bool = True) -> Dict:
                        'temporada (zonas y 4+ goles)' if temporada else
                        'forma reciente' if nuevos else 'tabla y medias'),
             'activo': activo}
+        if nombre in SOLO_MEDIDOS:
+            activo = False
+            doc['medicion'][nombre].update(activo=False,
+                                           motivo=SOLO_MEDIDOS[nombre])
         if activo:
             import pandas as _pd
             oos[nombre] = _pd.Series(
