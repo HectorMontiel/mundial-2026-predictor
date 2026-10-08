@@ -187,9 +187,9 @@
   },
   "Montevideo Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Montevideo",
-    "ratio": 0.5405,
-    "visto": "2026-10-04"
+    "candidato": "Dhaka Wanderers",
+    "ratio": 0.6286,
+    "visto": "2026-10-08"
   },
   "Nueva Chicago": {
     "contexto": "cuotas_mx→futbol",
@@ -282,10 +282,10 @@
     "visto": "2026-09-20"
   },
   "Wolverhampton Wanderers": {
-    "candidato": "HFX Wanderers",
     "contexto": "cuotas_mx→futbol",
-    "ratio": 0.6111,
-    "visto": "2026-09-20"
+    "candidato": "Dhaka Wanderers",
+    "ratio": 0.6316,
+    "visto": "2026-10-08"
   },
   "Wroclaw Panthers": {
     "contexto": "nfl",
@@ -365,8 +365,8 @@
   },
   "Philadelphia Union": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union Touarga",
-    "ratio": 0.3226,
+    "candidato": "Coastal Union",
+    "ratio": 0.4516,
     "visto": "2026-10-08"
   },
   "Red Bull New York": {
@@ -809,9 +809,9 @@
   },
   "Wycombe Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "S. Wanderers",
-    "ratio": 0.7143,
-    "visto": "2026-10-03"
+    "candidato": "Dhaka Wanderers",
+    "ratio": 0.625,
+    "visto": "2026-10-08"
   },
   "Internacional de Bogotá": {
     "contexto": "cuotas_mx→futbol",
@@ -1531,6 +1531,30 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "North District",
     "ratio": 0.4516,
+    "visto": "2026-10-08"
+  },
+  "Bolton Wanderers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Dhaka Wanderers",
+    "ratio": 0.6452,
+    "visto": "2026-10-08"
+  },
+  "KV Kortrijk": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Kortrijk U21",
+    "ratio": 0.6957,
+    "visto": "2026-10-08"
+  },
+  "Standard Liege": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "RFC Liege U21",
+    "ratio": 0.5185,
+    "visto": "2026-10-08"
+  },
+  "Churchill Brothers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Brothers U.",
+    "ratio": 0.5714,
     "visto": "2026-10-08"
   }
 }
