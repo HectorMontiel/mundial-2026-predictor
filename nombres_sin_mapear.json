@@ -329,8 +329,8 @@
   },
   "São Bernardo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Paulo",
-    "ratio": 0.5714,
+    "candidato": "Sao Raimundo RR U20",
+    "ratio": 0.5161,
     "visto": "2026-10-08"
   },
   "Nacional Asunción": {
@@ -1397,8 +1397,8 @@
   },
   "Sport Huancayo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Modern Sport",
-    "ratio": 0.3846,
+    "candidato": "Herk Sport Hasselt W",
+    "ratio": 0.5,
     "visto": "2026-10-08"
   },
   "Real Oruro": {
@@ -1487,8 +1487,8 @@
   },
   "Sport Boys": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Modern Sport",
-    "ratio": 0.4545,
+    "candidato": "Herk Sport Hasselt W",
+    "ratio": 0.5,
     "visto": "2026-10-08"
   },
   "Real Potosí": {
@@ -1525,6 +1525,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Shabab Al Ordon",
     "ratio": 0.5,
+    "visto": "2026-10-08"
+  },
+  "Preston North End": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "North District",
+    "ratio": 0.4516,
     "visto": "2026-10-08"
   }
 }
