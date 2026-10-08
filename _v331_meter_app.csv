@@ -880,3 +880,105 @@ dia,deporte,clave_liga,liga,partido,home,away,goles_home,goles_away,categoria,me
 2026-10-06,Fútbol,bra_serie_b,Brasileirão Série B,Ponte Preta vs Juventude,Ponte Preta,Juventude,0.0,2.0,RESULTADO,1X2,Gana Juventude,0.7237,0.6842,1.308,,1
 2026-10-06,Fútbol,selecciones,Amistosos internacionales,Mexico vs Chile,Mexico,Chile,0.0,2.0,RESULTADO,Doble oportunidad,Mexico o empate,0.878,0.878,1.143,,0
 2026-10-06,Fútbol,selecciones,Amistosos internacionales,Mexico vs Chile,Mexico,Chile,0.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7573,0.7724,1.25,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,Operário PR vs Botafogo-SP,Operário PR,Botafogo-SP,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7639,0.7725,1.231,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,Operário PR vs Botafogo-SP,Operário PR,Botafogo-SP,1.0,2.0,RESULTADO,Doble oportunidad,Operário PR o Botafogo-SP,0.737,0.739,1.32,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,Operário PR vs Botafogo-SP,Operário PR,Botafogo-SP,1.0,2.0,CÓRNERS,Córners,Córners: Más de 8.5,0.7282,0.6905,1.3,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,Avaí vs Londrina,Avaí,Londrina,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7883,0.8107,1.222,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,Avaí vs Londrina,Avaí,Londrina,2.0,1.0,RESULTADO,Doble oportunidad,Avaí o Londrina,0.7323,0.7305,1.32,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Internacional vs Corinthians,Internacional,Corinthians,2.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7718,0.7888,1.235,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Internacional vs Corinthians,Internacional,Corinthians,2.0,1.0,RESULTADO,Doble oportunidad,Internacional o empate,0.7319,0.778,1.3,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Internacional vs Corinthians,Internacional,Corinthians,2.0,1.0,CÓRNERS,Córners,Córners: Más de 7,0.7279,0.6815,1.273,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Remo vs Gremio,Remo,Gremio,1.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7464,0.7586,1.267,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Remo vs Gremio,Remo,Gremio,1.0,1.0,RESULTADO,Doble oportunidad,Remo o Gremio,0.7438,0.7484,1.32,,0
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Remo vs Gremio,Remo,Gremio,1.0,1.0,CÓRNERS,Córners,Córners: Más de 8,0.7323,0.7276,1.25,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Vitoria vs Chapecoense-SC,Vitoria,Chapecoense-SC,4.0,0.0,RESULTADO,Doble oportunidad,Vitoria o empate,0.7557,0.7557,1.182,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Vitoria vs Chapecoense-SC,Vitoria,Chapecoense-SC,4.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7457,0.7571,1.267,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Vitoria vs Chapecoense-SC,Vitoria,Chapecoense-SC,4.0,0.0,CÓRNERS,Córners,Córners: Menos de 13,0.7445,0.7651,1.25,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,Vila Nova vs Cuiabá,Vila Nova,Cuiabá,0.0,0.0,CÓRNERS,Córners,Córners: Más de 7.5,0.7445,0.7732,1.25,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,Vila Nova vs Cuiabá,Vila Nova,Cuiabá,0.0,0.0,RESULTADO,Doble oportunidad,Vila Nova o Cuiabá,0.7289,0.702,1.333,,0
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,CRB vs Atlético Goianiense,CRB,Atlético Goianiense,3.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7377,0.756,1.3,,0
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,CRB vs Atlético Goianiense,CRB,Atlético Goianiense,3.0,1.0,RESULTADO,Doble oportunidad,CRB o Atlético Goianiense,0.7294,0.7042,1.3,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Botafogo RJ vs Vasco,Botafogo RJ,Vasco,1.0,2.0,GOLES DEL PARTIDO,Goles,Goles: Más de 1.5,0.7542,0.7537,1.235,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Botafogo RJ vs Vasco,Botafogo RJ,Vasco,1.0,2.0,CÓRNERS,Córners,Córners: Menos de 13,0.7445,0.7536,1.267,,0
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Botafogo RJ vs Vasco,Botafogo RJ,Vasco,1.0,2.0,RESULTADO,Doble oportunidad,Botafogo RJ o Vasco,0.7323,0.7222,1.308,,1
+2026-10-07,Fútbol,bra_serie_b,Brasileirão Série B,América Mineiro vs Fortaleza,América Mineiro,Fortaleza,0.0,1.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7617,0.7901,1.273,,1
+2026-10-07,Tenis,atp,ATP,Mukund Sasikumar vs Boris Butulija,Mukund Sasikumar,Boris Butulija,2.0,0.0,TENIS,1X2,Gana Mukund Sasikumar,0.7445,0.7579,1.21,,1
+2026-10-07,Tenis,atp,ATP,Joshua Charlton vs Arjun Mehrotra,Joshua Charlton,Arjun Mehrotra,2.0,0.0,TENIS,1X2,Gana Joshua Charlton,0.7445,0.7599,1.258,,1
+2026-10-07,Tenis,atp,ATP,Nikolas Baker vs Stefan Vujic,Nikolas Baker,Stefan Vujic,0.0,2.0,TENIS,1X2,Gana Stefan Vujic,0.7371,0.7392,1.276,,1
+2026-10-07,Tenis,atp,ATP,Zaharije-Zak Talic vs Jesse Delaney,Zaharije-Zak Talic,Jesse Delaney,0.0,2.0,TENIS,1X2,Gana Jesse Delaney,0.7433,0.7477,1.244,,1
+2026-10-07,Tenis,wta,WTA,Sofia Rocchetti vs Lisa Zaar,Sofia Rocchetti,Lisa Zaar,0.0,2.0,TENIS,1X2,Gana Lisa Zaar,0.8429,0.8429,1.142,,1
+2026-10-07,Tenis,atp,ATP,Daniel Michalski vs Lorenzo Bocchi,Daniel Michalski,Lorenzo Bocchi,2.0,0.0,TENIS,1X2,Gana Daniel Michalski,0.8718,0.8718,1.087,,1
+2026-10-07,Tenis,atp,ATP,Scaglia M. vs Haupt H.,Scaglia M.,Haupt H.,2.0,0.0,TENIS,1X2,Gana Scaglia M.,0.8508,0.8508,1.08,,1
+2026-10-07,Tenis,atp,ATP,Giovanni Oradini vs Marco Furlanetto,Giovanni Oradini,Marco Furlanetto,2.0,0.0,TENIS,1X2,Gana Giovanni Oradini,0.8307,0.8307,1.127,,1
+2026-10-07,Tenis,atp,ATP,Reilly F. vs Waldner N.,Reilly F.,Waldner N.,0.0,2.0,TENIS,1X2,Gana Waldner N.,0.8508,0.8508,1.06,,1
+2026-10-07,Tenis,wta,WTA,Laura Mair vs Jasmin Ortenzi,Laura Mair,Jasmin Ortenzi,0.0,2.0,TENIS,1X2,Gana Jasmin Ortenzi,0.7445,0.7497,1.272,,1
+2026-10-07,Tenis,wta,WTA,Camilla Zanolini vs Giorgia Pedone,Camilla Zanolini,Giorgia Pedone,0.0,2.0,TENIS,1X2,Gana Giorgia Pedone,0.7437,0.7483,1.258,,1
+2026-10-07,Tenis,atp,ATP,Amit Vales vs Jiri Cizek,Amit Vales,Jiri Cizek,2.0,0.0,TENIS,1X2,Gana Amit Vales,0.7323,0.7307,1.292,,1
+2026-10-07,Tenis,atp,ATP,Odysseas Geladaris vs James McGloughlin,Odysseas Geladaris,James McGloughlin,2.0,0.0,TENIS,1X2,Gana Odysseas Geladaris,0.723,0.6646,1.454,,1
+2026-10-07,Tenis,atp,ATP,Charlton J. vs Mehrotra A.,Charlton J.,Mehrotra A.,2.0,0.0,TENIS,1X2,Gana Charlton J.,0.7323,0.7271,1.3,,1
+2026-10-07,Tenis,wta,WTA,Sofiia Suslova vs Liliya Piskun,Sofiia Suslova,Liliya Piskun,2.0,1.0,TENIS,1X2,Gana Sofiia Suslova,0.7497,0.7739,1.154,,1
+2026-10-07,Tenis,wta,WTA,Suzuna Oigawa vs Jeong Moon,Suzuna Oigawa,Jeong Moon,2.0,0.0,TENIS,1X2,Gana Jeong Moon,0.7323,0.7302,1.231,,0
+2026-10-07,Tenis,wta,WTA,Anja Wildgruber vs Micol Salvadori,Anja Wildgruber,Micol Salvadori,2.0,0.0,TENIS,1X2,Gana Anja Wildgruber,0.723,0.6535,1.4,,1
+2026-10-07,Tenis,atp,ATP,Georgios Dimitriou vs Nikita Belozertsev,Georgios Dimitriou,Nikita Belozertsev,0.0,2.0,TENIS,1X2,Gana Nikita Belozertsev,0.8912,0.8912,1.06,,1
+2026-10-07,Tenis,wta,WTA,Elizara Yaneva vs Giulia Safina Popa,Elizara Yaneva,Giulia Safina Popa,2.0,1.0,TENIS,1X2,Gana Elizara Yaneva,0.8065,0.8065,1.187,,1
+2026-10-07,Tenis,atp,ATP,Marwan Ehab vs Romain Faucon,Marwan Ehab,Romain Faucon,0.0,2.0,TENIS,1X2,Gana Romain Faucon,0.8232,0.8232,1.11,,1
+2026-10-07,Tenis,atp,ATP,Thomas Kostka vs Marcus Walters,Thomas Kostka,Marcus Walters,0.0,2.0,TENIS,1X2,Gana Marcus Walters,0.8068,0.8068,1.162,,1
+2026-10-07,Tenis,atp,ATP,Rinky Hijikata vs Roman Safiullin,Rinky Hijikata,Roman Safiullin,0.0,2.0,TENIS,1X2,Gana Roman Safiullin,0.7323,0.7293,1.346,,1
+2026-10-07,Tenis,atp,ATP,Jorge Plans vs Oskari Eerola,Jorge Plans,Oskari Eerola,2.0,0.0,TENIS,1X2,Gana Jorge Plans,0.7353,0.7367,1.25,,1
+2026-10-07,Tenis,wta,WTA,Leolia Jeanjean vs Mariam Bolkvadze,Leolia Jeanjean,Mariam Bolkvadze,0.0,2.0,TENIS,1X2,Gana Leolia Jeanjean,0.7282,0.6942,1.391,,0
+2026-10-07,Tenis,wta,WTA,Elena Pridankina vs Anna Blinkova,Elena Pridankina,Anna Blinkova,1.0,2.0,TENIS,1X2,Gana Anna Blinkova,0.7282,0.6868,1.402,,1
+2026-10-07,Tenis,atp,ATP,Rihards Neimanis vs Oskari Paldanius,Rihards Neimanis,Oskari Paldanius,2.0,0.0,TENIS,1X2,Gana Oskari Paldanius,0.7286,0.7011,1.29,,0
+2026-10-07,Tenis,atp,ATP,Noah Schachter vs Allan Gatoto,Noah Schachter,Allan Gatoto,2.0,1.0,TENIS,1X2,Gana Noah Schachter,0.723,0.655,1.431,,1
+2026-10-07,Tenis,wta,WTA,Pohle V. vs Biot A.,Pohle V.,Biot A.,2.0,0.0,TENIS,1X2,Gana Pohle V.,0.7445,0.7645,1.22,,1
+2026-10-07,Tenis,wta,WTA,Biro M. vs Beviz L.,Biro M.,Beviz L.,1.0,2.0,TENIS,1X2,Gana Biro M.,0.7323,0.7229,1.28,,0
+2026-10-07,Tenis,wta,WTA,Wildgruber A. vs Salvadori M.,Wildgruber A.,Salvadori M.,2.0,0.0,TENIS,1X2,Gana Wildgruber A.,0.723,0.6535,1.4,,1
+2026-10-07,Tenis,wta,WTA,Fenyves G. vs Janiszewska A.,Fenyves G.,Janiszewska A.,0.0,2.0,TENIS,1X2,Gana Fenyves G.,0.706,0.6121,1.48,,0
+2026-10-07,Tenis,atp,ATP,Petre S. I. B. vs Lazarov G.,Petre S. I. B.,Lazarov G.,0.0,2.0,TENIS,1X2,Gana Lazarov G.,0.841,0.841,1.08,,1
+2026-10-07,Tenis,atp,ATP,Sperle J. vs Ujvary M.,Sperle J.,Ujvary M.,2.0,0.0,TENIS,1X2,Gana Sperle J.,0.7641,0.7883,1.16,,1
+2026-10-07,Tenis,atp,ATP,Marco Trungelliti vs Rei Sakamoto,Marco Trungelliti,Rei Sakamoto,0.0,2.0,TENIS,1X2,Gana Rei Sakamoto,0.723,0.6531,1.467,,1
+2026-10-07,Tenis,wta,WTA,Despina Papamichail vs Simona Ogescu,Despina Papamichail,Simona Ogescu,2.0,0.0,TENIS,1X2,Gana Despina Papamichail,0.8651,0.8651,1.11,,1
+2026-10-07,Tenis,atp,ATP,Loann Massard vs Rahul Dhokia,Loann Massard,Rahul Dhokia,2.0,1.0,TENIS,1X2,Gana Loann Massard,0.8557,0.8557,1.114,,1
+2026-10-07,Tenis,atp,ATP,Moerani Bouzige vs Stefan Storch,Moerani Bouzige,Stefan Storch,2.0,0.0,TENIS,1X2,Gana Moerani Bouzige,0.8749,0.8749,1.08,,1
+2026-10-07,Tenis,atp,ATP,Lachlan Vickery vs Colin Sinclair,Lachlan Vickery,Colin Sinclair,1.0,2.0,TENIS,1X2,Gana Colin Sinclair,0.824,0.824,1.161,,1
+2026-10-07,Tenis,atp,ATP,Thomas Gerbaud vs Jelle Sels,Thomas Gerbaud,Jelle Sels,0.0,2.0,TENIS,1X2,Gana Jelle Sels,0.7742,0.7984,1.196,,1
+2026-10-07,Tenis,wta,WTA,Gabriella Price vs Natalija Senic,Gabriella Price,Natalija Senic,1.0,2.0,TENIS,1X2,Gana Natalija Senic,0.7445,0.7594,1.262,,1
+2026-10-07,Tenis,wta,WTA,Margaux Maquet vs Emma Lene,Margaux Maquet,Emma Lene,1.0,2.0,TENIS,1X2,Gana Emma Lene,0.723,0.6607,1.478,,1
+2026-10-07,Tenis,atp,ATP,Etienne Donnet vs Amaury Raynel,Etienne Donnet,Amaury Raynel,2.0,1.0,TENIS,1X2,Gana Etienne Donnet,0.7282,0.6832,1.394,,1
+2026-10-07,Tenis,atp,ATP,Zane Stevens vs Shintaro Imai,Zane Stevens,Shintaro Imai,2.0,0.0,TENIS,1X2,Gana Shintaro Imai,0.7323,0.7178,1.298,,0
+2026-10-07,Tenis,wta,WTA,Nina Radovanovic vs Angelica Raggi,Nina Radovanovic,Angelica Raggi,2.0,0.0,TENIS,1X2,Gana Nina Radovanovic,0.7265,0.6771,1.373,,1
+2026-10-07,Tenis,wta,WTA,Yaneva E. vs Popa G. S.,Yaneva E.,Popa G. S.,2.0,1.0,TENIS,1X2,Gana Yaneva E.,0.7736,0.7978,1.16,,1
+2026-10-07,Tenis,atp,ATP,Ehab M. vs Faucon R.,Ehab M.,Faucon R.,0.0,2.0,TENIS,1X2,Gana Faucon R.,0.8196,0.8196,1.12,,1
+2026-10-07,Tenis,atp,ATP,Kostka T. vs Walters M.,Kostka T.,Walters M.,0.0,2.0,TENIS,1X2,Gana Walters M.,0.8146,0.8146,1.12,,1
+2026-10-07,Tenis,atp,ATP,Plans J. vs Eerola O.,Plans J.,Eerola O.,2.0,0.0,TENIS,1X2,Gana Plans J.,0.7323,0.7216,1.3,,1
+2026-10-07,Tenis,atp,ATP,Neimanis R. vs Paldanius O.,Neimanis R.,Paldanius O.,2.0,0.0,TENIS,1X2,Gana Paldanius O.,0.7287,0.7015,1.33,,0
+2026-10-07,Tenis,atp,ATP,Bobichon M. vs Giraldi C.,Bobichon M.,Giraldi C.,2.0,0.0,TENIS,1X2,Gana Bobichon M.,0.8709,0.8709,1.07,,1
+2026-10-07,Tenis,atp,ATP,Seifert S. vs Palomar X.,Seifert S.,Palomar X.,1.0,2.0,TENIS,1X2,Gana Seifert S.,0.734,0.7349,1.28,,0
+2026-10-07,Tenis,wta,WTA,Bednarz Z. vs Pochtovyk K.,Bednarz Z.,Pochtovyk K.,2.0,0.0,TENIS,1X2,Gana Bednarz Z.,0.7302,0.7075,1.33,,1
+2026-10-07,Tenis,wta,WTA,Butuc Cerchez S. E. vs Nesmianovych A.,Butuc Cerchez S. E.,Nesmianovych A.,2.0,1.0,TENIS,1X2,Gana Nesmianovych A.,0.7326,0.733,1.22,,0
+2026-10-07,Tenis,wta,WTA,Enola Chiesa vs Caijsa Hennemann,Enola Chiesa,Caijsa Hennemann,0.0,2.0,TENIS,1X2,Gana Caijsa Hennemann,0.8457,0.8457,1.134,,1
+2026-10-07,Tenis,atp,ATP,Stefan Ilie Bogdan Petre vs George Lazarov,Stefan Ilie Bogdan Petre,George Lazarov,0.0,2.0,TENIS,1X2,Gana George Lazarov,0.8467,0.8467,1.099,,1
+2026-10-07,Tenis,atp,ATP,John Sperle vs Matthias Ujvary,John Sperle,Matthias Ujvary,2.0,0.0,TENIS,1X2,Gana John Sperle,0.7445,0.7788,1.216,,1
+2026-10-07,Tenis,wta,WTA,Zuzanna Bednarz vs Krystyna Pochtovyk,Zuzanna Bednarz,Krystyna Pochtovyk,2.0,0.0,TENIS,1X2,Gana Zuzanna Bednarz,0.7323,0.718,1.324,,1
+2026-10-07,Tenis,wta,WTA,Yasmine Kabbaj vs Daria Yesypchuk,Yasmine Kabbaj,Daria Yesypchuk,2.0,0.0,TENIS,1X2,Gana Yasmine Kabbaj,0.723,0.6649,1.364,,1
+2026-10-07,Tenis,wta,WTA,Reguer A. vs Kapcia V.,Reguer A.,Kapcia V.,2.0,0.0,TENIS,1X2,Gana Reguer A.,0.8711,0.8711,1.07,,1
+2026-10-07,Tenis,wta,WTA,Janssen C. vs Favier M.,Janssen C.,Favier M.,0.0,2.0,TENIS,1X2,Gana Favier M.,0.8035,0.8035,1.14,,1
+2026-10-07,Tenis,atp,ATP,Mattia Bellucci vs Yi Zhou,Mattia Bellucci,Yi Zhou,1.0,2.0,TENIS,1X2,Gana Mattia Bellucci,0.7323,0.7279,1.295,,0
+2026-10-07,Tenis,wta,WTA,Alyssa Reguer vs Victoria Kapcia,Alyssa Reguer,Victoria Kapcia,2.0,0.0,TENIS,1X2,Gana Alyssa Reguer,0.8525,0.8525,1.071,,1
+2026-10-07,Tenis,atp,ATP,Reyes Tiraldo O. A. vs Cesar Porras J.,Reyes Tiraldo O. A.,Cesar Porras J.,0.0,2.0,TENIS,1X2,Gana Cesar Porras J.,0.8357,0.8357,1.11,,1
+2026-10-07,Tenis,atp,ATP,Thurner N. vs Callejon H. S.,Thurner N.,Callejon H. S.,0.0,2.0,TENIS,1X2,Gana Callejon H. S.,0.8644,0.8644,1.07,,1
+2026-10-07,Tenis,atp,ATP,Eliakim Coulibaly vs Frederic Schlossmann,Eliakim Coulibaly,Frederic Schlossmann,2.0,0.0,TENIS,1X2,Gana Eliakim Coulibaly,0.8536,0.8536,1.09,,1
+2026-10-07,Tenis,wta,WTA,Chanel Janssen vs Manon Favier,Chanel Janssen,Manon Favier,0.0,2.0,TENIS,1X2,Gana Manon Favier,0.8343,0.8343,1.083,,1
+2026-10-07,Tenis,wta,WTA,Klara Veldman vs Zeel Desai,Klara Veldman,Zeel Desai,2.0,0.0,TENIS,1X2,Gana Klara Veldman,0.7238,0.6683,1.437,,1
+2026-10-07,Tenis,atp,ATP,Matisse Bobichon vs Carlos Giraldi,Matisse Bobichon,Carlos Giraldi,2.0,0.0,TENIS,1X2,Gana Matisse Bobichon,0.8753,0.8753,1.09,,1
+2026-10-07,Tenis,atp,ATP,Hugo Car vs Adrien Burdet,Hugo Car,Adrien Burdet,1.0,2.0,TENIS,1X2,Gana Hugo Car,0.8412,0.8412,1.129,,0
+2026-10-07,Tenis,wta,WTA,Lola Giza vs Laura Pigossi,Lola Giza,Laura Pigossi,2.0,0.0,TENIS,1X2,Gana Laura Pigossi,0.7323,0.7269,1.339,,0
+2026-10-07,Tenis,atp,ATP,Stefan Seifert vs Xavi Palomar,Stefan Seifert,Xavi Palomar,1.0,2.0,TENIS,1X2,Gana Stefan Seifert,0.7445,0.7541,1.267,,0
+2026-10-07,Tenis,wta,WTA,Lisa Claeys vs Lea Belanska,Lisa Claeys,Lea Belanska,2.0,0.0,TENIS,1X2,Gana Lisa Claeys,0.7445,0.7534,1.243,,1
+2026-10-07,Tenis,atp,ATP,Makoto Ochi vs Hayden Jones,Makoto Ochi,Hayden Jones,0.0,2.0,TENIS,1X2,Gana Hayden Jones,0.7323,0.7225,1.296,,1
+2026-10-07,Tenis,wta,WTA,Anna Mihalka vs Amy Sucha,Anna Mihalka,Amy Sucha,0.0,2.0,TENIS,1X2,Gana Amy Sucha,0.7291,0.7029,1.328,,1
+2026-10-07,Tenis,atp,ATP,Liu L. vs Duran T.,Liu L.,Duran T.,0.0,2.0,TENIS,1X2,Gana Duran T.,0.7282,0.692,1.33,,1
+2026-10-07,Tenis,atp,ATP,Bouzige M. vs Storch S.,Bouzige M.,Storch S.,2.0,0.0,TENIS,1X2,Gana Bouzige M.,0.8329,0.8329,1.11,,1
+2026-10-07,Tenis,atp,ATP,Lucca Liu vs Tuncay Duran,Lucca Liu,Tuncay Duran,0.0,2.0,TENIS,1X2,Gana Tuncay Duran,0.7323,0.719,1.292,,1
+2026-10-07,Tenis,wta,WTA,Andre Lukosiute vs Sada Nahimana,Andre Lukosiute,Sada Nahimana,2.0,0.0,TENIS,1X2,Gana Sada Nahimana,0.723,0.636,1.427,,0
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Cruzeiro vs Sao Paulo,Cruzeiro,Sao Paulo,2.0,0.0,CÓRNERS,Córners,Córners: Más de 7,0.7445,0.7762,1.222,,1
+2026-10-07,Fútbol,brasil,Brasileirão Serie A,Cruzeiro vs Sao Paulo,Cruzeiro,Sao Paulo,2.0,0.0,GOLES DEL PARTIDO,Goles,Goles: Menos de 3.5,0.7349,0.7528,1.303,,1

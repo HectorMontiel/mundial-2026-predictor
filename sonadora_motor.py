@@ -1128,6 +1128,64 @@ def patas_de_fila(partido: Dict) -> List[Dict]:
 # ---------------------------------------------------------------------------
 # El día entero
 # ---------------------------------------------------------------------------
+_CAT_GANADOR = ('Ganador', 'Moneyline', '1X2')
+
+
+def tenis_con_la_casa(patas: List[Dict], partido: Dict) -> List[Dict]:
+    """v342 — las patas de «Gana X» del tenis, con la regla medida del tenis.
+
+    Las cinco patas de tenis perdidas que mandó el usuario (1,38-1,45) eran
+    justo las que esta regla quita: el modelo las veía al 65-69 % y la casa
+    igual, y a esa cuota hace falta un 71 % para no perder. Medido en
+    `_v342_tenis.py` (ver `veredicto_pick.METER_TENIS_CASA_MIN`): con la casa
+    y el modelo en el 70 % o más, lo que se mete pasa de 76,9 % a 80,8 % en
+    2.989 partidos que la regla no vio al elegirse; en la app, de 76,4 % a
+    81,5 % (461 apuestas reales, rojas 109 → 59).
+
+    El precio de la casa sale de las DOS patas del mismo partido y la misma
+    casa (el libro entero, sin margen); si sólo hay una, de las cuotas del
+    barrido. Si cumple, la pata se puntúa con ese número —en el tenis es el
+    mejor calibrado, `concordancia.PESO_MODELO_TENIS`—; si no, va en rojo, que
+    la cascada de abajo esconde mientras haya otras.
+    """
+    import veredicto_pick as vp
+    if str(partido.get('deporte') or '') != 'Tenis':
+        return patas
+    cuotas: Dict[tuple, Dict[str, float]] = {}
+    for q in patas:
+        if q.get('categoria') in _CAT_GANADOR:
+            cuotas.setdefault((q.get('partido'), q.get('casa')), {})[
+                q['etiqueta']] = float(q['cuota'])
+    local, visitante = _lados(partido.get('partido'))
+    c12 = ((partido.get('implicitas') or {}).get('1x2_cuotas') or {})
+    del_barrido = {f'Gana {local}': _num(c12.get('home')),
+                   f'Gana {visitante}': _num(c12.get('away'))}
+    for q in patas:
+        if q.get('categoria') not in _CAT_GANADOR:
+            continue
+        libro = cuotas.get((q.get('partido'), q.get('casa'))) or {}
+        if len(libro) != 2:
+            libro = del_barrido
+        pc = None
+        mia = _num(libro.get(q['etiqueta']))
+        otra = [_num(v) for k, v in libro.items() if k != q['etiqueta']]
+        if mia and mia > 1 and len(otra) == 1 and otra[0] and otra[0] > 1:
+            pc = (1 / mia) / (1 / mia + 1 / otra[0])
+        q['prob_casa'] = None if pc is None else round(pc, 4)
+        if vp.tenis_mete(q.get('prob_modelo'), pc):
+            q['prob'] = round(pc, 4)
+            q['prob_ajustada'] = round(prob_ajustada(pc, q.get('ece')), 4)
+            q['score'] = score_segura(pc, q['cuota'], q.get('ece'))
+            q['color'] = color(pc, q.get('ece'), q.get('calibracion_floja'))
+        else:
+            q['color'] = ROJO
+            q['regla_tenis'] = (
+                'sin el precio de la casa' if pc is None else
+                'casa %.0f %% y modelo %.0f %%: el tenis pide las dos en el '
+                '70 %% o más' % (100 * pc, 100 * float(q.get('prob_modelo') or 0)))
+    return patas
+
+
 def _board_por_partido(r: Dict, dia: str) -> Dict:
     import mercados_dia as md
     fuera: Dict[tuple, Dict] = {}
@@ -1505,7 +1563,7 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
         if casa == 'Novibet':
             # Novibet no pasa por el tablero de Altenar: sale del fichero de
             # las casas mexicanas, que ya está en disco. Cero peticiones.
-            patas += patas_novibet(p)
+            patas += tenis_con_la_casa(patas_novibet(p), p)     # v342
             continue
         if casa not in CASAS_CON_FUENTE:
             continue                    # Draftea: no hay de dónde sacarlo
@@ -1538,6 +1596,7 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
             for q in patas_de_fila(p):
                 if (q['partido'], q['etiqueta']) not in vistos:
                     nuevas.append(q)
+        nuevas = tenis_con_la_casa(nuevas, p)                   # v342
         _pegar_contexto(nuevas, p)
         patas += nuevas
     return {'patas': patas, 'n_partidos': len(partidos),

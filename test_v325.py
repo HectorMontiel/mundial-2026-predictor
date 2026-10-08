@@ -133,8 +133,9 @@ def probar_decision():
     check(p is not None and abs(p - esperado) < 1e-9,
           'NFL: el precio de la casa sin empate se lee (%.3f)' % (p or 0))
     ten = dict(nfl, deporte='Tenis', partido='A vs B')
-    check(cc.prob_mercado(ten, 'Gana A', '1X2') is None,
-          'el tenis sigue igual (sin precio de la casa)')
+    # v342 — el tenis ya lee el precio de la casa (y decide con él, medido)
+    check(abs((cc.prob_mercado(ten, 'Gana A', '1X2') or 0) - esperado) < 1e-9,
+          'el tenis también lee la casa desde la v342')
     fut = {'deporte': 'Fútbol', 'partido': 'A vs B',
            'implicitas': {'1x2_cuotas': {'home': 2.0, 'draw': 3.4, 'away': 4.0}}}
     pf = cc.prob_mercado(fut, 'Gana A', '1X2')

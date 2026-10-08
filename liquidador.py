@@ -314,7 +314,90 @@ def _resultados_tenis(desde: str, hasta: str) -> Dict[Tuple, list]:
     # `historico_tenis_espn.csv` e `ingesta_itf.py` alimenta
     # `historico_itf_vivo.csv`. Faltaba mirarlos.
     _sumar_csv_tenis(out, desde, hasta)
+    # v342 — Y FLASHSCORE, QUE SÍ TRAE EL ITF DEL DÍA. Con ESPN y los dos CSV
+    # se quedaban sin resultado 197, 207 y 128 partidos de tenis del 5, 6 y 7
+    # de octubre (M15, W15, W35… que BetExplorer no cubre o publica un día
+    # tarde): más de la mitad de las «meter» de tenis no se liquidaba nunca.
+    # El feed del día de Flashscore (deporte 2) trae ~470 terminados por día.
+    _sumar_flashscore_tenis(out, desde, hasta)
     return out
+
+
+def _claves_flashscore(nombre: str) -> set:
+    """Claves de «Apellido I.» (Flashscore): la del proyecto y, para los
+    apellidos compuestos («Bar Biryukov P.»), cada trozo del apellido."""
+    import name_mapper
+    ks = {_clave_tenista(nombre)}
+    partes = [p for p in name_mapper.normalizar(nombre).split() if len(p) > 1]
+    if partes:
+        ks |= {partes[-1], partes[0], ''.join(partes)}
+    return {k for k in ks if k and len(k) >= 3}
+
+
+def _sumar_flashscore_tenis(out: Dict[Tuple, list], desde: str, hasta: str,
+                            hoy: Optional[str] = None) -> int:
+    """Añade los terminados del feed diario de Flashscore (sólo la última
+    semana: el feed no va más atrás). Ganador por su campo `AS` (1 el
+    primero, 2 el segundo), sets en `AG`/`AH`. Nunca lanza."""
+    import datetime as _dt
+    try:
+        import resultados_flashscore as rf
+        h = _dt.date.fromisoformat(hoy) if hoy else _dt.datetime.utcnow().date()
+        d0 = _dt.date.fromisoformat(str(desde)[:10])
+        d1 = _dt.date.fromisoformat(str(hasta)[:10]) + _dt.timedelta(days=1)
+    except Exception as e:
+        logger.debug(f'[liquidador/tenis] flashscore: {e}')
+        return 0
+    offs = [o for o in range((d0 - h).days, (d1 - h).days + 1) if -7 <= o <= 0]
+    n, vistos = 0, set()
+    for o in offs:
+        try:
+            t = rf._get('https://global.flashscore.ninja/2/x/feed/'
+                        'f_2_%d_3_es-mx_1' % o)
+        except Exception:
+            t = None
+        if not t:
+            continue
+        for d in rf._registros(t):
+            if 'AA' not in d or d.get('AB') != '3' or d['AA'] in vistos:
+                continue
+            try:
+                s1, s2 = int(d['AG']), int(d['AH'])
+                gana = int(d.get('AS') or 0)
+                fecha = _dt.datetime.fromtimestamp(
+                    int(d['AD']), _dt.timezone.utc).strftime('%Y-%m-%d')
+            except Exception:
+                continue
+            j1, j2 = d.get('AE') or '', d.get('AF') or ''
+            if gana not in (1, 2) or s1 == s2 or ('/' in j1 + j2):
+                continue                 # sin ganador claro, o dobles
+            vistos.add(d['AA'])
+            juegos = []
+            for a, b in (('BA', 'BB'), ('BC', 'BD'), ('BE', 'BF'),
+                         ('BG', 'BH'), ('BI', 'BJ')):
+                try:
+                    juegos.append([float(d[a]), float(d[b])])
+                except (KeyError, ValueError):
+                    break
+            info = {'fecha': fecha, 'jugadores': [j1, j2],
+                    'ganador': j1 if gana == 1 else j2,
+                    'sets': [s1, s2],
+                    'juegos_totales': (sum(x + y for x, y in juegos)
+                                       if juegos else None),
+                    'retiro': d.get('AC') not in (None, '3'),
+                    'fuente': 'flashscore'}
+            c1, c2 = _claves_flashscore(j1), _claves_flashscore(j2)
+            for k1 in c1:
+                for k2 in c2:
+                    if k1 == k2:
+                        continue
+                    par = tuple(sorted((k1, k2)))
+                    out.setdefault(par, []).append(
+                        (fecha, {**info, '_ganador': k1 if gana == 1 else k2}))
+            n += 1
+    if n:
+        logger.info(f'[liquidador/tenis] {n} resultados desde Flashscore')
+    return n
 
 
 def _sumar_csv_tenis(out: Dict[Tuple, list], desde: str, hasta: str) -> None:

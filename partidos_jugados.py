@@ -116,6 +116,19 @@ FICHERO_JUGADOS = 'jugados_dia.json'
 CADUCIDAD_HOY_S = 3 * 3600
 
 
+# v342 — EL DÍA ANTERIOR TAMBIÉN SE GUARDA. El usuario pidió el marcador de
+# ayer junto al de hoy, y `jugados_dia.json` sólo trae el día en curso: pedir
+# ayer a la red al pintar costaba ~13 s (v228). Cuando el precálculo cambia
+# de día, el fichero del día que acaba pasa a `jugados_ayer.json`, y cada
+# pasada le rellena los marcadores que aún falten (`repasar_ayer`).
+FICHERO_AYER = 'jugados_ayer.json'
+
+
+def _ruta_ayer() -> str:
+    import os
+    return os.environ.get('JUGADOS_AYER_FICHERO') or FICHERO_AYER
+
+
 def _ruta_jugados() -> str:
     """Se resuelve en cada llamada, no al importar.
 
@@ -141,17 +154,22 @@ def _leer_precalculo(dia: str, permitir_viejo: bool = False):
     import json
     import os
     import time
-    ruta = _ruta_jugados()
-    try:
-        if not os.path.exists(ruta):
-            return None
-        with open(ruta, encoding='utf-8') as f:
-            doc = json.load(f)
-    except Exception as e:
-        logger.debug('[jugados] precálculo ilegible: %s: %s',
-                     type(e).__name__, e)
-        return None
-    if str(doc.get('dia') or '') != str(dia):
+    doc = None
+    # v342 — el del día y, si no es ese día, el de ayer (`FICHERO_AYER`)
+    for ruta in (_ruta_jugados(), _ruta_ayer()):
+        try:
+            if not os.path.exists(ruta):
+                continue
+            with open(ruta, encoding='utf-8') as f:
+                _d = json.load(f)
+        except Exception as e:
+            logger.debug('[jugados] precálculo ilegible: %s: %s',
+                         type(e).__name__, e)
+            continue
+        if isinstance(_d, dict) and str(_d.get('dia') or '') == str(dia):
+            doc = _d
+            break
+    if doc is None:
         return None
     partidos = doc.get('partidos')
     if not isinstance(partidos, list):
@@ -727,6 +745,20 @@ def _marcador_tenis(p: Dict, res: Dict) -> Optional[tuple]:
         lista = res.get(tuple(sorted((k1, k2)))) or []
         dia = dia_de_partido(p)
         import pandas as pd
+        # v342 — con Flashscore entran ~470 partidos de ITF al día y la
+        # pareja se indexa por APELLIDO: dos «Wang contra Zhang» distintos
+        # pueden caer en la misma ventana. Si en ±1 día hay ganadores
+        # distintos para la pareja, no se liquida: mejor pendiente que mal.
+        _gan = set()
+        for fecha, r in lista:
+            try:
+                if abs((pd.Timestamp(str(fecha)[:10])
+                        - pd.Timestamp(dia)).days) <= 1:
+                    _gan.add(r.get('_ganador'))
+            except Exception:
+                continue
+        if len(_gan) > 1:
+            return None
         for fecha, r in lista:
             try:
                 dif = abs((pd.Timestamp(str(fecha)[:10]) - pd.Timestamp(dia)).days)
@@ -951,6 +983,9 @@ def escribir_dia(dia: str, ruta: str = '',
                 _doc = json.load(f) or {}
             if str(_doc.get('dia') or '') == str(dia):
                 previos = _doc.get('partidos') or []
+            elif not ruta:
+                # v342 — cambió el día: el que acaba pasa a ser «ayer»
+                _rotar_a_ayer(_doc, dia)
         except Exception:
             previos = []
         ya = {_llave(p) for p in previos
@@ -977,6 +1012,57 @@ def escribir_dia(dia: str, ruta: str = '',
         return len(partidos)
     except Exception as e:
         logger.warning('[jugados] no se pudo escribir el precálculo: %s: %s',
+                       type(e).__name__, e)
+        return 0
+
+
+def _rotar_a_ayer(doc: Dict, dia: str) -> bool:
+    """v342 — guarda el día que acaba como `jugados_ayer.json`, si de verdad
+    es el anterior a `dia` (un fichero de hace dos días no es «ayer»)."""
+    import datetime as _dt
+    import json
+    try:
+        ayer = (_dt.date.fromisoformat(str(dia))
+                - _dt.timedelta(days=1)).isoformat()
+    except ValueError:
+        return False
+    if (str((doc or {}).get('dia') or '') != ayer
+            or not isinstance(doc.get('partidos'), list)):
+        return False
+    with open(_ruta_ayer(), 'w', encoding='utf-8') as f:
+        json.dump(doc, f, ensure_ascii=False)
+    logger.info('[jugados] el %s pasa a %s (%d partidos)', ayer, _ruta_ayer(),
+                len(doc['partidos']))
+    return True
+
+
+def repasar_ayer(dia_hoy: str) -> int:
+    """v342 — rellena los marcadores que aún falten en el fichero de ayer.
+
+    Un partido de las 23:00 de CDMX acaba pasada la medianoche, cuando el
+    fichero del día ya rotó: sin esto se quedaría «en juego» para siempre en
+    el marcador de ayer. Devuelve cuántos rellenó. Nunca lanza."""
+    import datetime as _dt
+    import json
+    import time
+    try:
+        ayer = (_dt.date.fromisoformat(str(dia_hoy))
+                - _dt.timedelta(days=1)).isoformat()
+        with open(_ruta_ayer(), encoding='utf-8') as f:
+            doc = json.load(f) or {}
+        if str(doc.get('dia') or '') != ayer:
+            return 0
+        partidos = doc.get('partidos') or []
+        n = poner_marcadores(partidos, ayer) + marcadores_otros(partidos, ayer)
+        if n:
+            doc['partidos'] = partidos
+            doc['ts_repaso'] = time.time()
+            with open(_ruta_ayer(), 'w', encoding='utf-8') as f:
+                json.dump(doc, f, ensure_ascii=False)
+        logger.info('[jugados] ayer (%s): %d marcadores rellenados', ayer, n)
+        return n
+    except Exception as e:
+        logger.warning('[jugados] no se pudo repasar ayer: %s: %s',
                        type(e).__name__, e)
         return 0
 

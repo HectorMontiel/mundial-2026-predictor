@@ -1,0 +1,408 @@
+{
+ "corte": "2025-02-04",
+ "calibracion_135_150": {
+  "modelo crudo": {
+   "promete": 0.6646,
+   "acierto": 0.684,
+   "logloss": 0.6515
+  },
+  "modelo de la app": {
+   "promete": 0.6727,
+   "acierto": 0.684,
+   "logloss": 0.625
+  },
+  "app + curva del fútbol": {
+   "promete": 0.7246,
+   "acierto": 0.684,
+   "logloss": 0.6276
+  },
+  "casa sin margen": {
+   "promete": 0.6754,
+   "acierto": 0.684,
+   "logloss": 0.6229
+  }
+ },
+ "reglas": {
+  "hoy (curva del fútbol, ≥65 %)": {
+   "elige": {
+    "n": 10303,
+    "acierto": 0.7737,
+    "promete": 0.7667,
+    "cuota": 1.268,
+    "roi": -0.0303
+   },
+   "juzga": {
+    "n": 4476,
+    "acierto": 0.7688,
+    "promete": 0.7672,
+    "cuota": 1.271,
+    "roi": -0.0331
+   }
+  },
+  "modelo ≥65 % sin curva": {
+   "elige": {
+    "n": 9907,
+    "acierto": 0.776,
+    "promete": 0.7604,
+    "cuota": 1.266,
+    "roi": -0.0295
+   },
+   "juzga": {
+    "n": 4311,
+    "acierto": 0.7687,
+    "promete": 0.7632,
+    "cuota": 1.268,
+    "roi": -0.0362
+   }
+  },
+  "modelo ≥70 % sin curva": {
+   "elige": {
+    "n": 7228,
+    "acierto": 0.8145,
+    "promete": 0.7917,
+    "cuota": 1.21,
+    "roi": -0.0214
+   },
+   "juzga": {
+    "n": 3115,
+    "acierto": 0.8035,
+    "promete": 0.795,
+    "cuota": 1.212,
+    "roi": -0.0336
+   }
+  },
+  "modelo ≥75 % sin curva": {
+   "elige": {
+    "n": 4922,
+    "acierto": 0.8466,
+    "promete": 0.8223,
+    "cuota": 1.161,
+    "roi": -0.0226
+   },
+   "juzga": {
+    "n": 2098,
+    "acierto": 0.8427,
+    "promete": 0.8254,
+    "cuota": 1.16,
+    "roi": -0.0268
+   }
+  },
+  "hoy y cuota <1,35": {
+   "elige": {
+    "n": 6861,
+    "acierto": 0.8199,
+    "promete": 0.7879,
+    "cuota": 1.198,
+    "roi": -0.0241
+   },
+   "juzga": {
+    "n": 2927,
+    "acierto": 0.8107,
+    "promete": 0.7894,
+    "cuota": 1.199,
+    "roi": -0.0347
+   }
+  },
+  "casa ≥70 % y modelo ≥60 %": {
+   "elige": {
+    "n": 7710,
+    "acierto": 0.8079,
+    "promete": 0.7876,
+    "cuota": 1.216,
+    "roi": -0.025
+   },
+   "juzga": {
+    "n": 3268,
+    "acierto": 0.8005,
+    "promete": 0.7888,
+    "cuota": 1.216,
+    "roi": -0.0343
+   }
+  },
+  "casa ≥70 % y modelo ≥65 %": {
+   "elige": {
+    "n": 7641,
+    "acierto": 0.8087,
+    "promete": 0.7883,
+    "cuota": 1.215,
+    "roi": -0.025
+   },
+   "juzga": {
+    "n": 3247,
+    "acierto": 0.8014,
+    "promete": 0.7893,
+    "cuota": 1.215,
+    "roi": -0.0339
+   }
+  },
+  "casa ≥70 % y modelo ≥70 %": {
+   "elige": {
+    "n": 6963,
+    "acierto": 0.819,
+    "promete": 0.7955,
+    "cuota": 1.203,
+    "roi": -0.0212
+   },
+   "juzga": {
+    "n": 2989,
+    "acierto": 0.8083,
+    "promete": 0.7957,
+    "cuota": 1.204,
+    "roi": -0.0336
+   }
+  },
+  "casa ≥72 % y modelo ≥60 %": {
+   "elige": {
+    "n": 6196,
+    "acierto": 0.8288,
+    "promete": 0.8069,
+    "cuota": 1.184,
+    "roi": -0.0245
+   },
+   "juzga": {
+    "n": 2662,
+    "acierto": 0.8201,
+    "promete": 0.807,
+    "cuota": 1.186,
+    "roi": -0.0335
+   }
+  },
+  "casa ≥72 % y modelo ≥65 %": {
+   "elige": {
+    "n": 6183,
+    "acierto": 0.829,
+    "promete": 0.807,
+    "cuota": 1.184,
+    "roi": -0.0244
+   },
+   "juzga": {
+    "n": 2661,
+    "acierto": 0.8204,
+    "promete": 0.807,
+    "cuota": 1.186,
+    "roi": -0.0332
+   }
+  },
+  "casa ≥72 % y modelo ≥70 %": {
+   "elige": {
+    "n": 6028,
+    "acierto": 0.8311,
+    "promete": 0.8087,
+    "cuota": 1.181,
+    "roi": -0.0239
+   },
+   "juzga": {
+    "n": 2595,
+    "acierto": 0.8224,
+    "promete": 0.8087,
+    "cuota": 1.183,
+    "roi": -0.033
+   }
+  },
+  "casa ≥74 % y modelo ≥60 %": {
+   "elige": {
+    "n": 5476,
+    "acierto": 0.84,
+    "promete": 0.8171,
+    "cuota": 1.169,
+    "roi": -0.0231
+   },
+   "juzga": {
+    "n": 2329,
+    "acierto": 0.8317,
+    "promete": 0.8181,
+    "cuota": 1.169,
+    "roi": -0.0326
+   }
+  },
+  "casa ≥74 % y modelo ≥65 %": {
+   "elige": {
+    "n": 5470,
+    "acierto": 0.84,
+    "promete": 0.8172,
+    "cuota": 1.169,
+    "roi": -0.0232
+   },
+   "juzga": {
+    "n": 2328,
+    "acierto": 0.832,
+    "promete": 0.8181,
+    "cuota": 1.169,
+    "roi": -0.0322
+   }
+  },
+  "casa ≥74 % y modelo ≥70 %": {
+   "elige": {
+    "n": 5396,
+    "acierto": 0.841,
+    "promete": 0.818,
+    "cuota": 1.168,
+    "roi": -0.0231
+   },
+   "juzga": {
+    "n": 2308,
+    "acierto": 0.8345,
+    "promete": 0.8186,
+    "cuota": 1.168,
+    "roi": -0.0298
+   }
+  },
+  "casa ≥76 % y modelo ≥60 %": {
+   "elige": {
+    "n": 4845,
+    "acierto": 0.8522,
+    "promete": 0.8265,
+    "cuota": 1.154,
+    "roi": -0.0207
+   },
+   "juzga": {
+    "n": 2043,
+    "acierto": 0.8468,
+    "promete": 0.8284,
+    "cuota": 1.153,
+    "roi": -0.0277
+   }
+  },
+  "casa ≥76 % y modelo ≥65 %": {
+   "elige": {
+    "n": 4845,
+    "acierto": 0.8522,
+    "promete": 0.8265,
+    "cuota": 1.154,
+    "roi": -0.0207
+   },
+   "juzga": {
+    "n": 2043,
+    "acierto": 0.8468,
+    "promete": 0.8284,
+    "cuota": 1.153,
+    "roi": -0.0277
+   }
+  },
+  "casa ≥76 % y modelo ≥70 %": {
+   "elige": {
+    "n": 4806,
+    "acierto": 0.8529,
+    "promete": 0.8269,
+    "cuota": 1.153,
+    "roi": -0.0205
+   },
+   "juzga": {
+    "n": 2032,
+    "acierto": 0.8489,
+    "promete": 0.8287,
+    "cuota": 1.152,
+    "roi": -0.0254
+   }
+  },
+  "casa ≥78 % y modelo ≥60 %": {
+   "elige": {
+    "n": 4140,
+    "acierto": 0.8681,
+    "promete": 0.8374,
+    "cuota": 1.138,
+    "roi": -0.0154
+   },
+   "juzga": {
+    "n": 1723,
+    "acierto": 0.8613,
+    "promete": 0.8407,
+    "cuota": 1.135,
+    "roi": -0.0254
+   }
+  },
+  "casa ≥78 % y modelo ≥65 %": {
+   "elige": {
+    "n": 4140,
+    "acierto": 0.8681,
+    "promete": 0.8374,
+    "cuota": 1.138,
+    "roi": -0.0154
+   },
+   "juzga": {
+    "n": 1723,
+    "acierto": 0.8613,
+    "promete": 0.8407,
+    "cuota": 1.135,
+    "roi": -0.0254
+   }
+  },
+  "casa ≥78 % y modelo ≥70 %": {
+   "elige": {
+    "n": 4128,
+    "acierto": 0.8682,
+    "promete": 0.8376,
+    "cuota": 1.138,
+    "roi": -0.0154
+   },
+   "juzga": {
+    "n": 1720,
+    "acierto": 0.8616,
+    "promete": 0.8408,
+    "cuota": 1.135,
+    "roi": -0.0251
+   }
+  }
+ },
+ "elegida": "casa ≥70 % y modelo ≥70 %",
+ "juicio": {
+  "elegida_vs_hoy_acierto": [
+   0.0394,
+   0.0316
+  ],
+  "sin_curva70_vs_hoy_acierto": [
+   0.0349,
+   0.0271
+  ],
+  "roi_p5_hoy": -0.0459,
+  "roi_p5_elegida": -0.0471,
+  "roi_p5_sin_curva70": -0.0473
+ },
+ "banda_hoy": [
+  {
+   "banda": "(1.0, 1.15]",
+   "n": "3279",
+   "acierto": "0.906",
+   "modelo": "0.867",
+   "dice": "0.867",
+   "casa": "0.873",
+   "cuota": "1.092"
+  },
+  {
+   "banda": "(1.15, 1.25]",
+   "n": "3661",
+   "acierto": "0.799",
+   "modelo": "0.781",
+   "dice": "0.759",
+   "casa": "0.785",
+   "cuota": "1.21"
+  },
+  {
+   "banda": "(1.25, 1.35]",
+   "n": "2850",
+   "acierto": "0.738",
+   "modelo": "0.728",
+   "dice": "0.735",
+   "casa": "0.73",
+   "cuota": "1.305"
+  },
+  {
+   "banda": "(1.35, 1.45]",
+   "n": "4987",
+   "acierto": "0.684",
+   "modelo": "0.673",
+   "dice": "0.725",
+   "casa": "0.675",
+   "cuota": "1.407"
+  },
+  {
+   "banda": "(1.45, 1.6]",
+   "n": "2",
+   "acierto": "0.0",
+   "modelo": "0.671",
+   "dice": "0.725",
+   "casa": "0.666",
+   "cuota": "1.465"
+  }
+ ]
+}

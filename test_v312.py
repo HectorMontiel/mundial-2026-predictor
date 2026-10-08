@@ -69,8 +69,14 @@ def probar_el_meter():
           '«doble y goles» no se mete')
     check(ev(.75, 1.25, 'Remates a puerta') == vp.NO_METER,
           'remates a puerta no se mete')
-    check(ev(.84, 1.20, 'Ganador', 'Tenis') == vp.METER,
-          'fuera del fútbol no cambia (no está medido)')
+    # v342 — el tenis ya tiene su regla medida (casa y modelo ≥ 70 %, ver
+    # `veredicto_pick.METER_TENIS_CASA_MIN`); la franja del fútbol no lo toca
+    _vt = vp.evaluar({'apuesta': 'x', 'mercado': 'Ganador', 'prob': .84,
+                      'cuota': 1.20, 'deporte': 'Tenis', 'p_mercado': 0.80})
+    check(_vt['veredicto'] == vp.METER and not vp.franja_futbol(
+        dict(_vt, pick={'deporte': 'Tenis', 'mercado': 'Ganador',
+                        'cuota': 1.20})),
+          'fuera del fútbol, la franja del fútbol no cambia nada')
     check(vp.evaluar({'apuesta': 'x', 'mercado': 'Goles', 'prob': .85,
                       'cuota': 1.3})['veredicto'] == vp.METER,
           'el veredicto general (Soñadora, combinadas) no cambia')

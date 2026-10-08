@@ -64,7 +64,21 @@ CSS = """<style>
 .vc-cab{display:grid;grid-template-columns:62px minmax(0,1fr) 52px 48px;
  gap:8px;padding:0 8px;font-size:.66rem;opacity:.6;text-transform:uppercase}
 .vc-cab span:nth-child(3),.vc-cab span:nth-child(4){text-align:right}
+.vc-fila.fin-ok{border-color:rgba(16,185,129,.8);background:rgba(16,185,129,.16);
+ box-shadow:0 0 0 1px rgba(16,185,129,.35),0 0 18px rgba(16,185,129,.30)}
+.vc-fila.fin-no{border-color:rgba(248,113,113,.8);background:rgba(248,113,113,.15);
+ box-shadow:0 0 0 1px rgba(248,113,113,.35),0 0 18px rgba(248,113,113,.28)}
+.vc-fila.vivo{border-style:dashed;opacity:.9}
+.vc-res{display:inline-block;margin-top:2px;font-weight:800;font-size:.72rem;
+ letter-spacing:.02em}
+.vc-fila.fin-ok .vc-res{color:#10b981}
+.vc-fila.fin-no .vc-res{color:#f87171}
 </style>"""
+
+# v342 — la Capa 1 de un partido ya empezado no desaparece: se queda con su
+# resultado (`lo_mejor.finalizados`), en verde si se dio y en rojo si no
+_CLASE_RES = {'verde': ' fin-ok', 'rojo': ' fin-no', 'vivo': ' vivo'}
+_TEXTO_RES = {'verde': '✅ SÍ', 'rojo': '❌ NO', 'vivo': '⏳ VIVO'}
 
 
 def _esc(t) -> str:
@@ -161,6 +175,8 @@ def fila(pick: Dict, hoy: Optional[_dt.date] = None) -> Optional[Dict]:
             'casa': str(pick.get('casa') or ''),
             'cuota': cuota,
             'prob': prob,
+            'resultado': str(pick.get('resultado_c1') or ''),    # v342
+            'marcador': str(pick.get('marcador') or ''),
             'porque': ' · '.join(
                 [x for x in [str((sf.get('etiqueta') if isinstance(sf, dict)
                                   else '') or pick.get('etiqueta_probable')
@@ -183,16 +199,23 @@ def html_lista(picks: List[Dict], hoy: Optional[_dt.date] = None,
         prob = ('%.0f %%' % (100 * f['prob'])) if f['prob'] is not None \
             else '—'
         titulo = f['porque'] or f['apuesta']
+        res = f.get('resultado') or ''
+        cuando = '%s <b>%s</b><br>%s' % (f['icono'], _esc(f['hora'] or '—'),
+                                         _esc(f['dia']))
+        if res in _TEXTO_RES:
+            # v342 — el resultado en lugar del día: ya no hace falta saber
+            # cuándo se juega, sino cómo quedó
+            cuando = '<b>%s</b><br><span class="vc-res">%s</span>' % (
+                _esc(f.get('marcador') or f['hora'] or '—'), _TEXTO_RES[res])
         out.append(
-            '<div class="vc-fila" title="%s">'
-            '<div class="vc-cuando">%s <b>%s</b><br>%s</div>'
+            '<div class="vc-fila%s" title="%s">'
+            '<div class="vc-cuando">%s</div>'
             '<div class="vc-que"><div class="vc-ap">%s</div>'
             '<div class="vc-par">%s</div></div>'
             '<div class="vc-num"><b>%.2f</b><span>cuota</span></div>'
             '<div class="vc-num"><b>%s</b><span>acierta</span></div>'
-            '</div>' % (_esc(titulo), f['icono'], _esc(f['hora'] or '—'),
-                        _esc(f['dia']), _esc(f['apuesta']), _esc(pie),
-                        f['cuota'], prob))
+            '</div>' % (_CLASE_RES.get(res, ''), _esc(titulo), cuando,
+                        _esc(f['apuesta']), _esc(pie), f['cuota'], prob))
     out.append('</div>')
     return ''.join(out)
 

@@ -538,6 +538,9 @@ def main() -> int:
         _n = _pj.escribir_dia(_hoy.strftime('%Y-%m-%d'),
                               ruta_pronostico=a.salida)
         logger.info('partidos jugados precocinados: %d', _n)
+        # v342 — y los marcadores que falten del día anterior (el marcador
+        # de «ayer» de la pantalla del día)
+        _pj.repasar_ayer(_hoy.strftime('%Y-%m-%d'))
     except Exception as e:
         logger.warning('[precalculo] no se pudieron cocinar los jugados: %s', e)
 

@@ -114,9 +114,27 @@ PESO_MODELO_NFL = 0.25
 # puntos por banda en 2017-26).
 PESO_MODELO_NBA = 0.10
 
+# v342 — EN EL TENIS, EL NÚMERO ES EL DE LA CASA.
+#
+# Medido en `_v342_tenis_mezcla.py` sobre 23.598 favoritos del ledger de tenis
+# (ATP y WTA 2019-2026, fuera de muestra, cuota de cierre sin margen), peso
+# elegido con el 70 % más viejo y juzgado en el 30 % reciente (log-loss):
+#
+#                    elige      juzga
+#     sólo la casa   0,57686    0,58066
+#     un décimo      0,57761    0,58104
+#     un cuarto      0,57968    0,58245
+#     mitad y mitad  0,58569    0,58699
+#     sólo modelo    0,60872    0,60506
+#
+# Cada punto de modelo empeora el número. Con la casa sola, lo que la regla
+# del tenis dice «meter» (`veredicto_pick.METER_TENIS_*`) promete 79,5 % y
+# acierta 80,7 % (2.873 en el tramo de juzgar).
+PESO_MODELO_TENIS = 0.0
+
 # deportes sin empate cuyo «1X2» llega con dos lados y cuya mezcla con la
-# casa está medida (el tenis llega igual y no lo está)
-DOS_VIAS_MEDIDOS = ('NFL', 'NBA')
+# casa está medida (el tenis, desde la v342)
+DOS_VIAS_MEDIDOS = ('NFL', 'NBA', 'Tenis')
 
 
 def peso_modelo(pick: Optional[Dict]) -> float:
@@ -126,6 +144,8 @@ def peso_modelo(pick: Optional[Dict]) -> float:
         return PESO_MODELO_NFL
     if dep == 'NBA':
         return PESO_MODELO_NBA
+    if dep == 'Tenis':
+        return PESO_MODELO_TENIS
     return PESO_MODELO
 
 # Margen admisible de un libro de dos o tres salidas. Por debajo de 1 no es un
@@ -234,7 +254,7 @@ def prob_mercado(pick: Dict, apuesta: str,
         # v325 — la NFL no tiene empate: su «1X2» llega con dos lados y el
         # libro de tres no se podía de-marginar, así que la NFL decidía SIN la
         # casa (y con la corrección por bandas del fútbol encima). Sólo NFL y
-        # NBA (v330): el tenis llega igual, pero su mezcla no está medida.
+        # NBA (v330), y el tenis desde la v342, que ya está medido.
         if (probs is None and c1x2.get('draw') is None
                 and str((pick or {}).get('deporte') or '') in DOS_VIAS_MEDIDOS):
             dos = demarginar([c1x2.get('home'), c1x2.get('away')])

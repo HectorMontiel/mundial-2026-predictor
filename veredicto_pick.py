@@ -254,6 +254,53 @@ METER_CASA_CUOTA_MIN = 1.15
 # hipótesis que cumple las tres pruebas. Sólo el TOTAL de goles: los goles
 # por equipo a 2,5 no están medidos.
 _LINEA_25 = re.compile(r'(Más|Menos) de 2\.5$')
+
+# v342 — EL TENIS SE DECIDE CON EL PRECIO DE LA CASA, SIN LA CURVA DEL FÚTBOL.
+#
+# El usuario mandó cinco «Ganador» de tenis perdidos a 1,38-1,45 y pidió
+# calibrar mejor el tenis. Lo que pasaba: al tenis se le aplicaba
+# `correccion`, y su curva por banda de cuota (`calibrador_bandas`, 21.779
+# picks) está medida en el FÚTBOL. En 1,40-1,50 sube el número hasta 9 puntos:
+# un 65 % de la app salía como 72 % y pasaba a «meter».
+#
+# Medido en `_v342_tenis.py` sobre el ledger de tenis (ATP y WTA 2019-2026,
+# fuera de muestra, cuota de cierre; el «modelo» es el de la app, que ya va
+# encogido hacia la casa con w=0,25), elegido con el 70 % viejo y juzgado
+# en el 30 % reciente (desde 2025-02-09):
+#
+#   en 1,35-1,50 (4.287)     promete   acierta
+#     modelo + curva fútbol   72,5 %    68,4 %   ← lo de hoy: sobrado
+#     modelo de la app        67,3 %    68,4 %
+#     casa sin margen         67,5 %    68,4 %   y el pago pide 71 %
+#
+#                              elige               juzga
+#     hoy (curva, ≥65 %)     10.303  77,4 %   4.476  76,9 %  ROI −3,3 %
+#     casa ≥70 y modelo ≥70   6.963  81,9 %   2.989  80,8 %  ROI −3,4 %
+#
+# Elegida entre 15 combinaciones casa/modelo con el criterio fijado antes de
+# mirar el juicio (mejor ROI con al menos la mitad de apuestas). Bootstrap
+# por día de la mejora del acierto al juzgar: +3,9 pts, p5 +3,2. Rojos 1.034
+# → 574. El ROI no cambia: el tenis no le gana al cierre con ninguna regla.
+#
+# Y con las apuestas REALES de la app, la tarjeta rehecha con este código
+# (`_v342_tenis_tarjeta.py`, 4-7 oct, 461 «meter» liquidadas, ya con los
+# resultados de Flashscore —antes de la v342 más de la mitad del tenis no se
+# liquidaba—): hoy 352 verdes y 109 rojas (76,4 %, ROI −5,7 %); con la regla
+# 259 y 59 (81,5 %, ROI −4,6 %). Las 143 que quita acertaban el 65,0 % a
+# cuota media 1,41. Bootstrap por partido (442): +5,1 pts, p5 +2,8.
+#
+# El número que se enseña es el de la casa (`concordancia.PESO_MODELO_TENIS`).
+# Sin precio de la casa no se mete: lo medido es la casa.
+METER_TENIS_CASA_MIN = 0.70
+METER_TENIS_MODELO_MIN = 0.70
+
+
+def tenis_mete(prob_modelo, prob_casa) -> bool:
+    """La regla medida del «Gana X» de tenis (v342). `False` si falta algo."""
+    pm, pc = _f(prob_modelo), _f(prob_casa)
+    return (pm is not None and pc is not None
+            and pm >= METER_TENIS_MODELO_MIN and pc >= METER_TENIS_CASA_MIN)
+
 # Cuánto puede corregir la fiabilidad medida. Topado porque una banda con
 # muestra corta puede tener una brecha grande por azar, y sin tope esa brecha
 # se convertiría en una corrección enorme.
@@ -460,7 +507,10 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     # v330 — y la NBA igual: decide la mezcla medida (`PESO_MODELO_NBA`).
     _dep = str(p.get('deporte') or '')
     es_nfl = _dep in ('NFL', 'NBA')
-    if es_nfl:
+    # v342 — y el tenis tampoco: su curva era la del fútbol (ver
+    # `METER_TENIS_CASA_MIN`)
+    es_tenis = _dep == 'Tenis'
+    if es_nfl or es_tenis:
         c = {'delta': 0.0, 'medido': False, 'veredicto_banda': None, 'n': 0}
     else:
         c = correccion(prob, mercado, cuota)
@@ -514,6 +564,9 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     elif es_nfl:
         razones.append('en la NFL decide el modelo junto con la casa '
                        '(medido en 27 temporadas)')
+    elif es_tenis:
+        razones.append('en el tenis decide el precio de la casa '
+                       '(medido en 2019-2026)')
     else:
         razones.append('sin histórico de este mercado y banda todavía')
 
@@ -538,6 +591,16 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     if mete and _dep == 'NBA' and not conc.get('hay'):
         mete = False
         razones.insert(0, 'sin el precio de la casa para mezclar: no se recomienda')
+    # v342 — el tenis, con su regla medida y no con el 65 % de las combinadas
+    if es_tenis:
+        _pc = conc.get('p_mercado') if conc.get('hay') else None
+        mete = tenis_mete(prob, _pc)
+        if _pc is None:
+            razones.insert(0, 'sin el precio de la casa: no se recomienda')
+        elif not mete:
+            razones.insert(0, 'la casa lo ve al %.0f %% y el modelo al %.0f %%: '
+                           'en el tenis se mete con las dos en el %.0f %% o más'
+                           % (100 * _pc, 100 * prob, 100 * METER_TENIS_CASA_MIN))
     if not mete and c['medido'] and c['veredicto_banda'] != 'optimista':
         razones.append(f'queda por debajo del {UMBRAL_METER:.0%} que pide '
                        f'una pata de combinada')

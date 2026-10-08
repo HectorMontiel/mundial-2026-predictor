@@ -815,20 +815,36 @@ def _capa1_en_vivo() -> list:
 
 
 @st.cache_data(ttl=600, show_spinner=False)
-def _marcador_del_dia(dia: str) -> dict:
-    """v340 — verdes y rojas de las «meter» YA LIQUIDADAS hoy.
+def _marcador_del_dia(dia: str, deportes: tuple = (),
+                      solo_precalculo: bool = False) -> dict:
+    """v340 — verdes y rojas de las «meter» YA LIQUIDADAS del día.
 
     Lo mismo que cuenta «Así le fue a la app» (`formato_ia.balance_app`) y la
     pestaña de finalizados: los partidos jugados del día
     (`partidos_jugados.de_dia`) pasados por `pronosticos_guardados.validar`,
     sólo lo que la app dijo «meter» y sólo partidos con modelo. Diez minutos
-    en memoria: no es algo que cambie de un clic a otro."""
-    verdes = rojas = 0
+    en memoria: no es algo que cambie de un clic a otro.
+
+    v342 — y las que ya empezaron y aún no se liquidan (`en_juego`), para el
+    total del día; con el filtro de deportes de la pantalla, como lo que
+    queda por jugar. `solo_precalculo` es para AYER: se lee el fichero que
+    deja el cron (`jugados_ayer.json`) y nunca la red, que al pintar cuesta
+    ~13 s; si no está, `sin_datos`."""
+    verdes = rojas = en_juego = 0
+    sin_datos = False
     try:
         import partidos_jugados as _pj
         import pronosticos_guardados as _pg
-        for _p in (_pj.de_dia(dia) or []):
+        if solo_precalculo:
+            _lst = _pj._leer_precalculo(dia, permitir_viejo=True)
+            sin_datos = _lst is None
+            _lst = _pj._para_la_vista(_lst or [])
+        else:
+            _lst = _pj.de_dia(dia) or []
+        for _p in _lst:
             if _p.get('solo_mercado') or _p.get('sin_modelo') or _p.get('aplazado'):
+                continue
+            if deportes and str(_p.get('deporte') or 'Fútbol') not in deportes:
                 continue
             for _fl in (_pg.validar(_p) or []):
                 if _fl.get('veredicto') != 'meter':
@@ -837,19 +853,44 @@ def _marcador_del_dia(dia: str) -> dict:
                     verdes += 1
                 elif _fl.get('estado') == _pg.FALLADO:
                     rojas += 1
+                elif _fl.get('estado') == _pg.PENDIENTE:
+                    en_juego += 1
     except Exception as e:
         logger.debug('[marcador] %s: %s', dia, e)
-    return {'verdes': verdes, 'rojas': rojas}
+    return {'verdes': verdes, 'rojas': rojas, 'en_juego': en_juego,
+            'sin_datos': sin_datos}
 
 
 @st.cache_data(ttl=600, show_spinner=False)
-def _por_jugar_hoy(_prons: list, dia: str, huella: str) -> int:
+def _capa1_finalizadas(dia: str) -> tuple:
+    """v342 — la Capa 1 (🏆 y 🔷) de los partidos de `dia` que ya empezaron,
+    con su resultado. Del fichero que deja el cron, nunca de la red (al pintar
+    costaría ~13 s); diez minutos en memoria."""
+    import lo_mejor as _lm
+    import partidos_jugados as _pj
+    _lst = _pj._para_la_vista(_pj._leer_precalculo(dia, permitir_viejo=True)
+                              or [])
+    return _lm.finalizados(_lst), _lm.finalizados(_lst, riesgo=True)
+
+
+def _dia_hoy_cdmx() -> str:
+    import dia_picks as _dpk
+    return _dpk.hoy_local().strftime('%Y-%m-%d')
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _por_jugar_hoy(_prons: list, dia: str, huella: str,
+                   deportes: tuple = ()) -> int:
     """v340 — las «meter» de los partidos de hoy que aún no empiezan.
 
     Con la decisión que dejó calculada el precálculo (`decisiones_dia`) y, si
     no la hay —el precálculo es de otro día o no casa con los ficheros—, con
     la misma cuenta que hace la tarjeta (`modo_modelo.recomendadas` +
-    `metidas`). Diez minutos en memoria por día y barrido (`huella`)."""
+    `metidas`). Diez minutos en memoria por día y barrido (`huella`).
+
+    v342 — y por FILTRO DE DEPORTES: `_prons` no entra en la clave de la
+    caché (guion bajo), así que sin `deportes` el primer filtro que se pintaba
+    se quedaba para todos (123 «por jugar» sin filtro y con sólo tenis)."""
     prons = _prons
     import datetime as _dtm
     n = 0
@@ -5593,12 +5634,28 @@ def render_alpha_finder():
         # cuántas rojas van en el día y el porcentaje». Las cuatro métricas
         # (para meter, cuota media, la más probable, acierto histórico) y la
         # línea de «la más probable» se van; queda una franja.
-        _mc = _marcador_del_dia(_hoy_kpi)
-        _hueco_marcador.markdown(_estilo.marcador(_mc['verdes'], _mc['rojas'],
-                                _por_jugar_hoy(_de_hoy, _hoy_kpi,
-                                               str(r.get('actualizado') or '')),
-                                titulo='Hoy · %s' % _hoy_kpi[8:10] + '/' + _hoy_kpi[5:7]),
-                                 unsafe_allow_html=True)
+        # v342 — PARTIDO EN DOS: AYER A LA IZQUIERDA, HOY A LA DERECHA, cada
+        # mitad con su total de apuestas (`estilo_ui.marcador_doble`).
+        import datetime as _dtmc
+        _ayer_kpi = (_dtmc.date.fromisoformat(_hoy_kpi)
+                     - _dtmc.timedelta(days=1)).isoformat()
+        _dep_mc = tuple(sorted(_deps_kpi))
+        _mc = dict(_marcador_del_dia(_hoy_kpi, _dep_mc))
+        _mc['por_jugar'] = _por_jugar_hoy(_de_hoy, _hoy_kpi,
+                                          str(r.get('actualizado') or ''),
+                                          _dep_mc)
+        _mc['titulo'] = 'Hoy · %s/%s' % (_hoy_kpi[8:10], _hoy_kpi[5:7])
+        _ma = dict(_marcador_del_dia(_ayer_kpi, _dep_mc, solo_precalculo=True))
+        _ma['titulo'] = 'Ayer · %s/%s' % (_ayer_kpi[8:10], _ayer_kpi[5:7])
+        _ma['rotulo_vivo'] = 'sin resultado aún'
+        if _ma.get('sin_datos'):
+            # sin el fichero de ayer, sólo hoy, como en la v340
+            _hueco_marcador.markdown(_estilo.marcador(
+                _mc['verdes'], _mc['rojas'], _mc['por_jugar'],
+                titulo=_mc['titulo']), unsafe_allow_html=True)
+        else:
+            _hueco_marcador.markdown(_estilo.marcador_doble(_ma, _mc),
+                                     unsafe_allow_html=True)
     except Exception:
         pass
 
@@ -6658,10 +6715,31 @@ def render_alpha_finder():
         _lm_r1 = solo_del_dia(_lm.del_dia(r, riesgo=True), _modo_dia)
     except Exception as _e_lm:
         logger.warning('[capa1] lo mejor del modelo omitido: %s', _e_lm)
-    _rot_c1 = ('🟢 Capa 1 · 🏆 %d lo mejor del modelo · 🔷 %d con más cuota · '
+    # v342 — Y LAS QUE YA EMPEZARON NO DESAPARECEN: se quedan al final, en
+    # verde si se dio y en rojo si no (`lo_mejor.finalizados`, con el pick
+    # archivado antes del pitido). Sólo en «Hoy»: es lo que el usuario mira.
+    _fin_c1 = _fin_r1 = []
+    if _modo_dia == 'hoy':
+        try:
+            _fin_c1, _fin_r1 = _capa1_finalizadas(_dia_hoy_cdmx())
+            _ya = {str(p.get('partido')) for p in _fin_c1 + _fin_r1}
+            _lm_c1 = [p for p in _lm_c1 if str(p.get('partido')) not in _ya]
+            _lm_r1 = [p for p in _lm_r1 if str(p.get('partido')) not in _ya]
+        except Exception as _e_fin:
+            logger.warning('[capa1] finalizadas omitidas: %s', _e_fin)
+            _fin_c1 = _fin_r1 = []
+    _n_c1, _n_r1 = len(_lm_c1), len(_lm_r1)
+    _lm_c1 = _lm_c1 + _fin_c1
+    _lm_r1 = _lm_r1 + _fin_r1
+
+    def _cuenta_fin(lst):
+        _v = sum(1 for p in lst if p.get('resultado_c1') == 'verde')
+        _r = sum(1 for p in lst if p.get('resultado_c1') == 'rojo')
+        return (' · %d ✅ %d ❌' % (_v, _r)) if (_v or _r) else ''
+    _rot_c1 = ('🟢 Capa 1 · 🏆 %d lo mejor del modelo%s · 🔷 %d con más cuota%s · '
                '%d errores de precio para %s'
-               % (len(_lm_c1), len(_lm_r1), len(_c1_val),
-                  _NOMBRE_DIA.get(_modo_dia, _modo_dia)))
+               % (_n_c1, _cuenta_fin(_fin_c1), _n_r1, _cuenta_fin(_fin_r1),
+                  len(_c1_val), _NOMBRE_DIA.get(_modo_dia, _modo_dia)))
     if _prob_c1:
         _rot_c1 += ' · 🎯 %d probables' % len(_prob_c1)
     with st.expander(_rot_c1, expanded=False):
@@ -6672,14 +6750,16 @@ def render_alpha_finder():
             st.error('No se pudo cargar la vista de la Capa 1 (%s).'
                      % type(_e_vc).__name__)
         if _lm_c1 and _vc is not None:
-            st.markdown('**🏆 Lo mejor del modelo (%d)**' % len(_lm_c1))
+            st.markdown('**🏆 Lo mejor del modelo (%d)**%s'
+                        % (_n_c1, _cuenta_fin(_fin_c1)))
             st.caption('El modelo en 70 % o más y la casa, sin su margen, '
                        'entre 80 % y 88 %: medido en 60.796 partidos, acierta '
                        '85 % (doble oportunidad) y 87 % (ganador). Cuota baja '
                        '(1,10-1,20): es lo más seguro, sirve de pata.')
             st.markdown(_vc.html_lista(_lm_c1), unsafe_allow_html=True)
         if _lm_r1 and _vc is not None:
-            st.markdown('**🔷 Más riesgo, más cuota (%d)**' % len(_lm_r1))
+            st.markdown('**🔷 Más riesgo, más cuota (%d)**%s'
+                        % (_n_r1, _cuenta_fin(_fin_r1)))
             st.caption('OTRA PROBABILIDAD: ganador que el modelo ve claro y la '
                        'casa tiene entre 55 % y 70 %. Medido en 2.354 partidos: '
                        'acierta 71-72 % a cuota media 1,43. Menos '

@@ -215,18 +215,78 @@ def del_dia(r: Dict, dia: Optional[str] = None, riesgo: bool = False) -> List[Di
         e = del_pick_riesgo(p) if riesgo else del_pick(p)
         if not e:
             continue
-        out.append(dict(e, partido=p.get('partido'), liga=p.get('liga'),
-                        clave_liga=p.get('clave_liga'), deporte='Fútbol',
-                        inicio=p.get('inicio'), fecha=p.get('fecha'),
-                        fecha_cdmx=p.get('fecha_cdmx'),
-                        hora=p.get('hora_cdmx') or p.get('hora_txt'),
-                        # la columna «acierta» de la Capa 1 enseña lo MEDIDO del
-                        # grupo, no la probabilidad del modelo (que va en la ayuda)
-                        prob_escalera=(ACIERTO_RIESGO if riesgo else
-                                       ACIERTO_CAPA1.get(e['mercado'], 0.85)),
-                        semaforo={'nivel': 'riesgo' if riesgo else 'verde',
-                                  'etiqueta': '%smodelo %.0f %% · casa %.0f %%'
-                                              % ('🔷 más riesgo · ' if riesgo else '',
-                                                 100 * e['prob'], 100 * e['p_mercado'])}))
+        out.append(_entrada(p, e, riesgo))
     out.sort(key=lambda x: -(x['prob'] if riesgo else x['p_mercado']))
+    return out
+
+
+def _entrada(p: Dict, e: Dict, riesgo: bool) -> Dict:
+    """La fila de la Capa 1 y de Telegram para la apuesta `e` del partido `p`."""
+    return dict(e, partido=p.get('partido'), liga=p.get('liga'),
+                clave_liga=p.get('clave_liga'), deporte='Fútbol',
+                inicio=p.get('inicio'), fecha=p.get('fecha'),
+                fecha_cdmx=p.get('fecha_cdmx'),
+                hora=p.get('hora_cdmx') or p.get('hora_txt'),
+                # la columna «acierta» de la Capa 1 enseña lo MEDIDO del
+                # grupo, no la probabilidad del modelo (que va en la ayuda)
+                prob_escalera=(ACIERTO_RIESGO if riesgo else
+                               ACIERTO_CAPA1.get(e['mercado'], 0.85)),
+                semaforo={'nivel': 'riesgo' if riesgo else 'verde',
+                          'etiqueta': '%smodelo %.0f %% · casa %.0f %%'
+                                      % ('🔷 más riesgo · ' if riesgo else '',
+                                         100 * e['prob'], 100 * e['p_mercado'])})
+
+
+def resultado(apuesta: str, partido: str, goles_home, goles_away) -> Optional[str]:
+    """'verde', 'rojo' o None (sin marcador) para «Gana X» y «X o empate»."""
+    gh, ga = _f(goles_home), _f(goles_away)
+    par = str(partido or '')
+    if gh is None or ga is None or ' vs ' not in par:
+        return None
+    h, a = par.split(' vs ', 1)
+    ap = str(apuesta or '')
+    if ap == 'Gana %s' % h:
+        ok = gh > ga
+    elif ap == 'Gana %s' % a:
+        ok = ga > gh
+    elif ap == '%s o empate' % h:
+        ok = gh >= ga
+    elif ap == '%s o empate' % a:
+        ok = ga >= gh
+    else:
+        return None
+    return 'verde' if ok else 'rojo'
+
+
+def finalizados(jugados: List[Dict], riesgo: bool = False) -> List[Dict]:
+    """v342 — LA CAPA 1 DE LOS PARTIDOS QUE YA EMPEZARON, CON SU RESULTADO.
+
+    El usuario: «cuando termina el partido, la predicción de Capa 1
+    desaparece; quiero que se ilumine de verde si se dio o de rojo si no».
+    Desaparecía porque el barrido sólo guarda lo que está por jugarse. Aquí se
+    rehace con el pick ARCHIVADO al empezar (`partidos_jugados`, con los
+    precios de antes del pitido) —el mismo criterio, `del_pick`— y se le pega
+    el marcador: `resultado_c1` es 'verde', 'rojo' o 'vivo' (empezado y aún
+    sin marcador). Nunca lanza."""
+    out = []
+    for p in (jugados or []):
+        if not isinstance(p, dict) or p.get('aplazado'):
+            continue
+        try:
+            q = {k: v for k, v in p.items()
+                 if k not in ('jugado', 'en_juego', 'archivado_del_pronostico')}
+            e = del_pick_riesgo(q) if riesgo else del_pick(q)
+            if not e:
+                continue
+            fila = _entrada(p, e, riesgo)
+            res = resultado(e['apuesta'], p.get('partido'),
+                            p.get('goles_home'), p.get('goles_away'))
+            fila['resultado_c1'] = res or 'vivo'
+            if res:
+                fila['marcador'] = '%d-%d' % (int(_f(p.get('goles_home'))),
+                                              int(_f(p.get('goles_away'))))
+            out.append(fila)
+        except Exception as ex:
+            logger.debug('[lo_mejor] finalizado %s: %s', p.get('partido'), ex)
+    out.sort(key=lambda x: str(x.get('inicio') or ''))
     return out

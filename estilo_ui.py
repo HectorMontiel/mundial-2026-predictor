@@ -761,6 +761,25 @@ div[data-testid="stDataFrame"], div[data-testid="stTable"] {
                           background: linear-gradient(90deg, #10b981, #34d399); }
 @media (max-width: 768px) { .marcador .mc b { font-size: 1.25rem; }
                             .marcador .mc-fila { gap: .45rem 1rem; } }
+/* v342 — ayer | hoy, cada mitad con su total */
+.marcador.doble { display: flex; padding: .65rem .2rem .7rem; }
+.marcador.doble .mc-lado { flex: 1 1 0; min-width: 0; padding: 0 .75rem; }
+.marcador.doble .mc-lado + .mc-lado { border-left: 1px solid var(--filo); }
+.marcador.doble .mc-cab { display: flex; align-items: baseline; justify-content: space-between;
+                          gap: .4rem; margin-bottom: .45rem; flex-wrap: wrap; }
+.marcador.doble .mc-tot { font-size: .72rem; opacity: .7; font-weight: 600; white-space: nowrap; }
+.marcador.doble .mc-tot b { font-size: .95rem; font-weight: 800; opacity: 1;
+                            font-variant-numeric: tabular-nums; }
+.marcador.doble .mc-fila { gap: .3rem 1rem; }
+.marcador.doble .mc-barra { margin-top: .5rem; }
+.marcador.doble .mc-pie { margin-top: .4rem; font-size: .7rem; opacity: .62; font-weight: 600; }
+@media (max-width: 768px) {
+  .marcador.doble .mc-lado { padding: 0 .5rem; }
+  .marcador.doble .mc b { font-size: 1.1rem; }
+  .marcador.doble .mc i { font-size: .64rem; }
+  .marcador.doble .mc-fila { gap: .2rem .65rem; }
+  .marcador.doble .mc-tot { font-size: .64rem; }
+  .marcador.doble .mc-pie { font-size: .62rem; } }
 
 /* ---- la marca: una línea, no una pancarta ----------------------------- */
 .marca { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap;
@@ -948,6 +967,52 @@ def marcador(verdes: int, rojas: int, por_jugar=None, titulo: str = 'Hoy') -> st
              if tot else '')
     return '<div class="marcador"><div class="mc-fila">%s</div>%s</div>' % (
         ''.join(trozos), barra)
+
+
+def _mitad_marcador(m: dict) -> str:
+    """Una mitad del marcador doble (v342). `m`: titulo, verdes, rojas,
+    en_juego y por_jugar."""
+    try:
+        v, r_ = int(m.get('verdes') or 0), int(m.get('rojas') or 0)
+        vivo, pend = int(m.get('en_juego') or 0), int(m.get('por_jugar') or 0)
+    except (TypeError, ValueError):
+        return ''
+    jug = v + r_
+    tot = jug + vivo + pend
+    pct = ('%.0f %%' % (100.0 * v / jug)) if jug else '—'
+    pie = ['jugadas %d de %d' % (jug, tot)]
+    if vivo:
+        # en el día de ayer ya no se está jugando nada: falta el resultado
+        pie.append('%d %s' % (vivo, m.get('rotulo_vivo') or 'en juego'))
+    if pend:
+        pie.append('%d por jugar' % pend)
+    barra = ('<div class="mc-barra"><i style="width:%.1f%%"></i></div>'
+             % (100.0 * v / jug) if jug else '')
+    return (
+        '<div class="mc-lado">'
+        '<div class="mc-cab"><span class="mc-t">%s</span>'
+        '<span class="mc-tot"><b>%d</b> apuestas</span></div>'
+        '<div class="mc-fila">'
+        '<span class="mc ok"><b>%d</b><i>verdes</i></span>'
+        '<span class="mc no"><b>%d</b><i>rojas</i></span>'
+        '<span class="mc pct"><b>%s</b><i>acierto</i></span></div>'
+        '%s<div class="mc-pie">%s</div></div>'
+        % (_esc(m.get('titulo') or ''), tot, v, r_, pct, barra,
+           ' · '.join(pie)))
+
+
+def marcador_doble(ayer: dict, hoy: dict) -> str:
+    """v342 — EL MARCADOR PARTIDO EN DOS: AYER A LA IZQUIERDA, HOY A LA DERECHA.
+
+    El usuario: «muestra también el total de apuestas, para saber que son 200
+    y ya se han jugado 100; de esas 100, cuáles son verdes, cuáles rojas y el
+    porcentaje; divídelo a la mitad: a la izquierda el día anterior y a la
+    derecha el día actual». Cada mitad lleva su total (verdes + rojas + en
+    juego + por jugar), y el porcentaje es sobre las ya jugadas."""
+    lados = [_mitad_marcador(m) for m in (ayer or {}, hoy or {})]
+    if not all(lados):
+        return ''
+    return '<div class="marcador doble">%s</div>' % ''.join(lados)
 
 
 def marca(nombre: str, deportes=(), icono: str = '🎯') -> str:

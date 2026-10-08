@@ -178,6 +178,20 @@ def _dentro_del_rango(ev, d0, d1) -> bool:
         f = _d.datetime.strptime(crudo, '%Y-%m-%d').date()
     except ValueError:
         return True
+    # v342 — EN EL TENIS CADA EVENTO ES UN TORNEO, y su `date` es el día en que
+    # EMPEZÓ (China Open: 27-sep; sus partidos del 7-oct cuelgan dentro). Con
+    # sólo esa fecha, pedir 6-8 oct tiraba los tres torneos enteros:
+    # `resultados_tenis` devolvía 0 partidos y el tenis se liquidaba sólo con
+    # los CSV (177 «meter» de tenis del 7-oct sin resultado, Gauff-Mertens
+    # entre ellas). Si trae `endDate`, cuenta si el torneo se SOLAPA con la
+    # ventana; los partidos sueltos no la traen y se quedan como estaban.
+    fin = str(ev.get('endDate') or '')[:10]
+    if len(fin) == 10:
+        try:
+            ff = _d.datetime.strptime(fin, '%Y-%m-%d').date()
+            return f <= d1 and ff >= d0
+        except ValueError:
+            pass
     return d0 <= f <= d1
 
 
