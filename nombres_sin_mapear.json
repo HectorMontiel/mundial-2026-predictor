@@ -761,9 +761,9 @@
   },
   "Boston River": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "River Plate",
-    "ratio": 0.4348,
-    "visto": "2026-10-04"
+    "candidato": "River Ebro",
+    "ratio": 0.4545,
+    "visto": "2026-10-08"
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
@@ -995,9 +995,9 @@
   },
   "Luton Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5,
-    "visto": "2026-10-03"
+    "candidato": "Luton U21",
+    "ratio": 0.6316,
+    "visto": "2026-10-08"
   },
   "Fortaleza CEIF": {
     "contexto": "cuotas_mx→futbol",
@@ -1590,6 +1590,12 @@
   "Hull City": {
     "contexto": "cuotas_mx→futbol",
     "candidato": "Hull U21",
+    "ratio": 0.6667,
+    "visto": "2026-10-08"
+  },
+  "River Plate": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "River Ebro",
     "ratio": 0.6667,
     "visto": "2026-10-08"
   }
