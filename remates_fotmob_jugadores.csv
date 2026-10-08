@@ -12541,22 +12541,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013495,2026-07-18,per_liga1,Alianza Atlético,José Ingratti,1246591,F,0,44,0,0,0,0.0,,3.0,
 1000013495,2026-07-18,per_liga1,Alianza Atlético,Jairo Molina,496951,F,0,11,0,0,0,0.0,,3.0,450943.0
 1000013495,2026-07-18,per_liga1,Alianza Atlético,Roman Suarez,1668310,D,0,3,0,0,0,0.0,,1.0,277468.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Patricio Álvarez,678060,G,1,90,0,0,0,0.0,11.0,0.0,206027.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Diego Rodríguez,1360566,D,1,90,0,0,0,0.0,32.0,1.0,248751.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Rodrigo Tapia,724476,D,1,90,0,0,0,0.0,34.0,1.0,235001.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Lucas Acevedo,492642,D,1,90,1,0,0,0.0,36.0,1.0,167954.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Elsar Rodas Mendoza,547851,D,1,90,0,0,0,0.0,38.0,1.0,171439.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Adrián De La Cruz,1711026,M,1,89,2,0,0,0.0,64.0,2.0,289603.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Rafael Guarderas,497733,M,1,90,2,2,1,0.0,66.0,2.0,216770.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Pablo Lavandeira,127268,F,1,62,1,0,0,0.0,83.0,3.0,135408.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Raúl Ruidíaz,200318,M,1,72,2,0,0,0.0,85.0,2.0,315592.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Luis Benítes,793284,F,1,72,0,0,0,0.0,87.0,3.0,154250.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Mauro Da Luz,814864,F,1,62,6,2,1,0.0,115.0,3.0,447256.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Freddy Oncoy,1220860,M,0,28,0,0,0,0.0,,2.0,219662.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Adrián Fernández,439415,F,0,28,3,2,1,0.0,,3.0,160654.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Gabriel Alfaro,1433783,D,0,18,0,0,0,0.0,,1.0,280479.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Paulo de la Cruz,1357712,M,0,18,0,0,0,0.0,,2.0,254690.0
-1000013490,2026-07-18,per_liga1,Atlético Grau,Diego Barreto,872685,M,0,1,0,0,0,0.0,,2.0,146030.0
 1000013490,2026-07-18,per_liga1,CD UT Cajamarca,Ignacio Barrios,1432708,G,1,90,0,0,0,0.0,11.0,0.0,160633.0
 1000013490,2026-07-18,per_liga1,CD UT Cajamarca,Luis Garro,855224,D,1,29,0,0,0,0.0,32.0,1.0,159245.0
 1000013490,2026-07-18,per_liga1,CD UT Cajamarca,Manuel Ganoza,1028042,D,1,78,0,0,0,0.0,34.0,1.0,206926.0
@@ -13085,21 +13069,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013493,2026-07-18,per_liga1,FBC Melgar,Jefferson Cáceres,1202980,M,0,15,2,1,1,0.0,,2.0,558441.0
 1000013493,2026-07-18,per_liga1,FBC Melgar,Alec Deneumostier,1039251,D,0,2,0,0,0,0.0,,1.0,184540.0
 1000013493,2026-07-18,per_liga1,FBC Melgar,Jhamir D'Arrigo,1181405,M,0,1,0,0,0,0.0,,2.0,347573.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Hairo Camacho,1432784,G,1,90,0,0,0,0.0,11.0,0.0,228151.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Carlos Pimienta,1368496,D,1,90,2,1,0,0.0,33.0,1.0,227052.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Héctor Gonzalez,847141,D,1,90,1,1,0,0.0,35.0,1.0,156902.0
-1000013491,2026-07-19,per_liga1,Los Chankas,David Gonzáles,1702695,D,1,90,0,0,0,0.0,37.0,1.0,175154.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Oshiro Takeuchi,625150,M,1,86,1,0,0,0.0,62.0,2.0,317161.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Jorge Palomino,1381138,M,1,90,1,1,0,0.0,64.0,2.0,220486.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Kelvin Sánchez,1419499,M,1,90,0,0,0,0.0,66.0,2.0,197226.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Ayrthon Quintana,1355518,M,1,73,1,1,0,0.0,68.0,2.0,334805.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Accel Campos,2077206,M,1,70,1,0,0,0.0,85.0,2.0,50000.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Jarlín Quintero,571225,F,1,86,4,2,1,0.0,104.0,3.0,289840.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Marlon Torres,1130739,F,1,90,5,4,0,0.0,106.0,3.0,287589.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Juan Ospina,1440919,F,0,20,0,0,0,0.0,,3.0,
-1000013491,2026-07-19,per_liga1,Los Chankas,Axel Chávez,941883,D,0,17,1,0,0,0.0,,1.0,121771.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Michel Kaufman,1897193,D,0,4,0,0,0,0.0,,1.0,269776.0
-1000013491,2026-07-19,per_liga1,Los Chankas,Kenyi Barrios,1605042,D,0,4,1,0,0,0.0,,1.0,144691.0
 1000013491,2026-07-19,per_liga1,Sport Boys,Diego Melián,1366174,G,1,90,0,0,0,0.0,11.0,0.0,259187.0
 1000013491,2026-07-19,per_liga1,Sport Boys,Emilio Saba,1201075,D,1,67,0,0,0,0.0,32.0,1.0,235107.0
 1000013491,2026-07-19,per_liga1,Sport Boys,Carlos Zambrano,106309,D,1,90,0,0,0,0.0,34.0,1.0,145086.0
@@ -136618,3 +136587,35 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5100976,2026-10-08,irlanda,Drogheda United,Jago Godden,1572678,M,0,28,2,0,0,0.18,,2.0,86895.0
 5100976,2026-10-08,irlanda,Drogheda United,Mark Doyle,734061,F,0,28,0,0,0,0.0,,3.0,98821.0
 5100976,2026-10-08,irlanda,Drogheda United,Thomas Oluwa,1032781,F,0,18,0,0,0,0.0,,3.0,83192.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Patricio Álvarez,678060,G,1,90,0,0,0,0.0,11.0,0.0,218504.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Rodrigo Tapia,724476,D,1,90,0,0,0,0.0,33.0,1.0,224435.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Ignacio Tapia,772309,D,1,90,1,0,0,0.0,35.0,1.0,192936.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,José Ataupillco,1350688,D,1,73,0,0,0,0.0,37.0,1.0,211323.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Christian Vásquez,1432959,M,1,89,1,0,0,0.0,72.0,2.0,194269.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Freddy Oncoy,1220860,M,1,90,0,0,0,0.0,74.0,2.0,216882.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Rafael Guarderas,497733,M,1,90,2,1,0,0.0,76.0,2.0,216770.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Gabriel Alfaro,1433783,M,1,89,2,2,0,0.0,78.0,2.0,253146.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Yamir Ruidíaz,1711024,F,1,60,0,0,0,0.0,103.0,3.0,172058.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Adrián Fernández,439415,F,1,90,5,1,0,0.0,105.0,3.0,205958.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Aldair Vásquez,1254927,F,1,73,2,1,0,0.0,107.0,3.0,
+1000017254,2026-10-08,per_liga1,Atlético Grau,Luis Benítes,793284,M,0,30,1,0,0,0.0,,2.0,153030.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Pablo Lavandeira,127268,M,0,17,0,0,0,0.0,,2.0,136747.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Raúl Ruidíaz,200318,F,0,17,3,2,0,0.0,,3.0,313581.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Elsar Rodas Mendoza,547851,D,0,1,0,0,0,0.0,,1.0,168973.0
+1000017254,2026-10-08,per_liga1,Atlético Grau,Henri Espinoza,1855619,M,0,1,0,0,0,0.0,,2.0,320066.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Hairo Camacho,1432784,G,1,90,0,0,0,0.0,11.0,0.0,200123.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Carlos Pimienta,1368496,D,1,90,0,0,0,0.0,33.0,1.0,198826.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Héctor Gonzalez,847141,D,1,90,0,0,0,0.0,35.0,1.0,151932.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Gonzalo Rizzo,921741,D,1,90,0,0,0,0.0,37.0,1.0,144691.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Oshiro Takeuchi,625150,D,1,90,0,0,0,0.0,51.0,1.0,325228.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Kenyi Barrios,1605042,D,1,84,0,0,0,0.0,59.0,1.0,144691.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Juan Ospina,1440919,M,1,70,0,0,0,0.0,73.0,2.0,
+1000017254,2026-10-08,per_liga1,Los Chankas,Jorge Palomino,1381138,M,1,57,0,0,0,0.0,75.0,2.0,202561.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Abidel Ayarza,1023880,M,1,63,1,0,0,0.0,77.0,2.0,146030.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Franco Torres,988189,F,1,84,1,0,0,0.0,104.0,3.0,295777.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Marlon Torres,1130739,F,1,84,3,0,0,0.0,106.0,3.0,257734.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Kelvin Sánchez,1419499,M,0,33,1,0,0,0.0,,2.0,174206.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Michel Kaufman,1897193,D,0,20,0,0,0,0.0,,1.0,246029.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Axel Chávez,941883,D,0,6,0,0,0,0.0,,1.0,144106.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Jarlín Quintero,571225,F,0,6,0,0,0,0.0,,3.0,245388.0
+1000017254,2026-10-08,per_liga1,Los Chankas,Félix Espinoza,905979,F,0,6,0,0,0,0.0,,3.0,131118.0
