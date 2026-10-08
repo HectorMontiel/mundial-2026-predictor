@@ -12746,22 +12746,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5147599,2026-07-18,finlandia,SJK,Aziz Cisse,2089768,M,0,32,1,1,0,0.0,,2.0,
 5147599,2026-07-18,finlandia,SJK,Caio Araújo,1569080,M,0,16,1,0,0,0.0,,2.0,
 5147599,2026-07-18,finlandia,SJK,Vertti Hänninen,1173767,M,0,16,0,0,0,0.0,,2.0,140619.0
-5147599,2026-07-18,finlandia,KuPS,Hemmo Riihimäki,1031424,G,1,90,0,0,0,0.0,11.0,0.0,137088.0
-5147599,2026-07-18,finlandia,KuPS,Akseli Puukko,1414862,D,1,70,0,0,0,0.0,32.0,1.0,322886.0
-5147599,2026-07-18,finlandia,KuPS,Taneli Hämäläinen,1099926,D,1,90,0,0,0,0.0,34.0,1.0,170718.0
-5147599,2026-07-18,finlandia,KuPS,Arttu Lötjönen,1400535,D,1,90,0,0,0,0.0,36.0,1.0,
-5147599,2026-07-18,finlandia,KuPS,Saku Heiskanen,1030625,M,1,62,0,0,0,0.0,38.0,2.0,257234.0
-5147599,2026-07-18,finlandia,KuPS,Niilo Kujasalo,1383478,M,1,81,0,0,0,0.0,73.0,2.0,189895.0
-5147599,2026-07-18,finlandia,KuPS,Tommi Jyry,835927,M,1,70,1,0,0,0.0,75.0,2.0,482347.0
-5147599,2026-07-18,finlandia,KuPS,Saikou Touray,1068855,M,1,90,2,2,0,0.0,77.0,2.0,151969.0
-5147599,2026-07-18,finlandia,KuPS,Joslyn Luyeye-Lutumba,1297852,F,1,90,4,3,1,0.0,103.0,3.0,206106.0
-5147599,2026-07-18,finlandia,KuPS,Jaime Moreno,495524,F,1,90,7,3,1,0.0,105.0,3.0,125919.0
-5147599,2026-07-18,finlandia,KuPS,Arttu Heinonen,1031426,F,1,62,1,1,0,0.0,107.0,3.0,133915.0
-5147599,2026-07-18,finlandia,KuPS,Kasim Adams,586691,D,0,28,0,0,0,0.0,,1.0,193349.0
-5147599,2026-07-18,finlandia,KuPS,Gustav Engvall,436079,F,0,28,1,1,0,0.0,,3.0,154989.0
-5147599,2026-07-18,finlandia,KuPS,Saku Savolainen,447421,D,0,20,0,0,0,0.0,,1.0,90760.0
-5147599,2026-07-18,finlandia,KuPS,Valentín Gasc,1260156,M,0,20,1,0,0,0.0,,2.0,215016.0
-5147599,2026-07-18,finlandia,KuPS,Petteri Pennanen,104229,M,0,9,0,0,0,0.0,,2.0,130403.0
 5104951,2026-07-18,noruega,Kristiansund,Adrian Sæther,1280650,G,1,90,0,0,0,0.0,11.0,0.0,437417.0
 5104951,2026-07-18,noruega,Kristiansund,Alexander Munksgaard,659281,D,1,90,0,0,0,0.0,32.0,1.0,333478.0
 5104951,2026-07-18,noruega,Kristiansund,Júlíus Júlíusson,1400208,D,1,90,1,0,0,0.02,34.0,1.0,361766.0
@@ -12794,21 +12778,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5104951,2026-07-18,noruega,Sarpsborg 08,Jo Inge Berget,97323,M,0,10,1,0,0,0.05,,2.0,180092.0
 5104951,2026-07-18,noruega,Sarpsborg 08,Olaus Jair Skarsem,741429,M,0,10,0,0,0,0.0,,2.0,194776.0
 5104951,2026-07-18,noruega,Sarpsborg 08,Marius Lode,310765,D,0,1,0,0,0,0.0,,1.0,125456.0
-5147598,2026-07-18,finlandia,AC Oulu,Miguel Santos,470818,G,1,90,0,0,0,0.0,11.0,0.0,163558.0
-5147598,2026-07-18,finlandia,AC Oulu,Santeri Silander,1679947,D,1,90,0,0,0,0.0,32.0,1.0,199157.0
-5147598,2026-07-18,finlandia,AC Oulu,Alex Lietsa,1761454,D,1,90,1,0,0,0.0,34.0,1.0,207665.0
-5147598,2026-07-18,finlandia,AC Oulu,Juha Pirinen,118157,D,1,90,1,0,0,0.0,36.0,1.0,93576.0
-5147598,2026-07-18,finlandia,AC Oulu,Tuomas Kaukua,1036118,D,1,90,0,0,0,0.0,38.0,1.0,208204.0
-5147598,2026-07-18,finlandia,AC Oulu,Iiro Mendolin,1780636,M,1,74,1,0,0,0.0,73.0,2.0,
-5147598,2026-07-18,finlandia,AC Oulu,Rasmus Karjalainen,787016,F,1,90,0,0,0,0.0,75.0,3.0,167864.0
-5147598,2026-07-18,finlandia,AC Oulu,Julius Paananen,1553103,M,1,84,0,0,0,0.0,77.0,2.0,538120.0
-5147598,2026-07-18,finlandia,AC Oulu,Kalifa Jatta,1790746,F,1,90,0,0,0,0.0,103.0,3.0,
-5147598,2026-07-18,finlandia,AC Oulu,Abdoulaye Kone,1948932,F,1,61,1,0,0,0.0,105.0,3.0,
-5147598,2026-07-18,finlandia,AC Oulu,Elias Kallio,1382425,F,1,90,3,1,0,0.0,107.0,3.0,240975.0
-5147598,2026-07-18,finlandia,AC Oulu,Lamine Ghezali,770348,F,0,29,0,0,0,0.0,,3.0,180234.0
-5147598,2026-07-18,finlandia,AC Oulu,Joel Omotayo,1797879,M,0,10,0,0,0,0.0,,2.0,
-5147598,2026-07-18,finlandia,AC Oulu,Matias Ojala,206916,M,0,6,0,0,0,0.0,,2.0,50000.0
-5147598,2026-07-18,finlandia,AC Oulu,Niklas Jokelainen,631461,M,0,6,2,0,0,0.0,,2.0,156954.0
 5104947,2026-07-18,noruega,Start,Jacob Pryts,656650,G,1,90,0,0,0,0.0,11.0,0.0,212604.0
 5104947,2026-07-18,noruega,Start,Erlend Dahl Reitan,630280,D,1,90,1,0,0,0.02,33.0,1.0,237835.0
 5104947,2026-07-18,noruega,Start,John Olav Norheim,520171,D,1,90,2,0,0,0.09,35.0,1.0,279012.0
@@ -12935,37 +12904,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186556,2026-07-18,china,Shenzhen Peng City,Ning Li,1427231,F,0,32,0,0,0,0.0,,3.0,
 5186556,2026-07-18,china,Shenzhen Peng City,Zhijian Xuan,1624755,D,0,16,0,0,0,0.0,,1.0,782368.0
 5186556,2026-07-18,china,Shenzhen Peng City,Dalong Xia,1285303,F,0,16,1,0,0,0.0,,3.0,232708.0
-5147597,2026-07-18,finlandia,HJK,Matej Markovic,1070860,G,1,90,0,0,0,0.0,11.0,0.0,100600.0
-5147597,2026-07-18,finlandia,HJK,Kaius Simojoki,1479945,D,1,90,1,1,0,0.0,32.0,1.0,
-5147597,2026-07-18,finlandia,HJK,Brooklyn Lyons-Foster,886145,D,1,90,0,0,0,0.0,34.0,1.0,167230.0
-5147597,2026-07-18,finlandia,HJK,Till Cissokho,1027943,D,1,82,1,0,0,0.0,36.0,1.0,199310.0
-5147597,2026-07-18,finlandia,HJK,Leonel Montano,865682,D,1,90,0,0,0,0.0,38.0,1.0,224024.0
-5147597,2026-07-18,finlandia,HJK,Pyry Mentu,1647552,M,1,79,1,1,0,0.0,73.0,2.0,869864.0
-5147597,2026-07-18,finlandia,HJK,Alexander Ring,181333,M,1,90,0,0,0,0.0,75.0,2.0,90559.0
-5147597,2026-07-18,finlandia,HJK,Mouhamed Guèye,1478013,M,1,60,1,1,0,0.0,77.0,2.0,415790.0
-5147597,2026-07-18,finlandia,HJK,Liam Möller,1438218,F,1,60,0,0,0,0.0,103.0,3.0,233230.0
-5147597,2026-07-18,finlandia,HJK,Santeri Haarala,923629,F,1,90,3,2,1,0.0,105.0,3.0,381865.0
-5147597,2026-07-18,finlandia,HJK,Alfie Cicale,1635673,M,1,30,1,0,0,0.0,107.0,2.0,272334.0
-5147597,2026-07-18,finlandia,HJK,Toivo Mero,1639615,F,0,60,0,0,0,0.0,,3.0,
-5147597,2026-07-18,finlandia,HJK,Jere Kallinen,1187964,M,0,30,0,0,0,0.0,,2.0,180827.0
-5147597,2026-07-18,finlandia,HJK,Teemu Pukki,66578,F,0,30,2,1,1,0.0,,3.0,159320.0
-5147597,2026-07-18,finlandia,HJK,Lassi Lappalainen,736402,F,0,11,0,0,0,0.0,,3.0,296564.0
-5147597,2026-07-18,finlandia,HJK,Mihailo Bogicevic,1529366,D,0,9,0,0,0,0.0,,1.0,117162.0
-5147597,2026-07-18,finlandia,VPS,Mamadou Jalloh,1742055,G,1,90,0,0,0,0.0,11.0,0.0,439275.0
-5147597,2026-07-18,finlandia,VPS,Razak Simpson,1580518,D,1,88,1,0,0,0.0,33.0,1.0,
-5147597,2026-07-18,finlandia,VPS,Emmanuel Okereke,1626929,D,1,90,0,0,0,0.0,35.0,1.0,
-5147597,2026-07-18,finlandia,VPS,Martti Haukioja,736420,D,1,90,0,0,0,0.0,37.0,1.0,247579.0
-5147597,2026-07-18,finlandia,VPS,Oluwaseyi Ogunniyi,1945775,M,1,90,2,0,0,0.0,65.0,2.0,
-5147597,2026-07-18,finlandia,VPS,Lassana Mane,1793367,D,1,90,0,0,0,0.0,82.0,1.0,
-5147597,2026-07-18,finlandia,VPS,Kevin Kouassivi-Benissan,939102,M,1,76,1,1,0,0.0,84.0,2.0,131091.0
-5147597,2026-07-18,finlandia,VPS,Paulo Lima,750825,M,1,88,0,0,0,0.0,86.0,2.0,
-5147597,2026-07-18,finlandia,VPS,Jayden Turfkruier,1420722,M,1,90,0,0,0,0.0,88.0,2.0,206106.0
-5147597,2026-07-18,finlandia,VPS,Simon Lindholm,929760,M,1,68,1,1,1,0.0,104.0,2.0,206423.0
-5147597,2026-07-18,finlandia,VPS,Luka Smyth,1679966,F,1,90,2,1,0,0.0,106.0,3.0,280918.0
-5147597,2026-07-18,finlandia,VPS,Xavier Odhiambo,1513118,F,0,22,1,1,0,0.0,,3.0,224814.0
-5147597,2026-07-18,finlandia,VPS,Antti-Ville Räisänen,670410,M,0,14,0,0,0,0.0,,2.0,121842.0
-5147597,2026-07-18,finlandia,VPS,Miika Niemi,349473,D,0,2,0,0,0,0.0,,1.0,172408.0
-5147597,2026-07-18,finlandia,VPS,Jonathan Muzinga,1169439,F,0,2,0,0,0,0.0,,3.0,194555.0
 1000014503,2026-07-18,liga_mx,FC Juárez,Sebastián Jurado,876495,G,1,90,0,0,0,0.0,11.0,0.0,1449528.0
 1000014503,2026-07-18,liga_mx,FC Juárez,Javier Aquino,172324,D,1,58,0,0,0,0.0,32.0,1.0,299957.0
 1000014503,2026-07-18,liga_mx,FC Juárez,Jesús Murillo,425744,D,1,90,3,0,0,0.17,34.0,1.0,1201616.0
@@ -136522,35 +136460,98 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103652,2026-10-07,brasil,Chapecoense,Yannick Bolasie,160194,F,0,28,0,0,0,0.0,,3.0,434515.0
 5103652,2026-10-07,brasil,Chapecoense,Bruno Matias,1216339,M,0,20,0,0,0,0.0,,2.0,335537.0
 5103652,2026-10-07,brasil,Chapecoense,Franco Rossi,1456400,F,0,15,0,0,0,0.0,,3.0,1121284.0
-5103649,2026-10-08,brasil,Cruzeiro,Otávio,1732742,G,1,90,0,0,0,0.0,11,0,1538482
-5103649,2026-10-08,brasil,Cruzeiro,William,581920,D,1,90,1,0,0,0.02,32,1,1649236
-5103649,2026-10-08,brasil,Cruzeiro,João Marcelo,1185338,D,1,90,0,0,0,0.0,34,1,2185804
-5103649,2026-10-08,brasil,Cruzeiro,Jonathan Jesus,1488554,D,1,90,0,0,0,0.0,36,1,8704293
-5103649,2026-10-08,brasil,Cruzeiro,Gabriel Rojas,805540,D,1,58,0,0,0,0.0,38,1,2490829
-5103649,2026-10-08,brasil,Cruzeiro,Lucas Daniel Romero,388605,M,1,46,0,0,0,0.0,64,2,1957814
-5103649,2026-10-08,brasil,Cruzeiro,Gérson,580604,M,1,85,0,0,0,0.0,66,2,18294591
-5103649,2026-10-08,brasil,Cruzeiro,Bruno Rodrigues,683709,F,1,68,2,1,0,0.26,83,3,1085435
-5103649,2026-10-08,brasil,Cruzeiro,Matheus Pereira,522651,M,1,90,4,0,0,0.11,85,2,11932065
-5103649,2026-10-08,brasil,Cruzeiro,Felipe Morais,1843214,F,1,90,6,4,0,0.59,87,3,
-5103649,2026-10-08,brasil,Cruzeiro,Kaio Jorge,964661,F,1,85,7,3,1,1.13,115,3,25290926
-5103649,2026-10-08,brasil,Cruzeiro,Zé Lucas,1733226,M,0,45,1,1,1,0.96,,2,11513074
-5103649,2026-10-08,brasil,Cruzeiro,Matías Viña,840184,D,0,32,0,0,0,0.0,,1,1819542
-5103649,2026-10-08,brasil,Cruzeiro,Keny Arroyo,1626714,F,0,22,1,0,0,0.07,,3,13697396
-5103649,2026-10-08,brasil,Cruzeiro,Matheus Henrique,900043,M,0,5,0,0,0,0.0,,2,2537326
-5103649,2026-10-08,brasil,Cruzeiro,Luciano Rodríguez,1285291,F,0,5,0,0,0,0.0,,3,11452115
-5103649,2026-10-08,brasil,São Paulo,Carlos Coronel,658563,G,1,90,0,0,0,0.0,11,0,1145462
-5103649,2026-10-08,brasil,São Paulo,Rafael Tolói,127374,D,1,90,2,0,0,0.15,33,1,424022
-5103649,2026-10-08,brasil,São Paulo,Robert Arboleda,342941,D,1,90,0,0,0,0.0,35,1,633182
-5103649,2026-10-08,brasil,São Paulo,Sabino,1082117,D,1,45,1,0,0,0.08,37,1,1178434
-5103649,2026-10-08,brasil,São Paulo,Pedro Lima,1610952,M,1,90,1,0,0,0.02,62,2,5921221
-5103649,2026-10-08,brasil,São Paulo,Pablo Maia,1313924,M,1,64,0,0,0,0.0,64,2,5582946
-5103649,2026-10-08,brasil,São Paulo,Marcos Antônio,890205,M,1,64,0,0,0,0.0,66,2,13689615
-5103649,2026-10-08,brasil,São Paulo,Wendell,487867,M,1,90,2,1,0,0.08,68,2,1213506
-5103649,2026-10-08,brasil,São Paulo,Damián Bobadilla,1252913,M,1,78,2,0,0,0.17,85,2,9312066
-5103649,2026-10-08,brasil,São Paulo,Jonathan Calleri,469295,F,1,90,2,0,0,0.1,104,3,1045298
-5103649,2026-10-08,brasil,São Paulo,Artur,754504,F,1,90,3,2,0,0.24,106,3,8260068
-5103649,2026-10-08,brasil,São Paulo,Ferreira,1098104,F,0,18,1,0,0,0.08,,3,2454457
-5103649,2026-10-08,brasil,São Paulo,Victor Sá,660846,F,0,27,0,0,0,0.0,,3,1707713
-5103649,2026-10-08,brasil,São Paulo,Pedro Ferreira,1800650,M,0,26,3,0,0,0.11,,2,
-5103649,2026-10-08,brasil,São Paulo,Newton,1578668,M,0,26,2,0,0,0.03,,2,2224866
-5103649,2026-10-08,brasil,São Paulo,Djhordney,1898791,M,0,12,0,0,0,0.0,,2,
+5103649,2026-10-08,brasil,Cruzeiro,Otávio,1732742,G,1,90,0,0,0,0.0,11.0,0.0,1538482.0
+5103649,2026-10-08,brasil,Cruzeiro,William,581920,D,1,90,1,0,0,0.02,32.0,1.0,1649236.0
+5103649,2026-10-08,brasil,Cruzeiro,João Marcelo,1185338,D,1,90,0,0,0,0.0,34.0,1.0,2185804.0
+5103649,2026-10-08,brasil,Cruzeiro,Jonathan Jesus,1488554,D,1,90,0,0,0,0.0,36.0,1.0,8704293.0
+5103649,2026-10-08,brasil,Cruzeiro,Gabriel Rojas,805540,D,1,58,0,0,0,0.0,38.0,1.0,2490829.0
+5103649,2026-10-08,brasil,Cruzeiro,Lucas Daniel Romero,388605,M,1,46,0,0,0,0.0,64.0,2.0,1957814.0
+5103649,2026-10-08,brasil,Cruzeiro,Gérson,580604,M,1,85,0,0,0,0.0,66.0,2.0,18294591.0
+5103649,2026-10-08,brasil,Cruzeiro,Bruno Rodrigues,683709,F,1,68,2,1,0,0.26,83.0,3.0,1085435.0
+5103649,2026-10-08,brasil,Cruzeiro,Matheus Pereira,522651,M,1,90,4,0,0,0.11,85.0,2.0,11932065.0
+5103649,2026-10-08,brasil,Cruzeiro,Felipe Morais,1843214,F,1,90,6,4,0,0.59,87.0,3.0,
+5103649,2026-10-08,brasil,Cruzeiro,Kaio Jorge,964661,F,1,85,7,3,1,1.13,115.0,3.0,25290926.0
+5103649,2026-10-08,brasil,Cruzeiro,Zé Lucas,1733226,M,0,45,1,1,1,0.96,,2.0,11513074.0
+5103649,2026-10-08,brasil,Cruzeiro,Matías Viña,840184,D,0,32,0,0,0,0.0,,1.0,1819542.0
+5103649,2026-10-08,brasil,Cruzeiro,Keny Arroyo,1626714,F,0,22,1,0,0,0.07,,3.0,13697396.0
+5103649,2026-10-08,brasil,Cruzeiro,Matheus Henrique,900043,M,0,5,0,0,0,0.0,,2.0,2537326.0
+5103649,2026-10-08,brasil,Cruzeiro,Luciano Rodríguez,1285291,F,0,5,0,0,0,0.0,,3.0,11452115.0
+5103649,2026-10-08,brasil,São Paulo,Carlos Coronel,658563,G,1,90,0,0,0,0.0,11.0,0.0,1145462.0
+5103649,2026-10-08,brasil,São Paulo,Rafael Tolói,127374,D,1,90,2,0,0,0.15,33.0,1.0,424022.0
+5103649,2026-10-08,brasil,São Paulo,Robert Arboleda,342941,D,1,90,0,0,0,0.0,35.0,1.0,633182.0
+5103649,2026-10-08,brasil,São Paulo,Sabino,1082117,D,1,45,1,0,0,0.08,37.0,1.0,1178434.0
+5103649,2026-10-08,brasil,São Paulo,Pedro Lima,1610952,M,1,90,1,0,0,0.02,62.0,2.0,5921221.0
+5103649,2026-10-08,brasil,São Paulo,Pablo Maia,1313924,M,1,64,0,0,0,0.0,64.0,2.0,5582946.0
+5103649,2026-10-08,brasil,São Paulo,Marcos Antônio,890205,M,1,64,0,0,0,0.0,66.0,2.0,13689615.0
+5103649,2026-10-08,brasil,São Paulo,Wendell,487867,M,1,90,2,1,0,0.08,68.0,2.0,1213506.0
+5103649,2026-10-08,brasil,São Paulo,Damián Bobadilla,1252913,M,1,78,2,0,0,0.17,85.0,2.0,9312066.0
+5103649,2026-10-08,brasil,São Paulo,Jonathan Calleri,469295,F,1,90,2,0,0,0.1,104.0,3.0,1045298.0
+5103649,2026-10-08,brasil,São Paulo,Artur,754504,F,1,90,3,2,0,0.24,106.0,3.0,8260068.0
+5103649,2026-10-08,brasil,São Paulo,Ferreira,1098104,F,0,18,1,0,0,0.08,,3.0,2454457.0
+5103649,2026-10-08,brasil,São Paulo,Victor Sá,660846,F,0,27,0,0,0,0.0,,3.0,1707713.0
+5103649,2026-10-08,brasil,São Paulo,Pedro Ferreira,1800650,M,0,26,3,0,0,0.11,,2.0,
+5103649,2026-10-08,brasil,São Paulo,Newton,1578668,M,0,26,2,0,0,0.03,,2.0,2224866.0
+5103649,2026-10-08,brasil,São Paulo,Djhordney,1898791,M,0,12,0,0,0,0.0,,2.0,
+6145877,2026-10-08,finlandia,KuPS,Johannes Kreidl,643731,G,1,90,0,0,0,0.0,11.0,0.0,327721.0
+6145877,2026-10-08,finlandia,KuPS,Saku Savolainen,447421,D,1,60,0,0,0,0.0,32.0,1.0,106502.0
+6145877,2026-10-08,finlandia,KuPS,Brahima Magassa,1792391,D,1,90,1,0,0,0.0,34.0,1.0,193516.0
+6145877,2026-10-08,finlandia,KuPS,Taneli Hämäläinen,1099926,D,1,90,0,0,0,0.0,36.0,1.0,155273.0
+6145877,2026-10-08,finlandia,KuPS,Clinton Antwi,949265,D,1,76,0,0,0,0.0,38.0,1.0,160525.0
+6145877,2026-10-08,finlandia,KuPS,Valentín Gasc,1260156,M,1,76,0,0,0,0.0,64.0,2.0,250344.0
+6145877,2026-10-08,finlandia,KuPS,Petteri Pennanen,104229,M,1,90,3,2,0,0.0,66.0,2.0,212903.0
+6145877,2026-10-08,finlandia,KuPS,Joslyn Luyeye-Lutumba,1297852,F,1,90,2,0,0,0.0,83.0,3.0,179966.0
+6145877,2026-10-08,finlandia,KuPS,Tommi Jyry,835927,M,1,60,0,0,0,0.0,85.0,2.0,474198.0
+6145877,2026-10-08,finlandia,KuPS,Bob Nii Armah,1560019,F,1,90,4,0,0,0.0,87.0,3.0,307510.0
+6145877,2026-10-08,finlandia,KuPS,Piotr Parzyszek,243433,F,1,90,3,1,0,0.0,115.0,3.0,127153.0
+6145877,2026-10-08,finlandia,KuPS,Samuel Pasanen,1347776,M,0,30,1,0,0,0.0,,2.0,177922.0
+6145877,2026-10-08,finlandia,KuPS,Ayman Aiki,1367621,F,0,30,2,1,0,0.0,,3.0,258715.0
+6145877,2026-10-08,finlandia,KuPS,Julius Eskesen,856325,M,0,14,1,0,0,0.0,,2.0,436346.0
+6145877,2026-10-08,finlandia,KuPS,Niilo Kujasalo,1383478,M,0,14,0,0,0,0.0,,2.0,229449.0
+6145877,2026-10-08,finlandia,AC Oulu,Miguel Santos,470818,G,1,90,0,0,0,0.0,11.0,0.0,181812.0
+6145877,2026-10-08,finlandia,AC Oulu,Otto Kemppainen,1199741,D,1,90,0,0,0,0.0,32.0,1.0,157245.0
+6145877,2026-10-08,finlandia,AC Oulu,Mikko Pitkänen,533091,D,1,90,0,0,0,0.0,34.0,1.0,100600.0
+6145877,2026-10-08,finlandia,AC Oulu,Juha Pirinen,118157,D,1,90,0,0,0,0.0,36.0,1.0,202915.0
+6145877,2026-10-08,finlandia,AC Oulu,Tuomas Kaukua,1036118,D,1,90,0,0,0,0.0,38.0,1.0,143752.0
+6145877,2026-10-08,finlandia,AC Oulu,Joel Lotvonen,1753297,M,1,82,1,1,0,0.0,72.0,2.0,
+6145877,2026-10-08,finlandia,AC Oulu,Markus Arsalo,1245696,M,1,90,1,0,0,0.0,74.0,2.0,134291.0
+6145877,2026-10-08,finlandia,AC Oulu,Iiro Mendolin,1780636,M,1,45,2,0,0,0.0,76.0,2.0,
+6145877,2026-10-08,finlandia,AC Oulu,Elias Kallio,1382425,F,1,71,0,0,0,0.0,78.0,3.0,268778.0
+6145877,2026-10-08,finlandia,AC Oulu,Rasmus Karjalainen,787016,M,1,71,0,0,0,0.0,104.0,2.0,213298.0
+6145877,2026-10-08,finlandia,AC Oulu,Camilo Triana,1195096,F,1,82,3,2,1,0.0,106.0,3.0,
+6145877,2026-10-08,finlandia,AC Oulu,Julius Paananen,1553103,M,0,44,0,0,0,0.0,,2.0,554730.0
+6145877,2026-10-08,finlandia,AC Oulu,Adramane Cassamá,1526763,D,0,19,0,0,0,0.0,,1.0,161328.0
+6145877,2026-10-08,finlandia,AC Oulu,Roope Riski,170253,F,0,19,0,0,0,0.0,,3.0,113362.0
+6145877,2026-10-08,finlandia,AC Oulu,Juuso Mäkeläinen,1832787,M,0,8,0,0,0,0.0,,2.0,
+6145877,2026-10-08,finlandia,AC Oulu,Niklas Jokelainen,631461,F,0,8,0,0,0,0.0,,3.0,140984.0
+6145876,2026-10-08,finlandia,HJK,Jesse Öst,163352,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+6145876,2026-10-08,finlandia,HJK,Nikolai Alho,201423,D,1,78,0,0,0,0.0,32.0,1.0,181920.0
+6145876,2026-10-08,finlandia,HJK,Mihailo Bogićević,1529366,D,1,90,0,0,0,0.0,34.0,1.0,105119.0
+6145876,2026-10-08,finlandia,HJK,Ville Tikkanen,831486,D,1,90,1,0,0,0.0,36.0,1.0,206770.0
+6145876,2026-10-08,finlandia,HJK,Leonel Montano,865682,D,1,90,1,1,1,0.0,38.0,1.0,226795.0
+6145876,2026-10-08,finlandia,HJK,Alexander Ring,181333,M,1,66,1,0,0,0.0,64.0,2.0,81477.0
+6145876,2026-10-08,finlandia,HJK,Lucas Lingman,574868,M,1,57,2,0,0,0.0,66.0,2.0,100552.0
+6145876,2026-10-08,finlandia,HJK,Mads Borchers,1255795,F,1,90,5,3,3,0.0,83.0,3.0,243747.0
+6145876,2026-10-08,finlandia,HJK,Santeri Haarala,923629,F,1,90,4,2,0,0.0,85.0,3.0,254840.0
+6145876,2026-10-08,finlandia,HJK,Alfie Cicale,1635673,F,1,78,2,2,1,0.0,87.0,3.0,241857.0
+6145876,2026-10-08,finlandia,HJK,Teemu Pukki,66578,F,1,66,2,1,1,0.0,115.0,3.0,155061.0
+6145876,2026-10-08,finlandia,HJK,Joona Veteli,618800,M,0,33,0,0,0,0.0,,2.0,180240.0
+6145876,2026-10-08,finlandia,HJK,Martin Kirilov,1901622,M,0,24,2,1,0,0.0,,2.0,644253.0
+6145876,2026-10-08,finlandia,HJK,Mouhamed Guèye,1478013,M,0,24,1,0,0,0.0,,2.0,265184.0
+6145876,2026-10-08,finlandia,HJK,Kaius Simojoki,1479945,D,0,12,0,0,0,0.0,,1.0,
+6145876,2026-10-08,finlandia,HJK,Pyry Mentu,1647552,M,0,12,0,0,0,0.0,,2.0,633656.0
+6145876,2026-10-08,finlandia,VPS,Mamadou Jalloh,1742055,G,1,90,0,0,0,0.0,11.0,0.0,568629.0
+6145876,2026-10-08,finlandia,VPS,Miika Niemi,349473,D,1,45,1,0,0,0.0,33.0,1.0,184046.0
+6145876,2026-10-08,finlandia,VPS,Emmanuel Okereke,1626929,D,1,45,1,0,0,0.0,35.0,1.0,
+6145876,2026-10-08,finlandia,VPS,Martti Haukioja,736420,D,1,90,0,0,0,0.0,37.0,1.0,240496.0
+6145876,2026-10-08,finlandia,VPS,Kevin Kouassivi-Benissan,939102,M,1,90,2,1,0,0.0,62.0,2.0,207141.0
+6145876,2026-10-08,finlandia,VPS,Antti-Ville Räisänen,670410,M,1,67,1,0,0,0.0,64.0,2.0,97450.0
+6145876,2026-10-08,finlandia,VPS,Paulo Lima,750825,M,1,46,0,0,0,0.0,66.0,2.0,142019.0
+6145876,2026-10-08,finlandia,VPS,Yassin Daoussi,1097761,M,1,90,1,0,0,0.0,68.0,2.0,143919.0
+6145876,2026-10-08,finlandia,VPS,Simon Lindholm,929760,F,1,90,0,0,0,0.0,85.0,3.0,243678.0
+6145876,2026-10-08,finlandia,VPS,Oluwaseyi Ogunniyi,1945775,M,1,90,1,0,0,0.0,104.0,2.0,
+6145876,2026-10-08,finlandia,VPS,Wilson Samaké,1553521,F,1,85,1,0,0,0.0,106.0,3.0,439043.0
+6145876,2026-10-08,finlandia,VPS,Razak Simpson,1580518,D,0,44,0,0,0,0.0,,1.0,123181.0
+6145876,2026-10-08,finlandia,VPS,Jayden Turfkruier,1420722,M,0,44,0,0,0,0.0,,2.0,247959.0
+6145876,2026-10-08,finlandia,VPS,Henri Salomaa,1169428,F,0,45,1,0,0,0.0,,3.0,198508.0
+6145876,2026-10-08,finlandia,VPS,Dren Terrnava,1269985,M,0,23,0,0,0,0.0,,2.0,167085.0
+6145876,2026-10-08,finlandia,VPS,Casper Holmelund,1400429,F,0,5,0,0,0,0.0,,3.0,204163.0
