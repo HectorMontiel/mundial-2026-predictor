@@ -5562,8 +5562,22 @@ def render_alpha_finder():
         # vieja no se reutiliza a propósito: el fichero de preferencias de
         # quien ya usaba la aplicación guarda ahí una CADENA, y un widget de
         # lista sembrado con una cadena revienta la pantalla al arrancar.
+        # v342 — en la PRIMERA pasada de una sesión el selector todavía no
+        # ha sembrado la sesión con el filtro guardado (lo hace más abajo), y
+        # el marcador contaba todos los deportes con ⚽ marcado. Se lee el
+        # guardado sin sembrar nada: sembrar aquí un deporte que hoy no juega
+        # reventaría el selector (v176).
+        if '_filtro_deportes' in st.session_state:
+            _sel_kpi = st.session_state.get('_filtro_deportes') or []
+        else:
+            try:
+                import preferencias_usuario as _pref_kpi
+                _sel_kpi = _pref_kpi.leer('_filtro_deportes') or []
+            except Exception:
+                _sel_kpi = []
         _deps_kpi = {_DEP_POR_EMOJI[_e]
-                     for _e in (st.session_state.get('_filtro_deportes') or [])
+                     for _e in (_sel_kpi if isinstance(_sel_kpi, (list, tuple))
+                                else [])
                      if _e in _DEP_POR_EMOJI}
 
         def _del_deporte(lista):

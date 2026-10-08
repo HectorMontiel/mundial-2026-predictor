@@ -126,6 +126,8 @@ def probar_marcador():
           and "_dep_mc, solo_precalculo=True" in d and '_dep_mc)' in
           d[d.index("_mc['por_jugar'] = _por_jugar_hoy("):][:200],
           'las tres cuentas siguen el filtro de deportes (también en la caché)')
+    check("_pref_kpi.leer('_filtro_deportes')" in d,
+          'y desde la primera pasada, con el filtro guardado')
     # la rotación de ayer
     import partidos_jugados as pj
     t = tempfile.mkdtemp()
