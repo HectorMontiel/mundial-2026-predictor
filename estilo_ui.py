@@ -739,6 +739,29 @@ div[data-testid="stDataFrame"], div[data-testid="stTable"] {
 .stApp .pata .q { font-size: .98rem; font-weight: 700; }
 .stApp .pata .c { font-family: var(--letra) !important; font-size: 1.2rem; font-weight: 800; }
 
+/* ---- el marcador del día: verdes, rojas, acierto, por jugar ---------- */
+.marcador { margin: .2rem 0 .9rem; padding: .7rem .9rem .75rem;
+            background: linear-gradient(160deg, var(--vidrio2), var(--vidrio));
+            border: 1px solid var(--filo); border-radius: 18px;
+            backdrop-filter: var(--desenfoque); -webkit-backdrop-filter: var(--desenfoque);
+            box-shadow: var(--sombra-v), var(--brillo); }
+.marcador .mc-fila { display: flex; align-items: center; gap: .5rem 1.4rem; flex-wrap: wrap; }
+.marcador .mc-t { font-size: .66rem; font-weight: 800; letter-spacing: .14em;
+                  text-transform: uppercase; opacity: .55; margin-right: .2rem; }
+.marcador .mc { display: inline-flex; align-items: baseline; gap: .35rem; }
+.marcador .mc b { font-size: 1.55rem; font-weight: 800; letter-spacing: -.04em;
+                  font-variant-numeric: tabular-nums; line-height: 1; }
+.marcador .mc i { font-style: normal; font-size: .74rem; opacity: .62; font-weight: 600; }
+.marcador .mc.ok b { color: var(--ok); }
+.marcador .mc.no b { color: var(--no); }
+.marcador .mc.pend b { opacity: .85; }
+.marcador .mc-barra { margin-top: .6rem; height: 5px; border-radius: 99px;
+                      background: rgba(248,113,113,.55); overflow: hidden; }
+.marcador .mc-barra > i { display: block; height: 100%; border-radius: 99px;
+                          background: linear-gradient(90deg, #10b981, #34d399); }
+@media (max-width: 768px) { .marcador .mc b { font-size: 1.25rem; }
+                            .marcador .mc-fila { gap: .45rem 1rem; } }
+
 /* ---- la marca: una línea, no una pancarta ----------------------------- */
 .marca { display: flex; align-items: center; gap: .65rem; flex-wrap: wrap;
          margin: 0 0 .9rem; }
@@ -896,6 +919,35 @@ def cabecera(titulo: str, subtitulo: str = '', chips=(), icono: str = '') -> str
         f'<h1>{_esc(icono) + " " if icono else ""}{_esc(titulo)}</h1>'
         + (f'<p class="sub">{_esc(subtitulo)}</p>' if subtitulo else '')
         + ch + '</div>')
+
+
+def marcador(verdes: int, rojas: int, por_jugar=None, titulo: str = 'Hoy') -> str:
+    """v340 — EL MARCADOR DEL DÍA: verdes, rojas, acierto y lo que queda.
+
+    El usuario: «un contador de verdes y de rojas casi en el menú principal de
+    Apuestas del Día, en lugar de las cifras; que no ocupe mucho; siempre
+    cuántas verdes y cuántas rojas van en el día y el porcentaje». Una franja,
+    con una barra fina que reparte verde y rojo en su proporción."""
+    try:
+        v, r_ = int(verdes or 0), int(rojas or 0)
+    except (TypeError, ValueError):
+        return ''
+    tot = v + r_
+    pct = ('%.0f %%' % (100.0 * v / tot)) if tot else '—'
+    ancho = (100.0 * v / tot) if tot else 0.0
+    trozos = [
+        '<span class="mc-t">%s</span>' % _esc(titulo),
+        '<span class="mc ok"><b>%d</b><i>verdes</i></span>' % v,
+        '<span class="mc no"><b>%d</b><i>rojas</i></span>' % r_,
+        '<span class="mc pct"><b>%s</b><i>acierto</i></span>' % pct,
+    ]
+    if por_jugar is not None:
+        trozos.append('<span class="mc pend"><b>%d</b><i>por jugar</i></span>'
+                      % int(por_jugar))
+    barra = ('<div class="mc-barra"><i style="width:%.1f%%"></i></div>' % ancho
+             if tot else '')
+    return '<div class="marcador"><div class="mc-fila">%s</div>%s</div>' % (
+        ''.join(trozos), barra)
 
 
 def marca(nombre: str, deportes=(), icono: str = '🎯') -> str:

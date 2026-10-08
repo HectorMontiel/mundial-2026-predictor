@@ -3071,6 +3071,15 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
         return
     icono = '✅' if rec['verde'] else '🟡'
     tono = 'mm-rec-si' if rec['verde'] else 'mm-rec-ambar'
+    # v340 — LO QUE SE METE LO DICE, Y EN VERDE. El usuario: «veo partidos en
+    # los que me das apuesta pero no veo si se mete o no se mete». La tarjeta
+    # sólo enseña lo que se mete (v311), pero el color seguía al «verde» de
+    # precio de la v167 y una apuesta que se mete podía salir en ámbar con
+    # «Alta incertidumbre». Con veredicto «meter»: título «🎯 SE METE», verde,
+    # la marca de Capa 1 si viene de ahí, y sin coletillas ni insights.
+    es_meter = rec.get('veredicto_vp') == 'meter'
+    if es_meter:
+        icono, tono = '✅', 'mm-rec-si'
     # La coletilla dice POR QUÉ está propuesta, y no siempre es lo mismo. Una
     # apuesta elegida por PRECIO casi nunca es favorita —el canal medido vive
     # en comprar barato, no en comprar seguro— y llamarla «sólo para combinar»
@@ -3126,9 +3135,15 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     # v303 — Y POR QUÉ, EN UNA LÍNEA: «decir brevemente por qué es que estás
     # escogiendo esa apuesta, sólo para que yo pueda checar... algo corto».
     # Sale de `razon_apuesta` con cifras reales de los dos equipos.
-    _rz = str(rec.get('razon') or '').strip()
+    _rz = ''          # v340: sin el renglón 💡 (el porqué va en «Análisis»)
     if rec.get('sin_medir'):
         coleta = (coleta + ' · ' if coleta else '') + 'Sin medición propia'
+    if es_meter:
+        puesto = int(rec.get('puesto_valor') or 1)
+        titulo = '🎯 SE METE' + ('' if puesto <= 1 else ' · %dª' % puesto)
+        if rec.get('elite'):
+            titulo += ' · 🏆 CAPA 1'
+        coleta = ''
     st.markdown(
         '<div class="mm-rec %s">'
         '<span class="mm-rec-tit">%s</span>'
@@ -3609,8 +3624,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 _txp = (pick.get('patron_liga') or {}).get('texto')
                 if _txp:
                     _lineas_tarjeta.append(_txp)
+                # v340 — «los insights que me da no le veo utilidad, prefiero
+                # que no estén»: el rasgo y el patrón de la liga dejan la
+                # tarjeta y se quedan en el desplegable de Análisis.
                 if _lineas_tarjeta:
-                    st.caption('  ·  '.join(_lineas_tarjeta))
+                    _porque_detalle.extend(_lineas_tarjeta)
             except Exception as _e_vp:
                 logger.debug('[modo_modelo] veredicto: %s', _e_vp)
 

@@ -152,11 +152,60 @@ def _a_pata_de_motor(q: Dict, dia: Optional[str]) -> Dict:
     }
 
 
+def filtrar_por_dias(r: Dict, dia: Optional[str] = None,
+                     dias: Optional[List[str]] = None, ahora=None) -> Dict:
+    """v340 — EL BOLETO SÓLO CON PARTIDOS DEL DÍA (O DEL RANGO) ELEGIDO.
+
+    El usuario: «si le pongo el filtro de hoy no me das partidos de hoy, me
+    das de otras fechas, y cuando pongo el rango no me respetas el rango». El
+    armador «con los picks de Apuestas del Día» tomaba TODOS los pronósticos
+    del barrido —hoy, mañana y pasado— y el día elegido sólo llegaba a otra
+    parte de la pantalla. Medido en la auditoría: con «hoy», un boleto de 4
+    patas repartidas entre el 07 y el 09-oct.
+
+    Ahora: sólo los partidos cuyo día EN HORA DE CDMX (`dia_picks.dia_de`, el
+    mismo reloj que el resto de la app) está en lo elegido, y nunca uno que ya
+    empezó (no se puede apostar una pata en juego). Devuelve una COPIA."""
+    import datetime as _dt
+    try:
+        import dia_picks as _dp
+    except Exception:
+        return r
+    permitidos = set(dias or ([dia] if dia else []))
+    if not permitidos:
+        return r
+    if ahora is None:
+        ahora = _dt.datetime.now(_dt.timezone.utc)
+
+    def _empezado(p) -> bool:
+        if p.get('jugado') or p.get('en_juego'):
+            return True
+        ini = p.get('inicio')
+        if ini in (None, ''):
+            return False
+        try:
+            t = _dt.datetime.fromisoformat(str(ini).replace('Z', '+00:00'))
+        except ValueError:
+            return False
+        if t.tzinfo is None:
+            t = t.replace(tzinfo=_dt.timezone.utc)      # el barrido va en UTC
+        return t <= ahora
+
+    out = dict(r or {})
+    out['pronosticos'] = [p for p in ((r or {}).get('pronosticos') or [])
+                          if isinstance(p, dict) and _dp.dia_de(p) in permitidos
+                          and not _empezado(p)]
+    return out
+
+
 def render(st, r: Dict, dia: Optional[str] = None,
            dias: Optional[List[str]] = None) -> None:
     """Pinta la pantalla. `r` es un barrido YA calculado."""
     import mercados_dia as md
     import sonadora_motor as sm
+    # v340 — todo lo de abajo (cuentas por deporte y liga, y el boleto) con
+    # los partidos del día o del rango elegido, y sin los ya empezados.
+    r = filtrar_por_dias(r, dia, dias)
 
     st.header('🎰 Armar Soñadora')
     st.info(AVISO)

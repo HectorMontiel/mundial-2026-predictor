@@ -185,8 +185,11 @@ def probar_la_cache_del_tablero():
 
 def probar_la_tarjeta():
     src = open('modo_modelo.py', encoding='utf-8').read()
-    check("razon_apuesta" in src and 'mm-rec-rz' in src,
-          'la tarjeta enseña la razón dentro de la apuesta')
+    # v340 — el usuario pidió quitar los «insights» de la tarjeta («no le veo
+    # utilidad, prefiero que no estén»): la razón ya no se pinta en el bloque
+    # de la apuesta. `razon_apuesta` sigue existiendo para el documento de IA.
+    check("_rz = ''          # v340" in src,
+          'la tarjeta ya NO enseña la razón 💡 dentro de la apuesta')
     check("('Goles equipo'" in src and "('Doble y goles'" in src,
           'y los dos mercados nuevos tienen su fila')
 

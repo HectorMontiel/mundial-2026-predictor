@@ -815,6 +815,75 @@ def _capa1_en_vivo() -> list:
 
 
 @st.cache_data(ttl=600, show_spinner=False)
+def _marcador_del_dia(dia: str) -> dict:
+    """v340 — verdes y rojas de las «meter» YA LIQUIDADAS hoy.
+
+    Lo mismo que cuenta «Así le fue a la app» (`formato_ia.balance_app`) y la
+    pestaña de finalizados: los partidos jugados del día
+    (`partidos_jugados.de_dia`) pasados por `pronosticos_guardados.validar`,
+    sólo lo que la app dijo «meter» y sólo partidos con modelo. Diez minutos
+    en memoria: no es algo que cambie de un clic a otro."""
+    verdes = rojas = 0
+    try:
+        import partidos_jugados as _pj
+        import pronosticos_guardados as _pg
+        for _p in (_pj.de_dia(dia) or []):
+            if _p.get('solo_mercado') or _p.get('sin_modelo') or _p.get('aplazado'):
+                continue
+            for _fl in (_pg.validar(_p) or []):
+                if _fl.get('veredicto') != 'meter':
+                    continue
+                if _fl.get('estado') == _pg.CUMPLIDO:
+                    verdes += 1
+                elif _fl.get('estado') == _pg.FALLADO:
+                    rojas += 1
+    except Exception as e:
+        logger.debug('[marcador] %s: %s', dia, e)
+    return {'verdes': verdes, 'rojas': rojas}
+
+
+@st.cache_data(ttl=600, show_spinner=False)
+def _por_jugar_hoy(_prons: list, dia: str, huella: str) -> int:
+    """v340 — las «meter» de los partidos de hoy que aún no empiezan.
+
+    Con la decisión que dejó calculada el precálculo (`decisiones_dia`) y, si
+    no la hay —el precálculo es de otro día o no casa con los ficheros—, con
+    la misma cuenta que hace la tarjeta (`modo_modelo.recomendadas` +
+    `metidas`). Diez minutos en memoria por día y barrido (`huella`)."""
+    prons = _prons
+    import datetime as _dtm
+    n = 0
+    try:
+        import decisiones_dia as _dd
+        import modo_modelo as _mmj
+        ahora = _dtm.datetime.now(_dtm.timezone.utc)
+        for _p in prons or []:
+            if not isinstance(_p, dict) or _p.get('jugado') or _p.get('en_juego'):
+                continue
+            try:
+                _t = _dtm.datetime.fromisoformat(
+                    str(_p.get('inicio') or '').replace('Z', '+00:00'))
+                if _t.tzinfo is None:
+                    _t = _t.replace(tzinfo=_dtm.timezone.utc)
+                if _t <= ahora:
+                    continue
+            except ValueError:
+                pass
+            _recos = _dd.tarjeta_de_pick(_p)
+            if _recos is None:
+                try:
+                    _recos = _mmj.recomendadas(_p, None,
+                                               n=_mmj.MAX_RECOMENDADAS)
+                except Exception:
+                    _recos = None
+            if _recos:
+                n += len(_mmj.metidas(_recos))
+    except Exception as e:
+        logger.debug('[marcador] por jugar: %s', e)
+    return n
+
+
+@st.cache_data(ttl=600, show_spinner=False)
 def _probables_en_vivo(_pronosticos=None) -> list:
     """v302 — las probables con buena cuota, del tablero. NUNCA lanza.
 
@@ -5180,6 +5249,9 @@ def render_alpha_finder():
     # v339 — los cinco envíos ocupaban el mejor sitio de la pantalla: van
     # juntos en un desplegable. Siguen vivos (mismas claves) para la
     # validación de render y para el envío automático.
+    # v340 — el hueco del marcador del día, ARRIBA (justo bajo la cabecera):
+    # se llena más abajo, cuando el barrido ya está cargado.
+    _hueco_marcador = st.empty()
     with st.expander('📤 Enviar a Telegram y exportar', expanded=False):
         cacc2, cacc3, cacc4 = st.columns(3)
         if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
@@ -5515,47 +5587,18 @@ def render_alpha_finder():
         except Exception as _e_kpi:
             logger.debug('[alpha] kpis de decision: %s', _e_kpi)
 
-        f1, f2, f3, f4 = st.columns(4)
-        # El rotulo dice de que deporte habla. Sin eso, con «⚽» puesto, un «3»
-        # a secas se lee como el total del dia y no como el del futbol.
-        _suf_kpi = '' if not _deps_kpi else ' · %s' % ' + '.join(
-            sorted(_deps_kpi))
-        f1.metric("Para meter hoy" + _suf_kpi,
-                  len(_verdes) if _verdes else '0',
-                  help="Apuestas que pasan el liston tras corregir la "
-                       "probabilidad por lo que ese mercado acierta DE "
-                       "VERDAD. Es el numero que decide si hoy se juega.")
-        f2.metric("Cuota media", ('%.2f' % (sum(_cuota_media) / len(_cuota_media))
-                                  if _cuota_media else '—'),
-                  help="De las que hay para meter. Sirve para saber si el dia "
-                       "da multiplicador o solo favoritos cortos.")
-        if _mejor:
-            f3.metric("La mas probable", '%.0f %%' % (_mejor['prob_ajustada'] * 100),
-                      help="%s · %s (%s)" % (
-                          (_mejor.get('pick') or {}).get('apuesta', '?'),
-                          _mejor.get('_partido', '?'), _mejor.get('_liga', '')))
-        else:
-            f3.metric("La mas probable", '—',
-                      help="Hoy ninguna apuesta pasa el liston.")
-        _fi_txt = '—'
-        try:
-            import fiabilidad_picks as _fpk
-            _doc = _fpk.cargar()
-            _b = [x for x in (_doc.get('por_banda') or [])
-                  if x.get('n', 0) >= 100]
-            if _b:
-                _prom = sum(x['real'] * x['n'] for x in _b) / sum(x['n'] for x in _b)
-                _fi_txt = '%.0f %%' % (_prom * 100)
-        except Exception:
-            pass
-        f4.metric("Acierto historico", _fi_txt,
-                  help="Lo que han acertado DE VERDAD los picks que esta "
-                       "aplicacion publico y ya se resolvieron. No es una "
-                       "promesa: es el registro.")
-        if _mejor:
-            st.caption('⭐ La mas probable de hoy: **%s** · %s _(%s)_'
-                       % ((_mejor.get('pick') or {}).get('apuesta', '?'),
-                          _mejor.get('_partido', '?'), _mejor.get('_liga', '')))
+        # v340 — EL MARCADOR DEL DÍA EN LUGAR DE LAS CUATRO CIFRAS. El
+        # usuario: «un contador de verdes y de rojas casi en el menú principal,
+        # en lugar de las cifras; que no ocupe mucho; siempre cuántas verdes y
+        # cuántas rojas van en el día y el porcentaje». Las cuatro métricas
+        # (para meter, cuota media, la más probable, acierto histórico) y la
+        # línea de «la más probable» se van; queda una franja.
+        _mc = _marcador_del_dia(_hoy_kpi)
+        _hueco_marcador.markdown(_estilo.marcador(_mc['verdes'], _mc['rojas'],
+                                _por_jugar_hoy(_de_hoy, _hoy_kpi,
+                                               str(r.get('actualizado') or '')),
+                                titulo='Hoy · %s' % _hoy_kpi[8:10] + '/' + _hoy_kpi[5:7]),
+                                 unsafe_allow_html=True)
     except Exception:
         pass
 
