@@ -34669,22 +34669,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5868402,2026-08-14,esp_hypermotion,Castellón,Marc-Olivier Doué,1076508,M,0,12,1,0,0,0.03,,2.0,292095.0
 5868402,2026-08-14,esp_hypermotion,Castellón,Hamza Bellari,1607524,F,0,12,0,0,0,0.0,,3.0,328494.0
 5868402,2026-08-14,esp_hypermotion,Castellón,Jari Vlak,935788,M,0,3,0,0,0,0.0,,2.0,625508.0
-5190656,2026-08-14,bra_serie_b,Londrina,Maurício,798592,G,1,90,0,0,0,0.0,11.0,0.0,111804.0
-5190656,2026-08-14,bra_serie_b,Londrina,Kauê Leonardo,1720732,D,1,90,0,0,0,0.0,32.0,1.0,
-5190656,2026-08-14,bra_serie_b,Londrina,Yago Lincoln,1575238,D,1,90,1,0,0,0.04,34.0,1.0,214330.0
-5190656,2026-08-14,bra_serie_b,Londrina,Gabriel,1174677,D,1,90,0,0,0,0.0,36.0,1.0,179112.0
-5190656,2026-08-14,bra_serie_b,Londrina,Heron,1083351,D,1,77,0,0,0,0.0,38.0,1.0,152082.0
-5190656,2026-08-14,bra_serie_b,Londrina,Lucas Marques,642764,M,1,88,2,0,0,0.05,65.0,2.0,
-5190656,2026-08-14,bra_serie_b,Londrina,Vitinho,1748316,F,1,69,2,0,0,0.03,82.0,3.0,
-5190656,2026-08-14,bra_serie_b,Londrina,João Tavares,1402099,M,1,69,1,0,0,0.03,84.0,2.0,163377.0
-5190656,2026-08-14,bra_serie_b,Londrina,João Vitor,1441765,M,1,90,5,2,1,0.38,86.0,2.0,410849.0
-5190656,2026-08-14,bra_serie_b,Londrina,Paulinho Moccelin,469609,F,1,90,2,1,0,0.14,88.0,3.0,103280.0
-5190656,2026-08-14,bra_serie_b,Londrina,William Pottker,288782,F,1,69,1,0,0,0.1,115.0,3.0,182824.0
-5190656,2026-08-14,bra_serie_b,Londrina,Guilherme Portuga,1666535,M,0,21,0,0,0,0.0,,2.0,60000.0
-5190656,2026-08-14,bra_serie_b,Londrina,Pablo Dyego,444778,F,0,21,0,0,0,0.0,,3.0,114723.0
-5190656,2026-08-14,bra_serie_b,Londrina,Gilberto,265619,F,0,21,2,0,0,0.07,,3.0,129711.0
-5190656,2026-08-14,bra_serie_b,Londrina,Kevyn,1526931,D,0,13,1,1,0,0.16,,1.0,90656.0
-5190656,2026-08-14,bra_serie_b,Londrina,Raí,820656,F,0,2,0,0,0,0.0,,3.0,162976.0
 5190649,2026-08-14,bra_serie_b,Náutico,Muriel,121848,G,1,90,0,0,0,0.0,11.0,0.0,66991.0
 5190649,2026-08-14,bra_serie_b,Náutico,Arnaldo,659758,D,1,79,0,0,0,0.0,32.0,1.0,50000.0
 5190649,2026-08-14,bra_serie_b,Náutico,Betão,1653469,D,1,90,1,0,0,0.03,34.0,1.0,158569.0
@@ -42326,22 +42310,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190652,2026-08-16,bra_serie_b,Operário-PR,Maxwell,646352,F,0,27,1,1,0,0.02,,3.0,151450.0
 5190652,2026-08-16,bra_serie_b,Operário-PR,Neto Paraíba,955583,M,0,16,0,0,0,0.0,,2.0,191959.0
 5190652,2026-08-16,bra_serie_b,Operário-PR,Ángel Torres,1080516,F,0,16,0,0,0,0.0,,3.0,302822.0
-5190652,2026-08-16,bra_serie_b,Avaí,Bruno,319972,G,1,90,0,0,0,0.0,11.0,0.0,265746.0
-5190652,2026-08-16,bra_serie_b,Avaí,Jefferson Maciel,1460519,D,1,90,1,1,1,0.5,33.0,1.0,246397.0
-5190652,2026-08-16,bra_serie_b,Avaí,Allyson,693500,D,1,90,0,0,0,0.0,35.0,1.0,103680.0
-5190652,2026-08-16,bra_serie_b,Avaí,Reynaldo,844220,D,1,90,0,0,0,0.0,37.0,1.0,721900.0
-5190652,2026-08-16,bra_serie_b,Avaí,João Vitor,1637477,M,1,70,0,0,0,0.0,72.0,2.0,189889.0
-5190652,2026-08-16,bra_serie_b,Avaí,Paulo Vitor,1474235,M,1,75,0,0,0,0.0,74.0,2.0,1004020.0
-5190652,2026-08-16,bra_serie_b,Avaí,Luiz Henrique,1173653,M,1,90,0,0,0,0.0,76.0,2.0,239290.0
-5190652,2026-08-16,bra_serie_b,Avaí,William,1929091,M,1,90,1,1,0,0.05,78.0,2.0,
-5190652,2026-08-16,bra_serie_b,Avaí,Thayllon Roberth,1738398,F,1,71,1,0,0,0.16,103.0,3.0,1194235.0
-5190652,2026-08-16,bra_serie_b,Avaí,Felipe Vizeu,750057,F,1,81,1,0,0,0.79,105.0,3.0,217556.0
-5190652,2026-08-16,bra_serie_b,Avaí,Léo Chú,1118169,F,1,70,0,0,0,0.0,107.0,3.0,934572.0
-5190652,2026-08-16,bra_serie_b,Avaí,Wallison,1077350,D,0,20,2,0,0,0.08,,1.0,324090.0
-5190652,2026-08-16,bra_serie_b,Avaí,Isaías Pereira,1930344,F,0,20,0,0,0,0.0,,3.0,
-5190652,2026-08-16,bra_serie_b,Avaí,Gabriel Cipriano,1726399,F,0,19,1,0,0,0.06,,3.0,
-5190652,2026-08-16,bra_serie_b,Avaí,Zé Ricardo,811221,M,0,15,0,0,0,0.0,,2.0,283851.0
-5190652,2026-08-16,bra_serie_b,Avaí,Jean Lucas,962448,M,0,9,2,0,0,0.02,,2.0,224756.0
 5103593,2026-08-16,brasil,Chapecoense,Anderson,950459,G,1,90,0,0,0,0.0,11.0,0.0,397804.0
 5103593,2026-08-16,brasil,Chapecoense,Heitor,1068532,D,1,46,0,0,0,0.0,32.0,1.0,
 5103593,2026-08-16,brasil,Chapecoense,Kauan,1681803,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -136366,3 +136334,97 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 6145875,2026-10-07,finlandia,FC Inter Turku,Lauri Laine,1362109,F,0,19,1,0,0,0.0,,3.0,313523.0
 6145875,2026-10-07,finlandia,FC Inter Turku,Jean Botué,1243556,F,0,5,0,0,0,0.0,,3.0,173177.0
 6145875,2026-10-07,finlandia,FC Inter Turku,Muhammed Suso,1659894,F,0,5,0,0,0,0.0,,3.0,259291.0
+5103650,2026-10-07,brasil,Internacional,Anthoni,1260081,G,1,90,0,0,0,0.0,11.0,0.0,3404359.0
+5103650,2026-10-07,brasil,Internacional,Bruno Gomes,1090263,D,1,90,1,0,0,0.02,33.0,1.0,6577933.0
+5103650,2026-10-07,brasil,Internacional,Gabriel Mercado,113668,D,1,90,0,0,0,0.0,35.0,1.0,466234.0
+5103650,2026-10-07,brasil,Internacional,Juninho,658261,D,1,73,0,0,0,0.0,37.0,1.0,579276.0
+5103650,2026-10-07,brasil,Internacional,Braian Aguirre,1200667,D,1,45,3,1,0,0.08,51.0,1.0,1918397.0
+5103650,2026-10-07,brasil,Internacional,Alexandro Bernabéi,1104156,D,1,65,1,0,0,0.04,59.0,1.0,9120723.0
+5103650,2026-10-07,brasil,Internacional,Vitinho,1046082,M,1,90,3,3,1,0.43,72.0,2.0,5570238.0
+5103650,2026-10-07,brasil,Internacional,Rodrigo Villagra,1028443,M,1,90,0,0,0,0.0,74.0,2.0,3938471.0
+5103650,2026-10-07,brasil,Internacional,Thiago Maia,592922,M,1,65,2,1,0,0.19,76.0,2.0,1332508.0
+5103650,2026-10-07,brasil,Internacional,Alan Patrick,172185,M,1,90,2,1,1,0.49,78.0,2.0,1505846.0
+5103650,2026-10-07,brasil,Internacional,Alerrandro,935036,F,1,73,2,0,0,0.18,115.0,3.0,2262054.0
+5103650,2026-10-07,brasil,Internacional,Paulinho,881609,M,0,45,1,0,0,0.08,,2.0,895533.0
+5103650,2026-10-07,brasil,Internacional,Matheus Bahia,1174662,D,0,25,0,0,0,0.0,,1.0,2227373.0
+5103650,2026-10-07,brasil,Internacional,Bruno Henrique,535599,M,0,25,0,0,0,0.0,,2.0,515252.0
+5103650,2026-10-07,brasil,Internacional,Ronaldo,690362,M,0,17,0,0,0,0.0,,2.0,1106269.0
+5103650,2026-10-07,brasil,Internacional,Johan Carbonero,1053727,F,0,17,2,1,0,0.25,,3.0,6532130.0
+5103650,2026-10-07,brasil,Corinthians,Hugo Souza,960887,G,1,90,0,0,0,0.0,11.0,0.0,13059775.0
+5103650,2026-10-07,brasil,Corinthians,Matheuzinho,1174660,D,1,90,2,1,0,0.2,32.0,1.0,11036188.0
+5103650,2026-10-07,brasil,Corinthians,Gabriel Paulista,177503,D,1,79,0,0,0,0.0,34.0,1.0,952047.0
+5103650,2026-10-07,brasil,Corinthians,Gustavo Henrique,323352,D,1,90,1,1,0,0.01,36.0,1.0,1036494.0
+5103650,2026-10-07,brasil,Corinthians,Bidu,1130833,D,1,90,1,0,0,0.05,38.0,1.0,6741866.0
+5103650,2026-10-07,brasil,Corinthians,Raniele,841656,D,1,90,0,0,0,0.0,55.0,1.0,2469435.0
+5103650,2026-10-07,brasil,Corinthians,Rodrigo Garro,1093746,M,1,88,0,0,0,0.0,74.0,2.0,12931512.0
+5103650,2026-10-07,brasil,Corinthians,Breno Bidon,1380775,M,1,46,0,0,0,0.0,76.0,2.0,24141333.0
+5103650,2026-10-07,brasil,Corinthians,Memphis Depay,303824,M,1,88,3,1,0,0.87,95.0,2.0,3430438.0
+5103650,2026-10-07,brasil,Corinthians,Kaio,1395944,F,1,90,5,2,0,0.67,114.0,3.0,4351413.0
+5103650,2026-10-07,brasil,Corinthians,Yuri Alberto,892752,F,1,80,4,1,0,0.2,116.0,3.0,22853987.0
+5103650,2026-10-07,brasil,Corinthians,André,1804815,M,0,45,6,1,1,0.42,,2.0,
+5103650,2026-10-07,brasil,Corinthians,Vitinho,319599,F,0,11,0,0,0,0.0,,3.0,415541.0
+5103650,2026-10-07,brasil,Corinthians,Gui Negão,1652599,F,0,10,0,0,0,0.0,,3.0,10000913.0
+5103650,2026-10-07,brasil,Corinthians,Matheus Pereira,637670,M,0,2,0,0,0,0.0,,2.0,1700937.0
+5103650,2026-10-07,brasil,Corinthians,Pedro Raul,890637,F,0,2,0,0,0,0.0,,3.0,1936525.0
+5190755,2026-10-07,bra_serie_b,Avaí,Bruno,319972,G,1,90,0,0,0,0.0,11.0,0.0,265746.0
+5190755,2026-10-07,bra_serie_b,Avaí,João Vitor,1637477,D,1,90,1,1,0,0.02,32.0,1.0,189889.0
+5190755,2026-10-07,bra_serie_b,Avaí,Allyson,693500,D,1,90,0,0,0,0.0,34.0,1.0,149299.0
+5190755,2026-10-07,bra_serie_b,Avaí,Jefferson,1460519,D,1,90,0,0,0,0.0,36.0,1.0,275385.0
+5190755,2026-10-07,bra_serie_b,Avaí,Douglas,1347940,D,1,90,0,0,0,0.0,38.0,1.0,389563.0
+5190755,2026-10-07,bra_serie_b,Avaí,Wenderson,1245542,M,1,77,0,0,0,0.0,72.0,2.0,657773.0
+5190755,2026-10-07,bra_serie_b,Avaí,Zé Ricardo,811221,M,1,90,1,0,0,0.03,74.0,2.0,307404.0
+5190755,2026-10-07,bra_serie_b,Avaí,Luiz Henrique,1173653,M,1,70,0,0,0,0.0,76.0,2.0,263711.0
+5190755,2026-10-07,bra_serie_b,Avaí,Jean Lucas,962448,M,1,90,6,1,0,0.19,78.0,2.0,292304.0
+5190755,2026-10-07,bra_serie_b,Avaí,Hyan,1636514,F,1,58,1,1,1,0.27,104.0,3.0,
+5190755,2026-10-07,bra_serie_b,Avaí,Caio Suassuna,1928478,F,1,70,1,1,1,0.31,106.0,3.0,
+5190755,2026-10-07,bra_serie_b,Avaí,Léo Chú,1118169,F,0,32,1,0,0,0.05,,3.0,966703.0
+5190755,2026-10-07,bra_serie_b,Avaí,Paulo Vitor,1474235,M,0,20,0,0,0,0.0,,2.0,1076870.0
+5190755,2026-10-07,bra_serie_b,Avaí,Léo Gamalho,268214,F,0,20,0,0,0,0.0,,3.0,225864.0
+5190755,2026-10-07,bra_serie_b,Avaí,Gaspar,1419325,F,0,13,0,0,0,0.0,,3.0,169122.0
+5190755,2026-10-07,bra_serie_b,Londrina,Luan Ribeiro,1460455,G,1,90,0,0,0,0.0,11.0,0.0,
+5190755,2026-10-07,bra_serie_b,Londrina,Kauê Leonardo,1720732,D,1,90,0,0,0,0.0,32.0,1.0,
+5190755,2026-10-07,bra_serie_b,Londrina,Caio,1741917,D,1,90,2,1,0,0.02,34.0,1.0,
+5190755,2026-10-07,bra_serie_b,Londrina,Gabriel,1174677,D,1,46,0,0,0,0.0,36.0,1.0,154591.0
+5190755,2026-10-07,bra_serie_b,Londrina,Heron,1083351,D,1,90,0,0,0,0.0,38.0,1.0,139225.0
+5190755,2026-10-07,bra_serie_b,Londrina,Wallace,130560,M,1,90,2,0,0,0.1,65.0,2.0,56733.0
+5190755,2026-10-07,bra_serie_b,Londrina,João Andrade,1813977,F,1,82,2,0,0,0.07,82.0,3.0,
+5190755,2026-10-07,bra_serie_b,Londrina,Guilherme Portuga,1666535,M,1,68,0,0,0,0.0,84.0,2.0,103680.0
+5190755,2026-10-07,bra_serie_b,Londrina,João Vitor,1441765,M,1,90,4,1,0,0.12,86.0,2.0,410849.0
+5190755,2026-10-07,bra_serie_b,Londrina,Herbert,1790950,F,1,45,2,0,0,0.04,88.0,3.0,
+5190755,2026-10-07,bra_serie_b,Londrina,Igor Bahia,1437503,F,1,68,0,0,0,0.0,115.0,3.0,
+5190755,2026-10-07,bra_serie_b,Londrina,Vitinho,1748316,F,0,44,0,0,0,0.0,,3.0,
+5190755,2026-10-07,bra_serie_b,Londrina,William Pottker,288782,F,0,45,2,1,1,0.12,,3.0,125954.0
+5190755,2026-10-07,bra_serie_b,Londrina,Victor Feitosa,795574,M,0,22,2,1,0,0.06,,2.0,
+5190755,2026-10-07,bra_serie_b,Londrina,Pablo Dyego,444778,F,0,22,2,0,0,0.04,,3.0,112640.0
+5190755,2026-10-07,bra_serie_b,Londrina,Thalis,798767,M,0,8,1,0,0,0.05,,2.0,136251.0
+5103648,2026-10-07,brasil,RB Bragantino,Tiago Volpi,409017,G,1,90,0,0,0,0.0,11.0,0.0,659971.0
+5103648,2026-10-07,brasil,RB Bragantino,Ryan Augusto,1926959,D,1,90,4,1,0,0.07,32.0,1.0,
+5103648,2026-10-07,brasil,RB Bragantino,Gustavo Marques,1262152,D,1,90,3,0,0,0.3,34.0,1.0,3515944.0
+5103648,2026-10-07,brasil,RB Bragantino,Guzmán Rodríguez,1132936,D,1,90,0,0,0,0.0,36.0,1.0,2343038.0
+5103648,2026-10-07,brasil,RB Bragantino,Juninho Capixaba,844510,D,1,46,0,0,0,0.0,38.0,1.0,7149808.0
+5103648,2026-10-07,brasil,RB Bragantino,Patrick,1653801,M,1,45,1,0,0,0.03,64.0,2.0,1552907.0
+5103648,2026-10-07,brasil,RB Bragantino,Ramires,960494,M,1,90,2,0,0,0.1,66.0,2.0,2079538.0
+5103648,2026-10-07,brasil,RB Bragantino,Lucas Barbosa,1256634,F,1,90,2,1,0,0.02,83.0,3.0,5898599.0
+5103648,2026-10-07,brasil,RB Bragantino,Wallace Yan,1640270,M,1,72,4,2,0,0.11,85.0,2.0,6703231.0
+5103648,2026-10-07,brasil,RB Bragantino,Fernando,896256,F,1,90,7,3,0,0.47,87.0,3.0,1188286.0
+5103648,2026-10-07,brasil,RB Bragantino,Eduardo Sasha,215051,F,1,82,4,2,1,1.06,115.0,3.0,918263.0
+5103648,2026-10-07,brasil,RB Bragantino,Isidro Pitta,1033279,F,0,44,0,0,0,0.0,,3.0,9026991.0
+5103648,2026-10-07,brasil,RB Bragantino,José Herrera,1372718,F,0,45,3,0,0,0.11,,3.0,
+5103648,2026-10-07,brasil,RB Bragantino,Bruninho,1317192,F,0,18,1,0,0,0.14,,3.0,1130543.0
+5103648,2026-10-07,brasil,RB Bragantino,Vinicinho,1638434,F,0,8,2,0,0,0.15,,3.0,5065116.0
+5103648,2026-10-07,brasil,Mirassol,Walter,449785,G,1,90,0,0,0,0.0,11.0,0.0,713591.0
+5103648,2026-10-07,brasil,Mirassol,Igor Formiga,1116482,D,1,90,1,0,0,0.05,32.0,1.0,1393006.0
+5103648,2026-10-07,brasil,Mirassol,João Victor,816015,D,1,90,0,0,0,0.0,34.0,1.0,908817.0
+5103648,2026-10-07,brasil,Mirassol,Willian Machado,1379296,D,1,90,0,0,0,0.0,36.0,1.0,1593760.0
+5103648,2026-10-07,brasil,Mirassol,Reinaldo,306512,D,1,90,0,0,0,0.0,38.0,1.0,569889.0
+5103648,2026-10-07,brasil,Mirassol,Edson Carioca,1032785,M,1,57,0,0,0,0.0,72.0,2.0,1196906.0
+5103648,2026-10-07,brasil,Mirassol,Denilson,1340247,M,1,82,0,0,0,0.0,74.0,2.0,1780446.0
+5103648,2026-10-07,brasil,Mirassol,Neto,535930,M,1,90,0,0,0,0.0,76.0,2.0,1226890.0
+5103648,2026-10-07,brasil,Mirassol,Chico,642494,M,1,57,0,0,0,0.0,78.0,2.0,297353.0
+5103648,2026-10-07,brasil,Mirassol,Eduardo,174062,F,1,57,0,0,0,0.0,104.0,3.0,350568.0
+5103648,2026-10-07,brasil,Mirassol,Bruno Santos,1121567,F,1,30,0,0,0,0.0,106.0,3.0,1009949.0
+5103648,2026-10-07,brasil,Mirassol,Lucas Oliveira,952235,D,0,60,0,0,0,0.0,,1.0,603024.0
+5103648,2026-10-07,brasil,Mirassol,Gabriel Knesowitsch,1463482,D,0,33,1,0,0,0.45,,1.0,
+5103648,2026-10-07,brasil,Mirassol,Alesson,966413,F,0,33,4,1,0,0.4,,3.0,1549987.0
+5103648,2026-10-07,brasil,Mirassol,André Luís,896485,F,0,33,2,1,1,0.28,,3.0,809679.0
+5103648,2026-10-07,brasil,Mirassol,Wallisson,1388142,M,0,8,0,0,0,0.0,,2.0,823242.0
