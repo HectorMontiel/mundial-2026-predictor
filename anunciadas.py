@@ -100,8 +100,11 @@ def acumular(doc_pronostico: Dict, ruta: str = '',
         listas = (((doc_pronostico or {}).get('decisiones') or {})
                   .get('listas') or {})
         n = 0
+        datos = (doc_pronostico or {}).get('datos') or {}
         for lista in ('pronosticos', 'solo_mercado'):
-            for x in listas.get(lista) or []:
+            picks = datos.get(lista) or []
+            filas_l = listas.get(lista) or []
+            for i, x in enumerate(filas_l):
                 if not isinstance(x, dict):
                     continue
                 llave = x.get('llave') or []
@@ -112,6 +115,12 @@ def acumular(doc_pronostico: Dict, ruta: str = '',
                     continue           # lo que se anuncia ya empezado no cuenta
                 recos = x.get('recomendadas_tarjeta') or x.get('recomendadas') or []
                 met = [r for r in recos if r.get('veredicto_vp') == 'meter'][:2]
+                # v352 — LA APUESTA OFICIAL: la que hay al abrir la hora de
+                # apostar (ver `oficial`). Mientras no se abre, cada pasada
+                # la reescribe; desde que se abre, ya no se toca.
+                p_i = picks[i] if (len(picks) == len(filas_l)
+                                   and isinstance(picks[i], dict)) else {}
+                _fijar(partidos, llave, p_i, met, ahora)
                 if not met:
                     continue
                 k = clave(llave[0], llave[2])
@@ -212,6 +221,125 @@ def _acumular_capa1(doc: Dict, partidos: Dict, ahora: _dt.datetime) -> int:
     except Exception as e:
         logger.debug('[anunciadas] probables: %s', e)
     return n
+
+
+# ---------------------------------------------------------------------------
+# v352 — LA APUESTA SE FIJA A LA HORA DE APOSTAR
+# ---------------------------------------------------------------------------
+# El usuario, con Kashiwa–Vissel delante (cinco apuestas 📌 distintas a lo
+# largo del día, ninguna al pitido, dos en rojo): «las apuestas cambian mucho,
+# siento que es ruido; quiero que sea fácil saber cuál es la segura».
+#
+# Medido en `_v352_fijar.py` (fotos del git del 3 al 9-oct, liquidadas):
+#
+#     fútbol, 134 partidos            acierto   rojas   apuestas/partido
+#     al pitido (lo de antes)          79,2 %     45     1,60
+#     FIJADA AL ABRIR LA VENTANA       82,3 %     38     1,60
+#     la primera que salió             76,3 %     53     1,54
+#     todo lo anunciado (📌)           78,9 %     83     2,71
+#
+# Fijada − pitido: +2,5 pts, p5 +0,1 (bootstrap por partido); en tenis, igual
+# (la apuesta no cambia). La oficial es lo que la tarjeta enseña justo cuando
+# se abre la ventana de `hora_apuesta` (4 h antes): la última pasada del
+# precálculo antes de esa hora, o la primera de dentro si no la hubo. Antes
+# de la ventana lo que se enseña es PROVISIONAL y no cuenta en el semáforo.
+HORAS_ANTES_DE_GUARDAR = 6.0
+
+
+def _ventana(pick: Dict) -> Optional[_dt.datetime]:
+    try:
+        import hora_apuesta as _ha
+        return _ha.desde(pick)
+    except Exception:
+        return None
+
+
+def _fijar(partidos: Dict, llave: list, pick: Dict, met: List[Dict],
+           ahora: _dt.datetime) -> None:
+    """Guarda la candidata a oficial de este partido. Nunca lanza."""
+    try:
+        p = dict(pick or {})
+        p.setdefault('inicio', llave[1])
+        d = _ventana(p)
+        if d is None or ahora < d - _dt.timedelta(hours=HORAS_ANTES_DE_GUARDAR):
+            return
+        k = clave(llave[0], llave[2])
+        ent = partidos.setdefault(k, {'inicio': llave[1], 'apuestas': []})
+        if ahora >= d and 'fijada' in ent:
+            return                      # ya abierta y ya fijada: no se toca
+        ent['fijada'] = [{c: r.get(c) for c in CAMPOS} for r in met]
+        ent['fijada_ts'] = ahora.strftime('%Y-%m-%dT%H:%M:%SZ')
+    except Exception as e:
+        logger.debug('[anunciadas] fijar: %s', e)
+
+
+def oficial(pick: Dict, ruta: str = '',
+            ahora: Optional[_dt.datetime] = None) -> Dict:
+    """{'estado': None | 'provisional' | 'fijada' | 'sin_fijar', ...}.
+
+    None: el deporte no se fija (tenis) o no hay hora. 'provisional': aún no
+    es la hora de apostar (`desde`). 'fijada': `apuestas` son las oficiales
+    (puede ser una lista vacía: a esa hora no había nada que meter).
+    'sin_fijar': es la hora pero el precálculo no dejó candidata."""
+    d = _ventana(pick or {})
+    if d is None:
+        return {'estado': None}
+    ahora = ahora or _dt.datetime.now(_dt.timezone.utc)
+    if ahora < d:
+        return {'estado': 'provisional', 'desde': d}
+    ent = ((cargar(ruta).get('partidos') or {})
+           .get(clave((pick or {}).get('partido'), (pick or {}).get('clave_liga')))
+           or {})
+    if 'fijada' in ent:
+        return {'estado': 'fijada', 'desde': d, 'apuestas': list(ent['fijada'] or []),
+                'ts': ent.get('fijada_ts')}
+    return {'estado': 'sin_fijar', 'desde': d}
+
+
+def aplicar_fijada(pick: Dict, recos: Optional[List[Dict]], ruta: str = '',
+                   ahora: Optional[_dt.datetime] = None) -> Optional[List[Dict]]:
+    """Las recomendadas con la regla de la v352: desde la hora de apostar, las
+    oficiales («meter», marcadas `fijada`) y ninguna otra; antes, las de ahora
+    marcadas `provisional_hasta`. Si no aplica, tal cual. Nunca lanza."""
+    if recos is None:
+        return recos
+    try:
+        of = oficial(pick, ruta, ahora)
+        est = of.get('estado')
+        if est in (None, 'sin_fijar'):
+            return recos
+        if est == 'provisional':
+            hh = hora_cdmx(of['desde'].strftime('%Y-%m-%dT%H:%M:%SZ'))[-5:]
+            return [dict(r, provisional_hasta=hh) if r.get('veredicto_vp') == 'meter'
+                    else r for r in recos]
+        fij = of.get('apuestas') or []
+        hh = hora_cdmx(of.get('ts'))[-5:] if of.get('ts') else ''
+        por = {r.get('apuesta'): r for r in recos}
+        out = []
+        for a in fij:
+            r = por.get(a.get('apuesta'))
+            if r is not None:
+                b = dict(r)
+            else:
+                # la de ahora ya no la propone: se enseña la oficial tal cual
+                pr = a.get('prob_meter') or a.get('prob')
+                b = dict(a, semaforo='🟢', puesto_valor=1, fuera_de_tarjeta=True,
+                         cuota_justa=(round(1.0 / float(pr), 2) if pr else None))
+            b.update(veredicto_vp='meter', fijada=True, fijada_hora=hh)
+            if r is None and b.get('prob_meter') is not None:
+                b['prob'] = b['prob_meter']
+            out.append(b)
+        nombres = {a.get('apuesta') for a in fij}
+        for r in recos:
+            if r.get('apuesta') in nombres:
+                continue
+            if r.get('veredicto_vp') == 'meter':
+                r = dict(r, veredicto_vp='no_meter', fuera_por_fijada=True)
+            out.append(r)
+        return out
+    except Exception as e:
+        logger.debug('[anunciadas] aplicar fijada: %s', e)
+        return recos
 
 
 def capa1_del_partido(pick: Dict, ruta: str = '') -> List[Dict]:

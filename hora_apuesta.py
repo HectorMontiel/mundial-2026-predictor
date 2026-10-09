@@ -79,6 +79,54 @@ def texto(pick: Dict) -> str:
     return ('⏰ apuesta desde %s' % hh) if hh else ''
 
 
+# v352 — EL FILTRO POR RELOJ. El usuario: «un filtro por ese reloj: los
+# partidos que se tengan que apostar a las seis, porque a esa hora ya está
+# definido lo que se mete». Cada partido cae en la franja de la HORA en la que
+# se abre su ventana (06:00 = de 06:00 a 06:59, CDMX); el tenis, en la suya.
+TENIS = 'ya'
+
+
+def franja(pick: Dict) -> str:
+    """'06:00' (la hora CDMX en que se abre la ventana, sin minutos), 'ya'
+    en tenis, o '' si no se sabe."""
+    dep = str((pick or {}).get('deporte') or 'Fútbol')
+    if dep in EN_CUANTO_SALE:
+        return TENIS
+    d = desde(pick)
+    if d is None:
+        return ''
+    try:
+        import horario as _h
+        hh = _h.hora(d)
+    except Exception:
+        hh = ''
+    return (hh[:2] + ':00') if hh else ''
+
+
+def franjas(picks) -> Dict[str, int]:
+    """{franja: partidos}, en el orden en que se abren (tenis al final)."""
+    cuenta: Dict[str, int] = {}
+    orden: Dict[str, _dt.datetime] = {}
+    for p in picks or []:
+        if not isinstance(p, dict) or p.get('jugado'):
+            continue
+        f = franja(p)
+        if not f:
+            continue
+        cuenta[f] = cuenta.get(f, 0) + 1
+        d = desde(p)
+        if d is not None and (f not in orden or d < orden[f]):
+            orden[f] = d
+    lejos = _dt.datetime.max.replace(tzinfo=_dt.timezone.utc)
+    return {f: cuenta[f] for f in sorted(cuenta, key=lambda f: orden.get(f, lejos))}
+
+
+def rotulo_franja(f: str, n: int) -> str:
+    if f == TENIS:
+        return '⏰ Tenis (ya) · %d' % n
+    return '⏰ %s · %d partido%s' % (f, n, '' if n == 1 else 's')
+
+
 def corto(pick: Dict) -> str:
     """Lo mismo para las listas: '⏰14:15', '⏰ya' en tenis, o ''."""
     t = texto(pick)

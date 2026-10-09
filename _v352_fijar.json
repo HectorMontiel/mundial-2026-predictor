@@ -1,0 +1,236 @@
+{
+ "partidos": 601,
+ "dias": [
+  "2026-10-03",
+  "2026-10-09"
+ ],
+ "todos": {
+  "tabla": [
+   {
+    "version": "A_pitido",
+    "apuestas": 606,
+    "partidos": 521,
+    "acierto": 0.7673,
+    "cuota": 1.2403,
+    "rojas": 141,
+    "por_partido": 1.16
+   },
+   {
+    "version": "B2_al_abrir",
+    "apuestas": 619,
+    "partidos": 534,
+    "acierto": 0.7706,
+    "cuota": 1.2424,
+    "rojas": 142,
+    "por_partido": 1.16
+   },
+   {
+    "version": "B_fijada",
+    "apuestas": 608,
+    "partidos": 523,
+    "acierto": 0.7681,
+    "cuota": 1.2425,
+    "rojas": 141,
+    "por_partido": 1.16
+   },
+   {
+    "version": "C_primera",
+    "apuestas": 676,
+    "partidos": 593,
+    "acierto": 0.747,
+    "cuota": 1.251,
+    "rojas": 171,
+    "por_partido": 1.14
+   },
+   {
+    "version": "D_todo",
+    "apuestas": 845,
+    "partidos": 593,
+    "acierto": 0.7621,
+    "cuota": 1.2504,
+    "rojas": 201,
+    "por_partido": 1.42
+   }
+  ],
+  "B_menos_A": [
+   0.0038,
+   -0.0038,
+   508
+  ],
+  "B_menos_C": [
+   0.0178,
+   0.0036,
+   523
+  ],
+  "B_menos_D": [
+   0.003,
+   -0.0097,
+   523
+  ],
+  "apuestas_distintas_antes_de_la_ventana": 1.34,
+  "apuestas_distintas_dentro": 1.08,
+  "B2_menos_A": [
+   0.0088,
+   0.0004,
+   509
+  ],
+  "B2_menos_D": [
+   0.0066,
+   -0.0068,
+   534
+  ]
+ },
+ "Fútbol": {
+  "tabla": [
+   {
+    "version": "A_pitido",
+    "apuestas": 216,
+    "partidos": 135,
+    "acierto": 0.7917,
+    "cuota": 1.2357,
+    "rojas": 45,
+    "por_partido": 1.6
+   },
+   {
+    "version": "B2_al_abrir",
+    "apuestas": 215,
+    "partidos": 134,
+    "acierto": 0.8233,
+    "cuota": 1.2377,
+    "rojas": 38,
+    "por_partido": 1.6
+   },
+   {
+    "version": "B_fijada",
+    "apuestas": 211,
+    "partidos": 130,
+    "acierto": 0.8057,
+    "cuota": 1.2374,
+    "rojas": 41,
+    "por_partido": 1.62
+   },
+   {
+    "version": "C_primera",
+    "apuestas": 224,
+    "partidos": 145,
+    "acierto": 0.7634,
+    "cuota": 1.2449,
+    "rojas": 53,
+    "por_partido": 1.54
+   },
+   {
+    "version": "D_todo",
+    "apuestas": 393,
+    "partidos": 145,
+    "acierto": 0.7888,
+    "cuota": 1.2463,
+    "rojas": 83,
+    "por_partido": 2.71
+   }
+  ],
+  "B_menos_A": [
+   0.0102,
+   -0.0121,
+   127
+  ],
+  "B_menos_C": [
+   0.0509,
+   0.0114,
+   130
+  ],
+  "B_menos_D": [
+   0.023,
+   -0.0066,
+   130
+  ],
+  "apuestas_distintas_antes_de_la_ventana": 2.46,
+  "apuestas_distintas_dentro": 1.68,
+  "B2_menos_A": [
+   0.0253,
+   0.0012,
+   129
+  ],
+  "B2_menos_D": [
+   0.0364,
+   0.0049,
+   134
+  ]
+ },
+ "Tenis": {
+  "tabla": [
+   {
+    "version": "A_pitido",
+    "apuestas": 389,
+    "partidos": 385,
+    "acierto": 0.7558,
+    "cuota": 1.2429,
+    "rojas": 95,
+    "por_partido": 1.01
+   },
+   {
+    "version": "B2_al_abrir",
+    "apuestas": 403,
+    "partidos": 399,
+    "acierto": 0.7444,
+    "cuota": 1.2451,
+    "rojas": 103,
+    "por_partido": 1.01
+   },
+   {
+    "version": "B_fijada",
+    "apuestas": 396,
+    "partidos": 392,
+    "acierto": 0.75,
+    "cuota": 1.2453,
+    "rojas": 99,
+    "por_partido": 1.01
+   },
+   {
+    "version": "C_primera",
+    "apuestas": 451,
+    "partidos": 447,
+    "acierto": 0.7406,
+    "cuota": 1.2541,
+    "rojas": 117,
+    "por_partido": 1.01
+   },
+   {
+    "version": "D_todo",
+    "apuestas": 451,
+    "partidos": 447,
+    "acierto": 0.7406,
+    "cuota": 1.2541,
+    "rojas": 117,
+    "por_partido": 1.01
+   }
+  ],
+  "B_menos_A": [
+   0.0,
+   0.0,
+   380
+  ],
+  "B_menos_C": [
+   0.0,
+   0.0,
+   392
+  ],
+  "B_menos_D": [
+   0.0,
+   0.0,
+   392
+  ],
+  "apuestas_distintas_antes_de_la_ventana": 0.97,
+  "apuestas_distintas_dentro": 0.89,
+  "B2_menos_A": [
+   0.0,
+   0.0,
+   379
+  ],
+  "B2_menos_D": [
+   0.0,
+   0.0,
+   399
+  ]
+ },
+ "sin_foto_en_ventana": 8
+}

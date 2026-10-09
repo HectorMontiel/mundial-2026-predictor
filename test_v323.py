@@ -92,6 +92,8 @@ def probar_equivalencia(doc):
                                      'Remates': (_rm or {}).get('totales'),
                                      'Remates a puerta': (_rm or {}).get('a_puerta')},
                                  n=mm.MAX_RECOMENDADAS)
+            # v352 — y la apuesta fijada a la hora de apostar, como la tarjeta
+            rt = mm.con_fijada(p, rt)
             n_tarj[0] += 1
             filas_t[0] += len(rt)
             if canon(rt) != canon(f['recomendadas_tarjeta']):

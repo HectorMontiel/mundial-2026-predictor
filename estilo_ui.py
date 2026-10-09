@@ -1014,7 +1014,8 @@ def _mitad_marcador(m: dict) -> str:
     # v346 — lo anunciado antes y retirado, aparte (no entra en el %)
     av, ar = int(m.get('ant_v') or 0), int(m.get('ant_r') or 0)
     if av or ar:
-        pie.append('📌 anunciadas antes: %d ✅ %d ❌' % (av, ar))
+        # v352 — eran PROVISIONALES (antes de la hora de apostar): no cuentan
+        pie.append('⏳ provisionales (no cuentan): %d ✅ %d ❌' % (av, ar))
     barra = ('<div class="mc-barra"><i style="width:%.1f%%"></i></div>'
              % (100.0 * v / jug) if jug else '')
     return (

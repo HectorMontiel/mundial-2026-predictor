@@ -1559,8 +1559,7 @@ CSS = """
           gap:.4rem; align-items:center; font-size:.78rem; line-height:1.8;
           border-top:1px solid var(--borde); }
 .mm-val-ic { font-size:.95rem; text-align:center; }
-.mm-val-ap { overflow:hidden; text-overflow:ellipsis;
-             white-space:nowrap; }
+.mm-val-ap { overflow-wrap:anywhere; line-height:1.25; padding:.2rem 0; }
 .mm-val-b { height:.32rem; border-radius:3px; background:var(--borde);
             overflow:hidden; margin-top:.1rem; }
 .mm-val-b span { display:block; height:100%; }
@@ -2433,6 +2432,17 @@ FAMILIA_RESULTADO = ('1X2', 'Doble oportunidad', 'Doble y goles', 'Handicap',
 MAX_METER_POR_PARTIDO = 2
 
 
+def con_fijada(pick: Dict, recos):
+    """v352 — las recomendadas con la apuesta fijada a la hora de apostar
+    (`anunciadas.aplicar_fijada`). Nunca lanza."""
+    try:
+        import anunciadas as _an_f
+        return _an_f.aplicar_fijada(pick, recos)
+    except Exception as e:
+        logger.debug('[modo_modelo] fijada: %s', e)
+        return recos
+
+
 def metidas(recos: list) -> list:
     """v311 — de las recomendadas, sólo las que se dicen «meter» (v315: como
     mucho dos, las primeras)."""
@@ -3291,7 +3301,14 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
             titulo += ' · 🏆 CAPA 1'
         # v346 — estable (lleva ≥ 6 h anunciada) o nueva: medido, las estables
         # aciertan más (80 % contra 73-78 %; ver `anunciadas.HORAS_ESTABLE`)
-        if 'horas_anunciada' in rec:
+        # v352 — FIJADA desde la hora de apostar; antes, PROVISIONAL (ver
+        # `anunciadas.aplicar_fijada`). Sustituye a estable/nueva.
+        if rec.get('fijada'):
+            titulo += ' · 🔒 FIJADA' + (' %s' % rec['fijada_hora']
+                                        if rec.get('fijada_hora') else '')
+        elif rec.get('provisional_hasta'):
+            titulo += ' · ⏳ PROVISIONAL · se fija a las %s' % rec['provisional_hasta']
+        elif 'horas_anunciada' in rec:
             _h = rec.get('horas_anunciada')
             try:
                 import anunciadas as _an_t
@@ -3343,19 +3360,24 @@ def _bloque_anunciadas(st, pick: Dict, recos: list, todas: list) -> None:
         for a in filas:
             e = _an.estado(a, todas)
             trozos.append(
-                '<div class="mm-anunciada %s"><span class="mm-an-t">📌 Antes '
-                '(%s)</span> <b>%s</b> @%.2f · %s</div>'
+                '<div class="mm-anunciada %s"><span class="mm-an-t">⏳ '
+                '%s</span> <b>%s</b> @%.2f · %s</div>'
                 % ('ok' if e['tono'] == 'ok' else 'aviso',
                    _esc_mm(_an.hora_cdmx(a.get('desde'))),
                    _esc_mm(a.get('apuesta') or ''), float(a.get('cuota') or 0),
                    _esc_mm(e['texto'])))
-        if len(trozos) <= 2:
+        # v352 — son PROVISIONALES que cambiaron: siempre plegadas, para que
+        # arriba quede sólo la apuesta que vale (el usuario: «es ruido»)
+        _fij = any(r.get('fijada') for r in (recos or []))
+        with st.expander(('⏳ %d provisional%s que cambi%s antes de fijarse '
+                          '(no cuentan)' if _fij else
+                          '⏳ %d provisional%s anterior%s (la de arriba es la '
+                          'de ahora)')
+                         % ((len(trozos), 'es' if len(trozos) > 1 else '',
+                             'aron' if len(trozos) > 1 else 'ó') if _fij else
+                            (len(trozos), 'es' if len(trozos) > 1 else '',
+                             'es' if len(trozos) > 1 else ''))):
             st.markdown(''.join(trozos), unsafe_allow_html=True)
-        else:
-            # muchas (el partido se anunció días antes): plegadas, con cuántas
-            with st.expander('📌 Antes se anunciaron %d que ya no se enseñan'
-                             % len(trozos)):
-                st.markdown(''.join(trozos), unsafe_allow_html=True)
     except Exception as e:
         logger.debug('[modo_modelo] anunciadas: %s', e)
 
@@ -3449,17 +3471,20 @@ def _bloque_validacion(st, pick: Dict) -> bool:
     _ant = [f for f in filas if f.get('anunciada') and f.get('estado') in _ok]
     _txt_met = ('🎯 se metía: %d de %d · ' % (
         sum(1 for f in _met if f['estado'] == pgs.CUMPLIDO), len(_met))
-        if _met else '')
-    if _ant:
-        _txt_met += '📌 antes: %d de %d · ' % (
-            sum(1 for f in _ant if f['estado'] == pgs.CUMPLIDO), len(_ant))
+        if _met else '🎯 no había nada que meter · ')
+    # v352 — las provisionales (📌 de antes) ya no van en la tira ni arriba:
+    # no eran la apuesta oficial. Van plegadas debajo, con su cuenta aparte.
+    _prov = [f for f in filas if f.get('anunciada')]
+    filas = [f for f in filas if not f.get('anunciada')]
+    tira = ''.join(f['icono'] for f in filas)
     trozos = [
         '<div class="mm-val-res">'
         '<span class="mm-val-marc">%s</span>'
         '<span class="mm-val-cnt">%s</span>'
         '<span class="mm-val-sub">%s%s</span></div>'
         % (marcador, tira, _txt_met, origen)]
-    for f in filas:
+    _tr_prov = []
+    for f in filas + _prov:
         real = f.get('real')
         if real is None:
             texto_real = '—'
@@ -3485,7 +3510,7 @@ def _bloque_validacion(st, pick: Dict) -> bool:
                  pgs.FALLADO: 'var(--no)'}.get(f['estado'], 'var(--tenue)')
         if f['estado'] == getattr(pgs, 'NULA', 'nula'):
             texto_real += ' · nula'
-        trozos.append(
+        (_tr_prov if f.get('anunciada') else trozos).append(
             '<div class="mm-val">'
             '<span class="mm-val-ic">%s</span>'
             '<span class="mm-val-ap">%s'
@@ -3497,10 +3522,18 @@ def _bloque_validacion(st, pick: Dict) -> bool:
             '</div>'
             % (f['icono'], ('📌 ' if f.get('anunciada') else
                             '🎯 ' if f.get('veredicto') == 'meter' else '')
-               + _esc_mm(f.get('apuesta') or '')[:30],
+               + _esc_mm(f.get('apuesta') or ''),
                max(3.0, min(100.0, p * 100)), color, p * 100,
                color, _esc_mm(texto_real)))
     st.markdown(''.join(trozos), unsafe_allow_html=True)
+    if _tr_prov:
+        _vp_ = sum(1 for f in _prov if f.get('estado') == pgs.CUMPLIDO)
+        _rp_ = sum(1 for f in _prov if f.get('estado') in (pgs.FALLADO, pgs.CERCA))
+        with st.expander('⏳ %d provisional%s antes de fijarse · %d ✅ %d ❌ '
+                         '(no contaban)' % (len(_tr_prov),
+                                            'es' if len(_tr_prov) > 1 else '',
+                                            _vp_, _rp_)):
+            st.markdown(''.join(_tr_prov), unsafe_allow_html=True)
 
     # v217 — QUÉ VALE DE VERDAD ESE PORCENTAJE.
     #
@@ -3672,7 +3705,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             # «meter» es la medida para estos partidos (80-90 %, cuota
             # 1,10-1,35, local o local/empate: 92 % en la réplica). Ver
             # `mercado_sin_modelo`.
-            _recos_sm = metidas(recomendadas(pick, None, n=MAX_RECOMENDADAS))
+            _recos_sm = metidas(con_fijada(
+                pick, recomendadas(pick, None, n=MAX_RECOMENDADAS)))
             recos = _recos_sm
             rec = recos[0] if recos else None
             try:
@@ -3737,6 +3771,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 logger.debug('[modo_modelo] decisión de la tarjeta: %s', _e_dd)
             if recos is None:
                 recos = recomendadas(pick, _bloques, n=MAX_RECOMENDADAS)
+            # v352 — desde la hora de apostar, la apuesta oficial y fija
+            recos = con_fijada(pick, recos)
             # v311 — SÓLO LO QUE SE METE. El usuario: «quiero que ya sólo me
             # des las de meter; es más importante que me digas esto se mete, y
             # que sea la única que se muestra; no quiero tanto rollo». La
@@ -4601,7 +4637,7 @@ def nada_que_meter(p: Dict) -> bool:
             _r = p.get('_recomendadas')
             if _r is None:
                 _r = recomendadas(p, None, n=MAX_RECOMENDADAS)
-            return not metidas(list(_r or []))
+            return not metidas(con_fijada(p, list(_r or [])))
         if p.get('sin_modelo') or p.get('prob') is None:
             return True
         recos = None
@@ -4617,10 +4653,10 @@ def nada_que_meter(p: Dict) -> bool:
             # se calcula aquí, recordado. Si sin bloques ya mete algo, los
             # bloques no se lo quitan (van detrás en el orden): no hace falta.
             _r = p.get('_recomendadas')
-            if _r and metidas(list(_r)):
+            if _r and metidas(con_fijada(p, list(_r))):
                 return False
             recos = recos_tarjeta(p)
-        return not metidas(recos)
+        return not metidas(con_fijada(p, recos))
     except Exception as e:
         logger.debug('[modo_modelo] nada que meter: %s', e)
         return False
@@ -4972,6 +5008,18 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                  ('%s_solo_altas' % clave, '%s_solo_fisicos' % clave,
                   '%s_solo_ganador' % clave))
     _n_fil += int(st.session_state.get('%s_mercado' % clave) in GRUPOS_MERCADO)
+    # v352 — el reloj: las franjas de la hora de apostar de esta lista
+    _TODAS_HORAS = 'Todas las horas'
+    try:
+        import hora_apuesta as _ha_f
+        _franjas = _ha_f.franjas(con)
+    except Exception as _e_fr:
+        logger.debug('[modo_modelo] franjas: %s', _e_fr)
+        _ha_f, _franjas = None, {}
+    _k_hora_ap = '%s_hora_apostar' % clave
+    if st.session_state.get(_k_hora_ap) not in [_TODAS_HORAS] + list(_franjas):
+        st.session_state[_k_hora_ap] = _TODAS_HORAS     # la franja ya pasó
+    _n_fil += int(st.session_state.get(_k_hora_ap) != _TODAS_HORAS)
     with c_fil:
         with st.expander('⚙️ Filtros' + (' · %d' % _n_fil if _n_fil else '')):
             # v176 — la casilla vale también en MAÑANA (ver historia en git).
@@ -5002,6 +5050,14 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                      'que se meten, las de «También se meten» y, si no hay, la '
                      'más probable como informativa— y los ordena de la más '
                      'probable a la menos.')
+            hora_sel = st.selectbox(
+                'Hora para apostar', [_TODAS_HORAS] + list(_franjas),
+                key=_k_hora_ap,
+                format_func=lambda f: (f if f == _TODAS_HORAS or _ha_f is None
+                                       else _ha_f.rotulo_franja(f, _franjas.get(f, 0))),
+                help='Deja sólo los partidos que se apuestan a esa hora (CDMX): '
+                     'desde 4 h antes de empezar la apuesta queda FIJADA y ya no '
+                     'cambia (medido: acierta igual o más que la del pitido).')
             solo_ganador = st.checkbox('Sólo ganador (1X2)',
                                        key='%s_solo_ganador' % clave,
                                        help='Deja sólo los partidos cuya apuesta '
@@ -5066,6 +5122,9 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     if mercado_sel in GRUPOS_MERCADO:
         con = _filtra_mercado(con, mercado_sel)
         _quito.append('mercado')
+    if hora_sel in _franjas and _ha_f is not None:
+        con = [p for p in con if _ha_f.franja(p) == hora_sel]
+        _quito.append('hora')
     if solo_ganador:
         # y en esta vista manda la probabilidad: una lista de ganadores se lee
         # del más claro al menos claro, no por hora.
@@ -5145,6 +5204,9 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                 'que todavía no tienen precio abierto no puede salir. '
                 'Desmarca «Sólo alta probabilidad» para verlos todos.'
                 % (_antes_de_filtrar, UMBRAL_ALTA * 100))
+        elif _antes_de_filtrar and 'hora' in _quito:
+            st.info('Ningún partido de esta lista se apuesta a esa hora. '
+                    'Elige otra en «⚙️ Filtros».')
         elif _antes_de_filtrar and 'mercado' in _quito:
             st.info('Ninguno de los **%d** partidos de esta lista tiene una '
                     'apuesta de **%s** con precio. Elige otro mercado en '

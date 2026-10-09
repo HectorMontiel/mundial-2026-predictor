@@ -286,7 +286,7 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
     if q.get('solo_mercado'):
         # v313 — sin modelo: la regla de mercado, sin bloques que estimar
         return [dict(pg._fila(r), origen='archivo')
-                for r in mm.metidas(mm.recomendadas(q))]
+                for r in mm.metidas(mm.con_fijada(q, mm.recomendadas(q)))]
     try:
         _rm = mm.remates_tarjeta(q) or {}
         bloques = {'Córners': mm.corners_tarjeta(q),
@@ -294,6 +294,8 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
                    'Remates': _rm.get('totales'),
                    'Remates a puerta': _rm.get('a_puerta')}
         recos = mm.recomendadas(q, bloques, n=mm.MAX_RECOMENDADAS) or []
+        # v352 — lo que se archiva es la apuesta FIJADA a la hora de apostar
+        recos = mm.con_fijada(q, recos) or []
     except Exception as e:
         logger.debug('[jugados] recomendadas de %s: %s', pick.get('partido'), e)
     # v310 — LO QUE LA TARJETA ENSEÑÓ, NI UNA MÁS: la principal (aunque sea

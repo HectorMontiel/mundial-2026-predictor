@@ -149,7 +149,8 @@ def probar_la_tarjeta_y_el_archivo():
           'la recomendación lleva la probabilidad con la que se decidió')
     # v347 — el rótulo es ahora «🎯 se metía» (lo del pitido), y lo anunciado
     # antes y retirado va en su propia cuenta «📌 antes»
-    check('🎯 se metía: %d de %d' in src and '📌 antes: %d de %d' in src,
+    # v352 — y lo anunciado antes son PROVISIONALES: plegadas, no cuentan
+    check('🎯 se metía: %d de %d' in src and 'provisional%s antes de fijarse' in src,
           'la tarjeta del finalizado cuenta los «meter» acertados')
     import pronosticos_guardados as pg
     f = pg._fila({'apuesta': 'x', 'prob': 0.7, 'veredicto_vp': 'meter',

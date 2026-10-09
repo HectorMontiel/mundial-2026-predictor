@@ -111,7 +111,8 @@ def probar_tarjeta():
         mm._bloque_anunciadas(st, pick, [R2],
                               [R2, dict(R1, cuota=1.143, veredicto_vp='no_meter')])
         t = ''.join(st.txt)
-        check('📌 Antes' in t and 'Goles Flamengo RJ: Más de 0.5' in t
+        # v352 — ahora se llaman provisionales (⏳) y van siempre plegadas
+        check('⏳' in t and 'Goles Flamengo RJ: Más de 0.5' in t
               and 'ya no entra' in t and 'mm-anunciada aviso' in t,
               'la tarjeta enseña lo anunciado antes, con su estado')
         st = _St()
@@ -123,7 +124,7 @@ def probar_tarjeta():
         an._CACHE.clear()
         st = _St()
         mm._bloque_anunciadas(st, pick, [], [])
-        check(st.plegados and '3 que ya no se enseñan' in st.plegados[0],
+        check(st.plegados and '3 provisionales' in st.plegados[0],
               'si son más de dos, plegadas y con cuántas (%s)' % st.plegados)
         # al acabar: liquidado con el mismo marcador
         jug = dict(pick, deporte='Fútbol', goles_home=0, goles_away=2,

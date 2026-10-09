@@ -127,7 +127,9 @@ def probar_marcador():
     import estilo_ui as eu
     h = eu.marcador_doble({'titulo': 'Ayer', 'verdes': 8, 'rojas': 2, 'ant_v': 3, 'ant_r': 1},
                           {'titulo': 'Hoy', 'verdes': 1, 'rojas': 0})
-    check('📌 anunciadas antes: 3 ✅ 1 ❌' in h and '<b>80 %</b><i>acierto</i>' in h,
+    # v352 — lo anunciado antes son provisionales y se dice que no cuentan
+    check('⏳ provisionales (no cuentan): 3 ✅ 1 ❌' in h
+          and '<b>80 %</b><i>acierto</i>' in h,
           'el marcador cuenta lo de la tarjeta y, aparte, lo anunciado antes')
     d = open('dashboard_ui.py', encoding='utf-8').read()
     check("'ant_v': ant_v, 'ant_r': ant_r" in d, 'y el cálculo del día lo lleva')

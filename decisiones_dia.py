@@ -94,8 +94,9 @@ def decidir(p: Dict) -> Dict:
                    'Tarjetas': mm.tarjetas_tarjeta(p),
                    'Remates': (_rm or {}).get('totales'),
                    'Remates a puerta': (_rm or {}).get('a_puerta')}
-        out['recomendadas_tarjeta'] = mm.recomendadas(
-            p, bloques, n=mm.MAX_RECOMENDADAS)
+        # v352 — la apuesta fijada a la hora de apostar, también aquí
+        out['recomendadas_tarjeta'] = mm.con_fijada(p, mm.recomendadas(
+            p, bloques, n=mm.MAX_RECOMENDADAS))
         # v347 — las demás que también se meten (el desplegable)
         out['otras_tarjeta'] = mm.otras_que_se_meten(
             p, bloques, mm.metidas(out['recomendadas_tarjeta']))
