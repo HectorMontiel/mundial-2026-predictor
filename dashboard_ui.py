@@ -832,6 +832,7 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
     ~13 s; si no está, `sin_datos`."""
     verdes = rojas = en_juego = 0
     ant_v = ant_r = 0                 # v346: lo anunciado antes y retirado
+    prim_v = prim_r = 0               # v348: la PRIMERA versión anunciada
     sin_datos = False
     try:
         import partidos_jugados as _pj
@@ -874,10 +875,27 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
                         ant_r += 1
             except Exception as _e_an:
                 logger.debug('[marcador] anunciadas: %s', _e_an)
+            # v348 — Y LA PRIMERA VERSIÓN QUE SE ANUNCIÓ (la que apuesta quien
+            # mete temprano), para comparar su conversión con la del pitido
+            try:
+                import anunciadas as _an_p
+                _todas = _an_p.del_partido(_p)
+                if _todas:
+                    _t0 = min(str(_a.get('desde') or '') for _a in _todas)
+                    _pri = [dict(_a, veredicto='meter') for _a in _todas
+                            if str(_a.get('desde') or '') == _t0][:2]
+                    for _fl in _pg.validar(_p, filas=_pri):
+                        if _fl.get('estado') == _pg.CUMPLIDO:
+                            prim_v += 1
+                        elif _fl.get('estado') == _pg.FALLADO:
+                            prim_r += 1
+            except Exception as _e_pr:
+                logger.debug('[marcador] primera anunciada: %s', _e_pr)
     except Exception as e:
         logger.debug('[marcador] %s: %s', dia, e)
     return {'verdes': verdes, 'rojas': rojas, 'en_juego': en_juego,
-            'ant_v': ant_v, 'ant_r': ant_r, 'sin_datos': sin_datos}
+            'ant_v': ant_v, 'ant_r': ant_r, 'prim_v': prim_v,
+            'prim_r': prim_r, 'sin_datos': sin_datos}
 
 
 @st.cache_data(ttl=600, show_spinner=False)

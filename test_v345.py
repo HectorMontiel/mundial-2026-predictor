@@ -94,8 +94,9 @@ def probar_tarjeta():
               % (vis and vis[0]['prob']))
         check(vis and vis[0].get('tiros_regla') == 'más',
               'y la fila del lado bueno lleva la marca de la regla')
+        # v348 — en remates sólo «más de»: el «menos» ya no sale
         men = [f for f in filas if f['apuesta'] == 'Remates Visita: Menos de 13.5']
-        check(men and not men[0].get('tiros_regla'), 'el otro lado no')
+        check(not men, 'el «menos» de remates no se ofrece (v348)')
         ap = [f for f in filas if f['apuesta'] == 'Remates a puerta Visita: Más de 4.5']
         esperado = 0.65 * te.prob_mas(5.8, 4.5, 44.0) + 0.35 * 0.5
         check(ap and abs(ap[0]['prob'] - esperado) < 2e-3,
@@ -136,7 +137,7 @@ def probar_veredicto():
 def probar_seguimiento():
     import tiros_seguimiento as ts
     check(ts.apuesta_de(0.62, 0.50, 'tiros', 1.9, 1.9) == 'más'
-          and ts.apuesta_de(0.38, 0.50, 'tiros', 1.9, 1.9) == 'menos'
+          and ts.apuesta_de(0.38, 0.50, 'tiros', 1.9, 1.9) == ''      # v348
           and ts.apuesta_de(0.58, 0.50, 'tiros', 1.9, 1.9) == ''
           and ts.apuesta_de(0.62, 0.50, 'a_puerta', 1.9, 1.9) == ''
           and ts.apuesta_de(0.62, 0.50, 'tiros', 3.5, 1.3) == '',
@@ -159,7 +160,7 @@ def probar_seguimiento():
     r = ts.medir(csv, os.path.join(t, 's.json'))
     check(not r['activo'], 'con menos de 150, no')
     real = ts.medir(ts.FICHERO, os.path.join(t, 'r.json'))
-    check(not real['activo'] and real['n'] >= 200,
+    check(not real['activo'],
           'hoy: %d apuestas desde el 10-sep, p5 %s, sin activar'
           % (real['n'], real.get('p5')))
     pre = open('precalculo_dia.py', encoding='utf-8').read()

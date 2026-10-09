@@ -761,6 +761,10 @@ div[data-testid="stDataFrame"], div[data-testid="stTable"] {
                           background: linear-gradient(90deg, #10b981, #34d399); }
 @media (max-width: 768px) { .marcador .mc b { font-size: 1.25rem; }
                             .marcador .mc-fila { gap: .45rem 1rem; } }
+/* v348 — la apuesta del mercado filtrado, arriba de la tarjeta */
+.mm-filtro { margin: .1rem 0 .5rem; padding: .4rem .7rem; border-radius: 12px;
+             font-size: .84rem; border: 1px solid rgba(96,165,250,.45);
+             background: rgba(96,165,250,.08); }
 /* v347 — las que también se meten, en su desplegable */
 .mm-otra { display: flex; align-items: baseline; gap: .6rem; padding: .3rem .1rem;
            border-bottom: 1px solid var(--filo); font-size: .86rem; }
@@ -775,6 +779,13 @@ div[data-testid="stDataFrame"], div[data-testid="stTable"] {
                 border: 1px dashed rgba(251,191,36,.55); background: rgba(251,191,36,.07); }
 .mm-anunciada.ok { border-color: rgba(52,211,153,.55); background: rgba(52,211,153,.07); }
 .mm-anunciada .mm-an-t { opacity: .7; font-size: .74rem; font-weight: 700; }
+/* v348 — la comparación plegable bajo el marcador */
+.mc-comp { margin: -.5rem 0 .9rem; font-size: .78rem; }
+.mc-comp summary { cursor: pointer; opacity: .8; font-weight: 600; padding: .2rem .3rem; }
+.mc-comp table { width: 100%; border-collapse: collapse; margin-top: .3rem; }
+.mc-comp th, .mc-comp td { text-align: left; padding: .25rem .4rem;
+                           border-bottom: 1px solid var(--filo); }
+.mc-comp th { font-size: .7rem; opacity: .65; }
 /* v342 — ayer | hoy, cada mitad con su total */
 .marcador.doble { display: flex; padding: .65rem .2rem .7rem; }
 .marcador.doble .mc-lado { flex: 1 1 0; min-width: 0; padding: 0 .75rem; }
@@ -1030,7 +1041,33 @@ def marcador_doble(ayer: dict, hoy: dict) -> str:
     lados = [_mitad_marcador(m) for m in (ayer or {}, hoy or {})]
     if not all(lados):
         return ''
-    return '<div class="marcador doble">%s</div>' % ''.join(lados)
+    return ('<div class="marcador doble">%s</div>' % ''.join(lados)
+            + _comparacion(ayer or {}, hoy or {}))
+
+
+def _pct(v, r) -> str:
+    return ('%.0f %%' % (100.0 * v / (v + r))) if (v + r) else '—'
+
+
+def _comparacion(ayer: dict, hoy: dict) -> str:
+    """v348 — DESPLEGABLE: la conversión de la PRIMERA versión anunciada
+    contra la del pitido (lo que cuenta el marcador). El usuario: «quiero ver
+    las dos tasas para validar yo cuál convierte mejor». HTML `<details>`, que
+    se abre sin recargar."""
+    if not any((m.get('prim_v') or m.get('prim_r')) for m in (ayer, hoy)):
+        return ''
+    filas = []
+    for m in (ayer, hoy):
+        v, r_ = int(m.get('verdes') or 0), int(m.get('rojas') or 0)
+        pv, pr = int(m.get('prim_v') or 0), int(m.get('prim_r') or 0)
+        filas.append('<tr><td>%s</td><td>%d ✅ %d ❌ <b>%s</b></td>'
+                     '<td>%d ✅ %d ❌ <b>%s</b></td></tr>'
+                     % (_esc(m.get('titulo') or ''), v, r_, _pct(v, r_),
+                        pv, pr, _pct(pv, pr)))
+    return ('<details class="mc-comp"><summary>⚖️ Comparar: lo del pitido '
+            'contra lo primero que se anunció</summary><table>'
+            '<tr><th></th><th>🎯 Al pitido</th><th>📌 Primera anunciada</th></tr>'
+            '%s</table></details>' % ''.join(filas))
 
 
 def marca(nombre: str, deportes=(), icono: str = '🎯') -> str:

@@ -37,14 +37,16 @@ def probar_tiros():
     import tiros_seguimiento as ts
     import veredicto_pick as vp
     check(ts.alta_de(0.75, 'tiros', 1.5, 2.5) == 'más'
-          and ts.alta_de(0.20, 'a_puerta', 3.0, 1.3) == 'menos'
+          and ts.alta_de(0.20, 'a_puerta', 3.0, 1.3) == ''          # v348
           and ts.alta_de(0.70, 'tiros', 1.5, 2.5) == ''
           and ts.alta_de(0.80, 'tiros', 2.2, 1.6) == '',
           'la regla: el modelo ≥ 72 % en el lado, cuota ≤ 2')
     r = ts.medir(ts.FICHERO, os.path.join(tempfile.mkdtemp(), 'r.json'))
     a = r.get('alta') or {}
-    check(a.get('activo') and a.get('n', 0) >= 100 and a.get('p5', 0) > 0,
-          'activa con su registro real: %s apuestas, %s, p5 %s'
+    # v348 — con sólo «más de», la regla vuelve a seguimiento: se activa sola
+    # con 100 apuestas y p5 > 0
+    check(a.get('activo') == (a.get('n', 0) >= 100 and a.get('p5', 0) > 0),
+          'activa sólo si su registro lo gana: %s apuestas, %s, p5 %s'
           % (a.get('n'), a.get('acierto'), a.get('p5')))
     fila = {'apuesta': 'Remates Visita: Más de 11.5', 'mercado': 'Remates',
             'prob': 0.78, 'cuota': 1.5, 'deporte': 'Fútbol',
@@ -78,7 +80,7 @@ def probar_tarjeta_tiros():
     check(te.prob_mas(17.0, 11.5, 20.0) >= 0.72 and mas and mas[0].get('tiros_alta') == 'más',
           'la línea de alta probabilidad lleva su marca (%s)' % (mas and mas[0].get('prob')))
     menos = [f for f in filas if f['apuesta'] == 'Remates Visita: Menos de 11.5']
-    check(menos and not menos[0].get('tiros_alta'), 'el otro lado no')
+    check(not menos, 'el «menos» de remates no se ofrece (v348)')
 
 
 class _St:

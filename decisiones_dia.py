@@ -99,6 +99,10 @@ def decidir(p: Dict) -> Dict:
         # v347 — las demás que también se meten (el desplegable)
         out['otras_tarjeta'] = mm.otras_que_se_meten(
             p, bloques, mm.metidas(out['recomendadas_tarjeta']))
+        # v348 — la mejor de cada mercado (el filtro por mercado)
+        out['por_mercado'] = mm.mejor_por_mercado(
+            p, bloques, mm.metidas(out['recomendadas_tarjeta']),
+            out['otras_tarjeta'])
     return out
 
 
@@ -364,6 +368,14 @@ def otras_de_pick(p: Dict):
     if not isinstance(f, dict) or 'otras_tarjeta' not in f:
         return None
     return copy.deepcopy(f['otras_tarjeta'])
+
+
+def por_mercado_de_pick(p: Dict):
+    """v348 — {grupo: mejor apuesta} precalculado, en copia, o `None`."""
+    f = p.get(CLAVE_PICK) if isinstance(p, dict) else None
+    if not isinstance(f, dict) or 'por_mercado' not in f:
+        return None
+    return copy.deepcopy(f['por_mercado'])
 
 
 def de_pick(p: Dict):

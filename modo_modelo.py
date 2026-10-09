@@ -2133,6 +2133,53 @@ def otras_que_se_meten(pick: Dict, bloques: Optional[Dict], ya,
     return sorted(mejor.values(), key=lambda x: -x['prob'])[:maximo]
 
 
+# v348 — EL FILTRO POR MERCADO. El usuario: «un filtro para ordenar los
+# partidos que tengan tiros a puerta, tarjetas, goles…, que abarque también
+# lo de "también se meten", para no tener que buscar entre todos».
+GRUPOS_MERCADO = {
+    'Goles': ('Goles', 'Goles equipo'),
+    'Tiros': ('Remates',),
+    'Tiros a puerta': ('Remates a puerta',),
+    'Tarjetas': ('Tarjetas',),
+    'Córners': ('Córners',),
+    'Ambos marcan': ('BTTS',),
+    'Ganador o doble': ('1X2', 'Doble oportunidad'),
+}
+TODOS_LOS_MERCADOS = 'Todos los mercados'
+
+
+def mejor_por_mercado(pick: Dict, bloques: Optional[Dict], arriba: list,
+                      otras: list) -> Dict:
+    """{grupo: la mejor apuesta de ese grupo en el partido}. Primero las que
+    se meten (arriba o en «también se meten»); si no hay, la más probable de
+    las que la casa cotiza, marcada `informativa`. Nunca lanza."""
+    out: Dict = {}
+    metidas = {r.get('apuesta'): 'arriba' for r in (arriba or [])}
+    metidas.update({r.get('apuesta'): 'tambien' for r in (otras or [])})
+    try:
+        import valor_apuesta as va
+        cand = va.candidatos(pick, bloques or {}) or []
+    except Exception as e:
+        logger.debug('[modo_modelo] por mercado: %s', e)
+        cand = []
+    filas = list(arriba or []) + list(otras or []) + list(cand)
+    for grupo, mercados in GRUPOS_MERCADO.items():
+        mejor = None
+        for f in filas:
+            if str(f.get('mercado')) not in mercados or not f.get('cuota'):
+                continue
+            p = float(f.get('prob_meter') or f.get('prob') or 0)
+            donde = metidas.get(f.get('apuesta'))
+            clave = (1 if donde else 0, p)
+            if mejor is None or clave > mejor[0]:
+                mejor = (clave, {'apuesta': f.get('apuesta'), 'prob': round(p, 4),
+                                 'cuota': f.get('cuota'),
+                                 'donde': donde or 'informativa'})
+        if mejor:
+            out[grupo] = mejor[1]
+    return out
+
+
 def _bloque_otras(st, otras: list) -> None:
     """v347 — el desplegable «➕ También se meten (N)». Nunca lanza."""
     if not otras:
@@ -3517,6 +3564,17 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                        for m in meta if m)),
             unsafe_allow_html=True)
 
+        # v348 — con el filtro por mercado puesto, su mejor apuesta, arriba
+        _fm = pick.get('_filtro_mercado')
+        if _fm:
+            st.markdown(
+                '<div class="mm-filtro">🔎 <b>%s</b> — %.0f %% · @%.2f · %s</div>'
+                % (_esc_mm(_fm.get('apuesta') or ''), 100 * float(_fm.get('prob') or 0),
+                   float(_fm.get('cuota') or 0),
+                   {'arriba': '🎯 se mete', 'tambien': '➕ también se mete'}.get(
+                       _fm.get('donde'), 'ℹ️ informativa: no pasa la regla de meter')),
+                unsafe_allow_html=True)
+
         sin_modelo = bool(pick.get('sin_modelo') or pick.get('prob') is None)
         if pick.get('solo_mercado'):
             # v313 — sin modelo no hay córners ni remates que estimar: se
@@ -4216,6 +4274,44 @@ ORDENES = {
 }
 
 
+def _por_mercado_de(p: Dict) -> Dict:
+    """El {grupo: mejor apuesta} del partido: el precalculado o en vivo."""
+    try:
+        import decisiones_dia as _dd
+        pm = _dd.por_mercado_de_pick(p)
+        if pm is not None:
+            return pm
+    except Exception as e:
+        logger.debug('[modo_modelo] por mercado precalculado: %s', e)
+    try:
+        _rm = remates_tarjeta(p) or {}
+        bl = {'Córners': corners_tarjeta(p), 'Tarjetas': tarjetas_tarjeta(p),
+              'Remates': _rm.get('totales'), 'Remates a puerta': _rm.get('a_puerta')}
+        arriba = metidas(recomendadas(p, bl, n=MAX_RECOMENDADAS))
+        return mejor_por_mercado(p, bl, arriba, otras_que_se_meten(p, bl, arriba))
+    except Exception as e:
+        logger.debug('[modo_modelo] por mercado en vivo: %s', e)
+        return {}
+
+
+def _filtra_mercado(con: list, grupo: str) -> list:
+    """v348 — los partidos con apuesta del grupo, de la más probable a la
+    menos (las que se meten primero). Marca cada uno con su apuesta para que
+    la tarjeta la enseñe arriba."""
+    out = []
+    for p in con:
+        if p.get('jugado'):
+            continue
+        b = _por_mercado_de(p).get(grupo)
+        if not b:
+            continue
+        p['_filtro_mercado'] = b
+        out.append(p)
+    out.sort(key=lambda p: (p['_filtro_mercado'].get('donde') == 'informativa',
+                            -float(p['_filtro_mercado'].get('prob') or 0)))
+    return out
+
+
 def _tiene_fisicos(p: Dict) -> bool:
     """
     Si esta competición publica córners y tarjetas OBSERVADOS.
@@ -4856,6 +4952,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     _n_fil = sum(bool(st.session_state.get(k)) for k in
                  ('%s_solo_altas' % clave, '%s_solo_fisicos' % clave,
                   '%s_solo_ganador' % clave))
+    _n_fil += int(st.session_state.get('%s_mercado' % clave) in GRUPOS_MERCADO)
     with c_fil:
         with st.expander('⚙️ Filtros' + (' · %d' % _n_fil if _n_fil else '')):
             # v176 — la casilla vale también en MAÑANA (ver historia en git).
@@ -4877,6 +4974,15 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                                             'estimadas a partir de sus goles.')
             # v250 — «quiero filtrar por ganador»: corta por QUÉ mercado es y
             # ordena del más probable al menos.
+            # v348 — por mercado: deja los partidos que lo tienen y los ordena
+            # de su apuesta más probable a la menos
+            mercado_sel = st.selectbox(
+                'Mercado', [TODOS_LOS_MERCADOS] + list(GRUPOS_MERCADO),
+                key='%s_mercado' % clave,
+                help='Deja sólo los partidos con apuesta de ese mercado —las '
+                     'que se meten, las de «También se meten» y, si no hay, la '
+                     'más probable como informativa— y los ordena de la más '
+                     'probable a la menos.')
             solo_ganador = st.checkbox('Sólo ganador (1X2)',
                                        key='%s_solo_ganador' % clave,
                                        help='Deja sólo los partidos cuya apuesta '
@@ -4938,6 +5044,9 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         _pref.guardar(_k_estado, str(estado_sel))
 
     con.sort(key=ORDENES.get(etq_orden, _k_hora))
+    if mercado_sel in GRUPOS_MERCADO:
+        con = _filtra_mercado(con, mercado_sel)
+        _quito.append('mercado')
     if solo_ganador:
         # y en esta vista manda la probabilidad: una lista de ganadores se lee
         # del más claro al menos claro, no por hora.
@@ -5017,6 +5126,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                 'que todavía no tienen precio abierto no puede salir. '
                 'Desmarca «Sólo alta probabilidad» para verlos todos.'
                 % (_antes_de_filtrar, UMBRAL_ALTA * 100))
+        elif _antes_de_filtrar and 'mercado' in _quito:
+            st.info('Ninguno de los **%d** partidos de esta lista tiene una '
+                    'apuesta de **%s** con precio. Elige otro mercado en '
+                    '«⚙️ Filtros».' % (_antes_de_filtrar, mercado_sel))
         elif _antes_de_filtrar and 'fisicos' in _quito:
             st.info(
                 'Ninguna de las **%d** competiciones de esta lista publica '

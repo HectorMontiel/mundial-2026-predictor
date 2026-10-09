@@ -1,0 +1,136 @@
+{
+ "partidos": 838,
+ "corte": "2026-09-29",
+ "arriba": {
+  "n": 1031,
+  "partidos": 651,
+  "acierto": 0.8206,
+  "promete": 0.7896,
+  "cuota": 1.189
+ },
+ "extras": {
+  "n": 235,
+  "partidos": 178,
+  "acierto": 0.7915,
+  "promete": 0.7638,
+  "cuota": 1.19
+ },
+ "extras_menos_arriba": [
+  -0.0286,
+  -0.0762
+ ],
+ "elige": {
+  "arriba": {
+   "n": 553,
+   "partidos": 358,
+   "acierto": 0.8065,
+   "promete": 0.7894,
+   "cuota": 1.192
+  },
+  "extras": {
+   "n": 111,
+   "partidos": 89,
+   "acierto": 0.7928,
+   "promete": 0.7618,
+   "cuota": 1.193
+  },
+  "dif": [
+   -0.0126,
+   -0.0874
+  ]
+ },
+ "juzga": {
+  "arriba": {
+   "n": 478,
+   "partidos": 295,
+   "acierto": 0.8368,
+   "promete": 0.7898,
+   "cuota": 1.185
+  },
+  "extras": {
+   "n": 124,
+   "partidos": 89,
+   "acierto": 0.7903,
+   "promete": 0.7656,
+   "cuota": 1.188
+  },
+  "dif": [
+   -0.0467,
+   -0.1117
+  ]
+ },
+ "extras_por_mercado": {
+  "BTTS": {
+   "n": 1,
+   "partidos": 1,
+   "acierto": 1.0,
+   "promete": 0.753,
+   "cuota": 1.222
+  },
+  "Córners": {
+   "n": 100,
+   "partidos": 98,
+   "acierto": 0.84,
+   "promete": 0.7547,
+   "cuota": 1.164
+  },
+  "Goles": {
+   "n": 30,
+   "partidos": 30,
+   "acierto": 0.8333,
+   "promete": 0.77,
+   "cuota": 1.228
+  },
+  "Goles equipo": {
+   "n": 94,
+   "partidos": 92,
+   "acierto": 0.734,
+   "promete": 0.7725,
+   "cuota": 1.205
+  },
+  "Tarjetas": {
+   "n": 10,
+   "partidos": 10,
+   "acierto": 0.7,
+   "promete": 0.7552,
+   "cuota": 1.194
+  }
+ },
+ "extras_por_prob": {
+  "(0.7, 0.75]": {
+   "n": 94,
+   "partidos": 85,
+   "acierto": 0.7872,
+   "promete": 0.7336,
+   "cuota": 1.205
+  },
+  "(0.75, 0.8]": {
+   "n": 107,
+   "partidos": 93,
+   "acierto": 0.8131,
+   "promete": 0.7739,
+   "cuota": 1.176
+  },
+  "(0.8, 0.85]": {
+   "n": 32,
+   "partidos": 32,
+   "acierto": 0.7188,
+   "promete": 0.8131,
+   "cuota": 1.193
+  },
+  "(0.85, 1.0]": {
+   "n": 2,
+   "partidos": 2,
+   "acierto": 1.0,
+   "promete": 0.8541,
+   "cuota": 1.177
+  }
+ },
+ "si_contaran": {
+  "n": 1266,
+  "partidos": 654,
+  "acierto": 0.8152,
+  "promete": 0.7848,
+  "cuota": 1.189
+ }
+}

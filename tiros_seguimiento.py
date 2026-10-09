@@ -63,6 +63,18 @@ logger = logging.getLogger('tiros_seguimiento')
 # más, cuota hasta 2,0, una por equipo y mercado (la más probable). Sigue
 # midiéndose sola: si el registro desde el 10-sep deja de tener p5 > 0, se
 # apaga.
+#
+# v348 — SÓLO «MÁS DE». El usuario: en remates sólo se puede apostar «más de
+# X». Medido otra vez con ese lado nada más (`_v348_tiros_mas.py`, elegida con
+# la primera mitad: modelo ≥ 68 %, cuota ≤ 2):
+#
+#                       apuestas  acierto (promete)  rinde    p5
+#     elige                 99     69,7 % (73,2 %)    −1,9 %  −13,9 %
+#     juzga (10-sep→)      118     73,7 % (74,1 %)    +5,9 %   −4,3 %
+#
+# La ventaja estaba en el «menos»: con sólo «más» NO pasa, y acertaría ~72 %
+# (bajaría el ~80 % de verdes). La regla queda en «más» y en seguimiento:
+# `activo` sale falso hasta que su registro tenga p5 > 0.
 REGLA_ALTA = {'mercados': ('tiros', 'a_puerta'), 'prob_min': 0.72,
               'cuota_max': 2.0}
 MIN_APUESTAS_ALTA = 100
@@ -86,10 +98,7 @@ def apuesta_de(p_mod: float, p_casa: float, mercado: str,
     if (p_mod - p_casa >= REGLA['ventaja'] and p_mod >= REGLA['prob_min']
             and c_mas <= REGLA['cuota_max']):
         return 'más'
-    if (p_casa - p_mod >= REGLA['ventaja'] and 1 - p_mod >= REGLA['prob_min']
-            and c_menos <= REGLA['cuota_max']):
-        return 'menos'
-    return ''
+    return ''                # v348: sin «menos» (no se puede apostar)
 
 
 def alta_de(p_mod: float, mercado: str, c_mas: float = 0.0,
@@ -99,9 +108,7 @@ def alta_de(p_mod: float, mercado: str, c_mas: float = 0.0,
         return ''
     if p_mod >= REGLA_ALTA['prob_min'] and 0 < c_mas <= REGLA_ALTA['cuota_max']:
         return 'más'
-    if 1 - p_mod >= REGLA_ALTA['prob_min'] and 0 < c_menos <= REGLA_ALTA['cuota_max']:
-        return 'menos'
-    return ''
+    return ''                # v348: sin «menos» (no se puede apostar)
 
 
 def _leer(ruta: str = FICHERO) -> pd.DataFrame:
@@ -215,6 +222,11 @@ def liquidar(ruta: str = FICHERO) -> int:
 def medir(ruta: str = FICHERO, salida: str = RESUMEN, semilla: int = 345) -> Dict:
     """El registro de la regla desde que quedó fijada, y si ya se activa."""
     d = _leer(ruta)
+    # v348 — el lado se recalcula con la regla VIGENTE (sólo «más»), no con
+    # el que se apuntó al registrar
+    if len(d):
+        d['apuesta'] = [apuesta_de(a, b, c, m_, n_) for a, b, c, m_, n_ in
+                        zip(d.p_mod, d.p_casa, d.mercado, d.c_mas, d.c_menos)]
     d = d[(d.apuesta.fillna('') != '') & d.real.notna()
           & (pd.to_datetime(d.fecha) >= pd.Timestamp(FECHA_REGLA))]
     res = {'regla': REGLA, 'desde': FECHA_REGLA, 'min_apuestas': MIN_APUESTAS,

@@ -413,6 +413,9 @@ def _de_tiros_v345(pick: Dict, titulo: str, clave_bloque: str, fam: str,
     return salida
 
 
+REMATES_SOLO_MAS = ('remates', 'remates_on')
+
+
 def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
                incierto: bool = False, hist=None, sin_ajuste: bool = False,
                extra: Optional[Dict] = None):
@@ -425,6 +428,11 @@ def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
             (False, 1.0 - p_mas, mi.cuota_de(dato, 'menos'),
              None if imp_mas is None else 1.0 - imp_mas)):
         if not cuota:
+            continue
+        # v348 — EN REMATES SÓLO «MÁS DE». El usuario: «en remates no puedes
+        # usar menos de X, sólo más de X, tanto en remates como a puerta» (no
+        # es una apuesta que pueda hacer). Ver `REMATES_SOLO_MAS`.
+        if not es_mas and bloque in REMATES_SOLO_MAS:
             continue
         texto = '%s de %s' % ('Más' if es_mas else 'Menos',
                               ('%.1f' % linea).rstrip('0').rstrip('.'))
