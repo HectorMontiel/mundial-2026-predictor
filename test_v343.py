@@ -175,20 +175,26 @@ def probar_boletos():
               'o ya no, y por qué (%s)' % f[0]['texto'])
     finally:
         dd.tarjeta_de_pick = orig
-    # terminado: el partido archivado de ayer, con su marcador
+    # terminado: un partido archivado con su marcador. v350 — fijo y no el
+    # de `jugados_ayer.json`, que rota cada día y dejaba la prueba en rojo
+    # en cuanto «ayer» dejaba de ser el 7 de octubre.
     import partidos_jugados as pj
-    jug = pj._leer_precalculo('2026-10-07', permitir_viejo=True) or []
-    p = next((x for x in jug if x.get('partido') == 'Vitoria vs Chapecoense-SC'), None)
-    if p is not None:
-        q = {'partido': p['partido'], 'apuesta': 'Vitoria o empate',
+    archivado = {'partido': 'Vitoria vs Chapecoense-SC', 'home': 'Vitoria',
+                 'away': 'Chapecoense-SC', 'inicio': '2026-10-07 19:00:00',
+                 'fecha': '2026-10-07', 'jugado': True,
+                 'goles_home': 4.0, 'goles_away': 0.0}
+    orig_leer = pj._leer_precalculo
+    pj._leer_precalculo = lambda dia, permitir_viejo=False: [archivado]
+    try:
+        q = {'partido': archivado['partido'], 'apuesta': 'Vitoria o empate',
              'mercado': 'Doble oportunidad', 'bloque': 'resultado',
              'etiqueta': 'Resultado', 'cuota': 1.12,
-             'inicio': str(p.get('inicio')).replace(' ', 'T') + 'Z'}
+             'inicio': '2026-10-07T19:00:00Z'}
         f = su.estado_patas({'detalle': [q]}, {})
         check(f[0]['estado'] == 'verde' and '4-0' in f[0]['texto'],
               'terminada: verde con el marcador (%s)' % f[0]['texto'])
-    else:
-        check(False, 'falta el partido de prueba en jugados_ayer.json')
+    finally:
+        pj._leer_precalculo = orig_leer
     src = open('sonadora_ui.py', encoding='utf-8').read()
     check('detalle=_sel[\'patas\']' in src and '_mis_boletos(st, _r_todo)' in src,
           'la Soñadora guarda al confirmar y enseña «Mis boletos»')

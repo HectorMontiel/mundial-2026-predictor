@@ -148,7 +148,8 @@ def main():
     v = vp.evaluar({'deporte': 'NBA', 'prob': 0.80, 'apuesta': 'Gana Boston Celtics',
                     'mercado': 'Moneyline', 'cuota': 1.3,
                     'partido': 'Boston Celtics vs New York Knicks',
-                    'implicitas': {'1x2_cuotas': {'home': 1.28, 'away': 3.9}}})
+                    # v350 — la casa en 78 %+ (1,22 / 4,6 → 79 %): la regla medida
+                    'implicitas': {'1x2_cuotas': {'home': 1.22, 'away': 4.6}}})
     check(v['veredicto'] == vp.METER and v['correccion'] == 0.0
           and any('NBA' in r_ for r_ in v['razones']),
           'con precio, la NBA mezcla sin la corrección del fútbol y lo dice: %s (%.3f)'

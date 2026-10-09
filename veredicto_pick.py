@@ -318,6 +318,76 @@ def tenis_mete(prob_modelo, prob_casa) -> bool:
     return (pm is not None and pc is not None
             and pm >= METER_TENIS_MODELO_MIN and pc >= METER_TENIS_CASA_MIN)
 
+
+# v350 — NFL Y NBA: EL GANADOR SE METE CON LA CASA, Y LOS PUNTOS NO.
+#
+# El usuario: «quiero meter a la Capa 1 y a las que se meten el ganador y los
+# puntos de la NFL y de la NBA, y el ganador y las carreras de la MLB, con la
+# misma metodología del fútbol; que la mayoría sigan siendo verdes».
+#
+# Lo que había: «meter» con la mezcla modelo/casa ≥ 65 % (el listón general),
+# en todos los mercados. En la réplica sin fuga (`_v350_ganador.py`: cada
+# temporada 2010-2025 con un modelo que no la vio, moneyline de cierre) eso
+# acierta 75,3 % (NFL) y 75,4 % (NBA) en el tramo de juzgar (2021-2025). La
+# casa de los dos deportes acierta lo que promete banda a banda, así que el
+# acierto sólo sube pidiendo más a la casa, y eso baja la cuota: la misma
+# frontera verdes↔cuota del fútbol (v334).
+#
+# El umbral se eligió con 2010-2020 y un criterio fijado antes de mirar el
+# juicio: la casa ≥ X cuya PEOR temporada sea la más alta (lo que protege el
+# semáforo año a año), con la app ≥ 70 % y cuota 1,10-1,40 (por debajo de
+# 1,10 no sirve para combinar; con piso 1,15 nada llega al 80 %):
+#
+#                    elige: media / peor   juzga 2021-25         vs hoy (p5)
+#     NFL casa ≥ 74 %   81,4 % / 75,5 %    79,1 % (326, ~65/temp)  +3,8 (+1,0)
+#     NBA casa ≥ 78 %   82,4 % / 78,6 %    81,0 % (965, ~200/temp) +5,7 (+3,8)
+#
+# El rendimiento no cambia (−3,8 / −5,6 % al cierre; ninguna regla le gana a
+# la casa en estos deportes). Por temporada la NFL es muy ruidosa (2023-25:
+# 73-76 %; 2026 hasta la semana 5: 7 de 13): son ~65 apuestas al año.
+#
+# LOS PUNTOS NO SE METEN. Las escaleras de totales que de verdad publica
+# Playdoit (`_v350_escaleras.py`, 70 fotos de sept-oct 2026) llegan hasta
+# ±7,5 puntos en la NFL (la casa dice 70 %) y ±3 en la NBA (57 %). En el
+# histórico esas líneas aciertan 66-74 % en la NFL aun con el modelo de
+# acuerdo, y 53-59 % en la NBA (`_v350_totales.py`); con los 48 partidos
+# de NFL de 2026, 63-69 % (`_v350_escaleras_reales.py`). Ninguna llega al
+# ~80 %: meterlas bajaría el semáforo (hasta hoy salían «meter» al 65-67 %).
+METER_GANADOR_CASA_MIN = {'NFL': 0.74, 'NBA': 0.78}
+METER_GANADOR_APP_MIN = 0.70
+METER_GANADOR_CUOTA_MIN = 1.10
+METER_GANADOR_CUOTA_MAX = 1.40
+
+# v350 — Y EL BÉISBOL (MLB, KBO) NO SE METE: NO HAY APUESTA AL ~80 %.
+#
+# El favorito más grande del béisbol ronda el 70 %. Con los precios reales de
+# 2026 (126 partidos de MLB en las fotos de `pronostico_dia.json`) ninguno
+# llegó a 70 % ni en la app ni en la casa (la cuota más baja, 1,37); en la
+# KBO, 0 de 237 con la casa ≥ 74 % (`pick_ledger_deportes.csv`); y el modelo
+# de la MLB, fuera de muestra, deja 142 de 23.466 partidos en 70-80 % y
+# aciertan el 69 % (`_v118_calibracion_mlb.json`). Las carreras: la escalera
+# de Playdoit llega a ±2 carreras de la principal, donde la casa dice 66-67 %.
+# Hasta hoy la MLB recibía la curva por banda de cuota del FÚTBOL (el mismo
+# error que tenía el tenis antes de la v342) y salían «Carreras: Menos de
+# 10.5» como «meter» al 67-71 %. Se enseñan, no se meten.
+DEPORTES_SIN_METER = ('MLB', 'KBO')
+
+
+def ganador_mete(deporte: str, prob_app, prob_casa, cuota) -> bool:
+    """La regla medida del ganador de la NFL y la NBA (v350). `False` si falta
+    algo o si el deporte no la tiene."""
+    umbral = METER_GANADOR_CASA_MIN.get(str(deporte or ''))
+    pa, pc, c = _f(prob_app), _f(prob_casa), _f(cuota)
+    return (umbral is not None and None not in (pa, pc, c)
+            and pc >= umbral and pa >= METER_GANADOR_APP_MIN
+            and METER_GANADOR_CUOTA_MIN <= c <= METER_GANADOR_CUOTA_MAX)
+
+
+def es_ganador(mercado: str, apuesta: str) -> bool:
+    """¿Es la apuesta al ganador del partido (no puntos, ni hándicap)?"""
+    return (str(mercado or '') in ('1X2', 'Moneyline', 'Ganador')
+            and str(apuesta or '').startswith('Gana '))
+
 # Cuánto puede corregir la fiabilidad medida. Topado porque una banda con
 # muestra corta puede tener una brecha grande por azar, y sin tope esa brecha
 # se convertiría en una corrección enorme.
@@ -557,7 +627,9 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     # v342 — y el tenis tampoco: su curva era la del fútbol (ver
     # `METER_TENIS_CASA_MIN`)
     es_tenis = _dep == 'Tenis'
-    if es_nfl or es_tenis:
+    # v350 — y el béisbol tampoco (ver `DEPORTES_SIN_METER`)
+    es_beisbol = _dep in DEPORTES_SIN_METER
+    if es_nfl or es_tenis or es_beisbol:
         c = {'delta': 0.0, 'medido': False, 'veredicto_banda': None, 'n': 0}
     else:
         c = correccion(prob, mercado, cuota)
@@ -648,6 +720,41 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
             razones.insert(0, 'la casa lo ve al %.0f %% y el modelo al %.0f %%: '
                            'en el tenis se mete con las dos en el %.0f %% o más'
                            % (100 * _pc, 100 * prob, 100 * METER_TENIS_CASA_MIN))
+    # v350 — NFL y NBA: el ganador con su regla medida; los puntos, no
+    if es_nfl and _dep in METER_GANADOR_CASA_MIN:
+        _pc = conc.get('p_mercado') if conc.get('hay') else None
+        if not es_ganador(mercado, p.get('apuesta')):
+            if mete:
+                razones.insert(0, 'los puntos no se meten: con las líneas que '
+                               'publica la casa aciertan %s como mucho'
+                               % ('70-74 %' if _dep == 'NFL' else '55-59 %'))
+            mete = False
+        else:
+            ok = ganador_mete(_dep, ajustada, _pc, cuota)
+            if mete and not ok:
+                if _pc is None:
+                    razones.insert(0, 'sin el precio de la casa: no se recomienda')
+                elif _pc < METER_GANADOR_CASA_MIN[_dep]:
+                    razones.insert(0, 'la casa lo ve al %.0f %%: en la %s el ganador '
+                                   'se mete con la casa en %.0f %% o más'
+                                   % (100 * _pc, _dep, 100 * METER_GANADOR_CASA_MIN[_dep]))
+                elif ajustada < METER_GANADOR_APP_MIN:
+                    razones.insert(0, 'no llega al %.0f %%'
+                                   % (100 * METER_GANADOR_APP_MIN))
+                else:
+                    razones.insert(0, 'cuota fuera de 1,10-1,40')
+            mete = mete and ok
+            if mete:
+                razones.insert(0, 'la casa %.0f %% y la app %.0f %%: con esta '
+                               'regla la %s acertó %s en 2021-2025'
+                               % (100 * _pc, 100 * ajustada, _dep,
+                                  '79 %' if _dep == 'NFL' else '81 %'))
+    # v350 — el béisbol se enseña, no se mete
+    if es_beisbol:
+        if mete:
+            razones.insert(0, 'en el béisbol no hay apuesta al ~80 %: el '
+                           'favorito más grande ronda el 70 %')
+        mete = False
     if not mete and c['medido'] and c['veredicto_banda'] != 'optimista':
         razones.append(f'queda por debajo del {UMBRAL_METER:.0%} que pide '
                        f'una pata de combinada')

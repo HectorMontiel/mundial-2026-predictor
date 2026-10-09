@@ -94,6 +94,25 @@ NOTA = ('resultado con el modelo en 70 % o más y la casa sin margen entre 80 % 
         'y 88 %: en 60.796 partidos fuera de muestra acertó 85 % en doble '
         'oportunidad y 87 % en ganador')
 
+# v350 — LA MISMA REGLA, EN EL GANADOR DE LA NFL Y LA NBA.
+#
+# El usuario pidió meter más deportes en la Capa 1, «con la misma metodología
+# del fútbol». Se replicó tal cual (modelo ≥ 70 %, casa sin margen 80-88 %,
+# cuota ≥ 1,10) sobre la réplica sin fuga de cada deporte (`_v350_ganador.py`:
+# cada temporada con un modelo que no la vio, moneyline de cierre):
+#
+#                elige 2010-20      juzga 2021-25    por temporada
+#     NFL        83,6 % (214)       84,4 % (109)     ~22
+#     NBA        83,2 % (1.609)     83,6 % (657)     ~130
+#
+# Rinde −3/−4 % al cierre, como la del fútbol: es la apuesta más segura del
+# deporte, no una ganancia prometida. Los precios de estos deportes ya salen
+# de las casas del usuario (`alpha_finder`, v193). La pretemporada de la NBA
+# no entra (no se mide). El 🔷 de más riesgo sigue siendo sólo del fútbol: en
+# la NBA la casa sabe más que el modelo (`concordancia.PESO_MODELO_NBA`).
+DEPORTES_DOS_VIAS = ('NFL', 'NBA')
+ACIERTO_CAPA1_DEPORTE = {'NFL': 0.84, 'NBA': 0.84}
+
 
 def _f(x) -> Optional[float]:
     try:
@@ -107,6 +126,8 @@ def del_pick(pick: Dict) -> Optional[Dict]:
     """La mejor apuesta de resultado del partido que cumple el criterio, o
     None. Nunca lanza."""
     try:
+        if str(pick.get('deporte') or '') in DEPORTES_DOS_VIAS:
+            return _del_pick_dos_vias(pick)
         if str(pick.get('deporte') or 'Fútbol') != 'Fútbol' or pick.get('jugado') \
                 or pick.get('solo_mercado') or pick.get('sin_modelo'):
             return None
@@ -153,6 +174,37 @@ def del_pick(pick: Dict) -> Optional[Dict]:
     except Exception as e:
         logger.debug('[lo_mejor] %s: %s', pick.get('partido'), e)
         return None
+
+
+def _del_pick_dos_vias(pick: Dict) -> Optional[Dict]:
+    """v350 — el 🏆 del ganador de la NFL y la NBA (ver `DEPORTES_DOS_VIAS`)."""
+    dep = str(pick.get('deporte') or '')
+    if pick.get('jugado') or pick.get('pretemporada') or pick.get('solo_mercado') \
+            or pick.get('sin_modelo'):
+        return None
+    par = str(pick.get('partido') or '')
+    if ' vs ' not in par:
+        return None
+    h, a = par.split(' vs ', 1)
+    b = pick.get('board') or {}
+    mh, ma = _f(b.get('Gana ' + h)), _f(b.get('Gana ' + a))
+    c1 = (pick.get('implicitas') or {}).get('1x2_cuotas') or {}
+    ch, ca = _f(c1.get('home')), _f(c1.get('away'))
+    if None in (mh, ma, ch, ca) or ch <= 1 or ca <= 1:
+        return None
+    s = 1.0 / ch + 1.0 / ca
+    qh, qa = (1.0 / ch) / s, (1.0 / ca) / s
+    buenas = [o for o in (('Gana %s' % h, mh, qh, ch), ('Gana %s' % a, ma, qa, ca))
+              if o[1] >= MODELO_MIN and CASA_MIN <= o[2] < CASA_MAX and o[3] >= CUOTA_MIN]
+    if not buenas:
+        return None
+    ap, pm, pc, cu = buenas[0]
+    return {'mercado': '1X2', 'bloque': 'resultado', 'etiqueta': 'Resultado',
+            'apuesta': ap, 'prob': round(pm, 4), 'p_mercado': round(pc, 4),
+            'cuota': round(cu, 3), 'casa': pick.get('casa'), 'deporte': dep,
+            'linea': None, 'elite': True,
+            'razon': 'Capa 1: el modelo %.0f %% y la casa %.0f %% de acuerdo '
+                     '(medido en la %s: ~84 %% de acierto)' % (100 * pm, 100 * pc, dep)}
 
 
 def del_pick_riesgo(pick: Dict) -> Optional[Dict]:
@@ -222,14 +274,16 @@ def del_dia(r: Dict, dia: Optional[str] = None, riesgo: bool = False) -> List[Di
 
 def _entrada(p: Dict, e: Dict, riesgo: bool) -> Dict:
     """La fila de la Capa 1 y de Telegram para la apuesta `e` del partido `p`."""
+    dep = str(p.get('deporte') or 'Fútbol')
     return dict(e, partido=p.get('partido'), liga=p.get('liga'),
-                clave_liga=p.get('clave_liga'), deporte='Fútbol',
+                clave_liga=p.get('clave_liga'), deporte=dep,
                 inicio=p.get('inicio'), fecha=p.get('fecha'),
                 fecha_cdmx=p.get('fecha_cdmx'),
                 hora=p.get('hora_cdmx') or p.get('hora_txt'),
                 # la columna «acierta» de la Capa 1 enseña lo MEDIDO del
                 # grupo, no la probabilidad del modelo (que va en la ayuda)
                 prob_escalera=(ACIERTO_RIESGO if riesgo else
+                               ACIERTO_CAPA1_DEPORTE.get(dep) or
                                ACIERTO_CAPA1.get(e['mercado'], 0.85)),
                 semaforo={'nivel': 'riesgo' if riesgo else 'verde',
                           'etiqueta': '%smodelo %.0f %% · casa %.0f %%'

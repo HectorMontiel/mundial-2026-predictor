@@ -1186,6 +1186,67 @@ def tenis_con_la_casa(patas: List[Dict], partido: Dict) -> List[Dict]:
     return patas
 
 
+def deportes_con_la_casa(patas: List[Dict], partido: Dict) -> List[Dict]:
+    """v350 — las patas de la NFL, la NBA y el béisbol, con sus reglas medidas.
+
+    Lo mismo que `tenis_con_la_casa`, con lo medido en `_v350_ganador.py` y
+    `_v350_totales.py` (ver `veredicto_pick.METER_GANADOR_CASA_MIN`): el
+    «Gana X» de la NFL y la NBA vale con la casa sin margen en 74 % / 78 % o
+    más, la mezcla de la app en 70 % o más y cuota 1,10-1,40 (79-81 % de
+    acierto en 2021-2025). Los puntos no llegan al ~80 % con las líneas que
+    publica la casa, y el béisbol no tiene apuesta a ese nivel: van en rojo,
+    que la cascada esconde mientras haya otras.
+    """
+    import concordancia as cc
+    import veredicto_pick as vp
+    dep = str(partido.get('deporte') or '')
+    if dep not in vp.METER_GANADOR_CASA_MIN and dep not in vp.DEPORTES_SIN_METER:
+        return patas
+    cuotas: Dict[tuple, Dict[str, float]] = {}
+    for q in patas:
+        if q.get('categoria') in _CAT_GANADOR:
+            cuotas.setdefault((q.get('partido'), q.get('casa')), {})[
+                q['etiqueta']] = float(q['cuota'])
+    local, visitante = _lados(partido.get('partido'))
+    c12 = ((partido.get('implicitas') or {}).get('1x2_cuotas') or {})
+    del_barrido = {f'Gana {local}': _num(c12.get('home')),
+                   f'Gana {visitante}': _num(c12.get('away'))}
+    peso = cc.peso_modelo(partido)
+    for q in patas:
+        if dep in vp.DEPORTES_SIN_METER:
+            q['color'] = ROJO
+            q['regla_deporte'] = 'en el béisbol no hay apuesta al ~80 %'
+            continue
+        if q.get('categoria') not in _CAT_GANADOR:
+            q['color'] = ROJO
+            q['regla_deporte'] = 'los puntos no llegan al ~80 % con las líneas de la casa'
+            continue
+        libro = cuotas.get((q.get('partido'), q.get('casa'))) or {}
+        if len(libro) != 2:
+            libro = del_barrido
+        pc = None
+        mia = _num(libro.get(q['etiqueta']))
+        otra = [_num(v) for k, v in libro.items() if k != q['etiqueta']]
+        if mia and mia > 1 and len(otra) == 1 and otra[0] and otra[0] > 1:
+            pc = (1 / mia) / (1 / mia + 1 / otra[0])
+        q['prob_casa'] = None if pc is None else round(pc, 4)
+        pm = _num(q.get('prob_modelo'))
+        app = None if (pc is None or pm is None) else peso * pm + (1 - peso) * pc
+        if vp.ganador_mete(dep, app, pc, q.get('cuota')):
+            q['prob'] = round(app, 4)
+            q['prob_ajustada'] = round(prob_ajustada(app, q.get('ece')), 4)
+            q['score'] = score_segura(app, q['cuota'], q.get('ece'))
+            q['color'] = color(app, q.get('ece'), q.get('calibracion_floja'))
+        else:
+            q['color'] = ROJO
+            q['regla_deporte'] = (
+                'sin el precio de la casa' if pc is None else
+                'casa %.0f %%: en la %s el ganador pide la casa en %.0f %% o más, '
+                'la app en 70 %% y cuota 1,10-1,40'
+                % (100 * pc, dep, 100 * vp.METER_GANADOR_CASA_MIN[dep]))
+    return patas
+
+
 def _board_por_partido(r: Dict, dia: str) -> Dict:
     import mercados_dia as md
     fuera: Dict[tuple, Dict] = {}
@@ -1563,7 +1624,8 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
         if casa == 'Novibet':
             # Novibet no pasa por el tablero de Altenar: sale del fichero de
             # las casas mexicanas, que ya está en disco. Cero peticiones.
-            patas += tenis_con_la_casa(patas_novibet(p), p)     # v342
+            patas += deportes_con_la_casa(                      # v350
+                tenis_con_la_casa(patas_novibet(p), p), p)
             continue
         if casa not in CASAS_CON_FUENTE:
             continue                    # Draftea: no hay de dónde sacarlo
@@ -1597,6 +1659,7 @@ def _recoger(r: Dict, dia: str, max_partidos: int,
                 if (q['partido'], q['etiqueta']) not in vistos:
                     nuevas.append(q)
         nuevas = tenis_con_la_casa(nuevas, p)                   # v342
+        nuevas = deportes_con_la_casa(nuevas, p)                # v350
         _pegar_contexto(nuevas, p)
         patas += nuevas
     return {'patas': patas, 'n_partidos': len(partidos),

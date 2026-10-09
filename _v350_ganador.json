@@ -1,0 +1,850 @@
+{
+ "NFL": {
+  "partidos_lado": 4414,
+  "hoy_elige": {
+   "n": 1443,
+   "acierto": 0.7706,
+   "promete": 0.7404,
+   "casa": 0.7462,
+   "cuota": 1.316,
+   "roi": 0.008,
+   "por_temporada": 131.2
+  },
+  "hoy_juzga": {
+   "n": 656,
+   "acierto": 0.753,
+   "promete": 0.7457,
+   "casa": 0.7514,
+   "cuota": 1.293,
+   "roi": -0.0359,
+   "por_temporada": 131.2
+  },
+  "rejilla_top": [
+   [
+    "{\"casa\": 0.76, \"app\": 0.72, \"cuota\": 1.0}",
+    523,
+    0.8298,
+    -0.0099
+   ],
+   [
+    "{\"casa\": 0.76, \"app\": 0.74, \"cuota\": 1.0}",
+    511,
+    0.8297,
+    -0.0115
+   ],
+   [
+    "{\"casa\": 0.76, \"app\": 0.65, \"cuota\": 1.0}",
+    525,
+    0.8286,
+    -0.0113
+   ],
+   [
+    "{\"casa\": 0.76, \"app\": 0.7, \"cuota\": 1.0}",
+    525,
+    0.8286,
+    -0.0113
+   ],
+   [
+    "{\"casa\": 0.76, \"app\": 0.76, \"cuota\": 1.0}",
+    456,
+    0.8246,
+    -0.0252
+   ],
+   [
+    "{\"casa\": 0.72, \"app\": 0.74, \"cuota\": 1.0}",
+    647,
+    0.8238,
+    0.0012
+   ],
+   [
+    "{\"casa\": null, \"app\": 0.74, \"cuota\": 1.0}",
+    650,
+    0.8231,
+    0.0008
+   ],
+   [
+    "{\"casa\": 0.65, \"app\": 0.74, \"cuota\": 1.0}",
+    650,
+    0.8231,
+    0.0008
+   ],
+   [
+    "{\"casa\": 0.7, \"app\": 0.74, \"cuota\": 1.0}",
+    650,
+    0.8231,
+    0.0008
+   ],
+   [
+    "{\"casa\": 0.74, \"app\": 0.7, \"cuota\": 1.0}",
+    689,
+    0.8215,
+    0.0009
+   ],
+   [
+    "{\"casa\": null, \"app\": 0.76, \"cuota\": 1.0}",
+    481,
+    0.8212,
+    -0.0247
+   ],
+   [
+    "{\"casa\": 0.65, \"app\": 0.76, \"cuota\": 1.0}",
+    481,
+    0.8212,
+    -0.0247
+   ],
+   [
+    "{\"casa\": 0.7, \"app\": 0.76, \"cuota\": 1.0}",
+    481,
+    0.8212,
+    -0.0247
+   ],
+   [
+    "{\"casa\": 0.72, \"app\": 0.76, \"cuota\": 1.0}",
+    481,
+    0.8212,
+    -0.0247
+   ],
+   [
+    "{\"casa\": 0.74, \"app\": 0.74, \"cuota\": 1.0}",
+    609,
+    0.821,
+    -0.0084
+   ]
+  ],
+  "regla": {
+   "casa": null,
+   "app": 0.7,
+   "cuota": 1.0
+  },
+  "elige": {
+   "n": 983,
+   "acierto": 0.8037,
+   "promete": 0.7713,
+   "casa": 0.7766,
+   "cuota": 1.261,
+   "roi": 0.0099,
+   "por_temporada": 89.4
+  },
+  "juzga": {
+   "n": 458,
+   "acierto": 0.7838,
+   "promete": 0.7764,
+   "casa": 0.7821,
+   "cuota": 1.238,
+   "roi": -0.0363,
+   "por_temporada": 91.6
+  },
+  "juzga_vs_hoy": {
+   "acierto_dif": 0.0306,
+   "acierto_dif_p5": 0.0118,
+   "roi_dif": -0.0007,
+   "roi_dif_p5": -0.0261
+  },
+  "juzga_roi_p5": -0.0754,
+  "ultima_temporada": {
+   "n": 20,
+   "acierto": 0.65,
+   "promete": 0.7643,
+   "casa": 0.7698,
+   "cuota": 1.25,
+   "roi": -0.1876,
+   "por_temporada": 20.0
+  },
+  "adoptada": {
+   "regla": {
+    "casa": 0.74,
+    "app": 0.7,
+    "cuota": 1.1,
+    "cuota_max": 1.4
+   },
+   "candidatas_elige_peor_temporada": [
+    [
+     0.7,
+     0.7183,
+     {
+      "n": 903,
+      "acierto": 0.8029,
+      "promete": 0.7679,
+      "casa": 0.774,
+      "cuota": 1.264,
+      "roi": 0.0126,
+      "por_temporada": 82.1
+     }
+    ],
+    [
+     0.72,
+     0.7313,
+     {
+      "n": 819,
+      "acierto": 0.8034,
+      "promete": 0.7732,
+      "casa": 0.7804,
+      "cuota": 1.253,
+      "roi": 0.0044,
+      "por_temporada": 74.5
+     }
+    ],
+    [
+     0.74,
+     0.7551,
+     {
+      "n": 646,
+      "acierto": 0.8142,
+      "promete": 0.7854,
+      "casa": 0.7934,
+      "cuota": 1.231,
+      "roi": 0.0009,
+      "por_temporada": 58.7
+     }
+    ],
+    [
+     0.76,
+     0.6571,
+     {
+      "n": 482,
+      "acierto": 0.8195,
+      "promete": 0.7996,
+      "casa": 0.8084,
+      "cuota": 1.208,
+      "roi": -0.0123,
+      "por_temporada": 43.8
+     }
+    ],
+    [
+     0.78,
+     0.6552,
+     {
+      "n": 367,
+      "acierto": 0.8311,
+      "promete": 0.8116,
+      "casa": 0.8205,
+      "cuota": 1.189,
+      "roi": -0.0134,
+      "por_temporada": 33.4
+     }
+    ],
+    [
+     0.8,
+     0.7143,
+     {
+      "n": 240,
+      "acierto": 0.8458,
+      "promete": 0.8284,
+      "casa": 0.8366,
+      "cuota": 1.166,
+      "roi": -0.0158,
+      "por_temporada": 21.8
+     }
+    ]
+   ],
+   "elige": {
+    "n": 646,
+    "acierto": 0.8142,
+    "promete": 0.7854,
+    "casa": 0.7934,
+    "cuota": 1.231,
+    "roi": 0.0009,
+    "por_temporada": 58.7
+   },
+   "juzga": {
+    "n": 326,
+    "acierto": 0.7914,
+    "promete": 0.7832,
+    "casa": 0.7921,
+    "cuota": 1.219,
+    "roi": -0.0377,
+    "por_temporada": 65.2
+   },
+   "juzga_vs_hoy": {
+    "acierto_dif": 0.0384,
+    "acierto_dif_p5": 0.0101,
+    "roi_dif": -0.0019,
+    "roi_dif_p5": -0.0382
+   },
+   "juzga_por_temporada": {
+    "2021": {
+     "n": 84,
+     "acierto": 0.8333,
+     "promete": 0.7844,
+     "casa": 0.7933,
+     "cuota": 1.224,
+     "roi": 0.0193,
+     "por_temporada": 84.0
+    },
+    "2022": {
+     "n": 56,
+     "acierto": 0.8571,
+     "promete": 0.7843,
+     "casa": 0.7902,
+     "cuota": 1.23,
+     "roi": 0.0529,
+     "por_temporada": 56.0
+    },
+    "2023": {
+     "n": 60,
+     "acierto": 0.7333,
+     "promete": 0.7825,
+     "casa": 0.7921,
+     "cuota": 1.214,
+     "roi": -0.1131,
+     "por_temporada": 60.0
+    },
+    "2024": {
+     "n": 54,
+     "acierto": 0.7593,
+     "promete": 0.7712,
+     "casa": 0.7835,
+     "cuota": 1.227,
+     "roi": -0.0727,
+     "por_temporada": 54.0
+    },
+    "2025": {
+     "n": 72,
+     "acierto": 0.7639,
+     "promete": 0.7905,
+     "casa": 0.7984,
+     "cuota": 1.205,
+     "roi": -0.0859,
+     "por_temporada": 72.0
+    }
+   },
+   "temporada_en_curso": {
+    "n": 13,
+    "acierto": 0.5385,
+    "promete": 0.783,
+    "casa": 0.7917,
+    "cuota": 1.214,
+    "roi": -0.358,
+    "por_temporada": 13.0
+   }
+  },
+  "hoy_temporada_en_curso": {
+   "n": 27,
+   "acierto": 0.7037,
+   "promete": 0.7411,
+   "casa": 0.7445,
+   "cuota": 1.296,
+   "roi": -0.0815,
+   "por_temporada": 27.0
+  },
+  "capa1_futbol_elige": {
+   "n": 214,
+   "acierto": 0.8364,
+   "promete": 0.828,
+   "casa": 0.834,
+   "cuota": 1.169,
+   "roi": -0.0238,
+   "por_temporada": 19.5
+  },
+  "capa1_futbol_juzga": {
+   "n": 109,
+   "acierto": 0.844,
+   "promete": 0.8281,
+   "casa": 0.8368,
+   "cuota": 1.152,
+   "roi": -0.0295,
+   "por_temporada": 21.8
+  },
+  "bandas_casa_juzga": [
+   {
+    "banda": "(0.5, 0.6]",
+    "n": 459,
+    "acierto": 0.5621,
+    "promete": 0.5545,
+    "casa": 0.559,
+    "cuota": 1.73,
+    "roi": -0.0337,
+    "por_temporada": 91.8
+   },
+   {
+    "banda": "(0.6, 0.65]",
+    "n": 265,
+    "acierto": 0.634,
+    "promete": 0.6202,
+    "casa": 0.6248,
+    "cuota": 1.546,
+    "roi": -0.022,
+    "por_temporada": 53.0
+   },
+   {
+    "banda": "(0.65, 0.7]",
+    "n": 187,
+    "acierto": 0.6471,
+    "promete": 0.6674,
+    "casa": 0.6767,
+    "cuota": 1.425,
+    "roi": -0.0781,
+    "por_temporada": 37.4
+   },
+   {
+    "banda": "(0.7, 0.75]",
+    "n": 170,
+    "acierto": 0.7353,
+    "promete": 0.7178,
+    "casa": 0.7247,
+    "cuota": 1.331,
+    "roi": -0.0222,
+    "por_temporada": 34.0
+   },
+   {
+    "banda": "(0.75, 0.8]",
+    "n": 172,
+    "acierto": 0.7791,
+    "promete": 0.7649,
+    "casa": 0.7749,
+    "cuota": 1.245,
+    "roi": -0.031,
+    "por_temporada": 34.4
+   },
+   {
+    "banda": "(0.8, 0.85]",
+    "n": 73,
+    "acierto": 0.7945,
+    "promete": 0.8138,
+    "casa": 0.8242,
+    "cuota": 1.17,
+    "roi": -0.0714,
+    "por_temporada": 14.6
+   },
+   {
+    "banda": "(0.85, 0.9]",
+    "n": 61,
+    "acierto": 0.9344,
+    "promete": 0.8636,
+    "casa": 0.8717,
+    "cuota": 1.104,
+    "roi": 0.0321,
+    "por_temporada": 12.2
+   },
+   {
+    "banda": "(0.9, 1.0]",
+    "n": 9,
+    "acierto": 1.0,
+    "promete": 0.9041,
+    "casa": 0.9122,
+    "cuota": 1.059,
+    "roi": 0.0586,
+    "por_temporada": 1.8
+   }
+  ],
+  "peso_modelo": 0.25
+ },
+ "NBA": {
+  "partidos_lado": 19649,
+  "hoy_elige": {
+   "n": 7722,
+   "acierto": 0.7708,
+   "promete": 0.7669,
+   "casa": 0.7711,
+   "cuota": 1.262,
+   "roi": -0.0373,
+   "por_temporada": 702.0
+  },
+  "hoy_juzga": {
+   "n": 3118,
+   "acierto": 0.754,
+   "promete": 0.7599,
+   "casa": 0.7637,
+   "cuota": 1.268,
+   "roi": -0.0536,
+   "por_temporada": 623.6
+  },
+  "rejilla_top": [
+   [
+    "{\"casa\": 0.8, \"app\": 0.8, \"cuota\": 1.0}",
+    2606,
+    0.8619,
+    -0.0403
+   ],
+   [
+    "{\"casa\": null, \"app\": 0.8, \"cuota\": 1.0}",
+    2622,
+    0.8608,
+    -0.0411
+   ],
+   [
+    "{\"casa\": 0.65, \"app\": 0.8, \"cuota\": 1.0}",
+    2622,
+    0.8608,
+    -0.0411
+   ],
+   [
+    "{\"casa\": 0.7, \"app\": 0.8, \"cuota\": 1.0}",
+    2622,
+    0.8608,
+    -0.0411
+   ],
+   [
+    "{\"casa\": 0.72, \"app\": 0.8, \"cuota\": 1.0}",
+    2622,
+    0.8608,
+    -0.0411
+   ],
+   [
+    "{\"casa\": 0.74, \"app\": 0.8, \"cuota\": 1.0}",
+    2622,
+    0.8608,
+    -0.0411
+   ],
+   [
+    "{\"casa\": 0.76, \"app\": 0.8, \"cuota\": 1.0}",
+    2622,
+    0.8608,
+    -0.0411
+   ],
+   [
+    "{\"casa\": 0.78, \"app\": 0.8, \"cuota\": 1.0}",
+    2622,
+    0.8608,
+    -0.0411
+   ],
+   [
+    "{\"casa\": 0.8, \"app\": 0.65, \"cuota\": 1.0}",
+    2730,
+    0.856,
+    -0.0441
+   ],
+   [
+    "{\"casa\": 0.8, \"app\": 0.7, \"cuota\": 1.0}",
+    2730,
+    0.856,
+    -0.0441
+   ],
+   [
+    "{\"casa\": 0.8, \"app\": 0.72, \"cuota\": 1.0}",
+    2730,
+    0.856,
+    -0.0441
+   ],
+   [
+    "{\"casa\": 0.8, \"app\": 0.74, \"cuota\": 1.0}",
+    2730,
+    0.856,
+    -0.0441
+   ],
+   [
+    "{\"casa\": 0.8, \"app\": 0.76, \"cuota\": 1.0}",
+    2730,
+    0.856,
+    -0.0441
+   ],
+   [
+    "{\"casa\": 0.8, \"app\": 0.78, \"cuota\": 1.0}",
+    2726,
+    0.8558,
+    -0.0444
+   ],
+   [
+    "{\"casa\": 0.78, \"app\": 0.78, \"cuota\": 1.0}",
+    3141,
+    0.8494,
+    -0.0408
+   ]
+  ],
+  "regla": {
+   "casa": null,
+   "app": 0.7,
+   "cuota": 1.0
+  },
+  "elige": {
+   "n": 5800,
+   "acierto": 0.8014,
+   "promete": 0.7975,
+   "casa": 0.8019,
+   "cuota": 1.209,
+   "roi": -0.0373,
+   "por_temporada": 527.3
+  },
+  "juzga": {
+   "n": 2286,
+   "acierto": 0.7905,
+   "promete": 0.7907,
+   "casa": 0.7947,
+   "cuota": 1.215,
+   "roi": -0.0452,
+   "por_temporada": 457.2
+  },
+  "juzga_vs_hoy": {
+   "acierto_dif": 0.0364,
+   "acierto_dif_p5": 0.0282,
+   "roi_dif": 0.0083,
+   "roi_dif_p5": -0.0027
+  },
+  "juzga_roi_p5": -0.0633,
+  "ultima_temporada": {
+   "n": 234,
+   "acierto": 0.7607,
+   "promete": 0.7903,
+   "casa": 0.7926,
+   "cuota": 1.211,
+   "roi": -0.0843,
+   "por_temporada": 234.0
+  },
+  "adoptada": {
+   "regla": {
+    "casa": 0.78,
+    "app": 0.7,
+    "cuota": 1.1,
+    "cuota_max": 1.4
+   },
+   "candidatas_elige_peor_temporada": [
+    [
+     0.7,
+     0.7309,
+     {
+      "n": 4830,
+      "acierto": 0.7816,
+      "promete": 0.7772,
+      "casa": 0.7816,
+      "cuota": 1.237,
+      "roi": -0.0367,
+      "por_temporada": 439.1
+     }
+    ],
+    [
+     0.72,
+     0.7364,
+     {
+      "n": 4236,
+      "acierto": 0.7897,
+      "promete": 0.7865,
+      "casa": 0.7913,
+      "cuota": 1.221,
+      "roi": -0.0391,
+      "por_temporada": 385.1
+     }
+    ],
+    [
+     0.74,
+     0.7629,
+     {
+      "n": 3542,
+      "acierto": 0.8015,
+      "promete": 0.7983,
+      "casa": 0.8033,
+      "cuota": 1.201,
+      "roi": -0.0392,
+      "por_temporada": 322.0
+     }
+    ],
+    [
+     0.76,
+     0.7657,
+     {
+      "n": 2962,
+      "acierto": 0.815,
+      "promete": 0.8086,
+      "casa": 0.8137,
+      "cuota": 1.185,
+      "roi": -0.0354,
+      "por_temporada": 269.3
+     }
+    ],
+    [
+     0.78,
+     0.7857,
+     {
+      "n": 2339,
+      "acierto": 0.8239,
+      "promete": 0.8204,
+      "casa": 0.8255,
+      "cuota": 1.167,
+      "roi": -0.0392,
+      "por_temporada": 212.6
+     }
+    ],
+    [
+     0.8,
+     0.7674,
+     {
+      "n": 1794,
+      "acierto": 0.8278,
+      "promete": 0.831,
+      "casa": 0.8362,
+      "cuota": 1.151,
+      "roi": -0.0479,
+      "por_temporada": 163.1
+     }
+    ]
+   ],
+   "elige": {
+    "n": 2339,
+    "acierto": 0.8239,
+    "promete": 0.8204,
+    "casa": 0.8255,
+    "cuota": 1.167,
+    "roi": -0.0392,
+    "por_temporada": 212.6
+   },
+   "juzga": {
+    "n": 965,
+    "acierto": 0.8104,
+    "promete": 0.8193,
+    "casa": 0.824,
+    "cuota": 1.166,
+    "roi": -0.0564,
+    "por_temporada": 193.0
+   },
+   "juzga_vs_hoy": {
+    "acierto_dif": 0.0564,
+    "acierto_dif_p5": 0.0391,
+    "roi_dif": -0.0027,
+    "roi_dif_p5": -0.0239
+   },
+   "juzga_por_temporada": {
+    "2021": {
+     "n": 193,
+     "acierto": 0.8135,
+     "promete": 0.821,
+     "casa": 0.8262,
+     "cuota": 1.168,
+     "roi": -0.0513,
+     "por_temporada": 193.0
+    },
+    "2022": {
+     "n": 184,
+     "acierto": 0.75,
+     "promete": 0.8123,
+     "casa": 0.8194,
+     "cuota": 1.172,
+     "roi": -0.1226,
+     "por_temporada": 184.0
+    },
+    "2023": {
+     "n": 238,
+     "acierto": 0.8403,
+     "promete": 0.8201,
+     "casa": 0.8242,
+     "cuota": 1.163,
+     "roi": -0.0231,
+     "por_temporada": 238.0
+    },
+    "2024": {
+     "n": 264,
+     "acierto": 0.8409,
+     "promete": 0.8238,
+     "casa": 0.8279,
+     "cuota": 1.162,
+     "roi": -0.0253,
+     "por_temporada": 264.0
+    },
+    "2025": {
+     "n": 86,
+     "acierto": 0.7558,
+     "promete": 0.8142,
+     "casa": 0.8165,
+     "cuota": 1.171,
+     "roi": -0.1139,
+     "por_temporada": 86.0
+    }
+   },
+   "temporada_en_curso": {
+    "n": 0
+   }
+  },
+  "hoy_temporada_en_curso": {
+   "n": 0
+  },
+  "capa1_futbol_elige": {
+   "n": 1609,
+   "acierto": 0.8316,
+   "promete": 0.8336,
+   "casa": 0.8373,
+   "cuota": 1.15,
+   "roi": -0.0448,
+   "por_temporada": 146.3
+  },
+  "capa1_futbol_juzga": {
+   "n": 657,
+   "acierto": 0.8356,
+   "promete": 0.8325,
+   "casa": 0.8351,
+   "cuota": 1.15,
+   "roi": -0.0399,
+   "por_temporada": 131.4
+  },
+  "bandas_casa_juzga": [
+   {
+    "banda": "(0.5, 0.6]",
+    "n": 1654,
+    "acierto": 0.5707,
+    "promete": 0.5538,
+    "casa": 0.5553,
+    "cuota": 1.732,
+    "roi": -0.0146,
+    "por_temporada": 330.8
+   },
+   {
+    "banda": "(0.6, 0.65]",
+    "n": 864,
+    "acierto": 0.6238,
+    "promete": 0.622,
+    "casa": 0.625,
+    "cuota": 1.54,
+    "roi": -0.0404,
+    "por_temporada": 172.8
+   },
+   {
+    "banda": "(0.65, 0.7]",
+    "n": 816,
+    "acierto": 0.6446,
+    "promete": 0.6708,
+    "casa": 0.6743,
+    "cuota": 1.425,
+    "roi": -0.0831,
+    "por_temporada": 163.2
+   },
+   {
+    "banda": "(0.7, 0.75]",
+    "n": 727,
+    "acierto": 0.7208,
+    "promete": 0.7187,
+    "casa": 0.7226,
+    "cuota": 1.328,
+    "roi": -0.0426,
+    "por_temporada": 145.4
+   },
+   {
+    "banda": "(0.75, 0.8]",
+    "n": 623,
+    "acierto": 0.7673,
+    "promete": 0.768,
+    "casa": 0.7726,
+    "cuota": 1.244,
+    "roi": -0.0455,
+    "por_temporada": 124.6
+   },
+   {
+    "banda": "(0.8, 0.85]",
+    "n": 547,
+    "acierto": 0.8154,
+    "promete": 0.8198,
+    "casa": 0.8243,
+    "cuota": 1.164,
+    "roi": -0.0511,
+    "por_temporada": 109.4
+   },
+   {
+    "banda": "(0.85, 0.9]",
+    "n": 350,
+    "acierto": 0.8657,
+    "promete": 0.8686,
+    "casa": 0.8731,
+    "cuota": 1.098,
+    "roi": -0.0495,
+    "por_temporada": 70.0
+   },
+   {
+    "banda": "(0.9, 1.0]",
+    "n": 124,
+    "acierto": 0.9355,
+    "promete": 0.9102,
+    "casa": 0.9147,
+    "cuota": 1.048,
+    "roi": -0.0193,
+    "por_temporada": 24.8
+   }
+  ],
+  "peso_modelo": 0.1
+ }
+}

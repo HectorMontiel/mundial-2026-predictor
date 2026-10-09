@@ -4641,6 +4641,16 @@ def por_que_no(p: Dict) -> str:
         if p.get('pretemporada'):
             # v330 — la pretemporada (NBA) no se recomienda nunca
             por = 'pretemporada: no se mide ni se recomienda'
+        elif dep in _vp.DEPORTES_SIN_METER:
+            # v350 — el béisbol se enseña, no se mete
+            por = 'en el béisbol no hay apuesta al ~80 %'
+        elif dep in _vp.METER_GANADOR_CASA_MIN:
+            # v350 — NFL y NBA: sólo el ganador, con la casa
+            por = ('los puntos no se meten' if not _vp.es_ganador(mercado, r.get('apuesta'))
+                   else 'el ganador se mete con la casa en %d %% o más, la app en '
+                        '%d %% o más y cuota 1,10-1,40'
+                        % (round(100 * _vp.METER_GANADOR_CASA_MIN[dep]),
+                           round(100 * _vp.METER_GANADOR_APP_MIN)))
         elif dep != 'Fútbol':
             # v330 — la franja 70-80 % es del fútbol; los demás deportes
             # meten desde el listón general
