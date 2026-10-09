@@ -25,8 +25,8 @@
   },
   "Atlético de San Luis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Petro Atletico",
-    "ratio": 0.4706,
+    "candidato": "San Miguel",
+    "ratio": 0.3333,
     "visto": "2026-10-09"
   },
   "Barracas Central": {
@@ -67,15 +67,15 @@
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club Leon U21",
-    "ratio": 0.48,
+    "candidato": "Club Brugge KV",
+    "ratio": 0.3846,
     "visto": "2026-10-09"
   },
   "Cruz Azul": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Santa Cruz RJ",
-    "ratio": 0.4545,
-    "visto": "2026-09-26"
+    "candidato": "Santa Cruz",
+    "ratio": 0.4211,
+    "visto": "2026-10-09"
   },
   "Defensor Sporting": {
     "contexto": "cuotas_mx→futbol",
@@ -223,8 +223,8 @@
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B",
-    "ratio": 0.5833,
+    "candidato": "Real Oruro",
+    "ratio": 0.6667,
     "visto": "2026-10-09"
   },
   "Real Salt Lake": {
@@ -267,7 +267,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Universitario de Vinto",
     "ratio": 0.6047,
-    "visto": "2026-10-08"
+    "visto": "2026-10-09"
   },
   "Union St.-Gilloise": {
     "contexto": "cuotas_mx→futbol",
@@ -341,8 +341,8 @@
   },
   "Club Atlético La Paz": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club Leon U21",
-    "ratio": 0.5455,
+    "candidato": "Club Brugge KV U23",
+    "ratio": 0.4211,
     "visto": "2026-10-09"
   },
   "Sporting JAX": {
@@ -491,9 +491,9 @@
   },
   "Cruz Azul Hidalgo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Santa Cruz U20",
-    "ratio": 0.3871,
-    "visto": "2026-10-08"
+    "candidato": "Santa Cruz",
+    "ratio": 0.2963,
+    "visto": "2026-10-09"
   },
   "Cerro Porteño": {
     "contexto": "cuotas_mx→futbol",
@@ -623,9 +623,9 @@
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Santa Cruz RJ",
-    "ratio": 0.3243,
-    "visto": "2026-10-04"
+    "candidato": "Santa Cruz",
+    "ratio": 0.2941,
+    "visto": "2026-10-09"
   },
   "New Mexico United": {
     "contexto": "cuotas_mx→futbol",
@@ -653,8 +653,8 @@
   },
   "Colón (Santa Fe)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Villa Santa Brigida",
-    "ratio": 0.4848,
+    "candidato": "Santa Cruz",
+    "ratio": 0.5,
     "visto": "2026-10-09"
   },
   "Almirante Brown": {
@@ -665,8 +665,8 @@
   },
   "Defensores de Belgrano": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Defensores Unidos",
-    "ratio": 0.6667,
+    "candidato": "Defensores de Vilelas",
+    "ratio": 0.7907,
     "visto": "2026-10-09"
   },
   "Cheltenham Town": {
@@ -779,8 +779,8 @@
   },
   "Club Atlético Morelia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club Leon U21",
-    "ratio": 0.5294,
+    "candidato": "Club Brugge KV",
+    "ratio": 0.4,
     "visto": "2026-10-09"
   },
   "Atlético Junior": {
@@ -1331,8 +1331,8 @@
   },
   "Santa Clara": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Santa Amalia",
-    "ratio": 0.6957,
+    "candidato": "Santa Cruz",
+    "ratio": 0.7619,
     "visto": "2026-10-09"
   },
   "Rayo Vallecano": {
@@ -1493,8 +1493,8 @@
   },
   "Real Potosí": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B",
-    "ratio": 0.5,
+    "candidato": "Real Oruro",
+    "ratio": 0.6667,
     "visto": "2026-10-09"
   },
   "AD San Carlos": {

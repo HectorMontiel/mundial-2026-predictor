@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-09T14:47:50Z",
+"actualizado": "2026-10-09T16:22:47Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -2911,6 +2911,16 @@
 "cuota": 2.5,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Al Kholood vs Al Qadsiah",
+"apuesta": "Al Qadsiah o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "0-5"
 },
 {
 "dia": "2026-10-09",
