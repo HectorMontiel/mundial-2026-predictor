@@ -96,6 +96,9 @@ def decidir(p: Dict) -> Dict:
                    'Remates a puerta': (_rm or {}).get('a_puerta')}
         out['recomendadas_tarjeta'] = mm.recomendadas(
             p, bloques, n=mm.MAX_RECOMENDADAS)
+        # v347 — las demás que también se meten (el desplegable)
+        out['otras_tarjeta'] = mm.otras_que_se_meten(
+            p, bloques, mm.metidas(out['recomendadas_tarjeta']))
     return out
 
 
@@ -353,6 +356,14 @@ def tarjeta_de_pick(p: Dict):
     if not isinstance(f, dict) or 'recomendadas_tarjeta' not in f:
         return None
     return copy.deepcopy(f['recomendadas_tarjeta'])
+
+
+def otras_de_pick(p: Dict):
+    """v347 — las «también se meten» precalculadas, en copia, o `None`."""
+    f = p.get(CLAVE_PICK) if isinstance(p, dict) else None
+    if not isinstance(f, dict) or 'otras_tarjeta' not in f:
+        return None
+    return copy.deepcopy(f['otras_tarjeta'])
 
 
 def de_pick(p: Dict):

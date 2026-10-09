@@ -2091,6 +2091,77 @@ def _candidatas_de_la_casa(pick: Dict, bloques: Optional[Dict],
     return salida
 
 
+def otras_que_se_meten(pick: Dict, bloques: Optional[Dict], ya,
+                       maximo: int = 6) -> list:
+    """v347 — LAS QUE TAMBIÉN SE METEN Y NO CABEN ARRIBA.
+
+    El usuario: «en la tarjeta se quedan las dos más probables; las demás que
+    también se meten (tiros, tarjetas, córners…) que estén en el desplegable
+    de cada partido con su probabilidad, para quien quiera meterlas, sin bajar
+    el 80 % de verdes». Son las candidatas que pasan EXACTAMENTE la misma
+    regla que las de arriba (`veredicto_pick.evaluar` y `_motivo_fuera`), una
+    por mercado y lado, sin repetir el mercado de las que ya se enseñan.
+    Medido en `_v347_extras.py`. `ya`: las filas que ya se enseñan."""
+    import valor_apuesta as va
+    import veredicto_pick as _vp
+    usados = {(str(r.get('mercado')), str(r.get('etiqueta') or ''))
+              for r in (ya or [])}
+    nombres = {r.get('apuesta') for r in (ya or [])}
+    fav = prob_favorito(pick)
+    lam = lambdas_corners(pick, bloques or {})
+    mejor: Dict = {}
+    for i, f in enumerate(va.candidatos(pick, bloques or {}) or []):
+        try:
+            c = _enriquece(pick, f, i + 1)
+            if c['apuesta'] in nombres:
+                continue
+            clave = (str(c.get('mercado')), str(f.get('etiqueta') or ''))
+            if clave in usados:
+                continue
+            v = _vp.evaluar(c, con_contexto=False)
+            v['pick'] = c
+            if v.get('veredicto') != _vp.METER or _motivo_fuera(v, fav, lam):
+                continue
+            p = float(v.get('prob_ajustada') or c.get('prob') or 0)
+            if clave not in mejor or p > mejor[clave]['prob']:
+                mejor[clave] = {'apuesta': c['apuesta'], 'mercado': c.get('mercado'),
+                                'etiqueta': f.get('etiqueta'), 'prob': round(p, 4),
+                                'cuota': c.get('cuota'), 'bloque': f.get('bloque'),
+                                'linea': f.get('linea')}
+        except Exception as e:
+            logger.debug('[modo_modelo] otras que se meten: %s', e)
+    return sorted(mejor.values(), key=lambda x: -x['prob'])[:maximo]
+
+
+def _bloque_otras(st, otras: list) -> None:
+    """v347 — el desplegable «➕ También se meten (N)». Nunca lanza."""
+    if not otras:
+        return
+    try:
+        filas = ''.join(
+            '<div class="mm-otra"><span class="mm-otra-ap">✅ %s</span>'
+            '<span class="mm-otra-p">%.0f %%</span>'
+            '<span class="mm-otra-c">%s</span></div>'
+            % (_esc_mm(o.get('apuesta') or ''), 100 * float(o.get('prob') or 0),
+               ('@%.2f' % float(o['cuota'])) if o.get('cuota') else '')
+            for o in otras)
+        with st.expander('➕ También se meten (%d)' % len(otras)):
+            st.markdown(filas, unsafe_allow_html=True)
+            st.caption(TEXTO_OTRAS)
+    except Exception as e:
+        logger.debug('[modo_modelo] bloque otras: %s', e)
+
+
+# v347 — medido en `_v347_extras.py` con la réplica de la tarjeta (794
+# partidos de fútbol del 19-sep en adelante, última foto antes del pitido,
+# precios de Playdoit): las de arriba aciertan 82,7 % (974); estas, 79,1 %
+# (230, prometían 76,4 %), igual en las dos mitades (79,3 y 79,0 %). Si
+# contaran en el marcador, el total pasaría de 82,7 a 82,0 %: no cuentan.
+TEXTO_OTRAS = ('Pasan la misma regla que las de arriba; se enseñan dos por '
+               'partido y éstas no caben. Medido en 794 partidos: aciertan '
+               '79 % (las de arriba, 83 %). No cuentan en el marcador.')
+
+
 def _motivo_fuera(v: Dict, fav: Optional[float], lam: Dict) -> Optional[str]:
     """Por qué un «meter» del veredicto NO se mete en la tarjeta (la franja
     de fútbol de la v312 y las dos reglas de córners), o None."""
@@ -3322,19 +3393,25 @@ def _bloque_validacion(st, pick: Dict) -> bool:
     # v310 — DE LAS QUE SE DIJO «METER», CUÁNTAS. Es la pregunta del usuario
     # («ver si estuvieron verdes las que diste»), y la principal puede ser un
     # «no meter»: contarlas juntas mezclaba lo recomendado con lo descartado.
+    # v347 — LAS DE AL PITIDO (🎯) Y LAS ANUNCIADAS ANTES (📌), CADA UNA EN
+    # SU CUENTA. El usuario, con «meter: 4 de 6» delante: mezclaba lo que se
+    # metía al empezar el partido con lo que se anunció antes y se retiró.
+    _ok = (pgs.CUMPLIDO, pgs.FALLADO, pgs.CERCA)
     _met = [f for f in filas if f.get('veredicto') == 'meter'
-            and f.get('estado') in (pgs.CUMPLIDO, pgs.FALLADO, pgs.CERCA)]
-    _txt_met = ('🎯 meter: %d de %d · ' % (
+            and not f.get('anunciada') and f.get('estado') in _ok]
+    _ant = [f for f in filas if f.get('anunciada') and f.get('estado') in _ok]
+    _txt_met = ('🎯 se metía: %d de %d · ' % (
         sum(1 for f in _met if f['estado'] == pgs.CUMPLIDO), len(_met))
         if _met else '')
+    if _ant:
+        _txt_met += '📌 antes: %d de %d · ' % (
+            sum(1 for f in _ant if f['estado'] == pgs.CUMPLIDO), len(_ant))
     trozos = [
         '<div class="mm-val-res">'
         '<span class="mm-val-marc">%s</span>'
         '<span class="mm-val-cnt">%s</span>'
-        '<span class="mm-val-sub">%s%s%s</span></div>'
-        % (marcador, tira, _txt_met,
-           ('%d de %d · ' % (res.get(pgs.CUMPLIDO, 0), juzgadas)
-            if juzgadas else ''), origen)]
+        '<span class="mm-val-sub">%s%s</span></div>'
+        % (marcador, tira, _txt_met, origen)]
     for f in filas:
         real = f.get('real')
         if real is None:
@@ -3801,6 +3878,16 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 _bloque_recomendada(st, _vista(otra), clave_vista, n_boton)
             # v343 — LO QUE SE ANUNCIÓ ANTES Y YA NO SE ENSEÑA, con su estado.
             _bloque_anunciadas(st, pick, recos, _todas_recos)
+            # v347 — Y LAS DEMÁS QUE TAMBIÉN SE METEN, en su desplegable
+            _otras = None
+            try:
+                import decisiones_dia as _dd_o
+                _otras = _dd_o.otras_de_pick(pick)
+            except Exception as _e_o:
+                logger.debug('[modo_modelo] otras precalculadas: %s', _e_o)
+            if _otras is None:
+                _otras = otras_que_se_meten(pick, _bloques, recos)
+            _bloque_otras(st, _otras)
             # v176 — SE ANOTA LO QUE SE ENSEÑA, Y AQUÍ ES DONDE SE
             # ENSEÑA. Podría anotarse en `render`, que también calcula
             # una recomendación para ordenar la lista, pero esa va SIN

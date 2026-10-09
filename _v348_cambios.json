@@ -1,0 +1,76 @@
+{
+ "corte": "2026-10-06",
+ "n_elige": 2284,
+ "n_juzga": 2995,
+ "auc_elige": 0.684,
+ "auc_juzga": 0.632,
+ "sobrevive_base": 0.633,
+ "elige": {
+  "firmes": {
+   "n": 90,
+   "sobreviven": 0.789,
+   "acierto": 0.767
+  },
+  "resto": {
+   "n": 90,
+   "sobreviven": 0.556,
+   "acierto": 0.733
+  }
+ },
+ "juzga": {
+  "firmes": {
+   "n": 43,
+   "sobreviven": 0.628,
+   "acierto": 0.953
+  },
+  "resto": {
+   "n": 132,
+   "sobreviven": 0.409,
+   "acierto": 0.803
+  }
+ },
+ "todo": {
+  "firmes": {
+   "n": 133,
+   "sobreviven": 0.737,
+   "acierto": 0.827
+  },
+  "resto": {
+   "n": 222,
+   "sobreviven": 0.468,
+   "acierto": 0.775
+  }
+ },
+ "cerca_de_un_corte": {
+  "si": {
+   "n": 154,
+   "sobreviven": 0.565,
+   "acierto": 0.831
+  },
+  "no": {
+   "n": 201,
+   "sobreviven": 0.572,
+   "acierto": 0.766
+  }
+ },
+ "retiradas": {
+  "n": 153,
+  "acierto": 0.791
+ },
+ "se_quedan": {
+  "n": 202,
+  "acierto": 0.797
+ },
+ "coeficientes": {
+  "mercado_1X2": 1.552,
+  "prob": -1.332,
+  "d_p70": -1.332,
+  "d_p80": 1.332,
+  "cuota": -1.197,
+  "d_c115": -1.197,
+  "d_c135": 1.197,
+  "mercado_Tarjetas": -0.921,
+  "log_horas": -0.808,
+  "mercado_Córners": -0.746
+ }
+}

@@ -147,7 +147,9 @@ def probar_la_tarjeta_y_el_archivo():
           'y la escalera de remates dice por qué es sólo información')
     check("v['pick']['prob_meter'] = v.get('prob_ajustada')" in src,
           'la recomendación lleva la probabilidad con la que se decidió')
-    check('🎯 meter: %d de %d' in src,
+    # v347 — el rótulo es ahora «🎯 se metía» (lo del pitido), y lo anunciado
+    # antes y retirado va en su propia cuenta «📌 antes»
+    check('🎯 se metía: %d de %d' in src and '📌 antes: %d de %d' in src,
           'la tarjeta del finalizado cuenta los «meter» acertados')
     import pronosticos_guardados as pg
     f = pg._fila({'apuesta': 'x', 'prob': 0.7, 'veredicto_vp': 'meter',

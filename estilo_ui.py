@@ -761,6 +761,14 @@ div[data-testid="stDataFrame"], div[data-testid="stTable"] {
                           background: linear-gradient(90deg, #10b981, #34d399); }
 @media (max-width: 768px) { .marcador .mc b { font-size: 1.25rem; }
                             .marcador .mc-fila { gap: .45rem 1rem; } }
+/* v347 — las que también se meten, en su desplegable */
+.mm-otra { display: flex; align-items: baseline; gap: .6rem; padding: .3rem .1rem;
+           border-bottom: 1px solid var(--filo); font-size: .86rem; }
+.mm-otra:last-child { border-bottom: 0; }
+.mm-otra-ap { flex: 1 1 auto; min-width: 0; font-weight: 600; }
+.mm-otra-p { font-weight: 800; color: var(--ok); font-variant-numeric: tabular-nums; }
+.mm-otra-c { opacity: .7; font-variant-numeric: tabular-nums; min-width: 3.2rem;
+             text-align: right; }
 /* v343 — lo que se anunció antes y ya no se enseña */
 .mm-anunciada { margin: .35rem 0; padding: .45rem .7rem; border-radius: 12px;
                 font-size: .82rem; line-height: 1.35;
