@@ -3551,6 +3551,15 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 str(pick.get('liga') or '')]
         if pick.get('hora_txt'):
             meta.append('🕐 %s' % pick['hora_txt'])
+        # v351 — y desde cuándo conviene apostarlo (medido: `hora_apuesta`)
+        if not (pick.get('jugado') or pick.get('en_juego')):
+            try:
+                import hora_apuesta as _ha
+                _hap = _ha.texto(pick)
+                if _hap:
+                    meta.append(_hap)
+            except Exception as e:
+                logger.debug('[modo_modelo] hora para apostar: %s', e)
         # v339 — la cabecera de la tarjeta: el partido en grande y lo demás en
         # píldoras, en vez de dos renglones de texto del mismo peso. El nombre
         # del partido va ENTERO y sin escapar apóstrofos (`quote=False`), así

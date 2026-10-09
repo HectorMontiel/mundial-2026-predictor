@@ -146,34 +146,71 @@ def acumular(doc_pronostico: Dict, ruta: str = '',
 
 
 def _acumular_capa1(doc: Dict, partidos: Dict, ahora: _dt.datetime) -> int:
-    """Lo que la Capa 1 enseñaba en esta pasada, con su hora y su cuota."""
+    """Lo que la Capa 1 enseñaba en esta pasada, con su hora y su cuota.
+
+    v351 — los CUATRO grupos y no sólo 🏆 y 🔷: también 💰 los errores de
+    precio contra Pinnacle (`datos.capa1`, los que la app da por buenos) y 🎯
+    las probables con buena cuota (`probables.barrer`). El usuario: «todo lo
+    que está en Capa 1 debe tener si se ganó o no». Los errores son casi
+    siempre de ligas sin modelo propio (Etiopía, Malta, básquet islandés), que
+    no pasan por el archivo de partidos: por eso cada entrada lleva su
+    deporte, su liga y su hora, para que `capa1_resultados` la liquide sola.
+    """
     try:
         import lo_mejor as lm
     except Exception:
         return 0
+    datos = (doc or {}).get('datos') or {}
     n = 0
-    for p in (((doc or {}).get('datos') or {}).get('pronosticos') or []):
-        if not isinstance(p, dict) or p.get('jugado'):
-            continue
+
+    def _poner(p: Dict, e: Dict, nivel: str) -> int:
         ini = _utc(p.get('inicio'))
         if ini is not None and ini <= ahora:
+            return 0
+        k = clave(p.get('partido'), p.get('clave_liga'))
+        ent = partidos.setdefault(k, {'inicio': p.get('inicio'), 'apuestas': []})
+        ent.setdefault('inicio', p.get('inicio'))
+        ent.setdefault('partido', p.get('partido'))
+        ent.setdefault('deporte', str(p.get('deporte') or 'Fútbol'))
+        ent.setdefault('liga', p.get('liga'))
+        c1 = ent.setdefault('capa1', [])
+        if any(x.get('apuesta') == e['apuesta'] and x.get('nivel') == nivel
+               for x in c1):
+            return 0
+        c1.append({'apuesta': e['apuesta'], 'mercado': e.get('mercado'),
+                   'bloque': e.get('bloque') or 'resultado',
+                   'etiqueta': e.get('etiqueta') or 'Resultado',
+                   'cuota': e.get('cuota'), 'prob': e.get('prob'),
+                   'p_mercado': e.get('p_mercado'), 'nivel': nivel,
+                   'desde': ahora.strftime('%Y-%m-%dT%H:%M:%SZ')})
+        return 1
+
+    for p in (datos.get('pronosticos') or []):
+        if not isinstance(p, dict) or p.get('jugado'):
             continue
         for nivel, fn in (('🏆', lm.del_pick), ('🔷', lm.del_pick_riesgo)):
             e = fn(p)
-            if not e:
-                continue
-            k = clave(p.get('partido'), p.get('clave_liga'))
-            ent = partidos.setdefault(k, {'inicio': p.get('inicio'), 'apuestas': []})
-            c1 = ent.setdefault('capa1', [])
-            if any(x.get('apuesta') == e['apuesta'] and x.get('nivel') == nivel
-                   for x in c1):
-                continue
-            c1.append({'apuesta': e['apuesta'], 'mercado': e['mercado'],
-                       'bloque': 'resultado', 'etiqueta': 'Resultado',
-                       'cuota': e.get('cuota'), 'prob': e.get('prob'),
-                       'p_mercado': e.get('p_mercado'), 'nivel': nivel,
-                       'desde': ahora.strftime('%Y-%m-%dT%H:%M:%SZ')})
-            n += 1
+            if e:
+                n += _poner(p, e, nivel)
+    # 💰 los errores de precio que la app enseña (los «sin validar» no)
+    for p in (datos.get('capa1') or []):
+        if not isinstance(p, dict) or p.get('validado') is False                 or not p.get('apuesta') or not p.get('partido'):
+            continue
+        n += _poner(p, {'apuesta': p['apuesta'], 'mercado': p.get('mercado'),
+                        'cuota': p.get('cuota'), 'prob': p.get('prob')}, '💰')
+    # 🎯 las probables con buena cuota, del mismo tablero que la app (sólo
+    # con un precálculo de verdad: sin pronósticos no hay de qué día hablar)
+    try:
+        import probables as _pb
+        for p in (_pb.barrer(datos.get('pronosticos')) or []
+                  if datos.get('pronosticos') else []):
+            if isinstance(p, dict) and p.get('apuesta') and p.get('partido'):
+                n += _poner(p, {'apuesta': p['apuesta'],
+                                'mercado': p.get('mercado') or '1X2',
+                                'cuota': p.get('cuota'), 'prob': p.get('prob')},
+                            '🎯')
+    except Exception as e:
+        logger.debug('[anunciadas] probables: %s', e)
     return n
 
 

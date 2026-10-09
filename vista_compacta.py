@@ -73,12 +73,15 @@ CSS = """<style>
  letter-spacing:.02em}
 .vc-fila.fin-ok .vc-res{color:#10b981}
 .vc-fila.fin-no .vc-res{color:#f87171}
+.vc-hap{display:inline-block;margin-top:2px;font-size:.68rem;font-weight:700;
+ color:#f59e0b}
 </style>"""
 
 # v342 — la Capa 1 de un partido ya empezado no desaparece: se queda con su
 # resultado (`lo_mejor.finalizados`), en verde si se dio y en rojo si no
-_CLASE_RES = {'verde': ' fin-ok', 'rojo': ' fin-no', 'vivo': ' vivo'}
-_TEXTO_RES = {'verde': '✅ SÍ', 'rojo': '❌ NO', 'vivo': '⏳ VIVO'}
+_CLASE_RES = {'verde': ' fin-ok', 'rojo': ' fin-no', 'vivo': ' vivo', 'nula': ' vivo'}
+_TEXTO_RES = {'verde': '✅ SÍ', 'rojo': '❌ NO', 'vivo': '⏳ VIVO',
+              'nula': '↩️ NULA'}       # v351: línea entera con empate exacto
 
 
 def _esc(t) -> str:
@@ -122,6 +125,17 @@ def hora(pick: Dict) -> str:
         return _h.hora(pick.get('inicio')) or str(pick.get('hora_cdmx') or '')
     except Exception:
         return str(pick.get('hora_cdmx') or '')
+
+
+def _hora_apuesta(pick: Dict) -> str:
+    """v351 — '⏰14:15' (desde cuándo apostarlo), '⏰ya' o ''. Nunca lanza."""
+    if pick.get('resultado_c1') or pick.get('jugado'):
+        return ''
+    try:
+        import hora_apuesta as _ha
+        return _ha.corto(pick)
+    except Exception:
+        return ''
 
 
 def _num(x) -> Optional[float]:
@@ -178,6 +192,7 @@ def fila(pick: Dict, hoy: Optional[_dt.date] = None) -> Optional[Dict]:
             'resultado': str(pick.get('resultado_c1') or ''),    # v342
             'anunciada': bool(pick.get('anunciada')),             # v346
             'marcador': str(pick.get('marcador') or ''),
+            'hora_apuesta': _hora_apuesta(pick),                  # v351
             'porque': ' · '.join(
                 [x for x in [str((sf.get('etiqueta') if isinstance(sf, dict)
                                   else '') or pick.get('etiqueta_probable')
@@ -203,6 +218,9 @@ def html_lista(picks: List[Dict], hoy: Optional[_dt.date] = None,
         res = f.get('resultado') or ''
         cuando = '%s <b>%s</b><br>%s' % (f['icono'], _esc(f['hora'] or '—'),
                                          _esc(f['dia']))
+        if f.get('hora_apuesta'):
+            # v351 — desde cuándo conviene apostarlo (`hora_apuesta`)
+            cuando += '<br><span class="vc-hap">%s</span>' % _esc(f['hora_apuesta'])
         if res in _TEXTO_RES:
             # v342 — el resultado en lugar del día: ya no hace falta saber
             # cuándo se juega, sino cómo quedó

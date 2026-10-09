@@ -6779,6 +6779,33 @@ def render_alpha_finder():
         except Exception as _e_fin:
             logger.warning('[capa1] finalizadas omitidas: %s', _e_fin)
             _fin_c1 = _fin_r1 = []
+    # v351 — Y LOS 💰 ERRORES DE PRECIO Y LAS 🎯 PROBABLES QUE YA EMPEZARON,
+    # con su resultado (`capa1_resultados`, que el cron liquida con FotMob y
+    # Flashscore), y la tasa de conversión de cada grupo en los últimos días.
+    # El usuario: «todo lo de Capa 1 debe tener si se ganó o no, y cada uno un
+    # indicador súper breve de la conversión verdes contra rojas».
+    _fin_err, _fin_prob, _tasas_c1 = [], [], {}
+    try:
+        import capa1_resultados as _c1r
+        _hoy_c1 = _dia_hoy_cdmx()
+        _dsel_c1 = set(_deps_sel) if _deps_sel else None
+        for _nv in _c1r.NIVELES:
+            _tasas_c1[_nv] = _c1r.tasa(_nv, _hoy_c1, deportes=_dsel_c1)
+        if _modo_dia == 'hoy':
+            _fin_err = _filtra(_c1r.finalizadas('💰', _hoy_c1))
+            _fin_prob = _filtra(_c1r.finalizadas('🎯', _hoy_c1))
+            _ya_e = {(str(p.get('partido')), p.get('apuesta')) for p in _fin_err}
+            _c1_val = [p for p in _c1_val
+                       if (str(p.get('partido')), p.get('apuesta')) not in _ya_e]
+            _ya_pb = {(str(p.get('partido')), p.get('apuesta')) for p in _fin_prob}
+            _prob_c1 = [p for p in _prob_c1
+                        if (str(p.get('partido')), p.get('apuesta')) not in _ya_pb]
+    except Exception as _e_c1r:
+        logger.warning('[capa1] resultados de errores y probables: %s', _e_c1r)
+
+    def _tasa_c1(nivel):
+        t = _tasas_c1.get(nivel)
+        return (' · %s' % t) if t else ''
     _n_c1, _n_r1 = len(_lm_c1), len(_lm_r1)
     _lm_c1 = _lm_c1 + _fin_c1
     _lm_r1 = _lm_r1 + _fin_r1
@@ -6788,9 +6815,10 @@ def render_alpha_finder():
         _r = sum(1 for p in lst if p.get('resultado_c1') == 'rojo')
         return (' · %d ✅ %d ❌' % (_v, _r)) if (_v or _r) else ''
     _rot_c1 = ('🟢 Capa 1 · 🏆 %d lo mejor del modelo%s · 🔷 %d con más cuota%s · '
-               '%d errores de precio para %s'
+               '%d errores de precio%s para %s'
                % (_n_c1, _cuenta_fin(_fin_c1), _n_r1, _cuenta_fin(_fin_r1),
-                  len(_c1_val), _NOMBRE_DIA.get(_modo_dia, _modo_dia)))
+                  len(_c1_val), _cuenta_fin(_fin_err),
+                  _NOMBRE_DIA.get(_modo_dia, _modo_dia)))
     if _prob_c1:
         _rot_c1 += ' · 🎯 %d probables' % len(_prob_c1)
     with st.expander(_rot_c1, expanded=False):
@@ -6801,16 +6829,16 @@ def render_alpha_finder():
             st.error('No se pudo cargar la vista de la Capa 1 (%s).'
                      % type(_e_vc).__name__)
         if _lm_c1 and _vc is not None:
-            st.markdown('**🏆 Lo mejor del modelo (%d)**%s'
-                        % (_n_c1, _cuenta_fin(_fin_c1)))
+            st.markdown('**🏆 Lo mejor del modelo (%d)**%s%s'
+                        % (_n_c1, _cuenta_fin(_fin_c1), _tasa_c1('🏆')))
             st.caption('El modelo en 70 % o más y la casa, sin su margen, '
                        'entre 80 % y 88 %: medido en 60.796 partidos, acierta '
                        '85 % (doble oportunidad) y 87 % (ganador). Cuota baja '
                        '(1,10-1,20): es lo más seguro, sirve de pata.')
             st.markdown(_vc.html_lista(_lm_c1), unsafe_allow_html=True)
         if _lm_r1 and _vc is not None:
-            st.markdown('**🔷 Más riesgo, más cuota (%d)**%s'
-                        % (_n_r1, _cuenta_fin(_fin_r1)))
+            st.markdown('**🔷 Más riesgo, más cuota (%d)**%s%s'
+                        % (_n_r1, _cuenta_fin(_fin_r1), _tasa_c1('🔷')))
             st.caption('OTRA PROBABILIDAD: ganador que el modelo ve claro y la '
                        'casa tiene entre 55 % y 70 %. Medido en 2.354 partidos: '
                        'acierta 71-72 % a cuota media 1,43. Menos '
@@ -6818,19 +6846,20 @@ def render_alpha_finder():
                        'dos de éstas paga ~2,10 y sale ~50 % de las veces).')
             st.markdown(_vc.html_lista(_lm_r1, con_css=not _lm_c1),
                         unsafe_allow_html=True)
-        if _c1_val and _vc is not None:
-            st.markdown('**💰 Errores de precio contra Pinnacle (%d)**'
-                        % len(_c1_val))
+        if (_c1_val or _fin_err) and _vc is not None:
+            st.markdown('**💰 Errores de precio contra Pinnacle (%d)**%s%s'
+                        % (len(_c1_val), _cuenta_fin(_fin_err), _tasa_c1('💰')))
             if _frase:
                 st.caption(_frase)
-            st.markdown(_vc.html_lista(_c1_val, con_css=not (_lm_c1 or _lm_r1)),
+            st.markdown(_vc.html_lista(_c1_val + _fin_err,
+                                       con_css=not (_lm_c1 or _lm_r1)),
                         unsafe_allow_html=True)
             st.caption('🟢 Métela · 🟡 Puedes meterla · 🔴 No la metas. Van '
                        'por calidad medida, no por probabilidad: las de cuota '
                        '2,80-4,00 aciertan menos y rinden más. La casa paga '
                        'por encima del precio justo de Pinnacle; no usa el '
                        'modelo.')
-        elif not _c1_val:
+        elif not (_c1_val or _fin_err):
             # v275 — el vacío dice la EDAD del dato. Antes decía «cero no es
             # un fallo» pasara lo que pasara, y eso tapó tres averías.
             _edad = ''
@@ -6854,14 +6883,15 @@ def render_alpha_finder():
             st.info('Para %s no hay ningún error de cuota: las casas y '
                     'Pinnacle coinciden.%s'
                     % (_NOMBRE_DIA.get(_modo_dia, _modo_dia), _edad))
-        if _prob_c1 and _vc is not None:
-            st.markdown('**🎯 Probables con buena cuota (%d)**'
-                        % len(_prob_c1))
+        if (_prob_c1 or _fin_prob) and _vc is not None:
+            st.markdown('**🎯 Probables con buena cuota (%d)**%s%s'
+                        % (len(_prob_c1), _cuenta_fin(_fin_prob), _tasa_c1('🎯')))
             st.caption('Visitante favorito que el mercado paga a 1,50 o más. '
                        'Medido: acierta el 68 % cuando el modelo también lo '
                        've y el 63 % cuando sólo lo ve Pinnacle. Probable, no '
                        'ventaja medida: no pasa la puerta del p5.')
-            st.markdown(_vc.html_lista(_prob_c1, con_css=not _c1_val),
+            st.markdown(_vc.html_lista(_prob_c1 + _fin_prob,
+                                       con_css=not (_c1_val or _fin_err)),
                         unsafe_allow_html=True)
         if _c1_nov:
             st.caption(_TEXTO_SIN_VALIDAR % len(_c1_nov))

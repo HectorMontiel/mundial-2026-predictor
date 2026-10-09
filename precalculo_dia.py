@@ -590,6 +590,14 @@ def main() -> int:
             anunciadas.acumular(json.load(_f_an))
     except Exception as e:
         logger.warning('[precalculo] anunciadas: %s', e)
+    # v351 — y lo que la Capa 1 enseñó y ya terminó se liquida (FotMob y
+    # Flashscore) y se apunta en `capa1_historial.json`: de ahí sale la tasa
+    # de conversión de cada grupo. Falla en blando.
+    try:
+        import capa1_resultados
+        capa1_resultados.liquidar()
+    except Exception as e:
+        logger.warning('[precalculo] capa 1 liquidada: %s', e)
     print(json.dumps(estado(a.salida), ensure_ascii=False, indent=1))
     return 0
 
