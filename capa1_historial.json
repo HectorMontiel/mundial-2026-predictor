@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-09T19:36:16Z",
+"actualizado": "2026-10-09T21:05:28Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -2954,6 +2954,26 @@
 },
 {
 "dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Al Nassr vs Al Diriyah",
+"apuesta": "Al Nassr o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Al Nassr vs Al Diriyah",
+"apuesta": "Gana Al Nassr",
+"cuota": 1.4,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-09",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Al Sharjah vs Al Jazira",
@@ -2961,6 +2981,26 @@
 "cuota": 3.3,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Almere City vs FC Eindhoven",
+"apuesta": "Almere City o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Athlone vs Treaty United",
+"apuesta": "Gana Athlone",
+"cuota": 1.43,
+"resultado": "rojo",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-09",
@@ -2976,11 +3016,81 @@
 "dia": "2026-10-09",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Etoile-Carouge vs Yverdon",
+"apuesta": "Gana Yverdon",
+"cuota": 1.87,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Etoile-Carouge vs Yverdon",
+"apuesta": "Gana Yverdon",
+"cuota": 1.87,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Haverfordwest vs Caernarfon",
+"apuesta": "Gana Caernarfon",
+"cuota": 1.6471,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Heracles Almelo vs RKC Waalwijk",
+"apuesta": "Heracles Almelo o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Heracles Almelo vs RKC Waalwijk",
+"apuesta": "Gana Heracles Almelo",
+"cuota": 1.455,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Heracles vs Waalwijk",
+"apuesta": "Gana Heracles",
+"cuota": 1.58,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Herd vs Spjelkavik",
 "apuesta": "Gana Spjelkavik",
 "cuota": 3.2,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Montpellier vs Grenoble",
+"apuesta": "Montpellier o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-09",
