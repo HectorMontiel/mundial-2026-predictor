@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-09T18:02:59Z",
+"actualizado": "2026-10-09T19:36:16Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -2934,6 +2934,16 @@
 },
 {
 "dia": "2026-10-09",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Al Jazeera Amman vs Al Wehdat",
+"apuesta": "Gana Al Wehdat",
+"cuota": 1.66,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-09",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Al Kholood vs Al Qadsiah",
@@ -2956,6 +2966,46 @@
 "dia": "2026-10-09",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Bayern II vs Unterhaching",
+"apuesta": "Gana Bayern II",
+"cuota": 3.0,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Herd vs Spjelkavik",
+"apuesta": "Gana Spjelkavik",
+"cuota": 3.2,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Nordsjaelland vs Odense",
+"apuesta": "Nordsjaelland o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Parndorf vs Wiener Sport-Club",
+"apuesta": "Gana Wiener Sport-Club",
+"cuota": 2.3,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Persipura Jayapura vs RANS Nusantara",
 "apuesta": "Gana Persipura Jayapura",
 "cuota": 1.8,
@@ -2971,6 +3021,16 @@
 "cuota": 1.69,
 "resultado": "verde",
 "marcador": "6-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Utiel vs Levante B",
+"apuesta": "Gana Levante B",
+"cuota": 1.69,
+"resultado": "verde",
+"marcador": "0-3"
 },
 {
 "dia": "2026-10-09",
