@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-09T21:05:28Z",
+"actualizado": "2026-10-09T22:45:45Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3121,6 +3121,26 @@
 "cuota": 1.8,
 "resultado": "rojo",
 "marcador": "1-3"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Real Cundinamarca vs Real Santander",
+"apuesta": "Gana Real Cundinamarca",
+"cuota": 1.49,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "San Antonio Bulo Bulo vs Real Tomayapo",
+"apuesta": "San Antonio Bulo Bulo o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-09",
