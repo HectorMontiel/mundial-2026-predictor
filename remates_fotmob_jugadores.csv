@@ -136707,3 +136707,60 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014178,2026-10-09,col_primera_a,Millonarios,Stiven Vega,1130854,M,0,44,0,0,0,0.0,,2.0,316150.0
 1000014178,2026-10-09,col_primera_a,Millonarios,David Silva,95546,M,0,19,1,1,0,0.05,,2.0,240713.0
 1000014178,2026-10-09,col_primera_a,Millonarios,Daniel Ruiz,1266136,F,0,19,3,1,0,0.2,,3.0,650779.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Tomoki Hayakawa,1232143,G,1,90,0,0,0,0.0,11,0,1335699
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Rikuto Hirose,648262,D,1,55,0,0,0,0.0,32,1,240786
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Naomichi Ueda,430831,D,1,90,0,0,0,0.0,34,1,623746
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Tae-Hyeon Kim,1053477,D,1,90,0,0,0,0.0,36,1,770375
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Ryoya Ogawa,727419,D,1,90,0,0,0,0.0,38,1,705202
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Yuta Matsumura,1133794,M,1,90,3,0,0,0.11,72,2,508767
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Gaku Shibasaki,262394,M,1,79,0,0,0,0.0,74,2,181697
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Kento Misao,648364,M,1,90,1,0,0,0.09,76,2,391721
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Yuma Suzuki,619621,F,1,88,3,1,1,0.38,78,3,1563878
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Minato Yoshida,1748953,F,1,55,1,0,0,0.04,104,3,
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Léo,558007,F,1,79,5,1,1,0.37,106,3,1553114
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Aleksandar Čavrić,364496,M,0,35,1,1,0,0.03,,2,634382
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Keisuke Tsukui,1437167,M,0,35,0,0,0,0.0,,2,441207
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Haruki Hayashi,1899991,M,0,11,0,0,0,0.0,,2,
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Matheus Bueno,1173576,M,0,11,0,0,0,0.0,,2,773914
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Homare Tokuda,1652441,F,0,2,0,0,0,0.0,,3,497867
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Jun Ichimori,728441,G,1,90,0,0,0,0.0,11,0,286752
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Soya Fujiwara,1134741,D,1,90,0,0,0,0.0,32,1,320472
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shinnosuke Nakatani,511758,D,1,90,0,0,0,0.0,34,1,870943
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shota Fukuoka,924121,D,1,90,2,1,0,0.12,36,1,210926
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Ryo Hatsuse,712170,D,1,64,0,0,0,0.0,38,1,529488
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shuto Abe,1061133,M,1,90,1,1,0,0.03,64,2,418412
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Rin Mito,1611156,M,1,73,0,0,0,0.0,66,2,593363
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Ryoya Yamashita,1135557,F,1,90,1,1,0,0.2,83,3,602977
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Takashi Usami,166653,M,1,57,2,0,0,0.15,85,2,167840
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Welton,1327375,F,1,64,1,0,0,0.03,87,3,603336
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Yusei Toshida,1337816,F,1,57,1,0,0,0.22,115,3,124416
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Issam Jebali,615767,M,0,33,0,0,0,0.0,,2,243553
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Deniz Hümmet,614163,F,0,33,3,2,0,0.25,,3,1521362
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shinya Nakano,1172705,D,0,26,0,0,0,0.0,,1,252026
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Koshiro Sumi,1544872,M,0,26,1,0,0,0.02,,2,320913
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Takeru Kishimoto,735816,D,0,17,0,0,0,0.0,,1,212736
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Tomoya Wakahara,834306,G,1,90,0,0,0,0.0,11,0,219744
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Seiya Baba,1134756,D,1,90,0,0,0,0.0,33,1,487633
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Taiyo Koga,758052,D,1,90,0,0,0,0.0,35,1,888731
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Daiki Sugioka,826020,D,1,90,0,0,0,0.0,37,1,235069
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Tojiro Kubo,1299353,M,1,84,1,1,1,0.05,62,2,786497
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yudai Konishi,833021,M,1,90,0,0,0,0.0,64,2,174654
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Nobuteru Nakagawa,1716158,M,1,90,2,0,0,0.03,66,2,622449
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Keita Endo,727873,M,1,71,2,0,0,0.05,68,2,390852
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yoshio Koizumi,1012227,M,1,90,2,0,0,0.06,84,2,614853
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Hinata Yamauchi,1611176,M,1,71,1,1,1,0.5,86,2,257032
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Shota Fujio,1134268,F,1,84,6,3,1,1.03,105,3,677011
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yusuke Segawa,728766,M,0,19,2,1,1,0.08,,2,182515
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Mao Hosoya,1035013,F,0,6,1,0,0,0.04,,3,1354693
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Daiya Maekawa,846603,G,1,90,0,0,0,0.0,11,0,404545
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Issei Takahashi,826030,D,1,76,1,0,0,0.02,32,1,309261
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Tetsushi Yamakawa,688651,D,1,90,0,0,0,0.0,34,1,770719
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Matheus Thuler,895646,D,1,90,1,0,0,0.34,36,1,1152003
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Diego,645407,D,1,90,3,1,1,0.16,38,1,239374
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Yosuke Ideguchi,619662,M,1,90,1,1,0,0.1,73,2,538444
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Gotoku Sakai,157252,D,1,72,2,0,0,0.06,75,1,236665
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Erik,460255,M,1,90,4,3,0,0.88,77,2,623688
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Yoshinori Muto,459499,F,1,72,1,0,0,0.17,103,3,415289
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Yuya Osako,166449,F,1,90,1,0,0,0.11,105,3,388814
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Katsuya Nagato,825800,D,1,90,0,0,0,0.0,107,1,450113
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Ren Komatsu,747908,F,0,18,1,1,1,0.23,,3,547655
