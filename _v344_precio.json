@@ -1,0 +1,60 @@
+{
+ "a_puerta": {
+  "apuestas_posibles": 904,
+  "partidos": 256,
+  "media_real": 4.94,
+  "media_linea": 4.43,
+  "casa_promete_mas": 0.5,
+  "real_mas": 0.565,
+  "ll_casa": 0.6666,
+  "ll_modelo": 0.663,
+  "ll_mitad": 0.6621,
+  "valor_0.05": {
+   "n": 415,
+   "acierto": 0.605,
+   "roi": 0.0212,
+   "p5": -0.0687
+  },
+  "valor_0.08": {
+   "n": 218,
+   "acierto": 0.624,
+   "roi": 0.067,
+   "p5": -0.0476
+  },
+  "valor_0.12": {
+   "n": 79,
+   "acierto": 0.633,
+   "roi": 0.0904,
+   "p5": -0.0915
+  }
+ },
+ "tiros": {
+  "apuestas_posibles": 907,
+  "partidos": 257,
+  "media_real": 14.17,
+  "media_linea": 13.06,
+  "casa_promete_mas": 0.502,
+  "real_mas": 0.552,
+  "ll_casa": 0.6893,
+  "ll_modelo": 0.6794,
+  "ll_mitad": 0.6802,
+  "valor_0.05": {
+   "n": 447,
+   "acierto": 0.573,
+   "roi": 0.0444,
+   "p5": -0.0542
+  },
+  "valor_0.08": {
+   "n": 266,
+   "acierto": 0.598,
+   "roi": 0.1077,
+   "p5": -0.0192
+  },
+  "valor_0.12": {
+   "n": 131,
+   "acierto": 0.634,
+   "roi": 0.2035,
+   "p5": -0.0033
+  }
+ }
+}

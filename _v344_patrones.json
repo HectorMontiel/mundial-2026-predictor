@@ -1,0 +1,265 @@
+{
+ "historico": {
+  "mls": {
+   "partidos": 2948,
+   "mas_1.5": 0.79,
+   "ambos": 0.599,
+   "empate": 0.261,
+   "corners": 9.89,
+   "amarillas": 4.04,
+   "empate_pinnacle": {
+    "n": 2529,
+    "promete": 0.251,
+    "real": 0.262,
+    "roi_a_pinnacle": 0.012
+   }
+  },
+  "liga_mx": {
+   "partidos": 1959,
+   "mas_1.5": 0.752,
+   "ambos": 0.551,
+   "empate": 0.263,
+   "corners": 9.88,
+   "amarillas": 4.27,
+   "empate_pinnacle": {
+    "n": 1665,
+    "promete": 0.264,
+    "real": 0.267,
+    "roi_a_pinnacle": -0.0261
+   }
+  },
+  "brasil": {
+   "partidos": 2291,
+   "mas_1.5": 0.712,
+   "ambos": 0.499,
+   "empate": 0.273,
+   "corners": 10.39,
+   "amarillas": 4.85,
+   "empate_pinnacle": {
+    "n": 1968,
+    "promete": 0.278,
+    "real": 0.272,
+    "roi_a_pinnacle": -0.06
+   }
+  },
+  "premier": {
+   "partidos": 2175,
+   "mas_1.5": 0.789,
+   "ambos": 0.544,
+   "empate": 0.236,
+   "corners": 10.29,
+   "amarillas": 3.7,
+   "empate_pinnacle": {
+    "n": 1955,
+    "promete": 0.239,
+    "real": 0.23,
+    "roi_a_pinnacle": -0.0688
+   }
+  },
+  "laliga": {
+   "partidos": 2194,
+   "mas_1.5": 0.726,
+   "ambos": 0.523,
+   "empate": 0.262,
+   "corners": 9.44,
+   "amarillas": 4.7,
+   "empate_pinnacle": {
+    "n": 1934,
+    "promete": 0.266,
+    "real": 0.266,
+    "roi_a_pinnacle": -0.0332
+   }
+  },
+  "bundesliga": {
+   "partidos": 1755,
+   "mas_1.5": 0.831,
+   "ambos": 0.595,
+   "empate": 0.245,
+   "corners": 9.71,
+   "amarillas": 3.84,
+   "empate_pinnacle": {
+    "n": 1563,
+    "promete": 0.236,
+    "real": 0.244,
+    "roi_a_pinnacle": 0.0038
+   }
+  },
+  "serie_a": {
+   "partidos": 2192,
+   "mas_1.5": 0.754,
+   "ambos": 0.522,
+   "empate": 0.266,
+   "corners": 9.39,
+   "amarillas": 4.18,
+   "empate_pinnacle": {
+    "n": 1962,
+    "promete": 0.258,
+    "real": 0.272,
+    "roi_a_pinnacle": 0.0203
+   }
+  },
+  "usl_championship": {
+   "partidos": 2352,
+   "mas_1.5": 0.739,
+   "ambos": 0.539,
+   "empate": 0.246,
+   "corners": 9.27,
+   "amarillas": 4.71
+  },
+  "liga_mx_grandes_favoritos": {
+   "n": 566,
+   "pinnacle_promete_gana": 0.603,
+   "gana_real": 0.647,
+   "roi_gana_a_pinnacle": 0.0414,
+   "mete_1+": 0.878,
+   "mete_2+": 0.601
+  }
+ },
+ "contra_playdoit": {
+  "mls": {
+   "partidos_con_tablero": 65,
+   "más de 1,5": {
+    "n": 65,
+    "casa_promete": 0.821,
+    "real": 0.862,
+    "cuota_media": 1.15,
+    "roi": -0.0136,
+    "p5": -0.0991
+   },
+   "ambos anotan": {
+    "n": 65,
+    "casa_promete": 0.621,
+    "real": 0.631,
+    "cuota_media": 1.511,
+    "roi": -0.058,
+    "p5": -0.2069
+   },
+   "empate": {
+    "n": 65,
+    "casa_promete": 0.232,
+    "real": 0.308,
+    "cuota_media": 4.191,
+    "roi": 0.269,
+    "p5": -0.1169
+   },
+   "corners: más (línea pareja)": {
+    "n": 65,
+    "casa_promete": 0.5,
+    "real": 0.554,
+    "cuota_media": 2.001,
+    "roi": 0.0952,
+    "p5": -0.1002
+   },
+   "tarjetas: más (línea pareja)": {
+    "n": 63,
+    "casa_promete": 0.493,
+    "real": 0.476,
+    "cuota_media": 1.86,
+    "roi": -0.1336,
+    "p5": -0.3222
+   }
+  },
+  "liga_mx": {
+   "partidos_con_tablero": 43,
+   "más de 1,5": {
+    "n": 43,
+    "casa_promete": 0.77,
+    "real": 0.791,
+    "cuota_media": 1.223,
+    "roi": -0.0287,
+    "p5": -0.1643
+   },
+   "ambos anotan": {
+    "n": 43,
+    "casa_promete": 0.56,
+    "real": 0.558,
+    "cuota_media": 1.684,
+    "roi": -0.0637,
+    "p5": -0.2641
+   },
+   "empate": {
+    "n": 43,
+    "casa_promete": 0.252,
+    "real": 0.279,
+    "cuota_media": 3.884,
+    "roi": 0.0047,
+    "p5": -0.4054
+   },
+   "corners: más (línea pareja)": {
+    "n": 43,
+    "casa_promete": 0.503,
+    "real": 0.605,
+    "cuota_media": 1.97,
+    "roi": 0.1845,
+    "p5": -0.053
+   },
+   "tarjetas: más (línea pareja)": {
+    "n": 42,
+    "casa_promete": 0.509,
+    "real": 0.357,
+    "cuota_media": 1.8,
+    "roi": -0.3623,
+    "p5": -0.5778
+   },
+   "favorito grande mete gol": {
+    "n": 9,
+    "casa_promete": 0.803,
+    "real": 0.778,
+    "cuota_media": 1.163,
+    "roi": -0.0913,
+    "p5": -0.4239
+   },
+   "favorito grande mete 2+": {
+    "n": 9,
+    "casa_promete": 0.515,
+    "real": 0.667,
+    "cuota_media": 1.815,
+    "roi": 0.2499,
+    "p5": -0.34
+   }
+  },
+  "brasil": {
+   "partidos_con_tablero": 40,
+   "más de 1,5": {
+    "n": 39,
+    "casa_promete": 0.716,
+    "real": 0.821,
+    "cuota_media": 1.308,
+    "roi": 0.0711,
+    "p5": -0.0683
+   },
+   "ambos anotan": {
+    "n": 39,
+    "casa_promete": 0.496,
+    "real": 0.667,
+    "cuota_media": 1.913,
+    "roi": 0.2723,
+    "p5": 0.0252
+   },
+   "empate": {
+    "n": 39,
+    "casa_promete": 0.263,
+    "real": 0.179,
+    "cuota_media": 3.703,
+    "roi": -0.3536,
+    "p5": -0.7111
+   },
+   "corners: más (línea pareja)": {
+    "n": 39,
+    "casa_promete": 0.499,
+    "real": 0.538,
+    "cuota_media": 1.985,
+    "roi": 0.0411,
+    "p5": -0.2172
+   },
+   "tarjetas: más (línea pareja)": {
+    "n": 38,
+    "casa_promete": 0.503,
+    "real": 0.5,
+    "cuota_media": 1.82,
+    "roi": -0.1013,
+    "p5": -0.3435
+   }
+  }
+ }
+}

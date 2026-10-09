@@ -1,0 +1,324 @@
+{
+ "tiros": {
+  "n_elige": 41314,
+  "n_juzga": 17734,
+  "corte": "2025-06-14",
+  "modelos": {
+   "B1 últimos 5 (misma condición)": {
+    "k": 11.4,
+    "mae_juzga": 4.18,
+    "ll_8.5": 0.5229,
+    "meter_8.5": [
+     12004,
+     0.8209
+    ],
+    "ll_10.5": 0.6622,
+    "meter_10.5": [
+     8064,
+     0.7161
+    ],
+    "ll_12.5": 0.6978,
+    "meter_12.5": [
+     7363,
+     0.6768
+    ],
+    "ll_14.5": 0.6435,
+    "meter_14.5": [
+     9410,
+     0.7437
+    ],
+    "ll_media": 0.6316
+   },
+   "B2 ataque × defensa": {
+    "k": 14.0,
+    "mae_juzga": 3.993,
+    "ll_8.5": 0.4972,
+    "meter_8.5": [
+     13000,
+     0.8325
+    ],
+    "ll_10.5": 0.6282,
+    "meter_10.5": [
+     6697,
+     0.7482
+    ],
+    "ll_12.5": 0.667,
+    "meter_12.5": [
+     5175,
+     0.6974
+    ],
+    "ll_14.5": 0.6196,
+    "meter_14.5": [
+     8869,
+     0.7536
+    ],
+    "ll_media": 0.603
+   },
+   "N- sin tabla/posesión/faltas": {
+    "k": 28.3,
+    "mae_juzga": 3.662,
+    "ll_8.5": 0.4571,
+    "meter_8.5": [
+     13994,
+     0.8456
+    ],
+    "ll_10.5": 0.5815,
+    "meter_10.5": [
+     8248,
+     0.8032
+    ],
+    "ll_12.5": 0.617,
+    "meter_12.5": [
+     6538,
+     0.77
+    ],
+    "ll_14.5": 0.5713,
+    "meter_14.5": [
+     9671,
+     0.7985
+    ],
+    "ll_media": 0.5567
+   },
+   "N metodología completa": {
+    "k": 34.3,
+    "mae_juzga": 3.611,
+    "ll_8.5": 0.4517,
+    "meter_8.5": [
+     14017,
+     0.8484
+    ],
+    "ll_10.5": 0.5742,
+    "meter_10.5": [
+     8505,
+     0.8096
+    ],
+    "ll_12.5": 0.609,
+    "meter_12.5": [
+     6879,
+     0.7792
+    ],
+    "ll_14.5": 0.5641,
+    "meter_14.5": [
+     9866,
+     0.8048
+    ],
+    "ll_media": 0.5497
+   }
+  },
+  "bootstrap": {
+   "N vs B1": {
+    "mejora_media": 0.0818,
+    "p5": 0.07715
+   },
+   "N vs B2": {
+    "mejora_media": 0.05322,
+    "p5": 0.04961
+   },
+   "N vs N-": {
+    "mejora_media": 0.00699,
+    "p5": 0.00546
+   }
+  },
+  "importancia_N": {
+   "p_gana": 212317,
+   "p_pierde": 64664,
+   "r_t_tiros_c": 27682,
+   "liga_tiros": 21085,
+   "t_tiros": 16246,
+   "r_l5_tiros_c": 9999,
+   "l5_tiros": 8348,
+   "liga_a_puerta": 5407,
+   "r_t_faltas": 4767,
+   "r_t_gf": 4507,
+   "local": 3960,
+   "t_faltas_r": 3940,
+   "t_amarillas": 3799,
+   "t_a_puerta": 3742,
+   "t_gc": 3723
+  },
+  "por_liga": {
+   "brasil": {
+    "B1 últimos 5 (misma condición)": 0.6117,
+    "B2 ataque × defensa": 0.6542,
+    "N- sin tabla/posesión/faltas": 0.5498,
+    "N metodología completa": 0.5495,
+    "n": 966
+   },
+   "mls": {
+    "B1 últimos 5 (misma condición)": 0.6397,
+    "B2 ataque × defensa": 0.6223,
+    "N- sin tabla/posesión/faltas": 0.5743,
+    "N metodología completa": 0.5667,
+    "n": 1274
+   },
+   "liga_mx": {
+    "B1 últimos 5 (misma condición)": 0.6556,
+    "B2 ataque × defensa": 0.5767,
+    "N- sin tabla/posesión/faltas": 0.5415,
+    "N metodología completa": 0.5313,
+    "n": 684
+   }
+  }
+ },
+ "a_puerta": {
+  "n_elige": 41314,
+  "n_juzga": 17734,
+  "corte": "2025-06-14",
+  "modelos": {
+   "B1 últimos 5 (misma condición)": {
+    "k": 10.1,
+    "mae_juzga": 2.005,
+    "ll_2.5": 0.5797,
+    "meter_2.5": [
+     10865,
+     0.7883
+    ],
+    "ll_3.5": 0.7102,
+    "meter_3.5": [
+     6814,
+     0.656
+    ],
+    "ll_4.5": 0.7106,
+    "meter_4.5": [
+     7001,
+     0.6619
+    ],
+    "ll_5.5": 0.6268,
+    "meter_5.5": [
+     10827,
+     0.76
+    ],
+    "ll_media": 0.6568
+   },
+   "B2 ataque × defensa": {
+    "k": 16.5,
+    "mae_juzga": 1.889,
+    "ll_2.5": 0.5378,
+    "meter_2.5": [
+     11814,
+     0.8026
+    ],
+    "ll_3.5": 0.6636,
+    "meter_3.5": [
+     4425,
+     0.7168
+    ],
+    "ll_4.5": 0.6701,
+    "meter_4.5": [
+     5310,
+     0.6859
+    ],
+    "ll_5.5": 0.5922,
+    "meter_5.5": [
+     10903,
+     0.7658
+    ],
+    "ll_media": 0.6159
+   },
+   "N- sin tabla/posesión/faltas": {
+    "k": 105.5,
+    "mae_juzga": 1.791,
+    "ll_2.5": 0.5106,
+    "meter_2.5": [
+     13609,
+     0.8108
+    ],
+    "ll_3.5": 0.6302,
+    "meter_3.5": [
+     5402,
+     0.7677
+    ],
+    "ll_4.5": 0.6359,
+    "meter_4.5": [
+     5226,
+     0.7556
+    ],
+    "ll_5.5": 0.5611,
+    "meter_5.5": [
+     11110,
+     0.7937
+    ],
+    "ll_media": 0.5845
+   },
+   "N metodología completa": {
+    "k": 500.0,
+    "mae_juzga": 1.763,
+    "ll_2.5": 0.5039,
+    "meter_2.5": [
+     13474,
+     0.8162
+    ],
+    "ll_3.5": 0.6213,
+    "meter_3.5": [
+     5665,
+     0.7823
+    ],
+    "ll_4.5": 0.6258,
+    "meter_4.5": [
+     5691,
+     0.7686
+    ],
+    "ll_5.5": 0.5508,
+    "meter_5.5": [
+     11163,
+     0.8013
+    ],
+    "ll_media": 0.5754
+   }
+  },
+  "bootstrap": {
+   "N vs B1": {
+    "mejora_media": 0.08138,
+    "p5": 0.07654
+   },
+   "N vs B2": {
+    "mejora_media": 0.04048,
+    "p5": 0.0376
+   },
+   "N vs N-": {
+    "mejora_media": 0.00899,
+    "p5": 0.00758
+   }
+  },
+  "importancia_N": {
+   "p_gana": 104360,
+   "p_pierde": 31960,
+   "liga_a_puerta": 7830,
+   "r_t_tiros_c": 7560,
+   "t_a_puerta": 7047,
+   "t_tiros": 5187,
+   "r_t_a_puerta_c": 4713,
+   "r_t_gf": 3657,
+   "liga_tiros": 3644,
+   "l5_tiros": 3496,
+   "t_gc": 3249,
+   "l5_pos": 3167,
+   "r_t_pos": 3074,
+   "t_pos": 3061,
+   "r_l5_tiros_c": 2987
+  },
+  "por_liga": {
+   "brasil": {
+    "B1 últimos 5 (misma condición)": 0.6315,
+    "B2 ataque × defensa": 0.6422,
+    "N- sin tabla/posesión/faltas": 0.5779,
+    "N metodología completa": 0.5716,
+    "n": 966
+   },
+   "mls": {
+    "B1 últimos 5 (misma condición)": 0.6499,
+    "B2 ataque × defensa": 0.6212,
+    "N- sin tabla/posesión/faltas": 0.5933,
+    "N metodología completa": 0.5819,
+    "n": 1274
+   },
+   "liga_mx": {
+    "B1 últimos 5 (misma condición)": 0.6651,
+    "B2 ataque × defensa": 0.5928,
+    "N- sin tabla/posesión/faltas": 0.5661,
+    "N metodología completa": 0.5592,
+    "n": 684
+   }
+  }
+ }
+}
