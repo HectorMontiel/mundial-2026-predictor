@@ -136764,3 +136764,96 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5803603,2026-10-09,jpn_j1,Vissel Kobe,Yuya Osako,166449,F,1,90,1,0,0,0.11,105,3,388814
 5803603,2026-10-09,jpn_j1,Vissel Kobe,Katsuya Nagato,825800,D,1,90,0,0,0,0.0,107,1,450113
 5803603,2026-10-09,jpn_j1,Vissel Kobe,Ren Komatsu,747908,F,0,18,1,1,1,0.23,,3,547655
+5186617,2026-10-09,china,Qingdao Hainiu,Pengfei Mu,258150,G,1,90,0,0,0,0.0,11,0,299548
+5186617,2026-10-09,china,Qingdao Hainiu,Zixian Wei,1907649,D,1,78,1,0,0,0.0,32,1,421517
+5186617,2026-10-09,china,Qingdao Hainiu,Yangyang Jin,558930,D,1,83,0,0,0,0.0,34,1,311298
+5186617,2026-10-09,china,Qingdao Hainiu,Long Song,143815,D,1,90,2,0,0,0.0,36,1,232373
+5186617,2026-10-09,china,Qingdao Hainiu,Suda Li,1529485,D,1,90,1,0,0,0.0,38,1,342858
+5186617,2026-10-09,china,Qingdao Hainiu,Yaw Yeboah,644001,F,1,90,2,0,0,0.0,72,3,709060
+5186617,2026-10-09,china,Qingdao Hainiu,Ruicong Gong,2130074,M,1,90,0,0,0,0.0,74,2,
+5186617,2026-10-09,china,Qingdao Hainiu,Malcom Edjouma,900576,M,1,90,3,2,0,0.0,76,2,660332
+5186617,2026-10-09,china,Qingdao Hainiu,Yonghao Jin,1661152,M,1,83,1,0,0,0.0,78,2,398535
+5186617,2026-10-09,china,Qingdao Hainiu,Xinyu Liu,892859,F,1,78,0,0,0,0.0,104,3,267618
+5186617,2026-10-09,china,Qingdao Hainiu,Lazar Tufegdžić,766464,M,1,68,1,0,0,0.0,106,2,248857
+5186617,2026-10-09,china,Qingdao Hainiu,Carlos Strandberg,455620,F,0,22,1,0,0,0.0,,3,470743
+5186617,2026-10-09,china,Qingdao Hainiu,Hailong Li,768633,D,0,12,0,0,0,0.0,,1,263701
+5186617,2026-10-09,china,Qingdao Hainiu,Guobao Liu,1357975,F,0,12,1,1,0,0.0,,3,416113
+5186617,2026-10-09,china,Qingdao Hainiu,Jiashen Liu,258411,D,0,7,0,0,0,0.0,,1,229727
+5186617,2026-10-09,china,Qingdao Hainiu,Cong Yang,1776393,M,0,7,1,0,0,0.0,,2,496607
+5186617,2026-10-09,china,Beijing Guoan,Sen Hou,117465,G,1,90,0,0,0,0.0,11,0,441212
+5186617,2026-10-09,china,Beijing Guoan,Tze-Nam Yue,1130091,D,1,71,1,0,0,0.0,32,1,290575
+5186617,2026-10-09,china,Beijing Guoan,Uroš Spajić,435214,D,1,90,1,0,0,0.0,34,1,450692
+5186617,2026-10-09,china,Beijing Guoan,Guilherme Ramos,711074,D,1,90,1,0,0,0.0,36,1,499164
+5186617,2026-10-09,china,Beijing Guoan,Yang Bai,1249785,D,1,65,0,0,0,0.0,38,1,306542
+5186617,2026-10-09,china,Beijing Guoan,Yongjing Cao,623080,M,1,90,0,0,0,0.0,72,2,407994
+5186617,2026-10-09,china,Beijing Guoan,Sai Erjini'ao,535906,M,1,78,2,2,1,0.0,74,2,1169454
+5186617,2026-10-09,china,Beijing Guoan,Aboubacar Konté,1035199,M,1,90,1,0,0,0.0,76,2,357956
+5186617,2026-10-09,china,Beijing Guoan,Liangming Lin,807090,M,1,65,0,0,0,0.0,78,2,306191
+5186617,2026-10-09,china,Beijing Guoan,Fábio Abreu,470523,F,1,65,4,3,2,0.0,104,3,944309
+5186617,2026-10-09,china,Beijing Guoan,Yuning Zhang,623091,F,1,90,2,2,0,0.0,106,3,921137
+5186617,2026-10-09,china,Beijing Guoan,Lei Li,167985,D,0,25,0,0,0,0.0,,1,370861
+5186617,2026-10-09,china,Beijing Guoan,Liyu Yang,816495,M,0,25,0,0,0,0.0,,2,287571
+5186617,2026-10-09,china,Beijing Guoan,Xizhe Zhang,197461,M,0,25,0,0,0,0.0,,2,290643
+5186617,2026-10-09,china,Beijing Guoan,Gang Wang,185706,D,0,19,0,0,0,0.0,,1,263829
+5186617,2026-10-09,china,Beijing Guoan,Zhongguo Chi,622244,M,0,12,0,0,0,0.0,,2,232373
+5186613,2026-10-09,china,Shenzhen Peng City,Peng Peng,19716,G,1,90,0,0,0,0.0,11,0,334077
+5186613,2026-10-09,china,Shenzhen Peng City,Miao Tang,432356,D,1,90,0,0,0,0.0,32,1,250782
+5186613,2026-10-09,china,Shenzhen Peng City,Rui Yu,431358,D,1,90,0,0,0,0.0,34,1,260065
+5186613,2026-10-09,china,Shenzhen Peng City,Gabriel Xavier,1384473,D,1,90,2,0,0,0.0,36,1,3799801
+5186613,2026-10-09,china,Shenzhen Peng City,Zhijian Xuan,1624755,D,1,90,0,0,0,0.0,38,1,540939
+5186613,2026-10-09,china,Shenzhen Peng City,Junsheng Yao,860071,M,1,76,1,0,0,0.0,65,2,266167
+5186613,2026-10-09,china,Shenzhen Peng City,Deabeas Owusu-Sekyere,1178618,F,1,85,0,0,0,0.0,82,3,641591
+5186613,2026-10-09,china,Shenzhen Peng City,Tim Chow,425591,M,1,90,0,0,0,0.0,84,2,403868
+5186613,2026-10-09,china,Shenzhen Peng City,Eden Karzev,933534,M,1,90,0,0,0,0.0,86,2,1327384
+5186613,2026-10-09,china,Shenzhen Peng City,Albion Ademi,648151,F,1,85,2,1,0,0.0,88,3,368578
+5186613,2026-10-09,china,Shenzhen Peng City,Wesley,656562,F,1,90,2,2,2,0.0,115,3,1716088
+5186613,2026-10-09,china,Shenzhen Peng City,Yufeng Zhang,925237,M,0,14,0,0,0,0.0,,2,274569
+5186613,2026-10-09,china,Shenzhen Peng City,Long Li,839600,D,0,5,0,0,0,0.0,,1,
+5186613,2026-10-09,china,Shenzhen Peng City,Wai-Tsun Dai,865153,F,0,5,1,0,0,0.0,,3,295290
+5186613,2026-10-09,china,Henan FC,Chenglong Shi,1180688,G,1,90,0,0,0,0.0,11,0,259156
+5186613,2026-10-09,china,Henan FC,Yeljan Shinar,1067448,D,1,57,0,0,0,0.0,32,1,291791
+5186613,2026-10-09,china,Henan FC,Iago Maidana,579791,D,1,90,2,1,0,0.0,34,1,696197
+5186613,2026-10-09,china,Henan FC,Lucas Maia,782189,D,1,90,1,0,0,0.0,36,1,357282
+5186613,2026-10-09,china,Henan FC,Nebijan Muhmet,1267733,M,1,90,0,0,0,0.0,38,2,462362
+5186613,2026-10-09,china,Henan FC,Ablahan Haliq,1168787,M,1,57,1,0,0,0.0,64,2,315489
+5186613,2026-10-09,china,Henan FC,Shangyuan Wang,465720,M,1,74,0,0,0,0.0,66,2,449854
+5186613,2026-10-09,china,Henan FC,Dalun Zheng,432815,F,1,74,0,0,0,0.0,83,3,207632
+5186613,2026-10-09,china,Henan FC,Bruno Nazário,406330,M,1,90,1,1,1,0.0,85,2,694318
+5186613,2026-10-09,china,Henan FC,Pedro Maranhão,1174640,F,1,90,1,0,0,0.0,87,3,1158226
+5186613,2026-10-09,china,Henan FC,Gustavo,535701,F,1,90,2,1,0,0.0,115,3,544541
+5186613,2026-10-09,china,Henan FC,Abudulam Abdurasul,1378458,F,0,33,1,0,0,0.0,,3,331044
+5186613,2026-10-09,china,Henan FC,Yihao Zhong,938373,F,0,33,2,0,0,0.0,,3,345926
+5186613,2026-10-09,china,Henan FC,Congyao Yin,730578,F,0,16,1,1,1,0.0,,3,255689
+5186613,2026-10-09,china,Henan FC,Yilin Yang,1370158,F,0,16,0,0,0,0.0,,3,295614
+5186613,2026-10-09,china,Henan FC,Yixin Liu,1365948,D,0,1,0,0,0,0.0,,1,329705
+5186614,2026-10-09,china,Zhejiang Professional,Bo Zhao,525775,G,1,90,0,0,0,0.0,11,0,288152
+5186614,2026-10-09,china,Zhejiang Professional,Junchi Xu,1485318,D,1,90,0,0,0,0.0,32,1,516799
+5186614,2026-10-09,china,Zhejiang Professional,Haofan Liu,1366784,D,1,90,1,0,0,0.0,34,1,718012
+5186614,2026-10-09,china,Zhejiang Professional,Lucas Possignolo,522587,D,1,90,3,1,0,0.0,36,1,383681
+5186614,2026-10-09,china,Zhejiang Professional,Guowen Sun,467589,D,1,46,0,0,0,0.0,38,1,319814
+5186614,2026-10-09,china,Zhejiang Professional,Jin Cheng,539074,M,1,64,0,0,0,0.0,64,2,267065
+5186614,2026-10-09,china,Zhejiang Professional,Jin-Seob Park,925647,M,1,90,1,0,0,0.0,66,2,680255
+5186614,2026-10-09,china,Zhejiang Professional,Qianglong Tao,1027306,F,1,45,2,0,0,0.0,83,3,468439
+5186614,2026-10-09,china,Zhejiang Professional,Marko Tolić,605658,M,1,90,4,2,0,0.0,85,2,1197858
+5186614,2026-10-09,china,Zhejiang Professional,Alexandru Mitriță,445953,M,1,90,5,2,1,0.0,87,2,1723314
+5186614,2026-10-09,china,Zhejiang Professional,Hao Fang,1187247,D,1,65,1,1,0,0.0,115,1,337690
+5186614,2026-10-09,china,Zhejiang Professional,Lei Tong,730237,D,0,44,0,0,0,0.0,,1,389278
+5186614,2026-10-09,china,Zhejiang Professional,Yudong Wang,1515735,F,0,44,0,0,0,0.0,,3,3473114
+5186614,2026-10-09,china,Zhejiang Professional,Shengxin Bao,1366789,M,0,26,0,0,0,0.0,,2,323198
+5186614,2026-10-09,china,Zhejiang Professional,Wei Wu,730999,M,0,25,0,0,0,0.0,,2,245669
+5186614,2026-10-09,china,Shanghai Port,Junling Yan,432795,G,1,90,0,0,0,0.0,11,0,424768
+5186614,2026-10-09,china,Shanghai Port,Alex Yang,1717071,D,1,70,1,0,0,0.0,32,1,1077162
+5186614,2026-10-09,china,Shanghai Port,Zhen Wei,768631,D,1,90,0,0,0,0.0,34,1,450064
+5186614,2026-10-09,china,Shanghai Port,Umidjan Yusup,1616162,D,1,82,0,0,0,0.0,36,1,921936
+5186614,2026-10-09,china,Shanghai Port,Shuai Li,854646,D,1,90,1,0,0,0.0,38,1,383117
+5186614,2026-10-09,china,Shanghai Port,Jean Claude,1324726,M,1,90,0,0,0,0.0,64,2,502135
+5186614,2026-10-09,china,Shanghai Port,Mateus Vital,688992,M,1,90,1,0,0,0.0,66,2,1922165
+5186614,2026-10-09,china,Shanghai Port,Zhurun Liu,1168820,M,1,81,3,2,1,0.0,83,2,496842
+5186614,2026-10-09,china,Shanghai Port,Óscar Melendo,802987,M,1,90,2,1,1,0.0,85,2,338394
+5186614,2026-10-09,china,Shanghai Port,Prince Ampem,1187260,F,1,88,4,2,1,0.0,87,3,397109
+5186614,2026-10-09,china,Shanghai Port,Leonardo,1025609,F,1,88,4,4,1,0.0,115,3,1938788
+5186614,2026-10-09,china,Shanghai Port,Zhenao Wang,949269,D,0,20,0,0,0,0.0,,1,276560
+5186614,2026-10-09,china,Shanghai Port,Xinxiang Li,1710746,F,0,9,0,0,0,0.0,,3,788719
+5186614,2026-10-09,china,Shanghai Port,Linpeng Zhang,196406,D,0,8,0,0,0,0.0,,1,248315
+5186614,2026-10-09,china,Shanghai Port,Jiwen Kuai,1719401,M,0,3,0,0,0,0.0,,2,876042
+5186614,2026-10-09,china,Shanghai Port,Lei Wu,432819,F,0,2,0,0,0,0.0,,3,393427

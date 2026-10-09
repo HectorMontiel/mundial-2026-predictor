@@ -79,8 +79,8 @@
   },
   "Defensor Sporting": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U23",
-    "ratio": 0.5,
+    "candidato": "Baku Sporting",
+    "ratio": 0.6,
     "visto": "2026-10-09"
   },
   "Deportivo Moquegua": {
@@ -317,8 +317,8 @@
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.64,
+    "candidato": "Treaty United",
+    "ratio": 0.5185,
     "visto": "2026-10-09"
   },
   "Hartford Athletic": {
@@ -347,8 +347,8 @@
   },
   "Sporting JAX": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U23",
-    "ratio": 0.6667,
+    "candidato": "Baku Sporting",
+    "ratio": 0.64,
     "visto": "2026-10-09"
   },
   "Atlanta United FC": {
@@ -377,8 +377,8 @@
   },
   "Cambridge United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.5926,
+    "candidato": "Treaty United",
+    "ratio": 0.5517,
     "visto": "2026-10-09"
   },
   "Peterborough United": {
@@ -407,8 +407,8 @@
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.6154,
+    "candidato": "Treaty United",
+    "ratio": 0.5714,
     "visto": "2026-10-09"
   },
   "Rotherham United": {
@@ -539,8 +539,8 @@
   },
   "Club Jaiba Brava": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club Brugge KV U23",
-    "ratio": 0.4706,
+    "candidato": "Club Brugge KV",
+    "ratio": 0.5333,
     "visto": "2026-10-09"
   },
   "Sportivo Ameliano": {
@@ -575,8 +575,8 @@
   },
   "D.C. United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.6667,
+    "candidato": "Treaty United",
+    "ratio": 0.6087,
     "visto": "2026-10-09"
   },
   "Deportivo Morón": {
@@ -749,14 +749,14 @@
   },
   "Sporting Kansas City": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U23",
-    "ratio": 0.6,
+    "candidato": "Baku Sporting",
+    "ratio": 0.5714,
     "visto": "2026-10-09"
   },
   "Sporting Gijón": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U23",
-    "ratio": 0.6207,
+    "candidato": "Baku Sporting",
+    "ratio": 0.5926,
     "visto": "2026-10-09"
   },
   "Boston River": {
@@ -1277,8 +1277,8 @@
   },
   "Sporting San José": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U23",
-    "ratio": 0.625,
+    "candidato": "Baku Sporting",
+    "ratio": 0.5333,
     "visto": "2026-10-09"
   },
   "Universidad Católica": {
@@ -1307,20 +1307,20 @@
   },
   "Leeds United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.6957,
+    "candidato": "Leeds U21",
+    "ratio": 0.6667,
     "visto": "2026-10-09"
   },
   "Oxford United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.6667,
+    "candidato": "Treaty United",
+    "ratio": 0.6154,
     "visto": "2026-10-09"
   },
   "Dundee United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.6667,
+    "candidato": "Treaty United",
+    "ratio": 0.6154,
     "visto": "2026-10-09"
   },
   "Sheffield United": {
@@ -1373,8 +1373,8 @@
   },
   "Sporting Club Delhi": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U23",
-    "ratio": 0.6471,
+    "candidato": "Baku Sporting",
+    "ratio": 0.5,
     "visto": "2026-10-09"
   },
   "Shanghai Shenhua": {
@@ -1547,8 +1547,8 @@
   },
   "Standard Liege": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "RFC Liege U21",
-    "ratio": 0.5185,
+    "candidato": "RFC Liege",
+    "ratio": 0.6087,
     "visto": "2026-10-09"
   },
   "Churchill Brothers": {
@@ -1631,14 +1631,14 @@
   },
   "JEF United Ichihara-Chiba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gulf United",
-    "ratio": 0.4444,
+    "candidato": "Treaty United",
+    "ratio": 0.4211,
     "visto": "2026-10-09"
   },
   "Sporting Cristal": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U23",
-    "ratio": 0.6452,
+    "candidato": "Baku Sporting",
+    "ratio": 0.5517,
     "visto": "2026-10-09"
   },
   "Zenit St Petersburg": {
@@ -1729,6 +1729,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Dynamo Moscow U19",
     "ratio": 0.5714,
+    "visto": "2026-10-09"
+  },
+  "Sporting CP": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Baku Sporting",
+    "ratio": 0.6667,
     "visto": "2026-10-09"
   }
 }
