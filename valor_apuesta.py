@@ -290,6 +290,11 @@ def _de_conteo(pick: Dict, bloques: Dict) -> List[Dict]:
         incierto = not (bloque.get('confianza') or {}).get('insignia')
         disp_tot = bloque.get('dispersion_total')
         disp_eq = bloque.get('dispersion')
+        if bloque.get('modelo_tiros'):
+            # v345 — el modelo de tiros por equipo va por su propio camino
+            salida.extend(_de_tiros_v345(pick, titulo, clave_bloque, fam,
+                                         bloque, imp))
+            continue
         for etq, media, disp, sufijo in (
                 ('Total', bloque.get('lambda_total'), disp_tot, ''),
                 ('Local', bloque.get('lambda_home'), disp_eq, '_home'),
@@ -345,8 +350,69 @@ def _de_conteo(pick: Dict, bloques: Dict) -> List[Dict]:
     return salida
 
 
+def _de_tiros_v345(pick: Dict, titulo: str, clave_bloque: str, fam: str,
+                   bloque: Dict, imp: Dict) -> List[Dict]:
+    """v345 — las líneas de tiros con el modelo de `tiros_equipo`.
+
+    POR EQUIPO: la binomial negativa del modelo, mezclada con la casa con el
+    peso MEDIDO (`tiros_equipo.PESO_MODELO`: el modelo solo en tiros, 65 %
+    en a puerta), y SIN la forma reciente ni la cordura de los otros conteos:
+    esas correcciones se midieron para el modelo viejo, y este ya trae la
+    forma dentro y está medido contra la casa. Cada fila dice si cumple la
+    regla de apuesta (`tiros_seguimiento.apuesta_de`).
+
+    EL TOTAL: la suma de los dos equipos por el camino de siempre (no está
+    medido aparte)."""
+    import mercado_implicito as mi
+    import rendimiento_equipos as rq
+    try:
+        import tiros_equipo as te
+        import tiros_seguimiento as ts
+    except Exception as e:
+        logger.debug('[valor] tiros del modelo nuevo: %s', e)
+        return []
+    mercado_t = 'tiros' if clave_bloque == 'remates' else 'a_puerta'
+    w = float(bloque.get('peso_modelo') or 1.0)
+    k = float(bloque.get('k') or 50.0)
+    salida: List[Dict] = []
+    for etq, media, sufijo in (('Total', bloque.get('lambda_total'), ''),
+                               ('Local', bloque.get('lambda_home'), '_home'),
+                               ('Visita', bloque.get('lambda_away'), '_away')):
+        if not media:
+            continue
+        for clave, dato in (imp.get(fam + sufijo) or {}).items():
+            try:
+                linea = float(clave)
+            except (TypeError, ValueError):
+                continue
+            if etq == 'Total':
+                p_mas = rq.prob_mas_de(float(media), linea,
+                                       bloque.get('dispersion_total'))
+                if p_mas is None:
+                    continue
+                salida.extend(_dos_lados(pick, titulo, etq, linea, float(p_mas),
+                                         dato, clave_bloque, media))
+                continue
+            p_mod = te.prob_mas(float(media), linea, k)
+            p_casa = mi.prob_de(dato)
+            p_mas = p_mod if p_casa is None else w * p_mod + (1 - w) * p_casa
+            regla = ''
+            if p_casa is not None:
+                regla = ts.apuesta_de(p_mod, p_casa, mercado_t,
+                                      mi.cuota_de(dato, 'mas') or 0,
+                                      mi.cuota_de(dato, 'menos') or 0)
+            salida.extend(_dos_lados(
+                pick, titulo, etq, linea, float(p_mas), dato, clave_bloque,
+                media, sin_ajuste=True,
+                extra={'p_mod_tiros': round(p_mod, 4),
+                       'p_casa_tiros': None if p_casa is None else round(p_casa, 4),
+                       'regla_lado': regla}))
+    return salida
+
+
 def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
-               incierto: bool = False, hist=None):
+               incierto: bool = False, hist=None, sin_ajuste: bool = False,
+               extra: Optional[Dict] = None):
     """Las dos apuestas de una línea —Más y Menos—, cada una con su cuota."""
     import mercado_implicito as mi
     imp_mas = mi.prob_de(dato)
@@ -359,9 +425,19 @@ def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
             continue
         texto = '%s de %s' % ('Más' if es_mas else 'Menos',
                               ('%.1f' % linea).rstrip('0').rstrip('.'))
-        info = _ajusta(pick, texto, p, titulo, imp)
+        if sin_ajuste:
+            # v345 — la probabilidad ya viene medida contra la casa
+            info = {'prob': p, 'fiable': True, 'contrastada': imp is not None}
+        else:
+            info = _ajusta(pick, texto, p, titulo, imp)
         if not info.get('fiable'):
             continue
+        _ex = {}
+        if extra:
+            # la regla apuesta a UN lado: sólo esa fila lleva la marca
+            _ex = {k_: v_ for k_, v_ in extra.items() if k_ != 'regla_lado'}
+            if extra.get('regla_lado') == ('más' if es_mas else 'menos'):
+                _ex['tiros_regla'] = extra['regla_lado']
         filas.append(_fila(
             titulo, etq, '%s%s: %s' % (titulo,
                                        '' if etq == 'Total' else ' ' + etq,
@@ -371,7 +447,7 @@ def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
              'incierto': bool(incierto),
              # v245 — de donde sale el numero, para que la tarjeta lo diga
              'historico': dict(hist) if (hist or {}).get('hay') else None,
-             'contrastada': bool(info.get('contrastada'))}))
+             'contrastada': bool(info.get('contrastada')), **_ex}))
     return filas
 
 

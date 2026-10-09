@@ -148,6 +148,15 @@ def franja_futbol(v: Dict) -> Optional[str]:
     `evaluar`: la Soñadora y las patas de combinada también usan el veredicto
     y allí esta regla no está medida (y su cuota mínima por pata, 1,30, casi
     no dejaría sitio bajo el tope de 1,35)."""
+    # v345 — la regla de tiros, ya activada, decide sola (ver `evaluar`)
+    if (v.get('pick') or {}).get('tiros_regla') and v.get('medido') \
+            and v.get('veredicto') == METER:
+        try:
+            import tiros_seguimiento as _ts
+            if _ts.activo():
+                return None
+        except Exception:
+            pass
     pick = v.get('pick') or {}
     if str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
         return None
@@ -498,6 +507,21 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     if p.get('elite'):
         return {**base, 'veredicto': METER, 'fuerza': 1.0, 'medido': True,
                 'razones': [str(p.get('razon') or 'Capa 1: modelo y casa de acuerdo')]}
+    # v345 — LOS TIROS POR EQUIPO SÓLO SE METEN CUANDO SU REGLA SE GANÓ EL
+    # PUESTO: `tiros_seguimiento` la mide sola desde que quedó fijada y la
+    # activa con p5 > 0 y 150 apuestas. Mientras no, «no meter» (como todos los
+    # remates del fútbol, `MERCADOS_NO_METER_FUTBOL`).
+    if p.get('tiros_regla'):
+        try:
+            import tiros_seguimiento as _ts
+            if _ts.activo():
+                return {**base, 'veredicto': METER, 'fuerza': 0.6, 'medido': True,
+                        'razones': ['tiros: el modelo %.0f %% y la casa %.0f %% '
+                                    '(regla medida en su seguimiento)'
+                                    % (100 * float(p.get('p_mod_tiros') or prob),
+                                       100 * float(p.get('p_casa_tiros') or 0))]}
+        except Exception as e:
+            logger.debug('[veredicto] tiros: %s', e)
 
     # v325 — LA NFL NO SE CORRIGE CON LAS BANDAS DEL FÚTBOL. Su «1X2» se llama
     # igual que el del fútbol y recibía la curva medida en el fútbol, que la

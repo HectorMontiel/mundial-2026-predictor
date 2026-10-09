@@ -559,6 +559,21 @@ def main() -> int:
     # Se hacen aquí, una vez, en un proceso aparte que apunta de qué ficheros
     # dependen; la app sólo las usa si esos ficheros siguen siendo los suyos.
     # Falla en blando: sin ellas el JSON es el de siempre.
+    # v345 — LOS TIROS POR EQUIPO DEL MODELO NUEVO, ANTES DE LAS DECISIONES:
+    # la tarjeta los lee de `tiros_dia.json` (`tiros_equipo`), y las
+    # decisiones precalculadas tienen que salir con ellos. Y su seguimiento:
+    # apuntar las líneas de hoy, liquidar las jugadas y medir si la regla de
+    # apuesta ya se ganó el «meter» (`tiros_seguimiento`). Falla en blando.
+    try:
+        import tiros_equipo
+        import tiros_seguimiento
+        _n_t = tiros_equipo.precalcular(datos.get('pronosticos') or [])
+        logger.info('tiros precalculados: %d partidos', _n_t)
+        tiros_seguimiento.registrar(datos.get('pronosticos') or [])
+        tiros_seguimiento.liquidar()
+        logger.info('seguimiento de tiros: %s', tiros_seguimiento.medir())
+    except Exception as e:
+        logger.warning('[precalculo] tiros: %s', e)
     try:
         import decisiones_dia
         if not decisiones_dia.anadir(a.salida):

@@ -884,8 +884,10 @@ def _filas_de(eq: Dict, icono: str, mercado: str = '',
     conf = {'nivel': 2, 'insignia': True, 'error': None, 'motivo': ''}
     try:
         import confianza_mercado
-        conf = confianza_mercado.nivel(eq.get('clave_liga') or '',
-                                       mercado or '', origen)
+        # v345 — los tiros del modelo nuevo ya vienen medidos contra la casa
+        if not eq.get('modelo_tiros'):
+            conf = confianza_mercado.nivel(eq.get('clave_liga') or '',
+                                           mercado or '', origen)
     except Exception as e:
         logger.debug('[modo_modelo] confianza de %s: %s', mercado, e)
     return {'filas': filas, 'mejor': max(filas, key=lambda f: f['prob']),
@@ -899,6 +901,9 @@ def _filas_de(eq: Dict, icono: str, mercado: str = '',
             'lambda_away': eq.get('lambda_away'),
             'dispersion': eq.get('dispersion'),
             'dispersion_total': eq.get('dispersion_total'),
+            # v345 — lo que `valor_apuesta` necesita del modelo de tiros
+            'modelo_tiros': eq.get('modelo_tiros'), 'k': eq.get('k'),
+            'peso_modelo': eq.get('peso_modelo'),
             'aceptable': eq.get('aceptable', True),
             'error_calibracion': eq.get('error_calibracion'),
             'confianza': conf,
@@ -1224,6 +1229,24 @@ def remates_tarjeta(pick: Dict) -> Optional[Dict]:
     h, a = _equipos(pick)
     if not h or not a:
         return None
+    # v345 — LOS TIROS POR EQUIPO CON LA METODOLOGÍA DEL USUARIO (tabla,
+    # posesión, faltas del rival, plantilla), si el precálculo los trae. Medido
+    # en `tiros_equipo`: log-loss 0,549 contra 0,632 de «los últimos 5» y por
+    # encima de la línea de Playdoit. Si no, el cálculo de siempre.
+    try:
+        import tiros_equipo as _te
+        _nuevo = _te.bloques_tarjeta(pick)
+    except Exception as e:
+        logger.debug('[modo_modelo] tiros del modelo nuevo de %s: %s', clave, e)
+        _nuevo = None
+    if _nuevo:
+        salida = {}
+        for nombre, icono in (('totales', '🎯'), ('a_puerta', '🥅')):
+            bloque = _filas_de(_nuevo[nombre], icono, nombre)
+            if bloque:
+                salida[nombre] = bloque
+        if salida:
+            return salida
     try:
         import rendimiento_equipos as rq
         eq = rq.remates_equipo(clave, h, a,
@@ -1832,6 +1855,10 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             # aparecer nunca. Se vio verificando el fichero publicado: 0 de
             # 312 filas traian `historico`.
             'historico': _mej.get('historico'),
+            # v345 — la regla de tiros (`tiros_seguimiento`) y sus números
+            'tiros_regla': _mej.get('tiros_regla') or '',
+            'p_mod_tiros': _mej.get('p_mod_tiros'),
+            'p_casa_tiros': _mej.get('p_casa_tiros'),
             # v258 — y la correccion por linea, por el mismo motivo exacto
             # que la v250.1 documenta justo arriba: lo que no se liste aqui
             # no llega a la tarjeta, por mucho que `valor_apuesta` lo cuelgue.

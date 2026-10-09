@@ -414,6 +414,14 @@ jobs:
               || echo "::warning::los históricos se publicarán en el paso final"
           fi
 
+      # v345 — el modelo de TIROS POR EQUIPO (la metodología del usuario:
+      # tabla, posesión, faltas del rival, plantilla), con los históricos y
+      # `stats_espn/` de hoy. Se guarda en `modelos/tiros_equipo/` y viaja
+      # como asset del Release, como los demás pesos (`tiros_equipo.py`).
+      - name: Entrenar el modelo de tiros por equipo
+        continue-on-error: true
+        run: python tiros_equipo.py --entrenar || echo "::warning::modelo de tiros con avisos"
+
       - name: Publicar los modelos como assets del Release
         id: publicar
         continue-on-error: true
