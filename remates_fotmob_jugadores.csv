@@ -34545,22 +34545,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5868402,2026-08-14,esp_hypermotion,Castellón,Marc-Olivier Doué,1076508,M,0,12,1,0,0,0.03,,2.0,292095.0
 5868402,2026-08-14,esp_hypermotion,Castellón,Hamza Bellari,1607524,F,0,12,0,0,0,0.0,,3.0,328494.0
 5868402,2026-08-14,esp_hypermotion,Castellón,Jari Vlak,935788,M,0,3,0,0,0,0.0,,2.0,625508.0
-5190649,2026-08-14,bra_serie_b,Náutico,Muriel,121848,G,1,90,0,0,0,0.0,11.0,0.0,66991.0
-5190649,2026-08-14,bra_serie_b,Náutico,Arnaldo,659758,D,1,79,0,0,0,0.0,32.0,1.0,50000.0
-5190649,2026-08-14,bra_serie_b,Náutico,Betão,1653469,D,1,90,1,0,0,0.03,34.0,1.0,158569.0
-5190649,2026-08-14,bra_serie_b,Náutico,Gustavo Henrique,1481531,D,1,76,0,0,0,0.0,36.0,1.0,
-5190649,2026-08-14,bra_serie_b,Náutico,Igor Fernandes,448256,D,1,46,0,0,0,0.0,38.0,1.0,93170.0
-5190649,2026-08-14,bra_serie_b,Náutico,Wenderson,841882,M,1,90,2,1,0,0.06,73.0,2.0,122145.0
-5190649,2026-08-14,bra_serie_b,Náutico,Léo Índio,1462342,M,1,46,0,0,0,0.0,75.0,2.0,
-5190649,2026-08-14,bra_serie_b,Náutico,Jean,239279,M,1,90,3,1,0,0.09,77.0,2.0,239695.0
-5190649,2026-08-14,bra_serie_b,Náutico,Benjamín Borasi,1213657,F,1,90,1,1,1,0.73,103.0,3.0,159229.0
-5190649,2026-08-14,bra_serie_b,Náutico,Maranhão,1723280,F,1,60,2,0,0,0.38,105.0,3.0,
-5190649,2026-08-14,bra_serie_b,Náutico,Derek,1274485,F,1,90,3,0,0,0.39,107.0,3.0,224440.0
-5190649,2026-08-14,bra_serie_b,Náutico,Ryan,1444010,D,0,44,0,0,0,0.0,,1.0,528357.0
-5190649,2026-08-14,bra_serie_b,Náutico,Patricio Núñez,1245739,M,0,38,1,0,0,0.01,,2.0,202482.0
-5190649,2026-08-14,bra_serie_b,Náutico,Luiz Cláudio,1796789,F,0,30,1,1,0,0.09,,3.0,
-5190649,2026-08-14,bra_serie_b,Náutico,Wanderson,1468784,D,0,14,0,0,0,0.0,,1.0,
-5190649,2026-08-14,bra_serie_b,Náutico,Reginaldo,540105,D,0,11,0,0,0,0.0,,1.0,
 1000017192,2026-08-14,per_liga1,Cusco FC,Pedro Díaz,1432703,G,1,90,0,0,0,0.0,11.0,0.0,381038.0
 1000017192,2026-08-14,per_liga1,Cusco FC,José Zevallos,1133038,D,1,90,0,0,0,0.0,32.0,1.0,177195.0
 1000017192,2026-08-14,per_liga1,Cusco FC,Aldair Fuentes,825017,D,1,11,0,0,0,0.0,34.0,1.0,
@@ -37149,39 +37133,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 6000045,2026-08-15,bol_division,Oriente Petrolero,Joffré Escobar,459195,F,0,18,2,1,0,0.0,,3.0,216960.0
 6000045,2026-08-15,bol_division,Oriente Petrolero,Samuel Galindo,213919,M,0,17,0,0,0,0.0,,2.0,130224.0
 6000045,2026-08-15,bol_division,Oriente Petrolero,Adrián Peña,1613984,F,0,7,0,0,0,0.0,,3.0,269208.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Airton,658553,G,1,90,0,0,0,0.0,11.0,0.0,255011.0
-5190655,2026-08-15,bra_serie_b,Criciúma,César,450293,D,1,90,1,0,0,0.06,33.0,1.0,231022.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Rodrigo Fagundes,640410,D,1,90,2,1,0,0.07,35.0,1.0,274728.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Luciano Castán,202332,D,1,90,2,2,1,0.41,37.0,1.0,253558.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Willean Lepo,942855,M,1,90,3,0,0,0.13,72.0,2.0,396403.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Eduardo,884063,M,1,76,0,0,0,0.0,74.0,2.0,209000.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Guilherme Lobo,1734308,M,1,57,0,0,0,0.0,76.0,2.0,293760.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Marcelo Hermes,604563,M,1,90,2,0,0,0.09,78.0,2.0,689895.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Rómulo Otero,240371,F,1,57,3,0,0,0.13,103.0,3.0,221892.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Waguininho,641000,F,1,80,2,1,0,0.05,105.0,3.0,241060.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Fellipe Mateus,851632,F,1,80,0,0,0,0.0,107.0,3.0,240276.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Ronald,1176041,M,0,33,0,0,0,0.0,,2.0,557085.0
-5190655,2026-08-15,bra_serie_b,Criciúma,João Carlos,1463464,F,0,33,1,0,0,0.02,,3.0,242328.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Jean Irmer,792064,M,0,14,0,0,0,0.0,,2.0,193057.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Cauê,1187271,F,0,10,0,0,0,0.0,,3.0,632296.0
-5190655,2026-08-15,bra_serie_b,Criciúma,Diego Gonçalves,478416,F,0,10,0,0,0,0.0,,3.0,
-5190653,2026-08-15,bra_serie_b,Ceará,Richard,934515,G,1,90,0,0,0,0.0,11.0,0.0,213882.0
-5190653,2026-08-15,bra_serie_b,Ceará,Rafael Ramos,554287,D,1,58,1,0,0,0.01,32.0,1.0,194076.0
-5190653,2026-08-15,bra_serie_b,Ceará,Júlio César,1480127,D,1,90,0,0,0,0.0,34.0,1.0,
-5190653,2026-08-15,bra_serie_b,Ceará,Éder,844505,D,1,90,0,0,0,0.0,36.0,1.0,238534.0
-5190653,2026-08-15,bra_serie_b,Ceará,Sávio,1043436,D,1,90,0,0,0,0.0,38.0,1.0,193057.0
-5190653,2026-08-15,bra_serie_b,Ceará,Giovanni Pavani,1028612,M,1,46,0,0,0,0.0,64.0,2.0,321066.0
-5190653,2026-08-15,bra_serie_b,Ceará,Richardson,331759,M,1,90,0,0,0,0.0,66.0,2.0,194397.0
-5190653,2026-08-15,bra_serie_b,Ceará,Nicolás Ferreira,1356884,F,1,58,2,1,0,0.21,83.0,3.0,435602.0
-5190653,2026-08-15,bra_serie_b,Ceará,Vina,320026,M,1,46,0,0,0,0.0,85.0,2.0,183273.0
-5190653,2026-08-15,bra_serie_b,Ceará,Giulio,1905639,F,1,67,0,0,0,0.0,87.0,3.0,
-5190653,2026-08-15,bra_serie_b,Ceará,Lucca,1441321,F,1,90,1,0,0,0.04,115.0,3.0,633205.0
-5190653,2026-08-15,bra_serie_b,Ceará,Lucas Mugni,201788,M,0,44,0,0,0,0.0,,2.0,322260.0
-5190653,2026-08-15,bra_serie_b,Ceará,Melk,1905640,M,0,45,1,0,0,0.03,,2.0,
-5190653,2026-08-15,bra_serie_b,Ceará,Enzo,1905653,F,0,29,1,1,1,0.14,,3.0,
-5190653,2026-08-15,bra_serie_b,Ceará,Renzo López,520530,F,0,32,0,0,0,0.0,,3.0,534206.0
-5190653,2026-08-15,bra_serie_b,Ceará,Matheus Araújo,1233129,M,0,23,1,1,0,0.08,,2.0,1335588.0
-5190653,2026-08-15,bra_serie_b,Ceará,Kauã,1660570,F,0,3,0,0,0,0.0,,3.0,
 1000009072,2026-08-15,ecu_liga_pro,Manta,Wálter Chávez,341820,G,1,90,0,0,0,0.0,11.0,0.0,146614.0
 1000009072,2026-08-15,ecu_liga_pro,Manta,Alexander Medina,1644435,D,1,90,1,1,0,0.0,32.0,1.0,
 1000009072,2026-08-15,ecu_liga_pro,Manta,Alejandro Moscarelli,1502431,D,1,79,3,1,0,0.0,34.0,1.0,277468.0
@@ -40509,22 +40460,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190651,2026-08-16,bra_serie_b,Athletic Club MG,Gustavinho,1256689,M,0,17,0,0,0,0.0,,2.0,289249.0
 5190651,2026-08-16,bra_serie_b,Athletic Club MG,Yago Santos,1320166,M,0,17,0,0,0,0.0,,2.0,279525.0
 5190651,2026-08-16,bra_serie_b,Athletic Club MG,Assis,1786037,M,0,11,1,1,0,0.03,,2.0,
-5190657,2026-08-16,bra_serie_b,Novorizontino,Jordi,575381,G,1,90,0,0,0,0.0,11.0,0.0,306331.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Madson,319973,D,1,90,0,0,0,0.0,32.0,1.0,211466.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Gabriel Bahia,1461831,D,1,90,0,0,0,0.0,34.0,1.0,234302.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Eduardo Brock,849498,D,1,90,0,0,0,0.0,36.0,1.0,322260.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Sander,637564,D,1,90,1,1,0,0.01,38.0,1.0,183869.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Luís Oyama,933054,M,1,90,0,0,0,0.0,64.0,2.0,423144.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Léo Naldi,1238140,M,1,85,0,0,0,0.0,66.0,2.0,686372.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Reidiney,1967834,F,1,72,1,0,0,0.01,83.0,3.0,
-5190657,2026-08-16,bra_serie_b,Novorizontino,Rômulo,1414404,M,1,61,2,1,0,0.03,85.0,2.0,1907107.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Maykon Jesus,1755928,F,1,61,1,0,0,0.03,87.0,3.0,
-5190657,2026-08-16,bra_serie_b,Novorizontino,Robson,498459,F,1,85,2,0,0,0.32,115.0,3.0,331090.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Diego Galo,1888822,M,0,29,0,0,0,0.0,,2.0,
-5190657,2026-08-16,bra_serie_b,Novorizontino,Juninho,1131346,M,0,29,0,0,0,0.0,,2.0,635620.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Matheus Bianqui,1116650,M,0,18,0,0,0,0.0,,2.0,314177.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Nicolas Careca,583766,F,0,5,0,0,0,0.0,,3.0,212536.0
-5190657,2026-08-16,bra_serie_b,Novorizontino,Carlão,672094,F,0,5,0,0,0,0.0,,3.0,258371.0
 5103588,2026-08-16,brasil,Mirassol,Walter,449785,G,1,90,0,0,0,0.0,11.0,0.0,512916.0
 5103588,2026-08-16,brasil,Mirassol,Igor Formiga,1116482,D,1,90,0,0,0,0.0,32.0,1.0,1013536.0
 5103588,2026-08-16,brasil,Mirassol,João Victor,816015,D,1,90,1,1,1,0.35,34.0,1.0,910718.0
@@ -136619,3 +136554,67 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017254,2026-10-08,per_liga1,Los Chankas,Axel Chávez,941883,D,0,6,0,0,0,0.0,,1.0,144106.0
 1000017254,2026-10-08,per_liga1,Los Chankas,Jarlín Quintero,571225,F,0,6,0,0,0,0.0,,3.0,245388.0
 1000017254,2026-10-08,per_liga1,Los Chankas,Félix Espinoza,905979,F,0,6,0,0,0,0.0,,3.0,131118.0
+5190756,2026-10-08,bra_serie_b,Náutico,Muriel,121848,G,1,90,0,0,0,0.0,11.0,0.0,138959.0
+5190756,2026-10-08,bra_serie_b,Náutico,Arnaldo,659758,D,1,73,0,0,0,0.0,32.0,1.0,79027.0
+5190756,2026-10-08,bra_serie_b,Náutico,Léo Índio,1462342,D,1,46,0,0,0,0.0,34.0,1.0,
+5190756,2026-10-08,bra_serie_b,Náutico,Betão,1653469,D,1,90,0,0,0,0.0,36.0,1.0,155889.0
+5190756,2026-10-08,bra_serie_b,Náutico,Igor Fernandes,448256,D,1,90,0,0,0,0.0,38.0,1.0,156897.0
+5190756,2026-10-08,bra_serie_b,Náutico,Wenderson,841882,M,1,90,0,0,0,0.0,64.0,2.0,167717.0
+5190756,2026-10-08,bra_serie_b,Náutico,Samuel,1641852,M,1,69,0,0,0,0.0,66.0,2.0,
+5190756,2026-10-08,bra_serie_b,Náutico,Júnior Todinho,845740,F,1,38,0,0,0,0.0,83.0,3.0,97926.0
+5190756,2026-10-08,bra_serie_b,Náutico,Jean,239279,M,1,90,3,1,0,0.05,85.0,2.0,219078.0
+5190756,2026-10-08,bra_serie_b,Náutico,Vinícius,202104,F,1,90,0,0,0,0.0,87.0,3.0,203597.0
+5190756,2026-10-08,bra_serie_b,Náutico,Derek,1274485,F,1,45,2,0,0,0.11,115.0,3.0,178923.0
+5190756,2026-10-08,bra_serie_b,Náutico,Benjamín Borasi,1213657,M,0,52,1,0,0,0.01,,2.0,119090.0
+5190756,2026-10-08,bra_serie_b,Náutico,Wanderson,1468784,D,0,44,0,0,0,0.0,,1.0,
+5190756,2026-10-08,bra_serie_b,Náutico,Maranhão,1723280,F,0,44,0,0,0,0.0,,3.0,
+5190756,2026-10-08,bra_serie_b,Náutico,Patricio Núñez,1245739,M,0,21,0,0,0,0.0,,2.0,82936.0
+5190756,2026-10-08,bra_serie_b,Náutico,Paulo Sérgio,79273,F,0,17,0,0,0,0.0,,3.0,81825.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Jordi,575381,G,1,90,0,0,0,0.0,11.0,0.0,378251.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Madson,319973,D,1,90,1,0,0,0.06,32.0,1.0,214981.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Gabriel Bahia,1461831,D,1,59,0,0,0,0.0,34.0,1.0,237817.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Patrick,1612264,D,1,90,0,0,0,0.0,36.0,1.0,703630.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Sander,637564,D,1,90,1,0,0,0.01,38.0,1.0,201056.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Reidiney,1967834,M,1,45,1,0,0,0.02,72.0,2.0,
+5190756,2026-10-08,bra_serie_b,Novorizontino,Matheus Bianqui,1116650,M,1,32,0,0,0,0.0,74.0,2.0,341445.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Luís Oyama,933054,M,1,90,0,0,0,0.0,76.0,2.0,468095.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Careca,583766,M,1,59,1,1,1,0.06,78.0,2.0,229413.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Rômulo,1414404,F,1,90,3,2,1,0.86,104.0,3.0,2012117.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Robson,498459,F,1,35,0,0,0,0.0,106.0,3.0,476769.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Léo,1238140,M,0,58,0,0,0,0.0,,2.0,986449.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Carlão,672094,F,0,55,2,1,0,0.49,,3.0,299620.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Hélio,1265039,F,0,45,1,1,0,0.02,,3.0,390998.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Carlinhos,1343058,D,0,31,1,0,0,0.06,,1.0,149299.0
+5190756,2026-10-08,bra_serie_b,Novorizontino,Maykon Jesus,1755928,D,0,31,1,0,0,0.03,,1.0,
+5190753,2026-10-08,bra_serie_b,Ceará,Richard,934515,G,1,90,0,0,0,0.0,11.0,0.0,258447.0
+5190753,2026-10-08,bra_serie_b,Ceará,Júlio César,1480127,D,1,78,0,0,0,0.0,32.0,1.0,
+5190753,2026-10-08,bra_serie_b,Ceará,Luizão,689080,D,1,90,1,0,0,0.05,34.0,1.0,318275.0
+5190753,2026-10-08,bra_serie_b,Ceará,Luiz Otávio,498729,D,1,90,1,0,0,0.02,36.0,1.0,171059.0
+5190753,2026-10-08,bra_serie_b,Ceará,Sánchez,670806,D,1,90,0,0,0,0.0,38.0,1.0,210138.0
+5190753,2026-10-08,bra_serie_b,Ceará,Zanocelo,1037548,M,1,90,3,0,0,0.23,64.0,2.0,1585946.0
+5190753,2026-10-08,bra_serie_b,Ceará,João Gabriel,1905651,M,1,90,1,0,0,0.01,66.0,2.0,
+5190753,2026-10-08,bra_serie_b,Ceará,Enzo,1905653,F,1,63,0,0,0,0.0,83.0,3.0,
+5190753,2026-10-08,bra_serie_b,Ceará,Vina,320026,M,1,78,1,0,0,0.04,85.0,2.0,190975.0
+5190753,2026-10-08,bra_serie_b,Ceará,Matheus Araújo,1233129,F,1,84,2,1,0,0.03,87.0,3.0,1303727.0
+5190753,2026-10-08,bra_serie_b,Ceará,Renzo López,520530,F,1,63,3,1,0,0.17,115.0,3.0,578192.0
+5190753,2026-10-08,bra_serie_b,Ceará,Rian Santana,1788181,F,0,27,2,0,0,0.11,,3.0,
+5190753,2026-10-08,bra_serie_b,Ceará,Lenny Lobato,1232260,F,0,27,2,1,1,0.1,,3.0,606338.0
+5190753,2026-10-08,bra_serie_b,Ceará,Rafael Ramos,554287,D,0,12,0,0,0,0.0,,1.0,193876.0
+5190753,2026-10-08,bra_serie_b,Ceará,Lucca,1441321,F,0,12,0,0,0,0.0,,3.0,641816.0
+5190753,2026-10-08,bra_serie_b,Ceará,Lucas Mugni,201788,M,0,6,0,0,0,0.0,,2.0,330481.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Airton,658553,G,1,90,0,0,0,0.0,11.0,0.0,277875.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Marcinho,749365,D,1,90,3,0,0,0.06,32.0,1.0,323628.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Rodrigo,640410,D,1,90,0,0,0,0.0,34.0,1.0,274728.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Luciano Castán,202332,D,1,90,0,0,0,0.0,36.0,1.0,286907.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Marcelo Hermes,604563,D,1,90,0,0,0,0.0,38.0,1.0,716583.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Jean Irmer,792064,M,1,90,2,0,0,0.02,65.0,2.0,193057.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Jhonata Robert,1098099,F,1,75,4,1,0,0.23,82.0,3.0,1478700.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Ronald,1176041,M,1,75,0,0,0,0.0,84.0,2.0,504623.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Fellipe Mateus,851632,M,1,69,2,0,0,0.07,86.0,2.0,254009.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Rómulo Otero,240371,F,1,54,1,0,0,0.04,88.0,3.0,235964.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Yuri Tanque,835355,F,1,68,1,0,0,0.04,115.0,3.0,
+5190753,2026-10-08,bra_serie_b,Criciúma,Romarinho,876272,F,0,36,0,0,0,0.0,,3.0,271638.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Cauê,1187271,F,0,22,0,0,0,0.0,,3.0,680397.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Willean Lepo,942855,D,0,21,0,0,0,0.0,,1.0,529570.0
+5190753,2026-10-08,bra_serie_b,Criciúma,Eduardo,884063,M,0,15,0,0,0,0.0,,2.0,209000.0
+5190753,2026-10-08,bra_serie_b,Criciúma,João Carlos,1463464,F,0,15,2,0,0,0.1,,3.0,275573.0
