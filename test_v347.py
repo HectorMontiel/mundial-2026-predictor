@@ -81,7 +81,8 @@ def probar_funcion():
     t = ''.join(st.txt)
     check(st.plegados == ['➕ También se meten (1)'] and '78 %' in t and '@1.22' in t,
           'el desplegable con su probabilidad y su cuota')
-    check('79 %' in t and 'No cuentan en el marcador' in t, 'y lo medido')
+    # v353 — en una línea corta
+    check('79 %' in t and 'no cuentan en el marcador' in t, 'y lo medido')
     st = _St()
     mm._bloque_otras(st, [])
     check(not st.plegados, 'sin nada, no se pinta')

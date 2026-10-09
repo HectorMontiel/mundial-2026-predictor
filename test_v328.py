@@ -80,7 +80,8 @@ def main():
             check('Quién remata' not in todo, '%s: «quién remata» no sale en la tarjeta'
                   % p['partido'])
             filas = re.findall(r'<div class="mm-ck-fila">', txt)
-            check(1 <= len(filas) <= 3, '%s: de 1 a 3 líneas (%d)' % (p['partido'], len(filas)))
+            # v353 — más los tiros y los tiros a puerta (informativos): hasta 5
+            check(1 <= len(filas) <= 5, '%s: de 1 a 5 líneas (%d)' % (p['partido'], len(filas)))
             lam = p.get('goles_lambda')
             if lam:
                 check(('%.1f' % lam).replace('.', ',') in limpio,

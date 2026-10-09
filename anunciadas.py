@@ -322,8 +322,13 @@ def aplicar_fijada(pick: Dict, recos: Optional[List[Dict]], ruta: str = '',
                 b = dict(r)
             else:
                 # la de ahora ya no la propone: se enseña la oficial tal cual
+                # v353 — con TODO lo que la tarjeta lee al pintarla (sin
+                # `verde` se rompía: lo cazó test_v327 con las fijadas reales)
                 pr = a.get('prob_meter') or a.get('prob')
+                cu = a.get('cuota')
                 b = dict(a, semaforo='🟢', puesto_valor=1, fuera_de_tarjeta=True,
+                         verde=True, incierto=False, motivo='fijada',
+                         score=(float(cu) * float(pr) if cu and pr else 0.0),
                          cuota_justa=(round(1.0 / float(pr), 2) if pr else None))
             b.update(veredicto_vp='meter', fijada=True, fijada_hora=hh)
             if r is None and b.get('prob_meter') is not None:

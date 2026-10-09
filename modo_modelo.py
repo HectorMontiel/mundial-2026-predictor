@@ -2203,9 +2203,9 @@ def _bloque_otras(st, otras: list) -> None:
 # precios de Playdoit): las de arriba aciertan 82,7 % (974); estas, 79,1 %
 # (230, prometían 76,4 %), igual en las dos mitades (79,3 y 79,0 %). Si
 # contaran en el marcador, el total pasaría de 82,7 a 82,0 %: no cuentan.
-TEXTO_OTRAS = ('Pasan la misma regla que las de arriba; se enseñan dos por '
-               'partido y éstas no caben. Medido en 794 partidos: aciertan '
-               '79 % (las de arriba, 83 %). No cuentan en el marcador.')
+# v353 — una línea: «hay mucho texto; tenemos que ser breves». Lo medido
+# (794 partidos: 79 %, las de arriba 83 %) sigue en `_v347_extras.json`.
+TEXTO_OTRAS = 'Misma regla · aciertan 79 % · no cuentan en el marcador'
 
 
 def _motivo_fuera(v: Dict, fav: Optional[float], lam: Dict) -> Optional[str]:
@@ -3225,8 +3225,8 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
                                               if motivo else ''),
                     unsafe_allow_html=True)
         return
-    icono = '✅' if rec['verde'] else '🟡'
-    tono = 'mm-rec-si' if rec['verde'] else 'mm-rec-ambar'
+    icono = '✅' if rec.get('verde') else '🟡'
+    tono = 'mm-rec-si' if rec.get('verde') else 'mm-rec-ambar'
     # v340 — LO QUE SE METE LO DICE, Y EN VERDE. El usuario: «veo partidos en
     # los que me das apuesta pero no veo si se mete o no se mete». La tarjeta
     # sólo enseña lo que se mete (v311), pero el color seguía al «verde» de
@@ -3255,13 +3255,13 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
             coleta = 'Baja probabilidad'
         elif rec.get('incierto'):
             coleta = 'Alta incertidumbre'
-        elif rec['verde']:
+        elif rec.get('verde'):
             coleta = ''
         elif rec['prob'] < va_PROB_MINIMA():
             coleta = 'Bien pagada, poco probable'
         else:
             coleta = 'Probable, poco pagada'
-    elif rec['verde']:
+    elif rec.get('verde'):
         coleta = ''
     else:
         coleta = 'Sólo para combinar'
@@ -4174,6 +4174,8 @@ def _analisis_conciso_html(pick: Dict, b: Dict, _ck, _tj) -> str:
                 icono, nombre, _num1(t_),
                 (' (%s %s · %s %s)' % (_corto(h), _num1(l_), _corto(a), _num1(v_)))
                 if l_ is not None and v_ is not None else ''))
+        # v353 — y los tiros, con el modelo de la metodología del amigo
+        lineas.extend(_lineas_tiros(pick, h, a))
     else:
         tot = _p_o_none(pick.get('total_esperado'))
         if tot is not None:
@@ -4185,6 +4187,44 @@ def _analisis_conciso_html(pick: Dict, b: Dict, _ck, _tj) -> str:
     if not lineas:
         return ''
     return ''.join('<div class="mm-ck-fila">%s</div>' % l for l in lineas)
+
+
+def _lineas_tiros(pick: Dict, h: str, a: str) -> list:
+    """v353 — TIROS Y TIROS A PUERTA, COMO INFORMACIÓN.
+
+    El usuario: «no veo en ningún lado los tiros a puerta y los remates; quizá
+    no sean los que vamos a meter, pero que estén de manera informativa con el
+    porcentaje». Salen del modelo de tiros por equipo (`tiros_equipo`, v345:
+    la metodología del amigo — tabla, posesión, faltas, plantilla —, que bate
+    a «los últimos 5» y a la casa en log-loss). Como APUESTA no entran (con
+    sólo «más de» no pasan el p5: `tiros_seguimiento`). Por equipo: la media y
+    la línea «más de X» más alta que el modelo ve al 70 % o más. Nunca lanza."""
+    try:
+        import tiros_equipo as _te
+        dp = _te.del_partido(pick)
+        if not dp:
+            return []
+        out = []
+        for obj, icono, nombre in (('tiros', '🎯', 'Tiros'),
+                                   ('a_puerta', '🥅', 'A puerta')):
+            k = float((dp.get('k') or {}).get(obj) or 50.0)
+            partes = []
+            for lado, eq in (('local', h), ('visitante', a)):
+                mu = float(dp['lados'][lado][obj])
+                lin = None
+                for n in range(int(mu) + 1, -1, -1):
+                    p = _te.prob_mas(mu, n + 0.5, k)
+                    if p >= 0.70:
+                        lin = (n + 0.5, p)
+                        break
+                partes.append('%s <b>%s</b>%s' % (
+                    _corto(eq), _num1(mu),
+                    (' (más de %s: %.0f %%)' % (lin[0], 100 * lin[1])) if lin else ''))
+            out.append('%s %s · %s' % (icono, nombre, ' · '.join(partes)))
+        return out
+    except Exception as e:
+        logger.debug('[modo_modelo] tiros en el análisis: %s', e)
+        return []
 
 
 def _p_o_none(x) -> Optional[float]:

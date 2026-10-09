@@ -896,12 +896,57 @@ _CAMPOS_MARCADOR = ('goles_home', 'goles_away', 'marcador_fuente')
 _CAMPOS_SUMA = ('_home_crudo', '_away_crudo', 'board', 'goles_lineas', 'prob')
 
 
+def _fichas_tenista(nombre: str) -> set:
+    """Las palabras de un nombre de tenista sin las iniciales: «Khachanov K.»
+    → {khachanov}; «Karen Khachanov» → {karen, khachanov}."""
+    import unicodedata
+    t = unicodedata.normalize('NFKD', str(nombre or '')).encode(
+        'ascii', 'ignore').decode().lower().replace('.', ' ').replace('-', ' ')
+    return {x for x in t.split() if len(x) > 1}
+
+
+def _mismo_tenista(x: str, y: str) -> bool:
+    fx, fy = _fichas_tenista(x), _fichas_tenista(y)
+    if not fx or not fy:
+        return False
+    corto, largo = (fx, fy) if len(fx) <= len(fy) else (fy, fx)
+    return corto <= largo
+
+
+def _mismo_partido_tenis(a: Dict, b: Dict) -> bool:
+    """v353 — EL MISMO PARTIDO DE TENIS CON LOS NOMBRES DE DOS FUENTES.
+
+    El 9-oct el archivo del día tenía seis partidos dos veces: «Karen
+    Khachanov vs Arthur Fery» (08:00) y «Khachanov K. vs Fery A.» (08:30).
+    La hora de las dos fuentes se separa hasta 2 h y los nombres no se
+    parecen como nombres de club, así que `_misma_cita` no los unía: cada
+    copia contaba en el marcador, y en Massard–Sels las dos copias
+    apostaban a jugadores CONTRARIOS (una roja segura). Misma gira, menos de
+    6 h y los dos jugadores con apellidos compatibles (en cualquier orden)."""
+    try:
+        import horario as hz
+        ia, ib = hz._a_utc(a.get('inicio')), hz._a_utc(b.get('inicio'))
+        if ia is None or ib is None or abs((ia - ib).total_seconds()) > 6 * 3600:
+            return False
+        pa, pb = str(a.get('partido') or ''), str(b.get('partido') or '')
+        if ' vs ' not in pa or ' vs ' not in pb:
+            return False
+        a1, a2 = pa.split(' vs ', 1)
+        b1, b2 = pb.split(' vs ', 1)
+        return ((_mismo_tenista(a1, b1) and _mismo_tenista(a2, b2))
+                or (_mismo_tenista(a1, b2) and _mismo_tenista(a2, b1)))
+    except Exception:
+        return False
+
+
 def _misma_cita(a: Dict, b: Dict) -> bool:
     """El mismo partido escrito distinto: misma competición, misma hora de
     inicio y al menos un equipo que casa. Pasa cuando ESPN dice «Inverness
     C» y el pronóstico «Inverness Caledonian Thistle»."""
     if str(a.get('clave_liga') or '') != str(b.get('clave_liga') or ''):
         return False
+    if _deporte(a) == 'Tenis' and _deporte(b) == 'Tenis':
+        return _mismo_partido_tenis(a, b)
     try:
         import cuotas_multi as cm
         import horario as hz
