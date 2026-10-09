@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-09T16:22:47Z",
+"actualizado": "2026-10-09T18:02:59Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -2916,11 +2916,41 @@
 "dia": "2026-10-09",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Al Fateh vs Al Ahli",
+"apuesta": "Al Ahli o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "0-4"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Al Fateh vs Al Ahli SC",
+"apuesta": "Gana Al Ahli SC",
+"cuota": 1.6471,
+"resultado": "verde",
+"marcador": "0-4"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Al Kholood vs Al Qadsiah",
 "apuesta": "Al Qadsiah o empate",
 "cuota": 1.143,
 "resultado": "verde",
 "marcador": "0-5"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Al Sharjah vs Al Jazira",
+"apuesta": "Gana Al Sharjah",
+"cuota": 3.3,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-09",
@@ -2941,6 +2971,16 @@
 "cuota": 1.69,
 "resultado": "verde",
 "marcador": "6-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Zakho vs Newroz",
+"apuesta": "Gana Newroz",
+"cuota": 3.1429,
+"resultado": "verde",
+"marcador": "0-1"
 }
 ]
 }

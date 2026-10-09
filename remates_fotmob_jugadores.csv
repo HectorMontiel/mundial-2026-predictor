@@ -12355,22 +12355,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5107537,2026-07-17,suecia,Västerås SK,Mattias Hellisdal,1401702,M,0,8,0,0,0,0.0,,2.0,189861.0
 5107537,2026-07-17,suecia,Västerås SK,Melvin Ljungqvist,1735114,M,0,8,0,0,0,0.0,,2.0,
 5107537,2026-07-17,suecia,Västerås SK,Jack Tagesson,1735287,D,0,1,0,0,0,0.0,,1.0,
-5853435,2026-07-17,rumania,FC Voluntari,Metod Jurhar,558661,G,1,90,0,0,0,0.0,11.0,0.0,209493.0
-5853435,2026-07-17,rumania,FC Voluntari,Marvin Schieb,1025629,D,1,75,1,0,0,0.0,32.0,1.0,87766.0
-5853435,2026-07-17,rumania,FC Voluntari,Radu Crisan,950880,D,1,90,1,0,0,0.0,34.0,1.0,77537.0
-5853435,2026-07-17,rumania,FC Voluntari,Daniel Dumbravanu,949253,D,1,90,1,0,0,0.0,36.0,1.0,186861.0
-5853435,2026-07-17,rumania,FC Voluntari,Alexandru Suteu,1296278,D,1,90,1,1,0,0.0,38.0,1.0,168823.0
-5853435,2026-07-17,rumania,FC Voluntari,Matej Mamic,1508337,D,1,57,0,0,0,0.0,72.0,1.0,192986.0
-5853435,2026-07-17,rumania,FC Voluntari,Ion Gheorghe,929871,M,1,86,0,0,0,0.0,74.0,2.0,130499.0
-5853435,2026-07-17,rumania,FC Voluntari,Lovro Cvek,558489,M,1,86,2,0,0,0.0,76.0,2.0,80995.0
-5853435,2026-07-17,rumania,FC Voluntari,Remus Gutea,1425717,M,1,86,4,1,0,0.0,78.0,2.0,
-5853435,2026-07-17,rumania,FC Voluntari,Mihai Roman,196957,F,1,90,3,1,0,0.0,104.0,3.0,56202.0
-5853435,2026-07-17,rumania,FC Voluntari,Matko Babic,637757,F,1,90,5,1,0,0.0,106.0,3.0,118224.0
-5853435,2026-07-17,rumania,FC Voluntari,Denis Harut,861402,D,0,33,0,0,0,0.0,,1.0,
-5853435,2026-07-17,rumania,FC Voluntari,George Merloi,1098053,F,0,15,2,2,1,0.0,,3.0,170510.0
-5853435,2026-07-17,rumania,FC Voluntari,Mihael Onisa,1172044,D,0,4,0,0,0,0.0,,1.0,144020.0
-5853435,2026-07-17,rumania,FC Voluntari,Daniel Toma,957123,M,0,4,0,0,0,0.0,,2.0,147333.0
-5853435,2026-07-17,rumania,FC Voluntari,Florian Haita,1078580,F,0,4,0,0,0,0.0,,3.0,
 5853435,2026-07-17,rumania,Botosani,Giannis Anestis,281573,G,1,90,0,0,0,0.0,11.0,0.0,151272.0
 5853435,2026-07-17,rumania,Botosani,Narcis Ilas,1481328,D,1,90,0,0,0,0.0,32.0,1.0,978643.0
 5853435,2026-07-17,rumania,Botosani,George Miron,571154,D,1,90,0,0,0,0.0,34.0,1.0,224292.0
@@ -12698,22 +12682,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013497,2026-07-18,per_liga1,Comerciantes Unidos,Maximiliano Pérez,832200,F,0,15,0,0,0,0.0,,3.0,
 1000013497,2026-07-18,per_liga1,Comerciantes Unidos,Flavio Alcedo,1254926,D,0,3,0,0,0,0.0,,1.0,
 1000013497,2026-07-18,per_liga1,Comerciantes Unidos,Jean Olivares,1541940,F,0,3,0,0,0,0.0,,3.0,
-5147599,2026-07-18,finlandia,SJK,Roope Paunio,942536,G,1,90,0,0,0,0.0,11.0,0.0,206604.0
-5147599,2026-07-18,finlandia,SJK,Salim Giabo Yussif,1506458,D,1,90,1,0,0,0.0,32.0,1.0,
-5147599,2026-07-18,finlandia,SJK,Kelvin Pires,1175733,D,1,90,1,0,0,0.0,34.0,1.0,166193.0
-5147599,2026-07-18,finlandia,SJK,Oskari Väistö,1495733,D,1,90,0,0,0,0.0,36.0,1.0,432663.0
-5147599,2026-07-18,finlandia,SJK,Eetu Mömmö,1100236,D,1,90,0,0,0,0.0,38.0,1.0,184083.0
-5147599,2026-07-18,finlandia,SJK,Aapo Boström,1643569,M,1,90,1,0,0,0.0,73.0,2.0,248043.0
-5147599,2026-07-18,finlandia,SJK,Markus Arsalo,1245696,M,1,45,1,0,0,0.0,75.0,2.0,158454.0
-5147599,2026-07-18,finlandia,SJK,Armaan Wilson,1541829,M,1,74,0,0,0,0.0,77.0,2.0,258028.0
-5147599,2026-07-18,finlandia,SJK,Muhammed Suso,1659894,F,1,46,0,0,0,0.0,103.0,3.0,
-5147599,2026-07-18,finlandia,SJK,Kasper Paananen,1455689,M,1,58,0,0,0,0.0,105.0,2.0,463404.0
-5147599,2026-07-18,finlandia,SJK,Elias Mastokangas,830504,F,1,74,1,0,0,0.0,107.0,3.0,173796.0
-5147599,2026-07-18,finlandia,SJK,Jeremiah Streng,1021585,F,0,44,0,0,0,0.0,,3.0,180815.0
-5147599,2026-07-18,finlandia,SJK,Kelwin do Nascimento,1754762,F,0,45,1,1,0,0.0,,3.0,
-5147599,2026-07-18,finlandia,SJK,Aziz Cisse,2089768,M,0,32,1,1,0,0.0,,2.0,
-5147599,2026-07-18,finlandia,SJK,Caio Araújo,1569080,M,0,16,1,0,0,0.0,,2.0,
-5147599,2026-07-18,finlandia,SJK,Vertti Hänninen,1173767,M,0,16,0,0,0,0.0,,2.0,140619.0
 5104951,2026-07-18,noruega,Kristiansund,Adrian Sæther,1280650,G,1,90,0,0,0,0.0,11.0,0.0,437417.0
 5104951,2026-07-18,noruega,Kristiansund,Alexander Munksgaard,659281,D,1,90,0,0,0,0.0,32.0,1.0,333478.0
 5104951,2026-07-18,noruega,Kristiansund,Júlíus Júlíusson,1400208,D,1,90,1,0,0,0.02,34.0,1.0,361766.0
@@ -13406,22 +13374,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103549,2026-07-21,brasil,Atlético-MG,Mamady Cissé,1898808,M,0,23,0,0,0,0.0,,2.0,1468161.0
 5103549,2026-07-21,brasil,Atlético-MG,Dudu,174531,F,0,23,0,0,0,0.0,,3.0,826889.0
 5103549,2026-07-21,brasil,Atlético-MG,Reinier,1075046,M,0,4,0,0,0,0.0,,2.0,1539780.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Codrut Sandu,1780091,G,1,90,0,0,0,0.0,11.0,0.0,
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Flavius Iacob,1524295,D,1,90,1,1,0,0.0,32.0,1.0,219614.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Florin Ilie,351611,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Antoniu Manolache,1025888,D,1,83,0,0,0,0.0,36.0,1.0,276317.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Alexandru Neacsa,391886,F,1,90,1,0,0,0.0,38.0,3.0,107052.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Ion Cararus,818148,M,1,90,1,1,0,0.0,64.0,2.0,93480.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Sergio Ribeiro,554297,F,1,83,3,1,1,0.0,66.0,3.0,87766.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Emmanuel Yeboah,1381566,F,1,61,2,0,0,0.0,83.0,3.0,319387.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Andrej Fábry,862130,M,1,72,3,1,1,0.0,85.0,2.0,119561.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Daniel Pîrvulescu,1025700,F,1,90,8,2,1,0.0,87.0,3.0,
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Ángel Gillard,1772733,F,1,72,1,0,0,0.0,115.0,3.0,
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Mario Bratu,1078472,F,0,29,1,0,0,0.0,,3.0,212133.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Ronaldo Deaconu,791703,M,0,18,1,1,0,0.0,,2.0,94204.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Renato Espinoza,1059396,F,0,18,0,0,0,0.0,,3.0,225444.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Mo Abualnadi,1033300,D,0,7,0,0,0,0.0,,1.0,110239.0
-5853432,2026-07-20,rumania,Corvinul Hunedoara,Gideon Goodlad,1962071,M,0,7,0,0,0,0.0,,2.0,
 5853432,2026-07-20,rumania,Csikszereda Miercurea Ciuc,Eduard Pap,463572,G,1,90,0,0,0,0.0,11.0,0.0,171962.0
 5853432,2026-07-20,rumania,Csikszereda Miercurea Ciuc,Lóránd Pászka,1120177,D,1,90,1,0,0,0.0,32.0,1.0,155813.0
 5853432,2026-07-20,rumania,Csikszereda Miercurea Ciuc,Raul Palmes,801336,D,1,90,0,0,0,0.0,34.0,1.0,154794.0
@@ -13485,22 +13437,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5147602,2026-07-20,finlandia,IFK Mariehamn,Rui Monteiro,1412130,M,0,28,0,0,0,0.0,,2.0,131560.0
 5147602,2026-07-20,finlandia,IFK Mariehamn,Wille Nuñez,1626928,F,0,28,0,0,0,0.0,,3.0,347359.0
 5147602,2026-07-20,finlandia,IFK Mariehamn,Jelle van der Heyden,562875,M,0,7,0,0,0,0.0,,2.0,51331.0
-5147602,2026-07-20,finlandia,FC Lahti,Osku Maukonen,1455655,G,1,90,0,0,0,0.0,11.0,0.0,447550.0
-5147602,2026-07-20,finlandia,FC Lahti,Romaric Yapi,1070619,D,1,90,0,0,0,0.0,32.0,1.0,165844.0
-5147602,2026-07-20,finlandia,FC Lahti,Jose Muller,1601928,D,1,90,1,1,0,0.0,34.0,1.0,225819.0
-5147602,2026-07-20,finlandia,FC Lahti,Väinö Vehkonen,1370496,D,1,86,1,1,0,0.0,36.0,1.0,163718.0
-5147602,2026-07-20,finlandia,FC Lahti,Romain Sans,1005795,D,1,90,1,1,0,0.0,38.0,1.0,138533.0
-5147602,2026-07-20,finlandia,FC Lahti,Otso Koskinen,1202774,M,1,76,1,1,0,0.0,73.0,2.0,232118.0
-5147602,2026-07-20,finlandia,FC Lahti,Yohan Cassubie,1243563,M,1,90,6,2,1,0.0,75.0,2.0,154574.0
-5147602,2026-07-20,finlandia,FC Lahti,Erik Andersson,403282,M,1,86,2,0,0,0.0,77.0,2.0,84658.0
-5147602,2026-07-20,finlandia,FC Lahti,Momodou Sarr,933779,F,1,90,2,1,0,0.0,103.0,3.0,190268.0
-5147602,2026-07-20,finlandia,FC Lahti,Neemias Barbosa,1666238,F,1,76,2,2,1,0.0,105.0,3.0,
-5147602,2026-07-20,finlandia,FC Lahti,Martim Ferreira,1554764,F,1,69,2,1,0,0.0,107.0,3.0,
-5147602,2026-07-20,finlandia,FC Lahti,Amir Belabid,1643166,F,0,21,1,1,0,0.0,,3.0,
-5147602,2026-07-20,finlandia,FC Lahti,Daniel Heikkinen,1266883,M,0,14,0,0,0,0.0,,2.0,176928.0
-5147602,2026-07-20,finlandia,FC Lahti,Aaron Lindholm,1364501,F,0,14,0,0,0,0.0,,3.0,159100.0
-5147602,2026-07-20,finlandia,FC Lahti,Topias Inkinen,1529365,D,0,4,0,0,0,0.0,,1.0,112712.0
-5147602,2026-07-20,finlandia,FC Lahti,Armend Kabashi,401483,M,0,4,0,0,0,0.0,,2.0,51973.0
 5147601,2026-07-20,finlandia,TPS,Elmo Henriksson,1250148,G,1,90,0,0,0,0.0,11.0,0.0,171565.0
 5147601,2026-07-20,finlandia,TPS,Oscar Häggström,1396460,D,1,73,1,0,0,0.0,32.0,1.0,
 5147601,2026-07-20,finlandia,TPS,Matej Hrádecky,329669,D,1,90,1,1,1,0.0,34.0,1.0,184046.0
@@ -136707,185 +136643,275 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014178,2026-10-09,col_primera_a,Millonarios,Stiven Vega,1130854,M,0,44,0,0,0,0.0,,2.0,316150.0
 1000014178,2026-10-09,col_primera_a,Millonarios,David Silva,95546,M,0,19,1,1,0,0.05,,2.0,240713.0
 1000014178,2026-10-09,col_primera_a,Millonarios,Daniel Ruiz,1266136,F,0,19,3,1,0,0.2,,3.0,650779.0
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Tomoki Hayakawa,1232143,G,1,90,0,0,0,0.0,11,0,1335699
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Rikuto Hirose,648262,D,1,55,0,0,0,0.0,32,1,240786
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Naomichi Ueda,430831,D,1,90,0,0,0,0.0,34,1,623746
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Tae-Hyeon Kim,1053477,D,1,90,0,0,0,0.0,36,1,770375
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Ryoya Ogawa,727419,D,1,90,0,0,0,0.0,38,1,705202
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Yuta Matsumura,1133794,M,1,90,3,0,0,0.11,72,2,508767
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Gaku Shibasaki,262394,M,1,79,0,0,0,0.0,74,2,181697
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Kento Misao,648364,M,1,90,1,0,0,0.09,76,2,391721
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Yuma Suzuki,619621,F,1,88,3,1,1,0.38,78,3,1563878
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Minato Yoshida,1748953,F,1,55,1,0,0,0.04,104,3,
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Léo,558007,F,1,79,5,1,1,0.37,106,3,1553114
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Aleksandar Čavrić,364496,M,0,35,1,1,0,0.03,,2,634382
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Keisuke Tsukui,1437167,M,0,35,0,0,0,0.0,,2,441207
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Haruki Hayashi,1899991,M,0,11,0,0,0,0.0,,2,
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Matheus Bueno,1173576,M,0,11,0,0,0,0.0,,2,773914
-5803602,2026-10-09,jpn_j1,Kashima Antlers,Homare Tokuda,1652441,F,0,2,0,0,0,0.0,,3,497867
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Jun Ichimori,728441,G,1,90,0,0,0,0.0,11,0,286752
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Soya Fujiwara,1134741,D,1,90,0,0,0,0.0,32,1,320472
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Shinnosuke Nakatani,511758,D,1,90,0,0,0,0.0,34,1,870943
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Shota Fukuoka,924121,D,1,90,2,1,0,0.12,36,1,210926
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Ryo Hatsuse,712170,D,1,64,0,0,0,0.0,38,1,529488
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Shuto Abe,1061133,M,1,90,1,1,0,0.03,64,2,418412
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Rin Mito,1611156,M,1,73,0,0,0,0.0,66,2,593363
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Ryoya Yamashita,1135557,F,1,90,1,1,0,0.2,83,3,602977
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Takashi Usami,166653,M,1,57,2,0,0,0.15,85,2,167840
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Welton,1327375,F,1,64,1,0,0,0.03,87,3,603336
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Yusei Toshida,1337816,F,1,57,1,0,0,0.22,115,3,124416
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Issam Jebali,615767,M,0,33,0,0,0,0.0,,2,243553
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Deniz Hümmet,614163,F,0,33,3,2,0,0.25,,3,1521362
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Shinya Nakano,1172705,D,0,26,0,0,0,0.0,,1,252026
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Koshiro Sumi,1544872,M,0,26,1,0,0,0.02,,2,320913
-5803602,2026-10-09,jpn_j1,Gamba Osaka,Takeru Kishimoto,735816,D,0,17,0,0,0,0.0,,1,212736
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Tomoya Wakahara,834306,G,1,90,0,0,0,0.0,11,0,219744
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Seiya Baba,1134756,D,1,90,0,0,0,0.0,33,1,487633
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Taiyo Koga,758052,D,1,90,0,0,0,0.0,35,1,888731
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Daiki Sugioka,826020,D,1,90,0,0,0,0.0,37,1,235069
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Tojiro Kubo,1299353,M,1,84,1,1,1,0.05,62,2,786497
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yudai Konishi,833021,M,1,90,0,0,0,0.0,64,2,174654
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Nobuteru Nakagawa,1716158,M,1,90,2,0,0,0.03,66,2,622449
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Keita Endo,727873,M,1,71,2,0,0,0.05,68,2,390852
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yoshio Koizumi,1012227,M,1,90,2,0,0,0.06,84,2,614853
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Hinata Yamauchi,1611176,M,1,71,1,1,1,0.5,86,2,257032
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Shota Fujio,1134268,F,1,84,6,3,1,1.03,105,3,677011
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yusuke Segawa,728766,M,0,19,2,1,1,0.08,,2,182515
-5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Mao Hosoya,1035013,F,0,6,1,0,0,0.04,,3,1354693
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Daiya Maekawa,846603,G,1,90,0,0,0,0.0,11,0,404545
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Issei Takahashi,826030,D,1,76,1,0,0,0.02,32,1,309261
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Tetsushi Yamakawa,688651,D,1,90,0,0,0,0.0,34,1,770719
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Matheus Thuler,895646,D,1,90,1,0,0,0.34,36,1,1152003
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Diego,645407,D,1,90,3,1,1,0.16,38,1,239374
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Yosuke Ideguchi,619662,M,1,90,1,1,0,0.1,73,2,538444
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Gotoku Sakai,157252,D,1,72,2,0,0,0.06,75,1,236665
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Erik,460255,M,1,90,4,3,0,0.88,77,2,623688
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Yoshinori Muto,459499,F,1,72,1,0,0,0.17,103,3,415289
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Yuya Osako,166449,F,1,90,1,0,0,0.11,105,3,388814
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Katsuya Nagato,825800,D,1,90,0,0,0,0.0,107,1,450113
-5803603,2026-10-09,jpn_j1,Vissel Kobe,Ren Komatsu,747908,F,0,18,1,1,1,0.23,,3,547655
-5186617,2026-10-09,china,Qingdao Hainiu,Pengfei Mu,258150,G,1,90,0,0,0,0.0,11,0,299548
-5186617,2026-10-09,china,Qingdao Hainiu,Zixian Wei,1907649,D,1,78,1,0,0,0.0,32,1,421517
-5186617,2026-10-09,china,Qingdao Hainiu,Yangyang Jin,558930,D,1,83,0,0,0,0.0,34,1,311298
-5186617,2026-10-09,china,Qingdao Hainiu,Long Song,143815,D,1,90,2,0,0,0.0,36,1,232373
-5186617,2026-10-09,china,Qingdao Hainiu,Suda Li,1529485,D,1,90,1,0,0,0.0,38,1,342858
-5186617,2026-10-09,china,Qingdao Hainiu,Yaw Yeboah,644001,F,1,90,2,0,0,0.0,72,3,709060
-5186617,2026-10-09,china,Qingdao Hainiu,Ruicong Gong,2130074,M,1,90,0,0,0,0.0,74,2,
-5186617,2026-10-09,china,Qingdao Hainiu,Malcom Edjouma,900576,M,1,90,3,2,0,0.0,76,2,660332
-5186617,2026-10-09,china,Qingdao Hainiu,Yonghao Jin,1661152,M,1,83,1,0,0,0.0,78,2,398535
-5186617,2026-10-09,china,Qingdao Hainiu,Xinyu Liu,892859,F,1,78,0,0,0,0.0,104,3,267618
-5186617,2026-10-09,china,Qingdao Hainiu,Lazar Tufegdžić,766464,M,1,68,1,0,0,0.0,106,2,248857
-5186617,2026-10-09,china,Qingdao Hainiu,Carlos Strandberg,455620,F,0,22,1,0,0,0.0,,3,470743
-5186617,2026-10-09,china,Qingdao Hainiu,Hailong Li,768633,D,0,12,0,0,0,0.0,,1,263701
-5186617,2026-10-09,china,Qingdao Hainiu,Guobao Liu,1357975,F,0,12,1,1,0,0.0,,3,416113
-5186617,2026-10-09,china,Qingdao Hainiu,Jiashen Liu,258411,D,0,7,0,0,0,0.0,,1,229727
-5186617,2026-10-09,china,Qingdao Hainiu,Cong Yang,1776393,M,0,7,1,0,0,0.0,,2,496607
-5186617,2026-10-09,china,Beijing Guoan,Sen Hou,117465,G,1,90,0,0,0,0.0,11,0,441212
-5186617,2026-10-09,china,Beijing Guoan,Tze-Nam Yue,1130091,D,1,71,1,0,0,0.0,32,1,290575
-5186617,2026-10-09,china,Beijing Guoan,Uroš Spajić,435214,D,1,90,1,0,0,0.0,34,1,450692
-5186617,2026-10-09,china,Beijing Guoan,Guilherme Ramos,711074,D,1,90,1,0,0,0.0,36,1,499164
-5186617,2026-10-09,china,Beijing Guoan,Yang Bai,1249785,D,1,65,0,0,0,0.0,38,1,306542
-5186617,2026-10-09,china,Beijing Guoan,Yongjing Cao,623080,M,1,90,0,0,0,0.0,72,2,407994
-5186617,2026-10-09,china,Beijing Guoan,Sai Erjini'ao,535906,M,1,78,2,2,1,0.0,74,2,1169454
-5186617,2026-10-09,china,Beijing Guoan,Aboubacar Konté,1035199,M,1,90,1,0,0,0.0,76,2,357956
-5186617,2026-10-09,china,Beijing Guoan,Liangming Lin,807090,M,1,65,0,0,0,0.0,78,2,306191
-5186617,2026-10-09,china,Beijing Guoan,Fábio Abreu,470523,F,1,65,4,3,2,0.0,104,3,944309
-5186617,2026-10-09,china,Beijing Guoan,Yuning Zhang,623091,F,1,90,2,2,0,0.0,106,3,921137
-5186617,2026-10-09,china,Beijing Guoan,Lei Li,167985,D,0,25,0,0,0,0.0,,1,370861
-5186617,2026-10-09,china,Beijing Guoan,Liyu Yang,816495,M,0,25,0,0,0,0.0,,2,287571
-5186617,2026-10-09,china,Beijing Guoan,Xizhe Zhang,197461,M,0,25,0,0,0,0.0,,2,290643
-5186617,2026-10-09,china,Beijing Guoan,Gang Wang,185706,D,0,19,0,0,0,0.0,,1,263829
-5186617,2026-10-09,china,Beijing Guoan,Zhongguo Chi,622244,M,0,12,0,0,0,0.0,,2,232373
-5186613,2026-10-09,china,Shenzhen Peng City,Peng Peng,19716,G,1,90,0,0,0,0.0,11,0,334077
-5186613,2026-10-09,china,Shenzhen Peng City,Miao Tang,432356,D,1,90,0,0,0,0.0,32,1,250782
-5186613,2026-10-09,china,Shenzhen Peng City,Rui Yu,431358,D,1,90,0,0,0,0.0,34,1,260065
-5186613,2026-10-09,china,Shenzhen Peng City,Gabriel Xavier,1384473,D,1,90,2,0,0,0.0,36,1,3799801
-5186613,2026-10-09,china,Shenzhen Peng City,Zhijian Xuan,1624755,D,1,90,0,0,0,0.0,38,1,540939
-5186613,2026-10-09,china,Shenzhen Peng City,Junsheng Yao,860071,M,1,76,1,0,0,0.0,65,2,266167
-5186613,2026-10-09,china,Shenzhen Peng City,Deabeas Owusu-Sekyere,1178618,F,1,85,0,0,0,0.0,82,3,641591
-5186613,2026-10-09,china,Shenzhen Peng City,Tim Chow,425591,M,1,90,0,0,0,0.0,84,2,403868
-5186613,2026-10-09,china,Shenzhen Peng City,Eden Karzev,933534,M,1,90,0,0,0,0.0,86,2,1327384
-5186613,2026-10-09,china,Shenzhen Peng City,Albion Ademi,648151,F,1,85,2,1,0,0.0,88,3,368578
-5186613,2026-10-09,china,Shenzhen Peng City,Wesley,656562,F,1,90,2,2,2,0.0,115,3,1716088
-5186613,2026-10-09,china,Shenzhen Peng City,Yufeng Zhang,925237,M,0,14,0,0,0,0.0,,2,274569
-5186613,2026-10-09,china,Shenzhen Peng City,Long Li,839600,D,0,5,0,0,0,0.0,,1,
-5186613,2026-10-09,china,Shenzhen Peng City,Wai-Tsun Dai,865153,F,0,5,1,0,0,0.0,,3,295290
-5186613,2026-10-09,china,Henan FC,Chenglong Shi,1180688,G,1,90,0,0,0,0.0,11,0,259156
-5186613,2026-10-09,china,Henan FC,Yeljan Shinar,1067448,D,1,57,0,0,0,0.0,32,1,291791
-5186613,2026-10-09,china,Henan FC,Iago Maidana,579791,D,1,90,2,1,0,0.0,34,1,696197
-5186613,2026-10-09,china,Henan FC,Lucas Maia,782189,D,1,90,1,0,0,0.0,36,1,357282
-5186613,2026-10-09,china,Henan FC,Nebijan Muhmet,1267733,M,1,90,0,0,0,0.0,38,2,462362
-5186613,2026-10-09,china,Henan FC,Ablahan Haliq,1168787,M,1,57,1,0,0,0.0,64,2,315489
-5186613,2026-10-09,china,Henan FC,Shangyuan Wang,465720,M,1,74,0,0,0,0.0,66,2,449854
-5186613,2026-10-09,china,Henan FC,Dalun Zheng,432815,F,1,74,0,0,0,0.0,83,3,207632
-5186613,2026-10-09,china,Henan FC,Bruno Nazário,406330,M,1,90,1,1,1,0.0,85,2,694318
-5186613,2026-10-09,china,Henan FC,Pedro Maranhão,1174640,F,1,90,1,0,0,0.0,87,3,1158226
-5186613,2026-10-09,china,Henan FC,Gustavo,535701,F,1,90,2,1,0,0.0,115,3,544541
-5186613,2026-10-09,china,Henan FC,Abudulam Abdurasul,1378458,F,0,33,1,0,0,0.0,,3,331044
-5186613,2026-10-09,china,Henan FC,Yihao Zhong,938373,F,0,33,2,0,0,0.0,,3,345926
-5186613,2026-10-09,china,Henan FC,Congyao Yin,730578,F,0,16,1,1,1,0.0,,3,255689
-5186613,2026-10-09,china,Henan FC,Yilin Yang,1370158,F,0,16,0,0,0,0.0,,3,295614
-5186613,2026-10-09,china,Henan FC,Yixin Liu,1365948,D,0,1,0,0,0,0.0,,1,329705
-5186614,2026-10-09,china,Zhejiang Professional,Bo Zhao,525775,G,1,90,0,0,0,0.0,11,0,288152
-5186614,2026-10-09,china,Zhejiang Professional,Junchi Xu,1485318,D,1,90,0,0,0,0.0,32,1,516799
-5186614,2026-10-09,china,Zhejiang Professional,Haofan Liu,1366784,D,1,90,1,0,0,0.0,34,1,718012
-5186614,2026-10-09,china,Zhejiang Professional,Lucas Possignolo,522587,D,1,90,3,1,0,0.0,36,1,383681
-5186614,2026-10-09,china,Zhejiang Professional,Guowen Sun,467589,D,1,46,0,0,0,0.0,38,1,319814
-5186614,2026-10-09,china,Zhejiang Professional,Jin Cheng,539074,M,1,64,0,0,0,0.0,64,2,267065
-5186614,2026-10-09,china,Zhejiang Professional,Jin-Seob Park,925647,M,1,90,1,0,0,0.0,66,2,680255
-5186614,2026-10-09,china,Zhejiang Professional,Qianglong Tao,1027306,F,1,45,2,0,0,0.0,83,3,468439
-5186614,2026-10-09,china,Zhejiang Professional,Marko Tolić,605658,M,1,90,4,2,0,0.0,85,2,1197858
-5186614,2026-10-09,china,Zhejiang Professional,Alexandru Mitriță,445953,M,1,90,5,2,1,0.0,87,2,1723314
-5186614,2026-10-09,china,Zhejiang Professional,Hao Fang,1187247,D,1,65,1,1,0,0.0,115,1,337690
-5186614,2026-10-09,china,Zhejiang Professional,Lei Tong,730237,D,0,44,0,0,0,0.0,,1,389278
-5186614,2026-10-09,china,Zhejiang Professional,Yudong Wang,1515735,F,0,44,0,0,0,0.0,,3,3473114
-5186614,2026-10-09,china,Zhejiang Professional,Shengxin Bao,1366789,M,0,26,0,0,0,0.0,,2,323198
-5186614,2026-10-09,china,Zhejiang Professional,Wei Wu,730999,M,0,25,0,0,0,0.0,,2,245669
-5186614,2026-10-09,china,Shanghai Port,Junling Yan,432795,G,1,90,0,0,0,0.0,11,0,424768
-5186614,2026-10-09,china,Shanghai Port,Alex Yang,1717071,D,1,70,1,0,0,0.0,32,1,1077162
-5186614,2026-10-09,china,Shanghai Port,Zhen Wei,768631,D,1,90,0,0,0,0.0,34,1,450064
-5186614,2026-10-09,china,Shanghai Port,Umidjan Yusup,1616162,D,1,82,0,0,0,0.0,36,1,921936
-5186614,2026-10-09,china,Shanghai Port,Shuai Li,854646,D,1,90,1,0,0,0.0,38,1,383117
-5186614,2026-10-09,china,Shanghai Port,Jean Claude,1324726,M,1,90,0,0,0,0.0,64,2,502135
-5186614,2026-10-09,china,Shanghai Port,Mateus Vital,688992,M,1,90,1,0,0,0.0,66,2,1922165
-5186614,2026-10-09,china,Shanghai Port,Zhurun Liu,1168820,M,1,81,3,2,1,0.0,83,2,496842
-5186614,2026-10-09,china,Shanghai Port,Óscar Melendo,802987,M,1,90,2,1,1,0.0,85,2,338394
-5186614,2026-10-09,china,Shanghai Port,Prince Ampem,1187260,F,1,88,4,2,1,0.0,87,3,397109
-5186614,2026-10-09,china,Shanghai Port,Leonardo,1025609,F,1,88,4,4,1,0.0,115,3,1938788
-5186614,2026-10-09,china,Shanghai Port,Zhenao Wang,949269,D,0,20,0,0,0,0.0,,1,276560
-5186614,2026-10-09,china,Shanghai Port,Xinxiang Li,1710746,F,0,9,0,0,0,0.0,,3,788719
-5186614,2026-10-09,china,Shanghai Port,Linpeng Zhang,196406,D,0,8,0,0,0,0.0,,1,248315
-5186614,2026-10-09,china,Shanghai Port,Jiwen Kuai,1719401,M,0,3,0,0,0,0.0,,2,876042
-5186614,2026-10-09,china,Shanghai Port,Lei Wu,432819,F,0,2,0,0,0,0.0,,3,393427
-5970150,2026-10-09,ksa_pro,Al Kholood,Hamed Al Shanqiti,1543642,G,1,90,0,0,0,0.0,11,0,
-5970150,2026-10-09,ksa_pro,Al Kholood,Odai Slimani,1832197,D,1,57,2,0,0,0.63,32,1,
-5970150,2026-10-09,ksa_pro,Al Kholood,Abdulrahman Al Obaid,1791595,D,1,68,0,0,0,0.0,34,1,
-5970150,2026-10-09,ksa_pro,Al Kholood,Mansour Camara,1890212,D,1,90,0,0,0,0.0,36,1,548998
-5970150,2026-10-09,ksa_pro,Al Kholood,Sultan Al Shehri,1668896,D,1,68,0,0,0,0.0,38,1,160432
-5970150,2026-10-09,ksa_pro,Al Kholood,Seydouba Cissé,1287783,M,1,90,3,1,0,0.14,64,2,1570415
-5970150,2026-10-09,ksa_pro,Al Kholood,John Buckley,1030840,M,1,90,2,0,0,0.04,66,2,1163325
-5970150,2026-10-09,ksa_pro,Al Kholood,Muhammad Sawaan,1523819,F,1,90,1,1,0,0.03,83,3,272006
-5970150,2026-10-09,ksa_pro,Al Kholood,Iker Kortajarena,1287791,M,1,83,3,2,0,1.31,85,2,852538
-5970150,2026-10-09,ksa_pro,Al Kholood,Coba da Costa,1676905,F,1,90,2,0,0,0.29,87,3,1433369
-5970150,2026-10-09,ksa_pro,Al Kholood,Julien Domingues,1701697,F,1,56,1,0,0,0.03,115,3,145789
-5970150,2026-10-09,ksa_pro,Al Kholood,Guga,1719844,F,0,34,0,0,0,0.0,,3,
-5970150,2026-10-09,ksa_pro,Al Kholood,Yaseen Al Zubaidi,1616778,F,0,33,0,0,0,0.0,,3,417527
-5970150,2026-10-09,ksa_pro,Al Kholood,Mohammed Al Rashdi,1691358,M,0,22,0,0,0,0.0,,2,211359
-5970150,2026-10-09,ksa_pro,Al Kholood,Abdulrahman Al Dosari,725226,M,0,22,0,0,0,0.0,,2,251572
-5970150,2026-10-09,ksa_pro,Al Kholood,Loic Essomba,1439361,F,0,7,0,0,0,0.0,,3,258497
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Koen Casteels,170322,G,1,90,0,0,0,0.0,11,0,1674272
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Jehad Thakri,1232530,D,1,76,1,0,0,0.85,33,1,879407
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Nacho,213499,D,1,69,0,0,0,0.0,35,1,741076
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Gaston Álvarez,1060634,D,1,90,0,0,0,0.0,37,1,8899474
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Mohammed Abu Al Shamat,1543647,M,1,69,3,0,0,0.32,71,2,1537083
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Tijjani Reijnders,868344,M,1,80,2,2,1,0.13,73,2,40631339
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Julian Weigl,521421,M,1,90,0,0,0,0.0,75,2,4711389
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Musab Al Juwayr,1235341,M,1,90,4,1,1,0.56,77,2,8613163
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Christopher Bonsu Baah,1452385,M,1,90,1,1,1,0.21,79,2,16107232
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Mateo Retegui,905546,F,1,69,3,2,1,0.65,104,3,24922924
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Julián Quiñones,720560,F,1,90,5,3,1,2.4,106,3,13657949
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Yasser Al Shahrani,392208,D,0,21,0,0,0,0.0,,1,195964
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Turki Al Ammar,899277,M,0,21,1,0,0,0.03,,2,637548
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Haitham Asiri,1173632,F,0,21,0,0,0,0.0,,3,294426
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Ahmed Al Siyahi,1897591,M,0,14,0,0,0,0.0,,2,402449
-5970150,2026-10-09,ksa_pro,Al Qadsiah,Mohammed Al Qahtani,1309655,F,0,10,0,0,0,0.0,,3,361371
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Tomoki Hayakawa,1232143,G,1,90,0,0,0,0.0,11.0,0.0,1335699.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Rikuto Hirose,648262,D,1,55,0,0,0,0.0,32.0,1.0,240786.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Naomichi Ueda,430831,D,1,90,0,0,0,0.0,34.0,1.0,623746.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Tae-Hyeon Kim,1053477,D,1,90,0,0,0,0.0,36.0,1.0,770375.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Ryoya Ogawa,727419,D,1,90,0,0,0,0.0,38.0,1.0,705202.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Yuta Matsumura,1133794,M,1,90,3,0,0,0.11,72.0,2.0,508767.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Gaku Shibasaki,262394,M,1,79,0,0,0,0.0,74.0,2.0,181697.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Kento Misao,648364,M,1,90,1,0,0,0.09,76.0,2.0,391721.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Yuma Suzuki,619621,F,1,88,3,1,1,0.38,78.0,3.0,1563878.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Minato Yoshida,1748953,F,1,55,1,0,0,0.04,104.0,3.0,
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Léo,558007,F,1,79,5,1,1,0.37,106.0,3.0,1553114.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Aleksandar Čavrić,364496,M,0,35,1,1,0,0.03,,2.0,634382.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Keisuke Tsukui,1437167,M,0,35,0,0,0,0.0,,2.0,441207.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Haruki Hayashi,1899991,M,0,11,0,0,0,0.0,,2.0,
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Matheus Bueno,1173576,M,0,11,0,0,0,0.0,,2.0,773914.0
+5803602,2026-10-09,jpn_j1,Kashima Antlers,Homare Tokuda,1652441,F,0,2,0,0,0,0.0,,3.0,497867.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Jun Ichimori,728441,G,1,90,0,0,0,0.0,11.0,0.0,286752.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Soya Fujiwara,1134741,D,1,90,0,0,0,0.0,32.0,1.0,320472.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shinnosuke Nakatani,511758,D,1,90,0,0,0,0.0,34.0,1.0,870943.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shota Fukuoka,924121,D,1,90,2,1,0,0.12,36.0,1.0,210926.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Ryo Hatsuse,712170,D,1,64,0,0,0,0.0,38.0,1.0,529488.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shuto Abe,1061133,M,1,90,1,1,0,0.03,64.0,2.0,418412.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Rin Mito,1611156,M,1,73,0,0,0,0.0,66.0,2.0,593363.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Ryoya Yamashita,1135557,F,1,90,1,1,0,0.2,83.0,3.0,602977.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Takashi Usami,166653,M,1,57,2,0,0,0.15,85.0,2.0,167840.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Welton,1327375,F,1,64,1,0,0,0.03,87.0,3.0,603336.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Yusei Toshida,1337816,F,1,57,1,0,0,0.22,115.0,3.0,124416.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Issam Jebali,615767,M,0,33,0,0,0,0.0,,2.0,243553.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Deniz Hümmet,614163,F,0,33,3,2,0,0.25,,3.0,1521362.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Shinya Nakano,1172705,D,0,26,0,0,0,0.0,,1.0,252026.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Koshiro Sumi,1544872,M,0,26,1,0,0,0.02,,2.0,320913.0
+5803602,2026-10-09,jpn_j1,Gamba Osaka,Takeru Kishimoto,735816,D,0,17,0,0,0,0.0,,1.0,212736.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Tomoya Wakahara,834306,G,1,90,0,0,0,0.0,11.0,0.0,219744.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Seiya Baba,1134756,D,1,90,0,0,0,0.0,33.0,1.0,487633.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Taiyo Koga,758052,D,1,90,0,0,0,0.0,35.0,1.0,888731.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Daiki Sugioka,826020,D,1,90,0,0,0,0.0,37.0,1.0,235069.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Tojiro Kubo,1299353,M,1,84,1,1,1,0.05,62.0,2.0,786497.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yudai Konishi,833021,M,1,90,0,0,0,0.0,64.0,2.0,174654.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Nobuteru Nakagawa,1716158,M,1,90,2,0,0,0.03,66.0,2.0,622449.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Keita Endo,727873,M,1,71,2,0,0,0.05,68.0,2.0,390852.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yoshio Koizumi,1012227,M,1,90,2,0,0,0.06,84.0,2.0,614853.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Hinata Yamauchi,1611176,M,1,71,1,1,1,0.5,86.0,2.0,257032.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Shota Fujio,1134268,F,1,84,6,3,1,1.03,105.0,3.0,677011.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Yusuke Segawa,728766,M,0,19,2,1,1,0.08,,2.0,182515.0
+5803603,2026-10-09,jpn_j1,Kashiwa Reysol,Mao Hosoya,1035013,F,0,6,1,0,0,0.04,,3.0,1354693.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Daiya Maekawa,846603,G,1,90,0,0,0,0.0,11.0,0.0,404545.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Issei Takahashi,826030,D,1,76,1,0,0,0.02,32.0,1.0,309261.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Tetsushi Yamakawa,688651,D,1,90,0,0,0,0.0,34.0,1.0,770719.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Matheus Thuler,895646,D,1,90,1,0,0,0.34,36.0,1.0,1152003.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Diego,645407,D,1,90,3,1,1,0.16,38.0,1.0,239374.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Yosuke Ideguchi,619662,M,1,90,1,1,0,0.1,73.0,2.0,538444.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Gotoku Sakai,157252,D,1,72,2,0,0,0.06,75.0,1.0,236665.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Erik,460255,M,1,90,4,3,0,0.88,77.0,2.0,623688.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Yoshinori Muto,459499,F,1,72,1,0,0,0.17,103.0,3.0,415289.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Yuya Osako,166449,F,1,90,1,0,0,0.11,105.0,3.0,388814.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Katsuya Nagato,825800,D,1,90,0,0,0,0.0,107.0,1.0,450113.0
+5803603,2026-10-09,jpn_j1,Vissel Kobe,Ren Komatsu,747908,F,0,18,1,1,1,0.23,,3.0,547655.0
+5186617,2026-10-09,china,Qingdao Hainiu,Pengfei Mu,258150,G,1,90,0,0,0,0.0,11.0,0.0,299548.0
+5186617,2026-10-09,china,Qingdao Hainiu,Zixian Wei,1907649,D,1,78,1,0,0,0.0,32.0,1.0,421517.0
+5186617,2026-10-09,china,Qingdao Hainiu,Yangyang Jin,558930,D,1,83,0,0,0,0.0,34.0,1.0,311298.0
+5186617,2026-10-09,china,Qingdao Hainiu,Long Song,143815,D,1,90,2,0,0,0.0,36.0,1.0,232373.0
+5186617,2026-10-09,china,Qingdao Hainiu,Suda Li,1529485,D,1,90,1,0,0,0.0,38.0,1.0,342858.0
+5186617,2026-10-09,china,Qingdao Hainiu,Yaw Yeboah,644001,F,1,90,2,0,0,0.0,72.0,3.0,709060.0
+5186617,2026-10-09,china,Qingdao Hainiu,Ruicong Gong,2130074,M,1,90,0,0,0,0.0,74.0,2.0,
+5186617,2026-10-09,china,Qingdao Hainiu,Malcom Edjouma,900576,M,1,90,3,2,0,0.0,76.0,2.0,660332.0
+5186617,2026-10-09,china,Qingdao Hainiu,Yonghao Jin,1661152,M,1,83,1,0,0,0.0,78.0,2.0,398535.0
+5186617,2026-10-09,china,Qingdao Hainiu,Xinyu Liu,892859,F,1,78,0,0,0,0.0,104.0,3.0,267618.0
+5186617,2026-10-09,china,Qingdao Hainiu,Lazar Tufegdžić,766464,M,1,68,1,0,0,0.0,106.0,2.0,248857.0
+5186617,2026-10-09,china,Qingdao Hainiu,Carlos Strandberg,455620,F,0,22,1,0,0,0.0,,3.0,470743.0
+5186617,2026-10-09,china,Qingdao Hainiu,Hailong Li,768633,D,0,12,0,0,0,0.0,,1.0,263701.0
+5186617,2026-10-09,china,Qingdao Hainiu,Guobao Liu,1357975,F,0,12,1,1,0,0.0,,3.0,416113.0
+5186617,2026-10-09,china,Qingdao Hainiu,Jiashen Liu,258411,D,0,7,0,0,0,0.0,,1.0,229727.0
+5186617,2026-10-09,china,Qingdao Hainiu,Cong Yang,1776393,M,0,7,1,0,0,0.0,,2.0,496607.0
+5186617,2026-10-09,china,Beijing Guoan,Sen Hou,117465,G,1,90,0,0,0,0.0,11.0,0.0,441212.0
+5186617,2026-10-09,china,Beijing Guoan,Tze-Nam Yue,1130091,D,1,71,1,0,0,0.0,32.0,1.0,290575.0
+5186617,2026-10-09,china,Beijing Guoan,Uroš Spajić,435214,D,1,90,1,0,0,0.0,34.0,1.0,450692.0
+5186617,2026-10-09,china,Beijing Guoan,Guilherme Ramos,711074,D,1,90,1,0,0,0.0,36.0,1.0,499164.0
+5186617,2026-10-09,china,Beijing Guoan,Yang Bai,1249785,D,1,65,0,0,0,0.0,38.0,1.0,306542.0
+5186617,2026-10-09,china,Beijing Guoan,Yongjing Cao,623080,M,1,90,0,0,0,0.0,72.0,2.0,407994.0
+5186617,2026-10-09,china,Beijing Guoan,Sai Erjini'ao,535906,M,1,78,2,2,1,0.0,74.0,2.0,1169454.0
+5186617,2026-10-09,china,Beijing Guoan,Aboubacar Konté,1035199,M,1,90,1,0,0,0.0,76.0,2.0,357956.0
+5186617,2026-10-09,china,Beijing Guoan,Liangming Lin,807090,M,1,65,0,0,0,0.0,78.0,2.0,306191.0
+5186617,2026-10-09,china,Beijing Guoan,Fábio Abreu,470523,F,1,65,4,3,2,0.0,104.0,3.0,944309.0
+5186617,2026-10-09,china,Beijing Guoan,Yuning Zhang,623091,F,1,90,2,2,0,0.0,106.0,3.0,921137.0
+5186617,2026-10-09,china,Beijing Guoan,Lei Li,167985,D,0,25,0,0,0,0.0,,1.0,370861.0
+5186617,2026-10-09,china,Beijing Guoan,Liyu Yang,816495,M,0,25,0,0,0,0.0,,2.0,287571.0
+5186617,2026-10-09,china,Beijing Guoan,Xizhe Zhang,197461,M,0,25,0,0,0,0.0,,2.0,290643.0
+5186617,2026-10-09,china,Beijing Guoan,Gang Wang,185706,D,0,19,0,0,0,0.0,,1.0,263829.0
+5186617,2026-10-09,china,Beijing Guoan,Zhongguo Chi,622244,M,0,12,0,0,0,0.0,,2.0,232373.0
+5186613,2026-10-09,china,Shenzhen Peng City,Peng Peng,19716,G,1,90,0,0,0,0.0,11.0,0.0,334077.0
+5186613,2026-10-09,china,Shenzhen Peng City,Miao Tang,432356,D,1,90,0,0,0,0.0,32.0,1.0,250782.0
+5186613,2026-10-09,china,Shenzhen Peng City,Rui Yu,431358,D,1,90,0,0,0,0.0,34.0,1.0,260065.0
+5186613,2026-10-09,china,Shenzhen Peng City,Gabriel Xavier,1384473,D,1,90,2,0,0,0.0,36.0,1.0,3799801.0
+5186613,2026-10-09,china,Shenzhen Peng City,Zhijian Xuan,1624755,D,1,90,0,0,0,0.0,38.0,1.0,540939.0
+5186613,2026-10-09,china,Shenzhen Peng City,Junsheng Yao,860071,M,1,76,1,0,0,0.0,65.0,2.0,266167.0
+5186613,2026-10-09,china,Shenzhen Peng City,Deabeas Owusu-Sekyere,1178618,F,1,85,0,0,0,0.0,82.0,3.0,641591.0
+5186613,2026-10-09,china,Shenzhen Peng City,Tim Chow,425591,M,1,90,0,0,0,0.0,84.0,2.0,403868.0
+5186613,2026-10-09,china,Shenzhen Peng City,Eden Karzev,933534,M,1,90,0,0,0,0.0,86.0,2.0,1327384.0
+5186613,2026-10-09,china,Shenzhen Peng City,Albion Ademi,648151,F,1,85,2,1,0,0.0,88.0,3.0,368578.0
+5186613,2026-10-09,china,Shenzhen Peng City,Wesley,656562,F,1,90,2,2,2,0.0,115.0,3.0,1716088.0
+5186613,2026-10-09,china,Shenzhen Peng City,Yufeng Zhang,925237,M,0,14,0,0,0,0.0,,2.0,274569.0
+5186613,2026-10-09,china,Shenzhen Peng City,Long Li,839600,D,0,5,0,0,0,0.0,,1.0,
+5186613,2026-10-09,china,Shenzhen Peng City,Wai-Tsun Dai,865153,F,0,5,1,0,0,0.0,,3.0,295290.0
+5186613,2026-10-09,china,Henan FC,Chenglong Shi,1180688,G,1,90,0,0,0,0.0,11.0,0.0,259156.0
+5186613,2026-10-09,china,Henan FC,Yeljan Shinar,1067448,D,1,57,0,0,0,0.0,32.0,1.0,291791.0
+5186613,2026-10-09,china,Henan FC,Iago Maidana,579791,D,1,90,2,1,0,0.0,34.0,1.0,696197.0
+5186613,2026-10-09,china,Henan FC,Lucas Maia,782189,D,1,90,1,0,0,0.0,36.0,1.0,357282.0
+5186613,2026-10-09,china,Henan FC,Nebijan Muhmet,1267733,M,1,90,0,0,0,0.0,38.0,2.0,462362.0
+5186613,2026-10-09,china,Henan FC,Ablahan Haliq,1168787,M,1,57,1,0,0,0.0,64.0,2.0,315489.0
+5186613,2026-10-09,china,Henan FC,Shangyuan Wang,465720,M,1,74,0,0,0,0.0,66.0,2.0,449854.0
+5186613,2026-10-09,china,Henan FC,Dalun Zheng,432815,F,1,74,0,0,0,0.0,83.0,3.0,207632.0
+5186613,2026-10-09,china,Henan FC,Bruno Nazário,406330,M,1,90,1,1,1,0.0,85.0,2.0,694318.0
+5186613,2026-10-09,china,Henan FC,Pedro Maranhão,1174640,F,1,90,1,0,0,0.0,87.0,3.0,1158226.0
+5186613,2026-10-09,china,Henan FC,Gustavo,535701,F,1,90,2,1,0,0.0,115.0,3.0,544541.0
+5186613,2026-10-09,china,Henan FC,Abudulam Abdurasul,1378458,F,0,33,1,0,0,0.0,,3.0,331044.0
+5186613,2026-10-09,china,Henan FC,Yihao Zhong,938373,F,0,33,2,0,0,0.0,,3.0,345926.0
+5186613,2026-10-09,china,Henan FC,Congyao Yin,730578,F,0,16,1,1,1,0.0,,3.0,255689.0
+5186613,2026-10-09,china,Henan FC,Yilin Yang,1370158,F,0,16,0,0,0,0.0,,3.0,295614.0
+5186613,2026-10-09,china,Henan FC,Yixin Liu,1365948,D,0,1,0,0,0,0.0,,1.0,329705.0
+5186614,2026-10-09,china,Zhejiang Professional,Bo Zhao,525775,G,1,90,0,0,0,0.0,11.0,0.0,288152.0
+5186614,2026-10-09,china,Zhejiang Professional,Junchi Xu,1485318,D,1,90,0,0,0,0.0,32.0,1.0,516799.0
+5186614,2026-10-09,china,Zhejiang Professional,Haofan Liu,1366784,D,1,90,1,0,0,0.0,34.0,1.0,718012.0
+5186614,2026-10-09,china,Zhejiang Professional,Lucas Possignolo,522587,D,1,90,3,1,0,0.0,36.0,1.0,383681.0
+5186614,2026-10-09,china,Zhejiang Professional,Guowen Sun,467589,D,1,46,0,0,0,0.0,38.0,1.0,319814.0
+5186614,2026-10-09,china,Zhejiang Professional,Jin Cheng,539074,M,1,64,0,0,0,0.0,64.0,2.0,267065.0
+5186614,2026-10-09,china,Zhejiang Professional,Jin-Seob Park,925647,M,1,90,1,0,0,0.0,66.0,2.0,680255.0
+5186614,2026-10-09,china,Zhejiang Professional,Qianglong Tao,1027306,F,1,45,2,0,0,0.0,83.0,3.0,468439.0
+5186614,2026-10-09,china,Zhejiang Professional,Marko Tolić,605658,M,1,90,4,2,0,0.0,85.0,2.0,1197858.0
+5186614,2026-10-09,china,Zhejiang Professional,Alexandru Mitriță,445953,M,1,90,5,2,1,0.0,87.0,2.0,1723314.0
+5186614,2026-10-09,china,Zhejiang Professional,Hao Fang,1187247,D,1,65,1,1,0,0.0,115.0,1.0,337690.0
+5186614,2026-10-09,china,Zhejiang Professional,Lei Tong,730237,D,0,44,0,0,0,0.0,,1.0,389278.0
+5186614,2026-10-09,china,Zhejiang Professional,Yudong Wang,1515735,F,0,44,0,0,0,0.0,,3.0,3473114.0
+5186614,2026-10-09,china,Zhejiang Professional,Shengxin Bao,1366789,M,0,26,0,0,0,0.0,,2.0,323198.0
+5186614,2026-10-09,china,Zhejiang Professional,Wei Wu,730999,M,0,25,0,0,0,0.0,,2.0,245669.0
+5186614,2026-10-09,china,Shanghai Port,Junling Yan,432795,G,1,90,0,0,0,0.0,11.0,0.0,424768.0
+5186614,2026-10-09,china,Shanghai Port,Alex Yang,1717071,D,1,70,1,0,0,0.0,32.0,1.0,1077162.0
+5186614,2026-10-09,china,Shanghai Port,Zhen Wei,768631,D,1,90,0,0,0,0.0,34.0,1.0,450064.0
+5186614,2026-10-09,china,Shanghai Port,Umidjan Yusup,1616162,D,1,82,0,0,0,0.0,36.0,1.0,921936.0
+5186614,2026-10-09,china,Shanghai Port,Shuai Li,854646,D,1,90,1,0,0,0.0,38.0,1.0,383117.0
+5186614,2026-10-09,china,Shanghai Port,Jean Claude,1324726,M,1,90,0,0,0,0.0,64.0,2.0,502135.0
+5186614,2026-10-09,china,Shanghai Port,Mateus Vital,688992,M,1,90,1,0,0,0.0,66.0,2.0,1922165.0
+5186614,2026-10-09,china,Shanghai Port,Zhurun Liu,1168820,M,1,81,3,2,1,0.0,83.0,2.0,496842.0
+5186614,2026-10-09,china,Shanghai Port,Óscar Melendo,802987,M,1,90,2,1,1,0.0,85.0,2.0,338394.0
+5186614,2026-10-09,china,Shanghai Port,Prince Ampem,1187260,F,1,88,4,2,1,0.0,87.0,3.0,397109.0
+5186614,2026-10-09,china,Shanghai Port,Leonardo,1025609,F,1,88,4,4,1,0.0,115.0,3.0,1938788.0
+5186614,2026-10-09,china,Shanghai Port,Zhenao Wang,949269,D,0,20,0,0,0,0.0,,1.0,276560.0
+5186614,2026-10-09,china,Shanghai Port,Xinxiang Li,1710746,F,0,9,0,0,0,0.0,,3.0,788719.0
+5186614,2026-10-09,china,Shanghai Port,Linpeng Zhang,196406,D,0,8,0,0,0,0.0,,1.0,248315.0
+5186614,2026-10-09,china,Shanghai Port,Jiwen Kuai,1719401,M,0,3,0,0,0,0.0,,2.0,876042.0
+5186614,2026-10-09,china,Shanghai Port,Lei Wu,432819,F,0,2,0,0,0,0.0,,3.0,393427.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Hamed Al Shanqiti,1543642,G,1,90,0,0,0,0.0,11.0,0.0,
+5970150,2026-10-09,ksa_pro,Al Kholood,Odai Slimani,1832197,D,1,57,2,0,0,0.63,32.0,1.0,
+5970150,2026-10-09,ksa_pro,Al Kholood,Abdulrahman Al Obaid,1791595,D,1,68,0,0,0,0.0,34.0,1.0,
+5970150,2026-10-09,ksa_pro,Al Kholood,Mansour Camara,1890212,D,1,90,0,0,0,0.0,36.0,1.0,548998.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Sultan Al Shehri,1668896,D,1,68,0,0,0,0.0,38.0,1.0,160432.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Seydouba Cissé,1287783,M,1,90,3,1,0,0.14,64.0,2.0,1570415.0
+5970150,2026-10-09,ksa_pro,Al Kholood,John Buckley,1030840,M,1,90,2,0,0,0.04,66.0,2.0,1163325.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Muhammad Sawaan,1523819,F,1,90,1,1,0,0.03,83.0,3.0,272006.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Iker Kortajarena,1287791,M,1,83,3,2,0,1.31,85.0,2.0,852538.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Coba da Costa,1676905,F,1,90,2,0,0,0.29,87.0,3.0,1433369.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Julien Domingues,1701697,F,1,56,1,0,0,0.03,115.0,3.0,145789.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Guga,1719844,F,0,34,0,0,0,0.0,,3.0,
+5970150,2026-10-09,ksa_pro,Al Kholood,Yaseen Al Zubaidi,1616778,F,0,33,0,0,0,0.0,,3.0,417527.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Mohammed Al Rashdi,1691358,M,0,22,0,0,0,0.0,,2.0,211359.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Abdulrahman Al Dosari,725226,M,0,22,0,0,0,0.0,,2.0,251572.0
+5970150,2026-10-09,ksa_pro,Al Kholood,Loic Essomba,1439361,F,0,7,0,0,0,0.0,,3.0,258497.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Koen Casteels,170322,G,1,90,0,0,0,0.0,11.0,0.0,1674272.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Jehad Thakri,1232530,D,1,76,1,0,0,0.85,33.0,1.0,879407.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Nacho,213499,D,1,69,0,0,0,0.0,35.0,1.0,741076.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Gaston Álvarez,1060634,D,1,90,0,0,0,0.0,37.0,1.0,8899474.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Mohammed Abu Al Shamat,1543647,M,1,69,3,0,0,0.32,71.0,2.0,1537083.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Tijjani Reijnders,868344,M,1,80,2,2,1,0.13,73.0,2.0,40631339.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Julian Weigl,521421,M,1,90,0,0,0,0.0,75.0,2.0,4711389.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Musab Al Juwayr,1235341,M,1,90,4,1,1,0.56,77.0,2.0,8613163.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Christopher Bonsu Baah,1452385,M,1,90,1,1,1,0.21,79.0,2.0,16107232.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Mateo Retegui,905546,F,1,69,3,2,1,0.65,104.0,3.0,24922924.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Julián Quiñones,720560,F,1,90,5,3,1,2.4,106.0,3.0,13657949.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Yasser Al Shahrani,392208,D,0,21,0,0,0,0.0,,1.0,195964.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Turki Al Ammar,899277,M,0,21,1,0,0,0.03,,2.0,637548.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Haitham Asiri,1173632,F,0,21,0,0,0,0.0,,3.0,294426.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Ahmed Al Siyahi,1897591,M,0,14,0,0,0,0.0,,2.0,402449.0
+5970150,2026-10-09,ksa_pro,Al Qadsiah,Mohammed Al Qahtani,1309655,F,0,10,0,0,0,0.0,,3.0,361371.0
+6145905,2026-10-09,finlandia,SJK,Johannes Viitala,1455676,G,1,90,0,0,0,0.0,11.0,0.0,298474.0
+6145905,2026-10-09,finlandia,SJK,Karlson Nwanege,1667734,D,1,90,2,1,0,0.0,33.0,1.0,215030.0
+6145905,2026-10-09,finlandia,SJK,Facundo Costantini,1282419,D,1,90,0,0,0,0.0,35.0,1.0,
+6145905,2026-10-09,finlandia,SJK,Oskari Väistö,1495733,D,1,90,0,0,0,0.0,37.0,1.0,369743.0
+6145905,2026-10-09,finlandia,SJK,Salim Giabo Yussif,1506458,D,1,90,0,0,0,0.0,51.0,1.0,155341.0
+6145905,2026-10-09,finlandia,SJK,Eetu Mömmö,1100236,D,1,90,1,0,0,0.0,59.0,1.0,239419.0
+6145905,2026-10-09,finlandia,SJK,Armaan Wilson,1541829,M,1,80,1,1,1,0.0,73.0,2.0,242583.0
+6145905,2026-10-09,finlandia,SJK,Amidou Traoré,1606403,M,1,90,0,0,0,0.0,75.0,2.0,203514.0
+6145905,2026-10-09,finlandia,SJK,Aapo Boström,1643569,M,1,90,2,1,0,0.0,77.0,2.0,296776.0
+6145905,2026-10-09,finlandia,SJK,Kelwin do Nascimento,1754762,F,1,69,3,1,0,0.0,104.0,3.0,
+6145905,2026-10-09,finlandia,SJK,Jeremiah Streng,1021585,F,1,87,2,1,0,0.0,106.0,3.0,181720.0
+6145905,2026-10-09,finlandia,SJK,Elias Mastokangas,830504,F,0,21,1,0,0,0.0,,3.0,170458.0
+6145905,2026-10-09,finlandia,SJK,Leon Vesterbacka,1748448,F,0,10,1,1,0,0.0,,3.0,439068.0
+6145905,2026-10-09,finlandia,FC Lahti,Aatu Hakala,1030571,G,1,90,1,0,0,0.0,11.0,0.0,220603.0
+6145905,2026-10-09,finlandia,FC Lahti,Daniel Heikkinen,1266883,M,1,90,3,1,0,0.0,32.0,2.0,243923.0
+6145905,2026-10-09,finlandia,FC Lahti,Nícolas,1073136,D,1,90,1,0,0,0.0,34.0,1.0,125356.0
+6145905,2026-10-09,finlandia,FC Lahti,Väinö Vehkonen,1370496,D,1,90,0,0,0,0.0,36.0,1.0,148273.0
+6145905,2026-10-09,finlandia,FC Lahti,Topias Inkinen,1529365,D,1,86,2,0,0,0.0,38.0,1.0,114317.0
+6145905,2026-10-09,finlandia,FC Lahti,Tòfol Montiel,949752,M,1,90,0,0,0,0.0,73.0,2.0,177332.0
+6145905,2026-10-09,finlandia,FC Lahti,Yohan Cassubie,1243563,M,1,90,1,0,0,0.0,75.0,2.0,152636.0
+6145905,2026-10-09,finlandia,FC Lahti,Otso Koskinen,1202774,M,1,69,1,1,0,0.0,77.0,2.0,243923.0
+6145905,2026-10-09,finlandia,FC Lahti,Momodou Sarr,933779,F,1,90,1,1,0,0.0,103.0,3.0,186455.0
+6145905,2026-10-09,finlandia,FC Lahti,Aaron Lindholm,1364501,F,1,62,1,0,0,0.0,105.0,3.0,232829.0
+6145905,2026-10-09,finlandia,FC Lahti,Justus Ojanen,1493975,F,1,90,0,0,0,0.0,107.0,3.0,342013.0
+6145905,2026-10-09,finlandia,FC Lahti,Jose Muller,1601928,D,0,28,1,0,0,0.0,,1.0,321138.0
+6145905,2026-10-09,finlandia,FC Lahti,Erik Andersson,403282,M,0,21,2,0,0,0.0,,2.0,149299.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Adrian Šemper,747079,G,1,90,0,0,0,0.0,11.0,0.0,1165168.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Mihai Lixandru,1272334,D,1,90,0,0,0,0.0,33.0,1.0,892658.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Marwane Saadane,614912,D,1,90,0,0,0,0.0,35.0,1.0,158757.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Kennedy Boateng,793670,D,1,90,1,0,0,0.17,37.0,1.0,857402.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Abdul Rahman Al Khaibari,1806492,D,1,46,0,0,0,0.0,51.0,1.0,324410.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Abdulaziz Al Suwailem,1946495,D,1,90,0,0,0,0.0,59.0,1.0,
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Mourad Batna,617308,M,1,90,2,1,0,0.11,72.0,2.0,187961.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Ali Al Hassan,919900,M,1,62,0,0,0,0.0,74.0,2.0,262411.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Zaydou Youssouf,813549,M,1,46,0,0,0,0.0,76.0,2.0,5033350.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Lukás Haraslín,518628,M,1,82,1,0,0,0.02,78.0,2.0,4451377.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Wilfried Kanga,797800,F,1,62,1,0,0,0.07,115.0,3.0,2182133.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Sattam Al Tumbukti,1444406,D,0,44,0,0,0,0.0,,1.0,
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Abdulaziz Al Fawaz,1668631,M,0,44,0,0,0,0.0,,2.0,
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Robin Kelder,1797833,D,0,28,0,0,0,0.0,,1.0,
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Faisal Al Abdulwahed,1325887,M,0,28,0,0,0,0.0,,2.0,236196.0
+5970146,2026-10-09,ksa_pro,Al Fateh FC,Saad Al Sharfa,1482302,F,0,8,0,0,0,0.0,,3.0,254667.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Abdulrahman Al Sanbi,1524217,G,1,90,0,0,0,0.0,11.0,0.0,312769.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Saeed Baattia,1526851,D,1,90,1,1,0,0.07,32.0,1.0,195119.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Merih Demiral,823078,D,1,90,1,0,0,0.03,34.0,1.0,12516167.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Mohammed Sulaiman,1642823,D,1,90,0,0,0,0.0,36.0,1.0,492573.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Saad Yaslam,1188101,D,1,90,0,0,0,0.0,38.0,1.0,437844.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Valentin Atangana Edoa,1439625,M,1,78,0,0,0,0.0,64.0,2.0,15590649.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Ziyad Al Johani,1174962,M,1,90,2,2,1,0.28,66.0,2.0,822508.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Trincão,732282,F,1,85,3,3,2,0.4,83.0,3.0,27691887.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Matheus Gonçalves,1414577,M,1,45,1,0,0,0.02,85.0,2.0,7845802.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Galeno,776972,F,1,62,2,0,0,0.03,87.0,3.0,16224068.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Ivan Toney,408987,F,1,78,3,3,1,0.86,115.0,3.0,15038049.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Eduard Spertsyan,938297,M,0,45,2,0,0,0.25,,2.0,21992013.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Feras Al Brikan,844226,F,0,28,1,0,0,0.03,,3.0,2683069.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Artem Bondarenko,1116325,M,0,12,0,0,0,0.0,,2.0,5003896.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Saleh Abu Al Shamat,1251448,F,0,12,0,0,0,0.0,,3.0,366193.0
+5970146,2026-10-09,ksa_pro,Al Ahli,Meshal Al Mutairi,1527079,F,0,5,1,1,0,0.21,,3.0,
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Codruț Sandu,1780091,G,1,90,0,0,0,0.0,11.0,0.0,
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Flavius Iacob,1524295,D,1,89,1,0,0,0.0,32.0,1.0,393872.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Florin Ilie,351611,D,1,90,1,1,0,0.0,34.0,1.0,88616.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Antoniu Manolache,1025888,D,1,90,0,0,0,0.0,36.0,1.0,361219.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Alexandru Neacșa,391886,D,1,90,1,0,0,0.0,38.0,1.0,159675.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Ion Cărăruș,818148,M,1,90,1,1,1,0.0,64.0,2.0,80156.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Sergio Ribeiro,554297,M,1,72,1,1,1,0.0,66.0,2.0,162197.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Emmanuel Yeboah,1381566,F,1,81,4,1,1,0.0,83.0,3.0,324401.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Gideon Goodlad,1962071,M,1,45,1,0,0,0.0,85.0,2.0,244149.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Daniel Pîrvulescu,1025700,F,1,90,3,1,0,0.0,87.0,3.0,
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Ángel Gillard,1772733,F,1,73,3,1,0,0.0,115.0,3.0,236556.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Andrej Fábry,862130,M,0,44,0,0,0,0.0,,2.0,135504.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Mario Bratu,1078472,M,0,18,1,1,0,0.0,,2.0,198128.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Renato Espinoza,1059396,F,0,17,1,0,0,0.0,,3.0,317310.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Roger,751528,F,0,9,0,0,0,0.0,,3.0,66825.0
+5853512,2026-10-09,rumania,Corvinul Hunedoara,Dragoș Albu,911579,M,0,1,0,0,0,0.0,,2.0,371807.0
+5853512,2026-10-09,rumania,FC Voluntari,Metod Jurhar,558661,G,1,90,0,0,0,0.0,11.0,0.0,375777.0
+5853512,2026-10-09,rumania,FC Voluntari,Denis Haruţ,861402,D,1,46,0,0,0,0.0,32.0,1.0,
+5853512,2026-10-09,rumania,FC Voluntari,Radu Crisan,950880,D,1,90,1,0,0,0.0,34.0,1.0,50000.0
+5853512,2026-10-09,rumania,FC Voluntari,Sava-Arangel Čestić,1185235,D,1,90,0,0,0,0.0,36.0,1.0,211323.0
+5853512,2026-10-09,rumania,FC Voluntari,David Kiki,660477,D,1,46,0,0,0,0.0,38.0,1.0,80696.0
+5853512,2026-10-09,rumania,FC Voluntari,Marvin Schieb,1025629,D,1,81,0,0,0,0.0,72.0,1.0,64686.0
+5853512,2026-10-09,rumania,FC Voluntari,Lovro Cvek,558489,M,1,90,1,1,1,0.0,74.0,2.0,72353.0
+5853512,2026-10-09,rumania,FC Voluntari,Ion Gheorghe,929871,M,1,90,2,0,0,0.0,76.0,2.0,120912.0
+5853512,2026-10-09,rumania,FC Voluntari,Remus Gutea,1425717,M,1,90,3,0,0,0.0,78.0,2.0,607479.0
+5853512,2026-10-09,rumania,FC Voluntari,George Merloi,1098053,F,1,45,1,0,0,0.0,104.0,3.0,102210.0
+5853512,2026-10-09,rumania,FC Voluntari,Mihai Roman,196957,F,1,82,1,0,0,0.0,106.0,3.0,145675.0
+5853512,2026-10-09,rumania,FC Voluntari,Alexandru Suteu,1296278,D,0,45,1,0,0,0.0,,1.0,177052.0
+5853512,2026-10-09,rumania,FC Voluntari,Daniel Dumbrăvanu,949253,D,0,44,0,0,0,0.0,,1.0,272754.0
+5853512,2026-10-09,rumania,FC Voluntari,Matko Babić,637757,F,0,45,3,1,1,0.0,,3.0,147011.0
+5853512,2026-10-09,rumania,FC Voluntari,Nuno Rodrigues,1080251,F,0,9,1,0,0,0.0,,3.0,86521.0
+5853512,2026-10-09,rumania,FC Voluntari,Adi Chică-Roșă,1181473,F,0,8,1,1,0,0.0,,3.0,333567.0
