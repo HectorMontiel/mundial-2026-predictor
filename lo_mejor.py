@@ -288,5 +288,38 @@ def finalizados(jugados: List[Dict], riesgo: bool = False) -> List[Dict]:
             out.append(fila)
         except Exception as ex:
             logger.debug('[lo_mejor] finalizado %s: %s', p.get('partido'), ex)
+    out.extend(_capa1_anunciada(jugados, out, riesgo))
     out.sort(key=lambda x: str(x.get('inicio') or ''))
+    return out
+
+
+def _capa1_anunciada(jugados: List[Dict], ya: List[Dict], riesgo: bool) -> List[Dict]:
+    """v346 — lo que la Capa 1 enseñó ANTES y ya no estaba al empezar el
+    partido (`anunciadas`), con su resultado y marcado 📌: quien lo apostó
+    también quiere verlo en verde o en rojo. Nunca lanza."""
+    try:
+        import anunciadas as an
+    except Exception:
+        return []
+    nivel = '🔷' if riesgo else '🏆'
+    vistos = {(str(f.get('partido')), f.get('apuesta')) for f in ya}
+    out = []
+    for p in (jugados or []):
+        if not isinstance(p, dict) or p.get('aplazado'):
+            continue
+        for a in an.capa1_del_partido(p):
+            if a.get('nivel') != nivel or (str(p.get('partido')), a['apuesta']) in vistos:
+                continue
+            e = dict(a, linea=None, elite=not riesgo, riesgo=riesgo,
+                     razon='anunciada antes del partido')
+            fila = _entrada(p, e, riesgo)
+            res = resultado(a['apuesta'], p.get('partido'),
+                            p.get('goles_home'), p.get('goles_away'))
+            fila['resultado_c1'] = res or 'vivo'
+            fila['anunciada'] = True
+            if res:
+                fila['marcador'] = '%d-%d' % (int(_f(p.get('goles_home'))),
+                                              int(_f(p.get('goles_away'))))
+            vistos.add((str(p.get('partido')), a['apuesta']))
+            out.append(fila)
     return out

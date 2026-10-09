@@ -157,6 +157,14 @@ def franja_futbol(v: Dict) -> Optional[str]:
                 return None
         except Exception:
             pass
+    if (v.get('pick') or {}).get('tiros_alta') and v.get('medido') \
+            and v.get('veredicto') == METER:
+        try:
+            import tiros_seguimiento as _ts
+            if _ts.activo(regla='alta'):
+                return None
+        except Exception:
+            pass
     pick = v.get('pick') or {}
     if str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
         return None
@@ -511,6 +519,21 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     # PUESTO: `tiros_seguimiento` la mide sola desde que quedó fijada y la
     # activa con p5 > 0 y 150 apuestas. Mientras no, «no meter» (como todos los
     # remates del fútbol, `MERCADOS_NO_METER_FUTBOL`).
+    # v346 — y la regla de ALTA PROBABILIDAD, que sí pasó la prueba (ver
+    # `tiros_seguimiento.REGLA_ALTA`): el lado que el modelo ve al 72 % o más.
+    if p.get('tiros_alta'):
+        try:
+            import tiros_seguimiento as _ts
+            if _ts.activo(regla='alta'):
+                return {**base, 'veredicto': METER, 'fuerza': 0.7, 'medido': True,
+                        'prob_ajustada': prob,
+                        'razones': ['tiros: el modelo %.0f %% (medido en todo el '
+                                    'historial y contra Playdoit)'
+                                    % (100 * (float(p.get('p_mod_tiros') or prob)
+                                              if 'Más' in str(p.get('apuesta'))
+                                              else 1 - float(p.get('p_mod_tiros') or (1 - prob))))]}
+        except Exception as e:
+            logger.debug('[veredicto] tiros alta: %s', e)
     if p.get('tiros_regla'):
         try:
             import tiros_seguimiento as _ts

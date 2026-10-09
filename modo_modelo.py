@@ -1857,6 +1857,7 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             'historico': _mej.get('historico'),
             # v345 — la regla de tiros (`tiros_seguimiento`) y sus números
             'tiros_regla': _mej.get('tiros_regla') or '',
+            'tiros_alta': _mej.get('tiros_alta') or '',
             'p_mod_tiros': _mej.get('p_mod_tiros'),
             'p_casa_tiros': _mej.get('p_casa_tiros'),
             # v258 — y la correccion por linea, por el mismo motivo exacto
@@ -3170,6 +3171,17 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
         titulo = '🎯 SE METE' + ('' if puesto <= 1 else ' · %dª' % puesto)
         if rec.get('elite'):
             titulo += ' · 🏆 CAPA 1'
+        # v346 — estable (lleva ≥ 6 h anunciada) o nueva: medido, las estables
+        # aciertan más (80 % contra 73-78 %; ver `anunciadas.HORAS_ESTABLE`)
+        if 'horas_anunciada' in rec:
+            _h = rec.get('horas_anunciada')
+            try:
+                import anunciadas as _an_t
+                _lim = _an_t.HORAS_ESTABLE
+            except Exception:
+                _lim = 6.0
+            titulo += (' · 🔒 ESTABLE %d H' % int(_h) if _h is not None
+                       and _h >= _lim else ' · 🆕 NUEVA')
         coleta = ''
     st.markdown(
         '<div class="mm-rec %s">'
@@ -3755,6 +3767,13 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                     r1['razon'] = _ra.razon(pick, r0)
                 except Exception as _e_ra:
                     logger.debug('[modo_modelo] razon: %s', _e_ra)
+                # v346 — cuánto lleva anunciada (la marca de estabilidad)
+                try:
+                    import anunciadas as _an_h
+                    r1['horas_anunciada'] = _an_h.horas_anunciada(
+                        pick, r0.get('apuesta'))
+                except Exception as _e_h:
+                    logger.debug('[modo_modelo] horas anunciada: %s', _e_h)
                 if r0.get('apuesta') not in _corr:
                     return r1
                 r1['prob'] = _corr[r0['apuesta']]

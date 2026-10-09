@@ -176,6 +176,7 @@ def fila(pick: Dict, hoy: Optional[_dt.date] = None) -> Optional[Dict]:
             'cuota': cuota,
             'prob': prob,
             'resultado': str(pick.get('resultado_c1') or ''),    # v342
+            'anunciada': bool(pick.get('anunciada')),             # v346
             'marcador': str(pick.get('marcador') or ''),
             'porque': ' · '.join(
                 [x for x in [str((sf.get('etiqueta') if isinstance(sf, dict)
@@ -215,7 +216,8 @@ def html_lista(picks: List[Dict], hoy: Optional[_dt.date] = None,
             '<div class="vc-num"><b>%.2f</b><span>cuota</span></div>'
             '<div class="vc-num"><b>%s</b><span>acierta</span></div>'
             '</div>' % (_CLASE_RES.get(res, ''), _esc(titulo), cuando,
-                        _esc(f['apuesta']), _esc(pie), f['cuota'], prob))
+                        ('📌 ' if f.get('anunciada') else '') + _esc(f['apuesta']),
+                        _esc(pie), f['cuota'], prob))
     out.append('</div>')
     return ''.join(out)
 

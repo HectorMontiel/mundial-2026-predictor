@@ -401,12 +401,15 @@ def _de_tiros_v345(pick: Dict, titulo: str, clave_bloque: str, fam: str,
                 regla = ts.apuesta_de(p_mod, p_casa, mercado_t,
                                       mi.cuota_de(dato, 'mas') or 0,
                                       mi.cuota_de(dato, 'menos') or 0)
+            alta = ts.alta_de(p_mod, mercado_t,
+                              mi.cuota_de(dato, 'mas') or 0,
+                              mi.cuota_de(dato, 'menos') or 0)
             salida.extend(_dos_lados(
                 pick, titulo, etq, linea, float(p_mas), dato, clave_bloque,
                 media, sin_ajuste=True,
                 extra={'p_mod_tiros': round(p_mod, 4),
                        'p_casa_tiros': None if p_casa is None else round(p_casa, 4),
-                       'regla_lado': regla}))
+                       'regla_lado': regla, 'alta_lado': alta}))
     return salida
 
 
@@ -435,9 +438,13 @@ def _dos_lados(pick, titulo, etq, linea, p_mas, dato, bloque, media,
         _ex = {}
         if extra:
             # la regla apuesta a UN lado: sólo esa fila lleva la marca
-            _ex = {k_: v_ for k_, v_ in extra.items() if k_ != 'regla_lado'}
+            _ex = {k_: v_ for k_, v_ in extra.items()
+                   if k_ not in ('regla_lado', 'alta_lado')}
             if extra.get('regla_lado') == ('más' if es_mas else 'menos'):
                 _ex['tiros_regla'] = extra['regla_lado']
+            # v346 — la regla de alta probabilidad, también sólo en su lado
+            if extra.get('alta_lado') == ('más' if es_mas else 'menos'):
+                _ex['tiros_alta'] = extra['alta_lado']
         filas.append(_fila(
             titulo, etq, '%s%s: %s' % (titulo,
                                        '' if etq == 'Total' else ' ' + etq,

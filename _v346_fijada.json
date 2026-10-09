@@ -1,0 +1,149 @@
+{
+ "partidos": 142,
+ "corte": "2026-10-05",
+ "elige": {
+  "primera": {
+   "apuestas": 93,
+   "verdes": 71,
+   "acierto": 0.7634,
+   "partidos_que_cambian": 0
+  },
+  "ultima": {
+   "apuestas": 99,
+   "verdes": 72,
+   "acierto": 0.7273,
+   "partidos_que_cambian": 29
+  },
+  "fijada_0.02": {
+   "apuestas": 109,
+   "verdes": 83,
+   "acierto": 0.7615,
+   "partidos_que_cambian": 4
+  },
+  "fijada_0.03": {
+   "apuestas": 109,
+   "verdes": 84,
+   "acierto": 0.7706,
+   "partidos_que_cambian": 4
+  },
+  "fijada_0.05": {
+   "apuestas": 109,
+   "verdes": 83,
+   "acierto": 0.7615,
+   "partidos_que_cambian": 0
+  },
+  "fijada_0.08": {
+   "apuestas": 109,
+   "verdes": 83,
+   "acierto": 0.7615,
+   "partidos_que_cambian": 0
+  },
+  "fijada_0.12": {
+   "apuestas": 109,
+   "verdes": 83,
+   "acierto": 0.7615,
+   "partidos_que_cambian": 0
+  }
+ },
+ "juzga": {
+  "primera": {
+   "apuestas": 125,
+   "verdes": 95,
+   "acierto": 0.76,
+   "partidos_que_cambian": 0
+  },
+  "ultima": {
+   "apuestas": 123,
+   "verdes": 105,
+   "acierto": 0.8537,
+   "partidos_que_cambian": 65
+  },
+  "fijada_0.02": {
+   "apuestas": 149,
+   "verdes": 116,
+   "acierto": 0.7785,
+   "partidos_que_cambian": 11
+  },
+  "fijada_0.03": {
+   "apuestas": 149,
+   "verdes": 116,
+   "acierto": 0.7785,
+   "partidos_que_cambian": 8
+  },
+  "fijada_0.05": {
+   "apuestas": 149,
+   "verdes": 116,
+   "acierto": 0.7785,
+   "partidos_que_cambian": 6
+  },
+  "fijada_0.08": {
+   "apuestas": 149,
+   "verdes": 116,
+   "acierto": 0.7785,
+   "partidos_que_cambian": 3
+  },
+  "fijada_0.12": {
+   "apuestas": 150,
+   "verdes": 116,
+   "acierto": 0.7733,
+   "partidos_que_cambian": 0
+  }
+ },
+ "todo": {
+  "primera": {
+   "apuestas": 218,
+   "verdes": 166,
+   "acierto": 0.7615,
+   "partidos_que_cambian": 0
+  },
+  "ultima": {
+   "apuestas": 222,
+   "verdes": 177,
+   "acierto": 0.7973,
+   "partidos_que_cambian": 94
+  },
+  "fijada_0.02": {
+   "apuestas": 258,
+   "verdes": 199,
+   "acierto": 0.7713,
+   "partidos_que_cambian": 15
+  },
+  "fijada_0.03": {
+   "apuestas": 258,
+   "verdes": 200,
+   "acierto": 0.7752,
+   "partidos_que_cambian": 12
+  },
+  "fijada_0.05": {
+   "apuestas": 258,
+   "verdes": 199,
+   "acierto": 0.7713,
+   "partidos_que_cambian": 6
+  },
+  "fijada_0.08": {
+   "apuestas": 258,
+   "verdes": 199,
+   "acierto": 0.7713,
+   "partidos_que_cambian": 3
+  },
+  "fijada_0.12": {
+   "apuestas": 259,
+   "verdes": 199,
+   "acierto": 0.7683,
+   "partidos_que_cambian": 0
+  }
+ },
+ "elegida": "fijada_0.03",
+ "juzga_vs": [
+  [
+   "primera",
+   0.019,
+   -0.0067
+  ],
+  [
+   "ultima",
+   -0.0754,
+   -0.1322
+  ]
+ ]
+}

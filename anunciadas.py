@@ -125,6 +125,10 @@ def acumular(doc_pronostico: Dict, ruta: str = '',
                         {c: r.get(c) for c in CAMPOS},
                         desde=ahora.strftime('%Y-%m-%dT%H:%M:%SZ')))
                     n += 1
+        # v346 — Y LA CAPA 1 (🏆 lo mejor del modelo y 🔷 más riesgo), que
+        # también cambia con las cuotas: el usuario armó una pata de 🔷
+        # (Millonarios @1,76) que al pitido ya no estaba en la lista.
+        n += _acumular_capa1(doc_pronostico, partidos, ahora)
         # se olvida lo que empezó hace más de dos días
         limite = ahora - _dt.timedelta(hours=HORAS_MEMORIA)
         partidos = {k: v for k, v in partidos.items()
@@ -139,6 +143,46 @@ def acumular(doc_pronostico: Dict, ruta: str = '',
     except Exception as e:
         logger.warning('[anunciadas] no se pudo acumular: %s', e)
         return 0
+
+
+def _acumular_capa1(doc: Dict, partidos: Dict, ahora: _dt.datetime) -> int:
+    """Lo que la Capa 1 enseñaba en esta pasada, con su hora y su cuota."""
+    try:
+        import lo_mejor as lm
+    except Exception:
+        return 0
+    n = 0
+    for p in (((doc or {}).get('datos') or {}).get('pronosticos') or []):
+        if not isinstance(p, dict) or p.get('jugado'):
+            continue
+        ini = _utc(p.get('inicio'))
+        if ini is not None and ini <= ahora:
+            continue
+        for nivel, fn in (('🏆', lm.del_pick), ('🔷', lm.del_pick_riesgo)):
+            e = fn(p)
+            if not e:
+                continue
+            k = clave(p.get('partido'), p.get('clave_liga'))
+            ent = partidos.setdefault(k, {'inicio': p.get('inicio'), 'apuestas': []})
+            c1 = ent.setdefault('capa1', [])
+            if any(x.get('apuesta') == e['apuesta'] and x.get('nivel') == nivel
+                   for x in c1):
+                continue
+            c1.append({'apuesta': e['apuesta'], 'mercado': e['mercado'],
+                       'bloque': 'resultado', 'etiqueta': 'Resultado',
+                       'cuota': e.get('cuota'), 'prob': e.get('prob'),
+                       'p_mercado': e.get('p_mercado'), 'nivel': nivel,
+                       'desde': ahora.strftime('%Y-%m-%dT%H:%M:%SZ')})
+            n += 1
+    return n
+
+
+def capa1_del_partido(pick: Dict, ruta: str = '') -> List[Dict]:
+    """Lo que la Capa 1 anunció de este partido (🏆 y 🔷), por orden."""
+    ent = ((cargar(ruta).get('partidos') or {})
+           .get(clave((pick or {}).get('partido'), (pick or {}).get('clave_liga')))
+           or {})
+    return [dict(x) for x in ent.get('capa1') or []]
 
 
 def del_partido(pick: Dict, ruta: str = '') -> List[Dict]:
@@ -164,6 +208,33 @@ def hora_cdmx(desde: str) -> str:
         pass
     t = t - _dt.timedelta(hours=6)
     return t.strftime('%d/%m %H:%M')
+
+
+# v346 — LAS QUE LLEVAN RATO SIN CAMBIAR ACIERTAN MÁS (`_v346_estable.py`,
+# 210 «meter» de fútbol del 4 al 9-oct, la versión que había al pitido):
+#
+#     recién aparecida (1 foto)          22   72,7 %
+#     2-3 fotos                          27   77,8 %
+#     4 fotos o más (≈ 6 h o más)       161   80,1 %   en las dos mitades
+#
+# +4,5 pts, todavía sin p5 > 0 (son pocas las recientes). No cambia QUÉ se
+# mete: sólo lo dice, para quien apuesta con tiempo (y la v346 midió que
+# fijar la primera versión acierta MENOS que esperar a la última:
+# `_v346_fijada.py`, 77,5 contra 79,7 %).
+HORAS_ESTABLE = 6.0
+
+
+def horas_anunciada(pick: Dict, apuesta: str, ruta: str = '',
+                    ahora: Optional[_dt.datetime] = None) -> Optional[float]:
+    """Horas desde que esta apuesta se anunció por primera vez, o None."""
+    for a_ in del_partido(pick, ruta):
+        if a_.get('apuesta') == apuesta:
+            t = _utc(a_.get('desde'))
+            if t is None:
+                return None
+            ahora = ahora or _dt.datetime.now(_dt.timezone.utc)
+            return max(0.0, (ahora - t).total_seconds() / 3600.0)
+    return None
 
 
 def estado(anunciada: Dict, recos: List[Dict]) -> Dict:

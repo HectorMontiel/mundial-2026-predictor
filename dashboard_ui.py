@@ -831,6 +831,7 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
     deja el cron (`jugados_ayer.json`) y nunca la red, que al pintar cuesta
     ~13 s; si no está, `sin_datos`."""
     verdes = rojas = en_juego = 0
+    ant_v = ant_r = 0                 # v346: lo anunciado antes y retirado
     sin_datos = False
     try:
         import partidos_jugados as _pj
@@ -846,7 +847,8 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
                 continue
             if deportes and str(_p.get('deporte') or 'Fútbol') not in deportes:
                 continue
-            for _fl in (_pg.validar(_p) or []):
+            _filas_p = _pg.validar(_p) or []
+            for _fl in _filas_p:
                 if _fl.get('veredicto') != 'meter':
                     continue
                 if _fl.get('estado') == _pg.CUMPLIDO:
@@ -855,10 +857,27 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
                     rojas += 1
                 elif _fl.get('estado') == _pg.PENDIENTE:
                     en_juego += 1
+            # v346 — Y APARTE, LO QUE SE ANUNCIÓ ANTES Y SE RETIRÓ. El usuario:
+            # «¿el marcador cuenta las anteriores o las nuevas? es medio
+            # engañoso». Cuenta lo que la tarjeta tenía al pitido; lo que se
+            # anunció antes y ya no estaba se cuenta en su línea (`anunciadas`).
+            try:
+                import anunciadas as _an_m
+                _ya = {_fl.get('apuesta') for _fl in _filas_p}
+                _otras = [dict(_a, veredicto='meter')
+                          for _a in _an_m.del_partido(_p)
+                          if _a.get('apuesta') not in _ya]
+                for _fl in (_pg.validar(_p, filas=_otras) if _otras else []):
+                    if _fl.get('estado') == _pg.CUMPLIDO:
+                        ant_v += 1
+                    elif _fl.get('estado') == _pg.FALLADO:
+                        ant_r += 1
+            except Exception as _e_an:
+                logger.debug('[marcador] anunciadas: %s', _e_an)
     except Exception as e:
         logger.debug('[marcador] %s: %s', dia, e)
     return {'verdes': verdes, 'rojas': rojas, 'en_juego': en_juego,
-            'sin_datos': sin_datos}
+            'ant_v': ant_v, 'ant_r': ant_r, 'sin_datos': sin_datos}
 
 
 @st.cache_data(ttl=600, show_spinner=False)

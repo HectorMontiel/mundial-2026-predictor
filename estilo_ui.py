@@ -992,6 +992,10 @@ def _mitad_marcador(m: dict) -> str:
         pie.append('%d %s' % (vivo, m.get('rotulo_vivo') or 'en juego'))
     if pend:
         pie.append('%d por jugar' % pend)
+    # v346 — lo anunciado antes y retirado, aparte (no entra en el %)
+    av, ar = int(m.get('ant_v') or 0), int(m.get('ant_r') or 0)
+    if av or ar:
+        pie.append('📌 anunciadas antes: %d ✅ %d ❌' % (av, ar))
     barra = ('<div class="mc-barra"><i style="width:%.1f%%"></i></div>'
              % (100.0 * v / jug) if jug else '')
     return (

@@ -43,6 +43,30 @@ import pandas as pd
 
 logger = logging.getLogger('tiros_seguimiento')
 
+# v346 — LA SEGUNDA REGLA, LA QUE SÍ PASÓ: ALTA PROBABILIDAD.
+#
+# El usuario: «quiero que los tiros también se puedan meter, validado con
+# todo el historial». No hay cuotas de tiros anteriores al 24-ago, pero el
+# historial completo (2021-2026) dice que el número del modelo es de fiar:
+# en el 30 % reciente, lo que promete 72,5 / 77,5 / 82,5 / 87,5 / 94,5 %
+# acierta 72,6 / 77,1 / 82,4 / 87,2 / 94,3 % (`_v346_tiros_meter.py`, más de
+# 100.000 líneas). Y contra Playdoit, una regla como el «se mete» del resto
+# de la tarjeta —probabilidad alta, sin pedirle ventaja sobre la casa—,
+# elegida con la primera mitad (24-ago a 10-sep) por el mejor p5 de
+# rendimiento con 40+ apuestas, y juzgada con la segunda:
+#
+#                       apuestas  acierto (promete)  cuota  rinde    p5
+#     elige                115     74,8 %             1,43   +4,9 %  −4,4 %
+#     juzga (10-sep→)      127     78,0 % (76,6 %)    1,46  +12,1 %  +3,5 %
+#
+# Tiros totales y a puerta del equipo, el lado que el MODELO ve al 72 % o
+# más, cuota hasta 2,0, una por equipo y mercado (la más probable). Sigue
+# midiéndose sola: si el registro desde el 10-sep deja de tener p5 > 0, se
+# apaga.
+REGLA_ALTA = {'mercados': ('tiros', 'a_puerta'), 'prob_min': 0.72,
+              'cuota_max': 2.0}
+MIN_APUESTAS_ALTA = 100
+
 FICHERO = 'tiros_seguimiento.csv'
 RESUMEN = 'tiros_seguimiento.json'
 REGLA = {'mercado': 'tiros', 'ventaja': 0.10, 'prob_min': 0.50, 'cuota_max': 3.0}
@@ -64,6 +88,18 @@ def apuesta_de(p_mod: float, p_casa: float, mercado: str,
         return 'más'
     if (p_casa - p_mod >= REGLA['ventaja'] and 1 - p_mod >= REGLA['prob_min']
             and c_menos <= REGLA['cuota_max']):
+        return 'menos'
+    return ''
+
+
+def alta_de(p_mod: float, mercado: str, c_mas: float = 0.0,
+            c_menos: float = 0.0) -> str:
+    """'más', 'menos' o '' según la regla de alta probabilidad."""
+    if mercado not in REGLA_ALTA['mercados'] or p_mod is None:
+        return ''
+    if p_mod >= REGLA_ALTA['prob_min'] and 0 < c_mas <= REGLA_ALTA['cuota_max']:
+        return 'más'
+    if 1 - p_mod >= REGLA_ALTA['prob_min'] and 0 < c_menos <= REGLA_ALTA['cuota_max']:
         return 'menos'
     return ''
 
@@ -201,15 +237,58 @@ def medir(ruta: str = FICHERO, salida: str = RESUMEN, semilla: int = 345) -> Dic
                     'roi': round(float(gan.mean()), 4), 'p5': round(p5, 4),
                     'vivas': int((d.origen == 'vivo').sum()),
                     'activo': bool(len(d) >= MIN_APUESTAS and p5 > 0)})
+    res['alta'] = _medir_alta(_leer(ruta), semilla)
     with open(salida, 'w', encoding='utf-8') as f:
         json.dump(res, f, ensure_ascii=False, indent=1)
     return res
 
 
-def activo(salida: str = RESUMEN) -> bool:
+def _medir_alta(d: pd.DataFrame, semilla: int = 346) -> Dict:
+    """El registro de la regla de alta probabilidad desde el 10-sep: una
+    apuesta por equipo y mercado (la más probable de sus líneas)."""
+    out = {'regla': {k: list(v) if isinstance(v, tuple) else v
+                     for k, v in REGLA_ALTA.items()},
+           'desde': FECHA_REGLA, 'min_apuestas': MIN_APUESTAS_ALTA,
+           'n': 0, 'activo': False}
+    d = d[d.real.notna() & (pd.to_datetime(d.fecha) >= pd.Timestamp(FECHA_REGLA))].copy()
+    if d.empty:
+        return out
+    d['lado_alta'] = [alta_de(p, m, a, b) for p, m, a, b in
+                      zip(d.p_mod, d.mercado, d.c_mas, d.c_menos)]
+    d = d[d.lado_alta != '']
+    if d.empty:
+        return out
+    mas = d.lado_alta == 'más'
+    d['p_lado'] = np.where(mas, d.p_mod, 1 - d.p_mod)
+    d = d.sort_values('p_lado', ascending=False).drop_duplicates(
+        ['partido', 'equipo', 'mercado'])
+    mas = d.lado_alta == 'más'
+    gana = np.where(mas, d.real > d.linea, d.real <= d.linea).astype(int)
+    cuota = np.where(mas, d.c_mas, d.c_menos)
+    gan = gana * cuota - 1
+    rng = np.random.default_rng(semilla)
+    um, inv = np.unique(d.partido.astype(str).values, return_inverse=True)
+    s, n = np.bincount(inv, weights=gan), np.bincount(inv)
+    bs = [s[i].sum() / n[i].sum() for i in
+          (rng.integers(0, len(um), len(um)) for _ in range(4000))]
+    p5 = float(np.percentile(bs, 5))
+    out.update({'n': int(len(d)), 'partidos': int(len(um)),
+                'acierto': round(float(gana.mean()), 4),
+                'promete': round(float(d.p_lado.mean()), 4),
+                'cuota_media': round(float(cuota.mean()), 3),
+                'roi': round(float(gan.mean()), 4), 'p5': round(p5, 4),
+                'activo': bool(len(d) >= MIN_APUESTAS_ALTA and p5 > 0)})
+    return out
+
+
+def activo(salida: str = RESUMEN, regla: str = 'valor') -> bool:
+    """¿Está ganada la regla? `regla`: 'valor' (ventaja sobre la casa) o
+    'alta' (alta probabilidad)."""
     try:
         with open(salida, encoding='utf-8') as f:
-            return bool((json.load(f) or {}).get('activo'))
+            doc = json.load(f) or {}
+        return bool((doc.get('alta') or {}).get('activo') if regla == 'alta'
+                    else doc.get('activo'))
     except Exception:
         return False
 

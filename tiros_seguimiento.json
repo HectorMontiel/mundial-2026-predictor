@@ -9,12 +9,32 @@
  "min_apuestas": 150,
  "n": 208,
  "activo": false,
- "medido": "2026-10-09T03:42:17Z",
+ "medido": "2026-10-09T04:05:19Z",
  "partidos": 108,
  "acierto": 0.5769,
  "promete": 0.6651,
  "cuota_media": 1.818,
  "roi": 0.0316,
  "p5": -0.1006,
- "vivas": 0
+ "vivas": 0,
+ "alta": {
+  "regla": {
+   "mercados": [
+    "tiros",
+    "a_puerta"
+   ],
+   "prob_min": 0.72,
+   "cuota_max": 2.0
+  },
+  "desde": "2026-09-10",
+  "min_apuestas": 100,
+  "n": 127,
+  "activo": true,
+  "partidos": 87,
+  "acierto": 0.7795,
+  "promete": 0.7656,
+  "cuota_media": 1.463,
+  "roi": 0.1214,
+  "p5": 0.033
+ }
 }
