@@ -1979,7 +1979,14 @@ def partidos_comprometidos(ruta: str = ACTIVOS,
     return fuera
 
 
-def registrar_parlay(parlay: Dict, dia: str, ruta: str = ACTIVOS) -> Dict:
+# v343 — lo que se guarda de cada pata para seguirla después (`Mis boletos`)
+CAMPOS_PATA = ('partido', 'liga', 'clave_liga', 'deporte', 'fecha', 'inicio',
+               'apuesta', 'mercado', 'bloque', 'etiqueta', 'linea', 'cuota',
+               'prob')
+
+
+def registrar_parlay(parlay: Dict, dia: str, ruta: str = ACTIVOS,
+                     detalle: Optional[List[Dict]] = None) -> Dict:
     """Apunta un parlay como vivo. Devuelve el registro entero.
 
     No se llama solo: lo dispara el usuario desde la pantalla cuando da un
@@ -1996,6 +2003,9 @@ def registrar_parlay(parlay: Dict, dia: str, ruta: str = ACTIVOS) -> Dict:
         'partidos': sorted({str(q.get('partido'))
                             for q in (parlay.get('patas') or [])}),
         'patas': [q.get('id') for q in (parlay.get('patas') or [])],
+        # v343 — cada pata entera, para enseñar cómo va (`sonadora_ui`)
+        'detalle': [{c: q.get(c) for c in CAMPOS_PATA}
+                    for q in (detalle or []) if isinstance(q, dict)],
     })
     with open(ruta, 'w', encoding='utf-8') as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)

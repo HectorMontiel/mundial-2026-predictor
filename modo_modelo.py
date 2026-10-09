@@ -3171,6 +3171,55 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     # adelante.
 
 
+def _bloque_anunciadas(st, pick: Dict, recos: list, todas: list) -> None:
+    """v343 — «📌 antes se anunció»: lo que la tarjeta dijo «se mete» en una
+    actualización anterior y ahora ya no enseña, con la hora y la cuota de
+    entonces y cómo está ahora. Ver `anunciadas` (por qué no se congela:
+    medido, la de última hora acierta algo más). Nunca lanza."""
+    try:
+        import anunciadas as _an
+        ya = {r.get('apuesta') for r in (recos or [])}
+        filas = [a for a in _an.del_partido(pick) if a.get('apuesta') not in ya]
+        if not filas:
+            return
+        trozos = []
+        for a in filas:
+            e = _an.estado(a, todas)
+            trozos.append(
+                '<div class="mm-anunciada %s"><span class="mm-an-t">📌 Antes '
+                '(%s)</span> <b>%s</b> @%.2f · %s</div>'
+                % ('ok' if e['tono'] == 'ok' else 'aviso',
+                   _esc_mm(_an.hora_cdmx(a.get('desde'))),
+                   _esc_mm(a.get('apuesta') or ''), float(a.get('cuota') or 0),
+                   _esc_mm(e['texto'])))
+        if len(trozos) <= 2:
+            st.markdown(''.join(trozos), unsafe_allow_html=True)
+        else:
+            # muchas (el partido se anunció días antes): plegadas, con cuántas
+            with st.expander('📌 Antes se anunciaron %d que ya no se enseñan'
+                             % len(trozos)):
+                st.markdown(''.join(trozos), unsafe_allow_html=True)
+    except Exception as e:
+        logger.debug('[modo_modelo] anunciadas: %s', e)
+
+
+def _filas_anunciadas_jugadas(pick: Dict, filas: list) -> list:
+    """v343 — lo anunciado antes que no está en lo archivado al empezar,
+    liquidado con el mismo marcador. Nunca lanza."""
+    try:
+        import anunciadas as _an
+        import pronosticos_guardados as pgs
+        ya = {f.get('apuesta') for f in (filas or [])}
+        otras = [dict(a, veredicto='meter', origen='anunciada')
+                 for a in _an.del_partido(pick) if a.get('apuesta') not in ya]
+        if not otras:
+            return []
+        return [dict(f, anunciada=True) for f in pgs.validar(pick, filas=otras)]
+    except Exception as e:
+        logger.debug('[modo_modelo] anunciadas jugadas: %s', e)
+        return []
+
+
 def _bloque_validacion(st, pick: Dict) -> bool:
     """
     v177 — QUÉ DIJO LA APLICACIÓN, Y SI ACERTÓ. DE UN VISTAZO.
@@ -3210,6 +3259,9 @@ def _bloque_validacion(st, pick: Dict) -> bool:
         filas = [f for f in filas if f.get('veredicto') == 'meter']
     # y el porcentaje que se enseña es con el que se DECIDIÓ meter: la del
     # modelo a secas daba «meter» junto a un 59 %, que no se entiende
+    # v343 — y lo que se anunció ANTES y ya no estaba al empezar: quien lo
+    # apostó también quiere saber cómo quedó (`anunciadas`)
+    filas = filas + _filas_anunciadas_jugadas(pick, filas)
     for f in filas:
         if f.get('prob_meter') is not None:
             f['prob'] = f['prob_meter']
@@ -3280,7 +3332,8 @@ def _bloque_validacion(st, pick: Dict) -> bool:
             '<span class="mm-val-e">%.0f %%</span>'
             '<span class="mm-val-real" style="color:%s">%s</span>'
             '</div>'
-            % (f['icono'], ('🎯 ' if f.get('veredicto') == 'meter' else '')
+            % (f['icono'], ('📌 ' if f.get('anunciada') else
+                            '🎯 ' if f.get('veredicto') == 'meter' else '')
                + _esc_mm(f.get('apuesta') or '')[:30],
                max(3.0, min(100.0, p * 100)), color, p * 100,
                color, _esc_mm(texto_real)))
@@ -3506,6 +3559,7 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             # que sea la única que se muestra; no quiero tanto rollo». La
             # principal ya no sale cuando es un «no meter»: si no hay nada que
             # meter, la tarjeta lo dice en una línea.
+            _todas_recos = list(recos or [])      # v343: para `anunciadas`
             recos = metidas(recos)
             rec = recos[0] if recos else None
 
@@ -3699,6 +3753,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
             for otra in [o for o in recos[1:]
                          if o.get('veredicto_vp') != 'no_meter']:
                 _bloque_recomendada(st, _vista(otra), clave_vista, n_boton)
+            # v343 — LO QUE SE ANUNCIÓ ANTES Y YA NO SE ENSEÑA, con su estado.
+            _bloque_anunciadas(st, pick, recos, _todas_recos)
             # v176 — SE ANOTA LO QUE SE ENSEÑA, Y AQUÍ ES DONDE SE
             # ENSEÑA. Podría anotarse en `render`, que también calcula
             # una recomendación para ordenar la lista, pero esa va SIN

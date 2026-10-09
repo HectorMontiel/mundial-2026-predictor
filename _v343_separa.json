@@ -1,0 +1,50 @@
+{
+ "sin_despliegue": {
+  "partidos": 46,
+  "con_cambio": 20,
+  "primera": [
+   46,
+   65,
+   0.7077
+  ],
+  "ultima": [
+   50,
+   67,
+   0.7463
+  ],
+  "quitadas": [
+   19,
+   0.632
+  ],
+  "nuevas": [
+   21,
+   0.762
+  ],
+  "dif_media": 0.0388,
+  "p5": -0.0401
+ },
+ "con_despliegue": {
+  "partidos": 87,
+  "con_cambio": 56,
+  "primera": [
+   108,
+   137,
+   0.7883
+  ],
+  "ultima": [
+   115,
+   142,
+   0.8099
+  ],
+  "quitadas": [
+   53,
+   0.792
+  ],
+  "nuevas": [
+   58,
+   0.845
+  ],
+  "dif_media": 0.0212,
+  "p5": -0.0257
+ }
+}

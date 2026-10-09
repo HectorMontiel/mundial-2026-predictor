@@ -566,6 +566,15 @@ def main() -> int:
                            'app las calculará en vivo')
     except Exception as e:
         logger.warning('[precalculo] decisiones: %s', e)
+    # v343 — y lo que la tarjeta dijo «se mete» se apunta con su hora y su
+    # cuota de entonces, para que no desaparezca si luego cambia (ver
+    # `anunciadas`). Falla en blando.
+    try:
+        import anunciadas
+        with open(a.salida, encoding='utf-8') as _f_an:
+            anunciadas.acumular(json.load(_f_an))
+    except Exception as e:
+        logger.warning('[precalculo] anunciadas: %s', e)
     print(json.dumps(estado(a.salida), ensure_ascii=False, indent=1))
     return 0
 

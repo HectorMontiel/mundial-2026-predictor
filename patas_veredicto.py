@@ -158,6 +158,9 @@ def candidatas_de(pick: Dict, cuota_minima: float,
             # no estaba en la fila: se pesca del pick, no de una variable
             # suelta del bucle
             'linea': (v.get('pick') or {}).get('linea'),
+            # v343 — con qué se liquida la pata después (`Mis boletos`)
+            'bloque': (v.get('pick') or {}).get('bloque'),
+            'etiqueta': (v.get('pick') or {}).get('etiqueta'),
             'razones': v.get('razones') or [],
             'principal': _es_principal(pick),
         })

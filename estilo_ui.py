@@ -761,6 +761,12 @@ div[data-testid="stDataFrame"], div[data-testid="stTable"] {
                           background: linear-gradient(90deg, #10b981, #34d399); }
 @media (max-width: 768px) { .marcador .mc b { font-size: 1.25rem; }
                             .marcador .mc-fila { gap: .45rem 1rem; } }
+/* v343 — lo que se anunció antes y ya no se enseña */
+.mm-anunciada { margin: .35rem 0; padding: .45rem .7rem; border-radius: 12px;
+                font-size: .82rem; line-height: 1.35;
+                border: 1px dashed rgba(251,191,36,.55); background: rgba(251,191,36,.07); }
+.mm-anunciada.ok { border-color: rgba(52,211,153,.55); background: rgba(52,211,153,.07); }
+.mm-anunciada .mm-an-t { opacity: .7; font-size: .74rem; font-weight: 700; }
 /* v342 — ayer | hoy, cada mitad con su total */
 .marcador.doble { display: flex; padding: .65rem .2rem .7rem; }
 .marcador.doble .mc-lado { flex: 1 1 0; min-width: 0; padding: 0 .75rem; }

@@ -1,0 +1,43 @@
+{
+ "partidos": 538,
+ "con_cambio": 76,
+ "prim": {
+  "apuestas": 607,
+  "verdes": 456,
+  "acierto": 0.7512,
+  "roi": -0.0702
+ },
+ "ult": {
+  "apuestas": 614,
+  "verdes": 467,
+  "acierto": 0.7606,
+  "roi": -0.0548
+ },
+ "quitadas": {
+  "n": 72,
+  "acierto": 0.75,
+  "cuota": 1.255
+ },
+ "nuevas": {
+  "n": 79,
+  "acierto": 0.8228,
+  "cuota": 1.248
+ },
+ "ultima_menos_primera": {
+  "media": 0.0093,
+  "p5": -0.0046,
+  "p95": 0.0234
+ },
+ "dep_Fútbol": {
+  "partidos": 133,
+  "cambio": 76,
+  "prim": 0.7624,
+  "ult": 0.7895
+ },
+ "dep_Tenis": {
+  "partidos": 405,
+  "cambio": 0,
+  "prim": 0.7457,
+  "ult": 0.7457
+ }
+}

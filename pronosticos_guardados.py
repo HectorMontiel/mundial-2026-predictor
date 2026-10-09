@@ -867,7 +867,7 @@ def _del_board(pick: Dict) -> List[Dict]:
     return filas[:MAX_RECOMENDADAS]
 
 
-def validar(pick: Dict) -> List[Dict]:
+def validar(pick: Dict, filas: Optional[List[Dict]] = None) -> List[Dict]:
     """
     El pronóstico guardado de este partido, liquidado contra el marcador.
 
@@ -893,8 +893,15 @@ def validar(pick: Dict) -> List[Dict]:
         h = a = None
     if not (h and a):
         return []
-    g = de_partido(pick.get('clave_liga'), h, a, pick.get('fecha'))
-    filas_previas = list((g or {}).get('recomendadas') or [])
+    if filas is not None:
+        # v343 — liquidar unas filas dadas (lo que se anunció antes y ya no
+        # se enseña, `anunciadas`) con el mismo marcador y la misma ficha
+        filas_previas = [dict(f) for f in filas if isinstance(f, dict)]
+        if not filas_previas:
+            return []
+    else:
+        g = de_partido(pick.get('clave_liga'), h, a, pick.get('fecha'))
+        filas_previas = list((g or {}).get('recomendadas') or [])
     if not filas_previas:
         # v309 — la apuesta que `partidos_jugados` archivó al empezar el
         # partido, calculada sobre el pick de antes del pitido. Es la vía de

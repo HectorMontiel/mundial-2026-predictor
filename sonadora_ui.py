@@ -152,6 +152,132 @@ def _a_pata_de_motor(q: Dict, dia: Optional[str]) -> Dict:
     }
 
 
+def estado_patas(boleto: Dict, r: Dict, ahora=None) -> List[Dict]:
+    """v343 — CÓMO VA CADA PATA DE UN BOLETO YA APOSTADO.
+
+    El usuario: «¿qué tal si un día hago una apuesta y al día siguiente
+    cambia?, las Soñadoras son de diferentes días». La app no congela sus
+    recomendaciones —medido en `_v343_estabilidad.py`: la de última hora
+    acierta algo más—, así que lo que se hace es SEGUIR lo apostado:
+
+        terminado        ✅ / ❌ con el marcador (`pronosticos_guardados`)
+        empezado         ⏳ en juego
+        por jugar        si la app la sigue metiendo ahora, o ya no y por qué
+
+    Devuelve una fila por pata: {'pata', 'estado': 'verde'|'roja'|'vivo'|
+    'sigue'|'cambio'|'?', 'texto'}. Nunca lanza."""
+    import datetime as _dt
+    ahora = ahora or _dt.datetime.now(_dt.timezone.utc)
+    por_partido = {str(p.get('partido')): p
+                   for p in ((r or {}).get('pronosticos') or [])
+                   if isinstance(p, dict)}
+    out = []
+    for q in (boleto or {}).get('detalle') or []:
+        fila = {'pata': q, 'estado': '?', 'texto': ''}
+        try:
+            ini = _dt.datetime.fromisoformat(
+                str(q.get('inicio') or '').replace('Z', '+00:00'))
+            if ini.tzinfo is None:
+                ini = ini.replace(tzinfo=_dt.timezone.utc)
+        except ValueError:
+            ini = None
+        if ini is not None and ini <= ahora:
+            fila.update(_resultado_pata(q))
+        else:
+            fila.update(_vigencia_pata(q, por_partido.get(str(q.get('partido')))))
+        out.append(fila)
+    return out
+
+
+def _resultado_pata(q: Dict) -> Dict:
+    """Empezada: verde o roja con el marcador; si aún no hay, en juego."""
+    try:
+        import dia_picks as _dp
+        import partidos_jugados as pj
+        import pronosticos_guardados as pg
+        dia = _dp.dia_de({'inicio': q.get('inicio')})
+        jug = pj._para_la_vista(pj._leer_precalculo(dia, permitir_viejo=True)
+                                or [])
+        p = next((x for x in jug
+                  if str(x.get('partido')) == str(q.get('partido'))), None)
+        if p is not None and p.get('goles_home') is not None:
+            fl = pg.validar(p, filas=[dict(q, veredicto='meter')])
+            if fl and fl[0].get('estado') in (pg.CUMPLIDO, pg.FALLADO):
+                ok = fl[0]['estado'] == pg.CUMPLIDO
+                return {'estado': 'verde' if ok else 'roja',
+                        'texto': '%s %d-%d' % ('✅' if ok else '❌',
+                                               int(p['goles_home']),
+                                               int(p['goles_away']))}
+    except Exception as e:
+        logger.debug('[sonadora] resultado de pata: %s', e)
+    return {'estado': 'vivo', 'texto': '⏳ en juego o sin marcador aún'}
+
+
+def _vigencia_pata(q: Dict, p: Optional[Dict]) -> Dict:
+    """Por jugar: ¿la app la sigue metiendo con los datos de ahora?"""
+    if p is None:
+        return {'estado': '?', 'texto': 'el partido ya no está en el barrido'}
+    try:
+        import decisiones_dia as _dd
+        import modo_modelo as mm
+        recos = _dd.tarjeta_de_pick(p)
+        if recos is None:
+            recos = mm.recomendadas(p, None, n=mm.MAX_RECOMENDADAS)
+        cur = next((x for x in recos or []
+                    if x.get('apuesta') == q.get('apuesta')), None)
+    except Exception as e:
+        logger.debug('[sonadora] vigencia de pata: %s', e)
+        return {'estado': '?', 'texto': ''}
+    if cur is not None and cur.get('veredicto_vp') == 'meter':
+        return {'estado': 'sigue', 'texto': '👍 la app la sigue metiendo'}
+    if cur is not None:
+        trozos = []
+        c0, c1 = q.get('cuota'), cur.get('cuota')
+        if c0 and c1 and abs(float(c1) - float(c0)) >= 0.005:
+            trozos.append('cuota %.2f → %.2f' % (float(c0), float(c1)))
+        p1 = cur.get('prob_meter') or cur.get('prob')
+        if p1:
+            trozos.append('ahora %.0f %%' % (100 * float(p1)))
+        return {'estado': 'cambio',
+                'texto': '⚠️ la app ya no la mete' + (
+                    ' (' + ', '.join(trozos) + ')' if trozos else '')}
+    return {'estado': 'cambio', 'texto': '⚠️ ya no está entre las recomendadas'}
+
+
+def _mis_boletos(st, r: Dict, maximo: int = 8) -> None:
+    """v343 — «🎟️ Mis boletos»: los confirmados, con cada pata en su estado."""
+    try:
+        import sonadora_motor as sm
+        bol = [b for b in sm.parlays_activos() if b.get('detalle')][-maximo:]
+    except Exception as e:
+        logger.debug('[sonadora] mis boletos: %s', e)
+        return
+    if not bol:
+        return
+    import estilo_ui as _eu
+    tono = {'verde': 'ok', 'roja': 'no', 'cambio': 'no'}
+    with st.expander('🎟️ Mis boletos (%d)' % len(bol), expanded=True):
+        for b in reversed(bol):
+            filas = estado_patas(b, r)
+            v = sum(1 for f in filas if f['estado'] == 'verde')
+            ro = sum(1 for f in filas if f['estado'] == 'roja')
+            camb = sum(1 for f in filas if f['estado'] == 'cambio')
+            mult = 1.0
+            for f in filas:
+                mult *= float(f['pata'].get('cuota') or 1.0)
+            st.markdown('**%s · %d patas · @%.2f** — ✅ %d · ❌ %d%s'
+                        % (str(b.get('registrado') or b.get('dia') or '')[:16]
+                           .replace('T', ' '), len(filas), mult, v, ro,
+                           (' · ⚠️ %d cambiaron' % camb) if camb else ''))
+            st.markdown(_eu.patas([
+                _eu.pata(str(f['pata'].get('apuesta') or '?'),
+                         f['pata'].get('cuota') or 0, f['pata'].get('prob'),
+                         mercado='%s · %s' % (f['pata'].get('partido') or '?',
+                                              f['texto']),
+                         tono=tono.get(f['estado'], 'info'))
+                for f in filas]), unsafe_allow_html=True)
+
+
 def filtrar_por_dias(r: Dict, dia: Optional[str] = None,
                      dias: Optional[List[str]] = None, ahora=None) -> Dict:
     """v340 — EL BOLETO SÓLO CON PARTIDOS DEL DÍA (O DEL RANGO) ELEGIDO.
@@ -205,10 +331,13 @@ def render(st, r: Dict, dia: Optional[str] = None,
     import sonadora_motor as sm
     # v340 — todo lo de abajo (cuentas por deporte y liga, y el boleto) con
     # los partidos del día o del rango elegido, y sin los ya empezados.
+    _r_todo = r
     r = filtrar_por_dias(r, dia, dias)
 
     st.header('🎰 Armar Soñadora')
     st.info(AVISO)
+    # v343 — los boletos que ya diste por jugados, pata a pata
+    _mis_boletos(st, _r_todo)
 
     # ------------------------------------------------------------------ #
     # v223 — LA SOÑADORA ARMADA CON LOS PICKS DEL DÍA
@@ -485,7 +614,8 @@ def render(st, r: Dict, dia: Optional[str] = None,
                                             _q.get('apuesta'), _q['cuota'])
                         for _q in _sel['patas']), language=None)
                     try:
-                        sm.registrar_parlay(_parlay, dia)
+                        sm.registrar_parlay(_parlay, dia,
+                                            detalle=_sel['patas'])
                         st.caption(
                             'Apuntado como boleto vivo de hoy: sus partidos '
                             'no volverán a salir en otra combinada hasta que '
