@@ -1,0 +1,326 @@
+{
+ "partidos": 2678,
+ "corte": "2026-09-01",
+ "Pinnacle_H1_sube": {
+  "todo": {
+   "n": 919,
+   "partidos": 771,
+   "acierto": 0.4853,
+   "promete_cierre": 0.4836,
+   "exceso": [
+    0.0015,
+    -0.0247
+   ],
+   "roi": [
+    -0.0473,
+    -0.1051
+   ]
+  },
+  "elige": {
+   "n": 413,
+   "partidos": 354,
+   "acierto": 0.46,
+   "promete_cierre": 0.4613,
+   "exceso": [
+    -0.0013,
+    -0.0407
+   ],
+   "roi": [
+    -0.0396,
+    -0.1298
+   ]
+  },
+  "juzga": {
+   "n": 506,
+   "partidos": 417,
+   "acierto": 0.5059,
+   "promete_cierre": 0.5018,
+   "exceso": [
+    0.0044,
+    -0.03
+   ],
+   "roi": [
+    -0.0527,
+    -0.1265
+   ]
+  }
+ },
+ "Pinnacle_H2_baja": {
+  "todo": {
+   "n": 861,
+   "partidos": 707,
+   "acierto": 0.3844,
+   "promete_cierre": 0.3652,
+   "exceso": [
+    0.019,
+    -0.0072
+   ],
+   "roi": [
+    -0.0266,
+    -0.1041
+   ]
+  },
+  "elige": {
+   "n": 394,
+   "partidos": 333,
+   "acierto": 0.3985,
+   "promete_cierre": 0.3632,
+   "exceso": [
+    0.0344,
+    -0.004
+   ],
+   "roi": [
+    0.0072,
+    -0.1094
+   ]
+  },
+  "juzga": {
+   "n": 467,
+   "partidos": 374,
+   "acierto": 0.3726,
+   "promete_cierre": 0.367,
+   "exceso": [
+    0.0053,
+    -0.0312
+   ],
+   "roi": [
+    -0.0546,
+    -0.1556
+   ]
+  }
+ },
+ "Pinnacle_estable": {
+  "todo": {
+   "n": 10443,
+   "partidos": 2463,
+   "acierto": 0.3917,
+   "promete_cierre": 0.3935,
+   "exceso": [
+    -0.0017,
+    -0.0036
+   ],
+   "roi": [
+    -0.0482,
+    -0.0596
+   ]
+  },
+  "elige": {
+   "n": 5407,
+   "partidos": 1280,
+   "acierto": 0.3906,
+   "promete_cierre": 0.3931,
+   "exceso": [
+    -0.0025,
+    -0.0049
+   ],
+   "roi": [
+    -0.0531,
+    -0.0679
+   ]
+  },
+  "juzga": {
+   "n": 5036,
+   "partidos": 1183,
+   "acierto": 0.393,
+   "promete_cierre": 0.3939,
+   "exceso": [
+    -0.0009,
+    -0.0038
+   ],
+   "roi": [
+    -0.0428,
+    -0.0585
+   ]
+  }
+ },
+ "Playdoit_H1_sube": {
+  "todo": {
+   "n": 805,
+   "partidos": 775,
+   "acierto": 0.4708,
+   "promete_cierre": 0.448,
+   "exceso": [
+    0.0224,
+    -0.0041
+   ],
+   "roi": [
+    -0.0344,
+    -0.0991
+   ]
+  },
+  "elige": {
+   "n": 367,
+   "partidos": 352,
+   "acierto": 0.4605,
+   "promete_cierre": 0.4388,
+   "exceso": [
+    0.0221,
+    -0.0189
+   ],
+   "roi": [
+    -0.0245,
+    -0.123
+   ]
+  },
+  "juzga": {
+   "n": 438,
+   "partidos": 423,
+   "acierto": 0.4795,
+   "promete_cierre": 0.4558,
+   "exceso": [
+    0.0233,
+    -0.012
+   ],
+   "roi": [
+    -0.0441,
+    -0.1251
+   ]
+  }
+ },
+ "Playdoit_H2_baja": {
+  "todo": {
+   "n": 785,
+   "partidos": 741,
+   "acierto": 0.2994,
+   "promete_cierre": 0.3198,
+   "exceso": [
+    -0.0204,
+    -0.0458
+   ],
+   "roi": [
+    -0.1529,
+    -0.238
+   ]
+  },
+  "elige": {
+   "n": 362,
+   "partidos": 340,
+   "acierto": 0.3204,
+   "promete_cierre": 0.3301,
+   "exceso": [
+    -0.0091,
+    -0.0483
+   ],
+   "roi": [
+    -0.0999,
+    -0.2216
+   ]
+  },
+  "juzga": {
+   "n": 423,
+   "partidos": 401,
+   "acierto": 0.2813,
+   "promete_cierre": 0.3109,
+   "exceso": [
+    -0.0302,
+    -0.0644
+   ],
+   "roi": [
+    -0.2019,
+    -0.3178
+   ]
+  }
+ },
+ "Playdoit_estable": {
+  "todo": {
+   "n": 5827,
+   "partidos": 2396,
+   "acierto": 0.3192,
+   "promete_cierre": 0.3196,
+   "exceso": [
+    -0.0004,
+    -0.0041
+   ],
+   "roi": [
+    -0.0685,
+    -0.0869
+   ]
+  },
+  "elige": {
+   "n": 3106,
+   "partidos": 1241,
+   "acierto": 0.32,
+   "promete_cierre": 0.3215,
+   "exceso": [
+    -0.0014,
+    -0.0063
+   ],
+   "roi": [
+    -0.0716,
+    -0.0972
+   ]
+  },
+  "juzga": {
+   "n": 2721,
+   "partidos": 1155,
+   "acierto": 0.3183,
+   "promete_cierre": 0.3175,
+   "exceso": [
+    0.0009,
+    -0.0047
+   ],
+   "roi": [
+    -0.0651,
+    -0.0935
+   ]
+  }
+ },
+ "H3_playdoit_al_reves": {
+  "todo": {
+   "n": 50,
+   "partidos": 50,
+   "acierto": 0.4,
+   "promete_cierre": 0.4039,
+   "exceso": [
+    -0.0041,
+    -0.1092
+   ],
+   "roi": [
+    -0.1273,
+    -0.3902
+   ]
+  },
+  "elige": {
+   "n": 25,
+   "partidos": 25,
+   "acierto": 0.36,
+   "promete_cierre": 0.417,
+   "exceso": [
+    -0.0558,
+    -0.2006
+   ],
+   "roi": [
+    -0.2172,
+    -0.5766
+   ]
+  },
+  "juzga": {
+   "n": 25,
+   "partidos": 25,
+   "acierto": 0.44,
+   "promete_cierre": 0.3908,
+   "exceso": [
+    0.0465,
+    -0.1033
+   ],
+   "roi": [
+    -0.0414,
+    -0.418
+   ]
+  }
+ },
+ "H4_nuestras": {
+  "cuota_sube_(la casa la abarata)": {
+   "n": 17,
+   "acierto": 0.8824
+  },
+  "cuota_baja_(la casa la respalda)": {
+   "n": 23,
+   "acierto": 0.913
+  },
+  "cuota_igual": {
+   "n": 162,
+   "acierto": 0.7716
+  }
+ }
+}

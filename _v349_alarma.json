@@ -1,0 +1,58 @@
+{
+ "n": 260,
+ "corte": "2026-09-29",
+ "movimiento_fuerte_1x2 (≥5 pts)": {
+  "todo": {
+   "n": 28,
+   "acierto": 0.8214
+  },
+  "elige": {
+   "n": 20,
+   "acierto": 0.8
+  },
+  "juzga": {
+   "n": 8,
+   "acierto": 0.875
+  }
+ },
+ "movimiento_medio (3-5)": {
+  "todo": {
+   "n": 67,
+   "acierto": 0.8507
+  },
+  "elige": {
+   "n": 45,
+   "acierto": 0.8222
+  },
+  "juzga": {
+   "n": 22,
+   "acierto": 0.9091
+  }
+ },
+ "tranquilo (<3)": {
+  "todo": {
+   "n": 165,
+   "acierto": 0.8
+  },
+  "elige": {
+   "n": 115,
+   "acierto": 0.8
+  },
+  "juzga": {
+   "n": 50,
+   "acierto": 0.8
+  }
+ },
+ "apuesta_abaratada (su lado bajó ≥3)": {
+  "n": 0,
+  "acierto": null
+ },
+ "apuesta_respaldada (su lado subió ≥3)": {
+  "n": 2,
+  "acierto": 1.0
+ },
+ "apuesta_igual": {
+  "n": 4,
+  "acierto": 0.25
+ }
+}
