@@ -2885,158 +2885,220 @@ fecha,partido,clave_liga,equipo,lado,mercado,linea,c_mas,c_menos,p_casa,p_mod,ap
 2026-10-08,mid-53030,brasil,Atletico-MG,,a_puerta,3.5,1.818,1.85,0.5044,0.5534,,backtest,9.0,
 2026-10-08,mid-53033,per_liga1,Deportivo Moquegua,,a_puerta,3.5,1.7,1.95,0.5342,0.588,,backtest,5.0,
 2026-10-08,mid-53033,per_liga1,Cienciano del Cusco,,a_puerta,4.5,1.833,1.8,0.4955,0.5627,,backtest,12.0,
-2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,tiros,16.5,1.857,1.778,0.4891,0.3994,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,a_puerta,5.5,1.909,1.733,0.4758,0.3606,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,tiros,11.5,1.933,1.714,0.47,0.5769,más,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,a_puerta,3.5,1.7,1.95,0.5342,0.5894,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,tiros,14.5,1.733,1.909,0.5242,0.4627,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,a_puerta,4.5,1.667,2.0,0.5454,0.5527,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,tiros,12.5,1.733,1.909,0.5242,0.7161,más,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,a_puerta,4.5,1.833,1.8,0.4955,0.6267,,vivo,,2026-10-09T03:42:17Z
 2026-10-09,Galatasaray vs Kasimpasa,turquia,Galatasaray,local,tiros,18.5,1.889,1.75,0.4809,0.561,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Galatasaray vs Kasimpasa,turquia,Galatasaray,local,a_puerta,6.5,1.8,1.833,0.5045,0.6293,,vivo,,2026-10-09T03:42:17Z
 2026-10-09,Galatasaray vs Kasimpasa,turquia,Kasimpasa,visitante,tiros,8.5,1.714,1.933,0.53,0.4568,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Galatasaray vs Kasimpasa,turquia,Kasimpasa,visitante,a_puerta,2.5,1.75,1.889,0.5191,0.4969,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,tiros,17.5,1.833,1.8,0.4955,0.5411,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,a_puerta,6.5,2.0,1.667,0.4546,0.5088,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,tiros,11.5,1.95,1.7,0.4658,0.5452,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,a_puerta,3.5,1.818,1.818,0.5,0.5784,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Brann vs Viking,noruega,Brann,local,tiros,13.5,1.76,1.875,0.5158,0.5328,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Brann vs Viking,noruega,Brann,local,a_puerta,4.5,1.786,1.85,0.5088,0.558,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Brann vs Viking,noruega,Viking,visitante,tiros,14.5,1.857,1.778,0.4891,0.5363,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Brann vs Viking,noruega,Viking,visitante,a_puerta,4.5,1.667,2.0,0.5454,0.6188,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,tiros,10.5,1.909,1.733,0.4758,0.4845,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,a_puerta,3.5,2.0,1.667,0.4546,0.3956,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,tiros,12.5,1.933,1.714,0.47,0.5076,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,a_puerta,4.5,2.05,1.636,0.4438,0.5066,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Sochaux vs Boulogne,fra_ligue2,Sochaux,local,tiros,12.5,1.7,1.95,0.5342,0.4246,menos,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Sochaux vs Boulogne,fra_ligue2,Sochaux,local,a_puerta,4.5,2.0,1.667,0.4546,0.3038,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Sochaux vs Boulogne,fra_ligue2,Boulogne,visitante,tiros,9.5,1.818,1.818,0.5,0.7223,más,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Sochaux vs Boulogne,fra_ligue2,Boulogne,visitante,a_puerta,3.5,2.143,1.583,0.4249,0.5191,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,PSV Eindhoven,local,tiros,20.5,1.786,1.85,0.5088,0.5974,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,PSV Eindhoven,local,a_puerta,8.5,2.0,1.667,0.4546,0.4429,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,Heerenveen,visitante,tiros,10.5,1.76,1.875,0.5158,0.4342,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,Heerenveen,visitante,a_puerta,3.5,1.933,1.714,0.47,0.5181,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Montpellier vs Grenoble,fra_ligue2,Montpellier,local,tiros,14.5,1.733,1.909,0.5242,0.5799,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Montpellier vs Grenoble,fra_ligue2,Montpellier,local,a_puerta,4.5,1.615,2.083,0.5633,0.6306,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Montpellier vs Grenoble,fra_ligue2,Grenoble,visitante,tiros,9.5,1.933,1.714,0.47,0.4728,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Montpellier vs Grenoble,fra_ligue2,Grenoble,visitante,a_puerta,2.5,1.636,2.05,0.5562,0.5822,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Pau FC vs Laval,fra_ligue2,Pau FC,local,tiros,14.5,1.909,1.733,0.4758,0.5555,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Pau FC vs Laval,fra_ligue2,Pau FC,local,a_puerta,4.5,1.75,1.889,0.5191,0.5398,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Pau FC vs Laval,fra_ligue2,Laval,visitante,tiros,10.5,1.96,1.692,0.4633,0.606,más,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Pau FC vs Laval,fra_ligue2,Laval,visitante,a_puerta,3.5,1.933,1.714,0.47,0.5608,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Dunkerque vs Annecy,fra_ligue2,Dunkerque,local,tiros,12.5,1.727,1.923,0.5268,0.65,más,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Dunkerque vs Annecy,fra_ligue2,Dunkerque,local,a_puerta,4.5,1.875,1.76,0.4842,0.5343,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Dunkerque vs Annecy,fra_ligue2,Annecy,visitante,tiros,11.5,1.889,1.75,0.4809,0.4763,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Dunkerque vs Annecy,fra_ligue2,Annecy,visitante,a_puerta,3.5,1.692,1.96,0.5367,0.5833,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Avellino vs Sampdoria,ita_serie_b,Avellino,local,tiros,12.5,1.933,1.714,0.47,0.4601,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Avellino vs Sampdoria,ita_serie_b,Avellino,local,a_puerta,4.5,2.083,1.615,0.4367,0.3852,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Avellino vs Sampdoria,ita_serie_b,Sampdoria,visitante,tiros,11.5,1.818,1.818,0.5,0.765,más,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Avellino vs Sampdoria,ita_serie_b,Sampdoria,visitante,a_puerta,3.5,1.667,2.0,0.5454,0.7084,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,tiros,16.5,1.786,1.85,0.5088,0.4273,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,a_puerta,4.5,1.647,2.05,0.5545,0.6135,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,tiros,10.5,1.76,1.875,0.5158,0.5764,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,a_puerta,3.5,1.909,1.733,0.4758,0.4691,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Malaga,local,tiros,11.5,1.636,2.05,0.5562,0.5497,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Malaga,local,tiros,12.5,1.923,1.75,0.4764,0.46,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Malaga,local,tiros,13.5,2.25,1.53,0.4048,0.3755,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Malaga,local,a_puerta,2.5,1.333,2.857,0.6819,0.7898,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Malaga,local,a_puerta,3.5,1.76,1.909,0.5203,0.6131,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Malaga,local,a_puerta,4.5,2.5,1.429,0.3637,0.4281,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,tiros,11.5,1.615,2.083,0.5633,0.5756,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,tiros,12.5,1.889,1.778,0.4849,0.4867,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,tiros,13.5,2.222,1.538,0.409,0.4016,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,a_puerta,3.5,1.471,2.375,0.6175,0.6134,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,a_puerta,4.5,1.96,1.714,0.4665,0.4284,,vivo,,2026-10-09T03:42:17Z
-2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,a_puerta,5.5,2.714,1.364,0.3345,0.27,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Puebla vs Club Leon,liga_mx,Puebla,local,tiros,13.5,1.941,1.733,0.4717,0.5105,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Puebla vs Club Leon,liga_mx,Puebla,local,a_puerta,4.5,2.143,1.6,0.4275,0.4591,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Puebla vs Club Leon,liga_mx,Club Leon,visitante,tiros,13.5,1.846,1.818,0.4962,0.5555,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Puebla vs Club Leon,liga_mx,Club Leon,visitante,a_puerta,4.5,1.889,1.778,0.4849,0.5288,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Tigres UANL vs Toluca,liga_mx,Tigres UANL,local,tiros,13.5,1.96,1.714,0.4665,0.5719,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Tigres UANL vs Toluca,liga_mx,Tigres UANL,local,a_puerta,4.5,2.05,1.647,0.4455,0.5717,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Tigres UANL vs Toluca,liga_mx,Toluca,visitante,tiros,13.5,1.727,1.95,0.5303,0.5963,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Tigres UANL vs Toluca,liga_mx,Toluca,visitante,a_puerta,4.5,1.846,1.818,0.4962,0.6039,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Arsenal vs Leeds,premier,Arsenal,local,tiros,17.5,1.778,1.889,0.5151,0.51,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Arsenal vs Leeds,premier,Arsenal,local,a_puerta,5.5,1.68,2.0,0.5435,0.6722,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Arsenal vs Leeds,premier,Leeds,visitante,tiros,8.5,1.833,1.833,0.5,0.5608,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Arsenal vs Leeds,premier,Leeds,visitante,a_puerta,2.5,1.941,1.733,0.4717,0.5324,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Swansea vs Norwich,eng_championship,Swansea,local,tiros,12.5,1.76,1.909,0.5203,0.5158,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Swansea vs Norwich,eng_championship,Swansea,local,a_puerta,4.5,1.909,1.76,0.4797,0.448,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Swansea vs Norwich,eng_championship,Norwich,visitante,tiros,11.5,1.8,1.867,0.5091,0.5194,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Swansea vs Norwich,eng_championship,Norwich,visitante,a_puerta,3.5,1.625,2.1,0.5638,0.6023,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Charlton vs Bristol City,eng_championship,Charlton,local,tiros,11.5,2.0,1.692,0.4583,0.4312,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Charlton vs Bristol City,eng_championship,Charlton,local,a_puerta,3.5,1.818,1.846,0.5038,0.4681,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Charlton vs Bristol City,eng_championship,Bristol City,visitante,tiros,12.5,1.786,1.875,0.5122,0.638,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Charlton vs Bristol City,eng_championship,Bristol City,visitante,a_puerta,4.5,2.143,1.6,0.4275,0.5206,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Vallecano vs Ath Bilbao,laliga,Vallecano,local,tiros,12.5,1.818,1.85,0.5044,0.5046,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Vallecano vs Ath Bilbao,laliga,Vallecano,local,a_puerta,4.5,1.76,1.909,0.5203,0.4648,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Vallecano vs Ath Bilbao,laliga,Ath Bilbao,visitante,tiros,12.5,1.727,1.95,0.5303,0.5896,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Vallecano vs Ath Bilbao,laliga,Ath Bilbao,visitante,a_puerta,3.5,1.6,2.143,0.5725,0.719,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Genoa vs Fiorentina,serie_a,Genoa,local,tiros,13.5,1.95,1.727,0.4697,0.3948,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Genoa vs Fiorentina,serie_a,Genoa,local,a_puerta,4.5,2.1,1.625,0.4362,0.3411,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Genoa vs Fiorentina,serie_a,Fiorentina,visitante,tiros,13.5,1.846,1.818,0.4962,0.5468,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Genoa vs Fiorentina,serie_a,Fiorentina,visitante,a_puerta,4.5,1.846,1.818,0.4962,0.5038,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Sudtirol vs Ascoli,ita_serie_b,Sudtirol,local,tiros,0.5,1.286,3.333,0.7216,1.0,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Sudtirol vs Ascoli,ita_serie_b,Sudtirol,local,tiros,1.5,2.4,1.5,0.3846,0.9996,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Sudtirol vs Ascoli,ita_serie_b,Sudtirol,local,tiros,2.5,5.333,1.111,0.1724,0.9983,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Augsburg vs Bayern Munich,bundesliga,Augsburg,local,tiros,9.5,1.727,1.95,0.5303,0.3442,menos,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Augsburg vs Bayern Munich,bundesliga,Augsburg,local,a_puerta,3.5,1.867,1.8,0.4909,0.3756,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Augsburg vs Bayern Munich,bundesliga,Bayern Munich,visitante,tiros,19.5,1.85,1.818,0.4956,0.6,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Augsburg vs Bayern Munich,bundesliga,Bayern Munich,visitante,a_puerta,7.5,1.909,1.76,0.4797,0.514,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hoffenheim,local,tiros,17.5,1.909,1.76,0.4797,0.6359,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hoffenheim,local,a_puerta,6.5,1.923,1.75,0.4764,0.5036,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hamburg,visitante,tiros,9.5,1.75,1.923,0.5236,0.5687,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hamburg,visitante,a_puerta,2.5,1.571,2.2,0.5834,0.6982,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Union Berlin vs Elversberg,bundesliga,Union Berlin,local,tiros,13.5,1.8,1.867,0.5091,0.6417,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Union Berlin vs Elversberg,bundesliga,Union Berlin,local,a_puerta,4.5,1.818,1.846,0.5038,0.6487,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Union Berlin vs Elversberg,bundesliga,Elversberg,visitante,tiros,11.5,1.867,1.8,0.4909,0.5673,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Union Berlin vs Elversberg,bundesliga,Elversberg,visitante,a_puerta,3.5,1.76,1.909,0.5203,0.6427,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Mainz vs Leverkusen,bundesliga,Mainz,local,tiros,13.5,1.889,1.778,0.4849,0.4281,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Mainz vs Leverkusen,bundesliga,Mainz,local,a_puerta,4.5,2.0,1.68,0.4565,0.5258,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Mainz vs Leverkusen,bundesliga,Leverkusen,visitante,tiros,13.5,1.889,1.778,0.4849,0.6129,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Mainz vs Leverkusen,bundesliga,Leverkusen,visitante,a_puerta,4.5,1.76,1.909,0.5203,0.6184,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Derby vs Wrexham,eng_championship,Derby,local,tiros,12.5,1.96,1.714,0.4665,0.5334,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Derby vs Wrexham,eng_championship,Derby,local,a_puerta,3.5,1.625,2.1,0.5638,0.5678,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Derby vs Wrexham,eng_championship,Wrexham,visitante,tiros,11.5,1.909,1.76,0.4797,0.5139,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Derby vs Wrexham,eng_championship,Wrexham,visitante,a_puerta,3.5,1.692,2.0,0.5417,0.6065,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Ipswich vs Fulham,premier,Ipswich,local,tiros,12.5,1.778,1.889,0.5151,0.5133,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Ipswich vs Fulham,premier,Ipswich,local,a_puerta,4.5,1.889,1.778,0.4849,0.4636,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Ipswich vs Fulham,premier,Fulham,visitante,tiros,12.5,1.714,1.96,0.5335,0.5987,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Ipswich vs Fulham,premier,Fulham,visitante,a_puerta,4.5,1.889,1.778,0.4849,0.5604,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Blackburn vs Cardiff,eng_championship,Blackburn,local,tiros,13.5,1.941,1.733,0.4717,0.4486,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Blackburn vs Cardiff,eng_championship,Blackburn,local,a_puerta,4.5,1.889,1.778,0.4849,0.4931,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Blackburn vs Cardiff,eng_championship,Cardiff,visitante,tiros,13.5,1.889,1.778,0.4849,0.667,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Blackburn vs Cardiff,eng_championship,Cardiff,visitante,a_puerta,4.5,1.96,1.714,0.4665,0.6441,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Bolton vs Stoke,eng_championship,Bolton,local,tiros,14.5,1.889,1.778,0.4849,0.3386,menos,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Bolton vs Stoke,eng_championship,Bolton,local,a_puerta,4.5,1.889,1.778,0.4849,0.4325,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Bolton vs Stoke,eng_championship,Stoke,visitante,tiros,10.5,1.909,1.76,0.4797,0.6477,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Bolton vs Stoke,eng_championship,Stoke,visitante,a_puerta,3.5,1.692,2.0,0.5417,0.5948,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Chelsea vs Bournemouth,premier,Chelsea,local,tiros,14.5,1.909,1.76,0.4797,0.4888,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Chelsea vs Bournemouth,premier,Chelsea,local,a_puerta,5.5,1.875,1.786,0.4878,0.4439,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Chelsea vs Bournemouth,premier,Bournemouth,visitante,tiros,11.5,1.923,1.75,0.4764,0.5581,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Chelsea vs Bournemouth,premier,Bournemouth,visitante,a_puerta,3.5,1.647,2.05,0.5545,0.5741,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Aston Villa vs Brentford,premier,Aston Villa,local,tiros,13.5,1.733,1.941,0.5283,0.4468,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Aston Villa vs Brentford,premier,Aston Villa,local,a_puerta,4.5,1.778,1.889,0.5151,0.4534,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Aston Villa vs Brentford,premier,Brentford,visitante,tiros,11.5,1.714,1.96,0.5335,0.6747,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Aston Villa vs Brentford,premier,Brentford,visitante,a_puerta,4.5,2.0,1.692,0.4583,0.5044,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Watford vs Burnley,eng_championship,Watford,local,tiros,13.5,1.818,1.846,0.5038,0.4343,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Watford vs Burnley,eng_championship,Watford,local,a_puerta,4.5,2.0,1.692,0.4583,0.4257,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Watford vs Burnley,eng_championship,Burnley,visitante,tiros,12.5,1.8,1.867,0.5091,0.6591,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Watford vs Burnley,eng_championship,Burnley,visitante,a_puerta,4.5,2.0,1.68,0.4565,0.5256,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Middlesbrough vs Wolves,eng_championship,Middlesbrough,local,tiros,15.5,1.923,1.75,0.4764,0.3453,menos,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Middlesbrough vs Wolves,eng_championship,Middlesbrough,local,a_puerta,4.5,1.68,2.0,0.5435,0.5619,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Middlesbrough vs Wolves,eng_championship,Wolves,visitante,tiros,11.5,1.941,1.733,0.4717,0.5664,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Middlesbrough vs Wolves,eng_championship,Wolves,visitante,a_puerta,3.5,1.625,2.1,0.5638,0.659,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Alaves vs Ath Madrid,laliga,Alaves,local,tiros,12.5,1.923,1.75,0.4764,0.4067,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Alaves vs Ath Madrid,laliga,Alaves,local,a_puerta,3.5,1.636,2.083,0.5601,0.4703,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Alaves vs Ath Madrid,laliga,Ath Madrid,visitante,tiros,13.5,1.733,1.941,0.5283,0.5312,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Alaves vs Ath Madrid,laliga,Ath Madrid,visitante,a_puerta,4.5,1.867,1.8,0.4909,0.5662,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Lille vs Le Havre,ligue_1,Lille,local,tiros,14.5,1.733,1.941,0.5283,0.6494,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Lille vs Le Havre,ligue_1,Lille,local,a_puerta,5.5,1.818,1.846,0.5038,0.628,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Lille vs Le Havre,ligue_1,Le Havre,visitante,tiros,8.5,1.846,1.818,0.4962,0.8114,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Lille vs Le Havre,ligue_1,Le Havre,visitante,a_puerta,3.5,2.143,1.6,0.4275,0.4995,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Man United vs Tottenham,premier,Man United,local,tiros,17.5,1.909,1.76,0.4797,0.588,más,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Man United vs Tottenham,premier,Man United,local,a_puerta,5.5,1.714,1.96,0.5335,0.6728,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Man United vs Tottenham,premier,Tottenham,visitante,tiros,11.5,1.846,1.818,0.4962,0.4486,,vivo,,2026-10-09T03:42:17Z
-2026-10-10,Man United vs Tottenham,premier,Tottenham,visitante,a_puerta,3.5,1.733,1.941,0.5283,0.541,,vivo,,2026-10-09T03:42:17Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,tiros,15.5,1.636,2.05,0.5562,0.4696,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,tiros,16.5,1.857,1.778,0.4891,0.3963,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,tiros,17.5,2.143,1.583,0.4249,0.3284,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,a_puerta,4.5,1.48,2.364,0.615,0.5678,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,a_puerta,5.5,1.909,1.733,0.4758,0.4018,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Heidenheim,local,a_puerta,6.5,2.546,1.417,0.3576,0.2608,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,tiros,10.5,1.667,2.0,0.5454,0.6691,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,tiros,11.5,1.933,1.714,0.47,0.5811,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,tiros,12.5,2.3,1.5,0.3947,0.4924,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,a_puerta,2.5,1.308,3.0,0.6964,0.7768,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,a_puerta,3.5,1.7,1.95,0.5342,0.5951,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Heidenheim vs Kaiserslautern,ger_bundesliga2,Kaiserslautern,visitante,a_puerta,4.5,2.375,1.471,0.3825,0.409,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,tiros,13.5,1.546,2.2,0.5873,0.5316,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,tiros,14.5,1.75,1.889,0.5191,0.4508,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,tiros,15.5,2.0,1.667,0.4546,0.3745,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,a_puerta,3.5,1.333,2.857,0.6819,0.717,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,a_puerta,4.5,1.692,1.96,0.5367,0.5467,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Braunschweig,local,a_puerta,5.5,2.25,1.53,0.4048,0.3805,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,tiros,11.5,1.546,2.2,0.5873,0.8064,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,tiros,12.5,1.786,1.85,0.5088,0.7432,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,tiros,13.5,2.083,1.615,0.4367,0.6735,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,a_puerta,3.5,1.455,2.429,0.6254,0.7926,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,a_puerta,4.5,1.909,1.733,0.4758,0.6438,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Braunschweig vs Holstein Kiel,ger_bundesliga2,Holstein Kiel,visitante,a_puerta,5.5,2.667,1.375,0.3402,0.4826,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Galatasaray vs Kasimpasa,turquia,Galatasaray,local,tiros,19.5,1.909,1.733,0.4758,0.4969,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Galatasaray vs Kasimpasa,turquia,Galatasaray,local,a_puerta,6.5,2.0,1.667,0.4546,0.6157,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Galatasaray vs Kasimpasa,turquia,Kasimpasa,visitante,tiros,9.5,1.75,1.889,0.5191,0.3505,menos,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Galatasaray vs Kasimpasa,turquia,Kasimpasa,visitante,a_puerta,2.5,1.778,1.857,0.5109,0.4986,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,tiros,16.5,1.6,2.1,0.5676,0.6014,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,tiros,17.5,1.8,1.833,0.5045,0.5331,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,tiros,18.5,2.05,1.636,0.4438,0.4658,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,a_puerta,5.5,1.53,2.25,0.5952,0.648,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,a_puerta,6.5,1.933,1.714,0.47,0.5028,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Nordsjaelland,local,a_puerta,7.5,2.546,1.417,0.3576,0.3652,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,tiros,10.5,1.636,2.05,0.5562,0.6416,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,tiros,11.5,1.933,1.714,0.47,0.5511,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,tiros,12.5,2.3,1.5,0.3947,0.4615,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,a_puerta,2.5,1.35,2.8,0.6747,0.7677,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,a_puerta,3.5,1.8,1.833,0.5045,0.5828,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Nordsjaelland vs Odense,dinamarca,Odense,visitante,a_puerta,4.5,2.546,1.417,0.3576,0.3962,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Brann,local,tiros,12.5,1.571,2.167,0.5797,0.6161,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Brann,local,tiros,13.5,1.786,1.85,0.5088,0.534,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Brann,local,tiros,14.5,2.083,1.615,0.4367,0.4533,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Brann,local,a_puerta,3.5,1.4,2.6,0.65,0.7214,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Brann,local,a_puerta,4.5,1.8,1.833,0.5045,0.5522,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Brann,local,a_puerta,5.5,2.455,1.444,0.3704,0.386,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Viking,visitante,tiros,13.5,1.6,2.1,0.5676,0.6242,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Viking,visitante,tiros,14.5,1.818,1.818,0.5,0.5468,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Viking,visitante,tiros,15.5,2.1,1.6,0.4324,0.4702,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Viking,visitante,a_puerta,4.5,1.6,2.1,0.5676,0.6313,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Viking,visitante,a_puerta,5.5,2.083,1.615,0.4367,0.4688,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Brann vs Viking,noruega,Viking,visitante,a_puerta,6.5,2.857,1.333,0.3181,0.321,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,tiros,9.5,1.615,2.083,0.5633,0.6113,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,tiros,10.5,1.909,1.733,0.4758,0.5125,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,tiros,11.5,2.25,1.52,0.4032,0.417,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,a_puerta,2.5,1.444,2.455,0.6296,0.634,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,a_puerta,3.5,2.0,1.667,0.4546,0.4204,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Moreirense,local,a_puerta,4.5,3.0,1.308,0.3036,0.2446,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,tiros,11.5,1.667,2.0,0.5454,0.594,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,tiros,12.5,1.933,1.714,0.47,0.5059,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,tiros,13.5,2.3,1.5,0.3947,0.4207,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,a_puerta,3.5,1.538,2.222,0.591,0.6747,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,a_puerta,4.5,2.05,1.636,0.4438,0.4965,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Moreirense vs Gil Vicente,primeira,Gil Vicente,visitante,a_puerta,5.5,2.9,1.32,0.3128,0.3318,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Sochaux vs Boulogne,fra_ligue2,Sochaux,local,tiros,12.5,1.7,1.95,0.5342,0.4464,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Sochaux vs Boulogne,fra_ligue2,Sochaux,local,a_puerta,4.5,2.0,1.667,0.4546,0.3262,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Sochaux vs Boulogne,fra_ligue2,Boulogne,visitante,tiros,9.5,1.818,1.818,0.5,0.7134,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Sochaux vs Boulogne,fra_ligue2,Boulogne,visitante,a_puerta,3.5,2.143,1.583,0.4249,0.5083,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,PSV Eindhoven,local,tiros,20.5,1.786,1.85,0.5088,0.5974,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,PSV Eindhoven,local,a_puerta,8.5,2.0,1.667,0.4546,0.4429,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,Heerenveen,visitante,tiros,10.5,1.76,1.875,0.5158,0.4342,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,PSV Eindhoven vs Heerenveen,eredivisie,Heerenveen,visitante,a_puerta,3.5,1.933,1.714,0.47,0.5181,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Montpellier vs Grenoble,fra_ligue2,Montpellier,local,tiros,14.5,1.733,1.909,0.5242,0.5799,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Montpellier vs Grenoble,fra_ligue2,Montpellier,local,a_puerta,4.5,1.615,2.083,0.5633,0.6306,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Montpellier vs Grenoble,fra_ligue2,Grenoble,visitante,tiros,9.5,1.933,1.714,0.47,0.4728,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Montpellier vs Grenoble,fra_ligue2,Grenoble,visitante,a_puerta,2.5,1.636,2.05,0.5562,0.5822,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Pau FC vs Laval,fra_ligue2,Pau FC,local,tiros,14.5,1.909,1.733,0.4758,0.5555,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Pau FC vs Laval,fra_ligue2,Pau FC,local,a_puerta,4.5,1.75,1.889,0.5191,0.5398,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Pau FC vs Laval,fra_ligue2,Laval,visitante,tiros,10.5,1.96,1.692,0.4633,0.606,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Pau FC vs Laval,fra_ligue2,Laval,visitante,a_puerta,3.5,1.933,1.714,0.47,0.5608,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Dunkerque vs Annecy,fra_ligue2,Dunkerque,local,tiros,12.5,1.727,1.923,0.5268,0.65,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Dunkerque vs Annecy,fra_ligue2,Dunkerque,local,a_puerta,4.5,1.875,1.76,0.4842,0.5343,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Dunkerque vs Annecy,fra_ligue2,Annecy,visitante,tiros,11.5,1.889,1.75,0.4809,0.4763,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Dunkerque vs Annecy,fra_ligue2,Annecy,visitante,a_puerta,3.5,1.692,1.96,0.5367,0.5833,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Avellino vs Sampdoria,ita_serie_b,Avellino,local,tiros,12.5,1.933,1.714,0.47,0.4601,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Avellino vs Sampdoria,ita_serie_b,Avellino,local,a_puerta,4.5,2.083,1.615,0.4367,0.3852,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Avellino vs Sampdoria,ita_serie_b,Sampdoria,visitante,tiros,11.5,1.818,1.818,0.5,0.765,más,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Avellino vs Sampdoria,ita_serie_b,Sampdoria,visitante,a_puerta,3.5,1.667,2.0,0.5454,0.7084,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,tiros,15.5,1.583,2.143,0.5751,0.5009,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,tiros,16.5,1.786,1.85,0.5088,0.4273,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,tiros,17.5,2.05,1.636,0.4438,0.3582,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,a_puerta,3.5,1.308,3.0,0.6964,0.7698,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,a_puerta,4.5,1.647,2.05,0.5545,0.6135,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Beveren,local,a_puerta,5.5,2.167,1.571,0.4203,0.4496,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,tiros,9.5,1.53,2.25,0.5952,0.6703,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,tiros,10.5,1.76,1.875,0.5158,0.5764,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,tiros,11.5,2.083,1.615,0.4367,0.4821,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,a_puerta,2.5,1.4,2.571,0.6474,0.677,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,a_puerta,3.5,1.909,1.733,0.4758,0.4691,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Beveren vs Lommel SK,bel_pro_league,Lommel SK,visitante,a_puerta,4.5,2.8,1.35,0.3253,0.2868,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Malaga,local,tiros,11.5,1.636,2.05,0.5562,0.5367,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Malaga,local,tiros,12.5,1.923,1.75,0.4764,0.4468,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Malaga,local,tiros,13.5,2.25,1.53,0.4048,0.3626,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Malaga,local,a_puerta,2.5,1.333,2.857,0.6819,0.7926,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Malaga,local,a_puerta,3.5,1.76,1.909,0.5203,0.617,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Malaga,local,a_puerta,4.5,2.5,1.429,0.3637,0.4323,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,tiros,11.5,1.615,2.083,0.5633,0.5859,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,tiros,12.5,1.889,1.778,0.4849,0.4974,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,tiros,13.5,2.222,1.538,0.409,0.4122,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,a_puerta,3.5,1.471,2.375,0.6175,0.6145,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,a_puerta,4.5,1.96,1.714,0.4665,0.4295,,vivo,,2026-10-09T05:20:11Z
+2026-10-09,Malaga vs Espanol,laliga,Espanol,visitante,a_puerta,5.5,2.714,1.364,0.3345,0.271,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Puebla vs Club Leon,liga_mx,Puebla,local,tiros,13.5,1.941,1.733,0.4717,0.5105,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Puebla vs Club Leon,liga_mx,Puebla,local,a_puerta,4.5,2.143,1.6,0.4275,0.4591,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Puebla vs Club Leon,liga_mx,Club Leon,visitante,tiros,13.5,1.846,1.818,0.4962,0.5555,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Puebla vs Club Leon,liga_mx,Club Leon,visitante,a_puerta,4.5,1.889,1.778,0.4849,0.5288,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Tigres UANL vs Toluca,liga_mx,Tigres UANL,local,tiros,13.5,1.96,1.714,0.4665,0.5719,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Tigres UANL vs Toluca,liga_mx,Tigres UANL,local,a_puerta,4.5,2.05,1.647,0.4455,0.5717,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Tigres UANL vs Toluca,liga_mx,Toluca,visitante,tiros,13.5,1.727,1.95,0.5303,0.5963,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Tigres UANL vs Toluca,liga_mx,Toluca,visitante,a_puerta,4.5,1.846,1.818,0.4962,0.6039,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Arsenal vs Leeds,premier,Arsenal,local,tiros,17.5,1.778,1.889,0.5151,0.51,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Arsenal vs Leeds,premier,Arsenal,local,a_puerta,5.5,1.68,2.0,0.5435,0.6722,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Arsenal vs Leeds,premier,Leeds,visitante,tiros,8.5,1.833,1.833,0.5,0.5608,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Arsenal vs Leeds,premier,Leeds,visitante,a_puerta,2.5,1.941,1.733,0.4717,0.5324,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Swansea vs Norwich,eng_championship,Swansea,local,tiros,12.5,1.76,1.909,0.5203,0.5158,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Swansea vs Norwich,eng_championship,Swansea,local,a_puerta,4.5,1.909,1.76,0.4797,0.448,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Swansea vs Norwich,eng_championship,Norwich,visitante,tiros,11.5,1.8,1.867,0.5091,0.5194,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Swansea vs Norwich,eng_championship,Norwich,visitante,a_puerta,3.5,1.625,2.1,0.5638,0.6023,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Charlton vs Bristol City,eng_championship,Charlton,local,tiros,11.5,2.0,1.692,0.4583,0.4312,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Charlton vs Bristol City,eng_championship,Charlton,local,a_puerta,3.5,1.818,1.846,0.5038,0.4681,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Charlton vs Bristol City,eng_championship,Bristol City,visitante,tiros,12.5,1.786,1.875,0.5122,0.638,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Charlton vs Bristol City,eng_championship,Bristol City,visitante,a_puerta,4.5,2.143,1.6,0.4275,0.5206,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Vallecano vs Ath Bilbao,laliga,Vallecano,local,tiros,12.5,1.818,1.85,0.5044,0.5046,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Vallecano vs Ath Bilbao,laliga,Vallecano,local,a_puerta,4.5,1.76,1.909,0.5203,0.4648,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Vallecano vs Ath Bilbao,laliga,Ath Bilbao,visitante,tiros,12.5,1.727,1.95,0.5303,0.5896,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Vallecano vs Ath Bilbao,laliga,Ath Bilbao,visitante,a_puerta,3.5,1.6,2.143,0.5725,0.719,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Genoa vs Fiorentina,serie_a,Genoa,local,tiros,13.5,1.95,1.727,0.4697,0.3948,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Genoa vs Fiorentina,serie_a,Genoa,local,a_puerta,4.5,2.1,1.625,0.4362,0.3411,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Genoa vs Fiorentina,serie_a,Fiorentina,visitante,tiros,13.5,1.846,1.818,0.4962,0.5468,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Genoa vs Fiorentina,serie_a,Fiorentina,visitante,a_puerta,4.5,1.846,1.818,0.4962,0.5038,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Sudtirol vs Ascoli,ita_serie_b,Sudtirol,local,tiros,0.5,1.286,3.333,0.7216,1.0,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Sudtirol vs Ascoli,ita_serie_b,Sudtirol,local,tiros,1.5,2.4,1.5,0.3846,0.9996,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Sudtirol vs Ascoli,ita_serie_b,Sudtirol,local,tiros,2.5,5.333,1.111,0.1724,0.9983,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Augsburg vs Bayern Munich,bundesliga,Augsburg,local,tiros,9.5,1.727,1.95,0.5303,0.3442,menos,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Augsburg vs Bayern Munich,bundesliga,Augsburg,local,a_puerta,3.5,1.867,1.8,0.4909,0.3756,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Augsburg vs Bayern Munich,bundesliga,Bayern Munich,visitante,tiros,19.5,1.85,1.818,0.4956,0.6,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Augsburg vs Bayern Munich,bundesliga,Bayern Munich,visitante,a_puerta,7.5,1.909,1.76,0.4797,0.514,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hoffenheim,local,tiros,17.5,1.909,1.76,0.4797,0.6359,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hoffenheim,local,a_puerta,6.5,1.923,1.75,0.4764,0.5036,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hamburg,visitante,tiros,9.5,1.75,1.923,0.5236,0.5687,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Hoffenheim vs Hamburg,bundesliga,Hamburg,visitante,a_puerta,2.5,1.571,2.2,0.5834,0.6982,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Union Berlin vs Elversberg,bundesliga,Union Berlin,local,tiros,13.5,1.8,1.867,0.5091,0.6417,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Union Berlin vs Elversberg,bundesliga,Union Berlin,local,a_puerta,4.5,1.818,1.846,0.5038,0.6487,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Union Berlin vs Elversberg,bundesliga,Elversberg,visitante,tiros,11.5,1.867,1.8,0.4909,0.5673,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Union Berlin vs Elversberg,bundesliga,Elversberg,visitante,a_puerta,3.5,1.76,1.909,0.5203,0.6427,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Mainz vs Leverkusen,bundesliga,Mainz,local,tiros,13.5,1.889,1.778,0.4849,0.4281,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Mainz vs Leverkusen,bundesliga,Mainz,local,a_puerta,4.5,2.0,1.68,0.4565,0.5258,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Mainz vs Leverkusen,bundesliga,Leverkusen,visitante,tiros,13.5,1.889,1.778,0.4849,0.6129,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Mainz vs Leverkusen,bundesliga,Leverkusen,visitante,a_puerta,4.5,1.76,1.909,0.5203,0.6184,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Derby vs Wrexham,eng_championship,Derby,local,tiros,12.5,1.96,1.714,0.4665,0.5334,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Derby vs Wrexham,eng_championship,Derby,local,a_puerta,3.5,1.625,2.1,0.5638,0.5678,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Derby vs Wrexham,eng_championship,Wrexham,visitante,tiros,11.5,1.909,1.76,0.4797,0.5139,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Derby vs Wrexham,eng_championship,Wrexham,visitante,a_puerta,3.5,1.692,2.0,0.5417,0.6065,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Ipswich vs Fulham,premier,Ipswich,local,tiros,12.5,1.778,1.889,0.5151,0.5133,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Ipswich vs Fulham,premier,Ipswich,local,a_puerta,4.5,1.889,1.778,0.4849,0.4636,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Ipswich vs Fulham,premier,Fulham,visitante,tiros,12.5,1.714,1.96,0.5335,0.5987,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Ipswich vs Fulham,premier,Fulham,visitante,a_puerta,4.5,1.889,1.778,0.4849,0.5604,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Blackburn vs Cardiff,eng_championship,Blackburn,local,tiros,13.5,1.941,1.733,0.4717,0.4486,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Blackburn vs Cardiff,eng_championship,Blackburn,local,a_puerta,4.5,1.889,1.778,0.4849,0.4931,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Blackburn vs Cardiff,eng_championship,Cardiff,visitante,tiros,13.5,1.889,1.778,0.4849,0.667,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Blackburn vs Cardiff,eng_championship,Cardiff,visitante,a_puerta,4.5,1.96,1.714,0.4665,0.6441,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Bolton vs Stoke,eng_championship,Bolton,local,tiros,14.5,1.889,1.778,0.4849,0.3386,menos,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Bolton vs Stoke,eng_championship,Bolton,local,a_puerta,4.5,1.889,1.778,0.4849,0.4325,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Bolton vs Stoke,eng_championship,Stoke,visitante,tiros,10.5,1.909,1.76,0.4797,0.6477,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Bolton vs Stoke,eng_championship,Stoke,visitante,a_puerta,3.5,1.692,2.0,0.5417,0.5948,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Chelsea vs Bournemouth,premier,Chelsea,local,tiros,14.5,1.909,1.76,0.4797,0.4897,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Chelsea vs Bournemouth,premier,Chelsea,local,a_puerta,5.5,1.875,1.786,0.4878,0.4463,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Chelsea vs Bournemouth,premier,Bournemouth,visitante,tiros,11.5,1.923,1.75,0.4764,0.5143,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Chelsea vs Bournemouth,premier,Bournemouth,visitante,a_puerta,3.5,1.647,2.05,0.5545,0.5352,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Aston Villa vs Brentford,premier,Aston Villa,local,tiros,13.5,1.733,1.941,0.5283,0.4468,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Aston Villa vs Brentford,premier,Aston Villa,local,a_puerta,4.5,1.778,1.889,0.5151,0.4534,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Aston Villa vs Brentford,premier,Brentford,visitante,tiros,11.5,1.714,1.96,0.5335,0.6747,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Aston Villa vs Brentford,premier,Brentford,visitante,a_puerta,4.5,2.0,1.692,0.4583,0.5044,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Watford vs Burnley,eng_championship,Watford,local,tiros,13.5,1.818,1.846,0.5038,0.4343,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Watford vs Burnley,eng_championship,Watford,local,a_puerta,4.5,2.0,1.692,0.4583,0.4257,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Watford vs Burnley,eng_championship,Burnley,visitante,tiros,12.5,1.8,1.867,0.5091,0.6591,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Watford vs Burnley,eng_championship,Burnley,visitante,a_puerta,4.5,2.0,1.68,0.4565,0.5256,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Middlesbrough vs Wolves,eng_championship,Middlesbrough,local,tiros,15.5,1.923,1.75,0.4764,0.3453,menos,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Middlesbrough vs Wolves,eng_championship,Middlesbrough,local,a_puerta,4.5,1.68,2.0,0.5435,0.5619,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Middlesbrough vs Wolves,eng_championship,Wolves,visitante,tiros,11.5,1.941,1.733,0.4717,0.5664,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Middlesbrough vs Wolves,eng_championship,Wolves,visitante,a_puerta,3.5,1.625,2.1,0.5638,0.659,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Alaves vs Ath Madrid,laliga,Alaves,local,tiros,12.5,1.923,1.75,0.4764,0.4067,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Alaves vs Ath Madrid,laliga,Alaves,local,a_puerta,3.5,1.636,2.083,0.5601,0.4703,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Alaves vs Ath Madrid,laliga,Ath Madrid,visitante,tiros,13.5,1.733,1.941,0.5283,0.5312,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Alaves vs Ath Madrid,laliga,Ath Madrid,visitante,a_puerta,4.5,1.867,1.8,0.4909,0.5662,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Lille vs Le Havre,ligue_1,Lille,local,tiros,14.5,1.733,1.941,0.5283,0.6494,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Lille vs Le Havre,ligue_1,Lille,local,a_puerta,5.5,1.818,1.846,0.5038,0.628,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Lille vs Le Havre,ligue_1,Le Havre,visitante,tiros,8.5,1.846,1.818,0.4962,0.8114,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Lille vs Le Havre,ligue_1,Le Havre,visitante,a_puerta,3.5,2.143,1.6,0.4275,0.4995,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,RB Leipzig vs Ein Frankfurt,bundesliga,RB Leipzig,local,tiros,17.5,1.909,1.76,0.4797,0.6794,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,RB Leipzig vs Ein Frankfurt,bundesliga,RB Leipzig,local,a_puerta,6.5,1.818,1.846,0.5038,0.662,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,RB Leipzig vs Ein Frankfurt,bundesliga,Ein Frankfurt,visitante,tiros,10.5,1.923,1.75,0.4764,0.5837,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,RB Leipzig vs Ein Frankfurt,bundesliga,Ein Frankfurt,visitante,a_puerta,3.5,1.846,1.818,0.4962,0.5803,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Man United vs Tottenham,premier,Man United,local,tiros,17.5,1.909,1.76,0.4797,0.588,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Man United vs Tottenham,premier,Man United,local,a_puerta,5.5,1.714,1.96,0.5335,0.6728,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Man United vs Tottenham,premier,Tottenham,visitante,tiros,11.5,1.846,1.818,0.4962,0.4486,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Man United vs Tottenham,premier,Tottenham,visitante,a_puerta,3.5,1.733,1.941,0.5283,0.541,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Barcelona vs Getafe,laliga,Barcelona,local,tiros,20.5,1.833,1.833,0.5,0.6368,más,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Barcelona vs Getafe,laliga,Barcelona,local,a_puerta,8.5,1.875,1.786,0.4878,0.5818,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Barcelona vs Getafe,laliga,Getafe,visitante,tiros,7.5,2.0,1.692,0.4583,0.298,menos,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Barcelona vs Getafe,laliga,Getafe,visitante,a_puerta,2.5,2.0,1.68,0.4565,0.3712,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Toronto FC vs CF Montreal,mls,Toronto FC,local,tiros,14.5,1.846,1.818,0.4962,0.5348,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Toronto FC vs CF Montreal,mls,Toronto FC,local,a_puerta,5.5,2.1,1.625,0.4362,0.4905,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Toronto FC vs CF Montreal,mls,CF Montreal,visitante,tiros,11.5,1.818,1.85,0.5044,0.54,,vivo,,2026-10-09T05:20:11Z
+2026-10-10,Toronto FC vs CF Montreal,mls,CF Montreal,visitante,a_puerta,4.5,2.1,1.625,0.4362,0.4339,,vivo,,2026-10-09T05:20:11Z
