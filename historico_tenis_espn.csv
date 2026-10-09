@@ -3492,6 +3492,7 @@ fecha,circuito,torneo,jugador_1,jugador_2,ganador,sets_1,sets_2,juegos_totales,i
 2026-10-07,WTA,Suzhou Open,Kyoka Okamura,Tatiana Prozorova,Kyoka Okamura,2,1,32,2026-10-07T13:09:20Z
 2026-10-07,WTA,Suzhou Open,Aliaksandra Sasnovich,Linda Fruhvirtova,Aliaksandra Sasnovich,2,0,14,2026-10-07T13:09:20Z
 2026-10-08,ATP,China Open,Nikola Bartunkova,Karolina Muchova,Nikola Bartunkova,2,0,15,2026-10-08T13:05:45Z
+2026-10-08,ATP,China Open,Mirra Andreeva,Ekaterina Alexandrova,Mirra Andreeva,2,0,26,2026-10-09T13:26:54Z
 2026-10-08,ATP,Rolex Shanghai Masters,Facundo Diaz Acosta,Nuno Borges,Nuno Borges,0,2,21,2026-10-08T13:05:45Z
 2026-10-08,ATP,Rolex Shanghai Masters,Tallon Griekspoor,Pavel Kotov,Pavel Kotov,0,2,23,2026-10-08T13:05:45Z
 2026-10-08,ATP,Rolex Shanghai Masters,Stefanos Tsitsipas,Kimmer Coppejans,Stefanos Tsitsipas,2,0,21,2026-10-08T13:05:45Z
@@ -3509,9 +3510,33 @@ fecha,circuito,torneo,jugador_1,jugador_2,ganador,sets_1,sets_2,juegos_totales,i
 2026-10-08,ATP,Rolex Shanghai Masters,Jan-Lennard Struff,Martin Landaluce,Jan-Lennard Struff,2,0,20,2026-10-08T13:05:45Z
 2026-10-08,ATP,Rolex Shanghai Masters,Bu Yunchaokete,Luca Van Assche,Bu Yunchaokete,2,0,22,2026-10-08T13:05:45Z
 2026-10-08,ATP,Rolex Shanghai Masters,Zizou Bergs,Vit Kopriva,Zizou Bergs,2,0,16,2026-10-08T13:05:45Z
+2026-10-08,ATP,Rolex Shanghai Masters,Dalibor Svrcina,Cameron Norrie,Dalibor Svrcina,2,1,28,2026-10-09T13:26:54Z
 2026-10-08,WTA,Samsun Open,Ayla Aksu,Alicia Dudeney,Ayla Aksu,2,1,27,2026-10-08T13:05:45Z
 2026-10-08,WTA,Samsun Open,Linda Klimovicova,Simona Waltert,Simona Waltert,0,2,17,2026-10-08T13:05:45Z
+2026-10-08,WTA,Samsun Open,Bianca Andreescu,Mariam Bolkvadze,Bianca Andreescu,2,0,19,2026-10-09T13:26:54Z
+2026-10-08,WTA,Samsun Open,Anna Blinkova,Caroline Werner,Anna Blinkova,2,0,17,2026-10-09T13:26:54Z
 2026-10-08,WTA,Suzhou Open,Tamara Korpatsch,Elvina Kalieva,Elvina Kalieva,1,2,25,2026-10-08T13:05:45Z
 2026-10-08,WTA,Suzhou Open,Emerson Jones,Bai Zhuoxuan,Bai Zhuoxuan,1,2,29,2026-10-08T13:05:45Z
 2026-10-08,WTA,Suzhou Open,Darya Khamutsianskaya,Katarina Zavatska,Katarina Zavatska,0,2,20,2026-10-08T13:05:45Z
 2026-10-08,WTA,Suzhou Open,Aliona Falei,Oleksandra Oliynykova,Aliona Falei,2,0,17,2026-10-08T13:05:45Z
+2026-10-09,ATP,China Open,Elina Svitolina,Zheng Qinwen,Zheng Qinwen,0,2,22,2026-10-09T13:26:54Z
+2026-10-09,ATP,China Open,Iga Swiatek,Elise Mertens,Elise Mertens,0,2,22,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Ugo Humbert,Arthur Gea,Arthur Gea,1,2,26,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Andrey Rublev,Rei Sakamoto,Rei Sakamoto,0,2,20,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Flavio Cobolli,Adrian Mannarino,Adrian Mannarino,1,2,26,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Daniel Altmaier,Ben Shelton,Ben Shelton,0,2,22,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Brandon Nakashima,Matteo Berrettini,Brandon Nakashima,2,0,25,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Alexander Blockx,Quentin Halys,Quentin Halys,1,2,33,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Wu Yibing,Alexander Zverev,Alexander Zverev,0,2,23,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Frances Tiafoe,Yannick Hanfmann,Frances Tiafoe,2,0,20,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Alex Molcan,Alex de Minaur,Alex de Minaur,,,,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Jenson Brooksby,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,0,2,16,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Arthur Fery,Karen Khachanov,Karen Khachanov,1,2,39,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Roman Safiullin,Francisco Cerundolo,Francisco Cerundolo,0,2,22,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Jakub Mensik,Miomir Kecmanovic,Jakub Mensik,2,0,18,2026-10-09T13:26:54Z
+2026-10-09,ATP,Rolex Shanghai Masters,Hubert Hurkacz,Novak Djokovic,Hubert Hurkacz,2,0,19,2026-10-09T13:26:54Z
+2026-10-09,WTA,Samsun Open,Fiona Crawley,Ayla Aksu,Ayla Aksu,1,2,28,2026-10-09T13:26:54Z
+2026-10-09,WTA,Suzhou Open,Kyoka Okamura,Bai Zhuoxuan,Kyoka Okamura,2,0,20,2026-10-09T13:26:54Z
+2026-10-09,WTA,Suzhou Open,Renata Zarazua,Katarina Zavatska,Renata Zarazua,2,0,20,2026-10-09T13:26:54Z
+2026-10-09,WTA,Suzhou Open,Elvina Kalieva,Aliaksandra Sasnovich,Elvina Kalieva,2,0,22,2026-10-09T13:26:54Z
+2026-10-09,WTA,Suzhou Open,Rebecca Sramkova,Aliona Falei,Rebecca Sramkova,2,1,23,2026-10-09T13:26:54Z
