@@ -20611,22 +20611,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014061,2026-08-02,col_primera_a,CD Jaguares,Carlos Cantillo,1416590,M,0,16,0,0,0,0.0,,2.0,212049.0
 1000014061,2026-08-02,col_primera_a,CD Jaguares,Esteban Beltrán,1512740,F,0,16,1,1,0,0.01,,3.0,316055.0
 1000014061,2026-08-02,col_primera_a,CD Jaguares,Diego Zuluaga,1929090,M,0,4,2,1,0,0.07,,2.0,
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Franco Armani,206758,G,1,90,0,0,0,0.0,11.0,0.0,330090.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Andrés Román,925847,D,1,90,0,0,0,0.0,32.0,1.0,828035.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Simón García,1579303,D,1,90,0,0,0,0.0,34.0,1.0,
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,William Tesillo,207383,D,1,90,1,0,0,0.01,36.0,1.0,292660.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Milton Casco,174813,D,1,90,0,0,0,0.0,38.0,1.0,295301.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Mateus Uribe,320618,M,1,81,1,1,0,0.04,64.0,2.0,385053.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Jorman Campuzano,922875,M,1,90,0,0,0,0.0,66.0,2.0,1273016.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Marlos Moreno,677249,F,1,73,1,1,1,0.05,83.0,3.0,315224.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Edwin Cardona,177507,M,1,73,0,0,0,0.0,85.0,2.0,271803.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Andrés Sarmiento,942987,F,1,73,3,1,1,0.25,87.0,3.0,729805.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Alfredo Morelos,579660,F,1,72,4,2,1,0.39,115.0,3.0,1683126.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Cristian Arango,452368,F,0,18,1,1,0,0.02,,3.0,1787565.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Samuel Velásquez,1433031,M,0,17,0,0,0,0.0,,2.0,750662.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Nicolás Rodríguez,1460577,F,0,17,0,0,0,0.0,,3.0,1255252.0
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Juan Rengifo,1798773,F,0,17,0,0,0,0.0,,3.0,
-1000014061,2026-08-02,col_primera_a,Atlético Nacional,Kevin Parra,1439545,M,0,9,1,0,0,0.1,,2.0,1156433.0
 5853450,2026-08-02,rumania,Rapid Bucuresti,Mihai Aioani,943864,G,1,90,0,0,0,0.0,11.0,0.0,
 5853450,2026-08-02,rumania,Rapid Bucuresti,Denis Ciobotariu,943868,D,1,90,1,0,0,0.0,32.0,1.0,632220.0
 5853450,2026-08-02,rumania,Rapid Bucuresti,Daniel Graovac,466868,D,1,90,0,0,0,0.0,34.0,1.0,101999.0
@@ -22976,22 +22960,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000018866,2026-08-04,ven_primera,Portuguesa FC,Guillermo Benítez,1017513,D,0,17,0,0,0,0.0,,1.0,176175.0
 1000018866,2026-08-04,ven_primera,Portuguesa FC,Ricardo Toussaint,0,M,0,17,0,0,0,0.0,,2.0,
 1000018866,2026-08-04,ven_primera,Portuguesa FC,Víctor Navas,1280898,M,0,13,0,0,0,0.0,,2.0,241156.0
-1000014069,2026-08-04,col_primera_a,Tolima,Miguel Ortega,797357,G,1,90,0,0,0,0.0,11.0,0.0,268625.0
-1000014069,2026-08-04,col_primera_a,Tolima,Jherson Mosquera,1362307,D,1,65,0,0,0,0.0,32.0,1.0,485775.0
-1000014069,2026-08-04,col_primera_a,Tolima,Jan Ángulo,1438665,D,1,90,0,0,0,0.0,34.0,1.0,775276.0
-1000014069,2026-08-04,col_primera_a,Tolima,Yordan Osorio,617622,D,1,90,1,0,0,0.02,36.0,1.0,317110.0
-1000014069,2026-08-04,col_primera_a,Tolima,Cristian Arrieta,830518,D,1,65,1,0,0,0.09,38.0,1.0,271536.0
-1000014069,2026-08-04,col_primera_a,Tolima,Homer Martínez,1028441,M,1,65,3,2,0,0.04,64.0,2.0,672000.0
-1000014069,2026-08-04,col_primera_a,Tolima,Sebastián Guzmán,1020112,M,1,90,2,1,1,0.81,66.0,2.0,442287.0
-1000014069,2026-08-04,col_primera_a,Tolima,Jorge Hurtado,1341010,F,1,73,0,0,0,0.0,83.0,3.0,481147.0
-1000014069,2026-08-04,col_primera_a,Tolima,Luis Sandoval,950571,M,1,90,4,1,0,0.39,85.0,2.0,669755.0
-1000014069,2026-08-04,col_primera_a,Tolima,Edwar López,930398,F,1,90,1,0,0,0.1,87.0,3.0,318229.0
-1000014069,2026-08-04,col_primera_a,Tolima,Adrián Parra,1337886,F,1,66,1,0,0,0.24,115.0,3.0,512154.0
-1000014069,2026-08-04,col_primera_a,Tolima,Luis Sánchez,1037137,M,0,25,3,2,0,0.33,,2.0,535543.0
-1000014069,2026-08-04,col_primera_a,Tolima,Ever Valencia,840964,F,0,25,2,1,0,0.11,,3.0,286232.0
-1000014069,2026-08-04,col_primera_a,Tolima,Kelvin Flórez,1634837,F,0,25,2,2,0,0.14,,3.0,904921.0
-1000014069,2026-08-04,col_primera_a,Tolima,Junior Hernández,1200384,D,0,24,1,1,1,0.36,,1.0,596783.0
-1000014069,2026-08-04,col_primera_a,Tolima,Jader Valencia,925846,F,0,17,1,1,0,0.05,,3.0,340479.0
 1000014069,2026-08-04,col_primera_a,Independiente Medellín,Eder Chaux,425610,G,1,90,0,0,0,0.0,11.0,0.0,247412.0
 1000014069,2026-08-04,col_primera_a,Independiente Medellín,Esneyder Mena,1015282,D,1,90,0,0,0,0.0,32.0,1.0,627740.0
 1000014069,2026-08-04,col_primera_a,Independiente Medellín,Luis Escorcia,1680046,D,1,90,0,0,0,0.0,34.0,1.0,573615.0
@@ -136618,3 +136586,97 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190753,2026-10-08,bra_serie_b,Criciúma,Willean Lepo,942855,D,0,21,0,0,0,0.0,,1.0,529570.0
 5190753,2026-10-08,bra_serie_b,Criciúma,Eduardo,884063,M,0,15,0,0,0,0.0,,2.0,209000.0
 5190753,2026-10-08,bra_serie_b,Criciúma,João Carlos,1463464,F,0,15,2,0,0,0.1,,3.0,275573.0
+5103646,2026-10-08,brasil,Santos,Diógenes,1272356,G,1,90,0,0,0,0.0,11.0,0.0,643222.0
+5103646,2026-10-08,brasil,Santos,Rodinei,400256,D,1,90,1,0,0,0.07,32.0,1.0,351286.0
+5103646,2026-10-08,brasil,Santos,Lucas Veríssimo,699694,D,1,90,0,0,0,0.0,34.0,1.0,2344525.0
+5103646,2026-10-08,brasil,Santos,Willian Arão,305713,D,1,90,0,0,0,0.0,36.0,1.0,559445.0
+5103646,2026-10-08,brasil,Santos,Gonzalo Escobar,751010,D,1,69,0,0,0,0.0,38.0,1.0,971724.0
+5103646,2026-10-08,brasil,Santos,Gabriel Bontempo,1712138,M,1,90,3,0,0,0.17,72.0,2.0,11510395.0
+5103646,2026-10-08,brasil,Santos,Gustavo Henrique,1744831,M,1,66,0,0,0,0.0,74.0,2.0,
+5103646,2026-10-08,brasil,Santos,Christian Oliva,925841,M,1,90,0,0,0,0.0,76.0,2.0,1145550.0
+5103646,2026-10-08,brasil,Santos,Álvaro Barreal,959915,M,1,45,1,1,0,0.06,78.0,2.0,8430169.0
+5103646,2026-10-08,brasil,Santos,Philippe Coutinho,184536,M,1,45,1,0,0,0.06,95.0,2.0,1379654.0
+5103646,2026-10-08,brasil,Santos,Gabriel Barbosa,450848,F,1,90,6,1,0,0.43,115.0,3.0,3898158.0
+5103646,2026-10-08,brasil,Santos,Rony,796732,F,0,45,2,0,0,0.06,,3.0,3943303.0
+5103646,2026-10-08,brasil,Santos,Neymar,19533,F,0,45,2,2,2,1.58,,3.0,3164836.0
+5103646,2026-10-08,brasil,Santos,Benjamín Rollheiser,1073365,F,0,24,0,0,0,0.0,,3.0,10498729.0
+5103646,2026-10-08,brasil,Santos,Luan Peres,763386,D,0,21,0,0,0,0.0,,1.0,652890.0
+5103646,2026-10-08,brasil,Flamengo,Agustín Rossi,616528,G,1,90,0,0,0,0.0,11.0,0.0,10302411.0
+5103646,2026-10-08,brasil,Flamengo,Emerson Royal,797908,D,1,90,0,0,0,0.0,32.0,1.0,5113157.0
+5103646,2026-10-08,brasil,Flamengo,Danilo,208077,D,1,90,2,1,1,0.23,34.0,1.0,1434786.0
+5103646,2026-10-08,brasil,Flamengo,Léo Pereira,523801,D,1,90,0,0,0,0.0,36.0,1.0,9013804.0
+5103646,2026-10-08,brasil,Flamengo,Alex Sandro,157865,D,1,90,0,0,0,0.0,38.0,1.0,1146109.0
+5103646,2026-10-08,brasil,Flamengo,Erick Pulgar,335606,M,1,90,0,0,0,0.0,64.0,2.0,2545937.0
+5103646,2026-10-08,brasil,Flamengo,Jorginho,282775,M,1,90,0,0,0,0.0,66.0,2.0,2630944.0
+5103646,2026-10-08,brasil,Flamengo,Jorge Carrascal,784834,F,1,69,0,0,0,0.0,83.0,3.0,13591152.0
+5103646,2026-10-08,brasil,Flamengo,Lucas Paquetá,766435,M,1,69,4,2,1,0.13,85.0,2.0,36543468.0
+5103646,2026-10-08,brasil,Flamengo,Samuel Lino,1082941,F,1,81,4,2,0,0.54,87.0,3.0,16513115.0
+5103646,2026-10-08,brasil,Flamengo,Pedro,750067,F,1,81,2,1,0,0.26,115.0,3.0,17595796.0
+5103646,2026-10-08,brasil,Flamengo,Saúl,309334,M,0,21,0,0,0,0.0,,2.0,1101405.0
+5103646,2026-10-08,brasil,Flamengo,Gonzalo Plata,980311,F,0,21,0,0,0,0.0,,3.0,6918239.0
+5103646,2026-10-08,brasil,Flamengo,Bruno Henrique,638778,F,0,9,0,0,0,0.0,,3.0,1017443.0
+5103646,2026-10-08,brasil,Flamengo,Luiz Araújo,750913,F,0,9,0,0,0,0.0,,3.0,4885147.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Franco Armani,206758,G,1,90,0,0,0,0.0,11.0,0.0,393145.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Andrés Román,925847,D,1,90,2,1,0,0.08,32.0,1.0,811981.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Neider Parra,1910334,D,1,90,0,0,0,0.0,34.0,1.0,523893.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,César Haydar,1139171,D,1,90,0,0,0,0.0,36.0,1.0,650593.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Milton Casco,174813,D,1,59,0,0,0,0.0,38.0,1.0,340632.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Jorman Campuzano,922875,M,1,70,0,0,0,0.0,64.0,2.0,1210873.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Elías Cabrera,1400295,M,1,90,2,0,0,0.06,66.0,2.0,1384875.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Yeicar Perlaza,1445699,F,1,45,1,1,0,0.18,83.0,3.0,426266.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,James Rodríguez,164684,M,1,90,4,2,0,0.16,85.0,2.0,849147.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Edwin Cardona,177507,F,1,59,0,0,0,0.0,87.0,3.0,255890.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Ian Poveda,962075,F,1,87,3,1,0,0.32,115.0,3.0,1017598.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Mateus Uribe,320618,M,0,45,1,1,0,0.24,,2.0,439704.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Samuel Velásquez,1433031,M,0,31,0,0,0,0.0,,2.0,677247.0
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Juan Rengifo,1798773,F,0,31,0,0,0,0.0,,3.0,
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Andrés Marín,1813504,D,0,20,1,0,0,0.03,,1.0,
+1000014127,2026-10-08,col_primera_a,Atlético Nacional,Emanuel Benitez,2325552,F,0,3,0,0,0,0.0,,3.0,
+1000014127,2026-10-08,col_primera_a,Tolima,Neto,319677,G,1,90,0,0,0,0.0,11.0,0.0,460527.0
+1000014127,2026-10-08,col_primera_a,Tolima,Jherson Mosquera,1362307,D,1,90,0,0,0,0.0,32.0,1.0,485590.0
+1000014127,2026-10-08,col_primera_a,Tolima,Homer Martínez,1028441,D,1,90,1,0,0,0.07,34.0,1.0,623411.0
+1000014127,2026-10-08,col_primera_a,Tolima,Anderson Angulo,1106037,D,1,90,0,0,0,0.0,36.0,1.0,440397.0
+1000014127,2026-10-08,col_primera_a,Tolima,Shean Barbosa,1461049,D,1,66,0,0,0,0.0,38.0,1.0,
+1000014127,2026-10-08,col_primera_a,Tolima,Junior Hernández,1200384,M,1,90,2,1,0,0.09,64.0,2.0,716182.0
+1000014127,2026-10-08,col_primera_a,Tolima,Brayan Rovira,801008,M,1,90,4,2,0,0.13,66.0,2.0,478907.0
+1000014127,2026-10-08,col_primera_a,Tolima,Ever Valencia,840964,F,1,87,3,3,0,0.08,83.0,3.0,275537.0
+1000014127,2026-10-08,col_primera_a,Tolima,Sebastián Guzmán,1020112,M,1,87,2,1,0,0.05,85.0,2.0,573297.0
+1000014127,2026-10-08,col_primera_a,Tolima,Luis Sánchez,1037137,F,1,45,1,0,0,0.16,87.0,3.0,551722.0
+1000014127,2026-10-08,col_primera_a,Tolima,Sergio Aguayo,1603853,F,1,74,2,1,0,0.06,115.0,3.0,
+1000014127,2026-10-08,col_primera_a,Tolima,Adrián Parra,1337886,F,0,45,1,0,0,0.06,,3.0,588823.0
+1000014127,2026-10-08,col_primera_a,Tolima,Edwar López,930398,F,0,24,0,0,0,0.0,,3.0,390969.0
+1000014127,2026-10-08,col_primera_a,Tolima,Luis Sandoval,950571,F,0,16,0,0,0,0.0,,3.0,1046455.0
+1000014127,2026-10-08,col_primera_a,Tolima,Juan Mera,1435543,D,0,3,0,0,0,0.0,,1.0,
+1000014127,2026-10-08,col_primera_a,Tolima,Jader Valencia,925846,F,0,3,0,0,0,0.0,,3.0,323789.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Mycael,1400078,G,1,90,0,0,0,0.0,11.0,0.0,
+5103651,2026-10-08,brasil,Athletico Paranaense,Arthur Dias,1681911,D,1,90,3,0,0,0.32,33.0,1.0,5852445.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Carlos Terán,1053726,D,1,81,2,0,0,0.57,35.0,1.0,1264766.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Lucas Esquivel,1201038,D,1,89,2,0,0,0.04,37.0,1.0,7427088.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Gilberto,387499,M,1,61,1,1,0,0.1,62.0,2.0,1547194.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Jádson,319591,M,1,90,2,1,0,0.06,64.0,2.0,746175.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Luiz Gustavo,147729,M,1,81,4,1,0,0.1,66.0,2.0,446825.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Stiven Mendoza,280758,M,1,90,1,1,0,0.03,68.0,2.0,683156.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Kerwin Vargas,1285541,M,1,90,3,1,1,0.14,84.0,2.0,3562132.0
+5103651,2026-10-08,brasil,Athletico Paranaense,João Cruz,1590303,M,1,61,4,2,0,0.54,86.0,2.0,4378128.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Kevin Viveros,941671,F,1,90,2,1,1,0.06,105.0,3.0,8624928.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Claudinho,1927904,D,0,29,2,0,0,0.14,,1.0,
+5103651,2026-10-08,brasil,Athletico Paranaense,Leozinho,1636609,F,0,29,3,2,0,0.08,,3.0,854351.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Bruno Zapelli,1269982,M,0,9,1,0,0,0.23,,2.0,4285879.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Jorge Rivaldo,1604114,F,0,9,1,0,0,0.07,,3.0,1183879.0
+5103651,2026-10-08,brasil,Athletico Paranaense,Gilberto,1815988,D,0,1,0,0,0,0.0,,1.0,1977448.0
+5103651,2026-10-08,brasil,Atlético-MG,Gabriel Delfim,1412963,G,1,90,0,0,0,0.0,11.0,0.0,608558.0
+5103651,2026-10-08,brasil,Atlético-MG,Natanael,1173565,D,1,90,1,1,0,0.03,32.0,1.0,5016295.0
+5103651,2026-10-08,brasil,Atlético-MG,Vitão,1804861,D,1,90,0,0,0,0.0,34.0,1.0,
+5103651,2026-10-08,brasil,Atlético-MG,Lyanco,654045,D,1,90,1,1,1,0.1,36.0,1.0,2482217.0
+5103651,2026-10-08,brasil,Atlético-MG,Renan Lodi,793876,D,1,90,1,1,0,0.02,38.0,1.0,10674850.0
+5103651,2026-10-08,brasil,Atlético-MG,Fred,322049,M,1,38,0,0,0,0.0,73.0,2.0,2125339.0
+5103651,2026-10-08,brasil,Atlético-MG,Maycon,732294,M,1,67,1,1,0,0.02,75.0,2.0,1553959.0
+5103651,2026-10-08,brasil,Atlético-MG,Mamady Cissé,1898808,M,1,68,0,0,0,0.0,77.0,2.0,1947201.0
+5103651,2026-10-08,brasil,Atlético-MG,Tomás Cuello,834605,F,1,90,3,2,0,0.41,103.0,3.0,6385907.0
+5103651,2026-10-08,brasil,Atlético-MG,Reinier,1075046,F,1,76,0,0,0,0.0,105.0,3.0,1861282.0
+5103651,2026-10-08,brasil,Atlético-MG,Bernard,265116,F,1,76,4,2,1,0.23,107.0,3.0,683156.0
+5103651,2026-10-08,brasil,Atlético-MG,Victor Hugo,1363368,M,0,52,4,1,0,0.7,,2.0,9321170.0
+5103651,2026-10-08,brasil,Atlético-MG,Tomás Pérez,1508514,M,0,23,0,0,0,0.0,,2.0,5345700.0
+5103651,2026-10-08,brasil,Atlético-MG,Kevin Castaño,1434853,M,0,22,0,0,0,0.0,,2.0,5101356.0
+5103651,2026-10-08,brasil,Atlético-MG,Igor Gomes,902694,M,0,14,0,0,0,0.0,,2.0,1393282.0
+5103651,2026-10-08,brasil,Atlético-MG,Thiago Borbas,1132940,F,0,14,0,0,0,0.0,,3.0,4206529.0
