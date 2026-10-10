@@ -25,8 +25,8 @@
   },
   "Atlético de San Luis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Atlanta",
-    "ratio": 0.6111,
+    "candidato": "Atletico Balboa",
+    "ratio": 0.6286,
     "visto": "2026-10-10"
   },
   "Barracas Central": {
@@ -115,8 +115,8 @@
   },
   "Gimnasia y Esgrima (Jujuy)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia E.R.",
-    "ratio": 0.6111,
+    "candidato": "Gimnasia Jujuy",
+    "ratio": 0.7368,
     "visto": "2026-10-10"
   },
   "Independiente Medellín": {
@@ -168,10 +168,10 @@
     "visto": "2026-10-10"
   },
   "Liga de Quito": {
-    "candidato": "LDU Quito",
     "contexto": "cuotas_mx→futbol",
+    "candidato": "LDU Quito",
     "ratio": 0.7273,
-    "visto": "2026-09-20"
+    "visto": "2026-10-10"
   },
   "Manchester United": {
     "contexto": "cuotas_mx→futbol",
@@ -253,8 +253,8 @@
   },
   "San Diego FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo",
-    "ratio": 0.6,
+    "candidato": "San Miguel",
+    "ratio": 0.6316,
     "visto": "2026-10-10"
   },
   "Sportivo Luqueño": {
@@ -277,8 +277,8 @@
   },
   "Universidad Católica (Quito)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Universidad O&M",
-    "ratio": 0.6341,
+    "candidato": "U. Catolica",
+    "ratio": 0.5556,
     "visto": "2026-10-10"
   },
   "Wolverhampton Wanderers": {
@@ -317,7 +317,7 @@
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sumsel United",
+    "candidato": "Mandel United",
     "ratio": 0.5926,
     "visto": "2026-10-10"
   },
@@ -353,8 +353,8 @@
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Atlanta",
-    "ratio": 0.4667,
+    "candidato": "Mandel United",
+    "ratio": 0.6667,
     "visto": "2026-10-10"
   },
   "New York City FC": {
@@ -365,8 +365,8 @@
   },
   "Philadelphia Union": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Royale Union SG",
-    "ratio": 0.4848,
+    "candidato": "Shaanxi Union",
+    "ratio": 0.5161,
     "visto": "2026-10-10"
   },
   "Red Bull New York": {
@@ -455,8 +455,8 @@
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CA Estudiantes",
-    "ratio": 0.5789,
+    "candidato": "Estudiantes Rio Cuarto",
+    "ratio": 0.6087,
     "visto": "2026-10-10"
   },
   "San Miguel": {
@@ -557,8 +557,8 @@
   },
   "Minnesota United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.56,
+    "candidato": "Mandel United",
+    "ratio": 0.6897,
     "visto": "2026-10-10"
   },
   "New England Revolution": {
@@ -575,8 +575,8 @@
   },
   "D.C. United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sumsel United",
-    "ratio": 0.6087,
+    "candidato": "Mandel United",
+    "ratio": 0.6957,
     "visto": "2026-10-10"
   },
   "Deportivo Morón": {
@@ -587,13 +587,13 @@
   },
   "Mitre (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Academia del Balompie",
-    "ratio": 0.3913,
+    "candidato": "CA Mitre",
+    "ratio": 0.303,
     "visto": "2026-10-10"
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Carlos",
+    "candidato": "San Miguel",
     "ratio": 0.6316,
     "visto": "2026-10-10"
   },
@@ -617,8 +617,8 @@
   },
   "Racing (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Cordoba",
-    "ratio": 0.6897,
+    "candidato": "Jaguares de Cordoba",
+    "ratio": 0.5455,
     "visto": "2026-10-10"
   },
   "Godoy Cruz Antonio Tomba": {
@@ -629,8 +629,8 @@
   },
   "New Mexico United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "New Zealand W",
-    "ratio": 0.5,
+    "candidato": "Mandel United",
+    "ratio": 0.6,
     "visto": "2026-10-10"
   },
   "Sacramento Republic FC": {
@@ -1283,8 +1283,8 @@
   },
   "Universidad Católica": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Universidad O&M",
-    "ratio": 0.7429,
+    "candidato": "U. Catolica",
+    "ratio": 0.6667,
     "visto": "2026-10-10"
   },
   "Deportivo La Guaira": {
@@ -1385,9 +1385,9 @@
   },
   "West Bromwich Albion": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "West Brom U21",
-    "ratio": 0.6061,
-    "visto": "2026-10-09"
+    "candidato": "Qingdao West Coast",
+    "ratio": 0.3684,
+    "visto": "2026-10-10"
   },
   "Cercle Brugge KSV": {
     "contexto": "cuotas_mx→futbol",
@@ -1421,9 +1421,9 @@
   },
   "RB Leipzig": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Chemie Leipzig",
-    "ratio": 0.6667,
-    "visto": "2026-10-09"
+    "candidato": "Lokomotive Leipzig",
+    "ratio": 0.5714,
+    "visto": "2026-10-10"
   },
   "Vasco da Gama": {
     "contexto": "cuotas_mx→futbol",
@@ -1631,8 +1631,8 @@
   },
   "JEF United Ichihara-Chiba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.4706,
+    "candidato": "Mandel United",
+    "ratio": 0.4211,
     "visto": "2026-10-10"
   },
   "Sporting Cristal": {
@@ -1661,8 +1661,8 @@
   },
   "Newcastle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.64,
+    "candidato": "Mandel United",
+    "ratio": 0.6897,
     "visto": "2026-10-10"
   },
   "GV San José": {
@@ -1673,8 +1673,8 @@
   },
   "NorthEast United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.56,
+    "candidato": "Mandel United",
+    "ratio": 0.6207,
     "visto": "2026-10-10"
   },
   "Alianza Atlético": {
@@ -1697,14 +1697,14 @@
   },
   "Estudiantes de Mérida": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CA Estudiantes",
-    "ratio": 0.6286,
+    "candidato": "Estudiantes Rio Cuarto",
+    "ratio": 0.6977,
     "visto": "2026-10-10"
   },
   "Talleres (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Cordoba",
-    "ratio": 0.7097,
+    "candidato": "Jaguares de Cordoba",
+    "ratio": 0.6857,
     "visto": "2026-10-10"
   },
   "SK Sturm Graz": {
@@ -1793,8 +1793,8 @@
   },
   "Buriram United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.6087,
+    "candidato": "Mandel United",
+    "ratio": 0.5926,
     "visto": "2026-10-10"
   },
   "AFC Bournemouth": {
@@ -1853,8 +1853,8 @@
   },
   "Independiente Petrolero": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Oriente Petrolero",
-    "ratio": 0.75,
+    "candidato": "Independiente CBBA",
+    "ratio": 0.6829,
     "visto": "2026-10-10"
   },
   "Academia Puerto Cabello": {
