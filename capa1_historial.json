@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T14:24:32Z",
+"actualizado": "2026-10-10T16:03:02Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3306,6 +3306,16 @@
 "dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Augsburg vs Bayern Munich",
+"apuesta": "Gana Bayern Munich",
+"cuota": 1.2,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Carlisle vs Kidderminster",
 "apuesta": "Carlisle o empate",
 "cuota": 1.154,
@@ -3324,6 +3334,16 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "FK Ceska Lipa vs Zizkov",
+"apuesta": "Gana Zizkov",
+"cuota": 2.9,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-10",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Hillerod vs Fredericia",
@@ -3335,12 +3355,42 @@
 {
 "dia": "2026-10-10",
 "nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Hodonin vs FK Frydek-Mistek",
+"apuesta": "Gana FK Frydek-Mistek",
+"cuota": 2.75,
+"resultado": "rojo",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Hoffenheim vs Hamburg",
+"apuesta": "Hoffenheim o empate",
+"cuota": 1.125,
+"resultado": "rojo",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
 "deporte": "MLB",
 "partido": "KIA Tigers vs SSG Landers",
 "apuesta": "Gana KIA Tigers",
 "cuota": 1.48,
 "resultado": "verde",
 "marcador": "8-5"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Liefering vs Sturm Graz II",
+"apuesta": "Gana Sturm Graz II",
+"cuota": 2.55,
+"resultado": "rojo",
+"marcador": "3-1"
 },
 {
 "dia": "2026-10-10",
@@ -3361,6 +3411,16 @@
 "cuota": 3.35,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Nesebar vs CSKA Sofia II",
+"apuesta": "Gana CSKA Sofia II",
+"cuota": 2.25,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-10",
@@ -3426,6 +3486,16 @@
 "dia": "2026-10-10",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Svoge vs Hebar",
+"apuesta": "Gana Hebar",
+"cuota": 2.5,
+"resultado": "verde",
+"marcador": "1-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Usti nad Labem B vs Velvary",
 "apuesta": "Gana Usti nad Labem B",
 "cuota": 2.7,
@@ -3441,6 +3511,16 @@
 "cuota": 3.05,
 "resultado": "verde",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Vitkovice vs Karvina B",
+"apuesta": "Gana Vitkovice",
+"cuota": 1.52,
+"resultado": "rojo",
+"marcador": "0-4"
 },
 {
 "dia": "2026-10-10",
