@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T00:18:46Z",
+"actualizado": "2026-10-10T01:52:04Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3031,6 +3031,16 @@
 "cuota": 1.69,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Deportivo Maldonado vs Liverpool",
+"apuesta": "Gana Deportivo Maldonado",
+"cuota": 2.4546,
+"resultado": "rojo",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-09",
