@@ -431,3 +431,7 @@ capturado,fecha,clave_liga,partido,inicio,f_local,f_visita,lam0,lam1,p25_0,p25_1
 2026-10-10T00:13:58Z,2026-10-12,esp_hypermotion,Tenerife vs Girona,2026-10-12 19:00:00,0.9957,1.0,1.15,1.148,0.1099,0.1094,2.125,1.667
 2026-10-10T00:13:58Z,2026-10-12,col_primera_a,América de Cali vs Independiente Medellín,2026-10-12 01:15:00,1.0,0.9789,1.33,1.315,0.1498,0.1464,1.933,1.778
 2026-10-10T00:13:58Z,2026-10-12,chi_primera,Universidad de Chile vs Ñublense,2026-10-12 20:00:00,1.0,1.0,2.27,2.27,0.396,0.396,1.727,2.05
+2026-10-10T00:36:37Z,2026-10-10,liga_mx,Puebla vs Club Leon,2026-10-10 01:00:00,0.9575,1.0,2.39,2.333,0.4278,0.4127,1.923,1.909
+2026-10-10T00:36:37Z,2026-10-11,mls,Minnesota United vs Houston Dynamo,2026-10-11 00:30:00,0.9961,1.0306,2.979,3.012,0.5721,0.5795,1.68,2.2
+2026-10-10T00:36:37Z,2026-10-11,mls,Sporting Kansas City vs Portland Timbers,2026-10-11 00:30:00,0.989,0.9993,2.88,2.863,0.5495,0.5454,1.35,3.143
+2026-10-10T00:36:37Z,2026-10-10,argentina,Union de Santa Fe vs Defensa y Justicia,2026-10-10 00:45:00,1.0325,0.9891,2.02,2.049,0.3287,0.3366,2.125,1.68
