@@ -17046,21 +17046,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009041,2026-07-28,ecu_liga_pro,Emelec,Luis Fragozo,1795641,F,0,45,2,0,0,0.0,,3.0,
 1000009041,2026-07-28,ecu_liga_pro,Emelec,Mario Valero,1032281,G,0,16,0,0,0,0.0,,0.0,147410.0
 1000009041,2026-07-28,ecu_liga_pro,Emelec,Andrés Viteri,1950636,F,0,7,0,0,0,0.0,,3.0,
-5115893,2026-07-29,argentina,Defensa y Justicia,Matías Borgogno,938344,G,1,90,0,0,0,0.0,11.0,0.0,1864104.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Lucas Souto,1216361,D,1,90,1,1,0,0.36,32.0,1.0,441750.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Damián Fernández,1087551,D,1,90,0,0,0,0.0,34.0,1.0,1665439.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Esteban Lucero,1410456,D,1,90,0,0,0,0.0,36.0,1.0,906181.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Máximo Rodríguez,1895887,D,1,66,0,0,0,0.0,38.0,1.0,
-5115893,2026-07-29,argentina,Defensa y Justicia,Santiago Sosa,1635811,M,1,90,0,0,0,0.0,64.0,2.0,1847599.0
-5115893,2026-07-29,argentina,Defensa y Justicia,César Pérez,1338317,M,1,90,2,0,0,0.13,66.0,2.0,2228631.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Agustín Hausch,1128740,F,1,66,2,2,0,0.1,83.0,3.0,633696.0
-5115893,2026-07-29,argentina,Defensa y Justicia,David Barbona,609985,M,1,75,2,2,1,0.93,85.0,2.0,315180.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Juan Gutiérrez,1086539,F,1,90,3,2,1,0.26,87.0,3.0,1092020.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Leandro Fernández,306126,F,1,89,1,0,0,0.13,115.0,3.0,327621.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Fernando Román,1206543,D,0,24,0,0,0,0.0,,1.0,388378.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Ayrton Portillo,1226758,M,0,24,1,0,0,0.01,,2.0,1270956.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Domingo Blanco,723671,M,0,15,0,0,0,0.0,,2.0,1092743.0
-5115893,2026-07-29,argentina,Defensa y Justicia,Valentín Loza,1901742,D,0,1,0,0,0,0.0,,1.0,
 5115893,2026-07-29,argentina,Deportivo Riestra,Ignacio Arce,306529,G,1,90,0,0,0,0.0,11.0,0.0,902008.0
 5115893,2026-07-29,argentina,Deportivo Riestra,Facundo Miño,1380869,D,1,66,0,0,0,0.0,33.0,1.0,895257.0
 5115893,2026-07-29,argentina,Deportivo Riestra,Cristian Paz,615905,D,1,90,0,0,0,0.0,35.0,1.0,698153.0
@@ -18529,22 +18514,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115909,2026-08-01,argentina,Gimnasia Mendoza,Nahuel Barboza,1437343,M,0,14,0,0,0,0.0,,2.0,325361.0
 5115909,2026-08-01,argentina,Gimnasia Mendoza,Ignacio Sabatini,1398373,F,0,10,1,1,0,0.21,,3.0,370200.0
 5115909,2026-08-01,argentina,Gimnasia Mendoza,Luciano Paredes,1372927,D,0,2,0,0,0,0.0,,1.0,549722.0
-5115909,2026-08-01,argentina,Unión,Matías Mansilla,1273509,G,1,90,0,0,0,0.0,11.0,0.0,1337724.0
-5115909,2026-08-01,argentina,Unión,Lautaro Vargas,1520065,D,1,67,0,0,0,0.0,32.0,1.0,3201311.0
-5115909,2026-08-01,argentina,Unión,Tomas Fagioli,1945770,D,1,90,0,0,0,0.0,34.0,1.0,
-5115909,2026-08-01,argentina,Unión,Juan Pablo Ludueña,1388618,D,1,90,0,0,0,0.0,36.0,1.0,1003215.0
-5115909,2026-08-01,argentina,Unión,Lucas Ayala,2099285,D,1,67,1,0,0,0.02,38.0,1.0,
-5115909,2026-08-01,argentina,Unión,Lucas Menossi,246408,M,1,90,0,0,0,0.0,65.0,2.0,282134.0
-5115909,2026-08-01,argentina,Unión,Julián Palacios,1110614,F,1,90,1,0,0,0.02,83.0,3.0,
-5115909,2026-08-01,argentina,Unión,Joaquín Mosqueira,1451319,M,1,59,1,0,0,0.1,85.0,2.0,1510887.0
-5115909,2026-08-01,argentina,Unión,Ignacio Malcorra,362229,F,1,80,2,1,0,0.6,87.0,3.0,308710.0
-5115909,2026-08-01,argentina,Unión,Cristian Alberto Tarragona,723668,F,1,90,4,2,0,0.42,104.0,3.0,428147.0
-5115909,2026-08-01,argentina,Unión,Misael Aguirre,1821216,F,1,80,3,1,0,0.41,106.0,3.0,
-5115909,2026-08-01,argentina,Unión,Marcelo Estigarribia,809766,F,0,31,0,0,0,0.0,,3.0,1009826.0
-5115909,2026-08-01,argentina,Unión,Bruno Pittón,673769,D,0,23,0,0,0,0.0,,1.0,259520.0
-5115909,2026-08-01,argentina,Unión,Juan Pintado,799678,D,0,23,0,0,0,0.0,,1.0,816791.0
-5115909,2026-08-01,argentina,Unión,Brahian Cuello,889715,M,0,10,1,0,0,0.03,,2.0,359070.0
-5115909,2026-08-01,argentina,Unión,Eric Ramírez,624411,F,0,10,0,0,0,0.0,,3.0,550698.0
 1000011170,2026-08-01,bol_division,CDT Real Oruro,Álex Arancibia,287527,G,1,90,0,0,0,0.0,11.0,0.0,88857.0
 1000011170,2026-08-01,bol_division,CDT Real Oruro,Francisco Gatti,837849,D,1,90,2,2,0,0.0,32.0,1.0,130224.0
 1000011170,2026-08-01,bol_division,CDT Real Oruro,Leandro Corulo,467949,D,1,90,0,0,0,0.0,34.0,1.0,127739.0
@@ -137973,3 +137942,35 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014590,2026-10-10,liga_mx,León,Jordi Cortizo,737290,M,0,33,0,0,0,0.0,,2.0,1350060.0
 1000014590,2026-10-10,liga_mx,León,Juan Domínguez,1294724,M,0,20,0,0,0,0.0,,2.0,1603440.0
 1000014590,2026-10-10,liga_mx,León,José Alvarado,921579,F,0,5,0,0,0,0.0,,3.0,1177410.0
+1000019564,2026-10-10,argentina,Unión,Matías Mansilla,1273509,G,1,90,0,0,0,0.0,11.0,0.0,1392662.0
+1000019564,2026-10-10,argentina,Unión,Tobías Rubio,1509081,D,1,88,1,0,0,0.02,32.0,1.0,857001.0
+1000019564,2026-10-10,argentina,Unión,Matías Rocha,1231074,D,1,90,1,0,0,0.02,34.0,1.0,368842.0
+1000019564,2026-10-10,argentina,Unión,Juan Pablo Ludueña,1388618,D,1,90,0,0,0,0.0,36.0,1.0,1300287.0
+1000019564,2026-10-10,argentina,Unión,Lucas Ayala,2099285,D,1,81,0,0,0,0.0,38.0,1.0,
+1000019564,2026-10-10,argentina,Unión,Mauro Luna Diale,1034344,M,1,68,0,0,0,0.0,72.0,2.0,456338.0
+1000019564,2026-10-10,argentina,Unión,Emilio Giaccone,1700565,M,1,90,0,0,0,0.0,74.0,2.0,549293.0
+1000019564,2026-10-10,argentina,Unión,Joaquín Mosqueira,1451319,M,1,45,1,0,0,0.51,76.0,2.0,1380453.0
+1000019564,2026-10-10,argentina,Unión,Ignacio Malcorra,362229,M,1,90,5,3,0,0.21,78.0,2.0,344754.0
+1000019564,2026-10-10,argentina,Unión,Cristian Alberto Tarragona,723668,F,1,90,5,0,0,0.71,104.0,3.0,543125.0
+1000019564,2026-10-10,argentina,Unión,Eric Ramírez,624411,F,1,68,4,1,0,0.14,106.0,3.0,551942.0
+1000019564,2026-10-10,argentina,Unión,Brahian Cuello,889715,M,0,45,3,2,0,0.18,,2.0,387976.0
+1000019564,2026-10-10,argentina,Unión,Julián Palacios,1110614,M,0,22,2,0,0,0.05,,2.0,
+1000019564,2026-10-10,argentina,Unión,Marcelo Estigarribia,809766,F,0,22,1,0,0,0.03,,3.0,1108647.0
+1000019564,2026-10-10,argentina,Unión,Misael Aguirre,1821216,F,0,9,2,1,0,0.42,,3.0,
+1000019564,2026-10-10,argentina,Unión,Bruno Pittón,673769,D,0,2,1,0,0,0.02,,1.0,259520.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Matías Borgogno,938344,G,1,90,0,0,0,0.0,11.0,0.0,1718342.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Valentín Loza,1901742,D,1,90,2,0,0,0.27,32.0,1.0,
+1000019564,2026-10-10,argentina,Defensa y Justicia,Damián Fernández,1087551,D,1,90,0,0,0,0.0,34.0,1.0,1576589.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,David Martínez,892174,D,1,90,0,0,0,0.0,36.0,1.0,667536.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Demián Domínguez,1815995,D,1,90,2,0,0,0.03,38.0,1.0,
+1000019564,2026-10-10,argentina,Defensa y Justicia,Santiago Sosa,1635811,M,1,76,1,1,0,0.01,64.0,2.0,2253701.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,César Pérez,1338317,M,1,60,3,2,1,0.76,66.0,2.0,2221481.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Jeremías Lucco,1523550,F,1,73,2,1,0,0.04,83.0,3.0,828512.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,David Barbona,609985,M,1,79,2,0,0,0.07,85.0,2.0,276974.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Juan Gutiérrez,1086539,F,1,79,3,2,1,0.59,87.0,3.0,1887009.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Leandro Fernández,306126,F,1,74,4,2,0,0.08,115.0,3.0,456954.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Maximiliano Porcel,1662970,M,0,30,0,0,0,0.0,,2.0,754951.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Agustín Hausch,1128740,F,0,17,0,0,0,0.0,,3.0,625755.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Tiziano Perrotta,1778729,F,0,16,2,2,0,0.22,,3.0,2488557.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Ezequiel Burdín,1748484,D,0,11,0,0,0,0.0,,1.0,926217.0
+1000019564,2026-10-10,argentina,Defensa y Justicia,Julián López,968125,M,0,11,0,0,0,0.0,,2.0,466021.0
