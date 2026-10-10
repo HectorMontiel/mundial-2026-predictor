@@ -37,8 +37,8 @@
   },
   "Belgrano (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Cordoba",
-    "ratio": 0.7097,
+    "candidato": "Defensores Belgrano VR",
+    "ratio": 0.5263,
     "visto": "2026-10-10"
   },
   "Casa Pia": {
@@ -91,20 +91,20 @@
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Rincon",
-    "ratio": 0.7647,
+    "candidato": "Deportivo Moron",
+    "ratio": 0.7273,
     "visto": "2026-10-10"
   },
   "Estudiantes de La Plata": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes L.P.",
-    "ratio": 0.7895,
+    "candidato": "CA Estudiantes",
+    "ratio": 0.5946,
     "visto": "2026-10-10"
   },
   "Estudiantes de Río Cuarto": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes L.P.",
-    "ratio": 0.65,
+    "candidato": "CA Estudiantes",
+    "ratio": 0.5641,
     "visto": "2026-10-10"
   },
   "Fuerte San Francisco": {
@@ -217,14 +217,14 @@
   },
   "Real Madrid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Oruro",
-    "ratio": 0.5714,
+    "candidato": "Real Bedford W",
+    "ratio": 0.6957,
     "visto": "2026-10-10"
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Sociedad B",
-    "ratio": 0.6923,
+    "candidato": "Real Bedford W",
+    "ratio": 0.6957,
     "visto": "2026-10-10"
   },
   "Real Salt Lake": {
@@ -235,14 +235,14 @@
   },
   "Real Sociedad": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B",
-    "ratio": 0.5385,
-    "visto": "2026-10-09"
+    "candidato": "Real Bedford W",
+    "ratio": 0.64,
+    "visto": "2026-10-10"
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Potosi",
-    "ratio": 0.5385,
+    "candidato": "Real Bedford W",
+    "ratio": 0.5926,
     "visto": "2026-10-10"
   },
   "San Antonio FC": {
@@ -401,9 +401,9 @@
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B",
-    "ratio": 0.5517,
-    "visto": "2026-10-09"
+    "candidato": "Real Bedford W",
+    "ratio": 0.5714,
+    "visto": "2026-10-10"
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
@@ -455,8 +455,8 @@
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes L.P.",
-    "ratio": 0.6667,
+    "candidato": "CA Estudiantes",
+    "ratio": 0.5789,
     "visto": "2026-10-10"
   },
   "San Miguel": {
@@ -553,7 +553,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sportivo Italiano",
     "ratio": 0.6667,
-    "visto": "2026-10-04"
+    "visto": "2026-10-10"
   },
   "Minnesota United FC": {
     "contexto": "cuotas_mx→futbol",
@@ -587,8 +587,8 @@
   },
   "Mitre (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Delfines Del Este",
-    "ratio": 0.5714,
+    "candidato": "Academia del Balompie",
+    "ratio": 0.3913,
     "visto": "2026-10-10"
   },
   "San Telmo": {
@@ -791,9 +791,9 @@
   },
   "Atletico Rafaela": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Petro Atletico",
-    "ratio": 0.5333,
-    "visto": "2026-10-09"
+    "candidato": "Atletico Atlanta",
+    "ratio": 0.75,
+    "visto": "2026-10-10"
   },
   "San Martín (Tucumán)": {
     "contexto": "cuotas_mx→futbol",
@@ -1049,9 +1049,9 @@
   },
   "Central Córdoba (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Africa W",
-    "ratio": 0.4082,
-    "visto": "2026-10-09"
+    "candidato": "Central Norte",
+    "ratio": 0.5,
+    "visto": "2026-10-10"
   },
   "Raith Rovers": {
     "contexto": "cuotas_mx→futbol",
@@ -1333,7 +1333,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Santa Cruz",
     "ratio": 0.7619,
-    "visto": "2026-10-09"
+    "visto": "2026-10-10"
   },
   "Rayo Vallecano": {
     "contexto": "cuotas_mx→futbol",
@@ -1403,9 +1403,9 @@
   },
   "Real Oruro": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid B",
-    "ratio": 0.5217,
-    "visto": "2026-10-09"
+    "candidato": "Real Potosi",
+    "ratio": 0.6667,
+    "visto": "2026-10-10"
   },
   "Leones": {
     "contexto": "cuotas_mx→futbol",
@@ -1697,8 +1697,8 @@
   },
   "Estudiantes de Mérida": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes L.P.",
-    "ratio": 0.7222,
+    "candidato": "CA Estudiantes",
+    "ratio": 0.6286,
     "visto": "2026-10-10"
   },
   "Talleres (Córdoba)": {
@@ -1873,6 +1873,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Universidad O&M",
     "ratio": 0.6857,
+    "visto": "2026-10-10"
+  },
+  "Phoenix Rising FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Johvi Phoenix",
+    "ratio": 0.5185,
     "visto": "2026-10-10"
   }
 }

@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T19:13:54Z",
+"actualizado": "2026-10-10T20:46:42Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3384,6 +3384,16 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Centre Chiefs vs Township Rollers",
+"apuesta": "Gana Township Rollers",
+"cuota": 4.3,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Chelsea vs Bournemouth",
@@ -3391,6 +3401,26 @@
 "cuota": 1.2,
 "resultado": "verde",
 "marcador": "5-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Cobresal vs U. De Concepcion",
+"apuesta": "Gana Cobresal",
+"cuota": 2.15,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Cobresal vs Universidad de Concepción",
+"apuesta": "Gana Cobresal",
+"cuota": 1.8334,
+"resultado": "rojo",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-10",
@@ -3404,6 +3434,16 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Deportivo Armenio vs Comunicaciones",
+"apuesta": "Gana Deportivo Armenio",
+"cuota": 2.2,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-10",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Dobrudzha vs Chernomorets 1919",
@@ -3411,6 +3451,16 @@
 "cuota": 1.8,
 "resultado": "verde",
 "marcador": "0-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Duque de Caxias vs Audax RJ",
+"apuesta": "Gana Duque de Caxias",
+"cuota": 1.55,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-10",
@@ -3451,6 +3501,26 @@
 "cuota": 2.9,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Flandria vs Defensores Unidos",
+"apuesta": "Gana Flandria",
+"cuota": 1.95,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Flandria vs Defensores Unidos",
+"apuesta": "Gana Defensores Unidos",
+"cuota": 3.0,
+"resultado": "rojo",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-10",
@@ -3575,6 +3645,16 @@
 {
 "dia": "2026-10-10",
 "nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Ituzaingo vs Argentino de Quilmes",
+"apuesta": "Gana Argentino de Quilmes",
+"cuota": 1.95,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
 "deporte": "MLB",
 "partido": "KIA Tigers vs SSG Landers",
 "apuesta": "Gana KIA Tigers",
@@ -3656,6 +3736,16 @@
 "dia": "2026-10-10",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Nova Cidade vs Campo Grande",
+"apuesta": "Gana Nova Cidade",
+"cuota": 2.85,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Povltavska FA vs Ceske Budejovice",
 "apuesta": "Gana Ceske Budejovice",
 "cuota": 1.4706,
@@ -3681,6 +3771,16 @@
 "cuota": 1.111,
 "resultado": "verde",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sao Cristovao vs Goytacaz",
+"apuesta": "Gana Goytacaz",
+"cuota": 3.05,
+"resultado": "rojo",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-10",
