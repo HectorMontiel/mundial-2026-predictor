@@ -407,8 +407,8 @@
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sumsel United",
-    "ratio": 0.5714,
+    "candidato": "FC United",
+    "ratio": 0.6667,
     "visto": "2026-10-10"
   },
   "Rotherham United": {
@@ -521,14 +521,14 @@
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.7273,
+    "candidato": "Deportivo Rincon",
+    "ratio": 0.75,
     "visto": "2026-10-10"
   },
   "Cúcuta Deportivo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.5455,
+    "candidato": "Deportivo Rincon",
+    "ratio": 0.5625,
     "visto": "2026-10-10"
   },
   "Mineros de Zacatecas": {
@@ -695,9 +695,9 @@
   },
   "Aldershot Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5,
-    "visto": "2026-10-03"
+    "candidato": "Malvern Town",
+    "ratio": 0.6923,
+    "visto": "2026-10-10"
   },
   "Harrogate Town": {
     "contexto": "cuotas_mx→futbol",
@@ -731,9 +731,9 @@
   },
   "Swindon Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.6154,
-    "visto": "2026-10-03"
+    "candidato": "Malvern Town",
+    "ratio": 0.5,
+    "visto": "2026-10-10"
   },
   "FC Halifax Town": {
     "contexto": "cuotas_mx→futbol",
@@ -851,9 +851,9 @@
   },
   "AFC Wimbledon": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Toronto W",
-    "ratio": 0.5,
-    "visto": "2026-10-03"
+    "candidato": "AFC Fylde",
+    "ratio": 0.5455,
+    "visto": "2026-10-10"
   },
   "AFC Hornchurch": {
     "contexto": "cuotas_mx→futbol",
@@ -965,9 +965,9 @@
   },
   "Oldham Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Athletic Club U20",
-    "ratio": 0.5,
-    "visto": "2026-10-08"
+    "candidato": "Redcar Athletic",
+    "ratio": 0.7333,
+    "visto": "2026-10-10"
   },
   "Wigan Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1043,8 +1043,8 @@
   },
   "Deportivo Riestra": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.7059,
+    "candidato": "Deportivo Rincon",
+    "ratio": 0.7273,
     "visto": "2026-10-10"
   },
   "Central Córdoba (Santiago del Estero)": {
@@ -1081,7 +1081,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Plymouth Parkway",
     "ratio": 0.7742,
-    "visto": "2026-10-03"
+    "visto": "2026-10-10"
   },
   "El Paso Locomotive FC": {
     "contexto": "cuotas_mx→futbol",
@@ -1307,8 +1307,8 @@
   },
   "Leeds United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sumsel United",
-    "ratio": 0.64,
+    "candidato": "FC United",
+    "ratio": 0.6667,
     "visto": "2026-10-10"
   },
   "Oxford United": {
@@ -1355,9 +1355,9 @@
   },
   "Charlton Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Charlton U21",
-    "ratio": 0.6207,
-    "visto": "2026-10-09"
+    "candidato": "Redcar Athletic",
+    "ratio": 0.75,
+    "visto": "2026-10-10"
   },
   "Dunfermline Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1691,8 +1691,8 @@
   },
   "Deportivo Cuenca": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.7273,
+    "candidato": "Deportivo Rincon",
+    "ratio": 0.75,
     "visto": "2026-10-10"
   },
   "Estudiantes de Mérida": {
@@ -1763,7 +1763,7 @@
   },
   "Wuhan Three Towns": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Wuhan Jiangda W",
+    "candidato": "Three Bridges",
     "ratio": 0.4667,
     "visto": "2026-10-10"
   },
@@ -1799,8 +1799,8 @@
   },
   "AFC Bournemouth": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Wimbledon",
-    "ratio": 0.5,
+    "candidato": "AFC Totton",
+    "ratio": 0.48,
     "visto": "2026-10-10"
   },
   "Slavia Prague": {

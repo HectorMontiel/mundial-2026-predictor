@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T11:26:54Z",
+"actualizado": "2026-10-10T12:51:05Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3301,6 +3301,16 @@
 "cuota": 1.177,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "MLB",
+"partido": "KIA Tigers vs SSG Landers",
+"apuesta": "Gana KIA Tigers",
+"cuota": 1.48,
+"resultado": "verde",
+"marcador": "8-5"
 },
 {
 "dia": "2026-10-10",

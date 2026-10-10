@@ -138101,3 +138101,95 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5803598,2026-10-10,jpn_j1,Fagiano Okayama FC,Noah Kenshin Browne,1237563,F,0,34,1,0,0,0.03,,3,353696
 5803598,2026-10-10,jpn_j1,Fagiano Okayama FC,Masaya Matsumoto,430846,M,0,12,0,0,0,0.0,,2,377222
 5803598,2026-10-10,jpn_j1,Fagiano Okayama FC,Ryoga Sato,1227816,F,0,9,1,0,0,0.17,,3,500878
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Halls,1282076,G,1,90,0,0,0,0.0,11,0,196915
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Yusuke Ishida,1238159,D,1,90,2,0,0,0.11,33,1,256926
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Yoshinori Suzuki,628316,D,1,90,0,0,0,0.0,35,1,249914
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Kodai Nagata,1716199,D,1,90,0,0,0,0.0,37,1,359894
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Kyo Sato,1337015,D,1,90,1,0,0,0.02,62,1,371453
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Sung-Jun Yoon,1793782,M,1,90,0,0,0,0.0,64,2,702576
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Shinnosuke Fukuda,1437159,D,1,90,0,0,0,0.0,66,1,517751
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Haruki Arai,1285959,F,1,90,1,0,0,0.14,68,3,283987
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Maceió,1617877,F,1,21,1,1,0,0.06,84,3,
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Marco Túlio,897671,F,1,9,1,0,0,0.03,86,3,
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Alex Negueba,1288263,F,1,61,1,1,0,0.15,105,3,384337
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Ren Kato,1337311,D,0,69,2,0,0,0.11,,1,345144
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Ryuma Nakano,1612519,M,0,69,3,1,0,0.23,,2,241655
+5803605,2026-10-10,jpn_j1,Kyoto Sanga FC,Rafael Elias,931201,F,0,29,4,0,0,0.21,,3,1899542
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Kosei Tani,878285,G,1,90,0,0,0,0.0,11,0,1351021
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Gen Shōji,258431,D,1,90,2,1,0,0.03,33,1,265020
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Daihachi Okamura,1134846,D,1,90,1,0,0,0.01,35,1,533886
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Thomas Ouwejan,660136,D,1,89,1,0,0,0.02,37,1,339330
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Henry Mochizuki,1611204,D,1,32,1,1,0,0.04,62,1,970898
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Hiroyuki Mae,645880,M,1,90,0,0,0,0.0,64,2,420318
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Neta Lavi,731955,M,1,90,0,0,0,0.0,66,2,359013
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Takahiro Akimoto,1134833,M,1,32,1,1,1,0.04,68,2,1020059
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Mitchell Duke,245633,F,1,90,0,0,0,0.0,84,3,273928
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Yuki Soma,955320,M,1,90,0,0,0,0.0,86,2,1131064
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Koki Ogawa,727837,F,1,90,2,1,0,0.12,105,3,1348815
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Ibrahim Drešević,772082,D,0,1,0,0,0,0.0,,1,807120
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Takuma Nishimura,621295,M,0,58,1,0,0,0.17,,2,355063
+5803605,2026-10-10,jpn_j1,Machida Zelvia,Tete Yengi,1220549,F,0,72,4,1,0,0.28,,3,599838
+5904762,2026-10-10,turquia,Gençlerbirliği,İrfan Eğribayat,707777,G,1,90,0,0,0,0.0,11,0,856422
+5904762,2026-10-10,turquia,Gençlerbirliği,Metehan Baltacı,1388938,D,1,90,0,0,0,0.0,33,1,1389371
+5904762,2026-10-10,turquia,Gençlerbirliği,Dimitrios Goutas,282615,D,1,90,0,0,0,0.0,35,1,449060
+5904762,2026-10-10,turquia,Gençlerbirliği,Thalisson,815997,D,1,90,1,1,1,0.14,37,1,430918
+5904762,2026-10-10,turquia,Gençlerbirliği,Firatcan Üzüm,848349,D,1,66,2,0,0,0.04,62,1,272127
+5904762,2026-10-10,turquia,Gençlerbirliği,Rafael Luís,1526822,M,1,81,2,1,1,0.16,64,2,3822184
+5904762,2026-10-10,turquia,Gençlerbirliği,Ousmane Diabate,1904467,M,1,90,1,0,0,0.02,66,2,1818308
+5904762,2026-10-10,turquia,Gençlerbirliği,Abdurrahim Dursun,851868,D,1,46,0,0,0,0.0,68,1,299426
+5904762,2026-10-10,turquia,Gençlerbirliği,Tiago Gouveia,1072317,F,1,89,2,0,0,0.07,84,3,2444802
+5904762,2026-10-10,turquia,Gençlerbirliği,Franco Tongya,1051047,M,1,82,1,1,0,0.02,86,2,1525372
+5904762,2026-10-10,turquia,Gençlerbirliği,Pedro Mendes,863130,F,1,90,0,0,0,0.0,105,3,766228
+5904762,2026-10-10,turquia,Gençlerbirliği,Salih Uçan,239061,M,0,45,1,0,0,0.01,,2,349299
+5904762,2026-10-10,turquia,Gençlerbirliği,Hamza Aydar,1801058,D,0,24,0,0,0,0.0,,1,
+5904762,2026-10-10,turquia,Gençlerbirliği,Victor Orakpo,1669931,F,0,9,0,0,0,0.0,,3,630640
+5904762,2026-10-10,turquia,Gençlerbirliği,Prince Martor Jr.,1895450,F,0,8,1,1,0,0.03,,3,
+5904762,2026-10-10,turquia,Gençlerbirliği,Ensar Çavuşoğlu,1897362,D,0,1,0,0,0,0.0,,1,441981
+5904762,2026-10-10,turquia,Amed Sportif,Alban Lafont,698273,G,1,90,0,0,0,0.0,11,0,2238791
+5904762,2026-10-10,turquia,Amed Sportif,Ermal Krasniqi,1315511,F,1,89,2,0,0,0.12,32,3,882891
+5904762,2026-10-10,turquia,Amed Sportif,Lumbardh Dellova,1067805,D,1,84,0,0,0,0.0,34,1,682179
+5904762,2026-10-10,turquia,Amed Sportif,David Bates,470399,D,1,90,1,0,0,0.54,36,1,1213153
+5904762,2026-10-10,turquia,Amed Sportif,Umut Meraş,707668,D,1,90,0,0,0,0.0,38,1,579377
+5904762,2026-10-10,turquia,Amed Sportif,Rayan Raveloson,591529,M,1,90,2,0,0,0.19,64,2,965307
+5904762,2026-10-10,turquia,Amed Sportif,Furkan Soyalp,390642,M,1,89,3,0,0,0.06,66,2,322870
+5904762,2026-10-10,turquia,Amed Sportif,Samuel Ballet,1097796,F,1,90,5,3,1,0.21,83,3,1426557
+5904762,2026-10-10,turquia,Amed Sportif,Dia Saba,289473,M,1,84,5,2,1,0.98,85,2,303671
+5904762,2026-10-10,turquia,Amed Sportif,Mohamed Khalil,1697928,M,1,61,1,0,0,0.02,87,2,280890
+5904762,2026-10-10,turquia,Amed Sportif,Gift Orban,1368557,F,1,90,0,0,0,0.0,115,3,9477132
+5904762,2026-10-10,turquia,Amed Sportif,Ali Turap Bülbül,1393739,D,0,29,0,0,0,0.0,,1,620956
+5904762,2026-10-10,turquia,Amed Sportif,Mehmet Yeşil,751842,D,0,6,0,0,0,0.0,,1,789076
+5904762,2026-10-10,turquia,Amed Sportif,Miraç Acer,1117176,D,0,6,0,0,0,0.0,,1,318757
+5904762,2026-10-10,turquia,Amed Sportif,Cem Üstündag,1385176,M,0,1,0,0,0,0.0,,2,597017
+5904762,2026-10-10,turquia,Amed Sportif,Mbaye Diagne,512734,F,0,1,0,0,0,0.0,,3,468240
+5847197,2026-10-10,rus_premier,FC Orenburg,Bogdan Ovsyannikov,1027313,G,1,90,0,0,0,0.0,11,0,993671
+5847197,2026-10-10,rus_premier,FC Orenburg,Maxime Sivis,822680,D,1,90,0,0,0,0.0,32,1,768968
+5847197,2026-10-10,rus_premier,FC Orenburg,Jhon Palacios,1433042,D,1,90,2,2,1,0.58,34,1,
+5847197,2026-10-10,rus_premier,FC Orenburg,Aleksei Tataev,640668,D,1,78,2,1,0,0.33,36,1,604489
+5847197,2026-10-10,rus_premier,FC Orenburg,Emil Tsenov,1411812,D,1,90,0,0,0,0.0,38,1,854435
+5847197,2026-10-10,rus_premier,FC Orenburg,Ruslan Kul,1204346,M,1,90,0,0,0,0.0,64,2,558842
+5847197,2026-10-10,rus_premier,FC Orenburg,Evgeny Bolotov,1066251,M,1,90,2,0,0,0.05,66,2,818578
+5847197,2026-10-10,rus_premier,FC Orenburg,Jordhy Thompson,1252233,F,1,70,1,1,1,0.79,83,3,1306938
+5847197,2026-10-10,rus_premier,FC Orenburg,Damián Puebla,1437366,M,1,78,3,2,0,0.83,85,2,1976829
+5847197,2026-10-10,rus_premier,FC Orenburg,Dmitri Rybchinskiy,865005,M,1,70,0,0,0,0.0,87,2,369751
+5847197,2026-10-10,rus_premier,FC Orenburg,Gedeon Guzina,979441,F,1,81,7,2,2,1.21,115,3,371742
+5847197,2026-10-10,rus_premier,FC Orenburg,Anton Lukashov,1635709,D,0,20,0,0,0,0.0,,1,268135
+5847197,2026-10-10,rus_premier,FC Orenburg,Andrey Kasadzhikov,2076297,F,0,20,0,0,0,0.0,,3,
+5847197,2026-10-10,rus_premier,FC Orenburg,Danila Khotulev,1232023,D,0,13,0,0,0,0.0,,1,1290167
+5847197,2026-10-10,rus_premier,FC Orenburg,Renat Golybin,1647278,F,0,12,0,0,0,0.0,,3,759827
+5847197,2026-10-10,rus_premier,FC Orenburg,Egor Nazarenko,1468796,M,0,9,0,0,0,0.0,,2,
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Nikita Karabashev,1510788,G,1,90,0,0,0,0.0,11,0,337847
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Ilyas Akhmedov,1723776,D,1,46,0,0,0,0.0,33,1,997092
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Mutalip Alibekov,880036,D,1,90,1,1,0,0.26,35,1,368046
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Daniil Lesovoy,832745,F,1,78,2,1,0,0.09,37,3,952735
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Makhmud Makhamadzhonov,1477508,D,1,90,0,0,0,0.0,51,1,248402
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Temirkan Sundukov,1109173,D,1,90,3,0,0,0.07,59,1,832979
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Nikita Glushkov,970498,M,1,90,3,0,0,0.58,73,2,779182
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Marat Apshatsev,1189174,M,1,46,0,0,0,0.0,75,2,562752
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Daler Kuzyaev,524423,M,1,90,1,0,0,0.05,77,2,1497607
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Houssem Mrezigue,1230615,M,1,74,1,1,0,0.02,104,2,789690
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Gamid Agalarov,952032,F,1,74,0,0,0,0.0,106,3,1186449
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Andrés Alarcon,1470839,D,0,44,0,0,0,0.0,,1,906510
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Miro,1525445,F,0,44,0,0,0,0.0,,3,1211677
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Dmitriy Aleksandrov,1657071,M,0,16,0,0,0,0.0,,2,707506
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Kirill Zinovich,1145499,M,0,16,2,1,0,0.12,,2,353905
+5847197,2026-10-10,rus_premier,Dynamo Makhachkala,Vladimir Khubulov,1180707,F,0,11,0,0,0,0.0,,3,516805
