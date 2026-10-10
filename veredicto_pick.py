@@ -590,6 +590,21 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     # (`nba_lineas`, 19 temporadas contra el cierre de la casa); no pasa por
     # la curva del fútbol ni por la mezcla. Se mete con ≥ 75 % y cuota ≥ 1,15
     # (lo que pidió el usuario para empezar); la pretemporada, con su regla.
+    # v355 — y la MLB con la misma regla (`mlb_lineas`; sin pretemporada)
+    if p.get('mlb_linea'):
+        import mlb_lineas as _mlb
+        _ok = (not p.get('informativa') and prob >= _mlb.META_METER
+               and cuota is not None and cuota >= _mlb.CUOTA_MIN)
+        _rz = (('con la probabilidad del equipo en la casa, esta línea acertó '
+                '%.0f %% (MLB 2017-2021)' % (100 * prob)) if _ok else
+               ('ninguna línea de la casa llega al %.0f %%: la más probable es '
+                'ésta, al %.0f %%' % (100 * _mlb.META_METER, 100 * prob))
+               if (p.get('informativa') or prob < _mlb.META_METER) else
+               'cuota por debajo de %.2f' % _mlb.CUOTA_MIN)
+        return {**base, 'veredicto': METER if _ok else NO_METER,
+                'fuerza': round(max(0.0, min(1.0, abs(prob - _mlb.META_METER) / 0.20)), 3),
+                'medido': True, 'prob_ajustada': prob, 'cuota': cuota,
+                'razones': [_rz]}
     if p.get('nba_linea'):
         import nba_lineas as _nl
         _ok = (not p.get('informativa') and prob >= _nl.META_METER

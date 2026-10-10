@@ -209,7 +209,15 @@ def es_secundaria(pick: Dict) -> Optional[bool]:
 def _equipos(pick: Dict):
     """Los dos nombres del partido, o (None, None) si el rótulo no se parte."""
     nom = str(pick.get('partido') or '')
-    for sep in (' vs ', ' vs. ', ' @ ', ' - '):
+    # v355 — EN EL BÉISBOL «VISITA @ LOCAL»: el primero es el VISITANTE. Antes
+    # se leía al revés y la liquidación cruzaba los lados: «Gana Cleveland
+    # Guardians» en «Cleveland Guardians @ Chicago White Sox» (Cleveland ganó
+    # 9-5 de visitante) salió ROJA el 8-oct. El marcador sí estaba bien
+    # (local = el de después de la @).
+    if ' @ ' in nom and ' vs ' not in nom:
+        a, h = nom.split(' @ ', 1)
+        return h.strip(), a.strip()
+    for sep in (' vs ', ' vs. ', ' - '):
         if sep in nom:
             h, a = nom.split(sep, 1)
             return h.strip(), a.strip()
@@ -1861,6 +1869,7 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             'p_casa_tiros': _mej.get('p_casa_tiros'),
             # v354 — las líneas de la NBA medidas por distancia (`nba_lineas`)
             'nba_linea': bool(_mej.get('nba_linea')),
+            'mlb_linea': bool(_mej.get('mlb_linea')),
             'nba_k': _mej.get('nba_k'),
             'nba_tipo': _mej.get('nba_tipo'),
             'informativa': bool(_mej.get('informativa')),
@@ -4182,6 +4191,22 @@ def _analisis_conciso_html(pick: Dict, b: Dict, _ck, _tj) -> str:
         # v353 — y los tiros, con el modelo de la metodología del amigo
         lineas.extend(_lineas_tiros(pick, h, a))
     else:
+        # v355 — los abridores de la MLB (informativo: la casa ya los pone en
+        # su precio, `_v355_mlb_medir.py`), con sus ponches esperados
+        ab = pick.get('abridores') or {}
+        if ab:
+            partes = []
+            for lado, eq in (('local', h), ('visita', a)):
+                x = ab.get(lado)
+                if not x:
+                    continue
+                partes.append('%s: <b>%s</b>%s%s' % (
+                    _corto(eq), _esc_mm(x.get('nombre') or '?'),
+                    (' · ERA %s' % _num1(x['era'])) if x.get('era') is not None else '',
+                    (' · %s ponches esperados' % _num1(x['ponches_esperados']))
+                    if x.get('ponches_esperados') else ''))
+            if partes:
+                lineas.append('⚾ Abridores · ' + ' · '.join(partes))
         tot = _p_o_none(pick.get('total_esperado'))
         if tot is not None:
             unidad = str(((pick.get('totales') or {}).get('unidad')) or 'puntos')
@@ -4306,10 +4331,17 @@ def _k_hora(p):
             str(p.get('inicio') or '~'), str(p.get('partido') or ''))
 
 
-# Los tres estados del filtro nuevo, y lo que dejan pasar.
-ESTADO_TODOS, ESTADO_SIN_JUGAR, ESTADO_JUGADOS = (
-    'Todos', 'Sin jugar', 'Finalizados')
-ESTADOS = (ESTADO_SIN_JUGAR, ESTADO_JUGADOS, ESTADO_TODOS)
+# Los estados del filtro, y lo que dejan pasar.
+# v355 — y «En juego» (el usuario: «hace falta uno que sea en juego»): lo que
+# ya empezó y aún no tiene marcador final. «Finalizados» deja de incluirlos.
+ESTADO_TODOS, ESTADO_SIN_JUGAR, ESTADO_JUGADOS, ESTADO_EN_JUEGO = (
+    'Todos', 'Sin jugar', 'Finalizados', 'En juego')
+ESTADOS = (ESTADO_SIN_JUGAR, ESTADO_EN_JUEGO, ESTADO_JUGADOS, ESTADO_TODOS)
+
+
+def en_juego(p: Dict) -> bool:
+    """Empezado y sin marcador final todavía."""
+    return bool(p.get('en_juego')) and p.get('goles_home') is None
 
 
 def _k_local(p):
@@ -5041,6 +5073,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
             'Mostrar', ESTADOS, key=_k_estado, horizontal=True,
             label_visibility='collapsed',
             help='«Sin jugar» son los que todavía se pueden apostar. '
+                 '«En juego», los que ya empezaron y aún no acaban. '
                  '«Finalizados» enseñan el pronóstico previo con su resultado, '
                  'para ver qué acertó y qué no.')
     with c_ord:
@@ -5129,8 +5162,11 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     if estado_sel == ESTADO_SIN_JUGAR:
         con = [p for p in con if not p.get('jugado')]
         _quito.append('sin_jugar')
+    elif estado_sel == ESTADO_EN_JUEGO:
+        con = [p for p in con if en_juego(p)]
+        _quito.append('en_juego')
     elif estado_sel == ESTADO_JUGADOS:
-        con = [p for p in con if p.get('jugado')]
+        con = [p for p in con if p.get('jugado') and not en_juego(p)]
         _quito.append('jugados')
     if solo_altas:
         # Los jugados salen también de aquí: ese filtro sirve para buscar
@@ -5235,6 +5271,8 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                 'Cambia «Mostrar» a **Finalizados** para ver qué acertó el '
                 'pronóstico, o a **Todos** para verlos junto a los que '
                 'quedan por jugar.' % _antes_de_filtrar)
+        elif _antes_de_filtrar and 'en_juego' in _quito:
+            st.info('Ahora mismo no hay ningún partido de esta lista en juego.')
         elif _antes_de_filtrar and 'jugados' in _quito:
             st.info(
                 'Ninguno de los **%d** partidos de esta lista se ha jugado '

@@ -111,7 +111,7 @@ NOTA = ('resultado con el modelo en 70 % o más y la casa sin margen entre 80 % 
 # no entra (no se mide). El 🔷 de más riesgo sigue siendo sólo del fútbol: en
 # la NBA la casa sabe más que el modelo (`concordancia.PESO_MODELO_NBA`).
 DEPORTES_DOS_VIAS = ('NFL', 'NBA')
-ACIERTO_CAPA1_DEPORTE = {'NFL': 0.84, 'NBA': 0.84}
+ACIERTO_CAPA1_DEPORTE = {'NFL': 0.84, 'NBA': 0.84, 'MLB': 0.84}
 
 
 def _f(x) -> Optional[float]:
@@ -128,6 +128,8 @@ def del_pick(pick: Dict) -> Optional[Dict]:
     try:
         if str(pick.get('deporte') or '') in DEPORTES_DOS_VIAS:
             return _del_pick_dos_vias(pick)
+        if str(pick.get('deporte') or '') in ('MLB', 'KBO'):
+            return _del_pick_mlb(pick)
         if str(pick.get('deporte') or 'Fútbol') != 'Fútbol' or pick.get('jugado') \
                 or pick.get('solo_mercado') or pick.get('sin_modelo'):
             return None
@@ -205,6 +207,31 @@ def _del_pick_dos_vias(pick: Dict) -> Optional[Dict]:
             'linea': None, 'elite': True,
             'razon': 'Capa 1: el modelo %.0f %% y la casa %.0f %% de acuerdo '
                      '(medido en la %s: ~84 %% de acierto)' % (100 * pm, 100 * pc, dep)}
+
+
+def _del_pick_mlb(pick: Dict) -> Optional[Dict]:
+    """v355 — el 🏆 de la MLB: el hándicap de Playdoit que acierta ≥ 84 %
+    según la probabilidad del equipo en la casa (`mlb_lineas`, juzgado
+    2017-21), con la mejor cuota (≥ 1,10). El ganador nunca llega."""
+    try:
+        import mlb_lineas as _ml
+        if pick.get('jugado') or not _ml.aplica(pick):
+            return None
+        el = [c for c in _ml.elegidas(pick, meta=_ml.META_CAPA1,
+                                      cuota_min=_ml.CUOTA_MIN_CAPA1)
+              if c['mercado'] == 'Handicap' and not c.get('informativa')]
+    except Exception:
+        return None
+    if not el:
+        return None
+    c = max(el, key=lambda x: x['cuota'])
+    return {'mercado': 'Handicap', 'bloque': 'handicap', 'etiqueta': 'Hándicap',
+            'apuesta': c['apuesta'], 'prob': round(c['prob'], 4),
+            'p_mercado': round(c['prob'], 4), 'cuota': round(c['cuota'], 3),
+            'casa': 'Playdoit', 'deporte': str(pick.get('deporte') or 'MLB'),
+            'linea': c['linea'], 'elite': True,
+            'razon': 'Capa 1: con la probabilidad del equipo en la casa esta línea '
+                     'acertó %.0f %% (MLB 2017-2021)' % (100 * c['prob'])}
 
 
 def _del_pick_handicap_nba(pick: Dict) -> Optional[Dict]:
@@ -317,9 +344,14 @@ def resultado(apuesta: str, partido: str, goles_home, goles_away) -> Optional[st
     """'verde', 'rojo' o None (sin marcador) para «Gana X» y «X o empate»."""
     gh, ga = _f(goles_home), _f(goles_away)
     par = str(partido or '')
-    if gh is None or ga is None or ' vs ' not in par:
+    if gh is None or ga is None:
         return None
-    h, a = par.split(' vs ', 1)
+    if ' @ ' in par and ' vs ' not in par:
+        a, h = par.split(' @ ', 1)           # v355: béisbol, «visita @ local»
+    elif ' vs ' in par:
+        h, a = par.split(' vs ', 1)
+    else:
+        return None
     ap = str(apuesta or '')
     # v354 — el hándicap de la NBA («Handicap: Equipo +7.5»)
     if ap.startswith('Handicap: '):

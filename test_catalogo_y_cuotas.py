@@ -18020,20 +18020,23 @@ def test_el_filtro_de_estado_reparte_sin_perder_partidos():
     """Tres estados, y entre «Sin jugar» y «Finalizados» esta todo."""
     import modo_modelo as mm
 
-    check(set(mm.ESTADOS) == {mm.ESTADO_SIN_JUGAR, mm.ESTADO_JUGADOS,
-                              mm.ESTADO_TODOS},
-          f'hay exactamente tres estados ({mm.ESTADOS})')
+    # v355 — y «En juego», entre «Sin jugar» y «Finalizados»
+    check(set(mm.ESTADOS) == {mm.ESTADO_SIN_JUGAR, mm.ESTADO_EN_JUEGO,
+                              mm.ESTADO_JUGADOS, mm.ESTADO_TODOS},
+          f'hay exactamente cuatro estados ({mm.ESTADOS})')
     check(mm.ESTADOS[0] == mm.ESTADO_SIN_JUGAR,
           'el primero —y el que viene por defecto— es «Sin jugar»: es el '
           'unico que se puede apostar')
 
-    partidos = [{'partido': 'p%d' % i, 'jugado': i % 3 == 0} for i in range(12)]
+    partidos = [{'partido': 'p%d' % i, 'jugado': i % 3 == 0,
+                 'en_juego': i % 6 == 0} for i in range(12)]
     sin = [p for p in partidos if not p.get('jugado')]
-    jug = [p for p in partidos if p.get('jugado')]
-    check(len(sin) + len(jug) == len(partidos),
-          f'los dos filtros reparten el total sin perder ni duplicar '
-          f'({len(sin)} + {len(jug)} = {len(partidos)})')
-    check(not any(p in jug for p in sin),
+    viv = [p for p in partidos if mm.en_juego(p)]
+    jug = [p for p in partidos if p.get('jugado') and not mm.en_juego(p)]
+    check(len(sin) + len(viv) + len(jug) == len(partidos),
+          f'los tres filtros reparten el total sin perder ni duplicar '
+          f'({len(sin)} + {len(viv)} + {len(jug)} = {len(partidos)})')
+    check(not any(p in jug for p in sin) and not any(p in viv for p in jug),
           'y no se solapan')
 
 

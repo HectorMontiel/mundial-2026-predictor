@@ -1973,6 +1973,94 @@ def indicador_antiguedad(dias: Optional[int]) -> str:
     return f'🔴 sin datos nuevos desde hace {dias} d'
 
 
+_ABRIDORES_DIA: Dict[str, Dict] = {}
+
+
+def _abridores_mlb(home: str, away: str, inicio) -> Optional[Dict]:
+    """v355 — los abridores anunciados (MLB StatsAPI) con su ERA, FIP, % de
+    ponches y los ponches esperados en esta salida (`beisbol_pitchers`).
+    Informativo: la casa ya los pone en su precio (medido en `_v355`)."""
+    try:
+        import beisbol_pitchers as bp
+        import mlb_statsapi as ms
+        from engines.mlb_engine import NOMBRES_MLB
+    except Exception:
+        return None
+    ch, ca = NOMBRES_MLB.get(home), NOMBRES_MLB.get(away)
+    if not ch or not ca:
+        return None
+    fechas = []
+    try:
+        t = pd.to_datetime(inicio, utc=True)
+        fechas = [str((t - pd.Timedelta(hours=6)).date()), str(t.date())]
+    except Exception:
+        return None
+    pids = None
+    for f in fechas:
+        if f not in _ABRIDORES_DIA:
+            try:
+                _ABRIDORES_DIA[f] = ms.indice_abridores(f)
+            except Exception:
+                _ABRIDORES_DIA[f] = {}
+        pids = _ABRIDORES_DIA[f].get((ch, ca))
+        if pids:
+            break
+    if not pids:
+        return None
+    out = {}
+    for lado, pid, rival in (('local', pids[0], ca), ('visita', pids[1], ch)):
+        if not pid:
+            continue
+        try:
+            pf = bp.perfil_pitcher(pid)
+        except Exception:
+            pf = None
+        if not pf:
+            continue
+        try:
+            ke = bp.ponches_esperados(pf, rival, bp.factor_parque(home))
+        except Exception:
+            ke = None
+        out[lado] = {'nombre': pf.get('nombre'), 'era': pf.get('era'), 'fip': pf.get('fip'),
+                     'k_bf': pf.get('k_bf'), 'ponches_esperados': round(ke, 1) if ke else None}
+    return out or None
+
+
+def _tableros_mlb(picks) -> int:
+    """v355 — cuelga `implicitas.mlb_playdoit` (ganador sin margen y las
+    escaleras de hándicap y carreras de Playdoit) de lo que empieza en 48 h:
+    con eso `mlb_lineas` pone su probabilidad medida. Devuelve cuántos."""
+    import cuotas_multi as cm
+    import mlb_lineas as ml
+    n, vistos = 0, set()
+    ahora = pd.Timestamp.utcnow().tz_localize(None)
+    for p in picks or []:
+        if not isinstance(p, dict) or id(p) in vistos:
+            continue
+        vistos.add(id(p))
+        if str(p.get('deporte') or 'MLB') not in ('MLB', 'KBO'):
+            continue
+        try:
+            ini = pd.to_datetime(p.get('inicio'), utc=True).tz_localize(None)
+            if not (-1 <= (ini - ahora).total_seconds() / 3600 <= 48):
+                continue
+            h, a = ml._equipos(str(p.get('partido') or ''))
+            if not h:
+                continue
+            tab = ml.del_tablero(cm.mercados_playdoit('mlb', h, a, fecha=p.get('inicio')), h, a)
+            if tab:
+                p['implicitas'] = dict(p.get('implicitas') or {}, mlb_playdoit=tab)
+                n += 1
+            if str(p.get('deporte') or 'MLB') == 'MLB':
+                ab = _abridores_mlb(h, a, p.get('inicio'))
+                if ab:
+                    p['abridores'] = ab
+        except Exception as e:
+            logger.debug('[alpha/mlb] tablero de %s: %s', p.get('partido'), e)
+    logger.info('[alpha/mlb] %d picks con el tablero de Playdoit', n)
+    return n
+
+
 def _cuotas_de_totales(picks, deporte: str) -> int:
     """Cuelga `implicitas.totales_cuotas` de cada pick. Devuelve cuántos.
 
@@ -2236,6 +2324,8 @@ def _picks_mlb() -> Dict[str, List[Dict]]:
         _totales_mlb(eng, _todos_mlb)
         # y su PRECIO, que es lo que los convierte en apuesta (v237)
         _cuotas_de_totales(_todos_mlb, 'mlb')
+        # v355 — y las escaleras de Playdoit (hándicap y carreras)
+        _tableros_mlb(_todos_mlb)
 
         # v98: el contador de «partidos evaluados» de la cabecera sumaba
         # SOLO el pase de fútbol; cada deporte informa ahora del suyo.
@@ -2892,6 +2982,13 @@ def _picks_kbo() -> Dict[str, List[Dict]]:
     except Exception as e:
         logger.warning(f"[alpha] KBO omitida: {type(e).__name__}: {e}")
         salida['incidencias'].append(f'KBO omitida: {type(e).__name__}: {e}')
+    # v355 — y las escaleras de Playdoit para el hándicap (`mlb_lineas`: las
+    # tablas de la MLB predicen bien la KBO, 395 cierres)
+    try:
+        _tableros_mlb(list(salida.get('pronosticos') or [])
+                      + list(salida.get('capa1') or []))
+    except Exception as e:
+        logger.debug('[alpha/kbo] tableros: %s', e)
     return salida
 
 
