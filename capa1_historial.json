@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T16:03:02Z",
+"actualizado": "2026-10-10T17:37:17Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3314,6 +3314,46 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Azazga vs MO Bejaia",
+"apuesta": "Gana MO Bejaia",
+"cuota": 2.9,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Blackburn vs Cardiff",
+"apuesta": "Gana Cardiff",
+"cuota": 2.4,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Bradford vs Leyton Orient",
+"apuesta": "Bradford o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Braintree vs Truro",
+"apuesta": "Gana Truro",
+"cuota": 1.65,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Carlisle vs Kidderminster",
@@ -3321,6 +3361,56 @@
 "cuota": 1.154,
 "resultado": "verde",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Chelsea vs Bournemouth",
+"apuesta": "Chelsea o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "5-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Crawley vs Chesterfield",
+"apuesta": "Gana Chesterfield",
+"cuota": 1.64,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Dobrudzha vs Chernomorets 1919",
+"apuesta": "Gana Chernomorets 1919",
+"cuota": 1.8,
+"resultado": "verde",
+"marcador": "0-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "FC Goa vs Chennaiyin FC",
+"apuesta": "FC Goa o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "FC Goa vs Chennaiyin FC",
+"apuesta": "Gana FC Goa",
+"cuota": 1.583,
+"resultado": "rojo",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-10",
@@ -3341,6 +3431,46 @@
 "cuota": 2.9,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Go Ahead Eagles vs Sparta Rotterdam",
+"apuesta": "Go Ahead Eagles o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "3-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Halifax vs Gateshead",
+"apuesta": "Halifax o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "4-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Hampton & Richmond vs Ebbsfleet",
+"apuesta": "Gana Ebbsfleet",
+"cuota": 1.71,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Hearts vs St Mirren",
+"apuesta": "Hearts o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "5-0"
 },
 {
 "dia": "2026-10-10",
@@ -3374,6 +3504,16 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Ilkeston vs Redcar Athletic",
+"apuesta": "Gana Redcar Athletic",
+"cuota": 1.5834,
+"resultado": "verde",
+"marcador": "0-5"
+},
+{
+"dia": "2026-10-10",
 "nivel": "💰",
 "deporte": "MLB",
 "partido": "KIA Tigers vs SSG Landers",
@@ -3386,11 +3526,31 @@
 "dia": "2026-10-10",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Lauterach vs Wolfurt",
+"apuesta": "Gana Lauterach",
+"cuota": 1.99,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Liefering vs Sturm Graz II",
 "apuesta": "Gana Sturm Graz II",
 "cuota": 2.55,
 "resultado": "rojo",
 "marcador": "3-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Lille vs Le Havre",
+"apuesta": "Lille o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-10",
@@ -3446,6 +3606,16 @@
 "dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Raith Rvs vs Queens Park",
+"apuesta": "Raith Rvs o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Shanghai Shenhua vs Yunnan Yukun",
 "apuesta": "Shanghai Shenhua o empate",
 "cuota": 1.177,
@@ -3471,6 +3641,16 @@
 "cuota": 1.84,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Stockport vs Barnsley",
+"apuesta": "Stockport o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "3-1"
 },
 {
 "dia": "2026-10-10",
