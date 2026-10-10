@@ -41,11 +41,11 @@ DIAS_TASA = 7
 NIVELES = ('🏆', '🔷', '💰', '🎯')
 # el feed diario de Flashscore por deporte (f_<deporte>_<día>_…)
 FLASH = {'Fútbol': 1, 'Tenis': 2, 'Baloncesto': 3, 'NBA': 3, 'NFL': 5,
-         'MLB': 6, 'KBO': 6, 'Béisbol': 6}
+         'MLB': 6, 'KBO': 6, 'Béisbol': 6, 'NHL': 4}
 FEED = 'https://global.flashscore.ninja/2/x/feed/f_%d_%d_3_es-mx_1'
 # horas desde el inicio hasta dar el partido por acabado
 DURACION_H = {'Fútbol': 2.25, 'Tenis': 3.0, 'Baloncesto': 2.75, 'NBA': 2.75,
-              'NFL': 3.5, 'MLB': 3.5, 'KBO': 3.5, 'Béisbol': 3.5}
+              'NFL': 3.5, 'MLB': 3.5, 'KBO': 3.5, 'Béisbol': 3.5, 'NHL': 2.75}
 _CACHE: Dict = {}
 
 

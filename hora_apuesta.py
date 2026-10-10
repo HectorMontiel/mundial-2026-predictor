@@ -40,7 +40,8 @@ from __future__ import annotations
 import datetime as _dt
 from typing import Dict, Optional
 
-VENTANA_H = {'Fútbol': 4.0, 'NFL': 4.0, 'NBA': 4.0, 'MLB': 4.0, 'KBO': 4.0}
+VENTANA_H = {'Fútbol': 4.0, 'NFL': 4.0, 'NBA': 4.0, 'MLB': 4.0, 'KBO': 4.0,
+             'NHL': 4.0}
 # deportes donde la apuesta no cambia: se apuesta en cuanto sale
 EN_CUANTO_SALE = ('Tenis',)
 

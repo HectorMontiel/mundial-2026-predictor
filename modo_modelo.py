@@ -1872,6 +1872,7 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             'nba_linea': bool(_mej.get('nba_linea')),
             # v358 — y las de la NFL (`nfl_lineas`)
             'nfl_linea': bool(_mej.get('nfl_linea')),
+            'nhl_linea': bool(_mej.get('nhl_linea')),      # v359
             'mlb_linea': bool(_mej.get('mlb_linea')),
             'nba_k': _mej.get('nba_k'),
             'nba_tipo': _mej.get('nba_tipo'),

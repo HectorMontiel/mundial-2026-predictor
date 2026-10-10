@@ -4254,7 +4254,7 @@ except Exception:                                    # pragma: no cover
 SUYAS = set(getattr(_cm_casas, 'CASAS_PRIORITARIAS', ('Playdoit',
                                                         'Novibet')))
 _DEP_A_CLAVE = {'Tenis': 'tenis', 'MLB': 'mlb', 'NBA': 'nba',
-                'NFL': 'nfl', 'KBO': 'mlb', 'Fútbol': 'futbol'}
+                'NFL': 'nfl', 'KBO': 'mlb', 'Fútbol': 'futbol', 'NHL': 'nhl'}
 
 def _lados_del_pick(p):
     """(clave de deporte, local, visitante, lado apostado) o None.
@@ -4384,6 +4384,75 @@ def _una_fila(p):
 
 
 
+def _picks_nhl() -> Dict[str, List[Dict]]:
+    """v359 — NHL, CONTRA LA CASA: todos los partidos que publica Playdoit (la
+    casa del usuario), con su ganador sin margen y las escaleras de hándicap y
+    goles medidas en `nhl_lineas` (2007-2025 con el cierre de la casa). No hay
+    modelo propio: como en la MLB, el número es el de la casa. Temporada de
+    septiembre (pretemporada) a junio. Nunca lanza."""
+    salida: Dict[str, List] = {'capa1': [], 'capa2': [], 'pronosticos': [], 'incidencias': [],
+                               'evaluados': 0, 'cobertura': {}}
+    try:
+        _m = hoy_utc().month
+        if not (_m >= 9 or _m <= 6):
+            return salida
+        import cuotas_multi as cm
+        import nhl_lineas as nl
+        ahora = pd.Timestamp.utcnow().tz_localize(None)
+        vistos = set()
+        for v in (cm._indice_pdt('nhl') or {}).values():
+            h, a = nl.nombre(v.get('home')), nl.nombre(v.get('away'))
+            cu = v.get('cuotas') or {}
+            if not h or not a or h == a or not cu.get('home') or not cu.get('away'):
+                continue
+            try:
+                ini = pd.to_datetime(v.get('fecha'))
+                ini = ini.tz_convert(None) if ini.tzinfo else ini
+            except Exception:
+                continue
+            horas = (ini - ahora).total_seconds() / 3600
+            if horas < -1 or horas > 72 or (h, a, ini.date()) in vistos:
+                continue
+            vistos.add((h, a, ini.date()))
+            ch, ca = float(cu['home']), float(cu['away'])
+            s_ = 1 / ch + 1 / ca
+            ph, pa = (1 / ch) / s_, (1 / ca) / s_
+            pre = any(x in str(v.get('liga') or '').lower()
+                      for x in ('pretemp', 'pre-season', 'preseason'))
+            fila = {'deporte': 'NHL', 'liga': 'NHL', 'clave_liga': 'nhl',
+                    'partido': f'{h} vs {a}',
+                    'fecha': ini.strftime('%Y-%m-%d'),
+                    'inicio': ini.strftime('%Y-%m-%d %H:%M:%S'),
+                    'mercado': 'Moneyline', 'casa': 'Playdoit',
+                    'apuesta': f'Gana {h}' if ph >= 0.5 else f'Gana {a}',
+                    'prob': round(max(ph, pa), 3),
+                    'board': {f'Gana {h}': ph, f'Gana {a}': pa},
+                    'cuota': ch if ph >= 0.5 else ca,
+                    'implicitas': {'1x2_cuotas': {'home': ch, 'away': ca}},
+                    'nota_modelo': 'NHL: decide la casa (sin modelo propio, medido '
+                                   'contra el cierre 2007-2025)'}
+            if pre:
+                fila.update({'pretemporada': True,
+                             'nota': '⚠️ Pretemporada: los titulares juegan poco.'})
+            # las escaleras de Playdoit, de lo que se juega en 2 días (~1 s cada
+            # tablero; queda en la caché del día)
+            if horas <= 48:
+                try:
+                    tab = nl.del_tablero(cm.mercados_playdoit(
+                        'nhl', v.get('home'), v.get('away'), fecha=v.get('fecha')), h, a)
+                    if tab:
+                        fila['implicitas'] = dict(fila['implicitas'], nhl_playdoit=tab)
+                except Exception as e:
+                    logger.debug('[alpha/nhl] tablero %s-%s: %s', h, a, e)
+            salida['pronosticos'].append(fila)
+            salida['evaluados'] += 1
+            salida['cobertura']['NHL'] = salida['cobertura'].get('NHL', 0) + 1
+    except Exception as e:
+        logger.warning(f'[alpha] NHL omitida: {type(e).__name__}: {e}')
+        salida['incidencias'].append(f'NHL omitida: {type(e).__name__}: {e}')
+    return salida
+
+
 def _picks_sin_motor() -> Dict:
     """v303 — ligas con resultados y sin motor entrenado. Ver
     `ligas_sin_motor`."""
@@ -4432,6 +4501,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
               'mlb': _picks_mlb, 'tenis': _picks_tenis, 'nba': _picks_nba,
               'kbo': _picks_kbo,                       # v97
               'nfl': _picks_nfl,                       # v131
+              'nhl': _picks_nhl,                       # v359
               # v302 — LAS SELECCIONES, QUE NO TENIAN RAMA. El usuario vio la
               # Nations League en el calendario y ni un partido en Apuestas
               # del Dia: el motor de selecciones solo lo usaba la vista de
@@ -4574,7 +4644,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     # (`evaluados` + `cobertura`) y aquí se suman.
     evaluados_dep = int(r.get('partidos_evaluados') or 0)
     cobertura_dep = dict(r.get('cobertura_ligas') or {})
-    for nombre in ('mlb', 'tenis', 'nba', 'kbo', 'nfl',   # v97: +KBO · v131: +NFL
+    for nombre in ('mlb', 'tenis', 'nba', 'kbo', 'nfl', 'nhl',  # v97 · v131 · v359
                    'selecciones', 'sin_motor'):          # v302 · v303
         sub = _res.get(nombre) or {}
         capa1 += sub.get('capa1', [])
@@ -4617,6 +4687,7 @@ def apuestas_del_dia_universal(max_partidos: int = 40) -> Dict:
     LIGA_A_CLAVE = {cfg.get('nombre', c): c for c, cfg in _LGN.items()}
     LIGA_A_CLAVE.update({'ATP': 'atp', 'WTA': 'wta', 'MLB': 'mlb', 'NBA': 'nba',
                          'NFL': 'nfl',                        # v131
+                         'NHL': 'nhl',                        # v359
                          'Brasileirão Serie A': 'brasil',
                          'Primera División': 'argentina'})
     # v195.4 — la regla vive fuera (ver `solo_tus_casas`), para poder

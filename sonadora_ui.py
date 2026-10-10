@@ -372,7 +372,7 @@ def render(st, r: Dict, dia: Optional[str] = None,
         # ofrecer un filtro que sólo puede devolver vacío es la trampa que la
         # v238 documentó en el selector de «Apuestas del Día».
         _EMOJI_DEP = {'Fútbol': '⚽', 'MLB': '⚾', 'NBA': '🏀', 'Tenis': '🎾',
-                      'NFL': '🏈', 'KBO': '⚾'}
+                      'NFL': '🏈', 'KBO': '⚾', 'NHL': '🏒'}
         _cuenta_son = {}
         for _p_s in (r.get('pronosticos') or []):
             _d_s = _p_s.get('deporte') if isinstance(_p_s, dict) else None

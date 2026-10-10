@@ -605,6 +605,48 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
                 'fuerza': round(max(0.0, min(1.0, abs(prob - _mlb.META_METER) / 0.20)), 3),
                 'medido': True, 'prob_ajustada': prob, 'cuota': cuota,
                 'razones': [_rz]}
+    # v359 — LA NHL, CONTRA LA CASA (`nhl_lineas`, 2014-2025 con el cierre):
+    # el hándicap y los goles con ≥ 78 % y cuota ≥ 1,15 (juzgar 2019-25:
+    # 81,8 %); el ganador con la casa en 75 % o más (79,4 %), cuota 1,10-1,40,
+    # y no en pretemporada (68 %).
+    if p.get('nhl_linea') or str(p.get('deporte') or '') == 'NHL':
+        import nhl_lineas as _nh
+        _pre = bool(p.get('pretemporada'))
+        if p.get('nhl_linea'):
+            _ok = (not p.get('informativa') and prob >= _nh.META_METER
+                   and cuota is not None and cuota >= _nh.CUOTA_MIN
+                   and (not _pre or p.get('nba_tipo') in _nh.PRETEMPORADA_TIPOS))
+            if _ok:
+                _rz = 'con la casa, esta línea acertó %.0f %% (NHL 2014-2025)' % (100 * prob)
+            elif p.get('informativa') or prob < _nh.META_METER:
+                _rz = ('ninguna línea de la casa llega al %.0f %%: la más probable '
+                       'es ésta, al %.0f %%' % (100 * _nh.META_METER, 100 * prob))
+            elif _pre:
+                _rz = 'pretemporada: esta línea no está medida'
+            else:
+                _rz = 'cuota por debajo de %.2f' % _nh.CUOTA_MIN
+            _meta = _nh.META_METER
+        else:
+            _gan = es_ganador(mercado, p.get('apuesta'))
+            _ok = (_gan and not _pre and prob >= _nh.META_GANADOR and cuota is not None
+                   and METER_GANADOR_CUOTA_MIN <= cuota <= METER_GANADOR_CUOTA_MAX)
+            if _ok:
+                _rz = ('la casa lo ve al %.0f %%: en la NHL el favorito de 75 %% o más '
+                       'ganó el 79 %% (2019-2025)' % (100 * prob))
+            elif not _gan:
+                _rz = 'en la NHL se mete el ganador, el hándicap y los goles de Playdoit'
+            elif _pre:
+                _rz = 'pretemporada: el favorito de la casa ganó el 68 %: no se mete'
+            elif prob < _nh.META_GANADOR:
+                _rz = ('la casa lo ve al %.0f %%: en la NHL el ganador se mete con la '
+                       'casa en %.0f %% o más' % (100 * prob, 100 * _nh.META_GANADOR))
+            else:
+                _rz = 'cuota fuera de 1,10-1,40'
+            _meta = _nh.META_GANADOR
+        return {**base, 'veredicto': METER if _ok else NO_METER,
+                'fuerza': round(max(0.0, min(1.0, abs(prob - _meta) / 0.20)), 3),
+                'medido': True, 'prob_ajustada': prob, 'cuota': cuota,
+                'razones': [_rz]}
     # v358 — la NFL con su regla (`nfl_lineas`: 78 %, 27 temporadas)
     if p.get('nfl_linea'):
         import nfl_lineas as _nf

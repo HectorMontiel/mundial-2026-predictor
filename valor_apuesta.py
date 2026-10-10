@@ -692,6 +692,21 @@ def _de_nfl_lineas(pick: Dict) -> List[Dict]:
     return salida
 
 
+def _de_nhl_lineas(pick: Dict) -> List[Dict]:
+    """v359 — el hándicap y los goles de la NHL con las escaleras de Playdoit
+    y la probabilidad medida (`nhl_lineas`, 2014-2025 con el cierre)."""
+    if str(pick.get('deporte') or '') != 'NHL':
+        return []
+    import nhl_lineas as _nh
+    salida = []
+    for c in _nh.elegidas(pick):
+        salida.append(_fila(c['mercado'], c['etiqueta'], c['apuesta'], c['prob'],
+                            c['cuota'], None, c['bloque'], c['linea'],
+                            {'nhl_linea': True, 'nba_k': c['k'], 'nba_tipo': c['tipo'],
+                             'informativa': bool(c.get('informativa'))}))
+    return salida
+
+
 def _de_mlb_lineas(pick: Dict) -> List[Dict]:
     """v355 — el hándicap y las carreras de la MLB con las escaleras de
     Playdoit y la probabilidad medida (`mlb_lineas`)."""
@@ -1113,7 +1128,8 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
         # v354 — NBA: las escaleras de Playdoit (hándicap y puntos) con su
         # probabilidad medida. Si están, mandan sobre los totales de Pinnacle,
         # que no es una casa del usuario.
-        _nba = _de_nba_lineas(pick) + _de_mlb_lineas(pick) + _de_nfl_lineas(pick)
+        _nba = (_de_nba_lineas(pick) + _de_mlb_lineas(pick) + _de_nfl_lineas(pick)
+                + _de_nhl_lineas(pick))
         filas += _nba
     except Exception as e:
         _nba = []

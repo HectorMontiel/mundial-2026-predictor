@@ -1450,7 +1450,8 @@ def _indice_uni(deporte: str) -> Dict[str, dict]:
 #   · ESPN core API → expone un único proveedor (DraftKings), no varios.
 # ---------------------------------------------------------------------------
 ALTENAR = 'https://sb2frontend-altenar2.biahosted.com/api/widget/GetEvents'
-ALTENAR_SPORT = {'futbol': 66, 'tenis': 68, 'mlb': 76, 'nba': 67, 'nfl': 75}
+ALTENAR_SPORT = {'futbol': 66, 'tenis': 68, 'mlb': 76, 'nba': 67, 'nfl': 75,
+                 'nhl': 70}            # v359 — hockey (sólo la NHL, abajo)
 
 # v131 — EL DEPORTE DE ALTENAR NO ES LA LIGA, Y EN LA NFL ESO IMPORTA.
 #
@@ -1467,6 +1468,8 @@ ALTENAR_SPORT = {'futbol': 66, 'tenis': 68, 'mlb': 76, 'nba': 67, 'nfl': 75}
 # filtran: es una excepción declarada, no una regla nueva para todos.
 ALTENAR_CAMPEONATOS = {
     'nfl': ('nfl', 'nfl, pretemporada', 'nfl pretemporada'),
+    # v359 — el hockey de Playdoit trae Extraliga, AHL, NCAA, WHL…: sólo la NHL
+    'nhl': ('nhl', 'nhl, pretemporada', 'nhl pretemporada'),
 }
 ALTENAR_BASE = {'culture': 'es-ES', 'timezoneOffset': '360',
                 'integration': 'playdoit2', 'deviceType': '1',

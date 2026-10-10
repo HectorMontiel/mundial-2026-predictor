@@ -220,7 +220,7 @@ HORAS_PARTIDO = 2.5          # un partido que empezó hace más, ya terminó
 
 # v329 — cuánto dura un partido de cada deporte (el fútbol, el de arriba)
 DURACION_H = {'Fútbol': HORAS_PARTIDO, 'MLB': 3.5, 'KBO': 3.5, 'NFL': 3.5,
-              'NBA': 2.75, 'Tenis': 3.0}
+              'NBA': 2.75, 'Tenis': 3.0, 'NHL': 2.75}
 
 
 def _deporte(p: Dict) -> str:
@@ -789,22 +789,36 @@ def _marcador_tenis(p: Dict, res: Dict) -> Optional[tuple]:
     return None
 
 
+def _eventos_espn(url: str, dia: str, deporte: str) -> List[Dict]:
+    """Los eventos de ESPN del día y del siguiente (por la hora UTC).
+
+    v359 — DÍA POR DÍA, NUNCA CON RANGO: ESPN devuelve 0 eventos SIN ERROR
+    para «20261008-20261009» (medido el 10-oct en la NBA y la NHL; ya había
+    pasado en `fixtures_espn` y `stats_espn`). Con el rango, la NBA no recibía
+    nunca su marcador por esta vía."""
+    import pandas as pd
+    import requests
+    evs = []
+    d0 = pd.Timestamp(dia)
+    for d in (d0, d0 + pd.Timedelta(days=1)):
+        try:
+            r = requests.get(url, params={'dates': d.strftime('%Y%m%d'), 'limit': 300},
+                             headers={'User-Agent': 'Mozilla/5.0'}, timeout=20)
+            evs += (r.json() if r.status_code == 200 else {}).get('events') or []
+        except Exception as e:
+            logger.info('[jugados] %s sin marcadores de ESPN: %s', deporte, e)
+    return evs
+
+
 def _resultados_nba(dia: str) -> Dict[tuple, tuple]:
     """v330 — `{(código local, código visita): (pts local, pts visita)}` de
     los partidos TERMINADOS de la NBA del día (y el siguiente, por la hora
     UTC), del marcador de ESPN. Vacío si no responde."""
-    import pandas as pd
-    import requests
     import nba_historico as nh
     out = {}
-    d0 = pd.Timestamp(dia)
-    rango = '%s-%s' % (d0.strftime('%Y%m%d'),
-                       (d0 + pd.Timedelta(days=1)).strftime('%Y%m%d'))
     try:
         import modelo_nba as mn
-        r = requests.get(mn.ESPN, params={'dates': rango, 'limit': 300},
-                         headers={'User-Agent': 'Mozilla/5.0'}, timeout=20)
-        evs = (r.json() if r.status_code == 200 else {}).get('events') or []
+        evs = _eventos_espn(mn.ESPN, dia, 'NBA')
     except Exception as e:
         logger.info('[jugados] NBA sin marcadores de ESPN: %s', e)
         return out
@@ -822,6 +836,38 @@ def _resultados_nba(dia: str) -> Dict[tuple, tuple]:
         except Exception:
             continue
     return out
+
+
+ESPN_NHL = 'https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard'
+
+
+def _resultados_nhl(dia: str) -> Dict[tuple, tuple]:
+    """v359 — `{(apodo local, apodo visita): (goles local, goles visita)}` de
+    los partidos TERMINADOS de la NHL (ESPN; el gol de la tanda cuenta, igual
+    que en Playdoit «incl. prórroga y penaltis»)."""
+    import nhl_lineas as nl
+    out = {}
+    for ev in _eventos_espn(ESPN_NHL, dia, 'NHL'):
+        try:
+            comp = (ev.get('competitions') or [{}])[0]
+            if not ((comp.get('status') or {}).get('type') or {}).get('completed'):
+                continue
+            loc = next(c for c in comp['competitors'] if c['homeAway'] == 'home')
+            vis = next(c for c in comp['competitors'] if c['homeAway'] == 'away')
+            out[(nl.apodo(loc['team']['displayName']), nl.apodo(vis['team']['displayName']))] = (
+                float(loc['score']), float(vis['score']))
+        except Exception:
+            continue
+    return out
+
+
+def _marcador_nhl(p: Dict, res: Dict[tuple, tuple]) -> Optional[tuple]:
+    try:
+        import nhl_lineas as nl
+        h, a = str(p.get('partido') or '').split(' vs ', 1)
+        return res.get((nl.apodo(h), nl.apodo(a)))
+    except Exception:
+        return None
 
 
 def _marcador_nba(p: Dict, res: Dict[tuple, tuple]) -> Optional[tuple]:
@@ -869,10 +915,12 @@ def marcadores_otros(partidos: List[Dict], dia: str, ahora: float = None) -> int
     desde = (pd.Timestamp(dia) - pd.Timedelta(days=1)).strftime('%Y-%m-%d')
     hasta = (pd.Timestamp(dia) + pd.Timedelta(days=1)).strftime('%Y-%m-%d')
     deps = {_deporte(p) for p in faltan}
-    largo = res_mlb = res_ten = res_nba = None
+    largo = res_mlb = res_ten = res_nba = res_nhl = None
     try:
         if 'NBA' in deps:
             res_nba = _resultados_nba(dia)
+        if 'NHL' in deps:
+            res_nhl = _resultados_nhl(dia)
         if 'NFL' in deps:
             import nfl_nflverse as nv
             largo = nv.cargar()
@@ -890,11 +938,13 @@ def marcadores_otros(partidos: List[Dict], dia: str, ahora: float = None) -> int
         m = (_marcador_nfl(p, largo) if dep == 'NFL' else
              _marcador_mlb(p, res_mlb or {}) if dep == 'MLB' else
              _marcador_tenis(p, res_ten or {}) if dep == 'Tenis' else
-             _marcador_nba(p, res_nba or {}) if dep == 'NBA' else None)
+             _marcador_nba(p, res_nba or {}) if dep == 'NBA' else
+             _marcador_nhl(p, res_nhl or {}) if dep == 'NHL' else None)
         if m:
             p['goles_home'], p['goles_away'] = m
             p['marcador_fuente'] = {'NFL': 'nflverse', 'MLB': 'mlb_statsapi',
-                                    'Tenis': 'espn', 'NBA': 'espn'}.get(dep, 'otro')
+                                    'Tenis': 'espn', 'NBA': 'espn',
+                                    'NHL': 'espn'}.get(dep, 'otro')
             n += 1
     return n
 

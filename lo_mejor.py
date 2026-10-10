@@ -111,7 +111,7 @@ NOTA = ('resultado con el modelo en 70 % o más y la casa sin margen entre 80 % 
 # no entra (no se mide). El 🔷 de más riesgo sigue siendo sólo del fútbol: en
 # la NBA la casa sabe más que el modelo (`concordancia.PESO_MODELO_NBA`).
 DEPORTES_DOS_VIAS = ('NFL', 'NBA')
-ACIERTO_CAPA1_DEPORTE = {'NFL': 0.84, 'NBA': 0.84, 'MLB': 0.84}
+ACIERTO_CAPA1_DEPORTE = {'NFL': 0.84, 'NBA': 0.84, 'MLB': 0.84, 'NHL': 0.89}
 
 
 def _f(x) -> Optional[float]:
@@ -130,6 +130,8 @@ def del_pick(pick: Dict) -> Optional[Dict]:
             return _del_pick_dos_vias(pick)
         if str(pick.get('deporte') or '') in ('MLB', 'KBO'):
             return _del_pick_mlb(pick)
+        if str(pick.get('deporte') or '') == 'NHL':
+            return _del_pick_nhl(pick)
         if str(pick.get('deporte') or 'Fútbol') != 'Fútbol' or pick.get('jugado') \
                 or pick.get('solo_mercado') or pick.get('sin_modelo'):
             return None
@@ -232,6 +234,29 @@ def _del_pick_mlb(pick: Dict) -> Optional[Dict]:
             'linea': c['linea'], 'elite': True,
             'razon': 'Capa 1: con la probabilidad del equipo en la casa esta línea '
                      'acertó %.0f %% (MLB 2017-2021)' % (100 * c['prob'])}
+
+
+def _del_pick_nhl(pick: Dict) -> Optional[Dict]:
+    """v359 — el 🏆 de la NHL: la línea de hándicap o de goles de Playdoit
+    que acierta ≥ 85 % con la probabilidad de la casa (`nhl_lineas`: juzgar
+    2019-25 88,9 %), con la mejor cuota (≥ 1,10). No en pretemporada."""
+    if pick.get('jugado') or pick.get('pretemporada'):
+        return None
+    try:
+        import nhl_lineas as _nh
+        el = [c for c in _nh.elegidas(pick, meta=_nh.META_CAPA1, cuota_min=_nh.CUOTA_MIN_CAPA1)
+              if not c.get('informativa')]
+    except Exception:
+        return None
+    if not el:
+        return None
+    c = max(el, key=lambda x: x['cuota'])
+    return {'mercado': c['mercado'], 'bloque': c['bloque'], 'etiqueta': c['etiqueta'],
+            'apuesta': c['apuesta'], 'prob': round(c['prob'], 4),
+            'p_mercado': round(c['prob'], 4), 'cuota': round(c['cuota'], 3),
+            'casa': 'Playdoit', 'deporte': 'NHL', 'linea': c['linea'], 'elite': True,
+            'razon': 'Capa 1: con la casa, esta línea acertó %.0f %% (NHL 2014-2025)'
+                     % (100 * c['prob'])}
 
 
 def _del_pick_handicap_nba(pick: Dict) -> Optional[Dict]:

@@ -5052,7 +5052,7 @@ except Exception:
 # sección ocupaban media pantalla antes del primer partido. Queda la marca y
 # los deportes; el lema se va a la ayuda.
 _pinta(_estilo.marca(
-    'Predictor deportivo', ('⚽', '⚾', '🏀', '🎾', '🏈'), icono='🎯')
+    'Predictor deportivo', ('⚽', '⚾', '🏀', '🎾', '🏈', '🏒'), icono='🎯')
     if _estilo else None)
 
 # v23 (móvil): el selector de competición vive ARRIBA del área principal —
@@ -5282,7 +5282,7 @@ def render_alpha_finder():
         'Todos los partidos de HOY con cuota y valor calculados solos, '
         'ordenados para que lo accionable esté arriba.',
         chips=[(_chip_casas, _tono_casas), ('hora de CDMX', 'info'),
-               ('⚽ ⚾ 🏀 🎾 🏈', 'info')],
+               ('⚽ ⚾ 🏀 🎾 🏈 🏒', 'info')],
         icono='💎')
     if False and _tono_casas == 'mira':                  # v339: ver chip
         # El número de la barra lateral («cinco casas») y el de este chip
@@ -5593,7 +5593,8 @@ def render_alpha_finder():
         # cambiar un widget, de modo que lo que hay en sesión es la elección
         # vigente y no la anterior.
         _DEP_POR_EMOJI = {'⚽': 'Fútbol', '⚾': 'MLB', '🏀': 'NBA',
-                          '🎾': 'Tenis', '🏈': 'NFL', '⚾KBO': 'KBO'}
+                          '🎾': 'Tenis', '🏈': 'NFL', '⚾KBO': 'KBO',
+                          '🏒': 'NHL'}                  # v359
         # v257 — el filtro pasó a opción múltiple, así que en sesión hay una
         # LISTA de emojis bajo una clave nueva, `_filtro_deportes`. La clave
         # vieja no se reutiliza a propósito: el fichero de preferencias de
@@ -6301,7 +6302,7 @@ def render_alpha_finder():
     # había forma de filtrar por ella.
     _DEPORTES_FILTRO = [('Todo', 'Todo'), ('⚽', 'Fútbol'), ('⚾', 'MLB'),
                         ('🏀', 'NBA'), ('🎾', 'Tenis'), ('🏈', 'NFL'),
-                        ('⚾KBO', 'KBO')]
+                        ('⚾KBO', 'KBO'), ('🏒', 'NHL')]       # v359
     _cuenta_dep = {}
     for _p in (r.get('pronosticos') or []):
         _d = _p.get('deporte')
