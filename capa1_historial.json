@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T01:52:04Z",
+"actualizado": "2026-10-10T03:29:55Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3151,6 +3151,16 @@
 "cuota": 1.154,
 "resultado": "verde",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-09",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Once Caldas vs Llaneros FC",
+"apuesta": "Once Caldas o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-09",

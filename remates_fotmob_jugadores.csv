@@ -12088,21 +12088,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013494,2026-07-17,per_liga1,Sporting Cristal,Santiago González,892828,F,0,23,1,0,0,0.0,,3.0,990480.0
 1000013494,2026-07-17,per_liga1,Sporting Cristal,Gabriel,263933,M,0,15,0,0,0,0.0,,2.0,120941.0
 1000013494,2026-07-17,per_liga1,Sporting Cristal,Michael Hoyos,193881,M,0,15,3,2,0,0.0,,2.0,290898.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Patrick Zubczuk,1249298,G,1,90,0,0,0,0.0,11.0,0.0,260997.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Erick Canales,1386691,D,1,90,0,0,0,0.0,32.0,1.0,
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Aldair Salazar,547746,D,1,50,0,0,0,0.0,34.0,1.0,171439.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Agustín Gómez,873967,D,1,90,0,0,0,0.0,36.0,1.0,401690.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Xavi Moreno,1432958,D,1,90,0,0,0,0.0,38.0,1.0,294851.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Claudio Torrejón,254031,M,1,63,1,0,0,0.0,64.0,2.0,198362.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Cesar Flores,2089169,M,1,63,0,0,0,0.0,66.0,2.0,
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Francisco Arancibia,517767,F,1,90,0,0,0,0.0,83.0,3.0,182065.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Adrián Ascues,1334883,M,1,70,0,0,0,0.0,85.0,2.0,243218.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Luiz da Silva,497518,F,1,90,1,0,0,0.0,87.0,3.0,254836.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Christopher Olivares,872414,F,1,90,1,0,0,0.0,115.0,3.0,261664.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Jefferson Portales,929351,D,0,40,0,0,0,0.0,,1.0,159767.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Joao Mendoza,1782314,M,0,27,0,0,0,0.0,,2.0,
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Sharif Ramírez,1432740,F,0,27,0,0,0,0.0,,3.0,230992.0
-1000013494,2026-07-17,per_liga1,Deportivo Garcilaso,Kevin Sandoval,933754,M,0,20,1,0,0,0.0,,2.0,289987.0
 4653856,2026-07-15,selecciones,England,Jordan Pickford,303919,G,1,90,0,0,0,0.0,11.0,0.0,17788492.0
 4653856,2026-07-15,selecciones,England,Reece James,807729,D,1,82,0,0,0,0.0,32.0,1.0,49414100.0
 4653856,2026-07-15,selecciones,England,John Stones,263653,D,1,89,1,0,0,0.05,34.0,1.0,11804553.0
@@ -13341,22 +13326,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013489,2026-07-20,per_liga1,Alianza Lima,Alan Cantero,1098460,F,0,10,1,0,0,0.0,,3.0,368219.0
 1000013489,2026-07-20,per_liga1,Alianza Lima,Cristian Neira,1432856,M,0,1,0,0,0,0.0,,2.0,
 1000013489,2026-07-20,per_liga1,Alianza Lima,Jean Archimbaud,547854,M,0,1,0,0,0,0.0,,2.0,
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Ángel Zamudio,846745,G,1,90,0,0,0,0.0,11.0,0.0,264759.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Marcelo Gaona,1400558,D,1,83,0,0,0,0.0,33.0,1.0,361770.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Jimmy Valoyes,689231,D,1,90,0,0,0,0.0,35.0,1.0,192814.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Yonatan Murillo,281531,D,1,70,0,0,0,0.0,37.0,1.0,143246.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Jean Falconí,1432700,D,1,90,0,0,0,0.0,51.0,1.0,198362.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Hugo Ángeles,427193,D,1,90,0,0,0,0.0,59.0,1.0,180280.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Piero Magallanes,1605043,M,1,70,0,0,0,0.0,72.0,2.0,284676.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Diego Carabaño,1034349,M,1,90,2,1,0,0.0,74.0,2.0,125702.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Ricardo Salcedo,307002,M,1,90,0,0,0,0.0,76.0,2.0,197353.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Nahuel Luján,541837,M,1,80,1,1,1,0.0,78.0,2.0,227306.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Franco Caballero,306475,F,1,45,1,1,0,0.0,115.0,3.0,171992.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Ronal Huaccha,775965,F,0,44,0,0,0,0.0,,3.0,200084.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Juan Giménez,1671343,F,0,20,1,1,0,0.0,,3.0,
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Daniel Porozo,497032,F,0,20,2,0,0,0.0,,3.0,177902.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Rick Campodónico,749526,M,0,10,1,1,0,0.0,,2.0,165652.0
-1000013489,2026-07-20,per_liga1,Sport Huancayo,Juan Barreda,497519,D,0,7,0,0,0,0.0,,1.0,101844.0
 5147602,2026-07-20,finlandia,IFK Mariehamn,Kevin Lund,1734086,G,1,90,0,0,0,0.0,11.0,0.0,140199.0
 5147602,2026-07-20,finlandia,IFK Mariehamn,Jiri Nissinen,830977,D,1,62,0,0,0,0.0,32.0,1.0,76386.0
 5147602,2026-07-20,finlandia,IFK Mariehamn,Tuomas Koivisto,1306089,D,1,83,1,0,0,0.0,34.0,1.0,308272.0
@@ -22660,22 +22629,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000011178,2026-08-04,bol_division,Aurora,Iván Huayhuata,71249,M,0,3,0,0,0,0.0,,2.0,121637.0
 1000011178,2026-08-04,bol_division,Aurora,Hárrinson Mojica,281996,M,0,3,0,0,0,0.0,,2.0,132843.0
 1000011178,2026-08-04,bol_division,Aurora,Sergio Ferreira,1792580,F,0,1,1,0,0,0.0,,3.0,
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Roameth Romaña,1706656,G,1,90,0,0,0,0.0,11.0,0.0,193767.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Juan Pertúz,1477855,D,1,90,0,0,0,0.0,32.0,1.0,450571.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Howell Mena,1332955,D,1,90,0,0,0,0.0,34.0,1.0,334164.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Francisco Meza,307477,D,1,90,0,0,0,0.0,36.0,1.0,271858.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Jhojan Escobar,1634973,D,1,74,0,0,0,0.0,38.0,1.0,324656.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Juan Castilla,1171062,M,1,90,2,0,0,0.03,65.0,2.0,591463.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Jhon Vásquez,763962,F,1,74,1,1,1,0.1,82.0,3.0,275537.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Néider Ospina,1357404,M,1,70,2,1,1,0.06,84.0,2.0,386288.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Kelvin Osorio,793928,M,1,63,1,0,0,0.09,86.0,2.0,264799.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Luis Miranda,1021584,F,1,90,0,0,0,0.0,88.0,3.0,275537.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Yorleys Mena Palacios,205957,F,1,62,3,3,0,0.2,115.0,3.0,326800.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Carlos Cortés,1272260,F,0,28,2,2,1,0.15,,3.0,383995.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Joel Contreras,1432978,F,0,27,1,1,0,0.06,,3.0,252482.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Juan Ramírez,1564151,M,0,20,1,0,0,0.19,,2.0,474987.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Jimmy Medranda,486461,D,0,16,1,1,0,0.06,,1.0,149299.0
-1000014072,2026-08-04,col_primera_a,Llaneros FC,Dennys Quintero,834670,D,0,16,0,0,0,0.0,,1.0,270981.0
 1000018862,2026-08-04,ven_primera,Carabobo FC,Miguel Silva,1082119,G,1,90,0,0,0,0.0,11.0,0.0,
 1000018862,2026-08-04,ven_primera,Carabobo FC,Alexander González,190525,D,1,90,2,0,0,0.0,32.0,1.0,143447.0
 1000018862,2026-08-04,ven_primera,Carabobo FC,Jonathan Bilbao,1344644,D,1,90,1,1,0,0.0,34.0,1.0,194269.0
@@ -23795,21 +23748,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109870,2026-08-06,usl_championship,Monterey Bay FC,Quinton Elliot,1780532,D,0,17,0,0,0,0.0,,1.0,
 5109870,2026-08-06,usl_championship,Monterey Bay FC,Belmar Joseph,1650450,M,0,17,0,0,0,0.0,,2.0,147007.0
 5109870,2026-08-06,usl_championship,Monterey Bay FC,Stuart Ritchie,1372216,D,0,6,0,0,0,0.0,,1.0,127432.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Joan Parra,1433152,G,1,90,0,0,0,0.0,11.0,0.0,500483.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Juan Cuesta,1381137,D,1,90,2,0,0,0.03,32.0,1.0,
-1000014073,2026-08-06,col_primera_a,Once Caldas,Jorge Cardona,1433076,D,1,90,0,0,0,0.0,34.0,1.0,330626.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Daniel Londoño,496939,D,1,90,2,0,0,0.16,36.0,1.0,386050.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Andrés Correa,344121,D,1,90,1,0,0,0.05,38.0,1.0,267065.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Jaime Alvarado,1053718,M,1,62,0,0,0,0.0,65.0,2.0,426952.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Michael Barrios,521250,F,1,82,2,1,0,0.04,82.0,3.0,275537.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Andrés Colorado,1031648,M,1,90,1,0,0,0.01,84.0,2.0,347498.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Andrés Roa,627218,M,1,70,2,2,0,0.04,86.0,2.0,295710.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Pipe Gómez,1334537,F,1,71,3,2,0,0.26,88.0,3.0,443477.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Jefry Zapata,1407228,F,1,90,0,0,0,0.0,115.0,3.0,778495.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Jader Quiñónes,1512745,M,0,28,0,0,0,0.0,,2.0,423287.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Mateo Zuleta,1440055,M,0,20,0,0,0,0.0,,2.0,910911.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Dayro Moreno,50111,F,0,19,0,0,0,0.0,,3.0,373788.0
-1000014073,2026-08-06,col_primera_a,Once Caldas,Edwin Torres,1028609,F,0,8,0,0,0,0.0,,3.0,
 1000014073,2026-08-06,col_primera_a,América de Cali,Jean,643686,G,1,90,0,0,0,0.0,11.0,0.0,309797.0
 1000014073,2026-08-06,col_primera_a,América de Cali,Mateo Castillo,1648059,D,1,83,2,0,0,0.1,32.0,1.0,1430773.0
 1000014073,2026-08-06,col_primera_a,América de Cali,Cristian Tovar,851057,D,1,90,1,1,0,0.03,34.0,1.0,286041.0
@@ -137941,3 +137879,97 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019565,2026-10-09,argentina,Boca Juniors,Miguel Merentiel,826418,F,0,35,2,1,1,0.64,,3.0,2653790.0
 1000019565,2026-10-09,argentina,Boca Juniors,Santiago Ascacíbar,724854,M,0,19,0,0,0,0.0,,2.0,4364067.0
 1000019565,2026-10-09,argentina,Boca Juniors,Ángel Romero,265996,F,0,19,1,0,0,0.09,,3.0,337401.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Patrick Zubczuk,1249298,G,1,90,0,0,0,0.0,11.0,0.0,317258.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Erick Canales,1386691,D,1,90,4,0,0,0.0,32.0,1.0,
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Aldair Salazar,547746,D,1,90,0,0,0,0.0,34.0,1.0,175154.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Agustín Gómez,873967,D,1,89,2,0,0,0.0,36.0,1.0,401026.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Xavi Moreno,1432958,D,1,90,0,0,0,0.0,38.0,1.0,322456.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Agustín González,851031,M,1,64,2,0,0,0.0,65.0,2.0,220486.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Francisco Arancibia,517767,F,1,90,1,1,0,0.0,82.0,3.0,196779.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Kevin Sandoval,933754,M,1,90,4,1,0,0.0,84.0,2.0,241899.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Carlos Ramos,1023077,M,1,90,0,0,0,0.0,86.0,2.0,291978.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Beto da Silva,497518,F,1,64,0,0,0,0.0,88.0,3.0,357667.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Facundo Castelli,571457,F,1,65,3,0,0,0.0,115.0,3.0,279682.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Adrián Ascues,1334883,M,0,26,1,0,0,0.0,,2.0,347332.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Christopher Olivares,872414,F,0,26,0,0,0,0.0,,3.0,336670.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Fernando Pacheco,844386,F,0,25,2,0,0,0.0,,3.0,192456.0
+1000017251,2026-10-10,per_liga1,Deportivo Garcilaso,Lucas Ríos,1409744,F,0,1,0,0,0,0.0,,3.0,212175.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Ángel Zamudio,846745,G,1,90,0,0,0,0.0,11.0,0.0,330949.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Jean Falconí,1432700,D,1,90,0,0,0,0.0,32.0,1.0,175187.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Marcelo Gaona,1400558,D,1,90,1,0,0,0.0,34.0,1.0,362039.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Jimmy Valoyes,689231,D,1,90,1,0,0,0.0,36.0,1.0,184582.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Jeremy Rostaing,497517,D,1,55,0,0,0,0.0,38.0,1.0,150793.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Rick Campodónico,749526,M,1,55,0,0,0,0.0,72.0,2.0,170136.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Diego Carabaño,1034349,M,1,78,3,2,0,0.0,74.0,2.0,261131.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Ricardo Salcedo,307002,M,1,45,1,0,0,0.0,76.0,2.0,184582.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Javier Sanguinetti,18720,M,1,90,2,1,0,0.0,78.0,2.0,295514.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Daniel Porozo,497032,F,1,62,1,1,1,0.0,104.0,3.0,159367.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Nahuel Luján,541837,F,1,90,2,1,0,0.0,106.0,3.0,264848.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Aldo Quiñónez,859253,M,0,44,0,0,0,0.0,,2.0,140559.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Juan Barreda,497519,D,0,35,1,1,0,0.0,,1.0,111363.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Piero Magallanes,1605043,M,0,35,1,0,0,0.0,,2.0,331467.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Ronal Huaccha,775965,F,0,28,0,0,0,0.0,,3.0,215090.0
+1000017251,2026-10-10,per_liga1,Sport Huancayo,Edú Villar,1559242,M,0,12,0,0,0,0.0,,2.0,466946.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Joan Parra,1433152,G,1,90,0,0,0,0.0,11.0,0.0,841481.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Juan Cuesta,1381137,D,1,90,0,0,0,0.0,32.0,1.0,
+1000014183,2026-10-10,col_primera_a,Once Caldas,Jorge Cardona,1433076,D,1,90,1,1,1,0.19,34.0,1.0,338331.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Daniel Londoño,496939,D,1,90,1,0,0,0.01,36.0,1.0,437016.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Juan Patiño,1337860,D,1,90,1,0,0,0.03,38.0,1.0,483892.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Juan Nieto,466647,M,1,90,1,1,0,0.02,64.0,2.0,
+1000014183,2026-10-10,col_primera_a,Once Caldas,Jader Quiñónes,1512745,M,1,90,0,0,0,0.0,66.0,2.0,404746.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Michael Barrios,521250,F,1,88,1,1,0,0.03,83.0,3.0,285894.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Andrés Roa,627218,M,1,89,1,0,0,0.05,85.0,2.0,304321.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Pipe Gómez,1334537,F,1,88,2,1,0,0.04,87.0,3.0,628705.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Jefry Zapata,1407228,F,1,90,6,0,0,0.32,115.0,3.0,749171.0
+1000014183,2026-10-10,col_primera_a,Once Caldas,Helieyker Guzman,1931420,F,0,2,1,0,0,0.01,,3.0,
+1000014183,2026-10-10,col_primera_a,Once Caldas,Edwin Torres,1028609,F,0,2,0,0,0,0.0,,3.0,
+1000014183,2026-10-10,col_primera_a,Once Caldas,Tomas García,1775296,M,0,1,0,0,0,0.0,,2.0,
+1000014183,2026-10-10,col_primera_a,Once Caldas,Mateo Zuleta,1440055,M,0,1,0,0,0,0.0,,2.0,905506.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Roameth Romaña,1706656,G,1,90,0,0,0,0.0,11.0,0.0,229757.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Brandon Churi,1529863,D,1,90,0,0,0,0.0,32.0,1.0,
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Howell Mena,1332955,D,1,90,1,1,0,0.01,34.0,1.0,316828.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Francisco Meza,307477,D,1,90,0,0,0,0.0,36.0,1.0,302992.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Jimmy Medranda,486461,D,1,45,1,0,0,0.06,38.0,1.0,214989.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Juan Castilla,1171062,M,1,90,0,0,0,0.0,65.0,2.0,435905.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Jhon Vásquez,763962,F,1,75,2,1,0,0.04,82.0,3.0,291851.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Juan Ramírez,1564151,M,1,85,0,0,0,0.0,84.0,2.0,471985.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Kelvin Osorio,793928,M,1,90,1,1,0,0.41,86.0,2.0,248656.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Frank Castañeda,922695,F,1,89,1,1,0,0.02,88.0,3.0,685515.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Carlos Cortés,1272260,F,1,72,3,1,0,0.94,115.0,3.0,259832.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Luis Miranda,1021584,F,0,44,0,0,0,0.0,,3.0,287143.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Yorleys Mena Palacios,205957,F,0,18,1,0,0,0.09,,3.0,350714.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Joel Contreras,1432978,F,0,5,0,0,0,0.0,,3.0,303590.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Marlon Sierra,1641131,M,0,1,0,0,0,0.0,,2.0,249996.0
+1000014183,2026-10-10,col_primera_a,Llaneros FC,Néider Ospina,1357404,F,0,1,0,0,0,0.0,,3.0,368760.0
+1000014590,2026-10-10,liga_mx,Puebla,Ricardo Gutiérrez,951053,G,1,90,0,0,0,0.0,11.0,0.0,
+1000014590,2026-10-10,liga_mx,Puebla,Iker Moreno,1352812,D,1,90,0,0,0,0.0,32.0,1.0,720991.0
+1000014590,2026-10-10,liga_mx,Puebla,Facundo Almada,995062,D,1,90,1,0,0,0.05,34.0,1.0,1117553.0
+1000014590,2026-10-10,liga_mx,Puebla,Juan Pablo Vargas,734283,D,1,90,1,0,0,0.02,36.0,1.0,992452.0
+1000014590,2026-10-10,liga_mx,Puebla,Fernando Monárrez,1399027,D,1,80,0,0,0,0.0,38.0,1.0,768243.0
+1000014590,2026-10-10,liga_mx,Puebla,Alejandro Organista,1139937,M,1,81,2,0,0,0.05,64.0,2.0,892903.0
+1000014590,2026-10-10,liga_mx,Puebla,Alonso Ramírez,1342851,M,1,90,0,0,0,0.0,66.0,2.0,428323.0
+1000014590,2026-10-10,liga_mx,Puebla,Brayan Garnica,684129,F,1,90,2,1,0,0.09,83.0,3.0,1115991.0
+1000014590,2026-10-10,liga_mx,Puebla,Mathías Tomás,1325351,M,1,56,4,1,0,0.18,85.0,2.0,1255143.0
+1000014590,2026-10-10,liga_mx,Puebla,Omar Moreno,1432127,F,1,66,2,1,0,0.04,87.0,3.0,1073326.0
+1000014590,2026-10-10,liga_mx,Puebla,Luifer Hernández,1199711,F,1,56,2,2,0,0.1,115.0,3.0,858406.0
+1000014590,2026-10-10,liga_mx,Puebla,Eduardo Mustre,1192467,F,0,34,3,0,0,0.09,,3.0,186624.0
+1000014590,2026-10-10,liga_mx,Puebla,Ignacio Maestro Puch,1221231,F,0,34,0,0,0,0.0,,3.0,1067049.0
+1000014590,2026-10-10,liga_mx,Puebla,Heriberto Jurado,1306869,F,0,24,0,0,0,0.0,,3.0,983713.0
+1000014590,2026-10-10,liga_mx,Puebla,Óscar Villa,1199210,D,0,10,0,0,0,0.0,,1.0,423641.0
+1000014590,2026-10-10,liga_mx,Puebla,Eduardo Armenta,1329364,M,0,9,1,1,1,0.01,,2.0,481746.0
+1000014590,2026-10-10,liga_mx,León,Irving Martínez,2119822,G,1,90,0,0,0,0.0,11.0,0.0,
+1000014590,2026-10-10,liga_mx,León,Iván Moreno,949958,D,1,90,1,0,0,0.15,32.0,1.0,1083449.0
+1000014590,2026-10-10,liga_mx,León,Jhohan Romaña,1133142,D,1,90,0,0,0,0.0,34.0,1.0,6271590.0
+1000014590,2026-10-10,liga_mx,León,Juan Guevara,1610383,D,1,90,0,0,0,0.0,36.0,1.0,1190956.0
+1000014590,2026-10-10,liga_mx,León,Salvador Reyes,914119,D,1,90,0,0,0,0.0,38.0,1.0,989271.0
+1000014590,2026-10-10,liga_mx,León,Iván Rodríguez,819851,M,1,90,0,0,0,0.0,65.0,2.0,988878.0
+1000014590,2026-10-10,liga_mx,León,Edgar Guerra,1200722,F,1,70,1,0,0,0.09,82.0,3.0,1820882.0
+1000014590,2026-10-10,liga_mx,León,Jesús Lara,1838718,M,1,57,1,1,0,0.01,84.0,2.0,
+1000014590,2026-10-10,liga_mx,León,Fernando Beltrán,861896,M,1,57,0,0,0,0.0,86.0,2.0,1905649.0
+1000014590,2026-10-10,liga_mx,León,Ismael Díaz,574077,F,1,57,1,1,1,0.64,88.0,3.0,1522683.0
+1000014590,2026-10-10,liga_mx,León,Díber Cambindo,1232523,F,1,85,5,1,0,0.88,115.0,3.0,3831710.0
+1000014590,2026-10-10,liga_mx,León,Rodrigo Echeverría,517555,D,0,33,1,0,0,0.02,,1.0,1811440.0
+1000014590,2026-10-10,liga_mx,León,Daniel Arcila,1433134,M,0,33,0,0,0,0.0,,2.0,773296.0
+1000014590,2026-10-10,liga_mx,León,Jordi Cortizo,737290,M,0,33,0,0,0,0.0,,2.0,1350060.0
+1000014590,2026-10-10,liga_mx,León,Juan Domínguez,1294724,M,0,20,0,0,0,0.0,,2.0,1603440.0
+1000014590,2026-10-10,liga_mx,León,José Alvarado,921579,F,0,5,0,0,0,0.0,,3.0,1177410.0
