@@ -761,9 +761,9 @@
   },
   "Boston River": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "River Ebro",
-    "ratio": 0.4545,
-    "visto": "2026-10-08"
+    "candidato": "Boston Utd",
+    "ratio": 0.6364,
+    "visto": "2026-10-10"
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
@@ -857,9 +857,9 @@
   },
   "AFC Hornchurch": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Malmo",
-    "ratio": 0.4348,
-    "visto": "2026-10-02"
+    "candidato": "AFC Wimbledon",
+    "ratio": 0.4444,
+    "visto": "2026-10-10"
   },
   "AFC Fylde": {
     "contexto": "cuotas_mx→futbol",
@@ -1181,9 +1181,9 @@
   },
   "Shanghai Port": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Port MTI FC",
-    "ratio": 0.381,
-    "visto": "2026-10-07"
+    "candidato": "Port Vale",
+    "ratio": 0.3636,
+    "visto": "2026-10-10"
   },
   "Libertad (Ecuador)": {
     "contexto": "cuotas_mx→futbol",
@@ -1583,9 +1583,9 @@
   },
   "Nottingham Forest": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Nottingham U21",
-    "ratio": 0.7097,
-    "visto": "2026-10-09"
+    "candidato": "Forest Green",
+    "ratio": 0.4138,
+    "visto": "2026-10-10"
   },
   "Hull City": {
     "contexto": "cuotas_mx→futbol",
@@ -1795,6 +1795,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sumsel United",
     "ratio": 0.6667,
+    "visto": "2026-10-10"
+  },
+  "AFC Bournemouth": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "AFC Wimbledon",
+    "ratio": 0.5,
+    "visto": "2026-10-10"
+  },
+  "Slavia Prague": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Slavia Mozyr",
+    "ratio": 0.64,
     "visto": "2026-10-10"
   }
 }
