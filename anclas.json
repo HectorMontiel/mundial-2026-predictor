@@ -1,41 +1,41 @@
 {
  "activo": false,
- "generado": "2026-10-10T22:05:59Z",
+ "generado": "2026-10-10T23:41:38Z",
  "casas": {
   "575": {
-   "n_pares": 1149,
-   "n_partidos": 3882,
-   "margen_mediano": 9.244,
-   "margen_desviacion": 3.357,
-   "error_mediano_pp": 0.253,
+   "n_pares": 1200,
+   "n_partidos": 3934,
+   "margen_mediano": 9.231,
+   "margen_desviacion": 3.366,
+   "error_mediano_pp": 0.249,
    "suficiente": true
   },
   "925": {
-   "n_pares": 904,
-   "n_partidos": 4797,
-   "margen_mediano": 9.111,
-   "margen_desviacion": 2.824,
-   "error_mediano_pp": 1.153,
+   "n_pares": 955,
+   "n_partidos": 4848,
+   "margen_mediano": 9.112,
+   "margen_desviacion": 2.826,
+   "error_mediano_pp": 1.146,
    "suficiente": true
   },
   "1187": {
-   "n_pares": 984,
-   "n_partidos": 4054,
-   "margen_mediano": 9.469,
-   "margen_desviacion": 1.931,
-   "error_mediano_pp": 0.334,
+   "n_pares": 1032,
+   "n_partidos": 4110,
+   "margen_mediano": 9.467,
+   "margen_desviacion": 1.932,
+   "error_mediano_pp": 0.338,
    "suficiente": true
   },
   "1207": {
-   "n_pares": 425,
-   "n_partidos": 1074,
-   "margen_mediano": 12.036,
-   "margen_desviacion": 2.76,
-   "error_mediano_pp": 0.468,
+   "n_pares": 443,
+   "n_partidos": 1092,
+   "margen_mediano": 12.033,
+   "margen_desviacion": 2.765,
+   "error_mediano_pp": 0.474,
    "suficiente": true
   }
  },
  "candidata": 575,
- "error_pp": 0.253,
+ "error_pp": 0.249,
  "motivo": "la candidata 575 se pega a Pinnacle (0.25 pp), pero falta la segunda puerta: que sus picks hayan ganado"
 }
