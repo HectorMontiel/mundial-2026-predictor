@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T17:37:17Z",
+"actualizado": "2026-10-10T19:13:54Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3294,6 +3294,26 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "APOEL vs Nea Salamis",
+"apuesta": "Gana APOEL",
+"cuota": 1.55,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Al Hidd vs Al Ittifaq",
+"apuesta": "Gana Al Ittifaq",
+"cuota": 2.9,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Arsenal vs Leeds",
@@ -3434,6 +3454,26 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "FocuSport vs Rahimo",
+"apuesta": "Gana Rahimo",
+"cuota": 3.05,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Forest Green vs Hartlepool",
+"apuesta": "Forest Green o empate",
+"cuota": 1.182,
+"resultado": "rojo",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Go Ahead Eagles vs Sparta Rotterdam",
@@ -3511,6 +3551,26 @@
 "cuota": 1.5834,
 "resultado": "verde",
 "marcador": "0-5"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Independiente del Valle vs Aucas",
+"apuesta": "Independiente del Valle o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Independiente del Valle vs Aucas",
+"apuesta": "Gana Independiente del Valle",
+"cuota": 1.462,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-10",
@@ -3601,6 +3661,16 @@
 "cuota": 1.4706,
 "resultado": "verde",
 "marcador": "1-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "RB Leipzig vs Ein Frankfurt",
+"apuesta": "RB Leipzig o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "6-0"
 },
 {
 "dia": "2026-10-10",
@@ -3711,6 +3781,16 @@
 "cuota": 2.35,
 "resultado": "rojo",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Zielona Gora vs Legia II",
+"apuesta": "Gana Zielona Gora",
+"cuota": 1.97,
+"resultado": "rojo",
+"marcador": "0-2"
 }
 ]
 }
