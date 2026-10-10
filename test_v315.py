@@ -164,8 +164,9 @@ def probar_sin_base():
     check(mm.MAX_METER_POR_PARTIDO == 2 and len(mm.metidas(recos)) == 2,
           'como mucho dos «meter» por partido (los rojos llegaban en racimo)')
     pj = open('partidos_jugados.py', encoding='utf-8').read()
-    check('recos[:mm.MAX_METER_POR_PARTIDO]' in pj,
-          'y se archivan las mismas dos que se enseñan')
+    # v356 — las mismas que se enseñan: dos y, si la hay, la tercera (`metidas`)
+    check('recos = mm.metidas(recos)' in pj,
+          'y se archivan las mismas que se enseñan')
 
 
 if __name__ == '__main__':

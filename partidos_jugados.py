@@ -294,6 +294,12 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
                    'Remates': _rm.get('totales'),
                    'Remates a puerta': _rm.get('a_puerta')}
         recos = mm.recomendadas(q, bloques, n=mm.MAX_RECOMENDADAS) or []
+        # v356 — y la tercera «se mete», como en la tarjeta
+        try:
+            recos = mm.con_tercera(recos, mm.otras_que_se_meten(
+                q, bloques, mm.metidas(recos)))
+        except Exception as e:
+            logger.debug('[jugados] tercera de %s: %s', pick.get('partido'), e)
         # v352 — lo que se archiva es la apuesta FIJADA a la hora de apostar
         recos = mm.con_fijada(q, recos) or []
     except Exception as e:
@@ -311,7 +317,8 @@ def _recomendadas_previas(pick: Dict) -> List[Dict]:
     # apuesta que nadie propuso.
     recos = [o for o in recos if o.get('veredicto_vp') == 'meter']
     # v315 — y como mucho dos por partido, lo mismo que enseña la tarjeta
-    recos = recos[:mm.MAX_METER_POR_PARTIDO]
+    # (v356: más la tercera, `metidas`)
+    recos = mm.metidas(recos)
     return [dict(pg._fila(r), origen='archivo') for r in recos]
 
 

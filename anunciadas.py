@@ -45,7 +45,7 @@ VERSION = 1
 # se olvidan los partidos que empezaron hace más de esto
 HORAS_MEMORIA = 48
 CAMPOS = ('apuesta', 'mercado', 'bloque', 'linea', 'etiqueta', 'cuota',
-          'prob', 'prob_meter', 'p_mercado', 'elite')
+          'prob', 'prob_meter', 'p_mercado', 'elite', 'tercera')
 _CACHE: Dict = {}
 
 
@@ -114,7 +114,10 @@ def acumular(doc_pronostico: Dict, ruta: str = '',
                 if ini is not None and ini <= ahora:
                     continue           # lo que se anuncia ya empezado no cuenta
                 recos = x.get('recomendadas_tarjeta') or x.get('recomendadas') or []
-                met = [r for r in recos if r.get('veredicto_vp') == 'meter'][:2]
+                met = [r for r in recos if r.get('veredicto_vp') == 'meter']
+                # v356 — las dos de arriba y la tercera, si la hay
+                met = ([r for r in met if not r.get('tercera')][:2]
+                       + [r for r in met if r.get('tercera')][:1])
                 # v352 — LA APUESTA OFICIAL: la que hay al abrir la hora de
                 # apostar (ver `oficial`). Mientras no se abre, cada pasada
                 # la reescribe; desde que se abre, ya no se toca.

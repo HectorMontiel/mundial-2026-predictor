@@ -1,0 +1,264 @@
+{
+ "partidos": 889,
+ "dias": [
+  "2026-09-19",
+  "2026-10-09"
+ ],
+ "con_xg": 237,
+ "H1": [
+  {
+   "tramo": "elige",
+   "banda": "(-1.0, -0.2]",
+   "size": 4,
+   "mean": 0.75
+  },
+  {
+   "tramo": "elige",
+   "banda": "(-0.2, -0.1]",
+   "size": 9,
+   "mean": 0.778
+  },
+  {
+   "tramo": "elige",
+   "banda": "(-0.1, -0.05]",
+   "size": 9,
+   "mean": 0.778
+  },
+  {
+   "tramo": "elige",
+   "banda": "(-0.05, 0.0]",
+   "size": 15,
+   "mean": 0.867
+  },
+  {
+   "tramo": "elige",
+   "banda": "(0.0, 0.05]",
+   "size": 13,
+   "mean": 0.923
+  },
+  {
+   "tramo": "elige",
+   "banda": "(0.05, 1.0]",
+   "size": 45,
+   "mean": 0.8
+  },
+  {
+   "tramo": "juzga",
+   "banda": "(-1.0, -0.2]",
+   "size": 11,
+   "mean": 0.909
+  },
+  {
+   "tramo": "juzga",
+   "banda": "(-0.2, -0.1]",
+   "size": 15,
+   "mean": 0.867
+  },
+  {
+   "tramo": "juzga",
+   "banda": "(-0.1, -0.05]",
+   "size": 10,
+   "mean": 0.7
+  },
+  {
+   "tramo": "juzga",
+   "banda": "(-0.05, 0.0]",
+   "size": 22,
+   "mean": 0.955
+  },
+  {
+   "tramo": "juzga",
+   "banda": "(0.0, 0.05]",
+   "size": 25,
+   "mean": 0.84
+  },
+  {
+   "tramo": "juzga",
+   "banda": "(0.05, 1.0]",
+   "size": 59,
+   "mean": 0.847
+  }
+ ],
+ "base": {
+  "elige": {
+   "apuestas": 545,
+   "verdes": 439,
+   "rojas": 106,
+   "acierto": 0.8055,
+   "cuota": 1.191
+  },
+  "juzga": {
+   "apuestas": 514,
+   "verdes": 423,
+   "rojas": 91,
+   "acierto": 0.823,
+   "cuota": 1.185
+  }
+ },
+ "H2_rejilla": {
+  "0.05": {
+   "elige": {
+    "apuestas": 535,
+    "verdes": 430,
+    "rojas": 105,
+    "acierto": 0.8037,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 503,
+    "verdes": 412,
+    "rojas": 91,
+    "acierto": 0.8191,
+    "cuota": 1.186
+   },
+   "cambios": 37
+  },
+  "0.1": {
+   "elige": {
+    "apuestas": 539,
+    "verdes": 433,
+    "rojas": 106,
+    "acierto": 0.8033,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 505,
+    "verdes": 413,
+    "rojas": 92,
+    "acierto": 0.8178,
+    "cuota": 1.186
+   },
+   "cambios": 24
+  },
+  "0.15": {
+   "elige": {
+    "apuestas": 544,
+    "verdes": 438,
+    "rojas": 106,
+    "acierto": 0.8051,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 507,
+    "verdes": 414,
+    "rojas": 93,
+    "acierto": 0.8166,
+    "cuota": 1.186
+   },
+   "cambios": 18
+  },
+  "0.2": {
+   "elige": {
+    "apuestas": 544,
+    "verdes": 438,
+    "rojas": 106,
+    "acierto": 0.8051,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 508,
+    "verdes": 417,
+    "rojas": 91,
+    "acierto": 0.8209,
+    "cuota": 1.185
+   },
+   "cambios": 8
+  },
+  "0.25": {
+   "elige": {
+    "apuestas": 544,
+    "verdes": 439,
+    "rojas": 105,
+    "acierto": 0.807,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 512,
+    "verdes": 420,
+    "rojas": 92,
+    "acierto": 0.8203,
+    "cuota": 1.185
+   },
+   "cambios": 5
+  }
+ },
+ "H2_elegido": 0.25,
+ "H2_juzga": {
+  "base": {
+   "apuestas": 514,
+   "verdes": 423,
+   "rojas": 91,
+   "acierto": 0.823,
+   "cuota": 1.185
+  },
+  "nueva": {
+   "apuestas": 512,
+   "verdes": 420,
+   "rojas": 92,
+   "acierto": 0.8203,
+   "cuota": 1.185
+  },
+  "boot": {
+   "acierto_dif": -0.0027,
+   "p5": -0.0065,
+   "verdes_dif": -3.0
+  }
+ },
+ "H2_todo": {
+  "base": {
+   "apuestas": 1059,
+   "verdes": 862,
+   "rojas": 197,
+   "acierto": 0.814,
+   "cuota": 1.188
+  },
+  "nueva": {
+   "apuestas": 1056,
+   "verdes": 859,
+   "rojas": 197,
+   "acierto": 0.8134,
+   "cuota": 1.188
+  },
+  "boot": {
+   "acierto_dif": -0.0005,
+   "p5": -0.0027,
+   "verdes_dif": -3.0
+  }
+ },
+ "H2_2026-10-08": {
+  "base": {
+   "apuestas": 17,
+   "verdes": 15,
+   "rojas": 2,
+   "acierto": 0.8824,
+   "cuota": 1.195
+  },
+  "nueva": {
+   "apuestas": 17,
+   "verdes": 15,
+   "rojas": 2,
+   "acierto": 0.8824,
+   "cuota": 1.195
+  }
+ },
+ "H2_2026-10-09": {
+  "base": {
+   "apuestas": 39,
+   "verdes": 26,
+   "rojas": 13,
+   "acierto": 0.6667,
+   "cuota": 1.192
+  },
+  "nueva": {
+   "apuestas": 39,
+   "verdes": 26,
+   "rojas": 13,
+   "acierto": 0.6667,
+   "cuota": 1.192
+  }
+ },
+ "H3_menos35_cuando_falla_mas15": {
+  "n": 38,
+  "acierta": 1.0
+ }
+}

@@ -78,6 +78,7 @@ número del mercado disfrazado de fila del modelo rompería justo eso. Los
 partidos sin pronóstico salen agrupados aparte, con `Sin datos de modelo`.
 """
 import logging
+import re
 
 import numpy as np
 from typing import Callable, Dict, List, Optional
@@ -2226,8 +2227,76 @@ def _motivo_fuera(v: Dict, fav: Optional[float], lam: Dict) -> Optional[str]:
     """Por qué un «meter» del veredicto NO se mete en la tarjeta (la franja
     de fútbol de la v312 y las dos reglas de córners), o None."""
     import veredicto_pick as _vp
-    return (_vp.franja_futbol(v) or corners_equipo_sin_favorito(v, fav)
-            or corners_margen_corto(v, lam))
+    return (_vp.franja_futbol(v) or corners_mas_total(v)
+            or corners_equipo_sin_favorito(v, fav) or corners_margen_corto(v, lam))
+
+
+# v356 — «CÓRNERS: MÁS DE» NO SE METE. El usuario, con las rojas del 8 y 9-oct:
+# «quiero evitar rojas y que entren más verdes sin bajar el estándar». En la
+# réplica de la tarjeta (`_v356_anticipar.py`, 889 partidos del 19-sep al
+# 9-oct) era el tipo de «se mete» que más fallaba, y en las DOS mitades:
+# 63,0 % (27) y 66,7 % (18), contra 80-83 % del resto. Quitarlo deja sitio a la
+# siguiente que pasa la regla (ver la simulación en `TERCERA_PROB_MIN`).
+def corners_mas_total(v: Dict) -> Optional[str]:
+    ap = str(v.get('apuesta') or (v.get('pick') or {}).get('apuesta') or '')
+    if ap.startswith('Córners: Más de'):
+        return '«córners: más de» como «se mete» acierta 64 % (medido)'
+    return None
+
+
+# v356 — Y UNA TERCERA «SE METE»: la mejor de «También se meten» si llega al
+# 78 % (de otro mercado; misma regla que las de arriba). En la réplica, las
+# extras de 78-82 % acertaron 92 % y 83 % en las dos mitades. Junto con quitar
+# los córners «más de» (simulado sobre las mismas 889 tarjetas):
+#
+#                        elige 19-29 sep          juzga 30-sep → 9-oct
+#     hasta hoy          439 ✅ 106 ❌  80,6 %     423 ✅ 91 ❌  82,3 %
+#     con los dos        437 ✅ 100 ❌  81,4 %     436 ✅ 88 ❌  83,2 %
+#
+# Al juzgar: +13 verdes, −3 rojas, +0,9 pts (p5 +0,03). Mejora pequeña, en la
+# misma dirección en las dos mitades.
+#
+# v357 — Y NO SIEMPRE: el usuario, «decide bien cuándo sí ponerla y cuándo no,
+# que sea sencillo para mí». Analizadas las 115 candidatas a tercera de la
+# réplica (`_v357_terceras.pkl`): por debajo del 78 % aciertan 68-73 %; con
+# ≥ 78 %, 85-87 %; pero «goles de un equipo: menos de» acierta 67 % y 45 % en
+# las dos mitades (es la que más salía). Con ≥ 78 % y SIN ésa: 91 % y 89 %.
+# Tarjeta entera, con los córners «más de» fuera:
+#
+#                        elige                    juzga
+#     hasta hoy          439 ✅ 106 ❌  80,5 %     423 ✅ 91 ❌  82,3 %
+#     con la tercera     436 ✅  99 ❌  81,5 %     432 ✅ 87 ❌  83,2 %
+#
+# (p5 de la mejora: −0,05 / +0,16 pts). La tercera sale sola cuando cumple;
+# si no, no aparece.
+TERCERA_PROB_MIN = 0.78
+_RE_GOLES_EQUIPO_MENOS = re.compile(r'^Goles [^:]+: Menos de ')
+
+
+def con_tercera(recos: list, otras: Optional[list]) -> list:
+    """`recos` + la tercera «se mete» (la primera de `otras` con ≥ 78 %), o
+    `recos` tal cual. Nunca lanza."""
+    try:
+        # ya decidida (o fijada a la hora de apostar, v352, con su tercera)
+        if not recos or any(r.get('tercera') or r.get('fijada') for r in recos):
+            return recos
+        met = [r for r in recos if r.get('veredicto_vp') == 'meter'][:MAX_METER_POR_PARTIDO]
+        if not met:
+            return recos
+        ya = {r.get('apuesta') for r in recos}
+        # la MEJOR de las otras (vienen ordenadas): si no cumple, no hay tercera
+        for o in otras or []:
+            if o.get('apuesta') in ya:
+                continue
+            p = o.get('prob_meter') if o.get('prob_meter') is not None else o.get('prob')
+            if (p is None or float(p) < TERCERA_PROB_MIN
+                    or _RE_GOLES_EQUIPO_MENOS.match(str(o.get('apuesta') or ''))):
+                return recos
+            return list(recos) + [dict(o, veredicto_vp='meter', tercera=True,
+                                       puesto_valor=MAX_METER_POR_PARTIDO + 1)]
+    except Exception as e:
+        logger.debug('[modo_modelo] tercera: %s', e)
+    return recos
 
 
 # v324 — LA LÍNEA QUE SE METE, NO SÓLO LA MÁS PROBABLE.
@@ -2460,8 +2529,10 @@ def con_fijada(pick: Dict, recos):
 def metidas(recos: list) -> list:
     """v311 — de las recomendadas, sólo las que se dicen «meter» (v315: como
     mucho dos, las primeras)."""
-    return [r for r in (recos or [])
-            if r.get('veredicto_vp') == 'meter'][:MAX_METER_POR_PARTIDO]
+    met = [r for r in (recos or []) if r.get('veredicto_vp') == 'meter']
+    # v356 — más la tercera, si la hay (`con_tercera`)
+    return ([r for r in met if not r.get('tercera')][:MAX_METER_POR_PARTIDO]
+            + [r for r in met if r.get('tercera')][:1])
 
 
 def apuesta_recomendada(pick: Dict, bloques: Optional[Dict] = None

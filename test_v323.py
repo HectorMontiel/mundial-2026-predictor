@@ -92,8 +92,13 @@ def probar_equivalencia(doc):
                                      'Remates': (_rm or {}).get('totales'),
                                      'Remates a puerta': (_rm or {}).get('a_puerta')},
                                  n=mm.MAX_RECOMENDADAS)
-            # v352 — y la apuesta fijada a la hora de apostar, como la tarjeta
+            # v352 — la apuesta fijada a la hora de apostar y, v356, la tercera
+            # «se mete» (de las otras), en el orden del precálculo
             rt = mm.con_fijada(p, rt)
+            rt = mm.con_tercera(rt, mm.otras_que_se_meten(p, {
+                'Córners': mm.corners_tarjeta(p), 'Tarjetas': mm.tarjetas_tarjeta(p),
+                'Remates': (_rm or {}).get('totales'),
+                'Remates a puerta': (_rm or {}).get('a_puerta')}, mm.metidas(rt)))
             n_tarj[0] += 1
             filas_t[0] += len(rt)
             if canon(rt) != canon(f['recomendadas_tarjeta']):

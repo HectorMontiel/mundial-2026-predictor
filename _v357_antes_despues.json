@@ -1,0 +1,304 @@
+{
+ "tramos": {
+  "19-sep a 29-sep (elegir)": {
+   "antes": {
+    "verdes": 439,
+    "rojas": 106,
+    "acierto": 80.6
+   },
+   "despues": {
+    "verdes": 436,
+    "rojas": 99,
+    "acierto": 81.5
+   }
+  },
+  "30-sep a 9-oct (juzgar)": {
+   "antes": {
+    "verdes": 423,
+    "rojas": 91,
+    "acierto": 82.3
+   },
+   "despues": {
+    "verdes": 432,
+    "rojas": 87,
+    "acierto": 83.2
+   }
+  },
+  "todo": {
+   "antes": {
+    "verdes": 862,
+    "rojas": 197,
+    "acierto": 81.4
+   },
+   "despues": {
+    "verdes": 868,
+    "rojas": 186,
+    "acierto": 82.4
+   },
+   "boot": {
+    "acierto_dif": 0.0097,
+    "p5": 0.0032,
+    "verdes_dif": 6.3
+   }
+  }
+ },
+ "dias": {
+  "2026-09-19": {
+   "antes": {
+    "verdes": 41,
+    "rojas": 16,
+    "acierto": 71.9
+   },
+   "despues": {
+    "verdes": 40,
+    "rojas": 13,
+    "acierto": 75.5
+   }
+  },
+  "2026-09-20": {
+   "antes": {
+    "verdes": 96,
+    "rojas": 22,
+    "acierto": 81.4
+   },
+   "despues": {
+    "verdes": 94,
+    "rojas": 19,
+    "acierto": 83.2
+   }
+  },
+  "2026-09-21": {
+   "antes": {
+    "verdes": 3,
+    "rojas": 0,
+    "acierto": 100.0
+   },
+   "despues": {
+    "verdes": 3,
+    "rojas": 0,
+    "acierto": 100.0
+   }
+  },
+  "2026-09-22": {
+   "antes": {
+    "verdes": 2,
+    "rojas": 0,
+    "acierto": 100.0
+   },
+   "despues": {
+    "verdes": 2,
+    "rojas": 0,
+    "acierto": 100.0
+   }
+  },
+  "2026-09-23": {
+   "antes": {
+    "verdes": 7,
+    "rojas": 3,
+    "acierto": 70.0
+   },
+   "despues": {
+    "verdes": 7,
+    "rojas": 3,
+    "acierto": 70.0
+   }
+  },
+  "2026-09-24": {
+   "antes": {
+    "verdes": 29,
+    "rojas": 7,
+    "acierto": 80.6
+   },
+   "despues": {
+    "verdes": 31,
+    "rojas": 6,
+    "acierto": 83.8
+   }
+  },
+  "2026-09-25": {
+   "antes": {
+    "verdes": 50,
+    "rojas": 13,
+    "acierto": 79.4
+   },
+   "despues": {
+    "verdes": 52,
+    "rojas": 13,
+    "acierto": 80.0
+   }
+  },
+  "2026-09-26": {
+   "antes": {
+    "verdes": 124,
+    "rojas": 21,
+    "acierto": 85.5
+   },
+   "despues": {
+    "verdes": 121,
+    "rojas": 21,
+    "acierto": 85.2
+   }
+  },
+  "2026-09-27": {
+   "antes": {
+    "verdes": 60,
+    "rojas": 12,
+    "acierto": 83.3
+   },
+   "despues": {
+    "verdes": 59,
+    "rojas": 11,
+    "acierto": 84.3
+   }
+  },
+  "2026-09-28": {
+   "antes": {
+    "verdes": 27,
+    "rojas": 12,
+    "acierto": 69.2
+   },
+   "despues": {
+    "verdes": 27,
+    "rojas": 13,
+    "acierto": 67.5
+   }
+  },
+  "2026-09-29": {
+   "antes": {
+    "verdes": 58,
+    "rojas": 7,
+    "acierto": 89.2
+   },
+   "despues": {
+    "verdes": 61,
+    "rojas": 6,
+    "acierto": 91.0
+   }
+  },
+  "2026-09-30": {
+   "antes": {
+    "verdes": 16,
+    "rojas": 4,
+    "acierto": 80.0
+   },
+   "despues": {
+    "verdes": 16,
+    "rojas": 4,
+    "acierto": 80.0
+   }
+  },
+  "2026-10-01": {
+   "antes": {
+    "verdes": 29,
+    "rojas": 8,
+    "acierto": 78.4
+   },
+   "despues": {
+    "verdes": 29,
+    "rojas": 8,
+    "acierto": 78.4
+   }
+  },
+  "2026-10-02": {
+   "antes": {
+    "verdes": 38,
+    "rojas": 11,
+    "acierto": 77.6
+   },
+   "despues": {
+    "verdes": 43,
+    "rojas": 11,
+    "acierto": 79.6
+   }
+  },
+  "2026-10-03": {
+   "antes": {
+    "verdes": 101,
+    "rojas": 20,
+    "acierto": 83.5
+   },
+   "despues": {
+    "verdes": 104,
+    "rojas": 20,
+    "acierto": 83.9
+   }
+  },
+  "2026-10-04": {
+   "antes": {
+    "verdes": 59,
+    "rojas": 11,
+    "acierto": 84.3
+   },
+   "despues": {
+    "verdes": 61,
+    "rojas": 9,
+    "acierto": 87.1
+   }
+  },
+  "2026-10-05": {
+   "antes": {
+    "verdes": 34,
+    "rojas": 6,
+    "acierto": 85.0
+   },
+   "despues": {
+    "verdes": 33,
+    "rojas": 6,
+    "acierto": 84.6
+   }
+  },
+  "2026-10-06": {
+   "antes": {
+    "verdes": 29,
+    "rojas": 9,
+    "acierto": 76.3
+   },
+   "despues": {
+    "verdes": 27,
+    "rojas": 8,
+    "acierto": 77.1
+   }
+  },
+  "2026-10-07": {
+   "antes": {
+    "verdes": 18,
+    "rojas": 0,
+    "acierto": 100.0
+   },
+   "despues": {
+    "verdes": 17,
+    "rojas": 1,
+    "acierto": 94.4
+   }
+  },
+  "2026-10-08": {
+   "antes": {
+    "verdes": 15,
+    "rojas": 2,
+    "acierto": 88.2
+   },
+   "despues": {
+    "verdes": 15,
+    "rojas": 2,
+    "acierto": 88.2
+   }
+  },
+  "2026-10-09": {
+   "antes": {
+    "verdes": 26,
+    "rojas": 13,
+    "acierto": 66.7
+   },
+   "despues": {
+    "verdes": 26,
+    "rojas": 12,
+    "acierto": 68.4
+   }
+  }
+ },
+ "terceras": {
+  "verdes": 20,
+  "rojas": 3,
+  "acierto": 87.0
+ }
+}

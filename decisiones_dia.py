@@ -100,6 +100,11 @@ def decidir(p: Dict) -> Dict:
         # v347 — las demás que también se meten (el desplegable)
         out['otras_tarjeta'] = mm.otras_que_se_meten(
             p, bloques, mm.metidas(out['recomendadas_tarjeta']))
+        # v356 — la tercera «se mete» sale de las otras (≥ 78 %)
+        out['recomendadas_tarjeta'] = mm.con_tercera(out['recomendadas_tarjeta'],
+                                                     out['otras_tarjeta'])
+        _ter = {r.get('apuesta') for r in out['recomendadas_tarjeta'] if r.get('tercera')}
+        out['otras_tarjeta'] = [o for o in out['otras_tarjeta'] if o.get('apuesta') not in _ter]
         # v348 — la mejor de cada mercado (el filtro por mercado)
         out['por_mercado'] = mm.mejor_por_mercado(
             p, bloques, mm.metidas(out['recomendadas_tarjeta']),

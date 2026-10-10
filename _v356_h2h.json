@@ -1,0 +1,342 @@
+{
+ "partidos_con_h2h3": 498,
+ "partidos": 893,
+ "reglas": {
+  "R1_U0.40": {
+   "elige": {
+    "apuestas": 546,
+    "verdes": 439,
+    "rojas": 107,
+    "acierto": 0.804,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 523,
+    "verdes": 431,
+    "rojas": 92,
+    "acierto": 0.8241,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     15,
+     2
+    ],
+    "2026-10-09": [
+     26,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": 0.0,
+    "p5": 0.0,
+    "verdes_dif": 0.0
+   }
+  },
+  "R1_U0.50": {
+   "elige": {
+    "apuestas": 542,
+    "verdes": 436,
+    "rojas": 106,
+    "acierto": 0.8044,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 523,
+    "verdes": 433,
+    "rojas": 90,
+    "acierto": 0.8279,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     16,
+     1
+    ],
+    "2026-10-09": [
+     26,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": 0.0039,
+    "p5": 0.0,
+    "verdes_dif": 2.0
+   }
+  },
+  "R1_U0.60": {
+   "elige": {
+    "apuestas": 540,
+    "verdes": 434,
+    "rojas": 106,
+    "acierto": 0.8037,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 520,
+    "verdes": 431,
+    "rojas": 89,
+    "acierto": 0.8288,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     17,
+     0
+    ],
+    "2026-10-09": [
+     26,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": 0.0048,
+    "p5": -0.0003,
+    "verdes_dif": -0.0
+   }
+  },
+  "R1_U0.70": {
+   "elige": {
+    "apuestas": 534,
+    "verdes": 426,
+    "rojas": 108,
+    "acierto": 0.7978,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 517,
+    "verdes": 428,
+    "rojas": 89,
+    "acierto": 0.8279,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     17,
+     0
+    ],
+    "2026-10-09": [
+     25,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": 0.0035,
+    "p5": -0.0053,
+    "verdes_dif": -3.1
+   }
+  },
+  "R2_V0.30": {
+   "elige": {
+    "apuestas": 534,
+    "verdes": 430,
+    "rojas": 104,
+    "acierto": 0.8052,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 517,
+    "verdes": 426,
+    "rojas": 91,
+    "acierto": 0.824,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     14,
+     2
+    ],
+    "2026-10-09": [
+     25,
+     12
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": -0.0001,
+    "p5": -0.0025,
+    "verdes_dif": -4.9
+   }
+  },
+  "R2_V0.40": {
+   "elige": {
+    "apuestas": 538,
+    "verdes": 433,
+    "rojas": 105,
+    "acierto": 0.8048,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 521,
+    "verdes": 429,
+    "rojas": 92,
+    "acierto": 0.8234,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     14,
+     2
+    ],
+    "2026-10-09": [
+     25,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": -0.0007,
+    "p5": -0.0016,
+    "verdes_dif": -2.0
+   }
+  },
+  "R2_V0.50": {
+   "elige": {
+    "apuestas": 543,
+    "verdes": 436,
+    "rojas": 107,
+    "acierto": 0.8029,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 522,
+    "verdes": 430,
+    "rojas": 92,
+    "acierto": 0.8238,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     15,
+     2
+    ],
+    "2026-10-09": [
+     25,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": -0.0003,
+    "p5": -0.001,
+    "verdes_dif": -1.0
+   }
+  },
+  "R3_F2.0": {
+   "elige": {
+    "apuestas": 545,
+    "verdes": 438,
+    "rojas": 107,
+    "acierto": 0.8037,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 523,
+    "verdes": 431,
+    "rojas": 92,
+    "acierto": 0.8241,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     15,
+     2
+    ],
+    "2026-10-09": [
+     26,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": 0.0,
+    "p5": 0.0,
+    "verdes_dif": 0.0
+   }
+  },
+  "R3_F2.2": {
+   "elige": {
+    "apuestas": 544,
+    "verdes": 438,
+    "rojas": 106,
+    "acierto": 0.8051,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 520,
+    "verdes": 428,
+    "rojas": 92,
+    "acierto": 0.8231,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     15,
+     2
+    ],
+    "2026-10-09": [
+     26,
+     13
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": -0.001,
+    "p5": -0.0021,
+    "verdes_dif": -3.0
+   }
+  },
+  "R3_F2.4": {
+   "elige": {
+    "apuestas": 539,
+    "verdes": 433,
+    "rojas": 106,
+    "acierto": 0.8033,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 515,
+    "verdes": 422,
+    "rojas": 93,
+    "acierto": 0.8194,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     14,
+     2
+    ],
+    "2026-10-09": [
+     27,
+     12
+    ]
+   },
+   "boot_juzga": {
+    "acierto_dif": -0.0047,
+    "p5": -0.011,
+    "verdes_dif": -9.0
+   }
+  },
+  "base": {
+   "elige": {
+    "apuestas": 547,
+    "verdes": 440,
+    "rojas": 107,
+    "acierto": 0.8044,
+    "cuota": 1.191
+   },
+   "juzga": {
+    "apuestas": 523,
+    "verdes": 431,
+    "rojas": 92,
+    "acierto": 0.8241,
+    "cuota": 1.185
+   },
+   "dias": {
+    "2026-10-08": [
+     15,
+     2
+    ],
+    "2026-10-09": [
+     26,
+     13
+    ]
+   }
+  }
+ }
+}
