@@ -1,8 +1,8 @@
 {
- "generado": "2026-10-10T09:45:49Z",
- "revisados": 299,
+ "generado": "2026-10-10T11:19:49Z",
+ "revisados": 301,
  "descartados": {
-  "el corto tiene un token que el largo no": 282,
+  "el corto tiene un token que el largo no": 284,
   "una inicial del corto no casa con ningun token": 5,
   "una sola palabra: no hay apellido que comprobar": 8
  },
@@ -22,7 +22,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T09:45:49Z",
+   "ultima_vez": "2026-10-10T11:19:49Z",
    "primera_vez": "2026-09-27T20:27:10Z"
   },
   "cruz azul hidalgo": {
@@ -58,7 +58,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5185,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T09:45:49Z",
+   "ultima_vez": "2026-10-10T11:19:49Z",
    "primera_vez": "2026-10-07T01:50:20Z"
   },
   "al shabab": {
@@ -67,7 +67,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T09:45:49Z",
+   "ultima_vez": "2026-10-10T11:19:49Z",
    "primera_vez": "2026-10-08T02:10:23Z"
   },
   "sk sturm graz": {
@@ -76,7 +76,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.7692,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T09:45:49Z",
+   "ultima_vez": "2026-10-10T11:19:49Z",
    "primera_vez": "2026-10-09T14:39:26Z"
   }
  }

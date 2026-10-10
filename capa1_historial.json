@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T09:50:35Z",
+"actualizado": "2026-10-10T11:26:54Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3301,6 +3301,76 @@
 "cuota": 1.177,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Mlada Boleslav B vs Banik Most-Sous",
+"apuesta": "Gana Banik Most-Sous",
+"cuota": 2.65,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Neratovice vs Pardubice B",
+"apuesta": "Gana Neratovice",
+"cuota": 3.35,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Povltavska FA vs Ceske Budejovice",
+"apuesta": "Gana Ceske Budejovice",
+"cuota": 1.4706,
+"resultado": "verde",
+"marcador": "1-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sokolov vs Hostoun",
+"apuesta": "Gana Hostoun",
+"cuota": 1.84,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Sokolov vs Hostoun",
+"apuesta": "Gana Hostoun",
+"cuota": 1.84,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sumsel United vs Persiku Kudus",
+"apuesta": "Gana Sumsel United",
+"cuota": 1.35,
+"resultado": "verde",
+"marcador": "5-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Usti nad Labem B vs Velvary",
+"apuesta": "Gana Usti nad Labem B",
+"cuota": 2.7,
+"resultado": "rojo",
+"marcador": "0-0"
 }
 ]
 }
