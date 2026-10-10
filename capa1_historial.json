@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T20:46:42Z",
+"actualizado": "2026-10-10T21:03:17Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3544,6 +3544,16 @@
 },
 {
 "dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Genk vs Kortrijk",
+"apuesta": "Gana Genk",
+"cuota": 1.48,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Go Ahead Eagles vs Sparta Rotterdam",
@@ -3701,6 +3711,26 @@
 "cuota": 2.65,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Monaco vs Toulouse",
+"apuesta": "Monaco o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Napoli vs Frosinone",
+"apuesta": "Napoli o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "3-0"
 },
 {
 "dia": "2026-10-10",
