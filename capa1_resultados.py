@@ -135,6 +135,9 @@ def resolver(mercado: str, apuesta: str, home: str, away: str,
         return 'verde' if ga >= gh else 'rojo'
     if al in ('%s o %s' % (hl, awl), '%s o %s' % (awl, hl)):
         return 'verde' if gh != ga else 'rojo'
+    # v354 — el hándicap de la NBA llega como «Handicap: Equipo +7.5»
+    if a.startswith('Handicap: '):
+        a, m = a[len('Handicap: '):].strip(), 'handicap'
     # «Más de 3.0 goles» con 3 goles se devuelve: el liquidador lo da perdido
     if m == 'goles' or 'goles' in a.lower():
         mm = re.search(r'(\d+(?:[.,]\d+)?)', a)

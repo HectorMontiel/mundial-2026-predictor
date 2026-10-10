@@ -2163,6 +2163,56 @@ def _indice_mb(deporte: str) -> Dict[str, dict]:
     return idx
 
 
+# v354 — LA NBA EN PLAYDOIT SE ESCRIBE «DET Pistons», «ATL Hawks».
+#
+# El catálogo de básquet de Playdoit tiene 424 partidos de la NBA, pero con la
+# ciudad abreviada, y «Detroit Pistons» contra «DET Pistons» no llegaba al
+# umbral de similitud de clubes: la app NUNCA encontraba un partido de la NBA
+# en Playdoit (medido el 2026-10-09: 0 de 8). En la NBA el apodo es único, así
+# que basta con él (más la fecha, que separa los cruces repetidos).
+_NBA_APODOS = ('hawks', 'celtics', 'nets', 'hornets', 'bulls', 'cavaliers',
+               'mavericks', 'nuggets', 'pistons', 'warriors', 'rockets',
+               'pacers', 'clippers', 'lakers', 'grizzlies', 'heat', 'bucks',
+               'timberwolves', 'pelicans', 'knicks', 'thunder', 'magic',
+               '76ers', 'suns', 'blazers', 'kings', 'spurs', 'raptors', 'jazz',
+               'wizards')
+
+
+def apodo_nba(nombre) -> Optional[str]:
+    """'pistons' de «Detroit Pistons» o de «DET Pistons»; None si no es NBA."""
+    t = str(nombre or '').lower().replace('.', ' ')
+    if '(f)' in t or ' w ' in (t + ' '):
+        return None                      # femenino: no es la NBA
+    pal = t.replace('-', ' ').split()
+    for ap in _NBA_APODOS:
+        if ap in pal:
+            return ap
+    if 'sixers' in pal:
+        return '76ers'
+    return None
+
+
+def _buscar_nba(indice: Dict[str, dict], home: str, away: str,
+                fecha=None) -> Optional[dict]:
+    ah, aa = apodo_nba(home), apodo_nba(away)
+    if not (ah and aa) or ah == aa:
+        return None
+    mejor = None
+    for v in indice.values():
+        ph, pa = apodo_nba(v.get('home')), apodo_nba(v.get('away'))
+        if {ph, pa} != {ah, aa}:
+            continue
+        d = _dias_entre(fecha, v.get('fecha'))
+        if d is not None and d > TOLERANCIA_DIAS:
+            continue
+        clave_d = d if d is not None else 99
+        if mejor is None or clave_d < mejor[0]:
+            r = dict(v)
+            r['invertido'] = ph == aa
+            mejor = (clave_d, r)
+    return mejor[1] if mejor else None
+
+
 def _buscar(indice: Dict[str, dict], home: str, away: str,
             deporte: str = 'futbol', fecha=None,
             liga: Optional[str] = None) -> Optional[dict]:
@@ -2196,6 +2246,10 @@ def _buscar(indice: Dict[str, dict], home: str, away: str,
     Devolver None es un resultado correcto: el partido aparecerá «sin cuota»,
     que es honesto. Devolver la cuota de otro partido, no.
     """
+    if deporte == 'nba' and apodo_nba(home) and apodo_nba(away):
+        r_nba = _buscar_nba(indice, home, away, fecha)
+        if r_nba is not None:
+            return r_nba
     cat_ref = categoria_efectiva(home, away, liga or '')
     sim = _sim_tenista if deporte == 'tenis' else _sim_club
     umbral = 0.86 if deporte == 'tenis' else 0.80

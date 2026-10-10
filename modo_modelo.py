@@ -1859,6 +1859,11 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             'tiros_alta': _mej.get('tiros_alta') or '',
             'p_mod_tiros': _mej.get('p_mod_tiros'),
             'p_casa_tiros': _mej.get('p_casa_tiros'),
+            # v354 — las líneas de la NBA medidas por distancia (`nba_lineas`)
+            'nba_linea': bool(_mej.get('nba_linea')),
+            'nba_k': _mej.get('nba_k'),
+            'nba_tipo': _mej.get('nba_tipo'),
+            'informativa': bool(_mej.get('informativa')),
             # v258 — y la correccion por linea, por el mismo motivo exacto
             # que la v250.1 documenta justo arriba: lo que no se liste aqui
             # no llega a la tarjeta, por mucho que `valor_apuesta` lo cuelgue.
@@ -4725,7 +4730,7 @@ def por_que_no(p: Dict) -> str:
         dep = str(p.get('deporte') or 'Fútbol')
         if p.get('pretemporada'):
             # v330 — la pretemporada (NBA) no se recomienda nunca
-            por = 'pretemporada: no se mide ni se recomienda'
+            por = 'pretemporada: sólo se mete el hándicap del no favorito'
         elif dep in _vp.DEPORTES_SIN_METER:
             # v350 — el béisbol se enseña, no se mete
             por = 'en el béisbol no hay apuesta al ~80 %'

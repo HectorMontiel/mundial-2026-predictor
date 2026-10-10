@@ -3049,6 +3049,22 @@ def _picks_nba() -> Dict[str, List[Dict]]:
             _ca = (mejor.get('away') or {}).get('cuota')
             if _ch and _ca:
                 fila['implicitas'] = {'1x2_cuotas': {'home': _ch, 'away': _ca}}
+            # v354 — Y LAS ESCALERAS DE HÁNDICAP Y TOTALES DE PLAYDOIT (la casa
+            # del usuario), para las líneas alternativas medidas en
+            # `nba_lineas`. Sólo de lo que empieza en 48 h: más lejos Playdoit
+            # publica sólo la línea principal, y así son ~15 peticiones al día.
+            try:
+                _ini = pd.to_datetime(fx.get('inicio'))
+                _horas = (_ini - pd.Timestamp.utcnow().tz_localize(None)).total_seconds() / 3600
+                if -1 <= _horas <= 48:
+                    import nba_lineas as _nl
+                    _tab = _nl.del_tablero(cm.mercados_playdoit(
+                        'nba', h, a, fecha=fx.get('inicio')), h, a)
+                    if _tab:
+                        fila['implicitas'] = dict(fila.get('implicitas') or {},
+                                                  nba_playdoit=_tab)
+            except Exception as _e_nl:
+                logger.debug('[alpha/nba] tablero de Playdoit: %s', _e_nl)
             salida['pronosticos'].append(fila)
 
             # capa 2 para la pestaña de la NBA: la probabilidad con la que

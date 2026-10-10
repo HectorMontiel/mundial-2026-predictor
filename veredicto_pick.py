@@ -585,6 +585,33 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     if p.get('elite'):
         return {**base, 'veredicto': METER, 'fuerza': 1.0, 'medido': True,
                 'razones': [str(p.get('razon') or 'Capa 1: modelo y casa de acuerdo')]}
+    # v354 — NBA: HÁNDICAP Y PUNTOS CON LA ESCALERA DE PLAYDOIT. La
+    # probabilidad ya es la medida por distancia a la línea principal
+    # (`nba_lineas`, 19 temporadas contra el cierre de la casa); no pasa por
+    # la curva del fútbol ni por la mezcla. Se mete con ≥ 75 % y cuota ≥ 1,15
+    # (lo que pidió el usuario para empezar); la pretemporada, con su regla.
+    if p.get('nba_linea'):
+        import nba_lineas as _nl
+        _ok = (not p.get('informativa') and prob >= _nl.META_METER
+               and cuota is not None and cuota >= _nl.CUOTA_MIN
+               and (not p.get('pretemporada')
+                    or p.get('nba_tipo') in _nl.PRETEMPORADA_TIPOS))
+        if _ok:
+            _rz = ('a %s puntos de la línea de la casa esta línea acertó %.0f %% '
+                   '(19 temporadas)' % (('%g' % p['nba_k']) if p.get('nba_k') is not None
+                                         else '?', 100 * prob))
+        elif p.get('pretemporada') and p.get('nba_tipo') not in _nl.PRETEMPORADA_TIPOS:
+            _rz = ('pretemporada: sólo se mete el hándicap del no favorito '
+                   '(medido en 2021-2026)')
+        elif p.get('informativa') or prob < _nl.META_METER:
+            _rz = ('ninguna línea de la casa llega al %.0f %%: la más probable '
+                   'es ésta, al %.0f %%' % (100 * _nl.META_METER, 100 * prob))
+        else:
+            _rz = 'cuota por debajo de %.2f' % _nl.CUOTA_MIN
+        return {**base, 'veredicto': METER if _ok else NO_METER,
+                'fuerza': round(max(0.0, min(1.0, abs(prob - _nl.META_METER) / 0.20)), 3),
+                'medido': True, 'prob_ajustada': prob, 'cuota': cuota,
+                'razones': [_rz]}
     # v345 — LOS TIROS POR EQUIPO SÓLO SE METEN CUANDO SU REGLA SE GANÓ EL
     # PUESTO: `tiros_seguimiento` la mide sola desde que quedó fijada y la
     # activa con p5 > 0 y 150 apuestas. Mientras no, «no meter» (como todos los
@@ -704,7 +731,8 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
     # titulares juegan poco.
     if mete and _dep == 'NBA' and p.get('pretemporada'):
         mete = False
-        razones.insert(0, 'pretemporada: no se mide ni se recomienda')
+        razones.insert(0, 'pretemporada: el ganador acierta 74 % con esta regla '
+                       '(medido 2021-2026): no se mete')
     # y sin el precio de la casa no se mete: lo medido es la MEZCLA, y el
     # modelo solo (0,6187 de log-loss contra 0,6027 de la casa) no basta
     if mete and _dep == 'NBA' and not conc.get('hay'):

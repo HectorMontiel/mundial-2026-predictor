@@ -659,6 +659,23 @@ def _de_totales(pick: Dict) -> List[Dict]:
     return salida
 
 
+def _de_nba_lineas(pick: Dict) -> List[Dict]:
+    """v354 — el hándicap y los puntos de la NBA con las escaleras de Playdoit
+    y la probabilidad medida por distancia a la principal (`nba_lineas`). Por
+    lado, la de mejor cuota que llega al 75 %; si ninguna llega, la más
+    probable, marcada como informativa."""
+    if str(pick.get('deporte') or '') != 'NBA':
+        return []
+    import nba_lineas as _nl
+    salida = []
+    for c in _nl.elegidas(pick):
+        salida.append(_fila(c['mercado'], c['etiqueta'], c['apuesta'], c['prob'],
+                            c['cuota'], None, c['bloque'], c['linea'],
+                            {'nba_linea': True, 'nba_k': c['k'], 'nba_tipo': c['tipo'],
+                             'informativa': bool(c.get('informativa'))}))
+    return salida
+
+
 def _de_dos_vias(pick: Dict) -> List[Dict]:
     """
     El ganador en los deportes SIN EMPATE: NFL, tenis, MLB, NBA.
@@ -1062,9 +1079,19 @@ def candidatos(pick: Dict, bloques: Optional[Dict] = None) -> List[Dict]:
     except Exception as e:
         logger.debug('[valor] handicap: %s', e)
     try:
+        # v354 — NBA: las escaleras de Playdoit (hándicap y puntos) con su
+        # probabilidad medida. Si están, mandan sobre los totales de Pinnacle,
+        # que no es una casa del usuario.
+        _nba = _de_nba_lineas(pick)
+        filas += _nba
+    except Exception as e:
+        _nba = []
+        logger.debug('[valor] nba lineas: %s', e)
+    try:
         # v237 — carreras, puntos y juegos. En futbol no hace nada: ese deporte
         # publica `goles_lineas`, no `totales`, y lo cubre `_de_goles`.
-        filas += _de_totales(pick)
+        if not any(f.get('mercado') == 'Puntos' for f in _nba):
+            filas += _de_totales(pick)
     except Exception as e:
         logger.debug('[valor] totales: %s', e)
     try:

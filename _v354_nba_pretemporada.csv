@@ -1,0 +1,555 @@
+temporada,fecha,event_id,home,away,pts_home,pts_away,nba_vs_nba,casa,ml_home,ml_away,spread,total
+2021,2021-10-03,401365892,Los Angeles Lakers,Brooklyn Nets,97.0,123.0,True,Caesars Sportsbook,1.6451612903225805,2.35,-3.5,219.0
+2021,2021-10-04,401365893,Toronto Raptors,Philadelphia 76ers,123.0,107.0,True,Caesars Sportsbook,1.9090909090909092,1.9090909090909092,-1.0,216.5
+2021,2021-10-04,401365894,Boston Celtics,Orlando Magic,98.0,97.0,True,Caesars Sportsbook,1.3636363636363638,3.35,-7.5,213.5
+2021,2021-10-04,401365895,Miami Heat,Atlanta Hawks,125.0,99.0,True,Caesars Sportsbook,1.606060606060606,2.45,-4.0,211.5
+2021,2021-10-05,401365896,Minnesota Timberwolves,New Orleans Pelicans,117.0,114.0,True,Caesars Sportsbook,1.6896551724137931,2.25,-3.0,220.5
+2021,2021-10-05,401365897,Oklahoma City Thunder,Charlotte Hornets,97.0,113.0,True,Caesars Sportsbook,2.3,1.6666666666666665,2.0,215.5
+2021,2021-10-05,401365898,San Antonio Spurs,Utah Jazz,111.0,85.0,True,Caesars Sportsbook,2.45,1.606060606060606,3.5,217.5
+2021,2021-10-05,401365899,Portland Trail Blazers,Golden State Warriors,107.0,121.0,True,Caesars Sportsbook,1.6666666666666665,2.3,-3.0,219.5
+2021,2021-10-05,401365900,Sacramento Kings,Phoenix Suns,117.0,106.0,True,Caesars Sportsbook,2.05,1.8,1.5,217.5
+2021,2021-10-05,401365901,LA Clippers,Denver Nuggets,103.0,102.0,True,Caesars Sportsbook,2.05,1.8,1.5,214.5
+2021,2021-10-05,401365902,New York Knicks,Indiana Pacers,125.0,104.0,True,Caesars Sportsbook (Colorado),1.625,2.4,-3.5,214.5
+2021,2021-10-06,401365903,Chicago Bulls,Cleveland Cavaliers,131.0,95.0,True,Caesars Sportsbook,1.5,2.75,-5.5,216.0
+2021,2021-10-06,401365904,Houston Rockets,Washington Wizards,125.0,119.0,True,Caesars Sportsbook,1.8,2.05,-1.5,226.5
+2021,2021-10-06,401365905,Memphis Grizzlies,Milwaukee Bucks,87.0,77.0,True,Caesars Sportsbook,1.4,3.1,-6.5,221.0
+2021,2021-10-06,401365911,Phoenix Suns,Los Angeles Lakers,117.0,105.0,True,Caesars Sportsbook,1.6896551724137931,2.25,-3.0,215.0
+2021,2021-10-06,401365906,Detroit Pistons,San Antonio Spurs,115.0,105.0,True,Caesars Sportsbook,2.2,1.7142857142857144,2.5,214.5
+2021,2021-10-06,401365907,Atlanta Hawks,Cleveland Cavaliers,96.0,99.0,True,Caesars Sportsbook,1.6666666666666665,2.3,-3.0,215.5
+2021,2021-10-07,401365908,New Orleans Pelicans,Orlando Magic,104.0,86.0,True,Caesars Sportsbook,1.6666666666666665,2.3,-3.0,218.5
+2021,2021-10-07,401365909,Dallas Mavericks,Utah Jazz,111.0,101.0,True,Caesars Sportsbook,1.4761904761904763,2.8,-5.5,215.5
+2021,2021-10-07,401365910,Golden State Warriors,Denver Nuggets,118.0,116.0,True,Caesars Sportsbook,1.5,2.75,-5.0,219.5
+2021,2021-10-07,401365912,LA Clippers,Sacramento Kings,98.0,113.0,True,Caesars Sportsbook,1.7692307692307692,2.1,-2.0,220.5
+2021,2021-10-07,401365913,Charlotte Hornets,Memphis Grizzlies,98.0,128.0,True,Caesars Sportsbook,2.0,1.8333333333333335,,220.5
+2021,2021-10-07,401365914,Philadelphia 76ers,Toronto Raptors,125.0,113.0,True,Caesars Sportsbook,1.5,2.75,-5.0,222.0
+2021,2021-10-08,401365915,Houston Rockets,Miami Heat,106.0,113.0,True,Caesars Sportsbook,2.9,1.4545454545454546,5.5,225.0
+2021,2021-10-08,401365916,Cleveland Cavaliers,Indiana Pacers,100.0,109.0,True,Caesars Sportsbook,2.55,1.5714285714285714,3.5,217.0
+2021,2021-10-08,401365917,Brooklyn Nets,Milwaukee Bucks,119.0,115.0,True,Caesars Sportsbook,1.2222222222222223,4.7,-10.5,220.5
+2021,2021-10-09,401365918,Chicago Bulls,New Orleans Pelicans,121.0,85.0,True,Caesars Sportsbook,1.2941176470588236,3.8,-8.5,225.5
+2021,2021-10-09,401365919,Dallas Mavericks,LA Clippers,122.0,114.0,True,Caesars Sportsbook,1.5405405405405406,2.65,-4.5,216.0
+2021,2021-10-09,401365920,San Antonio Spurs,Miami Heat,105.0,109.0,True,Caesars Sportsbook,1.3846153846153846,3.2,-6.5,217.5
+2021,2021-10-09,401365921,Denver Nuggets,Minnesota Timberwolves,112.0,114.0,True,Caesars Sportsbook,1.606060606060606,2.45,-3.5,225.5
+2021,2021-10-09,401365922,Golden State Warriors,Los Angeles Lakers,121.0,114.0,True,Caesars Sportsbook,1.6666666666666665,2.3,-3.0,226.0
+2021,2021-10-09,401365923,Boston Celtics,Toronto Raptors,113.0,111.0,True,Caesars Sportsbook,1.625,2.4,-3.5,217.5
+2021,2021-10-09,401365924,Washington Wizards,New York Knicks,99.0,117.0,True,Caesars Sportsbook,1.9090909090909092,1.9090909090909092,-1.0,224.0
+2021,2021-10-10,401365925,Memphis Grizzlies,Atlanta Hawks,87.0,91.0,True,Caesars Sportsbook,2.0,1.8333333333333335,-1.0,216.0
+2021,2021-10-10,401365926,Orlando Magic,San Antonio Spurs,100.0,101.0,True,Caesars Sportsbook (Colorado),2.15,1.7407407407407407,2.5,210.0
+2021,2021-10-10,401365927,Cleveland Cavaliers,Chicago Bulls,101.0,102.0,True,Caesars Sportsbook,4.0,1.2777777777777777,6.5,215.0
+2021,2021-10-10,401365928,Milwaukee Bucks,Oklahoma City Thunder,130.0,110.0,True,Caesars Sportsbook,1.3846153846153846,3.2,-6.5,221.5
+2021,2021-10-11,401365929,Los Angeles Lakers,Phoenix Suns,94.0,123.0,True,Caesars Sportsbook,2.2,1.7142857142857144,2.5,222.0
+2021,2021-10-11,401365930,Toronto Raptors,Houston Rockets,107.0,92.0,True,Caesars Sportsbook,1.4166666666666667,3.0,-6.0,227.5
+2021,2021-10-11,401365931,Miami Heat,Charlotte Hornets,104.0,103.0,True,Caesars Sportsbook,1.2941176470588236,3.8,-8.5,218.0
+2021,2021-10-12,401365932,Philadelphia 76ers,Brooklyn Nets,115.0,104.0,True,Caesars Sportsbook,3.45,1.3448275862068966,6.5,228.5
+2021,2021-10-12,401365933,Memphis Grizzlies,Detroit Pistons,127.0,92.0,True,Caesars Sportsbook,1.4166666666666667,3.0,-6.5,221.5
+2021,2021-10-12,401365934,Utah Jazz,New Orleans Pelicans,127.0,96.0,True,Caesars Sportsbook,1.2941176470588236,3.8,-8.5,221.0
+2021,2021-10-12,401365935,Portland Trail Blazers,Sacramento Kings,93.0,107.0,True,Caesars Sportsbook,3.45,1.3448275862068966,6.0,219.0
+2021,2021-10-12,401365936,LA Clippers,Minnesota Timberwolves,100.0,128.0,True,Caesars Sportsbook,2.15,1.7407407407407407,-1.0,226.0
+2021,2021-10-12,401365937,Washington Wizards,Toronto Raptors,108.0,113.0,True,Caesars Sportsbook,1.3333333333333333,3.5,-7.5,225.0
+2021,2021-10-13,401365938,Los Angeles Lakers,Golden State Warriors,99.0,111.0,True,Caesars Sportsbook,1.3703703703703702,3.3,-7.5,225.0
+2021,2021-10-13,401365945,Phoenix Suns,Portland Trail Blazers,119.0,74.0,True,Caesars Sportsbook,1.3703703703703702,3.3,-7.0,223.5
+2021,2021-10-13,401365939,Charlotte Hornets,Dallas Mavericks,59.0,127.0,True,Caesars Sportsbook,3.5,1.3333333333333333,6.5,221.5
+2021,2021-10-13,401365940,Indiana Pacers,Memphis Grizzlies,109.0,107.0,True,Caesars Sportsbook,1.3333333333333333,3.5,-8.0,214.0
+2021,2021-10-13,401365941,Orlando Magic,Boston Celtics,103.0,102.0,True,Caesars Sportsbook,1.4,3.1,-6.5,207.0
+2021,2021-10-13,401365942,New York Knicks,Detroit Pistons,108.0,100.0,True,Caesars Sportsbook,1.303030303030303,3.7,-8.0,218.0
+2021,2021-10-14,401365943,Oklahoma City Thunder,Denver Nuggets,108.0,99.0,True,Caesars Sportsbook,3.8,1.2941176470588236,7.5,223.0
+2021,2021-10-14,401365944,Utah Jazz,Milwaukee Bucks,124.0,120.0,True,Caesars Sportsbook,1.625,2.4,-3.5,227.0
+2021,2021-10-14,401365946,Atlanta Hawks,Miami Heat,127.0,92.0,True,Caesars Sportsbook,1.1538461538461537,5.75,-12.0,212.5
+2021,2021-10-14,401365947,Brooklyn Nets,Minnesota Timberwolves,107.0,101.0,True,Caesars Sportsbook (Colorado),1.3125,3.5,-8.0,228.5
+2021,2021-10-15,401365948,Oklahoma City Thunder,Denver Nuggets,107.0,113.0,True,Caesars Sportsbook,2.7,1.526315789473684,2.5,216.5
+2021,2021-10-15,401365949,Sacramento Kings,Los Angeles Lakers,116.0,112.0,True,Caesars Sportsbook,2.25,1.6896551724137931,2.5,220.5
+2021,2021-10-15,401365950,Miami Heat,Boston Celtics,121.0,100.0,True,Caesars Sportsbook,1.303030303030303,3.7,-8.0,214.5
+2021,2021-10-15,401365951,Detroit Pistons,Philadelphia 76ers,112.0,108.0,True,Caesars Sportsbook (Colorado),1.7142857142857144,2.2,-2.5,214.0
+2021,2021-10-15,401365952,Indiana Pacers,Cleveland Cavaliers,94.0,110.0,True,Caesars Sportsbook,1.4166666666666667,3.0,-6.0,211.5
+2021,2021-10-15,401365953,New York Knicks,Washington Wizards,115.0,113.0,True,Caesars Sportsbook,1.4166666666666667,3.0,-5.5,218.5
+2021,2021-10-16,401365954,Chicago Bulls,Memphis Grizzlies,118.0,105.0,True,Caesars Sportsbook,1.526315789473684,2.7,-4.5,225.0
+2021,2021-10-16,401365955,Milwaukee Bucks,Dallas Mavericks,103.0,114.0,True,Caesars Sportsbook,1.1818181818181819,5.25,-10.0,225.0
+2021,2021-10-16,401365956,San Antonio Spurs,Houston Rockets,126.0,98.0,True,Caesars Sportsbook,1.606060606060606,2.45,-3.5,219.5
+2021,2021-10-16,401365957,Golden State Warriors,Portland Trail Blazers,119.0,97.0,True,Caesars Sportsbook,1.2857142857142856,3.9,-9.0,227.5
+2021,2021-10-19,401358773,Milwaukee Bucks,Brooklyn Nets,127.0,104.0,True,Caesars Sportsbook,1.9090909090909092,1.9090909090909092,-1.5,233.5
+2021,2021-10-20,401358774,Los Angeles Lakers,Golden State Warriors,114.0,121.0,True,Caesars Sportsbook,1.6451612903225805,2.35,-3.0,226.0
+2021,2021-10-20,401359833,Charlotte Hornets,Indiana Pacers,123.0,122.0,True,Caesars Sportsbook,1.9523809523809523,1.8695652173913042,-1.0,222.5
+2021,2021-10-20,401359834,Detroit Pistons,Chicago Bulls,88.0,94.0,True,Caesars Sportsbook,2.8,1.4761904761904763,2.5,218.0
+2021,2021-10-20,401358775,New York Knicks,Boston Celtics,138.0,134.0,True,Caesars Sportsbook,1.7142857142857144,2.2,-2.5,220.0
+2021,2021-10-20,401359835,Toronto Raptors,Washington Wizards,83.0,98.0,True,Caesars Sportsbook,1.8,2.05,-2.5,224.0
+2021,2021-10-21,401359836,Memphis Grizzlies,Cleveland Cavaliers,132.0,121.0,True,Caesars Sportsbook,1.3571428571428572,3.4,-7.0,218.5
+2021,2021-10-21,401359837,Minnesota Timberwolves,Houston Rockets,124.0,106.0,True,Caesars Sportsbook,1.4081632653061225,3.05,-6.5,231.5
+2021,2021-10-21,401359838,New Orleans Pelicans,Philadelphia 76ers,97.0,117.0,True,Caesars Sportsbook,2.5,1.5882352941176472,1.5,224.0
+2021,2021-10-21,401359839,San Antonio Spurs,Orlando Magic,123.0,97.0,True,Caesars Sportsbook,1.3773584905660377,3.25,-7.0,212.5
+2021,2021-10-21,401359840,Utah Jazz,Oklahoma City Thunder,107.0,86.0,True,Caesars Sportsbook,1.0833333333333333,8.5,-14.0,221.0
+2021,2021-10-21,401358776,Phoenix Suns,Denver Nuggets,98.0,110.0,True,Caesars Sportsbook,1.4,3.1,-6.0,224.5
+2021,2021-10-21,401359841,Portland Trail Blazers,Sacramento Kings,121.0,124.0,True,Caesars Sportsbook,1.3846153846153846,3.2,-6.5,234.5
+2021,2021-10-21,401358777,Atlanta Hawks,Dallas Mavericks,113.0,87.0,True,Caesars Sportsbook,1.7407407407407407,2.15,-2.0,225.5
+2021,2021-10-22,401359842,Miami Heat,Milwaukee Bucks,137.0,95.0,True,Caesars Sportsbook,1.7142857142857144,2.2,-0.5,222.5
+2021,2021-10-22,401358778,Golden State Warriors,LA Clippers,115.0,113.0,True,Caesars Sportsbook,1.5714285714285714,2.55,-4.0,229.0
+2021,2021-10-22,401359843,Cleveland Cavaliers,Charlotte Hornets,112.0,123.0,True,Caesars Sportsbook,2.2,1.7142857142857144,3.5,226.5
+2021,2021-10-22,401359844,Orlando Magic,New York Knicks,96.0,121.0,True,Caesars Sportsbook,3.9,1.2857142857142856,7.0,213.0
+2021,2021-10-22,401359845,Washington Wizards,Indiana Pacers,135.0,134.0,True,Caesars Sportsbook,2.05,1.8,5.5,225.5
+2021,2021-10-22,401358779,Philadelphia 76ers,Brooklyn Nets,109.0,114.0,True,Caesars Sportsbook,2.0,1.8333333333333335,1.0,224.5
+2021,2021-10-22,401359846,Boston Celtics,Toronto Raptors,83.0,115.0,True,Caesars Sportsbook,1.3703703703703702,3.3,-7.0,218.0
+2021,2021-10-23,401359847,Chicago Bulls,New Orleans Pelicans,128.0,112.0,True,Caesars Sportsbook,1.3846153846153846,3.2,-6.5,222.0
+2021,2021-10-23,401359848,Houston Rockets,Oklahoma City Thunder,124.0,91.0,True,Caesars Sportsbook,1.6666666666666665,2.3,-0.5,221.0
+2021,2021-10-23,401359849,Denver Nuggets,San Antonio Spurs,102.0,96.0,True,Caesars Sportsbook,1.3125,3.6,-7.5,221.5
+2021,2021-10-23,401358780,Los Angeles Lakers,Phoenix Suns,105.0,115.0,True,Caesars Sportsbook,1.9523809523809523,1.8695652173913042,-1.0,221.5
+2021,2021-10-23,401359850,Sacramento Kings,Utah Jazz,101.0,110.0,True,Caesars Sportsbook,3.0,1.4166666666666667,5.5,226.5
+2021,2021-10-23,401359851,Cleveland Cavaliers,Atlanta Hawks,101.0,95.0,True,Caesars Sportsbook,3.9,1.2857142857142856,7.5,223.0
+2021,2021-10-23,401359852,Indiana Pacers,Miami Heat,102.0,91.0,True,Caesars Sportsbook,2.45,1.606060606060606,3.5,222.0
+2021,2021-10-23,401359853,Toronto Raptors,Dallas Mavericks,95.0,103.0,True,Caesars Sportsbook,2.6,1.5555555555555556,3.5,216.5
+2021,2021-10-24,401359854,Chicago Bulls,Detroit Pistons,97.0,82.0,True,Caesars Sportsbook,1.2777777777777777,4.0,-8.0,213.0
+2021,2021-10-24,401359855,Minnesota Timberwolves,New Orleans Pelicans,96.0,89.0,True,Caesars Sportsbook,1.3448275862068966,3.45,-7.5,228.5
+2021,2021-10-24,401359856,San Antonio Spurs,Milwaukee Bucks,111.0,121.0,True,Caesars Sportsbook,3.1,1.4,7.5,225.5
+2021,2021-10-24,401359857,Portland Trail Blazers,Phoenix Suns,134.0,105.0,True,Caesars Sportsbook,1.7407407407407407,2.15,-3.0,229.5
+2021,2021-10-24,401359858,LA Clippers,Memphis Grizzlies,114.0,120.0,True,Caesars Sportsbook,1.5882352941176472,2.5,-4.0,226.5
+2021,2021-10-24,401359859,Brooklyn Nets,Charlotte Hornets,95.0,111.0,True,Caesars Sportsbook,1.2325581395348837,4.5,-9.0,233.5
+2021,2021-10-24,401359860,New York Knicks,Orlando Magic,104.0,110.0,True,Caesars Sportsbook,1.1,7.5,-12.5,211.5
+2021,2021-10-24,401359861,Houston Rockets,Boston Celtics,97.0,107.0,True,Caesars Sportsbook,2.9,1.4545454545454546,5.5,221.0
+2021,2021-10-24,401359862,Oklahoma City Thunder,Philadelphia 76ers,103.0,115.0,True,Caesars Sportsbook,5.0,1.2,7.5,215.5
+2021,2021-10-25,401359863,Sacramento Kings,Golden State Warriors,107.0,119.0,True,Caesars Sportsbook,2.25,1.6896551724137931,3.5,234.5
+2021,2021-10-25,401359864,Los Angeles Lakers,Memphis Grizzlies,121.0,118.0,True,Caesars Sportsbook,1.4761904761904763,2.8,-5.0,225.0
+2021,2021-10-25,401359865,Charlotte Hornets,Boston Celtics,129.0,140.0,True,Caesars Sportsbook,2.1,1.7692307692307692,-1.0,224.5
+2021,2021-10-25,401359866,Indiana Pacers,Milwaukee Bucks,109.0,119.0,True,Caesars Sportsbook,2.0,1.8333333333333335,3.0,229.5
+2021,2021-10-25,401359867,Atlanta Hawks,Detroit Pistons,122.0,104.0,True,Caesars Sportsbook,1.4166666666666667,3.0,-11.5,212.5
+2021,2021-10-25,401359868,Brooklyn Nets,Washington Wizards,104.0,90.0,True,Caesars Sportsbook,1.4,3.1,-6.0,229.5
+2021,2021-10-25,401359869,Miami Heat,Orlando Magic,107.0,90.0,True,Caesars Sportsbook,1.1,7.5,-13.5,211.5
+2021,2021-10-25,401359870,Toronto Raptors,Chicago Bulls,108.0,111.0,True,Caesars Sportsbook,2.0,1.8333333333333335,2.5,213.5
+2021,2021-10-26,401359871,Minnesota Timberwolves,New Orleans Pelicans,98.0,107.0,True,Caesars Sportsbook,1.625,2.4,-5.5,224.5
+2021,2021-10-26,401359872,Denver Nuggets,Cleveland Cavaliers,87.0,99.0,True,Caesars Sportsbook,1.2,5.0,-9.5,220.5
+2021,2021-10-26,401359873,LA Clippers,Portland Trail Blazers,116.0,86.0,True,Caesars Sportsbook,1.8333333333333335,2.0,-2.5,230.0
+2022,2022-09-30,401474841,Washington Wizards,Golden State Warriors,87.0,96.0,True,BetfairSportsbook,2.25,1.5714285714285714,3.5,226.0
+2022,2022-10-01,401474842,LA Clippers,Ra'Anana,121.0,81.0,True,Caesars Sportsbook,,,-30.5,191.5
+2022,2022-10-02,401474843,Milwaukee Bucks,Memphis Grizzlies,102.0,107.0,True,BetfairSportsbook,1.3636363636363638,2.88,-6.0,221.0
+2022,2022-10-02,401474844,Golden State Warriors,Washington Wizards,104.0,95.0,True,BetfairSportsbook,1.5,2.5,-4.5,217.5
+2022,2022-10-02,401474845,Boston Celtics,Charlotte Hornets,134.0,93.0,True,BetfairSportsbook,1.3003003003003002,3.2,-7.0,214.5
+2022,2022-10-02,401474846,Toronto Raptors,Utah Jazz,114.0,82.0,True,BetfairSportsbook,1.3636363636363638,2.88,-5.5,214.5
+2022,2022-10-02,401474847,Houston Rockets,San Antonio Spurs,134.0,96.0,True,BetfairSportsbook,1.5319148936170213,2.38,-4.0,219.0
+2022,2022-10-03,401474848,Phoenix Suns,ADELAIDE 36ers,124.0,134.0,True,BetfairSportsbook,,,-29.5,197.5
+2022,2022-10-03,401474849,Brooklyn Nets,Philadelphia 76ers,108.0,127.0,True,BetfairSportsbook,1.2857142857142856,3.25,-8.0,218.5
+2022,2022-10-04,401474850,Memphis Grizzlies,Orlando Magic,109.0,97.0,True,BetfairSportsbook,1.3003003003003002,3.2,-7.5,213.0
+2022,2022-10-04,401474851,Denver Nuggets,Oklahoma City Thunder,101.0,112.0,True,BetfairSportsbook,1.2222222222222223,3.75,-9.0,215.0
+2022,2022-10-04,401474852,Los Angeles Lakers,Sacramento Kings,75.0,105.0,True,BetfairSportsbook,1.4444444444444444,2.63,-5.0,216.0
+2022,2022-10-04,401474853,LA Clippers,Portland Trail Blazers,102.0,97.0,True,BetfairSportsbook,1.3003003003003002,3.2,-7.0,213.5
+2022,2022-10-04,401474854,New York Knicks,Detroit Pistons,117.0,96.0,True,BetfairSportsbook,1.5,2.5,-5.0,209.0
+2022,2022-10-04,401474855,Miami Heat,Minnesota Timberwolves,111.0,121.0,True,BetfairSportsbook,1.4,2.75,-5.5,213.0
+2022,2022-10-05,401474856,Chicago Bulls,New Orleans Pelicans,125.0,129.0,True,BetfairSportsbook,1.6134969325153374,2.2,-3.0,218.0
+2022,2022-10-05,401474857,Portland Trail Blazers,Utah Jazz,101.0,118.0,True,BetfairSportsbook,1.7246376811594204,2.0,-1.0,212.0
+2022,2022-10-05,401474858,Charlotte Hornets,Indiana Pacers,97.0,122.0,True,BetfairSportsbook,2.1,1.6666666666666665,2.5,221.5
+2022,2022-10-05,401474859,Philadelphia 76ers,Cleveland Cavaliers,113.0,112.0,True,BetfairSportsbook,1.5,2.5,-5.0,221.0
+2022,2022-10-05,401474860,Boston Celtics,Toronto Raptors,119.0,125.0,True,BetfairSportsbook,1.5319148936170213,2.38,-4.5,221.0
+2022,2022-10-06,401474861,Oklahoma City Thunder,Dallas Mavericks,96.0,98.0,True,BetfairSportsbook,2.5,1.5,4.5,212.5
+2022,2022-10-06,401474862,Los Angeles Lakers,Phoenix Suns,115.0,119.0,True,BetfairSportsbook,2.75,1.4,5.5,214.5
+2022,2022-10-06,401474863,Atlanta Hawks,Milwaukee Bucks,123.0,113.0,True,BetfairSportsbook,1.8,1.9090909090909092,-1.0,223.5
+2022,2022-10-06,401474864,Brooklyn Nets,Miami Heat,80.0,109.0,True,BetfairSportsbook,1.5319148936170213,2.38,-4.0,220.0
+2022,2022-10-07,401474865,Oklahoma City Thunder,ADELAIDE 36ers,131.0,98.0,True,BetfairSportsbook,1.0714285714285714,7.0,-14.5,211.5
+2022,2022-10-07,401474866,San Antonio Spurs,Orlando Magic,99.0,102.0,True,BetfairSportsbook,2.25,1.5714285714285714,3.0,210.5
+2022,2022-10-07,401474867,Portland Trail Blazers,Ra'Anana,138.0,85.0,True,Caesars Sportsbook,,,-28.5,205.0
+2022,2022-10-07,401474868,Los Angeles Lakers,Minnesota Timberwolves,99.0,114.0,True,BetfairSportsbook,3.75,1.2222222222222223,9.0,215.0
+2022,2022-10-07,401474869,Charlotte Hornets,Boston Celtics,103.0,112.0,True,BetfairSportsbook,2.75,1.4,5.0,216.5
+2022,2022-10-07,401474870,New York Knicks,Indiana Pacers,131.0,114.0,True,BetfairSportsbook,1.4,2.75,-4.5,218.0
+2022,2022-10-08,401474871,Chicago Bulls,Denver Nuggets,131.0,113.0,True,BetfairSportsbook,1.5319148936170213,2.38,-4.0,222.5
+2022,2022-10-08,401474872,Houston Rockets,Toronto Raptors,116.0,100.0,True,BetfairSportsbook,2.75,1.4,5.5,224.0
+2022,2022-10-08,401474873,Memphis Grizzlies,Miami Heat,108.0,111.0,True,BetfairSportsbook,1.1666666666666667,4.5,-10.5,209.0
+2022,2022-10-08,401474874,New Orleans Pelicans,Detroit Pistons,107.0,101.0,True,BetfairSportsbook,1.5,2.5,-4.5,220.5
+2022,2022-10-08,401474875,Dallas Mavericks,Orlando Magic,105.0,110.0,True,BetfairSportsbook,1.3333333333333333,3.0,-7.0,204.0
+2022,2022-10-08,401474876,Milwaukee Bucks,Atlanta Hawks,109.0,118.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.0,222.5
+2022,2022-10-09,401474877,Toronto Raptors,Chicago Bulls,98.0,115.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.5,225.5
+2022,2022-10-09,401474878,Oklahoma City Thunder,Ra'Anana,144.0,97.0,True,Caesars Sportsbook,,,-32.0,214.5
+2022,2022-10-09,401474879,San Antonio Spurs,New Orleans Pelicans,97.0,111.0,True,BetfairSportsbook,3.0,1.3333333333333333,6.5,217.0
+2022,2022-10-10,401474880,Golden State Warriors,Los Angeles Lakers,121.0,124.0,True,BetfairSportsbook,1.2857142857142856,3.25,-7.5,215.0
+2022,2022-10-10,401474881,Sacramento Kings,Portland Trail Blazers,126.0,94.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.5,217.0
+2022,2022-10-10,401474882,LA Clippers,Minnesota Timberwolves,117.0,119.0,True,BetfairSportsbook,1.4444444444444444,2.63,-5.0,218.5
+2022,2022-10-10,401474883,Charlotte Hornets,Washington Wizards,107.0,116.0,True,BetfairSportsbook,1.6134969325153374,2.2,-3.0,218.0
+2022,2022-10-10,401474884,Cleveland Cavaliers,Philadelphia 76ers,97.0,113.0,True,BetfairSportsbook,1.5,2.5,-4.5,223.5
+2022,2022-10-10,401474885,Miami Heat,Houston Rockets,118.0,110.0,True,BetfairSportsbook,2.1,1.6666666666666665,2.0,219.0
+2022,2022-10-11,401474886,Denver Nuggets,Phoenix Suns,107.0,105.0,True,BetfairSportsbook,2.75,1.4,5.5,217.0
+2022,2022-10-11,401474887,Detroit Pistons,Oklahoma City Thunder,99.0,115.0,True,BetfairSportsbook,1.3636363636363638,2.88,-6.5,216.5
+2022,2022-10-11,401474888,Orlando Magic,Memphis Grizzlies,109.0,105.0,True,BetfairSportsbook,2.88,1.3636363636363638,6.5,213.5
+2022,2022-10-12,401474889,Chicago Bulls,Milwaukee Bucks,127.0,104.0,True,BetfairSportsbook,1.3333333333333333,3.0,-7.0,223.5
+2022,2022-10-12,401474890,Utah Jazz,San Antonio Spurs,104.0,111.0,True,BetfairSportsbook,1.6134969325153374,2.2,-3.0,219.5
+2022,2022-10-12,401474891,Golden State Warriors,Portland Trail Blazers,131.0,98.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.0,216.0
+2022,2022-10-12,401474892,Cleveland Cavaliers,Atlanta Hawks,105.0,99.0,True,BetfairSportsbook,1.7246376811594204,2.0,-1.5,225.0
+2022,2022-10-12,401474893,Indiana Pacers,New York Knicks,109.0,100.0,True,BetfairSportsbook,2.75,1.4,5.0,225.5
+2022,2022-10-12,401474894,Philadelphia 76ers,Charlotte Hornets,99.0,94.0,True,BetfairSportsbook,1.2,4.0,-9.5,220.0
+2022,2022-10-12,401474895,Miami Heat,New Orleans Pelicans,120.0,103.0,True,BetfairSportsbook,1.5,2.5,-4.5,218.5
+2022,2022-10-12,401474896,Milwaukee Bucks,Brooklyn Nets,97.0,107.0,True,BetfairSportsbook,1.5714285714285714,2.25,-3.5,227.5
+2022,2022-10-13,401474897,Los Angeles Lakers,Minnesota Timberwolves,113.0,118.0,True,BetfairSportsbook,1.4444444444444444,2.63,-5.0,225.0
+2022,2022-10-13,401474898,Phoenix Suns,Sacramento Kings,104.0,105.0,True,BetfairSportsbook,2.0,1.7246376811594204,2.0,213.0
+2022,2022-10-13,401474899,LA Clippers,Denver Nuggets,115.0,126.0,True,BetfairSportsbook,1.5714285714285714,2.25,-3.5,215.5
+2022,2022-10-13,401474900,Detroit Pistons,Memphis Grizzlies,111.0,126.0,True,BetfairSportsbook,2.75,1.4,6.0,212.5
+2022,2022-10-14,401474901,San Antonio Spurs,Oklahoma City Thunder,112.0,118.0,True,BetfairSportsbook,2.0,1.7246376811594204,1.5,220.0
+2022,2022-10-14,401474902,Indiana Pacers,Houston Rockets,114.0,122.0,True,BetfairSportsbook,1.8,1.9090909090909092,-1.0,227.5
+2022,2022-10-14,401474903,Orlando Magic,Cleveland Cavaliers,114.0,108.0,True,BetfairSportsbook,1.5,2.5,-4.0,209.5
+2022,2022-10-14,401474904,Toronto Raptors,Boston Celtics,137.0,134.0,True,BetfairSportsbook,2.5,1.5,4.5,219.5
+2022,2022-10-14,401474905,New York Knicks,Washington Wizards,105.0,89.0,True,BetfairSportsbook,1.4444444444444444,2.63,-5.0,217.5
+2022,2022-10-15,401474906,Minnesota Timberwolves,Brooklyn Nets,102.0,112.0,True,BetfairSportsbook,1.5714285714285714,2.25,-3.5,226.0
+2022,2022-10-15,401474907,New Orleans Pelicans,Atlanta Hawks,120.0,111.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.5,223.0
+2022,2022-10-15,401474908,Utah Jazz,Dallas Mavericks,101.0,115.0,True,BetfairSportsbook,3.2,1.3003003003003002,7.0,213.5
+2022,2022-10-15,401474909,Golden State Warriors,Denver Nuggets,112.0,119.0,True,BetfairSportsbook,1.4,2.75,-5.5,227.5
+2022,2022-10-15,401474910,Sacramento Kings,Los Angeles Lakers,133.0,86.0,True,BetfairSportsbook,1.4,2.75,-5.0,221.0
+2022,2022-10-18,401468016,Boston Celtics,Philadelphia 76ers,126.0,117.0,True,BetfairSportsbook,1.6493506493506493,2.2,-3.0,216.5
+2022,2022-10-19,401468017,Golden State Warriors,Los Angeles Lakers,123.0,109.0,True,BetfairSportsbook,1.3003003003003002,3.4,-7.5,224.0
+2022,2022-10-19,401468018,Detroit Pistons,Orlando Magic,113.0,109.0,True,BetfairSportsbook,1.5988023952095807,2.3,-3.5,216.0
+2022,2022-10-19,401468019,Indiana Pacers,Washington Wizards,107.0,114.0,True,BetfairSportsbook,2.15,1.6666666666666665,2.5,228.0
+2022,2022-10-19,401468020,Atlanta Hawks,Houston Rockets,117.0,107.0,True,BetfairSportsbook,1.1666666666666667,5.0,-10.5,235.5
+2022,2022-10-19,401468021,Brooklyn Nets,New Orleans Pelicans,108.0,130.0,True,BetfairSportsbook,1.6666666666666665,2.15,-3.0,232.0
+2022,2022-10-19,401468022,Miami Heat,Chicago Bulls,108.0,116.0,True,BetfairSportsbook,1.3003003003003002,3.4,-7.5,216.0
+2022,2022-10-19,401468023,Toronto Raptors,Cleveland Cavaliers,108.0,105.0,True,BetfairSportsbook,1.6493506493506493,2.2,-3.0,216.5
+2022,2022-10-19,401468024,Memphis Grizzlies,New York Knicks,115.0,112.0,True,BetfairSportsbook,1.5,2.55,-4.5,226.5
+2022,2022-10-20,401468025,Minnesota Timberwolves,Oklahoma City Thunder,115.0,108.0,True,BetfairSportsbook,1.125,6.0,-11.0,227.0
+2022,2022-10-20,401468026,San Antonio Spurs,Charlotte Hornets,102.0,129.0,True,BetfairSportsbook,1.900900900900901,1.900900900900901,1.0,221.5
+2022,2022-10-20,401468027,Utah Jazz,Denver Nuggets,123.0,102.0,True,BetfairSportsbook,3.1,1.3636363636363638,7.0,225.5
+2022,2022-10-20,401468028,Phoenix Suns,Dallas Mavericks,107.0,105.0,True,BetfairSportsbook,1.5319148936170213,2.45,-3.5,218.0
+2022,2022-10-20,401468029,Sacramento Kings,Portland Trail Blazers,108.0,115.0,True,BetfairSportsbook,1.5714285714285714,2.38,-3.5,229.5
+2022,2022-10-20,401468170,Philadelphia 76ers,Milwaukee Bucks,88.0,90.0,True,BetfairSportsbook,1.5319148936170213,2.45,-4.0,225.0
+2022,2022-10-21,401468171,Los Angeles Lakers,LA Clippers,97.0,103.0,True,BetfairSportsbook,2.63,1.4694835680751175,5.0,226.5
+2022,2022-10-21,401468172,Charlotte Hornets,New Orleans Pelicans,112.0,124.0,True,BetfairSportsbook,3.1,1.3636363636363638,7.0,226.5
+2022,2022-10-21,401468173,Indiana Pacers,San Antonio Spurs,134.0,137.0,True,BetfairSportsbook,1.8,2.0,-1.5,232.5
+2022,2022-10-21,401468174,Washington Wizards,Chicago Bulls,102.0,100.0,True,BetfairSportsbook,1.7518796992481203,2.05,-1.5,220.0
+2022,2022-10-21,401468175,Atlanta Hawks,Orlando Magic,108.0,98.0,True,BetfairSportsbook,1.2222222222222223,4.1,-9.0,225.5
+2022,2022-10-21,401468176,Brooklyn Nets,Toronto Raptors,109.0,105.0,True,BetfairSportsbook,1.6666666666666665,2.15,-2.5,226.0
+2022,2022-10-21,401468177,Miami Heat,Boston Celtics,104.0,111.0,True,BetfairSportsbook,2.0,1.8,1.5,221.5
+2022,2022-10-21,401468178,New York Knicks,Detroit Pistons,130.0,106.0,True,BetfairSportsbook,1.3333333333333333,3.25,-7.5,221.0
+2022,2022-10-22,401468179,Houston Rockets,Memphis Grizzlies,122.0,129.0,True,BetfairSportsbook,3.1,1.3636363636363638,7.0,231.5
+2022,2022-10-22,401468180,Minnesota Timberwolves,Utah Jazz,126.0,132.0,True,BetfairSportsbook,1.2857142857142856,3.5,-8.0,227.0
+2022,2022-10-22,401468181,Golden State Warriors,Denver Nuggets,123.0,128.0,True,BetfairSportsbook,1.4,2.88,-5.5,229.5
+2022,2022-10-22,401468182,Portland Trail Blazers,Phoenix Suns,113.0,111.0,True,BetfairSportsbook,2.7,1.4444444444444444,5.0,224.0
+2022,2022-10-22,401468183,Philadelphia 76ers,San Antonio Spurs,105.0,114.0,True,BetfairSportsbook,1.1,6.5,-13.5,225.0
+2022,2022-10-22,401468184,Indiana Pacers,Detroit Pistons,124.0,115.0,True,BetfairSportsbook,1.900900900900901,1.900900900900901,-1.0,231.5
+2022,2022-10-22,401468185,Orlando Magic,Boston Celtics,120.0,126.0,True,BetfairSportsbook,3.8,1.25,9.0,215.5
+2022,2022-10-23,401468186,Miami Heat,Toronto Raptors,112.0,109.0,True,BetfairSportsbook,1.6134969325153374,2.25,-3.0,216.5
+2022,2022-10-23,401468187,Chicago Bulls,Cleveland Cavaliers,96.0,128.0,True,BetfairSportsbook,2.0,1.8,2.0,220.5
+2022,2022-10-23,401468188,Milwaukee Bucks,Houston Rockets,125.0,105.0,True,BetfairSportsbook,1.1,6.5,-13.0,228.0
+2022,2022-10-23,401468189,Dallas Mavericks,Memphis Grizzlies,137.0,96.0,True,BetfairSportsbook,1.4,2.88,-6.0,219.5
+2022,2022-10-23,401468190,Denver Nuggets,Oklahoma City Thunder,122.0,117.0,True,BetfairSportsbook,1.2222222222222223,4.1,-8.5,227.5
+2022,2022-10-23,401468191,Sacramento Kings,LA Clippers,109.0,111.0,True,BetfairSportsbook,2.15,1.6666666666666665,2.5,225.0
+2022,2022-10-23,401468192,Los Angeles Lakers,Portland Trail Blazers,104.0,106.0,True,BetfairSportsbook,1.5319148936170213,2.45,-4.0,226.5
+2022,2022-10-23,401468193,Atlanta Hawks,Charlotte Hornets,109.0,126.0,True,BetfairSportsbook,1.2,4.33,-10.0,227.0
+2022,2022-10-23,401468194,Cleveland Cavaliers,Washington Wizards,117.0,107.0,True,BetfairSportsbook,1.5714285714285714,2.38,-3.5,217.0
+2022,2022-10-23,401468195,New Orleans Pelicans,Utah Jazz,121.0,122.0,True,BetfairSportsbook,1.2857142857142856,3.5,-8.5,232.0
+2022,2022-10-24,401468196,Oklahoma City Thunder,Minnesota Timberwolves,106.0,116.0,True,BetfairSportsbook,4.1,1.2222222222222223,9.5,225.5
+2022,2022-10-24,401468197,Golden State Warriors,Sacramento Kings,130.0,125.0,True,BetfairSportsbook,1.2,4.33,-10.0,232.5
+2022,2022-10-24,401468198,LA Clippers,Phoenix Suns,95.0,112.0,True,BetfairSportsbook,1.900900900900901,1.900900900900901,1.0,219.0
+2022,2022-10-24,401468199,Philadelphia 76ers,Indiana Pacers,120.0,106.0,True,BetfairSportsbook,1.1,6.5,-12.5,228.5
+2022,2022-10-24,401468200,Miami Heat,Toronto Raptors,90.0,98.0,True,BetfairSportsbook,1.5714285714285714,2.38,-3.5,214.0
+2022,2022-10-24,401468201,New York Knicks,Orlando Magic,115.0,102.0,True,BetfairSportsbook,1.3003003003003002,3.4,-7.5,223.0
+2022,2022-10-25,401468202,Chicago Bulls,Boston Celtics,120.0,102.0,True,BetfairSportsbook,2.63,1.4694835680751175,5.0,226.0
+2022,2022-10-25,401468203,Houston Rockets,Utah Jazz,114.0,108.0,True,BetfairSportsbook,2.15,1.6666666666666665,2.5,234.0
+2022,2022-10-25,401468204,Memphis Grizzlies,Brooklyn Nets,134.0,124.0,True,BetfairSportsbook,1.900900900900901,1.900900900900901,-1.5,235.5
+2022,2022-10-25,401468205,Minnesota Timberwolves,San Antonio Spurs,106.0,115.0,True,BetfairSportsbook,1.2222222222222223,4.1,-9.0,234.5
+2022,2022-10-25,401468206,Portland Trail Blazers,Denver Nuggets,135.0,110.0,True,BetfairSportsbook,2.7,1.4444444444444444,5.0,227.5
+2022,2022-10-25,401468207,Washington Wizards,Detroit Pistons,120.0,99.0,True,BetfairSportsbook,1.4444444444444444,2.7,-5.5,221.0
+2022,2022-10-25,401468208,New Orleans Pelicans,Dallas Mavericks,113.0,111.0,True,BetfairSportsbook,2.88,1.4,5.5,218.5
+2022,2022-10-26,401468209,Oklahoma City Thunder,LA Clippers,108.0,94.0,True,BetfairSportsbook,2.88,1.4,5.5,217.0
+2022,2022-10-26,401468210,Phoenix Suns,Golden State Warriors,134.0,105.0,True,BetfairSportsbook,1.8,2.0,-1.5,227.0
+2023,2023-10-05,401591869,Minnesota Timberwolves,Dallas Mavericks,111.0,99.0,True,BetfairSportsbook,1.8,1.9090909090909092,-1.5,222.0
+2023,2023-10-07,401591870,Dallas Mavericks,Minnesota Timberwolves,96.0,104.0,True,BetfairSportsbook,2.38,1.5319148936170213,3.5,219.5
+2023,2023-10-08,401591871,Golden State Warriors,Los Angeles Lakers,125.0,108.0,True,BetfairSportsbook,1.5,2.5,-4.5,220.5
+2023,2023-10-08,401591872,Milwaukee Bucks,Chicago Bulls,105.0,102.0,True,BetfairSportsbook,2.1,1.6666666666666665,2.5,220.0
+2023,2023-10-08,401591873,Detroit Pistons,Phoenix Suns,126.0,130.0,True,BetfairSportsbook,2.63,1.4444444444444444,4.5,220.0
+2023,2023-10-08,401591874,Boston Celtics,Philadelphia 76ers,114.0,106.0,True,BetfairSportsbook,1.3333333333333333,3.0,-7.5,217.5
+2023,2023-10-09,401591875,Memphis Grizzlies,Indiana Pacers,127.0,122.0,True,BetfairSportsbook,1.5,2.5,-4.5,226.0
+2023,2023-10-09,401591876,Toronto Raptors,Sacramento Kings,112.0,99.0,True,BetfairSportsbook,1.8333333333333335,1.8333333333333335,-1.5,226.0
+2023,2023-10-09,401591877,LA Clippers,Utah Jazz,96.0,101.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.5,224.0
+2023,2023-10-09,401591878,New York Knicks,Boston Celtics,114.0,107.0,True,BetfairSportsbook,1.25,3.5,-8.5,219.0
+2023,2023-10-10,401591879,Oklahoma City Thunder,San Antonio Spurs,122.0,121.0,True,BetfairSportsbook,1.5,2.5,-4.5,225.5
+2023,2023-10-10,401591880,Los Angeles Lakers,Brooklyn Nets,129.0,126.0,True,BetfairSportsbook,1.4,2.75,-5.5,225.5
+2023,2023-10-10,401608099,Real Madrid,Dallas Mavericks,127.0,123.0,True,Caesars Sportsbook (Colorado),2.25,1.6896551724137931,2.5,213.5
+2023,2023-10-10,401591882,Washington Wizards,Cairns Taipans,145.0,82.0,True,Caesars Sportsbook (Colorado),1.01,21.0,-23.0,223.5
+2023,2023-10-10,401591883,Atlanta Hawks,Cleveland Cavaliers,108.0,107.0,True,BetfairSportsbook,1.7246376811594204,2.0,-1.5,229.0
+2023,2023-10-10,401591884,Miami Heat,Charlotte Hornets,113.0,109.0,True,BetfairSportsbook,1.6666666666666665,2.1,-1.5,222.5
+2023,2023-10-11,401591885,Houston Rockets,Indiana Pacers,122.0,103.0,True,BetfairSportsbook,1.5714285714285714,2.25,-3.5,227.5
+2023,2023-10-11,401591886,Memphis Grizzlies,Milwaukee Bucks,108.0,102.0,True,BetfairSportsbook,1.5319148936170213,2.38,-3.5,225.5
+2023,2023-10-11,401591887,New Orleans Pelicans,Orlando Magic,105.0,122.0,True,BetfairSportsbook,1.5,2.5,-4.5,225.5
+2023,2023-10-11,401591888,LA Clippers,Utah Jazz,103.0,98.0,True,BetfairSportsbook,1.5714285714285714,2.25,-3.5,218.5
+2023,2023-10-11,401591889,Phoenix Suns,Denver Nuggets,107.0,115.0,True,BetfairSportsbook,2.25,1.5714285714285714,3.5,224.5
+2023,2023-10-11,401591890,Portland Trail Blazers,New Zealand Breakers,106.0,66.0,True,Caesars Sportsbook (Colorado),1.0222222222222221,16.0,-21.0,221.0
+2023,2023-10-11,401591891,Philadelphia 76ers,Boston Celtics,101.0,112.0,True,BetfairSportsbook,2.2,1.6134969325153374,3.5,218.5
+2023,2023-10-12,401591892,Los Angeles Lakers,Sacramento Kings,109.0,101.0,True,BetfairSportsbook,2.5,1.5,4.5,225.5
+2023,2023-10-12,401591893,Cleveland Cavaliers,Orlando Magic,105.0,108.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.5,216.5
+2023,2023-10-12,401591894,Oklahoma City Thunder,Detroit Pistons,125.0,128.0,True,BetfairSportsbook,1.3333333333333333,3.0,-7.5,226.5
+2023,2023-10-12,401591895,Washington Wizards,Charlotte Hornets,98.0,92.0,True,BetfairSportsbook,1.6134969325153374,2.2,-3.5,226.5
+2023,2023-10-12,401591896,Atlanta Hawks,Memphis Grizzlies,103.0,102.0,True,BetfairSportsbook,1.5,2.5,-4.5,222.5
+2023,2023-10-12,401591897,Brooklyn Nets,Ra'Anana,135.0,103.0,True,Caesars Sportsbook (Colorado),,,-36.5,219.0
+2023,2023-10-13,401591898,Chicago Bulls,Denver Nuggets,133.0,124.0,True,BetfairSportsbook,1.6134969325153374,2.2,-2.5,218.5
+2023,2023-10-13,401591899,New Orleans Pelicans,Houston Rockets,87.0,120.0,True,BetfairSportsbook,1.6134969325153374,2.2,-2.5,226.0
+2023,2023-10-13,401591900,Portland Trail Blazers,Phoenix Suns,111.0,122.0,True,BetfairSportsbook,2.63,1.4444444444444444,4.5,219.0
+2023,2023-10-13,401591901,San Antonio Spurs,Miami Heat,120.0,104.0,True,BetfairSportsbook,1.2857142857142856,3.25,-8.5,222.0
+2023,2023-10-14,401591902,Los Angeles Lakers,Golden State Warriors,125.0,129.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.5,229.5
+2023,2023-10-14,401591903,Atlanta Hawks,New Orleans Pelicans,110.0,105.0,True,BetfairSportsbook,1.8333333333333335,1.8333333333333335,1.5,224.5
+2023,2023-10-14,401591904,New York Knicks,Minnesota Timberwolves,112.0,121.0,True,BetfairSportsbook,1.5319148936170213,2.38,-4.5,219.5
+2023,2023-10-15,401591905,Utah Jazz,Portland Trail Blazers,138.0,133.0,True,BetfairSportsbook,1.4444444444444444,2.63,-5.5,221.5
+2023,2023-10-15,401591906,Charlotte Hornets,Oklahoma City Thunder,117.0,115.0,True,BetfairSportsbook,1.5319148936170213,2.38,-4.5,225.0
+2023,2023-10-15,401591907,Miami Heat,Memphis Grizzlies,132.0,124.0,True,BetfairSportsbook,2.0,1.7246376811594204,1.5,221.5
+2023,2023-10-15,401591908,Toronto Raptors,Cairns Taipans,134.0,93.0,True,Caesars Sportsbook (Colorado),,,-34.5,229.5
+2023,2023-10-15,401591909,Los Angeles Lakers,Milwaukee Bucks,97.0,108.0,True,BetfairSportsbook,2.75,1.4,5.5,227.5
+2023,2023-10-16,401591910,Denver Nuggets,Chicago Bulls,116.0,102.0,True,BetfairSportsbook,1.3003003003003002,3.2,-7.5,219.5
+2023,2023-10-16,401591911,Sacramento Kings,Golden State Warriors,115.0,121.0,True,BetfairSportsbook,1.3636363636363638,2.88,-6.5,227.0
+2023,2023-10-16,401591912,Cleveland Cavaliers,Ra'Anana,120.0,89.0,True,Caesars Sportsbook (Colorado),,,-28.5,219.5
+2023,2023-10-16,401591913,Indiana Pacers,Atlanta Hawks,116.0,112.0,True,BetfairSportsbook,1.4,2.75,-5.5,226.0
+2023,2023-10-16,401591914,Brooklyn Nets,Philadelphia 76ers,119.0,127.0,True,BetfairSportsbook,1.7246376811594204,2.0,-1.5,220.5
+2023,2023-10-17,401591915,San Antonio Spurs,Houston Rockets,89.0,99.0,True,BetfairSportsbook,2.75,1.4,5.5,226.5
+2023,2023-10-17,401591916,Utah Jazz,New Zealand Breakers,114.0,94.0,True,Caesars Sportsbook (Colorado),,,-37.0,220.5
+2023,2023-10-17,401591917,Phoenix Suns,Portland Trail Blazers,117.0,106.0,True,BetfairSportsbook,1.2222222222222223,3.75,-9.5,228.0
+2023,2023-10-17,401591918,Orlando Magic,New Orleans Pelicans,92.0,104.0,True,BetfairSportsbook,1.7246376811594204,2.0,-1.5,223.5
+2023,2023-10-17,401591919,Boston Celtics,New York Knicks,123.0,110.0,True,BetfairSportsbook,1.2,4.0,-10.0,220.0
+2023,2023-10-18,401591920,Chicago Bulls,Toronto Raptors,102.0,106.0,True,BetfairSportsbook,1.5319148936170213,2.38,-3.5,225.0
+2023,2023-10-18,401591921,Minnesota Timberwolves,Ra'Anana,138.0,111.0,True,Caesars Sportsbook (Colorado),,,-30.5,218.5
+2023,2023-10-18,401591922,Oklahoma City Thunder,Milwaukee Bucks,124.0,101.0,True,BetfairSportsbook,1.6666666666666665,2.1,-2.0,228.0
+2023,2023-10-18,401591923,LA Clippers,Denver Nuggets,116.0,103.0,True,BetfairSportsbook,1.3003003003003002,3.2,-7.5,221.5
+2023,2023-10-18,401591924,Miami Heat,Brooklyn Nets,104.0,107.0,True,BetfairSportsbook,2.0,1.7246376811594204,1.5,223.5
+2023,2023-10-18,401591925,New York Knicks,Washington Wizards,106.0,131.0,True,BetfairSportsbook,1.3003003003003002,3.2,-7.0,225.0
+2023,2023-10-19,401591926,San Antonio Spurs,Houston Rockets,117.0,103.0,True,BetfairSportsbook,1.4444444444444444,2.63,-5.0,224.0
+2023,2023-10-19,401591927,Golden State Warriors,Sacramento Kings,116.0,115.0,True,BetfairSportsbook,1.3636363636363638,2.88,-6.5,231.5
+2023,2023-10-19,401591928,Charlotte Hornets,Boston Celtics,99.0,127.0,True,BetfairSportsbook,3.0,1.3333333333333333,7.0,228.5
+2023,2023-10-20,401591929,Chicago Bulls,Minnesota Timberwolves,105.0,114.0,True,BetfairSportsbook,1.8333333333333335,1.8333333333333335,-1.0,223.5
+2023,2023-10-20,401591930,Oklahoma City Thunder,Detroit Pistons,116.0,118.0,True,BetfairSportsbook,1.5714285714285714,2.25,-3.5,225.5
+2023,2023-10-20,401591931,Los Angeles Lakers,Phoenix Suns,100.0,123.0,True,BetfairSportsbook,1.6666666666666665,2.1,-3.0,231.5
+2023,2023-10-20,401591932,LA Clippers,Denver Nuggets,90.0,103.0,True,BetfairSportsbook,2.75,1.4,6.0,224.5
+2023,2023-10-20,401591933,Sacramento Kings,Utah Jazz,116.0,113.0,True,BetfairSportsbook,2.25,1.5714285714285714,3.5,220.5
+2023,2023-10-20,401591934,Indiana Pacers,Cleveland Cavaliers,109.0,104.0,True,BetfairSportsbook,1.8,1.9090909090909092,-1.0,225.5
+2023,2023-10-20,401591935,Orlando Magic,Flamengo,109.0,76.0,True,,,,,
+2023,2023-10-20,401591936,Philadelphia 76ers,Atlanta Hawks,120.0,106.0,True,BetfairSportsbook,1.7246376811594204,2.0,-1.5,224.5
+2023,2023-10-20,401591937,Toronto Raptors,Washington Wizards,134.0,98.0,True,BetfairSportsbook,1.3636363636363638,2.88,-7.0,221.5
+2023,2023-10-21,401591938,Dallas Mavericks,Detroit Pistons,114.0,104.0,True,BetfairSportsbook,1.4,2.75,-5.5,223.5
+2023,2023-10-21,401591939,Houston Rockets,Miami Heat,110.0,104.0,True,BetfairSportsbook,1.5714285714285714,2.25,-3.5,221.0
+2023,2023-10-21,401591940,Milwaukee Bucks,Memphis Grizzlies,124.0,116.0,True,BetfairSportsbook,1.4,2.75,-5.5,226.0
+2023,2023-10-21,401591941,Golden State Warriors,San Antonio Spurs,117.0,122.0,True,BetfairSportsbook,1.4,2.75,-6.5,227.5
+2023,2023-10-24,401584689,Denver Nuggets,Los Angeles Lakers,119.0,107.0,True,BetfairSportsbook,1.5,2.55,-5.0,229.0
+2023,2023-10-25,401584690,Golden State Warriors,Phoenix Suns,104.0,108.0,True,BetfairSportsbook,1.6493506493506493,2.2,-2.5,235.0
+2023,2023-10-25,401584691,Charlotte Hornets,Atlanta Hawks,116.0,110.0,True,BetfairSportsbook,2.55,1.5,4.0,236.0
+2023,2023-10-25,401584692,Indiana Pacers,Washington Wizards,143.0,120.0,True,BetfairSportsbook,1.4694835680751175,2.63,-5.0,235.5
+2023,2023-10-25,401584693,New York Knicks,Boston Celtics,104.0,108.0,True,BetfairSportsbook,2.45,1.5319148936170213,4.0,223.0
+2023,2023-10-25,401584694,Orlando Magic,Houston Rockets,116.0,86.0,True,BetfairSportsbook,1.5,2.55,-4.5,219.5
+2023,2023-10-25,401584695,Brooklyn Nets,Cleveland Cavaliers,113.0,114.0,True,BetfairSportsbook,2.0,1.8,1.5,218.5
+2023,2023-10-25,401584696,Miami Heat,Detroit Pistons,103.0,102.0,True,BetfairSportsbook,1.2,4.33,-9.5,218.5
+2023,2023-10-25,401584697,Toronto Raptors,Minnesota Timberwolves,97.0,94.0,True,BetfairSportsbook,1.900900900900901,1.900900900900901,-1.0,220.5
+2023,2023-10-26,401584698,Chicago Bulls,Oklahoma City Thunder,104.0,124.0,True,BetfairSportsbook,1.6493506493506493,2.2,-2.5,224.5
+2023,2023-10-26,401584699,Memphis Grizzlies,New Orleans Pelicans,104.0,111.0,True,BetfairSportsbook,1.900900900900901,1.900900900900901,-1.0,224.5
+2023,2023-10-26,401584700,Utah Jazz,Sacramento Kings,114.0,130.0,True,BetfairSportsbook,2.0,1.8,1.5,234.0
+2023,2023-10-26,401584701,San Antonio Spurs,Dallas Mavericks,119.0,126.0,True,BetfairSportsbook,2.63,1.4694835680751175,4.5,231.5
+2023,2023-10-26,401584702,LA Clippers,Portland Trail Blazers,123.0,111.0,True,BetfairSportsbook,1.2,4.33,-9.5,226.0
+2024,2024-10-04,401716947,Denver Nuggets,Boston Celtics,103.0,107.0,True,ESPN BET,2.0,1.8333333333333335,1.5,216.5
+2024,2024-10-05,401716948,Utah Jazz,New Zealand Breakers,116.0,87.0,True,ESPN BET,1.005,36.0,-28.5,208.5
+2024,2024-10-05,401716949,Los Angeles Lakers,Minnesota Timberwolves,107.0,124.0,True,ESPN BET,2.6,1.526315789473684,4.5,215.5
+2024,2024-10-05,401716950,LA Clippers,Golden State Warriors,90.0,91.0,True,ESPN BET,2.8,1.4761904761904763,5.5,221.5
+2024,2024-10-06,401716951,Boston Celtics,Denver Nuggets,130.0,104.0,True,ESPN BET,1.7142857142857144,2.2,-2.5,216.5
+2024,2024-10-06,401716952,Charlotte Hornets,New York Knicks,109.0,111.0,True,ESPN BET,2.3,1.6666666666666665,3.5,215.5
+2024,2024-10-06,401716953,Toronto Raptors,Washington Wizards,125.0,98.0,True,ESPN BET,2.25,1.6896551724137931,3.5,221.5
+2024,2024-10-07,401716954,Detroit Pistons,Milwaukee Bucks,120.0,87.0,True,ESPN BET,1.6451612903225805,2.35,-3.5,216.5
+2024,2024-10-07,401716955,Los Angeles Lakers,Phoenix Suns,114.0,118.0,True,ESPN BET,1.6666666666666665,2.3,-3.5,222.5
+2024,2024-10-07,401716956,New Orleans Pelicans,Orlando Magic,106.0,104.0,True,ESPN BET,1.9090909090909092,1.9090909090909092,-0.5,214.5
+2024,2024-10-07,401717054,Philadelphia 76ers,New Zealand Breakers,139.0,84.0,True,ESPN BET,,,-31.5,205.5
+2024,2024-10-08,401716957,Dallas Mavericks,Memphis Grizzlies,116.0,121.0,True,ESPN BET,3.25,1.3636363636363638,7.5,218.5
+2024,2024-10-08,401716958,San Antonio Spurs,Oklahoma City Thunder,107.0,112.0,True,ESPN BET,2.3,1.606060606060606,3.5,218.5
+2024,2024-10-08,401716959,Utah Jazz,Houston Rockets,122.0,113.0,True,ESPN BET,2.5,1.5714285714285714,4.5,219.5
+2024,2024-10-08,401716960,Charlotte Hornets,Miami Heat,111.0,108.0,True,ESPN BET,1.8,2.05,-1.5,217.5
+2024,2024-10-08,401716962,Cleveland Cavaliers,Chicago Bulls,112.0,116.0,True,ESPN BET,1.5405405405405406,2.55,-4.5,219.5
+2024,2024-10-08,401716964,Detroit Pistons,Phoenix Suns,97.0,105.0,True,ESPN BET,1.6451612903225805,2.3,-3.5,225.5
+2024,2024-10-08,401716965,Atlanta Hawks,Indiana Pacers,131.0,130.0,True,ESPN BET,2.05,1.8,1.5,228.5
+2024,2024-10-09,401716967,LA Clippers,Brooklyn Nets,115.0,106.0,True,ESPN BET,1.4651162790697674,2.8,-5.5,218.5
+2024,2024-10-09,401716969,New York Knicks,Washington Wizards,117.0,94.0,True,ESPN BET,1.2666666666666666,3.9,-8.5,223.5
+2024,2024-10-10,401716971,Oklahoma City Thunder,Houston Rockets,113.0,122.0,True,ESPN BET,1.4166666666666667,3.0,-6.5,227.5
+2024,2024-10-10,401716973,San Antonio Spurs,Orlando Magic,107.0,97.0,True,ESPN BET,1.8695652173913042,1.9523809523809523,-0.5,218.5
+2024,2024-10-10,401716975,Sacramento Kings,Golden State Warriors,112.0,122.0,True,ESPN BET,1.526315789473684,2.6,-4.5,226.5
+2024,2024-10-10,401716976,Cleveland Cavaliers,Indiana Pacers,117.0,129.0,True,ESPN BET,2.75,1.4761904761904763,5.5,228.5
+2024,2024-10-11,401716978,Dallas Mavericks,Utah Jazz,102.0,107.0,True,ESPN BET,1.5,2.7,-5.5,225.5
+2024,2024-10-11,401716979,Memphis Grizzlies,Charlotte Hornets,94.0,119.0,True,ESPN BET,1.5714285714285714,2.5,-4.5,220.5
+2024,2024-10-11,401716980,Milwaukee Bucks,Los Angeles Lakers,102.0,107.0,True,ESPN BET,1.5405405405405406,2.55,-4.5,225.5
+2024,2024-10-11,401716981,Oklahoma City Thunder,New Zealand Breakers,117.0,89.0,True,ESPN BET,1.002,26.0,-25.5,208.5
+2024,2024-10-11,401716983,Washington Wizards,Toronto Raptors,113.0,95.0,True,ESPN BET,1.8333333333333335,2.0,-1.5,223.5
+2024,2024-10-11,401716984,Minnesota Timberwolves,Philadelphia 76ers,121.0,111.0,True,ESPN BET,1.625,2.35,-3.5,224.5
+2024,2024-10-12,401716985,Golden State Warriors,Sacramento Kings,109.0,106.0,True,ESPN BET,2.05,1.8,1.5,225.5
+2024,2024-10-12,401716986,Phoenix Suns,Detroit Pistons,91.0,109.0,True,ESPN BET,1.5714285714285714,2.45,-4.5,220.5
+2024,2024-10-12,401716987,LA Clippers,Portland Trail Blazers,101.0,99.0,True,ESPN BET,1.5405405405405406,2.55,-4.5,215.5
+2024,2024-10-13,401716988,Boston Celtics,Philadelphia 76ers,139.0,89.0,True,ESPN BET,1.3125,3.6,-8.5,221.5
+2024,2024-10-13,401716989,Chicago Bulls,Memphis Grizzlies,121.0,124.0,True,ESPN BET,1.5714285714285714,2.5,-2.5,224.5
+2024,2024-10-13,401716990,San Antonio Spurs,Utah Jazz,126.0,120.0,True,ESPN BET,1.7692307692307692,2.05,-3.5,219.5
+2024,2024-10-13,401716991,Miami Heat,New Orleans Pelicans,101.0,99.0,True,ESPN BET,1.7692307692307692,2.1,-2.5,218.5
+2024,2024-10-13,401716992,New York Knicks,Minnesota Timberwolves,115.0,110.0,True,ESPN BET,1.606060606060606,2.4,-3.5,226.5
+2024,2024-10-13,401716993,Sacramento Kings,Portland Trail Blazers,85.0,105.0,True,ESPN BET,1.4166666666666667,3.0,-5.5,216.5
+2024,2024-10-13,401716994,Boston Celtics,Toronto Raptors,115.0,111.0,True,ESPN BET,1.9523809523809523,1.8695652173913042,1.5,222.5
+2024,2024-10-14,401716995,Denver Nuggets,Phoenix Suns,114.0,118.0,True,ESPN BET,1.3703703703703702,3.2,-5.5,217.5
+2024,2024-10-14,401716996,Golden State Warriors,Detroit Pistons,111.0,93.0,True,ESPN BET,1.8333333333333335,2.0,-1.5,213.5
+2024,2024-10-14,401716997,Indiana Pacers,Memphis Grizzlies,116.0,120.0,True,ESPN BET,1.526315789473684,2.6,-4.5,229.5
+2024,2024-10-14,401716998,Atlanta Hawks,Philadelphia 76ers,89.0,104.0,True,ESPN BET,1.8,2.05,-1.5,234.5
+2024,2024-10-14,401716999,Brooklyn Nets,Washington Wizards,131.0,92.0,True,ESPN BET,1.6896551724137931,2.25,-3.5,220.5
+2024,2024-10-15,401717000,Milwaukee Bucks,Chicago Bulls,111.0,107.0,True,ESPN BET,1.4166666666666667,3.0,-6.5,225.5
+2024,2024-10-15,401717001,LA Clippers,Dallas Mavericks,110.0,96.0,True,ESPN BET,1.4761904761904763,2.8,-5.5,215.5
+2024,2024-10-15,401717002,Toronto Raptors,Boston Celtics,119.0,118.0,True,ESPN BET,4.4,1.2222222222222223,10.5,228.5
+2024,2024-10-15,401717003,Miami Heat,San Antonio Spurs,120.0,117.0,True,ESPN BET,1.5,2.7,-5.5,212.5
+2024,2024-10-15,401717004,New York Knicks,Charlotte Hornets,111.0,105.0,True,ESPN BET,2.3,1.6666666666666665,3.5,218.5
+2024,2024-10-16,401717005,Houston Rockets,New Orleans Pelicans,118.0,98.0,True,ESPN BET,1.606060606060606,2.4,-3.5,214.5
+2024,2024-10-16,401717006,Denver Nuggets,Oklahoma City Thunder,94.0,124.0,True,ESPN BET,2.8,1.4761904761904763,5.5,224.5
+2024,2024-10-16,401717007,Utah Jazz,Sacramento Kings,117.0,114.0,True,ESPN BET,2.25,1.6896551724137931,3.5,225.5
+2024,2024-10-16,401717008,Los Angeles Lakers,Golden State Warriors,97.0,111.0,True,ESPN BET,2.2,1.7142857142857144,2.5,218.5
+2024,2024-10-16,401717009,Detroit Pistons,Cleveland Cavaliers,108.0,92.0,True,ESPN BET,2.6,1.526315789473684,5.5,226.5
+2024,2024-10-16,401717010,Philadelphia 76ers,Brooklyn Nets,117.0,95.0,True,ESPN BET,2.0,1.8333333333333335,1.5,217.5
+2024,2024-10-16,401716977,Miami Heat,Atlanta Hawks,120.0,111.0,True,ESPN BET,2.35,1.6451612903225805,4.5,224.5
+2024,2024-10-17,401717011,Chicago Bulls,Minnesota Timberwolves,125.0,123.0,True,ESPN BET,2.55,1.5,5.5,230.5
+2024,2024-10-17,401717012,Portland Trail Blazers,Ulm,111.0,100.0,False,ESPN BET,,,-36.5,205.5
+2024,2024-10-17,401717013,Indiana Pacers,Charlotte Hornets,121.0,116.0,True,ESPN BET,1.526315789473684,2.6,-5.5,236.5
+2024,2024-10-17,401717014,Dallas Mavericks,Milwaukee Bucks,109.0,84.0,True,ESPN BET,1.4166666666666667,2.9,-6.5,215.5
+2024,2024-10-18,401717015,Houston Rockets,San Antonio Spurs,129.0,107.0,True,ESPN BET,1.2666666666666666,3.9,-8.5,224.5
+2024,2024-10-18,401717016,Oklahoma City Thunder,Atlanta Hawks,104.0,99.0,True,ESPN BET,1.3174603174603174,3.5,-8.5,224.5
+2024,2024-10-18,401717024,Minnesota Timberwolves,Denver Nuggets,126.0,132.0,True,ESPN BET,3.2,1.3703703703703702,7.5,222.5
+2024,2024-10-18,401717017,Phoenix Suns,Los Angeles Lakers,122.0,128.0,True,ESPN BET,1.3571428571428572,3.3,-7.5,221.5
+2024,2024-10-18,401717018,LA Clippers,Sacramento Kings,113.0,91.0,True,ESPN BET,1.8,2.05,-1.5,216.5
+2024,2024-10-18,401717019,Orlando Magic,Philadelphia 76ers,114.0,99.0,True,ESPN BET,1.3333333333333333,3.5,-7.5,216.5
+2024,2024-10-18,401717020,Washington Wizards,New York Knicks,118.0,117.0,True,ESPN BET,5.0,1.1818181818181819,9.5,218.5
+2024,2024-10-18,401717021,Brooklyn Nets,Toronto Raptors,112.0,116.0,True,ESPN BET,1.8333333333333335,2.0,-1.5,218.5
+2024,2024-10-19,401717022,Chicago Bulls,Cleveland Cavaliers,139.0,137.0,True,ESPN BET,2.6,1.5,5.5,227.5
+2024,2024-10-19,401717023,Memphis Grizzlies,Miami Heat,109.0,114.0,True,ESPN BET,1.2666666666666666,3.9,-9.5,223.5
+2024,2024-10-19,401717025,Portland Trail Blazers,Utah Jazz,124.0,86.0,True,ESPN BET,1.8,2.05,-1.5,220.5
+2024,2024-10-19,401717026,Golden State Warriors,Los Angeles Lakers,132.0,74.0,True,ESPN BET,1.2222222222222223,4.4,-9.5,217.5
+2024,2024-10-22,401704627,Boston Celtics,New York Knicks,132.0,109.0,True,ESPN BET,1.526315789473684,2.6,-5.5,221.5
+2024,2024-10-23,401704628,Los Angeles Lakers,Minnesota Timberwolves,110.0,103.0,True,ESPN BET,1.9090909090909092,1.9090909090909092,1.5,223.5
+2024,2024-10-23,401704629,Detroit Pistons,Indiana Pacers,109.0,115.0,True,ESPN BET,2.8,1.4651162790697674,5.5,235.5
+2024,2024-10-23,401704630,Atlanta Hawks,Brooklyn Nets,120.0,116.0,True,ESPN BET,1.3571428571428572,3.3,-7.5,223.5
+2024,2024-10-23,401704631,Miami Heat,Orlando Magic,97.0,116.0,True,ESPN BET,1.7407407407407407,2.15,-1.5,207.5
+2024,2024-10-23,401704632,Philadelphia 76ers,Milwaukee Bucks,109.0,124.0,True,ESPN BET,2.6,1.526315789473684,4.5,222.5
+2024,2024-10-23,401704633,Toronto Raptors,Cleveland Cavaliers,106.0,136.0,True,ESPN BET,3.0,1.4,6.5,226.5
+2024,2024-10-24,401704634,Houston Rockets,Charlotte Hornets,105.0,110.0,True,ESPN BET,1.2857142857142856,3.8,-8.5,230.5
+2024,2024-10-24,401704635,New Orleans Pelicans,Chicago Bulls,123.0,111.0,True,ESPN BET,1.5,2.65,-5.5,225.5
+2024,2024-10-24,401704636,Utah Jazz,Memphis Grizzlies,124.0,126.0,True,ESPN BET,2.15,1.7407407407407407,2.5,229.5
+2024,2024-10-24,401704637,LA Clippers,Phoenix Suns,113.0,116.0,True,ESPN BET,2.65,1.5,4.5,224.5
+2024,2024-10-24,401704638,Portland Trail Blazers,Golden State Warriors,104.0,140.0,True,ESPN BET,3.35,1.3448275862068966,7.5,222.5
+2024,2024-10-24,401704639,Washington Wizards,Boston Celtics,102.0,122.0,True,ESPN BET,7.5,1.1,14.5,230.5
+2024,2024-10-24,401704640,Dallas Mavericks,San Antonio Spurs,120.0,109.0,True,ESPN BET,1.2666666666666666,4.0,-8.5,226.5
+2024,2024-10-25,401704641,Denver Nuggets,Oklahoma City Thunder,87.0,102.0,True,ESPN BET,1.7692307692307692,2.1,-2.5,228.5
+2024,2024-10-25,401704642,Sacramento Kings,Minnesota Timberwolves,115.0,117.0,True,ESPN BET,1.8695652173913042,1.9523809523809523,-0.5,221.5
+2024,2024-10-25,401704643,Orlando Magic,Brooklyn Nets,116.0,101.0,True,ESPN BET,1.1538461538461537,5.25,-11.5,214.5
+2024,2024-10-25,401704644,Toronto Raptors,Philadelphia 76ers,115.0,107.0,True,ESPN BET,2.8,1.4761904761904763,5.5,220.5
+2024,2024-10-25,401704645,Atlanta Hawks,Charlotte Hornets,125.0,120.0,True,ESPN BET,1.4444444444444444,2.85,-5.5,226.5
+2024,2024-10-25,401704646,Cleveland Cavaliers,Detroit Pistons,113.0,101.0,True,ESPN BET,1.1428571428571428,5.5,-10.5,224.5
+2024,2024-10-25,401704647,New York Knicks,Indiana Pacers,123.0,98.0,True,ESPN BET,1.4878048780487805,2.7,-4.5,229.5
+2024,2024-10-26,401704648,Houston Rockets,Memphis Grizzlies,128.0,108.0,True,ESPN BET,1.5882352941176472,2.4,-3.5,226.5
+2024,2024-10-26,401704649,Milwaukee Bucks,Chicago Bulls,122.0,133.0,True,ESPN BET,1.2380952380952381,4.3,-9.5,234.5
+2024,2024-10-26,401704650,Utah Jazz,Golden State Warriors,86.0,127.0,True,ESPN BET,3.1,1.3846153846153846,6.5,234.5
+2024,2024-10-26,401704651,Los Angeles Lakers,Phoenix Suns,123.0,116.0,True,ESPN BET,1.8333333333333335,2.0,-1.5,227.5
+2024,2024-10-26,401704652,Portland Trail Blazers,New Orleans Pelicans,103.0,105.0,True,ESPN BET,3.2,1.3703703703703702,6.5,219.5
+2025,2025-10-02,401812480,New York Knicks,Philadelphia 76ers,99.0,84.0,True,ESPN BET,1.3846153846153846,3.0,-6.5,223.5
+2025,2025-10-03,401812481,New Orleans Pelicans,Melbourne United,107.0,97.0,True,ESPN BET,1.02,14.0,-18.5,216.5
+2025,2025-10-04,401812482,Los Angeles Lakers,Phoenix Suns,81.0,103.0,True,ESPN BET,2.35,1.5882352941176472,3.5,219.5
+2025,2025-10-04,401812483,Philadelphia 76ers,New York Knicks,104.0,113.0,True,ESPN BET,3.4,1.303030303030303,7.5,216.5
+2025,2025-10-05,401812484,Brooklyn Nets,Hapoel Jerusalem,123.0,88.0,False,,,,,
+2025,2025-10-05,401812485,Miami Heat,Orlando Magic,118.0,126.0,True,ESPN BET,2.5,1.526315789473684,4.5,210.5
+2025,2025-10-05,401812486,Denver Nuggets,Minnesota Timberwolves,116.0,126.0,True,ESPN BET,1.5882352941176472,2.35,-3.5,218.5
+2025,2025-10-05,401812487,New Orleans Pelicans,Melbourne Pnx,127.0,92.0,False,,,,,
+2025,2025-10-05,401812676,Charlotte Hornets,Oklahoma City Thunder,114.0,135.0,True,ESPN BET,2.1,1.7142857142857144,2.5,222.5
+2025,2025-10-06,401812677,Golden State Warriors,Los Angeles Lakers,111.0,103.0,True,ESPN BET,1.3125,3.3,-7.5,215.5
+2025,2025-10-06,401812678,Miami Heat,Milwaukee Bucks,93.0,103.0,True,ESPN BET,1.5555555555555556,2.4,-4.5,221.5
+2025,2025-10-07,401812679,Houston Rockets,Atlanta Hawks,122.0,113.0,True,ESPN BET,1.5882352941176472,2.35,-3.5,225.5
+2025,2025-10-07,401812680,Memphis Grizzlies,Detroit Pistons,112.0,128.0,True,ESPN BET,2.6,1.5,4.5,227.5
+2025,2025-10-07,401812681,San Antonio Spurs,Guangzhou Loong-Lions,119.0,88.0,True,,,,,
+2025,2025-10-07,401812682,Dallas Mavericks,Oklahoma City Thunder,106.0,89.0,True,ESPN BET,1.4545454545454546,2.7,-5.5,224.5
+2025,2025-10-07,401812683,Toronto Raptors,Denver Nuggets,108.0,112.0,True,ESPN BET,1.7692307692307692,2.0,-1.5,224.5
+2025,2025-10-07,401812684,Cleveland Cavaliers,Chicago Bulls,117.0,118.0,True,ESPN BET,1.2857142857142856,3.5,-8.5,230.5
+2025,2025-10-08,401812685,Minnesota Timberwolves,Indiana Pacers,134.0,135.0,True,ESPN BET,1.4,2.9,-6.5,224.5
+2025,2025-10-08,401812686,Miami Heat,San Antonio Spurs,107.0,112.0,True,ESPN BET,1.7407407407407407,2.05,-1.5,219.5
+2025,2025-10-09,401812687,Houston Rockets,Utah Jazz,140.0,127.0,True,ESPN BET,1.1428571428571428,5.0,-10.5,225.5
+2025,2025-10-09,401812688,Memphis Grizzlies,Boston Celtics,103.0,121.0,True,ESPN BET,2.3,1.606060606060606,3.5,232.5
+2025,2025-10-09,401812689,Golden State Warriors,Portland Trail Blazers,129.0,123.0,True,ESPN BET,1.4,2.9,-6.5,220.5
+2025,2025-10-09,401812690,Sacramento Kings,Toronto Raptors,122.0,130.0,True,ESPN BET,1.8333333333333335,1.9090909090909092,-0.5,225.5
+2025,2025-10-09,401812691,New York Knicks,Minnesota Timberwolves,100.0,95.0,True,ESPN BET,1.526315789473684,2.5,-4.5,226.5
+2025,2025-10-10,401812692,Chicago Bulls,Cleveland Cavaliers,119.0,112.0,True,ESPN BET,2.5,1.526315789473684,4.5,234.5
+2025,2025-10-10,401812693,Milwaukee Bucks,Detroit Pistons,117.0,111.0,True,ESPN BET,2.7,1.4545454545454546,5.5,223.5
+2025,2025-10-10,401812694,Oklahoma City Thunder,Charlotte Hornets,122.0,116.0,True,ESPN BET,1.1818181818181819,4.4,-10.5,231.5
+2025,2025-10-10,401812695,LA Clippers,Guangzhou Loong-Lions,142.0,95.0,True,,,,,
+2025,2025-10-10,401812696,Brooklyn Nets,Phoenix Suns,127.0,132.0,True,ESPN BET,2.7,1.4545454545454546,5.5,220.5
+2025,2025-10-10,401812697,Toronto Raptors,Boston Celtics,107.0,105.0,True,ESPN BET,2.15,1.6896551724137931,2.5,229.5
+2025,2025-10-10,401812698,Philadelphia 76ers,Orlando Magic,98.0,128.0,True,ESPN BET,2.8,1.4166666666666667,5.5,219.5
+2025,2025-10-11,401812699,San Antonio Spurs,Utah Jazz,134.0,130.0,True,ESPN BET,1.3225806451612903,3.25,-6.5,232.5
+2025,2025-10-11,401812700,Portland Trail Blazers,Sacramento Kings,124.0,123.0,True,ESPN BET,1.6896551724137931,2.15,-2.5,230.5
+2025,2025-10-11,401812701,Indiana Pacers,Oklahoma City Thunder,116.0,101.0,True,ESPN BET,1.9090909090909092,1.8333333333333335,-0.5,235.5
+2025,2025-10-12,401812702,Memphis Grizzlies,Atlanta Hawks,116.0,122.0,True,ESPN BET,2.9,1.4,6.5,237.5
+2025,2025-10-12,401812703,Dallas Mavericks,Charlotte Hornets,116.0,120.0,True,ESPN BET,1.3225806451612903,3.25,-7.5,227.5
+2025,2025-10-12,401812704,Phoenix Suns,Brooklyn Nets,109.0,111.0,True,ESPN BET,1.5555555555555556,2.4,-4.5,229.5
+2025,2025-10-12,401812705,Washington Wizards,Toronto Raptors,112.0,113.0,True,ESPN BET,2.5,1.526315789473684,4.5,232.5
+2025,2025-10-12,401812706,Orlando Magic,Miami Heat,120.0,104.0,True,ESPN BET,1.5,2.6,-5.5,218.5
+2025,2025-10-12,401812707,Boston Celtics,Cleveland Cavaliers,138.0,107.0,True,ESPN BET,1.3333333333333333,3.2,-8.5,232.5
+2025,2025-10-12,401812708,Chicago Bulls,Milwaukee Bucks,121.0,127.0,True,ESPN BET,1.9523809523809523,1.8,1.5,236.5
+2025,2025-10-13,401812709,LA Clippers,Denver Nuggets,94.0,102.0,True,ESPN BET,1.606060606060606,2.3,-3.5,228.5
+2025,2025-10-13,401812710,Los Angeles Lakers,Golden State Warriors,126.0,116.0,True,ESPN BET,1.7692307692307692,2.0,-1.5,220.5
+2025,2025-10-13,401812711,Atlanta Hawks,Miami Heat,119.0,118.0,True,ESPN BET,2.35,1.5882352941176472,4.5,227.5
+2025,2025-10-13,401812712,Indiana Pacers,San Antonio Spurs,108.0,124.0,True,ESPN BET,1.7142857142857144,2.1,-2.5,235.5
+2025,2025-10-13,401812713,New York Knicks,Washington Wizards,103.0,120.0,True,ESPN BET,1.4545454545454546,2.7,-5.5,220.5
+2025,2025-10-14,401812714,Minnesota Timberwolves,Guangzhou Loong-Lions,134.0,74.0,True,,,,,
+2025,2025-10-14,401812715,Utah Jazz,Dallas Mavericks,101.0,114.0,True,ESPN BET,2.35,1.5882352941176472,3.5,236.5
+2025,2025-10-14,401812716,Cleveland Cavaliers,Detroit Pistons,118.0,100.0,True,ESPN BET,1.303030303030303,3.4,-6.5,235.5
+2025,2025-10-15,401812717,New Orleans Pelicans,Houston Rockets,128.0,130.0,True,ESPN BET,2.8,1.4166666666666667,5.5,233.5
+2025,2025-10-15,401812718,Milwaukee Bucks,Oklahoma City Thunder,112.0,116.0,True,ESPN BET,2.7,1.4545454545454546,5.5,233.5
+2025,2025-10-15,401812719,Denver Nuggets,Chicago Bulls,124.0,117.0,True,ESPN BET,1.4545454545454546,2.7,-5.5,233.5
+2025,2025-10-15,401812720,Portland Trail Blazers,Golden State Warriors,111.0,118.0,True,ESPN BET,1.9523809523809523,1.8,1.5,235.5
+2025,2025-10-15,401812721,Phoenix Suns,Los Angeles Lakers,113.0,104.0,True,ESPN BET,4.2,1.2,9.5,225.5
+2025,2025-10-15,401812722,Charlotte Hornets,Memphis Grizzlies,145.0,116.0,True,ESPN BET,1.6896551724137931,2.15,-2.5,237.5
+2025,2025-10-15,401812723,Boston Celtics,Toronto Raptors,110.0,108.0,True,ESPN BET,1.5882352941176472,2.35,-3.5,232.5
+2025,2025-10-16,401812725,Sacramento Kings,LA Clippers,91.0,109.0,True,ESPN BET,2.4,1.5555555555555556,4.5,228.5
+2025,2025-10-16,401812724,Los Angeles Lakers,Dallas Mavericks,94.0,121.0,True,ESPN BET,3.3,1.3125,7.5,221.5
+2025,2025-10-16,401812726,Orlando Magic,New Orleans Pelicans,132.0,125.0,True,ESPN BET,1.3333333333333333,3.2,-6.5,227.5
+2025,2025-10-16,401812727,Detroit Pistons,Washington Wizards,119.0,98.0,True,ESPN BET,1.5,2.6,-5.5,232.5
+2025,2025-10-16,401812728,Atlanta Hawks,Houston Rockets,115.0,133.0,True,ESPN BET,1.3225806451612903,3.25,-7.5,234.5
+2025,2025-10-17,401812729,Chicago Bulls,Minnesota Timberwolves,126.0,120.0,True,ESPN BET,3.0,1.3846153846153846,6.5,236.5
+2025,2025-10-17,401812730,Utah Jazz,Portland Trail Blazers,132.0,129.0,True,ESPN BET,2.1,1.7142857142857144,2.5,235.5
+2025,2025-10-17,401812731,Toronto Raptors,Brooklyn Nets,119.0,114.0,True,ESPN BET,1.3846153846153846,3.0,-6.5,226.5
+2025,2025-10-17,401812732,Philadelphia 76ers,Minnesota Timberwolves,126.0,110.0,True,ESPN BET,1.3125,3.3,-7.5,224.5
+2025,2025-10-17,401812733,New York Knicks,Charlotte Hornets,113.0,108.0,True,ESPN BET,1.3846153846153846,3.0,-6.5,226.5
+2025,2025-10-18,401812734,Miami Heat,Memphis Grizzlies,125.0,141.0,True,ESPN BET,1.606060606060606,2.3,-3.5,232.5
+2025,2025-10-18,401812735,Oklahoma City Thunder,Denver Nuggets,94.0,91.0,True,ESPN BET,1.2222222222222223,3.9,-8.5,229.5
+2025,2025-10-18,401812736,San Antonio Spurs,Indiana Pacers,133.0,104.0,True,ESPN BET,1.5,2.6,-5.5,234.5
+2025,2025-10-18,401812737,Golden State Warriors,LA Clippers,103.0,106.0,True,ESPN BET,1.625,2.25,-3.5,224.5
+2025,2025-10-18,401812738,Los Angeles Lakers,Sacramento Kings,116.0,117.0,True,ESPN BET,1.3225806451612903,3.25,-6.5,228.5
+2025,2025-10-21,401809243,Oklahoma City Thunder,Houston Rockets,125.0,124.0,True,ESPN BET,1.4166666666666667,3.0,-6.5,224.5
+2025,2025-10-22,401809244,Los Angeles Lakers,Golden State Warriors,109.0,119.0,True,ESPN BET,2.3,1.6666666666666665,2.5,227.5
+2025,2025-10-22,401809234,New York Knicks,Cleveland Cavaliers,119.0,111.0,True,ESPN BET,2.0,1.8333333333333335,1.5,228.5
+2025,2025-10-22,401809933,Charlotte Hornets,Brooklyn Nets,136.0,117.0,True,ESPN BET,1.4761904761904763,2.75,-5.5,228.5
+2025,2025-10-22,401809934,Orlando Magic,Miami Heat,125.0,121.0,True,ESPN BET,1.2941176470588236,3.7,-8.5,215.5
+2025,2025-10-22,401809935,Atlanta Hawks,Toronto Raptors,118.0,138.0,True,ESPN BET,1.4651162790697674,2.8,-5.5,237.5
+2025,2025-10-22,401809936,Boston Celtics,Philadelphia 76ers,116.0,117.0,True,ESPN BET,1.526315789473684,2.6,-5.5,229.5
+2025,2025-10-23,401809937,Chicago Bulls,Detroit Pistons,115.0,111.0,True,ESPN BET,2.5,1.5714285714285714,3.5,236.5
+2025,2025-10-23,401809938,Memphis Grizzlies,New Orleans Pelicans,128.0,122.0,True,ESPN BET,1.5714285714285714,2.5,-3.5,236.5
+2025,2025-10-23,401809939,Milwaukee Bucks,Washington Wizards,133.0,120.0,True,ESPN BET,1.263157894736842,3.9,-8.5,228.5
+2025,2025-10-23,401809940,Utah Jazz,LA Clippers,129.0,108.0,True,ESPN BET,3.9,1.263157894736842,10.5,225.5
+2025,2025-10-23,401809235,Dallas Mavericks,San Antonio Spurs,92.0,125.0,True,ESPN BET,1.5882352941176472,2.45,-3.5,223.5
+2025,2025-10-23,401809941,Phoenix Suns,Sacramento Kings,120.0,116.0,True,ESPN BET,1.5882352941176472,2.45,-3.5,228.5
+2025,2025-10-23,401809942,Portland Trail Blazers,Minnesota Timberwolves,114.0,118.0,True,ESPN BET,2.6,1.526315789473684,4.5,222.5
+2025,2025-10-23,401809236,Indiana Pacers,Oklahoma City Thunder,135.0,141.0,True,ESPN BET,3.4,1.3448275862068966,7.5,230.5
+2025,2025-10-24,401809237,Golden State Warriors,Denver Nuggets,137.0,131.0,True,ESPN BET,1.8695652173913042,1.9523809523809523,-1.5,232.5
+2025,2025-10-24,401809946,Toronto Raptors,Milwaukee Bucks,116.0,122.0,True,ESPN BET,1.7692307692307692,2.1,-2.5,235.5
+2025,2025-10-24,401809943,Orlando Magic,Atlanta Hawks,107.0,111.0,True,ESPN BET,1.4651162790697674,2.8,-5.5,235.5
+2025,2025-10-24,401809944,Brooklyn Nets,Cleveland Cavaliers,124.0,131.0,True,ESPN BET,5.75,1.1333333333333333,11.5,230.5
+2025,2025-10-24,401809945,New York Knicks,Boston Celtics,105.0,95.0,True,ESPN BET,1.5882352941176472,2.45,-4.5,231.5
+2025,2025-10-25,401809947,Houston Rockets,Detroit Pistons,111.0,115.0,True,ESPN BET,1.3703703703703702,3.2,-6.5,226.5
+2025,2025-10-25,401809948,Memphis Grizzlies,Miami Heat,114.0,146.0,True,ESPN BET,1.6666666666666665,2.3,-3.5,232.5
+2025,2025-10-25,401809949,New Orleans Pelicans,San Antonio Spurs,116.0,120.0,True,ESPN BET,2.4,1.606060606060606,3.5,233.5
+2025,2025-10-25,401809950,Dallas Mavericks,Washington Wizards,107.0,117.0,True,ESPN BET,1.2352941176470589,4.2,-9.5,228.5
+2025,2025-10-25,401809951,Los Angeles Lakers,Minnesota Timberwolves,128.0,110.0,True,ESPN BET,2.05,1.8,1.5,225.5
+2025,2025-10-25,401809952,Portland Trail Blazers,Golden State Warriors,139.0,119.0,True,ESPN BET,2.3,1.6666666666666665,2.5,228.5
+2025,2025-10-25,401809953,Sacramento Kings,Utah Jazz,105.0,104.0,True,ESPN BET,1.4444444444444444,2.9,-6.5,235.5
+2025,2025-10-25,401809954,LA Clippers,Phoenix Suns,129.0,102.0,True,ESPN BET,1.2222222222222223,4.4,-10.5,223.5
+2025,2025-10-25,401809955,Orlando Magic,Chicago Bulls,98.0,110.0,True,ESPN BET,1.4166666666666667,3.0,-6.5,233.5
+2025,2025-10-25,401809956,Atlanta Hawks,Oklahoma City Thunder,100.0,117.0,True,ESPN BET,3.6,1.3125,8.5,236.5
+2025,2025-10-25,401809957,Philadelphia 76ers,Charlotte Hornets,125.0,121.0,True,ESPN BET,1.526315789473684,2.6,-4.5,237.5
+2025,2025-10-26,401809958,Memphis Grizzlies,Indiana Pacers,128.0,103.0,True,ESPN BET,1.7407407407407407,2.15,-1.5,240.5
+2025,2025-10-26,401809959,Denver Nuggets,Phoenix Suns,133.0,111.0,True,ESPN BET,1.1111111111111112,6.5,-12.5,233.5
+2026,2026-10-03,401902644,Toronto Raptors,Miami Heat,105.0,129.0,True,,,,,
+2026,2026-10-04,401914127,Denver Nuggets,Utah Jazz,97.0,109.0,True,,,,,
+2026,2026-10-04,401918010,LA Clippers,Golden State Warriors,104.0,101.0,True,,,,,
+2026,2026-10-05,401898388,Atlanta Hawks,Memphis Grizzlies,123.0,132.0,True,DraftKings,1.6024096385542168,2.4,-3.5,232.5
+2026,2026-10-05,401908947,Detroit Pistons,Phoenix Suns,109.0,107.0,True,DraftKings,1.7692307692307692,2.1,-2.5,216.5
+2026,2026-10-05,401914101,Philadelphia 76ers,New York Knicks,120.0,97.0,True,DraftKings,2.6,1.5208333333333335,4.5,228.5
+2026,2026-10-06,401914102,Milwaukee Bucks,Minnesota Timberwolves,97.0,116.0,True,DraftKings,2.7,1.4878048780487805,5.5,231.5
+2026,2026-10-06,401898716,Sacramento Kings,Los Angeles Lakers,103.0,127.0,True,DraftKings,2.3,1.6451612903225805,3.5,228.5
+2026,2026-10-06,401901820,Charlotte Hornets,Brooklyn Nets,90.0,124.0,True,DraftKings,1.8695652173913042,1.9523809523809523,-1.5,213.5
+2026,2026-10-07,401898389,Oklahoma City Thunder,New Orleans Pelicans,110.0,116.0,True,DraftKings,2.1,1.7692307692307692,2.5,223.5
+2026,2026-10-07,401914128,Utah Jazz,Denver Nuggets,106.0,117.0,True,DraftKings,1.9090909090909092,1.9090909090909092,-1.5,230.5
+2026,2026-10-07,401898390,Golden State Warriors,Los Angeles Lakers,124.0,98.0,True,DraftKings,1.3875968992248062,3.1,-7.5,221.5
+2026,2026-10-07,401914123,Indiana Pacers,Minnesota Timberwolves,123.0,112.0,True,DraftKings,2.1399999999999997,1.7407407407407407,2.5,237.5
+2026,2026-10-08,401898391,Memphis Grizzlies,Orlando Magic,118.0,122.0,True,DraftKings,2.1,1.7692307692307692,1.5,235.5
+2026,2026-10-08,401908620,Oklahoma City Thunder,Milwaukee Bucks,126.0,128.0,True,DraftKings,1.1923076923076923,4.9,-12.5,218.5
+2026,2026-10-08,401908939,Chicago Bulls,Phoenix Suns,124.0,117.0,True,DraftKings,2.1399999999999997,1.7407407407407407,2.5,228.5
+2026,2026-10-08,401914129,Portland Trail Blazers,Golden State Warriors,123.0,118.0,True,DraftKings,1.1869158878504673,5.0,-14.5,218.5
+2026,2026-10-08,401898392,Cleveland Cavaliers,Boston Celtics,113.0,124.0,True,DraftKings,1.617283950617284,2.3600000000000003,-3.5,222.5
+2026,2026-10-08,401898393,Miami Heat,New Orleans Pelicans,128.0,118.0,True,DraftKings,1.3508771929824561,3.3,-7.5,234.5
+2026,2026-10-08,401901823,Brooklyn Nets,Philadelphia 76ers,114.0,108.0,True,DraftKings,3.4,1.3355704697986577,8.5,220.5
+2026,2026-10-08,401906508,New York Knicks,Washington Wizards,109.0,111.0,True,DraftKings,1.434782608695652,2.9,-6.5,227.5
+2026,2026-10-09,401898394,San Antonio Spurs,Atlanta Hawks,116.0,123.0,True,DraftKings,1.3703703703703702,3.2,-8.5,227.5
+2026,2026-10-09,401898717,Los Angeles Lakers,Sacramento Kings,114.0,110.0,True,DraftKings,1.2666666666666666,3.95,-10.5,232.5
+2026,2026-10-09,401898395,Dallas Mavericks,Houston Rockets,117.0,135.0,True,DraftKings,2.24,1.6756756756756757,3.5,231.5

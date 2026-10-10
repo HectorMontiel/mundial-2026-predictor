@@ -197,7 +197,7 @@ def _del_pick_dos_vias(pick: Dict) -> Optional[Dict]:
     buenas = [o for o in (('Gana %s' % h, mh, qh, ch), ('Gana %s' % a, ma, qa, ca))
               if o[1] >= MODELO_MIN and CASA_MIN <= o[2] < CASA_MAX and o[3] >= CUOTA_MIN]
     if not buenas:
-        return None
+        return _del_pick_handicap_nba(pick) if dep == 'NBA' else None
     ap, pm, pc, cu = buenas[0]
     return {'mercado': '1X2', 'bloque': 'resultado', 'etiqueta': 'Resultado',
             'apuesta': ap, 'prob': round(pm, 4), 'p_mercado': round(pc, 4),
@@ -205,6 +205,28 @@ def _del_pick_dos_vias(pick: Dict) -> Optional[Dict]:
             'linea': None, 'elite': True,
             'razon': 'Capa 1: el modelo %.0f %% y la casa %.0f %% de acuerdo '
                      '(medido en la %s: ~84 %% de acierto)' % (100 * pm, 100 * pc, dep)}
+
+
+def _del_pick_handicap_nba(pick: Dict) -> Optional[Dict]:
+    """v354 — el 🏆 de la NBA cuando no hay ganador que entre: la línea de
+    hándicap de Playdoit que acierta ≥ 84 % por su distancia a la principal
+    (`nba_lineas`, juzgado 2017-25), con la mejor cuota (≥ 1,10)."""
+    try:
+        import nba_lineas as _nl
+        el = [c for c in _nl.elegidas(pick, meta=_nl.META_CAPA1,
+                                      cuota_min=_nl.CUOTA_MIN_CAPA1)
+              if c['mercado'] == 'Handicap' and not c.get('informativa')]
+    except Exception:
+        return None
+    if not el:
+        return None
+    c = max(el, key=lambda x: x['cuota'])
+    return {'mercado': 'Handicap', 'bloque': 'handicap', 'etiqueta': 'Hándicap',
+            'apuesta': c['apuesta'], 'prob': round(c['prob'], 4),
+            'p_mercado': round(c['prob'], 4), 'cuota': round(c['cuota'], 3),
+            'casa': 'Playdoit', 'deporte': 'NBA', 'linea': c['linea'], 'elite': True,
+            'razon': 'Capa 1: a %g puntos de la línea de la casa acertó %.0f %% '
+                     '(19 temporadas de NBA)' % (c['k'], 100 * c['prob'])}
 
 
 def del_pick_riesgo(pick: Dict) -> Optional[Dict]:
@@ -299,6 +321,23 @@ def resultado(apuesta: str, partido: str, goles_home, goles_away) -> Optional[st
         return None
     h, a = par.split(' vs ', 1)
     ap = str(apuesta or '')
+    # v354 — el hándicap de la NBA («Handicap: Equipo +7.5»)
+    if ap.startswith('Handicap: '):
+        cuerpo = ap[len('Handicap: '):].strip()
+        try:
+            eq, lin = cuerpo.rsplit(' ', 1)
+            lin = float(lin.replace(',', '.'))
+        except ValueError:
+            return None
+        if eq == h.strip():
+            margen = gh - ga
+        elif eq == a.strip():
+            margen = ga - gh
+        else:
+            return None
+        if margen + lin == 0:
+            return None
+        return 'verde' if margen + lin > 0 else 'rojo'
     if ap == 'Gana %s' % h:
         ok = gh > ga
     elif ap == 'Gana %s' % a:
