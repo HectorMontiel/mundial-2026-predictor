@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T03:29:55Z",
+"actualizado": "2026-10-10T06:41:57Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3064,6 +3064,16 @@
 },
 {
 "dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Gibson T. vs Sorribes Tormo S.",
+"apuesta": "Gana Gibson T.",
+"cuota": 1.55,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-09",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Haverfordwest vs Caernarfon",
@@ -3221,6 +3231,26 @@
 "cuota": 1.69,
 "resultado": "verde",
 "marcador": "6-1"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Talia Gibson vs Sara Sorribes Tormo",
+"apuesta": "Gana Talia Gibson",
+"cuota": 1.55,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-09",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Tigres UANL vs Toluca",
+"apuesta": "Gana Toluca",
+"cuota": 2.5,
+"resultado": "rojo",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-09",
