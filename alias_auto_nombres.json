@@ -1,5 +1,5 @@
 {
- "generado": "2026-10-10T12:44:18Z",
+ "generado": "2026-10-10T14:17:25Z",
  "revisados": 302,
  "descartados": {
   "el corto tiene un token que el largo no": 282,
@@ -22,7 +22,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T12:44:18Z",
+   "ultima_vez": "2026-10-10T14:17:25Z",
    "primera_vez": "2026-09-27T20:27:10Z"
   },
   "cruz azul hidalgo": {
@@ -58,7 +58,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5185,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T12:44:18Z",
+   "ultima_vez": "2026-10-10T14:17:25Z",
    "primera_vez": "2026-10-07T01:50:20Z"
   },
   "al shabab": {
@@ -67,7 +67,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.5,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T12:44:18Z",
+   "ultima_vez": "2026-10-10T14:17:25Z",
    "primera_vez": "2026-10-08T02:10:23Z"
   },
   "sk sturm graz": {
@@ -76,7 +76,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.7692,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T12:44:18Z",
+   "ultima_vez": "2026-10-10T14:17:25Z",
    "primera_vez": "2026-10-09T14:39:26Z"
   },
   "atlanta united fc": {
@@ -85,7 +85,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.6087,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T12:44:18Z",
+   "ultima_vez": "2026-10-10T14:17:25Z",
    "primera_vez": "2026-10-10T12:44:18Z"
   },
   "minnesota united fc": {
@@ -94,7 +94,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.56,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T12:44:18Z",
+   "ultima_vez": "2026-10-10T14:17:25Z",
    "primera_vez": "2026-10-10T12:44:18Z"
   },
   "northeast united fc": {
@@ -103,7 +103,7 @@
    "contexto": "cuotas_mx→futbol",
    "ratio_fuzzy": 0.56,
    "motivo": "todo lo que dice el corto lo confirma el largo",
-   "ultima_vez": "2026-10-10T12:44:18Z",
+   "ultima_vez": "2026-10-10T14:17:25Z",
    "primera_vez": "2026-10-10T12:44:18Z"
   }
  }
