@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-10T06:41:57Z",
+"actualizado": "2026-10-10T08:15:58Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3281,6 +3281,16 @@
 "cuota": 3.1429,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "FC Tokyo vs Urawa Reds",
+"apuesta": "FC Tokyo o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "3-0"
 }
 ]
 }
