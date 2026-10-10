@@ -104,13 +104,14 @@ def _apodo(nombre) -> Optional[str]:
         return None
 
 
-def del_tablero(det: Dict, home: str, away: str) -> Optional[Dict]:
+def del_tablero(det: Dict, home: str, away: str, apodo=None) -> Optional[Dict]:
     """El tablero de Playdoit (`cuotas_multi.mercados_playdoit`) en la forma
     que usa la app: las escaleras de hándicap y totales con la línea principal
     de cada una. Con NUESTROS nombres de equipo. None si no hay nada."""
     if not det:
         return None
-    ah, aa = _apodo(home), _apodo(away)
+    _apodo_ = apodo or _apodo
+    ah, aa = _apodo_(home), _apodo_(away)
     hcp: Dict[str, Dict[float, float]] = {home: {}, away: {}}
     tot: Dict[str, Dict[float, float]] = {'mas': {}, 'menos': {}}
     for m in det.get('mercados') or []:
@@ -120,7 +121,7 @@ def del_tablero(det: Dict, home: str, away: str) -> Optional[Dict]:
                 mm = _RE_HCP.match(str(s.get('nombre') or ''))
                 if not mm or not s.get('cuota'):
                     continue
-                eq = _apodo(mm.group(1))
+                eq = _apodo_(mm.group(1))
                 lin = float(mm.group(2).replace(',', '.').replace('−', '-'))
                 if eq == ah:
                     hcp[home][lin] = float(s['cuota'])
@@ -160,13 +161,14 @@ def del_tablero(det: Dict, home: str, away: str) -> Optional[Dict]:
     return out or None
 
 
-def candidatas(pick: Dict) -> List[Dict]:
+def candidatas(pick: Dict, clave: str = 'nba_playdoit', fprob=None) -> List[Dict]:
     """Las líneas del tablero de Playdoit con su probabilidad medida:
     [{'apuesta', 'mercado', 'bloque', 'linea', 'prob', 'cuota', 'k', 'tipo'}].
     Nunca lanza."""
     out: List[Dict] = []
     try:
-        tab = ((pick or {}).get('implicitas') or {}).get('nba_playdoit') or {}
+        fprob = fprob or prob
+        tab = ((pick or {}).get('implicitas') or {}).get(clave) or {}
         par = str(pick.get('partido') or '')
         if ' vs ' not in par or not tab:
             return []
@@ -182,7 +184,7 @@ def candidatas(pick: Dict) -> List[Dict]:
                     k = lin - h0
                     if k <= 0:
                         continue
-                    p = prob(tipo, k)
+                    p = fprob(tipo, k)
                     if p is None:
                         continue
                     out.append({'apuesta': 'Handicap: %s %+g' % (equipo, lin),
@@ -199,7 +201,7 @@ def candidatas(pick: Dict) -> List[Dict]:
                     k = (t0 - lin) if lado == 'mas' else (lin - t0)
                     if k <= 0:
                         continue
-                    p = prob(lado, k)
+                    p = fprob(lado, k)
                     if p is None:
                         continue
                     out.append({'apuesta': 'Puntos: %s %g' % (rot, lin),
@@ -213,11 +215,12 @@ def candidatas(pick: Dict) -> List[Dict]:
 
 
 def elegidas(pick: Dict, meta: float = META_METER,
-             cuota_min: float = CUOTA_MIN) -> List[Dict]:
+             cuota_min: float = CUOTA_MIN, clave: str = 'nba_playdoit',
+             fprob=None) -> List[Dict]:
     """Por cada lado (local, visita, más, menos), la línea de MEJOR cuota que
     llega a la meta; y si ningún lado llega en un mercado, su mejor línea como
     informativa (`informativa=True`). Una por mercado y lado."""
-    cands = candidatas(pick)
+    cands = candidatas(pick, clave, fprob)
     out = []
     for mercado in ('Handicap', 'Puntos'):
         grupo = [c for c in cands if c['mercado'] == mercado]

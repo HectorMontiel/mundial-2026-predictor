@@ -1,0 +1,224 @@
+{
+ "meta75": {
+  "elige_2010_14": {
+   "n": 5340,
+   "por_partido": 4.0,
+   "acierta": 0.7713,
+   "p5": 0.7624,
+   "por_lado": {
+    "favorito": 0.789,
+    "mas": 0.763,
+    "menos": 0.775,
+    "no_favorito": 0.759
+   }
+  },
+  "juzga_2015_25": {
+   "n": 12112,
+   "por_partido": 4.0,
+   "acierta": 0.7765,
+   "p5": 0.7702,
+   "por_lado": {
+    "favorito": 0.782,
+    "mas": 0.769,
+    "menos": 0.779,
+    "no_favorito": 0.775
+   }
+  },
+  "t2026": {
+   "n": 260,
+   "por_partido": 4.0,
+   "acierta": 0.7538,
+   "p5": 0.7077,
+   "por_lado": {
+    "favorito": 0.723,
+    "mas": 0.785,
+    "menos": 0.723,
+    "no_favorito": 0.785
+   }
+  }
+ },
+ "meta78": {
+  "elige_2010_14": {
+   "n": 3850,
+   "por_partido": 2.88,
+   "acierta": 0.7974,
+   "p5": 0.7868,
+   "por_lado": {
+    "favorito": 0.818,
+    "mas": 0.793,
+    "no_favorito": 0.78
+   }
+  },
+  "juzga_2015_25": {
+   "n": 9075,
+   "por_partido": 3.0,
+   "acierta": 0.8047,
+   "p5": 0.7977,
+   "por_lado": {
+    "favorito": 0.816,
+    "mas": 0.796,
+    "menos": 0.765,
+    "no_favorito": 0.806
+   }
+  },
+  "t2026": {
+   "n": 195,
+   "por_partido": 3.0,
+   "acierta": 0.7795,
+   "p5": 0.7333,
+   "por_lado": {
+    "favorito": 0.738,
+    "mas": 0.8,
+    "no_favorito": 0.8
+   }
+  }
+ },
+ "meta80": {
+  "elige_2010_14": {
+   "n": 1407,
+   "por_partido": 1.05,
+   "acierta": 0.8031,
+   "p5": 0.7861,
+   "por_lado": {
+    "favorito": 0.804,
+    "mas": 0.802
+   }
+  },
+  "juzga_2015_25": {
+   "n": 4306,
+   "por_partido": 1.42,
+   "acierta": 0.82,
+   "p5": 0.8105,
+   "por_lado": {
+    "favorito": 0.829,
+    "mas": 0.804
+   }
+  },
+  "t2026": {
+   "n": 130,
+   "por_partido": 2.0,
+   "acierta": 0.8077,
+   "p5": 0.7538,
+   "por_lado": {
+    "favorito": 0.785,
+    "mas": 0.831
+   }
+  }
+ },
+ "meta75_modelo": {
+  "elige_2010_14": {
+   "n": 2670,
+   "por_partido": 2.0,
+   "acierta": 0.7876,
+   "p5": 0.7749,
+   "por_lado": {
+    "favorito": 0.815,
+    "mas": 0.776,
+    "menos": 0.793,
+    "no_favorito": 0.774
+   }
+  },
+  "juzga_2015_25": {
+   "n": 6056,
+   "por_partido": 2.0,
+   "acierta": 0.7763,
+   "p5": 0.7675,
+   "por_lado": {
+    "favorito": 0.782,
+    "mas": 0.768,
+    "menos": 0.779,
+    "no_favorito": 0.779
+   }
+  },
+  "t2026": {
+   "n": 130,
+   "por_partido": 2.0,
+   "acierta": 0.7615,
+   "p5": 0.7,
+   "por_lado": {
+    "favorito": 0.808,
+    "mas": 0.805,
+    "menos": 0.625,
+    "no_favorito": 0.769
+   }
+  }
+ },
+ "meta75_modelo_fav_mas": {
+  "elige_2010_14": {
+   "n": 4140,
+   "por_partido": 3.1,
+   "acierta": 0.7758,
+   "p5": 0.7652,
+   "por_lado": {
+    "favorito": 0.815,
+    "mas": 0.776,
+    "menos": 0.775,
+    "no_favorito": 0.759
+   }
+  },
+  "juzga_2015_25": {
+   "n": 9104,
+   "por_partido": 3.01,
+   "acierta": 0.7761,
+   "p5": 0.7689,
+   "por_lado": {
+    "favorito": 0.782,
+    "mas": 0.768,
+    "menos": 0.779,
+    "no_favorito": 0.775
+   }
+  },
+  "t2026": {
+   "n": 197,
+   "por_partido": 3.03,
+   "acierta": 0.7716,
+   "p5": 0.7208,
+   "por_lado": {
+    "favorito": 0.808,
+    "mas": 0.805,
+    "menos": 0.723,
+    "no_favorito": 0.785
+   }
+  }
+ },
+ "playdoit_meta75": {
+  "n": 56,
+  "partidos": 14,
+  "cuota_media": 1.239,
+  "p_media": 0.76,
+  "por_tipo": {
+   "favorito": 14,
+   "mas": 14,
+   "menos": 14,
+   "no_favorito": 14
+  }
+ },
+ "playdoit_meta78": {
+  "n": 40,
+  "partidos": 14,
+  "cuota_media": 1.201,
+  "p_media": 0.788,
+  "por_tipo": {
+   "favorito": 12,
+   "mas": 14,
+   "menos": 1,
+   "no_favorito": 13
+  }
+ },
+ "playdoit_meta80": {
+  "n": 18,
+  "partidos": 12,
+  "cuota_media": 1.179,
+  "p_media": 0.807,
+  "por_tipo": {
+   "favorito": 7,
+   "mas": 11
+  }
+ },
+ "playdoit_max_p": {
+  "favorito": 0.838,
+  "mas": 0.824,
+  "menos": 0.799,
+  "no_favorito": 0.796
+ }
+}

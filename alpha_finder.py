@@ -3266,6 +3266,24 @@ UMBRAL_NFL_CAPA2 = 0.62
 # liquidar esto, asi que su percentil 5 no esta medido y la regla de oro del
 # proyecto no se puede aplicar. Sale como informacion con su precio al lado,
 # igual que los cornrs antes de que hubiera fotos con las que medirlos.
+def _tablero_nfl(fila: Dict, cm, h: str, a: str, fx: Dict) -> None:
+    """v358 — las escaleras de hándicap y puntos de Playdoit (la casa del
+    usuario) para las líneas alternativas medidas en `nfl_lineas`. Sólo de lo
+    que se juega en 3 días, por lo mismo que los touchdowns (v191.1: cada
+    tablero cuesta ~1 s; queda en la caché del día para la siguiente vuelta).
+    Nunca lanza."""
+    try:
+        _d = _dias_hasta(fx.get('fecha'))
+        if _d is None or _d > 3 or _d < -1:
+            return
+        import nfl_lineas as _nfl
+        _tab = _nfl.del_tablero(cm.mercados_playdoit('nfl', h, a, fecha=fx.get('inicio')), h, a)
+        if _tab:
+            fila['implicitas'] = dict(fila.get('implicitas') or {}, nfl_playdoit=_tab)
+    except Exception as _e:
+        logger.debug('[alpha/nfl] tablero de Playdoit %s-%s: %s', h, a, _e)
+
+
 def _dias_hasta(fecha) -> Optional[float]:
     """
     Dias desde hoy hasta `fecha`. `None` si no se puede leer.
@@ -3472,6 +3490,7 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
                 # modelo» cuando `prob` es None, que es exactamente lo que hay.
                 fila.update({'apuesta': f'{h} vs {a}', 'prob': None,
                              'nota_modelo': pred.get('motivo_sin_probabilidad')})
+                _tablero_nfl(fila, cm, h, a, fx)
                 salida['pronosticos'].append(fila)
                 continue
             fila.update({
@@ -3527,6 +3546,7 @@ def _picks_nfl() -> Dict[str, List[Dict]]:
                     fila['td_esperados'] = modelo.tds_esperados(_lp)
             except Exception as _e_td:
                 logger.debug('[alpha/nfl] touchdowns %s-%s: %s', h, a, _e_td)
+            _tablero_nfl(fila, cm, h, a, fx)
             salida['pronosticos'].append(fila)
 
             for lado, nombre in (('home', h), ('away', a)):

@@ -605,6 +605,28 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
                 'fuerza': round(max(0.0, min(1.0, abs(prob - _mlb.META_METER) / 0.20)), 3),
                 'medido': True, 'prob_ajustada': prob, 'cuota': cuota,
                 'razones': [_rz]}
+    # v358 — la NFL con su regla (`nfl_lineas`: 78 %, 27 temporadas)
+    if p.get('nfl_linea'):
+        import nfl_lineas as _nf
+        _pre = bool(p.get('pretemporada'))
+        _ok = (not p.get('informativa') and prob >= _nf.META_METER
+               and cuota is not None and cuota >= _nf.CUOTA_MIN
+               and (not _pre or p.get('nba_tipo') in _nf.PRETEMPORADA_TIPOS))
+        if _ok:
+            _rz = ('a %s puntos de la línea de la casa esta línea acertó %.0f %% '
+                   '(NFL, 27 temporadas)' % (('%g' % p['nba_k']) if p.get('nba_k') is not None
+                                               else '?', 100 * prob))
+        elif _pre and p.get('nba_tipo') not in _nf.PRETEMPORADA_TIPOS:
+            _rz = 'pretemporada: esta línea no aguanta lo medido en la temporada'
+        elif p.get('informativa') or prob < _nf.META_METER:
+            _rz = ('ninguna línea de la casa llega al %.0f %%: la más probable '
+                   'es ésta, al %.0f %%' % (100 * _nf.META_METER, 100 * prob))
+        else:
+            _rz = 'cuota por debajo de %.2f' % _nf.CUOTA_MIN
+        return {**base, 'veredicto': METER if _ok else NO_METER,
+                'fuerza': round(max(0.0, min(1.0, abs(prob - _nf.META_METER) / 0.20)), 3),
+                'medido': True, 'prob_ajustada': prob, 'cuota': cuota,
+                'razones': [_rz]}
     if p.get('nba_linea'):
         import nba_lineas as _nl
         _ok = (not p.get('informativa') and prob >= _nl.META_METER
@@ -748,6 +770,11 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
         mete = False
         razones.insert(0, 'pretemporada: el ganador acierta 74 % con esta regla '
                        '(medido 2021-2026): no se mete')
+    # v358 — y la de la NFL tampoco (ESPN 2021-2026, `nfl_lineas`)
+    if mete and _dep == 'NFL' and p.get('pretemporada'):
+        mete = False
+        razones.insert(0, 'pretemporada: el favorito de la casa al 74 % o más '
+                       'ganó 5 de 11 (2021-2026): no se mete')
     # y sin el precio de la casa no se mete: lo medido es la MEZCLA, y el
     # modelo solo (0,6187 de log-loss contra 0,6027 de la casa) no basta
     if mete and _dep == 'NBA' and not conc.get('hay'):
@@ -768,9 +795,11 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
         _pc = conc.get('p_mercado') if conc.get('hay') else None
         if not es_ganador(mercado, p.get('apuesta')):
             if mete:
-                razones.insert(0, 'los puntos no se meten: con las líneas que '
-                               'publica la casa aciertan %s como mucho'
-                               % ('70-74 %' if _dep == 'NFL' else '55-59 %'))
+                razones.insert(0, ('en la NFL el hándicap y los puntos se meten '
+                                   'con la escalera de Playdoit al 78 %')
+                               if _dep == 'NFL' else
+                               'los puntos no se meten: con las líneas que '
+                               'publica la casa aciertan 55-59 % como mucho')
             mete = False
         else:
             ok = ganador_mete(_dep, ajustada, _pc, cuota)

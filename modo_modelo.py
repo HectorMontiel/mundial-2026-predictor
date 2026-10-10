@@ -1870,6 +1870,8 @@ def _enriquece(pick: Dict, _mej: Dict, puesto: int = 1) -> Dict:
             'p_casa_tiros': _mej.get('p_casa_tiros'),
             # v354 — las líneas de la NBA medidas por distancia (`nba_lineas`)
             'nba_linea': bool(_mej.get('nba_linea')),
+            # v358 — y las de la NFL (`nfl_lineas`)
+            'nfl_linea': bool(_mej.get('nfl_linea')),
             'mlb_linea': bool(_mej.get('mlb_linea')),
             'nba_k': _mej.get('nba_k'),
             'nba_tipo': _mej.get('nba_tipo'),
@@ -4833,13 +4835,18 @@ def por_que_no(p: Dict) -> str:
         dep = str(p.get('deporte') or 'Fútbol')
         if p.get('pretemporada'):
             # v330 — la pretemporada (NBA) no se recomienda nunca
-            por = 'pretemporada: sólo se mete el hándicap del no favorito'
+            # v358 — la NFL: no favorito y «más de» (`nfl_lineas`)
+            por = ('pretemporada: sólo se mete el hándicap del no favorito y «más de»'
+                   if dep == 'NFL' else
+                   'pretemporada: sólo se mete el hándicap del no favorito')
         elif dep in _vp.DEPORTES_SIN_METER:
             # v350 — el béisbol se enseña, no se mete
             por = 'en el béisbol no hay apuesta al ~80 %'
         elif dep in _vp.METER_GANADOR_CASA_MIN:
             # v350 — NFL y NBA: sólo el ganador, con la casa
-            por = ('los puntos no se meten' if not _vp.es_ganador(mercado, r.get('apuesta'))
+            por = (('en la NFL el hándicap y los puntos se meten con la escalera '
+                    'de Playdoit al 78 %' if dep == 'NFL' else 'los puntos no se meten')
+                   if not _vp.es_ganador(mercado, r.get('apuesta'))
                    else 'el ganador se mete con la casa en %d %% o más, la app en '
                         '%d %% o más y cuota 1,10-1,40'
                         % (round(100 * _vp.METER_GANADOR_CASA_MIN[dep]),

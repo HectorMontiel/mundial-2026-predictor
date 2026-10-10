@@ -577,6 +577,12 @@ def _valor_real(guardada: Dict, gh, ga, stats: Optional[Dict]):
         if gh is None or ga is None:
             return None
         return (float(gh), float(ga))
+    # v358 — LOS PUNTOS (NFL, NBA) Y LAS CARRERAS (MLB, KBO) del marcador.
+    # Se quedaban ⏳ para siempre: el bloque «totales» no tenía valor real
+    # (sólo córners, tarjetas y remates lo sacan de las estadísticas).
+    if bloque == 'totales' and (etq in ('Puntos', 'Carreras')
+                                or str(guardada.get('mercado') or '') in ('Puntos', 'Carreras')):
+        return None if gh is None or ga is None else float(gh) + float(ga)
     if bloque == 'btts':
         if gh is None or ga is None:
             return None

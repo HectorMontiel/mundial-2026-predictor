@@ -1,0 +1,558 @@
+temporada,fecha,event_id,home,away,abrev_home,abrev_away,pts_home,pts_away,casa,ml_home,ml_away,spread,total,fav_home
+2016,2016-08-11,400874795,Atlanta Falcons,Washington Redskins,ATL,WSH,23.0,17.0,,,,,,
+2016,2016-08-11,400874854,Philadelphia Eagles,Tampa Bay Buccaneers,PHI,TB,17.0,9.0,,,,,,
+2016,2016-08-11,400874753,New England Patriots,New Orleans Saints,NE,NO,34.0,22.0,,,,,,
+2016,2016-08-11,400874772,New York Jets,Jacksonville Jaguars,NYJ,JAX,17.0,13.0,,,,,,
+2016,2016-08-11,400874757,Baltimore Ravens,Carolina Panthers,BAL,CAR,22.0,19.0,,,,,,
+2016,2016-08-12,400874777,Chicago Bears,Denver Broncos,CHI,DEN,0.0,22.0,,,,,,
+2016,2016-08-12,400874812,New York Giants,Miami Dolphins,NYG,MIA,10.0,27.0,,,,,,
+2016,2016-08-12,400874767,Pittsburgh Steelers,Detroit Lions,PIT,DET,17.0,30.0,,,,,,
+2016,2016-08-12,400874761,Cincinnati Bengals,Minnesota Vikings,CIN,MIN,16.0,17.0,,,,,,
+2016,2016-08-13,400874764,Green Bay Packers,Cleveland Browns,GB,CLE,17.0,11.0,,,,,,
+2016,2016-08-13,400874781,Arizona Cardinals,Oakland Raiders,ARI,OAK,10.0,31.0,,,,,,
+2016,2016-08-13,400874796,Kansas City Chiefs,Seattle Seahawks,KC,SEA,16.0,17.0,,,,,,
+2016,2016-08-13,400874750,Buffalo Bills,Indianapolis Colts,BUF,IND,18.0,19.0,,,,,,
+2016,2016-08-14,400874775,Tennessee Titans,San Diego Chargers,TEN,SD,27.0,10.0,,,,,,
+2016,2016-08-14,400873867,Los Angeles Rams,Dallas Cowboys,LAR,DAL,28.0,24.0,,,,,,
+2016,2016-08-14,400874798,San Francisco 49ers,Houston Texans,SF,HOU,13.0,24.0,,,,,,
+2016,2016-08-18,400874768,Pittsburgh Steelers,Philadelphia Eagles,PIT,PHI,0.0,17.0,,,,,,
+2016,2016-08-18,400874762,Detroit Lions,Cincinnati Bengals,DET,CIN,14.0,30.0,,,,,,
+2016,2016-08-19,400874765,Cleveland Browns,Atlanta Falcons,CLE,ATL,13.0,24.0,,,,,,
+2016,2016-08-19,400874782,Green Bay Packers,Oakland Raiders,GB,OAK,20.0,12.0,,,,,,
+2016,2016-08-19,400874754,New England Patriots,Chicago Bears,NE,CHI,23.0,22.0,,,,,,
+2016,2016-08-19,400874793,Seattle Seahawks,Minnesota Vikings,SEA,MIN,11.0,18.0,,,,,,
+2016,2016-08-19,400874790,Washington Redskins,New York Jets,WSH,NYJ,22.0,18.0,,,,,,
+2016,2016-08-20,400874853,Dallas Cowboys,Miami Dolphins,DAL,MIA,41.0,14.0,,,,,,
+2016,2016-08-20,400874784,San Diego Chargers,Arizona Cardinals,SD,ARI,19.0,3.0,,,,,,
+2016,2016-08-20,400874776,Tennessee Titans,Carolina Panthers,TEN,CAR,16.0,26.0,,,,,,
+2016,2016-08-20,400874751,Buffalo Bills,New York Giants,BUF,NYG,21.0,0.0,,,,,,
+2016,2016-08-20,400874758,Indianapolis Colts,Baltimore Ravens,IND,BAL,18.0,19.0,,,,,,
+2016,2016-08-20,400874773,Jacksonville Jaguars,Tampa Bay Buccaneers,JAX,TB,21.0,27.0,,,,,,
+2016,2016-08-21,400874799,Houston Texans,New Orleans Saints,HOU,NO,16.0,9.0,,,,,,
+2016,2016-08-21,400874778,Denver Broncos,San Francisco 49ers,DEN,SF,24.0,31.0,,,,,,
+2016,2016-08-21,400874811,Los Angeles Rams,Kansas City Chiefs,LAR,KC,21.0,20.0,,,,,,
+2016,2016-08-26,400873868,Miami Dolphins,Atlanta Falcons,MIA,ATL,17.0,6.0,,,,,,
+2016,2016-08-26,400874797,Seattle Seahawks,Dallas Cowboys,SEA,DAL,27.0,17.0,,,,,,
+2016,2016-08-26,400874856,Washington Redskins,Buffalo Bills,WSH,BUF,21.0,16.0,,,,,,
+2016,2016-08-26,400874755,Carolina Panthers,New England Patriots,CAR,NE,17.0,19.0,,,,,,
+2016,2016-08-27,400874769,New Orleans Saints,Pittsburgh Steelers,NO,PIT,14.0,27.0,,,,,,
+2016,2016-08-27,400873869,Tampa Bay Buccaneers,Cleveland Browns,TB,CLE,30.0,13.0,,,,,,
+2016,2016-08-27,400874788,San Francisco 49ers,Green Bay Packers,SF,GB,10.0,21.0,,,,,,
+2016,2016-08-27,400874786,Chicago Bears,Kansas City Chiefs,CHI,KC,7.0,23.0,,,,,,
+2016,2016-08-27,400874771,Indianapolis Colts,Philadelphia Eagles,IND,PHI,23.0,33.0,,,,,,
+2016,2016-08-27,400874759,Baltimore Ravens,Detroit Lions,BAL,DET,30.0,9.0,,,,,,
+2016,2016-08-27,400874791,New York Jets,New York Giants,NYJ,NYG,20.0,21.0,,,,,,
+2016,2016-08-28,400873970,Oakland Raiders,Tennessee Titans,OAK,TEN,14.0,27.0,,,,,,
+2016,2016-08-28,400874779,Denver Broncos,Los Angeles Rams,DEN,LAR,17.0,9.0,,,,,,
+2016,2016-08-28,400873971,Minnesota Vikings,San Diego Chargers,MIN,SD,23.0,10.0,,,,,,
+2016,2016-08-28,400873972,Houston Texans,Arizona Cardinals,HOU,ARI,34.0,24.0,,,,,,
+2016,2016-08-29,400873973,Jacksonville Jaguars,Cincinnati Bengals,JAX,CIN,26.0,21.0,,,,,,
+2016,2016-09-01,400874855,Tampa Bay Buccaneers,Washington Redskins,TB,WSH,13.0,20.0,,,,,,
+2016,2016-09-01,400879270,Atlanta Falcons,Jacksonville Jaguars,ATL,JAX,17.0,15.0,,,,,,
+2016,2016-09-01,400879271,Miami Dolphins,Tennessee Titans,MIA,TEN,10.0,21.0,,,,,,
+2016,2016-09-01,400874756,New York Giants,New England Patriots,NYG,NE,17.0,9.0,,,,,,
+2016,2016-09-01,400874792,Philadelphia Eagles,New York Jets,PHI,NYJ,14.0,6.0,,,,,,
+2016,2016-09-01,400874763,Cincinnati Bengals,Indianapolis Colts,CIN,IND,10.0,13.0,,,,,,
+2016,2016-09-01,400874752,Detroit Lions,Buffalo Bills,DET,BUF,31.0,0.0,,,,,,
+2016,2016-09-01,400874770,Carolina Panthers,Pittsburgh Steelers,CAR,PIT,18.0,6.0,,,,,,
+2016,2016-09-02,400874766,Cleveland Browns,Chicago Bears,CLE,CHI,7.0,21.0,,,,,,
+2016,2016-09-02,400874800,Dallas Cowboys,Houston Texans,DAL,HOU,17.0,28.0,,,,,,
+2016,2016-09-02,400874789,Kansas City Chiefs,Green Bay Packers,KC,GB,17.0,7.0,,,,,,
+2016,2016-09-02,400874794,Minnesota Vikings,Los Angeles Rams,MIN,LAR,27.0,25.0,,,,,,
+2016,2016-09-02,400874760,New Orleans Saints,Baltimore Ravens,NO,BAL,14.0,23.0,,,,,,
+2016,2016-09-02,400874780,Arizona Cardinals,Denver Broncos,ARI,DEN,38.0,17.0,,,,,,
+2016,2016-09-02,400874783,Oakland Raiders,Seattle Seahawks,OAK,SEA,21.0,23.0,,,,,,
+2016,2016-09-02,400874785,San Diego Chargers,San Francisco 49ers,SD,SF,21.0,31.0,,,,,,
+2017,2017-08-04,400944346,Dallas Cowboys,Arizona Cardinals,DAL,ARI,20.0,18.0,,,,,,
+2017,2017-08-09,400951824,Carolina Panthers,Houston Texans,CAR,HOU,27.0,17.0,,,,,,
+2017,2017-08-10,400951829,Buffalo Bills,Minnesota Vikings,BUF,MIN,10.0,17.0,,,,,,
+2017,2017-08-10,400951801,Miami Dolphins,Atlanta Falcons,MIA,ATL,23.0,20.0,,,,,,
+2017,2017-08-10,400951794,New England Patriots,Jacksonville Jaguars,NE,JAX,24.0,31.0,,,,,,
+2017,2017-08-10,400951441,Baltimore Ravens,Washington Redskins,BAL,WSH,23.0,3.0,,,,,,
+2017,2017-08-11,400951835,Chicago Bears,Denver Broncos,CHI,DEN,17.0,24.0,,,,,,
+2017,2017-08-11,400951820,Cleveland Browns,New Orleans Saints,CLE,NO,20.0,14.0,,,,,,
+2017,2017-08-11,400951826,Green Bay Packers,Philadelphia Eagles,GB,PHI,24.0,9.0,,,,,,
+2017,2017-08-11,400951266,New York Giants,Pittsburgh Steelers,NYG,PIT,12.0,20.0,,,,,,
+2017,2017-08-11,400951251,Cincinnati Bengals,Tampa Bay Buccaneers,CIN,TB,23.0,12.0,,,,,,
+2017,2017-08-12,400951832,Kansas City Chiefs,San Francisco 49ers,KC,SF,17.0,27.0,,,,,,
+2017,2017-08-12,400952014,New York Jets,Tennessee Titans,NYJ,TEN,7.0,3.0,,,,,,
+2017,2017-08-13,400951838,Los Angeles Rams,Dallas Cowboys,LAR,DAL,13.0,10.0,,,,,,
+2017,2017-08-13,400951797,Arizona Cardinals,Oakland Raiders,ARI,OAK,20.0,10.0,,,,,,
+2017,2017-08-13,400951270,Indianapolis Colts,Detroit Lions,IND,DET,10.0,24.0,,,,,,
+2017,2017-08-14,400951839,Los Angeles Chargers,Seattle Seahawks,LAC,SEA,17.0,48.0,,,,,,
+2017,2017-08-17,400951802,Miami Dolphins,Baltimore Ravens,MIA,BAL,7.0,31.0,,,,,,
+2017,2017-08-17,400951827,Philadelphia Eagles,Buffalo Bills,PHI,BUF,20.0,16.0,,,,,,
+2017,2017-08-18,400950229,Jacksonville Jaguars,Tampa Bay Buccaneers,JAX,TB,8.0,12.0,,,,,,
+2017,2017-08-19,400951837,Seattle Seahawks,Minnesota Vikings,SEA,MIN,20.0,13.0,,,,,,
+2017,2017-08-19,400952008,Tennessee Titans,Carolina Panthers,TEN,CAR,34.0,27.0,,,,,,
+2017,2017-08-19,400951252,Cincinnati Bengals,Kansas City Chiefs,CIN,KC,12.0,30.0,,,,,,
+2017,2017-08-19,400951271,Dallas Cowboys,Indianapolis Colts,DAL,IND,24.0,19.0,,,,,,
+2017,2017-08-19,400951830,Detroit Lions,New York Jets,DET,NYJ,16.0,6.0,,,,,,
+2017,2017-08-19,400951823,Washington Redskins,Green Bay Packers,WSH,GB,17.0,21.0,,,,,,
+2017,2017-08-20,400951795,Houston Texans,New England Patriots,HOU,NE,27.0,23.0,,,,,,
+2017,2017-08-20,400953265,Oakland Raiders,Los Angeles Rams,OAK,LAR,21.0,24.0,,,,,,
+2017,2017-08-20,400951798,Arizona Cardinals,Chicago Bears,ARI,CHI,23.0,24.0,,,,,,
+2017,2017-08-20,400951833,San Francisco 49ers,Denver Broncos,SF,DEN,14.0,33.0,,,,,,
+2017,2017-08-20,400951267,Pittsburgh Steelers,Atlanta Falcons,PIT,ATL,17.0,13.0,,,,,,
+2017,2017-08-21,400951840,Los Angeles Chargers,New Orleans Saints,LAC,NO,7.0,13.0,,,,,,
+2017,2017-08-22,400950230,Cleveland Browns,New York Giants,CLE,NYG,10.0,6.0,,,,,,
+2017,2017-08-24,400951803,Philadelphia Eagles,Miami Dolphins,PHI,MIA,38.0,31.0,,,,,,
+2017,2017-08-24,400951804,Jacksonville Jaguars,Carolina Panthers,JAX,CAR,23.0,24.0,,,,,,
+2017,2017-08-25,400951796,Detroit Lions,New England Patriots,DET,NE,28.0,30.0,,,,,,
+2017,2017-08-26,400950231,Seattle Seahawks,Kansas City Chiefs,SEA,KC,26.0,13.0,,,,,,
+2017,2017-08-26,400951799,Atlanta Falcons,Arizona Cardinals,ATL,ARI,14.0,24.0,,,,,,
+2017,2017-08-26,400951819,New York Giants,New York Jets,NYG,NYJ,32.0,31.0,,,,,,
+2017,2017-08-26,400951805,Baltimore Ravens,Buffalo Bills,BAL,BUF,13.0,9.0,,,,,,
+2017,2017-08-26,400951268,Pittsburgh Steelers,Indianapolis Colts,PIT,IND,15.0,19.0,,,,,,
+2017,2017-08-26,400951821,Tampa Bay Buccaneers,Cleveland Browns,TB,CLE,9.0,13.0,,,,,,
+2017,2017-08-27,400953306,Dallas Cowboys,Oakland Raiders,DAL,OAK,24.0,20.0,,,,,,
+2017,2017-08-27,400950232,Los Angeles Rams,Los Angeles Chargers,LAR,LAC,19.0,21.0,,,,,,
+2017,2017-08-27,400951836,New Orleans Saints,Houston Texans,NO,HOU,13.0,0.0,,,,,,
+2017,2017-08-27,400951834,Denver Broncos,Green Bay Packers,DEN,GB,20.0,17.0,,,,,,
+2017,2017-08-27,400950233,Tennessee Titans,Chicago Bears,TEN,CHI,7.0,19.0,,,,,,
+2017,2017-08-27,400950234,Washington Redskins,Cincinnati Bengals,WSH,CIN,23.0,17.0,,,,,,
+2017,2017-08-28,400950235,Minnesota Vikings,San Francisco 49ers,MIN,SF,32.0,31.0,,,,,,
+2017,2017-08-31,400950242,Atlanta Falcons,Jacksonville Jaguars,ATL,JAX,7.0,13.0,,,,,,
+2017,2017-08-31,400951828,Buffalo Bills,Detroit Lions,BUF,DET,27.0,17.0,,,,,,
+2017,2017-08-31,400950239,Green Bay Packers,Los Angeles Rams,GB,LAR,24.0,10.0,,,,,,
+2017,2017-08-31,400951253,Indianapolis Colts,Cincinnati Bengals,IND,CIN,7.0,6.0,,,,,,
+2017,2017-08-31,400951272,New York Jets,Philadelphia Eagles,NYJ,PHI,16.0,10.0,,,,,,
+2017,2017-08-31,400950236,New England Patriots,New York Giants,NE,NYG,38.0,40.0,,,,,,
+2017,2017-08-31,400951273,Tampa Bay Buccaneers,Washington Redskins,TB,WSH,10.0,13.0,,,,,,
+2017,2017-08-31,400951269,Carolina Panthers,Pittsburgh Steelers,CAR,PIT,14.0,17.0,,,,,,
+2017,2017-09-01,400951822,Chicago Bears,Cleveland Browns,CHI,CLE,0.0,25.0,,,,,,
+2017,2017-09-01,400950237,Minnesota Vikings,Miami Dolphins,MIN,MIA,9.0,30.0,,,,,,
+2017,2017-09-01,400950238,New Orleans Saints,Baltimore Ravens,NO,BAL,13.0,14.0,,,,,,
+2017,2017-09-01,400951831,Kansas City Chiefs,Tennessee Titans,KC,TEN,30.0,6.0,,,,,,
+2017,2017-09-01,400951800,Denver Broncos,Arizona Cardinals,DEN,ARI,30.0,2.0,,,,,,
+2017,2017-09-01,400953307,Oakland Raiders,Seattle Seahawks,OAK,SEA,13.0,17.0,,,,,,
+2017,2017-09-01,400950240,San Francisco 49ers,Los Angeles Chargers,SF,LAC,23.0,13.0,,,,,,
+2018,2018-08-03,401029218,Baltimore Ravens,Chicago Bears,BAL,CHI,17.0,16.0,,,,,,
+2018,2018-08-09,401030946,Buffalo Bills,Carolina Panthers,BUF,CAR,23.0,28.0,,,,,,
+2018,2018-08-09,401030990,Cincinnati Bengals,Chicago Bears,CIN,CHI,30.0,27.0,,,,,,
+2018,2018-08-09,401031001,Miami Dolphins,Tampa Bay Buccaneers,MIA,TB,24.0,26.0,,,,,,
+2018,2018-08-09,401030992,New York Giants,Cleveland Browns,NYG,CLE,10.0,20.0,,,,,,
+2018,2018-08-09,401030981,Philadelphia Eagles,Pittsburgh Steelers,PHI,PIT,14.0,31.0,,,,,,
+2018,2018-08-09,401030939,Jacksonville Jaguars,New Orleans Saints,JAX,NO,20.0,24.0,,,,,,
+2018,2018-08-09,401030975,New England Patriots,Washington Redskins,NE,WSH,26.0,17.0,,,,,,
+2018,2018-08-09,401029388,Baltimore Ravens,Los Angeles Rams,BAL,LAR,33.0,7.0,,,,,,
+2018,2018-08-10,401030936,Green Bay Packers,Tennessee Titans,GB,TEN,31.0,17.0,,,,,,
+2018,2018-08-10,401030977,Kansas City Chiefs,Houston Texans,KC,HOU,10.0,17.0,,,,,,
+2018,2018-08-10,401030985,San Francisco 49ers,Dallas Cowboys,SF,DAL,24.0,21.0,,,,,,
+2018,2018-08-10,401030947,Seattle Seahawks,Indianapolis Colts,SEA,IND,17.0,19.0,,,,,,
+2018,2018-08-10,401030973,New York Jets,Atlanta Falcons,NYJ,ATL,17.0,0.0,,,,,,
+2018,2018-08-11,401031005,Oakland Raiders,Detroit Lions,OAK,DET,16.0,10.0,,,,,,
+2018,2018-08-12,401030996,Denver Broncos,Minnesota Vikings,DEN,MIN,28.0,42.0,,,,,,
+2018,2018-08-12,401030943,Arizona Cardinals,Los Angeles Chargers,ARI,LAC,24.0,17.0,,,,,,
+2018,2018-08-16,401030982,New England Patriots,Philadelphia Eagles,NE,PHI,37.0,20.0,,,,,,
+2018,2018-08-17,401030937,Green Bay Packers,Pittsburgh Steelers,GB,PIT,51.0,34.0,,,,,,
+2018,2018-08-17,401029381,Washington Redskins,New York Jets,WSH,NYJ,15.0,13.0,,,,,,
+2018,2018-08-17,401030978,Atlanta Falcons,Kansas City Chiefs,ATL,KC,14.0,28.0,,,,,,
+2018,2018-08-17,401031000,Detroit Lions,New York Giants,DET,NYG,17.0,30.0,,,,,,
+2018,2018-08-17,401030993,Cleveland Browns,Buffalo Bills,CLE,BUF,17.0,19.0,,,,,,
+2018,2018-08-17,401031003,Carolina Panthers,Miami Dolphins,CAR,MIA,27.0,20.0,,,,,,
+2018,2018-08-18,401030944,New Orleans Saints,Arizona Cardinals,NO,ARI,15.0,20.0,,,,,,
+2018,2018-08-18,401030997,Minnesota Vikings,Jacksonville Jaguars,MIN,JAX,10.0,14.0,,,,,,
+2018,2018-08-18,401030987,Los Angeles Rams,Oakland Raiders,LAR,OAK,19.0,15.0,,,,,,
+2018,2018-08-18,401030945,Dallas Cowboys,Cincinnati Bengals,DAL,CIN,13.0,21.0,,,,,,
+2018,2018-08-19,401031002,Tennessee Titans,Tampa Bay Buccaneers,TEN,TB,14.0,30.0,,,,,,
+2018,2018-08-19,401030986,Houston Texans,San Francisco 49ers,HOU,SF,16.0,13.0,,,,,,
+2018,2018-08-19,401030991,Denver Broncos,Chicago Bears,DEN,CHI,23.0,24.0,,,,,,
+2018,2018-08-19,401031004,Los Angeles Chargers,Seattle Seahawks,LAC,SEA,24.0,14.0,,,,,,
+2018,2018-08-21,401029382,Indianapolis Colts,Baltimore Ravens,IND,BAL,19.0,20.0,,,,,,
+2018,2018-08-24,401029383,Cleveland Browns,Philadelphia Eagles,CLE,PHI,5.0,0.0,,,,,,
+2018,2018-08-24,401030974,New York Jets,New York Giants,NYJ,NYG,16.0,22.0,,,,,,
+2018,2018-08-24,401030976,Washington Redskins,Denver Broncos,WSH,DEN,17.0,29.0,,,,,,
+2018,2018-08-24,401030983,Carolina Panthers,New England Patriots,CAR,NE,25.0,14.0,,,,,,
+2018,2018-08-25,401030998,Minnesota Vikings,Seattle Seahawks,MIN,SEA,21.0,20.0,,,,,,
+2018,2018-08-25,401029384,Tampa Bay Buccaneers,Detroit Lions,TB,DET,30.0,33.0,,,,,,
+2018,2018-08-25,401030938,Oakland Raiders,Green Bay Packers,OAK,GB,13.0,6.0,,,,,,
+2018,2018-08-25,401030979,Chicago Bears,Kansas City Chiefs,CHI,KC,27.0,20.0,,,,,,
+2018,2018-08-25,401030988,Los Angeles Rams,Houston Texans,LAR,HOU,21.0,20.0,,,,,,
+2018,2018-08-25,401030657,Pittsburgh Steelers,Tennessee Titans,PIT,TEN,16.0,6.0,,,,,,
+2018,2018-08-25,401030654,Indianapolis Colts,San Francisco 49ers,IND,SF,23.0,17.0,,,,,,
+2018,2018-08-25,401030942,Miami Dolphins,Baltimore Ravens,MIA,BAL,10.0,27.0,,,,,,
+2018,2018-08-25,401030940,Jacksonville Jaguars,Atlanta Falcons,JAX,ATL,17.0,6.0,,,,,,
+2018,2018-08-26,401029385,Los Angeles Chargers,New Orleans Saints,LAC,NO,7.0,36.0,,,,,,
+2018,2018-08-26,401029386,Buffalo Bills,Cincinnati Bengals,BUF,CIN,13.0,26.0,,,,,,
+2018,2018-08-27,401029387,Dallas Cowboys,Arizona Cardinals,DAL,ARI,3.0,27.0,,,,,,
+2018,2018-08-30,401029393,Atlanta Falcons,Miami Dolphins,ATL,MIA,7.0,34.0,,,,,,
+2018,2018-08-30,401030655,Cincinnati Bengals,Indianapolis Colts,CIN,IND,26.0,27.0,,,,,,
+2018,2018-08-30,401030994,Detroit Lions,Cleveland Browns,DET,CLE,17.0,35.0,,,,,,
+2018,2018-08-30,401030984,New York Giants,New England Patriots,NYG,NE,12.0,17.0,,,,,,
+2018,2018-08-30,401030656,Philadelphia Eagles,New York Jets,PHI,NYJ,10.0,9.0,,,,,,
+2018,2018-08-30,401030653,Pittsburgh Steelers,Carolina Panthers,PIT,CAR,39.0,24.0,,,,,,
+2018,2018-08-30,401030941,Tampa Bay Buccaneers,Jacksonville Jaguars,TB,JAX,10.0,25.0,,,,,,
+2018,2018-08-30,401029389,Baltimore Ravens,Washington Redskins,BAL,WSH,30.0,20.0,,,,,,
+2018,2018-08-31,401029391,Chicago Bears,Buffalo Bills,CHI,BUF,27.0,28.0,,,,,,
+2018,2018-08-31,401029390,Tennessee Titans,Minnesota Vikings,TEN,MIN,3.0,13.0,,,,,,
+2018,2018-08-31,401030989,New Orleans Saints,Los Angeles Rams,NO,LAR,28.0,0.0,,,,,,
+2018,2018-08-31,401030995,Houston Texans,Dallas Cowboys,HOU,DAL,14.0,6.0,,,,,,
+2018,2018-08-31,401030980,Kansas City Chiefs,Green Bay Packers,KC,GB,33.0,21.0,,,,,,
+2018,2018-08-31,401030999,Arizona Cardinals,Denver Broncos,ARI,DEN,10.0,21.0,,,,,,
+2018,2018-08-31,401029392,San Francisco 49ers,Los Angeles Chargers,SF,LAC,21.0,23.0,,,,,,
+2018,2018-08-31,401031006,Seattle Seahawks,Oakland Raiders,SEA,OAK,19.0,30.0,,,,,,
+2018,2018-09-07,401030710,Philadelphia Eagles,Atlanta Falcons,PHI,ATL,18.0,12.0,,,,,,
+2019,2019-08-02,401123243,Atlanta Falcons,Denver Broncos,ATL,DEN,10.0,14.0,,,,,,
+2019,2019-08-08,401128187,Buffalo Bills,Indianapolis Colts,BUF,IND,24.0,16.0,,,,,,
+2019,2019-08-08,401128153,New York Giants,New York Jets,NYG,NYJ,31.0,22.0,,,,,,
+2019,2019-08-08,401128180,Cleveland Browns,Washington,CLE,WSH,30.0,10.0,,,,,,
+2019,2019-08-08,401128155,Detroit Lions,New England Patriots,DET,NE,3.0,31.0,,,,,,
+2019,2019-08-08,401128192,Miami Dolphins,Atlanta Falcons,MIA,ATL,34.0,27.0,,,,,,
+2019,2019-08-08,401128168,Philadelphia Eagles,Tennessee Titans,PHI,TEN,10.0,27.0,,,,,,
+2019,2019-08-08,401128135,Baltimore Ravens,Jacksonville Jaguars,BAL,JAX,29.0,0.0,,,,,,
+2019,2019-08-09,401128176,Chicago Bears,Carolina Panthers,CHI,CAR,13.0,23.0,,,,,,
+2019,2019-08-09,401128162,Green Bay Packers,Houston Texans,GB,HOU,28.0,26.0,,,,,,
+2019,2019-08-09,401128139,Arizona Cardinals,Los Angeles Chargers,ARI,LAC,17.0,13.0,,,,,,
+2019,2019-08-09,401128174,Seattle Seahawks,Denver Broncos,SEA,DEN,22.0,14.0,,,,,,
+2019,2019-08-09,401128183,Pittsburgh Steelers,Tampa Bay Buccaneers,PIT,TB,30.0,28.0,,,,,,
+2019,2019-08-10,401128167,New Orleans Saints,Minnesota Vikings,NO,MIN,25.0,34.0,,,,,,
+2019,2019-08-11,401128160,Kansas City Chiefs,Cincinnati Bengals,KC,CIN,38.0,17.0,,,,,,
+2019,2019-08-11,401129055,Oakland Raiders,Los Angeles Rams,OAK,LAR,14.0,3.0,,,,,,
+2019,2019-08-11,401128141,San Francisco 49ers,Dallas Cowboys,SF,DAL,17.0,9.0,,,,,,
+2019,2019-08-15,401128171,Jacksonville Jaguars,Philadelphia Eagles,JAX,PHI,10.0,24.0,,,,,,
+2019,2019-08-15,401128193,Atlanta Falcons,New York Jets,ATL,NYJ,10.0,22.0,,,,,,
+2019,2019-08-15,401128161,Washington,Cincinnati Bengals,WSH,CIN,13.0,23.0,,,,,,
+2019,2019-08-15,401128136,Baltimore Ravens,Green Bay Packers,BAL,GB,26.0,13.0,,,,,,
+2019,2019-08-16,401126622,Arizona Cardinals,Oakland Raiders,ARI,OAK,26.0,33.0,,,,,,
+2019,2019-08-16,401128188,Carolina Panthers,Buffalo Bills,CAR,BUF,14.0,27.0,,,,,,
+2019,2019-08-16,401128154,New York Giants,Chicago Bears,NYG,CHI,32.0,13.0,,,,,,
+2019,2019-08-16,401128184,Tampa Bay Buccaneers,Miami Dolphins,TB,MIA,16.0,14.0,,,,,,
+2019,2019-08-17,401128189,Indianapolis Colts,Cleveland Browns,IND,CLE,18.0,21.0,,,,,,
+2019,2019-08-17,401128156,Tennessee Titans,New England Patriots,TEN,NE,17.0,22.0,,,,,,
+2019,2019-08-17,401128182,Pittsburgh Steelers,Kansas City Chiefs,PIT,KC,17.0,7.0,,,,,,
+2019,2019-08-18,401128164,Houston Texans,Detroit Lions,HOU,DET,30.0,23.0,,,,,,
+2019,2019-08-18,401128953,Los Angeles Rams,Dallas Cowboys,LAR,DAL,10.0,14.0,,,,,,
+2019,2019-08-18,401126623,Los Angeles Chargers,New Orleans Saints,LAC,NO,17.0,19.0,,,,,,
+2019,2019-08-19,401126624,Minnesota Vikings,Seattle Seahawks,MIN,SEA,25.0,19.0,,,,,,
+2019,2019-08-20,401126625,Denver Broncos,San Francisco 49ers,DEN,SF,15.0,24.0,,,,,,
+2019,2019-08-22,401128157,Cincinnati Bengals,New York Giants,CIN,NYG,23.0,25.0,,,,,,
+2019,2019-08-22,401128181,Atlanta Falcons,Washington,ATL,WSH,7.0,19.0,,,,,,
+2019,2019-08-22,401128158,New England Patriots,Carolina Panthers,NE,CAR,10.0,3.0,,,,,,
+2019,2019-08-22,401128137,Philadelphia Eagles,Baltimore Ravens,PHI,BAL,15.0,26.0,,,,,,
+2019,2019-08-23,401136833,Oakland Raiders,Green Bay Packers,OAK,GB,22.0,21.0,,,,,,
+2019,2019-08-23,401126626,Miami Dolphins,Jacksonville Jaguars,MIA,JAX,22.0,7.0,,,,,,
+2019,2019-08-23,401128185,Tampa Bay Buccaneers,Cleveland Browns,TB,CLE,13.0,12.0,,,,,,
+2019,2019-08-24,401126627,Detroit Lions,Buffalo Bills,DET,BUF,20.0,24.0,,,,,,
+2019,2019-08-24,401128169,Minnesota Vikings,Arizona Cardinals,MIN,ARI,20.0,9.0,,,,,,
+2019,2019-08-24,401128165,Dallas Cowboys,Houston Texans,DAL,HOU,34.0,0.0,,,,,,
+2019,2019-08-24,401128177,Indianapolis Colts,Chicago Bears,IND,CHI,17.0,27.0,,,,,,
+2019,2019-08-24,401128190,New York Jets,New Orleans Saints,NYJ,NO,13.0,28.0,,,,,,
+2019,2019-08-25,401128142,Kansas City Chiefs,San Francisco 49ers,KC,SF,17.0,27.0,,,,,,
+2019,2019-08-25,401129054,Los Angeles Rams,Denver Broncos,LAR,DEN,10.0,6.0,,,,,,
+2019,2019-08-25,401128144,Los Angeles Chargers,Seattle Seahawks,LAC,SEA,15.0,23.0,,,,,,
+2019,2019-08-26,401126628,Tennessee Titans,Pittsburgh Steelers,TEN,PIT,6.0,18.0,,,,,,
+2019,2019-08-29,401128170,Buffalo Bills,Minnesota Vikings,BUF,MIN,27.0,23.0,,,,,,
+2019,2019-08-29,401128163,Cincinnati Bengals,Indianapolis Colts,CIN,IND,6.0,13.0,,,,,,
+2019,2019-08-29,401128172,New York Jets,Philadelphia Eagles,NYJ,PHI,6.0,0.0,,,,,,
+2019,2019-08-29,401128194,Carolina Panthers,Pittsburgh Steelers,CAR,PIT,25.0,19.0,,,,,,
+2019,2019-08-29,401128179,Jacksonville Jaguars,Atlanta Falcons,JAX,ATL,12.0,31.0,,,,,,
+2019,2019-08-29,401128173,Cleveland Browns,Detroit Lions,CLE,DET,20.0,16.0,,,,,,
+2019,2019-08-29,401128159,New England Patriots,New York Giants,NE,NYG,29.0,31.0,,,,,,
+2019,2019-08-29,401128138,Washington,Baltimore Ravens,WSH,BAL,7.0,20.0,,,,,,
+2019,2019-08-30,401128178,Chicago Bears,Tennessee Titans,CHI,TEN,15.0,19.0,,,,,,
+2019,2019-08-30,401128186,Dallas Cowboys,Tampa Bay Buccaneers,DAL,TB,15.0,17.0,,,,,,
+2019,2019-08-30,401128140,Green Bay Packers,Kansas City Chiefs,GB,KC,27.0,20.0,,,,,,
+2019,2019-08-30,401128191,New Orleans Saints,Miami Dolphins,NO,MIA,13.0,16.0,,,,,,
+2019,2019-08-30,401128166,Houston Texans,Los Angeles Rams,HOU,LAR,10.0,22.0,,,,,,
+2019,2019-08-30,401128175,Denver Broncos,Arizona Cardinals,DEN,ARI,20.0,7.0,,,,,,
+2019,2019-08-30,401128143,San Francisco 49ers,Los Angeles Chargers,SF,LAC,24.0,27.0,,,,,,
+2019,2019-08-30,401128145,Seattle Seahawks,Oakland Raiders,SEA,OAK,17.0,15.0,,,,,,
+2019,2019-09-06,401127913,Chicago Bears,Green Bay Packers,CHI,GB,3.0,10.0,,,,,,
+2021,2021-08-06,401326605,Pittsburgh Steelers,Dallas Cowboys,PIT,DAL,16.0,3.0,Caesars,1.8,2.05,-1.5,33.0,True
+2021,2021-08-12,401326352,New England Patriots,Washington,NE,WSH,22.0,13.0,Caesars Sportsbook (Colorado),1.7407407407407407,2.15,-2.0,37.0,True
+2021,2021-08-12,401326606,Philadelphia Eagles,Pittsburgh Steelers,PHI,PIT,16.0,24.0,Caesars Sportsbook (Colorado),1.8,2.05,-1.0,36.5,True
+2021,2021-08-13,401326621,Atlanta Falcons,Tennessee Titans,ATL,TEN,3.0,23.0,Caesars Sportsbook (Colorado),1.625,2.4,-2.5,37.5,True
+2021,2021-08-13,401327515,Detroit Lions,Buffalo Bills,DET,BUF,15.0,16.0,Caesars Sportsbook (Colorado),1.6896551724137931,2.25,-2.0,36.5,True
+2021,2021-08-14,401332403,Arizona Cardinals,Dallas Cowboys,ARI,DAL,19.0,16.0,Caesars Sportsbook (Colorado),1.7407407407407407,2.15,-2.0,37.5,True
+2021,2021-08-14,401326617,Chicago Bears,Miami Dolphins,CHI,MIA,20.0,13.0,Caesars Sportsbook (Colorado),1.5882352941176472,2.5,-3.0,36.0,True
+2021,2021-08-14,401333579,Minnesota Vikings,Denver Broncos,MIN,DEN,6.0,33.0,Caesars Sportsbook (Colorado),2.3,1.6666666666666665,2.5,34.0,False
+2021,2021-08-14,401330875,Jacksonville Jaguars,Cleveland Browns,JAX,CLE,13.0,23.0,Caesars Sportsbook (Colorado),1.526315789473684,2.7,-4.0,37.0,True
+2021,2021-08-14,401326921,Baltimore Ravens,New Orleans Saints,BAL,NO,17.0,14.0,Caesars Sportsbook (Colorado),1.8333333333333335,2.0,-1.0,36.0,True
+2021,2021-08-14,401333568,New York Giants,New York Jets,NYG,NYJ,7.0,12.0,Caesars Sportsbook (Colorado),2.25,1.6896551724137931,2.5,33.5,False
+2021,2021-08-14,401326351,Tampa Bay Buccaneers,Cincinnati Bengals,TB,CIN,14.0,19.0,Caesars Sportsbook (Colorado),1.3846153846153846,3.2,-6.0,34.0,True
+2021,2021-08-15,401326604,Green Bay Packers,Houston Texans,GB,HOU,7.0,26.0,Caesars Sportsbook (Colorado),1.5882352941176472,2.5,-3.0,36.0,True
+2021,2021-08-15,401329166,San Francisco 49ers,Kansas City Chiefs,SF,KC,16.0,19.0,Caesars Sportsbook (Colorado),1.6896551724137931,2.25,-2.5,38.5,True
+2021,2021-08-15,401333584,Las Vegas Raiders,Seattle Seahawks,LV,SEA,20.0,7.0,Caesars Sportsbook (Colorado),1.625,2.4,-2.5,37.0,True
+2021,2021-08-15,401329163,Los Angeles Rams,Los Angeles Chargers,LAR,LAC,6.0,13.0,Caesars Sportsbook (Colorado),2.65,1.5405405405405406,3.5,32.0,False
+2021,2021-08-15,401333578,Indianapolis Colts,Carolina Panthers,IND,CAR,21.0,18.0,Caesars Sportsbook,1.8,2.05,-1.5,34.0,True
+2021,2021-08-19,401326613,Philadelphia Eagles,New England Patriots,PHI,NE,0.0,35.0,Caesars Sportsbook (Colorado),1.8333333333333335,2.0,-1.0,38.5,True
+2021,2021-08-21,401326624,Arizona Cardinals,Kansas City Chiefs,ARI,KC,10.0,17.0,Caesars Sportsbook (Colorado),2.6,1.5555555555555556,3.5,41.0,False
+2021,2021-08-21,401326954,Washington,Cincinnati Bengals,WSH,CIN,17.0,13.0,Caesars Sportsbook (Colorado),1.434782608695652,2.95,-5.5,35.0,True
+2021,2021-08-21,401326622,Chicago Bears,Buffalo Bills,CHI,BUF,15.0,41.0,Caesars Sportsbook (Colorado),1.5405405405405406,2.65,-4.0,37.0,True
+2021,2021-08-21,401326609,Green Bay Packers,New York Jets,GB,NYJ,14.0,23.0,Caesars Sportsbook (Colorado),2.2,1.7142857142857144,2.5,31.5,False
+2021,2021-08-21,401326618,Miami Dolphins,Atlanta Falcons,MIA,ATL,37.0,17.0,Caesars Sportsbook (Colorado),1.4,3.1,-6.0,35.5,True
+2021,2021-08-21,401326922,Carolina Panthers,Baltimore Ravens,CAR,BAL,3.0,20.0,Caesars Sportsbook (Colorado),2.7,1.526315789473684,3.5,34.5,False
+2021,2021-08-21,401326607,Pittsburgh Steelers,Detroit Lions,PIT,DET,26.0,20.0,Caesars Sportsbook (Colorado),1.3448275862068966,3.45,-7.0,36.5,True
+2021,2021-08-21,401326614,Tampa Bay Buccaneers,Tennessee Titans,TB,TEN,3.0,34.0,Caesars Sportsbook (Colorado),1.9090909090909092,1.9090909090909092,0.0,34.5,False
+2021,2021-08-22,401333536,Dallas Cowboys,Houston Texans,DAL,HOU,14.0,20.0,Caesars Sportsbook (Colorado),1.5882352941176472,2.5,-3.5,36.0,True
+2021,2021-08-22,401333582,Minnesota Vikings,Indianapolis Colts,MIN,IND,10.0,12.0,Caesars Sportsbook (Colorado),1.7142857142857144,2.2,-2.0,37.0,True
+2021,2021-08-22,401329164,Los Angeles Rams,Las Vegas Raiders,LAR,LV,16.0,17.0,Caesars Sportsbook (Colorado),3.3,1.3703703703703702,6.5,33.5,False
+2021,2021-08-22,401333580,Seattle Seahawks,Denver Broncos,SEA,DEN,3.0,30.0,Caesars Sportsbook (Colorado),2.85,1.4651162790697674,4.5,37.5,False
+2021,2021-08-22,401333560,Cleveland Browns,New York Giants,CLE,NYG,17.0,13.0,Caesars Sportsbook (Colorado),1.4,3.1,-6.0,35.0,True
+2021,2021-08-22,401329167,Los Angeles Chargers,San Francisco 49ers,LAC,SF,10.0,15.0,Caesars Sportsbook (Colorado),3.35,1.3636363636363638,6.5,34.5,False
+2021,2021-08-24,401326620,New Orleans Saints,Jacksonville Jaguars,NO,JAX,23.0,21.0,Caesars Sportsbook (Colorado),1.4761904761904763,2.75,-4.0,40.0,True
+2021,2021-08-27,401333581,Detroit Lions,Indianapolis Colts,DET,IND,17.0,27.0,Caesars Sportsbook (Colorado),2.0,1.8333333333333335,1.5,33.5,False
+2021,2021-08-27,401333570,New York Jets,Philadelphia Eagles,NYJ,PHI,31.0,31.0,Caesars Sportsbook (Colorado),1.526315789473684,2.6,-4.0,33.0,True
+2021,2021-08-27,401326608,Carolina Panthers,Pittsburgh Steelers,CAR,PIT,34.0,9.0,Caesars Sportsbook (Colorado),1.526315789473684,2.6,-4.0,35.5,True
+2021,2021-08-28,401333583,Kansas City Chiefs,Minnesota Vikings,KC,MIN,28.0,25.0,Caesars Sportsbook (Colorado),1.4545454545454546,2.8,-4.5,38.0,True
+2021,2021-08-28,401326610,Buffalo Bills,Green Bay Packers,BUF,GB,19.0,0.0,Caesars Sportsbook,1.2777777777777777,4.0,-8.0,38.0,True
+2021,2021-08-28,401326923,Washington,Baltimore Ravens,WSH,BAL,3.0,37.0,Caesars Sportsbook,2.8,1.4761904761904763,3.5,33.0,False
+2021,2021-08-28,401326623,Tennessee Titans,Chicago Bears,TEN,CHI,24.0,27.0,Caesars Sportsbook,2.35,1.6451612903225805,3.0,36.5,False
+2021,2021-08-29,401326615,Houston Texans,Tampa Bay Buccaneers,HOU,TB,16.0,23.0,Caesars Sportsbook,2.75,1.5,4.0,36.5,False
+2021,2021-08-29,401327826,Denver Broncos,Los Angeles Rams,DEN,LAR,17.0,12.0,Caesars Sportsbook,1.2325581395348837,4.5,-9.5,33.5,True
+2021,2021-08-29,401333585,Seattle Seahawks,Los Angeles Chargers,SEA,LAC,27.0,0.0,Caesars Sportsbook,1.3846153846153846,3.2,-6.0,35.5,True
+2021,2021-08-29,401330876,Dallas Cowboys,Jacksonville Jaguars,DAL,JAX,14.0,34.0,Caesars Sportsbook,2.65,1.5405405405405406,3.5,36.0,False
+2021,2021-08-29,401326619,Cincinnati Bengals,Miami Dolphins,CIN,MIA,26.0,29.0,Caesars Sportsbook,1.8,2.05,-1.5,36.5,True
+2021,2021-08-29,401329168,San Francisco 49ers,Las Vegas Raiders,SF,LV,34.0,10.0,Caesars Sportsbook,1.4166666666666667,3.0,-5.5,35.5,True
+2021,2021-08-29,401326616,New York Giants,New England Patriots,NYG,NE,20.0,22.0,Caesars Sportsbook,2.55,1.5714285714285714,3.0,36.0,False
+2021,2021-08-30,401326603,Atlanta Falcons,Cleveland Browns,ATL,CLE,10.0,19.0,Caesars Sportsbook,3.2,1.3846153846153846,6.0,36.0,False
+2022,2022-08-05,401437964,Las Vegas Raiders,Jacksonville Jaguars,LV,JAX,27.0,11.0,Caesars Sportsbook,1.6896551724137931,2.25,-1.0,30.5,True
+2022,2022-08-11,401439619,New England Patriots,New York Giants,NE,NYG,21.0,23.0,Caesars Sportsbook,2.35,1.6451612903225805,-1.5,35.0,True
+2022,2022-08-11,401437967,Baltimore Ravens,Tennessee Titans,BAL,TEN,23.0,10.0,Caesars Sportsbook,1.5714285714285714,2.55,-3.0,32.5,True
+2022,2022-08-12,401441652,Detroit Lions,Atlanta Falcons,DET,ATL,23.0,27.0,Caesars Sportsbook (Colorado),1.6666666666666665,2.3,-2.5,35.0,True
+2022,2022-08-12,401437965,Jacksonville Jaguars,Cleveland Browns,JAX,CLE,13.0,24.0,Caesars Sportsbook (Colorado),1.6896551724137931,2.25,-2.5,36.5,True
+2022,2022-08-12,401439661,Cincinnati Bengals,Arizona Cardinals,CIN,ARI,23.0,36.0,Caesars Sportsbook (Colorado),1.8,2.05,-1.5,31.0,True
+2022,2022-08-12,401437970,Philadelphia Eagles,New York Jets,PHI,NYJ,21.0,24.0,Caesars Sportsbook (Colorado),1.8333333333333335,2.0,-1.0,35.5,True
+2022,2022-08-13,401440370,San Francisco 49ers,Green Bay Packers,SF,GB,28.0,21.0,Caesars Sportsbook (Colorado),1.625,2.4,-3.0,35.5,True
+2022,2022-08-13,401437979,Chicago Bears,Kansas City Chiefs,CHI,KC,19.0,14.0,Caesars Sportsbook,2.05,1.8,-1.0,38.0,True
+2022,2022-08-13,401440372,Washington Commanders,Carolina Panthers,WSH,CAR,21.0,23.0,Caesars Sportsbook,1.6451612903225805,2.35,-3.0,36.0,True
+2022,2022-08-13,401438010,Buffalo Bills,Indianapolis Colts,BUF,IND,27.0,24.0,Caesars Sportsbook,1.9523809523809523,1.8695652173913042,-1.5,37.5,True
+2022,2022-08-13,401437997,Pittsburgh Steelers,Seattle Seahawks,PIT,SEA,32.0,25.0,Caesars Sportsbook,1.7407407407407407,2.15,-2.0,39.0,True
+2022,2022-08-13,401438013,Tampa Bay Buccaneers,Miami Dolphins,TB,MIA,24.0,26.0,Caesars Sportsbook,1.9090909090909092,1.9090909090909092,,33.0,False
+2022,2022-08-14,401438410,Houston Texans,New Orleans Saints,HOU,NO,17.0,13.0,Caesars Sportsbook,1.7142857142857144,2.2,-2.5,36.5,True
+2022,2022-08-14,401438174,Denver Broncos,Dallas Cowboys,DEN,DAL,17.0,7.0,Caesars Sportsbook,1.5,2.75,-4.5,33.5,True
+2022,2022-08-14,401438178,Los Angeles Chargers,Los Angeles Rams,LAC,LAR,22.0,29.0,Caesars Sportsbook (Colorado),1.625,2.4,-3.0,33.0,True
+2022,2022-08-14,401439621,Las Vegas Raiders,Minnesota Vikings,LV,MIN,26.0,20.0,Caesars Sportsbook,1.4651162790697674,2.85,-5.0,38.5,True
+2022,2022-08-19,401437976,Seattle Seahawks,Chicago Bears,SEA,CHI,11.0,27.0,Caesars Sportsbook,1.5714285714285714,2.55,-3.5,39.0,True
+2022,2022-08-19,401439620,New England Patriots,Carolina Panthers,NE,CAR,20.0,10.0,Caesars Sportsbook,1.3846153846153846,3.2,-6.5,38.0,True
+2022,2022-08-20,401441810,Green Bay Packers,New Orleans Saints,GB,NO,20.0,10.0,Caesars Sportsbook,1.5882352941176472,2.5,-3.5,37.0,True
+2022,2022-08-20,401441653,Los Angeles Rams,Houston Texans,LAR,HOU,20.0,24.0,Caesars Sportsbook,2.35,1.6451612903225805,3.0,38.5,False
+2022,2022-08-20,401438411,Buffalo Bills,Denver Broncos,BUF,DEN,42.0,15.0,Caesars Sportsbook,1.33003300330033,3.5,-7.0,42.0,True
+2022,2022-08-20,401438011,Indianapolis Colts,Detroit Lions,IND,DET,26.0,27.0,Caesars Sportsbook,2.0,1.8333333333333335,2.5,37.5,False
+2022,2022-08-20,401441650,Kansas City Chiefs,Washington Commanders,KC,WSH,24.0,14.0,Caesars Sportsbook,1.4761904761904763,2.8,-5.0,43.5,True
+2022,2022-08-20,401439623,Tennessee Titans,Tampa Bay Buccaneers,TEN,TB,13.0,3.0,Caesars Sportsbook,1.6451612903225805,2.35,-3.0,38.0,True
+2022,2022-08-20,401438014,Miami Dolphins,Las Vegas Raiders,MIA,LV,13.0,15.0,Caesars Sportsbook,1.5714285714285714,2.55,-3.5,41.0,True
+2022,2022-08-20,401441316,Minnesota Vikings,San Francisco 49ers,MIN,SF,7.0,17.0,Caesars Sportsbook,1.606060606060606,2.45,-3.5,38.0,True
+2022,2022-08-20,401437966,Jacksonville Jaguars,Pittsburgh Steelers,JAX,PIT,15.0,16.0,Caesars Sportsbook,1.9090909090909092,1.9090909090909092,-1.0,42.0,True
+2022,2022-08-21,401438175,Los Angeles Chargers,Dallas Cowboys,LAC,DAL,18.0,32.0,Caesars Sportsbook,1.4807692307692308,2.8,-5.0,37.0,True
+2022,2022-08-21,401437971,Cleveland Browns,Philadelphia Eagles,CLE,PHI,20.0,21.0,Caesars Sportsbook,1.9523809523809523,1.8695652173913042,3.0,35.0,False
+2022,2022-08-21,401441317,New York Giants,Cincinnati Bengals,NYG,CIN,25.0,22.0,Caesars Sportsbook,1.4761904761904763,2.8,-4.5,36.5,True
+2022,2022-08-22,401437968,Arizona Cardinals,Baltimore Ravens,ARI,BAL,17.0,24.0,Caesars Sportsbook,2.8,1.4761904761904763,7.0,37.0,False
+2022,2022-08-23,401437688,New York Jets,Atlanta Falcons,NYJ,ATL,24.0,16.0,Caesars Sportsbook,2.75,1.5,3.0,38.0,False
+2022,2022-08-26,401441651,Kansas City Chiefs,Green Bay Packers,KC,GB,17.0,10.0,Caesars Sportsbook,2.3,1.6666666666666665,-1.5,38.0,True
+2022,2022-08-26,401437977,Houston Texans,San Francisco 49ers,HOU,SF,17.0,0.0,Caesars Sportsbook,2.6,1.5555555555555556,4.0,41.5,False
+2022,2022-08-26,401439618,Carolina Panthers,Buffalo Bills,CAR,BUF,21.0,0.0,Caesars Sportsbook,1.4166666666666667,3.0,-5.0,40.5,True
+2022,2022-08-27,401439230,Dallas Cowboys,Seattle Seahawks,DAL,SEA,27.0,26.0,Caesars Sportsbook,3.5,1.3333333333333333,3.0,38.0,False
+2022,2022-08-27,401441916,New Orleans Saints,Los Angeles Chargers,NO,LAC,27.0,10.0,Caesars Sportsbook,1.526315789473684,2.7,-4.5,37.0,True
+2022,2022-08-27,401439622,Las Vegas Raiders,New England Patriots,LV,NE,23.0,6.0,Caesars Sportsbook,1.7142857142857144,2.2,-1.0,37.0,True
+2022,2022-08-27,401439411,Atlanta Falcons,Jacksonville Jaguars,ATL,JAX,28.0,12.0,Caesars Sportsbook,1.3333333333333333,3.5,-7.0,34.5,True
+2022,2022-08-27,401440371,Cincinnati Bengals,Los Angeles Rams,CIN,LAR,16.0,7.0,Caesars Sportsbook,1.7142857142857144,2.2,-2.5,37.0,True
+2022,2022-08-27,401437974,Cleveland Browns,Chicago Bears,CLE,CHI,20.0,21.0,Caesars Sportsbook,1.606060606060606,2.45,-3.0,39.0,True
+2022,2022-08-27,401439624,Tennessee Titans,Arizona Cardinals,TEN,ARI,26.0,23.0,Caesars Sportsbook,1.6451612903225805,2.35,-3.0,35.5,True
+2022,2022-08-27,401437972,Miami Dolphins,Philadelphia Eagles,MIA,PHI,48.0,10.0,Caesars Sportsbook,1.5714285714285714,2.55,-4.0,37.5,True
+2022,2022-08-27,401437969,Baltimore Ravens,Washington Commanders,BAL,WSH,17.0,15.0,Caesars Sportsbook,1.3448275862068966,3.45,-6.5,38.0,True
+2022,2022-08-27,401438012,Indianapolis Colts,Tampa Bay Buccaneers,IND,TB,27.0,10.0,Caesars Sportsbook,1.606060606060606,2.45,-3.0,41.0,True
+2022,2022-08-28,401438176,Denver Broncos,Minnesota Vikings,DEN,MIN,23.0,13.0,Caesars Sportsbook,1.7142857142857144,2.2,-1.0,37.0,True
+2022,2022-08-28,401438179,New York Jets,New York Giants,NYJ,NYG,31.0,27.0,Caesars Sportsbook,1.5405405405405406,2.65,-3.5,39.0,True
+2022,2022-08-28,401437975,Pittsburgh Steelers,Detroit Lions,PIT,DET,19.0,9.0,Caesars Sportsbook,1.3597122302158273,3.35,-6.5,41.0,True
+2023,2023-08-04,401547654,Cleveland Browns,New York Jets,CLE,NYJ,21.0,16.0,Caesars Sportsbook,1.8333333333333335,2.0,-1.5,33.5,True
+2023,2023-08-10,401548631,New England Patriots,Houston Texans,NE,HOU,9.0,20.0,Caesars Sportsbook (Colorado),2.45,1.5882352941176472,3.0,37.0,False
+2023,2023-08-11,401550740,Seattle Seahawks,Minnesota Vikings,SEA,MIN,24.0,13.0,Caesars Sportsbook (Colorado),1.5882352941176472,2.45,-3.5,37.0,True
+2023,2023-08-11,401548624,Cincinnati Bengals,Green Bay Packers,CIN,GB,19.0,36.0,Caesars Sportsbook (Colorado),2.6,1.526315789473684,4.5,35.0,False
+2023,2023-08-11,401550739,Detroit Lions,New York Giants,DET,NYG,21.0,16.0,Caesars Sportsbook (Colorado),1.9523809523809523,1.8695652173913042,1.0,35.5,False
+2023,2023-08-11,401548626,Miami Dolphins,Atlanta Falcons,MIA,ATL,3.0,19.0,Caesars Sportsbook (Colorado),1.7407407407407407,2.15,-2.5,36.5,True
+2023,2023-08-11,401550178,Tampa Bay Buccaneers,Pittsburgh Steelers,TB,PIT,17.0,27.0,Caesars Sportsbook (Colorado),2.4,1.625,2.0,39.0,False
+2023,2023-08-11,401549309,Cleveland Browns,Washington Commanders,CLE,WSH,15.0,17.0,Caesars Sportsbook (New Jersey),1.6896551724137931,2.2199999999999998,-3.0,37.5,True
+2023,2023-08-12,401548496,Arizona Cardinals,Denver Broncos,ARI,DEN,18.0,17.0,Caesars Sportsbook (Colorado),2.8,1.4545454545454546,5.0,37.5,False
+2023,2023-08-12,401547663,Buffalo Bills,Indianapolis Colts,BUF,IND,23.0,19.0,Caesars Sportsbook (Colorado),2.45,1.5882352941176472,3.5,36.5,False
+2023,2023-08-12,401548411,Chicago Bears,Tennessee Titans,CHI,TEN,23.0,17.0,Caesars Sportsbook (Colorado),1.5882352941176472,2.45,-3.5,36.5,True
+2023,2023-08-12,401550833,Carolina Panthers,New York Jets,CAR,NYJ,0.0,27.0,Caesars Sportsbook (Colorado),1.6666666666666665,2.3,-2.5,35.0,True
+2023,2023-08-12,401548620,Dallas Cowboys,Jacksonville Jaguars,DAL,JAX,23.0,28.0,Caesars Sportsbook (Colorado),2.6,1.526315789473684,4.0,37.5,False
+2023,2023-08-12,401547659,Baltimore Ravens,Philadelphia Eagles,BAL,PHI,20.0,19.0,Caesars Sportsbook (Colorado),1.434782608695652,2.9,-5.0,36.0,True
+2023,2023-08-13,401547666,Los Angeles Rams,Los Angeles Chargers,LAR,LAC,17.0,34.0,Caesars Sportsbook (Colorado),1.6666666666666665,2.3,-2.5,33.5,True
+2023,2023-08-13,401548628,New Orleans Saints,Kansas City Chiefs,NO,KC,26.0,24.0,Caesars Sportsbook (Colorado),1.9090909090909092,1.9090909090909092,0.0,39.0,False
+2023,2023-08-13,401550918,Las Vegas Raiders,San Francisco 49ers,LV,SF,34.0,7.0,Caesars Sportsbook (Colorado),2.7,1.5,4.5,37.0,False
+2023,2023-08-17,401547661,Philadelphia Eagles,Cleveland Browns,PHI,CLE,18.0,18.0,Caesars Sportsbook (Colorado),1.5882352941176472,2.45,-4.0,36.5,True
+2023,2023-08-18,401550834,New York Giants,Carolina Panthers,NYG,CAR,21.0,19.0,Caesars Sportsbook (Colorado),1.5555555555555556,2.55,-3.0,38.0,True
+2023,2023-08-18,401548625,Atlanta Falcons,Cincinnati Bengals,ATL,CIN,13.0,13.0,Caesars Sportsbook (Colorado),1.434782608695652,2.9,-6.0,38.5,True
+2023,2023-08-19,401548621,Detroit Lions,Jacksonville Jaguars,DET,JAX,7.0,25.0,Caesars Sportsbook (Colorado),2.3,1.6666666666666665,2.5,37.5,False
+2023,2023-08-19,401547665,Houston Texans,Miami Dolphins,HOU,MIA,3.0,28.0,Caesars Sportsbook (Colorado),1.8333333333333335,2.0,-1.0,39.0,True
+2023,2023-08-19,401547662,Pittsburgh Steelers,Buffalo Bills,PIT,BUF,27.0,15.0,Caesars Sportsbook (Colorado),1.9090909090909092,1.9090909090909092,0.0,42.5,False
+2023,2023-08-19,401547664,Indianapolis Colts,Chicago Bears,IND,CHI,24.0,17.0,Caesars Sportsbook (Colorado),1.4761904761904763,2.75,-4.5,37.0,True
+2023,2023-08-19,401550836,New York Jets,Tampa Bay Buccaneers,NYJ,TB,6.0,13.0,Caesars Sportsbook (Colorado),1.6666666666666665,2.3,-3.0,36.5,True
+2023,2023-08-20,401549211,Green Bay Packers,New England Patriots,GB,NE,17.0,21.0,Caesars Sportsbook (Colorado),1.7142857142857144,2.2,-2.0,38.0,True
+2023,2023-08-20,401548507,Minnesota Vikings,Tennessee Titans,MIN,TEN,16.0,24.0,Caesars Sportsbook (Colorado),2.2,1.7142857142857144,2.5,38.5,False
+2023,2023-08-20,401548497,Arizona Cardinals,Kansas City Chiefs,ARI,KC,10.0,38.0,Caesars Sportsbook (Colorado),3.5,1.3125,7.5,40.5,False
+2023,2023-08-20,401548509,San Francisco 49ers,Denver Broncos,SF,DEN,21.0,20.0,Caesars Sportsbook (Colorado),2.45,1.5882352941176472,3.5,40.0,False
+2023,2023-08-20,401547668,Los Angeles Rams,Las Vegas Raiders,LAR,LV,17.0,34.0,Caesars Sportsbook (Colorado),2.75,1.4761904761904763,4.5,39.5,False
+2023,2023-08-20,401550161,Seattle Seahawks,Dallas Cowboys,SEA,DAL,22.0,14.0,Caesars Sportsbook (Colorado),1.3703703703703702,3.2,-7.0,40.5,True
+2023,2023-08-20,401547667,Los Angeles Chargers,New Orleans Saints,LAC,NO,17.0,22.0,Caesars Sportsbook (Colorado),2.4,1.625,3.0,36.0,False
+2023,2023-08-22,401547655,Washington Commanders,Baltimore Ravens,WSH,BAL,29.0,28.0,Caesars Sportsbook (Colorado),2.05,1.8,1.5,37.0,False
+2023,2023-08-24,401548627,Atlanta Falcons,Pittsburgh Steelers,ATL,PIT,0.0,24.0,Caesars Sportsbook (Colorado),3.1,1.3846153846153846,6.0,39.0,False
+2023,2023-08-25,401547656,Philadelphia Eagles,Indianapolis Colts,PHI,IND,13.0,27.0,Caesars Sportsbook (Colorado),3.2,1.3703703703703702,6.0,37.0,False
+2023,2023-08-26,401547657,Carolina Panthers,Detroit Lions,CAR,DET,17.0,26.0,Caesars Sportsbook (Colorado),1.4761904761904763,2.75,-4.5,36.5,True
+2023,2023-08-26,401548508,Tennessee Titans,New England Patriots,TEN,NE,23.0,7.0,Caesars Sportsbook (Colorado),1.6896551724137931,2.25,-1.5,37.5,True
+2023,2023-08-26,401548510,San Francisco 49ers,Los Angeles Chargers,SF,LAC,12.0,23.0,Caesars Sportsbook (Colorado),1.263157894736842,4.0,-7.0,38.5,True
+2023,2023-08-26,401548412,Chicago Bears,Buffalo Bills,CHI,BUF,21.0,24.0,Caesars Sportsbook (Colorado),2.75,1.4761904761904763,4.5,37.5,False
+2023,2023-08-26,401549212,Green Bay Packers,Seattle Seahawks,GB,SEA,19.0,15.0,Caesars Sportsbook (Colorado),1.6666666666666665,2.3,-3.0,37.5,True
+2023,2023-08-26,401548629,Kansas City Chiefs,Cleveland Browns,KC,CLE,33.0,32.0,Caesars Sportsbook (Colorado),2.7,1.5,4.5,41.0,False
+2023,2023-08-26,401548498,Minnesota Vikings,Arizona Cardinals,MIN,ARI,17.0,18.0,Caesars Sportsbook (Colorado),2.2,1.7142857142857144,2.0,38.0,False
+2023,2023-08-26,401550835,New York Giants,New York Jets,NYG,NYJ,24.0,32.0,Caesars Sportsbook (Colorado),2.9,1.434782608695652,6.0,38.0,False
+2023,2023-08-26,401548623,Washington Commanders,Cincinnati Bengals,WSH,CIN,21.0,19.0,Caesars Sportsbook (Colorado),1.625,2.4,-3.0,34.5,True
+2023,2023-08-26,401547660,Tampa Bay Buccaneers,Baltimore Ravens,TB,BAL,26.0,20.0,Caesars Sportsbook (Colorado),1.7142857142857144,2.2,-1.5,36.0,True
+2023,2023-08-26,401548622,Jacksonville Jaguars,Miami Dolphins,JAX,MIA,31.0,18.0,Caesars Sportsbook (Colorado),1.4545454545454546,2.8,-6.0,42.5,True
+2023,2023-08-27,401550167,Dallas Cowboys,Las Vegas Raiders,DAL,LV,31.0,16.0,Caesars Sportsbook (Colorado),2.8,1.4545454545454546,5.0,38.5,False
+2023,2023-08-27,401547669,Denver Broncos,Los Angeles Rams,DEN,LAR,41.0,0.0,Caesars Sportsbook (Colorado),1.4545454545454546,2.8,-5.5,37.5,True
+2023,2023-08-28,401547658,New Orleans Saints,Houston Texans,NO,HOU,13.0,17.0,Caesars Sportsbook (Colorado),1.8333333333333335,2.0,-1.0,37.5,True
+2024,2024-08-02,401671610,Chicago Bears,Houston Texans,CHI,HOU,21.0,17.0,ESPN BET,2.35,1.6451612903225805,2.5,32.5,False
+2024,2024-08-08,401671918,New England Patriots,Carolina Panthers,NE,CAR,17.0,3.0,ESPN BET,1.3703703703703702,3.2,-6.5,34.5,True
+2024,2024-08-08,401673457,New York Giants,Detroit Lions,NYG,DET,14.0,3.0,ESPN BET,1.5405405405405406,2.55,-3.5,35.5,True
+2024,2024-08-09,401671915,Miami Dolphins,Atlanta Falcons,MIA,ATL,20.0,13.0,ESPN BET,2.25,1.6896551724137931,2.5,37.5,False
+2024,2024-08-09,401671905,Pittsburgh Steelers,Houston Texans,PIT,HOU,12.0,20.0,ESPN BET,2.4,1.606060606060606,3.5,38.5,False
+2024,2024-08-09,401671897,Baltimore Ravens,Philadelphia Eagles,BAL,PHI,13.0,16.0,ESPN BET,2.05,1.8,2.5,36.5,False
+2024,2024-08-10,401673171,New York Jets,Washington Commanders,NYJ,WSH,20.0,17.0,ESPN BET,2.35,1.6451612903225805,3.5,33.5,False
+2024,2024-08-10,401671615,Buffalo Bills,Chicago Bears,BUF,CHI,6.0,33.0,ESPN BET,1.606060606060606,2.4,-3.5,37.5,True
+2024,2024-08-10,401672005,Minnesota Vikings,Las Vegas Raiders,MIN,LV,24.0,23.0,ESPN BET,2.45,1.5882352941176472,3.0,39.5,False
+2024,2024-08-10,401671902,Cleveland Browns,Green Bay Packers,CLE,GB,10.0,23.0,ESPN BET,1.4761904761904763,2.75,-4.5,39.5,True
+2024,2024-08-10,401671900,Cincinnati Bengals,Tampa Bay Buccaneers,CIN,TB,14.0,17.0,ESPN BET,1.434782608695652,2.95,-5.5,38.5,True
+2024,2024-08-10,401673472,Tennessee Titans,San Francisco 49ers,TEN,SF,17.0,13.0,ESPN BET,1.4166666666666667,3.0,-5.5,38.5,True
+2024,2024-08-10,401671910,Jacksonville Jaguars,Kansas City Chiefs,JAX,KC,26.0,13.0,ESPN BET,1.6896551724137931,2.25,-1.5,39.5,True
+2024,2024-08-10,401671907,Los Angeles Chargers,Seattle Seahawks,LAC,SEA,3.0,16.0,ESPN BET,2.45,1.5882352941176472,3.5,34.5,False
+2024,2024-08-11,401673456,Arizona Cardinals,New Orleans Saints,ARI,NO,14.0,16.0,ESPN BET,2.35,1.6451612903225805,2.5,38.5,False
+2024,2024-08-11,401671920,Indianapolis Colts,Denver Broncos,IND,DEN,30.0,34.0,ESPN BET,1.7692307692307692,2.1,-1.5,39.5,True
+2024,2024-08-11,401671913,Los Angeles Rams,Dallas Cowboys,LAR,DAL,13.0,12.0,ESPN BET,3.0,1.4166666666666667,5.5,34.5,False
+2024,2024-08-15,401671919,New England Patriots,Philadelphia Eagles,NE,PHI,13.0,14.0,ESPN BET,1.7692307692307692,2.1,-2.5,32.5,True
+2024,2024-08-17,401671898,Baltimore Ravens,Atlanta Falcons,BAL,ATL,13.0,12.0,ESPN BET,1.6666666666666665,2.3,-2.5,34.5,True
+2024,2024-08-17,401671901,Chicago Bears,Cincinnati Bengals,CHI,CIN,27.0,3.0,ESPN BET,1.3333333333333333,3.5,-6.5,36.5,True
+2024,2024-08-17,401671924,Houston Texans,New York Giants,HOU,NYG,28.0,10.0,ESPN BET,1.7692307692307692,2.1,-2.5,39.5,True
+2024,2024-08-17,401671911,Kansas City Chiefs,Detroit Lions,KC,DET,23.0,24.0,ESPN BET,1.2222222222222223,4.6,-9.5,37.5,True
+2024,2024-08-17,401671903,Cleveland Browns,Minnesota Vikings,CLE,MIN,12.0,27.0,ESPN BET,1.6451612903225805,2.35,-2.5,33.5,True
+2024,2024-08-17,401673562,Tennessee Titans,Seattle Seahawks,TEN,SEA,16.0,15.0,ESPN BET,2.05,1.8,1.5,35.5,False
+2024,2024-08-17,401671936,Indianapolis Colts,Arizona Cardinals,IND,ARI,21.0,13.0,ESPN BET,2.15,1.7407407407407407,2.5,35.5,False
+2024,2024-08-17,401671916,Miami Dolphins,Washington Commanders,MIA,WSH,13.0,6.0,ESPN BET,1.4761904761904763,2.75,-4.5,36.5,True
+2024,2024-08-17,401671906,Pittsburgh Steelers,Buffalo Bills,PIT,BUF,3.0,9.0,ESPN BET,1.6451612903225805,2.35,-2.5,37.5,True
+2024,2024-08-17,401676591,Carolina Panthers,New York Jets,CAR,NYJ,12.0,15.0,ESPN BET,1.7142857142857144,2.2,-2.5,31.5,True
+2024,2024-08-17,401671908,Los Angeles Chargers,Los Angeles Rams,LAC,LAR,9.0,13.0,ESPN BET,1.5405405405405406,2.55,-3.5,32.5,True
+2024,2024-08-17,401671925,Jacksonville Jaguars,Tampa Bay Buccaneers,JAX,TB,20.0,7.0,ESPN BET,1.5128205128205128,2.65,-3.5,37.5,True
+2024,2024-08-18,401672897,Las Vegas Raiders,Dallas Cowboys,LV,DAL,12.0,27.0,ESPN BET,1.3448275862068966,3.4,-7.5,40.5,True
+2024,2024-08-19,401671921,Denver Broncos,Green Bay Packers,DEN,GB,27.0,2.0,ESPN BET,1.3571428571428572,3.3,-6.5,38.5,True
+2024,2024-08-19,401671611,San Francisco 49ers,New Orleans Saints,SF,NO,16.0,10.0,ESPN BET,2.0,1.8333333333333335,1.5,37.5,False
+2024,2024-08-23,401671612,Cincinnati Bengals,Indianapolis Colts,CIN,IND,14.0,27.0,ESPN BET,3.4,1.3448275862068966,6.5,33.5,False
+2024,2024-08-23,401671912,Kansas City Chiefs,Chicago Bears,KC,CHI,21.0,34.0,ESPN BET,2.2,1.7142857142857144,2.5,32.5,False
+2024,2024-08-23,401671922,Atlanta Falcons,Jacksonville Jaguars,ATL,JAX,0.0,31.0,ESPN BET,3.9,1.2777777777777777,8.5,35.5,False
+2024,2024-08-23,401671917,Tampa Bay Buccaneers,Miami Dolphins,TB,MIA,24.0,14.0,ESPN BET,1.606060606060606,2.4,-3.5,37.5,True
+2024,2024-08-24,401672898,Las Vegas Raiders,San Francisco 49ers,LV,SF,24.0,24.0,ESPN BET,4.0,1.263157894736842,9.5,33.5,False
+2024,2024-08-24,401671896,Buffalo Bills,Carolina Panthers,BUF,CAR,26.0,31.0,ESPN BET,3.0,1.4166666666666667,5.5,30.5,False
+2024,2024-08-24,401673458,Detroit Lions,Pittsburgh Steelers,DET,PIT,24.0,17.0,ESPN BET,3.6,1.3125,7.0,35.5,False
+2024,2024-08-24,401671899,Green Bay Packers,Baltimore Ravens,GB,BAL,30.0,7.0,ESPN BET,1.606060606060606,2.4,-2.5,32.5,True
+2024,2024-08-24,401672006,Philadelphia Eagles,Minnesota Vikings,PHI,MIN,3.0,26.0,ESPN BET,1.6451612903225805,2.35,-3.0,34.5,True
+2024,2024-08-24,401671914,Houston Texans,Los Angeles Rams,HOU,LAR,17.0,15.0,ESPN BET,1.4651162790697674,2.8,-4.5,33.5,True
+2024,2024-08-24,401671909,Dallas Cowboys,Los Angeles Chargers,DAL,LAC,19.0,26.0,ESPN BET,1.4651162790697674,2.8,-4.5,33.5,True
+2024,2024-08-24,401673172,New York Jets,New York Giants,NYJ,NYG,10.0,6.0,ESPN BET,2.45,1.5882352941176472,3.5,31.5,False
+2024,2024-08-25,401671904,Seattle Seahawks,Cleveland Browns,SEA,CLE,37.0,33.0,ESPN BET,1.526315789473684,2.6,-4.5,35.5,True
+2024,2024-08-25,401673561,New Orleans Saints,Tennessee Titans,NO,TEN,27.0,30.0,ESPN BET,3.0,1.4166666666666667,5.5,37.5,False
+2024,2024-08-25,401671613,Denver Broncos,Arizona Cardinals,DEN,ARI,38.0,12.0,ESPN BET,1.6666666666666665,2.3,-3.5,34.5,True
+2024,2024-08-26,401671614,Washington Commanders,New England Patriots,WSH,NE,20.0,10.0,ESPN BET,3.7,1.2941176470588236,6.5,36.5,False
+2024,2024-09-06,401671789,Kansas City Chiefs,Baltimore Ravens,KC,BAL,27.0,20.0,Bet 365,,,,,
+2024,2024-09-07,401671805,Philadelphia Eagles,Green Bay Packers,PHI,GB,34.0,29.0,Bet 365,,,,,
+2025,2025-08-01,401772971,Detroit Lions,Los Angeles Chargers,DET,LAC,7.0,34.0,ESPN BET,1.8333333333333335,2.0,-1.5,33.5,True
+2025,2025-08-07,401773001,Baltimore Ravens,Indianapolis Colts,BAL,IND,24.0,16.0,ESPN BET,3.25,1.3636363636363638,6.5,35.5,False
+2025,2025-08-07,401773005,Philadelphia Eagles,Cincinnati Bengals,PHI,CIN,34.0,27.0,ESPN BET,3.15,1.3846153846153846,6.5,37.5,False
+2025,2025-08-08,401774568,Seattle Seahawks,Las Vegas Raiders,SEA,LV,23.0,23.0,ESPN BET,2.8,1.4651162790697674,5.5,35.5,False
+2025,2025-08-08,401773016,Atlanta Falcons,Detroit Lions,ATL,DET,10.0,17.0,,,,,,
+2025,2025-08-08,401773018,Carolina Panthers,Cleveland Browns,CAR,CLE,10.0,30.0,ESPN BET,1.4166666666666667,3.0,-5.5,33.5,True
+2025,2025-08-08,401772996,New England Patriots,Washington Commanders,NE,WSH,48.0,18.0,ESPN BET,1.4166666666666667,3.0,-6.5,37.5,True
+2025,2025-08-09,401776263,Buffalo Bills,New York Giants,BUF,NYG,25.0,34.0,ESPN BET,1.8,2.05,-1.5,36.5,True
+2025,2025-08-09,401773012,Minnesota Vikings,Houston Texans,MIN,HOU,20.0,10.0,ESPN BET,1.434782608695652,2.95,-5.5,39.5,True
+2025,2025-08-09,401773020,Los Angeles Rams,Dallas Cowboys,LAR,DAL,31.0,21.0,ESPN BET,2.15,1.7407407407407407,1.5,34.5,False
+2025,2025-08-09,401773002,Jacksonville Jaguars,Pittsburgh Steelers,JAX,PIT,25.0,31.0,ESPN BET,1.4,3.1,-5.5,38.5,True
+2025,2025-08-09,401774029,Tampa Bay Buccaneers,Tennessee Titans,TB,TEN,29.0,7.0,ESPN BET,2.65,1.5128205128205128,3.5,33.5,False
+2025,2025-08-10,401773010,Green Bay Packers,New York Jets,GB,NYJ,10.0,30.0,ESPN BET,1.5405405405405406,2.55,-3.5,37.5,True
+2025,2025-08-10,401774636,Arizona Cardinals,Kansas City Chiefs,ARI,KC,20.0,17.0,ESPN BET,2.1,1.7692307692307692,2.5,39.5,False
+2025,2025-08-10,401776566,San Francisco 49ers,Denver Broncos,SF,DEN,9.0,30.0,ESPN BET,3.3,1.3571428571428572,6.5,37.5,False
+2025,2025-08-10,401776564,Chicago Bears,Miami Dolphins,CHI,MIA,24.0,24.0,ESPN BET,2.2,1.7142857142857144,0.0,37.5,False
+2025,2025-08-10,401773026,Los Angeles Chargers,New Orleans Saints,LAC,NO,27.0,13.0,ESPN BET,1.6896551724137931,2.25,-2.5,37.5,True
+2025,2025-08-15,401773017,Atlanta Falcons,Tennessee Titans,ATL,TEN,20.0,23.0,ESPN BET,2.2,1.7142857142857144,2.5,36.5,False
+2025,2025-08-16,401774591,Seattle Seahawks,Kansas City Chiefs,SEA,KC,33.0,16.0,ESPN BET,1.434782608695652,2.95,-5.5,38.5,True
+2025,2025-08-16,401776264,Detroit Lions,Miami Dolphins,DET,MIA,17.0,24.0,ESPN BET,1.9523809523809523,1.8695652173913042,-2.5,37.5,True
+2025,2025-08-16,401773003,Indianapolis Colts,Green Bay Packers,IND,GB,19.0,23.0,ESPN BET,1.263157894736842,3.9,-5.5,32.5,True
+2025,2025-08-16,401773013,Minnesota Vikings,New England Patriots,MIN,NE,12.0,20.0,ESPN BET,1.8333333333333335,2.0,-0.5,37.5,True
+2025,2025-08-16,401773006,Philadelphia Eagles,Cleveland Browns,PHI,CLE,13.0,22.0,ESPN BET,1.7142857142857144,2.2,-2.5,36.5,True
+2025,2025-08-16,401773027,Houston Texans,Carolina Panthers,HOU,CAR,20.0,3.0,ESPN BET,1.5882352941176472,2.45,-3.5,39.5,True
+2025,2025-08-16,401774569,Las Vegas Raiders,San Francisco 49ers,LV,SF,19.0,22.0,ESPN BET,1.4651162790697674,2.8,-4.5,40.5,True
+2025,2025-08-16,401773007,Dallas Cowboys,Baltimore Ravens,DAL,BAL,13.0,31.0,ESPN BET,1.8333333333333335,2.0,-1.5,36.5,True
+2025,2025-08-16,401773021,Los Angeles Rams,Los Angeles Chargers,LAR,LAC,23.0,22.0,ESPN BET,3.9,1.263157894736842,8.5,39.5,False
+2025,2025-08-16,401773009,New York Giants,New York Jets,NYG,NYJ,31.0,12.0,ESPN BET,1.5882352941176472,2.45,-3.5,38.5,True
+2025,2025-08-16,401773000,Pittsburgh Steelers,Tampa Bay Buccaneers,PIT,TB,14.0,17.0,ESPN BET,2.05,1.8,1.5,37.5,False
+2025,2025-08-17,401774637,Denver Broncos,Arizona Cardinals,DEN,ARI,27.0,7.0,ESPN BET,1.5714285714285714,2.5,-3.5,36.5,True
+2025,2025-08-17,401773014,New Orleans Saints,Jacksonville Jaguars,NO,JAX,17.0,17.0,ESPN BET,2.1,1.7692307692307692,,40.5,False
+2025,2025-08-18,401772972,Chicago Bears,Buffalo Bills,CHI,BUF,38.0,0.0,ESPN BET,1.7142857142857144,2.2,-2.5,39.5,True
+2025,2025-08-19,401772973,Washington Commanders,Cincinnati Bengals,WSH,CIN,17.0,31.0,ESPN BET,2.6,1.526315789473684,3.5,42.5,False
+2025,2025-08-21,401773019,Carolina Panthers,Pittsburgh Steelers,CAR,PIT,10.0,19.0,ESPN BET,3.25,1.3636363636363638,6.5,34.5,False
+2025,2025-08-22,401772974,New York Giants,New England Patriots,NYG,NE,42.0,10.0,ESPN BET,1.4444444444444444,2.9,-4.5,36.5,True
+2025,2025-08-22,401772997,New York Jets,Philadelphia Eagles,NYJ,PHI,17.0,19.0,ESPN BET,1.5405405405405406,2.55,-3.5,34.5,True
+2025,2025-08-23,401773008,Dallas Cowboys,Atlanta Falcons,DAL,ATL,31.0,13.0,ESPN BET,1.6896551724137931,2.25,-2.5,34.5,True
+2025,2025-08-23,401772975,Tennessee Titans,Minnesota Vikings,TEN,MIN,23.0,13.0,ESPN BET,1.5714285714285714,2.5,-3.5,37.5,True
+2025,2025-08-23,401773004,Kansas City Chiefs,Chicago Bears,KC,CHI,27.0,29.0,ESPN BET,2.2,1.7142857142857144,2.5,42.5,False
+2025,2025-08-23,401777124,Washington Commanders,Baltimore Ravens,WSH,BAL,3.0,30.0,ESPN BET,2.35,1.6451612903225805,3.5,36.5,False
+2025,2025-08-23,401772998,Cincinnati Bengals,Indianapolis Colts,CIN,IND,14.0,41.0,ESPN BET,1.7692307692307692,2.1,-1.5,36.5,True
+2025,2025-08-23,401772999,Cleveland Browns,Los Angeles Rams,CLE,LAR,19.0,17.0,ESPN BET,1.1666666666666667,5.0,-10.5,36.5,True
+2025,2025-08-23,401776265,Detroit Lions,Houston Texans,DET,HOU,7.0,26.0,ESPN BET,1.8695652173913042,1.9523809523809523,,34.5,False
+2025,2025-08-23,401773015,New Orleans Saints,Denver Broncos,NO,DEN,19.0,28.0,ESPN BET,2.25,1.6896551724137931,3.5,38.5,False
+2025,2025-08-23,401773011,Green Bay Packers,Seattle Seahawks,GB,SEA,20.0,7.0,ESPN BET,1.6666666666666665,2.3,-2.5,38.5,True
+2025,2025-08-23,401776565,Miami Dolphins,Jacksonville Jaguars,MIA,JAX,14.0,6.0,ESPN BET,1.3333333333333333,3.5,-7.5,38.5,True
+2025,2025-08-23,401774030,Tampa Bay Buccaneers,Buffalo Bills,TB,BUF,19.0,23.0,ESPN BET,2.05,1.8,1.5,37.5,False
+2025,2025-08-24,401776567,San Francisco 49ers,Los Angeles Chargers,SF,LAC,30.0,23.0,ESPN BET,2.3,1.6666666666666665,3.5,35.5,False
+2025,2025-08-24,401774590,Arizona Cardinals,Las Vegas Raiders,ARI,LV,20.0,10.0,ESPN BET,2.45,1.5882352941176472,2.5,37.5,False
+2025,2025-09-05,401772510,Philadelphia Eagles,Dallas Cowboys,PHI,DAL,24.0,20.0,ESPN BET,1.25,4.0,-7.5,47.5,True
+2025,2025-09-06,401772714,Los Angeles Chargers,Kansas City Chiefs,LAC,KC,27.0,21.0,ESPN BET,2.5,1.5714285714285714,3.5,47.5,False
+2026,2026-08-07,401873271,Arizona Cardinals,Carolina Panthers,ARI,CAR,30.0,33.0,DraftKings,2.1,1.7692307692307692,1.5,34.5,False
+2026,2026-08-13,401873272,Cincinnati Bengals,Detroit Lions,CIN,DET,16.0,14.0,DraftKings,1.3508771929824561,3.3,-6.5,37.5,True
+2026,2026-08-13,401873275,Pittsburgh Steelers,Green Bay Packers,PIT,GB,28.0,9.0,DraftKings,2.3600000000000003,1.617283950617284,3.0,38.5,False
+2026,2026-08-13,401873273,New England Patriots,Indianapolis Colts,NE,IND,13.0,13.0,DraftKings,2.4,1.6024096385542168,3.0,37.5,False
+2026,2026-08-14,401873640,Las Vegas Raiders,Arizona Cardinals,LV,ARI,14.0,27.0,DraftKings,1.6451612903225805,2.3,-2.5,41.5,True
+2026,2026-08-14,401873274,Houston Texans,Los Angeles Chargers,HOU,LAC,7.0,27.0,DraftKings,1.847457627118644,1.9803921568627452,-1.5,38.5,True
+2026,2026-08-14,401874392,San Francisco 49ers,Tennessee Titans,SF,TEN,13.0,19.0,DraftKings,3.3,1.3508771929824561,6.5,39.5,False
+2026,2026-08-14,401873278,Atlanta Falcons,Denver Broncos,ATL,DEN,7.0,27.0,DraftKings,2.4,1.6024096385542168,3.0,39.5,False
+2026,2026-08-14,401873276,New York Jets,Tampa Bay Buccaneers,NYJ,TB,16.0,24.0,DraftKings,1.434782608695652,2.9,-5.5,35.5,True
+2026,2026-08-14,401873277,Washington Commanders,Miami Dolphins,WSH,MIA,20.0,7.0,DraftKings,2.42,1.5882352941176472,3.5,36.5,False
+2026,2026-08-15,401873282,Buffalo Bills,Carolina Panthers,BUF,CAR,29.0,14.0,DraftKings,1.6756756756756757,2.24,-2.5,38.5,True
+2026,2026-08-15,401874393,Chicago Bears,Cleveland Browns,CHI,CLE,34.0,10.0,DraftKings,2.3,1.6451612903225805,3.0,39.5,False
+2026,2026-08-15,401873280,New York Giants,Minnesota Vikings,NYG,MIN,10.0,13.0,DraftKings,2.02,1.819672131147541,1.5,40.5,False
+2026,2026-08-15,401873283,Kansas City Chiefs,Los Angeles Rams,KC,LAR,12.0,20.0,DraftKings,1.8,2.05,-1.5,36.5,True
+2026,2026-08-15,401873281,New Orleans Saints,Jacksonville Jaguars,NO,JAX,20.0,24.0,DraftKings,1.6451612903225805,2.3,-3.0,36.5,True
+2026,2026-08-15,401873284,Baltimore Ravens,Philadelphia Eagles,BAL,PHI,24.0,7.0,DraftKings,2.45,1.5714285714285714,3.5,37.5,False
+2026,2026-08-16,401873279,Seattle Seahawks,Dallas Cowboys,SEA,DAL,7.0,17.0,DraftKings,1.704225352112676,2.2,-1.5,37.5,True
+2026,2026-08-21,401873286,Houston Texans,Las Vegas Raiders,HOU,LV,20.0,22.0,DraftKings,2.1399999999999997,1.7407407407407407,2.5,39.5,False
+2026,2026-08-21,401873285,Los Angeles Chargers,San Francisco 49ers,LAC,SF,17.0,41.0,DraftKings,1.8,2.05,-1.5,38.5,True
+2026,2026-08-21,401873288,Pittsburgh Steelers,New York Jets,PIT,NYJ,0.0,17.0,DraftKings,1.6756756756756757,2.24,-2.5,38.5,True
+2026,2026-08-21,401873287,Jacksonville Jaguars,Carolina Panthers,JAX,CAR,17.0,34.0,DraftKings,2.1399999999999997,1.7407407407407407,2.5,38.5,False
+2026,2026-08-22,401873613,Denver Broncos,Green Bay Packers,DEN,GB,13.0,33.0,DraftKings,1.4081632653061225,3.0,-6.5,40.5,True
+2026,2026-08-22,401873601,Detroit Lions,Washington Commanders,DET,WSH,17.0,13.0,DraftKings,1.847457627118644,1.9803921568627452,-1.5,36.5,True
+2026,2026-08-22,401873294,Cleveland Browns,Buffalo Bills,CLE,BUF,7.0,31.0,DraftKings,1.6756756756756757,2.24,-2.5,36.5,True
+2026,2026-08-22,401873295,Indianapolis Colts,Atlanta Falcons,IND,ATL,6.0,34.0,DraftKings,1.617283950617284,2.3600000000000003,-3.0,36.5,True
+2026,2026-08-22,401873291,Minnesota Vikings,Baltimore Ravens,MIN,BAL,3.0,13.0,DraftKings,1.704225352112676,2.2,-2.5,37.5,True
+2026,2026-08-22,401873290,Los Angeles Rams,New Orleans Saints,LAR,NO,34.0,0.0,DraftKings,2.1,1.7692307692307692,1.5,38.5,False
+2026,2026-08-22,401873292,Miami Dolphins,New York Giants,MIA,NYG,3.0,26.0,DraftKings,2.3600000000000003,1.617283950617284,3.5,35.5,False
+2026,2026-08-22,401873289,Cincinnati Bengals,Chicago Bears,CIN,CHI,27.0,9.0,DraftKings,2.54,1.5405405405405406,3.5,38.5,False
+2026,2026-08-22,401873293,New England Patriots,Philadelphia Eagles,NE,PHI,24.0,21.0,DraftKings,2.02,1.819672131147541,1.5,37.5,False
+2026,2026-08-22,401873296,Tampa Bay Buccaneers,Kansas City Chiefs,TB,KC,16.0,15.0,DraftKings,1.5208333333333335,2.6,-3.5,37.5,True
+2026,2026-08-23,401874101,Arizona Cardinals,Dallas Cowboys,ARI,DAL,13.0,34.0,DraftKings,2.1399999999999997,1.7407407407407407,2.5,38.5,False
+2026,2026-08-24,401873297,Tennessee Titans,Seattle Seahawks,TEN,SEA,19.0,16.0,DraftKings,1.6451612903225805,2.3,-3.0,37.5,True
+2026,2026-08-27,401873298,Buffalo Bills,Pittsburgh Steelers,BUF,PIT,28.0,27.0,DraftKings,1.72992700729927,2.1399999999999997,-2.5,36.5,True
+2026,2026-08-28,401873299,Cleveland Browns,New England Patriots,CLE,NE,37.0,13.0,DraftKings,2.2,1.6944444444444444,2.5,35.5,False
+2026,2026-08-28,401873641,Las Vegas Raiders,San Francisco 49ers,LV,SF,12.0,18.0,DraftKings,1.606060606060606,2.37,-3.5,36.5,True
+2026,2026-08-28,401873300,Los Angeles Chargers,Los Angeles Rams,LAC,LAR,18.0,20.0,DraftKings,1.5376344086021505,2.5300000000000002,-3.5,37.5,True
+2026,2026-08-28,401873302,Baltimore Ravens,Washington Commanders,BAL,WSH,41.0,3.0,DraftKings,1.526315789473684,2.58,-4.5,34.5,True
+2026,2026-08-28,401873304,Miami Dolphins,Atlanta Falcons,MIA,ATL,12.0,17.0,DraftKings,3.12,1.3703703703703702,6.0,34.5,False
+2026,2026-08-28,401873307,Carolina Panthers,Houston Texans,CAR,HOU,16.0,13.0,DraftKings,2.04,1.8,1.5,37.5,False
+2026,2026-08-28,401873303,New York Jets,New York Giants,NYJ,NYG,6.0,23.0,DraftKings,2.13,1.7407407407407407,2.5,36.5,False
+2026,2026-08-28,401873306,Jacksonville Jaguars,Tampa Bay Buccaneers,JAX,TB,19.0,0.0,DraftKings,2.4,1.5882352941176472,3.5,35.5,False
+2026,2026-08-29,401874048,Dallas Cowboys,New Orleans Saints,DAL,NO,24.0,27.0,DraftKings,1.5681818181818183,2.46,-3.5,40.5,True
+2026,2026-08-29,401874102,Green Bay Packers,Arizona Cardinals,GB,ARI,42.0,38.0,DraftKings,1.8620689655172413,1.9615384615384617,-1.5,36.5,True
+2026,2026-08-29,401873305,Kansas City Chiefs,Seattle Seahawks,KC,SEA,9.0,9.0,DraftKings,2.04,1.8,1.5,35.5,False
+2026,2026-08-29,401873301,Philadelphia Eagles,Cincinnati Bengals,PHI,CIN,13.0,30.0,DraftKings,1.704225352112676,2.1799999999999997,-2.5,36.5,True
+2026,2026-08-29,401873614,Denver Broncos,Minnesota Vikings,DEN,MIN,34.0,6.0,DraftKings,1.4608294930875576,2.77,-4.5,37.5,True
+2026,2026-08-29,401873308,Indianapolis Colts,Detroit Lions,IND,DET,16.0,25.0,DraftKings,1.7692307692307692,2.0700000000000003,-1.5,36.5,True
+2026,2026-08-29,401874394,Tennessee Titans,Chicago Bears,TEN,CHI,15.0,24.0,DraftKings,2.06,1.7874015748031495,1.5,36.5,False
