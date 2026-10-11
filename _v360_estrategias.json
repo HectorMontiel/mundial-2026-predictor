@@ -1,0 +1,89 @@
+{
+ "corte": "2026-10-07",
+ "estrategias": {
+  "A al pitido": {
+   "elige": {
+    "verdes": 129,
+    "rojas": 41,
+    "acierto": 0.7588,
+    "p5_vs_A": null
+   },
+   "juzga": {
+    "verdes": 201,
+    "rojas": 40,
+    "acierto": 0.834,
+    "p5_vs_A": null
+   }
+  },
+  "B primera anunciada": {
+   "elige": {
+    "verdes": 124,
+    "rojas": 41,
+    "acierto": 0.7515,
+    "p5_vs_A": -0.0856
+   },
+   "juzga": {
+    "verdes": 184,
+    "rojas": 44,
+    "acierto": 0.807,
+    "p5_vs_A": -0.087
+   }
+  },
+  "C todo lo anunciado": {
+   "elige": {
+    "verdes": 198,
+    "rojas": 62,
+    "acierto": 0.7615,
+    "p5_vs_A": -0.069
+   },
+   "juzga": {
+    "verdes": 362,
+    "rojas": 75,
+    "acierto": 0.8284,
+    "p5_vs_A": -0.0536
+   }
+  },
+  "D pitido + retiradas ≥ 80 %": {
+   "elige": {
+    "verdes": 138,
+    "rojas": 43,
+    "acierto": 0.7624,
+    "p5_vs_A": -0.0689
+   },
+   "juzga": {
+    "verdes": 247,
+    "rojas": 46,
+    "acierto": 0.843,
+    "p5_vs_A": -0.043
+   }
+  },
+  "E pitido + retiradas no desplazadas": {
+   "elige": {
+    "verdes": 192,
+    "rojas": 59,
+    "acierto": 0.7649,
+    "p5_vs_A": -0.0629
+   },
+   "juzga": {
+    "verdes": 355,
+    "rojas": 72,
+    "acierto": 0.8314,
+    "p5_vs_A": -0.051
+   }
+  },
+  "F pitido + retiradas desaparecidas": {
+   "elige": {
+    "verdes": 189,
+    "rojas": 57,
+    "acierto": 0.7683,
+    "p5_vs_A": -0.0575
+   },
+   "juzga": {
+    "verdes": 322,
+    "rojas": 63,
+    "acierto": 0.8364,
+    "p5_vs_A": -0.048
+   }
+  }
+ }
+}

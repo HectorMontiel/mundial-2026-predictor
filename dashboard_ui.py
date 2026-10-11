@@ -5708,6 +5708,24 @@ def render_alpha_finder():
         else:
             _hueco_marcador.markdown(_estilo.marcador_doble(_ma, _mc),
                                      unsafe_allow_html=True)
+        # v360 — EL MARCADOR ENLAZADO CON LAS APUESTAS DEL DÍA. El usuario:
+        # «muéstrame más fácil cuáles tienen más probabilidad de cumplirse de
+        # verdad». Las «se mete» que aún no empiezan, de la que más se cumple
+        # (medido) a la que menos; ⭐ = ELIGE (ver `modo_modelo.elige`).
+        try:
+            _lpa = _mmk.lista_por_acierto(_de_hoy + _de_man)
+            if _lpa:
+                import vista_compacta as _vc_m
+                _ne = sum(1 for x in _lpa if x.get('elige'))
+                with st.expander('📋 Las %d «se mete» que faltan, de la que más se '
+                                 'cumple a la que menos · ⭐ %d ELIGE' % (len(_lpa), _ne),
+                                 expanded=False):
+                    st.caption('«Acierta» es lo que de verdad acertaron las apuestas '
+                               'como ésta (medido), no lo que promete la tarjeta. '
+                               '⭐ ELIGE: 86 % contra 79 % del resto; 🏆 Capa 1: 85 %.')
+                    st.markdown(_vc_m.html_lista(_lpa), unsafe_allow_html=True)
+        except Exception as _e_lpa:
+            logger.debug('[alpha] lista por acierto: %s', _e_lpa)
     except Exception:
         pass
 
@@ -6807,6 +6825,16 @@ def render_alpha_finder():
     def _tasa_c1(nivel):
         t = _tasas_c1.get(nivel)
         return (' · %s' % t) if t else ''
+    # v360 — TODO POR HORA. El usuario: «quiero que toda la Capa 1 esté
+    # ordenada por hora». Lo pendiente primero (lo que aún se puede apostar),
+    # cada bloque en orden de hora de inicio.
+    def _por_hora(lst):
+        return sorted(lst or [], key=lambda p: str(p.get('inicio') or p.get('hora')
+                                                   or p.get('fecha') or '~'))
+    _lm_c1, _lm_r1 = _por_hora(_lm_c1), _por_hora(_lm_r1)
+    _fin_c1, _fin_r1 = _por_hora(_fin_c1), _por_hora(_fin_r1)
+    _c1_val, _fin_err = _por_hora(_c1_val), _por_hora(_fin_err)
+    _prob_c1, _fin_prob = _por_hora(_prob_c1), _por_hora(_fin_prob)
     _n_c1, _n_r1 = len(_lm_c1), len(_lm_r1)
     _lm_c1 = _lm_c1 + _fin_c1
     _lm_r1 = _lm_r1 + _fin_r1

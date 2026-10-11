@@ -1,0 +1,362 @@
+{
+ "dias": [
+  "2026-10-03",
+  "2026-10-10"
+ ],
+ "corte": "2026-10-07",
+ "hipotesis": {
+  "H1 retiradas (todas)": {
+   "elige": {
+    "n": 90,
+    "acierto": 0.7667,
+    "base": 0.7588,
+    "dif": [
+     0.0082,
+     -0.085,
+     0.0993
+    ]
+   },
+   "juzga": {
+    "n": 196,
+    "acierto": 0.8214,
+    "base": 0.834,
+    "dif": [
+     -0.0138,
+     -0.0742,
+     0.0454
+    ]
+   }
+  },
+  "H2 desplazada (sigue «meter» al final)": {
+   "elige": {
+    "n": 9,
+    "acierto": 0.6667,
+    "base": 0.7588,
+    "dif": null
+   },
+   "juzga": {
+    "n": 10,
+    "acierto": 0.7,
+    "base": 0.834,
+    "dif": [
+     -0.1344,
+     -0.3714,
+     0.0909
+    ]
+   }
+  },
+  "H2b no «meter» al final": {
+   "elige": {
+    "n": 5,
+    "acierto": 0.6,
+    "base": 0.7588,
+    "dif": null
+   },
+   "juzga": {
+    "n": 42,
+    "acierto": 0.7857,
+    "base": 0.834,
+    "dif": [
+     -0.0479,
+     -0.156,
+     0.0635
+    ]
+   }
+  },
+  "H2c desaparecida": {
+   "elige": {
+    "n": 76,
+    "acierto": 0.7895,
+    "base": 0.7588,
+    "dif": [
+     0.0274,
+     -0.0646,
+     0.1214
+    ]
+   },
+   "juzga": {
+    "n": 144,
+    "acierto": 0.8403,
+    "base": 0.834,
+    "dif": [
+     0.0078,
+     -0.0562,
+     0.0702
+    ]
+   }
+  },
+  "H3 la cuota bajó (≥ 0,03)": {
+   "elige": {
+    "n": 1,
+    "acierto": 1.0,
+    "base": 0.7588,
+    "dif": null
+   },
+   "juzga": {
+    "n": 3,
+    "acierto": 0.6667,
+    "base": 0.834,
+    "dif": null
+   }
+  },
+  "H3b la cuota subió (≥ 0,03)": {
+   "elige": {
+    "n": 3,
+    "acierto": 0.0,
+    "base": 0.7588,
+    "dif": null
+   },
+   "juzga": {
+    "n": 9,
+    "acierto": 0.6667,
+    "base": 0.834,
+    "dif": null
+   }
+  },
+  "H4 la prob. final ≥ 0,74": {
+   "elige": {
+    "n": 6,
+    "acierto": 0.6667,
+    "base": 0.7588,
+    "dif": null
+   },
+   "juzga": {
+    "n": 38,
+    "acierto": 0.7368,
+    "base": 0.834,
+    "dif": [
+     -0.096,
+     -0.2218,
+     0.0247
+    ]
+   }
+  },
+  "H4b la prob. final < 0,70": {
+   "elige": {
+    "n": 0,
+    "acierto": null,
+    "base": 0.7588,
+    "dif": null
+   },
+   "juzga": {
+    "n": 0,
+    "acierto": null,
+    "base": 0.834,
+    "dif": null
+   }
+  },
+  "H5 anunciada 3+ fotos": {
+   "elige": {
+    "n": 65,
+    "acierto": 0.7692,
+    "base": 0.7588,
+    "dif": [
+     0.0144,
+     -0.0842,
+     0.1145
+    ]
+   },
+   "juzga": {
+    "n": 160,
+    "acierto": 0.8125,
+    "base": 0.834,
+    "dif": [
+     -0.0223,
+     -0.0881,
+     0.0411
+    ]
+   }
+  },
+  "H5b anunciada 1 foto": {
+   "elige": {
+    "n": 11,
+    "acierto": 0.7273,
+    "base": 0.7588,
+    "dif": [
+     -0.0316,
+     -0.2574,
+     0.1797
+    ]
+   },
+   "juzga": {
+    "n": 25,
+    "acierto": 0.84,
+    "base": 0.834,
+    "dif": [
+     0.0075,
+     -0.1265,
+     0.1275
+    ]
+   }
+  },
+  "H8 prob. al anunciar ≥ 0,80": {
+   "elige": {
+    "n": 11,
+    "acierto": 0.8182,
+    "base": 0.7588,
+    "dif": [
+     0.0578,
+     -0.1578,
+     0.2471
+    ]
+   },
+   "juzga": {
+    "n": 52,
+    "acierto": 0.8846,
+    "base": 0.834,
+    "dif": [
+     0.0512,
+     -0.0335,
+     0.129
+    ]
+   }
+  },
+  "H9 retirada a ≤ 4 h del pitido": {
+   "elige": {
+    "n": 18,
+    "acierto": 0.7778,
+    "base": 0.7588,
+    "dif": [
+     0.022,
+     -0.1511,
+     0.1831
+    ]
+   },
+   "juzga": {
+    "n": 12,
+    "acierto": 1.0,
+    "base": 0.834,
+    "dif": [
+     0.1661,
+     0.1286,
+     0.2033
+    ]
+   }
+  }
+ },
+ "se_quedan": {
+  "elige": {
+   "n": 170,
+   "acierto": 0.7588
+  },
+  "juzga": {
+   "n": 241,
+   "acierto": 0.834
+  }
+ },
+ "por_mercado": {
+  "1X2": {
+   "elige": {
+    "n": 1,
+    "acierto": 1.0
+   },
+   "juzga": {
+    "n": 4,
+    "acierto": 1.0
+   }
+  },
+  "BTTS": {
+   "elige": {
+    "n": 0,
+    "acierto": null
+   },
+   "juzga": {
+    "n": 1,
+    "acierto": 1.0
+   }
+  },
+  "Córners": {
+   "elige": {
+    "n": 10,
+    "acierto": 0.8
+   },
+   "juzga": {
+    "n": 32,
+    "acierto": 0.75
+   }
+  },
+  "Doble oportunidad": {
+   "elige": {
+    "n": 30,
+    "acierto": 0.7667
+   },
+   "juzga": {
+    "n": 24,
+    "acierto": 0.7917
+   }
+  },
+  "Goles": {
+   "elige": {
+    "n": 30,
+    "acierto": 0.7667
+   },
+   "juzga": {
+    "n": 70,
+    "acierto": 0.8143
+   }
+  },
+  "Goles equipo": {
+   "elige": {
+    "n": 16,
+    "acierto": 0.6875
+   },
+   "juzga": {
+    "n": 54,
+    "acierto": 0.8889
+   }
+  },
+  "Remates": {
+   "elige": {
+    "n": 0,
+    "acierto": null
+   },
+   "juzga": {
+    "n": 3,
+    "acierto": 0.6667
+   }
+  },
+  "Remates a puerta": {
+   "elige": {
+    "n": 0,
+    "acierto": null
+   },
+   "juzga": {
+    "n": 5,
+    "acierto": 0.8
+   }
+  },
+  "Tarjetas": {
+   "elige": {
+    "n": 3,
+    "acierto": 1.0
+   },
+   "juzga": {
+    "n": 3,
+    "acierto": 0.6667
+   }
+  }
+ },
+ "modelo": {
+  "auc_elige": 0.554,
+  "auc_juzga": 0.61,
+  "arriba_juzga": {
+   "n": 62,
+   "acierto": 0.8871
+  },
+  "abajo_juzga": {
+   "n": 134,
+   "acierto": 0.791
+  },
+  "coef": {
+   "p0": 0.089,
+   "c0": -0.094,
+   "pf": 0.106,
+   "dp": 0.016,
+   "dc": -0.099,
+   "fotos": -0.04,
+   "desplazada": -0.104,
+   "desaparecida": 0.365,
+   "horas": -0.084
+  }
+ }
+}

@@ -3387,6 +3387,13 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
         titulo = '🎯 SE METE' + ('' if puesto <= 1 else ' · %dª' % puesto)
         if rec.get('elite'):
             titulo += ' · 🏆 CAPA 1'
+        # v360 — ⭐ ELIGE y lo que de verdad acierta (medido)
+        _dep_t = str(rec.get('deporte') or 'Fútbol')
+        if elige(rec, _dep_t) and not rec.get('elite'):
+            titulo = '⭐ ELIGE · ' + titulo
+        _real = acierta_de_verdad(rec, _dep_t)
+        if _real is not None and not rec.get('elite'):
+            precio = precio + ' · acierta de verdad %.0f %%' % (100 * _real)
         # v346 — estable (lleva ≥ 6 h anunciada) o nueva: medido, las estables
         # aciertan más (80 % contra 73-78 %; ver `anunciadas.HORAS_ESTABLE`)
         # v352 — FIJADA desde la hora de apostar; antes, PROVISIONAL (ver
@@ -3431,6 +3438,103 @@ def _bloque_recomendada(st, rec: Optional[Dict], clave: str,
     # `URL_PLAYDOIT` NO se borra: la usan otras vistas y el encargo pide
     # expresamente conservar lo que sirva para integrar el partido mas
     # adelante.
+
+
+# v360 — «⭐ ELIGE»: ENTRE LAS «SE METE», LAS QUE DE VERDAD SE CUMPLEN MÁS.
+#
+# El usuario: «quiero saber cuál tiene más probabilidad de cumplirse de verdad
+# —no la que dice la tarjeta— y que me la señales de forma visual». Medido en
+# la réplica de la tarjeta (`_v360_elige.py`, 1.086 «se mete» de fútbol,
+# 19-sep → 9-oct, dos mitades de días):
+#
+#                                  19-29 sep          30 sep-9 oct
+#     ⭐ app ≥ 82 % o cuota ≤ 1,16   208 · 86,1 %       162 · 85,8 %
+#     el resto de «se mete»            79,1 %             78,8 %
+#     diferencia +6,9 pts, p5 +0,9 (aguanta el remuestreo)
+#
+# Dentro de la Capa 1 🏆 no separa nada (cuota, tipo, probabilidad: todas
+# ~85 %), así que allí no se marca. En los otros deportes lo que de verdad
+# acierta es lo medido: la probabilidad de las líneas (`nfl_lineas`,
+# `nhl_lineas`…, tablas contra el resultado) o, en el ganador, la casa sin
+# margen, que es lo mejor calibrado en el tenis, la NFL y la NBA (v342,
+# v350): ⭐ con 85 % o más.
+ELIGE_PROB_MIN = 0.82
+ELIGE_CUOTA_MAX = 1.16
+ELIGE_PROB_OTROS = 0.85
+ACIERTA_ELIGE = 0.86
+ACIERTA_RESTO = 0.79
+
+
+def _real_otros(r: Dict) -> Optional[float]:
+    """Fuera del fútbol: la línea medida o la casa sin margen."""
+    try:
+        if not any(r.get(k) for k in ('nba_linea', 'nfl_linea', 'nhl_linea', 'mlb_linea')) \
+                and r.get('p_mercado') is not None:
+            return float(r['p_mercado'])
+        p = r.get('prob_meter') if r.get('prob_meter') is not None else r.get('prob')
+        return float(p) if p is not None else None
+    except (TypeError, ValueError):
+        return None
+
+
+def elige(r: Dict, deporte: str = 'Fútbol') -> bool:
+    """¿Esta «se mete» lleva ⭐ ELIGE? Nunca lanza."""
+    try:
+        if (r or {}).get('veredicto_vp') != 'meter':
+            return False
+        if str(deporte or 'Fútbol') != 'Fútbol':
+            return (_real_otros(r) or 0.0) >= ELIGE_PROB_OTROS
+        p = r.get('prob_meter') if r.get('prob_meter') is not None else r.get('prob')
+        p = float(p) if p is not None else 0.0
+        c = float(r.get('cuota') or 9.0)
+        return p >= ELIGE_PROB_MIN or c <= ELIGE_CUOTA_MAX
+    except (TypeError, ValueError):
+        return False
+
+
+def acierta_de_verdad(r: Dict, deporte: str = 'Fútbol') -> Optional[float]:
+    """Lo que de verdad acertó, medido, una «se mete» como ésta."""
+    if (r or {}).get('veredicto_vp') != 'meter':
+        return None
+    if str(deporte or 'Fútbol') != 'Fútbol':
+        return _real_otros(r)
+    return ACIERTA_ELIGE if elige(r, deporte) else ACIERTA_RESTO
+
+
+def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
+    """v360 — Las «se mete» de los partidos que aún no empiezan, de la que más
+    se cumple (medido) a la que menos, para la lista bajo el marcador. Usa lo
+    que el precálculo ya dejó en cada partido (no recalcula). Nunca lanza."""
+    import time as _t
+    out = []
+    try:
+        import decisiones_dia as _dd
+        import horario as _hz
+    except Exception:
+        return out
+    ahora = float(ahora if ahora is not None else _t.time())
+    for p in pronosticos or []:
+        try:
+            ini = _hz._a_utc(p.get('inicio'))
+            if p.get('jugado') or (ini is not None and ini.timestamp() <= ahora):
+                continue
+            recos = _dd.tarjeta_de_pick(p) or []
+            dep = str(p.get('deporte') or 'Fútbol')
+            for r in metidas(recos):
+                real = 0.85 if r.get('elite') else acierta_de_verdad(r, dep)
+                if real is None or not r.get('cuota'):
+                    continue
+                ele = elige(r, dep) and not r.get('elite')
+                out.append({'partido': p.get('partido'), 'inicio': p.get('inicio'),
+                            'fecha': p.get('fecha'), 'deporte': dep, 'casa': '',
+                            'apuesta': ('⭐ ' if ele else ('🏆 ' if r.get('elite') else ''))
+                            + str(r.get('apuesta')),
+                            'cuota': r.get('cuota'), 'prob': real, 'elige': ele,
+                            'porque': 'acierta de verdad %.0f %% (medido)' % (100 * real)})
+        except Exception as e:
+            logger.debug('[modo_modelo] lista por acierto: %s', e)
+    out.sort(key=lambda x: (-round(float(x['prob']), 3), str(x.get('inicio') or '')))
+    return out
 
 
 def _bloque_anunciadas(st, pick: Dict, recos: list, todas: list) -> None:
@@ -4028,6 +4132,8 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
                 if not r0:
                     return r0
                 r1 = dict(r0)
+                # v360 — el deporte, para la regla de ⭐ ELIGE
+                r1.setdefault('deporte', pick.get('deporte') or 'Fútbol')
                 # v303 — el porqué, en una línea y con cifras reales de los
                 # dos equipos. Ver `razon_apuesta`.
                 try:
