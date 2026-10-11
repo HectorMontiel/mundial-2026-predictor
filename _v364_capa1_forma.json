@@ -1,0 +1,157 @@
+{
+ "n": 7273,
+ "mitad": "2024-08-09",
+ "base": {
+  "A": 0.8542,
+  "B": 0.8425
+ },
+ "hipotesis": {
+  "H1 el apostado en forma (≥ 2,0 pts/partido en 5)": {
+   "A": {
+    "n": 1448,
+    "acierto": 0.8577,
+    "resto": 0.8519,
+    "dif_p5": [
+     0.0058,
+     -0.0139
+    ]
+   },
+   "B": {
+    "n": 1373,
+    "acierto": 0.85,
+    "resto": 0.8379,
+    "dif_p5": [
+     0.0122,
+     -0.0074
+    ]
+   },
+   "pasa": false
+  },
+  "H2 el rival mal (≤ 1,0 pts/partido en 5)": {
+   "A": {
+    "n": 1690,
+    "acierto": 0.8562,
+    "resto": 0.8525,
+    "dif_p5": [
+     0.0038,
+     -0.0162
+    ]
+   },
+   "B": {
+    "n": 1727,
+    "acierto": 0.8298,
+    "resto": 0.8539,
+    "dif_p5": [
+     -0.0243,
+     -0.045
+    ]
+   },
+   "pasa": false
+  },
+  "H3 H1 y H2": {
+   "A": {
+    "n": 656,
+    "acierto": 0.8659,
+    "resto": 0.8517,
+    "dif_p5": [
+     0.0137,
+     -0.0108
+    ]
+   },
+   "B": {
+    "n": 645,
+    "acierto": 0.8341,
+    "resto": 0.8443,
+    "dif_p5": [
+     -0.0107,
+     -0.0366
+    ]
+   },
+   "pasa": false
+  },
+  "H4 apostado arriba, rival en la mitad de abajo": {
+   "A": {
+    "n": 1505,
+    "acierto": 0.8545,
+    "resto": 0.8541,
+    "dif_p5": [
+     0.0002,
+     -0.0196
+    ]
+   },
+   "B": {
+    "n": 1639,
+    "acierto": 0.8591,
+    "resto": 0.8288,
+    "dif_p5": [
+     0.0303,
+     0.0105
+    ]
+   },
+   "pasa": false
+  },
+  "H5 el apostado mete ≥ 1,8 por partido en 5": {
+   "A": {
+    "n": 1663,
+    "acierto": 0.8677,
+    "resto": 0.8429,
+    "dif_p5": [
+     0.0245,
+     0.005
+    ]
+   },
+   "B": {
+    "n": 1737,
+    "acierto": 0.8457,
+    "resto": 0.8395,
+    "dif_p5": [
+     0.0067,
+     -0.0124
+    ]
+   },
+   "pasa": false
+  },
+  "H6 el rival recibe ≥ 1,8 por partido en 5": {
+   "A": {
+    "n": 1344,
+    "acierto": 0.8728,
+    "resto": 0.8434,
+    "dif_p5": [
+     0.0293,
+     0.0102
+    ]
+   },
+   "B": {
+    "n": 1436,
+    "acierto": 0.8461,
+    "resto": 0.8401,
+    "dif_p5": [
+     0.0058,
+     -0.0155
+    ]
+   },
+   "pasa": false
+  },
+  "H7 el apostado juega de local": {
+   "A": {
+    "n": 2819,
+    "acierto": 0.8531,
+    "resto": 0.858,
+    "dif_p5": [
+     -0.0048,
+     -0.0272
+    ]
+   },
+   "B": {
+    "n": 2863,
+    "acierto": 0.84,
+    "resto": 0.8514,
+    "dif_p5": [
+     -0.0115,
+     -0.034
+    ]
+   },
+   "pasa": false
+  }
+ }
+}

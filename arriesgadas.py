@@ -154,6 +154,24 @@ def patas_del_partido(pick: Dict) -> List[Dict]:
             if m:
                 out.append({'obj': obj, 'tipo': 'total', 'linea': m[0], 'prob': m[1],
                             'cuota': m[2], 'apuesta': '%s: Más de %g' % (rot, m[0])})
+        # v364 — AMBOS MARCAN (sí / no) con el Método Contexto. Medido
+        # (`_v364_btts.py`, 642 partidos con cuota de Playdoit desde el 24-ago):
+        # promete lo que acierta (55-65 % → 57-61 %); el «sí» al 55 %+ a cuota
+        # 1,45-3 acertó 62 / 58 % (−0,2 / −5,4 por cada 100: como las demás
+        # patas, sin ganancia demostrada). El «no» casi nunca llega (13 casos).
+        gl = (lados.get('local') or {}).get('goles')
+        gv = (lados.get('visitante') or {}).get('goles')
+        cu = tab.get('btts_cuotas') or {}
+        if gl is not None and gv is not None and cu:
+            p_si = (1 - math.exp(-float(gl))) * (1 - math.exp(-float(gv)))
+            hp = _f(tab.get('btts'))
+            for lado, p, c in (('Sí', p_si, _f(cu.get('si'))), ('No', 1 - p_si, _f(cu.get('no')))):
+                hpl = (hp if lado == 'Sí' else (1 - hp)) if hp is not None else None
+                if (c is None or not CUOTA_MIN_PATA <= c <= CUOTA_MAX_PATA or p < META_PATA
+                        or hpl is None or abs(p - hpl) > DIF_CASA_MAX):
+                    continue
+                out.append({'obj': 'btts', 'tipo': 'btts', 'linea': 1.0 if lado == 'Sí' else 0.0,
+                            'prob': p, 'cuota': c, 'apuesta': 'Ambos marcan: %s' % lado})
         for x in out:
             x.update({'icono': '🎲', 'partido': pick.get('partido'), 'inicio': pick.get('inicio'),
                       'fecha': pick.get('fecha'), 'clave_liga': pick.get('clave_liga'),
@@ -234,7 +252,7 @@ def registrar(pronosticos: List[Dict], ruta: str = FICHERO) -> int:
         filas = []
         for x in del_dia(pronosticos):
             h, a = _lados(x['partido'])
-            lado = ('total' if x['tipo'] == 'total' else
+            lado = ('total' if x['tipo'] in ('total', 'btts') else
                     'local' if (' %s:' % h) in x['apuesta'] else 'visita')
             filas.append({'dia': an._dia(x), 'partido': x['partido'], 'inicio': x['inicio'],
                           'apuesta': x['apuesta'], 'obj': x['obj'], 'tipo': x['tipo'],
@@ -280,6 +298,12 @@ def liquidar(ruta: str = FICHERO, maximo: int = 80) -> int:
                 d.loc[i, 'cumple'] = int(real > float(r.linea))
                 n += 1
                 continue
+            if str(r.obj) == 'btts':
+                ambos = float(p['goles_home']) > 0 and float(p['goles_away']) > 0
+                d.loc[i, 'real'] = 1.0 if ambos else 0.0
+                d.loc[i, 'cumple'] = int(ambos == (float(r.linea) == 1.0))
+                n += 1
+                continue
             k = str(r.partido) + '|' + str(r.dia)
             if k not in fichas:
                 st = p.get('stats_partido')
@@ -307,6 +331,34 @@ def liquidar(ruta: str = FICHERO, maximo: int = 80) -> int:
     except Exception as e:
         logger.warning('[arriesgadas] no se pudo liquidar: %s', e)
         return 0
+
+
+def finalizadas(dia: str, ruta: str = FICHERO) -> List[Dict]:
+    """v364 — las patas de `dia` ya liquidadas, para pintarlas en verde o en
+    rojo (con lo que pasó). Nunca lanza."""
+    try:
+        import pandas as pd
+        d = pd.read_csv(ruta)
+        d = d[(d.dia.astype(str) == str(dia)) & d.cumple.notna()]
+        out = []
+        for r in d.itertuples():
+            out.append({'icono': '🎲', 'partido': r.partido, 'inicio': r.inicio,
+                        'apuesta': r.apuesta, 'cuota': float(r.cuota), 'prob': float(r.prob),
+                        'casa': 'Playdoit', 'deporte': 'Fútbol',
+                        'resultado_c1': 'verde' if int(float(r.cumple)) else 'rojo',
+                        'marcador': 'fueron %g' % float(r.real)})
+        return sorted(out, key=lambda x: str(x.get('inicio') or ''))
+    except Exception:
+        return []
+
+
+def tasa(dias: int = 7, ruta: str = FICHERO) -> str:
+    """v364 — «📈 7 días 61 % (✅31 ❌20)», como las de la Capa 1."""
+    r = resumen(ruta, dias)
+    if not r:
+        return ''
+    return '📈 %d días %.0f %% (✅%d ❌%d)' % (dias, 100 * r['acierto'], r['verdes'],
+                                            r['n'] - r['verdes'])
 
 
 def resumen(ruta: str = FICHERO, dias: int = 14) -> Optional[Dict]:

@@ -8007,7 +8007,9 @@ def test_los_ordenes_de_la_lista():
 
     # v176 — SEIS: entra «Apuesta recomendada», que ordena por el
     # Score de la primera recomendada y pone los verdes delante.
-    check(len(mm.ORDENES) == 6, "hay seis criterios de orden (%d)"
+    # v364 — SIETE: entra «⭐ ELIGE primero».
+    check(len(mm.ORDENES) == 7 and '⭐ ELIGE primero' in mm.ORDENES,
+          "hay siete criterios de orden, con ⭐ ELIGE (%d)"
           % len(mm.ORDENES))
     for etq in ('Hora', 'Probabilidad del local',
                 'Probabilidad de más de 2.5',

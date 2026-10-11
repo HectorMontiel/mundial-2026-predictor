@@ -6935,34 +6935,36 @@ def render_alpha_finder():
             import arriesgadas as _ar
             import vista_compacta as _vc_ar
             _pats = solo_del_dia(_ar.del_dia(r.get('pronosticos') or []), _modo_dia)
-            if _pats:
+            # v364 — las de hoy ya jugadas, en verde o en rojo
+            _fin_ar = _ar.finalizadas(_dia_hoy_cdmx()) if _modo_dia == 'hoy' else []
+            if _pats or _fin_ar:
                 _bols = [(n_, _ar.boleto(_pats, n_)) for n_ in _ar.BOLETOS]
                 _bols = [(n_, b_) for n_, b_ in _bols if b_]
-                _rs_ar = _ar.resumen()
-                _rot_ar = ('🎲 Apuestas arriesgadas · %d patas (córners, tiros, goles)'
-                           % len(_pats))
-                if _bols:
-                    _rot_ar += ' · boleto de %d: %.0f %% a ×%.1f' % (
-                        _bols[-1][0], 100 * _bols[-1][1]['prob'], _bols[-1][1]['momio'])
+                _tasa_ar = _ar.tasa()
+                _v_ar = sum(1 for x in _fin_ar if x['resultado_c1'] == 'verde')
+                _rot_ar = '🎲 Apuestas arriesgadas · %d patas' % len(_pats)
+                if _fin_ar:
+                    _rot_ar += ' · %d ✅ %d ❌' % (_v_ar, len(_fin_ar) - _v_ar)
+                if _tasa_ar:
+                    _rot_ar += ' · ' + _tasa_ar
                 with st.expander(_rot_ar, expanded=False):
-                    st.caption('La escalera de Playdoit desde donde la abra: por equipo y total, la '
-                               'línea «más de» a cuota 1,45-3 que el Método Contexto ve al 55 %% o '
-                               'más (la que más rinde). Medido desde el 24-ago: acierta lo que '
-                               'promete y le saca 3-5 pts a la casa, sin ganancia demostrada. '
-                               'Combinadas: de 2 sale ~40 %%, de 3 ~26 %%, de 4 ~22 %%, de 6 ~9 %%. '
-                               'Sin tarjetas ni córners de equipo (prometían de más). '
-                               'Es riesgo: no es «se mete».%s'
-                               % ((' · 📈 14 días: %d de %d patas (%.0f %%)'
-                                   % (_rs_ar['verdes'], _rs_ar['n'], 100 * _rs_ar['acierto']))
-                                  if _rs_ar else ''))
+                    # v364 — poco texto: «con que me salgan qué apuestas»
+                    st.caption('Más riesgo y más cuota: cada pata acierta ~60 %. '
+                               'Córners, tiros, goles y ambos marcan.')
                     for _n_b, _b in _bols:
                         # v363 — sin «$»: Streamlit lo lee como fórmula
                         st.markdown('**🎟️ Boleto de %d** · sale **%.0f %%** de las veces · '
                                     'paga **×%.2f** (100 → %.0f)'
                                     % (_n_b, 100 * _b['prob'], _b['momio'], 100 * _b['momio']))
                         st.markdown(_vc_ar.html_lista(_b['patas']), unsafe_allow_html=True)
-                    st.markdown('**Todas las patas (%d), por hora**' % len(_pats))
-                    st.markdown(_vc_ar.html_lista(_pats), unsafe_allow_html=True)
+                    if _pats:
+                        st.markdown('**Todas las patas (%d), por hora**' % len(_pats))
+                        st.markdown(_vc_ar.html_lista(_pats), unsafe_allow_html=True)
+                    if _fin_ar:
+                        st.markdown('**Ya jugadas hoy (%d)** · %d ✅ %d ❌'
+                                    % (len(_fin_ar), _v_ar, len(_fin_ar) - _v_ar))
+                        st.markdown(_vc_ar.html_lista(_fin_ar, con_css=not _pats),
+                                    unsafe_allow_html=True)
         except Exception as _e_ar:
             logger.warning('[arriesgadas] omitidas: %s', _e_ar)
 

@@ -4557,14 +4557,20 @@ def metodo_contexto(pick: Dict, _ck=None, _tj=None) -> Dict:
             tot = lh + la
             # la suma de dos binomiales negativas, por momentos
             k_t = (tot ** 2) / max((lh ** 2 + la ** 2) / k, 1e-9) if k < 400 else 1e6
-            lin = None
-            for n in range(int(tot) + 1, -1, -1):
-                p = _te.prob_mas(tot, n + 0.5, k_t)
-                if p >= 0.70:
-                    lin = (n + 0.5, p)
-                    break
+            def _linea(mu, kk_):
+                for n in range(int(mu) + 1, -1, -1):
+                    p = _te.prob_mas(mu, n + 0.5, kk_)
+                    if p >= 0.70:
+                        return (n + 0.5, p)
+                return None
+            lin = _linea(tot, k_t)
+            # v364 — y la de cada equipo («algo como lo del contexto, que sí
+            # lo da por equipo»)
+            ll_, lv_ = _linea(lh, k if k < 400 else 1e6), _linea(la, k if k < 400 else 1e6)
             out[obj] = {'local': lh, 'visita': la, 'total': tot, 'metodo': metodo,
-                        'linea': lin[0] if lin else None, 'p': lin[1] if lin else None}
+                        'linea': lin[0] if lin else None, 'p': lin[1] if lin else None,
+                        'linea_l': ll_[0] if ll_ else None, 'p_l': ll_[1] if ll_ else None,
+                        'linea_v': lv_[0] if lv_ else None, 'p_v': lv_[1] if lv_ else None}
     except Exception as e:
         logger.debug('[modo_modelo] método contexto: %s', e)
     return out
@@ -4601,11 +4607,17 @@ def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
         if not x:
             continue
         asterisco = asterisco or not x['metodo']
+        def _txt(L):
+            return _num1(L) if L % 1 else '%g' % L
         if x.get('linea') is not None:
-            lin = _num1(x['linea']) if x['linea'] % 1 else '%g' % x['linea']
-            prob = 'más de %s<br><b>%.0f %%</b>' % (lin, 100 * x['p'])
+            prob = 'más de %s · <b>%.0f %%</b>' % (_txt(x['linea']), 100 * x['p'])
         else:
             prob = '—'
+        # v364 — la de cada equipo, debajo y más chica
+        for eq_, kl, kp in ((h, 'linea_l', 'p_l'), (a, 'linea_v', 'p_v')):
+            if x.get(kl) is not None:
+                prob += ('<br><span style="opacity:.75;font-size:.82em">%s +%s · %.0f %%</span>'
+                         % (_esc_mm(_corto(eq_)), _txt(x[kl]), 100 * x[kp]))
         r_ = res.get(obj) or {}
         if r_.get('cumple') is not None and r_.get('cumple') == r_.get('cumple'):
             prob += ' %s %g' % ('✅' if int(float(r_['cumple'])) else '❌', float(r_['real']))
@@ -4778,6 +4790,24 @@ def _k_destacada(p):
     return -((p.get('_destacada') or {}).get('prob') or -1)
 
 
+def _k_elige(p):
+    """v364 — «un filtro más, ordenar por las que tengan la estrellita de
+    elige»: primero los partidos con una ⭐, luego los que tienen «se mete»,
+    al final el resto; y dentro, por hora (los jugados al final)."""
+    nivel = 2
+    try:
+        import decisiones_dia as _dd
+        dep = str(p.get('deporte') or 'Fútbol')
+        mets = metidas(_dd.tarjeta_de_pick(p) or [])
+        if any(elige(r, dep) and not r.get('elite') for r in mets):
+            nivel = 0
+        elif mets:
+            nivel = 1
+    except Exception:
+        pass
+    return (1 if p.get('jugado') else 0, nivel, str(p.get('inicio') or '~'))
+
+
 def _k_recomendada(p):
     """
     v176 — LOS PARTIDOS CON MEJOR APUESTA, PRIMERO.
@@ -4810,6 +4840,7 @@ ORDENES = {
     'Probabilidad de más de 2.5': _k_over,
     'Probabilidad de ambos marcan': _k_btts,
     'Apuesta destacada': _k_destacada,
+    '⭐ ELIGE primero': _k_elige,                 # v364
 }
 
 
