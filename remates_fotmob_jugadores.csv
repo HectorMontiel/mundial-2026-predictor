@@ -15856,22 +15856,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186563,2026-07-26,china,Henan FC,Oliver Gerbig,1396632,D,0,14,0,0,0,0.0,,1.0,261493.0
 5186563,2026-07-26,china,Henan FC,Jiahui Liu,1248537,D,0,1,0,0,0,0.0,,1.0,348415.0
 5186563,2026-07-26,china,Henan FC,Abudulam Abdurasul,1378458,F,0,1,0,0,0,0.0,,3.0,
-5071240,2026-07-26,mls,Los Angeles FC,Hugo Lloris,26295,G,1,90,0,0,0,0.0,11.0,0.0,500745.0
-5071240,2026-07-26,mls,Los Angeles FC,Ryan Hollingshead,525623,D,1,78,0,0,0,0.0,32.0,1.0,266765.0
-5071240,2026-07-26,mls,Los Angeles FC,Ryan Porteous,770998,D,1,90,0,0,0,0.0,34.0,1.0,1542687.0
-5071240,2026-07-26,mls,Los Angeles FC,Aaron Long,525136,D,1,90,0,0,0,0.0,36.0,1.0,717524.0
-5071240,2026-07-26,mls,Los Angeles FC,Evgen Cheberko,769349,D,1,90,0,0,0,0.0,38.0,1.0,665964.0
-5071240,2026-07-26,mls,Los Angeles FC,Timothy Tillman,767793,M,1,46,0,0,0,0.0,73.0,2.0,1599712.0
-5071240,2026-07-26,mls,Los Angeles FC,Mathieu Choinière,943428,M,1,90,0,0,0,0.0,75.0,2.0,414779.0
-5071240,2026-07-26,mls,Los Angeles FC,Marco Delgado,388536,M,1,62,0,0,0,0.0,77.0,2.0,1223074.0
-5071240,2026-07-26,mls,Los Angeles FC,David Martínez,1354997,F,1,78,1,1,1,0.54,103.0,3.0,5196021.0
-5071240,2026-07-26,mls,Los Angeles FC,Heung-Min Son,212867,F,1,85,4,2,1,0.23,105.0,3.0,9330272.0
-5071240,2026-07-26,mls,Los Angeles FC,Denis Bouanga,664962,F,1,90,2,2,2,0.58,107.0,3.0,4458636.0
-5071240,2026-07-26,mls,Los Angeles FC,Eddie Segura,837974,D,0,45,1,0,0,0.02,,1.0,832464.0
-5071240,2026-07-26,mls,Los Angeles FC,Jude Terry,1710667,M,0,28,0,0,0,0.0,,2.0,807585.0
-5071240,2026-07-26,mls,Los Angeles FC,Ryan Raposo,1052761,D,0,12,0,0,0,0.0,,1.0,217341.0
-5071240,2026-07-26,mls,Los Angeles FC,Tyler Boyd,396757,F,0,12,0,0,0,0.0,,3.0,126526.0
-5071240,2026-07-26,mls,Los Angeles FC,Jeremy Ebobisse,792024,F,0,5,0,0,0,0.0,,3.0,646751.0
 5186561,2026-07-26,china,Yunnan Yukun,Zhifeng Wang,1026523,G,1,90,0,0,0,0.0,11.0,0.0,257398.0
 5186561,2026-07-26,china,Yunnan Yukun,Wang Kit Tsui,899192,D,1,80,0,0,0,0.0,32.0,1.0,255321.0
 5186561,2026-07-26,china,Yunnan Yukun,Ke Shi,432386,D,1,90,0,0,0,0.0,34.0,1.0,268605.0
@@ -41908,21 +41892,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853471,2026-08-17,rumania,UTA Arad,Marius Coman,861235,F,0,44,0,0,0,0.0,,3.0,458216.0
 5853471,2026-08-17,rumania,UTA Arad,Jayson Papeau,1079528,F,0,32,0,0,0,0.0,,3.0,106554.0
 5853471,2026-08-17,rumania,UTA Arad,Denis Taroi,1696236,F,0,15,0,0,0,0.0,,3.0,792872.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Yohei Takaoka,648356,G,1,90,0,0,0,0.0,11.0,0.0,1583351.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Édier Ocampo,1388146,D,1,90,1,1,0,0.22,32.0,1.0,2085434.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Mathías Laborda,1036108,D,1,90,1,0,0,0.03,34.0,1.0,1827509.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Ralph Priso-Mbongue,1082109,D,1,66,1,0,0,0.05,36.0,1.0,565333.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Tate Johnson,1368139,D,1,90,1,0,0,0.02,38.0,1.0,1941717.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Oliver Larraz,1246571,M,1,90,3,0,0,0.13,64.0,2.0,645582.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Andrés Cubas,529625,M,1,90,1,0,0,0.04,66.0,2.0,2100804.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Jeevan Badwal,1610145,F,1,18,0,0,0,0.0,83.0,3.0,1260924.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Thomas Müller,116772,M,1,90,5,4,1,0.34,85.0,2.0,2186435.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Cheikh Sabaly,950967,F,1,59,0,0,0,0.0,87.0,3.0,1950285.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Emmanuel Sabbi,848008,F,1,86,1,0,0,0.22,115.0,3.0,1515542.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Rayan Elloumi,1685596,F,0,72,4,1,1,0.86,,3.0,1489472.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Ryan Gauld,318605,M,0,31,0,0,0,0.0,,2.0,2134867.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Tristan Blackmon,925326,D,0,24,1,0,0,0.15,,1.0,1958686.0
-5071275,2026-08-17,mls,Vancouver Whitecaps,Nikola Djordjevic,1744404,D,0,3,0,0,0,0.0,,1.0,220794.0
 1000014531,2026-08-17,liga_mx,Santos Laguna,Carlos Acevedo,751164,G,1,90,0,0,0,0.0,11.0,0.0,1452547.0
 1000014531,2026-08-17,liga_mx,Santos Laguna,Franco Pardo,845263,D,1,90,0,0,0,0.0,33.0,1.0,1444113.0
 1000014531,2026-08-17,liga_mx,Santos Laguna,Felipe Sánchez,1436220,D,1,90,0,0,0,0.0,35.0,1.0,1241716.0
@@ -142069,3 +142038,65 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014593,2026-10-11,liga_mx,Chivas,Hugo Camberos,1603101,M,0,24,0,0,0,0.0,,2.0,
 1000014593,2026-10-11,liga_mx,Chivas,Kevin Castañeda,951049,M,0,24,0,0,0,0.0,,2.0,5788846.0
 1000014593,2026-10-11,liga_mx,Chivas,Efraín Álvarez,927365,F,0,1,0,0,0,0.0,,3.0,9145206.0
+1000014594,2026-10-11,liga_mx,CF América,Luis Malagón,724529,G,1,90,0,0,0,0.0,11.0,0.0,2214148.0
+1000014594,2026-10-11,liga_mx,CF América,Dagoberto Espinoza,1576897,D,1,90,0,0,0,0.0,32.0,1.0,1970905.0
+1000014594,2026-10-11,liga_mx,CF América,Santiago Bueno,848034,D,1,90,1,1,1,0.6,34.0,1.0,10224392.0
+1000014594,2026-10-11,liga_mx,CF América,Santiago Ramos,1073724,D,1,90,0,0,0,0.0,36.0,1.0,14210947.0
+1000014594,2026-10-11,liga_mx,CF América,Cristián Borja,683964,D,1,74,0,0,0,0.0,38.0,1.0,981999.0
+1000014594,2026-10-11,liga_mx,CF América,Erick Sánchez,772320,M,1,90,0,0,0,0.0,64.0,2.0,5760258.0
+1000014594,2026-10-11,liga_mx,CF América,Israel Reyes,1074586,M,1,57,0,0,0,0.0,66.0,2.0,7032353.0
+1000014594,2026-10-11,liga_mx,CF América,Alex Zendejas,621882,F,1,66,1,1,0,0.01,83.0,3.0,5211651.0
+1000014594,2026-10-11,liga_mx,CF América,Raphael Veiga,750740,M,1,57,2,1,0,0.11,85.0,2.0,4833800.0
+1000014594,2026-10-11,liga_mx,CF América,Brian Rodríguez,941660,F,1,90,5,4,0,0.31,87.0,3.0,8970326.0
+1000014594,2026-10-11,liga_mx,CF América,Henry Martín,558452,F,1,74,1,1,0,0.07,115.0,3.0,1317329.0
+1000014594,2026-10-11,liga_mx,CF América,Edwin Cerrillo,1026051,M,0,33,0,0,0,0.0,,2.0,2029124.0
+1000014594,2026-10-11,liga_mx,CF América,Miguel Borja,281995,F,0,30,2,0,0,0.1,,3.0,1031315.0
+1000014594,2026-10-11,liga_mx,CF América,Carlos Álvarez,1209980,M,0,24,1,0,0,0.01,,2.0,15221906.0
+1000014594,2026-10-11,liga_mx,CF América,Kevin Álvarez,924737,D,0,16,0,0,0,0.0,,1.0,1555226.0
+1000014594,2026-10-11,liga_mx,CF América,Óscar Perea,1433034,F,0,16,1,0,0,0.02,,3.0,2046713.0
+1000014594,2026-10-11,liga_mx,Monterrey,Esteban Andrada,184662,G,1,90,0,0,0,0.0,11.0,0.0,405311.0
+1000014594,2026-10-11,liga_mx,Monterrey,Ricardo Chávez,659597,D,1,59,1,0,0,0.02,32.0,1.0,1608454.0
+1000014594,2026-10-11,liga_mx,Monterrey,Víctor Guzmán,1128493,D,1,90,0,0,0,0.0,34.0,1.0,5586792.0
+1000014594,2026-10-11,liga_mx,Monterrey,Carlos Salcedo,431992,D,1,90,0,0,0,0.0,36.0,1.0,1099954.0
+1000014594,2026-10-11,liga_mx,Monterrey,Gerardo Arteaga,797924,D,1,90,0,0,0,0.0,38.0,1.0,1912592.0
+1000014594,2026-10-11,liga_mx,Monterrey,César Garza,1572849,M,1,67,0,0,0,0.0,65.0,2.0,
+1000014594,2026-10-11,liga_mx,Monterrey,Diego Rossi,743534,F,1,88,1,1,1,0.17,82.0,3.0,6893957.0
+1000014594,2026-10-11,liga_mx,Monterrey,Óliver Torres,316771,M,1,59,1,0,0,0.01,84.0,2.0,1773068.0
+1000014594,2026-10-11,liga_mx,Monterrey,Orbelín Pineda,559986,M,1,90,2,0,0,0.05,86.0,2.0,3759855.0
+1000014594,2026-10-11,liga_mx,Monterrey,Jesús Corona,210956,F,1,68,1,0,0,0.02,88.0,3.0,1023794.0
+1000014594,2026-10-11,liga_mx,Monterrey,Hugo Cuypers,737974,F,1,90,1,1,0,0.1,115.0,3.0,9728664.0
+1000014594,2026-10-11,liga_mx,Monterrey,Lucas Ocampos,357080,M,0,31,0,0,0,0.0,,2.0,1936897.0
+1000014594,2026-10-11,liga_mx,Monterrey,Érick Aguirre,564634,M,0,31,0,0,0,0.0,,2.0,1160602.0
+1000014594,2026-10-11,liga_mx,Monterrey,Fidel Ambríz,1110661,M,0,23,0,0,0,0.0,,2.0,5171990.0
+1000014594,2026-10-11,liga_mx,Monterrey,Cristian Reyes,1603859,M,0,22,0,0,0,0.0,,2.0,
+1000014594,2026-10-11,liga_mx,Monterrey,Iker Fimbres,1513010,M,0,2,0,0,0,0.0,,2.0,4126505.0
+5071408,2026-10-11,mls,Los Angeles FC,Hugo Lloris,26295,G,1,90,0,0,0,0.0,11.0,0.0,505891.0
+5071408,2026-10-11,mls,Los Angeles FC,Sergi Palencia,627490,D,1,82,0,0,0,0.0,32.0,1.0,1462981.0
+5071408,2026-10-11,mls,Los Angeles FC,Ryan Porteous,770998,D,1,90,0,0,0,0.0,34.0,1.0,1512960.0
+5071408,2026-10-11,mls,Los Angeles FC,Eddie Segura,837974,D,1,90,0,0,0,0.0,36.0,1.0,1019857.0
+5071408,2026-10-11,mls,Los Angeles FC,Evgen Cheberko,769349,D,1,90,0,0,0,0.0,38.0,1.0,482755.0
+5071408,2026-10-11,mls,Los Angeles FC,Sergio Vasquez,1741921,M,1,82,0,0,0,0.0,64.0,2.0,
+5071408,2026-10-11,mls,Los Angeles FC,Mathieu Choinière,943428,M,1,45,1,0,0,0.07,66.0,2.0,560788.0
+5071408,2026-10-11,mls,Los Angeles FC,Armindo Sieb,1191741,F,1,86,5,1,0,0.25,83.0,3.0,2144131.0
+5071408,2026-10-11,mls,Los Angeles FC,Heung-Min Son,212867,F,1,90,2,2,0,0.49,85.0,3.0,8559396.0
+5071408,2026-10-11,mls,Los Angeles FC,Jacob Shaffelburg,1023943,F,1,63,1,0,0,0.03,87.0,3.0,1279542.0
+5071408,2026-10-11,mls,Los Angeles FC,Denis Bouanga,664962,F,1,90,1,1,1,0.23,115.0,3.0,5290997.0
+5071408,2026-10-11,mls,Los Angeles FC,Igor Jesus,1380816,M,0,44,0,0,0,0.0,,2.0,2017075.0
+5071408,2026-10-11,mls,Los Angeles FC,Leo Walta,1276686,M,0,27,1,0,0,0.02,,2.0,2157350.0
+5071408,2026-10-11,mls,Los Angeles FC,Ryan Hollingshead,525623,D,0,8,1,0,0,0.05,,1.0,217152.0
+5071408,2026-10-11,mls,Los Angeles FC,Marco Delgado,388536,M,0,8,0,0,0,0.0,,2.0,1454261.0
+5071408,2026-10-11,mls,Los Angeles FC,Thayllon,1738398,F,0,4,0,0,0,0.0,,3.0,1507691.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Yohei Takaoka,648356,G,1,90,0,0,0,0.0,11.0,0.0,1639536.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Édier Ocampo,1388146,D,1,90,2,0,0,0.07,32.0,1.0,4247380.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Tristan Blackmon,925326,D,1,90,0,0,0,0.0,34.0,1.0,1980736.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Ralph Priso-Mbongue,1082109,D,1,90,0,0,0,0.0,36.0,1.0,537482.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Tate Johnson,1368139,D,1,90,0,0,0,0.0,38.0,1.0,2243549.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Andrés Cubas,529625,M,1,90,1,0,0,0.11,64.0,2.0,2235174.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Oliver Larraz,1246571,M,1,89,2,2,1,0.24,66.0,2.0,596031.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Emmanuel Sabbi,848008,F,1,10,0,0,0,0.0,83.0,3.0,1534326.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Ryan Gauld,318605,M,1,90,0,0,0,0.0,85.0,2.0,1973956.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Yadaly Diaby,1317338,F,1,74,1,0,0,0.02,87.0,3.0,812558.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Brian White,933760,F,1,90,3,1,0,0.56,115.0,3.0,3946606.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Mathías Laborda,1036108,D,0,80,0,0,0,0.0,,1.0,1936749.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Bruno Caicedo,1691091,F,0,16,0,0,0,0.0,,3.0,1496514.0
+5071408,2026-10-11,mls,Vancouver Whitecaps,Ranko Veselinović,940774,D,0,1,0,0,0,0.0,,1.0,1388402.0
