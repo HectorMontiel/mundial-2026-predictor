@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-11T04:42:42Z",
+"actualizado": "2026-10-11T09:30:28Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3776,6 +3776,16 @@
 "dia": "2026-10-10",
 "nivel": "💰",
 "deporte": "MLB",
+"partido": "KIA Tigers vs Lotte Giants",
+"apuesta": "Gana KIA Tigers",
+"cuota": 1.55,
+"resultado": "rojo",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "MLB",
 "partido": "KIA Tigers vs SSG Landers",
 "apuesta": "Gana KIA Tigers",
 "cuota": 1.48,
@@ -4230,6 +4240,16 @@
 "apuesta": "Gana Zielona Gora",
 "cuota": 1.97,
 "resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Verdy vs Sanfrecce Hiroshima",
+"apuesta": "Sanfrecce Hiroshima o empate",
+"cuota": 1.111,
+"resultado": "verde",
 "marcador": "0-2"
 }
 ]
