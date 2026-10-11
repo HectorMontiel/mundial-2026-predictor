@@ -67,8 +67,8 @@
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club A. Guemes",
-    "ratio": 0.48,
+    "candidato": "Club Milano",
+    "ratio": 0.5217,
     "visto": "2026-10-11"
   },
   "Cruz Azul": {
@@ -271,8 +271,8 @@
   },
   "Union St.-Gilloise": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union La Calera",
-    "ratio": 0.5625,
+    "candidato": "Union Clodiense",
+    "ratio": 0.6875,
     "visto": "2026-10-11"
   },
   "Universidad Católica (Quito)": {
@@ -593,7 +593,7 @@
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Miguel",
+    "candidato": "San Donato",
     "ratio": 0.6316,
     "visto": "2026-10-11"
   },
@@ -1481,9 +1481,9 @@
   },
   "Hertha Berlin": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Hertha Wiesbach",
-    "ratio": 0.5714,
-    "visto": "2026-10-10"
+    "candidato": "Union Berlin U19",
+    "ratio": 0.4828,
+    "visto": "2026-10-11"
   },
   "Sport Boys": {
     "contexto": "cuotas_mx→futbol",
@@ -1499,8 +1499,8 @@
   },
   "AD San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin S.J.",
-    "ratio": 0.5185,
+    "candidato": "San Donato",
+    "ratio": 0.5217,
     "visto": "2026-10-11"
   },
   "Nacional Potosí": {
@@ -1547,8 +1547,8 @@
   },
   "Standard Liege": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "St. Liege",
-    "ratio": 0.7273,
+    "candidato": "St. Liege U23",
+    "ratio": 0.6154,
     "visto": "2026-10-11"
   },
   "Churchill Brothers": {
@@ -1885,7 +1885,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Bochum U19",
     "ratio": 0.6,
-    "visto": "2026-10-10"
+    "visto": "2026-10-11"
   },
   "Slovan Bratislava": {
     "contexto": "cuotas_mx→futbol",
@@ -1903,6 +1903,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sarmiento de La Banda",
     "ratio": 0.6111,
+    "visto": "2026-10-11"
+  },
+  "Royal Charleroi SC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Royal Union SG 2",
+    "ratio": 0.4516,
     "visto": "2026-10-11"
   }
 }
