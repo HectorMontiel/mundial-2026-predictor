@@ -584,6 +584,14 @@ def main() -> int:
                     analisis_seguimiento.liquidar())
     except Exception as e:
         logger.warning('[precalculo] seguimiento del análisis: %s', e)
+    # v362 — y las patas de «🎲 apuestas arriesgadas» (`arriesgadas`)
+    try:
+        import arriesgadas
+        logger.info('arriesgadas: %d patas apuntadas, %d liquidadas',
+                    arriesgadas.registrar(datos.get('pronosticos') or []),
+                    arriesgadas.liquidar())
+    except Exception as e:
+        logger.warning('[precalculo] arriesgadas: %s', e)
     try:
         import decisiones_dia
         if not decisiones_dia.anadir(a.salida):

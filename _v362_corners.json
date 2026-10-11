@@ -1,0 +1,509 @@
+{
+ "k": 20.8,
+ "corte": "2025-06-15",
+ "mitad": "2026-01-31",
+ "equipo": {
+  "3.5": {
+   "todos": {
+    "A": {
+     "n": 8778,
+     "acierta": 0.6535
+    },
+    "B": {
+     "n": 8964,
+     "acierta": 0.6616
+    }
+   },
+   "A3 genera mucho y el rival concede mucho": {
+    "A": {
+     "n": 924,
+     "acierta": 0.7435
+    },
+    "B": {
+     "n": 970,
+     "acierta": 0.7825
+    }
+   },
+   "A4 A3 y de local": {
+    "A": {
+     "n": 427,
+     "acierta": 0.7799
+    },
+    "B": {
+     "n": 459,
+     "acierta": 0.817
+    }
+   },
+   "M método ≥ 75 %": {
+    "A": {
+     "n": 2607,
+     "acierta": 0.7886
+    },
+    "B": {
+     "n": 2845,
+     "acierta": 0.7996
+    }
+   },
+   "M método ≥ 80 %": {
+    "A": {
+     "n": 1324,
+     "acierta": 0.8301
+    },
+    "B": {
+     "n": 1487,
+     "acierta": 0.8433
+    }
+   },
+   "A3 y método ≥ 75 %": {
+    "A": {
+     "n": 591,
+     "acierta": 0.797
+    },
+    "B": {
+     "n": 668,
+     "acierta": 0.8204
+    }
+   }
+  },
+  "4.5": {
+   "todos": {
+    "A": {
+     "n": 8778,
+     "acierta": 0.504
+    },
+    "B": {
+     "n": 8964,
+     "acierta": 0.5158
+    }
+   },
+   "A3 genera mucho y el rival concede mucho": {
+    "A": {
+     "n": 924,
+     "acierta": 0.6255
+    },
+    "B": {
+     "n": 970,
+     "acierta": 0.6309
+    }
+   },
+   "A4 A3 y de local": {
+    "A": {
+     "n": 427,
+     "acierta": 0.6674
+    },
+    "B": {
+     "n": 459,
+     "acierta": 0.7059
+    }
+   },
+   "M método ≥ 75 %": {
+    "A": {
+     "n": 400,
+     "acierta": 0.77
+    },
+    "B": {
+     "n": 414,
+     "acierta": 0.7899
+    }
+   },
+   "M método ≥ 80 %": {
+    "A": {
+     "n": 152,
+     "acierta": 0.8158
+    },
+    "B": {
+     "n": 149,
+     "acierta": 0.8456
+    }
+   },
+   "A3 y método ≥ 75 %": {
+    "A": {
+     "n": 180,
+     "acierta": 0.7667
+    },
+    "B": {
+     "n": 190,
+     "acierta": 0.7684
+    }
+   }
+  },
+  "5.5": {
+   "todos": {
+    "A": {
+     "n": 8778,
+     "acierta": 0.3664
+    },
+    "B": {
+     "n": 8964,
+     "acierta": 0.3832
+    }
+   },
+   "A3 genera mucho y el rival concede mucho": {
+    "A": {
+     "n": 924,
+     "acierta": 0.4827
+    },
+    "B": {
+     "n": 970,
+     "acierta": 0.5175
+    }
+   },
+   "A4 A3 y de local": {
+    "A": {
+     "n": 427,
+     "acierta": 0.5363
+    },
+    "B": {
+     "n": 459,
+     "acierta": 0.5904
+    }
+   },
+   "M método ≥ 75 %": {
+    "A": {
+     "n": 49,
+     "acierta": 0.7959
+    },
+    "B": {
+     "n": 38,
+     "acierta": 0.8158
+    }
+   },
+   "M método ≥ 80 %": {
+    "A": {
+     "n": 17,
+     "acierta": 0.8235
+    },
+    "B": {
+     "n": 9,
+     "acierta": 0.7778
+    }
+   },
+   "A3 y método ≥ 75 %": {
+    "A": {
+     "n": 34,
+     "acierta": 0.7647
+    },
+    "B": {
+     "n": 25,
+     "acierta": 0.76
+    }
+   }
+  }
+ },
+ "total": {
+  "7.5": {
+   "todos": {
+    "A": {
+     "n": 4389,
+     "acierta": 0.7314
+    },
+    "B": {
+     "n": 4482,
+     "acierta": 0.7541
+    }
+   },
+   "A1 los dos de córners altos": {
+    "A": {
+     "n": 7,
+     "acierta": 0.8571
+    },
+    "B": {
+     "n": 15,
+     "acierta": 0.8667
+    }
+   },
+   "A2 A1 y partido grande": {
+    "A": {
+     "n": 2,
+     "acierta": 0.5
+    },
+    "B": {
+     "n": 4,
+     "acierta": 1.0
+    }
+   },
+   "M método ≥ 75 %": {
+    "A": {
+     "n": 1651,
+     "acierta": 0.7656
+    },
+    "B": {
+     "n": 1917,
+     "acierta": 0.7893
+    }
+   },
+   "M método ≥ 80 %": {
+    "A": {
+     "n": 282,
+     "acierta": 0.7695
+    },
+    "B": {
+     "n": 413,
+     "acierta": 0.8232
+    }
+   },
+   "A1 y método ≥ 75 %": {
+    "A": {
+     "n": 4,
+     "acierta": 1.0
+    },
+    "B": {
+     "n": 14,
+     "acierta": 0.8571
+    }
+   }
+  },
+  "8.5": {
+   "todos": {
+    "A": {
+     "n": 4389,
+     "acierta": 0.6252
+    },
+    "B": {
+     "n": 4482,
+     "acierta": 0.6455
+    }
+   },
+   "A1 los dos de córners altos": {
+    "A": {
+     "n": 7,
+     "acierta": 0.8571
+    },
+    "B": {
+     "n": 15,
+     "acierta": 0.8667
+    }
+   },
+   "A2 A1 y partido grande": {
+    "A": {
+     "n": 2,
+     "acierta": 0.5
+    },
+    "B": {
+     "n": 4,
+     "acierta": 1.0
+    }
+   },
+   "M método ≥ 75 %": {
+    "A": {
+     "n": 39,
+     "acierta": 0.5385
+    },
+    "B": {
+     "n": 72,
+     "acierta": 0.7778
+    }
+   },
+   "M método ≥ 80 %": {
+    "A": {
+     "n": 1,
+     "acierta": 0.0
+    },
+    "B": {
+     "n": 3,
+     "acierta": 0.3333
+    }
+   },
+   "A1 y método ≥ 75 %": {
+    "A": {
+     "n": 0,
+     "acierta": null
+    },
+    "B": {
+     "n": 1,
+     "acierta": 1.0
+    }
+   }
+  },
+  "9.5": {
+   "todos": {
+    "A": {
+     "n": 4389,
+     "acierta": 0.5079
+    },
+    "B": {
+     "n": 4482,
+     "acierta": 0.5344
+    }
+   },
+   "A1 los dos de córners altos": {
+    "A": {
+     "n": 7,
+     "acierta": 0.8571
+    },
+    "B": {
+     "n": 15,
+     "acierta": 0.6667
+    }
+   },
+   "A2 A1 y partido grande": {
+    "A": {
+     "n": 2,
+     "acierta": 0.5
+    },
+    "B": {
+     "n": 4,
+     "acierta": 1.0
+    }
+   },
+   "M método ≥ 75 %": {
+    "A": {
+     "n": 0,
+     "acierta": null
+    },
+    "B": {
+     "n": 0,
+     "acierta": null
+    }
+   },
+   "M método ≥ 80 %": {
+    "A": {
+     "n": 0,
+     "acierta": null
+    },
+    "B": {
+     "n": 0,
+     "acierta": null
+    }
+   },
+   "A1 y método ≥ 75 %": {
+    "A": {
+     "n": 0,
+     "acierta": null
+    },
+    "B": {
+     "n": 0,
+     "acierta": null
+    }
+   }
+  },
+  "10.5": {
+   "todos": {
+    "A": {
+     "n": 4389,
+     "acierta": 0.3983
+    },
+    "B": {
+     "n": 4482,
+     "acierta": 0.4152
+    }
+   },
+   "A1 los dos de córners altos": {
+    "A": {
+     "n": 7,
+     "acierta": 0.7143
+    },
+    "B": {
+     "n": 15,
+     "acierta": 0.6
+    }
+   },
+   "A2 A1 y partido grande": {
+    "A": {
+     "n": 2,
+     "acierta": 0.5
+    },
+    "B": {
+     "n": 4,
+     "acierta": 0.75
+    }
+   },
+   "M método ≥ 75 %": {
+    "A": {
+     "n": 0,
+     "acierta": null
+    },
+    "B": {
+     "n": 0,
+     "acierta": null
+    }
+   },
+   "M método ≥ 80 %": {
+    "A": {
+     "n": 0,
+     "acierta": null
+    },
+    "B": {
+     "n": 0,
+     "acierta": null
+    }
+   },
+   "A1 y método ≥ 75 %": {
+    "A": {
+     "n": 0,
+     "acierta": null
+    },
+    "B": {
+     "n": 0,
+     "acierta": null
+    }
+   }
+  }
+ },
+ "combinada": {
+  "3": {
+   "A": {
+    "dias": 142,
+    "entera": 0.5915,
+    "promete": 0.5712,
+    "patas": 0.8263,
+    "momio_justo": 1.75
+   },
+   "B": {
+    "dias": 148,
+    "entera": 0.5878,
+    "promete": 0.5722,
+    "patas": 0.8378,
+    "momio_justo": 1.75
+   }
+  },
+  "4": {
+   "A": {
+    "dias": 132,
+    "entera": 0.5,
+    "promete": 0.4682,
+    "patas": 0.8295,
+    "momio_justo": 2.14
+   },
+   "B": {
+    "dias": 131,
+    "entera": 0.5344,
+    "promete": 0.476,
+    "patas": 0.8531,
+    "momio_justo": 2.1
+   }
+  },
+  "5": {
+   "A": {
+    "dias": 121,
+    "entera": 0.438,
+    "promete": 0.3842,
+    "patas": 0.8413,
+    "momio_justo": 2.6
+   },
+   "B": {
+    "dias": 122,
+    "entera": 0.459,
+    "promete": 0.3922,
+    "patas": 0.8426,
+    "momio_justo": 2.55
+   }
+  },
+  "6": {
+   "A": {
+    "dias": 111,
+    "entera": 0.3694,
+    "promete": 0.3161,
+    "patas": 0.8303,
+    "momio_justo": 3.16
+   },
+   "B": {
+    "dias": 118,
+    "entera": 0.3898,
+    "promete": 0.3196,
+    "patas": 0.8404,
+    "momio_justo": 3.13
+   }
+  }
+ }
+}

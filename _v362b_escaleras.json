@@ -1,0 +1,329 @@
+{
+ "corte": "2026-09-12",
+ "lineas": 12820,
+ "partidos": 642,
+ "calibracion": [
+  {
+   "banda": "(0.0, 0.4]",
+   "n": 2102,
+   "promete": 0.33,
+   "casa": 0.389,
+   "acierta": 0.377
+  },
+  {
+   "banda": "(0.4, 0.5]",
+   "n": 2260,
+   "promete": 0.451,
+   "casa": 0.467,
+   "acierta": 0.487
+  },
+  {
+   "banda": "(0.5, 0.55]",
+   "n": 1198,
+   "promete": 0.525,
+   "casa": 0.515,
+   "acierta": 0.562
+  },
+  {
+   "banda": "(0.55, 0.6]",
+   "n": 975,
+   "promete": 0.574,
+   "casa": 0.54,
+   "acierta": 0.576
+  },
+  {
+   "banda": "(0.6, 0.65]",
+   "n": 672,
+   "promete": 0.622,
+   "casa": 0.565,
+   "acierta": 0.613
+  },
+  {
+   "banda": "(0.65, 0.7]",
+   "n": 347,
+   "promete": 0.671,
+   "casa": 0.579,
+   "acierta": 0.646
+  },
+  {
+   "banda": "(0.7, 1.0]",
+   "n": 121,
+   "promete": 0.726,
+   "casa": 0.587,
+   "acierta": 0.678
+  }
+ ],
+ "top_elige": [
+  {
+   "obj": "tiros",
+   "pmin": 0.5,
+   "edge": 0.03,
+   "n": 131,
+   "partidos": 90,
+   "acierto": 0.618,
+   "promete": 0.609,
+   "casa": 0.515,
+   "cuota": 1.781,
+   "roi": 0.0967,
+   "p5": -0.0546
+  },
+  {
+   "obj": "a_puerta",
+   "pmin": 0.45,
+   "edge": 0.0,
+   "n": 157,
+   "partidos": 101,
+   "acierto": 0.611,
+   "promete": 0.593,
+   "casa": 0.528,
+   "cuota": 1.744,
+   "roi": 0.0704,
+   "p5": -0.068
+  },
+  {
+   "obj": "todos",
+   "pmin": 0.6,
+   "edge": 0.12,
+   "n": 85,
+   "partidos": 53,
+   "acierto": 0.635,
+   "promete": 0.68,
+   "casa": 0.53,
+   "cuota": 1.733,
+   "roi": 0.095,
+   "p5": -0.0725
+  },
+  {
+   "obj": "todos",
+   "pmin": 0.5,
+   "edge": 0.08,
+   "n": 215,
+   "partidos": 116,
+   "acierto": 0.577,
+   "promete": 0.627,
+   "casa": 0.506,
+   "cuota": 1.834,
+   "roi": 0.0485,
+   "p5": -0.0741
+  },
+  {
+   "obj": "tiros",
+   "pmin": 0.55,
+   "edge": 0.03,
+   "n": 117,
+   "partidos": 81,
+   "acierto": 0.615,
+   "promete": 0.622,
+   "casa": 0.523,
+   "cuota": 1.752,
+   "roi": 0.0692,
+   "p5": -0.0799
+  },
+  {
+   "obj": "a_puerta",
+   "pmin": 0.45,
+   "edge": 0.03,
+   "n": 117,
+   "partidos": 83,
+   "acierto": 0.607,
+   "promete": 0.606,
+   "casa": 0.525,
+   "cuota": 1.755,
+   "roi": 0.0732,
+   "p5": -0.0799
+  },
+  {
+   "obj": "tiros",
+   "pmin": 0.45,
+   "edge": 0.03,
+   "n": 131,
+   "partidos": 90,
+   "acierto": 0.603,
+   "promete": 0.607,
+   "casa": 0.513,
+   "cuota": 1.79,
+   "roi": 0.0711,
+   "p5": -0.0802
+  },
+  {
+   "obj": "todos",
+   "pmin": 0.5,
+   "edge": 0.05,
+   "n": 368,
+   "partidos": 158,
+   "acierto": 0.562,
+   "promete": 0.611,
+   "casa": 0.514,
+   "cuota": 1.804,
+   "roi": 0.0126,
+   "p5": -0.0847
+  }
+ ],
+ "regla": {
+  "obj": "tiros",
+  "pmin": 0.5,
+  "edge": 0.03,
+  "elige": {
+   "n": 131,
+   "partidos": 90,
+   "acierto": 0.618,
+   "promete": 0.609,
+   "casa": 0.515,
+   "cuota": 1.781,
+   "roi": 0.0967,
+   "p5": -0.0546
+  },
+  "juzga": {
+   "n": 176,
+   "partidos": 121,
+   "acierto": 0.602,
+   "promete": 0.615,
+   "casa": 0.523,
+   "cuota": 1.758,
+   "roi": 0.0513,
+   "p5": -0.0685
+  },
+  "todo": {
+   "n": 307,
+   "partidos": 211,
+   "acierto": 0.609,
+   "promete": 0.612,
+   "casa": 0.52,
+   "cuota": 1.768,
+   "roi": 0.0707,
+   "p5": -0.0196
+  }
+ },
+ "simple_55": {
+  "elige": {
+   "n": 677,
+   "partidos": 246,
+   "acierto": 0.581,
+   "promete": 0.609,
+   "casa": 0.557,
+   "cuota": 1.661,
+   "roi": -0.0413,
+   "p5": -0.1109
+  },
+  "juzga": {
+   "n": 999,
+   "partidos": 333,
+   "acierto": 0.601,
+   "promete": 0.613,
+   "casa": 0.557,
+   "cuota": 1.662,
+   "roi": -0.0041,
+   "p5": -0.0588
+  }
+ },
+ "simple_60": {
+  "elige": {
+   "n": 380,
+   "partidos": 187,
+   "acierto": 0.597,
+   "promete": 0.647,
+   "casa": 0.572,
+   "cuota": 1.616,
+   "roi": -0.0394,
+   "p5": -0.121
+  },
+  "juzga": {
+   "n": 621,
+   "partidos": 267,
+   "acierto": 0.641,
+   "promete": 0.646,
+   "casa": 0.572,
+   "cuota": 1.616,
+   "roi": 0.0335,
+   "p5": -0.0301
+  }
+ },
+ "simple_65": {
+  "elige": {
+   "n": 165,
+   "partidos": 110,
+   "acierto": 0.618,
+   "promete": 0.688,
+   "casa": 0.584,
+   "cuota": 1.579,
+   "roi": -0.0244,
+   "p5": -0.1438
+  },
+  "juzga": {
+   "n": 267,
+   "partidos": 161,
+   "acierto": 0.67,
+   "promete": 0.682,
+   "casa": 0.581,
+   "cuota": 1.587,
+   "roi": 0.0595,
+   "p5": -0.0282
+  }
+ },
+ "combinada": {
+  "2": {
+   "elige": {
+    "dias": 14,
+    "entera": 0.429,
+    "promete": 0.43,
+    "momio": 3.49,
+    "roi": 0.462
+   },
+   "juzga": {
+    "dias": 17,
+    "entera": 0.353,
+    "promete": 0.43,
+    "momio": 3.45,
+    "roi": 0.169
+   }
+  },
+  "3": {
+   "elige": {
+    "dias": 14,
+    "entera": 0.143,
+    "promete": 0.264,
+    "momio": 6.8,
+    "roi": -0.073
+   },
+   "juzga": {
+    "dias": 16,
+    "entera": 0.25,
+    "promete": 0.271,
+    "momio": 6.41,
+    "roi": 0.264
+   }
+  },
+  "4": {
+   "elige": {
+    "dias": 14,
+    "entera": 0.071,
+    "promete": 0.169,
+    "momio": 11.88,
+    "roi": -0.268
+   },
+   "juzga": {
+    "dias": 13,
+    "entera": 0.154,
+    "promete": 0.167,
+    "momio": 12.71,
+    "roi": 0.272
+   }
+  },
+  "5": {
+   "elige": {
+    "dias": 11,
+    "entera": 0.0,
+    "promete": 0.112,
+    "momio": 21.93,
+    "roi": -1.0
+   },
+   "juzga": {
+    "dias": 10,
+    "entera": 0.1,
+    "promete": 0.1,
+    "momio": 25.79,
+    "roi": 0.457
+   }
+  }
+ }
+}
