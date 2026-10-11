@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-11T09:30:28Z",
+"actualizado": "2026-10-11T10:59:56Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -4244,6 +4244,46 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Dalian Yingbo B vs Hubei Istar",
+"apuesta": "Gana Dalian Yingbo B",
+"cuota": 1.84,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Havirov vs Sigma Olomouc B",
+"apuesta": "Gana Sigma Olomouc B",
+"cuota": 1.5556,
+"resultado": "rojo",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Slovacko B vs Hlubina",
+"apuesta": "Gana Slovacko B",
+"cuota": 1.66,
+"resultado": "verde",
+"marcador": "5-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sparta Prague B vs Dukla Prague B",
+"apuesta": "Gana Sparta Prague B",
+"cuota": 1.22,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-11",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Verdy vs Sanfrecce Hiroshima",
@@ -4251,6 +4291,16 @@
 "cuota": 1.111,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Zlin B vs SK Hranice",
+"apuesta": "Gana SK Hranice",
+"cuota": 3.4,
+"resultado": "verde",
+"marcador": "0-1"
 }
 ]
 }
