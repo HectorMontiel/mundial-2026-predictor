@@ -3505,11 +3505,22 @@ def acierta_de_verdad(r: Dict, deporte: str = 'Fútbol') -> Optional[float]:
     return ACIERTA_ELIGE if elige(r, deporte) else ACIERTA_RESTO
 
 
+_MEMO_LISTA: Dict = {}
+
+
 def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
     """v360 — Las «se mete» de los partidos que aún no empiezan, de la que más
     se cumple (medido) a la que menos, para la lista bajo el marcador. Usa lo
-    que el precálculo ya dejó en cada partido (no recalcula). Nunca lanza."""
+    que el precálculo ya dejó en cada partido (no recalcula). Nunca lanza.
+    v363 — recordada 5 minutos por lista (la pantalla se repinta a cada clic)."""
     import time as _t
+    if ahora is None:
+        k = (id(pronosticos), len(pronosticos or []), int(_t.time() // 300))
+        if _MEMO_LISTA.get('k') == k:
+            return list(_MEMO_LISTA['v'])
+        v = lista_por_acierto(pronosticos, _t.time())
+        _MEMO_LISTA.update(k=k, v=v)
+        return list(v)
     out = []
     try:
         import decisiones_dia as _dd
@@ -3524,6 +3535,23 @@ def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
                 continue
             recos = _dd.tarjeta_de_pick(p) or []
             dep = str(p.get('deporte') or 'Fútbol')
+            # v363 — y las retiradas que siguen valiendo (♻️)
+            try:
+                import anunciadas as _an_l
+                _ya_l = {r.get('apuesta') for r in metidas(recos)}
+                for a in _an_l.del_partido(p):
+                    if a.get('apuesta') in _ya_l or not a.get('cuota'):
+                        continue
+                    if sigue_valiendo(p, a, recos):
+                        out.append({'partido': p.get('partido'), 'inicio': p.get('inicio'),
+                                    'fecha': p.get('fecha'), 'deporte': dep, 'casa': '',
+                                    'apuesta': '♻️ ' + str(a.get('apuesta')),
+                                    'cuota': a.get('cuota'), 'prob': ACIERTA_SIGUE,
+                                    'elige': False, 'sigue': True,
+                                    'porque': 'retirada que sigue valiendo: así acertaron %.0f %%'
+                                              % (100 * ACIERTA_SIGUE)})
+            except Exception as e:
+                logger.debug('[modo_modelo] sigue valiendo en la lista: %s', e)
             for r in metidas(recos):
                 real = 0.85 if r.get('elite') else acierta_de_verdad(r, dep)
                 if real is None or not r.get('cuota'):
@@ -3541,6 +3569,48 @@ def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
     return out
 
 
+# v363 — «♻️ SIGUE VALIENDO»: LAS RETIRADAS QUE SE SIGUEN METIENDO.
+#
+# El usuario: «¿cuál de las recomendadas que se quitaron todavía puede
+# funcionar?», y aprobó una marca «distinguible y distinta a las demás».
+# Medido (`_v360_retiradas.py`, 697 «se mete» de fútbol del 3 al 10-oct): las
+# retiradas que se anunciaron con 77 % o más (o eran Capa 1) y DESAPARECIERON
+# del tablero —no las desplazó otra ni pasaron a «no meter»— acertaron 21✅5❌
+# (80,8 %) y 71✅7❌ (91,0 %) en las dos mitades: 92✅12❌, 88,5 %, por encima
+# de lo que queda al pitido (80,3 %). Las desplazadas por otra, 67-70 %: no.
+# El corte del 77 % se eligió viendo esos datos: se sigue midiendo.
+SIGUE_PROB_MIN = 0.77
+ACIERTA_SIGUE = 0.885
+_CSS_SIGUE = ('display:block;margin:6px 0;padding:6px 10px;border-radius:8px;'
+              'border:2px solid #7F77DD;background:rgba(127,119,221,.16);')
+
+
+def sigue_valiendo(pick: Dict, a: Dict, recos: Optional[list] = None) -> bool:
+    """¿Esta apuesta anunciada y retirada lleva ♻️ SIGUE VALIENDO? Nunca lanza."""
+    try:
+        if str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+            return False
+        p = a.get('prob_meter') if a.get('prob_meter') is not None else a.get('prob')
+        if not (a.get('elite') or (p is not None and float(p) >= SIGUE_PROB_MIN)):
+            return False
+        ap = a.get('apuesta')
+        import decisiones_dia as _dd
+        # SÓLO CON LO PRECALCULADO. Calcular el tablero en vivo costaba ~50 s
+        # por pasada (medido el 11-oct) y dejaba la app sin responder. Sin el
+        # precálculo no se sabe si «desapareció»: no se marca.
+        pm = _dd.por_mercado_de_pick(pick)
+        otras = _dd.otras_de_pick(pick)
+        if pm is None or otras is None:
+            return False
+        rec = recos if recos is not None else (_dd.tarjeta_de_pick(pick) or [])
+        ahora = {r.get('apuesta') for r in (rec or [])}
+        ahora |= {r.get('apuesta') for r in otras}
+        ahora |= {(r or {}).get('apuesta') for r in pm.values() if isinstance(r, dict)}
+        return ap not in ahora
+    except Exception:
+        return False
+
+
 def _bloque_anunciadas(st, pick: Dict, recos: list, todas: list) -> None:
     """v343 — «📌 antes se anunció»: lo que la tarjeta dijo «se mete» en una
     actualización anterior y ahora ya no enseña, con la hora y la cuota de
@@ -3550,6 +3620,18 @@ def _bloque_anunciadas(st, pick: Dict, recos: list, todas: list) -> None:
         import anunciadas as _an
         ya = {r.get('apuesta') for r in (recos or [])}
         filas = [a for a in _an.del_partido(pick) if a.get('apuesta') not in ya]
+        if not filas:
+            return
+        # v363 — las que siguen valiendo, a la vista y con su propia marca
+        sig = [a for a in filas if sigue_valiendo(pick, a, todas)]
+        for a in sig:
+            st.markdown(
+                '<div style="%s">♻️ <b>SIGUE VALIENDO</b> · <b>%s</b> @%.2f · '
+                'anunciada %s · las retiradas así acertaron %.0f %%</div>'
+                % (_CSS_SIGUE, _esc_mm(a.get('apuesta') or ''), float(a.get('cuota') or 0),
+                   _esc_mm(_an.hora_cdmx(a.get('desde'))), 100 * ACIERTA_SIGUE),
+                unsafe_allow_html=True)
+        filas = [a for a in filas if a not in sig]
         if not filas:
             return
         trozos = []
@@ -4506,8 +4588,12 @@ def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
     if not mc:
         return ''
     h, a = _equipos(pick)
-    est = ('style="padding:3px 6px;text-align:right;white-space:nowrap"')
-    est_i = ('style="padding:3px 6px;text-align:left;white-space:nowrap"')
+    # v363 — TRES COLUMNAS QUE CABEN EN EL CELULAR. El usuario: «en el
+    # análisis de cada tarjeta lo veo cortado». Con cinco columnas la última
+    # («se cumple») se salía de la pantalla. Ahora: la estadística, lo
+    # esperado (el total grande y, debajo, local · visita) y la línea que se
+    # cumple con su %, todo con salto de línea permitido.
+    td = 'style="padding:4px 5px;vertical-align:middle;white-space:normal"'
     filas = []
     asterisco = False
     for obj, icono, nombre in FILAS_METODO:
@@ -4515,22 +4601,25 @@ def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
         if not x:
             continue
         asterisco = asterisco or not x['metodo']
-        prob = ('más de %s · <b>%.0f %%</b>' % (_num1(x['linea']) if x['linea'] % 1 else
-                                                 '%g' % x['linea'], 100 * x['p'])
-                if x.get('linea') is not None else '—')
+        if x.get('linea') is not None:
+            lin = _num1(x['linea']) if x['linea'] % 1 else '%g' % x['linea']
+            prob = 'más de %s<br><b>%.0f %%</b>' % (lin, 100 * x['p'])
+        else:
+            prob = '—'
         r_ = res.get(obj) or {}
         if r_.get('cumple') is not None and r_.get('cumple') == r_.get('cumple'):
             prob += ' %s %g' % ('✅' if int(float(r_['cumple'])) else '❌', float(r_['real']))
-        filas.append('<tr><td %s>%s %s%s</td><td %s>%s</td><td %s>%s</td>'
-                     '<td %s><b>%s</b></td><td %s>%s</td></tr>'
-                     % (est_i, icono, nombre, '' if x['metodo'] else '*',
-                        est, _num1(x['local']), est, _num1(x['visita']),
-                        est, _num1(x['total']), est_i, prob))
+        filas.append('<tr><td %s>%s %s%s</td><td %s><b>%s</b><br>'
+                     '<span style="opacity:.7;font-size:.85em">%s · %s</span></td>'
+                     '<td %s>%s</td></tr>'
+                     % (td, icono, nombre, '' if x['metodo'] else '*',
+                        td, _num1(x['total']), _num1(x['local']), _num1(x['visita']),
+                        td, prob))
     if not filas:
         return ''
-    cab = ('<tr style="opacity:.7;font-size:.85em"><td %s>📐 Método Contexto</td>'
-           '<td %s>%s</td><td %s>%s</td><td %s>Total</td><td %s>Se cumple al 70 %%+</td></tr>'
-           % (est_i, est, _esc_mm(_corto(h)), est, _esc_mm(_corto(a)), est, est_i))
+    cab = ('<tr style="opacity:.7;font-size:.82em"><td %s>📐 Método Contexto</td>'
+           '<td %s>Esperado<br>%s · %s</td><td %s>Se cumple<br>(70 %%+)</td></tr>'
+           % (td, td, _esc_mm(_corto(h)), _esc_mm(_corto(a)), td))
     pie = ('<div style="opacity:.6;font-size:.8em">* sin el método todavía: '
            'el cálculo de antes</div>' if asterisco else '')
     # v361 — cómo va el método (lo apuntado antes del pitido, ya jugado)
@@ -4543,8 +4632,8 @@ def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
                                  for o, i, _n in FILAS_METODO for v in [rs.get(o)] if v))
     except Exception as e:
         logger.debug('[modo_modelo] resumen del análisis: %s', e)
-    return ('<table style="width:100%%;border-collapse:collapse;font-size:.92em">%s%s</table>%s'
-            % (cab, ''.join(filas), pie))
+    return ('<table style="width:100%%;table-layout:fixed;border-collapse:collapse;'
+            'font-size:.9em">%s%s</table>%s' % (cab, ''.join(filas), pie))
 
 
 def _lineas_tiros(pick: Dict, h: str, a: str) -> list:

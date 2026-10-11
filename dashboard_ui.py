@@ -5722,7 +5722,8 @@ def render_alpha_finder():
                                  expanded=False):
                     st.caption('«Acierta» es lo que de verdad acertaron las apuestas '
                                'como ésta (medido), no lo que promete la tarjeta. '
-                               '⭐ ELIGE: 86 % contra 79 % del resto; 🏆 Capa 1: 85 %.')
+                               '⭐ ELIGE: 86 % contra 79 % del resto; 🏆 Capa 1: 85 %; '
+                               '♻️ sigue valiendo (retirada que se sigue metiendo): 88 %.')
                     st.markdown(_vc_m.html_lista(_lpa), unsafe_allow_html=True)
         except Exception as _e_lpa:
             logger.debug('[alpha] lista por acierto: %s', _e_lpa)
@@ -6938,7 +6939,7 @@ def render_alpha_finder():
                 _bols = [(n_, _ar.boleto(_pats, n_)) for n_ in _ar.BOLETOS]
                 _bols = [(n_, b_) for n_, b_ in _bols if b_]
                 _rs_ar = _ar.resumen()
-                _rot_ar = ('🎲 Apuestas arriesgadas · %d patas (córners, tiros, tarjetas, goles)'
+                _rot_ar = ('🎲 Apuestas arriesgadas · %d patas (córners, tiros, goles)'
                            % len(_pats))
                 if _bols:
                     _rot_ar += ' · boleto de %d: %.0f %% a ×%.1f' % (
@@ -6948,14 +6949,16 @@ def render_alpha_finder():
                                'línea «más de» a cuota 1,45-3 que el Método Contexto ve al 55 %% o '
                                'más (la que más rinde). Medido desde el 24-ago: acierta lo que '
                                'promete y le saca 3-5 pts a la casa, sin ganancia demostrada. '
-                               'Combinadas: de 2 sale ~39 %%, de 3 ~20 %%, de 4 ~11 %%, de 6 ~5 %%. '
+                               'Combinadas: de 2 sale ~40 %%, de 3 ~26 %%, de 4 ~22 %%, de 6 ~9 %%. '
+                               'Sin tarjetas ni córners de equipo (prometían de más). '
                                'Es riesgo: no es «se mete».%s'
                                % ((' · 📈 14 días: %d de %d patas (%.0f %%)'
                                    % (_rs_ar['verdes'], _rs_ar['n'], 100 * _rs_ar['acierto']))
                                   if _rs_ar else ''))
                     for _n_b, _b in _bols:
-                        st.markdown('**🎟️ Boleto de %d** · sale entero %.0f %% · momio ×%.2f · '
-                                    'por $100, $%.0f'
+                        # v363 — sin «$»: Streamlit lo lee como fórmula
+                        st.markdown('**🎟️ Boleto de %d** · sale **%.0f %%** de las veces · '
+                                    'paga **×%.2f** (100 → %.0f)'
                                     % (_n_b, 100 * _b['prob'], _b['momio'], 100 * _b['momio']))
                         st.markdown(_vc_ar.html_lista(_b['patas']), unsafe_allow_html=True)
                     st.markdown('**Todas las patas (%d), por hora**' % len(_pats))

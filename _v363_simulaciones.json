@@ -1,0 +1,2514 @@
+{
+ "corte": "2026-09-12",
+ "desde": "2026-08-28",
+ "hasta": "2026-10-09",
+ "partidos": 642,
+ "lineas": 12820,
+ "mercados": {
+  "Tiros a puerta equipo": {
+   "A": {
+    "n": 90,
+    "buenas": 0.6,
+    "malas": 0.4,
+    "promete": 0.616,
+    "casa": 0.543,
+    "cuota": 1.691,
+    "ganancia_por_100": 2.0,
+    "p5_por_100": -13.1
+   },
+   "B": {
+    "n": 140,
+    "buenas": 0.643,
+    "malas": 0.357,
+    "promete": 0.619,
+    "casa": 0.542,
+    "cuota": 1.697,
+    "ganancia_por_100": 9.2,
+    "p5_por_100": -2.6
+   },
+   "todo": {
+    "n": 230,
+    "buenas": 0.626,
+    "malas": 0.374,
+    "promete": 0.618,
+    "casa": 0.543,
+    "cuota": 1.695,
+    "ganancia_por_100": 6.3,
+    "p5_por_100": -2.5
+   }
+  },
+  "Tiros a puerta total": {
+   "A": {
+    "n": 50,
+    "buenas": 0.56,
+    "malas": 0.44,
+    "promete": 0.6,
+    "casa": 0.55,
+    "cuota": 1.672,
+    "ganancia_por_100": -6.3,
+    "p5_por_100": -26.0
+   },
+   "B": {
+    "n": 83,
+    "buenas": 0.663,
+    "malas": 0.337,
+    "promete": 0.606,
+    "casa": 0.54,
+    "cuota": 1.711,
+    "ganancia_por_100": 12.7,
+    "p5_por_100": -3.1
+   },
+   "todo": {
+    "n": 133,
+    "buenas": 0.624,
+    "malas": 0.376,
+    "promete": 0.603,
+    "casa": 0.544,
+    "cuota": 1.696,
+    "ganancia_por_100": 5.6,
+    "p5_por_100": -6.7
+   }
+  },
+  "Córners equipo": {
+   "A": {
+    "n": 107,
+    "buenas": 0.523,
+    "malas": 0.477,
+    "promete": 0.606,
+    "casa": 0.561,
+    "cuota": 1.63,
+    "ganancia_por_100": -14.3,
+    "p5_por_100": -27.7
+   },
+   "B": {
+    "n": 164,
+    "buenas": 0.543,
+    "malas": 0.457,
+    "promete": 0.605,
+    "casa": 0.552,
+    "cuota": 1.663,
+    "ganancia_por_100": -10.1,
+    "p5_por_100": -20.4
+   },
+   "todo": {
+    "n": 271,
+    "buenas": 0.535,
+    "malas": 0.465,
+    "promete": 0.605,
+    "casa": 0.556,
+    "cuota": 1.65,
+    "ganancia_por_100": -11.7,
+    "p5_por_100": -20.0
+   }
+  },
+  "Córners total": {
+   "A": {
+    "n": 181,
+    "buenas": 0.646,
+    "malas": 0.354,
+    "promete": 0.599,
+    "casa": 0.567,
+    "cuota": 1.648,
+    "ganancia_por_100": 4.5,
+    "p5_por_100": -5.2
+   },
+   "B": {
+    "n": 261,
+    "buenas": 0.598,
+    "malas": 0.402,
+    "promete": 0.599,
+    "casa": 0.566,
+    "cuota": 1.644,
+    "ganancia_por_100": -1.5,
+    "p5_por_100": -9.7
+   },
+   "todo": {
+    "n": 442,
+    "buenas": 0.618,
+    "malas": 0.382,
+    "promete": 0.599,
+    "casa": 0.566,
+    "cuota": 1.646,
+    "ganancia_por_100": 0.9,
+    "p5_por_100": -5.5
+   }
+  },
+  "Goles equipo": {
+   "A": {
+    "n": 0
+   },
+   "B": {
+    "n": 37,
+    "buenas": 0.568,
+    "malas": 0.432,
+    "promete": 0.624,
+    "casa": 0.59,
+    "cuota": 1.582,
+    "ganancia_por_100": -11.6,
+    "p5_por_100": -31.7
+   },
+   "todo": {
+    "n": 37,
+    "buenas": 0.568,
+    "malas": 0.432,
+    "promete": 0.624,
+    "casa": 0.59,
+    "cuota": 1.582,
+    "ganancia_por_100": -11.6,
+    "p5_por_100": -32.0
+   }
+  },
+  "Goles total": {
+   "A": {
+    "n": 101,
+    "buenas": 0.574,
+    "malas": 0.426,
+    "promete": 0.606,
+    "casa": 0.58,
+    "cuota": 1.626,
+    "ganancia_por_100": -6.7,
+    "p5_por_100": -19.7
+   },
+   "B": {
+    "n": 145,
+    "buenas": 0.607,
+    "malas": 0.393,
+    "promete": 0.61,
+    "casa": 0.577,
+    "cuota": 1.636,
+    "ganancia_por_100": -0.7,
+    "p5_por_100": -11.6
+   },
+   "todo": {
+    "n": 246,
+    "buenas": 0.593,
+    "malas": 0.407,
+    "promete": 0.609,
+    "casa": 0.578,
+    "cuota": 1.632,
+    "ganancia_por_100": -3.2,
+    "p5_por_100": -11.8
+   }
+  },
+  "Tarjetas equipo": {
+   "A": {
+    "n": 12,
+    "buenas": 0.5,
+    "malas": 0.5,
+    "promete": 0.599,
+    "casa": 0.581,
+    "cuota": 1.571,
+    "ganancia_por_100": -20.4,
+    "p5_por_100": -61.8
+   },
+   "B": {
+    "n": 33,
+    "buenas": 0.455,
+    "malas": 0.545,
+    "promete": 0.612,
+    "casa": 0.578,
+    "cuota": 1.578,
+    "ganancia_por_100": -28.6,
+    "p5_por_100": -51.3
+   },
+   "todo": {
+    "n": 45,
+    "buenas": 0.467,
+    "malas": 0.533,
+    "promete": 0.609,
+    "casa": 0.579,
+    "cuota": 1.576,
+    "ganancia_por_100": -26.4,
+    "p5_por_100": -46.7
+   }
+  },
+  "Tarjetas total": {
+   "A": {
+    "n": 26,
+    "buenas": 0.346,
+    "malas": 0.654,
+    "promete": 0.611,
+    "casa": 0.545,
+    "cuota": 1.697,
+    "ganancia_por_100": -43.6,
+    "p5_por_100": -68.5
+   },
+   "B": {
+    "n": 41,
+    "buenas": 0.488,
+    "malas": 0.512,
+    "promete": 0.616,
+    "casa": 0.575,
+    "cuota": 1.597,
+    "ganancia_por_100": -22.0,
+    "p5_por_100": -41.8
+   },
+   "todo": {
+    "n": 67,
+    "buenas": 0.433,
+    "malas": 0.567,
+    "promete": 0.614,
+    "casa": 0.563,
+    "cuota": 1.635,
+    "ganancia_por_100": -30.4,
+    "p5_por_100": -45.9
+   }
+  },
+  "Tiros equipo": {
+   "A": {
+    "n": 132,
+    "buenas": 0.583,
+    "malas": 0.417,
+    "promete": 0.6,
+    "casa": 0.528,
+    "cuota": 1.742,
+    "ganancia_por_100": 0.8,
+    "p5_por_100": -10.7
+   },
+   "B": {
+    "n": 161,
+    "buenas": 0.627,
+    "malas": 0.373,
+    "promete": 0.607,
+    "casa": 0.527,
+    "cuota": 1.745,
+    "ganancia_por_100": 8.3,
+    "p5_por_100": -2.1
+   },
+   "todo": {
+    "n": 293,
+    "buenas": 0.608,
+    "malas": 0.392,
+    "promete": 0.604,
+    "casa": 0.527,
+    "cuota": 1.743,
+    "ganancia_por_100": 4.9,
+    "p5_por_100": -2.8
+   }
+  },
+  "Tiros total": {
+   "A": {
+    "n": 48,
+    "buenas": 0.583,
+    "malas": 0.417,
+    "promete": 0.587,
+    "casa": 0.528,
+    "cuota": 1.734,
+    "ganancia_por_100": 1.2,
+    "p5_por_100": -20.3
+   },
+   "B": {
+    "n": 62,
+    "buenas": 0.661,
+    "malas": 0.339,
+    "promete": 0.594,
+    "casa": 0.52,
+    "cuota": 1.762,
+    "ganancia_por_100": 16.3,
+    "p5_por_100": -1.7
+   },
+   "todo": {
+    "n": 110,
+    "buenas": 0.627,
+    "malas": 0.373,
+    "promete": 0.591,
+    "casa": 0.524,
+    "cuota": 1.75,
+    "ganancia_por_100": 9.7,
+    "p5_por_100": -4.1
+   }
+  },
+  "todo": {
+   "A": {
+    "n": 747,
+    "buenas": 0.58,
+    "malas": 0.42,
+    "promete": 0.603,
+    "casa": 0.554,
+    "cuota": 1.672,
+    "ganancia_por_100": -3.7,
+    "p5_por_100": -10.2
+   },
+   "B": {
+    "n": 1127,
+    "buenas": 0.6,
+    "malas": 0.4,
+    "promete": 0.607,
+    "casa": 0.554,
+    "cuota": 1.673,
+    "ganancia_por_100": 0.2,
+    "p5_por_100": -5.2
+   },
+   "todo": {
+    "n": 1874,
+    "buenas": 0.592,
+    "malas": 0.408,
+    "promete": 0.605,
+    "casa": 0.554,
+    "cuota": 1.672,
+    "ganancia_por_100": -1.3,
+    "p5_por_100": -5.5
+   }
+  }
+ },
+ "umbral": {
+  "55": {
+   "A": {
+    "n": 747,
+    "buenas": 0.58,
+    "malas": 0.42,
+    "promete": 0.603,
+    "casa": 0.554,
+    "cuota": 1.672,
+    "ganancia_por_100": -3.7,
+    "p5_por_100": -10.6
+   },
+   "B": {
+    "n": 1127,
+    "buenas": 0.6,
+    "malas": 0.4,
+    "promete": 0.607,
+    "casa": 0.554,
+    "cuota": 1.673,
+    "ganancia_por_100": 0.2,
+    "p5_por_100": -5.2
+   }
+  },
+  "60": {
+   "A": {
+    "n": 404,
+    "buenas": 0.592,
+    "malas": 0.408,
+    "promete": 0.644,
+    "casa": 0.57,
+    "cuota": 1.621,
+    "ganancia_por_100": -4.5,
+    "p5_por_100": -12.7
+   },
+   "B": {
+    "n": 670,
+    "buenas": 0.642,
+    "malas": 0.358,
+    "promete": 0.643,
+    "casa": 0.57,
+    "cuota": 1.621,
+    "ganancia_por_100": 4.0,
+    "p5_por_100": -2.2
+   }
+  },
+  "65": {
+   "A": {
+    "n": 170,
+    "buenas": 0.612,
+    "malas": 0.388,
+    "promete": 0.684,
+    "casa": 0.581,
+    "cuota": 1.589,
+    "ganancia_por_100": -2.6,
+    "p5_por_100": -14.6
+   },
+   "B": {
+    "n": 277,
+    "buenas": 0.661,
+    "malas": 0.339,
+    "promete": 0.681,
+    "casa": 0.58,
+    "cuota": 1.59,
+    "ganancia_por_100": 4.7,
+    "p5_por_100": -3.4
+   }
+  },
+  "70": {
+   "A": {
+    "n": 51,
+    "buenas": 0.627,
+    "malas": 0.373,
+    "promete": 0.726,
+    "casa": 0.587,
+    "cuota": 1.563,
+    "ganancia_por_100": -1.9,
+    "p5_por_100": -23.0
+   },
+   "B": {
+    "n": 69,
+    "buenas": 0.725,
+    "malas": 0.275,
+    "promete": 0.725,
+    "casa": 0.586,
+    "cuota": 1.565,
+    "ganancia_por_100": 12.7,
+    "p5_por_100": -0.9
+   }
+  }
+ },
+ "draftea": {
+  "patas": {
+   "equipo más de 4,5": {
+    "n": 460,
+    "buenas": 0.498,
+    "malas": 0.502,
+    "promete": 0.512,
+    "casa": 0.51,
+    "cuota": 1.872,
+    "ganancia_por_100": -10.5,
+    "p5_por_100": -17.4
+   },
+   "equipo más de 5,5": {
+    "n": 134,
+    "buenas": 0.493,
+    "malas": 0.507,
+    "promete": 0.527,
+    "casa": 0.537,
+    "cuota": 1.724,
+    "ganancia_por_100": -16.6,
+    "p5_por_100": -28.1
+   },
+   "total más de 9,5": {
+    "n": 620,
+    "buenas": 0.576,
+    "malas": 0.424,
+    "promete": 0.536,
+    "casa": 0.53,
+    "cuota": 1.778,
+    "ganancia_por_100": 0.2,
+    "p5_por_100": -5.9
+   }
+  },
+  "casa": {
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 6,
+     "sale_entero": 0.429,
+     "promete_metodo": 0.246,
+     "promete_casa": 0.29,
+     "patas_buenas": 0.738,
+     "momio_medio": 2.71,
+     "ganancia_por_100": 21.0,
+     "p5_por_100": -42.3,
+     "patas_cumplidas": {
+      "3/3": 6,
+      "2/3": 6,
+      "1/3": 1,
+      "0/3": 1
+     }
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 8,
+     "sale_entero": 0.471,
+     "promete_metodo": 0.234,
+     "promete_casa": 0.277,
+     "patas_buenas": 0.765,
+     "momio_medio": 2.85,
+     "ganancia_por_100": 30.3,
+     "p5_por_100": -23.4,
+     "patas_cumplidas": {
+      "3/3": 8,
+      "2/3": 6,
+      "1/3": 3,
+      "0/3": 0
+     }
+    },
+    "todo": {
+     "dias": 31,
+     "enteros": 14,
+     "sale_entero": 0.452,
+     "promete_metodo": 0.239,
+     "promete_casa": 0.283,
+     "patas_buenas": 0.753,
+     "momio_medio": 2.79,
+     "ganancia_por_100": 26.1,
+     "p5_por_100": -15.5,
+     "patas_cumplidas": {
+      "3/3": 14,
+      "2/3": 12,
+      "1/3": 4,
+      "0/3": 1
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 14,
+     "enteros": 3,
+     "sale_entero": 0.214,
+     "promete_metodo": 0.141,
+     "promete_casa": 0.177,
+     "patas_buenas": 0.696,
+     "momio_medio": 4.19,
+     "ganancia_por_100": -4.5,
+     "p5_por_100": -79.8,
+     "patas_cumplidas": {
+      "4/4": 3,
+      "3/4": 7,
+      "2/4": 2,
+      "1/4": 2,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 4,
+     "sale_entero": 0.235,
+     "promete_metodo": 0.144,
+     "promete_casa": 0.17,
+     "patas_buenas": 0.691,
+     "momio_medio": 4.41,
+     "ganancia_por_100": 1.5,
+     "p5_por_100": -74.7,
+     "patas_cumplidas": {
+      "4/4": 4,
+      "3/4": 6,
+      "2/4": 6,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 31,
+     "enteros": 7,
+     "sale_entero": 0.226,
+     "promete_metodo": 0.143,
+     "promete_casa": 0.173,
+     "patas_buenas": 0.694,
+     "momio_medio": 4.31,
+     "ganancia_por_100": -1.2,
+     "p5_por_100": -55.8,
+     "patas_cumplidas": {
+      "4/4": 7,
+      "3/4": 13,
+      "2/4": 8,
+      "1/4": 3,
+      "0/4": 0
+     }
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.08,
+     "promete_casa": 0.105,
+     "patas_buenas": 0.7,
+     "momio_medio": 7.05,
+     "ganancia_por_100": 47.1,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "5/5": 2,
+      "4/5": 6,
+      "3/5": 4,
+      "2/5": 1,
+      "1/5": 1,
+      "0/5": 0
+     }
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 4,
+     "sale_entero": 0.25,
+     "promete_metodo": 0.086,
+     "promete_casa": 0.106,
+     "patas_buenas": 0.738,
+     "momio_medio": 6.63,
+     "ganancia_por_100": 71.2,
+     "p5_por_100": -40.2,
+     "patas_cumplidas": {
+      "5/5": 4,
+      "4/5": 5,
+      "3/5": 5,
+      "2/5": 2,
+      "1/5": 0,
+      "0/5": 0
+     }
+    },
+    "todo": {
+     "dias": 30,
+     "enteros": 6,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.083,
+     "promete_casa": 0.105,
+     "patas_buenas": 0.72,
+     "momio_medio": 6.82,
+     "ganancia_por_100": 60.0,
+     "p5_por_100": -34.0,
+     "patas_cumplidas": {
+      "5/5": 6,
+      "4/5": 11,
+      "3/5": 9,
+      "2/5": 3,
+      "1/5": 1,
+      "0/5": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 12,
+     "enteros": 1,
+     "sale_entero": 0.083,
+     "promete_metodo": 0.051,
+     "promete_casa": 0.069,
+     "patas_buenas": 0.653,
+     "momio_medio": 9.16,
+     "ganancia_por_100": -36.8,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 1,
+      "5/6": 1,
+      "4/6": 7,
+      "3/6": 2,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 3,
+     "sale_entero": 0.188,
+     "promete_metodo": 0.048,
+     "promete_casa": 0.062,
+     "patas_buenas": 0.688,
+     "momio_medio": 11.51,
+     "ganancia_por_100": 92.3,
+     "p5_por_100": -53.9,
+     "patas_cumplidas": {
+      "6/6": 3,
+      "5/6": 2,
+      "4/6": 6,
+      "3/6": 4,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 28,
+     "enteros": 4,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.049,
+     "promete_casa": 0.065,
+     "patas_buenas": 0.673,
+     "momio_medio": 10.51,
+     "ganancia_por_100": 37.0,
+     "p5_por_100": -71.1,
+     "patas_cumplidas": {
+      "6/6": 4,
+      "5/6": 3,
+      "4/6": 13,
+      "3/6": 6,
+      "2/6": 2,
+      "1/6": 0,
+      "0/6": 0
+     }
+    }
+   }
+  },
+  "metodo": {
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 3,
+     "sale_entero": 0.214,
+     "promete_metodo": 0.278,
+     "promete_casa": 0.238,
+     "patas_buenas": 0.667,
+     "momio_medio": 3.38,
+     "ganancia_por_100": -20.1,
+     "p5_por_100": -83.1,
+     "patas_cumplidas": {
+      "3/3": 3,
+      "2/3": 8,
+      "1/3": 3,
+      "0/3": 0
+     }
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 4,
+     "sale_entero": 0.235,
+     "promete_metodo": 0.285,
+     "promete_casa": 0.226,
+     "patas_buenas": 0.667,
+     "momio_medio": 3.48,
+     "ganancia_por_100": -12.5,
+     "p5_por_100": -74.9,
+     "patas_cumplidas": {
+      "3/3": 4,
+      "2/3": 9,
+      "1/3": 4,
+      "0/3": 0
+     }
+    },
+    "todo": {
+     "dias": 31,
+     "enteros": 7,
+     "sale_entero": 0.226,
+     "promete_metodo": 0.282,
+     "promete_casa": 0.232,
+     "patas_buenas": 0.667,
+     "momio_medio": 3.43,
+     "ganancia_por_100": -15.9,
+     "p5_por_100": -62.4,
+     "patas_cumplidas": {
+      "3/3": 7,
+      "2/3": 17,
+      "1/3": 7,
+      "0/3": 0
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.169,
+     "promete_casa": 0.146,
+     "patas_buenas": 0.661,
+     "momio_medio": 5.26,
+     "ganancia_por_100": 11.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 2,
+      "3/4": 7,
+      "2/4": 3,
+      "1/4": 2,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 3,
+     "sale_entero": 0.176,
+     "promete_metodo": 0.178,
+     "promete_casa": 0.135,
+     "patas_buenas": 0.618,
+     "momio_medio": 5.36,
+     "ganancia_por_100": -7.2,
+     "p5_por_100": -74.8,
+     "patas_cumplidas": {
+      "4/4": 3,
+      "3/4": 5,
+      "2/4": 6,
+      "1/4": 3,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 31,
+     "enteros": 5,
+     "sale_entero": 0.161,
+     "promete_metodo": 0.174,
+     "promete_casa": 0.14,
+     "patas_buenas": 0.637,
+     "momio_medio": 5.31,
+     "ganancia_por_100": 1.1,
+     "p5_por_100": -63.1,
+     "patas_cumplidas": {
+      "4/4": 5,
+      "3/4": 12,
+      "2/4": 9,
+      "1/4": 5,
+      "0/4": 0
+     }
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.102,
+     "promete_casa": 0.084,
+     "patas_buenas": 0.643,
+     "momio_medio": 8.89,
+     "ganancia_por_100": 100.3,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "5/5": 2,
+      "4/5": 4,
+      "3/5": 4,
+      "2/5": 3,
+      "1/5": 1,
+      "0/5": 0
+     }
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 3,
+     "sale_entero": 0.188,
+     "promete_metodo": 0.111,
+     "promete_casa": 0.081,
+     "patas_buenas": 0.625,
+     "momio_medio": 8.4,
+     "ganancia_por_100": 40.1,
+     "p5_por_100": -65.2,
+     "patas_cumplidas": {
+      "5/5": 3,
+      "4/5": 3,
+      "3/5": 3,
+      "2/5": 7,
+      "1/5": 0,
+      "0/5": 0
+     }
+    },
+    "todo": {
+     "dias": 30,
+     "enteros": 5,
+     "sale_entero": 0.167,
+     "promete_metodo": 0.107,
+     "promete_casa": 0.082,
+     "patas_buenas": 0.633,
+     "momio_medio": 8.63,
+     "ganancia_por_100": 68.2,
+     "p5_por_100": -44.6,
+     "patas_cumplidas": {
+      "5/5": 5,
+      "4/5": 7,
+      "3/5": 7,
+      "2/5": 10,
+      "1/5": 1,
+      "0/5": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 12,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.069,
+     "promete_casa": 0.051,
+     "patas_buenas": 0.667,
+     "momio_medio": 13.01,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 4,
+      "4/6": 4,
+      "3/6": 4,
+      "2/6": 0,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 2,
+     "sale_entero": 0.125,
+     "promete_metodo": 0.067,
+     "promete_casa": 0.043,
+     "patas_buenas": 0.615,
+     "momio_medio": 15.12,
+     "ganancia_por_100": 67.3,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 2,
+      "5/6": 2,
+      "4/6": 5,
+      "3/6": 3,
+      "2/6": 4,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 28,
+     "enteros": 2,
+     "sale_entero": 0.071,
+     "promete_metodo": 0.068,
+     "promete_casa": 0.047,
+     "patas_buenas": 0.637,
+     "momio_medio": 14.22,
+     "ganancia_por_100": -4.4,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 2,
+      "5/6": 6,
+      "4/6": 9,
+      "3/6": 7,
+      "2/6": 4,
+      "1/6": 0,
+      "0/6": 0
+     }
+    }
+   }
+  },
+  "metodo_sobre_casa": {
+   "3": {
+    "A": {
+     "dias": 12,
+     "enteros": 2,
+     "sale_entero": 0.167,
+     "promete_metodo": 0.224,
+     "promete_casa": 0.124,
+     "patas_buenas": 0.556,
+     "momio_medio": 6.73,
+     "ganancia_por_100": 3.5,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 2,
+      "2/3": 4,
+      "1/3": 6,
+      "0/3": 0
+     }
+    },
+    "B": {
+     "dias": 14,
+     "enteros": 6,
+     "sale_entero": 0.429,
+     "promete_metodo": 0.229,
+     "promete_casa": 0.127,
+     "patas_buenas": 0.619,
+     "momio_medio": 6.21,
+     "ganancia_por_100": 154.2,
+     "p5_por_100": 24.0,
+     "patas_cumplidas": {
+      "3/3": 6,
+      "2/3": 2,
+      "1/3": 4,
+      "0/3": 2
+     }
+    },
+    "todo": {
+     "dias": 26,
+     "enteros": 8,
+     "sale_entero": 0.308,
+     "promete_metodo": 0.227,
+     "promete_casa": 0.125,
+     "patas_buenas": 0.59,
+     "momio_medio": 6.45,
+     "ganancia_por_100": 84.7,
+     "p5_por_100": -1.7,
+     "patas_cumplidas": {
+      "3/3": 8,
+      "2/3": 6,
+      "1/3": 10,
+      "0/3": 2
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 10,
+     "enteros": 2,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.135,
+     "promete_casa": 0.063,
+     "patas_buenas": 0.6,
+     "momio_medio": 12.54,
+     "ganancia_por_100": 93.7,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 2,
+      "3/4": 1,
+      "2/4": 6,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 13,
+     "enteros": 3,
+     "sale_entero": 0.231,
+     "promete_metodo": 0.144,
+     "promete_casa": 0.066,
+     "patas_buenas": 0.596,
+     "momio_medio": 11.04,
+     "ganancia_por_100": 96.5,
+     "p5_por_100": -42.6,
+     "patas_cumplidas": {
+      "4/4": 3,
+      "3/4": 4,
+      "2/4": 1,
+      "1/4": 5,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 23,
+     "enteros": 5,
+     "sale_entero": 0.217,
+     "promete_metodo": 0.14,
+     "promete_casa": 0.064,
+     "patas_buenas": 0.598,
+     "momio_medio": 11.69,
+     "ganancia_por_100": 95.3,
+     "p5_por_100": -24.5,
+     "patas_cumplidas": {
+      "4/4": 5,
+      "3/4": 5,
+      "2/4": 7,
+      "1/4": 6,
+      "0/4": 0
+     }
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 9,
+     "enteros": 1,
+     "sale_entero": 0.111,
+     "promete_metodo": 0.08,
+     "promete_casa": 0.032,
+     "patas_buenas": 0.533,
+     "momio_medio": 22.41,
+     "ganancia_por_100": 108.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "5/5": 1,
+      "4/5": 0,
+      "3/5": 3,
+      "2/5": 5,
+      "1/5": 0,
+      "0/5": 0
+     }
+    },
+    "B": {
+     "dias": 11,
+     "enteros": 2,
+     "sale_entero": 0.182,
+     "promete_metodo": 0.086,
+     "promete_casa": 0.033,
+     "patas_buenas": 0.618,
+     "momio_medio": 20.97,
+     "ganancia_por_100": 182.5,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "5/5": 2,
+      "4/5": 3,
+      "3/5": 1,
+      "2/5": 4,
+      "1/5": 1,
+      "0/5": 0
+     }
+    },
+    "todo": {
+     "dias": 20,
+     "enteros": 3,
+     "sale_entero": 0.15,
+     "promete_metodo": 0.083,
+     "promete_casa": 0.032,
+     "patas_buenas": 0.58,
+     "momio_medio": 21.62,
+     "ganancia_por_100": 148.9,
+     "p5_por_100": -34.7,
+     "patas_cumplidas": {
+      "5/5": 3,
+      "4/5": 3,
+      "3/5": 4,
+      "2/5": 9,
+      "1/5": 1,
+      "0/5": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 9,
+     "enteros": 1,
+     "sale_entero": 0.111,
+     "promete_metodo": 0.049,
+     "promete_casa": 0.017,
+     "patas_buenas": 0.537,
+     "momio_medio": 38.57,
+     "ganancia_por_100": 246.7,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 1,
+      "5/6": 0,
+      "4/6": 1,
+      "3/6": 5,
+      "2/6": 2,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 11,
+     "enteros": 2,
+     "sale_entero": 0.182,
+     "promete_metodo": 0.052,
+     "promete_casa": 0.018,
+     "patas_buenas": 0.636,
+     "momio_medio": 38.17,
+     "ganancia_por_100": 374.8,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 2,
+      "5/6": 3,
+      "4/6": 1,
+      "3/6": 2,
+      "2/6": 2,
+      "1/6": 1,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 20,
+     "enteros": 3,
+     "sale_entero": 0.15,
+     "promete_metodo": 0.051,
+     "promete_casa": 0.018,
+     "patas_buenas": 0.592,
+     "momio_medio": 38.35,
+     "ganancia_por_100": 317.1,
+     "p5_por_100": 11.1,
+     "patas_cumplidas": {
+      "6/6": 3,
+      "5/6": 3,
+      "4/6": 2,
+      "3/6": 7,
+      "2/6": 4,
+      "1/6": 1,
+      "0/6": 0
+     }
+    }
+   }
+  }
+ },
+ "combinadas": {
+  "corners": {
+   "2": {
+    "A": {
+     "dias": 14,
+     "enteros": 5,
+     "sale_entero": 0.357,
+     "promete_metodo": 0.445,
+     "promete_casa": 0.335,
+     "patas_buenas": 0.607,
+     "momio_medio": 2.52,
+     "ganancia_por_100": -10.3,
+     "p5_por_100": -63.7,
+     "patas_cumplidas": {
+      "2/2": 5,
+      "1/2": 7,
+      "0/2": 2
+     }
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 6,
+     "sale_entero": 0.353,
+     "promete_metodo": 0.43,
+     "promete_casa": 0.343,
+     "patas_buenas": 0.588,
+     "momio_medio": 2.46,
+     "ganancia_por_100": -14.7,
+     "p5_por_100": -59.8,
+     "patas_cumplidas": {
+      "2/2": 6,
+      "1/2": 8,
+      "0/2": 3
+     }
+    },
+    "todo": {
+     "dias": 31,
+     "enteros": 11,
+     "sale_entero": 0.355,
+     "promete_metodo": 0.437,
+     "promete_casa": 0.339,
+     "patas_buenas": 0.597,
+     "momio_medio": 2.49,
+     "ganancia_por_100": -12.7,
+     "p5_por_100": -46.5,
+     "patas_cumplidas": {
+      "2/2": 11,
+      "1/2": 15,
+      "0/2": 5
+     }
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 13,
+     "enteros": 3,
+     "sale_entero": 0.231,
+     "promete_metodo": 0.283,
+     "promete_casa": 0.197,
+     "patas_buenas": 0.615,
+     "momio_medio": 3.93,
+     "ganancia_por_100": -13.4,
+     "p5_por_100": -72.1,
+     "patas_cumplidas": {
+      "3/3": 3,
+      "2/3": 5,
+      "1/3": 5,
+      "0/3": 0
+     }
+    },
+    "B": {
+     "dias": 14,
+     "enteros": 2,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.276,
+     "promete_casa": 0.2,
+     "patas_buenas": 0.595,
+     "momio_medio": 3.88,
+     "ganancia_por_100": -47.5,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 2,
+      "2/3": 7,
+      "1/3": 5,
+      "0/3": 0
+     }
+    },
+    "todo": {
+     "dias": 27,
+     "enteros": 5,
+     "sale_entero": 0.185,
+     "promete_metodo": 0.28,
+     "promete_casa": 0.199,
+     "patas_buenas": 0.605,
+     "momio_medio": 3.9,
+     "ganancia_por_100": -31.1,
+     "p5_por_100": -72.6,
+     "patas_cumplidas": {
+      "3/3": 5,
+      "2/3": 12,
+      "1/3": 10,
+      "0/3": 0
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 13,
+     "enteros": 3,
+     "sale_entero": 0.231,
+     "promete_metodo": 0.176,
+     "promete_casa": 0.114,
+     "patas_buenas": 0.673,
+     "momio_medio": 6.29,
+     "ganancia_por_100": 44.4,
+     "p5_por_100": -55.4,
+     "patas_cumplidas": {
+      "4/4": 3,
+      "3/4": 4,
+      "2/4": 5,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 12,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.18,
+     "promete_casa": 0.116,
+     "patas_buenas": 0.583,
+     "momio_medio": 6.2,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 0,
+      "3/4": 5,
+      "2/4": 6,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 25,
+     "enteros": 3,
+     "sale_entero": 0.12,
+     "promete_metodo": 0.178,
+     "promete_casa": 0.115,
+     "patas_buenas": 0.63,
+     "momio_medio": 6.25,
+     "ganancia_por_100": -24.9,
+     "p5_por_100": -76.8,
+     "patas_cumplidas": {
+      "4/4": 3,
+      "3/4": 9,
+      "2/4": 11,
+      "1/4": 2,
+      "0/4": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 11,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.069,
+     "promete_casa": 0.039,
+     "patas_buenas": 0.576,
+     "momio_medio": 16.24,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 2,
+      "4/6": 2,
+      "3/6": 6,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.075,
+     "promete_casa": 0.038,
+     "patas_buenas": 0.6,
+     "momio_medio": 16.41,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 1,
+      "4/6": 5,
+      "3/6": 3,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 21,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.071,
+     "promete_casa": 0.038,
+     "patas_buenas": 0.587,
+     "momio_medio": 16.32,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 3,
+      "4/6": 7,
+      "3/6": 9,
+      "2/6": 2,
+      "1/6": 0,
+      "0/6": 0
+     }
+    }
+   }
+  },
+  "tiros": {
+   "2": {
+    "A": {
+     "dias": 12,
+     "enteros": 3,
+     "sale_entero": 0.25,
+     "promete_metodo": 0.415,
+     "promete_casa": 0.272,
+     "patas_buenas": 0.542,
+     "momio_medio": 3.1,
+     "ganancia_por_100": -13.9,
+     "p5_por_100": -75.2,
+     "patas_cumplidas": {
+      "2/2": 3,
+      "1/2": 7,
+      "0/2": 2
+     }
+    },
+    "B": {
+     "dias": 14,
+     "enteros": 9,
+     "sale_entero": 0.643,
+     "promete_metodo": 0.421,
+     "promete_casa": 0.289,
+     "patas_buenas": 0.786,
+     "momio_medio": 2.92,
+     "ganancia_por_100": 88.1,
+     "p5_por_100": 26.7,
+     "patas_cumplidas": {
+      "2/2": 9,
+      "1/2": 4,
+      "0/2": 1
+     }
+    },
+    "todo": {
+     "dias": 26,
+     "enteros": 12,
+     "sale_entero": 0.462,
+     "promete_metodo": 0.418,
+     "promete_casa": 0.282,
+     "patas_buenas": 0.673,
+     "momio_medio": 3.01,
+     "ganancia_por_100": 41.0,
+     "p5_por_100": -6.2,
+     "patas_cumplidas": {
+      "2/2": 12,
+      "1/2": 11,
+      "0/2": 3
+     }
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 10,
+     "enteros": 2,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.269,
+     "promete_casa": 0.153,
+     "patas_buenas": 0.633,
+     "momio_medio": 5.05,
+     "ganancia_por_100": 11.1,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 2,
+      "2/3": 5,
+      "1/3": 3,
+      "0/3": 0
+     }
+    },
+    "B": {
+     "dias": 12,
+     "enteros": 5,
+     "sale_entero": 0.417,
+     "promete_metodo": 0.268,
+     "promete_casa": 0.153,
+     "patas_buenas": 0.722,
+     "momio_medio": 5.1,
+     "ganancia_por_100": 103.0,
+     "p5_por_100": -11.3,
+     "patas_cumplidas": {
+      "3/3": 5,
+      "2/3": 4,
+      "1/3": 3,
+      "0/3": 0
+     }
+    },
+    "todo": {
+     "dias": 22,
+     "enteros": 7,
+     "sale_entero": 0.318,
+     "promete_metodo": 0.268,
+     "promete_casa": 0.153,
+     "patas_buenas": 0.682,
+     "momio_medio": 5.08,
+     "ganancia_por_100": 61.2,
+     "p5_por_100": -20.4,
+     "patas_cumplidas": {
+      "3/3": 7,
+      "2/3": 9,
+      "1/3": 6,
+      "0/3": 0
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 8,
+     "enteros": 1,
+     "sale_entero": 0.125,
+     "promete_metodo": 0.173,
+     "promete_casa": 0.082,
+     "patas_buenas": 0.562,
+     "momio_medio": 8.62,
+     "ganancia_por_100": 15.5,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 1,
+      "3/4": 2,
+      "2/4": 3,
+      "1/4": 2,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 8,
+     "enteros": 3,
+     "sale_entero": 0.375,
+     "promete_metodo": 0.176,
+     "promete_casa": 0.08,
+     "patas_buenas": 0.719,
+     "momio_medio": 9.05,
+     "ganancia_por_100": 203.5,
+     "p5_por_100": -25.2,
+     "patas_cumplidas": {
+      "4/4": 3,
+      "3/4": 2,
+      "2/4": 2,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 16,
+     "enteros": 4,
+     "sale_entero": 0.25,
+     "promete_metodo": 0.175,
+     "promete_casa": 0.081,
+     "patas_buenas": 0.641,
+     "momio_medio": 8.83,
+     "ganancia_por_100": 109.5,
+     "p5_por_100": -42.3,
+     "patas_cumplidas": {
+      "4/4": 4,
+      "3/4": 4,
+      "2/4": 5,
+      "1/4": 3,
+      "0/4": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 5,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.07,
+     "promete_casa": 0.027,
+     "patas_buenas": 0.567,
+     "momio_medio": 21.89,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 1,
+      "4/6": 1,
+      "3/6": 2,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 5,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.08,
+     "promete_casa": 0.024,
+     "patas_buenas": 0.667,
+     "momio_medio": 25.26,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 2,
+      "4/6": 1,
+      "3/6": 2,
+      "2/6": 0,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 10,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.075,
+     "promete_casa": 0.026,
+     "patas_buenas": 0.617,
+     "momio_medio": 23.58,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 3,
+      "4/6": 2,
+      "3/6": 4,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    }
+   }
+  },
+  "a_puerta": {
+   "2": {
+    "A": {
+     "dias": 12,
+     "enteros": 2,
+     "sale_entero": 0.167,
+     "promete_metodo": 0.434,
+     "promete_casa": 0.318,
+     "patas_buenas": 0.5,
+     "momio_medio": 2.63,
+     "ganancia_por_100": -57.6,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "2/2": 2,
+      "1/2": 8,
+      "0/2": 2
+     }
+    },
+    "B": {
+     "dias": 15,
+     "enteros": 6,
+     "sale_entero": 0.4,
+     "promete_metodo": 0.442,
+     "promete_casa": 0.305,
+     "patas_buenas": 0.633,
+     "momio_medio": 2.76,
+     "ganancia_por_100": 8.6,
+     "p5_por_100": -48.3,
+     "patas_cumplidas": {
+      "2/2": 6,
+      "1/2": 7,
+      "0/2": 2
+     }
+    },
+    "todo": {
+     "dias": 27,
+     "enteros": 8,
+     "sale_entero": 0.296,
+     "promete_metodo": 0.438,
+     "promete_casa": 0.311,
+     "patas_buenas": 0.574,
+     "momio_medio": 2.7,
+     "ganancia_por_100": -20.8,
+     "p5_por_100": -59.4,
+     "patas_cumplidas": {
+      "2/2": 8,
+      "1/2": 15,
+      "0/2": 4
+     }
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 9,
+     "enteros": 2,
+     "sale_entero": 0.222,
+     "promete_metodo": 0.286,
+     "promete_casa": 0.186,
+     "patas_buenas": 0.556,
+     "momio_medio": 4.11,
+     "ganancia_por_100": -7.7,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 2,
+      "2/3": 3,
+      "1/3": 3,
+      "0/3": 1
+     }
+    },
+    "B": {
+     "dias": 14,
+     "enteros": 6,
+     "sale_entero": 0.429,
+     "promete_metodo": 0.277,
+     "promete_casa": 0.168,
+     "patas_buenas": 0.69,
+     "momio_medio": 4.67,
+     "ganancia_por_100": 95.1,
+     "p5_por_100": -3.8,
+     "patas_cumplidas": {
+      "3/3": 6,
+      "2/3": 4,
+      "1/3": 3,
+      "0/3": 1
+     }
+    },
+    "todo": {
+     "dias": 23,
+     "enteros": 8,
+     "sale_entero": 0.348,
+     "promete_metodo": 0.281,
+     "promete_casa": 0.175,
+     "patas_buenas": 0.638,
+     "momio_medio": 4.45,
+     "ganancia_por_100": 54.9,
+     "p5_por_100": -16.6,
+     "patas_cumplidas": {
+      "3/3": 8,
+      "2/3": 7,
+      "1/3": 6,
+      "0/3": 2
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 6,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.204,
+     "promete_casa": 0.108,
+     "patas_buenas": 0.542,
+     "momio_medio": 6.53,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 0,
+      "3/4": 3,
+      "2/4": 1,
+      "1/4": 2,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 8,
+     "enteros": 4,
+     "sale_entero": 0.5,
+     "promete_metodo": 0.198,
+     "promete_casa": 0.098,
+     "patas_buenas": 0.719,
+     "momio_medio": 7.52,
+     "ganancia_por_100": 275.6,
+     "p5_por_100": 42.1,
+     "patas_cumplidas": {
+      "4/4": 4,
+      "3/4": 1,
+      "2/4": 1,
+      "1/4": 2,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 14,
+     "enteros": 4,
+     "sale_entero": 0.286,
+     "promete_metodo": 0.201,
+     "promete_casa": 0.102,
+     "patas_buenas": 0.643,
+     "momio_medio": 7.09,
+     "ganancia_por_100": 114.6,
+     "p5_por_100": -25.4,
+     "patas_cumplidas": {
+      "4/4": 4,
+      "3/4": 4,
+      "2/4": 2,
+      "1/4": 4,
+      "0/4": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 5,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.086,
+     "promete_casa": 0.035,
+     "patas_buenas": 0.567,
+     "momio_medio": 16.96,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 0,
+      "4/6": 2,
+      "3/6": 3,
+      "2/6": 0,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 5,
+     "enteros": 1,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.096,
+     "promete_casa": 0.03,
+     "patas_buenas": 0.633,
+     "momio_medio": 19.95,
+     "ganancia_por_100": 179.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 1,
+      "5/6": 1,
+      "4/6": 0,
+      "3/6": 2,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 10,
+     "enteros": 1,
+     "sale_entero": 0.1,
+     "promete_metodo": 0.091,
+     "promete_casa": 0.033,
+     "patas_buenas": 0.6,
+     "momio_medio": 18.45,
+     "ganancia_por_100": 39.5,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 1,
+      "5/6": 1,
+      "4/6": 2,
+      "3/6": 5,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    }
+   }
+  },
+  "tarjetas": {
+   "2": {
+    "A": {
+     "dias": 7,
+     "enteros": 1,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.413,
+     "promete_casa": 0.337,
+     "patas_buenas": 0.5,
+     "momio_medio": 2.5,
+     "ganancia_por_100": -58.3,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "2/2": 1,
+      "1/2": 5,
+      "0/2": 1
+     }
+    },
+    "B": {
+     "dias": 6,
+     "enteros": 3,
+     "sale_entero": 0.5,
+     "promete_metodo": 0.449,
+     "promete_casa": 0.337,
+     "patas_buenas": 0.667,
+     "momio_medio": 2.46,
+     "ganancia_por_100": 24.6,
+     "p5_por_100": -57.5,
+     "patas_cumplidas": {
+      "2/2": 3,
+      "1/2": 2,
+      "0/2": 1
+     }
+    },
+    "todo": {
+     "dias": 13,
+     "enteros": 4,
+     "sale_entero": 0.308,
+     "promete_metodo": 0.429,
+     "promete_casa": 0.337,
+     "patas_buenas": 0.577,
+     "momio_medio": 2.48,
+     "ganancia_por_100": -20.0,
+     "p5_por_100": -64.1,
+     "patas_cumplidas": {
+      "2/2": 4,
+      "1/2": 7,
+      "0/2": 2
+     }
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 4,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.255,
+     "promete_casa": 0.182,
+     "patas_buenas": 0.333,
+     "momio_medio": 4.45,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 0,
+      "2/3": 0,
+      "1/3": 4,
+      "0/3": 0
+     }
+    },
+    "B": {
+     "dias": 6,
+     "enteros": 2,
+     "sale_entero": 0.333,
+     "promete_metodo": 0.285,
+     "promete_casa": 0.201,
+     "patas_buenas": 0.611,
+     "momio_medio": 3.76,
+     "ganancia_por_100": 20.2,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 2,
+      "2/3": 2,
+      "1/3": 1,
+      "0/3": 1
+     }
+    },
+    "todo": {
+     "dias": 10,
+     "enteros": 2,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.273,
+     "promete_casa": 0.193,
+     "patas_buenas": 0.5,
+     "momio_medio": 4.04,
+     "ganancia_por_100": -27.9,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 2,
+      "2/3": 2,
+      "1/3": 5,
+      "0/3": 1
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 2,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.13,
+     "promete_casa": 0.094,
+     "patas_buenas": 0.375,
+     "momio_medio": 8.18,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 0,
+      "3/4": 0,
+      "2/4": 1,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 3,
+     "enteros": 1,
+     "sale_entero": 0.333,
+     "promete_metodo": 0.226,
+     "promete_casa": 0.122,
+     "patas_buenas": 0.667,
+     "momio_medio": 5.64,
+     "ganancia_por_100": 85.5,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 1,
+      "3/4": 1,
+      "2/4": 0,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 5,
+     "enteros": 1,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.188,
+     "promete_casa": 0.111,
+     "patas_buenas": 0.55,
+     "momio_medio": 6.66,
+     "ganancia_por_100": 11.3,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 1,
+      "3/4": 1,
+      "2/4": 1,
+      "1/4": 2,
+      "0/4": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 2,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.041,
+     "promete_casa": 0.028,
+     "patas_buenas": 0.417,
+     "momio_medio": 29.17,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 0,
+      "4/6": 1,
+      "3/6": 0,
+      "2/6": 0,
+      "1/6": 1,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 3,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.089,
+     "promete_casa": 0.044,
+     "patas_buenas": 0.611,
+     "momio_medio": 13.06,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 1,
+      "4/6": 1,
+      "3/6": 0,
+      "2/6": 1,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 5,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.07,
+     "promete_casa": 0.038,
+     "patas_buenas": 0.533,
+     "momio_medio": 19.51,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 1,
+      "4/6": 2,
+      "3/6": 0,
+      "2/6": 1,
+      "1/6": 1,
+      "0/6": 0
+     }
+    }
+   }
+  },
+  "goles": {
+   "2": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.42,
+     "promete_casa": 0.357,
+     "patas_buenas": 0.464,
+     "momio_medio": 2.48,
+     "ganancia_por_100": -64.3,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "2/2": 2,
+      "1/2": 9,
+      "0/2": 3
+     }
+    },
+    "B": {
+     "dias": 15,
+     "enteros": 7,
+     "sale_entero": 0.467,
+     "promete_metodo": 0.442,
+     "promete_casa": 0.368,
+     "patas_buenas": 0.667,
+     "momio_medio": 2.39,
+     "ganancia_por_100": 8.5,
+     "p5_por_100": -39.4,
+     "patas_cumplidas": {
+      "2/2": 7,
+      "1/2": 6,
+      "0/2": 2
+     }
+    },
+    "todo": {
+     "dias": 29,
+     "enteros": 9,
+     "sale_entero": 0.31,
+     "promete_metodo": 0.431,
+     "promete_casa": 0.363,
+     "patas_buenas": 0.569,
+     "momio_medio": 2.43,
+     "ganancia_por_100": -26.7,
+     "p5_por_100": -59.4,
+     "patas_cumplidas": {
+      "2/2": 9,
+      "1/2": 15,
+      "0/2": 5
+     }
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 12,
+     "enteros": 2,
+     "sale_entero": 0.167,
+     "promete_metodo": 0.261,
+     "promete_casa": 0.206,
+     "patas_buenas": 0.611,
+     "momio_medio": 4.06,
+     "ganancia_por_100": -35.2,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "3/3": 2,
+      "2/3": 6,
+      "1/3": 4,
+      "0/3": 0
+     }
+    },
+    "B": {
+     "dias": 13,
+     "enteros": 5,
+     "sale_entero": 0.385,
+     "promete_metodo": 0.284,
+     "promete_casa": 0.221,
+     "patas_buenas": 0.692,
+     "momio_medio": 3.77,
+     "ganancia_por_100": 31.7,
+     "p5_por_100": -44.2,
+     "patas_cumplidas": {
+      "3/3": 5,
+      "2/3": 4,
+      "1/3": 4,
+      "0/3": 0
+     }
+    },
+    "todo": {
+     "dias": 25,
+     "enteros": 7,
+     "sale_entero": 0.28,
+     "promete_metodo": 0.273,
+     "promete_casa": 0.214,
+     "patas_buenas": 0.653,
+     "momio_medio": 3.91,
+     "ganancia_por_100": -0.4,
+     "p5_por_100": -53.6,
+     "patas_cumplidas": {
+      "3/3": 7,
+      "2/3": 10,
+      "1/3": 8,
+      "0/3": 0
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 10,
+     "enteros": 1,
+     "sale_entero": 0.1,
+     "promete_metodo": 0.163,
+     "promete_casa": 0.122,
+     "patas_buenas": 0.6,
+     "momio_medio": 6.49,
+     "ganancia_por_100": -39.3,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 1,
+      "3/4": 3,
+      "2/4": 5,
+      "1/4": 1,
+      "0/4": 0
+     }
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 3,
+     "sale_entero": 0.3,
+     "promete_metodo": 0.191,
+     "promete_casa": 0.128,
+     "patas_buenas": 0.725,
+     "momio_medio": 6.11,
+     "ganancia_por_100": 69.4,
+     "p5_por_100": -49.7,
+     "patas_cumplidas": {
+      "4/4": 3,
+      "3/4": 3,
+      "2/4": 4,
+      "1/4": 0,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 20,
+     "enteros": 4,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.177,
+     "promete_casa": 0.125,
+     "patas_buenas": 0.662,
+     "momio_medio": 6.3,
+     "ganancia_por_100": 15.0,
+     "p5_por_100": -72.3,
+     "patas_cumplidas": {
+      "4/4": 4,
+      "3/4": 6,
+      "2/4": 9,
+      "1/4": 1,
+      "0/4": 0
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 6,
+     "enteros": 1,
+     "sale_entero": 0.167,
+     "promete_metodo": 0.067,
+     "promete_casa": 0.043,
+     "patas_buenas": 0.667,
+     "momio_medio": 16.96,
+     "ganancia_por_100": 195.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 1,
+      "5/6": 0,
+      "4/6": 3,
+      "3/6": 2,
+      "2/6": 0,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 8,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.08,
+     "promete_casa": 0.046,
+     "patas_buenas": 0.667,
+     "momio_medio": 14.56,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 2,
+      "4/6": 4,
+      "3/6": 2,
+      "2/6": 0,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 14,
+     "enteros": 1,
+     "sale_entero": 0.071,
+     "promete_metodo": 0.074,
+     "promete_casa": 0.045,
+     "patas_buenas": 0.667,
+     "momio_medio": 15.59,
+     "ganancia_por_100": 26.4,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 1,
+      "5/6": 2,
+      "4/6": 7,
+      "3/6": 4,
+      "2/6": 0,
+      "1/6": 0,
+      "0/6": 0
+     }
+    }
+   }
+  },
+  "todo": {
+   "2": {
+    "A": {
+     "dias": 15,
+     "enteros": 4,
+     "sale_entero": 0.267,
+     "promete_metodo": 0.478,
+     "promete_casa": 0.33,
+     "patas_buenas": 0.567,
+     "momio_medio": 2.58,
+     "ganancia_por_100": -29.1,
+     "p5_por_100": -79.9,
+     "patas_cumplidas": {
+      "2/2": 4,
+      "1/2": 9,
+      "0/2": 2
+     }
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 7,
+     "sale_entero": 0.412,
+     "promete_metodo": 0.479,
+     "promete_casa": 0.337,
+     "patas_buenas": 0.588,
+     "momio_medio": 2.54,
+     "ganancia_por_100": 3.5,
+     "p5_por_100": -43.2,
+     "patas_cumplidas": {
+      "2/2": 7,
+      "1/2": 6,
+      "0/2": 4
+     }
+    },
+    "todo": {
+     "dias": 32,
+     "enteros": 11,
+     "sale_entero": 0.344,
+     "promete_metodo": 0.478,
+     "promete_casa": 0.334,
+     "patas_buenas": 0.578,
+     "momio_medio": 2.56,
+     "ganancia_por_100": -11.8,
+     "p5_por_100": -46.0,
+     "patas_cumplidas": {
+      "2/2": 11,
+      "1/2": 15,
+      "0/2": 6
+     }
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 3,
+     "sale_entero": 0.214,
+     "promete_metodo": 0.325,
+     "promete_casa": 0.19,
+     "patas_buenas": 0.595,
+     "momio_medio": 4.13,
+     "ganancia_por_100": -12.0,
+     "p5_por_100": -74.3,
+     "patas_cumplidas": {
+      "3/3": 3,
+      "2/3": 6,
+      "1/3": 4,
+      "0/3": 1
+     }
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 4,
+     "sale_entero": 0.25,
+     "promete_metodo": 0.318,
+     "promete_casa": 0.198,
+     "patas_buenas": 0.604,
+     "momio_medio": 3.96,
+     "ganancia_por_100": -3.5,
+     "p5_por_100": -73.7,
+     "patas_cumplidas": {
+      "3/3": 4,
+      "2/3": 6,
+      "1/3": 5,
+      "0/3": 1
+     }
+    },
+    "todo": {
+     "dias": 30,
+     "enteros": 7,
+     "sale_entero": 0.233,
+     "promete_metodo": 0.321,
+     "promete_casa": 0.194,
+     "patas_buenas": 0.6,
+     "momio_medio": 4.04,
+     "ganancia_por_100": -7.4,
+     "p5_por_100": -56.9,
+     "patas_cumplidas": {
+      "3/3": 7,
+      "2/3": 12,
+      "1/3": 9,
+      "0/3": 2
+     }
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "sale_entero": 0.143,
+     "promete_metodo": 0.212,
+     "promete_casa": 0.112,
+     "patas_buenas": 0.607,
+     "momio_medio": 6.56,
+     "ganancia_por_100": -18.3,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "4/4": 2,
+      "3/4": 4,
+      "2/4": 7,
+      "1/4": 0,
+      "0/4": 1
+     }
+    },
+    "B": {
+     "dias": 13,
+     "enteros": 4,
+     "sale_entero": 0.308,
+     "promete_metodo": 0.212,
+     "promete_casa": 0.115,
+     "patas_buenas": 0.692,
+     "momio_medio": 6.34,
+     "ganancia_por_100": 76.2,
+     "p5_por_100": -51.5,
+     "patas_cumplidas": {
+      "4/4": 4,
+      "3/4": 4,
+      "2/4": 3,
+      "1/4": 2,
+      "0/4": 0
+     }
+    },
+    "todo": {
+     "dias": 27,
+     "enteros": 6,
+     "sale_entero": 0.222,
+     "promete_metodo": 0.212,
+     "promete_casa": 0.113,
+     "patas_buenas": 0.648,
+     "momio_medio": 6.46,
+     "ganancia_por_100": 27.2,
+     "p5_por_100": -54.0,
+     "patas_cumplidas": {
+      "4/4": 6,
+      "3/4": 8,
+      "2/4": 10,
+      "1/4": 2,
+      "0/4": 1
+     }
+    }
+   },
+   "6": {
+    "A": {
+     "dias": 13,
+     "enteros": 0,
+     "sale_entero": 0.0,
+     "promete_metodo": 0.088,
+     "promete_casa": 0.038,
+     "patas_buenas": 0.603,
+     "momio_medio": 16.57,
+     "ganancia_por_100": -100.0,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 0,
+      "5/6": 1,
+      "4/6": 8,
+      "3/6": 3,
+      "2/6": 0,
+      "1/6": 1,
+      "0/6": 0
+     }
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 2,
+     "sale_entero": 0.2,
+     "promete_metodo": 0.098,
+     "promete_casa": 0.043,
+     "patas_buenas": 0.667,
+     "momio_medio": 14.98,
+     "ganancia_por_100": 185.4,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 2,
+      "5/6": 2,
+      "4/6": 2,
+      "3/6": 2,
+      "2/6": 2,
+      "1/6": 0,
+      "0/6": 0
+     }
+    },
+    "todo": {
+     "dias": 23,
+     "enteros": 2,
+     "sale_entero": 0.087,
+     "promete_metodo": 0.093,
+     "promete_casa": 0.04,
+     "patas_buenas": 0.63,
+     "momio_medio": 15.88,
+     "ganancia_por_100": 24.1,
+     "p5_por_100": -100.0,
+     "patas_cumplidas": {
+      "6/6": 2,
+      "5/6": 3,
+      "4/6": 10,
+      "3/6": 5,
+      "2/6": 2,
+      "1/6": 1,
+      "0/6": 0
+     }
+    }
+   }
+  }
+ }
+}

@@ -54,10 +54,9 @@ CSS = """<style>
 .vc-cuando{font-size:.78rem;line-height:1.15;opacity:.85;white-space:nowrap}
 .vc-cuando b{font-size:.86rem;opacity:1}
 .vc-que{min-width:0;line-height:1.2}
-.vc-ap{font-weight:600;font-size:.9rem;overflow:hidden;text-overflow:ellipsis;
- white-space:nowrap}
-.vc-par{font-size:.76rem;opacity:.75;overflow:hidden;text-overflow:ellipsis;
- white-space:nowrap}
+.vc-ap{font-weight:600;font-size:.9rem;white-space:normal;overflow-wrap:anywhere;
+ line-height:1.2}
+.vc-par{font-size:.76rem;opacity:.75;white-space:normal;overflow-wrap:anywhere}
 .vc-num{text-align:right;line-height:1.1}
 .vc-num b{font-size:.95rem}
 .vc-num span{display:block;font-size:.66rem;opacity:.65}
@@ -180,7 +179,10 @@ def fila(pick: Dict, hoy: Optional[_dt.date] = None) -> Optional[Dict]:
     if patas:
         # la combinada se lee como sus dos patas: es lo que hay que marcar
         apuesta = ' + '.join(str(p.get('texto') or '?') for p in patas)
-    return {'icono': ICONO.get(nivel, '🟡'),
+    # v363 — el círculo sólo cuando dice algo (el semáforo 🟢🟡🔴); sin
+    # semáforo no se pinta nada, o el que traiga la fila (🎲, ⭐, ♻️…). El
+    # usuario: «¿qué significa ese círculo amarillo?»
+    return {'icono': pick.get('icono') or ICONO.get(nivel, ''),
             'nivel': nivel or '',
             'dia': dia_relativo(pick, hoy),
             'hora': hora(pick),

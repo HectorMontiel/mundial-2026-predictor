@@ -73,10 +73,11 @@ def probar_patas():
         pats = ar.patas_del_partido({'partido': 'A vs B', 'clave_liga': 'mls',
                                      'inicio': '2099-01-01T12:00:00Z'})
         ap = {x['apuesta']: x for x in pats}
-        eqs = [x for x in pats if x['apuesta'].startswith('Córners A:')]
-        check(len(eqs) == 1 and 1.45 <= eqs[0]['cuota'] <= 3 and eqs[0]['prob'] >= 0.55,
-              'la pata de equipo: de la escalera, la línea a cuota 1,45-3 al 55 %%+ (%s)'
-              % [(x['apuesta'], round(x['prob'], 2), x['cuota']) for x in eqs])
+        tots = [x for x in pats if x['apuesta'].startswith('Córners: Más de')]
+        check(len(tots) == 1 and 1.45 <= tots[0]['cuota'] <= 3 and tots[0]['prob'] >= 0.55
+              and not any(x['apuesta'].startswith('Córners A:') for x in pats),
+              'la pata: de la escalera, la línea a cuota 1,45-3 al 55 %%+; sin córners de equipo '
+              '(v363) (%s)' % [(x['apuesta'], round(x['prob'], 2), x['cuota']) for x in pats])
         check('Córners: Más de 1.5' not in ap and 'Córners: Más de 7.5' not in ap,
               'ni la línea de otro mercado ni la de cuota baja entran (%s)' % sorted(ap))
         pick2 = {'partido': 'C vs D', 'clave_liga': 'mls', 'inicio': '2099-01-01T15:00:00Z'}
@@ -104,10 +105,10 @@ def probar_patas():
                 open('jugados_dia.json', 'w', encoding='utf-8'))
             m = ar.liquidar(ruta)
             d = pd.read_csv(ruta)
-            ok = d[d.apuesta.str.startswith('Córners A:')]
-            check(n >= 1 and m >= 1 and float(ok.real.iloc[0]) == 7
-                  and int(ok.cumple.iloc[0]) == int(7 > float(ok.linea.iloc[0])),
-                  'apunta las patas y las liquida con la ficha (córners de A: 7)')
+            ok = d[d.apuesta.str.startswith('Córners: Más de')]
+            check(n >= 1 and m >= 1 and float(ok.real.iloc[0]) == 9
+                  and int(ok.cumple.iloc[0]) == int(9 > float(ok.linea.iloc[0])),
+                  'apunta las patas y las liquida con la ficha (córners del partido: 9)')
         finally:
             os.chdir(cwd)
             shutil.rmtree(tmp, ignore_errors=True)

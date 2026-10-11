@@ -68,13 +68,17 @@ PATAS_SEGURA = 3
 PATAS_ARRIESGADA = 6
 DIF_CASA_MAX = 0.20      # más lejos que esto del método: es otro mercado
 # (objetivo del método, línea de equipo local, visita, total, rótulo)
-MERCADOS = (('corners', 'corners_home', 'corners_away', 'corners', 'Córners'),
+MERCADOS = (('corners', None, None, 'corners', 'Córners'),
             ('tiros', 'remates_home', 'remates_away', 'remates', 'Tiros'),
             ('a_puerta', 'remates_on_home', 'remates_on_away', 'remates_on', 'Tiros a puerta'),
-            ('tarjetas', 'tarjetas_home', 'tarjetas_away', 'tarjetas', 'Tarjetas'),
             ('goles', 'goles_home', 'goles_away', 'goles', 'Goles'))
-# lo medido de la combinada (`_v362b_escaleras.py`, sale entera)
-MEDIDO = {2: 0.39, 3: 0.20, 4: 0.11, 6: 0.05}
+# v363 — FUERA LAS TARJETAS Y LOS CÓRNERS DE EQUIPO. Contra los cierres de
+# Playdoit (`_v363_simulaciones.py`, 642 partidos desde el 24-ago), en la zona
+# de riesgo prometían más de lo que aciertan: tarjetas 61 % → 43-47 %
+# (−26/−30 por cada 100), córners de equipo 60 % → 53 % (−12). Lo demás
+# acierta lo prometido (60-62 %). La combinada del día con lo que queda sale
+# entera: de 2 ~40 %, de 3 ~26 %, de 4 ~22 %, de 6 ~9 % (pocos días: 13-17).
+MEDIDO = {2: 0.40, 3: 0.26, 4: 0.22, 6: 0.09}
 FICHERO = 'arriesgadas_seguimiento.csv'
 
 
@@ -137,6 +141,8 @@ def patas_del_partido(pick: Dict) -> List[Dict]:
                 continue
             k = float(kk.get(obj) or (12.0 if obj == 'corners' else 500.0))
             for mu, clave, eq in ((lh, kh, h), (la, ka, a)):
+                if not clave:
+                    continue
                 m = _mejor_linea(tab.get(clave), float(mu), k)
                 if m:
                     out.append({'obj': obj, 'tipo': 'equipo', 'linea': m[0], 'prob': m[1],
@@ -149,7 +155,7 @@ def patas_del_partido(pick: Dict) -> List[Dict]:
                 out.append({'obj': obj, 'tipo': 'total', 'linea': m[0], 'prob': m[1],
                             'cuota': m[2], 'apuesta': '%s: Más de %g' % (rot, m[0])})
         for x in out:
-            x.update({'partido': pick.get('partido'), 'inicio': pick.get('inicio'),
+            x.update({'icono': '🎲', 'partido': pick.get('partido'), 'inicio': pick.get('inicio'),
                       'fecha': pick.get('fecha'), 'clave_liga': pick.get('clave_liga'),
                       'liga': pick.get('liga'), 'deporte': 'Fútbol', 'casa': 'Playdoit',
                       'porque': 'Método Contexto: %.0f %% · cuota de Playdoit' % (100 * x['prob'])})
@@ -158,14 +164,28 @@ def patas_del_partido(pick: Dict) -> List[Dict]:
     return out
 
 
+_MEMO: Dict = {}
+
+
 def del_dia(pronosticos: List[Dict], ahora: Optional[float] = None) -> List[Dict]:
-    """Todas las patas de los partidos de fútbol que aún no empiezan, por hora."""
+    """Todas las patas de los partidos de fútbol que aún no empiezan, por hora.
+    v363 — recordadas 5 minutos (cada pasada de la pantalla las pedía: ~1,7 s)."""
+    import os
     import time
     try:
         import horario as hz
     except Exception:
         return []
-    ahora = float(ahora if ahora is not None else time.time())
+    if ahora is None:
+        mt = tuple(os.path.getmtime(f) if os.path.exists(f) else 0
+                   for f in ('tiros_dia.json', 'mercado_dia.json'))
+        k = (id(pronosticos), len(pronosticos or []), mt, int(time.time() // 300))
+        if _MEMO.get('k') == k:
+            return [dict(x) for x in _MEMO['v']]
+        v = del_dia(pronosticos, time.time())
+        _MEMO.update(k=k, v=v)
+        return [dict(x) for x in v]
+    ahora = float(ahora)
     out = []
     for p in pronosticos or []:
         if str(p.get('deporte') or 'Fútbol') != 'Fútbol' or p.get('jugado'):
