@@ -13,7 +13,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Troyes vs Marseille,2026-10-11 18:45:00,Córners Troyes: Más de 3.5,corners,equipo,local,3.5,0.6824,1.5,6.0,1.0
 2026-10-11,Cagliari vs Juventus,2026-10-11 18:45:00,Córners Juventus: Más de 5.5,corners,equipo,visita,5.5,0.589,1.667,9.0,1.0
 2026-10-11,Atletico-MG vs Santos,2026-10-11 19:00:00,Córners Santos: Más de 4.5,corners,equipo,visita,4.5,0.5531,1.9,3.0,0.0
-2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Córners Corinthians: Más de 3.5,corners,equipo,visita,3.5,0.5778,1.6,,
+2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Córners Corinthians: Más de 3.5,corners,equipo,visita,3.5,0.5778,1.6,3.0,0.0
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Córners Necaxa: Más de 3.5,corners,equipo,visita,3.5,0.634,1.667,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas: Más de 2.5,tarjetas,total,total,2.5,0.7006,1.455,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas Venezia: Más de 1.5,tarjetas,equipo,visita,1.5,0.6787,1.556,,
@@ -25,7 +25,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Fredrikstad vs Tromso,2026-10-11 12:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5899,1.455,10.0,1.0
 2026-10-11,Aberdeen vs St Johnstone,2026-10-11 13:00:00,Tiros a puerta Aberdeen: Más de 3.5,a_puerta,equipo,local,3.5,0.659,1.455,5.0,1.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Tiros Arouca: Más de 12.5,tiros,equipo,local,12.5,0.5516,1.538,7.0,0.0
-2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5614,1.615,,
+2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5614,1.615,6.0,0.0
 2026-10-11,Motherwell vs Celtic,2026-10-11 11:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.679,1.471,2.0,0.0
 2026-10-11,Southampton vs Portsmouth,2026-10-11 11:00:00,Goles Southampton: Más de 1.5,goles,equipo,local,1.5,0.6773,1.5,1.0,0.0
 2026-10-11,Southampton vs Portsmouth,2026-10-11 11:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6668,1.6,1.0,0.0
@@ -89,7 +89,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Cagliari vs Juventus,2026-10-11 18:45:00,Ambos marcan: No,btts,btts,total,0.0,0.5694,1.667,1.0,0.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.564,1.714,5.0,0.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5553,1.636,18.0,0.0
-2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Ambos marcan: No,btts,btts,total,0.0,0.5501,1.8,,
+2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Ambos marcan: No,btts,btts,total,0.0,0.5501,1.8,1.0,0.0
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros Pachuca: Más de 17.5,tiros,equipo,local,17.5,0.5634,1.667,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Udinese: Más de 11.5,tiros,equipo,visita,11.5,0.5843,1.75,,
 2026-10-11,Padova vs Carrarese,2026-10-11 15:15:00,Tiros a puerta Carrarese: Más de 2.5,a_puerta,equipo,visita,2.5,0.7041,1.462,4.0,1.0
@@ -139,17 +139,17 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Tiros a puerta Estrela: Más de 3.5,a_puerta,equipo,visita,3.5,0.6119,1.636,2.0,0.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5866,1.6,11.0,1.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5543,1.69,0.0,0.0
-2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros Palmeiras: Más de 15.5,tiros,equipo,local,15.5,0.602,1.538,,
+2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros Palmeiras: Más de 15.5,tiros,equipo,local,15.5,0.602,1.538,22.0,1.0
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Sevilla: Más de 11.5,tiros,equipo,visita,11.5,0.5758,1.846,,
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Sevilla: Más de 3.5,a_puerta,equipo,visita,3.5,0.5542,1.714,,
-2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta Palmeiras: Más de 4.5,a_puerta,equipo,local,4.5,0.677,1.48,,
-2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros a puerta Internacional: Más de 3.5,a_puerta,equipo,visita,3.5,0.6675,1.48,,
-2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.6154,1.526,,
-2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros Corinthians: Más de 9.5,tiros,equipo,visita,9.5,0.6072,1.5,,
-2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros Internacional: Más de 12.5,tiros,equipo,visita,12.5,0.6049,1.538,,
-2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Goles Corinthians: Más de 0.5,goles,equipo,visita,0.5,0.5987,1.87,,
-2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5983,1.636,,
-2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5734,1.5,,
+2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta Palmeiras: Más de 4.5,a_puerta,equipo,local,4.5,0.677,1.48,8.0,1.0
+2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros a puerta Internacional: Más de 3.5,a_puerta,equipo,visita,3.5,0.6675,1.48,3.0,0.0
+2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.6154,1.526,10.0,1.0
+2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros Corinthians: Más de 9.5,tiros,equipo,visita,9.5,0.6072,1.5,12.0,1.0
+2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros Internacional: Más de 12.5,tiros,equipo,visita,12.5,0.6049,1.538,14.0,1.0
+2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Goles Corinthians: Más de 0.5,goles,equipo,visita,0.5,0.5987,1.87,1.0,1.0
+2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5983,1.636,11.0,1.0
+2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5734,1.5,11.0,1.0
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5843,1.5,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5657,1.76,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Torino: Más de 12.5,tiros,equipo,local,12.5,0.5569,1.778,,

@@ -4485,67 +4485,68 @@ fecha,partido,clave_liga,equipo,lado,mercado,linea,c_mas,c_menos,p_casa,p_mod,ap
 2026-10-11,Pachuca vs Necaxa,liga_mx,Necaxa,visitante,a_puerta,2.5,1.385,2.667,0.6582,0.7856,,vivo,,2026-10-11T22:00:05Z
 2026-10-11,Pachuca vs Necaxa,liga_mx,Necaxa,visitante,a_puerta,3.5,1.889,1.778,0.4849,0.6076,,vivo,,2026-10-11T22:00:05Z
 2026-10-11,Pachuca vs Necaxa,liga_mx,Necaxa,visitante,a_puerta,4.5,2.714,1.364,0.3345,0.4224,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,tiros,11.5,1.615,2.083,0.5633,0.6349,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,tiros,12.5,1.867,1.8,0.4909,0.5493,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,tiros,13.5,2.2,1.546,0.4127,0.4645,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,a_puerta,3.5,1.546,2.2,0.5873,0.6447,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,a_puerta,4.5,2.1,1.625,0.4362,0.4629,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,a_puerta,5.5,3.0,1.308,0.3036,0.301,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,15.5,1.583,2.143,0.5751,0.4205,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,16.5,1.8,1.867,0.5091,0.3486,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,17.5,2.05,1.636,0.4438,0.2836,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,4.5,1.417,2.546,0.6424,0.5755,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,5.5,1.8,1.867,0.5091,0.41,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,6.5,2.364,1.48,0.385,0.2682,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,tiros,15.5,1.7,1.95,0.5342,0.5534,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,tiros,16.5,1.96,1.714,0.4665,0.4804,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,tiros,17.5,2.25,1.53,0.4048,0.4102,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,a_puerta,4.5,1.417,2.546,0.6424,0.6599,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,a_puerta,5.5,1.778,1.889,0.5151,0.5009,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,a_puerta,6.5,2.364,1.48,0.385,0.3515,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,tiros,9.5,1.462,2.4,0.6214,0.6645,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,tiros,10.5,1.714,1.96,0.5335,0.57,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,tiros,11.5,2.0,1.667,0.4546,0.4755,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,a_puerta,2.5,1.429,2.5,0.6363,0.7984,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,a_puerta,3.5,1.95,1.727,0.4697,0.6255,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,a_puerta,4.5,2.8,1.35,0.3253,0.4417,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Eyupspor vs Goztep,turquia,Eyupspor,local,tiros,12.5,1.933,1.714,0.47,0.5344,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Eyupspor vs Goztep,turquia,Eyupspor,local,a_puerta,3.5,1.7,1.95,0.5342,0.6392,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Eyupspor vs Goztep,turquia,Goztep,visitante,tiros,14.5,1.909,1.733,0.4758,0.5419,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Eyupspor vs Goztep,turquia,Goztep,visitante,a_puerta,4.5,1.692,1.96,0.5367,0.534,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,KFUM Oslo vs Valerenga,noruega,KFUM Oslo,local,tiros,13.5,1.727,1.923,0.5268,0.469,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,KFUM Oslo vs Valerenga,noruega,KFUM Oslo,local,a_puerta,4.5,1.76,1.875,0.5158,0.502,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,KFUM Oslo vs Valerenga,noruega,Valerenga,visitante,tiros,13.5,1.833,1.8,0.4955,0.6424,más,vivo,,2026-10-11T22:00:05Z
-2026-10-12,KFUM Oslo vs Valerenga,noruega,Valerenga,visitante,a_puerta,4.5,1.85,1.786,0.4912,0.5816,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Aarhus vs Sonderjyske,dinamarca,Aarhus,local,tiros,18.5,1.933,1.714,0.47,0.6067,más,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Aarhus vs Sonderjyske,dinamarca,Aarhus,local,a_puerta,5.5,1.667,2.0,0.5454,0.6472,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Aarhus vs Sonderjyske,dinamarca,Sonderjyske,visitante,tiros,10.5,1.96,1.692,0.4633,0.5885,más,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Aarhus vs Sonderjyske,dinamarca,Sonderjyske,visitante,a_puerta,3.5,1.95,1.7,0.4658,0.4619,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Dijon vs Metz,fra_ligue2,Dijon,local,tiros,14.5,1.733,1.909,0.5242,0.4371,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Dijon vs Metz,fra_ligue2,Dijon,local,a_puerta,4.5,1.727,1.923,0.5268,0.5161,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Dijon vs Metz,fra_ligue2,Metz,visitante,tiros,11.5,1.818,1.818,0.5,0.6413,más,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Dijon vs Metz,fra_ligue2,Metz,visitante,a_puerta,3.5,1.583,2.143,0.5751,0.7238,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Torino vs Udinese,serie_a,Torino,local,tiros,13.5,1.875,1.786,0.4878,0.4723,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Torino vs Udinese,serie_a,Torino,local,a_puerta,4.5,2.125,1.615,0.4318,0.448,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Torino vs Udinese,serie_a,Udinese,visitante,tiros,11.5,1.75,1.923,0.5236,0.5464,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Torino vs Udinese,serie_a,Udinese,visitante,a_puerta,3.5,1.692,2.0,0.5417,0.5506,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Levante vs Sevilla,laliga,Levante,local,tiros,12.5,1.96,1.714,0.4665,0.4735,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Levante vs Sevilla,laliga,Levante,local,a_puerta,3.5,1.6,2.143,0.5725,0.5818,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Levante vs Sevilla,laliga,Sevilla,visitante,tiros,11.5,1.846,1.818,0.4962,0.5475,,vivo,,2026-10-11T22:00:05Z
 2026-10-12,Levante vs Sevilla,laliga,Sevilla,visitante,a_puerta,3.5,1.714,1.96,0.5335,0.5245,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coventry vs Newcastle,premier,Coventry,local,tiros,12.5,1.818,1.846,0.5038,0.5446,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coventry vs Newcastle,premier,Coventry,local,a_puerta,3.5,1.667,2.05,0.5515,0.6001,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coventry vs Newcastle,premier,Newcastle,visitante,tiros,14.5,1.889,1.778,0.4849,0.4437,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coventry vs Newcastle,premier,Newcastle,visitante,a_puerta,4.5,1.647,2.05,0.5545,0.4722,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coritiba vs Botafogo RJ,brasil,Coritiba,local,tiros,14.5,1.846,1.818,0.4962,0.4885,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coritiba vs Botafogo RJ,brasil,Coritiba,local,a_puerta,4.5,1.889,1.778,0.4849,0.5532,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coritiba vs Botafogo RJ,brasil,Botafogo RJ,visitante,tiros,14.5,1.76,1.909,0.5203,0.5127,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Coritiba vs Botafogo RJ,brasil,Botafogo RJ,visitante,a_puerta,4.5,1.889,1.778,0.4849,0.5537,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Famalicao vs Alverca,primeira,Famalicao,local,tiros,13.5,1.75,1.889,0.5191,0.444,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Famalicao vs Alverca,primeira,Famalicao,local,a_puerta,4.5,1.76,1.875,0.5158,0.4677,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Famalicao vs Alverca,primeira,Alverca,visitante,tiros,8.5,1.667,2.0,0.5454,0.636,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Famalicao vs Alverca,primeira,Alverca,visitante,a_puerta,2.5,1.583,2.143,0.5751,0.6284,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Chapecoense-SC,local,tiros,13.5,1.941,1.733,0.4717,0.472,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Chapecoense-SC,local,a_puerta,4.5,2.125,1.615,0.4318,0.3359,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Athletico-PR,visitante,tiros,13.5,1.714,1.96,0.5335,0.5197,,vivo,,2026-10-11T22:00:05Z
-2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Athletico-PR,visitante,a_puerta,4.5,1.818,1.846,0.5038,0.6066,,vivo,,2026-10-11T22:00:05Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,tiros,11.5,1.615,2.083,0.5633,0.6349,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,tiros,12.5,1.867,1.8,0.4909,0.5493,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,tiros,13.5,2.2,1.546,0.4127,0.4645,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,a_puerta,3.5,1.546,2.2,0.5873,0.6447,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,a_puerta,4.5,2.1,1.625,0.4362,0.4629,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,UNAM Pumas,local,a_puerta,5.5,3.0,1.308,0.3036,0.301,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,15.5,1.583,2.143,0.5751,0.4205,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,16.5,1.8,1.867,0.5091,0.3486,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,17.5,2.05,1.636,0.4438,0.2836,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,4.5,1.417,2.546,0.6424,0.5755,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,5.5,1.8,1.867,0.5091,0.41,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,UNAM Pumas vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,6.5,2.364,1.48,0.385,0.2682,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,tiros,15.5,1.7,1.95,0.5342,0.5534,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,tiros,16.5,1.96,1.714,0.4665,0.4804,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,tiros,17.5,2.25,1.53,0.4048,0.4102,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,a_puerta,4.5,1.417,2.546,0.6424,0.6599,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,a_puerta,5.5,1.778,1.889,0.5151,0.5009,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Atalanta,local,a_puerta,6.5,2.364,1.48,0.385,0.3515,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,tiros,9.5,1.462,2.4,0.6214,0.6645,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,tiros,10.5,1.714,1.96,0.5335,0.57,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,tiros,11.5,2.0,1.667,0.4546,0.4755,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,a_puerta,2.5,1.429,2.5,0.6363,0.7984,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,a_puerta,3.5,1.95,1.727,0.4697,0.6255,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Atalanta vs Venezia,serie_a,Venezia,visitante,a_puerta,4.5,2.8,1.35,0.3253,0.4417,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Eyupspor vs Goztep,turquia,Eyupspor,local,tiros,12.5,1.933,1.714,0.47,0.5344,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Eyupspor vs Goztep,turquia,Eyupspor,local,a_puerta,3.5,1.7,1.95,0.5342,0.6392,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Eyupspor vs Goztep,turquia,Goztep,visitante,tiros,14.5,1.933,1.714,0.47,0.5419,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Eyupspor vs Goztep,turquia,Goztep,visitante,a_puerta,4.5,1.692,1.96,0.5367,0.534,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,KFUM Oslo vs Valerenga,noruega,KFUM Oslo,local,tiros,13.5,1.727,1.923,0.5268,0.469,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,KFUM Oslo vs Valerenga,noruega,KFUM Oslo,local,a_puerta,4.5,1.76,1.875,0.5158,0.502,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,KFUM Oslo vs Valerenga,noruega,Valerenga,visitante,tiros,13.5,1.833,1.8,0.4955,0.6424,más,vivo,,2026-10-11T23:33:18Z
+2026-10-12,KFUM Oslo vs Valerenga,noruega,Valerenga,visitante,a_puerta,4.5,1.85,1.786,0.4912,0.5816,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Aarhus vs Sonderjyske,dinamarca,Aarhus,local,tiros,18.5,1.933,1.714,0.47,0.6067,más,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Aarhus vs Sonderjyske,dinamarca,Aarhus,local,a_puerta,5.5,1.667,2.0,0.5454,0.6472,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Aarhus vs Sonderjyske,dinamarca,Sonderjyske,visitante,tiros,10.5,1.96,1.692,0.4633,0.5885,más,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Aarhus vs Sonderjyske,dinamarca,Sonderjyske,visitante,a_puerta,3.5,1.95,1.7,0.4658,0.4619,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Dijon vs Metz,fra_ligue2,Dijon,local,tiros,14.5,1.733,1.909,0.5242,0.4371,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Dijon vs Metz,fra_ligue2,Dijon,local,a_puerta,4.5,1.727,1.923,0.5268,0.5161,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Dijon vs Metz,fra_ligue2,Metz,visitante,tiros,11.5,1.818,1.818,0.5,0.6413,más,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Dijon vs Metz,fra_ligue2,Metz,visitante,a_puerta,3.5,1.583,2.143,0.5751,0.7238,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Torino vs Udinese,serie_a,Torino,local,tiros,13.5,1.875,1.786,0.4878,0.4723,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Torino vs Udinese,serie_a,Torino,local,a_puerta,4.5,2.125,1.615,0.4318,0.448,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Torino vs Udinese,serie_a,Udinese,visitante,tiros,11.5,1.75,1.923,0.5236,0.5464,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Torino vs Udinese,serie_a,Udinese,visitante,a_puerta,3.5,1.692,2.0,0.5417,0.5506,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Levante vs Sevilla,laliga,Levante,local,tiros,12.5,1.96,1.714,0.4665,0.4735,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Levante vs Sevilla,laliga,Levante,local,a_puerta,3.5,1.6,2.143,0.5725,0.5818,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Levante vs Sevilla,laliga,Sevilla,visitante,tiros,11.5,1.727,1.95,0.5303,0.5475,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Levante vs Sevilla,laliga,Sevilla,visitante,a_puerta,4.5,2.143,1.6,0.4275,0.3385,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coventry vs Newcastle,premier,Coventry,local,tiros,12.5,1.818,1.846,0.5038,0.5446,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coventry vs Newcastle,premier,Coventry,local,a_puerta,3.5,1.667,2.05,0.5515,0.6001,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coventry vs Newcastle,premier,Newcastle,visitante,tiros,14.5,1.889,1.778,0.4849,0.4437,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coventry vs Newcastle,premier,Newcastle,visitante,a_puerta,4.5,1.647,2.05,0.5545,0.4722,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coritiba vs Botafogo RJ,brasil,Coritiba,local,tiros,14.5,1.846,1.818,0.4962,0.4885,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coritiba vs Botafogo RJ,brasil,Coritiba,local,a_puerta,4.5,1.889,1.778,0.4849,0.5532,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coritiba vs Botafogo RJ,brasil,Botafogo RJ,visitante,tiros,14.5,1.76,1.909,0.5203,0.5127,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Coritiba vs Botafogo RJ,brasil,Botafogo RJ,visitante,a_puerta,4.5,1.889,1.778,0.4849,0.5537,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Famalicao vs Alverca,primeira,Famalicao,local,tiros,13.5,1.75,1.889,0.5191,0.444,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Famalicao vs Alverca,primeira,Famalicao,local,a_puerta,4.5,1.76,1.875,0.5158,0.4677,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Famalicao vs Alverca,primeira,Alverca,visitante,tiros,8.5,1.667,2.0,0.5454,0.636,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Famalicao vs Alverca,primeira,Alverca,visitante,a_puerta,2.5,1.583,2.143,0.5751,0.6284,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Chapecoense-SC,local,tiros,13.5,1.941,1.733,0.4717,0.472,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Chapecoense-SC,local,a_puerta,4.5,2.125,1.615,0.4318,0.3359,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Athletico-PR,visitante,tiros,13.5,1.714,1.96,0.5335,0.5197,,vivo,,2026-10-11T23:33:18Z
+2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Athletico-PR,visitante,a_puerta,4.5,1.818,1.846,0.5038,0.6066,,vivo,,2026-10-11T23:33:18Z

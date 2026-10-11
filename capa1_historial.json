@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-11T22:00:32Z",
+"actualizado": "2026-10-11T23:33:45Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -4294,6 +4294,26 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Anzoategui FC vs Carabobo",
+"apuesta": "Gana Carabobo",
+"cuota": 1.58,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Anzoátegui FC vs Carabobo",
+"apuesta": "Carabobo o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Argentino de Merlo vs Sportivo Italiano",
@@ -4314,6 +4334,26 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Atletico Balboa vs CD FAS",
+"apuesta": "CD FAS o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Atletico Balboa vs FAS",
+"apuesta": "Gana FAS",
+"cuota": 1.5715,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Atletico-MG vs Santos",
@@ -4331,6 +4371,16 @@
 "cuota": 1.177,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Aurora vs Nacional Potosí",
+"apuesta": "Aurora o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "2-2"
 },
 {
 "dia": "2026-10-11",
@@ -4446,6 +4496,16 @@
 "dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Dunbeholden vs Molynes",
+"apuesta": "Gana Dunbeholden",
+"cuota": 2.8,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "El Linqueno vs Douglas Haig",
 "apuesta": "Gana Douglas Haig",
 "cuota": 2.9,
@@ -4461,6 +4521,26 @@
 "cuota": 1.32,
 "resultado": "verde",
 "marcador": "5-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Flamengo RJ vs Fluminense",
+"apuesta": "Flamengo RJ o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Flamengo RJ vs Fluminense",
+"apuesta": "Gana Flamengo RJ",
+"cuota": 1.417,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-11",
@@ -4524,6 +4604,16 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Gremio vs Internacional",
+"apuesta": "Empate",
+"cuota": 3.35,
+"resultado": "verde",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-11",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Havirov vs Sigma Olomouc B",
@@ -4551,6 +4641,26 @@
 "cuota": 2.02,
 "resultado": "verde",
 "marcador": "1-4"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Jaguares de Cordoba vs Deportes Tolima",
+"apuesta": "Gana Deportes Tolima",
+"cuota": 1.78,
+"resultado": "rojo",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Jaguares de Córdoba vs Deportes Tolima",
+"apuesta": "Gana Deportes Tolima",
+"cuota": 1.78,
+"resultado": "rojo",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-11",
@@ -4621,6 +4731,16 @@
 "cuota": 1.72,
 "resultado": "verde",
 "marcador": "3-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Palmeiras vs Corinthians",
+"apuesta": "Palmeiras o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "4-1"
 },
 {
 "dia": "2026-10-11",
@@ -4746,6 +4866,16 @@
 "dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Sportivo Belgrano vs Sarmiento de La Banda",
+"apuesta": "Gana Sarmiento de La Banda",
+"cuota": 3.05,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Sportivo Las Parejas vs Defensores Belgrano VR",
 "apuesta": "Gana Defensores Belgrano VR",
 "cuota": 3.15,
@@ -4791,6 +4921,26 @@
 "cuota": 1.5,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Trujillanos vs Academia Puerto Cabello",
+"apuesta": "Academia Puerto Cabello o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Trujillanos vs Puerto Cabello",
+"apuesta": "Gana Puerto Cabello",
+"cuota": 1.68,
+"resultado": "verde",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-11",
