@@ -204,36 +204,36 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple
 2026-10-11,Liverpool vs Man City,premier,2026-10-11 15:30:00,tarjetas,2.277,1.915,4.192,2.5,0.7887,4.0,1.0
 2026-10-11,Liverpool vs Man City,premier,2026-10-11 15:30:00,tiros,13.06,12.896,25.956,21.5,0.7416,28.0,1.0
 2026-10-11,Liverpool vs Man City,premier,2026-10-11 15:30:00,a_puerta,5.161,4.957,10.118,7.5,0.7748,10.0,1.0
-2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,goles,1.034,1.93,2.964,1.5,0.7954,,
-2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,corners,4.152,5.472,9.624,6.5,0.7957,,
-2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,tarjetas,1.842,1.634,3.476,1.5,0.8616,,
-2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,tiros,11.697,15.695,27.392,23.5,0.7016,,
-2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,a_puerta,3.849,5.662,9.511,7.5,0.7182,,
-2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,goles,2.651,0.597,3.248,1.5,0.835,,
-2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,corners,7.654,2.934,10.588,7.5,0.7676,,
-2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,tarjetas,1.756,1.934,3.69,2.5,0.7129,,
-2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,tiros,22.413,8.439,30.852,25.5,0.7454,,
-2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,a_puerta,8.033,2.704,10.737,8.5,0.7247,,
-2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,goles,1.568,1.567,3.135,1.5,0.8201,,
-2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,corners,5.315,4.587,9.902,7.5,0.7226,,
-2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,tarjetas,1.974,2.275,4.249,2.5,0.7962,,
-2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,tiros,14.503,13.43,27.933,23.5,0.7283,,
-2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,a_puerta,4.912,4.451,9.363,7.5,0.7035,,
-2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,goles,2.165,0.959,3.124,1.5,0.8186,,
-2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,corners,5.769,3.984,9.753,7.5,0.7087,,
-2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,tarjetas,1.386,1.976,3.362,1.5,0.8488,,
-2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,tiros,17.965,10.282,28.247,23.5,0.7387,,
-2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,a_puerta,6.424,3.459,9.883,7.5,0.7529,,
-2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,goles,0.927,1.667,2.594,1.5,0.7315,,
-2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,corners,3.856,5.186,9.042,6.5,0.7505,,
-2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,tarjetas,1.896,1.72,3.616,2.5,0.7001,,
-2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,tiros,10.442,14.596,25.038,20.5,0.7507,,
-2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,a_puerta,3.274,5.175,8.449,6.5,0.7251,,
-2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,goles,1.86,1.325,3.185,1.5,0.8268,,
-2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,corners,5.871,4.768,10.639,7.5,0.7793,,
-2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,tarjetas,1.446,1.684,3.13,1.5,0.8194,,
-2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,tiros,15.275,12.693,27.968,23.5,0.7296,,
-2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,a_puerta,5.729,4.441,10.17,7.5,0.7789,,
+2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,goles,1.034,1.93,2.964,1.5,0.7954,2.0,1.0
+2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,corners,4.152,5.472,9.624,6.5,0.7957,8.0,1.0
+2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,tarjetas,1.842,1.634,3.476,1.5,0.8616,5.0,1.0
+2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,tiros,11.697,15.695,27.392,23.5,0.7016,21.0,0.0
+2026-10-11,Sassuolo vs Milan,serie_a,2026-10-11 16:00:00,a_puerta,3.849,5.662,9.511,7.5,0.7182,10.0,1.0
+2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,goles,2.651,0.597,3.248,1.5,0.835,3.0,1.0
+2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,corners,7.654,2.934,10.588,7.5,0.7676,11.0,1.0
+2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,tarjetas,1.756,1.934,3.69,2.5,0.7129,3.0,1.0
+2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,tiros,22.413,8.439,30.852,25.5,0.7454,27.0,1.0
+2026-10-11,Besiktas vs Kocaelispor,turquia,2026-10-11 16:00:00,a_puerta,8.033,2.704,10.737,8.5,0.7247,12.0,1.0
+2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,goles,1.568,1.567,3.135,1.5,0.8201,3.0,1.0
+2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,corners,5.315,4.587,9.902,7.5,0.7226,6.0,0.0
+2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,tarjetas,1.974,2.275,4.249,2.5,0.7962,4.0,1.0
+2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,tiros,14.503,13.43,27.933,23.5,0.7283,22.0,0.0
+2026-10-11,Midtjylland vs FC Copenhagen,dinamarca,2026-10-11 16:00:00,a_puerta,4.912,4.451,9.363,7.5,0.7035,4.0,0.0
+2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,goles,2.165,0.959,3.124,1.5,0.8186,7.0,1.0
+2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,corners,5.769,3.984,9.753,7.5,0.7087,12.0,1.0
+2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,tarjetas,1.386,1.976,3.362,1.5,0.8488,7.0,1.0
+2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,tiros,17.965,10.282,28.247,23.5,0.7387,31.0,1.0
+2026-10-11,Betis vs Osasuna,laliga,2026-10-11 16:30:00,a_puerta,6.424,3.459,9.883,7.5,0.7529,12.0,1.0
+2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,goles,0.927,1.667,2.594,1.5,0.7315,1.0,0.0
+2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,corners,3.856,5.186,9.042,6.5,0.7505,6.0,0.0
+2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,tarjetas,1.896,1.72,3.616,2.5,0.7001,3.0,1.0
+2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,tiros,10.442,14.596,25.038,20.5,0.7507,21.0,1.0
+2026-10-11,Rubin Kazan vs Dynamo Moscow,rus_premier,2026-10-11 16:30:00,a_puerta,3.274,5.175,8.449,6.5,0.7251,4.0,0.0
+2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,goles,1.86,1.325,3.185,1.5,0.8268,6.0,1.0
+2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,corners,5.871,4.768,10.639,7.5,0.7793,6.0,0.0
+2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,tarjetas,1.446,1.684,3.13,1.5,0.8194,5.0,1.0
+2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,tiros,15.275,12.693,27.968,23.5,0.7296,27.0,1.0
+2026-10-11,Westerlo vs Antwerp,bel_pro_league,2026-10-11 16:30:00,a_puerta,5.729,4.441,10.17,7.5,0.7789,9.0,1.0
 2026-10-11,Benfica vs Guimaraes,primeira,2026-10-11 17:00:00,goles,2.548,0.728,3.276,1.5,0.8385,,
 2026-10-11,Benfica vs Guimaraes,primeira,2026-10-11 17:00:00,corners,7.073,3.153,10.226,7.5,0.7431,,
 2026-10-11,Benfica vs Guimaraes,primeira,2026-10-11 17:00:00,tarjetas,1.534,2.665,4.199,2.5,0.7896,,
@@ -254,26 +254,26 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple
 2026-10-11,Modena vs Verona,ita_serie_b,2026-10-11 17:30:00,tarjetas,1.979,2.663,4.642,2.5,0.8418,,
 2026-10-11,Modena vs Verona,ita_serie_b,2026-10-11 17:30:00,tiros,14.632,10.925,25.557,21.5,0.7213,,
 2026-10-11,Modena vs Verona,ita_serie_b,2026-10-11 17:30:00,a_puerta,4.747,3.472,8.219,6.5,0.7005,,
-2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,goles,0.786,1.985,2.771,1.5,0.7639,,
-2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,corners,3.493,6.723,10.216,7.5,0.7442,,
-2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,tarjetas,1.383,1.222,2.605,1.5,0.7336,,
-2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,tiros,9.4,18.148,27.548,23.5,0.7054,,
-2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,a_puerta,2.84,6.119,8.959,6.5,0.7738,,
+2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,goles,0.768,1.985,2.753,1.5,0.7608,,
+2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,corners,3.493,6.716,10.209,7.5,0.7437,,
+2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,tarjetas,1.383,1.213,2.596,1.5,0.7318,,
+2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,tiros,9.4,18.124,27.524,23.5,0.7042,,
+2026-10-11,Cagliari vs Juventus,serie_a,2026-10-11 18:45:00,a_puerta,2.836,6.119,8.955,6.5,0.7735,,
 2026-10-11,Troyes vs Marseille,ligue_1,2026-10-11 18:45:00,goles,1.2,1.638,2.838,1.5,0.7753,,
 2026-10-11,Troyes vs Marseille,ligue_1,2026-10-11 18:45:00,corners,4.825,5.054,9.879,7.5,0.7209,,
 2026-10-11,Troyes vs Marseille,ligue_1,2026-10-11 18:45:00,tarjetas,1.669,1.515,3.184,1.5,0.8267,,
 2026-10-11,Troyes vs Marseille,ligue_1,2026-10-11 18:45:00,tiros,13.451,14.116,27.567,23.5,0.7111,,
 2026-10-11,Troyes vs Marseille,ligue_1,2026-10-11 18:45:00,a_puerta,4.185,5.011,9.196,6.5,0.7962,,
-2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,goles,1.618,1.383,3.001,1.5,0.801,,
-2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,corners,5.78,5.137,10.917,8.5,0.7095,,
-2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,tarjetas,1.829,2.217,4.046,2.5,0.7686,,
-2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,tiros,16.163,13.849,30.012,25.5,0.7206,,
-2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,a_puerta,5.502,4.615,10.117,7.5,0.7746,,
-2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,goles,1.706,1.372,3.078,1.5,0.8122,,
-2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,corners,5.018,5.097,10.115,7.5,0.7404,,
-2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,tarjetas,2.055,2.24,4.295,2.5,0.802,,
-2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,tiros,14.033,12.166,26.199,21.5,0.7527,,
-2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,a_puerta,4.581,4.331,8.912,6.5,0.7713,,
+2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,goles,1.373,1.334,2.707,1.5,0.7526,,
+2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,corners,5.595,5.039,10.634,7.5,0.7793,,
+2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,tarjetas,1.863,2.198,4.061,2.5,0.7707,,
+2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,tiros,15.518,14.207,29.725,25.5,0.7078,,
+2026-10-11,Atletico-MG vs Santos,brasil,2026-10-11 19:00:00,a_puerta,5.119,4.593,9.712,7.5,0.7382,,
+2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,goles,1.71,1.383,3.093,1.5,0.8143,,
+2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,corners,5.026,5.133,10.159,7.5,0.7439,,
+2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,tarjetas,2.043,2.239,4.282,2.5,0.8004,,
+2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,tiros,14.295,12.083,26.378,22.5,0.7071,,
+2026-10-11,Santander vs Valencia,laliga,2026-10-11 19:00:00,a_puerta,4.666,4.337,9.003,6.5,0.7795,,
 2026-10-11,Arouca vs Estrela,primeira,2026-10-11 19:30:00,goles,1.55,1.216,2.766,1.5,0.7631,,
 2026-10-11,Arouca vs Estrela,primeira,2026-10-11 19:30:00,corners,5.18,4.41,9.59,6.5,0.7938,,
 2026-10-11,Arouca vs Estrela,primeira,2026-10-11 19:30:00,tarjetas,2.152,2.37,4.522,2.5,0.8289,,
@@ -284,11 +284,11 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple
 2026-10-11,Palmeiras vs Corinthians,brasil,2026-10-11 20:30:00,tarjetas,2.05,2.497,4.547,2.5,0.8316,,
 2026-10-11,Palmeiras vs Corinthians,brasil,2026-10-11 20:30:00,tiros,17.395,10.985,28.38,23.5,0.7458,,
 2026-10-11,Palmeiras vs Corinthians,brasil,2026-10-11 20:30:00,a_puerta,6.041,3.706,9.747,7.5,0.7408,,
-2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,goles,2.337,1.011,3.348,1.5,0.8471,,
-2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,corners,5.914,3.73,9.644,6.5,0.7958,,
-2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,tarjetas,1.718,2.322,4.04,2.5,0.7677,,
-2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,tiros,17.686,11.088,28.774,24.5,0.7128,,
-2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,a_puerta,7.219,3.628,10.847,8.5,0.7366,,
+2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,goles,2.349,1.038,3.387,1.5,0.8517,,
+2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,corners,5.877,3.714,9.591,6.5,0.792,,
+2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,tarjetas,1.738,2.324,4.062,2.5,0.7708,,
+2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,tiros,17.634,11.097,28.731,24.5,0.7109,,
+2026-10-11,Flamengo RJ vs Fluminense,brasil,2026-10-11 20:30:00,a_puerta,7.235,3.642,10.877,8.5,0.7393,,
 2026-10-11,Gremio vs Internacional,brasil,2026-10-11 20:30:00,goles,1.158,1.164,2.322,0.5,0.9019,,
 2026-10-11,Gremio vs Internacional,brasil,2026-10-11 20:30:00,corners,4.754,4.712,9.466,6.5,0.785,,
 2026-10-11,Gremio vs Internacional,brasil,2026-10-11 20:30:00,tarjetas,2.166,2.129,4.295,2.5,0.802,,
@@ -404,21 +404,21 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple
 2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,tarjetas,1.634,1.809,3.443,1.5,0.858,,
 2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,tiros,15.701,10.398,26.099,21.5,0.7462,,
 2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,a_puerta,5.295,3.313,8.608,6.5,0.7414,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,goles,1.393,1.283,2.676,1.5,0.747,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,corners,4.746,4.741,9.487,6.5,0.7865,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tarjetas,1.561,1.7,3.261,1.5,0.8366,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tiros,13.175,11.751,24.926,20.5,0.7466,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,a_puerta,4.163,3.901,8.064,5.5,0.8019,,
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,goles,1.413,1.279,2.692,1.5,0.7499,,
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,corners,4.715,4.736,9.451,6.5,0.7838,,
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tarjetas,1.544,1.706,3.25,1.5,0.8352,,
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tiros,13.117,11.92,25.037,20.5,0.7519,,
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,a_puerta,4.188,3.967,8.155,5.5,0.8098,,
 2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,goles,1.77,1.146,2.916,1.5,0.7879,,
 2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,corners,6.416,4.656,11.072,8.5,0.721,,
 2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,tarjetas,1.702,2.394,4.096,2.5,0.7756,,
 2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,tiros,16.67,11.56,28.23,23.5,0.7401,,
 2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,a_puerta,5.273,3.443,8.716,6.5,0.7522,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,goles,1.476,1.19,2.666,1.5,0.7451,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,corners,5.661,4.475,10.136,7.5,0.7415,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tarjetas,1.535,1.847,3.382,1.5,0.8511,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tiros,13.285,11.44,24.725,20.5,0.7367,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,a_puerta,4.518,3.727,8.245,6.5,0.7036,,
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,goles,1.487,1.196,2.683,1.5,0.7482,,
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,corners,5.686,4.518,10.204,7.5,0.7469,,
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tarjetas,1.554,1.875,3.429,1.5,0.8564,,
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tiros,13.195,11.453,24.648,20.5,0.7329,,
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,a_puerta,4.48,3.733,8.213,5.5,0.8147,,
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,goles,0.966,1.622,2.588,1.5,0.7303,,
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,corners,3.22,6.095,9.315,6.5,0.7696,,
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,tarjetas,1.519,1.678,3.197,1.5,0.8284,,

@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-11T17:27:17Z",
+"actualizado": "2026-10-11T18:44:50Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -4244,6 +4244,16 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "AB Argir vs B36 Torshavn",
+"apuesta": "Gana B36 Torshavn",
+"cuota": 1.63,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Alemannia Aachen vs Viktoria Koln",
@@ -4271,6 +4281,16 @@
 "cuota": 1.52,
 "resultado": "verde",
 "marcador": "1-3"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Aris vs Volos NFC",
+"apuesta": "Aris o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-11",
@@ -4331,6 +4351,46 @@
 "cuota": 1.32,
 "resultado": "verde",
 "marcador": "5-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Freiburg vs Schalke",
+"apuesta": "Gana Freiburg",
+"cuota": 1.68,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Freiburg vs Schalke 04",
+"apuesta": "Freiburg o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Freiburg vs Schalke 04",
+"apuesta": "Gana Freiburg",
+"cuota": 1.667,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Freiburg vs Schalke 04",
+"apuesta": "Gana Freiburg",
+"cuota": 1.69,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-11",
@@ -4484,6 +4544,16 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Slaven Belupo vs Rijeka",
+"apuesta": "Gana Rijeka",
+"cuota": 1.59,
+"resultado": "rojo",
+"marcador": "4-1"
+},
+{
+"dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Slovacko B vs Hlubina",
@@ -4541,6 +4611,16 @@
 "cuota": 1.53,
 "resultado": "verde",
 "marcador": "3-5"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Toftir vs Vikingur",
+"apuesta": "Gana Vikingur",
+"cuota": 1.5,
+"resultado": "verde",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-11",

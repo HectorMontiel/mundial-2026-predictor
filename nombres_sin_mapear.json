@@ -67,8 +67,8 @@
   },
   "Club Olimpia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club A. Guemes",
-    "ratio": 0.48,
+    "candidato": "Olimpia Asuncion",
+    "ratio": 0.5,
     "visto": "2026-10-11"
   },
   "Cruz Azul": {
@@ -283,9 +283,9 @@
   },
   "Wolverhampton Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "S. Wanderers",
-    "ratio": 0.5882,
-    "visto": "2026-10-10"
+    "candidato": "HFX Wanderers",
+    "ratio": 0.6111,
+    "visto": "2026-10-11"
   },
   "Wroclaw Panthers": {
     "contexto": "nfl",
@@ -509,8 +509,8 @@
   },
   "All Boys": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Young Boys Reutlingen",
-    "ratio": 0.3448,
+    "candidato": "Newells Old Boys",
+    "ratio": 0.5833,
     "visto": "2026-10-11"
   },
   "Deportivo Pereira": {
@@ -563,8 +563,8 @@
   },
   "New England Revolution": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "New York Red Bulls II",
-    "ratio": 0.4186,
+    "candidato": "England U23 W",
+    "ratio": 0.5455,
     "visto": "2026-10-11"
   },
   "San Jose Earthquakes": {
@@ -767,8 +767,8 @@
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Atlanta",
-    "ratio": 0.7222,
+    "candidato": "Atletico-MG",
+    "ratio": 0.7097,
     "visto": "2026-10-11"
   },
   "Atlético Goianiense": {
@@ -797,9 +797,9 @@
   },
   "San Martín (Tucumán)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin Burzaco",
+    "candidato": "San Martin Formosa",
     "ratio": 0.7222,
-    "visto": "2026-10-10"
+    "visto": "2026-10-11"
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
@@ -947,9 +947,9 @@
   },
   "San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.4444,
-    "visto": "2026-10-10"
+    "candidato": "San Telmo",
+    "ratio": 0.6,
+    "visto": "2026-10-11"
   },
   "Red Bull Bragantino": {
     "contexto": "cuotas_mx→futbol",
@@ -1043,9 +1043,9 @@
   },
   "Deportivo Riestra": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Rincon",
-    "ratio": 0.7273,
-    "visto": "2026-10-10"
+    "candidato": "Deportivo Tigres",
+    "ratio": 0.7879,
+    "visto": "2026-10-11"
   },
   "Central Córdoba (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
@@ -1535,8 +1535,8 @@
   },
   "Bolton Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Bolton U21",
-    "ratio": 0.5385,
+    "candidato": "HFX Wanderers",
+    "ratio": 0.6897,
     "visto": "2026-10-11"
   },
   "KV Kortrijk": {
@@ -1829,9 +1829,9 @@
   },
   "Shabab Al-Ahli": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Al Shabab",
-    "ratio": 0.5217,
-    "visto": "2026-10-10"
+    "candidato": "Al Ahli SC (Sau)",
+    "ratio": 0.5,
+    "visto": "2026-10-11"
   },
   "FC Dallas": {
     "contexto": "cuotas_mx→futbol",
@@ -1951,6 +1951,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Neftchi Fargona (Uzb)",
     "ratio": 0.7647,
+    "visto": "2026-10-11"
+  },
+  "AEK Athens": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "AEK Larnaca",
+    "ratio": 0.5714,
     "visto": "2026-10-11"
   }
 }
