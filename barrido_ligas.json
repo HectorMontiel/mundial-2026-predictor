@@ -830,7 +830,7 @@
   },
   {
    "liga": "nba",
-   "precision": 0.6721,
+   "precision": 0.6746,
    "techo_mercado": null,
    "margen": null,
    "partidos": 6140,
@@ -939,7 +939,7 @@
   },
   {
    "liga": "tennis",
-   "precision": 0.6732,
+   "precision": 0.6728,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
@@ -955,7 +955,7 @@
   },
   {
    "liga": "tennis_wta",
-   "precision": 0.6862,
+   "precision": 0.6867,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
