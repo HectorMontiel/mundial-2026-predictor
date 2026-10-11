@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-11T20:22:14Z",
+"actualizado": "2026-10-11T22:00:32Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -4274,6 +4274,16 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Almirante Brown vs San Miguel",
+"apuesta": "Almirante Brown o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-11",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Anorthosis vs Pafos",
@@ -4301,6 +4311,26 @@
 "cuota": 1.133,
 "resultado": "verde",
 "marcador": "3-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Atletico-MG vs Santos",
+"apuesta": "Gana Santos",
+"cuota": 3.0,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Atlético Goianiense vs Sport",
+"apuesta": "Atlético Goianiense o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-11",
@@ -4366,11 +4396,31 @@
 "dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Cipolletti vs Alvarado",
+"apuesta": "Gana Alvarado",
+"cuota": 3.2,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Dalian Yingbo B vs Hubei Istar",
 "apuesta": "Gana Dalian Yingbo B",
 "cuota": 1.84,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Defensores de Belgrano vs Acassuso",
+"apuesta": "Defensores de Belgrano o empate",
+"cuota": 1.143,
+"resultado": "rojo",
+"marcador": "0-3"
 },
 {
 "dia": "2026-10-11",
@@ -4391,6 +4441,16 @@
 "cuota": 2.15,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "El Linqueno vs Douglas Haig",
+"apuesta": "Gana Douglas Haig",
+"cuota": 2.9,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-11",
@@ -4494,6 +4554,16 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Juventude vs São Bernardo",
+"apuesta": "Juventude o empate",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-11",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "KRC Harelbeke vs Thes Sport",
@@ -4551,6 +4621,16 @@
 "cuota": 1.72,
 "resultado": "verde",
 "marcador": "3-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Patronato vs Güemes",
+"apuesta": "Patronato o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-11",
@@ -4666,6 +4746,16 @@
 "dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Sportivo Las Parejas vs Defensores Belgrano VR",
+"apuesta": "Gana Defensores Belgrano VR",
+"cuota": 3.15,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Svitavy vs Vysoke Myto",
 "apuesta": "Gana Vysoke Myto",
 "cuota": 1.53,
@@ -4681,6 +4771,16 @@
 "cuota": 1.53,
 "resultado": "verde",
 "marcador": "3-5"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Temperley vs Nueva Chicago",
+"apuesta": "Temperley o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-11",
