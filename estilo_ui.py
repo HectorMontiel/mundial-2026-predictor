@@ -1012,6 +1012,10 @@ def _mitad_marcador(m: dict) -> str:
     if pend:
         pie.append('%d por jugar' % pend)
     # v346 — lo anunciado antes y retirado, aparte (no entra en el %)
+    # v366 — y las ⭐ ELIGE, aparte (ya entran en el total)
+    ev, er = int(m.get('eli_v') or 0), int(m.get('eli_r') or 0)
+    if ev or er:
+        pie.append('⭐ ELIGE: %d ✅ %d ❌ · %s' % (ev, er, _pct(ev, er)))
     av, ar = int(m.get('ant_v') or 0), int(m.get('ant_r') or 0)
     if av or ar:
         # v352 — eran PROVISIONALES (antes de la hora de apostar): no cuentan

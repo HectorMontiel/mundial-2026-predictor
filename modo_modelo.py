@@ -3533,7 +3533,8 @@ def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
             ini = _hz._a_utc(p.get('inicio'))
             if p.get('jugado') or (ini is not None and ini.timestamp() <= ahora):
                 continue
-            recos = _dd.tarjeta_de_pick(p) or []
+            # v366 — con la apuesta fijada (lo oficial desde la hora de apostar)
+            recos = con_fijada(p, _dd.tarjeta_de_pick(p) or []) or []
             dep = str(p.get('deporte') or 'Fútbol')
             # v363 — y las retiradas que siguen valiendo (♻️)
             try:
@@ -4801,9 +4802,15 @@ def _k_elige(p):
     al final el resto; y dentro, por hora (los jugados al final)."""
     nivel = 2
     try:
-        import decisiones_dia as _dd
+        # v366 — la MISMA tarjeta que se pinta (`recos_tarjeta`: lo
+        # precalculado o, si no vale, la cuenta recordada), con la fijada.
+        # Antes sólo lo precalculado: sin él todos empataban y salía por hora.
         dep = str(p.get('deporte') or 'Fútbol')
-        mets = metidas(_dd.tarjeta_de_pick(p) or [])
+        import decisiones_dia as _dd
+        _calc = (_dd.tarjeta_de_pick(p) is not None
+                 or not (p.get('solo_mercado') or p.get('jugado')
+                         or p.get('sin_modelo') or p.get('prob') is None))
+        mets = metidas(recos_tarjeta(p) if _calc else [])
         if any(elige(r, dep) and not r.get('elite') for r in mets):
             nivel = 0
         elif mets:
@@ -4996,11 +5003,14 @@ def recos_tarjeta(p: Dict) -> list:
     código—, la misma cuenta aquí, recordada por partido (`_memo_ui`) para no
     pagarla en cada pasada. Nunca lanza.
     """
+    # v366 — siempre con la apuesta fijada de AHORA (`con_fijada`): lo
+    # precalculado lleva la de la hora del cron, y lo calculado aquí ninguna.
+    # Lo archivado al pitido sale de aquí: tiene que ser lo oficial.
     try:
         import decisiones_dia as _dd_r
         r = _dd_r.tarjeta_de_pick(p)
         if r is not None:
-            return r
+            return con_fijada(p, r) or []
     except Exception:
         pass
 
@@ -5013,10 +5023,10 @@ def recos_tarjeta(p: Dict) -> list:
                 'Remates a puerta': (_rm or {}).get('a_puerta')},
             n=MAX_RECOMENDADAS)
     try:
-        return _memo_ui('recos_tarjeta', (str(p.get('clave_liga') or ''),
-                                          str(p.get('partido') or ''),
-                                          str(p.get('inicio') or '')),
-                        _calcula) or []
+        return con_fijada(p, _memo_ui('recos_tarjeta', (str(p.get('clave_liga') or ''),
+                                                        str(p.get('partido') or ''),
+                                                        str(p.get('inicio') or '')),
+                                      _calcula) or []) or []
     except Exception as e:
         logger.debug('[modo_modelo] recos de la tarjeta: %s', e)
         return []

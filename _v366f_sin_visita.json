@@ -1,0 +1,198 @@
+{
+ "p": {
+  "contra_toda": {
+   "A": {
+    "n": 508,
+    "partidos": 231,
+    "acierto": 0.6299,
+    "cuota": 1.617,
+    "prometido": 0.616,
+    "gan_100": 1.6,
+    "gan_p5": -5.6,
+    "dif_acierto": 0.007,
+    "dif_p5": -0.0083,
+    "dif_cuota": -0.012
+   },
+   "B": {
+    "n": 722,
+    "partidos": 326,
+    "acierto": 0.6343,
+    "cuota": 1.635,
+    "prometido": 0.6175,
+    "gan_100": 3.5,
+    "gan_p5": -2.5,
+    "dif_acierto": 0.0056,
+    "dif_p5": -0.0074,
+    "dif_cuota": -0.004
+   },
+   "pasa": false
+  },
+  "todo_base": {
+   "n": 1491,
+   "partidos": 569,
+   "acierto": 0.6264,
+   "cuota": 1.636,
+   "prometido": 0.6184,
+   "gan_100": 2.1,
+   "gan_p5": -2.2
+  },
+  "todo_sin_visita": {
+   "n": 1230,
+   "partidos": 557,
+   "acierto": 0.6325,
+   "cuota": 1.628,
+   "prometido": 0.6169,
+   "gan_100": 2.7,
+   "gan_p5": -1.8
+  },
+  "local_menos_visita": {
+   "dif": 0.059,
+   "p5": -0.015,
+   "p2_5": -0.028
+  },
+  "boletos_sin_visita": {
+   "2": {
+    "dias": 32,
+    "salen": 19,
+    "pct": 0.594,
+    "momio": 2.43,
+    "gan_100": 48.0
+   },
+   "3": {
+    "dias": 30,
+    "salen": 11,
+    "pct": 0.367,
+    "momio": 3.84,
+    "gan_100": 37.0
+   },
+   "4": {
+    "dias": 27,
+    "salen": 7,
+    "pct": 0.259,
+    "momio": 5.98,
+    "gan_100": 52.7
+   }
+  },
+  "boletos_todas": {
+   "2": {
+    "dias": 32,
+    "salen": 17,
+    "pct": 0.531,
+    "momio": 2.39,
+    "gan_100": 28.1
+   },
+   "3": {
+    "dias": 30,
+    "salen": 9,
+    "pct": 0.3,
+    "momio": 3.74,
+    "gan_100": 6.7
+   },
+   "4": {
+    "dias": 27,
+    "salen": 6,
+    "pct": 0.222,
+    "momio": 5.91,
+    "gan_100": 27.7
+   }
+  }
+ },
+ "pxc": {
+  "contra_toda": {
+   "A": {
+    "n": 508,
+    "partidos": 231,
+    "acierto": 0.6102,
+    "cuota": 1.67,
+    "prometido": 0.6005,
+    "gan_100": 1.2,
+    "gan_p5": -5.9,
+    "dif_acierto": 0.0089,
+    "dif_p5": -0.0062,
+    "dif_cuota": -0.01
+   },
+   "B": {
+    "n": 722,
+    "partidos": 326,
+    "acierto": 0.6288,
+    "cuota": 1.678,
+    "prometido": 0.6051,
+    "gan_100": 5.6,
+    "gan_p5": -0.9,
+    "dif_acierto": 0.0079,
+    "dif_p5": -0.0051,
+    "dif_cuota": -0.003
+   },
+   "pasa": false
+  },
+  "todo_base": {
+   "n": 1491,
+   "partidos": 569,
+   "acierto": 0.613,
+   "cuota": 1.681,
+   "prometido": 0.6049,
+   "gan_100": 2.6,
+   "gan_p5": -1.7
+  },
+  "todo_sin_visita": {
+   "n": 1230,
+   "partidos": 557,
+   "acierto": 0.6211,
+   "cuota": 1.675,
+   "prometido": 0.6032,
+   "gan_100": 3.8,
+   "gan_p5": -0.7
+  },
+  "local_menos_visita": {
+   "dif": 0.071,
+   "p5": -0.005,
+   "p2_5": -0.019
+  },
+  "boletos_sin_visita": {
+   "2": {
+    "dias": 32,
+    "salen": 14,
+    "pct": 0.438,
+    "momio": 2.59,
+    "gan_100": 15.2
+   },
+   "3": {
+    "dias": 30,
+    "salen": 7,
+    "pct": 0.233,
+    "momio": 4.1,
+    "gan_100": -6.0
+   },
+   "4": {
+    "dias": 27,
+    "salen": 5,
+    "pct": 0.185,
+    "momio": 6.56,
+    "gan_100": 24.9
+   }
+  },
+  "boletos_todas": {
+   "2": {
+    "dias": 32,
+    "salen": 13,
+    "pct": 0.406,
+    "momio": 2.56,
+    "gan_100": 3.3
+   },
+   "3": {
+    "dias": 30,
+    "salen": 8,
+    "pct": 0.267,
+    "momio": 4.03,
+    "gan_100": 6.3
+   },
+   "4": {
+    "dias": 27,
+    "salen": 6,
+    "pct": 0.222,
+    "momio": 6.48,
+    "gan_100": 34.5
+   }
+  }
+ }
+}

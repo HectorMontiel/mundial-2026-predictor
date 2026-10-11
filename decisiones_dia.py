@@ -68,7 +68,18 @@ LISTAS = ('pronosticos', 'solo_mercado')
 #       sintético; es una REPRODUCCIÓN determinista del histórico, que sí va
 #       en la huella. Está en `.gitignore`: en la app ni siquiera viene del
 #       repositorio.
-NO_SON_ENTRADA = frozenset({'cache_columnas_sinteticas.json'})
+#
+#   anunciadas_dia.json — v366. El precálculo lo LEE (la apuesta fijada a la
+#       hora de apostar, `modo_modelo.con_fijada`) y lo REESCRIBE justo
+#       después, en la misma corrida (`anunciadas.acumular`). Desde la v352
+#       (9-oct) la huella no valía NUNCA y la app calculaba todos los partidos
+#       en vivo en cada visita: lenta, «sin respuesta del servidor», y el
+#       orden «⭐ ELIGE primero» sin nada que ordenar. La fijada no se pierde:
+#       la app la vuelve a aplicar al pintar (`con_fijada` sobre lo
+#       precalculado, en `recos_tarjeta` y en la tarjeta), con el fichero de
+#       ese momento.
+NO_SON_ENTRADA = frozenset({'cache_columnas_sinteticas.json',
+                            'anunciadas_dia.json'})
 
 
 # ---------------------------------------------------------------------------
@@ -178,7 +189,10 @@ def huella_vigente(huella: Optional[Dict]) -> bool:
     if not isinstance(huella, dict) or not huella:
         return False
     try:
-        return all(_sha(r) == s for r, s in huella.items())
+        # v366 — lo que no es entrada no cuenta, tampoco en las huellas que
+        # ya se escribieron con ello (las del 9 al 11-oct)
+        return all(_sha(r) == s for r, s in huella.items()
+                   if r not in NO_SON_ENTRADA)
     except Exception as e:
         logger.debug('[decisiones] huella: %s', e)
         return False

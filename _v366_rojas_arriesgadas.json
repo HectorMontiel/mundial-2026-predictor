@@ -1,0 +1,752 @@
+{
+ "base": {
+  "n": 1491,
+  "partidos": 569,
+  "acierto": 0.613,
+  "cuota": 1.681,
+  "prometido": 0.6049,
+  "gan_100": 2.6,
+  "gan_p5": -2.1
+ },
+ "base_por_mitad": {
+  "A": {
+   "n": 602,
+   "partidos": 239,
+   "acierto": 0.6013,
+   "cuota": 1.68,
+   "prometido": 0.602,
+   "gan_100": 0.3,
+   "gan_p5": -6.7
+  },
+  "B": {
+   "n": 889,
+   "partidos": 330,
+   "acierto": 0.6209,
+   "cuota": 1.681,
+   "prometido": 0.6069,
+   "gan_100": 4.2,
+   "gan_p5": -1.4
+  }
+ },
+ "rojas": {
+  "n": 577,
+  "por_mercado": {
+   "a_puerta equipo": {
+    "n": 86,
+    "acierto_grupo": 0.626
+   },
+   "a_puerta total": {
+    "n": 50,
+    "acierto_grupo": 0.624
+   },
+   "corners total": {
+    "n": 169,
+    "acierto_grupo": 0.618
+   },
+   "goles equipo": {
+    "n": 16,
+    "acierto_grupo": 0.568
+   },
+   "goles total": {
+    "n": 100,
+    "acierto_grupo": 0.593
+   },
+   "tiros equipo": {
+    "n": 115,
+    "acierto_grupo": 0.608
+   },
+   "tiros total": {
+    "n": 41,
+    "acierto_grupo": 0.627
+   }
+  },
+  "por_una_unidad": 0.329,
+  "por_mucho_25pct": 0.471,
+  "partidos_con_roja": 338,
+  "partidos_3_o_mas_rojas": 65,
+  "rojas_en_esos": 252
+ },
+ "partido_cerrado": {
+  "partidos_3_patas": 203,
+  "todas_mal": 7,
+  "goles_mu_todas_mal": 3.194,
+  "goles_mu_resto": 3.008
+ },
+ "una_linea_abajo": {
+  "rojas_con_linea": 321,
+  "habrian_sido_verdes": 114,
+  "cuota_media": 1.338
+ },
+ "hipotesis": {
+  "H1 cuota ≤ 1,70": {
+   "A": {
+    "n": 359,
+    "partidos": 199,
+    "acierto": 0.6128,
+    "cuota": 1.572,
+    "prometido": 0.6076,
+    "gan_100": -4.2,
+    "gan_p5": -11.7,
+    "dif_acierto": 0.0115,
+    "dif_p5": -0.0168,
+    "dif_cuota": -0.108
+   },
+   "B": {
+    "n": 510,
+    "partidos": 266,
+    "acierto": 0.6275,
+    "cuota": 1.571,
+    "prometido": 0.6141,
+    "gan_100": -1.4,
+    "gan_p5": -8.4,
+    "dif_acierto": 0.0065,
+    "dif_p5": -0.0216,
+    "dif_cuota": -0.11
+   },
+   "pasa": false
+  },
+  "H1b cuota ≤ 1,80": {
+   "A": {
+    "n": 485,
+    "partidos": 219,
+    "acierto": 0.6186,
+    "cuota": 1.62,
+    "prometido": 0.6056,
+    "gan_100": -0.2,
+    "gan_p5": -6.9,
+    "dif_acierto": 0.0172,
+    "dif_p5": 0.0012,
+    "dif_cuota": -0.06
+   },
+   "B": {
+    "n": 718,
+    "partidos": 310,
+    "acierto": 0.6253,
+    "cuota": 1.624,
+    "prometido": 0.6105,
+    "gan_100": 1.5,
+    "gan_p5": -4.4,
+    "dif_acierto": 0.0044,
+    "dif_p5": -0.0092,
+    "dif_cuota": -0.057
+   },
+   "pasa": false
+  },
+  "H2 casa ≥ 55 %": {
+   "A": {
+    "n": 322,
+    "partidos": 188,
+    "acierto": 0.6335,
+    "cuota": 1.559,
+    "prometido": 0.6088,
+    "gan_100": -1.6,
+    "gan_p5": -9.3,
+    "dif_acierto": 0.0322,
+    "dif_p5": 0.0002,
+    "dif_cuota": -0.121
+   },
+   "B": {
+    "n": 460,
+    "partidos": 252,
+    "acierto": 0.6217,
+    "cuota": 1.559,
+    "prometido": 0.6163,
+    "gan_100": -3.1,
+    "gan_p5": -9.4,
+    "dif_acierto": 0.0008,
+    "dif_p5": -0.0277,
+    "dif_cuota": -0.122
+   },
+   "pasa": false
+  },
+  "H2b casa ≥ 58 %": {
+   "A": {
+    "n": 197,
+    "partidos": 144,
+    "acierto": 0.6599,
+    "cuota": 1.516,
+    "prometido": 0.6151,
+    "gan_100": -0.1,
+    "gan_p5": -9.8,
+    "dif_acierto": 0.0586,
+    "dif_p5": 0.0097,
+    "dif_cuota": -0.164
+   },
+   "B": {
+    "n": 288,
+    "partidos": 188,
+    "acierto": 0.6146,
+    "cuota": 1.518,
+    "prometido": 0.6215,
+    "gan_100": -6.8,
+    "gan_p5": -14.9,
+    "dif_acierto": -0.0063,
+    "dif_p5": -0.0503,
+    "dif_cuota": -0.164
+   },
+   "pasa": false
+  },
+  "H3 método ≥ 60 %": {
+   "A": {
+    "n": 263,
+    "partidos": 155,
+    "acierto": 0.6008,
+    "cuota": 1.634,
+    "prometido": 0.6378,
+    "gan_100": -2.8,
+    "gan_p5": -11.8,
+    "dif_acierto": -0.0006,
+    "dif_p5": -0.0377,
+    "dif_cuota": -0.046
+   },
+   "B": {
+    "n": 463,
+    "partidos": 231,
+    "acierto": 0.6523,
+    "cuota": 1.634,
+    "prometido": 0.6369,
+    "gan_100": 6.5,
+    "gan_p5": -0.6,
+    "dif_acierto": 0.0313,
+    "dif_p5": 0.0041,
+    "dif_cuota": -0.047
+   },
+   "pasa": false
+  },
+  "H3b método ≥ 65 %": {
+   "A": {
+    "n": 75,
+    "partidos": 60,
+    "acierto": 0.6133,
+    "cuota": 1.609,
+    "prometido": 0.6769,
+    "gan_100": -1.5,
+    "gan_p5": -17.1,
+    "dif_acierto": 0.012,
+    "dif_p5": -0.0744,
+    "dif_cuota": -0.071
+   },
+   "B": {
+    "n": 133,
+    "partidos": 93,
+    "acierto": 0.6617,
+    "cuota": 1.617,
+    "prometido": 0.6723,
+    "gan_100": 6.3,
+    "gan_p5": -6.0,
+    "dif_acierto": 0.0407,
+    "dif_p5": -0.0323,
+    "dif_cuota": -0.064
+   },
+   "pasa": false
+  },
+  "H4 método ≥ casa": {
+   "A": {
+    "n": 474,
+    "partidos": 199,
+    "acierto": 0.5823,
+    "cuota": 1.72,
+    "prometido": 0.6077,
+    "gan_100": -0.4,
+    "gan_p5": -8.4,
+    "dif_acierto": -0.0191,
+    "dif_p5": -0.0362,
+    "dif_cuota": 0.04
+   },
+   "B": {
+    "n": 751,
+    "partidos": 288,
+    "acierto": 0.6325,
+    "cuota": 1.709,
+    "prometido": 0.6116,
+    "gan_100": 7.8,
+    "gan_p5": 1.8,
+    "dif_acierto": 0.0116,
+    "dif_p5": -0.0003,
+    "dif_cuota": 0.028
+   },
+   "pasa": false
+  },
+  "H4b método ≥ casa + 5": {
+   "A": {
+    "n": 289,
+    "partidos": 139,
+    "acierto": 0.5606,
+    "cuota": 1.785,
+    "prometido": 0.6147,
+    "gan_100": -0.2,
+    "gan_p5": -10.0,
+    "dif_acierto": -0.0408,
+    "dif_p5": -0.076,
+    "dif_cuota": 0.105
+   },
+   "B": {
+    "n": 468,
+    "partidos": 207,
+    "acierto": 0.6047,
+    "cuota": 1.769,
+    "prometido": 0.6178,
+    "gan_100": 6.8,
+    "gan_p5": -0.9,
+    "dif_acierto": -0.0162,
+    "dif_p5": -0.0443,
+    "dif_cuota": 0.088
+   },
+   "pasa": false
+  },
+  "H4c casa ≥ método": {
+   "A": {
+    "n": 128,
+    "partidos": 103,
+    "acierto": 0.6719,
+    "cuota": 1.533,
+    "prometido": 0.581,
+    "gan_100": 2.6,
+    "gan_p5": -8.1,
+    "dif_acierto": 0.0705,
+    "dif_p5": 0.0092,
+    "dif_cuota": -0.147
+   },
+   "B": {
+    "n": 138,
+    "partidos": 117,
+    "acierto": 0.558,
+    "cuota": 1.529,
+    "prometido": 0.5813,
+    "gan_100": -15.0,
+    "gan_p5": -26.4,
+    "dif_acierto": -0.063,
+    "dif_p5": -0.1281,
+    "dif_cuota": -0.153
+   },
+   "pasa": false
+  },
+  "H5 sólo totales": {
+   "A": {
+    "n": 380,
+    "partidos": 225,
+    "acierto": 0.6079,
+    "cuota": 1.656,
+    "prometido": 0.5994,
+    "gan_100": -0.3,
+    "gan_p5": -7.9,
+    "dif_acierto": 0.0066,
+    "dif_p5": -0.0146,
+    "dif_cuota": -0.024
+   },
+   "B": {
+    "n": 551,
+    "partidos": 321,
+    "acierto": 0.6171,
+    "cuota": 1.665,
+    "prometido": 0.6027,
+    "gan_100": 2.9,
+    "gan_p5": -3.5,
+    "dif_acierto": -0.0039,
+    "dif_p5": -0.0222,
+    "dif_cuota": -0.016
+   },
+   "pasa": false
+  },
+  "H5b sólo de equipo": {
+   "A": {
+    "n": 222,
+    "partidos": 103,
+    "acierto": 0.5901,
+    "cuota": 1.721,
+    "prometido": 0.6063,
+    "gan_100": 1.3,
+    "gan_p5": -8.4,
+    "dif_acierto": -0.0112,
+    "dif_p5": -0.0483,
+    "dif_cuota": 0.041
+   },
+   "B": {
+    "n": 338,
+    "partidos": 143,
+    "acierto": 0.6272,
+    "cuota": 1.707,
+    "prometido": 0.6138,
+    "gan_100": 6.5,
+    "gan_p5": -1.7,
+    "dif_acierto": 0.0063,
+    "dif_p5": -0.0245,
+    "dif_cuota": 0.026
+   },
+   "pasa": false
+  },
+  "H6 partido abierto (goles ≥ 2,6)": {
+   "A": {
+    "n": 499,
+    "partidos": 183,
+    "acierto": 0.5992,
+    "cuota": 1.677,
+    "prometido": 0.6013,
+    "gan_100": -0.0,
+    "gan_p5": -8.3,
+    "dif_acierto": -0.0021,
+    "dif_p5": -0.0178,
+    "dif_cuota": -0.003
+   },
+   "B": {
+    "n": 767,
+    "partidos": 266,
+    "acierto": 0.6219,
+    "cuota": 1.685,
+    "prometido": 0.6068,
+    "gan_100": 4.7,
+    "gan_p5": -1.4,
+    "dif_acierto": 0.001,
+    "dif_p5": -0.0116,
+    "dif_cuota": 0.003
+   },
+   "pasa": false
+  },
+  "H6b partido abierto (goles ≥ 2,9)": {
+   "A": {
+    "n": 365,
+    "partidos": 120,
+    "acierto": 0.6164,
+    "cuota": 1.665,
+    "prometido": 0.6032,
+    "gan_100": 2.5,
+    "gan_p5": -7.0,
+    "dif_acierto": 0.0151,
+    "dif_p5": -0.0156,
+    "dif_cuota": -0.015
+   },
+   "B": {
+    "n": 536,
+    "partidos": 169,
+    "acierto": 0.6231,
+    "cuota": 1.676,
+    "prometido": 0.6081,
+    "gan_100": 4.5,
+    "gan_p5": -2.9,
+    "dif_acierto": 0.0022,
+    "dif_p5": -0.0255,
+    "dif_cuota": -0.005
+   },
+   "pasa": false
+  },
+  "H7 ligas grandes": {
+   "A": {
+    "n": 0
+   },
+   "B": {
+    "n": 0
+   },
+   "pasa": false
+  },
+  "H8 sin tiros": {
+   "A": {
+    "n": 422,
+    "partidos": 231,
+    "acierto": 0.609,
+    "cuota": 1.655,
+    "prometido": 0.6043,
+    "gan_100": -0.0,
+    "gan_p5": -7.6,
+    "dif_acierto": 0.0077,
+    "dif_p5": -0.0121,
+    "dif_cuota": -0.025
+   },
+   "B": {
+    "n": 666,
+    "partidos": 326,
+    "acierto": 0.6156,
+    "cuota": 1.658,
+    "prometido": 0.6082,
+    "gan_100": 2.1,
+    "gan_p5": -3.6,
+    "dif_acierto": -0.0053,
+    "dif_p5": -0.0195,
+    "dif_cuota": -0.023
+   },
+   "pasa": false
+  },
+  "H8b sin goles": {
+   "A": {
+    "n": 501,
+    "partidos": 214,
+    "acierto": 0.6068,
+    "cuota": 1.691,
+    "prometido": 0.6011,
+    "gan_100": 1.7,
+    "gan_p5": -5.8,
+    "dif_acierto": 0.0055,
+    "dif_p5": -0.0102,
+    "dif_cuota": 0.011
+   },
+   "B": {
+    "n": 707,
+    "partidos": 301,
+    "acierto": 0.6266,
+    "cuota": 1.696,
+    "prometido": 0.6053,
+    "gan_100": 6.1,
+    "gan_p5": -0.6,
+    "dif_acierto": 0.0057,
+    "dif_p5": -0.0097,
+    "dif_cuota": 0.015
+   },
+   "pasa": false
+  },
+  "H8c sin a puerta": {
+   "A": {
+    "n": 462,
+    "partidos": 237,
+    "acierto": 0.6061,
+    "cuota": 1.679,
+    "prometido": 0.5995,
+    "gan_100": 0.6,
+    "gan_p5": -5.9,
+    "dif_acierto": 0.0047,
+    "dif_p5": -0.014,
+    "dif_cuota": -0.001
+   },
+   "B": {
+    "n": 666,
+    "partidos": 327,
+    "acierto": 0.6111,
+    "cuota": 1.674,
+    "prometido": 0.6044,
+    "gan_100": 2.1,
+    "gan_p5": -3.5,
+    "dif_acierto": -0.0098,
+    "dif_p5": -0.024,
+    "dif_cuota": -0.007
+   },
+   "pasa": false
+  },
+  "H8d sin córners": {
+   "A": {
+    "n": 421,
+    "partidos": 160,
+    "acierto": 0.5819,
+    "cuota": 1.694,
+    "prometido": 0.6033,
+    "gan_100": -1.6,
+    "gan_p5": -10.2,
+    "dif_acierto": -0.0194,
+    "dif_p5": -0.0418,
+    "dif_cuota": 0.014
+   },
+   "B": {
+    "n": 628,
+    "partidos": 227,
+    "acierto": 0.6306,
+    "cuota": 1.697,
+    "prometido": 0.61,
+    "gan_100": 6.6,
+    "gan_p5": -0.5,
+    "dif_acierto": 0.0097,
+    "dif_p5": -0.0077,
+    "dif_cuota": 0.015
+   },
+   "pasa": false
+  },
+  "H9 casa ≥ 55 % y método ≥ casa": {
+   "A": {
+    "n": 194,
+    "partidos": 129,
+    "acierto": 0.6082,
+    "cuota": 1.576,
+    "prometido": 0.6272,
+    "gan_100": -4.3,
+    "gan_p5": -14.6,
+    "dif_acierto": 0.0069,
+    "dif_p5": -0.0394,
+    "dif_cuota": -0.104
+   },
+   "B": {
+    "n": 322,
+    "partidos": 191,
+    "acierto": 0.6491,
+    "cuota": 1.572,
+    "prometido": 0.6313,
+    "gan_100": 1.9,
+    "gan_p5": -5.7,
+    "dif_acierto": 0.0281,
+    "dif_p5": -0.0074,
+    "dif_cuota": -0.109
+   },
+   "pasa": false
+  },
+  "H9b casa ≥ 55 % y cuota ≤ 1,80": {
+   "A": {
+    "n": 322,
+    "partidos": 188,
+    "acierto": 0.6335,
+    "cuota": 1.559,
+    "prometido": 0.6088,
+    "gan_100": -1.6,
+    "gan_p5": -9.7,
+    "dif_acierto": 0.0322,
+    "dif_p5": 0.0012,
+    "dif_cuota": -0.121
+   },
+   "B": {
+    "n": 460,
+    "partidos": 252,
+    "acierto": 0.6217,
+    "cuota": 1.559,
+    "prometido": 0.6163,
+    "gan_100": -3.1,
+    "gan_p5": -9.6,
+    "dif_acierto": 0.0008,
+    "dif_p5": -0.0296,
+    "dif_cuota": -0.122
+   },
+   "pasa": false
+  },
+  "H10 la línea más probable": {
+   "A": {
+    "n": 602,
+    "partidos": 239,
+    "acierto": 0.6229,
+    "cuota": 1.63,
+    "prometido": 0.617,
+    "gan_100": 1.2,
+    "gan_p5": -5.7,
+    "dif_acierto": 0.0216,
+    "dif_p5": 0.0114,
+    "dif_cuota": -0.051
+   },
+   "B": {
+    "n": 889,
+    "partidos": 330,
+    "acierto": 0.6288,
+    "cuota": 1.64,
+    "prometido": 0.6194,
+    "gan_100": 2.7,
+    "gan_p5": -2.9,
+    "dif_acierto": 0.0079,
+    "dif_p5": 0.0034,
+    "dif_cuota": -0.042
+   },
+   "pasa": true
+  },
+  "H10b la más probable, cuota ≥ 1,50": {
+   "A": {
+    "n": 550,
+    "partidos": 224,
+    "acierto": 0.6109,
+    "cuota": 1.656,
+    "prometido": 0.6126,
+    "gan_100": 1.0,
+    "gan_p5": -6.0,
+    "dif_acierto": 0.0096,
+    "dif_p5": -0.0032,
+    "dif_cuota": -0.024
+   },
+   "B": {
+    "n": 816,
+    "partidos": 312,
+    "acierto": 0.625,
+    "cuota": 1.665,
+    "prometido": 0.6154,
+    "gan_100": 3.7,
+    "gan_p5": -1.9,
+    "dif_acierto": 0.0041,
+    "dif_p5": -0.0049,
+    "dif_cuota": -0.016
+   },
+   "pasa": false
+  }
+ },
+ "boletos": {
+  "hoy (por prob)": {
+   "2": {
+    "dias": 32,
+    "salen": 13,
+    "pct": 0.406,
+    "momio": 2.56,
+    "gan_100": 3.3
+   },
+   "3": {
+    "dias": 30,
+    "salen": 8,
+    "pct": 0.267,
+    "momio": 4.03,
+    "gan_100": 6.3
+   },
+   "4": {
+    "dias": 27,
+    "salen": 6,
+    "pct": 0.222,
+    "momio": 6.48,
+    "gan_100": 34.5
+   }
+  },
+  "casa ≥ 55 % (por prob)": {
+   "2": {
+    "dias": 32,
+    "salen": 11,
+    "pct": 0.344,
+    "momio": 2.41,
+    "gan_100": -17.5
+   },
+   "3": {
+    "dias": 28,
+    "salen": 7,
+    "pct": 0.25,
+    "momio": 3.66,
+    "gan_100": -8.9
+   },
+   "4": {
+    "dias": 25,
+    "salen": 4,
+    "pct": 0.16,
+    "momio": 5.65,
+    "gan_100": -8.9
+   }
+  },
+  "cuota ≤ 1,70 (por prob)": {
+   "2": {
+    "dias": 32,
+    "salen": 10,
+    "pct": 0.312,
+    "momio": 2.44,
+    "gan_100": -24.0
+   },
+   "3": {
+    "dias": 28,
+    "salen": 7,
+    "pct": 0.25,
+    "momio": 3.71,
+    "gan_100": -7.3
+   },
+   "4": {
+    "dias": 25,
+    "salen": 4,
+    "pct": 0.16,
+    "momio": 5.78,
+    "gan_100": -5.9
+   }
+  },
+  "por la casa": {
+   "2": {
+    "dias": 32,
+    "salen": 15,
+    "pct": 0.469,
+    "momio": 2.2,
+    "gan_100": 0.9
+   },
+   "3": {
+    "dias": 30,
+    "salen": 12,
+    "pct": 0.4,
+    "momio": 3.31,
+    "gan_100": 30.1
+   },
+   "4": {
+    "dias": 27,
+    "salen": 7,
+    "pct": 0.259,
+    "momio": 5.06,
+    "gan_100": 29.7
+   }
+  }
+ }
+}

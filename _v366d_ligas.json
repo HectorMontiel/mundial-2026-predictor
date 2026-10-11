@@ -1,0 +1,65 @@
+{
+ "elige A, juzga B": {
+  "buenas": [
+   "brasil",
+   "eng_league_one",
+   "eng_league_two",
+   "eredivisie",
+   "ger_bundesliga2",
+   "primeira"
+  ],
+  "malas": [
+   "fra_ligue2",
+   "jpn_j1",
+   "mls",
+   "suecia"
+  ],
+  "buenas_juzgadas": {
+   "n": 242,
+   "acierto": 0.653,
+   "cuota": 1.673,
+   "resto": 0.609,
+   "dif_p5": -0.028
+  },
+  "sin_malas": {
+   "n_malas": 201,
+   "acierto_malas": 0.637,
+   "acierto_sin_malas": 0.616,
+   "todas": 0.621,
+   "cuota_sin_malas": 1.694,
+   "dif_p5": -0.097
+  }
+ },
+ "elige B, juzga A": {
+  "buenas": [
+   "brasil",
+   "laliga",
+   "liga_mx",
+   "mls"
+  ],
+  "malas": [
+   "bundesliga",
+   "eng_championship",
+   "ita_serie_b",
+   "ligue_1",
+   "premier",
+   "primeira",
+   "suecia"
+  ],
+  "buenas_juzgadas": {
+   "n": 312,
+   "acierto": 0.583,
+   "cuota": 1.681,
+   "resto": 0.621,
+   "dif_p5": -0.117
+  },
+  "sin_malas": {
+   "n_malas": 103,
+   "acierto_malas": 0.612,
+   "acierto_sin_malas": 0.599,
+   "todas": 0.601,
+   "cuota_sin_malas": 1.676,
+   "dif_p5": -0.103
+  }
+ }
+}

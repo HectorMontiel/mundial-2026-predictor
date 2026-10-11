@@ -833,6 +833,7 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
     verdes = rojas = en_juego = 0
     ant_v = ant_r = 0                 # v346: lo anunciado antes y retirado
     prim_v = prim_r = 0               # v348: la PRIMERA versión anunciada
+    eli_v = eli_r = 0                 # v366: las que llevaban ⭐ ELIGE
     sin_datos = False
     try:
         import partidos_jugados as _pj
@@ -858,6 +859,12 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
                     rojas += 1
                 elif _fl.get('estado') == _pg.PENDIENTE:
                     en_juego += 1
+                # v366 — «quiero ver la tasa de conversión de las estrellas»
+                if _es_elige(_fl, _p):
+                    if _fl.get('estado') == _pg.CUMPLIDO:
+                        eli_v += 1
+                    elif _fl.get('estado') == _pg.FALLADO:
+                        eli_r += 1
             # v346 — Y APARTE, LO QUE SE ANUNCIÓ ANTES Y SE RETIRÓ. El usuario:
             # «¿el marcador cuenta las anteriores o las nuevas? es medio
             # engañoso». Cuenta lo que la tarjeta tenía al pitido; lo que se
@@ -895,7 +902,19 @@ def _marcador_del_dia(dia: str, deportes: tuple = (),
         logger.debug('[marcador] %s: %s', dia, e)
     return {'verdes': verdes, 'rojas': rojas, 'en_juego': en_juego,
             'ant_v': ant_v, 'ant_r': ant_r, 'prim_v': prim_v,
-            'prim_r': prim_r, 'sin_datos': sin_datos}
+            'prim_r': prim_r, 'eli_v': eli_v, 'eli_r': eli_r,
+            'sin_datos': sin_datos}
+
+
+def _es_elige(fila: dict, p: dict) -> bool:
+    """v366 — ¿esta «se mete» liquidada llevaba ⭐ ELIGE? La misma regla de
+    la tarjeta (`modo_modelo.elige`) con lo que se guardó. Nunca lanza."""
+    try:
+        import modo_modelo as _mm_e
+        return _mm_e.elige(dict(fila, veredicto_vp='meter'),
+                           str(p.get('deporte') or 'Fútbol'))
+    except Exception:
+        return False
 
 
 @st.cache_data(ttl=600, show_spinner=False)
@@ -6949,8 +6968,11 @@ def render_alpha_finder():
                     _rot_ar += ' · ' + _tasa_ar
                 with st.expander(_rot_ar, expanded=False):
                     # v364 — poco texto: «con que me salgan qué apuestas»
+                    # v366 — las rojas caen en grupo: un partido cerrado
+                    # tumba todas sus «más de» (medido: 44 % de las rojas)
                     st.caption('Más riesgo y más cuota: cada pata acierta ~60 %. '
-                               'Córners, tiros, goles y ambos marcan.')
+                               'Córners, tiros, goles y ambos marcan. En un boleto, '
+                               'una sola pata por partido.')
                     for _n_b, _b in _bols:
                         # v363 — sin «$»: Streamlit lo lee como fórmula
                         st.markdown('**🎟️ Boleto de %d** · sale **%.0f %%** de las veces · '

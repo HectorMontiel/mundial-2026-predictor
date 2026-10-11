@@ -98,7 +98,14 @@ def _lados(partido: str):
 def _mejor_linea(lineas: Dict, mu: float, k: float) -> Optional[tuple]:
     """(línea, prob, cuota) de la escalera de la casa —desde donde la abra—:
     de las líneas «más de» a cuota de riesgo (1,45-3) que el método ve al 55 %
-    o más, la que más rinde (prob × cuota; el método está calibrado ahí)."""
+    o más, la MÁS PROBABLE.
+
+    v366 — antes, la de más prob × cuota. El usuario, con 48 ✅ 36 ❌: «más
+    verdes, sin arriesgar la cuota». Contra los cierres de Playdoit
+    (`_v366_rojas_arriesgadas.py`, 1.491 patas desde el 28-ago, dos mitades,
+    bootstrap por partido) la más probable acierta +2,2 / +0,8 pts (p5 > 0 en
+    las dos) con la cuota media en 1,63 en vez de 1,68; ninguna otra regla
+    (cuota tope, casa, ventaja, totales, liga, partido abierto) pasó."""
     import mercado_implicito as mi
     import tiros_equipo as te
     mejor = None
@@ -115,7 +122,7 @@ def _mejor_linea(lineas: Dict, mu: float, k: float) -> Optional[tuple]:
         hp = mi.prob_de(ent)
         if hp is None or abs(p - hp) > DIF_CASA_MAX:
             continue
-        if p >= META_PATA and (mejor is None or p * c > mejor[1] * mejor[2]):
+        if p >= META_PATA and (mejor is None or p > mejor[1]):
             mejor = (L, p, c)
     return mejor
 

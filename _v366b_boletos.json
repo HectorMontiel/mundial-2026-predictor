@@ -1,0 +1,474 @@
+{
+ "2": {
+  "p_mod": {
+   "A": {
+    "dias": 17,
+    "salen": 4,
+    "pct": 0.235,
+    "momio": 2.59,
+    "gan_100": -37.5,
+    "gan_p5": -84.7,
+    "patas_bien": 0.529
+   },
+   "B": {
+    "dias": 15,
+    "salen": 9,
+    "pct": 0.6,
+    "momio": 2.54,
+    "gan_100": 49.5,
+    "gan_p5": -2.7,
+    "patas_bien": 0.767
+   },
+   "todo": {
+    "dias": 32,
+    "salen": 13,
+    "pct": 0.406,
+    "momio": 2.56,
+    "gan_100": 3.3,
+    "gan_p5": -31.4,
+    "patas_bien": 0.641
+   }
+  },
+  "p_casa": {
+   "A": {
+    "dias": 17,
+    "salen": 8,
+    "pct": 0.471,
+    "momio": 2.16,
+    "gan_100": 0.1,
+    "gan_p5": -37.7,
+    "patas_bien": 0.706
+   },
+   "B": {
+    "dias": 15,
+    "salen": 7,
+    "pct": 0.467,
+    "momio": 2.24,
+    "gan_100": 1.7,
+    "gan_p5": -42.8,
+    "patas_bien": 0.7
+   },
+   "todo": {
+    "dias": 32,
+    "salen": 15,
+    "pct": 0.469,
+    "momio": 2.2,
+    "gan_100": 0.9,
+    "gan_p5": -32.6,
+    "patas_bien": 0.703
+   }
+  },
+  "p_min": {
+   "A": {
+    "dias": 17,
+    "salen": 6,
+    "pct": 0.353,
+    "momio": 2.22,
+    "gan_100": -23.7,
+    "gan_p5": -62.0,
+    "patas_bien": 0.647
+   },
+   "B": {
+    "dias": 15,
+    "salen": 6,
+    "pct": 0.4,
+    "momio": 2.25,
+    "gan_100": -12.7,
+    "gan_p5": -56.7,
+    "patas_bien": 0.667
+   },
+   "todo": {
+    "dias": 32,
+    "salen": 12,
+    "pct": 0.375,
+    "momio": 2.23,
+    "gan_100": -18.6,
+    "gan_p5": -46.2,
+    "patas_bien": 0.656
+   }
+  },
+  "p_med": {
+   "A": {
+    "dias": 17,
+    "salen": 4,
+    "pct": 0.235,
+    "momio": 2.29,
+    "gan_100": -46.0,
+    "gan_p5": -84.7,
+    "patas_bien": 0.559
+   },
+   "B": {
+    "dias": 15,
+    "salen": 7,
+    "pct": 0.467,
+    "momio": 2.34,
+    "gan_100": 5.4,
+    "gan_p5": -41.4,
+    "patas_bien": 0.7
+   },
+   "todo": {
+    "dias": 32,
+    "salen": 11,
+    "pct": 0.344,
+    "momio": 2.31,
+    "gan_100": -21.9,
+    "gan_p5": -50.7,
+    "patas_bien": 0.625
+   }
+  }
+ },
+ "3": {
+  "p_mod": {
+   "A": {
+    "dias": 16,
+    "salen": 3,
+    "pct": 0.188,
+    "momio": 4.1,
+    "gan_100": -18.7,
+    "gan_p5": -76.1,
+    "patas_bien": 0.667
+   },
+   "B": {
+    "dias": 14,
+    "salen": 5,
+    "pct": 0.357,
+    "momio": 3.95,
+    "gan_100": 35.0,
+    "gan_p5": -45.8,
+    "patas_bien": 0.738
+   },
+   "todo": {
+    "dias": 30,
+    "salen": 8,
+    "pct": 0.267,
+    "momio": 4.03,
+    "gan_100": 6.3,
+    "gan_p5": -46.4,
+    "patas_bien": 0.7
+   }
+  },
+  "p_casa": {
+   "A": {
+    "dias": 16,
+    "salen": 5,
+    "pct": 0.312,
+    "momio": 3.2,
+    "gan_100": -1.4,
+    "gan_p5": -60.7,
+    "patas_bien": 0.729
+   },
+   "B": {
+    "dias": 14,
+    "salen": 7,
+    "pct": 0.5,
+    "momio": 3.44,
+    "gan_100": 66.1,
+    "gan_p5": -7.2,
+    "patas_bien": 0.738
+   },
+   "todo": {
+    "dias": 30,
+    "salen": 12,
+    "pct": 0.4,
+    "momio": 3.31,
+    "gan_100": 30.1,
+    "gan_p5": -16.6,
+    "patas_bien": 0.733
+   }
+  },
+  "p_min": {
+   "A": {
+    "dias": 16,
+    "salen": 4,
+    "pct": 0.25,
+    "momio": 3.31,
+    "gan_100": -20.3,
+    "gan_p5": -79.8,
+    "patas_bien": 0.708
+   },
+   "B": {
+    "dias": 14,
+    "salen": 4,
+    "pct": 0.286,
+    "momio": 3.46,
+    "gan_100": -4.0,
+    "gan_p5": -74.6,
+    "patas_bien": 0.69
+   },
+   "todo": {
+    "dias": 30,
+    "salen": 8,
+    "pct": 0.267,
+    "momio": 3.38,
+    "gan_100": -12.7,
+    "gan_p5": -56.2,
+    "patas_bien": 0.7
+   }
+  },
+  "p_med": {
+   "A": {
+    "dias": 16,
+    "salen": 1,
+    "pct": 0.062,
+    "momio": 3.47,
+    "gan_100": -78.5,
+    "gan_p5": -100.0,
+    "patas_bien": 0.604
+   },
+   "B": {
+    "dias": 14,
+    "salen": 4,
+    "pct": 0.286,
+    "momio": 3.56,
+    "gan_100": -1.5,
+    "gan_p5": -72.8,
+    "patas_bien": 0.69
+   },
+   "todo": {
+    "dias": 30,
+    "salen": 5,
+    "pct": 0.167,
+    "momio": 3.51,
+    "gan_100": -42.6,
+    "gan_p5": -78.1,
+    "patas_bien": 0.644
+   }
+  }
+ },
+ "4": {
+  "p_mod": {
+   "A": {
+    "dias": 16,
+    "salen": 2,
+    "pct": 0.125,
+    "momio": 6.48,
+    "gan_100": -23.2,
+    "gan_p5": -100.0,
+    "patas_bien": 0.703
+   },
+   "B": {
+    "dias": 11,
+    "salen": 4,
+    "pct": 0.364,
+    "momio": 6.49,
+    "gan_100": 118.5,
+    "gan_p5": -34.5,
+    "patas_bien": 0.795
+   },
+   "todo": {
+    "dias": 27,
+    "salen": 6,
+    "pct": 0.222,
+    "momio": 6.48,
+    "gan_100": 34.5,
+    "gan_p5": -37.9,
+    "patas_bien": 0.741
+   }
+  },
+  "p_casa": {
+   "A": {
+    "dias": 16,
+    "salen": 3,
+    "pct": 0.188,
+    "momio": 4.91,
+    "gan_100": -12.4,
+    "gan_p5": -71.4,
+    "patas_bien": 0.688
+   },
+   "B": {
+    "dias": 11,
+    "salen": 4,
+    "pct": 0.364,
+    "momio": 5.27,
+    "gan_100": 91.0,
+    "gan_p5": -44.6,
+    "patas_bien": 0.773
+   },
+   "todo": {
+    "dias": 27,
+    "salen": 7,
+    "pct": 0.259,
+    "momio": 5.06,
+    "gan_100": 29.7,
+    "gan_p5": -33.1,
+    "patas_bien": 0.722
+   }
+  },
+  "p_min": {
+   "A": {
+    "dias": 16,
+    "salen": 2,
+    "pct": 0.125,
+    "momio": 5.11,
+    "gan_100": -40.9,
+    "gan_p5": -100.0,
+    "patas_bien": 0.656
+   },
+   "B": {
+    "dias": 11,
+    "salen": 4,
+    "pct": 0.364,
+    "momio": 5.3,
+    "gan_100": 91.0,
+    "gan_p5": -44.6,
+    "patas_bien": 0.727
+   },
+   "todo": {
+    "dias": 27,
+    "salen": 6,
+    "pct": 0.222,
+    "momio": 5.19,
+    "gan_100": 12.8,
+    "gan_p5": -49.4,
+    "patas_bien": 0.685
+   }
+  },
+  "p_med": {
+   "A": {
+    "dias": 16,
+    "salen": 1,
+    "pct": 0.062,
+    "momio": 5.39,
+    "gan_100": -65.7,
+    "gan_p5": -100.0,
+    "patas_bien": 0.672
+   },
+   "B": {
+    "dias": 11,
+    "salen": 4,
+    "pct": 0.364,
+    "momio": 5.47,
+    "gan_100": 88.4,
+    "gan_p5": -18.1,
+    "patas_bien": 0.682
+   },
+   "todo": {
+    "dias": 27,
+    "salen": 5,
+    "pct": 0.185,
+    "momio": 5.43,
+    "gan_100": -2.9,
+    "gan_p5": -62.7,
+    "patas_bien": 0.676
+   }
+  }
+ },
+ "6": {
+  "p_mod": {
+   "A": {
+    "dias": 15,
+    "salen": 0,
+    "pct": 0.0,
+    "momio": 17.43,
+    "gan_100": -100.0,
+    "gan_p5": -100.0,
+    "patas_bien": 0.611
+   },
+   "B": {
+    "dias": 8,
+    "salen": 2,
+    "pct": 0.25,
+    "momio": 15.47,
+    "gan_100": 254.7,
+    "gan_p5": -100.0,
+    "patas_bien": 0.729
+   },
+   "todo": {
+    "dias": 23,
+    "salen": 2,
+    "pct": 0.087,
+    "momio": 16.75,
+    "gan_100": 23.4,
+    "gan_p5": -100.0,
+    "patas_bien": 0.652
+   }
+  },
+  "p_casa": {
+   "A": {
+    "dias": 15,
+    "salen": 2,
+    "pct": 0.133,
+    "momio": 11.41,
+    "gan_100": 38.8,
+    "gan_p5": -100.0,
+    "patas_bien": 0.667
+   },
+   "B": {
+    "dias": 8,
+    "salen": 2,
+    "pct": 0.25,
+    "momio": 11.28,
+    "gan_100": 147.4,
+    "gan_p5": -100.0,
+    "patas_bien": 0.75
+   },
+   "todo": {
+    "dias": 23,
+    "salen": 4,
+    "pct": 0.174,
+    "momio": 11.36,
+    "gan_100": 76.6,
+    "gan_p5": -55.2,
+    "patas_bien": 0.696
+   }
+  },
+  "p_min": {
+   "A": {
+    "dias": 15,
+    "salen": 0,
+    "pct": 0.0,
+    "momio": 11.83,
+    "gan_100": -100.0,
+    "gan_p5": -100.0,
+    "patas_bien": 0.667
+   },
+   "B": {
+    "dias": 8,
+    "salen": 1,
+    "pct": 0.125,
+    "momio": 11.56,
+    "gan_100": 33.0,
+    "gan_p5": -100.0,
+    "patas_bien": 0.729
+   },
+   "todo": {
+    "dias": 23,
+    "salen": 1,
+    "pct": 0.043,
+    "momio": 11.74,
+    "gan_100": -53.7,
+    "gan_p5": -100.0,
+    "patas_bien": 0.688
+   }
+  },
+  "p_med": {
+   "A": {
+    "dias": 15,
+    "salen": 1,
+    "pct": 0.067,
+    "momio": 12.62,
+    "gan_100": -17.6,
+    "gan_p5": -100.0,
+    "patas_bien": 0.667
+   },
+   "B": {
+    "dias": 8,
+    "salen": 2,
+    "pct": 0.25,
+    "momio": 11.79,
+    "gan_100": 155.9,
+    "gan_p5": -100.0,
+    "patas_bien": 0.729
+   },
+   "todo": {
+    "dias": 23,
+    "salen": 3,
+    "pct": 0.13,
+    "momio": 12.33,
+    "gan_100": 42.7,
+    "gan_p5": -57.3,
+    "patas_bien": 0.688
+   }
+  }
+ }
+}

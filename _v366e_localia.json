@@ -1,0 +1,474 @@
+{
+ "hoy (prob × cuota)": {
+  "local": {
+   "todo": {
+    "n": 271,
+    "partidos": 182,
+    "acierto": 0.6458,
+    "cuota": 1.72,
+    "prometido": 0.6086,
+    "gan_100": 11.2,
+    "gan_p5": 1.2
+   },
+   "por_obj": {
+    "a_puerta": [
+     114,
+     0.667
+    ],
+    "goles": [
+     13,
+     0.692
+    ],
+    "tiros": [
+     144,
+     0.625
+    ]
+   },
+   "A": {
+    "n": 119,
+    "acierto": 0.622,
+    "resto": 0.553,
+    "cuota": 1.714,
+    "dif_p5": -0.057
+   },
+   "B": {
+    "n": 152,
+    "acierto": 0.664,
+    "resto": 0.597,
+    "cuota": 1.726,
+    "dif_p5": -0.031
+   }
+  },
+  "visita": {
+   "todo": {
+    "n": 261,
+    "partidos": 177,
+    "acierto": 0.5747,
+    "cuota": 1.709,
+    "prometido": 0.6132,
+    "gan_100": -2.8,
+    "gan_p5": -12.5
+   },
+   "por_obj": {
+    "a_puerta": [
+     96,
+     0.562
+    ],
+    "goles": [
+     22,
+     0.455
+    ],
+    "tiros": [
+     143,
+     0.601
+    ]
+   },
+   "A": {
+    "n": 94,
+    "acierto": 0.553,
+    "resto": 0.617,
+    "cuota": 1.734,
+    "dif_p5": -0.184
+   },
+   "B": {
+    "n": 167,
+    "acierto": 0.587,
+    "resto": 0.667,
+    "cuota": 1.695,
+    "dif_p5": -0.175
+   }
+  },
+  "genera más": {
+   "todo": {
+    "n": 304,
+    "partidos": 195,
+    "acierto": 0.602,
+    "cuota": 1.735,
+    "prometido": 0.6093,
+    "gan_100": 4.4,
+    "gan_p5": -4.9
+   },
+   "por_obj": {
+    "a_puerta": [
+     133,
+     0.639
+    ],
+    "goles": [
+     18,
+     0.556
+    ],
+    "tiros": [
+     153,
+     0.575
+    ]
+   },
+   "A": {
+    "n": 124,
+    "acierto": 0.589,
+    "resto": 0.592,
+    "cuota": 1.737,
+    "dif_p5": -0.122
+   },
+   "B": {
+    "n": 180,
+    "acierto": 0.611,
+    "resto": 0.646,
+    "cuota": 1.734,
+    "dif_p5": -0.13
+   }
+  },
+  "genera menos": {
+   "todo": {
+    "n": 244,
+    "partidos": 166,
+    "acierto": 0.6189,
+    "cuota": 1.682,
+    "prometido": 0.613,
+    "gan_100": 3.0,
+    "gan_p5": -6.7
+   },
+   "por_obj": {
+    "a_puerta": [
+     93,
+     0.602
+    ],
+    "goles": [
+     19,
+     0.579
+    ],
+    "tiros": [
+     132,
+     0.636
+    ]
+   },
+   "A": {
+    "n": 94,
+    "acierto": 0.574,
+    "resto": 0.602,
+    "cuota": 1.693,
+    "dif_p5": -0.15
+   },
+   "B": {
+    "n": 150,
+    "acierto": 0.647,
+    "resto": 0.612,
+    "cuota": 1.676,
+    "dif_p5": -0.064
+   }
+  },
+  "local que genera más": {
+   "todo": {
+    "n": 212,
+    "partidos": 144,
+    "acierto": 0.6226,
+    "cuota": 1.731,
+    "prometido": 0.6111,
+    "gan_100": 8.1,
+    "gan_p5": -2.6
+   },
+   "por_obj": {
+    "a_puerta": [
+     90,
+     0.656
+    ],
+    "goles": [
+     12,
+     0.667
+    ],
+    "tiros": [
+     110,
+     0.591
+    ]
+   },
+   "A": {
+    "n": 89,
+    "acierto": 0.618,
+    "resto": 0.571,
+    "cuota": 1.722,
+    "dif_p5": -0.073
+   },
+   "B": {
+    "n": 123,
+    "acierto": 0.626,
+    "resto": 0.628,
+    "cuota": 1.737,
+    "dif_p5": -0.103
+   }
+  },
+  "visita que genera más": {
+   "todo": {
+    "n": 75,
+    "partidos": 50,
+    "acierto": 0.56,
+    "cuota": 1.75,
+    "prometido": 0.6074,
+    "gan_100": -2.8,
+    "gan_p5": -22.2
+   },
+   "por_obj": {
+    "a_puerta": [
+     30,
+     0.6
+    ],
+    "goles": [
+     5,
+     0.2
+    ],
+    "tiros": [
+     40,
+     0.575
+    ]
+   },
+   "A": {
+    "n": 29,
+    "acierto": 0.517,
+    "resto": 0.601,
+    "cuota": 1.792,
+    "dif_p5": -0.261
+   },
+   "B": {
+    "n": 46,
+    "acierto": 0.587,
+    "resto": 0.634,
+    "cuota": 1.723,
+    "dif_p5": -0.199
+   }
+  }
+ },
+ "nueva (la más probable)": {
+  "local": {
+   "todo": {
+    "n": 271,
+    "partidos": 182,
+    "acierto": 0.6568,
+    "cuota": 1.679,
+    "prometido": 0.622,
+    "gan_100": 10.0,
+    "gan_p5": 1.0
+   },
+   "por_obj": {
+    "a_puerta": [
+     114,
+     0.667
+    ],
+    "goles": [
+     13,
+     0.692
+    ],
+    "tiros": [
+     144,
+     0.646
+    ]
+   },
+   "A": {
+    "n": 119,
+    "acierto": 0.639,
+    "resto": 0.583,
+    "cuota": 1.664,
+    "dif_p5": -0.059
+   },
+   "B": {
+    "n": 152,
+    "acierto": 0.671,
+    "resto": 0.613,
+    "cuota": 1.69,
+    "dif_p5": -0.038
+   }
+  },
+  "visita": {
+   "todo": {
+    "n": 261,
+    "partidos": 177,
+    "acierto": 0.5977,
+    "cuota": 1.672,
+    "prometido": 0.6256,
+    "gan_100": -0.8,
+    "gan_p5": -9.6
+   },
+   "por_obj": {
+    "a_puerta": [
+     96,
+     0.573
+    ],
+    "goles": [
+     22,
+     0.455
+    ],
+    "tiros": [
+     143,
+     0.636
+    ]
+   },
+   "A": {
+    "n": 94,
+    "acierto": 0.585,
+    "resto": 0.633,
+    "cuota": 1.696,
+    "dif_p5": -0.17
+   },
+   "B": {
+    "n": 167,
+    "acierto": 0.605,
+    "resto": 0.673,
+    "cuota": 1.658,
+    "dif_p5": -0.164
+   }
+  },
+  "genera más": {
+   "todo": {
+    "n": 304,
+    "partidos": 195,
+    "acierto": 0.6184,
+    "cuota": 1.688,
+    "prometido": 0.6244,
+    "gan_100": 4.1,
+    "gan_p5": -4.1
+   },
+   "por_obj": {
+    "a_puerta": [
+     133,
+     0.647
+    ],
+    "goles": [
+     18,
+     0.556
+    ],
+    "tiros": [
+     153,
+     0.601
+    ]
+   },
+   "A": {
+    "n": 124,
+    "acierto": 0.621,
+    "resto": 0.602,
+    "cuota": 1.677,
+    "dif_p5": -0.097
+   },
+   "B": {
+    "n": 180,
+    "acierto": 0.617,
+    "resto": 0.665,
+    "cuota": 1.695,
+    "dif_p5": -0.142
+   }
+  },
+  "genera menos": {
+   "todo": {
+    "n": 244,
+    "partidos": 166,
+    "acierto": 0.6352,
+    "cuota": 1.657,
+    "prometido": 0.6218,
+    "gan_100": 4.3,
+    "gan_p5": -5.3
+   },
+   "por_obj": {
+    "a_puerta": [
+     93,
+     0.602
+    ],
+    "goles": [
+     19,
+     0.579
+    ],
+    "tiros": [
+     132,
+     0.667
+    ]
+   },
+   "A": {
+    "n": 94,
+    "acierto": 0.585,
+    "resto": 0.633,
+    "cuota": 1.677,
+    "dif_p5": -0.171
+   },
+   "B": {
+    "n": 150,
+    "acierto": 0.667,
+    "resto": 0.617,
+    "cuota": 1.644,
+    "dif_p5": -0.039
+   }
+  },
+  "local que genera más": {
+   "todo": {
+    "n": 212,
+    "partidos": 144,
+    "acierto": 0.6368,
+    "cuota": 1.682,
+    "prometido": 0.6266,
+    "gan_100": 7.0,
+    "gan_p5": -3.1
+   },
+   "por_obj": {
+    "a_puerta": [
+     90,
+     0.656
+    ],
+    "goles": [
+     12,
+     0.667
+    ],
+    "tiros": [
+     110,
+     0.618
+    ]
+   },
+   "A": {
+    "n": 89,
+    "acierto": 0.64,
+    "resto": 0.594,
+    "cuota": 1.664,
+    "dif_p5": -0.069
+   },
+   "B": {
+    "n": 123,
+    "acierto": 0.634,
+    "resto": 0.642,
+    "cuota": 1.695,
+    "dif_p5": -0.105
+   }
+  },
+  "visita que genera más": {
+   "todo": {
+    "n": 75,
+    "partidos": 50,
+    "acierto": 0.5867,
+    "cuota": 1.696,
+    "prometido": 0.6244,
+    "gan_100": -0.6,
+    "gan_p5": -19.4
+   },
+   "por_obj": {
+    "a_puerta": [
+     30,
+     0.633
+    ],
+    "goles": [
+     5,
+     0.2
+    ],
+    "tiros": [
+     40,
+     0.6
+    ]
+   },
+   "A": {
+    "n": 29,
+    "acierto": 0.586,
+    "resto": 0.617,
+    "cuota": 1.713,
+    "dif_p5": -0.199
+   },
+   "B": {
+    "n": 46,
+    "acierto": 0.587,
+    "resto": 0.647,
+    "cuota": 1.686,
+    "dif_p5": -0.225
+   }
+  }
+ }
+}
