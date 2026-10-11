@@ -574,6 +574,16 @@ def main() -> int:
         logger.info('seguimiento de tiros: %s', tiros_seguimiento.medir())
     except Exception as e:
         logger.warning('[precalculo] tiros: %s', e)
+    # v361 — EL SEGUIMIENTO DEL ANÁLISIS (Método Contexto): apuntar lo que
+    # dice la tabla de cada partido por jugar y poner lo que pasó a lo jugado
+    # (`analisis_seguimiento`). Falla en blando.
+    try:
+        import analisis_seguimiento
+        logger.info('análisis: %d filas apuntadas, %d liquidadas',
+                    analisis_seguimiento.registrar(datos.get('pronosticos') or []),
+                    analisis_seguimiento.liquidar())
+    except Exception as e:
+        logger.warning('[precalculo] seguimiento del análisis: %s', e)
     try:
         import decisiones_dia
         if not decisiones_dia.anadir(a.salida):

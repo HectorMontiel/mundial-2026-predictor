@@ -1,0 +1,280 @@
+{
+ "filas": 59120,
+ "corte": "2025-06-15",
+ "objetivos": {
+  "goles": {
+   "n": 17742,
+   "media": 1.399,
+   "k": 500.0,
+   "lineas": [
+    0.5,
+    1.5,
+    2.5
+   ],
+   "desv_metodo": 1.0834,
+   "desv_ult5": 1.3575,
+   "desv_atq_def": 1.2937,
+   "ll_metodo": 0.5329,
+   "ll_ult5": 0.6081,
+   "ll_atq_def": 0.5912,
+   "mejora_vs_ult5_p5": 0.07112,
+   "mejora_vs_atq_def_p5": 0.05437,
+   "calibracion_mas_1.5": [
+    {
+     "banda": "(0.0, 0.3]",
+     "n": 4626,
+     "promete": 0.237,
+     "acierta": 0.256
+    },
+    {
+     "banda": "(0.3, 0.5]",
+     "n": 8976,
+     "promete": 0.396,
+     "acierta": 0.396
+    },
+    {
+     "banda": "(0.5, 0.6]",
+     "n": 2438,
+     "promete": 0.545,
+     "acierta": 0.524
+    },
+    {
+     "banda": "(0.6, 0.7]",
+     "n": 1305,
+     "promete": 0.642,
+     "acierta": 0.655
+    },
+    {
+     "banda": "(0.7, 0.8]",
+     "n": 350,
+     "promete": 0.735,
+     "acierta": 0.749
+    },
+    {
+     "banda": "(0.8, 1.0]",
+     "n": 47,
+     "promete": 0.835,
+     "acierta": 0.787
+    }
+   ]
+  },
+  "corners": {
+   "n": 17742,
+   "media": 4.944,
+   "k": 11.8,
+   "lineas": [
+    4.5,
+    5.5,
+    6.5
+   ],
+   "desv_metodo": 1.4747,
+   "desv_ult5": 1.8965,
+   "desv_atq_def": 1.7819,
+   "ll_metodo": 0.6033,
+   "ll_ult5": 0.6931,
+   "ll_atq_def": 0.6678,
+   "mejora_vs_ult5_p5": 0.08427,
+   "mejora_vs_atq_def_p5": 0.05967,
+   "calibracion_mas_5.5": [
+    {
+     "banda": "(0.0, 0.3]",
+     "n": 5396,
+     "promete": 0.225,
+     "acierta": 0.221
+    },
+    {
+     "banda": "(0.3, 0.5]",
+     "n": 9405,
+     "promete": 0.394,
+     "acierta": 0.396
+    },
+    {
+     "banda": "(0.5, 0.6]",
+     "n": 2134,
+     "promete": 0.542,
+     "acierta": 0.559
+    },
+    {
+     "banda": "(0.6, 0.7]",
+     "n": 661,
+     "promete": 0.638,
+     "acierta": 0.649
+    },
+    {
+     "banda": "(0.7, 0.8]",
+     "n": 137,
+     "promete": 0.733,
+     "acierta": 0.781
+    },
+    {
+     "banda": "(0.8, 1.0]",
+     "n": 9,
+     "promete": 0.817,
+     "acierta": 0.889
+    }
+   ]
+  },
+  "tarjetas": {
+   "n": 17742,
+   "media": 1.971,
+   "k": 500.0,
+   "lineas": [
+    1.5,
+    2.5,
+    3.5
+   ],
+   "desv_metodo": 1.0224,
+   "desv_ult5": 1.2266,
+   "desv_atq_def": 1.0787,
+   "ll_metodo": 0.547,
+   "ll_ult5": 0.6043,
+   "ll_atq_def": 0.5637,
+   "mejora_vs_ult5_p5": 0.05326,
+   "mejora_vs_atq_def_p5": 0.01467,
+   "calibracion_mas_2.5": [
+    {
+     "banda": "(0.0, 0.3]",
+     "n": 7350,
+     "promete": 0.228,
+     "acierta": 0.234
+    },
+    {
+     "banda": "(0.3, 0.5]",
+     "n": 9827,
+     "promete": 0.379,
+     "acierta": 0.367
+    },
+    {
+     "banda": "(0.5, 0.6]",
+     "n": 530,
+     "promete": 0.532,
+     "acierta": 0.479
+    },
+    {
+     "banda": "(0.6, 0.7]",
+     "n": 33,
+     "promete": 0.624,
+     "acierta": 0.485
+    },
+    {
+     "banda": "(0.7, 0.8]",
+     "n": 2,
+     "promete": 0.705,
+     "acierta": 0.5
+    }
+   ]
+  },
+  "tiros": {
+   "n": 17742,
+   "media": 12.873,
+   "k": 20.3,
+   "lineas": [
+    11.5,
+    12.5,
+    13.5
+   ],
+   "desv_metodo": 1.6381,
+   "desv_ult5": 2.244,
+   "desv_atq_def": 2.0305,
+   "ll_metodo": 0.6005,
+   "ll_ult5": 0.7089,
+   "ll_atq_def": 0.6669,
+   "mejora_vs_ult5_p5": 0.10205,
+   "mejora_vs_atq_def_p5": 0.06175,
+   "calibracion_mas_12.5": [
+    {
+     "banda": "(0.0, 0.3]",
+     "n": 3707,
+     "promete": 0.206,
+     "acierta": 0.222
+    },
+    {
+     "banda": "(0.3, 0.5]",
+     "n": 6025,
+     "promete": 0.404,
+     "acierta": 0.406
+    },
+    {
+     "banda": "(0.5, 0.6]",
+     "n": 2939,
+     "promete": 0.549,
+     "acierta": 0.554
+    },
+    {
+     "banda": "(0.6, 0.7]",
+     "n": 2516,
+     "promete": 0.648,
+     "acierta": 0.661
+    },
+    {
+     "banda": "(0.7, 0.8]",
+     "n": 1711,
+     "promete": 0.744,
+     "acierta": 0.757
+    },
+    {
+     "banda": "(0.8, 1.0]",
+     "n": 844,
+     "promete": 0.852,
+     "acierta": 0.882
+    }
+   ]
+  },
+  "a_puerta": {
+   "n": 17742,
+   "media": 4.385,
+   "k": 40.9,
+   "lineas": [
+    3.5,
+    4.5,
+    5.5
+   ],
+   "desv_metodo": 1.1903,
+   "desv_ult5": 1.5346,
+   "desv_atq_def": 1.4526,
+   "ll_metodo": 0.5982,
+   "ll_ult5": 0.6908,
+   "ll_atq_def": 0.6676,
+   "mejora_vs_ult5_p5": 0.08765,
+   "mejora_vs_atq_def_p5": 0.06454,
+   "calibracion_mas_4.5": [
+    {
+     "banda": "(0.0, 0.3]",
+     "n": 4057,
+     "promete": 0.227,
+     "acierta": 0.226
+    },
+    {
+     "banda": "(0.3, 0.5]",
+     "n": 7631,
+     "promete": 0.402,
+     "acierta": 0.396
+    },
+    {
+     "banda": "(0.5, 0.6]",
+     "n": 2965,
+     "promete": 0.546,
+     "acierta": 0.526
+    },
+    {
+     "banda": "(0.6, 0.7]",
+     "n": 1705,
+     "promete": 0.647,
+     "acierta": 0.639
+    },
+    {
+     "banda": "(0.7, 0.8]",
+     "n": 1031,
+     "promete": 0.743,
+     "acierta": 0.744
+    },
+    {
+     "banda": "(0.8, 1.0]",
+     "n": 353,
+     "promete": 0.845,
+     "acierta": 0.847
+    }
+   ]
+  }
+ }
+}

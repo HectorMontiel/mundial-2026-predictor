@@ -59,7 +59,26 @@ logger = logging.getLogger('tiros_equipo')
 DIR_MODELO = os.path.join('modelos', 'tiros_equipo')
 FICHERO_DIA = 'tiros_dia.json'
 VERSION = 'v345'
-OBJETIVOS = ('tiros', 'a_puerta')
+# v361 — EL «MÉTODO CONTEXTO» (la metodología del amigo: tabla y presión,
+# goles a favor y en contra, posesión, faltas del rival, córners, tarjetas,
+# fuerza por precio, forma ponderada, calidad de los rivales, descanso) para
+# todo el análisis de la tarjeta, no sólo los tiros. Medido en
+# `_v361_metodo.py` (59.120 filas equipo-partido, 26 ligas, juzga el 30 %
+# más reciente, 17.742), log-loss de «más de X» contra «últimos 5» y contra
+# ataque × defensa, con p5 > 0 en todas:
+#
+#                     Método   últimos 5   ataque×defensa
+#     goles           0,533      0,608         0,591
+#     córners         0,603      0,693         0,668
+#     tarjetas        0,547      0,604         0,564
+#     tiros           0,601      0,709         0,667
+#     a puerta        0,598      0,691         0,668
+#
+# Y promete lo que acierta (tiros 74 → 76 %, 85 → 88 %; córners 73 → 78 %).
+METODO = 'Método Contexto'
+OBJETIVOS = ('tiros', 'a_puerta', 'goles', 'corners', 'tarjetas')
+# la columna de cada objetivo en los datos por equipo
+COL_OBJ = {'goles': 'gf', 'corners': 'corners', 'tarjetas': 'amarillas'}
 # peso del modelo frente a la casa en la probabilidad que se enseña (medido)
 PESO_MODELO = {'tiros': 1.0, 'a_puerta': 0.65}
 MIN_PARTIDOS = 3
@@ -323,24 +342,28 @@ def entrenar(directorio: str = DIR_MODELO) -> Dict:
     d = cargar_partidos()
     e = rasgos(a_equipos(d))
     e = e[(e.n_prev >= MIN_PARTIDOS) & (e.r_n_prev >= MIN_PARTIDOS)].dropna(
-        subset=['p_gana', 'tiros', 'a_puerta'])
+        subset=['p_gana'])
     os.makedirs(directorio, exist_ok=True)
     meta = {'version': VERSION, 'entrenado': _dt.datetime.utcnow().strftime(
         '%Y-%m-%dT%H:%M:%SZ'), 'filas': int(len(e)), 'columnas': COLUMNAS,
         'ligas': sorted(e.liga.unique().tolist()), 'k': {},
         'peso_modelo': PESO_MODELO}
     for obj in OBJETIVOS:
+        col = COL_OBJ.get(obj, obj)
+        eo = e.dropna(subset=[col])
+        if len(eo) < 2000:
+            continue
         m = lgb.LGBMRegressor(objective='poisson', n_estimators=700,
                               learning_rate=0.03, num_leaves=31,
                               min_child_samples=80, subsample=0.8,
                               subsample_freq=1, colsample_bytree=0.8,
                               reg_lambda=1.0, verbose=-1, random_state=345)
-        c2 = e.fecha.quantile(0.85)
-        a, b = e[e.fecha < c2], e[e.fecha >= c2]
-        m.fit(a[COLUMNAS], a[obj])
-        meta['k'][obj] = ajustar_k(b[obj].values,
-                                   np.clip(m.predict(b[COLUMNAS]), 0.3, None))
-        m.fit(e[COLUMNAS], e[obj])
+        c2 = eo.fecha.quantile(0.85)
+        a, b = eo[eo.fecha < c2], eo[eo.fecha >= c2]
+        m.fit(a[COLUMNAS], a[col])
+        meta['k'][obj] = ajustar_k(b[col].values,
+                                   np.clip(m.predict(b[COLUMNAS]), 0.05, None))
+        m.fit(eo[COLUMNAS], eo[col])
         m.booster_.save_model(os.path.join(directorio, '%s.txt' % obj))
     with open(os.path.join(directorio, 'meta.json'), 'w', encoding='utf-8') as f:
         json.dump(meta, f, ensure_ascii=False, indent=1)
@@ -359,8 +382,11 @@ def _modelos(directorio: str = DIR_MODELO):
     import lightgbm as lgb
     with open(os.path.join(directorio, 'meta.json'), encoding='utf-8') as f:
         meta = json.load(f)
+    # los objetivos que tenga el modelo publicado (los de la v361 llegan con
+    # el siguiente reentrenamiento; hasta entonces, sólo tiros y a puerta)
     boosters = {o: lgb.Booster(model_file=os.path.join(directorio, '%s.txt' % o))
-                for o in OBJETIVOS}
+                for o in OBJETIVOS
+                if os.path.exists(os.path.join(directorio, '%s.txt' % o))}
     _CACHE.update(dir=directorio, meta=meta, boosters=boosters)
     return meta, boosters
 
@@ -435,18 +461,19 @@ def precalcular(pronosticos: List[Dict], ruta: str = FICHERO_DIA,
     e = e[e.mid.isin(llaves)]
     out = {}
     cols = meta['columnas']
-    for obj in OBJETIVOS:
-        e['lam_' + obj] = np.clip(boosters[obj].predict(e[cols]), 0.3, None)
+    for obj in boosters:
+        e['lam_' + obj] = np.clip(boosters[obj].predict(e[cols]),
+                                  0.3 if obj in ('tiros', 'a_puerta') else 0.05, None)
     for mid, g in e.groupby('mid'):
         lados = {}
         for r in g.itertuples():
             if (r.n_prev < MIN_PARTIDOS or pd.isna(r.r_n_prev)
                     or r.r_n_prev < MIN_PARTIDOS):
                 continue
-            lados['local' if r.local == 1 else 'visitante'] = {
-                'tiros': round(float(r.lam_tiros), 3),
-                'a_puerta': round(float(r.lam_a_puerta), 3),
-                'partidos': int(r.n_prev)}
+            lado = {'partidos': int(r.n_prev)}
+            for obj in boosters:
+                lado[obj] = round(float(getattr(r, 'lam_' + obj)), 3)
+            lados['local' if r.local == 1 else 'visitante'] = lado
         if len(lados) == 2:
             out[llaves[mid]] = lados
     doc = {'version': VERSION, 'k': meta['k'], 'peso_modelo': meta.get('peso_modelo'),

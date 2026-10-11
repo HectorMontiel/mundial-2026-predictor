@@ -1,0 +1,187 @@
+{
+ "corte": "2025-06-15",
+ "mitad": "2026-01-31",
+ "objetivos": {
+  "goles": {
+   "partidos": 8871,
+   "con_linea": 8871,
+   "k": 500.0,
+   "A": {
+    "n": 4389,
+    "promete": 0.8033,
+    "acierta": 0.8059
+   },
+   "B": {
+    "n": 4482,
+    "promete": 0.7979,
+    "acierta": 0.8046
+   },
+   "bandas": [
+    {
+     "banda": "(0.7, 0.75]",
+     "n": 2283,
+     "promete": 0.726,
+     "acierta": 0.733
+    },
+    {
+     "banda": "(0.75, 0.8]",
+     "n": 2440,
+     "promete": 0.775,
+     "acierta": 0.771
+    },
+    {
+     "banda": "(0.8, 0.85]",
+     "n": 2119,
+     "promete": 0.824,
+     "acierta": 0.834
+    },
+    {
+     "banda": "(0.85, 1.0]",
+     "n": 2029,
+     "promete": 0.891,
+     "acierta": 0.897
+    }
+   ]
+  },
+  "corners": {
+   "partidos": 8871,
+   "con_linea": 8871,
+   "k": 20.9,
+   "A": {
+    "n": 4389,
+    "promete": 0.7501,
+    "acierta": 0.7453
+   },
+   "B": {
+    "n": 4482,
+    "promete": 0.7506,
+    "acierta": 0.7617
+   },
+   "bandas": [
+    {
+     "banda": "(0.7, 0.75]",
+     "n": 4449,
+     "promete": 0.726,
+     "acierta": 0.73
+    },
+    {
+     "banda": "(0.75, 0.8]",
+     "n": 4240,
+     "promete": 0.774,
+     "acierta": 0.779
+    },
+    {
+     "banda": "(0.8, 0.85]",
+     "n": 182,
+     "promete": 0.802,
+     "acierta": 0.742
+    }
+   ]
+  },
+  "tarjetas": {
+   "partidos": 8871,
+   "con_linea": 8871,
+   "k": 500.0,
+   "A": {
+    "n": 4389,
+    "promete": 0.7868,
+    "acierta": 0.7797
+   },
+   "B": {
+    "n": 4482,
+    "promete": 0.7888,
+    "acierta": 0.78
+   },
+   "bandas": [
+    {
+     "banda": "(0.7, 0.75]",
+     "n": 2505,
+     "promete": 0.726,
+     "acierta": 0.714
+    },
+    {
+     "banda": "(0.75, 0.8]",
+     "n": 2566,
+     "promete": 0.775,
+     "acierta": 0.779
+    },
+    {
+     "banda": "(0.8, 0.85]",
+     "n": 2626,
+     "promete": 0.825,
+     "acierta": 0.805
+    },
+    {
+     "banda": "(0.85, 1.0]",
+     "n": 1174,
+     "promete": 0.865,
+     "acierta": 0.866
+    }
+   ]
+  },
+  "tiros": {
+   "partidos": 8871,
+   "con_linea": 8871,
+   "k": 33.0,
+   "A": {
+    "n": 4389,
+    "promete": 0.7295,
+    "acierta": 0.7462
+   },
+   "B": {
+    "n": 4482,
+    "promete": 0.7301,
+    "acierta": 0.7448
+   },
+   "bandas": [
+    {
+     "banda": "(0.7, 0.75]",
+     "n": 7483,
+     "promete": 0.725,
+     "acierta": 0.741
+    },
+    {
+     "banda": "(0.75, 0.8]",
+     "n": 1388,
+     "promete": 0.755,
+     "acierta": 0.77
+    }
+   ]
+  },
+  "a_puerta": {
+   "partidos": 8871,
+   "con_linea": 8871,
+   "k": 500.0,
+   "A": {
+    "n": 4389,
+    "promete": 0.7597,
+    "acierta": 0.7464
+   },
+   "B": {
+    "n": 4482,
+    "promete": 0.759,
+    "acierta": 0.7316
+   },
+   "bandas": [
+    {
+     "banda": "(0.7, 0.75]",
+     "n": 3645,
+     "promete": 0.725,
+     "acierta": 0.711
+    },
+    {
+     "banda": "(0.75, 0.8]",
+     "n": 4009,
+     "promete": 0.775,
+     "acierta": 0.751
+    },
+    {
+     "banda": "(0.8, 0.85]",
+     "n": 1217,
+     "promete": 0.808,
+     "acierta": 0.782
+    }
+   ]
+  }
+ }
+}

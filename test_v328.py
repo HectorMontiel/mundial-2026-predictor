@@ -83,7 +83,12 @@ def main():
             # v353 — más los tiros y los tiros a puerta (informativos): hasta 5
             check(1 <= len(filas) <= 5, '%s: de 1 a 5 líneas (%d)' % (p['partido'], len(filas)))
             lam = p.get('goles_lambda')
-            if lam:
+            # v361 — con el Método Contexto, los goles del método (la tabla lo dice)
+            _mc_g = mm.metodo_contexto(p).get('goles') or {}
+            if lam and _mc_g.get('metodo'):
+                check('Método Contexto' in limpio,
+                      '%s: los goles del análisis salen del Método Contexto' % p['partido'])
+            elif lam:
                 check(('%.1f' % lam).replace('.', ',') in limpio,
                       '%s: los goles esperados son los de la razón (%.1f)' % (p['partido'], lam))
     finally:

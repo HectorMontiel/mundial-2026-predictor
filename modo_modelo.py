@@ -2163,6 +2163,10 @@ GRUPOS_MERCADO = {
     'Ganador o doble': ('1X2', 'Doble oportunidad'),
 }
 TODOS_LOS_MERCADOS = 'Todos los mercados'
+# v361 — el grupo del filtro → el objetivo del Método Contexto (y su rótulo)
+GRUPO_A_METODO = {'Goles': ('goles', 'Goles'), 'Tiros': ('tiros', 'Tiros'),
+                  'Tiros a puerta': ('a_puerta', 'Tiros a puerta'),
+                  'Tarjetas': ('tarjetas', 'Tarjetas'), 'Córners': ('corners', 'Córners')}
 
 
 def mejor_por_mercado(pick: Dict, bloques: Optional[Dict], arriba: list,
@@ -3802,10 +3806,11 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
         _fm = pick.get('_filtro_mercado')
         if _fm:
             st.markdown(
-                '<div class="mm-filtro">🔎 <b>%s</b> — %.0f %% · @%.2f · %s</div>'
+                '<div class="mm-filtro">🔎 <b>%s</b> — %.0f %%%s · %s</div>'
                 % (_esc_mm(_fm.get('apuesta') or ''), 100 * float(_fm.get('prob') or 0),
-                   float(_fm.get('cuota') or 0),
-                   {'arriba': '🎯 se mete', 'tambien': '➕ también se mete'}.get(
+                   (' · @%.2f' % float(_fm['cuota'])) if _fm.get('cuota') else '',
+                   {'arriba': '🎯 se mete', 'tambien': '➕ también se mete',
+                    'analisis': '📐 Método Contexto (análisis, no es apuesta)'}.get(
                        _fm.get('donde'), 'ℹ️ informativa: no pasa la regla de meter')),
                 unsafe_allow_html=True)
 
@@ -4258,8 +4263,10 @@ def tarjeta(st, pick: Dict, *, navegar: Optional[Callable] = None,
 
         # ---- 3) y todo el detalle, plegado ------------------------------
         with st.expander('🔍 Análisis'):
-            for _pq in _porque_detalle:
-                st.caption(_pq)
+            # v361 — sin párrafos: la tabla lo dice (el porqué sigue en la ficha)
+            if str(pick.get('deporte') or 'Fútbol') != 'Fútbol':
+                for _pq in _porque_detalle:
+                    st.caption(_pq)
             # v328 — corto y sólo lo medido; lo demás, en la ficha
             _con = _analisis_conciso_html(pick, b, _ck, _tj)
             if _con:
@@ -4327,6 +4334,12 @@ def _analisis_conciso_html(pick: Dict, b: Dict, _ck, _tj) -> str:
     h, a = _equipos(pick)
     lineas = []
     if str(pick.get('deporte') or 'Fútbol') == 'Fútbol':
+        # v361 — la tabla del Método Contexto, y en una línea ambos marcan
+        tabla = _tabla_metodo_html(pick, _ck, _tj)
+        if tabla:
+            pb = _p_o_none((b or {}).get('Ambos marcan: Sí'))
+            return tabla + ('<div class="mm-ck-fila">🤝 Ambos marcan: <b>%.0f %%</b></div>'
+                            % (100 * pb) if pb is not None else '')
         # Los goles que la tarjeta ya enseña: el total de `goles_lambda` (el de
         # la razón de la apuesta) y, por equipo, lo que implica su «marca»
         # corregido (λ = −ln(1 − p)), que suma lo mismo. `goles_xg` es la
@@ -4397,6 +4410,141 @@ def _analisis_conciso_html(pick: Dict, b: Dict, _ck, _tj) -> str:
     if not lineas:
         return ''
     return ''.join('<div class="mm-ck-fila">%s</div>' % l for l in lineas)
+
+
+# v361 — EL ANÁLISIS DE LA TARJETA, VISUAL Y CON EL «MÉTODO CONTEXTO».
+#
+# El usuario: «el análisis de cada tarjeta lo quiero más breve, más visual:
+# goles, tarjetas, córners, tiros, tiros a puerta con su porcentaje, con la
+# metodología de mi amigo, y ponle nombre». Una fila por estadística: lo que
+# se espera de cada equipo, el total y la línea «más de» más alta que el
+# método ve al 70 % o más. Los números salen de `tiros_equipo` (medido en
+# `_v361_metodo.py`: bate a «últimos 5» y a ataque × defensa en las cinco).
+# Si al modelo publicado le falta un objetivo (llegan con el reentrenamiento),
+# esa fila usa lo de antes y lleva un asterisco.
+K_POR_DEFECTO = {'goles': 500.0, 'corners': 12.0, 'tarjetas': 500.0,
+                 'tiros': 20.0, 'a_puerta': 40.0}
+FILAS_METODO = (('goles', '⚽', 'Goles'), ('corners', '⛳', 'Córners'),
+                ('tarjetas', '🟨', 'Tarjetas'), ('tiros', '🎯', 'Tiros'),
+                ('a_puerta', '🥅', 'A puerta'))
+
+
+def metodo_contexto(pick: Dict, _ck=None, _tj=None) -> Dict:
+    """{objetivo: {'local', 'visita', 'total', 'linea', 'p', 'metodo'}} del
+    partido: lo esperado y la línea «más de» del total que se cumple al 70 %
+    o más (con su probabilidad). Nunca lanza."""
+    out: Dict = {}
+    try:
+        import math as _m
+        import tiros_equipo as _te
+        dp = _te.del_partido(pick) or {}
+        lados = dp.get('lados') or {}
+        kk = dp.get('k') or {}
+        ge = pick.get('goles_equipo') or {}
+
+        def _lam(lado):
+            q = _p_o_none((ge.get(lado) or {}).get('0.5'))
+            return -_m.log(1.0 - q) if q is not None and 0 < q < 1 else None
+
+        def _media(bloque, etq):
+            if not bloque or (bloque.get('origen') or 'observado') == 'estimado':
+                return None
+            for f in bloque.get('filas') or []:
+                if str(f.get('etiqueta')) == etq:
+                    return _p_o_none(f.get('media'))
+            return None
+        # sin el método, los goles del modelo de goles con SU total (el de
+        # `goles_lambda`, el mismo que razona las apuestas: v328)
+        _gl, _gv = _lam('local'), _lam('visitante')
+        _gt = _p_o_none(pick.get('goles_lambda'))
+        if _gl is not None and _gv is not None and _gt and (_gl + _gv) > 0:
+            _gl, _gv = _gl * _gt / (_gl + _gv), _gv * _gt / (_gl + _gv)
+        respaldo = {'goles': (_gl, _gv),
+                    'corners': (_media(_ck, 'Local'), _media(_ck, 'Visita')),
+                    'tarjetas': (_media(_tj, 'Local'), _media(_tj, 'Visita'))}
+        for obj, _i, _n in FILAS_METODO:
+            lh = (lados.get('local') or {}).get(obj)
+            la = (lados.get('visitante') or {}).get(obj)
+            metodo = lh is not None and la is not None
+            if not metodo:
+                lh, la = respaldo.get(obj, (None, None))
+            if lh is None or la is None:
+                continue
+            lh, la = float(lh), float(la)
+            k = float(kk.get(obj) or K_POR_DEFECTO[obj])
+            tot = lh + la
+            # la suma de dos binomiales negativas, por momentos
+            k_t = (tot ** 2) / max((lh ** 2 + la ** 2) / k, 1e-9) if k < 400 else 1e6
+            lin = None
+            for n in range(int(tot) + 1, -1, -1):
+                p = _te.prob_mas(tot, n + 0.5, k_t)
+                if p >= 0.70:
+                    lin = (n + 0.5, p)
+                    break
+            out[obj] = {'local': lh, 'visita': la, 'total': tot, 'metodo': metodo,
+                        'linea': lin[0] if lin else None, 'p': lin[1] if lin else None}
+    except Exception as e:
+        logger.debug('[modo_modelo] método contexto: %s', e)
+    return out
+
+
+def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
+    """La tabla del análisis (ver `metodo_contexto`). Cadena vacía si no hay
+    nada."""
+    mc = metodo_contexto(pick, _ck, _tj)
+    # v361 — ya jugado: lo que se apuntó antes del pitido, con ✅/❌
+    res = {}
+    try:
+        import analisis_seguimiento as _as
+        res = _as.del_partido(pick) if (pick.get('jugado') or not mc) else {}
+        if res and not mc:
+            mc = {o: {'local': float(r['local']), 'visita': float(r['visita']),
+                      'total': float(r['total']), 'linea': float(r['linea']),
+                      'p': float(r['p']), 'metodo': True} for o, r in res.items()}
+    except Exception as e:
+        logger.debug('[modo_modelo] seguimiento del análisis: %s', e)
+    if not mc:
+        return ''
+    h, a = _equipos(pick)
+    est = ('style="padding:3px 6px;text-align:right;white-space:nowrap"')
+    est_i = ('style="padding:3px 6px;text-align:left;white-space:nowrap"')
+    filas = []
+    asterisco = False
+    for obj, icono, nombre in FILAS_METODO:
+        x = mc.get(obj)
+        if not x:
+            continue
+        asterisco = asterisco or not x['metodo']
+        prob = ('más de %s · <b>%.0f %%</b>' % (_num1(x['linea']) if x['linea'] % 1 else
+                                                 '%g' % x['linea'], 100 * x['p'])
+                if x.get('linea') is not None else '—')
+        r_ = res.get(obj) or {}
+        if r_.get('cumple') is not None and r_.get('cumple') == r_.get('cumple'):
+            prob += ' %s %g' % ('✅' if int(float(r_['cumple'])) else '❌', float(r_['real']))
+        filas.append('<tr><td %s>%s %s%s</td><td %s>%s</td><td %s>%s</td>'
+                     '<td %s><b>%s</b></td><td %s>%s</td></tr>'
+                     % (est_i, icono, nombre, '' if x['metodo'] else '*',
+                        est, _num1(x['local']), est, _num1(x['visita']),
+                        est, _num1(x['total']), est_i, prob))
+    if not filas:
+        return ''
+    cab = ('<tr style="opacity:.7;font-size:.85em"><td %s>📐 Método Contexto</td>'
+           '<td %s>%s</td><td %s>%s</td><td %s>Total</td><td %s>Se cumple al 70 %%+</td></tr>'
+           % (est_i, est, _esc_mm(_corto(h)), est, _esc_mm(_corto(a)), est, est_i))
+    pie = ('<div style="opacity:.6;font-size:.8em">* sin el método todavía: '
+           'el cálculo de antes</div>' if asterisco else '')
+    # v361 — cómo va el método (lo apuntado antes del pitido, ya jugado)
+    try:
+        import analisis_seguimiento as _as
+        rs = _as.resumen()
+        if rs:
+            pie += ('<div style="opacity:.75;font-size:.8em">📈 Así va el método (14 días): %s</div>'
+                    % ' · '.join('%s %d/%d (%.0f %%)' % (i, v['verdes'], v['n'], 100 * v['acierto'])
+                                 for o, i, _n in FILAS_METODO for v in [rs.get(o)] if v))
+    except Exception as e:
+        logger.debug('[modo_modelo] resumen del análisis: %s', e)
+    return ('<table style="width:100%%;border-collapse:collapse;font-size:.92em">%s%s</table>%s'
+            % (cab, ''.join(filas), pie))
 
 
 def _lineas_tiros(pick: Dict, h: str, a: str) -> list:
@@ -4605,11 +4753,21 @@ def _filtra_mercado(con: list, grupo: str) -> list:
         if p.get('jugado'):
             continue
         b = _por_mercado_de(p).get(grupo)
+        if not b and grupo in GRUPO_A_METODO:
+            # v361 — sin apuesta de ese mercado, la estadística del Método
+            # Contexto: el usuario quiere filtrar por tiros, goles… «por el
+            # análisis estadístico, para saber cuál pudiera cumplirse».
+            obj, rot = GRUPO_A_METODO[grupo]
+            x = metodo_contexto(p).get(obj)
+            if x and x.get('linea') is not None and x.get('metodo'):
+                b = {'apuesta': '%s: Más de %g' % (rot, x['linea']), 'prob': x['p'],
+                     'cuota': None, 'donde': 'analisis'}
         if not b:
             continue
         p['_filtro_mercado'] = b
         out.append(p)
-    out.sort(key=lambda p: (p['_filtro_mercado'].get('donde') == 'informativa',
+    _orden = {'arriba': 0, 'tambien': 1, 'informativa': 2, 'analisis': 3}
+    out.sort(key=lambda p: (_orden.get(p['_filtro_mercado'].get('donde'), 2),
                             -float(p['_filtro_mercado'].get('prob') or 0)))
     return out
 
@@ -5385,6 +5543,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         _pref.guardar(_k_estado, str(estado_sel))
 
     con.sort(key=ORDENES.get(etq_orden, _k_hora))
+    # v361 — la marca del filtro no sobrevive a quitar el filtro (los
+    # partidos son los mismos objetos en cada pasada)
+    for _p_fm in con:
+        _p_fm.pop('_filtro_mercado', None)
     if mercado_sel in GRUPOS_MERCADO:
         con = _filtra_mercado(con, mercado_sel)
         _quito.append('mercado')
@@ -5414,7 +5576,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     # de abajo lo anota igual que antes.
     _sin_nada = []
     if pintar:
-        _sin_nada = [p for p in con if nada_que_meter(p)]
+        # v361 — con el filtro de mercado puesto, los que salen por el
+        # análisis (Método Contexto) se quedan en la lista: es lo que se pidió
+        _sin_nada = [p for p in con if nada_que_meter(p)
+                     and (p.get('_filtro_mercado') or {}).get('donde') != 'analisis']
         if _sin_nada:
             _ids_sn = {id(p) for p in _sin_nada}
             con = [p for p in con if id(p) not in _ids_sn]
