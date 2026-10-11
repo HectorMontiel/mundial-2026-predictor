@@ -3747,9 +3747,14 @@ def _bloque_validacion(st, pick: Dict) -> bool:
     _met = [f for f in filas if f.get('veredicto') == 'meter'
             and not f.get('anunciada') and f.get('estado') in _ok]
     _ant = [f for f in filas if f.get('anunciada') and f.get('estado') in _ok]
+    # v365 — si se metía algo y aún no hay resultado, se dice: «no había
+    # nada que meter» con dos apuestas en juego confundía (Andorra–Castellón)
+    _met_todas = [f for f in filas if f.get('veredicto') == 'meter'
+                  and not f.get('anunciada')]
     _txt_met = ('🎯 se metía: %d de %d · ' % (
         sum(1 for f in _met if f['estado'] == pgs.CUMPLIDO), len(_met))
-        if _met else '🎯 no había nada que meter · ')
+        if _met else ('🎯 se metía: %d, por liquidar · ' % len(_met_todas))
+        if _met_todas else '🎯 no había nada que meter · ')
     # v352 — las provisionales (📌 de antes) ya no van en la tira ni arriba:
     # no eran la apuesta oficial. Van plegadas debajo, con su cuenta aparte.
     _prov = [f for f in filas if f.get('anunciada')]

@@ -905,6 +905,15 @@ def validar(pick: Dict, filas: Optional[List[Dict]] = None) -> List[Dict]:
         filas_previas = [dict(f) for f in filas if isinstance(f, dict)]
         if not filas_previas:
             return []
+    elif 'recomendadas_previas' in pick:
+        # v365 — LO ARCHIVADO AL PITIDO MANDA. Es lo oficial (con la apuesta
+        # fijada a la hora de apostar) y lo mismo que cuenta el marcador. Antes
+        # mandaba lo GUARDADO la primera vez que se pintó la tarjeta, que podía
+        # ser de horas antes: Andorra–Castellón (11-oct) se guardó con una sola
+        # «se mete», al pitido eran dos fijadas, y la tarjeta terminada enseñaba
+        # la segunda como «provisional, no contaba».
+        filas_previas = [dict(f) for f in (pick.get('recomendadas_previas') or [])
+                         if isinstance(f, dict)]
     else:
         g = de_partido(pick.get('clave_liga'), h, a, pick.get('fecha'))
         filas_previas = list((g or {}).get('recomendadas') or [])

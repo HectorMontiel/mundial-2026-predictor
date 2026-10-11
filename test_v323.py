@@ -47,6 +47,12 @@ RUTA = os.path.join(TMP, 'pronostico_dia.json')
 # Nada de esta prueba escribe en los ficheros del repositorio.
 os.environ['PRONOSTICOS_EMITIDOS'] = os.path.join(TMP, 'emitidos.json')
 os.environ['PREFERENCIAS_USUARIO'] = os.path.join(TMP, 'prefs.json')
+# v365 — el MISMO reloj para el precálculo (otro proceso, minutos antes) y el
+# cálculo en vivo: si entre los dos se abría la hora de apostar de un partido,
+# la fijada cambiaba y la prueba fallaba sólo con la máquina cargada.
+import datetime as _dt_v323
+os.environ['ANUNCIADAS_AHORA'] = _dt_v323.datetime.now(_dt_v323.timezone.utc).strftime(
+    '%Y-%m-%dT%H:%M:%SZ')
 
 
 def preparar():

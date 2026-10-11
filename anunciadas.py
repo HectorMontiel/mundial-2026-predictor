@@ -49,6 +49,20 @@ CAMPOS = ('apuesta', 'mercado', 'bloque', 'linea', 'etiqueta', 'cuota',
 _CACHE: Dict = {}
 
 
+def _ahora() -> _dt.datetime:
+    """La hora de ahora (UTC). v365 — las pruebas pueden congelarla con
+    `ANUNCIADAS_AHORA` (ISO): el precálculo corre en otro proceso minutos antes
+    que el cálculo en vivo, y si entre medias se abría la hora de apostar de un
+    partido (provisional → fijada) los dos salían distintos — `test_v323`
+    fallaba sólo con la máquina cargada. En producción la variable no existe."""
+    fijo = os.environ.get('ANUNCIADAS_AHORA')
+    if fijo:
+        t = _utc(fijo)
+        if t is not None:
+            return t
+    return _dt.datetime.now(_dt.timezone.utc)
+
+
 def _ruta() -> str:
     return os.environ.get('ANUNCIADAS_FICHERO') or FICHERO
 
@@ -90,7 +104,7 @@ def acumular(doc_pronostico: Dict, ruta: str = '',
     no estaban. Lo ya anunciado no se reescribe: se queda con la hora y la
     cuota de la PRIMERA vez. Devuelve cuántas añadió. Nunca lanza."""
     ruta = ruta or _ruta()
-    ahora = ahora or _dt.datetime.now(_dt.timezone.utc)
+    ahora = ahora or _ahora()
     try:
         viejo = {}
         if os.path.exists(ruta):
@@ -287,7 +301,7 @@ def oficial(pick: Dict, ruta: str = '',
     d = _ventana(pick or {})
     if d is None:
         return {'estado': None}
-    ahora = ahora or _dt.datetime.now(_dt.timezone.utc)
+    ahora = ahora or _ahora()
     if ahora < d:
         return {'estado': 'provisional', 'desde': d}
     ent = ((cargar(ruta).get('partidos') or {})
@@ -405,7 +419,7 @@ def horas_anunciada(pick: Dict, apuesta: str, ruta: str = '',
             t = _utc(a_.get('desde'))
             if t is None:
                 return None
-            ahora = ahora or _dt.datetime.now(_dt.timezone.utc)
+            ahora = ahora or _ahora()
             return max(0.0, (ahora - t).total_seconds() / 3600.0)
     return None
 
