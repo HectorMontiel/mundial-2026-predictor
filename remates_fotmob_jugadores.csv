@@ -142100,3 +142100,29 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5071408,2026-10-11,mls,Vancouver Whitecaps,Mathías Laborda,1036108,D,0,80,0,0,0,0.0,,1.0,1936749.0
 5071408,2026-10-11,mls,Vancouver Whitecaps,Bruno Caicedo,1691091,F,0,16,0,0,0,0.0,,3.0,1496514.0
 5071408,2026-10-11,mls,Vancouver Whitecaps,Ranko Veselinović,940774,D,0,1,0,0,0,0.0,,1.0,1388402.0
+5803600,2026-10-11,jpn_j1,JEF United Chiba,José Suárez,573761,G,1,90,0,0,0,0.0,11,0,163918
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Rikuto Ishio,1611325,D,1,90,0,0,0,0.0,32,1,263362
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Boniface Nduka,924130,D,1,90,0,0,0,0.0,34,1,278535
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Takashi Kawano,1134739,D,1,90,0,0,0,0.0,36,1,350918
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Masaru Hidaka,1373973,D,1,89,1,1,0,0.03,38,1,163918
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Naohiro Sugiyama,1259958,M,1,90,0,0,0,0.0,72,2,207952
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Eduardo,1263669,M,1,90,2,0,0,0.12,74,2,190480
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Takuya Yasui,852047,M,1,79,1,0,0,0.03,76,2,164192
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Takumi Tsukui,1232543,M,1,90,0,0,0,0.0,78,2,436080
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Ken Yamura,1108727,F,1,90,5,1,0,0.58,104,3,210779
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Erison,1227341,F,1,69,3,1,0,0.54,106,3,1280213
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Koki Yonekura,116484,M,0,34,2,0,0,0.11,,2,94145
+5803600,2026-10-11,jpn_j1,JEF United Chiba,Hiroto Goya,727605,F,0,21,2,1,0,0.65,,3,160654
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Masaaki Goto,833022,G,1,90,0,0,0,0.0,11,0,262263
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Kanta Doi,1436733,D,1,90,0,0,0,0.0,33,1,775698
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Ryosuke Shindo,648375,D,1,90,0,0,0,0.0,35,1,353221
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Ikki Arai,727872,D,1,90,0,0,0,0.0,37,1,145123
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Asahi Masuyama,625274,M,1,86,1,0,0,0.14,62,2,379861
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Hotaru Yamaguchi,176201,M,1,90,0,0,0,0.0,64,2,214792
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Riku Yamada,891074,M,1,45,1,0,0,0.05,66,2,161461
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Shunya Yoneda,922801,M,1,90,0,0,0,0.0,68,2,213832
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Matheus Jesus,750052,M,1,90,2,1,0,0.07,84,2,1106445
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Motoki Hasegawa,1171972,M,1,90,2,0,0,0.08,86,2,539818
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Thiago Santana,645763,F,1,74,3,1,0,0.25,105,3,346154
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Yusei Egawa,1134726,D,0,25,1,0,0,0.03,,1,216681
+5803600,2026-10-11,jpn_j1,V-Varen Nagasaki,Kenshin Yasuda,1372205,M,0,45,3,1,1,0.07,,2,299882
