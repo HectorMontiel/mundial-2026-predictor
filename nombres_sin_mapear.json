@@ -151,9 +151,9 @@
   },
   "Inter de San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter de Minas",
-    "ratio": 0.6061,
-    "visto": "2026-10-09"
+    "candidato": "Inter Palmira",
+    "ratio": 0.5,
+    "visto": "2026-10-11"
   },
   "Jaguares de Córdoba": {
     "contexto": "cuotas_mx→futbol",
@@ -593,7 +593,7 @@
   },
   "San Telmo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Carlos",
+    "candidato": "San Miguel",
     "ratio": 0.6316,
     "visto": "2026-10-11"
   },
@@ -1499,9 +1499,9 @@
   },
   "AD San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.7586,
-    "visto": "2026-10-10"
+    "candidato": "San Martin S.J.",
+    "ratio": 0.5185,
+    "visto": "2026-10-11"
   },
   "Nacional Potosí": {
     "contexto": "cuotas_mx→futbol",
@@ -1897,6 +1897,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "VfB Oldenburg",
     "ratio": 0.4615,
+    "visto": "2026-10-11"
+  },
+  "Sarmiento (Junín)": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sarmiento de La Banda",
+    "ratio": 0.6111,
     "visto": "2026-10-11"
   }
 }

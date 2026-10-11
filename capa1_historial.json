@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-11T01:28:28Z",
+"actualizado": "2026-10-11T03:06:25Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -3346,6 +3346,16 @@
 "dia": "2026-10-10",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Austin FC vs Nashville SC",
+"apuesta": "Gana Nashville SC",
+"cuota": 1.9231,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Azazga vs MO Bejaia",
 "apuesta": "Gana MO Bejaia",
 "cuota": 2.9,
@@ -3441,6 +3451,16 @@
 "cuota": 1.8334,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Colorado Avalanche vs Toronto Maple Leafs",
+"apuesta": "Handicap: Toronto Maple Leafs +3.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "3-6"
 },
 {
 "dia": "2026-10-10",
@@ -3716,6 +3736,16 @@
 "dia": "2026-10-10",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Inter Miami vs DC United",
+"apuesta": "Inter Miami o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "4-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Inter de San Carlos vs Pérez Zeledón",
 "apuesta": "Inter de San Carlos o empate",
 "cuota": 1.154,
@@ -3805,6 +3835,16 @@
 {
 "dia": "2026-10-10",
 "nivel": "🏆",
+"deporte": "NHL",
+"partido": "Montreal Canadiens vs Detroit Red Wings",
+"apuesta": "Handicap: Detroit Red Wings +3.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Napoli vs Frosinone",
 "apuesta": "Napoli o empate",
@@ -3851,6 +3891,36 @@
 "cuota": 2.85,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Oriente Petrolero vs ABB",
+"apuesta": "Oriente Petrolero o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Oriente Petrolero vs ABB",
+"apuesta": "Gana Oriente Petrolero",
+"cuota": 1.455,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Philadelphia Union vs Real Salt Lake",
+"apuesta": "Philadelphia Union o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-10",
@@ -3941,6 +4011,16 @@
 "cuota": 3.05,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Sao Paulo vs Vitoria",
+"apuesta": "Sao Paulo o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-10",
@@ -4051,6 +4131,26 @@
 "cuota": 1.66,
 "resultado": "rojo",
 "marcador": "1-3"
+},
+{
+"dia": "2026-10-10",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Universitario vs Melgar",
+"apuesta": "Universitario o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-10",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Universitario vs Melgar",
+"apuesta": "Empate",
+"cuota": 3.2,
+"resultado": "verde",
+"marcador": "2-2"
 },
 {
 "dia": "2026-10-10",
