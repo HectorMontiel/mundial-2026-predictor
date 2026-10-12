@@ -215,6 +215,8 @@ def _resultado_pata(q: Dict) -> Dict:
 
 def _vigencia_pata(q: Dict, p: Optional[Dict]) -> Dict:
     """Por jugar: ¿la app la sigue metiendo con los datos de ahora?"""
+    if q.get('origen') == 'casa70':
+        return {'estado': '?', 'texto': '⏳ por jugar · Método Casa 70/130'}
     if p is None:
         return {'estado': '?', 'texto': 'el partido ya no está en el barrido'}
     try:
@@ -244,8 +246,55 @@ def _vigencia_pata(q: Dict, p: Optional[Dict]) -> Dict:
     return {'estado': 'cambio', 'texto': '⚠️ ya no está entre las recomendadas'}
 
 
-def _mis_boletos(st, r: Dict, maximo: int = 8) -> None:
-    """v343 — «🎟️ Mis boletos»: los confirmados, con cada pata en su estado."""
+def resumen_boletos(bols: List[Dict], r: Dict) -> Dict:
+    """v371 — «saber qué tal me va»: boletos enteros, con rojas, por jugar,
+    y patas ✅/❌, de los boletos seguidos."""
+    out = {'boletos': 0, 'enteros': 0, 'perdidos': 0, 'vivos': 0, 'verdes': 0, 'rojas': 0}
+    for b in bols:
+        filas = estado_patas(b, r)
+        v = sum(1 for f in filas if f['estado'] == 'verde')
+        ro = sum(1 for f in filas if f['estado'] == 'roja')
+        out['boletos'] += 1
+        out['verdes'] += v
+        out['rojas'] += ro
+        if ro:
+            out['perdidos'] += 1
+        elif filas and v == len(filas):
+            out['enteros'] += 1
+        else:
+            out['vivos'] += 1
+    return out
+
+
+def _seguir(st, patas: List[Dict], dia: Optional[str], clave: str, origen: str) -> None:
+    """v371 — «📌 Seguir este boleto»: lo apunta en «Mis boletos»."""
+    if not patas:
+        return
+    if st.button('📌 Seguir este boleto', key=clave,
+                 help='Lo apunta en «🎟️ Mis boletos» para ver cómo va pata a pata. '
+                      'No apuesta nada por ti.'):
+        try:
+            import sonadora_motor as sm
+            det = [dict(q, apuesta=q.get('apuesta_pura') or q.get('apuesta'),
+                        origen=q.get('origen') or origen) for q in patas]
+            mult = 1.0
+            for q in patas:
+                mult *= float(q.get('cuota') or 1.0)
+            sm.registrar_parlay({'n_patas': len(patas), 'multiplicador': round(mult, 4),
+                                 'letra': origen,
+                                 'patas': [{'id': '%s|%s' % (q.get('partido'), q.get('apuesta')),
+                                            'partido': q.get('partido')} for q in patas]},
+                                dia or '', detalle=det)
+            st.success('📌 Apuntado en «🎟️ Mis boletos».')
+        except Exception as e:
+            logger.exception('[sonadora] seguir boleto')
+            st.caption('No se pudo apuntar (%s).' % type(e).__name__)
+
+
+def _mis_boletos(st, r: Dict, maximo: int = 40) -> None:
+    """v343 — «🎟️ Mis boletos»: los confirmados, con cada pata en su estado.
+    v371 — EN CARRUSEL (uno a la vez, ◀ ▶), con «🗑️ Dejar de seguir» y el
+    resumen de cómo te va."""
     try:
         import sonadora_motor as sm
         bol = [b for b in sm.parlays_activos() if b.get('detalle')][-maximo:]
@@ -256,8 +305,27 @@ def _mis_boletos(st, r: Dict, maximo: int = 8) -> None:
         return
     import estilo_ui as _eu
     tono = {'verde': 'ok', 'roja': 'no', 'cambio': 'no'}
-    with st.expander('🎟️ Mis boletos (%d)' % len(bol), expanded=True):
-        for b in reversed(bol):
+    bol = list(reversed(bol))                       # el más nuevo primero
+    rs = resumen_boletos(bol, r)
+    with st.expander('🎟️ Mis boletos (%d) · ✅ %d enteros · ❌ %d con rojas · ⏳ %d en juego'
+                     % (rs['boletos'], rs['enteros'], rs['perdidos'], rs['vivos']),
+                     expanded=True):
+        if rs['verdes'] + rs['rojas']:
+            st.caption('Patas: ✅ %d · ❌ %d (%.0f %% verdes)'
+                       % (rs['verdes'], rs['rojas'],
+                          100.0 * rs['verdes'] / (rs['verdes'] + rs['rojas'])))
+        i = int(st.session_state.get('son_mb_i', 0) or 0)
+        i = max(0, min(i, len(bol) - 1))
+        c_a, c_m, c_s = st.columns([1, 3, 1])
+        if c_a.button('◀', key='son_mb_ant', disabled=i <= 0, width='stretch'):
+            i -= 1
+        if c_s.button('▶', key='son_mb_sig', disabled=i >= len(bol) - 1, width='stretch'):
+            i += 1
+        i = max(0, min(i, len(bol) - 1))
+        st.session_state['son_mb_i'] = i
+        c_m.markdown('<div style="text-align:center;padding-top:6px">Boleto <b>%d</b> de %d</div>'
+                     % (i + 1, len(bol)), unsafe_allow_html=True)
+        for b in [bol[i]]:
             filas = estado_patas(b, r)
             v = sum(1 for f in filas if f['estado'] == 'verde')
             ro = sum(1 for f in filas if f['estado'] == 'roja')
@@ -276,6 +344,13 @@ def _mis_boletos(st, r: Dict, maximo: int = 8) -> None:
                                               f['texto']),
                          tono=tono.get(f['estado'], 'info'))
                 for f in filas]), unsafe_allow_html=True)
+            if st.button('🗑️ Dejar de seguir este boleto', key='son_mb_quitar_%d' % i):
+                try:
+                    sm.quitar_parlay(b.get('registrado'))
+                    st.session_state['son_mb_i'] = max(0, i - 1)
+                    st.rerun()
+                except Exception as e:
+                    logger.debug('[sonadora] quitar boleto: %s', e)
 
 
 def filtrar_por_dias(r: Dict, dia: Optional[str] = None,
@@ -324,6 +399,35 @@ def filtrar_por_dias(r: Dict, dia: Optional[str] = None,
     return out
 
 
+def _sencillas(st, r: Dict, dia: Optional[str] = None) -> None:
+    """v371 — «🎯 Sencillas a 1,30+» con el Método Casa 70/130 (ver
+    `sencillas`). Nunca lanza."""
+    try:
+        import sencillas as se
+        import vista_compacta as vc
+    except Exception as e:
+        logger.debug('[sonadora] sencillas: %s', e)
+        return
+    with st.expander('🎯 Sencillas a 1,30+ · %s' % se.NOMBRE, expanded=True):
+        st.caption('Cada pata a cuota 1,30 o más, sólo si la casa la ve al 70 % o más '
+                   '(ahí se queda corta). Medido: 78 % de acierto por pata. Una por '
+                   'partido. Fútbol, en Playdoit.')
+        pats = se.del_dia((r or {}).get('pronosticos') or [])
+        if not pats:
+            st.info('Ahora no hay ninguna pata que cumpla la regla (cuota 1,30+ con la '
+                    'casa al 70 %+). Mira otro día.')
+            return
+        n = st.number_input('Patas', min_value=1, max_value=max(1, min(10, len(pats))),
+                            value=min(3, len(pats)), step=1, key='son_se_patas')
+        b = se.boleto(pats, int(n))
+        st.markdown('**%d patas** · paga **×%.2f** (100 → %s) · sale entero ~**%.0f %%**'
+                    % (len(b['patas']), b['momio'], format(round(100 * b['momio']), ','),
+                       100 * b['prob']))
+        st.markdown(vc.html_lista(b['patas']), unsafe_allow_html=True)
+        st.caption(se.medido(len(b['patas'])) + ' Hay %d patas así hoy.' % len(pats))
+        _seguir(st, b['patas'], dia, 'son_se_seguir', se.ORIGEN)
+
+
 def _boleto_largo(st, r: Dict) -> None:
     """v370 — «🎟️ Boleto largo»: sólo «se mete», ⭐ primero, una por partido
     (ver `boleto_largo`). Nunca lanza."""
@@ -367,6 +471,7 @@ def _boleto_largo(st, r: Dict) -> None:
                                       for x in trozos)))
             st.caption('Medido: 20 patas en 4 boletos de 5 salieron %d de %d boletos; '
                        'el de 20 entero, 1 de 7 días.' % (e, t))
+        _seguir(st, b['patas'], None, 'son_bl_seguir', 'largo')
 
 
 def render(st, r: Dict, dia: Optional[str] = None,
@@ -383,6 +488,8 @@ def render(st, r: Dict, dia: Optional[str] = None,
     st.info(AVISO)
     # v343 — los boletos que ya diste por jugados, pata a pata
     _mis_boletos(st, _r_todo)
+    # v371 — las sencillas a 1,30+ (Método Casa 70/130), primero
+    _sencillas(st, r, dia)
     # v370 — el boleto largo con las «se mete» (tipo Draftea)
     _boleto_largo(st, r)
 
@@ -402,7 +509,14 @@ def render(st, r: Dict, dia: Optional[str] = None,
     # distintos.
     # ------------------------------------------------------------------ #
     with st.expander('⚡ Armar con los picks de «Apuestas del Día»',
-                     expanded=True):
+                     expanded=False):
+        # v371 — el criterio viejo (v223): elige por el modelo y deja entrar
+        # doble+goles y hándicap. A cuota 1,30+ acertó 69,8 % contra 78 % del
+        # Método Casa 70/130 (`_v371e_umbral.py`); el boleto del 11-oct salió
+        # 1 de 4. Se deja, plegado y avisado.
+        st.warning('Criterio viejo: elige por el modelo y mete combinadas y hándicap. '
+                   'A cuota 1,30+ acierta ~70 %. Para pocas rojas usa «🎯 Sencillas a '
+                   '1,30+» de arriba.')
         st.caption('Una pata por partido, la que está en verde. Si no hay '
                    'verdes suficientes se completa con las rojas **más '
                    'probables** — no con las mejor pagadas: en un boleto la '

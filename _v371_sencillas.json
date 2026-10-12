@@ -1,0 +1,886 @@
+{
+ "playdoit_analisis": {
+  "mercado": {
+   "a_puerta equipo": {
+    "n": 623.0,
+    "acierto": 0.605,
+    "casa": 0.607,
+    "modelo": 0.63,
+    "cuota": 1.512
+   },
+   "a_puerta total": {
+    "n": 268.0,
+    "acierto": 0.608,
+    "casa": 0.592,
+    "modelo": 0.611,
+    "cuota": 1.543
+   },
+   "corners equipo": {
+    "n": 1015.0,
+    "acierto": 0.59,
+    "casa": 0.609,
+    "modelo": 0.608,
+    "cuota": 1.501
+   },
+   "corners total": {
+    "n": 1870.0,
+    "acierto": 0.629,
+    "casa": 0.627,
+    "modelo": 0.621,
+    "cuota": 1.479
+   },
+   "goles equipo": {
+    "n": 130.0,
+    "acierto": 0.615,
+    "casa": 0.634,
+    "modelo": 0.643,
+    "cuota": 1.475
+   },
+   "goles total": {
+    "n": 1020.0,
+    "acierto": 0.659,
+    "casa": 0.644,
+    "modelo": 0.655,
+    "cuota": 1.463
+   },
+   "tarjetas equipo": {
+    "n": 270.0,
+    "acierto": 0.604,
+    "casa": 0.58,
+    "modelo": 0.586,
+    "cuota": 1.569
+   },
+   "tarjetas total": {
+    "n": 488.0,
+    "acierto": 0.648,
+    "casa": 0.61,
+    "modelo": 0.63,
+    "cuota": 1.503
+   },
+   "tiros equipo": {
+    "n": 421.0,
+    "acierto": 0.58,
+    "casa": 0.573,
+    "modelo": 0.587,
+    "cuota": 1.59
+   },
+   "tiros total": {
+    "n": 194.0,
+    "acierto": 0.557,
+    "casa": 0.564,
+    "modelo": 0.563,
+    "cuota": 1.614
+   }
+  },
+  "lado_ap": {
+   "menos": {
+    "n": 3214.0,
+    "acierto": 0.604,
+    "casa": 0.617,
+    "modelo": 0.628,
+    "cuota": 1.497
+   },
+   "más": {
+    "n": 3085.0,
+    "acierto": 0.634,
+    "casa": 0.612,
+    "modelo": 0.613,
+    "cuota": 1.51
+   }
+  },
+  "gap": {
+   "casa ve +5": {
+    "n": 1255.0,
+    "acierto": 0.567,
+    "casa": 0.608,
+    "modelo": 0.514,
+    "cuota": 1.516
+   },
+   "casa ve +0-5": {
+    "n": 1624.0,
+    "acierto": 0.604,
+    "casa": 0.616,
+    "modelo": 0.593,
+    "cuota": 1.502
+   },
+   "modelo ve +0-5": {
+    "n": 1815.0,
+    "acierto": 0.642,
+    "casa": 0.621,
+    "modelo": 0.645,
+    "cuota": 1.491
+   },
+   "modelo ve +5": {
+    "n": 1605.0,
+    "acierto": 0.648,
+    "casa": 0.611,
+    "modelo": 0.704,
+    "cuota": 1.508
+   }
+  },
+  "banda_casa": {
+   "(0.0, 0.55]": {
+    "n": 716.0,
+    "acierto": 0.55,
+    "casa": 0.543,
+    "modelo": 0.544,
+    "cuota": 1.682
+   },
+   "(0.55, 0.6]": {
+    "n": 2195.0,
+    "acierto": 0.581,
+    "casa": 0.576,
+    "modelo": 0.582,
+    "cuota": 1.594
+   },
+   "(0.6, 0.65]": {
+    "n": 1666.0,
+    "acierto": 0.619,
+    "casa": 0.625,
+    "modelo": 0.629,
+    "cuota": 1.467
+   },
+   "(0.65, 0.7]": {
+    "n": 1398.0,
+    "acierto": 0.682,
+    "casa": 0.677,
+    "modelo": 0.686,
+    "cuota": 1.357
+   },
+   "(0.7, 0.75]": {
+    "n": 324.0,
+    "acierto": 0.753,
+    "casa": 0.711,
+    "modelo": 0.719,
+    "cuota": 1.309
+   }
+  }
+ },
+ "playdoit": {
+  "modelo": {
+   "todo": {
+    "n": 642,
+    "acierto": 0.6978,
+    "acierto_p5": 0.6682,
+    "cuota": 1.381,
+    "gan_100": -4.1,
+    "gan_p5": -8.1
+   },
+   "A": {
+    "n": 274,
+    "acierto": 0.6825,
+    "acierto_p5": 0.635,
+    "cuota": 1.389,
+    "gan_100": -5.9,
+    "gan_p5": -12.4
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.7092,
+    "acierto_p5": 0.6685,
+    "cuota": 1.375,
+    "gan_100": -2.7,
+    "gan_p5": -7.9
+   },
+   "boleto_3": {
+    "dias": 30,
+    "enteros": 13,
+    "pct_entero": 0.433,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.5,
+    "gan_100": 6.2
+   },
+   "boleto_4": {
+    "dias": 27,
+    "enteros": 8,
+    "pct_entero": 0.296,
+    "tres_o_mas_rojas": 1,
+    "momio": 3.44,
+    "gan_100": -5.5
+   },
+   "por_mercado": {
+    "a_puerta equipo": [
+     36,
+     0.778,
+     1.381
+    ],
+    "corners equipo": [
+     32,
+     0.5,
+     1.359
+    ],
+    "corners total": [
+     222,
+     0.68,
+     1.376
+    ],
+    "goles total": [
+     221,
+     0.701,
+     1.369
+    ],
+    "tarjetas total": [
+     104,
+     0.75,
+     1.402
+    ]
+   }
+  },
+  "casa": {
+   "todo": {
+    "n": 642,
+    "acierto": 0.7336,
+    "acierto_p5": 0.704,
+    "cuota": 1.338,
+    "gan_100": -2.0,
+    "gan_p5": -5.8
+   },
+   "A": {
+    "n": 274,
+    "acierto": 0.7372,
+    "acierto_p5": 0.6934,
+    "cuota": 1.338,
+    "gan_100": -1.5,
+    "gan_p5": -7.5,
+    "dif_vs_modelo": 0.0547,
+    "dif_p5": -0.0109
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.731,
+    "acierto_p5": 0.6929,
+    "cuota": 1.338,
+    "gan_100": -2.3,
+    "gan_p5": -7.3,
+    "dif_vs_modelo": 0.0217,
+    "dif_p5": -0.03
+   },
+   "boleto_3": {
+    "dias": 30,
+    "enteros": 15,
+    "pct_entero": 0.5,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.24,
+    "gan_100": 11.8
+   },
+   "boleto_4": {
+    "dias": 27,
+    "enteros": 11,
+    "pct_entero": 0.407,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.95,
+    "gan_100": 17.7
+   },
+   "por_mercado": {
+    "corners equipo": [
+     37,
+     0.622,
+     1.31
+    ],
+    "corners total": [
+     288,
+     0.736,
+     1.336
+    ],
+    "goles total": [
+     280,
+     0.743,
+     1.347
+    ],
+    "tarjetas total": [
+     17,
+     0.647,
+     1.302
+    ]
+   }
+  },
+  "consenso": {
+   "todo": {
+    "n": 642,
+    "acierto": 0.7196,
+    "acierto_p5": 0.6916,
+    "cuota": 1.346,
+    "gan_100": -3.4,
+    "gan_p5": -7.3
+   },
+   "A": {
+    "n": 274,
+    "acierto": 0.7226,
+    "acierto_p5": 0.6752,
+    "cuota": 1.349,
+    "gan_100": -2.8,
+    "gan_p5": -9.0,
+    "dif_vs_modelo": 0.0401,
+    "dif_p5": -0.0219
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.7174,
+    "acierto_p5": 0.6793,
+    "cuota": 1.344,
+    "gan_100": -3.8,
+    "gan_p5": -9.1,
+    "dif_vs_modelo": 0.0082,
+    "dif_p5": -0.0489
+   },
+   "boleto_3": {
+    "dias": 30,
+    "enteros": 19,
+    "pct_entero": 0.633,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.26,
+    "gan_100": 43.4
+   },
+   "boleto_4": {
+    "dias": 27,
+    "enteros": 12,
+    "pct_entero": 0.444,
+    "tres_o_mas_rojas": 1,
+    "momio": 2.99,
+    "gan_100": 31.7
+   },
+   "por_mercado": {
+    "a_puerta equipo": [
+     16,
+     0.812,
+     1.322
+    ],
+    "corners equipo": [
+     36,
+     0.75,
+     1.322
+    ],
+    "corners total": [
+     248,
+     0.718,
+     1.349
+    ],
+    "goles equipo": [
+     15,
+     0.667,
+     1.318
+    ],
+    "goles total": [
+     302,
+     0.712,
+     1.353
+    ],
+    "tarjetas total": [
+     25,
+     0.76,
+     1.312
+    ]
+   }
+  },
+  "aprendiz": {
+   "todo": {
+    "n": 418,
+    "acierto": 0.7177,
+    "acierto_p5": 0.6818,
+    "cuota": 1.347,
+    "gan_100": -3.4,
+    "gan_p5": -8.3
+   },
+   "A": {
+    "n": 50,
+    "acierto": 0.72,
+    "acierto_p5": 0.62,
+    "cuota": 1.35,
+    "gan_100": -3.1,
+    "gan_p5": -17.2,
+    "dif_vs_modelo": 0.0375,
+    "dif_p5": -0.0736
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.7174,
+    "acierto_p5": 0.6766,
+    "cuota": 1.347,
+    "gan_100": -3.5,
+    "gan_p5": -8.8,
+    "dif_vs_modelo": 0.0082,
+    "dif_p5": -0.0462
+   },
+   "boleto_3": {
+    "dias": 21,
+    "enteros": 11,
+    "pct_entero": 0.524,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.31,
+    "gan_100": 20.7
+   },
+   "boleto_4": {
+    "dias": 18,
+    "enteros": 8,
+    "pct_entero": 0.444,
+    "tres_o_mas_rojas": 0,
+    "momio": 3.08,
+    "gan_100": 37.1
+   },
+   "por_mercado": {
+    "a_puerta equipo": [
+     23,
+     0.739,
+     1.331
+    ],
+    "corners equipo": [
+     30,
+     0.6,
+     1.324
+    ],
+    "corners total": [
+     157,
+     0.72,
+     1.354
+    ],
+    "goles total": [
+     155,
+     0.742,
+     1.353
+    ],
+    "tarjetas total": [
+     41,
+     0.683,
+     1.331
+    ]
+   }
+  }
+ },
+ "playdoit_sin_perdedores": {
+  "modelo": {
+   "todo": {
+    "n": 642,
+    "acierto": 0.7087,
+    "acierto_p5": 0.6776,
+    "cuota": 1.377,
+    "gan_100": -2.8,
+    "gan_p5": -6.7
+   },
+   "A": {
+    "n": 274,
+    "acierto": 0.6898,
+    "acierto_p5": 0.646,
+    "cuota": 1.384,
+    "gan_100": -5.2,
+    "gan_p5": -11.7
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.7228,
+    "acierto_p5": 0.6848,
+    "cuota": 1.372,
+    "gan_100": -1.0,
+    "gan_p5": -6.3
+   },
+   "boleto_3": {
+    "dias": 30,
+    "enteros": 15,
+    "pct_entero": 0.5,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.47,
+    "gan_100": 25.2
+   },
+   "boleto_4": {
+    "dias": 27,
+    "enteros": 8,
+    "pct_entero": 0.296,
+    "tres_o_mas_rojas": 0,
+    "momio": 3.35,
+    "gan_100": 1.5
+   },
+   "por_mercado": {
+    "a_puerta equipo": [
+     65,
+     0.769,
+     1.381
+    ],
+    "corners total": [
+     274,
+     0.697,
+     1.373
+    ],
+    "goles total": [
+     277,
+     0.711,
+     1.376
+    ]
+   }
+  },
+  "casa": {
+   "todo": {
+    "n": 642,
+    "acierto": 0.7212,
+    "acierto_p5": 0.6916,
+    "cuota": 1.343,
+    "gan_100": -3.4,
+    "gan_p5": -7.4
+   },
+   "A": {
+    "n": 274,
+    "acierto": 0.7153,
+    "acierto_p5": 0.6715,
+    "cuota": 1.343,
+    "gan_100": -4.2,
+    "gan_p5": -10.3,
+    "dif_vs_modelo": 0.0255,
+    "dif_p5": -0.0401
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.7255,
+    "acierto_p5": 0.6875,
+    "cuota": 1.343,
+    "gan_100": -2.7,
+    "gan_p5": -7.8,
+    "dif_vs_modelo": 0.0027,
+    "dif_p5": -0.0516
+   },
+   "boleto_3": {
+    "dias": 30,
+    "enteros": 16,
+    "pct_entero": 0.533,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.24,
+    "gan_100": 19.9
+   },
+   "boleto_4": {
+    "dias": 27,
+    "enteros": 13,
+    "pct_entero": 0.481,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.96,
+    "gan_100": 42.5
+   },
+   "por_mercado": {
+    "corners total": [
+     315,
+     0.708,
+     1.337
+    ],
+    "goles total": [
+     299,
+     0.732,
+     1.351
+    ]
+   }
+  },
+  "consenso": {
+   "todo": {
+    "n": 642,
+    "acierto": 0.7134,
+    "acierto_p5": 0.6838,
+    "cuota": 1.352,
+    "gan_100": -3.8,
+    "gan_p5": -7.9
+   },
+   "A": {
+    "n": 274,
+    "acierto": 0.7007,
+    "acierto_p5": 0.6569,
+    "cuota": 1.353,
+    "gan_100": -5.5,
+    "gan_p5": -11.7,
+    "dif_vs_modelo": 0.0109,
+    "dif_p5": -0.0547
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.7228,
+    "acierto_p5": 0.6848,
+    "cuota": 1.351,
+    "gan_100": -2.6,
+    "gan_p5": -7.8,
+    "dif_vs_modelo": 0.0,
+    "dif_p5": -0.0543
+   },
+   "boleto_3": {
+    "dias": 30,
+    "enteros": 20,
+    "pct_entero": 0.667,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.26,
+    "gan_100": 51.3
+   },
+   "boleto_4": {
+    "dias": 27,
+    "enteros": 11,
+    "pct_entero": 0.407,
+    "tres_o_mas_rojas": 1,
+    "momio": 3.0,
+    "gan_100": 20.7
+   },
+   "por_mercado": {
+    "a_puerta equipo": [
+     28,
+     0.786,
+     1.328
+    ],
+    "corners total": [
+     268,
+     0.716,
+     1.351
+    ],
+    "goles equipo": [
+     16,
+     0.625,
+     1.322
+    ],
+    "goles total": [
+     329,
+     0.708,
+     1.357
+    ]
+   }
+  },
+  "aprendiz": {
+   "todo": {
+    "n": 418,
+    "acierto": 0.7321,
+    "acierto_p5": 0.6962,
+    "cuota": 1.352,
+    "gan_100": -1.2,
+    "gan_p5": -5.8
+   },
+   "A": {
+    "n": 50,
+    "acierto": 0.68,
+    "acierto_p5": 0.58,
+    "cuota": 1.35,
+    "gan_100": -8.4,
+    "gan_p5": -24.1,
+    "dif_vs_modelo": -0.0098,
+    "dif_p5": -0.1371
+   },
+   "B": {
+    "n": 368,
+    "acierto": 0.7391,
+    "acierto_p5": 0.7037,
+    "cuota": 1.353,
+    "gan_100": -0.2,
+    "gan_p5": -5.6,
+    "dif_vs_modelo": 0.0163,
+    "dif_p5": -0.0382
+   },
+   "boleto_3": {
+    "dias": 21,
+    "enteros": 12,
+    "pct_entero": 0.571,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.31,
+    "gan_100": 32.4
+   },
+   "boleto_4": {
+    "dias": 18,
+    "enteros": 7,
+    "pct_entero": 0.389,
+    "tres_o_mas_rojas": 0,
+    "momio": 3.1,
+    "gan_100": 18.6
+   },
+   "por_mercado": {
+    "a_puerta equipo": [
+     28,
+     0.75,
+     1.334
+    ],
+    "corners total": [
+     198,
+     0.737,
+     1.353
+    ],
+    "goles total": [
+     178,
+     0.725,
+     1.356
+    ]
+   }
+  }
+ },
+ "novibet_analisis": {
+  "mercado": {
+   "1X2": {
+    "n": 1294.0,
+    "acierto": 0.67,
+    "casa": 0.603,
+    "modelo": 0.603,
+    "cuota": 1.519
+   },
+   "Ambos marcan": {
+    "n": 689.0,
+    "acierto": 0.597,
+    "casa": 0.592,
+    "modelo": 0.592,
+    "cuota": 1.566
+   },
+   "Doble oportunidad": {
+    "n": 3840.0,
+    "acierto": 0.639,
+    "casa": 0.646,
+    "modelo": 0.646,
+    "cuota": 1.433
+   }
+  },
+  "lado_ap": {
+   "Ambos marcan no": {
+    "n": 230.0,
+    "acierto": 0.548,
+    "casa": 0.585,
+    "modelo": 0.585,
+    "cuota": 1.577
+   },
+   "Ambos marcan sí": {
+    "n": 459.0,
+    "acierto": 0.621,
+    "casa": 0.595,
+    "modelo": 0.595,
+    "cuota": 1.561
+   },
+   "Gana local": {
+    "n": 939.0,
+    "acierto": 0.683,
+    "casa": 0.603,
+    "modelo": 0.603,
+    "cuota": 1.52
+   },
+   "Gana visita": {
+    "n": 355.0,
+    "acierto": 0.637,
+    "casa": 0.604,
+    "modelo": 0.604,
+    "cuota": 1.518
+   },
+   "Local o empate": {
+    "n": 1407.0,
+    "acierto": 0.64,
+    "casa": 0.644,
+    "modelo": 0.644,
+    "cuota": 1.436
+   },
+   "Local o visita": {
+    "n": 862.0,
+    "acierto": 0.683,
+    "casa": 0.695,
+    "modelo": 0.695,
+    "cuota": 1.326
+   },
+   "Visita o empate": {
+    "n": 1571.0,
+    "acierto": 0.614,
+    "casa": 0.621,
+    "modelo": 0.621,
+    "cuota": 1.488
+   }
+  },
+  "gap": {
+   "casa ve +0-5": {
+    "n": 5823.0,
+    "acierto": 0.641,
+    "casa": 0.63,
+    "modelo": 0.63,
+    "cuota": 1.468
+   }
+  },
+  "banda_casa": {
+   "(0.0, 0.55]": {
+    "n": 435.0,
+    "acierto": 0.579,
+    "casa": 0.542,
+    "modelo": 0.542,
+    "cuota": 1.684
+   },
+   "(0.55, 0.6]": {
+    "n": 1597.0,
+    "acierto": 0.59,
+    "casa": 0.575,
+    "modelo": 0.575,
+    "cuota": 1.598
+   },
+   "(0.6, 0.65]": {
+    "n": 1452.0,
+    "acierto": 0.632,
+    "casa": 0.626,
+    "modelo": 0.626,
+    "cuota": 1.465
+   },
+   "(0.65, 0.7]": {
+    "n": 1704.0,
+    "acierto": 0.684,
+    "casa": 0.677,
+    "modelo": 0.677,
+    "cuota": 1.354
+   },
+   "(0.7, 0.75]": {
+    "n": 635.0,
+    "acierto": 0.713,
+    "casa": 0.711,
+    "modelo": 0.711,
+    "cuota": 1.303
+   }
+  }
+ },
+ "novibet": {
+  "casa": {
+   "todo": {
+    "n": 3295,
+    "acierto": 0.6665,
+    "acierto_p5": 0.6522,
+    "cuota": 1.437,
+    "gan_100": -4.8,
+    "gan_p5": -6.9
+   },
+   "A": {
+    "n": 1502,
+    "acierto": 0.6731,
+    "acierto_p5": 0.6531,
+    "cuota": 1.45,
+    "gan_100": -3.2,
+    "gan_p5": -6.1,
+    "dif_vs_modelo": 0.0,
+    "dif_p5": -0.0273
+   },
+   "B": {
+    "n": 1793,
+    "acierto": 0.6609,
+    "acierto_p5": 0.6425,
+    "cuota": 1.425,
+    "gan_100": -6.1,
+    "gan_p5": -8.8,
+    "dif_vs_modelo": 0.0,
+    "dif_p5": -0.0268
+   },
+   "boleto_3": {
+    "dias": 27,
+    "enteros": 8,
+    "pct_entero": 0.296,
+    "tres_o_mas_rojas": 0,
+    "momio": 2.28,
+    "gan_100": -34.3
+   },
+   "boleto_4": {
+    "dias": 26,
+    "enteros": 6,
+    "pct_entero": 0.231,
+    "tres_o_mas_rojas": 2,
+    "momio": 2.9,
+    "gan_100": -32.7
+   },
+   "por_mercado": {
+    "1X2": [
+     1203,
+     0.673,
+     1.512
+    ],
+    "Ambos marcan": [
+     315,
+     0.594,
+     1.545
+    ],
+    "Doble oportunidad": [
+     1777,
+     0.675,
+     1.366
+    ]
+   }
+  }
+ }
+}

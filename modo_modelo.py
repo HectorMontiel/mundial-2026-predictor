@@ -3563,7 +3563,12 @@ def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
                             'apuesta': ('⭐ ' if ele else ('🏆 ' if r.get('elite') else ''))
                             + str(r.get('apuesta')),
                             'cuota': r.get('cuota'), 'prob': real, 'elige': ele,
-                            'porque': 'acierta de verdad %.0f %% (medido)' % (100 * real)})
+                            'porque': 'acierta de verdad %.0f %% (medido)' % (100 * real),
+                            # v371 — para liquidar la pata en «Mis boletos»
+                            'apuesta_pura': r.get('apuesta'), 'bloque': r.get('bloque'),
+                            'etiqueta': r.get('etiqueta'), 'linea': r.get('linea'),
+                            'mercado': r.get('mercado'), 'clave_liga': p.get('clave_liga'),
+                            'liga': p.get('liga')})
         except Exception as e:
             logger.debug('[modo_modelo] lista por acierto: %s', e)
     # v367 — «las de estrella no están ordenadas por hora»: primero las ⭐

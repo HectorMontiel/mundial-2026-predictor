@@ -2045,7 +2045,7 @@ def partidos_comprometidos(ruta: str = ACTIVOS,
 # v343 — lo que se guarda de cada pata para seguirla después (`Mis boletos`)
 CAMPOS_PATA = ('partido', 'liga', 'clave_liga', 'deporte', 'fecha', 'inicio',
                'apuesta', 'mercado', 'bloque', 'etiqueta', 'linea', 'cuota',
-               'prob')
+               'prob', 'origen', 'casa')          # v371: de qué método salió
 
 
 def registrar_parlay(parlay: Dict, dia: str, ruta: str = ACTIVOS,
@@ -2073,6 +2073,18 @@ def registrar_parlay(parlay: Dict, dia: str, ruta: str = ACTIVOS,
     with open(ruta, 'w', encoding='utf-8') as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)
     return doc
+
+
+def quitar_parlay(registrado: str, ruta: str = ACTIVOS) -> bool:
+    """v371 — «poder eliminar los boletos que ya no quiera seguir»: quita
+    el boleto con esa marca de registro. Devuelve si quitó alguno."""
+    todos = parlays_activos(ruta)
+    quedan = [p for p in todos if str(p.get('registrado')) != str(registrado)]
+    if len(quedan) == len(todos):
+        return False
+    with open(ruta, 'w', encoding='utf-8') as f:
+        json.dump({'parlays': quedan}, f, ensure_ascii=False, indent=1)
+    return True
 
 
 def olvidar_parlays(ruta: str = ACTIVOS) -> None:

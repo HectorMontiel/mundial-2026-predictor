@@ -1,0 +1,849 @@
+{
+ "1.25 mas_casa": {
+  "todo": {
+   "n": 642,
+   "acierto": 0.7352,
+   "acierto_p5": 0.7072,
+   "cuota": 1.318,
+   "gan_100": -3.4,
+   "gan_p5": -7.0
+  },
+  "promete_casa": 0.7045,
+  "promete_metodo": 0.7077,
+  "A": {
+   "n": 274,
+   "acierto": 0.7591,
+   "cuota": 1.319,
+   "dif_vs_casa": 0.0547,
+   "dif_p5": -0.0073,
+   "gan_100": -0.1
+  },
+  "B": {
+   "n": 368,
+   "acierto": 0.7174,
+   "cuota": 1.317,
+   "dif_vs_casa": -0.0462,
+   "dif_p5": -0.0978,
+   "gan_100": -5.8
+  },
+  "boletos": {
+   "2": {
+    "A": {
+     "dias": 15,
+     "enteros": 6,
+     "pct": 0.4,
+     "tres_rojas": 0,
+     "momio": 1.59,
+     "gan_100": -37.3
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 9,
+     "pct": 0.529,
+     "tres_rojas": 0,
+     "momio": 1.59,
+     "gan_100": -16.0
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 3,
+     "pct": 0.214,
+     "tres_rojas": 0,
+     "momio": 2.03,
+     "gan_100": -57.9
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 7,
+     "pct": 0.438,
+     "tres_rojas": 0,
+     "momio": 2.04,
+     "gan_100": -10.5
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 14,
+     "enteros": 3,
+     "pct": 0.214,
+     "tres_rojas": 0,
+     "momio": 2.61,
+     "gan_100": -47.4
+    },
+    "B": {
+     "dias": 13,
+     "enteros": 3,
+     "pct": 0.231,
+     "tres_rojas": 0,
+     "momio": 2.56,
+     "gan_100": -41.7
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "pct": 0.143,
+     "tres_rojas": 0,
+     "momio": 3.4,
+     "gan_100": -56.4
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 2,
+     "pct": 0.2,
+     "tres_rojas": 1,
+     "momio": 3.17,
+     "gan_100": -38.5
+    }
+   }
+  },
+  "por_mercado": {
+   "a_puerta equipo": [
+    14,
+    0.786,
+    1.346
+   ],
+   "corners total": [
+    363,
+    0.713,
+    1.325
+   ],
+   "goles equipo": [
+    13,
+    0.769,
+    1.283
+   ],
+   "goles total": [
+    252,
+    0.762,
+    1.309
+   ]
+  },
+  "bandas": {
+   "(0.0, 0.6]": [
+    14,
+    0.571
+   ],
+   "(0.6, 0.65]": [
+    38,
+    0.605
+   ],
+   "(0.65, 0.7]": [
+    198,
+    0.737
+   ],
+   "(0.7, 0.75]": [
+    385,
+    0.753
+   ],
+   "(0.75, 1.0]": [
+    7,
+    0.714
+   ]
+  }
+ },
+ "1.25 mas_veto3": {
+  "todo": {
+   "n": 594,
+   "acierto": 0.7189,
+   "acierto_p5": 0.6886,
+   "cuota": 1.349,
+   "gan_100": -3.7,
+   "gan_p5": -7.9
+  },
+  "promete_casa": 0.6913,
+  "promete_metodo": 0.7154,
+  "A": {
+   "n": 255,
+   "acierto": 0.7451,
+   "cuota": 1.356,
+   "dif_vs_casa": 0.0407,
+   "dif_p5": -0.0233,
+   "gan_100": 0.2
+  },
+  "B": {
+   "n": 339,
+   "acierto": 0.6991,
+   "cuota": 1.343,
+   "dif_vs_casa": -0.0645,
+   "dif_p5": -0.1155,
+   "gan_100": -6.7
+  },
+  "boletos": {
+   "2": {
+    "A": {
+     "dias": 15,
+     "enteros": 7,
+     "pct": 0.467,
+     "tres_rojas": 0,
+     "momio": 1.65,
+     "gan_100": -24.0
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 10,
+     "pct": 0.588,
+     "tres_rojas": 0,
+     "momio": 1.61,
+     "gan_100": -4.5
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 4,
+     "pct": 0.286,
+     "tres_rojas": 0,
+     "momio": 2.13,
+     "gan_100": -43.3
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 5,
+     "pct": 0.312,
+     "tres_rojas": 0,
+     "momio": 2.09,
+     "gan_100": -36.5
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 13,
+     "enteros": 3,
+     "pct": 0.231,
+     "tres_rojas": 0,
+     "momio": 2.75,
+     "gan_100": -42.0
+    },
+    "B": {
+     "dias": 12,
+     "enteros": 3,
+     "pct": 0.25,
+     "tres_rojas": 0,
+     "momio": 2.55,
+     "gan_100": -36.5
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 13,
+     "enteros": 3,
+     "pct": 0.231,
+     "tres_rojas": 1,
+     "momio": 3.75,
+     "gan_100": -26.4
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 2,
+     "pct": 0.2,
+     "tres_rojas": 1,
+     "momio": 3.27,
+     "gan_100": -38.0
+    }
+   }
+  },
+  "por_mercado": {
+   "a_puerta equipo": [
+    27,
+    0.815,
+    1.375
+   ],
+   "corners total": [
+    273,
+    0.718,
+    1.336
+   ],
+   "goles equipo": [
+    16,
+    0.625,
+    1.302
+   ],
+   "goles total": [
+    276,
+    0.721,
+    1.361
+   ]
+  },
+  "bandas": {
+   "(0.0, 0.6]": [
+    52,
+    0.596
+   ],
+   "(0.6, 0.65]": [
+    55,
+    0.582
+   ],
+   "(0.65, 0.7]": [
+    173,
+    0.717
+   ],
+   "(0.7, 0.75]": [
+    307,
+    0.765
+   ],
+   "(0.75, 1.0]": [
+    7,
+    0.714
+   ]
+  }
+ },
+ "1.30 mas_casa": {
+  "todo": {
+   "n": 637,
+   "acierto": 0.697,
+   "acierto_p5": 0.6641,
+   "cuota": 1.384,
+   "gan_100": -4.1,
+   "gan_p5": -8.2
+  },
+  "promete_casa": 0.6696,
+  "promete_metodo": 0.6744,
+  "A": {
+   "n": 270,
+   "acierto": 0.7407,
+   "cuota": 1.385,
+   "dif_vs_casa": 0.0254,
+   "dif_p5": -0.0404,
+   "gan_100": 2.1
+  },
+  "B": {
+   "n": 367,
+   "acierto": 0.6649,
+   "cuota": 1.383,
+   "dif_vs_casa": -0.0607,
+   "dif_p5": -0.1178,
+   "gan_100": -8.7
+  },
+  "boletos": {
+   "2": {
+    "A": {
+     "dias": 15,
+     "enteros": 11,
+     "pct": 0.733,
+     "tres_rojas": 0,
+     "momio": 1.75,
+     "gan_100": 25.9
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 9,
+     "pct": 0.529,
+     "tres_rojas": 0,
+     "momio": 1.75,
+     "gan_100": -7.8
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 11,
+     "pct": 0.786,
+     "tres_rojas": 0,
+     "momio": 2.27,
+     "gan_100": 78.3
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 7,
+     "pct": 0.438,
+     "tres_rojas": 0,
+     "momio": 2.32,
+     "gan_100": -1.2
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 14,
+     "enteros": 8,
+     "pct": 0.571,
+     "tres_rojas": 0,
+     "momio": 3.06,
+     "gan_100": 74.9
+    },
+    "B": {
+     "dias": 13,
+     "enteros": 4,
+     "pct": 0.308,
+     "tres_rojas": 0,
+     "momio": 3.08,
+     "gan_100": -9.7
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 14,
+     "enteros": 5,
+     "pct": 0.357,
+     "tres_rojas": 0,
+     "momio": 4.19,
+     "gan_100": 57.9
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 3,
+     "pct": 0.3,
+     "tres_rojas": 3,
+     "momio": 3.97,
+     "gan_100": 14.0
+    }
+   }
+  },
+  "por_mercado": {
+   "a_puerta equipo": [
+    26,
+    0.615,
+    1.36
+   ],
+   "corners total": [
+    412,
+    0.694,
+    1.396
+   ],
+   "goles equipo": [
+    15,
+    0.667,
+    1.337
+   ],
+   "goles total": [
+    182,
+    0.72,
+    1.364
+   ]
+  },
+  "bandas": {
+   "(0.0, 0.6]": [
+    29,
+    0.552
+   ],
+   "(0.6, 0.65]": [
+    161,
+    0.584
+   ],
+   "(0.65, 0.7]": [
+    302,
+    0.732
+   ],
+   "(0.7, 0.75]": [
+    145,
+    0.779
+   ]
+  }
+ },
+ "1.30 mas_veto3": {
+  "todo": {
+   "n": 567,
+   "acierto": 0.6825,
+   "acierto_p5": 0.6507,
+   "cuota": 1.407,
+   "gan_100": -4.5,
+   "gan_p5": -9.0
+  },
+  "promete_casa": 0.6604,
+  "promete_metodo": 0.6887,
+  "A": {
+   "n": 241,
+   "acierto": 0.7095,
+   "cuota": 1.415,
+   "dif_vs_casa": -0.0058,
+   "dif_p5": -0.0718,
+   "gan_100": -0.5
+  },
+  "B": {
+   "n": 326,
+   "acierto": 0.6626,
+   "cuota": 1.402,
+   "dif_vs_casa": -0.063,
+   "dif_p5": -0.1188,
+   "gan_100": -7.4
+  },
+  "boletos": {
+   "2": {
+    "A": {
+     "dias": 15,
+     "enteros": 10,
+     "pct": 0.667,
+     "tres_rojas": 0,
+     "momio": 1.79,
+     "gan_100": 15.6
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 6,
+     "pct": 0.353,
+     "tres_rojas": 0,
+     "momio": 1.76,
+     "gan_100": -39.5
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 9,
+     "pct": 0.643,
+     "tres_rojas": 0,
+     "momio": 2.38,
+     "gan_100": 45.3
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 6,
+     "pct": 0.375,
+     "tres_rojas": 0,
+     "momio": 2.37,
+     "gan_100": -13.6
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 13,
+     "enteros": 6,
+     "pct": 0.462,
+     "tres_rojas": 1,
+     "momio": 3.25,
+     "gan_100": 40.9
+    },
+    "B": {
+     "dias": 12,
+     "enteros": 4,
+     "pct": 0.333,
+     "tres_rojas": 3,
+     "momio": 3.06,
+     "gan_100": -0.7
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 13,
+     "enteros": 4,
+     "pct": 0.308,
+     "tres_rojas": 1,
+     "momio": 4.61,
+     "gan_100": 30.6
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 3,
+     "pct": 0.3,
+     "tres_rojas": 3,
+     "momio": 4.08,
+     "gan_100": 18.3
+    }
+   }
+  },
+  "por_mercado": {
+   "a_puerta equipo": [
+    45,
+    0.733,
+    1.415
+   ],
+   "corners total": [
+    291,
+    0.684,
+    1.402
+   ],
+   "goles equipo": [
+    15,
+    0.667,
+    1.355
+   ],
+   "goles total": [
+    211,
+    0.678,
+    1.416
+   ]
+  },
+  "bandas": {
+   "(0.0, 0.6]": [
+    70,
+    0.6
+   ],
+   "(0.6, 0.65]": [
+    136,
+    0.618
+   ],
+   "(0.65, 0.7]": [
+    248,
+    0.714
+   ],
+   "(0.7, 0.75]": [
+    113,
+    0.743
+   ]
+  }
+ },
+ "1.35 mas_casa": {
+  "todo": {
+   "n": 632,
+   "acierto": 0.6709,
+   "acierto_p5": 0.6408,
+   "cuota": 1.459,
+   "gan_100": -2.5,
+   "gan_p5": -6.9
+  },
+  "promete_casa": 0.6348,
+  "promete_metodo": 0.6394,
+  "A": {
+   "n": 268,
+   "acierto": 0.6828,
+   "cuota": 1.462,
+   "dif_vs_casa": 0.0125,
+   "dif_p5": -0.0547,
+   "gan_100": -0.6
+  },
+  "B": {
+   "n": 364,
+   "acierto": 0.6621,
+   "cuota": 1.457,
+   "dif_vs_casa": -0.0118,
+   "dif_p5": -0.0698,
+   "gan_100": -3.9
+  },
+  "boletos": {
+   "2": {
+    "A": {
+     "dias": 15,
+     "enteros": 6,
+     "pct": 0.4,
+     "tres_rojas": 0,
+     "momio": 1.9,
+     "gan_100": -24.3
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 9,
+     "pct": 0.529,
+     "tres_rojas": 0,
+     "momio": 1.88,
+     "gan_100": -0.3
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 4,
+     "pct": 0.286,
+     "tres_rojas": 0,
+     "momio": 2.62,
+     "gan_100": -24.3
+    },
+    "B": {
+     "dias": 16,
+     "enteros": 6,
+     "pct": 0.375,
+     "tres_rojas": 0,
+     "momio": 2.64,
+     "gan_100": -0.1
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "pct": 0.143,
+     "tres_rojas": 2,
+     "momio": 3.72,
+     "gan_100": -44.9
+    },
+    "B": {
+     "dias": 13,
+     "enteros": 4,
+     "pct": 0.308,
+     "tres_rojas": 0,
+     "momio": 3.67,
+     "gan_100": 11.3
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 14,
+     "enteros": 2,
+     "pct": 0.143,
+     "tres_rojas": 3,
+     "momio": 5.37,
+     "gan_100": -21.2
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 3,
+     "pct": 0.3,
+     "tres_rojas": 2,
+     "momio": 4.93,
+     "gan_100": 44.6
+    }
+   }
+  },
+  "por_mercado": {
+   "a_puerta equipo": [
+    36,
+    0.639,
+    1.395
+   ],
+   "corners total": [
+    439,
+    0.679,
+    1.471
+   ],
+   "goles total": [
+    140,
+    0.643,
+    1.442
+   ]
+  },
+  "bandas": {
+   "(0.0, 0.6]": [
+    140,
+    0.629
+   ],
+   "(0.6, 0.65]": [
+    250,
+    0.644
+   ],
+   "(0.65, 0.7]": [
+    242,
+    0.723
+   ]
+  }
+ },
+ "1.35 mas_veto3": {
+  "todo": {
+   "n": 545,
+   "acierto": 0.6697,
+   "acierto_p5": 0.6385,
+   "cuota": 1.473,
+   "gan_100": -1.8,
+   "gan_p5": -7.0
+  },
+  "promete_casa": 0.6295,
+  "promete_metodo": 0.6614,
+  "A": {
+   "n": 229,
+   "acierto": 0.6725,
+   "cuota": 1.478,
+   "dif_vs_casa": 0.0021,
+   "dif_p5": -0.0665,
+   "gan_100": -1.3
+  },
+  "B": {
+   "n": 316,
+   "acierto": 0.6677,
+   "cuota": 1.47,
+   "dif_vs_casa": -0.0062,
+   "dif_p5": -0.0673,
+   "gan_100": -2.2
+  },
+  "boletos": {
+   "2": {
+    "A": {
+     "dias": 15,
+     "enteros": 7,
+     "pct": 0.467,
+     "tres_rojas": 0,
+     "momio": 1.93,
+     "gan_100": -10.1
+    },
+    "B": {
+     "dias": 17,
+     "enteros": 10,
+     "pct": 0.588,
+     "tres_rojas": 0,
+     "momio": 1.89,
+     "gan_100": 11.5
+    }
+   },
+   "3": {
+    "A": {
+     "dias": 14,
+     "enteros": 4,
+     "pct": 0.286,
+     "tres_rojas": 0,
+     "momio": 2.7,
+     "gan_100": -24.8
+    },
+    "B": {
+     "dias": 15,
+     "enteros": 7,
+     "pct": 0.467,
+     "tres_rojas": 0,
+     "momio": 2.64,
+     "gan_100": 23.1
+    }
+   },
+   "4": {
+    "A": {
+     "dias": 13,
+     "enteros": 4,
+     "pct": 0.308,
+     "tres_rojas": 1,
+     "momio": 3.88,
+     "gan_100": 12.1
+    },
+    "B": {
+     "dias": 12,
+     "enteros": 5,
+     "pct": 0.417,
+     "tres_rojas": 2,
+     "momio": 3.64,
+     "gan_100": 53.5
+    }
+   },
+   "5": {
+    "A": {
+     "dias": 13,
+     "enteros": 3,
+     "pct": 0.231,
+     "tres_rojas": 1,
+     "momio": 5.7,
+     "gan_100": 20.0
+    },
+    "B": {
+     "dias": 10,
+     "enteros": 3,
+     "pct": 0.3,
+     "tres_rojas": 4,
+     "momio": 5.03,
+     "gan_100": 50.1
+    }
+   }
+  },
+  "por_mercado": {
+   "a_puerta equipo": [
+    56,
+    0.714,
+    1.444
+   ],
+   "corners total": [
+    309,
+    0.683,
+    1.473
+   ],
+   "goles equipo": [
+    11,
+    0.818,
+    1.431
+   ],
+   "goles total": [
+    160,
+    0.625,
+    1.487
+   ]
+  },
+  "bandas": {
+   "(0.0, 0.6]": [
+    150,
+    0.62
+   ],
+   "(0.6, 0.65]": [
+    201,
+    0.662
+   ],
+   "(0.65, 0.7]": [
+    194,
+    0.716
+   ]
+  }
+ }
+}

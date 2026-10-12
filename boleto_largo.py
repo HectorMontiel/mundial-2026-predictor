@@ -62,7 +62,11 @@ def _filas(pronosticos: List[Dict], ahora: Optional[float] = None) -> List[Dict]
                           'apuesta': ('⭐ ' if ele else ('🏆 ' if r.get('elite') else ''))
                           + str(r.get('apuesta')),
                           'cuota': r.get('cuota'), 'prob': real, 'elige': ele,
-                          'porque': 'acierta de verdad %.0f %% (medido)' % (100 * real)})
+                          'porque': 'acierta de verdad %.0f %% (medido)' % (100 * real),
+                          'apuesta_pura': r.get('apuesta'), 'bloque': r.get('bloque'),
+                          'etiqueta': r.get('etiqueta'), 'linea': r.get('linea'),
+                          'mercado': r.get('mercado'), 'clave_liga': p.get('clave_liga'),
+                          'liga': p.get('liga')})
     return filas
 
 
