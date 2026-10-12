@@ -2087,7 +2087,9 @@ def test_telegram_no_rehace_el_barrido():
           "y sin argumento pasa por el guardia, no por alpha_finder a pelo")
 
     dash = open('dashboard_ui.py', encoding='utf-8').read()
-    check('construir_mensaje(r)' in dash,
+    # v369 — o con el filtro de deportes, que recibe el mismo `r`
+    check('construir_mensaje(r)' in dash
+          or '_fia_m.filtrar_deportes(r,' in dash,
           "el dashboard le pasa el barrido que ya calculó")
     check('_enviar_telegram' in dash,
           "el botón marca la intención y el envío va después del barrido")
@@ -13398,7 +13400,7 @@ def test_el_envio_del_dia_completo_no_lanza_un_segundo_barrido():
           'el panel tiene los botones del dia completo')
     # v312 — el documento lo arma `formato_ia` (formato para una IA), con el
     # mismo barrido `r` ya en memoria
-    check('_fia.texto(r, _dias)' in panel,
+    check('_fia.texto(r, _dias' in panel,       # v369: más los deportes
           'y le pasan el barrido `r` que ya esta en memoria')
     for boton in ('tg_send_hoy', 'tg_send_manana', 'tg_send_pasado',
                   'tg_send_todo'):

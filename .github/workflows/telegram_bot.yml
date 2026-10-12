@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '19 10 * * *'   # diario a las 10:00 UTC
   workflow_dispatch:        # ejecución manual desde la web de GitHub
+    inputs:
+      deportes:
+        description: 'Deportes (vacío = todos). Ej.: futbol · nba · futbol,nba'
+        type: string
+        default: ''
 
 jobs:
   enviar_alertas_push:
@@ -30,6 +35,7 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
+          DEPORTES_ENVIO: ${{ inputs.deportes }}
         run: |
           # 1. El runner es un entorno estéril: primero datos frescos del día
           python pipeline_total.py --update-only || echo "pipeline con avisos, se continúa"

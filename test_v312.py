@@ -128,7 +128,7 @@ def probar_telegram():
     src = open('dashboard_ui.py', encoding='utf-8').read()
     for k in ('tg_send_hoy', 'tg_send_manana', 'tg_send_pasado', 'tg_send_todo'):
         check("key='%s'" % k in src, 'existe el botón %s' % k)
-    check("_fia.texto(r, _dias)" in src and "_md_dia.dia_cdmx(i) for i in (0, 1, 2)"
+    check("_fia.texto(r, _dias" in src and "_md_dia.dia_cdmx(i) for i in (0, 1, 2)"
           in src, '«todo» manda hoy, mañana y pasado en un solo documento')
     import formato_ia as fi
     check('GUÍA DE LECTURA' in fi.GUIA and 'casa sin margen' in fi.GUIA,

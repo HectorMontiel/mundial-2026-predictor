@@ -227,7 +227,18 @@ def enviar(texto: str) -> bool:
 
 if __name__ == '__main__':
     try:
-        mensaje = construir_mensaje()
+        # v369 — sólo los deportes pedidos (`DEPORTES_ENVIO`, p. ej. «futbol,nba»)
+        import os as _os_d
+        _deps_env = (_os_d.environ.get('DEPORTES_ENVIO') or '').strip()
+        if _deps_env:
+            import alpha_finder as _af_d
+            import formato_ia as _fi_d
+            import guardia_barrido as _gb_d
+            mensaje = construir_mensaje(_fi_d.filtrar_deportes(
+                _gb_d.barrido(_af_d.apuestas_del_dia_universal),
+                _fi_d.deportes_de_texto(_deps_env)))
+        else:
+            mensaje = construir_mensaje()
     except Exception as e:
         logger.error(f"No se pudo construir el resumen: {type(e).__name__}: {e}")
         sys.exit(0)          # nunca romper el workflow por un fallo de datos

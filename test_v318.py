@@ -54,7 +54,7 @@ def probar_escalon():
 
 def probar_envio_automatico():
     src = open('bot_dia_completo.py', encoding='utf-8').read()
-    check('fi.texto(r, [dia])' in src and 'texto_dia_completo(r' not in src,
+    check('fi.texto(r, [dia]' in src and 'texto_dia_completo(r' not in src,
           'el envío automático de cada madrugada usa el documento nuevo')
     import formato_ia as fi
     check('ASÍ LE FUE A LA APP' in fi.GUIA and 'subir a' in fi.GUIA,

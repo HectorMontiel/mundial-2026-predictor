@@ -37,65 +37,83 @@ from typing import Dict, List, Optional
 logger = logging.getLogger(__name__)
 
 GUIA = """GUÍA DE LECTURA (para la IA que analice este documento)
-- Horas en hora de Ciudad de México (CDMX). Cuotas en formato decimal.
-- «🎯 METER (app)»: apuestas que la aplicación recomienda meter. «prob» es la
-  probabilidad CALIBRADA con la que decidió (modelo corregido por su historial
-  y mezclado 50/50 con la casa). «casa sin margen» es lo que cree la casa.
-  Si prob ≫ casa, el modelo discrepa del mercado: históricamente ahí falla más.
-- Regla de la app para «meter» en fútbol: prob entre 70 % y 80 %, cuota
-  menor de 1,35 y nunca «doble y goles», remates ni hándicap (medido: ahí
-  salían los rojos). Con esa regla lo marcado «meter» se cumplió ~76-81 %
-  (20-28 sep). A cuotas de Playdoit la casa conserva margen: la única ventaja
-  de precio medida es cuando la casa paga por encima del justo (EV > 0).
-- «MODELO»: probabilidades del modelo sin mezclar. λ = media esperada.
-  Córners y tarjetas: total del partido y de cada equipo. Lo de cada equipo
-  en córners ya usa la TABLA (diferencia de goles, posición): el fuerte
-  saca más córners. Medido en partidos no vistos: lo ofrecido al 70-80 %
-  acierta 77,2 % contra 74,3 % sin la tabla.
-- Córners, tarjetas y remates (v319): SÓLO con datos reales. Cada equipo
-  necesita 5+ partidos con esa estadística observada en la competición esta
-  temporada; si no, sale «🚫 SIN HISTÓRICO REAL — no apostar este mercado» y
-  la app no lo recomienda. Ya no existe el «[estimado]». El λ total de
-  córners es la suma de lo esperado de los dos equipos (medido: predice
-  mejor que la media de la competición). Los córners de UN EQUIPO sólo se
-  meten si el favorito tiene 65 %+ (medido: 78,5 % contra 75,9 %); al total
-  no se le aplica (no mejora). Y en córners la línea tiene que estar lejos
-  de lo esperado: 2,5 córners en el total y 2 en los de un equipo (medido:
-  78,0 % y 81,5 % contra 74,5 % y 78,7 %). Una línea pegada al λ la tumba
-  cualquier partido movido. Medido en la franja 70-80 %:
-  córners con datos reales 75,4 % (11.874 partidos), tarjetas 72,4 %.
-- Sólo van partidos con MODELO (el motor de ligas o el de cada deporte). Los
-  de competiciones fuera del motor (sub-21, copas, ligas chicas) ya no se
-  envían: sin el modelo completo son ruido (decisión del usuario, v317).
-- «🏆 LO MEJOR DEL MODELO»: la Capa 1 de la app, la parte de las «meter»
-  que más acierta según la simulación con partidos terminados.
-- «🔷 MÁS RIESGO, MÁS CUOTA»: OTRA PROBABILIDAD, más baja que la de la
-  Capa 1 (71-72 % medido, cuota ~1,43). Para multiplicar en dobles; no se
-  cuenta como «meter».
-- «📊 ASÍ LE FUE A LA APP»: lo que la app dijo «meter» en los últimos días,
-  ya liquidado, por categoría, y los rojos de ayer. Úsalo para saber en qué
-  mercados está acertando ahora.
-- «↗ subir a …»: el siguiente escalón de una «meter» (más de 1,5 → más de
-  2,5; X o empate → gana X), con la probabilidad del modelo, la de la casa
-  sin margen y su cuota. NO es una recomendación de la app: es el dato para
-  decidir, con lo que encuentres en internet, si vale la pena subir.
-- «🎯 APUESTAS A METER POR CATEGORÍA»: todas las «meter» del día agrupadas
-  por mercado; debajo, el detalle de cada partido.
-- «MERCADOS»: todo lo cotizado. «justa» = 1/probabilidad del modelo.
-  EV = prob × cuota − 1 (positivo = la casa paga de más según el modelo).
-- «TABLA» (v316): posición, puntos a la zona de arriba (el 25 % de la
-  tabla) y al descenso (el 15 % de abajo), goles a favor y en contra por
-  partido (el local en casa, el visitante fuera) y % de sus partidos con 4+
-  goles; «⚠️ decisivo para los dos» si ambos están a ≤ 3 puntos de una zona
-  pasada la mitad de la temporada. Medido en 80.829 partidos: la zona y el
-  4+ ya van DENTRO del modelo en «más de 3,5» (lo mejoran); en decisivos los
-  «menos de 3,5» NO fallan más (75,7 % contra 73,8 %), los «menos de 2,5»
-  algo sí (55 % contra 58 %).
-- «Forma»: puntos por partido y goles A FAVOR / EN CONTRA por partido de los
-  últimos cinco (no son goles del partido: no se suman).
-- «🚑 Bajas», «Árbitro», «Alineación»: contexto; puede faltar.
-- Remates por jugador: SOLO información (medido: apostarlos pierde).
+LO PRIMERO: «✅ QUÉ METER» es la DECISIÓN de la app, ya tomada y medida.
+- Sólo se mete lo que está en esa lista. Todo lo demás del documento es
+  CONTEXTO para entenderla, no otras apuestas: no las propongas como «meter».
+- ⭐ ELIGE: las «se mete» que más se cumplen. Medido en lo archivado al pitido
+  (5-11 oct): 241 ✅ 29 ❌ (89 %) contra 76 % del resto. Si hay que elegir
+  pocas, las ⭐ primero.
+- «acierta de verdad»: lo que acertaron de verdad las apuestas como ésa (no lo
+  que promete el modelo). 🏆 = Capa 1 (~85 %).
+- 🔒 FIJADA HH:MM: la apuesta oficial, fijada al abrirse la hora de apostar
+  (4 h antes del partido); ya no cambia. ⏳ PROVISIONAL: aún puede cambiar o
+  desaparecer; se fija a la hora indicada (medido: la fijada acierta 82 %
+  contra 79 % de la del pitido). Lo mejor es apostar desde esa hora.
+- Horas en CDMX. Cuotas decimales. «casa sin margen» = lo que cree la casa.
+- «🏆 LO MEJOR DEL MODELO» es la Capa 1; «🔷 MÁS RIESGO, MÁS CUOTA» es otra
+  probabilidad (71-72 %, cuota ~1,43), para dobles: no cuenta como «meter».
+- «📊 ASÍ LE FUE A LA APP»: lo que dijo «meter» los últimos días, liquidado.
+- «↗ subir a …»: el siguiente escalón de una «meter», con sus números. NO es
+  una recomendación de la app.
+- Sólo van partidos con MODELO (el motor de ligas o el de cada deporte).
+- El λ total de córners es la suma de lo esperado de los dos equipos.
+- «MODELO», «TABLA», «Forma», «Bajas», «MERCADOS»: datos de cada partido.
+  EV = prob × cuota − 1. Córners/tarjetas/remates sólo con datos reales; si
+  dice «🚫 SIN HISTÓRICO REAL», no se apuesta ese mercado. Remates por jugador:
+  sólo información.
 """
+
+
+# v369 — «quiero poder decirle de qué deporte quiero mandar: sólo fútbol, o
+# sólo básquetbol, o combinados». Cada opción junta los nombres con los que el
+# barrido escribe ese deporte.
+DEPORTES_ENVIO = {'⚽ Fútbol': ('Fútbol',), '🏀 Básquetbol': ('NBA', 'Baloncesto'),
+                  '🎾 Tenis': ('Tenis',), '🏈 NFL': ('NFL',), '🏒 NHL': ('NHL',),
+                  '⚾ Béisbol': ('MLB', 'KBO', 'Béisbol')}
+# lo que se puede escribir a mano (workflow, consola): sin acentos ni mayúsculas
+_ALIAS = {'futbol': '⚽ Fútbol', 'soccer': '⚽ Fútbol', 'basquet': '🏀 Básquetbol',
+          'basquetbol': '🏀 Básquetbol', 'basket': '🏀 Básquetbol',
+          'basketball': '🏀 Básquetbol', 'baloncesto': '🏀 Básquetbol', 'nba': '🏀 Básquetbol',
+          'tenis': '🎾 Tenis', 'tennis': '🎾 Tenis', 'nfl': '🏈 NFL', 'americano': '🏈 NFL',
+          'nhl': '🏒 NHL', 'hockey': '🏒 NHL', 'beisbol': '⚾ Béisbol', 'mlb': '⚾ Béisbol',
+          'kbo': '⚾ Béisbol', 'baseball': '⚾ Béisbol'}
+
+
+def deportes_de_texto(txt) -> List[str]:
+    """«futbol,nba» → ['⚽ Fútbol', '🏀 Básquetbol']. Vacío o «todos»: []."""
+    import unicodedata
+    out: List[str] = []
+    for t in str(txt or '').replace(';', ',').replace('+', ',').split(','):
+        t = ''.join(c for c in unicodedata.normalize('NFD', t.strip().lower())
+                    if unicodedata.category(c) != 'Mn')
+        t = ''.join(c for c in t if c.isalnum())
+        o = _ALIAS.get(t)
+        if o and o not in out:
+            out.append(o)
+    return out
+
+
+def _nombres(deportes) -> Optional[set]:
+    if not deportes:
+        return None
+    return {n for d in deportes for n in DEPORTES_ENVIO.get(d, (d,))}
+
+
+def filtrar_deportes(r: Dict, deportes) -> Dict:
+    """El barrido con SÓLO esos deportes (copia; `r` no se toca). Sin
+    deportes, el barrido tal cual."""
+    nombres = _nombres(deportes)
+    if not nombres or not isinstance(r, dict):
+        return r
+    out = dict(r)
+    for k, v in r.items():
+        if isinstance(v, list) and any(isinstance(x, dict) and 'partido' in x for x in v):
+            out[k] = [x for x in v if not isinstance(x, dict)
+                      or str(x.get('deporte') or 'Fútbol') in nombres]
+    out['deportes_cubiertos'] = [d for d in (r.get('deportes_cubiertos') or [])
+                                 if any(n.lower() in str(d).lower() for n in nombres)] \
+        or list(deportes)
+    return out
 
 
 def _pct(x) -> str:
@@ -212,9 +230,13 @@ def _bloque_conteo(pick: Dict, que: str, nombre: str) -> List[str]:
 def _meter(pick: Dict) -> List[Dict]:
     import modo_modelo as mm
     try:
-        b = _bloques(pick) if str(pick.get('deporte') or 'Fútbol') == 'Fútbol' \
-            else None
-        return mm.metidas(mm.recomendadas(pick, b, n=mm.MAX_RECOMENDADAS))
+        # v369 — LA MISMA TARJETA QUE LA APP: lo precalculado, con la apuesta
+        # fijada a la hora de apostar y la tercera (`recos_tarjeta`). Antes
+        # se recalculaba sin fijada: el documento podía decir otra cosa.
+        if not pick.get('solo_mercado') and str(pick.get('deporte') or 'Fútbol') == 'Fútbol':
+            return mm.metidas(mm.recos_tarjeta(pick))
+        b = None
+        return mm.metidas(mm.con_fijada(pick, mm.recomendadas(pick, b, n=mm.MAX_RECOMENDADAS)))
     except Exception as e:
         logger.debug('[ia] meter de %s: %s', pick.get('partido'), e)
         return []
@@ -597,15 +619,69 @@ def balance_app(dias: List[str]) -> List[str]:
     return L
 
 
-def texto(r: Dict, dias: List[str]) -> str:
-    """El documento de uno o varios días, listo para pegar en una IA."""
+def _estado_fijada(m: Dict) -> str:
+    if m.get('fijada'):
+        return '🔒 FIJADA %s' % (m.get('fijada_hora') or '')
+    if m.get('provisional_hasta'):
+        return '⏳ PROVISIONAL, se fija a las %s' % m['provisional_hasta']
+    return ''
+
+
+def que_meter(r: Dict, dias: List[str], deportes=None) -> List[str]:
+    """v369 — «✅ QUÉ METER»: la decisión de la app en una línea por apuesta,
+    las ⭐ ELIGE primero y por hora, luego el resto por hora. Es lo que un
+    agente de IA tiene que leer para decir qué meter. Nunca lanza."""
+    import mercados_dia as md
+    import modo_modelo as mm
+    L = ['', '=' * 70, '✅ QUÉ METER (la decisión de la app) — %s%s'
+         % (', '.join(dias), (' · ' + ', '.join(deportes)) if deportes else ''), '=' * 70]
+    filas = []
+    for dia in dias:
+        for reg in md.partidos_del_dia(r, dia, con_extras=True):
+            pick = _pick_de(r, reg)
+            if not _con_modelo(pick):
+                continue
+            dep = reg['deporte']
+            for m in _meter(pick):
+                ele = mm.elige(m, dep) and not m.get('elite')
+                real = 0.85 if m.get('elite') else mm.acierta_de_verdad(m, dep)
+                filas.append((0 if ele else 1, dia, reg.get('hora') or '--:--', ele, reg, m, real))
+    if not filas:
+        L.append('Nada que meter en estos días.')
+        return L
+    filas.sort(key=lambda x: (x[0], x[1], x[2]))
+    n_e = sum(1 for f in filas if f[3])
+    L.append('%d apuestas · ⭐ %d ELIGE (las que más se cumplen, primero)' % (len(filas), n_e))
+    for orden, dia, hora, ele, reg, m, real in filas:
+        trozos = ['cuota %s' % _num(m.get('cuota'))] if m.get('cuota') else []
+        if m.get('casa'):
+            trozos.append(str(m['casa']))
+        if real is not None:
+            trozos.append('acierta de verdad %s' % _pct(real))
+        est = _estado_fijada(m)
+        if est:
+            trozos.append(est)
+        L.append('%s %s %s · %s · %s — %s · %s'
+                 % ('⭐' if ele else ('🏆' if m.get('elite') else '•'), dia[5:], hora,
+                    reg['deporte'], reg['partido'], m.get('apuesta'), ' · '.join(trozos)))
+    L.append('❌ Todo lo que no está en esta lista: NO se mete.')
+    return L
+
+
+def texto(r: Dict, dias: List[str], deportes=None) -> str:
+    """El documento de uno o varios días, listo para pegar en una IA.
+    v369 — `deportes` (p. ej. ['⚽ Fútbol', '🏀 Básquetbol']): sólo esos."""
     import datetime as _dt
     import mercados_dia as md
+    r = filtrar_deportes(r, deportes)
     L = ['PREDICTOR DEPORTIVO — DATOS PARA ANÁLISIS',
-         'Días: %s · generado %s UTC' % (', '.join(dias),
-                                         _dt.datetime.utcnow().strftime(
-                                             '%Y-%m-%d %H:%M')),
-         '', GUIA]
+         'Días: %s · generado %s UTC%s' % (', '.join(dias),
+                                           _dt.datetime.utcnow().strftime(
+                                               '%Y-%m-%d %H:%M'),
+                                           (' · deportes: ' + ', '.join(deportes))
+                                           if deportes else ' · todos los deportes')]
+    L += que_meter(r, dias, deportes)
+    L += ['', GUIA]
     L += balance_app(dias)
     total_meter = 0
     for dia in dias:
@@ -692,11 +768,29 @@ def texto(r: Dict, dias: List[str]) -> str:
     return '\n'.join(L)
 
 
-def resumen(r: Dict, dias: List[str], etiqueta: str) -> str:
-    """El pie corto del adjunto de Telegram."""
+def resumen(r: Dict, dias: List[str], etiqueta: str, deportes=None) -> str:
+    """El pie corto del adjunto de Telegram.
+    v369 — con los deportes elegidos y las primeras «qué meter»."""
     import mercados_dia as md
+    r = filtrar_deportes(r, deportes)
     n = sum(len(md.partidos_del_dia(r, d, con_extras=False)) for d in dias)
-    return ('📋 *%s* (%s)\n%d partidos con todos sus datos y las apuestas '
-            '«🎯 meter» de la app.\n_Formato pensado para pegarlo en tu agente '
-            'de IA: lleva al principio la guía de lectura._'
-            % (etiqueta, ', '.join(dias), n))[:1000]
+    try:
+        qm = [x for x in que_meter(r, dias, deportes)
+              if x[:1] in ('⭐', '🏆', '•')]
+    except Exception:
+        qm = []
+    cab = ('📋 *%s* (%s) · %s\n%d partidos · %d para meter (⭐ %d)'
+           % (etiqueta, ', '.join(dias), ', '.join(deportes) if deportes else 'todos los deportes',
+              n, len(qm), sum(1 for x in qm if x.startswith('⭐'))))
+    pie = '\n_El adjunto empieza por «✅ QUÉ METER»: es la decisión de la app._'
+    # el pie de un adjunto de Telegram admite 1.024 caracteres: líneas enteras
+    lineas, largo = [], len(cab) + len(pie) + 40
+    for x in qm:
+        x = x.replace('*', '').replace('_', ' ')
+        if largo + len(x) + 1 > 1000:
+            break
+        lineas.append(x)
+        largo += len(x) + 1
+    resto = len(qm) - len(lineas)
+    return (cab + ''.join('\n' + x for x in lineas)
+            + ('\n…y %d más en el adjunto' % resto if resto else '') + pie)[:1024]

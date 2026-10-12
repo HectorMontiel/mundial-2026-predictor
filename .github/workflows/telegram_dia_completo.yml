@@ -16,6 +16,10 @@ on:
         description: 'Mandar sólo el día de hoy'
         type: boolean
         default: false
+      deportes:
+        description: 'Deportes (vacío = todos). Ej.: futbol · nba · futbol,nba · tenis,nhl'
+        type: string
+        default: ''
 
 jobs:
   enviar_dia_completo:
@@ -53,5 +57,6 @@ jobs:
           API_FOOTBALL_KEY: ${{ secrets.API_FOOTBALL_KEY }}
           PYTHONIOENCODING: utf-8
           PYTHONUTF8: '1'
+          DEPORTES_ENVIO: ${{ inputs.deportes }}
         run: |
-          python bot_dia_completo.py ${{ inputs.solo_hoy && '--solo-hoy' || '' }}
+          python bot_dia_completo.py ${{ inputs.solo_hoy && '--solo-hoy' || '' }} --deportes "$DEPORTES_ENVIO"

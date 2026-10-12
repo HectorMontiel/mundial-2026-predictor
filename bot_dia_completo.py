@@ -29,6 +29,7 @@ Uso:
     python bot_dia_completo.py              # hoy y mañana
     python bot_dia_completo.py --solo-hoy
     python bot_dia_completo.py --dry-run    # no envía, sólo imprime
+    python bot_dia_completo.py --deportes futbol,nba   # v369: sólo esos
 """
 
 import logging
@@ -52,6 +53,14 @@ def main() -> int:
     import mercados_dia as md
 
     seco = '--dry-run' in sys.argv
+    # v369 — «sólo fútbol, sólo básquetbol, o combinados»
+    import formato_ia as _fi_d
+    deportes = []
+    for i, a in enumerate(sys.argv):
+        if a == '--deportes' and i + 1 < len(sys.argv):
+            deportes = _fi_d.deportes_de_texto(sys.argv[i + 1])
+        elif a.startswith('--deportes='):
+            deportes = _fi_d.deportes_de_texto(a.split('=', 1)[1])
     dias = [(0, 'HOY')] if '--solo-hoy' in sys.argv else [(0, 'HOY'),
                                                           (1, 'MAÑANA')]
 
@@ -76,8 +85,8 @@ def main() -> int:
     for desplazamiento, etiqueta in dias:
         dia = md.dia_cdmx(desplazamiento)
         try:
-            texto = fi.texto(r, [dia])
-            pie = fi.resumen(r, [dia], etiqueta)
+            texto = fi.texto(r, [dia], deportes)
+            pie = fi.resumen(r, [dia], etiqueta, deportes)
         except Exception as e:
             logger.error('No se pudo construir el día %s: %s: %s', dia,
                          type(e).__name__, e)

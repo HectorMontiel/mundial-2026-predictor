@@ -5350,6 +5350,15 @@ def render_alpha_finder():
     # se llena más abajo, cuando el barrido ya está cargado.
     _hueco_marcador = st.empty()
     with st.expander('📤 Enviar a Telegram y exportar', expanded=False):
+        # v369 — «quiero poder decirle de qué deporte quiero mandar: sólo
+        # fútbol, o sólo básquetbol, o combinados». Vale para los cinco envíos.
+        try:
+            import formato_ia as _fia_d
+            st.multiselect('Deportes a enviar', list(_fia_d.DEPORTES_ENVIO),
+                           key='tg_deportes', placeholder='Todos los deportes',
+                           help='Vacío = todos. Elige uno o varios: sólo eso se manda.')
+        except Exception as _e_tgd:
+            logger.debug('[alpha] deportes a enviar: %s', _e_tgd)
         cacc2, cacc3, cacc4 = st.columns(3)
         if cacc2.button("📤 Enviar a Telegram ahora", key='tg_send_top',
                         width='stretch', type="primary",
@@ -5444,7 +5453,10 @@ def render_alpha_finder():
         try:
             import bot_telegram
             # se le pasa el barrido YA calculado: cero trabajo repetido
-            msg = bot_telegram.construir_mensaje(r)
+            # v369 — sólo los deportes elegidos
+            import formato_ia as _fia_m
+            msg = bot_telegram.construir_mensaje(
+                _fia_m.filtrar_deportes(r, st.session_state.get('tg_deportes') or []))
             if bot_telegram.enviar(msg):
                 st.success("✅ Enviado a Telegram.")
             else:
@@ -5475,8 +5487,9 @@ def render_alpha_finder():
             _dia = _dias[0] if len(_dias) == 1 else '%s_a_%s' % (_dias[0],
                                                                  _dias[-1])
             with st.spinner(f"Preparando todas las apuestas de {_etq.lower()}…"):
-                _txt = _fia.texto(r, _dias)
-                _pie = _fia.resumen(r, _dias, _etq)
+                _deps_tg = list(st.session_state.get('tg_deportes') or [])
+                _txt = _fia.texto(r, _dias, _deps_tg)
+                _pie = _fia.resumen(r, _dias, _etq, _deps_tg)
                 _ok = _bt_dia.enviar_documento(_txt, f"apuestas_{_dia}.txt",
                                                _pie)
             st.session_state['_dia_completo_listo'] = {
