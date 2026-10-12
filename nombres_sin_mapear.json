@@ -223,9 +223,9 @@
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.6957,
-    "visto": "2026-10-11"
+    "candidato": "Real Pilar",
+    "ratio": 0.5714,
+    "visto": "2026-10-12"
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
@@ -1895,8 +1895,8 @@
   },
   "VfB Stuttgart": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "VfB Lubeck",
-    "ratio": 0.4348,
+    "candidato": "Stuttgart II",
+    "ratio": 0.72,
     "visto": "2026-10-12"
   },
   "Sarmiento (Junín)": {
@@ -1967,8 +1967,8 @@
   },
   "Hapoel Be'er": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Hapoel Azor",
-    "ratio": 0.6957,
+    "candidato": "Hapoel Bnei Musmus",
+    "ratio": 0.6667,
     "visto": "2026-10-12"
   },
   "Omonia Nicosia": {
@@ -2041,6 +2041,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Shamal (Qat)",
     "ratio": 0.6316,
+    "visto": "2026-10-12"
+  },
+  "TSG Hoffenheim": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Hoffenheim II",
+    "ratio": 0.7407,
     "visto": "2026-10-12"
   }
 }
