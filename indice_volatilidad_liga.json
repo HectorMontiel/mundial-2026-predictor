@@ -1,11 +1,11 @@
 {
  "medido": true,
- "fecha": "2026-10-05",
+ "fecha": "2026-10-12",
  "n_competiciones": 77,
  "fuente_nivel": "ECE medio de Más 1,5 / Más 2,5 / Ambos marcan en pick_ledger_totales.csv (sin cuotas)",
  "fuente_ivl": "historico_*.csv, últimos 3 años",
  "cortes_ece": {
-  "p25": 0.0443,
+  "p25": 0.0415,
   "mediana": 0.0536,
   "p75": 0.0681,
   "min": 0.0217,
@@ -13,11 +13,11 @@
   "n_ligas": 61
  },
  "cortes_ivl": {
-  "p25": 0.5865,
-  "mediana": 0.608,
-  "p75": 0.6457,
-  "min": 0.5238,
-  "max": 0.725,
+  "p25": 0.5866,
+  "mediana": 0.6082,
+  "p75": 0.6437,
+  "min": 0.5283,
+  "max": 0.7256,
   "n_ligas": 77
  },
  "ivl_bloquea": false,
@@ -89,7 +89,7 @@
   },
   "arg_primera_nacional": {
    "nivel": "media",
-   "motivo": "ECE 0.0522 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0522 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0522,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1744,
@@ -110,48 +110,48 @@
      "sesgo": -0.0026
     }
    },
-   "ivl": 0.725,
-   "vmr": 0.9589,
-   "media_goles": 1.8246,
-   "sd_goles": 1.3227,
-   "n_partidos_goles": 1955,
+   "ivl": 0.7256,
+   "vmr": 0.9612,
+   "media_goles": 1.8255,
+   "sd_goles": 1.3246,
+   "n_partidos_goles": 1937,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-15",
     "2026-09-14"
    ],
    "liga_de_pocos_goles": true
   },
   "argentina": {
-   "nivel": "media",
-   "motivo": "ECE 0.0471 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
-   "ece_medio": 0.0471,
+   "nivel": "baja",
+   "motivo": "ECE 0.0348 — mejor cuarto (corte 0.0415)",
+   "ece_medio": 0.0348,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 1876,
+   "n_partidos_ece": 1873,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 1876,
-     "ece": 0.0265,
-     "sesgo": 0.0041
+     "n": 1873,
+     "ece": 0.0097,
+     "sesgo": 0.004
     },
     "Goles 2.5": {
-     "n": 1876,
-     "ece": 0.0322,
-     "sesgo": -0.0046
+     "n": 1873,
+     "ece": 0.0233,
+     "sesgo": -0.0041
     },
     "BTTS": {
-     "n": 1876,
-     "ece": 0.0825,
-     "sesgo": 0.0056
+     "n": 1873,
+     "ece": 0.0714,
+     "sesgo": 0.0122
     }
    },
-   "ivl": 0.7065,
-   "vmr": 1.0221,
-   "media_goles": 2.0475,
-   "sd_goles": 1.4466,
+   "ivl": 0.7035,
+   "vmr": 1.0157,
+   "media_goles": 2.0525,
+   "sd_goles": 1.4439,
    "n_partidos_goles": 1601,
    "ventana_goles": [
-    "2023-10-07",
-    "2026-09-22"
+    "2023-10-16",
+    "2026-10-06"
    ],
    "liga_de_pocos_goles": true
   },
@@ -191,7 +191,7 @@
   },
   "aut_bundesliga": {
    "nivel": "media",
-   "motivo": "ECE 0.0575 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0575 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0575,
    "n_lineas_ece": 3,
    "n_partidos_ece": 760,
@@ -212,20 +212,20 @@
      "sesgo": 0.0238
     }
    },
-   "ivl": 0.6038,
-   "vmr": 0.9856,
-   "media_goles": 2.7037,
-   "sd_goles": 1.6324,
-   "n_partidos_goles": 567,
+   "ivl": 0.6061,
+   "vmr": 0.9909,
+   "media_goles": 2.697,
+   "sd_goles": 1.6347,
+   "n_partidos_goles": 561,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "bel_pro_league": {
    "nivel": "media",
-   "motivo": "ECE 0.0536 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0536 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0536,
    "n_lineas_ece": 3,
    "n_partidos_ece": 783,
@@ -246,20 +246,20 @@
      "sesgo": 0.0189
     }
    },
-   "ivl": 0.6038,
-   "vmr": 1.0087,
-   "media_goles": 2.7667,
-   "sd_goles": 1.6706,
-   "n_partidos_goles": 926,
+   "ivl": 0.6056,
+   "vmr": 1.0128,
+   "media_goles": 2.7614,
+   "sd_goles": 1.6724,
+   "n_partidos_goles": 918,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "bol_division": {
    "nivel": "media",
-   "motivo": "ECE 0.0627 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0627 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0627,
    "n_lineas_ece": 3,
    "n_partidos_ece": 772,
@@ -280,13 +280,13 @@
      "sesgo": 0.1036
     }
    },
-   "ivl": 0.6091,
-   "vmr": 1.1714,
-   "media_goles": 3.1579,
-   "sd_goles": 1.9234,
-   "n_partidos_goles": 817,
+   "ivl": 0.6082,
+   "vmr": 1.171,
+   "media_goles": 3.1658,
+   "sd_goles": 1.9254,
+   "n_partidos_goles": 808,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-15",
     "2026-09-14"
    ],
    "liga_de_pocos_goles": false
@@ -307,7 +307,7 @@
   },
   "bra_serie_b": {
    "nivel": "media",
-   "motivo": "ECE 0.0565 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0565 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0565,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1002,
@@ -328,54 +328,54 @@
      "sesgo": 0.0503
     }
    },
-   "ivl": 0.6457,
-   "vmr": 0.9313,
-   "media_goles": 2.2341,
-   "sd_goles": 1.4425,
-   "n_partidos_goles": 1115,
+   "ivl": 0.6458,
+   "vmr": 0.9312,
+   "media_goles": 2.2326,
+   "sd_goles": 1.4419,
+   "n_partidos_goles": 1105,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-14",
     "2026-09-15"
    ],
-   "liga_de_pocos_goles": false
+   "liga_de_pocos_goles": true
   },
   "brasil": {
    "nivel": "media",
-   "motivo": "ECE 0.0548 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
-   "ece_medio": 0.0548,
+   "motivo": "ECE 0.0579 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
+   "ece_medio": 0.0579,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 1501,
+   "n_partidos_ece": 1493,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 1501,
-     "ece": 0.0271,
-     "sesgo": 0.0268
+     "n": 1493,
+     "ece": 0.0269,
+     "sesgo": 0.0245
     },
     "Goles 2.5": {
-     "n": 1501,
-     "ece": 0.03,
-     "sesgo": 0.0252
+     "n": 1493,
+     "ece": 0.0297,
+     "sesgo": 0.0225
     },
     "BTTS": {
-     "n": 1501,
-     "ece": 0.1071,
-     "sesgo": 0.0857
+     "n": 1493,
+     "ece": 0.1171,
+     "sesgo": 0.0807
     }
    },
-   "ivl": 0.602,
-   "vmr": 0.9208,
-   "media_goles": 2.5407,
-   "sd_goles": 1.5295,
-   "n_partidos_goles": 1167,
+   "ivl": 0.5958,
+   "vmr": 0.9,
+   "media_goles": 2.535,
+   "sd_goles": 1.5105,
+   "n_partidos_goles": 1170,
    "ventana_goles": [
-    "2023-10-07",
-    "2026-09-20"
+    "2023-10-15",
+    "2026-10-09"
    ],
    "liga_de_pocos_goles": false
   },
   "bundesliga": {
    "nivel": "media",
-   "motivo": "ECE 0.0455 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0455 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0455,
    "n_lineas_ece": 3,
    "n_partidos_ece": 2430,
@@ -396,13 +396,13 @@
      "sesgo": 0.0153
     }
    },
-   "ivl": 0.5552,
-   "vmr": 0.986,
-   "media_goles": 3.1989,
-   "sd_goles": 1.7759,
-   "n_partidos_goles": 900,
+   "ivl": 0.5558,
+   "vmr": 0.9879,
+   "media_goles": 3.1975,
+   "sd_goles": 1.7773,
+   "n_partidos_goles": 891,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
@@ -444,20 +444,20 @@
   "champions_femenil": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.5238,
-   "vmr": 0.979,
-   "media_goles": 3.5678,
-   "sd_goles": 1.8689,
-   "n_partidos_goles": 479,
+   "ivl": 0.5283,
+   "vmr": 0.9905,
+   "media_goles": 3.5482,
+   "sd_goles": 1.8746,
+   "n_partidos_goles": 467,
    "ventana_goles": [
-    "2023-10-10",
+    "2023-10-18",
     "2026-10-01"
    ],
    "liga_de_pocos_goles": false
   },
   "chi_primera": {
    "nivel": "media",
-   "motivo": "ECE 0.058 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.058 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.058,
    "n_lineas_ece": 3,
    "n_partidos_ece": 642,
@@ -478,20 +478,20 @@
      "sesgo": 0.0175
     }
    },
-   "ivl": 0.6021,
-   "vmr": 0.9988,
-   "media_goles": 2.7553,
-   "sd_goles": 1.6589,
-   "n_partidos_goles": 703,
+   "ivl": 0.6027,
+   "vmr": 1.0001,
+   "media_goles": 2.7529,
+   "sd_goles": 1.6593,
+   "n_partidos_goles": 696,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-11-06",
     "2026-09-14"
    ],
    "liga_de_pocos_goles": false
   },
   "china": {
    "nivel": "media",
-   "motivo": "ECE 0.0451 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0451 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0451,
    "n_lineas_ece": 3,
    "n_partidos_ece": 895,
@@ -525,7 +525,7 @@
   },
   "col_primera_a": {
    "nivel": "media",
-   "motivo": "ECE 0.0679 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0679 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0679,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1125,
@@ -546,13 +546,13 @@
      "sesgo": 0.0626
     }
    },
-   "ivl": 0.658,
-   "vmr": 1.0057,
-   "media_goles": 2.3226,
-   "sd_goles": 1.5284,
-   "n_partidos_goles": 1246,
+   "ivl": 0.6577,
+   "vmr": 1.004,
+   "media_goles": 2.3206,
+   "sd_goles": 1.5264,
+   "n_partidos_goles": 1235,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-13",
     "2026-09-15"
    ],
    "liga_de_pocos_goles": true
@@ -614,20 +614,20 @@
      "sesgo": -0.028
     }
    },
-   "ivl": 0.6415,
-   "vmr": 1.0249,
+   "ivl": 0.6412,
+   "vmr": 1.0237,
    "media_goles": 2.4901,
-   "sd_goles": 1.5975,
-   "n_partidos_goles": 710,
+   "sd_goles": 1.5966,
+   "n_partidos_goles": 704,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-17",
     "2026-09-14"
    ],
    "liga_de_pocos_goles": false
   },
   "dinamarca": {
    "nivel": "media",
-   "motivo": "ECE 0.0443 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0443 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0443,
    "n_lineas_ece": 3,
    "n_partidos_ece": 803,
@@ -648,20 +648,20 @@
      "sesgo": 0.0612
     }
    },
-   "ivl": 0.5504,
-   "vmr": 0.9222,
-   "media_goles": 3.0438,
-   "sd_goles": 1.6754,
-   "n_partidos_goles": 571,
+   "ivl": 0.5503,
+   "vmr": 0.9225,
+   "media_goles": 3.046,
+   "sd_goles": 1.6763,
+   "n_partidos_goles": 565,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "ecu_liga_pro": {
    "nivel": "media",
-   "motivo": "ECE 0.0667 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0667 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0667,
    "n_lineas_ece": 3,
    "n_partidos_ece": 682,
@@ -682,13 +682,13 @@
      "sesgo": 0.0537
     }
    },
-   "ivl": 0.6399,
-   "vmr": 1.0119,
-   "media_goles": 2.4713,
-   "sd_goles": 1.5813,
-   "n_partidos_goles": 853,
+   "ivl": 0.64,
+   "vmr": 1.0115,
+   "media_goles": 2.4698,
+   "sd_goles": 1.5806,
+   "n_partidos_goles": 845,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-15"
    ],
    "liga_de_pocos_goles": false
@@ -709,7 +709,7 @@
   },
   "eng_championship": {
    "nivel": "media",
-   "motivo": "ECE 0.0451 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0451 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0451,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1382,
@@ -730,13 +730,13 @@
      "sesgo": 0.0456
     }
    },
-   "ivl": 0.5947,
-   "vmr": 0.9131,
-   "media_goles": 2.5819,
-   "sd_goles": 1.5354,
-   "n_partidos_goles": 1631,
+   "ivl": 0.5954,
+   "vmr": 0.914,
+   "media_goles": 2.5781,
+   "sd_goles": 1.5351,
+   "n_partidos_goles": 1619,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
@@ -757,109 +757,109 @@
   },
   "eng_league_one": {
    "nivel": "baja",
-   "motivo": "ECE 0.0245 — mejor cuarto (corte 0.0443)",
-   "ece_medio": 0.0245,
+   "motivo": "ECE 0.0233 — mejor cuarto (corte 0.0415)",
+   "ece_medio": 0.0233,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 4296,
+   "n_partidos_ece": 4297,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 4296,
-     "ece": 0.0041,
-     "sesgo": 0.0004
+     "n": 4297,
+     "ece": 0.0026,
+     "sesgo": 0.0005
     },
     "Goles 2.5": {
-     "n": 4296,
-     "ece": 0.022,
-     "sesgo": 0.0072
+     "n": 4297,
+     "ece": 0.0199,
+     "sesgo": 0.0069
     },
     "BTTS": {
-     "n": 4296,
-     "ece": 0.0475,
-     "sesgo": 0.0168
+     "n": 4297,
+     "ece": 0.0473,
+     "sesgo": 0.018
     }
    },
-   "ivl": 0.608,
-   "vmr": 0.9723,
-   "media_goles": 2.63,
-   "sd_goles": 1.5991,
-   "n_partidos_goles": 1619,
+   "ivl": 0.6084,
+   "vmr": 0.9737,
+   "media_goles": 2.6304,
+   "sd_goles": 1.6004,
+   "n_partidos_goles": 1610,
    "ventana_goles": [
-    "2023-10-07",
-    "2026-09-26"
+    "2023-10-14",
+    "2026-10-03"
    ],
    "liga_de_pocos_goles": false
   },
   "eng_league_two": {
    "nivel": "baja",
-   "motivo": "ECE 0.0293 — mejor cuarto (corte 0.0443)",
-   "ece_medio": 0.0293,
+   "motivo": "ECE 0.0283 — mejor cuarto (corte 0.0415)",
+   "ece_medio": 0.0283,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 4336,
+   "n_partidos_ece": 4340,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 4336,
-     "ece": 0.0207,
+     "n": 4340,
+     "ece": 0.0231,
      "sesgo": -0.0141
     },
     "Goles 2.5": {
-     "n": 4336,
-     "ece": 0.0172,
+     "n": 4340,
+     "ece": 0.016,
      "sesgo": -0.0148
     },
     "BTTS": {
-     "n": 4336,
-     "ece": 0.05,
-     "sesgo": 0.0223
+     "n": 4340,
+     "ece": 0.0458,
+     "sesgo": 0.0209
     }
    },
-   "ivl": 0.6208,
-   "vmr": 1.0204,
-   "media_goles": 2.6475,
-   "sd_goles": 1.6436,
-   "n_partidos_goles": 1620,
+   "ivl": 0.6218,
+   "vmr": 1.0228,
+   "media_goles": 2.6454,
+   "sd_goles": 1.6449,
+   "n_partidos_goles": 1616,
    "ventana_goles": [
-    "2023-10-07",
-    "2026-09-26"
+    "2023-10-14",
+    "2026-10-03"
    ],
    "liga_de_pocos_goles": false
   },
   "eng_national": {
    "nivel": "baja",
-   "motivo": "ECE 0.0246 — mejor cuarto (corte 0.0443)",
-   "ece_medio": 0.0246,
+   "motivo": "ECE 0.0267 — mejor cuarto (corte 0.0415)",
+   "ece_medio": 0.0267,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 4268,
+   "n_partidos_ece": 4273,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 4268,
-     "ece": 0.0072,
-     "sesgo": -0.0071
+     "n": 4273,
+     "ece": 0.007,
+     "sesgo": -0.007
     },
     "Goles 2.5": {
-     "n": 4268,
-     "ece": 0.0184,
-     "sesgo": -0.0116
+     "n": 4273,
+     "ece": 0.0169,
+     "sesgo": -0.0113
     },
     "BTTS": {
-     "n": 4268,
-     "ece": 0.0482,
-     "sesgo": 0.0273
+     "n": 4273,
+     "ece": 0.0561,
+     "sesgo": 0.0283
     }
    },
-   "ivl": 0.5853,
-   "vmr": 0.9813,
-   "media_goles": 2.8648,
-   "sd_goles": 1.6767,
-   "n_partidos_goles": 1620,
+   "ivl": 0.5846,
+   "vmr": 0.9806,
+   "media_goles": 2.8691,
+   "sd_goles": 1.6773,
+   "n_partidos_goles": 1619,
    "ventana_goles": [
-    "2023-10-07",
-    "2026-09-30"
+    "2023-10-21",
+    "2026-10-03"
    ],
    "liga_de_pocos_goles": false
   },
   "eredivisie": {
    "nivel": "baja",
-   "motivo": "ECE 0.0347 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0347 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0347,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1343,
@@ -880,13 +880,13 @@
      "sesgo": 0.0124
     }
    },
-   "ivl": 0.542,
-   "vmr": 0.9315,
-   "media_goles": 3.1707,
-   "sd_goles": 1.7186,
-   "n_partidos_goles": 920,
+   "ivl": 0.5407,
+   "vmr": 0.9297,
+   "media_goles": 3.18,
+   "sd_goles": 1.7195,
+   "n_partidos_goles": 911,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
@@ -894,48 +894,48 @@
   "esp_copa_rey": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.6396,
-   "vmr": 1.2704,
-   "media_goles": 3.1054,
-   "sd_goles": 1.9862,
-   "n_partidos_goles": 389,
+   "ivl": 0.6388,
+   "vmr": 1.2746,
+   "media_goles": 3.124,
+   "sd_goles": 1.9955,
+   "n_partidos_goles": 379,
    "ventana_goles": [
-    "2023-10-11",
+    "2023-10-31",
     "2026-04-18"
    ],
    "liga_de_pocos_goles": false
   },
   "esp_hypermotion": {
    "nivel": "baja",
-   "motivo": "ECE 0.0333 — mejor cuarto (corte 0.0443)",
-   "ece_medio": 0.0333,
+   "motivo": "ECE 0.0376 — mejor cuarto (corte 0.0415)",
+   "ece_medio": 0.0376,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 2056,
+   "n_partidos_ece": 2061,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 2056,
+     "n": 2061,
      "ece": 0.028,
-     "sesgo": -0.0249
+     "sesgo": -0.0264
     },
     "Goles 2.5": {
-     "n": 2056,
-     "ece": 0.0083,
-     "sesgo": -0.0022
+     "n": 2061,
+     "ece": 0.0184,
+     "sesgo": -0.004
     },
     "BTTS": {
-     "n": 2056,
-     "ece": 0.0637,
-     "sesgo": 0.0578
+     "n": 2061,
+     "ece": 0.0664,
+     "sesgo": 0.0568
     }
    },
-   "ivl": 0.6549,
-   "vmr": 1.0659,
-   "media_goles": 2.4853,
-   "sd_goles": 1.6276,
+   "ivl": 0.6554,
+   "vmr": 1.0696,
+   "media_goles": 2.4905,
+   "sd_goles": 1.6321,
    "n_partidos_goles": 1364,
    "ventana_goles": [
-    "2023-10-06",
-    "2026-09-28"
+    "2023-10-13",
+    "2026-10-05"
    ],
    "liga_de_pocos_goles": true
   },
@@ -990,13 +990,13 @@
   "fem_alemania": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.5647,
-   "vmr": 1.0378,
-   "media_goles": 3.2542,
-   "sd_goles": 1.8378,
-   "n_partidos_goles": 476,
+   "ivl": 0.5662,
+   "vmr": 1.0436,
+   "media_goles": 3.2553,
+   "sd_goles": 1.8432,
+   "n_partidos_goles": 470,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-13",
     "2026-10-04"
    ],
    "liga_de_pocos_goles": false
@@ -1004,13 +1004,13 @@
   "fem_espana": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.6662,
-   "vmr": 1.3018,
-   "media_goles": 2.9328,
-   "sd_goles": 1.9539,
-   "n_partidos_goles": 744,
+   "ivl": 0.6666,
+   "vmr": 1.3065,
+   "media_goles": 2.9402,
+   "sd_goles": 1.9599,
+   "n_partidos_goles": 736,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-14",
     "2026-10-04"
    ],
    "liga_de_pocos_goles": true
@@ -1018,13 +1018,13 @@
   "fem_francia": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.6096,
-   "vmr": 1.2375,
-   "media_goles": 3.3301,
-   "sd_goles": 2.03,
-   "n_partidos_goles": 418,
+   "ivl": 0.6105,
+   "vmr": 1.243,
+   "media_goles": 3.335,
+   "sd_goles": 2.036,
+   "n_partidos_goles": 412,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-13",
     "2026-10-04"
    ],
    "liga_de_pocos_goles": false
@@ -1032,13 +1032,13 @@
   "fem_inglaterra": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.5973,
-   "vmr": 1.1298,
-   "media_goles": 3.1671,
-   "sd_goles": 1.8916,
-   "n_partidos_goles": 425,
+   "ivl": 0.5977,
+   "vmr": 1.1349,
+   "media_goles": 3.1766,
+   "sd_goles": 1.8987,
+   "n_partidos_goles": 419,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-14",
     "2026-10-04"
    ],
    "liga_de_pocos_goles": false
@@ -1046,54 +1046,54 @@
   "fem_italia": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.6274,
-   "vmr": 1.1588,
-   "media_goles": 2.9442,
-   "sd_goles": 1.8471,
-   "n_partidos_goles": 394,
+   "ivl": 0.6289,
+   "vmr": 1.1652,
+   "media_goles": 2.946,
+   "sd_goles": 1.8527,
+   "n_partidos_goles": 389,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-14",
     "2026-10-04"
    ],
    "liga_de_pocos_goles": false
   },
   "finlandia": {
    "nivel": "baja",
-   "motivo": "ECE 0.0422 — mejor cuarto (corte 0.0443)",
-   "ece_medio": 0.0422,
+   "motivo": "ECE 0.0404 — mejor cuarto (corte 0.0415)",
+   "ece_medio": 0.0404,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 645,
+   "n_partidos_ece": 638,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 645,
-     "ece": 0.0181,
-     "sesgo": 0.0032
+     "n": 638,
+     "ece": 0.0096,
+     "sesgo": 0.002
     },
     "Goles 2.5": {
-     "n": 645,
-     "ece": 0.0114,
-     "sesgo": 0.0114
+     "n": 638,
+     "ece": 0.0217,
+     "sesgo": 0.0101
     },
     "BTTS": {
-     "n": 645,
-     "ece": 0.097,
-     "sesgo": 0.0633
+     "n": 638,
+     "ece": 0.0898,
+     "sesgo": 0.0565
     }
    },
-   "ivl": 0.584,
-   "vmr": 0.9965,
-   "media_goles": 2.922,
-   "sd_goles": 1.7064,
-   "n_partidos_goles": 513,
+   "ivl": 0.5875,
+   "vmr": 1.0063,
+   "media_goles": 2.9157,
+   "sd_goles": 1.7129,
+   "n_partidos_goles": 510,
    "ventana_goles": [
-    "2023-10-06",
-    "2026-09-19"
+    "2023-10-21",
+    "2026-10-08"
    ],
    "liga_de_pocos_goles": false
   },
   "fra_ligue2": {
    "nivel": "baja",
-   "motivo": "ECE 0.0403 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0403 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0403,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1564,
@@ -1114,20 +1114,20 @@
      "sesgo": 0.0368
     }
    },
-   "ivl": 0.6569,
-   "vmr": 1.1006,
-   "media_goles": 2.5504,
-   "sd_goles": 1.6754,
-   "n_partidos_goles": 963,
+   "ivl": 0.6546,
+   "vmr": 1.0882,
+   "media_goles": 2.5393,
+   "sd_goles": 1.6624,
+   "n_partidos_goles": 953,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-19"
    ],
    "liga_de_pocos_goles": true
   },
   "ger_bundesliga2": {
    "nivel": "media",
-   "motivo": "ECE 0.0446 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0446 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0446,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1364,
@@ -1148,20 +1148,20 @@
      "sesgo": 0.0411
     }
    },
-   "ivl": 0.5788,
-   "vmr": 1.0127,
-   "media_goles": 3.0233,
-   "sd_goles": 1.7498,
-   "n_partidos_goles": 900,
+   "ivl": 0.5794,
+   "vmr": 1.0154,
+   "media_goles": 3.0247,
+   "sd_goles": 1.7525,
+   "n_partidos_goles": 891,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "gre_super_league": {
    "nivel": "media",
-   "motivo": "ECE 0.051 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.051 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.051,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1066,
@@ -1182,13 +1182,13 @@
      "sesgo": 0.0217
     }
    },
-   "ivl": 0.5758,
-   "vmr": 0.872,
-   "media_goles": 2.6304,
-   "sd_goles": 1.5145,
-   "n_partidos_goles": 698,
+   "ivl": 0.5764,
+   "vmr": 0.8726,
+   "media_goles": 2.6264,
+   "sd_goles": 1.5139,
+   "n_partidos_goles": 696,
    "ventana_goles": [
-    "2023-10-08",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
@@ -1216,48 +1216,48 @@
      "sesgo": 0.029
     }
    },
-   "ivl": 0.5929,
-   "vmr": 0.9659,
-   "media_goles": 2.7474,
-   "sd_goles": 1.629,
-   "n_partidos_goles": 380,
+   "ivl": 0.5957,
+   "vmr": 0.972,
+   "media_goles": 2.7394,
+   "sd_goles": 1.6317,
+   "n_partidos_goles": 376,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-21",
     "2026-05-21"
    ],
    "liga_de_pocos_goles": false
   },
   "irlanda": {
    "nivel": "alta",
-   "motivo": "ECE 0.0699 — peor cuarto de las 61 competiciones medidas (corte 0.0681)",
-   "ece_medio": 0.0699,
+   "motivo": "ECE 0.0751 — peor cuarto de las 61 competiciones medidas (corte 0.0681)",
+   "ece_medio": 0.0751,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 670,
+   "n_partidos_ece": 668,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 670,
-     "ece": 0.0205,
-     "sesgo": 0.0184
+     "n": 668,
+     "ece": 0.0375,
+     "sesgo": 0.0196
     },
     "Goles 2.5": {
-     "n": 670,
-     "ece": 0.0562,
-     "sesgo": 0.029
+     "n": 668,
+     "ece": 0.0467,
+     "sesgo": 0.0292
     },
     "BTTS": {
-     "n": 670,
-     "ece": 0.1331,
-     "sesgo": 0.1051
+     "n": 668,
+     "ece": 0.1409,
+     "sesgo": 0.1102
     }
    },
-   "ivl": 0.6507,
-   "vmr": 1.0504,
-   "media_goles": 2.4806,
-   "sd_goles": 1.6142,
-   "n_partidos_goles": 541,
+   "ivl": 0.6473,
+   "vmr": 1.0435,
+   "media_goles": 2.4907,
+   "sd_goles": 1.6122,
+   "n_partidos_goles": 540,
    "ventana_goles": [
-    "2023-10-06",
-    "2026-09-25"
+    "2023-10-20",
+    "2026-10-08"
    ],
    "liga_de_pocos_goles": true
   },
@@ -1277,7 +1277,7 @@
   },
   "ita_serie_b": {
    "nivel": "media",
-   "motivo": "ECE 0.0643 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0643 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0643,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1697,
@@ -1298,20 +1298,20 @@
      "sesgo": 0.0757
     }
    },
-   "ivl": 0.612,
-   "vmr": 0.9491,
-   "media_goles": 2.5341,
-   "sd_goles": 1.5508,
-   "n_partidos_goles": 1116,
+   "ivl": 0.6123,
+   "vmr": 0.9503,
+   "media_goles": 2.5344,
+   "sd_goles": 1.5519,
+   "n_partidos_goles": 1106,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "jpn_j1": {
    "nivel": "media",
-   "motivo": "ECE 0.0505 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0505 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0505,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1231,
@@ -1366,20 +1366,20 @@
      "sesgo": 0.0603
     }
    },
-   "ivl": 0.5962,
-   "vmr": 1.0478,
-   "media_goles": 2.9481,
-   "sd_goles": 1.7576,
-   "n_partidos_goles": 905,
+   "ivl": 0.5952,
+   "vmr": 1.0463,
+   "media_goles": 2.9533,
+   "sd_goles": 1.7579,
+   "n_partidos_goles": 900,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": false
   },
   "laliga": {
    "nivel": "baja",
-   "motivo": "ECE 0.0353 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0353 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0353,
    "n_lineas_ece": 3,
    "n_partidos_ece": 3038,
@@ -1400,20 +1400,20 @@
      "sesgo": 0.0145
     }
    },
-   "ivl": 0.613,
-   "vmr": 0.9992,
-   "media_goles": 2.6593,
-   "sd_goles": 1.6301,
-   "n_partidos_goles": 1130,
+   "ivl": 0.6153,
+   "vmr": 1.0055,
+   "media_goles": 2.6562,
+   "sd_goles": 1.6343,
+   "n_partidos_goles": 1120,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "leagues_cup": {
-   "nivel": "baja",
-   "motivo": "ECE 0.0415 — mejor cuarto (corte 0.0443)",
+   "nivel": "media",
+   "motivo": "ECE 0.0415 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0415,
    "n_lineas_ece": 3,
    "n_partidos_ece": 3360,
@@ -1434,13 +1434,13 @@
      "sesgo": 0.0569
     }
    },
-   "ivl": 0.5865,
-   "vmr": 1.0271,
-   "media_goles": 2.9858,
-   "sd_goles": 1.7512,
-   "n_partidos_goles": 2685,
+   "ivl": 0.5866,
+   "vmr": 1.0265,
+   "media_goles": 2.9827,
+   "sd_goles": 1.7498,
+   "n_partidos_goles": 2662,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-15",
     "2026-09-15"
    ],
    "liga_de_pocos_goles": false
@@ -1468,54 +1468,54 @@
      "sesgo": -0.0224
     }
    },
-   "ivl": 0.6458,
-   "vmr": 0.9628,
-   "media_goles": 2.3085,
-   "sd_goles": 1.4908,
-   "n_partidos_goles": 457,
+   "ivl": 0.6463,
+   "vmr": 0.9645,
+   "media_goles": 2.3092,
+   "sd_goles": 1.4924,
+   "n_partidos_goles": 456,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-11-04",
     "2026-09-11"
    ],
    "liga_de_pocos_goles": true
   },
   "liga_mx": {
    "nivel": "media",
-   "motivo": "ECE 0.0495 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
-   "ece_medio": 0.0495,
+   "motivo": "ECE 0.0497 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
+   "ece_medio": 0.0497,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1305,
    "ece_por_linea": {
     "Goles 1.5": {
      "n": 1305,
-     "ece": 0.0168,
+     "ece": 0.0169,
      "sesgo": 0.0063
     },
     "Goles 2.5": {
      "n": 1305,
-     "ece": 0.0306,
+     "ece": 0.0307,
      "sesgo": 0.0152
     },
     "BTTS": {
      "n": 1305,
-     "ece": 0.101,
-     "sesgo": 0.0316
+     "ece": 0.1017,
+     "sesgo": 0.0317
     }
    },
-   "ivl": 0.5952,
-   "vmr": 1.0044,
-   "media_goles": 2.8355,
-   "sd_goles": 1.6876,
-   "n_partidos_goles": 1009,
+   "ivl": 0.5976,
+   "vmr": 1.0106,
+   "media_goles": 2.83,
+   "sd_goles": 1.6911,
+   "n_partidos_goles": 1000,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-28"
    ],
    "liga_de_pocos_goles": false
   },
   "ligue_1": {
    "nivel": "baja",
-   "motivo": "ECE 0.0217 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0217 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0217,
    "n_lineas_ece": 3,
    "n_partidos_ece": 2861,
@@ -1536,20 +1536,20 @@
      "sesgo": 0.0201
     }
    },
-   "ivl": 0.6092,
-   "vmr": 1.0529,
-   "media_goles": 2.8367,
-   "sd_goles": 1.7282,
-   "n_partidos_goles": 900,
+   "ivl": 0.6105,
+   "vmr": 1.0563,
+   "media_goles": 2.8341,
+   "sd_goles": 1.7302,
+   "n_partidos_goles": 892,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "mex_expansion": {
    "nivel": "media",
-   "motivo": "ECE 0.0538 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0538 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0538,
    "n_lineas_ece": 3,
    "n_partidos_ece": 701,
@@ -1570,13 +1570,13 @@
      "sesgo": 0.1032
     }
    },
-   "ivl": 0.6042,
-   "vmr": 1.044,
-   "media_goles": 2.8602,
-   "sd_goles": 1.728,
-   "n_partidos_goles": 708,
+   "ivl": 0.6041,
+   "vmr": 1.0431,
+   "media_goles": 2.858,
+   "sd_goles": 1.7266,
+   "n_partidos_goles": 704,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-13",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": false
@@ -1584,54 +1584,54 @@
   "mex_femenil": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.5955,
-   "vmr": 1.1891,
-   "media_goles": 3.3529,
-   "sd_goles": 1.9967,
-   "n_partidos_goles": 986,
+   "ivl": 0.5976,
+   "vmr": 1.1926,
+   "media_goles": 3.3388,
+   "sd_goles": 1.9954,
+   "n_partidos_goles": 974,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-13",
     "2026-10-05"
    ],
    "liga_de_pocos_goles": false
   },
   "mls": {
    "nivel": "baja",
-   "motivo": "ECE 0.0267 — mejor cuarto (corte 0.0443)",
-   "ece_medio": 0.0267,
+   "motivo": "ECE 0.0303 — mejor cuarto (corte 0.0415)",
+   "ece_medio": 0.0303,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 1845,
+   "n_partidos_ece": 1844,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 1845,
-     "ece": 0.0079,
-     "sesgo": -0.0068
+     "n": 1844,
+     "ece": 0.0088,
+     "sesgo": -0.0081
     },
     "Goles 2.5": {
-     "n": 1845,
-     "ece": 0.0177,
-     "sesgo": 0.0152
+     "n": 1844,
+     "ece": 0.0242,
+     "sesgo": 0.0131
     },
     "BTTS": {
-     "n": 1845,
-     "ece": 0.0544,
-     "sesgo": 0.0303
+     "n": 1844,
+     "ece": 0.058,
+     "sesgo": 0.0258
     }
    },
-   "ivl": 0.5873,
-   "vmr": 1.0683,
-   "media_goles": 3.0976,
-   "sd_goles": 1.8191,
-   "n_partidos_goles": 1526,
+   "ivl": 0.5859,
+   "vmr": 1.0628,
+   "media_goles": 3.0965,
+   "sd_goles": 1.8141,
+   "n_partidos_goles": 1513,
    "ventana_goles": [
-    "2023-10-08",
-    "2026-10-02"
+    "2023-10-15",
+    "2026-10-07"
    ],
    "liga_de_pocos_goles": false
   },
   "ned_eerste": {
    "nivel": "media",
-   "motivo": "ECE 0.0489 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0489 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0489,
    "n_lineas_ece": 3,
    "n_partidos_ece": 956,
@@ -1652,20 +1652,20 @@
      "sesgo": 0.0082
     }
    },
-   "ivl": 0.5512,
-   "vmr": 0.9534,
-   "media_goles": 3.1379,
-   "sd_goles": 1.7296,
-   "n_partidos_goles": 1124,
+   "ivl": 0.5519,
+   "vmr": 0.9536,
+   "media_goles": 3.1302,
+   "sd_goles": 1.7277,
+   "n_partidos_goles": 1114,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-14",
     "2026-09-14"
    ],
    "liga_de_pocos_goles": false
   },
   "noruega": {
    "nivel": "media",
-   "motivo": "ECE 0.0586 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0586 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0586,
    "n_lineas_ece": 3,
    "n_partidos_ece": 934,
@@ -1686,20 +1686,20 @@
      "sesgo": 0.0201
     }
    },
-   "ivl": 0.5725,
-   "vmr": 1.0047,
-   "media_goles": 3.065,
-   "sd_goles": 1.7548,
-   "n_partidos_goles": 708,
+   "ivl": 0.5711,
+   "vmr": 1.0008,
+   "media_goles": 3.0686,
+   "sd_goles": 1.7525,
+   "n_partidos_goles": 700,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "par_division": {
    "nivel": "media",
-   "motivo": "ECE 0.0657 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0657 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0657,
    "n_lineas_ece": 3,
    "n_partidos_ece": 648,
@@ -1720,13 +1720,13 @@
      "sesgo": 0.0642
     }
    },
-   "ivl": 0.6704,
-   "vmr": 1.0782,
-   "media_goles": 2.3992,
-   "sd_goles": 1.6084,
-   "n_partidos_goles": 774,
+   "ivl": 0.6706,
+   "vmr": 1.0767,
+   "media_goles": 2.3945,
+   "sd_goles": 1.6057,
+   "n_partidos_goles": 768,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-18",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": true
@@ -1734,14 +1734,14 @@
   "partidos": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.6636,
-   "vmr": 1.2284,
-   "media_goles": 2.7897,
+   "ivl": 0.6643,
+   "vmr": 1.2298,
+   "media_goles": 2.7867,
    "sd_goles": 1.8512,
-   "n_partidos_goles": 3248,
+   "n_partidos_goles": 3249,
    "ventana_goles": [
-    "2023-10-08",
-    "2026-10-05"
+    "2023-10-13",
+    "2026-10-07"
    ],
    "liga_de_pocos_goles": true
   },
@@ -1768,20 +1768,20 @@
      "sesgo": 0.0694
     }
    },
-   "ivl": 0.6203,
-   "vmr": 1.0237,
-   "media_goles": 2.6603,
-   "sd_goles": 1.6503,
-   "n_partidos_goles": 895,
+   "ivl": 0.6199,
+   "vmr": 1.0225,
+   "media_goles": 2.6611,
+   "sd_goles": 1.6495,
+   "n_partidos_goles": 891,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-20",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": false
   },
   "polonia": {
    "nivel": "baja",
-   "motivo": "ECE 0.0393 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0393 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0393,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1154,
@@ -1802,20 +1802,20 @@
      "sesgo": 0.0669
     }
    },
-   "ivl": 0.6119,
-   "vmr": 1.0302,
-   "media_goles": 2.7514,
-   "sd_goles": 1.6836,
-   "n_partidos_goles": 909,
+   "ivl": 0.6131,
+   "vmr": 1.0332,
+   "media_goles": 2.7489,
+   "sd_goles": 1.6853,
+   "n_partidos_goles": 900,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-20",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "premier": {
    "nivel": "baja",
-   "motivo": "ECE 0.0336 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0336 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0336,
    "n_lineas_ece": 3,
    "n_partidos_ece": 3017,
@@ -1836,20 +1836,20 @@
      "sesgo": -0.0218
     }
    },
-   "ivl": 0.5511,
-   "vmr": 0.904,
-   "media_goles": 2.9768,
-   "sd_goles": 1.6405,
-   "n_partidos_goles": 1120,
+   "ivl": 0.5508,
+   "vmr": 0.9039,
+   "media_goles": 2.9793,
+   "sd_goles": 1.641,
+   "n_partidos_goles": 1110,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "primeira": {
    "nivel": "media",
-   "motivo": "ECE 0.0533 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0533 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0533,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1530,
@@ -1870,13 +1870,13 @@
      "sesgo": 0.0521
     }
    },
-   "ivl": 0.5898,
-   "vmr": 0.9318,
-   "media_goles": 2.6783,
-   "sd_goles": 1.5798,
-   "n_partidos_goles": 917,
+   "ivl": 0.5882,
+   "vmr": 0.9279,
+   "media_goles": 2.6817,
+   "sd_goles": 1.5775,
+   "n_partidos_goles": 908,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-27",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
@@ -1904,54 +1904,54 @@
      "sesgo": 0.0391
     }
    },
-   "ivl": 0.7181,
-   "vmr": 1.0565,
-   "media_goles": 2.0486,
-   "sd_goles": 1.4712,
-   "n_partidos_goles": 679,
+   "ivl": 0.7166,
+   "vmr": 1.0535,
+   "media_goles": 2.0516,
+   "sd_goles": 1.4701,
+   "n_partidos_goles": 678,
    "ventana_goles": [
-    "2023-10-08",
+    "2023-10-24",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": true
   },
   "rumania": {
    "nivel": "media",
-   "motivo": "ECE 0.0534 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
-   "ece_medio": 0.0534,
+   "motivo": "ECE 0.0526 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
+   "ece_medio": 0.0526,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 1201,
+   "n_partidos_ece": 1191,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 1201,
-     "ece": 0.027,
-     "sesgo": 0.0048
+     "n": 1191,
+     "ece": 0.0219,
+     "sesgo": 0.0042
     },
     "Goles 2.5": {
-     "n": 1201,
-     "ece": 0.0335,
-     "sesgo": 0.0007
+     "n": 1191,
+     "ece": 0.0244,
+     "sesgo": 0.002
     },
     "BTTS": {
-     "n": 1201,
-     "ece": 0.0998,
-     "sesgo": 0.0735
+     "n": 1191,
+     "ece": 0.1116,
+     "sesgo": 0.0736
     }
    },
-   "ivl": 0.647,
-   "vmr": 1.0324,
-   "media_goles": 2.4663,
-   "sd_goles": 1.5957,
-   "n_partidos_goles": 950,
+   "ivl": 0.6437,
+   "vmr": 1.026,
+   "media_goles": 2.4761,
+   "sd_goles": 1.5939,
+   "n_partidos_goles": 943,
    "ventana_goles": [
-    "2023-10-06",
-    "2026-09-21"
+    "2023-10-19",
+    "2026-10-08"
    ],
-   "liga_de_pocos_goles": true
+   "liga_de_pocos_goles": false
   },
   "rus_premier": {
    "nivel": "media",
-   "motivo": "ECE 0.0537 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0537 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0537,
    "n_lineas_ece": 3,
    "n_partidos_ece": 942,
@@ -1972,54 +1972,54 @@
      "sesgo": 0.0477
     }
    },
-   "ivl": 0.6189,
-   "vmr": 1.0059,
-   "media_goles": 2.6258,
-   "sd_goles": 1.6252,
-   "n_partidos_goles": 660,
+   "ivl": 0.618,
+   "vmr": 1.004,
+   "media_goles": 2.6288,
+   "sd_goles": 1.6246,
+   "n_partidos_goles": 652,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-08-02"
    ],
    "liga_de_pocos_goles": false
   },
   "sco_championship": {
    "nivel": "alta",
-   "motivo": "ECE 0.07 — peor cuarto de las 61 competiciones medidas (corte 0.0681)",
-   "ece_medio": 0.07,
+   "motivo": "ECE 0.0808 — peor cuarto de las 61 competiciones medidas (corte 0.0681)",
+   "ece_medio": 0.0808,
    "n_lineas_ece": 3,
-   "n_partidos_ece": 757,
+   "n_partidos_ece": 759,
    "ece_por_linea": {
     "Goles 1.5": {
-     "n": 757,
-     "ece": 0.0544,
-     "sesgo": 0.0121
+     "n": 759,
+     "ece": 0.0644,
+     "sesgo": 0.0138
     },
     "Goles 2.5": {
-     "n": 757,
-     "ece": 0.0527,
-     "sesgo": 0.0149
+     "n": 759,
+     "ece": 0.0579,
+     "sesgo": 0.0171
     },
     "BTTS": {
-     "n": 757,
-     "ece": 0.1029,
+     "n": 759,
+     "ece": 0.1202,
      "sesgo": 0.0084
     }
    },
-   "ivl": 0.6485,
-   "vmr": 1.0525,
-   "media_goles": 2.5028,
-   "sd_goles": 1.623,
-   "n_partidos_goles": 543,
+   "ivl": 0.6432,
+   "vmr": 1.0404,
+   "media_goles": 2.5148,
+   "sd_goles": 1.6175,
+   "n_partidos_goles": 542,
    "ventana_goles": [
-    "2023-10-07",
-    "2026-09-25"
+    "2023-10-20",
+    "2026-10-03"
    ],
-   "liga_de_pocos_goles": true
+   "liga_de_pocos_goles": false
   },
   "sco_premiership": {
    "nivel": "baja",
-   "motivo": "ECE 0.0355 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0355 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0355,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1803,
@@ -2040,13 +2040,13 @@
      "sesgo": 0.0256
     }
    },
-   "ivl": 0.5686,
-   "vmr": 0.9199,
-   "media_goles": 2.845,
-   "sd_goles": 1.6178,
-   "n_partidos_goles": 684,
+   "ivl": 0.5685,
+   "vmr": 0.9202,
+   "media_goles": 2.8468,
+   "sd_goles": 1.6185,
+   "n_partidos_goles": 679,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
@@ -2054,20 +2054,20 @@
   "selecciones": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.6442,
-   "vmr": 1.1441,
-   "media_goles": 2.7568,
-   "sd_goles": 1.776,
-   "n_partidos_goles": 1863,
+   "ivl": 0.6451,
+   "vmr": 1.1453,
+   "media_goles": 2.7521,
+   "sd_goles": 1.7754,
+   "n_partidos_goles": 1880,
    "ventana_goles": [
-    "2023-10-08",
-    "2026-10-05"
+    "2023-10-13",
+    "2026-10-07"
    ],
-   "liga_de_pocos_goles": false
+   "liga_de_pocos_goles": true
   },
   "serie_a": {
    "nivel": "baja",
-   "motivo": "ECE 0.0407 — mejor cuarto (corte 0.0443)",
+   "motivo": "ECE 0.0407 — mejor cuarto (corte 0.0415)",
    "ece_medio": 0.0407,
    "n_lineas_ece": 3,
    "n_partidos_ece": 3020,
@@ -2088,20 +2088,20 @@
      "sesgo": 0.0114
     }
    },
-   "ivl": 0.6041,
-   "vmr": 0.9292,
-   "media_goles": 2.5464,
-   "sd_goles": 1.5382,
-   "n_partidos_goles": 1120,
+   "ivl": 0.6045,
+   "vmr": 0.9294,
+   "media_goles": 2.5432,
+   "sd_goles": 1.5375,
+   "n_partidos_goles": 1110,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "slv_primera": {
    "nivel": "media",
-   "motivo": "ECE 0.0681 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0681 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0681,
    "n_lineas_ece": 3,
    "n_partidos_ece": 670,
@@ -2122,13 +2122,13 @@
      "sesgo": 0.0372
     }
    },
-   "ivl": 0.6405,
-   "vmr": 1.0237,
-   "media_goles": 2.4957,
-   "sd_goles": 1.5984,
-   "n_partidos_goles": 815,
+   "ivl": 0.643,
+   "vmr": 1.0287,
+   "media_goles": 2.4883,
+   "sd_goles": 1.5999,
+   "n_partidos_goles": 809,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-14",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": false
@@ -2169,7 +2169,7 @@
   },
   "suecia": {
    "nivel": "media",
-   "motivo": "ECE 0.0503 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0503 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0503,
    "n_lineas_ece": 3,
    "n_partidos_ece": 937,
@@ -2190,13 +2190,13 @@
      "sesgo": 0.0205
     }
    },
-   "ivl": 0.5978,
-   "vmr": 1.0255,
-   "media_goles": 2.8696,
-   "sd_goles": 1.7155,
-   "n_partidos_goles": 698,
+   "ivl": 0.5951,
+   "vmr": 1.0208,
+   "media_goles": 2.8826,
+   "sd_goles": 1.7154,
+   "n_partidos_goles": 690,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
@@ -2204,20 +2204,20 @@
   "suiza": {
    "nivel": "sin_medir",
    "motivo": "sin ECE medido en esta competición",
-   "ivl": 0.5632,
-   "vmr": 0.9586,
-   "media_goles": 3.0221,
-   "sd_goles": 1.702,
-   "n_partidos_goles": 634,
+   "ivl": 0.5649,
+   "vmr": 0.9634,
+   "media_goles": 3.0191,
+   "sd_goles": 1.7055,
+   "n_partidos_goles": 628,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-21",
     "2026-05-17"
    ],
    "liga_de_pocos_goles": false
   },
   "turquia": {
    "nivel": "media",
-   "motivo": "ECE 0.0456 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0456 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0456,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1529,
@@ -2238,20 +2238,20 @@
      "sesgo": 0.0435
     }
    },
-   "ivl": 0.6109,
-   "vmr": 1.0531,
-   "media_goles": 2.8213,
-   "sd_goles": 1.7237,
-   "n_partidos_goles": 1013,
+   "ivl": 0.6117,
+   "vmr": 1.0569,
+   "media_goles": 2.8245,
+   "sd_goles": 1.7278,
+   "n_partidos_goles": 1003,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-21",
     "2026-09-20"
    ],
    "liga_de_pocos_goles": false
   },
   "uru_primera": {
    "nivel": "media",
-   "motivo": "ECE 0.058 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.058 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.058,
    "n_lineas_ece": 3,
    "n_partidos_ece": 771,
@@ -2272,20 +2272,20 @@
      "sesgo": 0.0584
     }
    },
-   "ivl": 0.6522,
-   "vmr": 0.9992,
-   "media_goles": 2.3493,
-   "sd_goles": 1.5321,
-   "n_partidos_goles": 919,
+   "ivl": 0.652,
+   "vmr": 1.0009,
+   "media_goles": 2.3542,
+   "sd_goles": 1.535,
+   "n_partidos_goles": 912,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-13",
     "2026-09-14"
    ],
    "liga_de_pocos_goles": true
   },
   "usl_championship": {
    "nivel": "media",
-   "motivo": "ECE 0.0667 — entre el cuartil 1 y el 3 (0.0443-0.0681)",
+   "motivo": "ECE 0.0667 — entre el cuartil 1 y el 3 (0.0415-0.0681)",
    "ece_medio": 0.0667,
    "n_lineas_ece": 3,
    "n_partidos_ece": 1140,
@@ -2306,13 +2306,13 @@
      "sesgo": 0.0035
     }
    },
-   "ivl": 0.6523,
-   "vmr": 1.1369,
-   "media_goles": 2.6717,
-   "sd_goles": 1.7428,
-   "n_partidos_goles": 1130,
+   "ivl": 0.6546,
+   "vmr": 1.1423,
+   "media_goles": 2.6655,
+   "sd_goles": 1.7449,
+   "n_partidos_goles": 1118,
    "ventana_goles": [
-    "2023-10-07",
+    "2023-10-13",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": true
@@ -2340,13 +2340,13 @@
      "sesgo": 0.0745
     }
    },
-   "ivl": 0.66,
-   "vmr": 1.0597,
-   "media_goles": 2.4329,
-   "sd_goles": 1.6057,
-   "n_partidos_goles": 663,
+   "ivl": 0.6624,
+   "vmr": 1.0647,
+   "media_goles": 2.4268,
+   "sd_goles": 1.6075,
+   "n_partidos_goles": 656,
    "ventana_goles": [
-    "2023-10-06",
+    "2023-10-21",
     "2026-09-13"
    ],
    "liga_de_pocos_goles": true

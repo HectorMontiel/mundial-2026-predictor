@@ -1,71 +1,71 @@
 {
  "generado_de": "pick_ledger_total.csv",
- "n_total": 89099,
+ "n_total": 89149,
  "bandas": [
   {
    "desde": 0.5,
    "hasta": 0.55,
-   "n": 11859,
-   "acierto": 0.5244,
-   "acierto_p5": 0.5169,
-   "acierto_p95": 0.5319,
+   "n": 11890,
+   "acierto": 0.5243,
+   "acierto_p5": 0.5167,
+   "acierto_p95": 0.5317,
    "prob_media_modelo": 0.5245,
-   "sesgo": 0.0,
-   "roi": -0.0364,
-   "p5": -0.0509,
+   "sesgo": 0.0002,
+   "roi": -0.0366,
+   "p5": -0.0506,
    "cuota_media": 1.841
   },
   {
    "desde": 0.55,
    "hasta": 0.6,
-   "n": 10326,
-   "acierto": 0.5754,
-   "acierto_p5": 0.5672,
-   "acierto_p95": 0.5833,
+   "n": 10352,
+   "acierto": 0.5766,
+   "acierto_p5": 0.569,
+   "acierto_p95": 0.5845,
    "prob_media_modelo": 0.5739,
-   "sesgo": -0.0016,
-   "roi": -0.0328,
-   "p5": -0.0462,
-   "cuota_media": 1.685
+   "sesgo": -0.0027,
+   "roi": -0.0314,
+   "p5": -0.0452,
+   "cuota_media": 1.684
   },
   {
    "desde": 0.6,
    "hasta": 0.65,
-   "n": 7107,
-   "acierto": 0.6201,
-   "acierto_p5": 0.61,
-   "acierto_p95": 0.6294,
+   "n": 7104,
+   "acierto": 0.6187,
+   "acierto_p5": 0.6094,
+   "acierto_p95": 0.6281,
    "prob_media_modelo": 0.6221,
-   "sesgo": 0.002,
-   "roi": -0.0249,
-   "p5": -0.0401,
-   "cuota_media": 1.574
+   "sesgo": 0.0035,
+   "roi": -0.0275,
+   "p5": -0.0426,
+   "cuota_media": 1.573
   },
   {
    "desde": 0.65,
    "hasta": 0.7,
-   "n": 1698,
-   "acierto": 0.6625,
-   "acierto_p5": 0.6437,
-   "acierto_p95": 0.6802,
+   "n": 1683,
+   "acierto": 0.6655,
+   "acierto_p5": 0.6465,
+   "acierto_p95": 0.6839,
    "prob_media_modelo": 0.6646,
-   "sesgo": 0.0021,
-   "roi": 0.0094,
-   "p5": -0.0185,
+   "sesgo": -0.0009,
+   "roi": 0.0137,
+   "p5": -0.0142,
    "cuota_media": 1.524
   },
   {
    "desde": 0.7,
    "hasta": 0.75,
-   "n": 48,
-   "acierto": 0.6667,
-   "acierto_p5": 0.5625,
-   "acierto_p95": 0.7708,
-   "prob_media_modelo": 0.7148,
-   "sesgo": 0.0481,
-   "roi": 0.0137,
-   "p5": -0.1659,
-   "cuota_media": 1.52
+   "n": 49,
+   "acierto": 0.6531,
+   "acierto_p5": 0.551,
+   "acierto_p95": 0.7551,
+   "prob_media_modelo": 0.7154,
+   "sesgo": 0.0624,
+   "roi": -0.0086,
+   "p5": -0.1955,
+   "cuota_media": 1.519
   },
   {
    "desde": 0.75,
@@ -76,27 +76,27 @@
  "umbrales": [
   {
    "umbral": 0.6,
-   "n": 8854,
-   "pct_partidos": 0.0994,
-   "acierto": 0.6285,
-   "roi": -0.0181,
-   "p5": -0.0312
+   "n": 8837,
+   "pct_partidos": 0.0991,
+   "acierto": 0.6278,
+   "roi": -0.0194,
+   "p5": -0.033
   },
   {
    "umbral": 0.65,
-   "n": 1747,
-   "pct_partidos": 0.0196,
-   "acierto": 0.6629,
-   "roi": 0.0099,
-   "p5": -0.0182
+   "n": 1733,
+   "pct_partidos": 0.0194,
+   "acierto": 0.6653,
+   "roi": 0.0135,
+   "p5": -0.0158
   },
   {
    "umbral": 0.7,
-   "n": 49,
-   "pct_partidos": 0.0005,
-   "acierto": 0.6735,
-   "roi": 0.0267,
-   "p5": -0.1531
+   "n": 50,
+   "pct_partidos": 0.0006,
+   "acierto": 0.66,
+   "roi": 0.0046,
+   "p5": -0.1723
   },
   {
    "umbral": 0.75,
@@ -114,171 +114,171 @@
    {
     "desde": 0.5,
     "hasta": 0.55,
-    "n": 40430,
-    "acierto": 0.5187,
+    "n": 40436,
+    "acierto": 0.5205,
     "prob_media_modelo": 0.5243,
-    "sesgo": 0.0055,
-    "acierto_p5": 0.5146
+    "sesgo": 0.0038,
+    "acierto_p5": 0.5164
    },
    {
     "desde": 0.55,
     "hasta": 0.6,
-    "n": 30655,
-    "acierto": 0.5629,
-    "prob_media_modelo": 0.5735,
-    "sesgo": 0.0107,
-    "acierto_p5": 0.5583
+    "n": 30653,
+    "acierto": 0.5626,
+    "prob_media_modelo": 0.5734,
+    "sesgo": 0.0109,
+    "acierto_p5": 0.558
    },
    {
     "desde": 0.6,
     "hasta": 0.65,
-    "n": 25290,
-    "acierto": 0.6262,
+    "n": 25246,
+    "acierto": 0.6267,
     "prob_media_modelo": 0.6252,
-    "sesgo": -0.001,
-    "acierto_p5": 0.6211
+    "sesgo": -0.0015,
+    "acierto_p5": 0.6218
    },
    {
     "desde": 0.65,
     "hasta": 0.7,
-    "n": 32665,
-    "acierto": 0.6864,
+    "n": 32714,
+    "acierto": 0.6866,
     "prob_media_modelo": 0.6767,
-    "sesgo": -0.0097,
-    "acierto_p5": 0.6821
+    "sesgo": -0.0099,
+    "acierto_p5": 0.6823
    },
    {
     "desde": 0.7,
     "hasta": 0.75,
-    "n": 47812,
-    "acierto": 0.7262,
+    "n": 47758,
+    "acierto": 0.7255,
     "prob_media_modelo": 0.7258,
-    "sesgo": -0.0004,
-    "acierto_p5": 0.7229
+    "sesgo": 0.0003,
+    "acierto_p5": 0.722
    },
    {
     "desde": 0.75,
     "hasta": 1.01,
-    "n": 65713,
-    "acierto": 0.7824,
+    "n": 65716,
+    "acierto": 0.7826,
     "prob_media_modelo": 0.7951,
-    "sesgo": 0.0127,
-    "acierto_p5": 0.7798
+    "sesgo": 0.0125,
+    "acierto_p5": 0.7801
    }
   ],
   "BTTS": [
    {
     "desde": 0.5,
     "hasta": 0.55,
-    "n": 27683,
-    "acierto": 0.5059,
+    "n": 27790,
+    "acierto": 0.5035,
     "prob_media_modelo": 0.5245,
-    "sesgo": 0.0186,
-    "acierto_p5": 0.5009
+    "sesgo": 0.021,
+    "acierto_p5": 0.4985
    },
    {
     "desde": 0.55,
     "hasta": 0.6,
-    "n": 22202,
-    "acierto": 0.5218,
+    "n": 22066,
+    "acierto": 0.5217,
     "prob_media_modelo": 0.5736,
-    "sesgo": 0.0518,
-    "acierto_p5": 0.5163
+    "sesgo": 0.0519,
+    "acierto_p5": 0.516
    },
    {
     "desde": 0.6,
     "hasta": 0.65,
-    "n": 14622,
-    "acierto": 0.5334,
-    "prob_media_modelo": 0.623,
-    "sesgo": 0.0896,
-    "acierto_p5": 0.5263
+    "n": 14640,
+    "acierto": 0.5312,
+    "prob_media_modelo": 0.6229,
+    "sesgo": 0.0917,
+    "acierto_p5": 0.5245
    },
    {
     "desde": 0.65,
     "hasta": 0.7,
-    "n": 8568,
-    "acierto": 0.5337,
-    "prob_media_modelo": 0.6723,
-    "sesgo": 0.1386,
-    "acierto_p5": 0.5242
+    "n": 8555,
+    "acierto": 0.5361,
+    "prob_media_modelo": 0.6724,
+    "sesgo": 0.1364,
+    "acierto_p5": 0.5268
    },
    {
     "desde": 0.7,
     "hasta": 0.75,
-    "n": 4225,
-    "acierto": 0.5247,
-    "prob_media_modelo": 0.7216,
-    "sesgo": 0.1968,
-    "acierto_p5": 0.5122
+    "n": 4211,
+    "acierto": 0.5229,
+    "prob_media_modelo": 0.7217,
+    "sesgo": 0.1988,
+    "acierto_p5": 0.5103
    },
    {
     "desde": 0.75,
     "hasta": 1.01,
-    "n": 3555,
-    "acierto": 0.5328,
+    "n": 3579,
+    "acierto": 0.5348,
     "prob_media_modelo": 0.8039,
-    "sesgo": 0.2711,
-    "acierto_p5": 0.5187
+    "sesgo": 0.2691,
+    "acierto_p5": 0.5208
    }
   ],
   "Hándicap": [
    {
     "desde": 0.5,
     "hasta": 0.55,
-    "n": 80767,
-    "acierto": 0.5299,
+    "n": 80753,
+    "acierto": 0.5297,
     "prob_media_modelo": 0.5251,
-    "sesgo": -0.0048,
-    "acierto_p5": 0.527
+    "sesgo": -0.0046,
+    "acierto_p5": 0.5268
    },
    {
     "desde": 0.55,
     "hasta": 0.6,
-    "n": 82346,
-    "acierto": 0.5826,
-    "prob_media_modelo": 0.5751,
-    "sesgo": -0.0075,
-    "acierto_p5": 0.5799
+    "n": 82181,
+    "acierto": 0.5835,
+    "prob_media_modelo": 0.575,
+    "sesgo": -0.0086,
+    "acierto_p5": 0.5807
    },
    {
     "desde": 0.6,
     "hasta": 0.65,
-    "n": 84813,
-    "acierto": 0.639,
-    "prob_media_modelo": 0.6253,
-    "sesgo": -0.0137,
-    "acierto_p5": 0.6363
+    "n": 85094,
+    "acierto": 0.6387,
+    "prob_media_modelo": 0.6252,
+    "sesgo": -0.0135,
+    "acierto_p5": 0.6361
    },
    {
     "desde": 0.65,
     "hasta": 0.7,
-    "n": 91125,
-    "acierto": 0.688,
+    "n": 91317,
+    "acierto": 0.6888,
     "prob_media_modelo": 0.6754,
-    "sesgo": -0.0127,
-    "acierto_p5": 0.6856
+    "sesgo": -0.0134,
+    "acierto_p5": 0.6861
    },
    {
     "desde": 0.7,
     "hasta": 0.75,
-    "n": 100748,
-    "acierto": 0.7389,
+    "n": 100661,
+    "acierto": 0.7386,
     "prob_media_modelo": 0.7254,
-    "sesgo": -0.0135,
-    "acierto_p5": 0.7366
+    "sesgo": -0.0132,
+    "acierto_p5": 0.7363
    },
    {
     "desde": 0.75,
     "hasta": 1.01,
-    "n": 854384,
-    "acierto": 0.8964,
-    "prob_media_modelo": 0.8946,
-    "sesgo": -0.0018,
-    "acierto_p5": 0.8958
+    "n": 854874,
+    "acierto": 0.8962,
+    "prob_media_modelo": 0.8945,
+    "sesgo": -0.0017,
+    "acierto_p5": 0.8957
    }
   ]
  },
- "umbral_recomendado": 0.7,
+ "umbral_recomendado": 0.65,
  "nota": "Acierto REAL por banda de probabilidad, medido fuera de muestra. El acierto no crece con el umbral: se estanca en ~63 % y por encima de 0,75 baja (el modelo sobreconfía en la cola). La pestaña de Máxima Confianza lo muestra junto a la probabilidad del modelo para no prometer lo que no cumple."
 }

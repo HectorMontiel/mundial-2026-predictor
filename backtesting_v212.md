@@ -1,6 +1,6 @@
 # Backtesting v212 — la puerta de activación
 
-Generado por `backtest_v212.py` el 2026-10-05 13:47.
+Generado por `backtest_v212.py` el 2026-10-12 15:26.
 
 ## Criterios de activación (§7.3)
 
@@ -20,32 +20,32 @@ Los ledgers son walk-forward por construcción: `build_ledger_totales.py` recort
 
 | pliegue | picks |
 |---|---|
-| 0 | 18.576 |
-| 1 | 17.686 |
-| 2 | 17.110 |
-| 3 | 17.083 |
-| 4 | 18.614 |
+| 0 | 18.650 |
+| 1 | 17.660 |
+| 2 | 17.071 |
+| 3 | 17.136 |
+| 4 | 18.602 |
 
 ## Modo Seguridad — A (baseline) vs B
 
 | deporte | versión | n | Brier | ECE | hit rate | ROI | p5 | ruina 30d |
 |---|---|---|---|---|---|---|---|---|
-| Fútbol | A baseline | 60.837 | 0.2366 | 0.0098 | 0.4937 | -5.02 % | -5.68 % | +0.00 % |
-| Fútbol | B seguridad | 3.571 | 0.2175 | 0.0083 | 0.6729 | -0.22 % | -2.13 % | +0.00 % |
-| KBO | A baseline | 237 | 0.2420 | 0.0258 | 0.5570 | -1.04 % | -10.87 % | +0.00 % |
-| KBO | B seguridad | 13 | 0.1985 | 0.1492 | 0.7692 | +20.31 % | — | — |
-| NFL | A baseline | 539 | 0.2336 | 0.0303 | 0.6289 | +14.71 % | +7.07 % | +0.00 % |
-| NFL | B seguridad | 68 | 0.1699 | 0.1682 | 0.8235 | +25.36 % | +13.76 % | +0.00 % |
-| Tenis | A baseline | 27.456 | 0.2146 | 0.0337 | 0.6538 | -4.49 % | -5.32 % | +0.00 % |
-| Tenis | B seguridad | 5.295 | 0.2273 | 0.0404 | 0.6451 | -6.18 % | -7.73 % | +0.00 % |
+| Fútbol | A baseline | 60.825 | 0.2367 | 0.0101 | 0.4944 | -4.88 % | -5.54 % | +0.00 % |
+| Fútbol | B seguridad | 3.575 | 0.2185 | 0.0053 | 0.6699 | -0.67 % | -2.63 % | +0.00 % |
+| KBO | A baseline | 251 | 0.2394 | 0.0442 | 0.5817 | +2.92 % | -6.51 % | +0.00 % |
+| KBO | B seguridad | 8 | 0.1671 | 0.2514 | 0.8750 | +34.50 % | — | — |
+| NFL | A baseline | 539 | 0.2397 | 0.0153 | 0.5900 | +7.00 % | -0.10 % | +0.00 % |
+| NFL | B seguridad | 34 | 0.1981 | 0.1010 | 0.7353 | +15.74 % | -4.22 % | +0.00 % |
+| Tenis | A baseline | 27.504 | 0.2146 | 0.0343 | 0.6531 | -4.62 % | -5.46 % | +0.00 % |
+| Tenis | B seguridad | 5.327 | 0.2269 | 0.0373 | 0.6480 | -5.64 % | -7.23 % | +0.00 % |
 
 ## Escalada de líneas 1,5 → 2,5 (la única con precio real)
 
 | versión | n | Brier | ECE | hit rate | ROI | p5 |
 |---|---|---|---|---|---|---|
-| A baseline (todo Más de 2.5) | 40.550 | 0.2470 | 0.0100 | 0.5118 | -4.78 % | -5.55 % |
-| C escalada (ref. superior) | 999 | 0.2370 | 0.0119 | 0.6196 | -2.64 % | -6.40 % |
-| C escalada (ref. base) | 999 | 0.2370 | 0.0119 | 0.6196 | -2.64 % | -6.40 % |
+| A baseline (todo Más de 2.5) | 40.579 | 0.2471 | 0.0090 | 0.5119 | -4.78 % | -5.53 % |
+| C escalada (ref. superior) | 1.009 | 0.2371 | 0.0129 | 0.6184 | -2.83 % | -6.90 % |
+| C escalada (ref. base) | 1.009 | 0.2371 | 0.0129 | 0.6184 | -2.83 % | -6.90 % |
 
 ## Decisión por regla (§7.6, §7.7)
 
@@ -63,10 +63,10 @@ Los ledgers son walk-forward por construcción: `build_ledger_totales.py` recort
 
 no supera los criterios en ningún deporte con muestra suficiente
 
-- **Fútbol**: p5 de bootstrap negativo (-2.13%)
+- **Fútbol**: p5 de bootstrap negativo (-2.63%)
 - **KBO**: muestra vacía o mínima
-- **NFL**: pasa los cuatro criterios
-- **Tenis**: brier empeora (0.2273 contra 0.2146); hit_rate empeora (0.6451 contra 0.6538); roi empeora (-0.0618 contra -0.0449); p5 de bootstrap negativo (-7.73%)
+- **NFL**: p5 de bootstrap negativo (-4.22%)
+- **Tenis**: brier empeora (0.2269 contra 0.2146); hit_rate empeora (0.6480 contra 0.6531); roi empeora (-0.0564 contra -0.0462); p5 de bootstrap negativo (-7.23%)
 
 ### `escalada_lineas` — apagada
 

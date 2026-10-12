@@ -491,8 +491,8 @@
   "esp_copa_rey": {
    "id": 138,
    "nombre": "Copa del Rey",
-   "solape": 0.974,
-   "equipos": 116,
+   "solape": 0.741,
+   "equipos": 112,
    "origen": "conocido",
    "slug": "copa-del-rey"
   },
