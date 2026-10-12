@@ -347,8 +347,8 @@
   },
   "Sporting JAX": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U19",
-    "ratio": 0.6667,
+    "candidato": "Sporting CP",
+    "ratio": 0.7826,
     "visto": "2026-10-12"
   },
   "Atlanta United FC": {
@@ -749,8 +749,8 @@
   },
   "Sporting Kansas City": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting CP U19",
-    "ratio": 0.6,
+    "candidato": "Sporting CP",
+    "ratio": 0.6923,
     "visto": "2026-10-12"
   },
   "Sporting Gijón": {
@@ -983,8 +983,8 @@
   },
   "Gimnasia La Plata": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia Mendoza",
-    "ratio": 0.6061,
+    "candidato": "Gimnasia L.P. 2",
+    "ratio": 0.7742,
     "visto": "2026-10-12"
   },
   "Huddersfield Town": {
@@ -2035,6 +2035,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "PSV U19",
     "ratio": 0.4,
+    "visto": "2026-10-12"
+  },
+  "Al-Shamal": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Shamal (Qat)",
+    "ratio": 0.6316,
     "visto": "2026-10-12"
   }
 }

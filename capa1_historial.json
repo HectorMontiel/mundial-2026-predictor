@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T14:10:14Z",
+"actualizado": "2026-10-12T15:43:09Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5141,6 +5141,16 @@
 "cuota": 2.05,
 "resultado": "rojo",
 "marcador": "4-7"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Nejmeh SC vs Tadamon",
+"apuesta": "Gana Nejmeh SC",
+"cuota": 1.29,
+"resultado": "rojo",
+"marcador": "3-3"
 },
 {
 "dia": "2026-10-12",
