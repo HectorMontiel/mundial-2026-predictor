@@ -12339,22 +12339,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 4653857,2026-07-18,selecciones,England,Jude Bellingham,1077894,M,0,11,2,2,1,0.44,,2.0,134530005.0
 4653857,2026-07-18,selecciones,England,Reece James,807729,D,0,7,0,0,0,0.0,,1.0,49414100.0
 4653857,2026-07-18,selecciones,England,Trevoh Chalobah,793907,D,0,1,0,0,0,0.0,,1.0,46461311.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Pedro Díaz,1432703,G,1,90,0,0,0,0.0,11.0,0.0,426908.0
-1000013495,2026-07-18,per_liga1,Cusco FC,José Zevallos,1133038,D,1,90,0,0,0,0.0,32.0,1.0,183722.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Aldair Fuentes,825017,D,1,90,0,0,0,0.0,34.0,1.0,
-1000013495,2026-07-18,per_liga1,Cusco FC,Álvaro Ampuero,299653,D,1,90,1,0,0,0.0,36.0,1.0,212877.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Ricardo Lagos,1086550,D,1,90,1,0,0,0.0,38.0,1.0,153231.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Diego Soto,1248988,M,1,87,0,0,0,0.0,65.0,2.0,369214.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Lucas Colitto,554051,F,1,71,3,0,0,0.0,82.0,3.0,277200.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Carlo Diez,1028041,M,1,71,0,0,0,0.0,84.0,2.0,246420.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Iván Colman,723512,M,1,87,3,2,1,0.0,86.0,2.0,342662.0
-1000013495,2026-07-18,per_liga1,Cusco FC,José Manzaneda,547816,F,1,59,2,1,1,0.0,88.0,3.0,292969.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Facundo Callejo,444026,F,1,90,6,3,1,0.0,115.0,3.0,313810.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Miguel Silveira,1051504,M,0,31,0,0,0,0.0,,2.0,253146.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Oswaldo Valenzuela,1220855,M,0,19,0,0,0,0.0,,2.0,490520.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Nicolás Silva,645836,F,0,19,1,1,1,0.0,,3.0,226252.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Carlos Gamarra,1605255,D,0,3,0,0,0,0.0,,1.0,364188.0
-1000013495,2026-07-18,per_liga1,Cusco FC,Juan Manuel Tévez,529119,F,0,3,1,0,0,0.0,,3.0,234248.0
 5853436,2026-07-18,rumania,CFR Cluj,Octavian Vâlceanu,1026346,G,1,90,0,0,0,0.0,11.0,0.0,64214.0
 5853436,2026-07-18,rumania,CFR Cluj,Christopher Braun,736514,D,1,90,0,0,0,0.0,32.0,1.0,98082.0
 5853436,2026-07-18,rumania,CFR Cluj,Aly Abeid,675710,D,1,90,0,0,0,0.0,34.0,1.0,309131.0
@@ -12850,21 +12834,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5107539,2026-07-20,suecia,Malmö FF,Isaac Assibu,2076683,F,0,45,2,0,0,0.06,,3.0,
 5107539,2026-07-20,suecia,Malmö FF,Theodor Lundbergh,1837419,M,0,17,0,0,0,0.0,,2.0,946594.0
 5107539,2026-07-20,suecia,Malmö FF,Diego García,1256237,F,0,17,0,0,0,0.0,,3.0,1095039.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Alejandro Duarte,930546,G,1,90,0,0,0,0.0,11.0,0.0,200178.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Luis Advíncula,190522,D,1,90,0,0,0,0.0,32.0,1.0,187275.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Renzo Garcés,751527,D,1,90,0,0,0,0.0,34.0,1.0,661685.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Mateo Antoni,1436169,D,1,90,0,0,0,0.0,36.0,1.0,413520.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Marco Huamán,1248844,D,1,90,1,0,0,0.0,38.0,1.0,684415.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Esteban Pavez,164767,D,1,90,2,0,0,0.0,55.0,1.0,165871.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Fernando Gaibor,200257,M,1,80,0,0,0,0.0,74.0,2.0,214304.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Jairo Vélez,526949,M,1,89,3,2,0,0.0,76.0,2.0,290806.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,José Paolo Guerrero,33101,M,1,70,4,1,0,0.0,95.0,2.0,260305.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Eryc Castillo,458861,F,1,89,8,3,2,0.0,114.0,3.0,398083.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Federico Girotti,994916,F,1,90,5,2,0,0.0,116.0,3.0,988926.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Jesús Castillo,964199,M,0,20,0,0,0,0.0,,2.0,154250.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Alan Cantero,1098460,F,0,10,1,0,0,0.0,,3.0,368219.0
-1000013489,2026-07-20,per_liga1,Alianza Lima,Cristian Neira,1432856,M,0,1,0,0,0,0.0,,2.0,
-1000013489,2026-07-20,per_liga1,Alianza Lima,Jean Archimbaud,547854,M,0,1,0,0,0,0.0,,2.0,
 5103551,2026-07-22,brasil,Palmeiras,Carlos Miguel,1043826,G,1,90,0,0,0,0.0,11.0,0.0,3919884.0
 5103551,2026-07-22,brasil,Palmeiras,Murilo Cerqueira,851514,D,1,90,0,0,0,0.0,33.0,1.0,3247847.0
 5103551,2026-07-22,brasil,Palmeiras,Gustavo Gómez,274392,D,1,90,0,0,0,0.0,35.0,1.0,2231452.0
@@ -16055,22 +16024,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103567,2026-07-30,brasil,Athletico Paranaense,Dudu,1509713,M,0,25,1,0,0,0.11,,2.0,
 5103567,2026-07-30,brasil,Athletico Paranaense,Jorge Rivaldo,1604114,F,0,8,0,0,0,0.0,,3.0,685116.0
 5103567,2026-07-30,brasil,Athletico Paranaense,Juan Aguirre,923698,D,0,1,0,0,0,0.0,,1.0,
-5115900,2026-07-30,argentina,Talleres,Ezequiel Unsain,618946,G,1,90,0,0,0,0.0,11.0,0.0,1462678.0
-5115900,2026-07-30,argentina,Talleres,Augusto Schott,1200762,D,1,86,0,0,0,0.0,33.0,1.0,1081558.0
-5115900,2026-07-30,argentina,Talleres,Santiago Fernández,1437367,D,1,90,0,0,0,0.0,35.0,1.0,2823703.0
-5115900,2026-07-30,argentina,Talleres,Valentín Fascendini,1606009,D,1,90,3,0,0,0.1,37.0,1.0,1155636.0
-5115900,2026-07-30,argentina,Talleres,Timoteo Chamorro,1732523,M,1,64,1,1,0,0.09,62.0,2.0,643182.0
-5115900,2026-07-30,argentina,Talleres,Federico Fattori,616508,M,1,86,0,0,0,0.0,64.0,2.0,615260.0
-5115900,2026-07-30,argentina,Talleres,Matías Galarza,1277340,M,1,90,3,0,0,0.06,66.0,2.0,5638653.0
-5115900,2026-07-30,argentina,Talleres,Gabriel Báez,647991,M,1,90,1,0,0,0.03,68.0,2.0,453752.0
-5115900,2026-07-30,argentina,Talleres,Franco Cristaldo,543317,M,1,90,3,2,0,0.23,84.0,2.0,1849149.0
-5115900,2026-07-30,argentina,Talleres,Rick,1044317,M,1,69,3,0,0,0.07,86.0,2.0,1756912.0
-5115900,2026-07-30,argentina,Talleres,Ronaldo Martínez,659738,F,1,69,2,1,1,0.82,105.0,3.0,2385940.0
-5115900,2026-07-30,argentina,Talleres,Emiliano Chiavassa,1739039,F,0,26,0,0,0,0.0,,3.0,628028.0
-5115900,2026-07-30,argentina,Talleres,Valentín Depietri,1088084,F,0,21,1,0,0,0.1,,3.0,380269.0
-5115900,2026-07-30,argentina,Talleres,Bruno Barticciotto,1128929,F,0,21,0,0,0,0.0,,3.0,1363467.0
-5115900,2026-07-30,argentina,Talleres,Alex Vigo,1017707,D,0,4,2,1,0,0.41,,1.0,453429.0
-5115900,2026-07-30,argentina,Talleres,Valentín Dávila,1695460,F,0,4,1,1,0,0.04,,3.0,1261152.0
 5115900,2026-07-30,argentina,Vélez Sarsfield,Tomás Marchiori,886331,G,1,90,0,0,0,0.0,11.0,0.0,1656941.0
 5115900,2026-07-30,argentina,Vélez Sarsfield,Joaquín García,1200718,D,1,90,0,0,0,0.0,32.0,1.0,2414168.0
 5115900,2026-07-30,argentina,Vélez Sarsfield,Thiago Silvero,1662972,D,1,90,1,1,1,0.1,34.0,1.0,889819.0
@@ -16670,22 +16623,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103571,2026-07-31,brasil,Cruzeiro,Marquinhos,1255210,F,0,20,0,0,0,0.0,,3.0,3126858.0
 5103571,2026-07-31,brasil,Cruzeiro,Lucas Villalba,384587,D,0,4,0,0,0,0.0,,1.0,801693.0
 5103571,2026-07-31,brasil,Cruzeiro,Bruno Rodrigues,683709,F,0,4,0,0,0,0.0,,3.0,958199.0
-5115895,2026-07-31,argentina,Independiente,Rodrigo Rey,443465,G,1,90,0,0,0,0.0,11.0,0.0,654156.0
-5115895,2026-07-31,argentina,Independiente,Leonardo Godoy,630500,D,1,75,0,0,0,0.0,32.0,1.0,923654.0
-5115895,2026-07-31,argentina,Independiente,Juan Fedorco,1299451,D,1,90,2,0,0,0.05,34.0,1.0,736080.0
-5115895,2026-07-31,argentina,Independiente,Sebastián Valdéz,1086733,D,1,64,2,0,0,0.06,36.0,1.0,1135398.0
-5115895,2026-07-31,argentina,Independiente,Facundo Zabala,1033290,D,1,90,2,1,0,0.12,38.0,1.0,1228012.0
-5115895,2026-07-31,argentina,Independiente,Mateo Pérez Curci,1821854,M,1,64,0,0,0,0.0,64.0,2.0,933024.0
-5115895,2026-07-31,argentina,Independiente,Iván Marcone,157868,M,1,90,0,0,0,0.0,66.0,2.0,395326.0
-5115895,2026-07-31,argentina,Independiente,Maximiliano Gutiérrez,1404859,F,1,90,2,1,0,0.09,83.0,3.0,1177216.0
-5115895,2026-07-31,argentina,Independiente,Santiago Gabriel Montiel,1435714,M,1,87,3,2,1,0.18,85.0,2.0,2687557.0
-5115895,2026-07-31,argentina,Independiente,Matías Abaldo,1398532,F,1,46,0,0,0,0.0,87.0,3.0,5275009.0
-5115895,2026-07-31,argentina,Independiente,Gabriel Ávalos,425711,F,1,90,0,0,0,0.0,115.0,3.0,544723.0
-5115895,2026-07-31,argentina,Independiente,Maximiliano Meza,469616,F,0,44,0,0,0,0.0,,3.0,521414.0
-5115895,2026-07-31,argentina,Independiente,Kevin Lomónaco,1206583,D,0,26,0,0,0,0.0,,1.0,9143961.0
-5115895,2026-07-31,argentina,Independiente,David Martínez,1457715,M,0,26,1,0,0,0.03,,2.0,
-5115895,2026-07-31,argentina,Independiente,Santiago Arias,207642,D,0,15,0,0,0,0.0,,1.0,847893.0
-5115895,2026-07-31,argentina,Independiente,Luciano Cabral,527862,M,0,3,0,0,0,0.0,,2.0,853503.0
 5115895,2026-07-31,argentina,Newell's Old Boys,Josué Reinatti,1643843,G,1,90,0,0,0,0.0,11.0,0.0,926074.0
 5115895,2026-07-31,argentina,Newell's Old Boys,Franco Escobar,577681,D,1,90,0,0,0,0.0,32.0,1.0,489036.0
 5115895,2026-07-31,argentina,Newell's Old Boys,Bruno Cabrera,1112939,D,1,90,0,0,0,0.0,34.0,1.0,567919.0
@@ -23459,22 +23396,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014080,2026-08-08,col_primera_a,Fortaleza FC,Andy Batioja,1682123,F,0,17,1,0,0,0.05,,3.0,446052.0
 1000014080,2026-08-08,col_primera_a,Fortaleza FC,Teun Wilke,1391709,F,0,10,1,1,0,0.05,,3.0,467226.0
 1000014080,2026-08-08,col_primera_a,Fortaleza FC,Ítalo Montaño,885505,F,0,9,0,0,0,0.0,,3.0,390281.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Federico Abadía,1606820,G,1,90,0,0,0,0.0,11.0,0.0,288763.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Sebastián Támara,696593,D,1,64,0,0,0,0.0,32.0,1.0,222154.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Diego Calcaterra,1215717,D,1,90,3,1,0,0.29,34.0,1.0,333441.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Leison Ochoa,1901689,D,1,90,0,0,0,0.0,36.0,1.0,
-1000014080,2026-08-08,col_primera_a,Cúcuta,Brayan Montaño,1130913,D,1,90,0,0,0,0.0,38.0,1.0,348772.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Víctor Mejía,466632,M,1,60,0,0,0,0.0,64.0,2.0,248857.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Juan Ceballos,1335215,M,1,70,1,0,0,0.03,66.0,2.0,232618.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Gustavo Torres,930222,F,1,64,1,0,0,0.02,83.0,3.0,215893.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Léider Berdugo,1253514,M,1,90,2,1,0,0.15,85.0,2.0,406740.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Marlon Carabalí,1606813,F,1,64,1,0,0,0.01,87.0,3.0,185465.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Jaime Peralta,1526707,F,1,90,9,3,0,0.87,115.0,3.0,
-1000014080,2026-08-08,col_primera_a,Cúcuta,Samir Mayo,1451002,D,0,30,0,0,0,0.0,,1.0,469813.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Joao Abonía,1471057,D,0,26,0,0,0,0.0,,1.0,343071.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Jader Manyoma,1512761,M,0,26,0,0,0,0.0,,2.0,171628.0
-1000014080,2026-08-08,col_primera_a,Cúcuta,Dayan Pérez,1896338,F,0,26,0,0,0,0.0,,3.0,
-1000014080,2026-08-08,col_primera_a,Cúcuta,Lucas Ríos,1016459,M,0,20,0,0,0,0.0,,2.0,252955.0
 1000016449,2026-08-08,bol_division,The Strongest,Luis Banegas,858039,G,1,90,0,0,0,0.0,11.0,0.0,128965.0
 1000016449,2026-08-08,bol_division,The Strongest,Dilan Saavedra,1671063,D,1,73,0,0,0,0.0,32.0,1.0,
 1000016449,2026-08-08,bol_division,The Strongest,Martín Chiatti,1280912,D,1,90,2,1,0,0.0,34.0,1.0,138764.0
@@ -23760,20 +23681,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014082,2026-08-08,col_primera_a,Santa Fe,Franco Fagúndez,1345056,F,0,44,0,0,0,0.0,,3.0,885694.0
 1000014082,2026-08-08,col_primera_a,Santa Fe,Christian Mafla,282301,D,0,27,0,0,0,0.0,,1.0,343483.0
 1000014082,2026-08-08,col_primera_a,Santa Fe,Weimar Asprilla,1350735,G,0,21,0,0,0,0.0,,0.0,398090.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Branndon Zapata,1897458,G,1,90,0,0,0,0.0,11.0,0.0,
-1000014082,2026-08-08,col_primera_a,Chicó FC,Cristián Mosquera,1364136,D,1,90,0,0,0,0.0,32.0,1.0,157696.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Jefferson Mena,264977,D,1,90,0,0,0,0.0,34.0,1.0,277411.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Sebastián Palma,1020110,D,1,90,0,0,0,0.0,36.0,1.0,326373.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Cristian Blanco,1054271,D,1,90,0,0,0,0.0,38.0,1.0,266822.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Delio Ramírez,1136456,M,1,90,0,0,0,0.0,71.0,2.0,397824.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Sebastián Salazar,617594,M,1,90,0,0,0,0.0,73.0,2.0,257599.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Yesús Cabrera,244905,M,1,78,0,0,0,0.0,75.0,2.0,232373.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Juan Díaz,1189217,M,1,90,1,0,0,0.05,77.0,2.0,363809.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Santiago Mera,1433072,M,1,90,2,1,0,0.42,79.0,2.0,437945.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Isaac Camargo,1411518,F,1,72,2,0,0,0.46,115.0,3.0,298421.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Felipe Cifuentes,1356354,F,0,18,0,0,0,0.0,,3.0,274507.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Estiven Sarria,1466686,F,0,12,0,0,0,0.0,,3.0,152002.0
-1000014082,2026-08-08,col_primera_a,Chicó FC,Sebastián Viveros,1691290,M,0,1,0,0,0,0.0,,2.0,98141.0
 5811714,2026-08-08,bel_pro_league,Westerlo,Andreas Jungdal,1183740,G,1,90,0,0,0,0.0,11.0,0.0,1907082.0
 5811714,2026-08-08,bel_pro_league,Westerlo,Michée Ndembi,1803402,D,1,90,0,0,0,0.0,33.0,1.0,689884.0
 5811714,2026-08-08,bel_pro_league,Westerlo,Seiji Kimura,1122594,D,1,90,0,0,0,0.0,35.0,1.0,1308247.0
@@ -144815,3 +144722,98 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190762,2026-10-11,bra_serie_b,Goiás,Luisão,1460502,D,0,2,0,0,0,0.0,,1.0,605255.0
 5190762,2026-10-11,bra_serie_b,Goiás,Baldória,1743176,M,0,2,0,0,0,0.0,,2.0,582954.0
 5190762,2026-10-11,bra_serie_b,Goiás,Gegé,449639,M,0,2,0,0,0,0.0,,2.0,171295.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Pedro Díaz,1432703,G,1,90,0,0,0,0.0,11.0,0.0,461305.0
+1000017249,2026-10-11,per_liga1,Cusco FC,José Zevallos,1133038,D,1,73,0,0,0,0.0,32.0,1.0,167674.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Aldair Fuentes,825017,D,1,90,0,0,0,0.0,34.0,1.0,
+1000017249,2026-10-11,per_liga1,Cusco FC,Carlos Gamarra,1605255,D,1,90,1,0,0,0.0,36.0,1.0,426596.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Ricardo Lagos,1086550,D,1,90,2,0,0,0.0,38.0,1.0,136188.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Jean Montaño,921807,M,1,90,0,0,0,0.0,65.0,2.0,272486.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Nicolás Silva,645836,F,1,46,0,0,0,0.0,82.0,3.0,183573.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Carlo Diez,1028041,M,1,45,1,0,0,0.0,84.0,2.0,260112.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Iván Colman,723512,M,1,73,0,0,0,0.0,86.0,2.0,402379.0
+1000017249,2026-10-11,per_liga1,Cusco FC,José Manzaneda,547816,F,1,45,1,0,0,0.0,88.0,3.0,191517.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Facundo Callejo,444026,F,1,90,2,0,0,0.0,115.0,3.0,322864.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Álvaro Ampuero,299653,D,0,45,1,0,0,0.0,,1.0,206027.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Marlon Ruidías,1130799,D,0,44,0,0,0,0.0,,1.0,417601.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Diego Soto,1248988,M,0,45,1,1,1,0.0,,2.0,351560.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Lucas Colitto,554051,M,0,17,0,0,0,0.0,,2.0,355200.0
+1000017249,2026-10-11,per_liga1,Cusco FC,Miguel Silveira,1051504,M,0,17,0,0,0,0.0,,2.0,240098.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Alejandro Duarte,930546,G,1,90,0,0,0,0.0,11.0,0.0,272858.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Luis Advíncula,190522,D,1,90,2,1,0,0.0,32.0,1.0,277722.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Renzo Garcés,751527,D,1,90,0,0,0,0.0,34.0,1.0,886967.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Mateo Antoni,1436169,D,1,90,2,1,1,0.0,36.0,1.0,713691.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Marco Huamán,1248844,D,1,90,0,0,0,0.0,38.0,1.0,997963.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Gaspar Gentile,805678,M,1,90,1,1,0,0.0,72.0,2.0,269527.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Gianfranco Chávez,840182,M,1,60,0,0,0,0.0,74.0,2.0,397748.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Fernando Gaibor,200257,M,1,73,1,0,0,0.0,76.0,2.0,153030.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Jairo Vélez,526949,M,1,86,1,0,0,0.0,78.0,2.0,478527.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Kevin Quevedo,831684,F,1,60,2,0,0,0.0,104.0,3.0,394586.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Eryc Castillo,458861,F,1,86,3,1,0,0.0,106.0,3.0,456381.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Jesús Castillo,964199,M,0,30,0,0,0,0.0,,2.0,154250.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Federico Girotti,994916,F,0,30,1,0,0,0.0,,3.0,927174.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Cristian Neira,1432856,M,0,17,0,0,0,0.0,,2.0,
+1000017249,2026-10-11,per_liga1,Alianza Lima,Cristian Carbajal,1031120,D,0,4,0,0,0,0.0,,1.0,296735.0
+1000017249,2026-10-11,per_liga1,Alianza Lima,Nicolás Díaz,841170,D,0,4,0,0,0,0.0,,1.0,848808.0
+1000019566,2026-10-12,argentina,Talleres,Ezequiel Unsain,618946,G,1,90,0,0,0,0.0,11.0,0.0,1441069.0
+1000019566,2026-10-12,argentina,Talleres,Augusto Schott,1200762,D,1,90,0,0,0,0.0,32.0,1.0,974772.0
+1000019566,2026-10-12,argentina,Talleres,Matías Catalán,427912,D,1,90,1,0,0,0.01,34.0,1.0,390679.0
+1000019566,2026-10-12,argentina,Talleres,Román Riquelme,1277345,D,1,90,0,0,0,0.0,36.0,1.0,1418706.0
+1000019566,2026-10-12,argentina,Talleres,Gabriel Báez,647991,D,1,83,0,0,0,0.0,38.0,1.0,453752.0
+1000019566,2026-10-12,argentina,Talleres,Federico Fattori,616508,M,1,71,0,0,0,0.0,64.0,2.0,779752.0
+1000019566,2026-10-12,argentina,Talleres,Matías Galarza,1277340,M,1,90,0,0,0,0.0,66.0,2.0,5835062.0
+1000019566,2026-10-12,argentina,Talleres,Rick,1044317,F,1,88,2,0,0,0.14,83.0,3.0,1766694.0
+1000019566,2026-10-12,argentina,Talleres,Giovanni Baroni,1783366,M,1,82,3,2,0,0.07,85.0,2.0,
+1000019566,2026-10-12,argentina,Talleres,Valentín Depietri,1088084,F,1,70,2,1,0,0.07,87.0,3.0,366774.0
+1000019566,2026-10-12,argentina,Talleres,Valentín Dávila,1695460,F,1,90,2,0,0,0.03,115.0,3.0,2091897.0
+1000019566,2026-10-12,argentina,Talleres,Diego Valoyes,783809,F,0,20,0,0,0,0.0,,3.0,822326.0
+1000019566,2026-10-12,argentina,Talleres,Lautaro Ortíz,1897272,M,0,19,0,0,0,0.0,,2.0,
+1000019566,2026-10-12,argentina,Talleres,Franco Cristaldo,543317,M,0,8,0,0,0,0.0,,2.0,1765375.0
+1000019566,2026-10-12,argentina,Talleres,Alexandro Maidana,1736527,D,0,7,0,0,0,0.0,,1.0,3231196.0
+1000019566,2026-10-12,argentina,Talleres,Emiliano Chiavassa,1739039,F,0,2,0,0,0,0.0,,3.0,644738.0
+1000019566,2026-10-12,argentina,Independiente,Rodrigo Rey,443465,G,1,90,0,0,0,0.0,11.0,0.0,962650.0
+1000019566,2026-10-12,argentina,Independiente,Santiago Arias,207642,D,1,90,0,0,0,0.0,32.0,1.0,857668.0
+1000019566,2026-10-12,argentina,Independiente,Sebastián Valdéz,1086733,D,1,90,0,0,0,0.0,34.0,1.0,1173117.0
+1000019566,2026-10-12,argentina,Independiente,Juan Miguel Arrayago,2102222,D,1,90,0,0,0,0.0,36.0,1.0,
+1000019566,2026-10-12,argentina,Independiente,Nahuel Banegas,1098367,D,1,90,2,0,0,0.16,38.0,1.0,761977.0
+1000019566,2026-10-12,argentina,Independiente,Mateo Pérez Curci,1821854,M,1,89,1,0,0,0.02,64.0,2.0,1631492.0
+1000019566,2026-10-12,argentina,Independiente,Iván Marcone,157868,M,1,90,0,0,0,0.0,66.0,2.0,487652.0
+1000019566,2026-10-12,argentina,Independiente,Santiago Gabriel Montiel,1435714,F,1,90,3,0,0,0.08,83.0,3.0,2734476.0
+1000019566,2026-10-12,argentina,Independiente,Luciano Cabral,527862,M,1,82,4,1,0,0.35,85.0,2.0,842147.0
+1000019566,2026-10-12,argentina,Independiente,Matías Abaldo,1398532,F,1,70,0,0,0,0.0,87.0,3.0,6829601.0
+1000019566,2026-10-12,argentina,Independiente,Ezequiel Ávila,361724,F,1,70,4,1,0,0.13,115.0,3.0,980669.0
+1000019566,2026-10-12,argentina,Independiente,Josias Palais,1842740,M,0,20,0,0,0,0.0,,2.0,
+1000019566,2026-10-12,argentina,Independiente,Iván Morales,785840,F,0,20,1,0,0,0.04,,3.0,1079640.0
+1000019566,2026-10-12,argentina,Independiente,Lautaro Millán,1647589,M,0,8,0,0,0,0.0,,2.0,
+1000019566,2026-10-12,argentina,Independiente,Leonardo Godoy,630500,D,0,1,0,0,0,0.0,,1.0,906643.0
+1000019566,2026-10-12,argentina,Independiente,Felipe Tempone,1929752,F,0,1,0,0,0,0.0,,3.0,
+1000014181,2026-10-11,col_primera_a,Chicó FC,David Agudelo,1054277,G,1,90,0,0,0,0.0,11.0,0.0,159562.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Cristián Mosquera,1364136,D,1,90,2,0,0,0.03,32.0,1.0,154574.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Jhonier Alomía,1413885,D,1,90,0,0,0,0.0,34.0,1.0,70136.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Jefferson Mena,264977,D,1,90,0,0,0,0.0,36.0,1.0,299314.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Cristian Blanco,1054271,D,1,90,2,0,0,0.04,38.0,1.0,264840.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Estiven Sarria,1466686,M,1,90,2,0,0,0.08,72.0,2.0,324187.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Sebastián Salazar,617594,M,1,75,1,0,0,0.1,74.0,2.0,241657.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Juan Díaz,1189217,M,1,90,2,0,0,0.04,76.0,2.0,354469.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Santiago Mera,1433072,M,1,87,4,1,0,0.13,78.0,2.0,459143.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Alejandro Maya,1634975,F,1,64,0,0,0,0.0,104.0,3.0,
+1000014181,2026-10-11,col_primera_a,Chicó FC,Jacobo Pimentel,1339699,F,1,64,0,0,0,0.0,106.0,3.0,354099.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Yesús Cabrera,244905,M,0,26,1,0,0,0.01,,2.0,232172.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Delio Ramírez,1136456,M,0,26,1,0,0,0.08,,2.0,410843.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Felipe Cifuentes,1356354,F,0,15,0,0,0,0.0,,3.0,304950.0
+1000014181,2026-10-11,col_primera_a,Chicó FC,Daniel Polanco,1416603,D,0,3,0,0,0,0.0,,1.0,255068.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Federico Abadía,1606820,G,1,90,0,0,0,0.0,11.0,0.0,285840.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Sebastián Támara,696593,D,1,67,0,0,0,0.0,32.0,1.0,246419.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Hernán Lópes,198569,D,1,90,0,0,0,0.0,34.0,1.0,245420.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Jhon Quiñónes,1512647,D,1,90,0,0,0,0.0,36.0,1.0,
+1000014181,2026-10-11,col_primera_a,Cúcuta,Brayan Montaño,1130913,D,1,90,0,0,0,0.0,38.0,1.0,335724.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Víctor Mejía,466632,M,1,85,0,0,0,0.0,65.0,2.0,272210.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Dayan Pérez,1896338,F,1,72,1,1,1,0.03,82.0,3.0,
+1000014181,2026-10-11,col_primera_a,Cúcuta,Léider Berdugo,1253514,M,1,85,1,0,0,0.28,84.0,2.0,585705.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Neneco,466581,M,1,90,0,0,0,0.0,86.0,2.0,149299.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Gustavo Torres,930222,F,1,72,0,0,0,0.0,88.0,3.0,273099.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Jaime Peralta,1526707,F,1,90,4,3,0,0.54,115.0,3.0,
+1000014181,2026-10-11,col_primera_a,Cúcuta,Joao Abonía,1471057,D,0,23,0,0,0,0.0,,1.0,311549.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Diego Calcaterra,1215717,D,0,18,0,0,0,0.0,,1.0,336643.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Marlon Carabalí,1606813,F,0,18,1,0,0,0.02,,3.0,185465.0
+1000014181,2026-10-11,col_primera_a,Cúcuta,Santiago Vásquez,2028125,M,0,5,0,0,0,0.0,,2.0,
+1000014181,2026-10-11,col_primera_a,Cúcuta,Juan Ceballos,1335215,M,0,5,0,0,0,0.0,,2.0,270383.0

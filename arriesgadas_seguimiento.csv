@@ -148,7 +148,6 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Goles Corinthians: Más de 0.5,goles,equipo,visita,0.5,0.5987,1.87,1.0,1.0
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5983,1.636,11.0,1.0
 2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5734,1.5,11.0,1.0
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5843,1.5,,
 2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta Bahia: Más de 4.5,a_puerta,equipo,local,4.5,0.7664,1.52,2.0,0.0
 2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.7471,1.583,4.0,0.0
 2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros Mirassol: Más de 9.5,tiros,equipo,visita,9.5,0.7192,1.462,10.0,1.0
@@ -179,6 +178,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5501,1.625,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros Valerenga: Más de 13.5,tiros,equipo,visita,13.5,0.6424,1.833,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6056,1.5,,
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5843,1.5,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5835,1.571,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta Valerenga: Más de 4.5,a_puerta,equipo,visita,4.5,0.5816,1.85,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Udinese: Más de 10.5,tiros,equipo,visita,10.5,0.6372,1.5,,
@@ -193,5 +193,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Levante: Más de 3.5,a_puerta,equipo,local,3.5,0.5818,1.6,,
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.5697,1.571,,
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Levante: Más de 11.5,tiros,equipo,local,11.5,0.5627,1.667,,
+2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5705,1.741,,
+2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Córners: Más de 9.5,corners,total,total,9.5,0.5563,1.455,,
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Goles FC Cincinnati: Más de 1.5,goles,equipo,local,1.5,0.6535,1.546,,
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5707,1.556,,
