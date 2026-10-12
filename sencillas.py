@@ -45,6 +45,18 @@ MEDIDO_PATA = 0.78
 MEDIDO_BOLETO = {2: (18, 26), 3: (12, 21), 4: (10, 19), 5: (7, 17)}
 NOMBRE = 'Método Casa 70/130'
 ORIGEN = 'casa70'
+# v372 — «también debe haber ganador, que es lo que más cuota da, pero sólo
+# cuando la casa también esté a favor»: el 🔷 de la Capa 1 (`lo_mejor.
+# del_pick_riesgo`): ganador con la casa sin margen al 55-70 % y el modelo al
+# 70 %+ (60 % si la casa ya da 65 %), cuota 1,35+. Medido fuera de muestra
+# (`_v317_capa1.json`, 2.354 partidos): 71-72 % a cuota media 1,43. En vivo
+# (capa1_historial.json, 3-11 oct): 13 ✅ de 19 a 1,49.
+MEDIDO_GANADOR = 0.72
+ORIGEN_GANADOR = 'riesgo'
+# 🏠 el favorito de la casa, sólo con la casa (ver `ganador_del_partido`)
+FAV_CASA_MIN, FAV_CASA_MAX = 0.62, 0.70
+FAV_CUOTA_MIN, FAV_CUOTA_MAX = 1.35, 1.60
+MEDIDO_FAVORITO = 0.68
 
 
 def _f(x) -> Optional[float]:
@@ -116,6 +128,86 @@ def patas_del_partido(pick: Dict) -> List[Dict]:
 _MEMO: Dict = {}
 
 
+def ganador_del_partido(pick: Dict) -> Optional[Dict]:
+    """v372 — el ganador con la casa a favor, o None:
+    1. 🔷 con el modelo de acuerdo (`lo_mejor.del_pick_riesgo`, 72 %);
+    2. si no, 🏠 el FAVORITO DE LA CASA: sin margen al 62-70 % y cuota
+       1,35-1,60 en Playdoit. Medido sólo con la casa en 125.721 partidos
+       (`_v372_ganador_casa.py`, 2010-2026): 68,1 % a cuota 1,44 (67,4 / 68,9
+       en las dos mitades; 68,6 % desde 2023); al 65-70 %, 70,1 % a 1,40, pero
+       Playdoit casi no tiene favoritos ahí (los pone al 62-65 % a ~1,50). El
+       modelo casi nunca lo ve al 70 % (más bajo que la casa): el 🔷 sale poco."""
+    base = {'partido': pick.get('partido'), 'inicio': pick.get('inicio'),
+            'fecha': pick.get('fecha'), 'clave_liga': pick.get('clave_liga'),
+            'liga': pick.get('liga'), 'deporte': 'Fútbol', 'origen': ORIGEN_GANADOR,
+            'etiqueta': 'Resultado', 'bloque': 'resultado', 'mercado': '1X2', 'linea': None}
+    try:
+        import lo_mejor as lm
+        e = lm.del_pick_riesgo(pick)
+    except Exception:
+        e = None
+    if e:
+        return dict(e, **base, casa=e.get('casa') or 'Playdoit', p_casa=e.get('p_mercado'),
+                    prob=MEDIDO_GANADOR, icono='🔷',
+                    porque='🔷 la casa lo ve al %.0f %% y el modelo al %.0f %% · paga %.2f'
+                            % (100 * float(e.get('p_mercado') or 0),
+                               100 * float(e.get('prob') or 0), float(e.get('cuota') or 0)))
+    try:
+        import mercado_implicito as mi
+        h, a = _lados(pick.get('partido'))
+        tab = mi.del_partido(h, a) or {} if h else {}
+        p1, c1 = tab.get('1x2') or {}, tab.get('1x2_cuotas') or {}
+        mejor = None
+        for lado, eq in (('home', h), ('away', a)):
+            pc, cu = _f(p1.get(lado)), _f(c1.get(lado))
+            if pc is None or cu is None:
+                continue
+            if FAV_CASA_MIN <= pc < FAV_CASA_MAX and FAV_CUOTA_MIN <= cu <= FAV_CUOTA_MAX:
+                if mejor is None or pc > mejor[1]:
+                    mejor = (eq, pc, cu)
+        if mejor:
+            eq, pc, cu = mejor
+            return dict(base, apuesta='Gana %s' % eq, cuota=cu, p_casa=pc, casa='Playdoit',
+                        prob=MEDIDO_FAVORITO, icono='🏠',
+                        porque='🏠 favorito de la casa: lo ve al %.0f %% y paga %.2f' % (100 * pc, cu))
+    except Exception:
+        return None
+    return None
+
+
+def con_ganador(pronosticos: List[Dict], prioridad: str = 'seguras',
+                ahora: Optional[float] = None) -> List[Dict]:
+    """v372 — las sencillas MÁS el 🔷 ganador, una por partido. `seguras`:
+    primero las 🎯 (78 %), luego los 🔷 de los partidos que no tienen 🎯;
+    `cuota`: primero los 🔷 (72 %, ~1,45) y luego las 🎯."""
+    import time
+    try:
+        import horario as hz
+    except Exception:
+        return []
+    t = float(ahora if ahora is not None else time.time())
+    base = del_dia(pronosticos, ahora)
+    gan = []
+    for p in pronosticos or []:
+        if str(p.get('deporte') or 'Fútbol') != 'Fútbol' or p.get('jugado'):
+            continue
+        ini = hz._a_utc(p.get('inicio'))
+        if ini is None or ini.timestamp() <= t:
+            continue
+        g = ganador_del_partido(p)
+        if g:
+            gan.append(g)
+    gan.sort(key=lambda x: -float(x.get('p_casa') or 0))
+    primero, despues = (base, gan) if prioridad != 'cuota' else (gan, base)
+    out, vistos = [], set()
+    for x in primero + despues:
+        if x.get('partido') in vistos:
+            continue
+        vistos.add(x.get('partido'))
+        out.append(x)
+    return out
+
+
 def del_dia(pronosticos: List[Dict], ahora: Optional[float] = None) -> List[Dict]:
     """La mejor pata de cada partido de fútbol por empezar, de la que la casa
     ve más probable a la que menos. Recordado 5 minutos."""
@@ -154,7 +246,10 @@ def boleto(lista: List[Dict], n: int) -> Optional[Dict]:
         return None
     return {'patas': sorted(b, key=lambda x: str(x.get('inicio') or '')),
             'momio': math.prod(float(x['cuota']) for x in b),
-            'prob': MEDIDO_PATA ** len(b), 'completo': len(b) >= int(n)}
+            # v372 — cada pata con lo suyo (🎯 78 %, 🔷 72 %)
+            'prob': math.prod(float(x.get('prob') or MEDIDO_PATA) for x in b),
+            'n_ganador': sum(1 for x in b if x.get('origen') == ORIGEN_GANADOR),
+            'completo': len(b) >= int(n)}
 
 
 def medido(n: int) -> str:

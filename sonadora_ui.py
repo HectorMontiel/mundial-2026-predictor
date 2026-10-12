@@ -217,6 +217,8 @@ def _vigencia_pata(q: Dict, p: Optional[Dict]) -> Dict:
     """Por jugar: ¿la app la sigue metiendo con los datos de ahora?"""
     if q.get('origen') == 'casa70':
         return {'estado': '?', 'texto': '⏳ por jugar · Método Casa 70/130'}
+    if q.get('origen') == 'riesgo':
+        return {'estado': '?', 'texto': '⏳ por jugar · ganador con la casa a favor'}
     if p is None:
         return {'estado': '?', 'texto': 'el partido ya no está en el barrido'}
     try:
@@ -409,10 +411,19 @@ def _sencillas(st, r: Dict, dia: Optional[str] = None) -> None:
         logger.debug('[sonadora] sencillas: %s', e)
         return
     with st.expander('🎯 Sencillas a 1,30+ · %s' % se.NOMBRE, expanded=True):
-        st.caption('Cada pata a cuota 1,30 o más, sólo si la casa la ve al 70 % o más '
-                   '(ahí se queda corta). Medido: 78 % de acierto por pata. Una por '
-                   'partido. Fútbol, en Playdoit.')
-        pats = se.del_dia((r or {}).get('pronosticos') or [])
+        st.caption('🎯 cuota 1,30+ sólo si la casa la ve al 70 %+ (78 % medido). '
+                   'Ganador con la casa a favor, más cuota (~1,40-1,50): 🔷 con el '
+                   'modelo de acuerdo (72 %) o 🏠 favorito de la casa al 62-70 % (68 %, '
+                   '16 años). Una por partido. Fútbol, en Playdoit.')
+        c_g, c_p = st.columns([1, 1])
+        con_g = c_g.checkbox('🔷🏠 Sumar ganador (más cuota)', value=True, key='son_se_ganador')
+        prio = c_p.selectbox('Prioridad', ['🎯 Más seguras primero', '🔷🏠 Más cuota primero'],
+                             key='son_se_prio', disabled=not con_g)
+        if con_g:
+            pats = se.con_ganador((r or {}).get('pronosticos') or [],
+                                  'cuota' if prio.startswith('🔷') else 'seguras')
+        else:
+            pats = se.del_dia((r or {}).get('pronosticos') or [])
         if not pats:
             st.info('Ahora no hay ninguna pata que cumpla la regla (cuota 1,30+ con la '
                     'casa al 70 %+). Mira otro día.')
@@ -420,9 +431,9 @@ def _sencillas(st, r: Dict, dia: Optional[str] = None) -> None:
         n = st.number_input('Patas', min_value=1, max_value=max(1, min(10, len(pats))),
                             value=min(3, len(pats)), step=1, key='son_se_patas')
         b = se.boleto(pats, int(n))
-        st.markdown('**%d patas** · paga **×%.2f** (100 → %s) · sale entero ~**%.0f %%**'
-                    % (len(b['patas']), b['momio'], format(round(100 * b['momio']), ','),
-                       100 * b['prob']))
+        st.markdown('**%d patas**%s · paga **×%.2f** (100 → %s) · sale entero ~**%.0f %%**'
+                    % (len(b['patas']), (' · %d de ganador' % b['n_ganador']) if b.get('n_ganador') else '',
+                       b['momio'], format(round(100 * b['momio']), ','), 100 * b['prob']))
         st.markdown(vc.html_lista(b['patas']), unsafe_allow_html=True)
         st.caption(se.medido(len(b['patas'])) + ' Hay %d patas así hoy.' % len(pats))
         _seguir(st, b['patas'], dia, 'son_se_seguir', se.ORIGEN)
