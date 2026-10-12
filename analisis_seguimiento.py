@@ -29,7 +29,9 @@ logger = logging.getLogger('analisis_seguimiento')
 
 FICHERO = 'analisis_seguimiento.csv'
 CAMPOS = ['dia', 'partido', 'clave_liga', 'inicio', 'obj', 'local', 'visita', 'total',
-          'linea', 'p', 'real', 'cumple']
+          'linea', 'p', 'real', 'cumple',
+          # v368 — y cada equipo: su línea al 70 % y lo que sacó
+          'linea_l', 'p_l', 'linea_v', 'p_v', 'real_l', 'real_v']
 # la estadística de la ficha que corresponde a cada objetivo
 _STAT = {'corners': ('corners_home', 'corners_away'),
          'tarjetas': ('tarjetas_home', 'tarjetas_away'),
@@ -92,7 +94,12 @@ def registrar(pronosticos: List[Dict], ruta: str = FICHERO,
                                'obj': obj, 'local': round(x['local'], 3),
                                'visita': round(x['visita'], 3), 'total': round(x['total'], 3),
                                'linea': x['linea'], 'p': round(x['p'], 4),
-                               'real': None, 'cumple': None})
+                               'real': None, 'cumple': None,
+                               'linea_l': x.get('linea_l'),
+                               'p_l': None if x.get('p_l') is None else round(x['p_l'], 4),
+                               'linea_v': x.get('linea_v'),
+                               'p_v': None if x.get('p_v') is None else round(x['p_v'], 4),
+                               'real_l': None, 'real_v': None})
         if not nuevas:
             return 0
         d = _leer(ruta)
@@ -126,7 +133,8 @@ def liquidar(ruta: str = FICHERO, maximo: int = MAX_FICHAS) -> int:
         d = _leer(ruta)
         if d.empty:
             return 0
-        pend = d[d.real.isna()]
+        # v368 — y lo ya liquidado sin el dato de cada equipo (lo de antes)
+        pend = d[d.real.isna() | d.real_l.isna()]
         if pend.empty:
             return 0
         jug = _jugados()
@@ -139,7 +147,8 @@ def liquidar(ruta: str = FICHERO, maximo: int = MAX_FICHAS) -> int:
             if not p or p.get('goles_home') is None:
                 continue
             if r.obj == 'goles':
-                real = float(p['goles_home']) + float(p['goles_away'])
+                rl, rv = float(p['goles_home']), float(p['goles_away'])
+                real = rl + rv
             else:
                 k = str(r.partido) + '|' + str(r.dia)
                 if k not in fichas:
@@ -158,9 +167,12 @@ def liquidar(ruta: str = FICHERO, maximo: int = MAX_FICHAS) -> int:
                 a, b = _STAT[r.obj]
                 if not st or st.get(a) is None or st.get(b) is None:
                     continue
-                real = float(st[a]) + float(st[b])
+                rl, rv = float(st[a]), float(st[b])
+                real = rl + rv
             d.loc[i, 'real'] = real
             d.loc[i, 'cumple'] = int(real > float(r.linea))
+            d.loc[i, 'real_l'] = rl
+            d.loc[i, 'real_v'] = rv
             n += 1
         d[CAMPOS].to_csv(ruta, index=False)
         return n
@@ -179,10 +191,31 @@ def resumen(ruta: str = FICHERO, dias: int = 14, hoy: Optional[str] = None) -> D
     desde = (_dt.date.fromisoformat(hoy) - _dt.timedelta(days=dias)).isoformat()
     d = d[d.dia.astype(str) >= desde]
     out = {}
+    eq = _por_equipo(d)
     for obj, g in d.groupby('obj'):
         out[obj] = {'n': int(len(g)), 'verdes': int(g.cumple.astype(float).sum()),
+                    'eq_n': eq.get(obj, (0, 0))[0], 'eq_verdes': eq.get(obj, (0, 0))[1],
                     'acierto': round(float(g.cumple.astype(float).mean()), 4),
                     'promete': round(float(g.p.astype(float).mean()), 4)}
+    return out
+
+
+def _por_equipo(d: pd.DataFrame) -> Dict:
+    """v368 — {obj: (líneas de equipo liquidadas, cumplidas)}: la línea de
+    cada equipo (la apuntada o, en lo de antes, la del 70 % de su media)."""
+    out: Dict = {}
+    try:
+        import modo_modelo as mm
+        for r in d[d.real_l.notna()].itertuples(index=False):
+            x = mm.de_lo_archivado(r.obj, r._asdict())
+            n, v = out.get(r.obj, (0, 0))
+            for lado in ('l', 'v'):
+                if x.get('cumple_' + lado) is not None:
+                    n += 1
+                    v += int(x['cumple_' + lado])
+            out[r.obj] = (n, v)
+    except Exception as e:
+        logger.debug('[análisis] por equipo: %s', e)
     return out
 
 

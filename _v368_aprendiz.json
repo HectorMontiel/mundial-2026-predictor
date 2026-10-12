@@ -1,0 +1,639 @@
+{
+ "lineas_juzgadas": 8637,
+ "desde": "2026-09-07",
+ "hasta": "2026-10-09",
+ "calibracion": {
+  "p_mod": {
+   "A": {
+    "logloss": 0.5987,
+    "brier": 0.2076
+   },
+   "B": {
+    "logloss": 0.5835,
+    "brier": 0.2014
+   }
+  },
+  "p_casa": {
+   "A": {
+    "logloss": 0.5945,
+    "brier": 0.2056
+   },
+   "B": {
+    "logloss": 0.5914,
+    "brier": 0.2043
+   }
+  },
+  "p_lgb": {
+   "A": {
+    "logloss": 0.614,
+    "brier": 0.2134
+   },
+   "B": {
+    "logloss": 0.5857,
+    "brier": 0.2021
+   }
+  },
+  "p_log": {
+   "A": {
+    "logloss": 0.5912,
+    "brier": 0.2042
+   },
+   "B": {
+    "logloss": 0.5854,
+    "brier": 0.2018
+   }
+  }
+ },
+ "decision": {
+  "p_mod ≥ 70 %": {
+   "A": {
+    "n": 564,
+    "acierto": 0.7961,
+    "acierto_p5": 0.7626,
+    "cuota": 1.22,
+    "gan_100": -4.9,
+    "gan_p5": -9.4,
+    "menos_pct": 0.511
+   },
+   "B": {
+    "n": 788,
+    "acierto": 0.8464,
+    "acierto_p5": 0.8231,
+    "cuota": 1.213,
+    "gan_100": 1.2,
+    "gan_p5": -2.0,
+    "menos_pct": 0.542
+   },
+   "por_obj": {
+    "goles": {
+     "n": 514,
+     "acierto": 0.9397,
+     "acierto_p5": 0.9217,
+     "cuota": 1.047,
+     "gan_100": -1.8,
+     "gan_p5": -3.7,
+     "menos_pct": 0.582
+    },
+    "corners": {
+     "n": 509,
+     "acierto": 0.7485,
+     "acierto_p5": 0.7134,
+     "cuota": 1.263,
+     "gan_100": -6.2,
+     "gan_p5": -10.7,
+     "menos_pct": 0.438
+    },
+    "tiros": {
+     "n": 29,
+     "acierto": 0.8276,
+     "acierto_p5": 0.7188,
+     "cuota": 1.58,
+     "gan_100": 29.8,
+     "gan_p5": 12.6,
+     "menos_pct": 0.31
+    },
+    "a_puerta": {
+     "n": 132,
+     "acierto": 0.7727,
+     "acierto_p5": 0.7037,
+     "cuota": 1.396,
+     "gan_100": 7.6,
+     "gan_p5": -2.2,
+     "menos_pct": 0.311
+    },
+    "tarjetas": {
+     "n": 168,
+     "acierto": 0.75,
+     "acierto_p5": 0.6864,
+     "cuota": 1.384,
+     "gan_100": 2.4,
+     "gan_p5": -6.3,
+     "menos_pct": 0.851
+    }
+   }
+  },
+  "p_mod ≥ 75 %": {
+   "A": {
+    "n": 398,
+    "acierto": 0.8467,
+    "acierto_p5": 0.8149,
+    "cuota": 1.146,
+    "gan_100": -4.0,
+    "gan_p5": -7.9,
+    "menos_pct": 0.525
+   },
+   "B": {
+    "n": 561,
+    "acierto": 0.8841,
+    "acierto_p5": 0.8635,
+    "cuota": 1.147,
+    "gan_100": 0.3,
+    "gan_p5": -2.4,
+    "menos_pct": 0.556
+   },
+   "por_obj": {
+    "goles": {
+     "n": 511,
+     "acierto": 0.9413,
+     "acierto_p5": 0.9238,
+     "cuota": 1.046,
+     "gan_100": -1.7,
+     "gan_p5": -3.5,
+     "menos_pct": 0.579
+    },
+    "corners": {
+     "n": 278,
+     "acierto": 0.7698,
+     "acierto_p5": 0.7256,
+     "cuota": 1.219,
+     "gan_100": -6.8,
+     "gan_p5": -12.1,
+     "menos_pct": 0.385
+    },
+    "tiros": {
+     "n": 6,
+     "acierto": 0.6667,
+     "acierto_p5": 0.4,
+     "cuota": 1.526,
+     "gan_100": 0.6,
+     "gan_p5": -40.4,
+     "menos_pct": 0.333
+    },
+    "a_puerta": {
+     "n": 56,
+     "acierto": 0.8036,
+     "acierto_p5": 0.7192,
+     "cuota": 1.342,
+     "gan_100": 8.3,
+     "gan_p5": -3.2,
+     "menos_pct": 0.214
+    },
+    "tarjetas": {
+     "n": 108,
+     "acierto": 0.8241,
+     "acierto_p5": 0.7619,
+     "cuota": 1.316,
+     "gan_100": 7.9,
+     "gan_p5": -0.5,
+     "menos_pct": 0.963
+    }
+   }
+  },
+  "p_casa ≥ 70 %": {
+   "A": {
+    "n": 434,
+    "acierto": 0.841,
+    "acierto_p5": 0.8105,
+    "cuota": 1.129,
+    "gan_100": -6.1,
+    "gan_p5": -9.7,
+    "menos_pct": 0.574
+   },
+   "B": {
+    "n": 594,
+    "acierto": 0.8586,
+    "acierto_p5": 0.8355,
+    "cuota": 1.128,
+    "gan_100": -4.1,
+    "gan_p5": -6.8,
+    "menos_pct": 0.611
+   },
+   "por_obj": {
+    "goles": {
+     "n": 514,
+     "acierto": 0.9377,
+     "acierto_p5": 0.9201,
+     "cuota": 1.042,
+     "gan_100": -2.4,
+     "gan_p5": -4.2,
+     "menos_pct": 0.646
+    },
+    "corners": {
+     "n": 444,
+     "acierto": 0.759,
+     "acierto_p5": 0.7255,
+     "cuota": 1.214,
+     "gan_100": -8.2,
+     "gan_p5": -12.3,
+     "menos_pct": 0.536
+    },
+    "tiros": {
+     "n": 0
+    },
+    "a_puerta": {
+     "n": 18,
+     "acierto": 0.7222,
+     "acierto_p5": 0.5556,
+     "cuota": 1.254,
+     "gan_100": -9.1,
+     "gan_p5": -30.4,
+     "menos_pct": 0.167
+    },
+    "tarjetas": {
+     "n": 52,
+     "acierto": 0.8269,
+     "acierto_p5": 0.7308,
+     "cuota": 1.203,
+     "gan_100": -0.5,
+     "gan_p5": -11.2,
+     "menos_pct": 0.75
+    }
+   }
+  },
+  "p_casa ≥ 75 %": {
+   "A": {
+    "n": 287,
+    "acierto": 0.9059,
+    "acierto_p5": 0.8754,
+    "cuota": 1.065,
+    "gan_100": -3.8,
+    "gan_p5": -7.1,
+    "menos_pct": 0.571
+   },
+   "B": {
+    "n": 427,
+    "acierto": 0.9016,
+    "acierto_p5": 0.8787,
+    "cuota": 1.077,
+    "gan_100": -3.4,
+    "gan_p5": -5.9,
+    "menos_pct": 0.66
+   },
+   "por_obj": {
+    "goles": {
+     "n": 512,
+     "acierto": 0.9375,
+     "acierto_p5": 0.9192,
+     "cuota": 1.041,
+     "gan_100": -2.5,
+     "gan_p5": -4.4,
+     "menos_pct": 0.652
+    },
+    "corners": {
+     "n": 167,
+     "acierto": 0.8204,
+     "acierto_p5": 0.7711,
+     "cuota": 1.148,
+     "gan_100": -6.0,
+     "gan_p5": -11.8,
+     "menos_pct": 0.527
+    },
+    "tiros": {
+     "n": 0
+    },
+    "a_puerta": {
+     "n": 3,
+     "acierto": 0.6667,
+     "acierto_p5": 0.3333,
+     "cuota": 1.2,
+     "gan_100": -20.0,
+     "gan_p5": -60.0,
+     "menos_pct": 0.0
+    },
+    "tarjetas": {
+     "n": 32,
+     "acierto": 0.8125,
+     "acierto_p5": 0.6875,
+     "cuota": 1.157,
+     "gan_100": -6.0,
+     "gan_p5": -20.3,
+     "menos_pct": 0.75
+    }
+   }
+  },
+  "p_lgb ≥ 70 %": {
+   "A": {
+    "n": 606,
+    "acierto": 0.7987,
+    "acierto_p5": 0.7686,
+    "cuota": 1.254,
+    "gan_100": -1.6,
+    "gan_p5": -5.6,
+    "menos_pct": 0.541
+   },
+   "B": {
+    "n": 796,
+    "acierto": 0.8229,
+    "acierto_p5": 0.8,
+    "cuota": 1.232,
+    "gan_100": -0.5,
+    "gan_p5": -3.6,
+    "menos_pct": 0.54
+   },
+   "por_obj": {
+    "goles": {
+     "n": 510,
+     "acierto": 0.9353,
+     "acierto_p5": 0.9171,
+     "cuota": 1.054,
+     "gan_100": -1.6,
+     "gan_p5": -3.5,
+     "menos_pct": 0.682
+    },
+    "corners": {
+     "n": 550,
+     "acierto": 0.7309,
+     "acierto_p5": 0.6991,
+     "cuota": 1.278,
+     "gan_100": -7.3,
+     "gan_p5": -11.4,
+     "menos_pct": 0.431
+    },
+    "tiros": {
+     "n": 76,
+     "acierto": 0.7105,
+     "acierto_p5": 0.6144,
+     "cuota": 1.725,
+     "gan_100": 21.3,
+     "gan_p5": 4.8,
+     "menos_pct": 0.092
+    },
+    "a_puerta": {
+     "n": 110,
+     "acierto": 0.8,
+     "acierto_p5": 0.7339,
+     "cuota": 1.39,
+     "gan_100": 11.7,
+     "gan_p5": 2.2,
+     "menos_pct": 0.236
+    },
+    "tarjetas": {
+     "n": 156,
+     "acierto": 0.7564,
+     "acierto_p5": 0.6957,
+     "cuota": 1.385,
+     "gan_100": 3.3,
+     "gan_p5": -5.2,
+     "menos_pct": 0.897
+    }
+   }
+  },
+  "p_lgb ≥ 75 %": {
+   "A": {
+    "n": 476,
+    "acierto": 0.8172,
+    "acierto_p5": 0.7875,
+    "cuota": 1.187,
+    "gan_100": -4.7,
+    "gan_p5": -8.4,
+    "menos_pct": 0.576
+   },
+   "B": {
+    "n": 619,
+    "acierto": 0.8595,
+    "acierto_p5": 0.835,
+    "cuota": 1.171,
+    "gan_100": -0.9,
+    "gan_p5": -3.8,
+    "menos_pct": 0.546
+   },
+   "por_obj": {
+    "goles": {
+     "n": 510,
+     "acierto": 0.9353,
+     "acierto_p5": 0.9177,
+     "cuota": 1.054,
+     "gan_100": -1.6,
+     "gan_p5": -3.5,
+     "menos_pct": 0.682
+    },
+    "corners": {
+     "n": 396,
+     "acierto": 0.7677,
+     "acierto_p5": 0.7324,
+     "cuota": 1.246,
+     "gan_100": -4.8,
+     "gan_p5": -9.3,
+     "menos_pct": 0.399
+    },
+    "tiros": {
+     "n": 14,
+     "acierto": 0.5714,
+     "acierto_p5": 0.352,
+     "cuota": 1.766,
+     "gan_100": -0.9,
+     "gan_p5": -40.3,
+     "menos_pct": 0.0
+    },
+    "a_puerta": {
+     "n": 67,
+     "acierto": 0.7463,
+     "acierto_p5": 0.6575,
+     "cuota": 1.345,
+     "gan_100": 0.6,
+     "gan_p5": -11.2,
+     "menos_pct": 0.134
+    },
+    "tarjetas": {
+     "n": 108,
+     "acierto": 0.7593,
+     "acierto_p5": 0.6916,
+     "cuota": 1.328,
+     "gan_100": -0.6,
+     "gan_p5": -9.6,
+     "menos_pct": 0.898
+    }
+   }
+  },
+  "p_log ≥ 70 %": {
+   "A": {
+    "n": 512,
+    "acierto": 0.8145,
+    "acierto_p5": 0.7831,
+    "cuota": 1.171,
+    "gan_100": -6.0,
+    "gan_p5": -9.9,
+    "menos_pct": 0.535
+   },
+   "B": {
+    "n": 739,
+    "acierto": 0.843,
+    "acierto_p5": 0.8178,
+    "cuota": 1.182,
+    "gan_100": -1.4,
+    "gan_p5": -4.6,
+    "menos_pct": 0.533
+   },
+   "por_obj": {
+    "goles": {
+     "n": 514,
+     "acierto": 0.9339,
+     "acierto_p5": 0.916,
+     "cuota": 1.043,
+     "gan_100": -2.8,
+     "gan_p5": -4.6,
+     "menos_pct": 0.609
+    },
+    "corners": {
+     "n": 498,
+     "acierto": 0.745,
+     "acierto_p5": 0.7104,
+     "cuota": 1.235,
+     "gan_100": -8.5,
+     "gan_p5": -12.8,
+     "menos_pct": 0.424
+    },
+    "tiros": {
+     "n": 5,
+     "acierto": 0.8,
+     "acierto_p5": 0.4,
+     "cuota": 1.514,
+     "gan_100": 21.0,
+     "gan_p5": -39.0,
+     "menos_pct": 0.0
+    },
+    "a_puerta": {
+     "n": 98,
+     "acierto": 0.7755,
+     "acierto_p5": 0.6957,
+     "cuota": 1.352,
+     "gan_100": 5.2,
+     "gan_p5": -5.5,
+     "menos_pct": 0.122
+    },
+    "tarjetas": {
+     "n": 136,
+     "acierto": 0.8015,
+     "acierto_p5": 0.7391,
+     "cuota": 1.336,
+     "gan_100": 6.7,
+     "gan_p5": -1.6,
+     "menos_pct": 0.971
+    }
+   }
+  },
+  "p_log ≥ 75 %": {
+   "A": {
+    "n": 362,
+    "acierto": 0.8564,
+    "acierto_p5": 0.8245,
+    "cuota": 1.111,
+    "gan_100": -5.9,
+    "gan_p5": -9.5,
+    "menos_pct": 0.544
+   },
+   "B": {
+    "n": 519,
+    "acierto": 0.8921,
+    "acierto_p5": 0.8676,
+    "cuota": 1.119,
+    "gan_100": -0.8,
+    "gan_p5": -3.8,
+    "menos_pct": 0.551
+   },
+   "por_obj": {
+    "goles": {
+     "n": 514,
+     "acierto": 0.9339,
+     "acierto_p5": 0.9153,
+     "cuota": 1.043,
+     "gan_100": -2.8,
+     "gan_p5": -4.7,
+     "menos_pct": 0.609
+    },
+    "corners": {
+     "n": 256,
+     "acierto": 0.7734,
+     "acierto_p5": 0.7312,
+     "cuota": 1.192,
+     "gan_100": -8.5,
+     "gan_p5": -13.7,
+     "menos_pct": 0.348
+    },
+    "tiros": {
+     "n": 0
+    },
+    "a_puerta": {
+     "n": 32,
+     "acierto": 0.7812,
+     "acierto_p5": 0.6562,
+     "cuota": 1.302,
+     "gan_100": 2.4,
+     "gan_p5": -14.1,
+     "menos_pct": 0.094
+    },
+    "tarjetas": {
+     "n": 79,
+     "acierto": 0.8861,
+     "acierto_p5": 0.8228,
+     "cuota": 1.269,
+     "gan_100": 12.3,
+     "gan_p5": 4.0,
+     "menos_pct": 0.987
+    }
+   }
+  }
+ },
+ "no_supervisado": {
+  "0": {
+   "partidos": 35,
+   "lineas": 1043,
+   "acierto_mas": 0.511,
+   "promete": 0.4897,
+   "dif": 0.0213,
+   "medias": {
+    "a_puerta": 9.5,
+    "corners": 10.52,
+    "goles": 2.97,
+    "tarjetas": 4.2,
+    "tiros": 28.01
+   }
+  },
+  "1": {
+   "partidos": 34,
+   "lineas": 1293,
+   "acierto_mas": 0.5476,
+   "promete": 0.488,
+   "dif": 0.0595,
+   "medias": {
+    "a_puerta": 10.25,
+    "corners": 10.74,
+    "goles": 3.37,
+    "tarjetas": 3.63,
+    "tiros": 29.21
+   }
+  },
+  "2": {
+   "partidos": 29,
+   "lineas": 886,
+   "acierto_mas": 0.5203,
+   "promete": 0.4873,
+   "dif": 0.033,
+   "medias": {
+    "a_puerta": 9.11,
+    "corners": 10.09,
+    "goles": 2.83,
+    "tarjetas": 3.38,
+    "tiros": 27.01
+   }
+  },
+  "3": {
+   "partidos": 22,
+   "lineas": 894,
+   "acierto_mas": 0.4318,
+   "promete": 0.4778,
+   "dif": -0.046,
+   "medias": {
+    "a_puerta": 9.88,
+    "corners": 9.79,
+    "goles": 3.38,
+    "tarjetas": 3.91,
+    "tiros": 26.95
+   }
+  },
+  "4": {
+   "partidos": 35,
+   "lineas": 1007,
+   "acierto_mas": 0.5303,
+   "promete": 0.4677,
+   "dif": 0.0626,
+   "medias": {
+    "a_puerta": 8.57,
+    "corners": 9.87,
+    "goles": 2.62,
+    "tarjetas": 4.19,
+    "tiros": 25.88
+   }
+  }
+ }
+}

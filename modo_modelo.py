@@ -4521,6 +4521,58 @@ FILAS_METODO = (('goles', '⚽', 'Goles'), ('corners', '⛳', 'Córners'),
                 ('a_puerta', '🥅', 'A puerta'))
 
 
+def k_metodo(obj: str) -> float:
+    """La dispersión del método para `obj` (la del día o la de siempre)."""
+    try:
+        import tiros_equipo as _te
+        return float((_te._dia().get('k') or {}).get(obj) or K_POR_DEFECTO[obj])
+    except Exception:
+        return float(K_POR_DEFECTO.get(obj, 500.0))
+
+
+def linea_70(mu, k) -> Optional[tuple]:
+    """(línea «más de», prob): la más alta que se cumple al 70 % o más."""
+    try:
+        import tiros_equipo as _te
+        mu, k = float(mu), float(k)
+        for n in range(int(mu) + 1, -1, -1):
+            p = _te.prob_mas(mu, n + 0.5, k)
+            if p >= 0.70:
+                return (n + 0.5, p)
+    except Exception:
+        pass
+    return None
+
+
+def de_lo_archivado(obj: str, r: Dict) -> Dict:
+    """v368 — la fila del análisis apuntada antes del pitido
+    (`analisis_seguimiento`), con la forma de `metodo_contexto` y el resultado
+    del total y de cada equipo. Nunca lanza."""
+    def _f(v):
+        try:
+            v = float(v)
+            return v if v == v else None
+        except (TypeError, ValueError):
+            return None
+    lh, la = _f(r.get('local')), _f(r.get('visita'))
+    k = k_metodo(obj)
+    ke = k if k < 400 else 1e6
+    out = {'local': lh, 'visita': la, 'total': _f(r.get('total')), 'metodo': True,
+           'linea': _f(r.get('linea')), 'p': _f(r.get('p'))}
+    for lado, mu, kl, kp in (('l', lh, 'linea_l', 'p_l'), ('v', la, 'linea_v', 'p_v')):
+        L, P = _f(r.get(kl)), _f(r.get(kp))
+        if L is None and mu is not None:
+            lp = linea_70(mu, ke)
+            L, P = (lp if lp else (None, None))
+        out[kl], out[kp] = L, P
+        real = _f(r.get('real_' + lado))
+        out['real_' + lado] = real
+        out['cumple_' + lado] = (None if real is None or L is None else int(real > L))
+    out['real'] = _f(r.get('real'))
+    out['cumple'] = _f(r.get('cumple'))
+    return out
+
+
 def metodo_contexto(pick: Dict, _ck=None, _tj=None) -> Dict:
     """{objetivo: {'local', 'visita', 'total', 'linea', 'p', 'metodo'}} del
     partido: lo esperado y la línea «más de» del total que se cumple al 70 %
@@ -4591,14 +4643,24 @@ def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
     nada."""
     mc = metodo_contexto(pick, _ck, _tj)
     # v361 — ya jugado: lo que se apuntó antes del pitido, con ✅/❌
+    # v368 — Y MANDA LO APUNTADO. El usuario, con Gaziantep–Corum terminado:
+    # «dice "sin el método todavía" cuando ya debería tenerlo». El método se
+    # apuntó antes del pitido (las cinco estadísticas, todas ✅), pero el
+    # fichero del día sólo guarda lo que está por jugar: al empezar el
+    # partido la tabla caía al cálculo de antes, sin tiros. Ahora, en lo
+    # empezado o sin método, la fila apuntada sustituye a la de respaldo, con
+    # la línea y el resultado de cada equipo.
     res = {}
     try:
         import analisis_seguimiento as _as
-        res = _as.del_partido(pick) if (pick.get('jugado') or not mc) else {}
-        if res and not mc:
-            mc = {o: {'local': float(r['local']), 'visita': float(r['visita']),
-                      'total': float(r['total']), 'linea': float(r['linea']),
-                      'p': float(r['p']), 'metodo': True} for o, r in res.items()}
+        _empezado = bool(pick.get('jugado') or pick.get('en_juego')
+                         or pick.get('goles_home') is not None)
+        if _empezado or not mc or not all(x.get('metodo') for x in mc.values()):
+            res = {o: de_lo_archivado(o, r) for o, r in (_as.del_partido(pick) or {}).items()}
+        for o, x in res.items():
+            if o not in mc or not mc[o].get('metodo') or _empezado:
+                if x.get('local') is not None and x.get('visita') is not None:
+                    mc[o] = x
     except Exception as e:
         logger.debug('[modo_modelo] seguimiento del análisis: %s', e)
     if not mc:
@@ -4623,14 +4685,19 @@ def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
             prob = 'más de %s · <b>%.0f %%</b>' % (_txt(x['linea']), 100 * x['p'])
         else:
             prob = '—'
-        # v364 — la de cada equipo, debajo y más chica
-        for eq_, kl, kp in ((h, 'linea_l', 'p_l'), (a, 'linea_v', 'p_v')):
-            if x.get(kl) is not None:
-                prob += ('<br><span style="opacity:.75;font-size:.82em">%s +%s · %.0f %%</span>'
-                         % (_esc_mm(_corto(eq_)), _txt(x[kl]), 100 * x[kp]))
+        # v368 — el resultado del total, junto a su línea
         r_ = res.get(obj) or {}
         if r_.get('cumple') is not None and r_.get('cumple') == r_.get('cumple'):
             prob += ' %s %g' % ('✅' if int(float(r_['cumple'])) else '❌', float(r_['real']))
+        # v364 — la de cada equipo, debajo y más chica
+        # v368 — con su resultado: «tanto global como por equipo, qué acertó»
+        for eq_, kl, kp, lado in ((h, 'linea_l', 'p_l', 'l'), (a, 'linea_v', 'p_v', 'v')):
+            if x.get(kl) is not None:
+                _cu = r_.get('cumple_' + lado)
+                _rs = ('' if _cu is None else ' %s %g' % ('✅' if _cu else '❌',
+                                                          float(r_['real_' + lado])))
+                prob += ('<br><span style="opacity:.75;font-size:.82em">%s +%s · %.0f %%%s</span>'
+                         % (_esc_mm(_corto(eq_)), _txt(x[kl]), 100 * x[kp], _rs))
         filas.append('<tr><td %s>%s %s%s</td><td %s><b>%s</b><br>'
                      '<span style="opacity:.7;font-size:.85em">%s · %s</span></td>'
                      '<td %s>%s</td></tr>'
@@ -4652,6 +4719,13 @@ def _tabla_metodo_html(pick: Dict, _ck=None, _tj=None) -> str:
             pie += ('<div style="opacity:.75;font-size:.8em">📈 Así va el método (14 días): %s</div>'
                     % ' · '.join('%s %d/%d (%.0f %%)' % (i, v['verdes'], v['n'], 100 * v['acierto'])
                                  for o, i, _n in FILAS_METODO for v in [rs.get(o)] if v))
+            # v368 — y la de cada equipo
+            _eq = ' · '.join('%s %d/%d (%.0f %%)' % (i, v['eq_verdes'], v['eq_n'],
+                                                      100 * v['eq_verdes'] / v['eq_n'])
+                             for o, i, _n in FILAS_METODO for v in [rs.get(o)]
+                             if v and v.get('eq_n'))
+            if _eq:
+                pie += ('<div style="opacity:.75;font-size:.8em">👥 Por equipo: %s</div>' % _eq)
     except Exception as e:
         logger.debug('[modo_modelo] resumen del análisis: %s', e)
     return ('<table style="width:100%%;table-layout:fixed;border-collapse:collapse;'
@@ -5566,7 +5640,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                                       'pestañas y entre sesiones.')
     _n_fil = sum(bool(st.session_state.get(k)) for k in
                  ('%s_solo_altas' % clave, '%s_solo_fisicos' % clave,
-                  '%s_solo_ganador' % clave))
+                  '%s_solo_ganador' % clave, '%s_solo_elige' % clave))
     _n_fil += int(st.session_state.get('%s_mercado' % clave) in GRUPOS_MERCADO)
     # v352 — el reloj: las franjas de la hora de apostar de esta lista
     _TODAS_HORAS = 'Todas las horas'
@@ -5582,6 +5656,11 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     _n_fil += int(st.session_state.get(_k_hora_ap) != _TODAS_HORAS)
     with c_fil:
         with st.expander('⚙️ Filtros' + (' · %d' % _n_fil if _n_fil else '')):
+            # v368 — «si pongo el filtro de la estrella sigue sin
+            # filtrármelo»: el orden «⭐ ELIGE primero» ORDENA; esto FILTRA.
+            solo_elige = st.checkbox('Sólo ⭐ ELIGE', key='%s_solo_elige' % clave,
+                                     help='Deja sólo los partidos con una «se mete» '
+                                          'con ⭐ (medido: 89 % contra 76 % del resto).')
             # v176 — la casilla vale también en MAÑANA (ver historia en git).
             solo_altas = st.checkbox('Sólo alta probabilidad (%d %%)'
                                      % (UMBRAL_ALTA * 100),
@@ -5659,6 +5738,9 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
     if solo_fisicos:
         con = [p for p in con if _tiene_fisicos(p)]
         _quito.append('fisicos')
+    if solo_elige:
+        con = [p for p in con if _k_elige(p)[1] == 0]
+        _quito.append('elige')
     if solo_ganador:
         # v250 — por MERCADO, no por etiqueta. «Gana X» es la etiqueta que se
         # pinta, pero la doble oportunidad se escribe «X o empate» y también
@@ -5776,6 +5858,10 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
                 'que todavía no tienen precio abierto no puede salir. '
                 'Desmarca «Sólo alta probabilidad» para verlos todos.'
                 % (_antes_de_filtrar, UMBRAL_ALTA * 100))
+        elif _antes_de_filtrar and 'elige' in _quito:
+            st.info('Ya no queda ninguna ⭐ ELIGE en esta lista. La ⭐ pide 82 %% '
+                    'o más, o cuota de %.2f o menos. Mira mañana o desmarca '
+                    '«Sólo ⭐ ELIGE» en «⚙️ Filtros».' % ELIGE_CUOTA_MAX)
         elif _antes_de_filtrar and 'hora' in _quito:
             st.info('Ningún partido de esta lista se apuesta a esa hora. '
                     'Elige otra en «⚙️ Filtros».')
@@ -5823,7 +5909,7 @@ def render(st, pronosticos: List[Dict], *, navegar: Optional[Callable] = None,
         # espera de una lista nueva.
         _k_ver = '%s_ver' % clave
         _firma = (str(etq_orden), bool(solo_altas), bool(solo_fisicos),
-                  bool(solo_ganador), str(estado_sel), len(con))
+                  bool(solo_ganador), bool(solo_elige), str(estado_sel), len(con))
         try:
             if st.session_state.get(_k_ver + '_firma') != _firma:
                 st.session_state[_k_ver] = TARJETAS_POR_PAGINA
