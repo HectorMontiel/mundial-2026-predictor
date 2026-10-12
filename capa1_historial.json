@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T09:22:38Z",
+"actualizado": "2026-10-12T14:10:14Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5126,11 +5126,41 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Tenis",
+"partido": "Adrienn Nagy vs Iva Primorac",
+"apuesta": "Gana Adrienn Nagy",
+"cuota": 2.02,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "MLB",
+"partido": "Doosan Bears vs Lotte Giants",
+"apuesta": "Gana Doosan Bears",
+"cuota": 2.05,
+"resultado": "rojo",
+"marcador": "4-7"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Tenis",
 "partido": "Sawangkaew M. vs Frech M.",
 "apuesta": "Gana Frech M.",
 "cuota": 1.74,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Wenzhou Professional vs Changchun Xidu",
+"apuesta": "Gana Wenzhou Professional",
+"cuota": 2.3,
+"resultado": "rojo",
+"marcador": "1-2"
 }
 ]
 }

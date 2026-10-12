@@ -347,9 +347,9 @@
   },
   "Sporting JAX": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting Cristal",
-    "ratio": 0.7143,
-    "visto": "2026-10-11"
+    "candidato": "Sporting CP U19",
+    "ratio": 0.6667,
+    "visto": "2026-10-12"
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
@@ -749,9 +749,9 @@
   },
   "Sporting Kansas City": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting Escaldes",
-    "ratio": 0.6875,
-    "visto": "2026-10-11"
+    "candidato": "Sporting CP U19",
+    "ratio": 0.6,
+    "visto": "2026-10-12"
   },
   "Sporting Gijón": {
     "contexto": "cuotas_mx→futbol",
@@ -1415,8 +1415,8 @@
   },
   "Bayern Munich": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Munich 1860",
-    "ratio": 0.5,
+    "candidato": "Bayern U19",
+    "ratio": 0.6957,
     "visto": "2026-10-12"
   },
   "RB Leipzig": {
@@ -2023,6 +2023,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "TS Galaxy",
     "ratio": 0.7778,
+    "visto": "2026-10-12"
+  },
+  "Lens": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Lens U19",
+    "ratio": 0.6667,
+    "visto": "2026-10-12"
+  },
+  "PSV Eindhoven": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "PSV U19",
+    "ratio": 0.4,
     "visto": "2026-10-12"
   }
 }
