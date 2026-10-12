@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T04:31:26Z",
+"actualizado": "2026-10-12T09:22:38Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5121,6 +5121,16 @@
 "cuota": 3.4,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Sawangkaew M. vs Frech M.",
+"apuesta": "Gana Frech M.",
+"cuota": 1.74,
+"resultado": "verde",
+"marcador": "0-2"
 }
 ]
 }

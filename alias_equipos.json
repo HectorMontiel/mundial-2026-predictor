@@ -1,7 +1,7 @@
 {
- "generado": "2026-10-12T07:39:02Z",
- "fixtures_revisados": 106,
- "ya_casaban": 79,
+ "generado": "2026-10-12T09:17:18Z",
+ "fixtures_revisados": 105,
+ "ya_casaban": 84,
  "min_parecido": 0.82,
  "alias": {
   "sint truiden": {
@@ -75,6 +75,15 @@
    "lado_ancla": "portsmouth",
    "ultima_vez": "2026-10-12T01:33:56Z",
    "primera_vez": "2026-10-12T01:33:56Z"
+  },
+  "cong an ha noi fc": {
+   "canonico": "cong an hanoi",
+   "parecido": 0.8667,
+   "visto_en": "Cong An Hanoi vs Kashima Antlers",
+   "liga": "afc_champions",
+   "lado_ancla": "kashima antlers",
+   "ultima_vez": "2026-10-12T09:17:18Z",
+   "primera_vez": "2026-10-12T09:17:18Z"
   }
  }
 }
