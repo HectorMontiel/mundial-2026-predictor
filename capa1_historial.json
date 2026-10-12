@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T01:40:22Z",
+"actualizado": "2026-10-12T04:31:26Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -4281,6 +4281,16 @@
 "cuota": 1.2,
 "resultado": "verde",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "América de Cali vs Independiente Medellín",
+"apuesta": "América de Cali o empate",
+"cuota": 1.182,
+"resultado": "rojo",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-11",
