@@ -241,9 +241,9 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.5926,
-    "visto": "2026-10-11"
+    "candidato": "Real Pilar",
+    "ratio": 0.56,
+    "visto": "2026-10-12"
   },
   "San Antonio FC": {
     "contexto": "cuotas_mx→futbol",
@@ -323,8 +323,8 @@
   },
   "Hartford Athletic": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Redcar Athletic",
-    "ratio": 0.6875,
+    "candidato": "Forfar Athletic",
+    "ratio": 0.75,
     "visto": "2026-10-12"
   },
   "São Bernardo": {
@@ -767,9 +767,9 @@
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Independiente",
-    "ratio": 0.4762,
-    "visto": "2026-10-11"
+    "candidato": "Petro Atletico",
+    "ratio": 0.4706,
+    "visto": "2026-10-12"
   },
   "Atlético Goianiense": {
     "contexto": "cuotas_mx→futbol",
@@ -785,9 +785,9 @@
   },
   "Atlético Junior": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Independiente",
-    "ratio": 0.5946,
-    "visto": "2026-10-11"
+    "candidato": "Petro Atletico",
+    "ratio": 0.5517,
+    "visto": "2026-10-12"
   },
   "Atletico Rafaela": {
     "contexto": "cuotas_mx→futbol",
@@ -959,9 +959,9 @@
   },
   "Atlético-MG": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Independiente",
-    "ratio": 0.5455,
-    "visto": "2026-10-11"
+    "candidato": "Petro Atletico",
+    "ratio": 0.64,
+    "visto": "2026-10-12"
   },
   "Oldham Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1145,8 +1145,8 @@
   },
   "West Ham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Mombasa United",
-    "ratio": 0.6207,
+    "candidato": "West Ham U21",
+    "ratio": 0.7407,
     "visto": "2026-10-12"
   },
   "San Antonio Bulo Bulo": {
@@ -1247,8 +1247,8 @@
   },
   "Derby County": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Derby U21",
-    "ratio": 0.6667,
+    "candidato": "Ross County",
+    "ratio": 0.6957,
     "visto": "2026-10-12"
   },
   "Red Star FC 93": {
@@ -2017,6 +2017,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Qingdao Red Lions",
     "ratio": 0.6061,
+    "visto": "2026-10-12"
+  },
+  "LA Galaxy": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "TS Galaxy",
+    "ratio": 0.7778,
     "visto": "2026-10-12"
   }
 }
