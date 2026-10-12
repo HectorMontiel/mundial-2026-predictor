@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T20:31:23Z",
+"actualizado": "2026-10-12T22:05:13Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5264,6 +5264,26 @@
 },
 {
 "dia": "2026-10-12",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Famalicao vs Alverca",
+"apuesta": "Famalicao o empate",
+"cuota": 1.167,
+"resultado": "rojo",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-12",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Fortaleza vs CRB",
+"apuesta": "Fortaleza o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "General Lamadrid vs Sportivo Barracas",
@@ -5301,6 +5321,16 @@
 "cuota": 1.5,
 "resultado": "verde",
 "marcador": "2-4"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Lanus vs Velez Sarsfield",
+"apuesta": "Gana Lanus",
+"cuota": 2.0,
+"resultado": "verde",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-12",
