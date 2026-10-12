@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T22:05:13Z",
+"actualizado": "2026-10-12T23:42:04Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5194,6 +5194,16 @@
 },
 {
 "dia": "2026-10-12",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Always Ready vs Independiente Petrolero",
+"apuesta": "Gana Always Ready",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "BVSC-Zuglo vs Soroksar",
@@ -5231,6 +5241,16 @@
 "cuota": 2.3,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Deportes Iquique vs U. Espanola",
+"apuesta": "Gana Deportes Iquique",
+"cuota": 1.89,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-12",
@@ -5415,6 +5435,26 @@
 {
 "dia": "2026-10-12",
 "nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Racing (Córdoba) vs Los Andes",
+"apuesta": "Empate",
+"cuota": 2.8572,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Racing Cordoba vs Los Andes",
+"apuesta": "Gana Los Andes",
+"cuota": 2.8572,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
 "deporte": "Tenis",
 "partido": "Sawangkaew M. vs Frech M.",
 "apuesta": "Gana Frech M.",
@@ -5431,6 +5471,16 @@
 "cuota": 3.3,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Universidad de Chile vs Ñublense",
+"apuesta": "Universidad de Chile o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "6-0"
 },
 {
 "dia": "2026-10-12",
