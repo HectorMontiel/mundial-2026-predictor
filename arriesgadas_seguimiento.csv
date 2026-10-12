@@ -166,6 +166,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6128,1.667,1.0,1.0
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta Necaxa: Más de 3.5,a_puerta,equipo,visita,3.5,0.6076,1.889,7.0,1.0
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros: Más de 29.5,tiros,total,total,29.5,0.5993,1.667,34.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.597,1.5,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Córners: Más de 7.5,corners,total,total,7.5,0.7039,1.455,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6654,1.538,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Venezia: Más de 9.5,tiros,equipo,visita,9.5,0.6645,1.462,,
@@ -182,7 +183,6 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta Valerenga: Más de 4.5,a_puerta,equipo,visita,4.5,0.6113,1.85,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6027,1.571,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5987,1.692,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.597,1.5,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros KFUM Oslo: Más de 12.5,tiros,equipo,local,12.5,0.5551,1.52,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Udinese: Más de 10.5,tiros,equipo,visita,10.5,0.6372,1.5,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros a puerta Torino: Más de 3.5,a_puerta,equipo,local,3.5,0.6313,1.546,,
