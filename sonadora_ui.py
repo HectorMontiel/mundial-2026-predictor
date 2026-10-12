@@ -324,6 +324,51 @@ def filtrar_por_dias(r: Dict, dia: Optional[str] = None,
     return out
 
 
+def _boleto_largo(st, r: Dict) -> None:
+    """v370 — «🎟️ Boleto largo»: sólo «se mete», ⭐ primero, una por partido
+    (ver `boleto_largo`). Nunca lanza."""
+    try:
+        import boleto_largo as bl
+        import formato_ia as fi
+        import vista_compacta as vc
+    except Exception as e:
+        logger.debug('[sonadora] boleto largo: %s', e)
+        return
+    with st.expander('🎟️ Boleto largo con las «se mete» (tipo Draftea)', expanded=True):
+        st.caption('Sólo lo que la app dice «se mete», una pata por partido, las ⭐ '
+                   'primero. Cada pata acierta 77-89 %, pero un boleto largo casi '
+                   'nunca sale entero: abajo, lo medido.')
+        c1, c2 = st.columns([2, 1])
+        deps = c1.multiselect('Deportes', list(fi.DEPORTES_ENVIO), key='son_bl_deportes',
+                              placeholder='Todos los deportes')
+        n = c2.number_input('Patas', min_value=2, max_value=25, value=10, step=1,
+                            key='son_bl_patas')
+        pats = bl.patas((r or {}).get('pronosticos') or [], deps)
+        b = bl.boleto(pats, int(n))
+        if not b:
+            st.info('Ahora no hay «se mete» suficientes de partidos distintos '
+                    'para un boleto (hay %d).' % len(pats))
+            return
+        if not b['completo']:
+            st.caption('Sólo hay %d «se mete» de partidos distintos: el boleto '
+                       'lleva todas.' % len(b['patas']))
+        st.markdown('**%d patas** · ⭐ %d · paga **×%.2f** (100 → %s) · sale entero '
+                    '~**%.1f %%** de las veces'
+                    % (len(b['patas']), b['n_elige'], b['momio'],
+                       format(round(100 * b['momio']), ','), 100 * b['prob']))
+        st.markdown(vc.html_lista(b['patas']), unsafe_allow_html=True)
+        st.caption(bl.medido(len(b['patas'])))
+        trozos = bl.partir(b)
+        if len(trozos) > 1:
+            e, t = bl.MEDIDO_PARTIR
+            st.markdown('**O partido en %d boletos de hasta %d** (en orden de hora): %s'
+                        % (len(trozos), bl.TAM_TROZO,
+                           ' · '.join('×%.2f (~%.0f %%)' % (x['momio'], 100 * x['prob'])
+                                      for x in trozos)))
+            st.caption('Medido: 20 patas en 4 boletos de 5 salieron %d de %d boletos; '
+                       'el de 20 entero, 1 de 7 días.' % (e, t))
+
+
 def render(st, r: Dict, dia: Optional[str] = None,
            dias: Optional[List[str]] = None) -> None:
     """Pinta la pantalla. `r` es un barrido YA calculado."""
@@ -338,6 +383,8 @@ def render(st, r: Dict, dia: Optional[str] = None,
     st.info(AVISO)
     # v343 — los boletos que ya diste por jugados, pata a pata
     _mis_boletos(st, _r_todo)
+    # v370 — el boleto largo con las «se mete» (tipo Draftea)
+    _boleto_largo(st, r)
 
     # ------------------------------------------------------------------ #
     # v223 — LA SOÑADORA ARMADA CON LOS PICKS DEL DÍA
