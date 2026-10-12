@@ -617,9 +617,9 @@
   },
   "Racing (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Luxembourg",
-    "ratio": 0.5806,
-    "visto": "2026-10-11"
+    "candidato": "Racing United",
+    "ratio": 0.5926,
+    "visto": "2026-10-12"
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
@@ -683,9 +683,9 @@
   },
   "Mansfield Town": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newbridge Town",
-    "ratio": 0.5714,
-    "visto": "2026-10-03"
+    "candidato": "Hanwell Town",
+    "ratio": 0.6923,
+    "visto": "2026-10-12"
   },
   "Crawley Town": {
     "contexto": "cuotas_mx→futbol",
@@ -1499,8 +1499,8 @@
   },
   "AD San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "GV San Jose",
-    "ratio": 0.5833,
+    "candidato": "Carlos Mannucci",
+    "ratio": 0.4286,
     "visto": "2026-10-12"
   },
   "Nacional Potosí": {
@@ -1661,9 +1661,9 @@
   },
   "Newcastle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Glacis United",
-    "ratio": 0.6207,
-    "visto": "2026-10-11"
+    "candidato": "Newcastle Utd U21",
+    "ratio": 0.7879,
+    "visto": "2026-10-12"
   },
   "GV San José": {
     "contexto": "cuotas_mx→futbol",
@@ -2047,6 +2047,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Hoffenheim II",
     "ratio": 0.7407,
+    "visto": "2026-10-12"
+  },
+  "FC Famalicao": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Famalicao U23",
+    "ratio": 0.72,
     "visto": "2026-10-12"
   }
 }

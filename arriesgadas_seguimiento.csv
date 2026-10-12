@@ -177,14 +177,14 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Venezia: Más de 10.5,tiros,equipo,visita,10.5,0.5791,1.636,19.0,1.0
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Atalanta: Más de 15.5,tiros,equipo,local,15.5,0.5618,1.7,22.0,1.0
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta Atalanta: Más de 5.5,a_puerta,equipo,local,5.5,0.5618,1.778,11.0,1.0
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros Valerenga: Más de 12.5,tiros,equipo,visita,12.5,0.7404,1.6,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6632,1.52,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6223,1.476,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6074,1.53,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.6023,1.692,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5905,1.5,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta Valerenga: Más de 4.5,a_puerta,equipo,visita,4.5,0.5804,1.85,,
-2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros KFUM Oslo: Más de 12.5,tiros,equipo,local,12.5,0.5539,1.52,,
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros Valerenga: Más de 12.5,tiros,equipo,visita,12.5,0.7404,1.6,22.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6632,1.52,10.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6223,1.476,1.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6074,1.53,3.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.6023,1.692,35.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5905,1.5,19.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta Valerenga: Más de 4.5,a_puerta,equipo,visita,4.5,0.5804,1.85,5.0,1.0
+2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros KFUM Oslo: Más de 12.5,tiros,equipo,local,12.5,0.5539,1.52,13.0,1.0
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Udinese: Más de 10.5,tiros,equipo,visita,10.5,0.6581,1.546,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Torino: Más de 11.5,tiros,equipo,local,11.5,0.6157,1.52,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros a puerta Torino: Más de 3.5,a_puerta,equipo,local,3.5,0.5775,1.6,,

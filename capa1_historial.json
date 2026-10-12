@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T18:55:00Z",
+"actualizado": "2026-10-12T20:31:23Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5176,6 +5176,56 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Al Gharafa (Qat) vs Esteghlal F.C. (Irn)",
+"apuesta": "Gana Esteghlal F.C. (Irn)",
+"cuota": 2.5,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Al Quwa Al Jawiya (Irq) vs Al Ain (Uae)",
+"apuesta": "Gana Al Ain (Uae)",
+"cuota": 1.57,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "BVSC-Zuglo vs Soroksar",
+"apuesta": "Gana Soroksar",
+"cuota": 3.5,
+"resultado": "rojo",
+"marcador": "5-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Brown Adrogue vs Dock Sud",
+"apuesta": "Gana Brown Adrogue",
+"cuota": 2.35,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Brown Adrogue vs Dock Sud",
+"apuesta": "Gana Dock Sud",
+"cuota": 3.4,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "D. Puerto Montt vs San Luis",
 "apuesta": "Gana San Luis",
 "cuota": 2.3,
@@ -5196,11 +5246,51 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Estrella Del Sur vs Juventud Unida S. M.",
+"apuesta": "Gana Estrella Del Sur",
+"cuota": 2.7,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Estrella Del Sur vs Juventud Unida S. M.",
+"apuesta": "Gana Juventud Unida S. M.",
+"cuota": 2.55,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "General Lamadrid vs Sportivo Barracas",
+"apuesta": "Gana Sportivo Barracas",
+"cuota": 2.55,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Hapoel Herzliya vs Hapoel Azor",
 "apuesta": "Gana Hapoel Azor",
 "cuota": 3.9,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Hapoel Jerusalem vs Maccabi Haifa",
+"apuesta": "Gana Maccabi Haifa",
+"cuota": 1.61,
+"resultado": "verde",
+"marcador": "1-4"
 },
 {
 "dia": "2026-10-12",
@@ -5226,6 +5316,26 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Mercedes vs Lugano",
+"apuesta": "Gana Lugano",
+"cuota": 2.95,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Mladost vs OFK Beograd Mozzart Bet",
+"apuesta": "Gana Mladost",
+"cuota": 2.8,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Nejmeh SC vs Tadamon",
 "apuesta": "Gana Nejmeh SC",
 "cuota": 1.29,
@@ -5236,11 +5346,41 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Nof Hagalil vs Hapoel Bnei Musmus",
+"apuesta": "Gana Nof Hagalil",
+"cuota": 1.75,
+"resultado": "verde",
+"marcador": "4-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Pirata vs Minas",
 "apuesta": "Gana Pirata",
 "cuota": 2.3,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Ponte Preta U20 vs Santos U20",
+"apuesta": "Gana Santos U20",
+"cuota": 1.4,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Pyramids vs Ceramica Cleopatra",
+"apuesta": "Gana Pyramids",
+"cuota": 1.49,
+"resultado": "verde",
+"marcador": "4-1"
 },
 {
 "dia": "2026-10-12",
@@ -5256,11 +5396,31 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "UAI Urquiza vs Real Pilar",
+"apuesta": "Gana UAI Urquiza",
+"cuota": 3.3,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Wenzhou Professional vs Changchun Xidu",
 "apuesta": "Gana Wenzhou Professional",
 "cuota": 2.3,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Yupanqui vs Club Lujan",
+"apuesta": "Gana Club Lujan",
+"cuota": 2.8,
+"resultado": "verde",
+"marcador": "0-1"
 }
 ]
 }
