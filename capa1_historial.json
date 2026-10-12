@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T17:17:10Z",
+"actualizado": "2026-10-12T18:55:00Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5124,6 +5124,36 @@
 },
 {
 "dia": "2026-10-12",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "AC Oulu vs HJK",
+"apuesta": "Gana HJK",
+"cuota": 1.75,
+"resultado": "verde",
+"marcador": "3-4"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "AC Oulu vs HJK",
+"apuesta": "Gana HJK",
+"cuota": 1.76,
+"resultado": "verde",
+"marcador": "3-4"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "AEK Larnaca vs Omonia Aradippou",
+"apuesta": "Gana AEK Larnaca",
+"cuota": 1.45,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Tenis",
 "partido": "Adrienn Nagy vs Iva Primorac",
@@ -5145,6 +5175,16 @@
 {
 "dia": "2026-10-12",
 "nivel": "💰",
+"deporte": "Fútbol",
+"partido": "D. Puerto Montt vs San Luis",
+"apuesta": "Gana San Luis",
+"cuota": 2.3,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
 "deporte": "MLB",
 "partido": "Doosan Bears vs Lotte Giants",
 "apuesta": "Gana Doosan Bears",
@@ -5156,11 +5196,51 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Hapoel Herzliya vs Hapoel Azor",
+"apuesta": "Gana Hapoel Azor",
+"cuota": 3.9,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Hapoel Kfar Saba vs SC Ashdod",
+"apuesta": "Gana SC Ashdod",
+"cuota": 1.5,
+"resultado": "verde",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Loznica vs Smederevo",
+"apuesta": "Gana Smederevo",
+"cuota": 3.25,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Nejmeh SC vs Tadamon",
 "apuesta": "Gana Nejmeh SC",
 "cuota": 1.29,
 "resultado": "rojo",
 "marcador": "3-3"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Pirata vs Minas",
+"apuesta": "Gana Pirata",
+"cuota": 2.3,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-12",

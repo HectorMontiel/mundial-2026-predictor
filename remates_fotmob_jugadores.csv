@@ -13907,19 +13907,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5147604,2026-07-25,finlandia,IFK Mariehamn,Adam Larsson,1177032,F,1,90,3,2,1,0.0,105.0,3.0,153986.0
 5147604,2026-07-25,finlandia,IFK Mariehamn,Adam Stroud,1353420,F,1,74,3,2,0,0.0,107.0,3.0,232282.0
 5147604,2026-07-25,finlandia,IFK Mariehamn,Viktor Widlund,2068511,M,0,16,0,0,0,0.0,,2.0,
-5147604,2026-07-25,finlandia,AC Oulu,Miguel Santos,470818,G,1,90,0,0,0,0.0,11.0,0.0,163558.0
-5147604,2026-07-25,finlandia,AC Oulu,Otto Kemppainen,1199741,D,1,46,0,0,0,0.0,32.0,1.0,174342.0
-5147604,2026-07-25,finlandia,AC Oulu,Alex Lietsa,1761454,D,1,90,0,0,0,0.0,34.0,1.0,207665.0
-5147604,2026-07-25,finlandia,AC Oulu,Juha Pirinen,118157,D,1,90,0,0,0,0.0,36.0,1.0,93576.0
-5147604,2026-07-25,finlandia,AC Oulu,Adramane Cassamá,1526763,D,1,90,0,0,0,0.0,38.0,1.0,195263.0
-5147604,2026-07-25,finlandia,AC Oulu,Matias Ojala,206916,M,1,64,0,0,0,0.0,73.0,2.0,50000.0
-5147604,2026-07-25,finlandia,AC Oulu,Rasmus Karjalainen,787016,M,1,90,5,3,0,0.0,75.0,2.0,167864.0
-5147604,2026-07-25,finlandia,AC Oulu,Iiro Mendolin,1780636,M,1,90,2,0,0,0.0,77.0,2.0,
-5147604,2026-07-25,finlandia,AC Oulu,Tuomas Kaukua,1036118,D,1,90,1,1,0,0.0,103.0,1.0,208204.0
-5147604,2026-07-25,finlandia,AC Oulu,Lamine Ghezali,770348,F,1,90,0,0,0,0.0,105.0,3.0,180234.0
-5147604,2026-07-25,finlandia,AC Oulu,Elias Kallio,1382425,F,1,90,4,2,1,0.0,107.0,3.0,240975.0
-5147604,2026-07-25,finlandia,AC Oulu,Abdoulaye Kone,1948932,F,0,45,4,1,0,0.0,,3.0,
-5147604,2026-07-25,finlandia,AC Oulu,Niklas Jokelainen,631461,F,0,26,0,0,0,0.0,,3.0,156954.0
 5104959,2026-07-25,noruega,Kristiansund,Michael Lansing,782200,G,1,90,0,0,0,0.0,11.0,0.0,137967.0
 5104959,2026-07-25,noruega,Kristiansund,Alexander Munksgaard,659281,D,1,90,0,0,0,0.0,32.0,1.0,333478.0
 5104959,2026-07-25,noruega,Kristiansund,Júlíus Júlíusson,1400208,D,1,90,0,0,0,0.0,34.0,1.0,361766.0
@@ -14933,21 +14920,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5847123,2026-07-26,rus_premier,FK Akhmat,Kirill Shchetinin,1050817,M,0,22,0,0,0,0.0,,2.0,2680693.0
 5847123,2026-07-26,rus_premier,FK Akhmat,Ousmane Ndong,1200665,D,0,12,0,0,0,0.0,,1.0,
 5847123,2026-07-26,rus_premier,FK Akhmat,Erald Maksuti,1412938,F,0,12,2,1,1,0.13,,3.0,
-5147608,2026-07-26,finlandia,HJK,Matej Markovic,1070860,G,1,90,0,0,0,0.0,11.0,0.0,100600.0
-5147608,2026-07-26,finlandia,HJK,Miska Ylitolva,1270018,D,1,90,1,1,0,0.0,32.0,1.0,198987.0
-5147608,2026-07-26,finlandia,HJK,Leonel Montano,865682,D,1,90,0,0,0,0.0,34.0,1.0,224024.0
-5147608,2026-07-26,finlandia,HJK,Ville Tikkanen,831486,D,1,90,0,0,0,0.0,36.0,1.0,262745.0
-5147608,2026-07-26,finlandia,HJK,Till Cissokho,1027943,D,1,90,0,0,0,0.0,38.0,1.0,199310.0
-5147608,2026-07-26,finlandia,HJK,Liam Möller,1438218,F,1,87,2,0,0,0.0,72.0,3.0,233230.0
-5147608,2026-07-26,finlandia,HJK,Lucas Lingman,574868,M,1,74,2,0,0,0.0,74.0,2.0,120827.0
-5147608,2026-07-26,finlandia,HJK,Pyry Mentu,1647552,M,1,63,0,0,0,0.0,76.0,2.0,869864.0
-5147608,2026-07-26,finlandia,HJK,Alexander Ring,181333,M,1,90,1,0,0,0.0,78.0,2.0,90559.0
-5147608,2026-07-26,finlandia,HJK,Santeri Haarala,923629,F,1,63,3,3,1,0.0,104.0,3.0,381865.0
-5147608,2026-07-26,finlandia,HJK,Toivo Mero,1639615,F,1,90,3,0,0,0.0,106.0,3.0,
-5147608,2026-07-26,finlandia,HJK,Jere Kallinen,1187964,M,0,27,0,0,0,0.0,,2.0,180827.0
-5147608,2026-07-26,finlandia,HJK,Teemu Pukki,66578,F,0,27,1,0,0,0.0,,3.0,159320.0
-5147608,2026-07-26,finlandia,HJK,Alfie Cicale,1635673,F,0,16,0,0,0,0.0,,3.0,272334.0
-5147608,2026-07-26,finlandia,HJK,Martin Kirilov,1901622,M,0,3,0,0,0,0.0,,2.0,
 5147608,2026-07-26,finlandia,TPS,Elmo Henriksson,1250148,G,1,90,0,0,0,0.0,11.0,0.0,171565.0
 5147608,2026-07-26,finlandia,TPS,Charlemagne Azongnitode,1715198,D,1,90,0,0,0,0.0,33.0,1.0,125350.0
 5147608,2026-07-26,finlandia,TPS,Akim Sairinen,766936,D,1,90,0,0,0,0.0,35.0,1.0,50247.0
@@ -145007,3 +144979,187 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 6050072,2026-10-12,afc_champions,Al Qadsiah,Mohammed Hamad Al Qahtani,1309655,M,0,21,0,0,0,0.0,,2.0,361371.0
 6050072,2026-10-12,afc_champions,Al Qadsiah,Sani Suleiman,1374055,F,0,9,0,0,0,0.0,,3.0,1287885.0
 6050072,2026-10-12,afc_champions,Al Qadsiah,Abdullah Al Salem,618180,F,0,1,0,0,0,0.0,,3.0,193982.0
+6050074,2026-10-12,afc_champions,Tractor,Parsa Jafari,1324690,G,1,90,0,0,0,0.0,11.0,0.0,137762.0
+6050074,2026-10-12,afc_champions,Tractor,Danial Esmaeilifar,630478,D,1,88,1,1,0,0.0,32.0,1.0,169056.0
+6050074,2026-10-12,afc_champions,Tractor,Farshad Faraji,683837,D,1,90,0,0,0,0.0,34.0,1.0,156483.0
+6050074,2026-10-12,afc_champions,Tractor,Shoja Khalilzadeh,511397,D,1,90,1,0,0,0.0,36.0,1.0,69221.0
+6050074,2026-10-12,afc_champions,Tractor,Mohammad Naderi,867479,D,1,90,1,1,0,0.0,38.0,1.0,160452.0
+6050074,2026-10-12,afc_champions,Tractor,Mehdi Hosseini,505391,F,1,45,1,0,0,0.0,72.0,3.0,64839.0
+6050074,2026-10-12,afc_champions,Tractor,Odildzhon Khamrobekov,619697,M,1,90,1,0,0,0.0,74.0,2.0,517317.0
+6050074,2026-10-12,afc_champions,Tractor,Tibor Halilović,541552,M,1,88,2,0,0,0.0,76.0,2.0,114332.0
+6050074,2026-10-12,afc_champions,Tractor,Milad Zakipour,825189,D,1,82,1,0,0,0.0,78.0,1.0,291460.0
+6050074,2026-10-12,afc_champions,Tractor,Shahriar Moghanlou,641121,F,1,67,2,0,0,0.0,104.0,3.0,386242.0
+6050074,2026-10-12,afc_champions,Tractor,Amirhossein Hosseinzadeh,1031319,F,1,90,0,0,0,0.0,106.0,3.0,1592268.0
+6050074,2026-10-12,afc_champions,Tractor,Mehdi Shiri,505278,M,0,44,0,0,0,0.0,,2.0,55537.0
+6050074,2026-10-12,afc_champions,Tractor,Tomislav Štrkalj,661314,F,0,23,0,0,0,0.0,,3.0,402720.0
+6050074,2026-10-12,afc_champions,Tractor,Saeid Karimazar,1296540,D,0,8,0,0,0,0.0,,1.0,141396.0
+6050074,2026-10-12,afc_champions,Tractor,Sadegh Moharrami,825343,D,0,2,0,0,0,0.0,,1.0,137854.0
+6050074,2026-10-12,afc_champions,Tractor,Morteza Fazeli,2200129,M,0,2,0,0,0,0.0,,2.0,
+6050074,2026-10-12,afc_champions,Al-Shamal,Babacar Seck,1711238,G,1,90,0,0,0,0.0,11.0,0.0,
+6050074,2026-10-12,afc_champions,Al-Shamal,Youssouf Sabaly,467689,D,1,82,1,0,0,0.0,32.0,1.0,610439.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Jeison Murillo,301456,D,1,90,0,0,0,0.0,34.0,1.0,194076.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Pablo Marí,299981,D,1,90,1,0,0,0.0,36.0,1.0,1124863.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Federico Bais,1902025,D,1,90,1,1,0,0.0,38.0,1.0,653724.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Michel Termanini,737823,D,1,71,1,0,0,0.0,64.0,1.0,218811.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Nassim Benaïssa,1177167,M,1,90,1,0,0,0.0,66.0,2.0,
+6050074,2026-10-12,afc_champions,Al-Shamal,Álex Collado,929834,F,1,90,1,0,0,0.0,83.0,3.0,1676102.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Tiago Silva,422812,M,1,90,1,1,0,0.0,85.0,2.0,1159928.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Mohamed Ali Ben Romdhane,1000876,M,1,90,2,0,0,0.0,87.0,2.0,709292.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Wesley Saïd,445856,M,1,90,0,0,0,0.0,115.0,2.0,2505269.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Mouafak Awad,1028129,D,0,19,1,0,0,0.0,,1.0,192857.0
+6050074,2026-10-12,afc_champions,Al-Shamal,Musab Kheder,524007,D,0,8,0,0,0,0.0,,1.0,184316.0
+6145880,2026-10-12,finlandia,AC Oulu,Miguel Santos,470818,G,1,90,0,0,0,0.0,11.0,0.0,181812.0
+6145880,2026-10-12,finlandia,AC Oulu,Otto Kemppainen,1199741,D,1,75,0,0,0,0.0,32.0,1.0,157245.0
+6145880,2026-10-12,finlandia,AC Oulu,Mikko Pitkänen,533091,D,1,90,2,1,1,0.0,34.0,1.0,100600.0
+6145880,2026-10-12,finlandia,AC Oulu,Juha Pirinen,118157,D,1,90,0,0,0,0.0,36.0,1.0,202915.0
+6145880,2026-10-12,finlandia,AC Oulu,Tuomas Kaukua,1036118,D,1,90,1,0,0,0.0,38.0,1.0,143752.0
+6145880,2026-10-12,finlandia,AC Oulu,Joel Lotvonen,1753297,M,1,55,0,0,0,0.0,72.0,2.0,
+6145880,2026-10-12,finlandia,AC Oulu,Markus Arsalo,1245696,M,1,75,2,0,0,0.0,74.0,2.0,134291.0
+6145880,2026-10-12,finlandia,AC Oulu,Iiro Mendolin,1780636,M,1,90,1,0,0,0.0,76.0,2.0,
+6145880,2026-10-12,finlandia,AC Oulu,Elias Kallio,1382425,F,1,90,2,0,0,0.0,78.0,3.0,268778.0
+6145880,2026-10-12,finlandia,AC Oulu,Rasmus Karjalainen,787016,M,1,90,1,0,0,0.0,104.0,2.0,213298.0
+6145880,2026-10-12,finlandia,AC Oulu,Camilo Triana,1195096,F,1,75,2,1,1,0.0,106.0,3.0,
+6145880,2026-10-12,finlandia,AC Oulu,Lamine Ghezali,770348,F,0,35,0,0,0,0.0,,3.0,131241.0
+6145880,2026-10-12,finlandia,AC Oulu,Adramane Cassamá,1526763,D,0,15,0,0,0,0.0,,1.0,161328.0
+6145880,2026-10-12,finlandia,AC Oulu,Juuso Mäkeläinen,1832787,M,0,15,2,1,0,0.0,,2.0,
+6145880,2026-10-12,finlandia,AC Oulu,Roope Riski,170253,F,0,15,1,1,1,0.0,,3.0,113362.0
+6145880,2026-10-12,finlandia,HJK,Jesse Öst,163352,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+6145880,2026-10-12,finlandia,HJK,Nikolai Alho,201423,D,1,90,0,0,0,0.0,32.0,1.0,181920.0
+6145880,2026-10-12,finlandia,HJK,Mihailo Bogićević,1529366,D,1,90,0,0,0,0.0,34.0,1.0,105119.0
+6145880,2026-10-12,finlandia,HJK,Ville Tikkanen,831486,D,1,90,0,0,0,0.0,36.0,1.0,206770.0
+6145880,2026-10-12,finlandia,HJK,Leonel Montano,865682,D,1,90,0,0,0,0.0,38.0,1.0,226795.0
+6145880,2026-10-12,finlandia,HJK,Liam Möller,1438218,F,1,68,5,1,1,0.0,73.0,3.0,222390.0
+6145880,2026-10-12,finlandia,HJK,Alexander Ring,181333,M,1,90,0,0,0,0.0,75.0,2.0,81477.0
+6145880,2026-10-12,finlandia,HJK,Pyry Mentu,1647552,M,1,89,1,0,0,0.0,77.0,2.0,633656.0
+6145880,2026-10-12,finlandia,HJK,Santeri Haarala,923629,F,1,89,4,2,0,0.0,103.0,3.0,254840.0
+6145880,2026-10-12,finlandia,HJK,Mads Borchers,1255795,F,1,90,5,2,2,0.0,105.0,3.0,243747.0
+6145880,2026-10-12,finlandia,HJK,Alfie Cicale,1635673,F,1,90,2,0,0,0.0,107.0,3.0,241857.0
+6145880,2026-10-12,finlandia,HJK,Joona Veteli,618800,M,0,22,1,1,1,0.0,,2.0,180240.0
+6145880,2026-10-12,finlandia,HJK,Kaius Simojoki,1479945,D,0,1,0,0,0,0.0,,1.0,
+6145880,2026-10-12,finlandia,HJK,Mouhamed Guèye,1478013,M,0,1,0,0,0,0.0,,2.0,265184.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Aarón Escandell,534955,G,1,90,0,0,0,0.0,11.0,0.0,2065335.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,David Jiménez,1413780,D,1,65,0,0,0,0.0,32.0,1.0,2778346.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Dani Calvo,545905,D,1,90,1,0,0,0.04,34.0,1.0,575113.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Samu Rodríguez,1720593,D,1,90,1,1,0,0.03,36.0,1.0,527976.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Carlos Domínguez,1254217,D,1,90,2,2,2,1.03,38.0,1.0,1632607.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Mikel Goti,1340594,M,1,83,3,1,1,0.08,72.0,2.0,1038536.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Aritz Aldasoro,1093698,M,1,90,1,0,0,0.02,74.0,2.0,1109024.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Youness Lachhab,1167189,M,1,65,1,0,0,0.01,76.0,2.0,665235.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Alberto Reina,1323510,M,1,90,1,0,0,0.06,78.0,2.0,1271176.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Enzo Perez,2140585,M,1,72,1,1,0,0.02,104.0,2.0,
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Victor Mingo,1580553,F,1,65,4,2,0,0.31,106.0,3.0,472146.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Nacho Vidal,640238,D,0,25,0,0,0,0.0,,1.0,776798.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Dani Villahermosa,1162677,M,0,25,0,0,0,0.0,,2.0,1319918.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,José Luis Morales,477472,F,0,25,0,0,0,0.0,,3.0,282132.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,Pablo Sáenz,1370087,F,0,18,1,0,0,0.04,,3.0,867228.0
+5868489,2026-10-12,esp_hypermotion,Real Oviedo,David Costas,479217,D,0,7,0,0,0,0.0,,1.0,980867.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Jonmi Magunagoitia,1233601,G,1,90,0,0,0,0.0,11.0,0.0,1161249.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Álvaro Rodríguez,820259,D,1,90,2,0,0,0.07,32.0,1.0,
+5868489,2026-10-12,esp_hypermotion,Eibar,Unai Elgezabal,693736,D,1,46,0,0,0,0.0,34.0,1.0,315842.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Anaitz Arbilla,213814,D,1,90,2,1,0,0.09,36.0,1.0,273088.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Juan Bernat,282691,D,1,90,0,0,0,0.0,38.0,1.0,280504.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Ander Madariaga,1526604,M,1,81,1,0,0,0.06,64.0,2.0,
+5868489,2026-10-12,esp_hypermotion,Eibar,Aleix Garrido,1327733,M,1,90,1,0,0,0.03,66.0,2.0,1187777.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Adu Ares,1331037,F,1,72,0,0,0,0.0,83.0,3.0,
+5868489,2026-10-12,esp_hypermotion,Eibar,Jon Magunazelaia,1287788,M,1,59,1,1,0,0.53,85.0,2.0,926020.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Jon Guruzeta,1198494,F,1,59,2,1,0,0.16,87.0,3.0,350558.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Jon Bautista,636565,F,1,90,8,2,0,0.39,115.0,3.0,1097031.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Peru Nolaskoain,792071,D,0,44,0,0,0,0.0,,1.0,680494.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Pejiño,920095,M,0,31,0,0,0,0.0,,2.0,460248.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Iván Gil,1110836,F,0,31,1,1,1,0.17,,3.0,703301.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Javi Martón,1205433,F,0,18,0,0,0,0.0,,3.0,1329975.0
+5868489,2026-10-12,esp_hypermotion,Eibar,Lucas Núñez,1757894,M,0,9,0,0,0,0.0,,2.0,
+5749690,2026-10-12,serie_a,Atalanta,Marco Carnesecchi,1013021,G,1,90,0,0,0,0.0,11.0,0.0,32215246.0
+5749690,2026-10-12,serie_a,Atalanta,Raoul Bellanova,902651,M,1,67,0,0,0,0.0,32.0,2.0,16775464.0
+5749690,2026-10-12,serie_a,Atalanta,Thomas Kristensen,1190029,D,1,90,2,0,0,0.13,34.0,1.0,12912888.0
+5749690,2026-10-12,serie_a,Atalanta,Giorgio Scalvini,1202358,D,1,67,0,0,0,0.0,36.0,1.0,41104345.0
+5749690,2026-10-12,serie_a,Atalanta,Davide Zappacosta,244811,M,1,90,3,0,0,0.08,38.0,2.0,2797925.0
+5749690,2026-10-12,serie_a,Atalanta,Franck Kessié,579747,M,1,76,2,2,1,0.38,64.0,2.0,11935741.0
+5749690,2026-10-12,serie_a,Atalanta,Éderson,957203,M,1,90,2,2,0,0.06,66.0,2.0,43922555.0
+5749690,2026-10-12,serie_a,Atalanta,Eljif Elmas,741049,M,1,89,1,1,0,0.04,83.0,2.0,13141307.0
+5749690,2026-10-12,serie_a,Atalanta,Charles De Ketelaere,1095432,M,1,60,1,1,0,0.16,85.0,2.0,42844691.0
+5749690,2026-10-12,serie_a,Atalanta,Jonathan Rowe,1113694,F,1,76,3,1,0,0.24,87.0,3.0,32148084.0
+5749690,2026-10-12,serie_a,Atalanta,Nikola Krstović,833638,F,1,90,7,4,2,1.0,115.0,3.0,33404241.0
+5749690,2026-10-12,serie_a,Atalanta,Lazar Samardžić,1050178,M,0,30,0,0,0,0.0,,2.0,17294361.0
+5749690,2026-10-12,serie_a,Atalanta,Sead Kolašinac,304345,D,0,23,0,0,0,0.0,,1.0,2175437.0
+5749690,2026-10-12,serie_a,Atalanta,Lorenzo Bernasconi,1191093,M,0,23,0,0,0,0.0,,2.0,12551652.0
+5749690,2026-10-12,serie_a,Atalanta,Gianluca Gaetano,1012842,M,0,14,0,0,0,0.0,,2.0,7230126.0
+5749690,2026-10-12,serie_a,Atalanta,Nicola Zalewski,1053714,M,0,14,1,0,0,0.04,,2.0,23228976.0
+5749690,2026-10-12,serie_a,Venezia,Filip Stanković,1130600,G,1,90,0,0,0,0.0,11.0,0.0,9501753.0
+5749690,2026-10-12,serie_a,Venezia,Redouane Halhal,1298186,D,1,90,1,0,0,0.08,33.0,1.0,3769762.0
+5749690,2026-10-12,serie_a,Venezia,Juan Jesus,197352,D,1,90,0,0,0,0.0,35.0,1.0,1000859.0
+5749690,2026-10-12,serie_a,Venezia,Matías Moreno,1605748,D,1,83,0,0,0,0.0,37.0,1.0,9405877.0
+5749690,2026-10-12,serie_a,Venezia,Antoine Hainaut,1290968,M,1,90,2,1,1,0.44,71.0,2.0,3934046.0
+5749690,2026-10-12,serie_a,Venezia,Kike Pérez,888167,M,1,90,2,1,0,0.06,73.0,2.0,1410012.0
+5749690,2026-10-12,serie_a,Venezia,Simon Sohm,975242,M,1,87,0,0,0,0.0,75.0,2.0,9213315.0
+5749690,2026-10-12,serie_a,Venezia,Toma Bašić,651435,M,1,83,2,1,0,0.11,77.0,2.0,2109143.0
+5749690,2026-10-12,serie_a,Venezia,Thierry Correia,992052,D,1,8,0,0,0,0.0,79.0,1.0,1586245.0
+5749690,2026-10-12,serie_a,Venezia,John Yeboah,845368,F,1,90,5,1,0,1.07,104.0,3.0,5431519.0
+5749690,2026-10-12,serie_a,Venezia,Akor Adams,958640,F,1,83,4,0,0,0.6,106.0,3.0,12637606.0
+5749690,2026-10-12,serie_a,Venezia,Richie Sagrado,1388039,M,0,82,1,0,0,0.02,,2.0,1598147.0
+5749690,2026-10-12,serie_a,Venezia,Joël Schingtienne,1352744,D,0,7,1,0,0,0.21,,1.0,6770167.0
+5749690,2026-10-12,serie_a,Venezia,Thórir Helgason,939593,M,0,7,0,0,0,0.0,,2.0,1349158.0
+5749690,2026-10-12,serie_a,Venezia,Lion Lauberbach,866165,F,0,7,0,0,0,0.0,,3.0,1883384.0
+5749690,2026-10-12,serie_a,Venezia,Albion Rrahmani,1379468,F,0,3,1,0,0,0.03,,3.0,7306143.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Dinko Horkaš,930024,G,1,90,0,0,0,0.0,11.0,0.0,2193205.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Pedro Malheiro,1282144,D,1,90,4,1,1,0.0,32.0,1.0,5089772.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Soufian Bouftiny,884198,D,1,90,1,0,0,0.0,34.0,1.0,717311.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Adryelson,638746,D,1,46,0,0,0,0.0,36.0,1.0,1640026.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Hugo,1182091,D,1,90,1,0,0,0.0,38.0,1.0,1384967.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Siaka Sidibe,1399222,M,1,59,1,0,0,0.0,64.0,2.0,1727346.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Ridwan Popoola,1744765,M,1,90,0,0,0,0.0,66.0,2.0,847609.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Brahian Palacios,1353470,F,1,59,0,0,0,0.0,83.0,3.0,2319907.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Nicolás Giménez,624410,M,1,68,1,1,0,0.0,85.0,2.0,2243683.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Serginho,1393478,F,1,90,3,0,0,0.0,87.0,3.0,1949105.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Mehdi Taremi,619506,F,1,79,0,0,0,0.0,115.0,3.0,1486164.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Saša Ivković,463265,D,0,44,0,0,0,0.0,,1.0,518760.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Cameron Puertas,909907,M,0,31,2,0,0,0.0,,2.0,5778589.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Leandro Spadacio,1138138,F,0,31,1,0,0,0.0,,3.0,538800.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Renato Júnior,1282441,F,0,22,0,0,0,0.0,,3.0,776982.0
+6050073,2026-10-12,afc_champions,Al-Wasl,Matheus Saldanha,1173473,F,0,11,1,0,0,0.0,,3.0,2367604.0
+6050073,2026-10-12,afc_champions,Al Ahli,Abdulrahman Al-Sanbi,1524217,G,1,90,0,0,0,0.0,11.0,0.0,312769.0
+6050073,2026-10-12,afc_champions,Al Ahli,Saeed Baattia,1526851,D,1,90,1,0,0,0.0,32.0,1.0,195119.0
+6050073,2026-10-12,afc_champions,Al Ahli,Merih Demiral,823078,D,1,90,0,0,0,0.0,34.0,1.0,12516167.0
+6050073,2026-10-12,afc_champions,Al Ahli,Roger Ibañez,862538,D,1,90,2,1,1,0.0,36.0,1.0,16734130.0
+6050073,2026-10-12,afc_champions,Al Ahli,Saad Balobaid,1188101,D,1,90,0,0,0,0.0,38.0,1.0,437844.0
+6050073,2026-10-12,afc_champions,Al Ahli,Valentin Atangana Edoa,1439625,M,1,90,0,0,0,0.0,64.0,2.0,15590649.0
+6050073,2026-10-12,afc_champions,Al Ahli,Ziyad Al-Johani,1174962,M,1,46,0,0,0,0.0,66.0,2.0,822508.0
+6050073,2026-10-12,afc_champions,Al Ahli,Trincão,732282,M,1,90,2,1,1,0.0,83.0,2.0,27691887.0
+6050073,2026-10-12,afc_champions,Al Ahli,Eduard Spertsyan,938297,M,1,68,2,1,0,0.0,85.0,2.0,21992013.0
+6050073,2026-10-12,afc_champions,Al Ahli,Saleh Abu Al-Shamat,1251448,F,1,72,0,0,0,0.0,87.0,3.0,366193.0
+6050073,2026-10-12,afc_champions,Al Ahli,Ivan Toney,408987,F,1,59,1,0,0,0.0,115.0,3.0,15038049.0
+6050073,2026-10-12,afc_champions,Al Ahli,Artem Bondarenko,1116325,M,0,45,1,0,0,0.0,,2.0,5003896.0
+6050073,2026-10-12,afc_champions,Al Ahli,Firas Al-Buraikan,844226,F,0,31,1,1,1,0.0,,3.0,2683069.0
+6050073,2026-10-12,afc_champions,Al Ahli,Ibrahima Diaby,1785898,M,0,22,0,0,0,0.0,,2.0,2002025.0
+6050073,2026-10-12,afc_champions,Al Ahli,Mohammed Sulaiman,1642823,D,0,18,0,0,0,0.0,,1.0,492573.0
+5804000,2026-10-12,polonia,Radomiak Radom,Filip Majchrowicz,948374,G,1,90,0,0,0,0.0,11.0,0.0,767108.0
+5804000,2026-10-12,polonia,Radomiak Radom,Kryspin Szcześniak,1138434,D,1,90,0,0,0,0.0,32.0,1.0,345625.0
+5804000,2026-10-12,polonia,Radomiak Radom,Steve Kingue,962302,D,1,90,1,1,1,0.04,34.0,1.0,495327.0
+5804000,2026-10-12,polonia,Radomiak Radom,Filip Koperski,1230642,D,1,90,1,1,1,0.69,36.0,1.0,149300.0
+5804000,2026-10-12,polonia,Radomiak Radom,Jan Grzesik,831476,D,1,90,1,0,0,0.02,38.0,1.0,201543.0
+5804000,2026-10-12,polonia,Radomiak Radom,Roberto Alves,690186,M,1,73,0,0,0,0.0,64.0,2.0,149766.0
+5804000,2026-10-12,polonia,Radomiak Radom,Christos Donis,408104,M,1,90,0,0,0,0.0,66.0,2.0,162050.0
+5804000,2026-10-12,polonia,Radomiak Radom,Ronaldo Lumungo,1206189,F,1,83,2,0,0,0.08,83.0,3.0,641333.0
+5804000,2026-10-12,polonia,Radomiak Radom,Rafał Wolski,206793,M,1,62,0,0,0,0.0,85.0,2.0,326086.0
+5804000,2026-10-12,polonia,Radomiak Radom,Elves,783619,F,1,45,1,0,0,0.03,87.0,3.0,252913.0
+5804000,2026-10-12,polonia,Radomiak Radom,Fernand Goure,1230430,F,1,61,0,0,0,0.0,115.0,3.0,385366.0
+5804000,2026-10-12,polonia,Radomiak Radom,Luquinhas,776580,M,0,44,0,0,0,0.0,,2.0,651848.0
+5804000,2026-10-12,polonia,Radomiak Radom,Guilherme Luiz,1733357,F,0,29,0,0,0,0.0,,3.0,
+5804000,2026-10-12,polonia,Radomiak Radom,Abdoul Tapsoba,1012795,F,0,28,0,0,0,0.0,,3.0,342102.0
+5804000,2026-10-12,polonia,Radomiak Radom,Ibrahima Camará,955790,M,0,17,0,0,0,0.0,,2.0,161945.0
+5804000,2026-10-12,polonia,Radomiak Radom,Manu,1677257,F,0,7,0,0,0,0.0,,3.0,
+5804000,2026-10-12,polonia,Motor Lublin,Gašper Tratnik,1512753,G,1,90,0,0,0,0.0,11.0,0.0,191959.0
+5804000,2026-10-12,polonia,Motor Lublin,Kamil Lukoszek,1169071,D,1,90,1,1,0,0.05,32.0,1.0,376013.0
+5804000,2026-10-12,polonia,Motor Lublin,Bartosz Bereszyński,198099,D,1,61,0,0,0,0.0,34.0,1.0,287190.0
+5804000,2026-10-12,polonia,Motor Lublin,Tin Plavotić,822495,D,1,90,1,0,0,0.1,36.0,1.0,765198.0
+5804000,2026-10-12,polonia,Motor Lublin,Filip Luberecki,1447055,D,1,90,2,1,0,0.15,38.0,1.0,2293118.0
+5804000,2026-10-12,polonia,Motor Lublin,Yacine Bourhane,864153,M,1,87,0,0,0,0.0,65.0,2.0,305288.0
+5804000,2026-10-12,polonia,Motor Lublin,Mbaye Ndiaye,1643834,F,1,90,6,2,1,0.38,82.0,3.0,1464576.0
+5804000,2026-10-12,polonia,Motor Lublin,Rony Lopes,435669,F,1,77,4,1,0,0.13,84.0,3.0,598740.0
+5804000,2026-10-12,polonia,Motor Lublin,Christopher Simon,1662949,M,1,90,3,2,1,0.37,86.0,2.0,179212.0
+5804000,2026-10-12,polonia,Motor Lublin,Makan Aïko,1233935,F,1,61,0,0,0,0.0,88.0,3.0,828151.0
+5804000,2026-10-12,polonia,Motor Lublin,Karol Czubak,1074799,F,1,90,3,2,1,0.98,115.0,3.0,1708374.0
+5804000,2026-10-12,polonia,Motor Lublin,Marek Bartoš,949860,D,0,29,1,1,0,0.24,,1.0,211786.0
+5804000,2026-10-12,polonia,Motor Lublin,Fábio Ronaldo,1288115,F,0,29,1,1,0,0.17,,3.0,1240179.0
+5804000,2026-10-12,polonia,Motor Lublin,Mateusz Łęgowski,1229761,M,0,13,0,0,0,0.0,,2.0,1853738.0
+5804000,2026-10-12,polonia,Motor Lublin,Paskal Meyer,1692474,M,0,3,0,0,0,0.0,,2.0,264802.0

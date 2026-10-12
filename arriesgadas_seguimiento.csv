@@ -15,9 +15,9 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Atletico-MG vs Santos,2026-10-11 19:00:00,Córners Santos: Más de 4.5,corners,equipo,visita,4.5,0.5531,1.9,3.0,0.0
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Córners Corinthians: Más de 3.5,corners,equipo,visita,3.5,0.5778,1.6,3.0,0.0
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Córners Necaxa: Más de 3.5,corners,equipo,visita,3.5,0.634,1.667,3.0,0.0
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas: Más de 2.5,tarjetas,total,total,2.5,0.7006,1.455,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas Venezia: Más de 1.5,tarjetas,equipo,visita,1.5,0.6787,1.556,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Córners Atalanta: Más de 4.5,corners,equipo,local,4.5,0.6365,1.5,,
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas: Más de 2.5,tarjetas,total,total,2.5,0.7006,1.455,2.0,0.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas Venezia: Más de 1.5,tarjetas,equipo,visita,1.5,0.6787,1.556,2.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Córners Atalanta: Más de 4.5,corners,equipo,local,4.5,0.6365,1.5,8.0,1.0
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tarjetas: Más de 2.5,tarjetas,total,total,2.5,0.7251,1.455,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tarjetas Udinese: Más de 1.5,tarjetas,equipo,visita,1.5,0.6185,1.6,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Córners Udinese: Más de 3.5,corners,equipo,visita,3.5,0.5935,1.5,,
@@ -139,7 +139,6 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5866,1.6,11.0,1.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5543,1.69,0.0,0.0
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros Palmeiras: Más de 15.5,tiros,equipo,local,15.5,0.602,1.538,22.0,1.0
-2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Sevilla: Más de 3.5,a_puerta,equipo,visita,3.5,0.5542,1.714,,
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta Palmeiras: Más de 4.5,a_puerta,equipo,local,4.5,0.677,1.48,8.0,1.0
 2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros a puerta Internacional: Más de 3.5,a_puerta,equipo,visita,3.5,0.6675,1.48,3.0,0.0
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.6154,1.526,10.0,1.0
@@ -167,17 +166,17 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta Necaxa: Más de 3.5,a_puerta,equipo,visita,3.5,0.6076,1.889,7.0,1.0
 2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros: Más de 29.5,tiros,total,total,29.5,0.5993,1.667,34.0,1.0
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Córners: Más de 8.5,corners,total,total,8.5,0.562,1.741,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Goles Atalanta: Más de 1.5,goles,equipo,local,1.5,0.585,1.476,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Córners: Más de 7.5,corners,total,total,7.5,0.7144,1.5,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6895,1.571,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Goles Venezia: Más de 0.5,goles,equipo,visita,0.5,0.6829,1.455,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6138,1.48,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta Venezia: Más de 3.5,a_puerta,equipo,visita,3.5,0.5972,2.0,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5927,1.625,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.5907,1.538,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Venezia: Más de 10.5,tiros,equipo,visita,10.5,0.5791,1.636,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Atalanta: Más de 15.5,tiros,equipo,local,15.5,0.5618,1.7,,
-2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta Atalanta: Más de 5.5,a_puerta,equipo,local,5.5,0.5618,1.778,,
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Goles Atalanta: Más de 1.5,goles,equipo,local,1.5,0.585,1.476,3.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Córners: Más de 7.5,corners,total,total,7.5,0.7144,1.5,15.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6895,1.571,15.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Goles Venezia: Más de 0.5,goles,equipo,visita,0.5,0.6829,1.455,1.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6138,1.48,4.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta Venezia: Más de 3.5,a_puerta,equipo,visita,3.5,0.5972,2.0,4.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5927,1.625,1.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.5907,1.538,41.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Venezia: Más de 10.5,tiros,equipo,visita,10.5,0.5791,1.636,19.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Atalanta: Más de 15.5,tiros,equipo,local,15.5,0.5618,1.7,22.0,1.0
+2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta Atalanta: Más de 5.5,a_puerta,equipo,local,5.5,0.5618,1.778,11.0,1.0
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros Valerenga: Más de 12.5,tiros,equipo,visita,12.5,0.7404,1.6,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6632,1.52,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6223,1.476,,
@@ -193,12 +192,15 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Ambos marcan: No,btts,btts,total,0.0,0.5639,1.952,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.5627,1.6,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5614,1.667,,
-2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Sevilla: Más de 10.5,tiros,equipo,visita,10.5,0.6716,1.48,,
-2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.5978,1.571,,
-2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Levante: Más de 3.5,a_puerta,equipo,local,3.5,0.5704,1.6,,
-2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5689,1.5,,
-2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Levante: Más de 11.5,tiros,equipo,local,11.5,0.5662,1.667,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Sevilla: Más de 10.5,tiros,equipo,visita,10.5,0.6829,1.48,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.5986,1.538,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5776,1.5,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Levante: Más de 3.5,a_puerta,equipo,local,3.5,0.5686,1.6,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Sevilla: Más de 3.5,a_puerta,equipo,visita,3.5,0.5625,1.583,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Levante: Más de 11.5,tiros,equipo,local,11.5,0.5544,1.667,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.552,1.538,,
+2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.6048,1.85,,
 2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5751,1.741,,
 2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Córners: Más de 9.5,corners,total,total,9.5,0.5653,1.455,,
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Goles FC Cincinnati: Más de 1.5,goles,equipo,local,1.5,0.6568,1.546,,
-2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5609,1.6,,
+2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5609,1.556,,
