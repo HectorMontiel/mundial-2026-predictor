@@ -14,7 +14,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Cagliari vs Juventus,2026-10-11 18:45:00,Córners Juventus: Más de 5.5,corners,equipo,visita,5.5,0.589,1.667,9.0,1.0
 2026-10-11,Atletico-MG vs Santos,2026-10-11 19:00:00,Córners Santos: Más de 4.5,corners,equipo,visita,4.5,0.5531,1.9,3.0,0.0
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Córners Corinthians: Más de 3.5,corners,equipo,visita,3.5,0.5778,1.6,3.0,0.0
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Córners Necaxa: Más de 3.5,corners,equipo,visita,3.5,0.634,1.667,,
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Córners Necaxa: Más de 3.5,corners,equipo,visita,3.5,0.634,1.667,3.0,0.0
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas: Más de 2.5,tarjetas,total,total,2.5,0.7006,1.455,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tarjetas Venezia: Más de 1.5,tarjetas,equipo,visita,1.5,0.6787,1.556,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Córners Atalanta: Más de 4.5,corners,equipo,local,4.5,0.6365,1.5,,
@@ -90,8 +90,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.564,1.714,5.0,0.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5553,1.636,18.0,0.0
 2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Ambos marcan: No,btts,btts,total,0.0,0.5501,1.8,1.0,0.0
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros Pachuca: Más de 17.5,tiros,equipo,local,17.5,0.5634,1.667,,
-2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Udinese: Más de 11.5,tiros,equipo,visita,11.5,0.5843,1.75,,
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros Pachuca: Más de 17.5,tiros,equipo,local,17.5,0.5634,1.667,18.0,1.0
 2026-10-11,Padova vs Carrarese,2026-10-11 15:15:00,Tiros a puerta Carrarese: Más de 2.5,a_puerta,equipo,visita,2.5,0.7041,1.462,4.0,1.0
 2026-10-11,Padova vs Carrarese,2026-10-11 15:15:00,Goles Carrarese: Más de 0.5,goles,equipo,visita,0.5,0.6288,1.455,2.0,1.0
 2026-10-11,Padova vs Carrarese,2026-10-11 15:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.6283,1.455,6.0,0.0
@@ -111,7 +110,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Lillestrom vs Molde,2026-10-11 17:15:00,Tiros a puerta: Más de 10.5,a_puerta,total,total,10.5,0.5875,1.95,17.0,1.0
 2026-10-11,Lillestrom vs Molde,2026-10-11 17:15:00,Tiros: Más de 28.5,tiros,total,total,28.5,0.5664,1.7,40.0,1.0
 2026-10-11,Lillestrom vs Molde,2026-10-11 17:15:00,Tiros a puerta Molde: Más de 5.5,a_puerta,equipo,visita,5.5,0.5658,2.0,12.0,1.0
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Goles Mirassol: Más de 0.5,goles,equipo,visita,0.5,0.7262,1.455,,
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Goles Mirassol: Más de 0.5,goles,equipo,visita,0.5,0.7262,1.455,0.0,0.0
 2026-10-11,Atletico-MG vs Santos,2026-10-11 19:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6006,1.647,1.0,1.0
 2026-10-11,Atletico-MG vs Santos,2026-10-11 19:00:00,Tiros Atletico-MG: Más de 14.5,tiros,equipo,local,14.5,0.5918,1.615,21.0,1.0
 2026-10-11,Atletico-MG vs Santos,2026-10-11 19:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.577,1.778,3.0,1.0
@@ -140,7 +139,6 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5866,1.6,11.0,1.0
 2026-10-11,Arouca vs Estrela,2026-10-11 19:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5543,1.69,0.0,0.0
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros Palmeiras: Más de 15.5,tiros,equipo,local,15.5,0.602,1.538,22.0,1.0
-2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Sevilla: Más de 11.5,tiros,equipo,visita,11.5,0.5758,1.846,,
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Sevilla: Más de 3.5,a_puerta,equipo,visita,3.5,0.5542,1.714,,
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta Palmeiras: Más de 4.5,a_puerta,equipo,local,4.5,0.677,1.48,8.0,1.0
 2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Tiros a puerta Internacional: Más de 3.5,a_puerta,equipo,visita,3.5,0.6675,1.48,3.0,0.0
@@ -151,26 +149,24 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-11,Palmeiras vs Corinthians,2026-10-11 20:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5983,1.636,11.0,1.0
 2026-10-11,Gremio vs Internacional,2026-10-11 20:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5734,1.5,11.0,1.0
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5843,1.5,,
-2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5657,1.76,,
-2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Torino: Más de 12.5,tiros,equipo,local,12.5,0.5569,1.778,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta Bahia: Más de 4.5,a_puerta,equipo,local,4.5,0.7664,1.52,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.7471,1.583,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros Mirassol: Más de 9.5,tiros,equipo,visita,9.5,0.7192,1.462,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6711,1.615,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6428,1.647,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Goles Bahia: Más de 1.5,goles,equipo,local,1.5,0.6349,1.571,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta Mirassol: Más de 3.5,a_puerta,equipo,visita,3.5,0.6214,1.8,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros Bahia: Más de 15.5,tiros,equipo,local,15.5,0.6056,1.615,,
-2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.602,1.692,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta Pachuca: Más de 4.5,a_puerta,equipo,local,4.5,0.7874,1.455,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.7578,1.571,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros Necaxa: Más de 10.5,tiros,equipo,visita,10.5,0.6965,1.6,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Goles: Más de 2.5,goles,total,total,2.5,0.6533,1.667,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Goles Pachuca: Más de 1.5,goles,equipo,local,1.5,0.6433,1.645,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Córners: Más de 9.5,corners,total,total,9.5,0.6191,1.69,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6128,1.667,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta Necaxa: Más de 3.5,a_puerta,equipo,visita,3.5,0.6076,1.889,,
-2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros: Más de 29.5,tiros,total,total,29.5,0.5993,1.667,,
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta Bahia: Más de 4.5,a_puerta,equipo,local,4.5,0.7664,1.52,2.0,0.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.7471,1.583,4.0,0.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros Mirassol: Más de 9.5,tiros,equipo,visita,9.5,0.7192,1.462,10.0,1.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6711,1.615,1.0,0.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6428,1.647,0.0,0.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Goles Bahia: Más de 1.5,goles,equipo,local,1.5,0.6349,1.571,1.0,0.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros a puerta Mirassol: Más de 3.5,a_puerta,equipo,visita,3.5,0.6214,1.8,2.0,0.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros Bahia: Más de 15.5,tiros,equipo,local,15.5,0.6056,1.615,16.0,1.0
+2026-10-11,Bahia vs Mirassol,2026-10-11 22:30:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.602,1.692,26.0,0.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta Pachuca: Más de 4.5,a_puerta,equipo,local,4.5,0.7874,1.455,6.0,1.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.7578,1.571,13.0,1.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros Necaxa: Más de 10.5,tiros,equipo,visita,10.5,0.6965,1.6,16.0,1.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Goles: Más de 2.5,goles,total,total,2.5,0.6533,1.667,6.0,1.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Goles Pachuca: Más de 1.5,goles,equipo,local,1.5,0.6433,1.645,3.0,1.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Córners: Más de 9.5,corners,total,total,9.5,0.6191,1.69,8.0,0.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6128,1.667,1.0,1.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros a puerta Necaxa: Más de 3.5,a_puerta,equipo,visita,3.5,0.6076,1.889,7.0,1.0
+2026-10-11,Pachuca vs Necaxa,2026-10-11 23:10:00,Tiros: Más de 29.5,tiros,total,total,29.5,0.5993,1.667,34.0,1.0
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Córners: Más de 7.5,corners,total,total,7.5,0.7039,1.455,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6654,1.538,,
 2026-10-12,Atalanta vs Venezia,2026-10-12 16:30:00,Tiros Venezia: Más de 9.5,tiros,equipo,visita,9.5,0.6645,1.462,,
@@ -185,7 +181,17 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6056,1.5,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5835,1.571,,
 2026-10-12,KFUM Oslo vs Valerenga,2026-10-12 17:00:00,Tiros a puerta Valerenga: Más de 4.5,a_puerta,equipo,visita,4.5,0.5816,1.85,,
+2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Udinese: Más de 10.5,tiros,equipo,visita,10.5,0.6372,1.5,,
+2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros a puerta Torino: Más de 3.5,a_puerta,equipo,local,3.5,0.6313,1.546,,
+2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.59,1.583,,
+2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5657,1.538,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Córners: Más de 8.5,corners,total,total,8.5,0.562,1.741,,
+2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros Torino: Más de 12.5,tiros,equipo,local,12.5,0.5569,1.615,,
 2026-10-12,Torino vs Udinese,2026-10-12 18:45:00,Tiros a puerta Udinese: Más de 3.5,a_puerta,equipo,visita,3.5,0.5506,1.692,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Sevilla: Más de 10.5,tiros,equipo,visita,10.5,0.6382,1.48,,
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5885,1.571,,
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta Levante: Más de 3.5,a_puerta,equipo,local,3.5,0.5818,1.6,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.5697,1.571,,
+2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Levante: Más de 11.5,tiros,equipo,local,11.5,0.5627,1.667,,
+2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Goles FC Cincinnati: Más de 1.5,goles,equipo,local,1.5,0.6535,1.546,,
+2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5707,1.556,,

@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-11T23:33:45Z",
+"actualizado": "2026-10-12T01:40:22Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -4334,6 +4334,16 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Atl. San Luis vs Santos Laguna",
+"apuesta": "Gana Santos Laguna",
+"cuota": 3.4,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-11",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Atletico Balboa vs CD FAS",
@@ -4381,6 +4391,16 @@
 "cuota": 1.167,
 "resultado": "verde",
 "marcador": "2-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Bahia vs Mirassol",
+"apuesta": "Bahia o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-11",
@@ -4434,6 +4454,26 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Caracas FC vs Zamora FC",
+"apuesta": "Caracas FC o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "4-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Central Español Fútbol Club vs Nacional",
+"apuesta": "Nacional o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-11",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Cherno More vs Levski Sofia",
@@ -4451,6 +4491,26 @@
 "cuota": 3.2,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Ciudad de Bolívar vs San Telmo",
+"apuesta": "Ciudad de Bolívar o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Cuiabá vs Avaí",
+"apuesta": "Cuiabá o empate",
+"cuota": 1.133,
+"resultado": "rojo",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-11",
@@ -4704,6 +4764,26 @@
 },
 {
 "dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Libertad Asuncion vs Guarani",
+"apuesta": "Gana Libertad Asuncion",
+"cuota": 2.0,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Libertad vs Guaraní",
+"apuesta": "Gana Libertad",
+"cuota": 2.0,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-11",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Mallorca vs Las Palmas",
@@ -4726,11 +4806,41 @@
 "dia": "2026-10-11",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Monagas vs Estudiantes Merida",
+"apuesta": "Gana Estudiantes Merida",
+"cuota": 3.15,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "New York Rangers vs Vancouver Canucks",
+"apuesta": "Handicap: New York Rangers +1.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "6-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Nykobing vs VSK Aarhus",
 "apuesta": "Gana Nykobing",
 "cuota": 1.72,
 "resultado": "verde",
 "marcador": "3-1"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Pachuca vs Necaxa",
+"apuesta": "Pachuca o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "3-3"
 },
 {
 "dia": "2026-10-11",
@@ -4971,6 +5081,16 @@
 "cuota": 1.111,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-11",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Washington Capitals vs Seattle Kraken",
+"apuesta": "Handicap: Seattle Kraken +3.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "3-5"
 },
 {
 "dia": "2026-10-11",

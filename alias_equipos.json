@@ -1,7 +1,7 @@
 {
- "generado": "2026-10-11T23:28:10Z",
- "fixtures_revisados": 93,
- "ya_casaban": 56,
+ "generado": "2026-10-12T01:33:56Z",
+ "fixtures_revisados": 109,
+ "ya_casaban": 78,
  "min_parecido": 0.82,
  "alias": {
   "sint truiden": {
@@ -66,6 +66,15 @@
    "lado_ancla": "notts county",
    "ultima_vez": "2026-10-08T00:35:50Z",
    "primera_vez": "2026-10-08T00:35:50Z"
+  },
+  "sheffield utd": {
+   "canonico": "sheffield united",
+   "parecido": 0.8966,
+   "visto_en": "Portsmouth vs Sheffield United",
+   "liga": "eng_championship",
+   "lado_ancla": "portsmouth",
+   "ultima_vez": "2026-10-12T01:33:56Z",
+   "primera_vez": "2026-10-12T01:33:56Z"
   }
  }
 }
