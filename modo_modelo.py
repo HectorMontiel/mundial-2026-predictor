@@ -3566,7 +3566,11 @@ def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
                             'porque': 'acierta de verdad %.0f %% (medido)' % (100 * real)})
         except Exception as e:
             logger.debug('[modo_modelo] lista por acierto: %s', e)
-    out.sort(key=lambda x: (-round(float(x['prob']), 3), str(x.get('inicio') or '')))
+    # v367 — «las de estrella no están ordenadas por hora»: primero las ⭐
+    # ELIGE, POR HORA (son las que se meten); luego las demás, de la que más
+    # se cumple a la que menos y, a igual acierto, por hora.
+    out.sort(key=lambda x: (0, 0.0, str(x.get('inicio') or '')) if x.get('elige')
+             else (1, -round(float(x['prob']), 3), str(x.get('inicio') or '')))
     return out
 
 

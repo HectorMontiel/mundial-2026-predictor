@@ -5732,12 +5732,17 @@ def render_alpha_finder():
         # verdad». Las «se mete» que aún no empiezan, de la que más se cumple
         # (medido) a la que menos; ⭐ = ELIGE (ver `modo_modelo.elige`).
         try:
-            _lpa = _mmk.lista_por_acierto(_de_hoy + _de_man)
+            # v367 — SÓLO EL DÍA QUE SE ESTÁ VIENDO (la pestaña de arriba:
+            # hoy, mañana o pasado). Antes juntaba hoy y mañana siempre.
+            _modo_lpa = dia_de_vista()
+            _lpa = _mmk.lista_por_acierto(solo_del_dia(_prons, _modo_lpa))
             if _lpa:
                 import vista_compacta as _vc_m
                 _ne = sum(1 for x in _lpa if x.get('elige'))
-                with st.expander('📋 Las %d «se mete» que faltan, de la que más se '
-                                 'cumple a la que menos · ⭐ %d ELIGE' % (len(_lpa), _ne),
+                with st.expander('📋 Las %d «se mete» que faltan %s · ⭐ %d ELIGE '
+                                 'primero, por hora' % (len(_lpa), {'hoy': 'hoy',
+                                 'mañana': 'mañana', 'pasado': 'pasado mañana'}.get(
+                                     _modo_lpa, ''), _ne),
                                  expanded=False):
                     st.caption('«Acierta» es lo que de verdad acertaron las apuestas '
                                'como ésta (medido), no lo que promete la tarjeta. '
