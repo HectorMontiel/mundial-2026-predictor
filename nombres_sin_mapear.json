@@ -449,9 +449,9 @@
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Herk Sport Hasselt W",
-    "ratio": 0.5161,
-    "visto": "2026-10-09"
+    "candidato": "Sport Recife U20",
+    "ratio": 0.3448,
+    "visto": "2026-10-13"
   },
   "Estudiantes (Buenos Aires)": {
     "contexto": "cuotas_mx→futbol",
@@ -1181,9 +1181,9 @@
   },
   "Shanghai Port": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shanghai Second",
-    "ratio": 0.7143,
-    "visto": "2026-10-12"
+    "candidato": "Port MTI FC (Tha)",
+    "ratio": 0.2857,
+    "visto": "2026-10-13"
   },
   "Libertad (Ecuador)": {
     "contexto": "cuotas_mx→futbol",
@@ -1397,9 +1397,9 @@
   },
   "Sport Huancayo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Herk Sport Hasselt W",
-    "ratio": 0.5,
-    "visto": "2026-10-09"
+    "candidato": "Sport Recife U20",
+    "ratio": 0.4667,
+    "visto": "2026-10-13"
   },
   "Real Oruro": {
     "contexto": "cuotas_mx→futbol",
@@ -2065,6 +2065,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Newcastle Utd U21",
     "ratio": 0.7097,
+    "visto": "2026-10-13"
+  },
+  "Jagiellonia Bialystok": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Jagiellonia U19",
+    "ratio": 0.6667,
     "visto": "2026-10-13"
   }
 }

@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T09:17:12Z",
+"actualizado": "2026-10-13T10:51:02Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5621,6 +5621,16 @@
 "cuota": 1.55,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Newcastle Jets (Aus) vs Gamba Osaka (Jpn)",
+"apuesta": "Gana Gamba Osaka (Jpn)",
+"cuota": 1.76,
+"resultado": "verde",
+"marcador": "1-3"
 }
 ]
 }
