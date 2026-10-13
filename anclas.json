@@ -1,18 +1,18 @@
 {
  "activo": false,
- "generado": "2026-10-13T07:28:05Z",
+ "generado": "2026-10-13T09:05:54Z",
  "casas": {
   "575": {
    "n_pares": 1435,
-   "n_partidos": 4574,
+   "n_partidos": 4580,
    "margen_mediano": 9.196,
-   "margen_desviacion": 3.403,
+   "margen_desviacion": 3.404,
    "error_mediano_pp": 0.261,
    "suficiente": true
   },
   "925": {
    "n_pares": 1156,
-   "n_partidos": 5621,
+   "n_partidos": 5627,
    "margen_mediano": 9.934,
    "margen_desviacion": 2.808,
    "error_mediano_pp": 1.092,
@@ -20,7 +20,7 @@
   },
   "1187": {
    "n_pares": 1242,
-   "n_partidos": 4786,
+   "n_partidos": 4792,
    "margen_mediano": 9.458,
    "margen_desviacion": 1.941,
    "error_mediano_pp": 0.338,
