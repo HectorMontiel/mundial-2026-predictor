@@ -91,14 +91,14 @@
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maritimo",
-    "ratio": 0.6667,
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.7568,
     "visto": "2026-10-13"
   },
   "Estudiantes de La Plata": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Estudiantes Rio Cuarto 2",
-    "ratio": 0.6383,
+    "candidato": "Estudiantes L.P. 2",
+    "ratio": 0.75,
     "visto": "2026-10-13"
   },
   "Estudiantes de Río Cuarto": {
@@ -181,8 +181,8 @@
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Stoke City U21",
-    "ratio": 0.5,
+    "candidato": "Manchester City U19",
+    "ratio": 0.5366,
     "visto": "2026-10-13"
   },
   "Montevideo Wanderers": {
@@ -229,8 +229,8 @@
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid",
-    "ratio": 0.48,
+    "candidato": "Real Madrid U19",
+    "ratio": 0.4828,
     "visto": "2026-10-13"
   },
   "Real Sociedad": {
@@ -299,8 +299,8 @@
   },
   "Ayr United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.7368,
+    "candidato": "Pattaya United",
+    "ratio": 0.75,
     "visto": "2026-10-13"
   },
   "Queen's Park": {
@@ -353,8 +353,8 @@
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Orapa United",
-    "ratio": 0.6923,
+    "candidato": "Pattaya United",
+    "ratio": 0.7857,
     "visto": "2026-10-13"
   },
   "New York City FC": {
@@ -569,8 +569,8 @@
   },
   "San Jose Earthquakes": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Carlos",
-    "ratio": 0.4,
+    "candidato": "San Martin S.J. 2",
+    "ratio": 0.4444,
     "visto": "2026-10-13"
   },
   "D.C. United": {
@@ -1691,8 +1691,8 @@
   },
   "Deportivo Cuenca": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maritimo",
-    "ratio": 0.6471,
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.6857,
     "visto": "2026-10-13"
   },
   "Estudiantes de Mérida": {
@@ -1819,7 +1819,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Feyenoord U19",
     "ratio": 0.625,
-    "visto": "2026-10-10"
+    "visto": "2026-10-13"
   },
   "PEC Zwolle": {
     "contexto": "cuotas_mx→futbol",
@@ -1955,8 +1955,8 @@
   },
   "AEK Athens": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Athens Kallithea",
-    "ratio": 0.4615,
+    "candidato": "AEK U19",
+    "ratio": 0.4706,
     "visto": "2026-10-13"
   },
   "Kyoto Sanga": {
@@ -2077,6 +2077,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "CSKA Moscow",
     "ratio": 0.6667,
+    "visto": "2026-10-13"
+  },
+  "Como": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Como U19",
+    "ratio": 0.6667,
+    "visto": "2026-10-13"
+  },
+  "Ararat-Armenia": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Ararat Yerevan 2",
+    "ratio": 0.6,
     "visto": "2026-10-13"
   }
 }

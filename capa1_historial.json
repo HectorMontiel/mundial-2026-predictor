@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T10:51:02Z",
+"actualizado": "2026-10-13T15:41:20Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5611,6 +5611,36 @@
 "cuota": 2.8,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Cong An Ha Noi (Vie) vs Kashima Antlers (Jpn)",
+"apuesta": "Gana Kashima Antlers (Jpn)",
+"cuota": 1.53,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Crvena zvezda U19 vs Novi Pazar U19",
+"apuesta": "Gana Crvena zvezda U19",
+"cuota": 1.35,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Lugazi vs BUL",
+"apuesta": "Gana BUL",
+"cuota": 1.66,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-13",
