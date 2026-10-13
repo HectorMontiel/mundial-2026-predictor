@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T18:52:14Z",
+"actualizado": "2026-10-13T20:27:15Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5676,6 +5676,26 @@
 "dia": "2026-10-13",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Durban City vs AmaZulu",
+"apuesta": "Gana AmaZulu",
+"cuota": 3.3,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Durban City vs AmaZulu",
+"apuesta": "Empate",
+"cuota": 2.95,
+"resultado": "rojo",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "GC Mascara vs Sidi Benali",
 "apuesta": "Gana GC Mascara",
 "cuota": 2.1,
@@ -5691,6 +5711,26 @@
 "cuota": 3.3,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Gillingham vs Brighton U21",
+"apuesta": "Gana Brighton U21",
+"cuota": 2.4,
+"resultado": "rojo",
+"marcador": "4-3"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Hansa Rostock vs Meppen",
+"apuesta": "Gana Hansa Rostock",
+"cuota": 1.67,
+"resultado": "rojo",
+"marcador": "0-2"
 },
 {
 "dia": "2026-10-13",
@@ -5711,6 +5751,26 @@
 "cuota": 2.02,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Kaizer Chiefs vs Stellenbosch",
+"apuesta": "Kaizer Chiefs o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Lebring vs Hohenhaus Schladming",
+"apuesta": "Gana Lebring",
+"cuota": 2.02,
+"resultado": "verde",
+"marcador": "4-0"
 },
 {
 "dia": "2026-10-13",
@@ -5764,11 +5824,61 @@
 },
 {
 "dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Norrkoping vs Sundsvall",
+"apuesta": "Gana Norrkoping",
+"cuota": 1.23,
+"resultado": "verde",
+"marcador": "4-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Notts County vs Nottingham U21",
+"apuesta": "Gana Nottingham U21",
+"cuota": 3.5,
+"resultado": "rojo",
+"marcador": "5-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Notts County vs Nottingham U21",
+"apuesta": "Gana Notts County",
+"cuota": 1.74,
+"resultado": "verde",
+"marcador": "5-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Orlando Pirates vs TS Galaxy",
+"apuesta": "Gana Orlando Pirates",
+"cuota": 1.37,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Parnu JK Vaprus vs Kalju",
 "apuesta": "Gana Kalju",
 "cuota": 1.7,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Petrojet vs Wadi Degla",
+"apuesta": "Gana Wadi Degla",
+"cuota": 3.0,
 "resultado": "rojo",
 "marcador": "2-2"
 },
@@ -5781,6 +5891,16 @@
 "cuota": 1.68,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Richards Bay vs Mamelodi Sundowns",
+"apuesta": "Gana Mamelodi Sundowns",
+"cuota": 1.43,
+"resultado": "verde",
+"marcador": "1-4"
 },
 {
 "dia": "2026-10-13",
@@ -5824,6 +5944,26 @@
 },
 {
 "dia": "2026-10-13",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "TUS Bad Waltersdorf vs SV Wildon",
+"apuesta": "Gana SV Wildon",
+"cuota": 1.7,
+"resultado": "verde",
+"marcador": "2-5"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Truro vs Birmingham U21",
+"apuesta": "Gana Truro",
+"cuota": 1.77,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Villarreal U19 vs Napoli U19",
@@ -5831,6 +5971,16 @@
 "cuota": 1.43,
 "resultado": "verde",
 "marcador": "5-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Walsall vs Fulham U21",
+"apuesta": "Gana Fulham U21",
+"cuota": 3.4,
+"resultado": "rojo",
+"marcador": "3-2"
 }
 ]
 }

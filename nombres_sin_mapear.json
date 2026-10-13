@@ -13,9 +13,9 @@
   },
   "Atlético Madrid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Balboa",
-    "ratio": 0.6667,
-    "visto": "2026-10-11"
+    "candidato": "Atletico Barinas",
+    "ratio": 0.7742,
+    "visto": "2026-10-13"
   },
   "Atlético Tucumán": {
     "contexto": "cuotas_mx→futbol",
@@ -145,9 +145,9 @@
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter Toronto",
-    "ratio": 0.5,
-    "visto": "2026-10-11"
+    "candidato": "Inter San Carlos",
+    "ratio": 0.5185,
+    "visto": "2026-10-13"
   },
   "Inter de San Carlos": {
     "contexto": "cuotas_mx→futbol",
@@ -317,9 +317,9 @@
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Glacis United",
+    "candidato": "Gasogi United",
     "ratio": 0.5926,
-    "visto": "2026-10-11"
+    "visto": "2026-10-13"
   },
   "Hartford Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -575,9 +575,9 @@
   },
   "D.C. United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Glacis United",
-    "ratio": 0.6957,
-    "visto": "2026-10-11"
+    "candidato": "Gasogi United",
+    "ratio": 0.6087,
+    "visto": "2026-10-13"
   },
   "Deportivo Morón": {
     "contexto": "cuotas_mx→futbol",
@@ -1313,8 +1313,8 @@
   },
   "Oxford United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.7273,
+    "candidato": "Gasogi United",
+    "ratio": 0.6154,
     "visto": "2026-10-13"
   },
   "Dundee United": {
@@ -1385,9 +1385,9 @@
   },
   "West Bromwich Albion": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Qingdao West Coast",
-    "ratio": 0.3684,
-    "visto": "2026-10-11"
+    "candidato": "West Ham",
+    "ratio": 0.4286,
+    "visto": "2026-10-13"
   },
   "Cercle Brugge KSV": {
     "contexto": "cuotas_mx→futbol",
@@ -2021,8 +2021,8 @@
   },
   "LA Galaxy": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "TS Galaxy",
-    "ratio": 0.7778,
+    "candidato": "Jwaneng Galaxy",
+    "ratio": 0.6957,
     "visto": "2026-10-13"
   },
   "Lens": {
@@ -2089,6 +2089,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Ararat Yerevan 2",
     "ratio": 0.6,
+    "visto": "2026-10-13"
+  },
+  "Inter D'Escaldes": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Inter San Carlos",
+    "ratio": 0.6875,
     "visto": "2026-10-13"
   }
 }
