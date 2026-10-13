@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-12T23:42:04Z",
+"actualizado": "2026-10-13T01:20:09Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5236,6 +5236,16 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Criciuma vs America MG",
+"apuesta": "Gana Criciuma",
+"cuota": 1.375,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "D. Puerto Montt vs San Luis",
 "apuesta": "Gana San Luis",
 "cuota": 2.3,
@@ -5354,6 +5364,16 @@
 },
 {
 "dia": "2026-10-12",
+"nivel": "🏆",
+"deporte": "MLB",
+"partido": "Los Angeles Dodgers @ Milwaukee Brewers",
+"apuesta": "Handicap: Milwaukee Brewers +4.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "7-4"
+},
+{
+"dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Loznica vs Smederevo",
@@ -5381,6 +5401,16 @@
 "cuota": 2.8,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-12",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Nacional Asunción vs Deportivo Recoleta",
+"apuesta": "Nacional Asunción o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-12",
