@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T01:20:09Z",
+"actualizado": "2026-10-13T02:53:51Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5216,6 +5216,16 @@
 "dia": "2026-10-12",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Bragantino vs Cruzeiro",
+"apuesta": "Gana Cruzeiro",
+"cuota": 3.35,
+"resultado": "rojo",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Brown Adrogue vs Dock Sud",
 "apuesta": "Gana Brown Adrogue",
 "cuota": 2.35,
@@ -5421,6 +5431,16 @@
 "cuota": 1.29,
 "resultado": "rojo",
 "marcador": "3-3"
+},
+{
+"dia": "2026-10-12",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "New Jersey Devils vs Ottawa Senators",
+"apuesta": "Handicap: New Jersey Devils +2.5",
+"cuota": 1.125,
+"resultado": "rojo",
+"marcador": "1-4"
 },
 {
 "dia": "2026-10-12",
