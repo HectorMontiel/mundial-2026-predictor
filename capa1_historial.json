@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T07:38:40Z",
+"actualizado": "2026-10-13T09:17:12Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5485,6 +5485,16 @@
 {
 "dia": "2026-10-12",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Putintseva Y. vs Sonmez Z.",
+"apuesta": "Gana Putintseva Y.",
+"cuota": 1.8,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Pyramids vs Ceramica Cleopatra",
 "apuesta": "Gana Pyramids",
@@ -5585,12 +5595,32 @@
 {
 "dia": "2026-10-12",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Yulia Putintseva vs Zeynep Sonmez",
+"apuesta": "Gana Yulia Putintseva",
+"cuota": 1.8,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Yupanqui vs Club Lujan",
 "apuesta": "Gana Club Lujan",
 "cuota": 2.8,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "McNally C./Tjen J. vs Tang Q./Xu Y.",
+"apuesta": "Gana McNally C./Tjen J.",
+"cuota": 1.55,
+"resultado": "rojo",
+"marcador": "1-2"
 }
 ]
 }
