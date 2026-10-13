@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T06:02:07Z",
+"actualizado": "2026-10-13T07:38:40Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5519,6 +5519,16 @@
 "partido": "Sawangkaew M. vs Frech M.",
 "apuesta": "Gana Frech M.",
 "cuota": 1.74,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Sherif M. vs Chwalinska M.",
+"apuesta": "Gana Chwalinska M.",
+"cuota": 1.23,
 "resultado": "verde",
 "marcador": "0-2"
 },
