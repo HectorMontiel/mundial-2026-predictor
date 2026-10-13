@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T04:28:26Z",
+"actualizado": "2026-10-13T06:02:07Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5455,6 +5455,16 @@
 {
 "dia": "2026-10-12",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Perez E./Schuurs D. vs Bouzkova M./Sorribes Tormo S.",
+"apuesta": "Gana Bouzkova M./Sorribes Tormo S.",
+"cuota": 2.7,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Pirata vs Minas",
 "apuesta": "Gana Pirata",
@@ -5511,6 +5521,16 @@
 "cuota": 1.74,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-12",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Stollar F./Wu F. vs Routliffe E./Sutjiadi A.",
+"apuesta": "Gana Routliffe E./Sutjiadi A.",
+"cuota": 1.5,
+"resultado": "rojo",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-12",

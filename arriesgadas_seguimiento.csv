@@ -200,7 +200,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros Levante: Más de 11.5,tiros,equipo,local,11.5,0.5544,1.667,20.0,1.0
 2026-10-12,Levante vs Sevilla,2026-10-12 19:00:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.552,1.538,13.0,1.0
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Tiros a puerta: Más de 10.5,a_puerta,total,total,10.5,0.5543,1.846,,
-2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.6048,1.85,,
+2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.6048,1.818,,
 2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5751,1.741,,
 2026-10-14,Portsmouth vs Sheffield United,2026-10-14 18:45:00,Córners: Más de 9.5,corners,total,total,9.5,0.5653,1.455,,
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Goles FC Cincinnati: Más de 1.5,goles,equipo,local,1.5,0.6349,1.571,,
@@ -211,4 +211,4 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.679,1.476,,
 2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Goles Real Salt Lake: Más de 1.5,goles,equipo,local,1.5,0.6241,1.667,,
 2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5868,1.455,,
-2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5537,1.692,,
+2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5537,1.68,,
