@@ -918,6 +918,17 @@ def _es_elige(fila: dict, p: dict) -> bool:
 
 
 @st.cache_data(ttl=600, show_spinner=False)
+def _semete_finalizadas(dia: str, deportes: tuple = ()) -> list:
+    """v373 — las «se mete» de hoy ya empezadas, con ✅/❌ (las ⭐ primero).
+    Del fichero que deja el cron, como la Capa 1; diez minutos en memoria."""
+    import modo_modelo as _mm_f
+    import partidos_jugados as _pj
+    _lst = _pj._para_la_vista(_pj._leer_precalculo(dia, permitir_viejo=True)
+                              or [])
+    return _mm_f.lista_finalizadas(_lst, set(deportes) if deportes else None)
+
+
+@st.cache_data(ttl=600, show_spinner=False)
 def _capa1_finalizadas(dia: str) -> tuple:
     """v342 — la Capa 1 (🏆 y 🔷) de los partidos de `dia` que ya empezaron,
     con su resultado. Del fichero que deja el cron, nunca de la red (al pintar
@@ -5749,19 +5760,36 @@ def render_alpha_finder():
             # hoy, mañana o pasado). Antes juntaba hoy y mañana siempre.
             _modo_lpa = dia_de_vista()
             _lpa = _mmk.lista_por_acierto(solo_del_dia(_prons, _modo_lpa))
-            if _lpa:
+            # v373 — y las de hoy que ya empezaron, con ✅/❌ (no desaparecen)
+            _fin_lpa = []
+            if _modo_lpa == 'hoy':
+                try:
+                    _fin_lpa = _semete_finalizadas(_hoy_kpi, _dep_mc)
+                except Exception as _e_fl:
+                    logger.debug('[alpha] se mete finalizadas: %s', _e_fl)
+            if _lpa or _fin_lpa:
                 import vista_compacta as _vc_m
                 _ne = sum(1 for x in _lpa if x.get('elige'))
-                with st.expander('📋 Las %d «se mete» que faltan %s · ⭐ %d ELIGE '
-                                 'primero, por hora' % (len(_lpa), {'hoy': 'hoy',
-                                 'mañana': 'mañana', 'pasado': 'pasado mañana'}.get(
-                                     _modo_lpa, ''), _ne),
-                                 expanded=False):
+                _fv = sum(1 for x in _fin_lpa if x['resultado_c1'] == 'verde')
+                _fr = sum(1 for x in _fin_lpa if x['resultado_c1'] == 'rojo')
+                _fev = sum(1 for x in _fin_lpa if x['elige'] and x['resultado_c1'] == 'verde')
+                _fer = sum(1 for x in _fin_lpa if x['elige'] and x['resultado_c1'] == 'rojo')
+                _tit = '📋 Las %d «se mete» que faltan %s · ⭐ %d ELIGE primero, por hora' % (
+                    len(_lpa), {'hoy': 'hoy', 'mañana': 'mañana',
+                                'pasado': 'pasado mañana'}.get(_modo_lpa, ''), _ne)
+                if _fv + _fr:
+                    _tit += ' · jugadas ✅ %d ❌ %d (⭐ ✅ %d ❌ %d)' % (_fv, _fr, _fev, _fer)
+                with st.expander(_tit, expanded=False):
                     st.caption('«Acierta» es lo que de verdad acertaron las apuestas '
                                'como ésta (medido), no lo que promete la tarjeta. '
-                               '⭐ ELIGE: 86 % contra 79 % del resto; 🏆 Capa 1: 85 %; '
-                               '♻️ sigue valiendo (retirada que se sigue metiendo): 88 %.')
-                    st.markdown(_vc_m.html_lista(_lpa), unsafe_allow_html=True)
+                               '⭐ ELIGE: 89 % contra 76 % del resto (5-11 oct); '
+                               '🏆 Capa 1: 85 %; ♻️ sigue valiendo: 88 %.')
+                    if _lpa:
+                        st.markdown(_vc_m.html_lista(_lpa), unsafe_allow_html=True)
+                    if _fin_lpa:
+                        st.markdown('**Ya empezaron hoy** (lo apostado al pitido, '
+                                    'con su resultado)')
+                        st.markdown(_vc_m.html_lista(_fin_lpa), unsafe_allow_html=True)
         except Exception as _e_lpa:
             logger.debug('[alpha] lista por acierto: %s', _e_lpa)
     except Exception:

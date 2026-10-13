@@ -3579,6 +3579,49 @@ def lista_por_acierto(pronosticos: list, ahora: Optional[float] = None) -> list:
     return out
 
 
+def lista_finalizadas(jugados: list, deportes=None) -> list:
+    """v373 — LAS «SE METE» DE LOS PARTIDOS YA EMPEZADOS, CON SU RESULTADO.
+
+    El usuario: «las de estrella, cuando pasa el partido, se borran en lugar de
+    que las marques en verde como las probables; quiero saber cuáles son verdes
+    o rojas también de las estrellas». La lista de arriba sólo trae lo que aún
+    no empieza. Aquí, de lo ARCHIVADO al pitido (lo mismo que cuenta el
+    marcador: `pronosticos_guardados.validar`), cada «se mete» con ✅/❌ y el
+    marcador, las ⭐ primero. Nunca lanza."""
+    out = []
+    try:
+        import pronosticos_guardados as _pg
+    except Exception:
+        return out
+    est = {_pg.CUMPLIDO: 'verde', _pg.FALLADO: 'rojo', _pg.NULA: 'nula'}
+    for p in jugados or []:
+        try:
+            if not isinstance(p, dict) or p.get('solo_mercado') or p.get('sin_modelo') \
+                    or p.get('aplazado'):
+                continue
+            dep = str(p.get('deporte') or 'Fútbol')
+            if deportes and dep not in deportes:
+                continue
+            gh, ga = p.get('goles_home'), p.get('goles_away')
+            for fl in _pg.validar(p) or []:
+                if fl.get('veredicto') != 'meter':
+                    continue
+                r = dict(fl, veredicto_vp='meter')
+                ele = elige(r, dep)
+                real = acierta_de_verdad(r, dep)
+                out.append({'partido': p.get('partido'), 'inicio': p.get('inicio'),
+                            'fecha': p.get('fecha'), 'deporte': dep, 'casa': '',
+                            'apuesta': ('⭐ ' if ele else '') + str(fl.get('apuesta')),
+                            'cuota': fl.get('cuota'), 'prob': real, 'elige': ele,
+                            'resultado_c1': est.get(fl.get('estado'), 'vivo'),
+                            'marcador': ('%d-%d' % (int(gh), int(ga))
+                                         if gh is not None and ga is not None else '')})
+        except Exception as e:
+            logger.debug('[modo_modelo] finalizada %s: %s', (p or {}).get('partido'), e)
+    out.sort(key=lambda x: (not x['elige'], str(x.get('inicio') or '')))
+    return out
+
+
 # v363 — «♻️ SIGUE VALIENDO»: LAS RETIRADAS QUE SE SIGUEN METIENDO.
 #
 # El usuario: «¿cuál de las recomendadas que se quitaron todavía puede
