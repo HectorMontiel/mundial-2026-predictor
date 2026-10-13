@@ -4620,101 +4620,120 @@ fecha,partido,clave_liga,equipo,lado,mercado,linea,c_mas,c_menos,p_casa,p_mod,ap
 2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Athletico-PR,visitante,a_puerta,3.5,1.4,2.6,0.65,0.7961,,vivo,,2026-10-12T22:04:57Z
 2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Athletico-PR,visitante,a_puerta,4.5,1.818,1.85,0.5044,0.649,,vivo,,2026-10-12T22:04:57Z
 2026-10-12,Chapecoense-SC vs Athletico-PR,brasil,Athletico-PR,visitante,a_puerta,5.5,2.455,1.444,0.3704,0.4887,,vivo,,2026-10-12T22:04:57Z
-2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,tiros,11.5,1.5,2.3,0.6053,0.6368,,vivo,,2026-10-13T01:19:46Z
-2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,tiros,15.5,1.53,2.25,0.5952,0.6511,,vivo,,2026-10-13T04:28:06Z
 2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,tiros,9.5,1.52,2.25,0.5968,0.6301,,vivo,,2026-10-13T07:38:23Z
 2026-10-14,Norwich vs Southampton,eng_championship,Southampton,visitante,tiros,12.5,1.96,1.714,0.4665,0.5252,,vivo,,2026-10-13T07:38:23Z
 2026-10-14,Lincoln vs West Ham,eng_championship,West Ham,visitante,tiros,13.5,1.818,1.85,0.5044,0.604,,vivo,,2026-10-13T07:38:23Z
 2026-10-14,Lincoln vs West Ham,eng_championship,West Ham,visitante,a_puerta,4.5,1.647,2.05,0.5545,0.6594,,vivo,,2026-10-13T07:38:23Z
-2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,tiros,16.5,1.667,2.0,0.5454,0.6051,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,tiros,17.5,1.909,1.76,0.4797,0.537,,vivo,,2026-10-13T10:50:49Z
 2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,tiros,18.5,2.167,1.571,0.4203,0.4698,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,a_puerta,4.5,1.375,2.667,0.6598,0.7571,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,a_puerta,5.5,1.727,1.95,0.5303,0.6167,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,a_puerta,6.5,2.222,1.538,0.409,0.4692,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,tiros,10.5,1.571,2.167,0.5797,0.4726,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,tiros,11.5,1.818,1.846,0.5038,0.3777,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,tiros,12.5,2.143,1.583,0.4249,0.2929,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,a_puerta,2.5,1.308,3.0,0.6964,0.7135,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,a_puerta,3.5,1.727,1.95,0.5303,0.5133,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,a_puerta,4.5,2.4,1.462,0.3786,0.3279,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,tiros,16.5,1.7,1.95,0.5342,0.5546,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,tiros,17.5,1.941,1.733,0.4717,0.4849,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,tiros,18.5,2.222,1.538,0.409,0.4174,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,a_puerta,4.5,1.375,2.667,0.6598,0.7765,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,a_puerta,5.5,1.727,1.95,0.5303,0.6415,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,a_puerta,6.5,2.222,1.538,0.409,0.4961,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,tiros,8.5,1.538,2.222,0.591,0.4841,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,tiros,9.5,1.818,1.846,0.5038,0.3756,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,tiros,10.5,2.167,1.571,0.4203,0.2803,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,a_puerta,2.5,1.52,2.25,0.5968,0.5338,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,a_puerta,3.5,2.143,1.6,0.4275,0.3183,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,a_puerta,4.5,3.2,1.273,0.2846,0.1646,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,tiros,15.5,1.583,2.143,0.5751,0.5425,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,tiros,16.5,1.818,1.85,0.5044,0.4693,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,tiros,17.5,2.05,1.636,0.4438,0.3992,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,a_puerta,4.5,1.52,2.25,0.5968,0.6411,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,a_puerta,5.5,1.96,1.714,0.4665,0.48,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,a_puerta,6.5,2.667,1.375,0.3402,0.3317,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,tiros,8.5,1.48,2.364,0.615,0.6376,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,tiros,9.5,1.733,1.941,0.5283,0.5335,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,tiros,10.5,2.05,1.636,0.4438,0.4319,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,a_puerta,2.5,1.5,2.3,0.6053,0.6089,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,a_puerta,3.5,2.143,1.6,0.4275,0.3936,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,a_puerta,4.5,3.2,1.273,0.2846,0.2227,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,tiros,12.5,1.692,1.96,0.5367,0.5447,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,tiros,13.5,1.96,1.714,0.4665,0.4599,,vivo,,2026-10-13T10:50:49Z
 2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,tiros,14.5,2.3,1.5,0.3947,0.3796,,vivo,,2026-10-13T10:50:49Z
 2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,a_puerta,2.5,1.267,3.2,0.7164,0.7613,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,a_puerta,3.5,1.625,2.1,0.5638,0.5746,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,a_puerta,4.5,2.222,1.538,0.409,0.3882,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,tiros,11.5,1.636,2.05,0.5562,0.5061,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,tiros,12.5,1.909,1.76,0.4797,0.4161,,vivo,,2026-10-13T10:50:49Z
 2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,tiros,13.5,2.222,1.538,0.409,0.3333,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,a_puerta,2.5,1.286,3.1,0.7068,0.79,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,a_puerta,3.5,1.692,2.0,0.5417,0.6137,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,a_puerta,4.5,2.3,1.5,0.3947,0.429,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,tiros,13.5,1.583,2.143,0.5751,0.7159,más,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,tiros,14.5,1.818,1.846,0.5038,0.6466,más,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,tiros,15.5,2.083,1.615,0.4367,0.5745,más,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,a_puerta,3.5,1.429,2.5,0.6363,0.753,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,a_puerta,4.5,1.867,1.8,0.4909,0.5921,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,a_puerta,5.5,2.546,1.417,0.3576,0.4273,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,tiros,10.5,1.636,2.05,0.5562,0.5368,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,tiros,11.5,1.941,1.733,0.4717,0.4415,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,tiros,12.5,2.25,1.52,0.4032,0.3529,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,a_puerta,2.5,1.375,2.667,0.6598,0.7095,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,a_puerta,3.5,1.867,1.8,0.4909,0.5084,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,a_puerta,4.5,2.667,1.375,0.3402,0.3232,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,tiros,11.5,1.636,2.05,0.5562,0.4923,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,tiros,12.5,1.909,1.76,0.4797,0.4025,,vivo,,2026-10-13T10:50:49Z
 2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,tiros,13.5,2.25,1.53,0.4048,0.3204,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,a_puerta,2.5,1.286,3.1,0.7068,0.7756,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,a_puerta,3.5,1.68,2.0,0.5435,0.5938,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,a_puerta,4.5,2.3,1.5,0.3947,0.408,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,tiros,13.5,1.538,2.222,0.591,0.5377,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,tiros,14.5,1.76,1.909,0.5203,0.4571,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,tiros,15.5,2.0,1.667,0.4546,0.3807,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,a_puerta,3.5,1.35,2.8,0.6747,0.7484,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,a_puerta,4.5,1.714,1.96,0.5335,0.5863,,vivo,,2026-10-13T10:50:49Z
-2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,a_puerta,5.5,2.25,1.52,0.4032,0.4212,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Portsmouth vs Sheffield United,eng_championship,Portsmouth,local,tiros,13.5,1.778,1.889,0.5151,0.6536,más,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Portsmouth vs Sheffield United,eng_championship,Portsmouth,local,a_puerta,4.5,1.95,1.727,0.4697,0.5692,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Portsmouth vs Sheffield United,eng_championship,Sheffield United,visitante,tiros,10.5,1.714,1.96,0.5335,0.4834,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Portsmouth vs Sheffield United,eng_championship,Sheffield United,visitante,a_puerta,3.5,1.8,1.867,0.5091,0.5251,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Norwich vs Southampton,eng_championship,Norwich,local,tiros,14.5,1.727,1.95,0.5303,0.5879,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Norwich vs Southampton,eng_championship,Norwich,local,a_puerta,4.5,1.714,1.96,0.5335,0.6368,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Norwich vs Southampton,eng_championship,Southampton,visitante,tiros,13.5,1.941,1.733,0.4717,0.4401,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Norwich vs Southampton,eng_championship,Southampton,visitante,a_puerta,4.5,1.867,1.8,0.4909,0.5487,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Lincoln vs West Ham,eng_championship,Lincoln,local,tiros,11.5,1.96,1.714,0.4665,0.5231,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Lincoln vs West Ham,eng_championship,Lincoln,local,a_puerta,3.5,1.923,1.75,0.4764,0.5126,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Lincoln vs West Ham,eng_championship,West Ham,visitante,tiros,14.5,1.76,1.909,0.5203,0.5255,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Lincoln vs West Ham,eng_championship,West Ham,visitante,a_puerta,5.5,2.0,1.68,0.4565,0.5004,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,FC Cincinnati vs New England Revolution,mls,FC Cincinnati,local,tiros,15.5,1.95,1.727,0.4697,0.5184,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,FC Cincinnati vs New England Revolution,mls,FC Cincinnati,local,a_puerta,5.5,1.76,1.909,0.5203,0.5493,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,FC Cincinnati vs New England Revolution,mls,New England Revolution,visitante,tiros,12.5,1.727,1.95,0.5303,0.5433,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,FC Cincinnati vs New England Revolution,mls,New England Revolution,visitante,a_puerta,4.5,1.778,1.889,0.5151,0.4844,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Inter Miami vs New York City,mls,Inter Miami,local,tiros,16.5,1.909,1.76,0.4797,0.5097,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Inter Miami vs New York City,mls,Inter Miami,local,a_puerta,6.5,2.0,1.692,0.4583,0.5074,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Inter Miami vs New York City,mls,New York City,visitante,tiros,11.5,1.96,1.714,0.4665,0.4251,,vivo,,2026-10-13T10:50:49Z
-2026-10-14,Inter Miami vs New York City,mls,New York City,visitante,a_puerta,3.5,1.636,2.083,0.5601,0.5588,,vivo,,2026-10-13T10:50:49Z
+2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,tiros,15.5,1.53,2.25,0.5952,0.6536,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,tiros,16.5,1.733,1.941,0.5283,0.5853,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,tiros,17.5,1.95,1.7,0.4658,0.5165,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,a_puerta,4.5,1.364,2.714,0.6655,0.7513,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,a_puerta,5.5,1.727,1.95,0.5303,0.6095,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Cardiff,local,a_puerta,6.5,2.222,1.538,0.409,0.4614,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,tiros,10.5,1.583,2.143,0.5751,0.4599,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,tiros,11.5,1.867,1.8,0.4909,0.3654,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,tiros,12.5,2.167,1.571,0.4203,0.2816,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,a_puerta,2.5,1.308,3.0,0.6964,0.6922,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,a_puerta,3.5,1.733,1.941,0.5283,0.4874,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Cardiff vs Watford,eng_championship,Watford,visitante,a_puerta,4.5,2.429,1.455,0.3746,0.3037,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,tiros,16.5,1.692,1.96,0.5367,0.5546,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,tiros,17.5,1.923,1.75,0.4764,0.4849,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,tiros,18.5,2.2,1.546,0.4127,0.4174,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,a_puerta,4.5,1.375,2.667,0.6598,0.7765,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,a_puerta,5.5,1.733,1.941,0.5283,0.6415,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Wolves,local,a_puerta,6.5,2.25,1.53,0.4048,0.4961,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,tiros,8.5,1.538,2.222,0.591,0.4841,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,tiros,9.5,1.818,1.846,0.5038,0.3756,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,tiros,10.5,2.167,1.571,0.4203,0.2803,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,a_puerta,2.5,1.53,2.25,0.5952,0.5338,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,a_puerta,3.5,2.143,1.6,0.4275,0.3183,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Wolves vs Bolton,eng_championship,Bolton,visitante,a_puerta,4.5,3.2,1.273,0.2846,0.1646,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,tiros,15.5,1.583,2.143,0.5751,0.5425,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,tiros,16.5,1.818,1.85,0.5044,0.4693,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,tiros,17.5,2.05,1.636,0.4438,0.3992,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,a_puerta,4.5,1.52,2.25,0.5968,0.6411,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,a_puerta,5.5,1.96,1.714,0.4665,0.48,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Burnley,local,a_puerta,6.5,2.667,1.375,0.3402,0.3317,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,tiros,8.5,1.48,2.364,0.615,0.6376,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,tiros,9.5,1.75,1.923,0.5236,0.5335,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,tiros,10.5,2.05,1.636,0.4438,0.4319,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,a_puerta,2.5,1.5,2.3,0.6053,0.6089,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,a_puerta,3.5,2.143,1.6,0.4275,0.3936,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Burnley vs Charlton,eng_championship,Charlton,visitante,a_puerta,4.5,3.2,1.273,0.2846,0.2227,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,tiros,11.5,1.53,2.25,0.5952,0.6063,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,tiros,12.5,1.76,1.909,0.5203,0.519,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,tiros,13.5,2.05,1.636,0.4438,0.4338,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,a_puerta,3.5,1.583,2.143,0.5751,0.5481,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,a_puerta,4.5,2.143,1.6,0.4275,0.3615,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Millwall,local,a_puerta,5.5,3.1,1.286,0.2932,0.214,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,tiros,10.5,1.583,2.143,0.5751,0.5755,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,tiros,11.5,1.85,1.818,0.4956,0.4812,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,tiros,12.5,2.167,1.571,0.4203,0.3915,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,a_puerta,2.5,1.308,3.0,0.6964,0.7743,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,a_puerta,3.5,1.733,1.941,0.5283,0.5921,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Millwall vs Swansea,eng_championship,Swansea,visitante,a_puerta,4.5,2.429,1.455,0.3746,0.4062,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,tiros,13.5,1.6,2.1,0.5676,0.6956,más,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,tiros,14.5,1.846,1.818,0.4962,0.6241,más,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,tiros,15.5,2.1,1.6,0.4324,0.5506,más,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,a_puerta,3.5,1.417,2.546,0.6424,0.7142,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,a_puerta,4.5,1.846,1.818,0.4962,0.5437,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Bristol City,local,a_puerta,5.5,2.5,1.429,0.3637,0.3779,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,tiros,10.5,1.667,2.0,0.5454,0.5326,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,tiros,11.5,1.96,1.714,0.4665,0.4373,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,tiros,12.5,2.3,1.5,0.3947,0.3489,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,a_puerta,2.5,1.417,2.546,0.6424,0.7051,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,a_puerta,3.5,1.923,1.75,0.4764,0.5031,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Bristol City vs Blackburn,eng_championship,Blackburn,visitante,a_puerta,4.5,2.8,1.35,0.3253,0.3182,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,tiros,10.5,1.5,2.3,0.6053,0.5823,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,tiros,11.5,1.75,1.923,0.5236,0.4883,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,tiros,12.5,2.05,1.636,0.4438,0.3985,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,a_puerta,2.5,1.308,3.0,0.6964,0.763,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,a_puerta,3.5,1.733,1.941,0.5283,0.5768,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Stoke,local,a_puerta,4.5,2.429,1.455,0.3746,0.3904,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,tiros,13.5,1.53,2.25,0.5952,0.5116,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,tiros,14.5,1.75,1.923,0.5236,0.4307,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,tiros,15.5,2.0,1.667,0.4546,0.3551,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,a_puerta,3.5,1.364,2.714,0.6655,0.7347,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,a_puerta,4.5,1.76,1.909,0.5203,0.569,,vivo,,2026-10-13T12:30:24Z
+2026-10-13,Stoke vs Middlesbrough,eng_championship,Middlesbrough,visitante,a_puerta,5.5,2.375,1.471,0.3825,0.4034,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Portsmouth vs Sheffield United,eng_championship,Portsmouth,local,tiros,13.5,1.778,1.889,0.5151,0.6536,más,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Portsmouth vs Sheffield United,eng_championship,Portsmouth,local,a_puerta,4.5,1.95,1.727,0.4697,0.5692,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Portsmouth vs Sheffield United,eng_championship,Sheffield United,visitante,tiros,10.5,1.714,1.96,0.5335,0.4834,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Portsmouth vs Sheffield United,eng_championship,Sheffield United,visitante,a_puerta,3.5,1.8,1.867,0.5091,0.5251,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Norwich vs Southampton,eng_championship,Norwich,local,tiros,14.5,1.727,1.95,0.5303,0.5879,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Norwich vs Southampton,eng_championship,Norwich,local,a_puerta,4.5,1.714,1.96,0.5335,0.6368,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Norwich vs Southampton,eng_championship,Southampton,visitante,tiros,13.5,1.941,1.733,0.4717,0.4401,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Norwich vs Southampton,eng_championship,Southampton,visitante,a_puerta,4.5,1.867,1.8,0.4909,0.5487,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Lincoln vs West Ham,eng_championship,Lincoln,local,tiros,11.5,1.96,1.714,0.4665,0.5231,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Lincoln vs West Ham,eng_championship,Lincoln,local,a_puerta,3.5,1.923,1.75,0.4764,0.5126,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Lincoln vs West Ham,eng_championship,West Ham,visitante,tiros,14.5,1.76,1.909,0.5203,0.5255,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Lincoln vs West Ham,eng_championship,West Ham,visitante,a_puerta,5.5,2.0,1.68,0.4565,0.5004,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Columbus Crew vs Charlotte,mls,Columbus Crew,local,tiros,15.5,1.714,1.96,0.5335,0.6455,más,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Columbus Crew vs Charlotte,mls,Columbus Crew,local,a_puerta,5.5,1.909,1.76,0.4797,0.5875,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Columbus Crew vs Charlotte,mls,Charlotte,visitante,tiros,11.5,1.786,1.875,0.5122,0.3399,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Columbus Crew vs Charlotte,mls,Charlotte,visitante,a_puerta,4.5,1.96,1.714,0.4665,0.3693,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Toronto FC vs Orlando City,mls,Toronto FC,local,tiros,15.5,1.76,1.909,0.5203,0.5649,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Toronto FC vs Orlando City,mls,Toronto FC,local,a_puerta,5.5,1.889,1.778,0.4849,0.5074,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Toronto FC vs Orlando City,mls,Orlando City,visitante,tiros,12.5,1.727,1.95,0.5303,0.448,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Toronto FC vs Orlando City,mls,Orlando City,visitante,a_puerta,4.5,1.692,2.0,0.5417,0.5283,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,CF Montreal vs Atlanta Utd,mls,CF Montreal,local,tiros,14.5,1.867,1.8,0.4909,0.4816,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,CF Montreal vs Atlanta Utd,mls,CF Montreal,local,a_puerta,4.5,1.714,1.96,0.5335,0.5852,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,CF Montreal vs Atlanta Utd,mls,Atlanta Utd,visitante,tiros,12.5,1.875,1.786,0.4878,0.5164,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,CF Montreal vs Atlanta Utd,mls,Atlanta Utd,visitante,a_puerta,4.5,2.0,1.68,0.4565,0.4714,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,FC Cincinnati vs New England Revolution,mls,FC Cincinnati,local,tiros,15.5,1.923,1.75,0.4764,0.539,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,FC Cincinnati vs New England Revolution,mls,FC Cincinnati,local,a_puerta,5.5,1.75,1.923,0.5236,0.5875,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,FC Cincinnati vs New England Revolution,mls,New England Revolution,visitante,tiros,12.5,1.778,1.889,0.5151,0.5382,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,FC Cincinnati vs New England Revolution,mls,New England Revolution,visitante,a_puerta,4.5,1.8,1.867,0.5091,0.4857,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Inter Miami vs New York City,mls,Inter Miami,local,tiros,16.5,1.909,1.76,0.4797,0.4557,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Inter Miami vs New York City,mls,Inter Miami,local,a_puerta,6.5,2.0,1.692,0.4583,0.4569,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Inter Miami vs New York City,mls,New York City,visitante,tiros,11.5,1.96,1.714,0.4665,0.4252,,vivo,,2026-10-13T12:30:24Z
+2026-10-14,Inter Miami vs New York City,mls,New York City,visitante,a_puerta,3.5,1.636,2.083,0.5601,0.5533,,vivo,,2026-10-13T12:30:24Z
+2026-10-15,FC Dallas vs Seattle Sounders,mls,FC Dallas,local,tiros,15.5,1.909,1.76,0.4797,0.4591,,vivo,,2026-10-13T12:30:24Z
+2026-10-15,FC Dallas vs Seattle Sounders,mls,FC Dallas,local,a_puerta,5.5,1.909,1.76,0.4797,0.4947,,vivo,,2026-10-13T12:30:24Z
+2026-10-15,FC Dallas vs Seattle Sounders,mls,Seattle Sounders,visitante,tiros,11.5,1.733,1.941,0.5283,0.4984,,vivo,,2026-10-13T12:30:24Z
+2026-10-15,FC Dallas vs Seattle Sounders,mls,Seattle Sounders,visitante,a_puerta,4.5,2.0,1.68,0.4565,0.46,,vivo,,2026-10-13T12:30:24Z
