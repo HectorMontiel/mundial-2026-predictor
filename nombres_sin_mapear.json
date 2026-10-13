@@ -145,8 +145,8 @@
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.5185,
+    "candidato": "Inter Escaldes",
+    "ratio": 0.56,
     "visto": "2026-10-13"
   },
   "Inter de San Carlos": {
@@ -271,9 +271,9 @@
   },
   "Union St.-Gilloise": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union Comercio",
-    "ratio": 0.5161,
-    "visto": "2026-10-12"
+    "candidato": "Royale Union SG",
+    "ratio": 0.5,
+    "visto": "2026-10-13"
   },
   "Universidad Católica (Quito)": {
     "contexto": "cuotas_mx→futbol",
@@ -479,9 +479,9 @@
   },
   "Cerro Largo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CA Cerro",
-    "ratio": 0.5263,
-    "visto": "2026-09-23"
+    "candidato": "Cerro Porteno",
+    "ratio": 0.6667,
+    "visto": "2026-10-13"
   },
   "Internacional Santa Tecla": {
     "contexto": "cuotas_mx→futbol",
@@ -911,9 +911,9 @@
   },
   "Los Chankas": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Los Cabos",
-    "ratio": 0.7,
-    "visto": "2026-10-05"
+    "candidato": "Los Angeles FC",
+    "ratio": 0.6364,
+    "visto": "2026-10-13"
   },
   "Pumas UNAM": {
     "contexto": "cuotas_mx→futbol",
@@ -935,8 +935,8 @@
   },
   "Instituto (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Instituto 2",
-    "ratio": 0.7143,
+    "candidato": "Jaguares de Cordoba",
+    "ratio": 0.5,
     "visto": "2026-10-13"
   },
   "Universidad de Concepción": {
@@ -1277,8 +1277,8 @@
   },
   "Sporting San José": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin S.J. 2",
-    "ratio": 0.5455,
+    "candidato": "Sporting Kansas City",
+    "ratio": 0.75,
     "visto": "2026-10-13"
   },
   "Universidad Católica": {
@@ -1373,8 +1373,8 @@
   },
   "Sporting Club Delhi": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Club Brugge KV",
-    "ratio": 0.3636,
+    "candidato": "Sporting Jax",
+    "ratio": 0.5806,
     "visto": "2026-10-13"
   },
   "Shanghai Shenhua": {
@@ -1493,8 +1493,8 @@
   },
   "Real Potosí": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid",
-    "ratio": 0.5455,
+    "candidato": "Real Sociedad",
+    "ratio": 0.5833,
     "visto": "2026-10-13"
   },
   "AD San Carlos": {
@@ -1691,8 +1691,8 @@
   },
   "Deportivo Cuenca": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Riestra 2",
-    "ratio": 0.6857,
+    "candidato": "Deportivo Mixco",
+    "ratio": 0.7097,
     "visto": "2026-10-13"
   },
   "Estudiantes de Mérida": {
@@ -1811,9 +1811,9 @@
   },
   "Mohun Bagan Super Giant": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Weston-super-Mare",
-    "ratio": 0.5,
-    "visto": "2026-10-10"
+    "candidato": "Super Nova",
+    "ratio": 0.4242,
+    "visto": "2026-10-13"
   },
   "Feyenoord Rotterdam": {
     "contexto": "cuotas_mx→futbol",
@@ -2009,8 +2009,8 @@
   },
   "Red Star Belgrade": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Lincoln Red Imps U19",
-    "ratio": 0.3243,
+    "candidato": "Lincoln Red Imps",
+    "ratio": 0.303,
     "visto": "2026-10-13"
   },
   "Lincoln Red Imps": {
@@ -2095,6 +2095,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Inter San Carlos",
     "ratio": 0.6875,
+    "visto": "2026-10-13"
+  },
+  "CSU Craiova": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Univ. Craiova",
+    "ratio": 0.7826,
+    "visto": "2026-10-13"
+  },
+  "Western Sydney Wanderers": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Khovd Western",
+    "ratio": 0.3784,
     "visto": "2026-10-13"
   }
 }

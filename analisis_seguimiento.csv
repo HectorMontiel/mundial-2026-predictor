@@ -389,41 +389,41 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple,linea_l
 2026-10-12,Bragantino vs Cruzeiro,brasil,2026-10-13 00:00:00,tarjetas,2.202,2.081,4.283,2.5,0.8005,0.0,0.0,0.5,0.8894,0.5,0.8752,0.0,0.0
 2026-10-12,Bragantino vs Cruzeiro,brasil,2026-10-13 00:00:00,tiros,19.08,12.636,31.716,26.5,0.743,45.0,1.0,15.5,0.7026,9.5,0.741,20.0,25.0
 2026-10-12,Bragantino vs Cruzeiro,brasil,2026-10-13 00:00:00,a_puerta,6.347,4.987,11.334,8.5,0.7789,23.0,1.0,4.5,0.739,3.5,0.7173,10.0,13.0
-2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,goles,2.116,0.875,2.991,1.5,0.7995,,,0.5,0.8795,,,,
-2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,corners,6.806,3.767,10.573,7.5,0.7714,,,4.5,0.7419,1.5,0.8528,,
-2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,tarjetas,1.728,2.499,4.227,2.5,0.7933,,,0.5,0.8224,1.5,0.7125,,
-2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,tiros,18.217,10.444,28.661,24.5,0.7064,,,14.5,0.7191,7.5,0.758,,
-2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,a_puerta,6.457,3.639,10.096,7.5,0.7717,,,4.5,0.7513,1.5,0.8673,,
-2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,goles,2.121,0.851,2.972,1.5,0.7966,,,0.5,0.8801,,,,
-2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,corners,6.879,3.435,10.314,7.5,0.7512,,,4.5,0.7485,1.5,0.8198,,
-2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,tarjetas,1.062,1.638,2.7,1.5,0.7513,,,,,0.5,0.8056,,
-2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,tiros,17.749,8.676,26.425,22.5,0.7042,,,13.5,0.757,6.5,0.7124,,
-2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,a_puerta,6.696,2.841,9.537,7.5,0.719,,,4.5,0.7765,1.5,0.7657,,
-2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,goles,1.773,0.838,2.611,1.5,0.7347,,,0.5,0.8302,,,,
-2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,corners,6.001,4.026,10.027,7.5,0.7316,,,3.5,0.7891,2.5,0.721,,
-2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,tarjetas,1.641,1.769,3.41,1.5,0.8543,,,0.5,0.8062,0.5,0.8295,,
-2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,tiros,16.525,10.165,26.69,22.5,0.7199,,,12.5,0.7565,7.5,0.7369,,
-2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,a_puerta,5.589,3.19,8.779,6.5,0.7578,,,3.5,0.7903,1.5,0.8168,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,goles,1.236,1.174,2.41,0.5,0.9102,,,0.5,0.7095,,,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,corners,4.834,4.97,9.804,7.5,0.7144,,,2.5,0.8112,2.5,0.8233,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tarjetas,1.633,1.738,3.371,1.5,0.8498,,,0.5,0.8047,0.5,0.8241,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tiros,13.109,11.664,24.773,20.5,0.739,,,9.5,0.7711,8.5,0.7574,,
-2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,a_puerta,3.949,4.189,8.138,5.5,0.8083,,,2.5,0.741,2.5,0.7743,,
-2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,goles,1.436,0.996,2.432,0.5,0.9121,,,0.5,0.7621,,,,
-2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,corners,5.861,4.555,10.416,7.5,0.7629,,,3.5,0.7767,2.5,0.7838,,
-2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,tarjetas,1.863,2.338,4.201,2.5,0.7899,,,0.5,0.8448,0.5,0.9035,,
-2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,tiros,16.639,11.195,27.834,23.5,0.7218,,,12.5,0.7625,8.5,0.7238,,
-2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,a_puerta,4.964,3.717,8.681,6.5,0.749,,,3.5,0.7142,2.5,0.7051,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,goles,1.375,1.12,2.495,1.5,0.7117,,,0.5,0.7472,,,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,corners,5.2,4.523,9.723,7.5,0.7071,,,3.5,0.7083,2.5,0.7804,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tarjetas,1.627,1.775,3.402,1.5,0.8534,,,0.5,0.8035,0.5,0.8305,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tiros,13.09,11.486,24.576,20.5,0.7292,,,9.5,0.7699,8.5,0.7451,,
-2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,a_puerta,4.329,3.984,8.313,6.5,0.711,,,2.5,0.7919,2.5,0.7461,,
-2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,goles,1.235,1.618,2.853,1.5,0.7778,,,0.5,0.7092,0.5,0.8017,,
-2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,corners,4.101,5.118,9.219,6.5,0.7653,,,2.5,0.7309,2.5,0.8357,,
-2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,tarjetas,1.854,1.569,3.423,1.5,0.8557,,,0.5,0.8434,0.5,0.7917,,
-2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,tiros,11.741,14.046,25.787,21.5,0.733,,,8.5,0.7626,10.5,0.7536,,
-2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,a_puerta,4.104,5.118,9.222,6.5,0.7982,,,2.5,0.763,3.5,0.7347,,
+2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,goles,2.116,0.875,2.991,1.5,0.7995,6.0,1.0,0.5,0.8795,,,5.0,1.0
+2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,corners,6.806,3.767,10.573,7.5,0.7714,7.0,0.0,4.5,0.7419,1.5,0.8528,6.0,1.0
+2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,tarjetas,1.728,2.499,4.227,2.5,0.7933,0.0,0.0,0.5,0.8224,1.5,0.7125,0.0,0.0
+2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,tiros,18.217,10.444,28.661,24.5,0.7064,36.0,1.0,14.5,0.7191,7.5,0.758,22.0,14.0
+2026-10-13,Cardiff vs Watford,eng_championship,2026-10-13 18:45:00,a_puerta,6.457,3.639,10.096,7.5,0.7717,14.0,1.0,4.5,0.7513,1.5,0.8673,10.0,4.0
+2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,goles,2.121,0.851,2.972,1.5,0.7966,4.0,1.0,0.5,0.8801,,,1.0,3.0
+2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,corners,6.879,3.435,10.314,7.5,0.7512,12.0,1.0,4.5,0.7485,1.5,0.8198,9.0,3.0
+2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,tarjetas,1.062,1.638,2.7,1.5,0.7513,0.0,0.0,,,0.5,0.8056,0.0,0.0
+2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,tiros,17.749,8.676,26.425,22.5,0.7042,29.0,1.0,13.5,0.757,6.5,0.7124,19.0,10.0
+2026-10-13,Wolves vs Bolton,eng_championship,2026-10-13 18:45:00,a_puerta,6.696,2.841,9.537,7.5,0.719,9.0,1.0,4.5,0.7765,1.5,0.7657,3.0,6.0
+2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,goles,1.773,0.838,2.611,1.5,0.7347,4.0,1.0,0.5,0.8302,,,2.0,2.0
+2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,corners,6.001,4.026,10.027,7.5,0.7316,14.0,1.0,3.5,0.7891,2.5,0.721,7.0,7.0
+2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,tarjetas,1.641,1.769,3.41,1.5,0.8543,0.0,0.0,0.5,0.8062,0.5,0.8295,0.0,0.0
+2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,tiros,16.525,10.165,26.69,22.5,0.7199,27.0,1.0,12.5,0.7565,7.5,0.7369,18.0,9.0
+2026-10-13,Burnley vs Charlton,eng_championship,2026-10-13 18:45:00,a_puerta,5.589,3.19,8.779,6.5,0.7578,9.0,1.0,3.5,0.7903,1.5,0.8168,4.0,5.0
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,goles,1.236,1.174,2.41,0.5,0.9102,1.0,1.0,0.5,0.7095,,,0.0,1.0
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,corners,4.834,4.97,9.804,7.5,0.7144,14.0,1.0,2.5,0.8112,2.5,0.8233,13.0,1.0
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tarjetas,1.633,1.738,3.371,1.5,0.8498,0.0,0.0,0.5,0.8047,0.5,0.8241,0.0,0.0
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,tiros,13.109,11.664,24.773,20.5,0.739,22.0,1.0,9.5,0.7711,8.5,0.7574,8.0,14.0
+2026-10-13,Millwall vs Swansea,eng_championship,2026-10-13 18:45:00,a_puerta,3.949,4.189,8.138,5.5,0.8083,6.0,1.0,2.5,0.741,2.5,0.7743,4.0,2.0
+2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,goles,1.436,0.996,2.432,0.5,0.9121,1.0,1.0,0.5,0.7621,,,0.0,1.0
+2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,corners,5.861,4.555,10.416,7.5,0.7629,15.0,1.0,3.5,0.7767,2.5,0.7838,10.0,5.0
+2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,tarjetas,1.863,2.338,4.201,2.5,0.7899,0.0,0.0,0.5,0.8448,0.5,0.9035,0.0,0.0
+2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,tiros,16.639,11.195,27.834,23.5,0.7218,23.0,0.0,12.5,0.7625,8.5,0.7238,20.0,3.0
+2026-10-13,Bristol City vs Blackburn,eng_championship,2026-10-13 18:45:00,a_puerta,4.964,3.717,8.681,6.5,0.749,8.0,1.0,3.5,0.7142,2.5,0.7051,7.0,1.0
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,goles,1.375,1.12,2.495,1.5,0.7117,3.0,1.0,0.5,0.7472,,,1.0,2.0
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,corners,5.2,4.523,9.723,7.5,0.7071,10.0,1.0,3.5,0.7083,2.5,0.7804,3.0,7.0
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tarjetas,1.627,1.775,3.402,1.5,0.8534,0.0,0.0,0.5,0.8035,0.5,0.8305,0.0,0.0
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,tiros,13.09,11.486,24.576,20.5,0.7292,17.0,0.0,9.5,0.7699,8.5,0.7451,8.0,9.0
+2026-10-13,Wrexham vs West Brom,eng_championship,2026-10-13 18:45:00,a_puerta,4.329,3.984,8.313,6.5,0.711,7.0,1.0,2.5,0.7919,2.5,0.7461,4.0,3.0
+2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,goles,1.235,1.618,2.853,1.5,0.7778,5.0,1.0,0.5,0.7092,0.5,0.8017,2.0,3.0
+2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,corners,4.101,5.118,9.219,6.5,0.7653,7.0,1.0,2.5,0.7309,2.5,0.8357,4.0,3.0
+2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,tarjetas,1.854,1.569,3.423,1.5,0.8557,0.0,0.0,0.5,0.8434,0.5,0.7917,0.0,0.0
+2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,tiros,11.741,14.046,25.787,21.5,0.733,28.0,1.0,8.5,0.7626,10.5,0.7536,8.0,20.0
+2026-10-13,Stoke vs Middlesbrough,eng_championship,2026-10-13 19:00:00,a_puerta,4.104,5.118,9.222,6.5,0.7982,10.0,1.0,2.5,0.763,3.5,0.7347,1.0,9.0
 2026-10-14,Portsmouth vs Sheffield United,eng_championship,2026-10-14 18:45:00,goles,1.575,1.292,2.867,1.5,0.7801,,,0.5,0.793,0.5,0.7253,,
 2026-10-14,Portsmouth vs Sheffield United,eng_championship,2026-10-14 18:45:00,corners,6.29,4.164,10.454,7.5,0.7646,,,3.5,0.8127,2.5,0.7389,,
 2026-10-14,Portsmouth vs Sheffield United,eng_championship,2026-10-14 18:45:00,tarjetas,1.432,1.581,3.013,1.5,0.8028,,,0.5,0.7612,0.5,0.7942,,
@@ -519,7 +519,7 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple,linea_l
 2026-10-14,Los Angeles Galaxy vs Portland Timbers,mls,2026-10-15 02:30:00,tarjetas,1.599,1.857,3.456,1.5,0.8594,,,0.5,0.7979,0.5,0.8439,,
 2026-10-14,Los Angeles Galaxy vs Portland Timbers,mls,2026-10-15 02:30:00,tiros,16.941,14.383,31.324,26.5,0.7287,,,13.5,0.7134,10.5,0.7733,,
 2026-10-14,Los Angeles Galaxy vs Portland Timbers,mls,2026-10-15 02:30:00,a_puerta,6.123,4.785,10.908,8.5,0.7433,,,4.5,0.7125,2.5,0.8413,,
-2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,goles,0.923,1.387,2.31,0.5,0.8945,,,,,0.5,0.7394,,
+2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,goles,0.923,1.387,2.31,0.5,0.8945,3.0,1.0,,,0.5,0.7394,2.0,1.0
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,corners,2.616,6.428,9.044,6.5,0.7413,,,1.5,0.7015,4.5,0.7019,,
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,tarjetas,1.83,1.928,3.758,2.5,0.7243,,,0.5,0.8396,0.5,0.8546,,
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,tiros,6.468,14.386,20.854,16.5,0.7522,,,4.5,0.7225,10.5,0.757,,

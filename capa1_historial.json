@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T20:27:15Z",
+"actualizado": "2026-10-13T21:49:23Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5624,6 +5624,26 @@
 },
 {
 "dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Arsenal vs Lille",
+"apuesta": "Gana Arsenal",
+"cuota": 1.222,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Arsenal vs Lille",
+"apuesta": "Gana Arsenal",
+"cuota": 1.24,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Biskra vs Oran",
@@ -5631,6 +5651,16 @@
 "cuota": 3.4,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Burnley vs Charlton",
+"apuesta": "Burnley o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "2-2"
 },
 {
 "dia": "2026-10-13",
@@ -5651,6 +5681,16 @@
 "cuota": 1.65,
 "resultado": "verde",
 "marcador": "3-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Cardiff vs Watford",
+"apuesta": "Cardiff o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "5-1"
 },
 {
 "dia": "2026-10-13",
@@ -5691,6 +5731,16 @@
 "cuota": 2.95,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Evesham vs Bath",
+"apuesta": "Gana Bath",
+"cuota": 1.94,
+"resultado": "verde",
+"marcador": "0-2"
 },
 {
 "dia": "2026-10-13",
@@ -5766,6 +5816,16 @@
 "dia": "2026-10-13",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Leamington vs Redditch",
+"apuesta": "Gana Redditch",
+"cuota": 3.3,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Lebring vs Hohenhaus Schladming",
 "apuesta": "Gana Lebring",
 "cuota": 2.02,
@@ -5781,6 +5841,16 @@
 "cuota": 1.66,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Malvern Town vs Yate Town",
+"apuesta": "Gana Malvern Town",
+"cuota": 2.4,
+"resultado": "verde",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-13",
@@ -5894,6 +5964,36 @@
 },
 {
 "dia": "2026-10-13",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Queen's Park vs Inverness",
+"apuesta": "Gana Inverness",
+"cuota": 1.78,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "RB Leipzig vs PSV",
+"apuesta": "Gana RB Leipzig",
+"cuota": 1.73,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "RB Leipzig vs PSV Eindhoven",
+"apuesta": "Gana RB Leipzig",
+"cuota": 1.73,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-13",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Richards Bay vs Mamelodi Sundowns",
@@ -5946,6 +6046,16 @@
 "dia": "2026-10-13",
 "nivel": "🎯",
 "deporte": "Fútbol",
+"partido": "Stamford vs Stratford",
+"apuesta": "Gana Stratford",
+"cuota": 1.7273,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🎯",
+"deporte": "Fútbol",
 "partido": "TUS Bad Waltersdorf vs SV Wildon",
 "apuesta": "Gana SV Wildon",
 "cuota": 1.7,
@@ -5966,6 +6076,26 @@
 "dia": "2026-10-13",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "USM Alger vs Saoura",
+"apuesta": "Gana USM Alger",
+"cuota": 1.93,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Viking FK vs Bayern Munich",
+"apuesta": "Gana Bayern Munich",
+"cuota": 1.133,
+"resultado": "rojo",
+"marcador": "3-3"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Villarreal U19 vs Napoli U19",
 "apuesta": "Gana Villarreal U19",
 "cuota": 1.43,
@@ -5981,6 +6111,16 @@
 "cuota": 3.4,
 "resultado": "rojo",
 "marcador": "3-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Workington vs Whitby",
+"apuesta": "Gana Workington",
+"cuota": 1.82,
+"resultado": "rojo",
+"marcador": "1-2"
 }
 ]
 }
