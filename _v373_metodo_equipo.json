@@ -1,0 +1,7452 @@
+{
+ "datos": {
+  "lineas": 13359,
+  "patas_dos_lados": 25640,
+  "partidos": 642,
+  "patas_equipo": 8006,
+  "partidos_con_equipo": 353,
+  "equipo_por_partido": {
+   "a_puerta": 266,
+   "corners": 338,
+   "goles": 55,
+   "tarjetas": 189,
+   "tiros": 265
+  },
+  "desde": "2026-08-28",
+  "hasta": "2026-10-09",
+  "corte": "2026-09-12",
+  "dias": {
+   "A": 15,
+   "B": 19
+  },
+  "equipo_sin_identificar": 12,
+  "acuerdo_lado_lambda_vs_resultado": 0.9642,
+  "ligas_segmento": [
+   "brasil",
+   "eng_championship",
+   "jpn_j1",
+   "liga_mx",
+   "mls"
+  ],
+  "segmentos_x_umbrales": 900
+ },
+ "informacion": {
+  "equipo, toda cuota": {
+   "n_A": 3014,
+   "n_B": 4992,
+   "coef_gap_A": 0.72,
+   "logloss_B": {
+    "casa": 0.6478,
+    "casa_recalibrada": 0.648,
+    "casa_mas_metodo": 0.6419,
+    "metodo_solo": 0.642,
+    "casa_con_lado_y_estadistica": 0.6427,
+    "casa_con_lado_y_estadistica_mas_metodo": 0.6395
+   },
+   "mejora_metodo_B": 0.0061,
+   "mejora_metodo_B_p95_de_la_perdida": -0.0013,
+   "control_lado_estadistica": {
+    "coef_gap_A": 0.657,
+    "mejora_metodo_B": 0.0032,
+    "p95_de_la_perdida": 0.001
+   },
+   "por_estadistica": {
+    "a_puerta": {
+     "n": 1866,
+     "coef_gap_A": 0.599,
+     "coef_gap_B": 1.245
+    },
+    "corners": {
+     "n": 2868,
+     "coef_gap_A": 0.948,
+     "coef_gap_B": 0.166
+    },
+    "goles": {
+     "n": 752,
+     "coef_gap_A": null,
+     "coef_gap_B": 1.33
+    },
+    "tarjetas": {
+     "n": 672,
+     "coef_gap_A": 0.748,
+     "coef_gap_B": 0.713
+    },
+    "tiros": {
+     "n": 1848,
+     "coef_gap_A": 0.612,
+     "coef_gap_B": 1.002
+    }
+   }
+  },
+  "equipo, cuota 1,45-2,30": {
+   "n_A": 2311,
+   "n_B": 3323,
+   "coef_gap_A": 0.574,
+   "logloss_B": {
+    "casa": 0.6863,
+    "casa_recalibrada": 0.6864,
+    "casa_mas_metodo": 0.6798,
+    "metodo_solo": 0.6805,
+    "casa_con_lado_y_estadistica": 0.6789,
+    "casa_con_lado_y_estadistica_mas_metodo": 0.6758
+   },
+   "mejora_metodo_B": 0.0066,
+   "mejora_metodo_B_p95_de_la_perdida": -0.0019,
+   "control_lado_estadistica": {
+    "coef_gap_A": 0.494,
+    "mejora_metodo_B": 0.0031,
+    "p95_de_la_perdida": 0.0007
+   },
+   "por_estadistica": {
+    "a_puerta": {
+     "n": 1289,
+     "coef_gap_A": 0.439,
+     "coef_gap_B": 1.379
+    },
+    "corners": {
+     "n": 1736,
+     "coef_gap_A": 0.549,
+     "coef_gap_B": 0.051
+    },
+    "goles": {
+     "n": 174,
+     "coef_gap_A": null,
+     "coef_gap_B": -0.593
+    },
+    "tarjetas": {
+     "n": 618,
+     "coef_gap_A": 0.702,
+     "coef_gap_B": 0.698
+    },
+    "tiros": {
+     "n": 1817,
+     "coef_gap_A": 0.601,
+     "coef_gap_B": 0.985
+    }
+   }
+  }
+ },
+ "segmentos_estables": [
+  {
+   "segmento": "todas las de equipo · método − casa > 0 pts",
+   "A": {
+    "n": 861,
+    "acierto": 0.5575,
+    "casa": 0.5291,
+    "metodo": 0.5923,
+    "cuota": 1.7387,
+    "exceso_vs_casa": 0.0284,
+    "exceso_p5": -0.0058,
+    "gan_100": -3.7
+   },
+   "B": {
+    "n": 1280,
+    "acierto": 0.5844,
+    "casa": 0.5286,
+    "metodo": 0.5919,
+    "cuota": 1.7466,
+    "exceso_vs_casa": 0.0557,
+    "exceso_p5": 0.0337,
+    "gan_100": 0.9
+   },
+   "estable": true
+  },
+  {
+   "segmento": "todas las de equipo · método − casa > 6 pts",
+   "A": {
+    "n": 402,
+    "acierto": 0.5846,
+    "casa": 0.5239,
+    "metodo": 0.6275,
+    "cuota": 1.7574,
+    "exceso_vs_casa": 0.0606,
+    "exceso_p5": 0.0078,
+    "gan_100": 2.7
+   },
+   "B": {
+    "n": 590,
+    "acierto": 0.5763,
+    "casa": 0.5257,
+    "metodo": 0.6315,
+    "cuota": 1.7546,
+    "exceso_vs_casa": 0.0506,
+    "exceso_p5": 0.0147,
+    "gan_100": 0.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "goles · método − casa > 0 pts",
+   "A": {
+    "n": 0
+   },
+   "B": {
+    "n": 92,
+    "acierto": 0.5326,
+    "casa": 0.5373,
+    "metodo": 0.5749,
+    "cuota": 1.7569,
+    "exceso_vs_casa": -0.0047,
+    "exceso_p5": -0.0892,
+    "gan_100": -8.8
+   },
+   "estable": false
+  },
+  {
+   "segmento": "goles · método − casa > 6 pts",
+   "A": {
+    "n": 0
+   },
+   "B": {
+    "n": 21,
+    "acierto": 0.4762,
+    "casa": 0.5303,
+    "metodo": 0.6086,
+    "cuota": 1.7741,
+    "exceso_vs_casa": -0.0541,
+    "exceso_p5": -0.2278,
+    "gan_100": -15.4
+   },
+   "estable": false
+  },
+  {
+   "segmento": "tiros · método − casa > 0 pts",
+   "A": {
+    "n": 248,
+    "acierto": 0.5685,
+    "casa": 0.5321,
+    "metodo": 0.6007,
+    "cuota": 1.7241,
+    "exceso_vs_casa": 0.0365,
+    "exceso_p5": -0.0148,
+    "gan_100": -3.0
+   },
+   "B": {
+    "n": 289,
+    "acierto": 0.609,
+    "casa": 0.5325,
+    "metodo": 0.6061,
+    "cuota": 1.7255,
+    "exceso_vs_casa": 0.0765,
+    "exceso_p5": 0.0274,
+    "gan_100": 4.4
+   },
+   "estable": true
+  },
+  {
+   "segmento": "tiros · método − casa > 6 pts",
+   "A": {
+    "n": 125,
+    "acierto": 0.576,
+    "casa": 0.5308,
+    "metodo": 0.6383,
+    "cuota": 1.7305,
+    "exceso_vs_casa": 0.0452,
+    "exceso_p5": -0.0241,
+    "gan_100": -1.6
+   },
+   "B": {
+    "n": 162,
+    "acierto": 0.5988,
+    "casa": 0.5337,
+    "metodo": 0.6404,
+    "cuota": 1.7222,
+    "exceso_vs_casa": 0.0651,
+    "exceso_p5": -0.0014,
+    "gan_100": 2.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "a_puerta · método − casa > 0 pts",
+   "A": {
+    "n": 248,
+    "acierto": 0.5363,
+    "casa": 0.5263,
+    "metodo": 0.5851,
+    "cuota": 1.7504,
+    "exceso_vs_casa": 0.01,
+    "exceso_p5": -0.0388,
+    "gan_100": -6.2
+   },
+   "B": {
+    "n": 301,
+    "acierto": 0.6179,
+    "casa": 0.527,
+    "metodo": 0.5878,
+    "cuota": 1.7514,
+    "exceso_vs_casa": 0.0909,
+    "exceso_p5": 0.0477,
+    "gan_100": 8.1
+   },
+   "estable": true
+  },
+  {
+   "segmento": "a_puerta · método − casa > 6 pts",
+   "A": {
+    "n": 103,
+    "acierto": 0.5825,
+    "casa": 0.5296,
+    "metodo": 0.6297,
+    "cuota": 1.7379,
+    "exceso_vs_casa": 0.0529,
+    "exceso_p5": -0.0317,
+    "gan_100": 1.7
+   },
+   "B": {
+    "n": 132,
+    "acierto": 0.6439,
+    "casa": 0.5262,
+    "metodo": 0.6301,
+    "cuota": 1.754,
+    "exceso_vs_casa": 0.1177,
+    "exceso_p5": 0.0496,
+    "gan_100": 13.7
+   },
+   "estable": true
+  },
+  {
+   "segmento": "corners · método − casa > 0 pts",
+   "A": {
+    "n": 256,
+    "acierto": 0.5625,
+    "casa": 0.5305,
+    "metodo": 0.5815,
+    "cuota": 1.7329,
+    "exceso_vs_casa": 0.032,
+    "exceso_p5": -0.025,
+    "gan_100": -2.8
+   },
+   "B": {
+    "n": 415,
+    "acierto": 0.5518,
+    "casa": 0.5314,
+    "metodo": 0.5822,
+    "cuota": 1.7314,
+    "exceso_vs_casa": 0.0204,
+    "exceso_p5": -0.0203,
+    "gan_100": -5.6
+   },
+   "estable": true
+  },
+  {
+   "segmento": "corners · método − casa > 6 pts",
+   "A": {
+    "n": 103,
+    "acierto": 0.5922,
+    "casa": 0.5061,
+    "metodo": 0.5973,
+    "cuota": 1.8188,
+    "exceso_vs_casa": 0.0861,
+    "exceso_p5": 0.0095,
+    "gan_100": 8.8
+   },
+   "B": {
+    "n": 154,
+    "acierto": 0.5,
+    "casa": 0.5248,
+    "metodo": 0.6203,
+    "cuota": 1.7525,
+    "exceso_vs_casa": -0.0248,
+    "exceso_p5": -0.0876,
+    "gan_100": -13.1
+   },
+   "estable": false
+  },
+  {
+   "segmento": "tarjetas · método − casa > 0 pts",
+   "A": {
+    "n": 109,
+    "acierto": 0.5688,
+    "casa": 0.5255,
+    "metodo": 0.6147,
+    "cuota": 1.7586,
+    "exceso_vs_casa": 0.0433,
+    "exceso_p5": -0.0392,
+    "gan_100": -1.4
+   },
+   "B": {
+    "n": 183,
+    "acierto": 0.5902,
+    "casa": 0.5144,
+    "metodo": 0.6063,
+    "cuota": 1.8011,
+    "exceso_vs_casa": 0.0757,
+    "exceso_p5": 0.0111,
+    "gan_100": 3.1
+   },
+   "estable": true
+  },
+  {
+   "segmento": "tarjetas · método − casa > 6 pts",
+   "A": {
+    "n": 71,
+    "acierto": 0.5915,
+    "casa": 0.5296,
+    "metodo": 0.6489,
+    "cuota": 1.7436,
+    "exceso_vs_casa": 0.062,
+    "exceso_p5": -0.0468,
+    "gan_100": 2.7
+   },
+   "B": {
+    "n": 121,
+    "acierto": 0.5868,
+    "casa": 0.5146,
+    "metodo": 0.6395,
+    "cuota": 1.798,
+    "exceso_vs_casa": 0.0722,
+    "exceso_p5": -0.0033,
+    "gan_100": 2.5
+   },
+   "estable": true
+  },
+  {
+   "segmento": "más · método − casa > 0 pts",
+   "A": {
+    "n": 410,
+    "acierto": 0.5561,
+    "casa": 0.5259,
+    "metodo": 0.59,
+    "cuota": 1.7481,
+    "exceso_vs_casa": 0.0302,
+    "exceso_p5": -0.0133,
+    "gan_100": -2.8
+   },
+   "B": {
+    "n": 670,
+    "acierto": 0.594,
+    "casa": 0.5265,
+    "metodo": 0.5893,
+    "cuota": 1.7537,
+    "exceso_vs_casa": 0.0675,
+    "exceso_p5": 0.0313,
+    "gan_100": 3.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "más · método − casa > 6 pts",
+   "A": {
+    "n": 193,
+    "acierto": 0.6218,
+    "casa": 0.5217,
+    "metodo": 0.6266,
+    "cuota": 1.7643,
+    "exceso_vs_casa": 0.1001,
+    "exceso_p5": 0.0343,
+    "gan_100": 10.0
+   },
+   "B": {
+    "n": 305,
+    "acierto": 0.5803,
+    "casa": 0.5278,
+    "metodo": 0.6309,
+    "cuota": 1.7464,
+    "exceso_vs_casa": 0.0525,
+    "exceso_p5": -0.001,
+    "gan_100": 1.1
+   },
+   "estable": true
+  },
+  {
+   "segmento": "menos · método − casa > 0 pts",
+   "A": {
+    "n": 451,
+    "acierto": 0.5588,
+    "casa": 0.532,
+    "metodo": 0.5944,
+    "cuota": 1.7301,
+    "exceso_vs_casa": 0.0267,
+    "exceso_p5": -0.0133,
+    "gan_100": -4.4
+   },
+   "B": {
+    "n": 610,
+    "acierto": 0.5738,
+    "casa": 0.531,
+    "metodo": 0.5946,
+    "cuota": 1.7387,
+    "exceso_vs_casa": 0.0428,
+    "exceso_p5": 0.009,
+    "gan_100": -1.6
+   },
+   "estable": true
+  },
+  {
+   "segmento": "menos · método − casa > 6 pts",
+   "A": {
+    "n": 209,
+    "acierto": 0.5502,
+    "casa": 0.526,
+    "metodo": 0.6283,
+    "cuota": 1.7509,
+    "exceso_vs_casa": 0.0242,
+    "exceso_p5": -0.0442,
+    "gan_100": -4.1
+   },
+   "B": {
+    "n": 285,
+    "acierto": 0.5719,
+    "casa": 0.5234,
+    "metodo": 0.6323,
+    "cuota": 1.7634,
+    "exceso_vs_casa": 0.0486,
+    "exceso_p5": -0.0016,
+    "gan_100": -0.7
+   },
+   "estable": true
+  },
+  {
+   "segmento": "local · método − casa > 0 pts",
+   "A": {
+    "n": 427,
+    "acierto": 0.5386,
+    "casa": 0.5298,
+    "metodo": 0.5953,
+    "cuota": 1.7362,
+    "exceso_vs_casa": 0.0089,
+    "exceso_p5": -0.0345,
+    "gan_100": -7.5
+   },
+   "B": {
+    "n": 635,
+    "acierto": 0.5811,
+    "casa": 0.5266,
+    "metodo": 0.59,
+    "cuota": 1.7534,
+    "exceso_vs_casa": 0.0545,
+    "exceso_p5": 0.024,
+    "gan_100": 0.8
+   },
+   "estable": true
+  },
+  {
+   "segmento": "local · método − casa > 6 pts",
+   "A": {
+    "n": 210,
+    "acierto": 0.5619,
+    "casa": 0.5232,
+    "metodo": 0.6283,
+    "cuota": 1.7596,
+    "exceso_vs_casa": 0.0387,
+    "exceso_p5": -0.0272,
+    "gan_100": -0.9
+   },
+   "B": {
+    "n": 299,
+    "acierto": 0.5753,
+    "casa": 0.5263,
+    "metodo": 0.6308,
+    "cuota": 1.7523,
+    "exceso_vs_casa": 0.0489,
+    "exceso_p5": 0.0035,
+    "gan_100": 0.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "visita · método − casa > 0 pts",
+   "A": {
+    "n": 430,
+    "acierto": 0.5767,
+    "casa": 0.5285,
+    "metodo": 0.5891,
+    "cuota": 1.7411,
+    "exceso_vs_casa": 0.0483,
+    "exceso_p5": 0.0069,
+    "gan_100": 0.1
+   },
+   "B": {
+    "n": 645,
+    "acierto": 0.5876,
+    "casa": 0.5306,
+    "metodo": 0.5937,
+    "cuota": 1.7399,
+    "exceso_vs_casa": 0.057,
+    "exceso_p5": 0.022,
+    "gan_100": 1.0
+   },
+   "estable": true
+  },
+  {
+   "segmento": "visita · método − casa > 6 pts",
+   "A": {
+    "n": 190,
+    "acierto": 0.6105,
+    "casa": 0.5247,
+    "metodo": 0.6267,
+    "cuota": 1.7552,
+    "exceso_vs_casa": 0.0859,
+    "exceso_p5": 0.0129,
+    "gan_100": 6.8
+   },
+   "B": {
+    "n": 291,
+    "acierto": 0.5773,
+    "casa": 0.525,
+    "metodo": 0.6324,
+    "cuota": 1.757,
+    "exceso_vs_casa": 0.0523,
+    "exceso_p5": 0.0081,
+    "gan_100": 0.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "favorito · método − casa > 0 pts",
+   "A": {
+    "n": 432,
+    "acierto": 0.5602,
+    "casa": 0.5303,
+    "metodo": 0.5949,
+    "cuota": 1.7335,
+    "exceso_vs_casa": 0.0298,
+    "exceso_p5": -0.0107,
+    "gan_100": -3.7
+   },
+   "B": {
+    "n": 642,
+    "acierto": 0.5592,
+    "casa": 0.5287,
+    "metodo": 0.5925,
+    "cuota": 1.745,
+    "exceso_vs_casa": 0.0305,
+    "exceso_p5": -0.0016,
+    "gan_100": -3.4
+   },
+   "estable": true
+  },
+  {
+   "segmento": "favorito · método − casa > 6 pts",
+   "A": {
+    "n": 204,
+    "acierto": 0.5931,
+    "casa": 0.526,
+    "metodo": 0.6306,
+    "cuota": 1.7503,
+    "exceso_vs_casa": 0.0671,
+    "exceso_p5": -0.0054,
+    "gan_100": 4.1
+   },
+   "B": {
+    "n": 306,
+    "acierto": 0.5425,
+    "casa": 0.5254,
+    "metodo": 0.6298,
+    "cuota": 1.7547,
+    "exceso_vs_casa": 0.0171,
+    "exceso_p5": -0.0302,
+    "gan_100": -5.1
+   },
+   "estable": true
+  },
+  {
+   "segmento": "no favorito · método − casa > 0 pts",
+   "A": {
+    "n": 425,
+    "acierto": 0.5553,
+    "casa": 0.5279,
+    "metodo": 0.5896,
+    "cuota": 1.744,
+    "exceso_vs_casa": 0.0274,
+    "exceso_p5": -0.0142,
+    "gan_100": -3.6
+   },
+   "B": {
+    "n": 638,
+    "acierto": 0.6097,
+    "casa": 0.5286,
+    "metodo": 0.5912,
+    "cuota": 1.7482,
+    "exceso_vs_casa": 0.0811,
+    "exceso_p5": 0.0522,
+    "gan_100": 5.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "no favorito · método − casa > 6 pts",
+   "A": {
+    "n": 196,
+    "acierto": 0.5765,
+    "casa": 0.5217,
+    "metodo": 0.6243,
+    "cuota": 1.765,
+    "exceso_vs_casa": 0.0548,
+    "exceso_p5": -0.0133,
+    "gan_100": 1.3
+   },
+   "B": {
+    "n": 284,
+    "acierto": 0.6127,
+    "casa": 0.526,
+    "metodo": 0.6334,
+    "cuota": 1.7546,
+    "exceso_vs_casa": 0.0867,
+    "exceso_p5": 0.0449,
+    "gan_100": 5.9
+   },
+   "estable": true
+  },
+  {
+   "segmento": "λ en contra · método − casa > 0 pts",
+   "A": {
+    "n": 241,
+    "acierto": 0.4772,
+    "casa": 0.4505,
+    "metodo": 0.4822,
+    "cuota": 2.0345,
+    "exceso_vs_casa": 0.0267,
+    "exceso_p5": -0.0315,
+    "gan_100": -3.5
+   },
+   "B": {
+    "n": 306,
+    "acierto": 0.5065,
+    "casa": 0.448,
+    "metodo": 0.4807,
+    "cuota": 2.0468,
+    "exceso_vs_casa": 0.0586,
+    "exceso_p5": 0.0116,
+    "gan_100": 3.7
+   },
+   "estable": true
+  },
+  {
+   "segmento": "λ en contra · método − casa > 6 pts",
+   "A": {
+    "n": 42,
+    "acierto": 0.5476,
+    "casa": 0.432,
+    "metodo": 0.5108,
+    "cuota": 2.1102,
+    "exceso_vs_casa": 0.1156,
+    "exceso_p5": -0.0116,
+    "gan_100": 15.8
+   },
+   "B": {
+    "n": 46,
+    "acierto": 0.413,
+    "casa": 0.4306,
+    "metodo": 0.513,
+    "cuota": 2.1188,
+    "exceso_vs_casa": -0.0176,
+    "exceso_p5": -0.1392,
+    "gan_100": -11.5
+   },
+   "estable": false
+  },
+  {
+   "segmento": "λ a favor <0,5 sd · método − casa > 0 pts",
+   "A": {
+    "n": 704,
+    "acierto": 0.5483,
+    "casa": 0.5274,
+    "metodo": 0.5881,
+    "cuota": 1.743,
+    "exceso_vs_casa": 0.0209,
+    "exceso_p5": -0.0161,
+    "gan_100": -4.7
+   },
+   "B": {
+    "n": 1031,
+    "acierto": 0.5887,
+    "casa": 0.5246,
+    "metodo": 0.5862,
+    "cuota": 1.7576,
+    "exceso_vs_casa": 0.0642,
+    "exceso_p5": 0.0398,
+    "gan_100": 2.8
+   },
+   "estable": true
+  },
+  {
+   "segmento": "λ a favor <0,5 sd · método − casa > 6 pts",
+   "A": {
+    "n": 325,
+    "acierto": 0.56,
+    "casa": 0.5092,
+    "metodo": 0.6063,
+    "cuota": 1.8074,
+    "exceso_vs_casa": 0.0508,
+    "exceso_p5": -0.0017,
+    "gan_100": 1.6
+   },
+   "B": {
+    "n": 476,
+    "acierto": 0.5651,
+    "casa": 0.5064,
+    "metodo": 0.6061,
+    "cuota": 1.8201,
+    "exceso_vs_casa": 0.0587,
+    "exceso_p5": 0.0172,
+    "gan_100": 2.4
+   },
+   "estable": true
+  },
+  {
+   "segmento": "λ a favor ≥0,5 sd · método − casa > 0 pts",
+   "A": {
+    "n": 112,
+    "acierto": 0.6607,
+    "casa": 0.5711,
+    "metodo": 0.695,
+    "cuota": 1.5999,
+    "exceso_vs_casa": 0.0896,
+    "exceso_p5": 0.0155,
+    "gan_100": 5.2
+   },
+   "B": {
+    "n": 193,
+    "acierto": 0.658,
+    "casa": 0.5779,
+    "metodo": 0.6931,
+    "cuota": 1.5846,
+    "exceso_vs_casa": 0.0801,
+    "exceso_p5": 0.0225,
+    "gan_100": 3.5
+   },
+   "estable": true
+  },
+  {
+   "segmento": "λ a favor ≥0,5 sd · método − casa > 6 pts",
+   "A": {
+    "n": 100,
+    "acierto": 0.66,
+    "casa": 0.5663,
+    "metodo": 0.6998,
+    "cuota": 1.6135,
+    "exceso_vs_casa": 0.0937,
+    "exceso_p5": 0.0115,
+    "gan_100": 5.9
+   },
+   "B": {
+    "n": 160,
+    "acierto": 0.6375,
+    "casa": 0.5704,
+    "metodo": 0.7009,
+    "cuota": 1.604,
+    "exceso_vs_casa": 0.0671,
+    "exceso_p5": 0.0034,
+    "gan_100": 1.5
+   },
+   "estable": true
+  },
+  {
+   "segmento": "brasil · método − casa > 0 pts",
+   "A": {
+    "n": 145,
+    "acierto": 0.5655,
+    "casa": 0.5266,
+    "metodo": 0.588,
+    "cuota": 1.7498,
+    "exceso_vs_casa": 0.039,
+    "exceso_p5": -0.0438,
+    "gan_100": -1.0
+   },
+   "B": {
+    "n": 217,
+    "acierto": 0.5991,
+    "casa": 0.5299,
+    "metodo": 0.5984,
+    "cuota": 1.7424,
+    "exceso_vs_casa": 0.0692,
+    "exceso_p5": 0.0121,
+    "gan_100": 2.9
+   },
+   "estable": true
+  },
+  {
+   "segmento": "brasil · método − casa > 6 pts",
+   "A": {
+    "n": 64,
+    "acierto": 0.5625,
+    "casa": 0.5184,
+    "metodo": 0.6237,
+    "cuota": 1.779,
+    "exceso_vs_casa": 0.0441,
+    "exceso_p5": -0.1065,
+    "gan_100": -0.5
+   },
+   "B": {
+    "n": 109,
+    "acierto": 0.5872,
+    "casa": 0.5197,
+    "metodo": 0.632,
+    "cuota": 1.7761,
+    "exceso_vs_casa": 0.0674,
+    "exceso_p5": -0.0168,
+    "gan_100": 3.3
+   },
+   "estable": true
+  },
+  {
+   "segmento": "eng_championship · método − casa > 0 pts",
+   "A": {
+    "n": 132,
+    "acierto": 0.5303,
+    "casa": 0.5043,
+    "metodo": 0.5646,
+    "cuota": 1.8229,
+    "exceso_vs_casa": 0.026,
+    "exceso_p5": -0.0432,
+    "gan_100": -3.5
+   },
+   "B": {
+    "n": 107,
+    "acierto": 0.5794,
+    "casa": 0.5043,
+    "metodo": 0.5633,
+    "cuota": 1.8241,
+    "exceso_vs_casa": 0.0751,
+    "exceso_p5": 0.0116,
+    "gan_100": 6.0
+   },
+   "estable": true
+  },
+  {
+   "segmento": "eng_championship · método − casa > 6 pts",
+   "A": {
+    "n": 60,
+    "acierto": 0.5333,
+    "casa": 0.5042,
+    "metodo": 0.6044,
+    "cuota": 1.8223,
+    "exceso_vs_casa": 0.0291,
+    "exceso_p5": -0.0742,
+    "gan_100": -3.1
+   },
+   "B": {
+    "n": 53,
+    "acierto": 0.4717,
+    "casa": 0.504,
+    "metodo": 0.5939,
+    "cuota": 1.823,
+    "exceso_vs_casa": -0.0323,
+    "exceso_p5": -0.1159,
+    "gan_100": -14.3
+   },
+   "estable": false
+  },
+  {
+   "segmento": "jpn_j1 · método − casa > 0 pts",
+   "A": {
+    "n": 41,
+    "acierto": 0.4146,
+    "casa": 0.5026,
+    "metodo": 0.5615,
+    "cuota": 1.828,
+    "exceso_vs_casa": -0.088,
+    "exceso_p5": -0.2212,
+    "gan_100": -23.8
+   },
+   "B": {
+    "n": 28,
+    "acierto": 0.4286,
+    "casa": 0.5088,
+    "metodo": 0.5738,
+    "cuota": 1.802,
+    "exceso_vs_casa": -0.0802,
+    "exceso_p5": -0.2515,
+    "gan_100": -22.4
+   },
+   "estable": false
+  },
+  {
+   "segmento": "jpn_j1 · método − casa > 6 pts",
+   "A": {
+    "n": 17,
+    "acierto": 0.4706,
+    "casa": 0.4978,
+    "metodo": 0.5938,
+    "cuota": 1.8441,
+    "exceso_vs_casa": -0.0272,
+    "exceso_p5": -0.2465,
+    "gan_100": -12.6
+   },
+   "B": {
+    "n": 14
+   },
+   "estable": false
+  },
+  {
+   "segmento": "liga_mx · método − casa > 0 pts",
+   "A": {
+    "n": 110,
+    "acierto": 0.6727,
+    "casa": 0.5483,
+    "metodo": 0.6192,
+    "cuota": 1.6752,
+    "exceso_vs_casa": 0.1244,
+    "exceso_p5": 0.0183,
+    "gan_100": 11.9
+   },
+   "B": {
+    "n": 204,
+    "acierto": 0.6422,
+    "casa": 0.5438,
+    "metodo": 0.6148,
+    "cuota": 1.6945,
+    "exceso_vs_casa": 0.0984,
+    "exceso_p5": 0.0387,
+    "gan_100": 8.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "liga_mx · método − casa > 6 pts",
+   "A": {
+    "n": 56,
+    "acierto": 0.8214,
+    "casa": 0.5436,
+    "metodo": 0.6536,
+    "cuota": 1.6907,
+    "exceso_vs_casa": 0.2778,
+    "exceso_p5": 0.1679,
+    "gan_100": 38.9
+   },
+   "B": {
+    "n": 105,
+    "acierto": 0.6286,
+    "casa": 0.5441,
+    "metodo": 0.6547,
+    "cuota": 1.6928,
+    "exceso_vs_casa": 0.0844,
+    "exceso_p5": -0.0129,
+    "gan_100": 6.0
+   },
+   "estable": true
+  },
+  {
+   "segmento": "mls · método − casa > 0 pts",
+   "A": {
+    "n": 248,
+    "acierto": 0.5806,
+    "casa": 0.557,
+    "metodo": 0.6159,
+    "cuota": 1.6471,
+    "exceso_vs_casa": 0.0236,
+    "exceso_p5": -0.0268,
+    "gan_100": -4.8
+   },
+   "B": {
+    "n": 253,
+    "acierto": 0.6047,
+    "casa": 0.5503,
+    "metodo": 0.6043,
+    "cuota": 1.6748,
+    "exceso_vs_casa": 0.0545,
+    "exceso_p5": 0.0117,
+    "gan_100": 0.6
+   },
+   "estable": true
+  },
+  {
+   "segmento": "mls · método − casa > 6 pts",
+   "A": {
+    "n": 114,
+    "acierto": 0.5263,
+    "casa": 0.5417,
+    "metodo": 0.6393,
+    "cuota": 1.703,
+    "exceso_vs_casa": -0.0154,
+    "exceso_p5": -0.1262,
+    "gan_100": -10.1
+   },
+   "B": {
+    "n": 98,
+    "acierto": 0.6122,
+    "casa": 0.5517,
+    "metodo": 0.6476,
+    "cuota": 1.6679,
+    "exceso_vs_casa": 0.0606,
+    "exceso_p5": -0.0235,
+    "gan_100": 1.5
+   },
+   "estable": false
+  },
+  {
+   "segmento": "equipo con ≤4 días · método − casa > 0 pts",
+   "A": {
+    "n": 30,
+    "acierto": 0.5,
+    "casa": 0.5278,
+    "metodo": 0.5876,
+    "cuota": 1.7441,
+    "exceso_vs_casa": -0.0278,
+    "exceso_p5": -0.1258,
+    "gan_100": -14.9
+   },
+   "B": {
+    "n": 64,
+    "acierto": 0.6875,
+    "casa": 0.5149,
+    "metodo": 0.5823,
+    "cuota": 1.7918,
+    "exceso_vs_casa": 0.1726,
+    "exceso_p5": 0.0959,
+    "gan_100": 22.0
+   },
+   "estable": false
+  },
+  {
+   "segmento": "equipo con ≤4 días · método − casa > 6 pts",
+   "A": {
+    "n": 14
+   },
+   "B": {
+    "n": 36,
+    "acierto": 0.6944,
+    "casa": 0.519,
+    "metodo": 0.6188,
+    "cuota": 1.7802,
+    "exceso_vs_casa": 0.1754,
+    "exceso_p5": 0.0512,
+    "gan_100": 21.5
+   },
+   "estable": false
+  },
+  {
+   "segmento": "rival con ≤4 días · método − casa > 0 pts",
+   "A": {
+    "n": 28,
+    "acierto": 0.4286,
+    "casa": 0.5362,
+    "metodo": 0.5961,
+    "cuota": 1.716,
+    "exceso_vs_casa": -0.1077,
+    "exceso_p5": -0.2258,
+    "gan_100": -26.7
+   },
+   "B": {
+    "n": 69,
+    "acierto": 0.5797,
+    "casa": 0.5211,
+    "metodo": 0.5745,
+    "cuota": 1.7698,
+    "exceso_vs_casa": 0.0586,
+    "exceso_p5": -0.014,
+    "gan_100": 0.3
+   },
+   "estable": false
+  },
+  {
+   "segmento": "rival con ≤4 días · método − casa > 6 pts",
+   "A": {
+    "n": 11
+   },
+   "B": {
+    "n": 26,
+    "acierto": 0.5769,
+    "casa": 0.517,
+    "metodo": 0.62,
+    "cuota": 1.7827,
+    "exceso_vs_casa": 0.0599,
+    "exceso_p5": -0.0562,
+    "gan_100": -0.8
+   },
+   "estable": false
+  },
+  {
+   "segmento": "descanso parejo · método − casa > 0 pts",
+   "A": {
+    "n": 799,
+    "acierto": 0.5645,
+    "casa": 0.5289,
+    "metodo": 0.5922,
+    "cuota": 1.7393,
+    "exceso_vs_casa": 0.0355,
+    "exceso_p5": 0.0053,
+    "gan_100": -2.4
+   },
+   "B": {
+    "n": 1147,
+    "acierto": 0.5789,
+    "casa": 0.5299,
+    "metodo": 0.5934,
+    "cuota": 1.7427,
+    "exceso_vs_casa": 0.049,
+    "exceso_p5": 0.0261,
+    "gan_100": -0.2
+   },
+   "estable": true
+  },
+  {
+   "segmento": "descanso parejo · método − casa > 6 pts",
+   "A": {
+    "n": 375,
+    "acierto": 0.5867,
+    "casa": 0.5236,
+    "metodo": 0.6274,
+    "cuota": 1.7582,
+    "exceso_vs_casa": 0.0631,
+    "exceso_p5": 0.0146,
+    "gan_100": 3.2
+   },
+   "B": {
+    "n": 528,
+    "acierto": 0.5682,
+    "casa": 0.5266,
+    "metodo": 0.633,
+    "cuota": 1.7515,
+    "exceso_vs_casa": 0.0416,
+    "exceso_p5": 0.0027,
+    "gan_100": -1.2
+   },
+   "estable": true
+  }
+ ],
+ "pisos": {
+  "1.30": {
+   "base_casa_todo_playdoit": {
+    "A": {
+     "n": 274,
+     "patas_dia": 18.27,
+     "acierto": 0.7299,
+     "cuota": 1.3384,
+     "casa": 0.6931,
+     "metodo": 0.699,
+     "gan_100": -2.6,
+     "base_acierto": 0.7299,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    },
+    "B": {
+     "n": 368,
+     "patas_dia": 19.37,
+     "acierto": 0.7255,
+     "cuota": 1.3376,
+     "casa": 0.6927,
+     "metodo": 0.7037,
+     "gan_100": -3.1,
+     "base_acierto": 0.7255,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    }
+   },
+   "base_casa_solo_equipo": {
+    "A": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.5634,
+     "cuota": 1.4761,
+     "casa": 0.6218,
+     "metodo": 0.6355,
+     "gan_100": -17.2,
+     "base_acierto": 0.7299,
+     "base_cuota": null,
+     "dif": -0.1665,
+     "dif_p5": -0.2444,
+     "acierto_p5": 0.4963,
+     "gan_p5": -27.2,
+     "base_gan_100": -2.6,
+     "dif_gan_100": -14.6,
+     "dif_gan_p5": -25.8,
+     "base_mismos_partidos": 0.7042,
+     "dif_mismos_partidos_p5": -0.2263
+    },
+    "B": {
+     "n": 211,
+     "patas_dia": 11.11,
+     "acierto": 0.6588,
+     "cuota": 1.4296,
+     "casa": 0.6441,
+     "metodo": 0.6616,
+     "gan_100": -6.9,
+     "base_acierto": 0.7255,
+     "base_cuota": null,
+     "dif": -0.0668,
+     "dif_p5": -0.1308,
+     "acierto_p5": 0.6036,
+     "gan_p5": -15.0,
+     "base_gan_100": -3.1,
+     "dif_gan_100": -3.8,
+     "dif_gan_p5": -12.7,
+     "base_mismos_partidos": 0.7014,
+     "dif_mismos_partidos_p5": -0.1117
+    }
+   },
+   "simple": {
+    "regla": "todas las de equipo · método − casa > 0 pts",
+    "seg": [],
+    "u": 0.0,
+    "A": {
+     "n": 138,
+     "patas_dia": 9.2,
+     "acierto": 0.6522,
+     "cuota": 1.5041,
+     "casa": 0.6111,
+     "metodo": 0.6744,
+     "gan_100": -3.6,
+     "base_acierto": 0.7299,
+     "base_cuota": null,
+     "dif": -0.0778,
+     "dif_p5": -0.1632,
+     "acierto_p5": 0.5857,
+     "gan_p5": -13.7,
+     "base_gan_100": -2.6,
+     "dif_gan_100": -1.0,
+     "dif_gan_p5": -13.5,
+     "base_mismos_partidos": 0.7029,
+     "dif_mismos_partidos_p5": -0.1469
+    },
+    "B": {
+     "n": 203,
+     "patas_dia": 10.68,
+     "acierto": 0.6453,
+     "cuota": 1.4435,
+     "casa": 0.6372,
+     "metodo": 0.6948,
+     "gan_100": -8.3,
+     "base_acierto": 0.7255,
+     "base_cuota": null,
+     "dif": -0.0802,
+     "dif_p5": -0.1433,
+     "acierto_p5": 0.5879,
+     "gan_p5": -16.5,
+     "base_gan_100": -3.1,
+     "dif_gan_100": -5.2,
+     "dif_gan_p5": -14.2,
+     "base_mismos_partidos": 0.6946,
+     "dif_mismos_partidos_p5": -0.12
+    },
+    "A_vs_equipo": {
+     "n": 138,
+     "patas_dia": 9.2,
+     "acierto": 0.6522,
+     "cuota": 1.5041,
+     "casa": 0.6111,
+     "metodo": 0.6744,
+     "gan_100": -3.6,
+     "base_acierto": 0.5634,
+     "base_cuota": null,
+     "dif": 0.0888,
+     "dif_p5": 0.0252
+    },
+    "B_vs_equipo": {
+     "n": 203,
+     "patas_dia": 10.68,
+     "acierto": 0.6453,
+     "cuota": 1.4435,
+     "casa": 0.6372,
+     "metodo": 0.6948,
+     "gan_100": -8.3,
+     "base_acierto": 0.6588,
+     "base_cuota": null,
+     "dif": -0.0134,
+     "dif_p5": -0.0652
+    }
+   },
+   "simple_todas_u": [
+    {
+     "regla": "todas las de equipo · método − casa > 0 pts",
+     "A": {
+      "n": 138,
+      "patas_dia": 9.2,
+      "acierto": 0.6522,
+      "cuota": 1.5041,
+      "casa": 0.6111,
+      "metodo": 0.6744,
+      "gan_100": -3.6,
+      "base_acierto": 0.7299,
+      "base_cuota": null,
+      "dif": -0.0778,
+      "dif_p5": -0.1632,
+      "acierto_p5": 0.5857,
+      "gan_p5": -13.7,
+      "base_gan_100": -2.6,
+      "dif_gan_100": -1.0,
+      "dif_gan_p5": -13.5,
+      "base_mismos_partidos": 0.7029,
+      "dif_mismos_partidos_p5": -0.1469
+     },
+     "B": {
+      "n": 203,
+      "patas_dia": 10.68,
+      "acierto": 0.6453,
+      "cuota": 1.4435,
+      "casa": 0.6372,
+      "metodo": 0.6948,
+      "gan_100": -8.3,
+      "base_acierto": 0.7255,
+      "base_cuota": null,
+      "dif": -0.0802,
+      "dif_p5": -0.1433,
+      "acierto_p5": 0.5879,
+      "gan_p5": -16.5,
+      "base_gan_100": -3.1,
+      "dif_gan_100": -5.2,
+      "dif_gan_p5": -14.2,
+      "base_mismos_partidos": 0.6946,
+      "dif_mismos_partidos_p5": -0.12
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 3 pts",
+     "A": {
+      "n": 131,
+      "patas_dia": 8.73,
+      "acierto": 0.626,
+      "cuota": 1.516,
+      "casa": 0.606,
+      "metodo": 0.6855,
+      "gan_100": -6.7,
+      "base_acierto": 0.7299,
+      "base_cuota": null,
+      "dif": -0.104,
+      "dif_p5": -0.1855,
+      "acierto_p5": 0.5556,
+      "gan_p5": -17.4,
+      "base_gan_100": -2.6,
+      "dif_gan_100": -4.1,
+      "dif_gan_p5": -16.4,
+      "base_mismos_partidos": 0.7099,
+      "dif_mismos_partidos_p5": -0.1825
+     },
+     "B": {
+      "n": 189,
+      "patas_dia": 9.95,
+      "acierto": 0.672,
+      "cuota": 1.4858,
+      "casa": 0.6189,
+      "metodo": 0.6977,
+      "gan_100": -2.0,
+      "base_acierto": 0.7255,
+      "base_cuota": null,
+      "dif": -0.0536,
+      "dif_p5": -0.1189,
+      "acierto_p5": 0.617,
+      "gan_p5": -10.2,
+      "base_gan_100": -3.1,
+      "dif_gan_100": 1.1,
+      "dif_gan_p5": -8.5,
+      "base_mismos_partidos": 0.6984,
+      "dif_mismos_partidos_p5": -0.102
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 6 pts",
+     "A": {
+      "n": 115,
+      "patas_dia": 7.67,
+      "acierto": 0.5739,
+      "cuota": 1.5438,
+      "casa": 0.595,
+      "metodo": 0.6971,
+      "gan_100": -13.4,
+      "base_acierto": 0.7299,
+      "base_cuota": null,
+      "dif": -0.156,
+      "dif_p5": -0.2429,
+      "acierto_p5": 0.4957,
+      "gan_p5": -24.9,
+      "base_gan_100": -2.6,
+      "dif_gan_100": -10.8,
+      "dif_gan_p5": -23.9,
+      "base_mismos_partidos": 0.7217,
+      "dif_mismos_partidos_p5": -0.2544
+     },
+     "B": {
+      "n": 166,
+      "patas_dia": 8.74,
+      "acierto": 0.6386,
+      "cuota": 1.514,
+      "casa": 0.6074,
+      "metodo": 0.707,
+      "gan_100": -4.1,
+      "base_acierto": 0.7255,
+      "base_cuota": null,
+      "dif": -0.087,
+      "dif_p5": -0.1574,
+      "acierto_p5": 0.5767,
+      "gan_p5": -13.6,
+      "base_gan_100": -3.1,
+      "dif_gan_100": -1.0,
+      "dif_gan_p5": -11.6,
+      "base_mismos_partidos": 0.7108,
+      "dif_mismos_partidos_p5": -0.1539
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 9 pts",
+     "A": {
+      "n": 85,
+      "patas_dia": 5.67,
+      "acierto": 0.6471,
+      "cuota": 1.5555,
+      "casa": 0.59,
+      "metodo": 0.7179,
+      "gan_100": -1.3,
+      "base_acierto": 0.7299,
+      "base_cuota": null,
+      "dif": -0.0829,
+      "dif_p5": -0.1803,
+      "acierto_p5": 0.56,
+      "gan_p5": -14.9,
+      "base_gan_100": -2.6,
+      "dif_gan_100": 1.3,
+      "dif_gan_p5": -13.4,
+      "base_mismos_partidos": 0.6941,
+      "dif_mismos_partidos_p5": -0.1649
+     },
+     "B": {
+      "n": 125,
+      "patas_dia": 6.58,
+      "acierto": 0.704,
+      "cuota": 1.5521,
+      "casa": 0.5915,
+      "metodo": 0.7173,
+      "gan_100": 8.2,
+      "base_acierto": 0.7255,
+      "base_cuota": null,
+      "dif": -0.0215,
+      "dif_p5": -0.1007,
+      "acierto_p5": 0.6341,
+      "gan_p5": -2.9,
+      "base_gan_100": -3.1,
+      "dif_gan_100": 11.2,
+      "dif_gan_p5": -0.9,
+      "base_mismos_partidos": 0.736,
+      "dif_mismos_partidos_p5": -0.1193
+     }
+    }
+   ],
+   "candidatos_con_n": 290,
+   "elegida_acierto": {
+    "regla": "a_puerta · λ a favor ≥0,5 sd · método − casa > 9 pts",
+    "seg": [
+     [
+      "est",
+      "a_puerta"
+     ],
+     [
+      "margen",
+      "λ a favor ≥0,5 sd"
+     ]
+    ],
+    "u": 0.09,
+    "A": {
+     "n": 33,
+     "patas_dia": 2.2,
+     "acierto": 0.8485,
+     "cuota": 1.4593,
+     "casa": 0.6277,
+     "metodo": 0.7531,
+     "gan_100": 23.7,
+     "base_acierto": 0.7299,
+     "base_cuota": null,
+     "dif": 0.1186,
+     "dif_p5": 0.0091,
+     "acierto_p5": 0.75,
+     "gan_p5": 8.6,
+     "base_gan_100": -2.6,
+     "dif_gan_100": 26.3,
+     "dif_gan_p5": 10.1,
+     "base_mismos_partidos": 0.6061,
+     "dif_mismos_partidos_p5": 0.0857
+    },
+    "B": {
+     "n": 38,
+     "patas_dia": 2.0,
+     "acierto": 0.7105,
+     "cuota": 1.4801,
+     "casa": 0.6206,
+     "metodo": 0.7466,
+     "gan_100": 1.7,
+     "base_acierto": 0.7255,
+     "base_cuota": null,
+     "dif": -0.015,
+     "dif_p5": -0.1446,
+     "acierto_p5": 0.5853,
+     "gan_p5": -16.3,
+     "base_gan_100": -3.1,
+     "dif_gan_100": 4.8,
+     "dif_gan_p5": -13.9,
+     "base_mismos_partidos": 0.6842,
+     "dif_mismos_partidos_p5": -0.129
+    },
+    "A_vs_equipo": {
+     "n": 33,
+     "patas_dia": 2.2,
+     "acierto": 0.8485,
+     "cuota": 1.4593,
+     "casa": 0.6277,
+     "metodo": 0.7531,
+     "gan_100": 23.7,
+     "base_acierto": 0.5634,
+     "base_cuota": null,
+     "dif": 0.2851,
+     "dif_p5": 0.1526
+    },
+    "B_vs_equipo": {
+     "n": 38,
+     "patas_dia": 2.0,
+     "acierto": 0.7105,
+     "cuota": 1.4801,
+     "casa": 0.6206,
+     "metodo": 0.7466,
+     "gan_100": 1.7,
+     "base_acierto": 0.6588,
+     "base_cuota": null,
+     "dif": 0.0518,
+     "dif_p5": -0.0781
+    }
+   },
+   "elegida_ganancia": {
+    "regla": "a_puerta · λ a favor ≥0,5 sd · método − casa > 9 pts",
+    "seg": [
+     [
+      "est",
+      "a_puerta"
+     ],
+     [
+      "margen",
+      "λ a favor ≥0,5 sd"
+     ]
+    ],
+    "u": 0.09,
+    "A": {
+     "n": 33,
+     "patas_dia": 2.2,
+     "acierto": 0.8485,
+     "cuota": 1.4593,
+     "casa": 0.6277,
+     "metodo": 0.7531,
+     "gan_100": 23.7,
+     "base_acierto": 0.7299,
+     "base_cuota": null,
+     "dif": 0.1186,
+     "dif_p5": 0.0091,
+     "acierto_p5": 0.75,
+     "gan_p5": 8.6,
+     "base_gan_100": -2.6,
+     "dif_gan_100": 26.3,
+     "dif_gan_p5": 10.1,
+     "base_mismos_partidos": 0.6061,
+     "dif_mismos_partidos_p5": 0.0857
+    },
+    "B": {
+     "n": 38,
+     "patas_dia": 2.0,
+     "acierto": 0.7105,
+     "cuota": 1.4801,
+     "casa": 0.6206,
+     "metodo": 0.7466,
+     "gan_100": 1.7,
+     "base_acierto": 0.7255,
+     "base_cuota": null,
+     "dif": -0.015,
+     "dif_p5": -0.1446,
+     "acierto_p5": 0.5853,
+     "gan_p5": -16.3,
+     "base_gan_100": -3.1,
+     "dif_gan_100": 4.8,
+     "dif_gan_p5": -13.9,
+     "base_mismos_partidos": 0.6842,
+     "dif_mismos_partidos_p5": -0.129
+    },
+    "A_vs_equipo": {
+     "n": 33,
+     "patas_dia": 2.2,
+     "acierto": 0.8485,
+     "cuota": 1.4593,
+     "casa": 0.6277,
+     "metodo": 0.7531,
+     "gan_100": 23.7,
+     "base_acierto": 0.5634,
+     "base_cuota": null,
+     "dif": 0.2851,
+     "dif_p5": 0.1526
+    },
+    "B_vs_equipo": {
+     "n": 38,
+     "patas_dia": 2.0,
+     "acierto": 0.7105,
+     "cuota": 1.4801,
+     "casa": 0.6206,
+     "metodo": 0.7466,
+     "gan_100": 1.7,
+     "base_acierto": 0.6588,
+     "base_cuota": null,
+     "dif": 0.0518,
+     "dif_p5": -0.0781
+    }
+   },
+   "top10_A_acierto": [
+    {
+     "regla": "a_puerta · λ a favor ≥0,5 sd · método − casa > 9 pts",
+     "A": {
+      "n": 33,
+      "acierto": 0.8485,
+      "cuota": 1.4593,
+      "dif": 0.1186,
+      "dif_p5": 0.0091
+     },
+     "B": {
+      "n": 38,
+      "acierto": 0.7105,
+      "cuota": 1.4801,
+      "dif": -0.015,
+      "dif_p5": -0.1446
+     }
+    },
+    {
+     "regla": "a_puerta · más · método − casa > 9 pts",
+     "A": {
+      "n": 32,
+      "acierto": 0.8438,
+      "cuota": 1.4995,
+      "dif": 0.1138,
+      "dif_p5": -0.0049
+     },
+     "B": {
+      "n": 41,
+      "acierto": 0.6585,
+      "cuota": 1.5363,
+      "dif": -0.067,
+      "dif_p5": -0.1999
+     }
+    },
+    {
+     "regla": "a_puerta · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "A": {
+      "n": 52,
+      "acierto": 0.75,
+      "cuota": 1.392,
+      "dif": 0.0201,
+      "dif_p5": -0.0826
+     },
+     "B": {
+      "n": 61,
+      "acierto": 0.7377,
+      "cuota": 1.4173,
+      "dif": 0.0122,
+      "dif_p5": -0.0888
+     }
+    },
+    {
+     "regla": "favorito · mls · método − casa > 3 pts",
+     "A": {
+      "n": 31,
+      "acierto": 0.7742,
+      "cuota": 1.422,
+      "dif": 0.0443,
+      "dif_p5": -0.0907
+     },
+     "B": {
+      "n": 29,
+      "acierto": 0.7241,
+      "cuota": 1.434,
+      "dif": -0.0014,
+      "dif_p5": -0.1522
+     }
+    },
+    {
+     "regla": "a_puerta · método − casa > 9 pts",
+     "A": {
+      "n": 44,
+      "acierto": 0.75,
+      "cuota": 1.5182,
+      "dif": 0.0201,
+      "dif_p5": -0.0984
+     },
+     "B": {
+      "n": 51,
+      "acierto": 0.6471,
+      "cuota": 1.5373,
+      "dif": -0.0785,
+      "dif_p5": -0.1947
+     }
+    },
+    {
+     "regla": "favorito · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "A": {
+      "n": 69,
+      "acierto": 0.7246,
+      "cuota": 1.4398,
+      "dif": -0.0053,
+      "dif_p5": -0.101
+     },
+     "B": {
+      "n": 108,
+      "acierto": 0.7315,
+      "cuota": 1.4134,
+      "dif": 0.0059,
+      "dif_p5": -0.0739
+     }
+    },
+    {
+     "regla": "más · λ a favor ≥0,5 sd · método − casa > 9 pts",
+     "A": {
+      "n": 53,
+      "acierto": 0.7358,
+      "cuota": 1.5345,
+      "dif": 0.0059,
+      "dif_p5": -0.1025
+     },
+     "B": {
+      "n": 72,
+      "acierto": 0.75,
+      "cuota": 1.525,
+      "dif": 0.0245,
+      "dif_p5": -0.0652
+     }
+    },
+    {
+     "regla": "local · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "A": {
+      "n": 65,
+      "acierto": 0.7231,
+      "cuota": 1.444,
+      "dif": -0.0069,
+      "dif_p5": -0.1053
+     },
+     "B": {
+      "n": 105,
+      "acierto": 0.7333,
+      "cuota": 1.4117,
+      "dif": 0.0078,
+      "dif_p5": -0.0713
+     }
+    },
+    {
+     "regla": "a_puerta · descanso parejo · método − casa > 9 pts",
+     "A": {
+      "n": 40,
+      "acierto": 0.75,
+      "cuota": 1.5118,
+      "dif": 0.0201,
+      "dif_p5": -0.1091
+     },
+     "B": {
+      "n": 46,
+      "acierto": 0.6087,
+      "cuota": 1.5365,
+      "dif": -0.1168,
+      "dif_p5": -0.246
+     }
+    },
+    {
+     "regla": "λ a favor ≥0,5 sd · método − casa > 9 pts",
+     "A": {
+      "n": 67,
+      "acierto": 0.7164,
+      "cuota": 1.5183,
+      "dif": -0.0135,
+      "dif_p5": -0.1107
+     },
+     "B": {
+      "n": 89,
+      "acierto": 0.764,
+      "cuota": 1.5064,
+      "dif": 0.0385,
+      "dif_p5": -0.0448
+     }
+    }
+   ],
+   "arrastre_A_a_B": {
+    "candidatos_p5A_mayor_0": 1,
+    "de_esos_dif_B_mayor_0": 0,
+    "de_esos_p5B_mayor_0": 0,
+    "todos_dif_B_mayor_0": 28,
+    "todos": 290
+   },
+   "boletos": {
+    "regla": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.333,
+       "rojas_medias": 0.67,
+       "momio_mediano": 4.09,
+       "gan_100": {
+        "x1.0": 24.0,
+        "x1.2": 48.7,
+        "x1.3": 61.1,
+        "x1.8": 123.1
+       }
+      },
+      "6": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.333,
+       "rojas_medias": 1.67,
+       "momio_mediano": 11.52,
+       "gan_100": {
+        "x1.0": 191.7,
+        "x1.2": 250.0,
+        "x1.3": 279.2,
+        "x1.8": 425.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 0,
+       "dias": 19
+      },
+      "15": {
+       "dias_con_boleto": 0,
+       "dias": 19
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 19
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 7,
+       "dias": 34,
+       "enteros": 2,
+       "pct_entero": 0.286,
+       "rojas_medias": 0.86,
+       "momio_mediano": 4.09,
+       "gan_100": {
+        "x1.0": 1.1,
+        "x1.2": 21.3,
+        "x1.3": 31.4,
+        "x1.8": 81.9
+       }
+      },
+      "6": {
+       "dias_con_boleto": 4,
+       "dias": 34,
+       "enteros": 2,
+       "pct_entero": 0.5,
+       "rojas_medias": 1.25,
+       "momio_mediano": 10.14,
+       "gan_100": {
+        "x1.0": 277.4,
+        "x1.2": 352.9,
+        "x1.3": 390.6,
+        "x1.8": 579.3
+       }
+      },
+      "10": {
+       "dias_con_boleto": 1,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 1.0,
+       "rojas_medias": 0.0,
+       "momio_mediano": 25.86,
+       "gan_100": {
+        "x1.0": 2485.7,
+        "x1.2": 3002.8,
+        "x1.3": 3261.4,
+        "x1.8": 4554.2
+       }
+      },
+      "15": {
+       "dias_con_boleto": 0,
+       "dias": 34
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 34
+      }
+     }
+    },
+    "simple": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 12,
+       "dias": 19,
+       "enteros": 2,
+       "pct_entero": 0.167,
+       "rojas_medias": 1.42,
+       "momio_mediano": 3.02,
+       "gan_100": {
+        "x1.0": -48.1,
+        "x1.2": -37.7,
+        "x1.3": -32.5,
+        "x1.8": -6.5
+       }
+      },
+      "6": {
+       "dias_con_boleto": 8,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.0,
+       "momio_mediano": 5.2,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.29,
+       "momio_mediano": 16.53,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 5,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.6,
+       "momio_mediano": 80.11,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 9.67,
+       "momio_mediano": 5290.96,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 22,
+       "dias": 34,
+       "enteros": 3,
+       "pct_entero": 0.136,
+       "rojas_medias": 1.5,
+       "momio_mediano": 3.17,
+       "gan_100": {
+        "x1.0": -58.7,
+        "x1.2": -50.4,
+        "x1.3": -46.3,
+        "x1.8": -25.6
+       }
+      },
+      "6": {
+       "dias_con_boleto": 16,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.062,
+       "rojas_medias": 2.25,
+       "momio_mediano": 5.37,
+       "gan_100": {
+        "x1.0": -69.5,
+        "x1.2": -63.4,
+        "x1.3": -60.3,
+        "x1.8": -45.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 13,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.077,
+       "rojas_medias": 3.31,
+       "momio_mediano": 17.13,
+       "gan_100": {
+        "x1.0": 20.5,
+        "x1.2": 44.6,
+        "x1.3": 56.7,
+        "x1.8": 117.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 9,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.44,
+       "momio_mediano": 80.11,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 5,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 7.8,
+       "momio_mediano": 5290.96,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    },
+    "base": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 13,
+       "dias": 19,
+       "enteros": 5,
+       "pct_entero": 0.385,
+       "rojas_medias": 0.85,
+       "momio_mediano": 2.9,
+       "gan_100": {
+        "x1.0": 10.7,
+        "x1.2": 32.9,
+        "x1.3": 43.9,
+        "x1.8": 99.3
+       }
+      },
+      "6": {
+       "dias_con_boleto": 10,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.1,
+       "rojas_medias": 1.4,
+       "momio_mediano": 4.9,
+       "gan_100": {
+        "x1.0": -49.4,
+        "x1.2": -39.2,
+        "x1.3": -34.2,
+        "x1.8": -8.8
+       }
+      },
+      "10": {
+       "dias_con_boleto": 9,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.11,
+       "momio_mediano": 14.32,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.29,
+       "momio_mediano": 60.56,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 7.0,
+       "momio_mediano": 862.54,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 27,
+       "dias": 34,
+       "enteros": 12,
+       "pct_entero": 0.444,
+       "rojas_medias": 0.7,
+       "momio_mediano": 2.9,
+       "gan_100": {
+        "x1.0": 28.3,
+        "x1.2": 53.9,
+        "x1.3": 66.7,
+        "x1.8": 130.9
+       }
+      },
+      "6": {
+       "dias_con_boleto": 23,
+       "dias": 34,
+       "enteros": 4,
+       "pct_entero": 0.174,
+       "rojas_medias": 1.3,
+       "momio_mediano": 4.96,
+       "gan_100": {
+        "x1.0": -14.3,
+        "x1.2": 2.9,
+        "x1.3": 11.4,
+        "x1.8": 54.3
+       }
+      },
+      "10": {
+       "dias_con_boleto": 18,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.17,
+       "momio_mediano": 14.55,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 14,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.14,
+       "momio_mediano": 59.74,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 8,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.5,
+       "momio_mediano": 903.11,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    }
+   },
+   "boleto_teorico_B": {
+    "regla": {
+     "valor_pata": 1.0517,
+     "4": {
+      "x1.0": 22.3,
+      "x1.2": 46.8,
+      "x1.3": 59.0,
+      "x1.8": 120.2
+     },
+     "6": {
+      "x1.0": 35.3,
+      "x1.2": 62.3,
+      "x1.3": 75.9,
+      "x1.8": 143.5
+     },
+     "10": {
+      "x1.0": 65.5,
+      "x1.2": 98.6,
+      "x1.3": 115.1,
+      "x1.8": 197.9
+     },
+     "15": {
+      "x1.0": 112.9,
+      "x1.2": 155.4,
+      "x1.3": 176.7,
+      "x1.8": 283.1
+     },
+     "25": {
+      "x1.0": 252.2,
+      "x1.2": 322.7,
+      "x1.3": 357.9,
+      "x1.8": 534.0
+     }
+    },
+    "simple": {
+     "valor_pata": 0.9315,
+     "4": {
+      "x1.0": -24.7,
+      "x1.2": -9.6,
+      "x1.3": -2.1,
+      "x1.8": 35.5
+     },
+     "6": {
+      "x1.0": -34.7,
+      "x1.2": -21.6,
+      "x1.3": -15.1,
+      "x1.8": 17.6
+     },
+     "10": {
+      "x1.0": -50.8,
+      "x1.2": -41.0,
+      "x1.3": -36.0,
+      "x1.8": -11.4
+     },
+     "15": {
+      "x1.0": -65.5,
+      "x1.2": -58.6,
+      "x1.3": -55.1,
+      "x1.8": -37.9
+     },
+     "25": {
+      "x1.0": -83.0,
+      "x1.2": -79.6,
+      "x1.3": -77.9,
+      "x1.8": -69.4
+     }
+    },
+    "base": {
+     "valor_pata": 0.9705,
+     "4": {
+      "x1.0": -11.3,
+      "x1.2": 6.4,
+      "x1.3": 15.3,
+      "x1.8": 59.7
+     },
+     "6": {
+      "x1.0": -16.5,
+      "x1.2": 0.3,
+      "x1.3": 8.6,
+      "x1.8": 50.4
+     },
+     "10": {
+      "x1.0": -25.9,
+      "x1.2": -11.1,
+      "x1.3": -3.7,
+      "x1.8": 33.4
+     },
+     "15": {
+      "x1.0": -36.2,
+      "x1.2": -23.4,
+      "x1.3": -17.1,
+      "x1.8": 14.8
+     },
+     "25": {
+      "x1.0": -52.7,
+      "x1.2": -43.3,
+      "x1.3": -38.5,
+      "x1.8": -14.9
+     }
+    }
+   }
+  },
+  "1.45": {
+   "base_casa_todo_playdoit": {
+    "A": {
+     "n": 274,
+     "patas_dia": 18.27,
+     "acierto": 0.6058,
+     "cuota": 1.4954,
+     "casa": 0.6191,
+     "metodo": 0.6283,
+     "gan_100": -9.9,
+     "base_acierto": 0.6058,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    },
+    "B": {
+     "n": 368,
+     "patas_dia": 19.37,
+     "acierto": 0.6141,
+     "cuota": 1.4984,
+     "casa": 0.6175,
+     "metodo": 0.6209,
+     "gan_100": -8.1,
+     "base_acierto": 0.6141,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    }
+   },
+   "base_casa_solo_equipo": {
+    "A": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.5775,
+     "cuota": 1.5501,
+     "casa": 0.5875,
+     "metodo": 0.5929,
+     "gan_100": -10.8,
+     "base_acierto": 0.6058,
+     "base_cuota": null,
+     "dif": -0.0284,
+     "dif_p5": -0.1077,
+     "acierto_p5": 0.5075,
+     "gan_p5": -21.6,
+     "base_gan_100": -9.9,
+     "dif_gan_100": -0.9,
+     "dif_gan_p5": -13.0,
+     "base_mismos_partidos": 0.5634,
+     "dif_mismos_partidos_p5": -0.0709
+    },
+    "B": {
+     "n": 211,
+     "patas_dia": 11.11,
+     "acierto": 0.6019,
+     "cuota": 1.5319,
+     "casa": 0.5964,
+     "metodo": 0.6046,
+     "gan_100": -8.1,
+     "base_acierto": 0.6141,
+     "base_cuota": null,
+     "dif": -0.0122,
+     "dif_p5": -0.0749,
+     "acierto_p5": 0.5472,
+     "gan_p5": -16.6,
+     "base_gan_100": -8.1,
+     "dif_gan_100": -0.1,
+     "dif_gan_p5": -9.6,
+     "base_mismos_partidos": 0.6019,
+     "dif_mismos_partidos_p5": -0.0654
+    }
+   },
+   "simple": {
+    "regla": "todas las de equipo · método − casa > 9 pts",
+    "seg": [],
+    "u": 0.09,
+    "A": {
+     "n": 99,
+     "patas_dia": 6.6,
+     "acierto": 0.6263,
+     "cuota": 1.653,
+     "casa": 0.5538,
+     "metodo": 0.6858,
+     "gan_100": 2.8,
+     "base_acierto": 0.6058,
+     "base_cuota": null,
+     "dif": 0.0204,
+     "dif_p5": -0.0734,
+     "acierto_p5": 0.5429,
+     "gan_p5": -10.7,
+     "base_gan_100": -9.9,
+     "dif_gan_100": 12.7,
+     "dif_gan_p5": -2.3,
+     "base_mismos_partidos": 0.5758,
+     "dif_mismos_partidos_p5": -0.0603
+    },
+    "B": {
+     "n": 140,
+     "patas_dia": 7.37,
+     "acierto": 0.6214,
+     "cuota": 1.659,
+     "casa": 0.5524,
+     "metodo": 0.6826,
+     "gan_100": 1.8,
+     "base_acierto": 0.6141,
+     "base_cuota": null,
+     "dif": 0.0073,
+     "dif_p5": -0.0681,
+     "acierto_p5": 0.554,
+     "gan_p5": -9.2,
+     "base_gan_100": -8.1,
+     "dif_gan_100": 9.9,
+     "dif_gan_p5": -2.4,
+     "base_mismos_partidos": 0.5429,
+     "dif_mismos_partidos_p5": -0.0073
+    },
+    "A_vs_equipo": {
+     "n": 99,
+     "patas_dia": 6.6,
+     "acierto": 0.6263,
+     "cuota": 1.653,
+     "casa": 0.5538,
+     "metodo": 0.6858,
+     "gan_100": 2.8,
+     "base_acierto": 0.5775,
+     "base_cuota": null,
+     "dif": 0.0488,
+     "dif_p5": -0.0425
+    },
+    "B_vs_equipo": {
+     "n": 140,
+     "patas_dia": 7.37,
+     "acierto": 0.6214,
+     "cuota": 1.659,
+     "casa": 0.5524,
+     "metodo": 0.6826,
+     "gan_100": 1.8,
+     "base_acierto": 0.6019,
+     "base_cuota": null,
+     "dif": 0.0195,
+     "dif_p5": -0.0626
+    }
+   },
+   "simple_todas_u": [
+    {
+     "regla": "todas las de equipo · método − casa > 0 pts",
+     "A": {
+      "n": 141,
+      "patas_dia": 9.4,
+      "acierto": 0.6028,
+      "cuota": 1.59,
+      "casa": 0.5741,
+      "metodo": 0.6379,
+      "gan_100": -4.5,
+      "base_acierto": 0.6058,
+      "base_cuota": null,
+      "dif": -0.003,
+      "dif_p5": -0.0831,
+      "acierto_p5": 0.5329,
+      "gan_p5": -15.4,
+      "base_gan_100": -9.9,
+      "dif_gan_100": 5.4,
+      "dif_gan_p5": -7.1,
+      "base_mismos_partidos": 0.5603,
+      "dif_mismos_partidos_p5": -0.0448
+     },
+     "B": {
+      "n": 211,
+      "patas_dia": 11.11,
+      "acierto": 0.6019,
+      "cuota": 1.5697,
+      "casa": 0.5832,
+      "metodo": 0.6414,
+      "gan_100": -6.5,
+      "base_acierto": 0.6141,
+      "base_cuota": null,
+      "dif": -0.0122,
+      "dif_p5": -0.0792,
+      "acierto_p5": 0.5484,
+      "gan_p5": -14.9,
+      "base_gan_100": -8.1,
+      "dif_gan_100": 1.5,
+      "dif_gan_p5": -8.7,
+      "base_mismos_partidos": 0.6019,
+      "dif_mismos_partidos_p5": -0.075
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 3 pts",
+     "A": {
+      "n": 137,
+      "patas_dia": 9.13,
+      "acierto": 0.5766,
+      "cuota": 1.6039,
+      "casa": 0.5694,
+      "metodo": 0.6529,
+      "gan_100": -8.3,
+      "base_acierto": 0.6058,
+      "base_cuota": null,
+      "dif": -0.0292,
+      "dif_p5": -0.1086,
+      "acierto_p5": 0.5078,
+      "gan_p5": -19.3,
+      "base_gan_100": -9.9,
+      "dif_gan_100": 1.6,
+      "dif_gan_p5": -10.6,
+      "base_mismos_partidos": 0.562,
+      "dif_mismos_partidos_p5": -0.077
+     },
+     "B": {
+      "n": 199,
+      "patas_dia": 10.47,
+      "acierto": 0.6131,
+      "cuota": 1.5978,
+      "casa": 0.5731,
+      "metodo": 0.6533,
+      "gan_100": -3.4,
+      "base_acierto": 0.6141,
+      "base_cuota": null,
+      "dif": -0.0011,
+      "dif_p5": -0.0706,
+      "acierto_p5": 0.5555,
+      "gan_p5": -12.5,
+      "base_gan_100": -8.1,
+      "dif_gan_100": 4.6,
+      "dif_gan_p5": -6.1,
+      "base_mismos_partidos": 0.5879,
+      "dif_mismos_partidos_p5": -0.0532
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 6 pts",
+     "A": {
+      "n": 126,
+      "patas_dia": 8.4,
+      "acierto": 0.5873,
+      "cuota": 1.63,
+      "casa": 0.5611,
+      "metodo": 0.669,
+      "gan_100": -5.0,
+      "base_acierto": 0.6058,
+      "base_cuota": null,
+      "dif": -0.0185,
+      "dif_p5": -0.1054,
+      "acierto_p5": 0.5118,
+      "gan_p5": -17.2,
+      "base_gan_100": -9.9,
+      "dif_gan_100": 4.9,
+      "dif_gan_p5": -8.5,
+      "base_mismos_partidos": 0.5635,
+      "dif_mismos_partidos_p5": -0.0756
+     },
+     "B": {
+      "n": 181,
+      "patas_dia": 9.53,
+      "acierto": 0.5801,
+      "cuota": 1.6293,
+      "casa": 0.5623,
+      "metodo": 0.6651,
+      "gan_100": -6.5,
+      "base_acierto": 0.6141,
+      "base_cuota": null,
+      "dif": -0.034,
+      "dif_p5": -0.1041,
+      "acierto_p5": 0.5213,
+      "gan_p5": -15.9,
+      "base_gan_100": -8.1,
+      "dif_gan_100": 1.6,
+      "dif_gan_p5": -9.6,
+      "base_mismos_partidos": 0.5635,
+      "dif_mismos_partidos_p5": -0.0645
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 9 pts",
+     "A": {
+      "n": 99,
+      "patas_dia": 6.6,
+      "acierto": 0.6263,
+      "cuota": 1.653,
+      "casa": 0.5538,
+      "metodo": 0.6858,
+      "gan_100": 2.8,
+      "base_acierto": 0.6058,
+      "base_cuota": null,
+      "dif": 0.0204,
+      "dif_p5": -0.0734,
+      "acierto_p5": 0.5429,
+      "gan_p5": -10.7,
+      "base_gan_100": -9.9,
+      "dif_gan_100": 12.7,
+      "dif_gan_p5": -2.3,
+      "base_mismos_partidos": 0.5758,
+      "dif_mismos_partidos_p5": -0.0603
+     },
+     "B": {
+      "n": 140,
+      "patas_dia": 7.37,
+      "acierto": 0.6214,
+      "cuota": 1.659,
+      "casa": 0.5524,
+      "metodo": 0.6826,
+      "gan_100": 1.8,
+      "base_acierto": 0.6141,
+      "base_cuota": null,
+      "dif": 0.0073,
+      "dif_p5": -0.0681,
+      "acierto_p5": 0.554,
+      "gan_p5": -9.2,
+      "base_gan_100": -8.1,
+      "dif_gan_100": 9.9,
+      "dif_gan_p5": -2.4,
+      "base_mismos_partidos": 0.5429,
+      "dif_mismos_partidos_p5": -0.0073
+     }
+    }
+   ],
+   "candidatos_con_n": 309,
+   "elegida_acierto": {
+    "regla": "más · favorito · método − casa > 9 pts",
+    "seg": [
+     [
+      "ap",
+      "más"
+     ],
+     [
+      "fav",
+      "favorito"
+     ]
+    ],
+    "u": 0.09,
+    "A": {
+     "n": 41,
+     "patas_dia": 2.73,
+     "acierto": 0.7317,
+     "cuota": 1.6862,
+     "casa": 0.5433,
+     "metodo": 0.6758,
+     "gan_100": 24.0,
+     "base_acierto": 0.6058,
+     "base_cuota": null,
+     "dif": 0.1259,
+     "dif_p5": 0.0039,
+     "acierto_p5": 0.6154,
+     "gan_p5": 4.3,
+     "base_gan_100": -9.9,
+     "dif_gan_100": 33.9,
+     "dif_gan_p5": 13.1,
+     "base_mismos_partidos": 0.5854,
+     "dif_mismos_partidos_p5": 0.0
+    },
+    "B": {
+     "n": 58,
+     "patas_dia": 3.05,
+     "acierto": 0.5345,
+     "cuota": 1.7148,
+     "casa": 0.5354,
+     "metodo": 0.6606,
+     "gan_100": -9.0,
+     "base_acierto": 0.6141,
+     "base_cuota": null,
+     "dif": -0.0796,
+     "dif_p5": -0.1935,
+     "acierto_p5": 0.4285,
+     "gan_p5": -27.5,
+     "base_gan_100": -8.1,
+     "dif_gan_100": -1.0,
+     "dif_gan_p5": -20.2,
+     "base_mismos_partidos": 0.569,
+     "dif_mismos_partidos_p5": -0.1818
+    },
+    "A_vs_equipo": {
+     "n": 41,
+     "patas_dia": 2.73,
+     "acierto": 0.7317,
+     "cuota": 1.6862,
+     "casa": 0.5433,
+     "metodo": 0.6758,
+     "gan_100": 24.0,
+     "base_acierto": 0.5775,
+     "base_cuota": null,
+     "dif": 0.1542,
+     "dif_p5": 0.0263
+    },
+    "B_vs_equipo": {
+     "n": 58,
+     "patas_dia": 3.05,
+     "acierto": 0.5345,
+     "cuota": 1.7148,
+     "casa": 0.5354,
+     "metodo": 0.6606,
+     "gan_100": -9.0,
+     "base_acierto": 0.6019,
+     "base_cuota": null,
+     "dif": -0.0674,
+     "dif_p5": -0.1866
+    }
+   },
+   "elegida_ganancia": {
+    "regla": "más · favorito · método − casa > 9 pts",
+    "seg": [
+     [
+      "ap",
+      "más"
+     ],
+     [
+      "fav",
+      "favorito"
+     ]
+    ],
+    "u": 0.09,
+    "A": {
+     "n": 41,
+     "patas_dia": 2.73,
+     "acierto": 0.7317,
+     "cuota": 1.6862,
+     "casa": 0.5433,
+     "metodo": 0.6758,
+     "gan_100": 24.0,
+     "base_acierto": 0.6058,
+     "base_cuota": null,
+     "dif": 0.1259,
+     "dif_p5": 0.0039,
+     "acierto_p5": 0.6154,
+     "gan_p5": 4.3,
+     "base_gan_100": -9.9,
+     "dif_gan_100": 33.9,
+     "dif_gan_p5": 13.1,
+     "base_mismos_partidos": 0.5854,
+     "dif_mismos_partidos_p5": 0.0
+    },
+    "B": {
+     "n": 58,
+     "patas_dia": 3.05,
+     "acierto": 0.5345,
+     "cuota": 1.7148,
+     "casa": 0.5354,
+     "metodo": 0.6606,
+     "gan_100": -9.0,
+     "base_acierto": 0.6141,
+     "base_cuota": null,
+     "dif": -0.0796,
+     "dif_p5": -0.1935,
+     "acierto_p5": 0.4285,
+     "gan_p5": -27.5,
+     "base_gan_100": -8.1,
+     "dif_gan_100": -1.0,
+     "dif_gan_p5": -20.2,
+     "base_mismos_partidos": 0.569,
+     "dif_mismos_partidos_p5": -0.1818
+    },
+    "A_vs_equipo": {
+     "n": 41,
+     "patas_dia": 2.73,
+     "acierto": 0.7317,
+     "cuota": 1.6862,
+     "casa": 0.5433,
+     "metodo": 0.6758,
+     "gan_100": 24.0,
+     "base_acierto": 0.5775,
+     "base_cuota": null,
+     "dif": 0.1542,
+     "dif_p5": 0.0263
+    },
+    "B_vs_equipo": {
+     "n": 58,
+     "patas_dia": 3.05,
+     "acierto": 0.5345,
+     "cuota": 1.7148,
+     "casa": 0.5354,
+     "metodo": 0.6606,
+     "gan_100": -9.0,
+     "base_acierto": 0.6019,
+     "base_cuota": null,
+     "dif": -0.0674,
+     "dif_p5": -0.1866
+    }
+   },
+   "top10_A_acierto": [
+    {
+     "regla": "más · favorito · método − casa > 9 pts",
+     "A": {
+      "n": 41,
+      "acierto": 0.7317,
+      "cuota": 1.6862,
+      "dif": 0.1259,
+      "dif_p5": 0.0039
+     },
+     "B": {
+      "n": 58,
+      "acierto": 0.5345,
+      "cuota": 1.7148,
+      "dif": -0.0796,
+      "dif_p5": -0.1935
+     }
+    },
+    {
+     "regla": "visita · favorito · método − casa > 0 pts",
+     "A": {
+      "n": 42,
+      "acierto": 0.7143,
+      "cuota": 1.6502,
+      "dif": 0.1084,
+      "dif_p5": -0.0197
+     },
+     "B": {
+      "n": 60,
+      "acierto": 0.5333,
+      "cuota": 1.6099,
+      "dif": -0.0808,
+      "dif_p5": -0.1997
+     }
+    },
+    {
+     "regla": "favorito · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "A": {
+      "n": 50,
+      "acierto": 0.7,
+      "cuota": 1.5795,
+      "dif": 0.0942,
+      "dif_p5": -0.021
+     },
+     "B": {
+      "n": 71,
+      "acierto": 0.662,
+      "cuota": 1.5772,
+      "dif": 0.0478,
+      "dif_p5": -0.0599
+     }
+    },
+    {
+     "regla": "favorito · λ a favor ≥0,5 sd · método − casa > 3 pts",
+     "A": {
+      "n": 50,
+      "acierto": 0.7,
+      "cuota": 1.5795,
+      "dif": 0.0942,
+      "dif_p5": -0.021
+     },
+     "B": {
+      "n": 71,
+      "acierto": 0.662,
+      "cuota": 1.5772,
+      "dif": 0.0478,
+      "dif_p5": -0.0599
+     }
+    },
+    {
+     "regla": "λ a favor ≥0,5 sd · método − casa > 6 pts",
+     "A": {
+      "n": 67,
+      "acierto": 0.6866,
+      "cuota": 1.5877,
+      "dif": 0.0807,
+      "dif_p5": -0.022
+     },
+     "B": {
+      "n": 100,
+      "acierto": 0.69,
+      "cuota": 1.5921,
+      "dif": 0.0759,
+      "dif_p5": -0.0091
+     }
+    },
+    {
+     "regla": "tiros · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "A": {
+      "n": 46,
+      "acierto": 0.6957,
+      "cuota": 1.6403,
+      "dif": 0.0898,
+      "dif_p5": -0.0252
+     },
+     "B": {
+      "n": 66,
+      "acierto": 0.7273,
+      "cuota": 1.6224,
+      "dif": 0.1131,
+      "dif_p5": 0.0147
+     }
+    },
+    {
+     "regla": "tiros · λ a favor ≥0,5 sd · método − casa > 3 pts",
+     "A": {
+      "n": 46,
+      "acierto": 0.6957,
+      "cuota": 1.6403,
+      "dif": 0.0898,
+      "dif_p5": -0.0252
+     },
+     "B": {
+      "n": 66,
+      "acierto": 0.7273,
+      "cuota": 1.6224,
+      "dif": 0.1131,
+      "dif_p5": 0.0147
+     }
+    },
+    {
+     "regla": "λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "A": {
+      "n": 69,
+      "acierto": 0.6812,
+      "cuota": 1.5742,
+      "dif": 0.0753,
+      "dif_p5": -0.0267
+     },
+     "B": {
+      "n": 111,
+      "acierto": 0.7117,
+      "cuota": 1.5659,
+      "dif": 0.0976,
+      "dif_p5": 0.0202
+     }
+    },
+    {
+     "regla": "λ a favor ≥0,5 sd · método − casa > 3 pts",
+     "A": {
+      "n": 69,
+      "acierto": 0.6812,
+      "cuota": 1.5752,
+      "dif": 0.0753,
+      "dif_p5": -0.0267
+     },
+     "B": {
+      "n": 108,
+      "acierto": 0.713,
+      "cuota": 1.5703,
+      "dif": 0.0988,
+      "dif_p5": 0.0182
+     }
+    },
+    {
+     "regla": "más · descanso parejo · método − casa > 9 pts",
+     "A": {
+      "n": 62,
+      "acierto": 0.6774,
+      "cuota": 1.6949,
+      "dif": 0.0716,
+      "dif_p5": -0.0285
+     },
+     "B": {
+      "n": 89,
+      "acierto": 0.5843,
+      "cuota": 1.6829,
+      "dif": -0.0299,
+      "dif_p5": -0.125
+     }
+    }
+   ],
+   "arrastre_A_a_B": {
+    "candidatos_p5A_mayor_0": 1,
+    "de_esos_dif_B_mayor_0": 0,
+    "de_esos_p5B_mayor_0": 0,
+    "todos_dif_B_mayor_0": 142,
+    "todos": 309
+   },
+   "boletos": {
+    "regla": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 5,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.0,
+       "momio_mediano": 6.59,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "6": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.0,
+       "momio_mediano": 16.04,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 2,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.5,
+       "momio_mediano": 156.14,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 1,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 8.0,
+       "momio_mediano": 3526.31,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 19
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 10,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.1,
+       "rojas_medias": 1.5,
+       "momio_mediano": 6.77,
+       "gan_100": {
+        "x1.0": -30.4,
+        "x1.2": -16.5,
+        "x1.3": -9.6,
+        "x1.8": 25.2
+       }
+      },
+      "6": {
+       "dias_con_boleto": 6,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.167,
+       "rojas_medias": 2.33,
+       "momio_mediano": 18.36,
+       "gan_100": {
+        "x1.0": 257.2,
+        "x1.2": 328.6,
+        "x1.3": 364.3,
+        "x1.8": 542.9
+       }
+      },
+      "10": {
+       "dias_con_boleto": 2,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.5,
+       "momio_mediano": 156.14,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 1,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 8.0,
+       "momio_mediano": 3526.31,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 34
+      }
+     }
+    },
+    "simple": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 12,
+       "dias": 19,
+       "enteros": 2,
+       "pct_entero": 0.167,
+       "rojas_medias": 1.42,
+       "momio_mediano": 5.8,
+       "gan_100": {
+        "x1.0": -8.2,
+        "x1.2": 10.2,
+        "x1.3": 19.4,
+        "x1.8": 65.3
+       }
+      },
+      "6": {
+       "dias_con_boleto": 6,
+       "dias": 19,
+       "enteros": 2,
+       "pct_entero": 0.333,
+       "rojas_medias": 1.83,
+       "momio_mediano": 13.96,
+       "gan_100": {
+        "x1.0": 382.2,
+        "x1.2": 478.7,
+        "x1.3": 526.9,
+        "x1.8": 768.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.0,
+       "momio_mediano": 93.6,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.0,
+       "momio_mediano": 1020.96,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 1,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 10.0,
+       "momio_mediano": 147521.44,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 19,
+       "dias": 34,
+       "enteros": 4,
+       "pct_entero": 0.211,
+       "rojas_medias": 1.32,
+       "momio_mediano": 5.85,
+       "gan_100": {
+        "x1.0": 16.1,
+        "x1.2": 39.3,
+        "x1.3": 50.9,
+        "x1.8": 108.9
+       }
+      },
+      "6": {
+       "dias_con_boleto": 12,
+       "dias": 34,
+       "enteros": 3,
+       "pct_entero": 0.25,
+       "rojas_medias": 2.0,
+       "momio_mediano": 14.09,
+       "gan_100": {
+        "x1.0": 240.0,
+        "x1.2": 308.0,
+        "x1.3": 342.0,
+        "x1.8": 512.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 8,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.38,
+       "momio_mediano": 93.6,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 5,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.2,
+       "momio_mediano": 902.88,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 1,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 10.0,
+       "momio_mediano": 147521.44,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    },
+    "base": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 13,
+       "dias": 19,
+       "enteros": 3,
+       "pct_entero": 0.231,
+       "rojas_medias": 1.08,
+       "momio_mediano": 4.55,
+       "gan_100": {
+        "x1.0": 5.4,
+        "x1.2": 26.5,
+        "x1.3": 37.0,
+        "x1.8": 89.7
+       }
+      },
+      "6": {
+       "dias_con_boleto": 10,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.1,
+       "rojas_medias": 1.9,
+       "momio_mediano": 9.53,
+       "gan_100": {
+        "x1.0": -5.1,
+        "x1.2": 13.9,
+        "x1.3": 23.3,
+        "x1.8": 70.8
+       }
+      },
+      "10": {
+       "dias_con_boleto": 9,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.33,
+       "momio_mediano": 44.45,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.86,
+       "momio_mediano": 315.98,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 9.25,
+       "momio_mediano": 12819.7,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 27,
+       "dias": 34,
+       "enteros": 8,
+       "pct_entero": 0.296,
+       "rojas_medias": 1.0,
+       "momio_mediano": 4.5,
+       "gan_100": {
+        "x1.0": 34.6,
+        "x1.2": 61.5,
+        "x1.3": 74.9,
+        "x1.8": 142.2
+       }
+      },
+      "6": {
+       "dias_con_boleto": 23,
+       "dias": 34,
+       "enteros": 3,
+       "pct_entero": 0.13,
+       "rojas_medias": 1.74,
+       "momio_mediano": 9.58,
+       "gan_100": {
+        "x1.0": 25.2,
+        "x1.2": 50.3,
+        "x1.3": 62.8,
+        "x1.8": 125.4
+       }
+      },
+      "10": {
+       "dias_con_boleto": 18,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.44,
+       "momio_mediano": 44.46,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 14,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.07,
+       "momio_mediano": 302.15,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 8,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 9.0,
+       "momio_mediano": 13792.66,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    }
+   },
+   "boleto_teorico_B": {
+    "regla": {
+     "valor_pata": 0.9165,
+     "4": {
+      "x1.0": -29.4,
+      "x1.2": -15.3,
+      "x1.3": -8.3,
+      "x1.8": 27.0
+     },
+     "6": {
+      "x1.0": -40.7,
+      "x1.2": -28.9,
+      "x1.3": -22.9,
+      "x1.8": 6.7
+     },
+     "10": {
+      "x1.0": -58.2,
+      "x1.2": -49.8,
+      "x1.3": -45.6,
+      "x1.8": -24.7
+     },
+     "15": {
+      "x1.0": -72.9,
+      "x1.2": -67.5,
+      "x1.3": -64.8,
+      "x1.8": -51.3
+     },
+     "25": {
+      "x1.0": -88.7,
+      "x1.2": -86.4,
+      "x1.3": -85.3,
+      "x1.8": -79.6
+     }
+    },
+    "simple": {
+     "valor_pata": 1.031,
+     "4": {
+      "x1.0": 13.0,
+      "x1.2": 35.6,
+      "x1.3": 46.9,
+      "x1.8": 103.4
+     },
+     "6": {
+      "x1.0": 20.1,
+      "x1.2": 44.1,
+      "x1.3": 56.1,
+      "x1.8": 116.2
+     },
+     "10": {
+      "x1.0": 35.7,
+      "x1.2": 62.8,
+      "x1.3": 76.4,
+      "x1.8": 144.2
+     },
+     "15": {
+      "x1.0": 58.0,
+      "x1.2": 89.6,
+      "x1.3": 105.4,
+      "x1.8": 184.4
+     },
+     "25": {
+      "x1.0": 114.4,
+      "x1.2": 157.3,
+      "x1.3": 178.7,
+      "x1.8": 285.9
+     }
+    },
+    "base": {
+     "valor_pata": 0.9202,
+     "4": {
+      "x1.0": -28.3,
+      "x1.2": -14.0,
+      "x1.3": -6.8,
+      "x1.8": 29.1
+     },
+     "6": {
+      "x1.0": -39.3,
+      "x1.2": -27.1,
+      "x1.3": -21.1,
+      "x1.8": 9.3
+     },
+     "10": {
+      "x1.0": -56.5,
+      "x1.2": -47.8,
+      "x1.3": -43.4,
+      "x1.8": -21.6
+     },
+     "15": {
+      "x1.0": -71.3,
+      "x1.2": -65.5,
+      "x1.3": -62.7,
+      "x1.8": -48.3
+     },
+     "25": {
+      "x1.0": -87.5,
+      "x1.2": -85.0,
+      "x1.3": -83.7,
+      "x1.8": -77.5
+     }
+    }
+   }
+  },
+  "1.60": {
+   "base_casa_todo_playdoit": {
+    "A": {
+     "n": 274,
+     "patas_dia": 18.27,
+     "acierto": 0.573,
+     "cuota": 1.6519,
+     "casa": 0.5606,
+     "metodo": 0.57,
+     "gan_100": -5.5,
+     "base_acierto": 0.573,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    },
+    "B": {
+     "n": 368,
+     "patas_dia": 19.37,
+     "acierto": 0.5679,
+     "cuota": 1.643,
+     "casa": 0.5632,
+     "metodo": 0.5764,
+     "gan_100": -6.9,
+     "base_acierto": 0.5679,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    }
+   },
+   "base_casa_solo_equipo": {
+    "A": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.5775,
+     "cuota": 1.6318,
+     "casa": 0.5579,
+     "metodo": 0.5824,
+     "gan_100": -6.1,
+     "base_acierto": 0.573,
+     "base_cuota": null,
+     "dif": 0.0045,
+     "dif_p5": -0.0769,
+     "acierto_p5": 0.507,
+     "gan_p5": -17.7,
+     "base_gan_100": -5.5,
+     "dif_gan_100": -0.6,
+     "dif_gan_p5": -13.8,
+     "base_mismos_partidos": 0.5634,
+     "dif_mismos_partidos_p5": -0.0663
+    },
+    "B": {
+     "n": 211,
+     "patas_dia": 11.11,
+     "acierto": 0.5545,
+     "cuota": 1.629,
+     "casa": 0.5596,
+     "metodo": 0.5696,
+     "gan_100": -9.7,
+     "base_acierto": 0.5679,
+     "base_cuota": null,
+     "dif": -0.0134,
+     "dif_p5": -0.0732,
+     "acierto_p5": 0.5,
+     "gan_p5": -18.7,
+     "base_gan_100": -6.9,
+     "dif_gan_100": -2.8,
+     "dif_gan_p5": -12.6,
+     "base_mismos_partidos": 0.545,
+     "dif_mismos_partidos_p5": -0.0521
+    }
+   },
+   "simple": {
+    "regla": "todas las de equipo · método − casa > 0 pts",
+    "seg": [],
+    "u": 0.0,
+    "A": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.6056,
+     "cuota": 1.6614,
+     "casa": 0.5489,
+     "metodo": 0.6115,
+     "gan_100": 0.7,
+     "base_acierto": 0.573,
+     "base_cuota": null,
+     "dif": 0.0326,
+     "dif_p5": -0.0511,
+     "acierto_p5": 0.5352,
+     "gan_p5": -11.1,
+     "base_gan_100": -5.5,
+     "dif_gan_100": 6.2,
+     "dif_gan_p5": -7.7,
+     "base_mismos_partidos": 0.5634,
+     "dif_mismos_partidos_p5": -0.0519
+    },
+    "B": {
+     "n": 211,
+     "patas_dia": 11.11,
+     "acierto": 0.5877,
+     "cuota": 1.6675,
+     "casa": 0.5479,
+     "metodo": 0.6133,
+     "gan_100": -2.5,
+     "base_acierto": 0.5679,
+     "base_cuota": null,
+     "dif": 0.0197,
+     "dif_p5": -0.0422,
+     "acierto_p5": 0.531,
+     "gan_p5": -11.9,
+     "base_gan_100": -6.9,
+     "dif_gan_100": 4.3,
+     "dif_gan_p5": -6.2,
+     "base_mismos_partidos": 0.545,
+     "dif_mismos_partidos_p5": -0.0234
+    },
+    "A_vs_equipo": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.6056,
+     "cuota": 1.6614,
+     "casa": 0.5489,
+     "metodo": 0.6115,
+     "gan_100": 0.7,
+     "base_acierto": 0.5775,
+     "base_cuota": null,
+     "dif": 0.0282,
+     "dif_p5": -0.0282
+    },
+    "B_vs_equipo": {
+     "n": 211,
+     "patas_dia": 11.11,
+     "acierto": 0.5877,
+     "cuota": 1.6675,
+     "casa": 0.5479,
+     "metodo": 0.6133,
+     "gan_100": -2.5,
+     "base_acierto": 0.5545,
+     "base_cuota": null,
+     "dif": 0.0332,
+     "dif_p5": -0.0237
+    }
+   },
+   "simple_todas_u": [
+    {
+     "regla": "todas las de equipo · método − casa > 0 pts",
+     "A": {
+      "n": 142,
+      "patas_dia": 9.47,
+      "acierto": 0.6056,
+      "cuota": 1.6614,
+      "casa": 0.5489,
+      "metodo": 0.6115,
+      "gan_100": 0.7,
+      "base_acierto": 0.573,
+      "base_cuota": null,
+      "dif": 0.0326,
+      "dif_p5": -0.0511,
+      "acierto_p5": 0.5352,
+      "gan_p5": -11.1,
+      "base_gan_100": -5.5,
+      "dif_gan_100": 6.2,
+      "dif_gan_p5": -7.7,
+      "base_mismos_partidos": 0.5634,
+      "dif_mismos_partidos_p5": -0.0519
+     },
+     "B": {
+      "n": 211,
+      "patas_dia": 11.11,
+      "acierto": 0.5877,
+      "cuota": 1.6675,
+      "casa": 0.5479,
+      "metodo": 0.6133,
+      "gan_100": -2.5,
+      "base_acierto": 0.5679,
+      "base_cuota": null,
+      "dif": 0.0197,
+      "dif_p5": -0.0422,
+      "acierto_p5": 0.531,
+      "gan_p5": -11.9,
+      "base_gan_100": -6.9,
+      "dif_gan_100": 4.3,
+      "dif_gan_p5": -6.2,
+      "base_mismos_partidos": 0.545,
+      "dif_mismos_partidos_p5": -0.0234
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 3 pts",
+     "A": {
+      "n": 138,
+      "patas_dia": 9.2,
+      "acierto": 0.5797,
+      "cuota": 1.679,
+      "casa": 0.5436,
+      "metodo": 0.6232,
+      "gan_100": -2.7,
+      "base_acierto": 0.573,
+      "base_cuota": null,
+      "dif": 0.0067,
+      "dif_p5": -0.0761,
+      "acierto_p5": 0.5079,
+      "gan_p5": -14.9,
+      "base_gan_100": -5.5,
+      "dif_gan_100": 2.8,
+      "dif_gan_p5": -11.1,
+      "base_mismos_partidos": 0.5725,
+      "dif_mismos_partidos_p5": -0.0857
+     },
+     "B": {
+      "n": 205,
+      "patas_dia": 10.79,
+      "acierto": 0.5707,
+      "cuota": 1.698,
+      "casa": 0.5391,
+      "metodo": 0.6244,
+      "gan_100": -3.9,
+      "base_acierto": 0.5679,
+      "base_cuota": null,
+      "dif": 0.0028,
+      "dif_p5": -0.0634,
+      "acierto_p5": 0.5149,
+      "gan_p5": -13.2,
+      "base_gan_100": -6.9,
+      "dif_gan_100": 3.0,
+      "dif_gan_p5": -8.2,
+      "base_mismos_partidos": 0.5561,
+      "dif_mismos_partidos_p5": -0.055
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 6 pts",
+     "A": {
+      "n": 129,
+      "patas_dia": 8.6,
+      "acierto": 0.5349,
+      "cuota": 1.7216,
+      "casa": 0.5314,
+      "metodo": 0.6339,
+      "gan_100": -8.0,
+      "base_acierto": 0.573,
+      "base_cuota": null,
+      "dif": -0.0381,
+      "dif_p5": -0.1244,
+      "acierto_p5": 0.4586,
+      "gan_p5": -21.2,
+      "base_gan_100": -5.5,
+      "dif_gan_100": -2.5,
+      "dif_gan_p5": -17.2,
+      "base_mismos_partidos": 0.5814,
+      "dif_mismos_partidos_p5": -0.1463
+     },
+     "B": {
+      "n": 185,
+      "patas_dia": 9.74,
+      "acierto": 0.5568,
+      "cuota": 1.72,
+      "casa": 0.5326,
+      "metodo": 0.638,
+      "gan_100": -4.8,
+      "base_acierto": 0.5679,
+      "base_cuota": null,
+      "dif": -0.0112,
+      "dif_p5": -0.0838,
+      "acierto_p5": 0.4973,
+      "gan_p5": -15.1,
+      "base_gan_100": -6.9,
+      "dif_gan_100": 2.1,
+      "dif_gan_p5": -10.3,
+      "base_mismos_partidos": 0.573,
+      "dif_mismos_partidos_p5": -0.0947
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 9 pts",
+     "A": {
+      "n": 99,
+      "patas_dia": 6.6,
+      "acierto": 0.5556,
+      "cuota": 1.7488,
+      "casa": 0.5237,
+      "metodo": 0.6534,
+      "gan_100": -2.0,
+      "base_acierto": 0.573,
+      "base_cuota": null,
+      "dif": -0.0174,
+      "dif_p5": -0.1113,
+      "acierto_p5": 0.4706,
+      "gan_p5": -17.1,
+      "base_gan_100": -5.5,
+      "dif_gan_100": 3.5,
+      "dif_gan_p5": -12.9,
+      "base_mismos_partidos": 0.5556,
+      "dif_mismos_partidos_p5": -0.1012
+     },
+     "B": {
+      "n": 139,
+      "patas_dia": 7.32,
+      "acierto": 0.5612,
+      "cuota": 1.7483,
+      "casa": 0.5241,
+      "metodo": 0.6559,
+      "gan_100": -2.3,
+      "base_acierto": 0.5679,
+      "base_cuota": null,
+      "dif": -0.0068,
+      "dif_p5": -0.0824,
+      "acierto_p5": 0.4899,
+      "gan_p5": -14.7,
+      "base_gan_100": -6.9,
+      "dif_gan_100": 4.5,
+      "dif_gan_p5": -8.6,
+      "base_mismos_partidos": 0.5755,
+      "dif_mismos_partidos_p5": -0.1015
+     }
+    }
+   ],
+   "candidatos_con_n": 290,
+   "elegida_acierto": {
+    "regla": "corners · mls · método − casa > 0 pts",
+    "seg": [
+     [
+      "est",
+      "corners"
+     ],
+     [
+      "liga",
+      "mls"
+     ]
+    ],
+    "u": 0.0,
+    "A": {
+     "n": 31,
+     "patas_dia": 2.07,
+     "acierto": 0.7742,
+     "cuota": 1.7366,
+     "casa": 0.5266,
+     "metodo": 0.5657,
+     "gan_100": 34.3,
+     "base_acierto": 0.573,
+     "base_cuota": null,
+     "dif": 0.2012,
+     "dif_p5": 0.054,
+     "acierto_p5": 0.64,
+     "gan_p5": 10.8,
+     "base_gan_100": -5.5,
+     "dif_gan_100": 39.8,
+     "dif_gan_p5": 14.8,
+     "base_mismos_partidos": 0.5484,
+     "dif_mismos_partidos_p5": 0.0
+    },
+    "B": {
+     "n": 35,
+     "patas_dia": 1.84,
+     "acierto": 0.4857,
+     "cuota": 1.7662,
+     "casa": 0.5177,
+     "metodo": 0.5709,
+     "gan_100": -15.5,
+     "base_acierto": 0.5679,
+     "base_cuota": null,
+     "dif": -0.0822,
+     "dif_p5": -0.2288,
+     "acierto_p5": 0.3429,
+     "gan_p5": -40.6,
+     "base_gan_100": -6.9,
+     "dif_gan_100": -8.6,
+     "dif_gan_p5": -34.2,
+     "base_mismos_partidos": 0.5714,
+     "dif_mismos_partidos_p5": -0.2432
+    },
+    "A_vs_equipo": {
+     "n": 31,
+     "patas_dia": 2.07,
+     "acierto": 0.7742,
+     "cuota": 1.7366,
+     "casa": 0.5266,
+     "metodo": 0.5657,
+     "gan_100": 34.3,
+     "base_acierto": 0.5775,
+     "base_cuota": null,
+     "dif": 0.1967,
+     "dif_p5": 0.0486
+    },
+    "B_vs_equipo": {
+     "n": 35,
+     "patas_dia": 1.84,
+     "acierto": 0.4857,
+     "cuota": 1.7662,
+     "casa": 0.5177,
+     "metodo": 0.5709,
+     "gan_100": -15.5,
+     "base_acierto": 0.5545,
+     "base_cuota": null,
+     "dif": -0.0688,
+     "dif_p5": -0.2192
+    }
+   },
+   "elegida_ganancia": {
+    "regla": "corners · mls · método − casa > 0 pts",
+    "seg": [
+     [
+      "est",
+      "corners"
+     ],
+     [
+      "liga",
+      "mls"
+     ]
+    ],
+    "u": 0.0,
+    "A": {
+     "n": 31,
+     "patas_dia": 2.07,
+     "acierto": 0.7742,
+     "cuota": 1.7366,
+     "casa": 0.5266,
+     "metodo": 0.5657,
+     "gan_100": 34.3,
+     "base_acierto": 0.573,
+     "base_cuota": null,
+     "dif": 0.2012,
+     "dif_p5": 0.054,
+     "acierto_p5": 0.64,
+     "gan_p5": 10.8,
+     "base_gan_100": -5.5,
+     "dif_gan_100": 39.8,
+     "dif_gan_p5": 14.8,
+     "base_mismos_partidos": 0.5484,
+     "dif_mismos_partidos_p5": 0.0
+    },
+    "B": {
+     "n": 35,
+     "patas_dia": 1.84,
+     "acierto": 0.4857,
+     "cuota": 1.7662,
+     "casa": 0.5177,
+     "metodo": 0.5709,
+     "gan_100": -15.5,
+     "base_acierto": 0.5679,
+     "base_cuota": null,
+     "dif": -0.0822,
+     "dif_p5": -0.2288,
+     "acierto_p5": 0.3429,
+     "gan_p5": -40.6,
+     "base_gan_100": -6.9,
+     "dif_gan_100": -8.6,
+     "dif_gan_p5": -34.2,
+     "base_mismos_partidos": 0.5714,
+     "dif_mismos_partidos_p5": -0.2432
+    },
+    "A_vs_equipo": {
+     "n": 31,
+     "patas_dia": 2.07,
+     "acierto": 0.7742,
+     "cuota": 1.7366,
+     "casa": 0.5266,
+     "metodo": 0.5657,
+     "gan_100": 34.3,
+     "base_acierto": 0.5775,
+     "base_cuota": null,
+     "dif": 0.1967,
+     "dif_p5": 0.0486
+    },
+    "B_vs_equipo": {
+     "n": 35,
+     "patas_dia": 1.84,
+     "acierto": 0.4857,
+     "cuota": 1.7662,
+     "casa": 0.5177,
+     "metodo": 0.5709,
+     "gan_100": -15.5,
+     "base_acierto": 0.5545,
+     "base_cuota": null,
+     "dif": -0.0688,
+     "dif_p5": -0.2192
+    }
+   },
+   "top10_A_acierto": [
+    {
+     "regla": "corners · mls · método − casa > 0 pts",
+     "A": {
+      "n": 31,
+      "acierto": 0.7742,
+      "cuota": 1.7366,
+      "dif": 0.2012,
+      "dif_p5": 0.054
+     },
+     "B": {
+      "n": 35,
+      "acierto": 0.4857,
+      "cuota": 1.7662,
+      "dif": -0.0822,
+      "dif_p5": -0.2288
+     }
+    },
+    {
+     "regla": "a_puerta · más · método − casa > 6 pts",
+     "A": {
+      "n": 46,
+      "acierto": 0.7174,
+      "cuota": 1.7975,
+      "dif": 0.1444,
+      "dif_p5": 0.0204
+     },
+     "B": {
+      "n": 76,
+      "acierto": 0.6711,
+      "cuota": 1.7892,
+      "dif": 0.1031,
+      "dif_p5": 0.0004
+     }
+    },
+    {
+     "regla": "más · descanso parejo · método − casa > 6 pts",
+     "A": {
+      "n": 91,
+      "acierto": 0.6703,
+      "cuota": 1.7426,
+      "dif": 0.0973,
+      "dif_p5": -0.003
+     },
+     "B": {
+      "n": 124,
+      "acierto": 0.5645,
+      "cuota": 1.7446,
+      "dif": -0.0034,
+      "dif_p5": -0.0837
+     }
+    },
+    {
+     "regla": "más · descanso parejo · método − casa > 9 pts",
+     "A": {
+      "n": 62,
+      "acierto": 0.6774,
+      "cuota": 1.7679,
+      "dif": 0.1044,
+      "dif_p5": -0.0068
+     },
+     "B": {
+      "n": 85,
+      "acierto": 0.5647,
+      "cuota": 1.7531,
+      "dif": -0.0032,
+      "dif_p5": -0.0975
+     }
+    },
+    {
+     "regla": "más · favorito · método − casa > 9 pts",
+     "A": {
+      "n": 42,
+      "acierto": 0.6905,
+      "cuota": 1.7947,
+      "dif": 0.1175,
+      "dif_p5": -0.0129
+     },
+     "B": {
+      "n": 62,
+      "acierto": 0.5968,
+      "cuota": 1.7859,
+      "dif": 0.0288,
+      "dif_p5": -0.0782
+     }
+    },
+    {
+     "regla": "visita · favorito · método − casa > 0 pts",
+     "A": {
+      "n": 44,
+      "acierto": 0.6818,
+      "cuota": 1.7192,
+      "dif": 0.1088,
+      "dif_p5": -0.016
+     },
+     "B": {
+      "n": 63,
+      "acierto": 0.4444,
+      "cuota": 1.6983,
+      "dif": -0.1235,
+      "dif_p5": -0.2369
+     }
+    },
+    {
+     "regla": "visita · λ a favor <0,5 sd · método − casa > 0 pts",
+     "A": {
+      "n": 132,
+      "acierto": 0.6364,
+      "cuota": 1.7309,
+      "dif": 0.0634,
+      "dif_p5": -0.0175
+     },
+     "B": {
+      "n": 186,
+      "acierto": 0.5645,
+      "cuota": 1.727,
+      "dif": -0.0034,
+      "dif_p5": -0.0714
+     }
+    },
+    {
+     "regla": "visita · método − casa > 0 pts",
+     "A": {
+      "n": 135,
+      "acierto": 0.637,
+      "cuota": 1.7103,
+      "dif": 0.064,
+      "dif_p5": -0.0177
+     },
+     "B": {
+      "n": 208,
+      "acierto": 0.524,
+      "cuota": 1.7279,
+      "dif": -0.0439,
+      "dif_p5": -0.1125
+     }
+    },
+    {
+     "regla": "visita · mls · método − casa > 0 pts",
+     "A": {
+      "n": 31,
+      "acierto": 0.7097,
+      "cuota": 1.6495,
+      "dif": 0.1367,
+      "dif_p5": -0.0215
+     },
+     "B": {
+      "n": 34,
+      "acierto": 0.6176,
+      "cuota": 1.6905,
+      "dif": 0.0497,
+      "dif_p5": -0.0944
+     }
+    },
+    {
+     "regla": "tiros · más · método − casa > 3 pts",
+     "A": {
+      "n": 89,
+      "acierto": 0.6517,
+      "cuota": 1.7686,
+      "dif": 0.0787,
+      "dif_p5": -0.0241
+     },
+     "B": {
+      "n": 111,
+      "acierto": 0.6126,
+      "cuota": 1.7584,
+      "dif": 0.0447,
+      "dif_p5": -0.0427
+     }
+    }
+   ],
+   "arrastre_A_a_B": {
+    "candidatos_p5A_mayor_0": 2,
+    "de_esos_dif_B_mayor_0": 1,
+    "de_esos_p5B_mayor_0": 1,
+    "todos_dif_B_mayor_0": 165,
+    "todos": 290
+   },
+   "boletos": {
+    "regla": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 1.67,
+       "momio_mediano": 7.62,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "6": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.0,
+       "momio_mediano": 23.43,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 2,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.0,
+       "momio_mediano": 237.27,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 0,
+       "dias": 19
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 19
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 6,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 1.33,
+       "momio_mediano": 7.36,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "6": {
+       "dias_con_boleto": 6,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 1.67,
+       "momio_mediano": 22.3,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 3,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.67,
+       "momio_mediano": 237.76,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 0,
+       "dias": 34
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 34
+      }
+     }
+    },
+    "simple": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 12,
+       "dias": 19,
+       "enteros": 3,
+       "pct_entero": 0.25,
+       "rojas_medias": 1.33,
+       "momio_mediano": 6.75,
+       "gan_100": {
+        "x1.0": 71.2,
+        "x1.2": 105.4,
+        "x1.3": 122.5,
+        "x1.8": 208.1
+       }
+      },
+      "6": {
+       "dias_con_boleto": 8,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.125,
+       "rojas_medias": 1.75,
+       "momio_mediano": 17.29,
+       "gan_100": {
+        "x1.0": 122.6,
+        "x1.2": 167.1,
+        "x1.3": 189.4,
+        "x1.8": 300.7
+       }
+      },
+      "10": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.29,
+       "momio_mediano": 120.0,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 5,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 7.2,
+       "momio_mediano": 1359.51,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 10.0,
+       "momio_mediano": 184618.69,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 22,
+       "dias": 34,
+       "enteros": 3,
+       "pct_entero": 0.136,
+       "rojas_medias": 1.59,
+       "momio_mediano": 6.65,
+       "gan_100": {
+        "x1.0": -6.6,
+        "x1.2": 12.0,
+        "x1.3": 21.4,
+        "x1.8": 68.1
+       }
+      },
+      "6": {
+       "dias_con_boleto": 17,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.059,
+       "rojas_medias": 2.12,
+       "momio_mediano": 17.09,
+       "gan_100": {
+        "x1.0": 4.8,
+        "x1.2": 25.7,
+        "x1.3": 36.2,
+        "x1.8": 88.6
+       }
+      },
+      "10": {
+       "dias_con_boleto": 13,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.31,
+       "momio_mediano": 117.91,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 9,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.78,
+       "momio_mediano": 1359.51,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 5,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 9.6,
+       "momio_mediano": 251028.23,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    },
+    "base": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 13,
+       "dias": 19,
+       "enteros": 3,
+       "pct_entero": 0.231,
+       "rojas_medias": 1.77,
+       "momio_mediano": 6.72,
+       "gan_100": {
+        "x1.0": 55.6,
+        "x1.2": 86.7,
+        "x1.3": 102.3,
+        "x1.8": 180.1
+       }
+      },
+      "6": {
+       "dias_con_boleto": 10,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.1,
+       "momio_mediano": 17.31,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 9,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.67,
+       "momio_mediano": 120.43,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.14,
+       "momio_mediano": 1317.41,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 10.25,
+       "momio_mediano": 149565.15,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 27,
+       "dias": 34,
+       "enteros": 4,
+       "pct_entero": 0.148,
+       "rojas_medias": 1.59,
+       "momio_mediano": 6.72,
+       "gan_100": {
+        "x1.0": -0.2,
+        "x1.2": 19.8,
+        "x1.3": 29.8,
+        "x1.8": 79.7
+       }
+      },
+      "6": {
+       "dias_con_boleto": 23,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.39,
+       "momio_mediano": 17.31,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 18,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.44,
+       "momio_mediano": 120.18,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 14,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.0,
+       "momio_mediano": 1291.36,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 8,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 10.25,
+       "momio_mediano": 152619.86,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    }
+   },
+   "boleto_teorico_B": {
+    "regla": {
+     "valor_pata": 0.8579,
+     "4": {
+      "x1.0": -45.8,
+      "x1.2": -35.0,
+      "x1.3": -29.6,
+      "x1.8": -2.5
+     },
+     "6": {
+      "x1.0": -60.1,
+      "x1.2": -52.2,
+      "x1.3": -48.2,
+      "x1.8": -28.2
+     },
+     "10": {
+      "x1.0": -78.4,
+      "x1.2": -74.1,
+      "x1.3": -71.9,
+      "x1.8": -61.1
+     },
+     "15": {
+      "x1.0": -90.0,
+      "x1.2": -88.0,
+      "x1.3": -87.0,
+      "x1.8": -81.9
+     },
+     "25": {
+      "x1.0": -97.8,
+      "x1.2": -97.4,
+      "x1.3": -97.2,
+      "x1.8": -96.1
+     }
+    },
+    "simple": {
+     "valor_pata": 0.98,
+     "4": {
+      "x1.0": -7.8,
+      "x1.2": 10.7,
+      "x1.3": 19.9,
+      "x1.8": 66.0
+     },
+     "6": {
+      "x1.0": -11.4,
+      "x1.2": 6.3,
+      "x1.3": 15.1,
+      "x1.8": 59.4
+     },
+     "10": {
+      "x1.0": -18.3,
+      "x1.2": -2.0,
+      "x1.3": 6.2,
+      "x1.8": 47.0
+     },
+     "15": {
+      "x1.0": -26.2,
+      "x1.2": -11.4,
+      "x1.3": -4.0,
+      "x1.8": 32.9
+     },
+     "25": {
+      "x1.0": -39.7,
+      "x1.2": -27.6,
+      "x1.3": -21.6,
+      "x1.8": 8.6
+     }
+    },
+    "base": {
+     "valor_pata": 0.9331,
+     "4": {
+      "x1.0": -24.2,
+      "x1.2": -9.0,
+      "x1.3": -1.4,
+      "x1.8": 36.5
+     },
+     "6": {
+      "x1.0": -34.0,
+      "x1.2": -20.8,
+      "x1.3": -14.2,
+      "x1.8": 18.8
+     },
+     "10": {
+      "x1.0": -49.9,
+      "x1.2": -39.9,
+      "x1.3": -34.9,
+      "x1.8": -9.9
+     },
+     "15": {
+      "x1.0": -64.6,
+      "x1.2": -57.5,
+      "x1.3": -54.0,
+      "x1.8": -36.3
+     },
+     "25": {
+      "x1.0": -82.3,
+      "x1.2": -78.7,
+      "x1.3": -77.0,
+      "x1.8": -68.1
+     }
+    }
+   }
+  },
+  "1.70": {
+   "base_casa_todo_playdoit": {
+    "A": {
+     "n": 274,
+     "patas_dia": 18.27,
+     "acierto": 0.4891,
+     "cuota": 1.7508,
+     "casa": 0.5285,
+     "metodo": 0.5295,
+     "gan_100": -14.3,
+     "base_acierto": 0.4891,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    },
+    "B": {
+     "n": 368,
+     "patas_dia": 19.37,
+     "acierto": 0.538,
+     "cuota": 1.7379,
+     "casa": 0.5313,
+     "metodo": 0.5343,
+     "gan_100": -6.5,
+     "base_acierto": 0.538,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    }
+   },
+   "base_casa_solo_equipo": {
+    "A": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.5211,
+     "cuota": 1.7346,
+     "casa": 0.5259,
+     "metodo": 0.5261,
+     "gan_100": -9.6,
+     "base_acierto": 0.4891,
+     "base_cuota": null,
+     "dif": 0.0321,
+     "dif_p5": -0.0432,
+     "acierto_p5": 0.4525,
+     "gan_p5": -21.7,
+     "base_gan_100": -14.3,
+     "dif_gan_100": 4.7,
+     "dif_gan_p5": -8.5,
+     "base_mismos_partidos": 0.4507,
+     "dif_mismos_partidos_p5": -0.0065
+    },
+    "B": {
+     "n": 211,
+     "patas_dia": 11.11,
+     "acierto": 0.4882,
+     "cuota": 1.7424,
+     "casa": 0.5242,
+     "metodo": 0.5299,
+     "gan_100": -15.5,
+     "base_acierto": 0.538,
+     "base_cuota": null,
+     "dif": -0.0499,
+     "dif_p5": -0.1051,
+     "acierto_p5": 0.4315,
+     "gan_p5": -25.3,
+     "base_gan_100": -6.5,
+     "dif_gan_100": -9.0,
+     "dif_gan_p5": -18.7,
+     "base_mismos_partidos": 0.5355,
+     "dif_mismos_partidos_p5": -0.1023
+    }
+   },
+   "simple": {
+    "regla": "todas las de equipo · método − casa > 0 pts",
+    "seg": [],
+    "u": 0.0,
+    "A": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.6338,
+     "cuota": 1.7601,
+     "casa": 0.5189,
+     "metodo": 0.5824,
+     "gan_100": 11.4,
+     "base_acierto": 0.4891,
+     "base_cuota": null,
+     "dif": 0.1448,
+     "dif_p5": 0.0669,
+     "acierto_p5": 0.5662,
+     "gan_p5": -0.5,
+     "base_gan_100": -14.3,
+     "dif_gan_100": 25.7,
+     "dif_gan_p5": 12.0,
+     "base_mismos_partidos": 0.4507,
+     "dif_mismos_partidos_p5": 0.1037
+    },
+    "B": {
+     "n": 208,
+     "patas_dia": 10.95,
+     "acierto": 0.476,
+     "cuota": 1.7708,
+     "casa": 0.5166,
+     "metodo": 0.5838,
+     "gan_100": -16.6,
+     "base_acierto": 0.538,
+     "base_cuota": null,
+     "dif": -0.0621,
+     "dif_p5": -0.1258,
+     "acierto_p5": 0.4198,
+     "gan_p5": -26.5,
+     "base_gan_100": -6.5,
+     "dif_gan_100": -10.1,
+     "dif_gan_p5": -21.2,
+     "base_mismos_partidos": 0.5385,
+     "dif_mismos_partidos_p5": -0.128
+    },
+    "A_vs_equipo": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.6338,
+     "cuota": 1.7601,
+     "casa": 0.5189,
+     "metodo": 0.5824,
+     "gan_100": 11.4,
+     "base_acierto": 0.5211,
+     "base_cuota": null,
+     "dif": 0.1127,
+     "dif_p5": 0.0423
+    },
+    "B_vs_equipo": {
+     "n": 208,
+     "patas_dia": 10.95,
+     "acierto": 0.476,
+     "cuota": 1.7708,
+     "casa": 0.5166,
+     "metodo": 0.5838,
+     "gan_100": -16.6,
+     "base_acierto": 0.4882,
+     "base_cuota": null,
+     "dif": -0.0122,
+     "dif_p5": -0.0656
+    }
+   },
+   "simple_todas_u": [
+    {
+     "regla": "todas las de equipo · método − casa > 0 pts",
+     "A": {
+      "n": 142,
+      "patas_dia": 9.47,
+      "acierto": 0.6338,
+      "cuota": 1.7601,
+      "casa": 0.5189,
+      "metodo": 0.5824,
+      "gan_100": 11.4,
+      "base_acierto": 0.4891,
+      "base_cuota": null,
+      "dif": 0.1448,
+      "dif_p5": 0.0669,
+      "acierto_p5": 0.5662,
+      "gan_p5": -0.5,
+      "base_gan_100": -14.3,
+      "dif_gan_100": 25.7,
+      "dif_gan_p5": 12.0,
+      "base_mismos_partidos": 0.4507,
+      "dif_mismos_partidos_p5": 0.1037
+     },
+     "B": {
+      "n": 208,
+      "patas_dia": 10.95,
+      "acierto": 0.476,
+      "cuota": 1.7708,
+      "casa": 0.5166,
+      "metodo": 0.5838,
+      "gan_100": -16.6,
+      "base_acierto": 0.538,
+      "base_cuota": null,
+      "dif": -0.0621,
+      "dif_p5": -0.1258,
+      "acierto_p5": 0.4198,
+      "gan_p5": -26.5,
+      "base_gan_100": -6.5,
+      "dif_gan_100": -10.1,
+      "dif_gan_p5": -21.2,
+      "base_mismos_partidos": 0.5385,
+      "dif_mismos_partidos_p5": -0.128
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 3 pts",
+     "A": {
+      "n": 138,
+      "patas_dia": 9.2,
+      "acierto": 0.6087,
+      "cuota": 1.7778,
+      "casa": 0.5143,
+      "metodo": 0.5962,
+      "gan_100": 7.9,
+      "base_acierto": 0.4891,
+      "base_cuota": null,
+      "dif": 0.1196,
+      "dif_p5": 0.0424,
+      "acierto_p5": 0.54,
+      "gan_p5": -4.3,
+      "base_gan_100": -14.3,
+      "dif_gan_100": 22.2,
+      "dif_gan_p5": 8.4,
+      "base_mismos_partidos": 0.4493,
+      "dif_mismos_partidos_p5": 0.0752
+     },
+     "B": {
+      "n": 201,
+      "patas_dia": 10.58,
+      "acierto": 0.5124,
+      "cuota": 1.7856,
+      "casa": 0.5127,
+      "metodo": 0.5973,
+      "gan_100": -9.1,
+      "base_acierto": 0.538,
+      "base_cuota": null,
+      "dif": -0.0256,
+      "dif_p5": -0.0909,
+      "acierto_p5": 0.4528,
+      "gan_p5": -19.8,
+      "base_gan_100": -6.5,
+      "dif_gan_100": -2.6,
+      "dif_gan_p5": -14.0,
+      "base_mismos_partidos": 0.5373,
+      "dif_mismos_partidos_p5": -0.095
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 6 pts",
+     "A": {
+      "n": 123,
+      "patas_dia": 8.2,
+      "acierto": 0.626,
+      "cuota": 1.8088,
+      "casa": 0.5059,
+      "metodo": 0.6083,
+      "gan_100": 12.7,
+      "base_acierto": 0.4891,
+      "base_cuota": null,
+      "dif": 0.137,
+      "dif_p5": 0.0527,
+      "acierto_p5": 0.5565,
+      "gan_p5": 0.0,
+      "base_gan_100": -14.3,
+      "dif_gan_100": 27.0,
+      "dif_gan_p5": 11.7,
+      "base_mismos_partidos": 0.4309,
+      "dif_mismos_partidos_p5": 0.0985
+     },
+     "B": {
+      "n": 173,
+      "patas_dia": 9.11,
+      "acierto": 0.5896,
+      "cuota": 1.809,
+      "casa": 0.5064,
+      "metodo": 0.6134,
+      "gan_100": 6.3,
+      "base_acierto": 0.538,
+      "base_cuota": null,
+      "dif": 0.0516,
+      "dif_p5": -0.0152,
+      "acierto_p5": 0.5275,
+      "gan_p5": -4.8,
+      "base_gan_100": -6.5,
+      "dif_gan_100": 12.8,
+      "dif_gan_p5": 0.7,
+      "base_mismos_partidos": 0.5434,
+      "dif_mismos_partidos_p5": -0.0314
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 9 pts",
+     "A": {
+      "n": 90,
+      "patas_dia": 6.0,
+      "acierto": 0.6,
+      "cuota": 1.8257,
+      "casa": 0.5013,
+      "metodo": 0.6314,
+      "gan_100": 9.6,
+      "base_acierto": 0.4891,
+      "base_cuota": null,
+      "dif": 0.1109,
+      "dif_p5": 0.0141,
+      "acierto_p5": 0.5154,
+      "gan_p5": -6.2,
+      "base_gan_100": -14.3,
+      "dif_gan_100": 23.9,
+      "dif_gan_p5": 6.2,
+      "base_mismos_partidos": 0.4444,
+      "dif_mismos_partidos_p5": 0.0329
+     },
+     "B": {
+      "n": 127,
+      "patas_dia": 6.68,
+      "acierto": 0.5827,
+      "cuota": 1.8292,
+      "casa": 0.501,
+      "metodo": 0.6324,
+      "gan_100": 5.8,
+      "base_acierto": 0.538,
+      "base_cuota": null,
+      "dif": 0.0446,
+      "dif_p5": -0.033,
+      "acierto_p5": 0.512,
+      "gan_p5": -6.9,
+      "base_gan_100": -6.5,
+      "dif_gan_100": 12.3,
+      "dif_gan_p5": -1.7,
+      "base_mismos_partidos": 0.5197,
+      "dif_mismos_partidos_p5": -0.0273
+     }
+    }
+   ],
+   "candidatos_con_n": 252,
+   "elegida_acierto": {
+    "regla": "más · descanso parejo · método − casa > 6 pts",
+    "seg": [
+     [
+      "ap",
+      "más"
+     ],
+     [
+      "desc",
+      "descanso parejo"
+     ]
+    ],
+    "u": 0.06,
+    "A": {
+     "n": 83,
+     "patas_dia": 5.53,
+     "acierto": 0.7349,
+     "cuota": 1.8205,
+     "casa": 0.503,
+     "metodo": 0.6123,
+     "gan_100": 34.3,
+     "base_acierto": 0.4891,
+     "base_cuota": null,
+     "dif": 0.2459,
+     "dif_p5": 0.1536,
+     "acierto_p5": 0.6515,
+     "gan_p5": 19.1,
+     "base_gan_100": -14.3,
+     "dif_gan_100": 48.6,
+     "dif_gan_p5": 31.8,
+     "base_mismos_partidos": 0.4217,
+     "dif_mismos_partidos_p5": 0.2029
+    },
+    "B": {
+     "n": 112,
+     "patas_dia": 5.89,
+     "acierto": 0.5536,
+     "cuota": 1.8206,
+     "casa": 0.5038,
+     "metodo": 0.6116,
+     "gan_100": 0.1,
+     "base_acierto": 0.538,
+     "base_cuota": null,
+     "dif": 0.0155,
+     "dif_p5": -0.0682,
+     "acierto_p5": 0.4731,
+     "gan_p5": -14.6,
+     "base_gan_100": -6.5,
+     "dif_gan_100": 6.6,
+     "dif_gan_p5": -8.6,
+     "base_mismos_partidos": 0.5446,
+     "dif_mismos_partidos_p5": -0.0851
+    },
+    "A_vs_equipo": {
+     "n": 83,
+     "patas_dia": 5.53,
+     "acierto": 0.7349,
+     "cuota": 1.8205,
+     "casa": 0.503,
+     "metodo": 0.6123,
+     "gan_100": 34.3,
+     "base_acierto": 0.5211,
+     "base_cuota": null,
+     "dif": 0.2138,
+     "dif_p5": 0.1031
+    },
+    "B_vs_equipo": {
+     "n": 112,
+     "patas_dia": 5.89,
+     "acierto": 0.5536,
+     "cuota": 1.8206,
+     "casa": 0.5038,
+     "metodo": 0.6116,
+     "gan_100": 0.1,
+     "base_acierto": 0.4882,
+     "base_cuota": null,
+     "dif": 0.0654,
+     "dif_p5": -0.0218
+    }
+   },
+   "elegida_ganancia": {
+    "regla": "más · descanso parejo · método − casa > 6 pts",
+    "seg": [
+     [
+      "ap",
+      "más"
+     ],
+     [
+      "desc",
+      "descanso parejo"
+     ]
+    ],
+    "u": 0.06,
+    "A": {
+     "n": 83,
+     "patas_dia": 5.53,
+     "acierto": 0.7349,
+     "cuota": 1.8205,
+     "casa": 0.503,
+     "metodo": 0.6123,
+     "gan_100": 34.3,
+     "base_acierto": 0.4891,
+     "base_cuota": null,
+     "dif": 0.2459,
+     "dif_p5": 0.1536,
+     "acierto_p5": 0.6515,
+     "gan_p5": 19.1,
+     "base_gan_100": -14.3,
+     "dif_gan_100": 48.6,
+     "dif_gan_p5": 31.8,
+     "base_mismos_partidos": 0.4217,
+     "dif_mismos_partidos_p5": 0.2029
+    },
+    "B": {
+     "n": 112,
+     "patas_dia": 5.89,
+     "acierto": 0.5536,
+     "cuota": 1.8206,
+     "casa": 0.5038,
+     "metodo": 0.6116,
+     "gan_100": 0.1,
+     "base_acierto": 0.538,
+     "base_cuota": null,
+     "dif": 0.0155,
+     "dif_p5": -0.0682,
+     "acierto_p5": 0.4731,
+     "gan_p5": -14.6,
+     "base_gan_100": -6.5,
+     "dif_gan_100": 6.6,
+     "dif_gan_p5": -8.6,
+     "base_mismos_partidos": 0.5446,
+     "dif_mismos_partidos_p5": -0.0851
+    },
+    "A_vs_equipo": {
+     "n": 83,
+     "patas_dia": 5.53,
+     "acierto": 0.7349,
+     "cuota": 1.8205,
+     "casa": 0.503,
+     "metodo": 0.6123,
+     "gan_100": 34.3,
+     "base_acierto": 0.5211,
+     "base_cuota": null,
+     "dif": 0.2138,
+     "dif_p5": 0.1031
+    },
+    "B_vs_equipo": {
+     "n": 112,
+     "patas_dia": 5.89,
+     "acierto": 0.5536,
+     "cuota": 1.8206,
+     "casa": 0.5038,
+     "metodo": 0.6116,
+     "gan_100": 0.1,
+     "base_acierto": 0.4882,
+     "base_cuota": null,
+     "dif": 0.0654,
+     "dif_p5": -0.0218
+    }
+   },
+   "top10_A_acierto": [
+    {
+     "regla": "más · descanso parejo · método − casa > 6 pts",
+     "A": {
+      "n": 83,
+      "acierto": 0.7349,
+      "cuota": 1.8205,
+      "dif": 0.2459,
+      "dif_p5": 0.1536
+     },
+     "B": {
+      "n": 112,
+      "acierto": 0.5536,
+      "cuota": 1.8206,
+      "dif": 0.0155,
+      "dif_p5": -0.0682
+     }
+    },
+    {
+     "regla": "más · método − casa > 6 pts",
+     "A": {
+      "n": 89,
+      "acierto": 0.7079,
+      "cuota": 1.8178,
+      "dif": 0.2188,
+      "dif_p5": 0.1265
+     },
+     "B": {
+      "n": 127,
+      "acierto": 0.5669,
+      "cuota": 1.8203,
+      "dif": 0.0289,
+      "dif_p5": -0.0501
+     }
+    },
+    {
+     "regla": "más · favorito · método − casa > 9 pts",
+     "A": {
+      "n": 41,
+      "acierto": 0.7317,
+      "cuota": 1.852,
+      "dif": 0.2427,
+      "dif_p5": 0.1144
+     },
+     "B": {
+      "n": 56,
+      "acierto": 0.6071,
+      "cuota": 1.8394,
+      "dif": 0.0691,
+      "dif_p5": -0.0417
+     }
+    },
+    {
+     "regla": "más · favorito · método − casa > 6 pts",
+     "A": {
+      "n": 64,
+      "acierto": 0.7031,
+      "cuota": 1.8361,
+      "dif": 0.2141,
+      "dif_p5": 0.1101
+     },
+     "B": {
+      "n": 90,
+      "acierto": 0.6333,
+      "cuota": 1.8338,
+      "dif": 0.0953,
+      "dif_p5": 0.0036
+     }
+    },
+    {
+     "regla": "tiros · descanso parejo · método − casa > 6 pts",
+     "A": {
+      "n": 77,
+      "acierto": 0.6883,
+      "cuota": 1.8265,
+      "dif": 0.1993,
+      "dif_p5": 0.1035
+     },
+     "B": {
+      "n": 94,
+      "acierto": 0.5,
+      "cuota": 1.81,
+      "dif": -0.038,
+      "dif_p5": -0.1273
+     }
+    },
+    {
+     "regla": "más · local · método − casa > 6 pts",
+     "A": {
+      "n": 54,
+      "acierto": 0.7037,
+      "cuota": 1.8157,
+      "dif": 0.2147,
+      "dif_p5": 0.1035
+     },
+     "B": {
+      "n": 75,
+      "acierto": 0.6133,
+      "cuota": 1.8441,
+      "dif": 0.0753,
+      "dif_p5": -0.0224
+     }
+    },
+    {
+     "regla": "corners · mls · método − casa > 0 pts",
+     "A": {
+      "n": 30,
+      "acierto": 0.7333,
+      "cuota": 1.8455,
+      "dif": 0.2443,
+      "dif_p5": 0.0997
+     },
+     "B": {
+      "n": 34,
+      "acierto": 0.3824,
+      "cuota": 1.8475,
+      "dif": -0.1557,
+      "dif_p5": -0.2977
+     }
+    },
+    {
+     "regla": "más · descanso parejo · método − casa > 9 pts",
+     "A": {
+      "n": 56,
+      "acierto": 0.6964,
+      "cuota": 1.837,
+      "dif": 0.2074,
+      "dif_p5": 0.0931
+     },
+     "B": {
+      "n": 78,
+      "acierto": 0.5641,
+      "cuota": 1.8201,
+      "dif": 0.0261,
+      "dif_p5": -0.076
+     }
+    },
+    {
+     "regla": "tiros · más · método − casa > 3 pts",
+     "A": {
+      "n": 86,
+      "acierto": 0.6744,
+      "cuota": 1.8188,
+      "dif": 0.1854,
+      "dif_p5": 0.0915
+     },
+     "B": {
+      "n": 111,
+      "acierto": 0.5856,
+      "cuota": 1.8023,
+      "dif": 0.0475,
+      "dif_p5": -0.0355
+     }
+    },
+    {
+     "regla": "tiros · más · método − casa > 6 pts",
+     "A": {
+      "n": 60,
+      "acierto": 0.6833,
+      "cuota": 1.8266,
+      "dif": 0.1943,
+      "dif_p5": 0.0836
+     },
+     "B": {
+      "n": 83,
+      "acierto": 0.5422,
+      "cuota": 1.8127,
+      "dif": 0.0041,
+      "dif_p5": -0.0913
+     }
+    }
+   ],
+   "arrastre_A_a_B": {
+    "candidatos_p5A_mayor_0": 101,
+    "de_esos_dif_B_mayor_0": 66,
+    "de_esos_p5B_mayor_0": 10,
+    "todos_dif_B_mayor_0": 147,
+    "todos": 252
+   },
+   "boletos": {
+    "regla": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 8,
+       "dias": 19,
+       "enteros": 2,
+       "pct_entero": 0.25,
+       "rojas_medias": 1.38,
+       "momio_mediano": 9.01,
+       "gan_100": {
+        "x1.0": 148.6,
+        "x1.2": 198.4,
+        "x1.3": 223.2,
+        "x1.8": 347.5
+       }
+      },
+      "6": {
+       "dias_con_boleto": 5,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.2,
+       "rojas_medias": 2.6,
+       "momio_mediano": 26.45,
+       "gan_100": {
+        "x1.0": 575.9,
+        "x1.2": 711.1,
+        "x1.3": 778.7,
+        "x1.8": 1116.6
+       }
+      },
+      "10": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.67,
+       "momio_mediano": 252.11,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 7.67,
+       "momio_mediano": 4966.55,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 1,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 11.0,
+       "momio_mediano": 2789730.36,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 16,
+       "dias": 34,
+       "enteros": 3,
+       "pct_entero": 0.188,
+       "rojas_medias": 1.38,
+       "momio_mediano": 9.01,
+       "gan_100": {
+        "x1.0": 79.5,
+        "x1.2": 115.5,
+        "x1.3": 133.4,
+        "x1.8": 223.2
+       }
+      },
+      "6": {
+       "dias_con_boleto": 9,
+       "dias": 34,
+       "enteros": 2,
+       "pct_entero": 0.222,
+       "rojas_medias": 2.0,
+       "momio_mediano": 27.37,
+       "gan_100": {
+        "x1.0": 579.6,
+        "x1.2": 715.6,
+        "x1.3": 783.5,
+        "x1.8": 1123.4
+       }
+      },
+      "10": {
+       "dias_con_boleto": 7,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.143,
+       "rojas_medias": 3.14,
+       "momio_mediano": 280.37,
+       "gan_100": {
+        "x1.0": 3905.3,
+        "x1.2": 4706.3,
+        "x1.3": 5106.9,
+        "x1.8": 7109.5
+       }
+      },
+      "15": {
+       "dias_con_boleto": 4,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.25,
+       "momio_mediano": 5074.88,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 1,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 11.0,
+       "momio_mediano": 2789730.36,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    },
+    "simple": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 12,
+       "dias": 19,
+       "enteros": 2,
+       "pct_entero": 0.167,
+       "rojas_medias": 1.67,
+       "momio_mediano": 8.54,
+       "gan_100": {
+        "x1.0": 44.8,
+        "x1.2": 73.7,
+        "x1.3": 88.2,
+        "x1.8": 160.6
+       }
+      },
+      "6": {
+       "dias_con_boleto": 8,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.125,
+       "rojas_medias": 2.88,
+       "momio_mediano": 25.36,
+       "gan_100": {
+        "x1.0": 227.9,
+        "x1.2": 293.5,
+        "x1.3": 326.3,
+        "x1.8": 490.2
+       }
+      },
+      "10": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.43,
+       "momio_mediano": 231.0,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 5,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 8.8,
+       "momio_mediano": 3269.68,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 13.33,
+       "momio_mediano": 873686.57,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 22,
+       "dias": 34,
+       "enteros": 3,
+       "pct_entero": 0.136,
+       "rojas_medias": 1.73,
+       "momio_mediano": 8.54,
+       "gan_100": {
+        "x1.0": 17.2,
+        "x1.2": 40.7,
+        "x1.3": 52.4,
+        "x1.8": 111.0
+       }
+      },
+      "6": {
+       "dias_con_boleto": 17,
+       "dias": 34,
+       "enteros": 2,
+       "pct_entero": 0.118,
+       "rojas_medias": 2.59,
+       "momio_mediano": 25.47,
+       "gan_100": {
+        "x1.0": 199.8,
+        "x1.2": 259.8,
+        "x1.3": 289.8,
+        "x1.8": 439.7
+       }
+      },
+      "10": {
+       "dias_con_boleto": 13,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.0,
+       "momio_mediano": 225.04,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 9,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 7.33,
+       "momio_mediano": 3417.19,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 5,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 10.8,
+       "momio_mediano": 874271.83,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    },
+    "base": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 13,
+       "dias": 19,
+       "enteros": 2,
+       "pct_entero": 0.154,
+       "rojas_medias": 1.31,
+       "momio_mediano": 8.49,
+       "gan_100": {
+        "x1.0": 34.7,
+        "x1.2": 61.6,
+        "x1.3": 75.1,
+        "x1.8": 142.4
+       }
+      },
+      "6": {
+       "dias_con_boleto": 10,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.1,
+       "rojas_medias": 2.4,
+       "momio_mediano": 24.54,
+       "gan_100": {
+        "x1.0": 145.4,
+        "x1.2": 194.4,
+        "x1.3": 219.0,
+        "x1.8": 341.7
+       }
+      },
+      "10": {
+       "dias_con_boleto": 9,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.56,
+       "momio_mediano": 210.04,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.43,
+       "momio_mediano": 3177.51,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 12.25,
+       "momio_mediano": 694767.49,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 27,
+       "dias": 34,
+       "enteros": 2,
+       "pct_entero": 0.074,
+       "rojas_medias": 1.59,
+       "momio_mediano": 8.56,
+       "gan_100": {
+        "x1.0": -35.2,
+        "x1.2": -22.2,
+        "x1.3": -15.7,
+        "x1.8": 16.7
+       }
+      },
+      "6": {
+       "dias_con_boleto": 23,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.043,
+       "rojas_medias": 2.78,
+       "momio_mediano": 25.34,
+       "gan_100": {
+        "x1.0": 6.7,
+        "x1.2": 28.0,
+        "x1.3": 38.7,
+        "x1.8": 92.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 18,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 5.17,
+       "momio_mediano": 219.62,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 14,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 7.36,
+       "momio_mediano": 3283.98,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 8,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 13.12,
+       "momio_mediano": 708459.01,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    }
+   },
+   "boleto_teorico_B": {
+    "regla": {
+     "valor_pata": 1.0078,
+     "4": {
+      "x1.0": 3.2,
+      "x1.2": 23.8,
+      "x1.3": 34.1,
+      "x1.8": 85.7
+     },
+     "6": {
+      "x1.0": 4.8,
+      "x1.2": 25.8,
+      "x1.3": 36.2,
+      "x1.8": 88.6
+     },
+     "10": {
+      "x1.0": 8.1,
+      "x1.2": 29.7,
+      "x1.3": 40.6,
+      "x1.8": 94.6
+     },
+     "15": {
+      "x1.0": 12.4,
+      "x1.2": 34.9,
+      "x1.3": 46.1,
+      "x1.8": 102.4
+     },
+     "25": {
+      "x1.0": 21.5,
+      "x1.2": 45.9,
+      "x1.3": 58.0,
+      "x1.8": 118.8
+     }
+    },
+    "simple": {
+     "valor_pata": 0.8428,
+     "4": {
+      "x1.0": -49.5,
+      "x1.2": -39.4,
+      "x1.3": -34.4,
+      "x1.8": -9.2
+     },
+     "6": {
+      "x1.0": -64.2,
+      "x1.2": -57.0,
+      "x1.3": -53.4,
+      "x1.8": -35.5
+     },
+     "10": {
+      "x1.0": -81.9,
+      "x1.2": -78.3,
+      "x1.3": -76.5,
+      "x1.8": -67.4
+     },
+     "15": {
+      "x1.0": -92.3,
+      "x1.2": -90.8,
+      "x1.3": -90.0,
+      "x1.8": -86.2
+     },
+     "25": {
+      "x1.0": -98.6,
+      "x1.2": -98.3,
+      "x1.3": -98.2,
+      "x1.8": -97.5
+     }
+    },
+    "base": {
+     "valor_pata": 0.9351,
+     "4": {
+      "x1.0": -23.5,
+      "x1.2": -8.3,
+      "x1.3": -0.6,
+      "x1.8": 37.6
+     },
+     "6": {
+      "x1.0": -33.2,
+      "x1.2": -19.8,
+      "x1.3": -13.1,
+      "x1.8": 20.3
+     },
+     "10": {
+      "x1.0": -48.9,
+      "x1.2": -38.7,
+      "x1.3": -33.6,
+      "x1.8": -8.0
+     },
+     "15": {
+      "x1.0": -63.5,
+      "x1.2": -56.2,
+      "x1.3": -52.5,
+      "x1.8": -34.2
+     },
+     "25": {
+      "x1.0": -81.3,
+      "x1.2": -77.6,
+      "x1.3": -75.7,
+      "x1.8": -66.4
+     }
+    }
+   }
+  },
+  "1.80": {
+   "base_casa_todo_playdoit": {
+    "A": {
+     "n": 274,
+     "patas_dia": 18.27,
+     "acierto": 0.5,
+     "cuota": 1.8646,
+     "casa": 0.4957,
+     "metodo": 0.5016,
+     "gan_100": -7.0,
+     "base_acierto": 0.5,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    },
+    "B": {
+     "n": 368,
+     "patas_dia": 19.37,
+     "acierto": 0.4565,
+     "cuota": 1.8598,
+     "casa": 0.4978,
+     "metodo": 0.5047,
+     "gan_100": -15.4,
+     "base_acierto": 0.4565,
+     "base_cuota": null,
+     "dif": 0.0,
+     "dif_p5": 0.0
+    }
+   },
+   "base_casa_solo_equipo": {
+    "A": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.5282,
+     "cuota": 1.841,
+     "casa": 0.4967,
+     "metodo": 0.4958,
+     "gan_100": -2.4,
+     "base_acierto": 0.5,
+     "base_cuota": null,
+     "dif": 0.0282,
+     "dif_p5": -0.0438,
+     "acierto_p5": 0.458,
+     "gan_p5": -15.4,
+     "base_gan_100": -7.0,
+     "dif_gan_100": 4.6,
+     "dif_gan_p5": -8.8,
+     "base_mismos_partidos": 0.5211,
+     "dif_mismos_partidos_p5": -0.0612
+    },
+    "B": {
+     "n": 211,
+     "patas_dia": 11.11,
+     "acierto": 0.4028,
+     "cuota": 1.8513,
+     "casa": 0.4945,
+     "metodo": 0.4907,
+     "gan_100": -25.6,
+     "base_acierto": 0.4565,
+     "base_cuota": null,
+     "dif": -0.0537,
+     "dif_p5": -0.1118,
+     "acierto_p5": 0.3478,
+     "gan_p5": -35.7,
+     "base_gan_100": -15.4,
+     "dif_gan_100": -10.2,
+     "dif_gan_p5": -21.0,
+     "base_mismos_partidos": 0.4882,
+     "dif_mismos_partidos_p5": -0.1464
+    }
+   },
+   "simple": {
+    "regla": "todas las de equipo · método − casa > 6 pts",
+    "seg": [],
+    "u": 0.06,
+    "A": {
+     "n": 113,
+     "patas_dia": 7.53,
+     "acierto": 0.5929,
+     "cuota": 1.9193,
+     "casa": 0.4772,
+     "metodo": 0.5798,
+     "gan_100": 13.2,
+     "base_acierto": 0.5,
+     "base_cuota": null,
+     "dif": 0.0929,
+     "dif_p5": 0.0047,
+     "acierto_p5": 0.5151,
+     "gan_p5": -1.8,
+     "base_gan_100": -7.0,
+     "dif_gan_100": 20.2,
+     "dif_gan_p5": 3.3,
+     "base_mismos_partidos": 0.4956,
+     "dif_mismos_partidos_p5": 0.0
+    },
+    "B": {
+     "n": 154,
+     "patas_dia": 8.11,
+     "acierto": 0.5,
+     "cuota": 1.9125,
+     "casa": 0.4796,
+     "metodo": 0.5823,
+     "gan_100": -4.4,
+     "base_acierto": 0.4565,
+     "base_cuota": null,
+     "dif": 0.0435,
+     "dif_p5": -0.0328,
+     "acierto_p5": 0.434,
+     "gan_p5": -16.9,
+     "base_gan_100": -15.4,
+     "dif_gan_100": 11.0,
+     "dif_gan_p5": -3.7,
+     "base_mismos_partidos": 0.474,
+     "dif_mismos_partidos_p5": -0.0659
+    },
+    "A_vs_equipo": {
+     "n": 113,
+     "patas_dia": 7.53,
+     "acierto": 0.5929,
+     "cuota": 1.9193,
+     "casa": 0.4772,
+     "metodo": 0.5798,
+     "gan_100": 13.2,
+     "base_acierto": 0.5282,
+     "base_cuota": null,
+     "dif": 0.0648,
+     "dif_p5": -0.0313
+    },
+    "B_vs_equipo": {
+     "n": 154,
+     "patas_dia": 8.11,
+     "acierto": 0.5,
+     "cuota": 1.9125,
+     "casa": 0.4796,
+     "metodo": 0.5823,
+     "gan_100": -4.4,
+     "base_acierto": 0.4028,
+     "base_cuota": null,
+     "dif": 0.0972,
+     "dif_p5": 0.0087
+    }
+   },
+   "simple_todas_u": [
+    {
+     "regla": "todas las de equipo · método − casa > 0 pts",
+     "A": {
+      "n": 139,
+      "patas_dia": 9.27,
+      "acierto": 0.518,
+      "cuota": 1.8723,
+      "casa": 0.489,
+      "metodo": 0.5528,
+      "gan_100": -3.6,
+      "base_acierto": 0.5,
+      "base_cuota": null,
+      "dif": 0.018,
+      "dif_p5": -0.0639,
+      "acierto_p5": 0.4483,
+      "gan_p5": -16.6,
+      "base_gan_100": -7.0,
+      "dif_gan_100": 3.4,
+      "dif_gan_p5": -11.7,
+      "base_mismos_partidos": 0.518,
+      "dif_mismos_partidos_p5": -0.0927
+     },
+     "B": {
+      "n": 201,
+      "patas_dia": 10.58,
+      "acierto": 0.4876,
+      "cuota": 1.872,
+      "casa": 0.4895,
+      "metodo": 0.5507,
+      "gan_100": -9.0,
+      "base_acierto": 0.4565,
+      "base_cuota": null,
+      "dif": 0.031,
+      "dif_p5": -0.0366,
+      "acierto_p5": 0.4271,
+      "gan_p5": -20.3,
+      "base_gan_100": -15.4,
+      "dif_gan_100": 6.4,
+      "dif_gan_p5": -6.2,
+      "base_mismos_partidos": 0.4776,
+      "dif_mismos_partidos_p5": -0.0664
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 3 pts",
+     "A": {
+      "n": 134,
+      "patas_dia": 8.93,
+      "acierto": 0.5149,
+      "cuota": 1.888,
+      "casa": 0.485,
+      "metodo": 0.5664,
+      "gan_100": -3.6,
+      "base_acierto": 0.5,
+      "base_cuota": null,
+      "dif": 0.0149,
+      "dif_p5": -0.0683,
+      "acierto_p5": 0.4444,
+      "gan_p5": -16.9,
+      "base_gan_100": -7.0,
+      "dif_gan_100": 3.4,
+      "dif_gan_p5": -12.1,
+      "base_mismos_partidos": 0.5224,
+      "dif_mismos_partidos_p5": -0.1014
+     },
+     "B": {
+      "n": 187,
+      "patas_dia": 9.84,
+      "acierto": 0.508,
+      "cuota": 1.8874,
+      "casa": 0.4855,
+      "metodo": 0.5633,
+      "gan_100": -4.3,
+      "base_acierto": 0.4565,
+      "base_cuota": null,
+      "dif": 0.0515,
+      "dif_p5": -0.0183,
+      "acierto_p5": 0.4469,
+      "gan_p5": -15.7,
+      "base_gan_100": -15.4,
+      "dif_gan_100": 11.1,
+      "dif_gan_p5": -2.0,
+      "base_mismos_partidos": 0.4706,
+      "dif_mismos_partidos_p5": -0.0455
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 6 pts",
+     "A": {
+      "n": 113,
+      "patas_dia": 7.53,
+      "acierto": 0.5929,
+      "cuota": 1.9193,
+      "casa": 0.4772,
+      "metodo": 0.5798,
+      "gan_100": 13.2,
+      "base_acierto": 0.5,
+      "base_cuota": null,
+      "dif": 0.0929,
+      "dif_p5": 0.0047,
+      "acierto_p5": 0.5151,
+      "gan_p5": -1.8,
+      "base_gan_100": -7.0,
+      "dif_gan_100": 20.2,
+      "dif_gan_p5": 3.3,
+      "base_mismos_partidos": 0.4956,
+      "dif_mismos_partidos_p5": 0.0
+     },
+     "B": {
+      "n": 154,
+      "patas_dia": 8.11,
+      "acierto": 0.5,
+      "cuota": 1.9125,
+      "casa": 0.4796,
+      "metodo": 0.5823,
+      "gan_100": -4.4,
+      "base_acierto": 0.4565,
+      "base_cuota": null,
+      "dif": 0.0435,
+      "dif_p5": -0.0328,
+      "acierto_p5": 0.434,
+      "gan_p5": -16.9,
+      "base_gan_100": -15.4,
+      "dif_gan_100": 11.0,
+      "dif_gan_p5": -3.7,
+      "base_mismos_partidos": 0.474,
+      "dif_mismos_partidos_p5": -0.0659
+     }
+    },
+    {
+     "regla": "todas las de equipo · método − casa > 9 pts",
+     "A": {
+      "n": 78,
+      "patas_dia": 5.2,
+      "acierto": 0.5769,
+      "cuota": 1.9263,
+      "casa": 0.4754,
+      "metodo": 0.6024,
+      "gan_100": 10.2,
+      "base_acierto": 0.5,
+      "base_cuota": null,
+      "dif": 0.0769,
+      "dif_p5": -0.0321,
+      "acierto_p5": 0.4848,
+      "gan_p5": -7.7,
+      "base_gan_100": -7.0,
+      "dif_gan_100": 17.2,
+      "dif_gan_p5": -3.6,
+      "base_mismos_partidos": 0.5,
+      "dif_mismos_partidos_p5": -0.0588
+     },
+     "B": {
+      "n": 116,
+      "patas_dia": 6.11,
+      "acierto": 0.5086,
+      "cuota": 1.9326,
+      "casa": 0.4744,
+      "metodo": 0.6016,
+      "gan_100": -2.1,
+      "base_acierto": 0.4565,
+      "base_cuota": null,
+      "dif": 0.0521,
+      "dif_p5": -0.0363,
+      "acierto_p5": 0.4336,
+      "gan_p5": -16.4,
+      "base_gan_100": -15.4,
+      "dif_gan_100": 13.3,
+      "dif_gan_p5": -3.7,
+      "base_mismos_partidos": 0.4741,
+      "dif_mismos_partidos_p5": -0.0744
+     }
+    }
+   ],
+   "candidatos_con_n": 236,
+   "elegida_acierto": {
+    "regla": "más · descanso parejo · método − casa > 6 pts",
+    "seg": [
+     [
+      "ap",
+      "más"
+     ],
+     [
+      "desc",
+      "descanso parejo"
+     ]
+    ],
+    "u": 0.06,
+    "A": {
+     "n": 67,
+     "patas_dia": 4.47,
+     "acierto": 0.6866,
+     "cuota": 1.9246,
+     "casa": 0.4765,
+     "metodo": 0.58,
+     "gan_100": 32.3,
+     "base_acierto": 0.5,
+     "base_cuota": null,
+     "dif": 0.1866,
+     "dif_p5": 0.0805,
+     "acierto_p5": 0.5897,
+     "gan_p5": 13.5,
+     "base_gan_100": -7.0,
+     "dif_gan_100": 39.3,
+     "dif_gan_p5": 19.0,
+     "base_mismos_partidos": 0.5224,
+     "dif_mismos_partidos_p5": 0.0323
+    },
+    "B": {
+     "n": 101,
+     "patas_dia": 5.32,
+     "acierto": 0.5149,
+     "cuota": 1.9238,
+     "casa": 0.4773,
+     "metodo": 0.5807,
+     "gan_100": -0.4,
+     "base_acierto": 0.4565,
+     "base_cuota": null,
+     "dif": 0.0583,
+     "dif_p5": -0.0303,
+     "acierto_p5": 0.4298,
+     "gan_p5": -16.8,
+     "base_gan_100": -15.4,
+     "dif_gan_100": 15.0,
+     "dif_gan_p5": -2.1,
+     "base_mismos_partidos": 0.495,
+     "dif_mismos_partidos_p5": -0.0866
+    },
+    "A_vs_equipo": {
+     "n": 67,
+     "patas_dia": 4.47,
+     "acierto": 0.6866,
+     "cuota": 1.9246,
+     "casa": 0.4765,
+     "metodo": 0.58,
+     "gan_100": 32.3,
+     "base_acierto": 0.5282,
+     "base_cuota": null,
+     "dif": 0.1584,
+     "dif_p5": 0.0488
+    },
+    "B_vs_equipo": {
+     "n": 101,
+     "patas_dia": 5.32,
+     "acierto": 0.5149,
+     "cuota": 1.9238,
+     "casa": 0.4773,
+     "metodo": 0.5807,
+     "gan_100": -0.4,
+     "base_acierto": 0.4028,
+     "base_cuota": null,
+     "dif": 0.112,
+     "dif_p5": 0.0165
+    }
+   },
+   "elegida_ganancia": {
+    "regla": "más · descanso parejo · método − casa > 6 pts",
+    "seg": [
+     [
+      "ap",
+      "más"
+     ],
+     [
+      "desc",
+      "descanso parejo"
+     ]
+    ],
+    "u": 0.06,
+    "A": {
+     "n": 67,
+     "patas_dia": 4.47,
+     "acierto": 0.6866,
+     "cuota": 1.9246,
+     "casa": 0.4765,
+     "metodo": 0.58,
+     "gan_100": 32.3,
+     "base_acierto": 0.5,
+     "base_cuota": null,
+     "dif": 0.1866,
+     "dif_p5": 0.0805,
+     "acierto_p5": 0.5897,
+     "gan_p5": 13.5,
+     "base_gan_100": -7.0,
+     "dif_gan_100": 39.3,
+     "dif_gan_p5": 19.0,
+     "base_mismos_partidos": 0.5224,
+     "dif_mismos_partidos_p5": 0.0323
+    },
+    "B": {
+     "n": 101,
+     "patas_dia": 5.32,
+     "acierto": 0.5149,
+     "cuota": 1.9238,
+     "casa": 0.4773,
+     "metodo": 0.5807,
+     "gan_100": -0.4,
+     "base_acierto": 0.4565,
+     "base_cuota": null,
+     "dif": 0.0583,
+     "dif_p5": -0.0303,
+     "acierto_p5": 0.4298,
+     "gan_p5": -16.8,
+     "base_gan_100": -15.4,
+     "dif_gan_100": 15.0,
+     "dif_gan_p5": -2.1,
+     "base_mismos_partidos": 0.495,
+     "dif_mismos_partidos_p5": -0.0866
+    },
+    "A_vs_equipo": {
+     "n": 67,
+     "patas_dia": 4.47,
+     "acierto": 0.6866,
+     "cuota": 1.9246,
+     "casa": 0.4765,
+     "metodo": 0.58,
+     "gan_100": 32.3,
+     "base_acierto": 0.5282,
+     "base_cuota": null,
+     "dif": 0.1584,
+     "dif_p5": 0.0488
+    },
+    "B_vs_equipo": {
+     "n": 101,
+     "patas_dia": 5.32,
+     "acierto": 0.5149,
+     "cuota": 1.9238,
+     "casa": 0.4773,
+     "metodo": 0.5807,
+     "gan_100": -0.4,
+     "base_acierto": 0.4028,
+     "base_cuota": null,
+     "dif": 0.112,
+     "dif_p5": 0.0165
+    }
+   },
+   "top10_A_acierto": [
+    {
+     "regla": "más · descanso parejo · método − casa > 6 pts",
+     "A": {
+      "n": 67,
+      "acierto": 0.6866,
+      "cuota": 1.9246,
+      "dif": 0.1866,
+      "dif_p5": 0.0805
+     },
+     "B": {
+      "n": 101,
+      "acierto": 0.5149,
+      "cuota": 1.9238,
+      "dif": 0.0583,
+      "dif_p5": -0.0303
+     }
+    },
+    {
+     "regla": "más · método − casa > 6 pts",
+     "A": {
+      "n": 74,
+      "acierto": 0.6757,
+      "cuota": 1.9294,
+      "dif": 0.1757,
+      "dif_p5": 0.0748
+     },
+     "B": {
+      "n": 111,
+      "acierto": 0.5135,
+      "cuota": 1.9283,
+      "dif": 0.057,
+      "dif_p5": -0.0266
+     }
+    },
+    {
+     "regla": "más · local · método − casa > 6 pts",
+     "A": {
+      "n": 40,
+      "acierto": 0.675,
+      "cuota": 1.9377,
+      "dif": 0.175,
+      "dif_p5": 0.044
+     },
+     "B": {
+      "n": 62,
+      "acierto": 0.5645,
+      "cuota": 1.9272,
+      "dif": 0.108,
+      "dif_p5": -0.0064
+     }
+    },
+    {
+     "regla": "más · favorito · método − casa > 6 pts",
+     "A": {
+      "n": 50,
+      "acierto": 0.66,
+      "cuota": 1.9479,
+      "dif": 0.16,
+      "dif_p5": 0.0399
+     },
+     "B": {
+      "n": 76,
+      "acierto": 0.5658,
+      "cuota": 1.9189,
+      "dif": 0.1093,
+      "dif_p5": 0.0059
+     }
+    },
+    {
+     "regla": "más · λ a favor <0,5 sd · método − casa > 6 pts",
+     "A": {
+      "n": 69,
+      "acierto": 0.6377,
+      "cuota": 1.9384,
+      "dif": 0.1377,
+      "dif_p5": 0.0293
+     },
+     "B": {
+      "n": 107,
+      "acierto": 0.5234,
+      "cuota": 1.9404,
+      "dif": 0.0668,
+      "dif_p5": -0.0174
+     }
+    },
+    {
+     "regla": "más · no favorito · método − casa > 3 pts",
+     "A": {
+      "n": 65,
+      "acierto": 0.6308,
+      "cuota": 1.9312,
+      "dif": 0.1308,
+      "dif_p5": 0.0271
+     },
+     "B": {
+      "n": 93,
+      "acierto": 0.6129,
+      "cuota": 1.9445,
+      "dif": 0.1564,
+      "dif_p5": 0.064
+     }
+    },
+    {
+     "regla": "favorito · descanso parejo · método − casa > 9 pts",
+     "A": {
+      "n": 41,
+      "acierto": 0.6585,
+      "cuota": 1.9561,
+      "dif": 0.1585,
+      "dif_p5": 0.0248
+     },
+     "B": {
+      "n": 66,
+      "acierto": 0.4848,
+      "cuota": 1.9428,
+      "dif": 0.0283,
+      "dif_p5": -0.084
+     }
+    },
+    {
+     "regla": "λ a favor <0,5 sd · descanso parejo · método − casa > 6 pts",
+     "A": {
+      "n": 90,
+      "acierto": 0.6222,
+      "cuota": 1.9067,
+      "dif": 0.1222,
+      "dif_p5": 0.0247
+     },
+     "B": {
+      "n": 128,
+      "acierto": 0.5391,
+      "cuota": 1.9072,
+      "dif": 0.0825,
+      "dif_p5": 0.0011
+     }
+    },
+    {
+     "regla": "más · favorito · método − casa > 9 pts",
+     "A": {
+      "n": 31,
+      "acierto": 0.6774,
+      "cuota": 1.9491,
+      "dif": 0.1774,
+      "dif_p5": 0.0238
+     },
+     "B": {
+      "n": 44,
+      "acierto": 0.5682,
+      "cuota": 1.9211,
+      "dif": 0.1117,
+      "dif_p5": -0.0166
+     }
+    },
+    {
+     "regla": "corners · λ a favor <0,5 sd · método − casa > 6 pts",
+     "A": {
+      "n": 40,
+      "acierto": 0.65,
+      "cuota": 1.9779,
+      "dif": 0.15,
+      "dif_p5": 0.0218
+     },
+     "B": {
+      "n": 71,
+      "acierto": 0.3944,
+      "cuota": 1.9537,
+      "dif": -0.0622,
+      "dif_p5": -0.1678
+     }
+    }
+   ],
+   "arrastre_A_a_B": {
+    "candidatos_p5A_mayor_0": 19,
+    "de_esos_dif_B_mayor_0": 18,
+    "de_esos_p5B_mayor_0": 5,
+    "todos_dif_B_mayor_0": 200,
+    "todos": 236
+   },
+   "boletos": {
+    "regla": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 8,
+       "dias": 19,
+       "enteros": 1,
+       "pct_entero": 0.125,
+       "rojas_medias": 1.62,
+       "momio_mediano": 10.95,
+       "gan_100": {
+        "x1.0": 86.3,
+        "x1.2": 123.6,
+        "x1.3": 142.2,
+        "x1.8": 235.4
+       }
+      },
+      "6": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 3.5,
+       "momio_mediano": 36.17,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.33,
+       "momio_mediano": 415.29,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 8.33,
+       "momio_mediano": 10278.83,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 19
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 14,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.071,
+       "rojas_medias": 1.64,
+       "momio_mediano": 11.07,
+       "gan_100": {
+        "x1.0": 6.5,
+        "x1.2": 27.8,
+        "x1.3": 38.4,
+        "x1.8": 91.6
+       }
+      },
+      "6": {
+       "dias_con_boleto": 8,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.25,
+       "momio_mediano": 36.64,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 6,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.33,
+       "momio_mediano": 455.06,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 3,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 8.33,
+       "momio_mediano": 10278.83,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 0,
+       "dias": 34
+      }
+     }
+    },
+    "simple": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 10,
+       "dias": 19,
+       "enteros": 2,
+       "pct_entero": 0.2,
+       "rojas_medias": 1.9,
+       "momio_mediano": 11.13,
+       "gan_100": {
+        "x1.0": 158.6,
+        "x1.2": 210.3,
+        "x1.3": 236.2,
+        "x1.8": 365.5
+       }
+      },
+      "6": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.86,
+       "momio_mediano": 36.65,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.0,
+       "momio_mediano": 400.64,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 8.67,
+       "momio_mediano": 8453.47,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 3,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 12.67,
+       "momio_mediano": 5120950.88,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 20,
+       "dias": 34,
+       "enteros": 2,
+       "pct_entero": 0.1,
+       "rojas_medias": 1.85,
+       "momio_mediano": 11.6,
+       "gan_100": {
+        "x1.0": 29.3,
+        "x1.2": 55.2,
+        "x1.3": 68.1,
+        "x1.8": 132.7
+       }
+      },
+      "6": {
+       "dias_con_boleto": 13,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.85,
+       "momio_mediano": 36.65,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 9,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.56,
+       "momio_mediano": 425.91,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 6,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 6.33,
+       "momio_mediano": 9360.81,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 3,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 12.67,
+       "momio_mediano": 5120950.88,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    },
+    "base": {
+     "B": {
+      "4": {
+       "dias_con_boleto": 13,
+       "dias": 19,
+       "enteros": 3,
+       "pct_entero": 0.231,
+       "rojas_medias": 1.54,
+       "momio_mediano": 10.8,
+       "gan_100": {
+        "x1.0": 157.5,
+        "x1.2": 209.0,
+        "x1.3": 234.7,
+        "x1.8": 363.5
+       }
+      },
+      "6": {
+       "dias_con_boleto": 10,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 2.8,
+       "momio_mediano": 35.13,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "10": {
+       "dias_con_boleto": 9,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.89,
+       "momio_mediano": 388.02,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 7,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 8.0,
+       "momio_mediano": 8858.71,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 4,
+       "dias": 19,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 12.75,
+       "momio_mediano": 3379542.34,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     },
+     "todo": {
+      "4": {
+       "dias_con_boleto": 27,
+       "dias": 34,
+       "enteros": 4,
+       "pct_entero": 0.148,
+       "rojas_medias": 1.67,
+       "momio_mediano": 10.8,
+       "gan_100": {
+        "x1.0": 64.4,
+        "x1.2": 97.2,
+        "x1.3": 113.7,
+        "x1.8": 195.9
+       }
+      },
+      "6": {
+       "dias_con_boleto": 23,
+       "dias": 34,
+       "enteros": 1,
+       "pct_entero": 0.043,
+       "rojas_medias": 2.78,
+       "momio_mediano": 35.33,
+       "gan_100": {
+        "x1.0": 53.6,
+        "x1.2": 84.4,
+        "x1.3": 99.7,
+        "x1.8": 176.5
+       }
+      },
+      "10": {
+       "dias_con_boleto": 18,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 4.78,
+       "momio_mediano": 390.49,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "15": {
+       "dias_con_boleto": 14,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 7.07,
+       "momio_mediano": 8349.41,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      },
+      "25": {
+       "dias_con_boleto": 8,
+       "dias": 34,
+       "enteros": 0,
+       "pct_entero": 0.0,
+       "rojas_medias": 12.5,
+       "momio_mediano": 3211055.63,
+       "gan_100": {
+        "x1.0": -100.0,
+        "x1.2": -100.0,
+        "x1.3": -100.0,
+        "x1.8": -100.0
+       }
+      }
+     }
+    }
+   },
+   "boleto_teorico_B": {
+    "regla": {
+     "valor_pata": 0.9905,
+     "4": {
+      "x1.0": -3.8,
+      "x1.2": 15.5,
+      "x1.3": 25.1,
+      "x1.8": 73.2
+     },
+     "6": {
+      "x1.0": -5.6,
+      "x1.2": 13.3,
+      "x1.3": 22.7,
+      "x1.8": 69.9
+     },
+     "10": {
+      "x1.0": -9.1,
+      "x1.2": 9.0,
+      "x1.3": 18.1,
+      "x1.8": 63.5
+     },
+     "15": {
+      "x1.0": -13.4,
+      "x1.2": 3.9,
+      "x1.3": 12.6,
+      "x1.8": 55.9
+     },
+     "25": {
+      "x1.0": -21.3,
+      "x1.2": -5.6,
+      "x1.3": 2.3,
+      "x1.8": 41.6
+     }
+    },
+    "simple": {
+     "valor_pata": 0.9563,
+     "4": {
+      "x1.0": -16.4,
+      "x1.2": 0.3,
+      "x1.3": 8.7,
+      "x1.8": 50.5
+     },
+     "6": {
+      "x1.0": -23.5,
+      "x1.2": -8.2,
+      "x1.3": -0.6,
+      "x1.8": 37.6
+     },
+     "10": {
+      "x1.0": -36.1,
+      "x1.2": -23.3,
+      "x1.3": -16.9,
+      "x1.8": 15.1
+     },
+     "15": {
+      "x1.0": -48.9,
+      "x1.2": -38.6,
+      "x1.3": -33.5,
+      "x1.8": -8.0
+     },
+     "25": {
+      "x1.0": -67.3,
+      "x1.2": -60.8,
+      "x1.3": -57.5,
+      "x1.8": -41.1
+     }
+    },
+    "base": {
+     "valor_pata": 0.849,
+     "4": {
+      "x1.0": -48.0,
+      "x1.2": -37.6,
+      "x1.3": -32.4,
+      "x1.8": -6.5
+     },
+     "6": {
+      "x1.0": -62.5,
+      "x1.2": -55.0,
+      "x1.3": -51.3,
+      "x1.8": -32.6
+     },
+     "10": {
+      "x1.0": -80.5,
+      "x1.2": -76.6,
+      "x1.3": -74.7,
+      "x1.8": -65.0
+     },
+     "15": {
+      "x1.0": -91.4,
+      "x1.2": -89.7,
+      "x1.3": -88.8,
+      "x1.8": -84.5
+     },
+     "25": {
+      "x1.0": -98.3,
+      "x1.2": -98.0,
+      "x1.3": -97.8,
+      "x1.8": -97.0
+     }
+    }
+   }
+  }
+ },
+ "ambos_marcan_novibet": {
+  "partidos": 96,
+  "corte": "2026-09-20",
+  "logloss_casa": 0.6648,
+  "logloss_metodo": 0.6663,
+  "pisos": {
+   "1.30": {
+    "casa elige": {
+     "A": {
+      "n": 34,
+      "acierto": 0.6471,
+      "casa": 0.5807,
+      "cuota": 1.6224,
+      "gan_100": 6.2
+     },
+     "B": {
+      "n": 52,
+      "acierto": 0.7308,
+      "casa": 0.5882,
+      "cuota": 1.6013,
+      "gan_100": 17.9
+     }
+    },
+    "método − casa > 0": {
+     "A": {
+      "n": 7,
+      "acierto": 0.5714,
+      "casa": 0.5846,
+      "cuota": 1.6186,
+      "gan_100": -4.1
+     },
+     "B": {
+      "n": 20,
+      "acierto": 0.95,
+      "casa": 0.5814,
+      "cuota": 1.617,
+      "gan_100": 53.9
+     }
+    },
+    "método − casa > 3": {
+     "A": {
+      "n": 2,
+      "acierto": 0.5,
+      "casa": 0.5536,
+      "cuota": 1.705,
+      "gan_100": -14.0
+     },
+     "B": {
+      "n": 3,
+      "acierto": 0.6667,
+      "casa": 0.579,
+      "cuota": 1.61,
+      "gan_100": 9.0
+     }
+    },
+    "método − casa > 6": {
+     "A": {
+      "n": 0
+     },
+     "B": {
+      "n": 1,
+      "acierto": 1.0,
+      "casa": 0.5688,
+      "cuota": 1.63,
+      "gan_100": 63.0
+     }
+    },
+    "método − casa > 9": {
+     "A": {
+      "n": 0
+     },
+     "B": {
+      "n": 0
+     }
+    }
+   },
+   "1.45": {
+    "casa elige": {
+     "A": {
+      "n": 36,
+      "acierto": 0.6111,
+      "casa": 0.5636,
+      "cuota": 1.6692,
+      "gan_100": 1.4
+     },
+     "B": {
+      "n": 51,
+      "acierto": 0.7255,
+      "casa": 0.5704,
+      "cuota": 1.6498,
+      "gan_100": 21.0
+     }
+    },
+    "método − casa > 0": {
+     "A": {
+      "n": 11,
+      "acierto": 0.5455,
+      "casa": 0.5344,
+      "cuota": 1.7691,
+      "gan_100": -3.9
+     },
+     "B": {
+      "n": 23,
+      "acierto": 0.8261,
+      "casa": 0.5578,
+      "cuota": 1.6865,
+      "gan_100": 37.7
+     }
+    },
+    "método − casa > 3": {
+     "A": {
+      "n": 4,
+      "acierto": 0.5,
+      "casa": 0.5184,
+      "cuota": 1.8175,
+      "gan_100": -9.0
+     },
+     "B": {
+      "n": 5,
+      "acierto": 0.6,
+      "casa": 0.5474,
+      "cuota": 1.716,
+      "gan_100": 2.6
+     }
+    },
+    "método − casa > 6": {
+     "A": {
+      "n": 1,
+      "acierto": 0.0,
+      "casa": 0.4799,
+      "cuota": 1.94,
+      "gan_100": -100.0
+     },
+     "B": {
+      "n": 1,
+      "acierto": 1.0,
+      "casa": 0.5688,
+      "cuota": 1.63,
+      "gan_100": 63.0
+     }
+    },
+    "método − casa > 9": {
+     "A": {
+      "n": 0
+     },
+     "B": {
+      "n": 0
+     }
+    }
+   },
+   "1.60": {
+    "casa elige": {
+     "A": {
+      "n": 28,
+      "acierto": 0.6071,
+      "casa": 0.5512,
+      "cuota": 1.7043,
+      "gan_100": 2.6
+     },
+     "B": {
+      "n": 36,
+      "acierto": 0.8333,
+      "casa": 0.5504,
+      "cuota": 1.7064,
+      "gan_100": 41.7
+     }
+    },
+    "método − casa > 0": {
+     "A": {
+      "n": 16,
+      "acierto": 0.5,
+      "casa": 0.4915,
+      "cuota": 1.9181,
+      "gan_100": -5.9
+     },
+     "B": {
+      "n": 29,
+      "acierto": 0.6552,
+      "casa": 0.5154,
+      "cuota": 1.8334,
+      "gan_100": 14.5
+     }
+    },
+    "método − casa > 3": {
+     "A": {
+      "n": 8,
+      "acierto": 0.625,
+      "casa": 0.4907,
+      "cuota": 1.9225,
+      "gan_100": 21.1
+     },
+     "B": {
+      "n": 7,
+      "acierto": 0.5714,
+      "casa": 0.5014,
+      "cuota": 1.8757,
+      "gan_100": 2.6
+     }
+    },
+    "método − casa > 6": {
+     "A": {
+      "n": 2,
+      "acierto": 0.5,
+      "casa": 0.48,
+      "cuota": 1.95,
+      "gan_100": -2.0
+     },
+     "B": {
+      "n": 2,
+      "acierto": 1.0,
+      "casa": 0.5118,
+      "cuota": 1.84,
+      "gan_100": 84.0
+     }
+    },
+    "método − casa > 9": {
+     "A": {
+      "n": 0
+     },
+     "B": {
+      "n": 0
+     }
+    }
+   },
+   "1.70": {
+    "casa elige": {
+     "A": {
+      "n": 27,
+      "acierto": 0.4074,
+      "casa": 0.479,
+      "cuota": 1.9793,
+      "gan_100": -22.4
+     },
+     "B": {
+      "n": 32,
+      "acierto": 0.5,
+      "casa": 0.4887,
+      "cuota": 1.9369,
+      "gan_100": -9.3
+     }
+    },
+    "método − casa > 0": {
+     "A": {
+      "n": 25,
+      "acierto": 0.4,
+      "casa": 0.4583,
+      "cuota": 2.0564,
+      "gan_100": -20.4
+     },
+     "B": {
+      "n": 23,
+      "acierto": 0.4783,
+      "casa": 0.4784,
+      "cuota": 1.9704,
+      "gan_100": -8.7
+     }
+    },
+    "método − casa > 3": {
+     "A": {
+      "n": 18,
+      "acierto": 0.4444,
+      "casa": 0.4485,
+      "cuota": 2.0994,
+      "gan_100": -9.8
+     },
+     "B": {
+      "n": 8,
+      "acierto": 0.375,
+      "casa": 0.4588,
+      "cuota": 2.045,
+      "gan_100": -24.2
+     }
+    },
+    "método − casa > 6": {
+     "A": {
+      "n": 9,
+      "acierto": 0.3333,
+      "casa": 0.4393,
+      "cuota": 2.1389,
+      "gan_100": -29.9
+     },
+     "B": {
+      "n": 1,
+      "acierto": 1.0,
+      "casa": 0.4548,
+      "cuota": 2.05,
+      "gan_100": 105.0
+     }
+    },
+    "método − casa > 9": {
+     "A": {
+      "n": 4,
+      "acierto": 0.0,
+      "casa": 0.4263,
+      "cuota": 2.2,
+      "gan_100": -100.0
+     },
+     "B": {
+      "n": 0
+     }
+    }
+   },
+   "1.80": {
+    "casa elige": {
+     "A": {
+      "n": 30,
+      "acierto": 0.2667,
+      "casa": 0.4509,
+      "cuota": 2.0903,
+      "gan_100": -43.8
+     },
+     "B": {
+      "n": 37,
+      "acierto": 0.2703,
+      "casa": 0.4528,
+      "cuota": 2.0792,
+      "gan_100": -47.2
+     }
+    },
+    "método − casa > 0": {
+     "A": {
+      "n": 26,
+      "acierto": 0.3462,
+      "casa": 0.4462,
+      "cuota": 2.1081,
+      "gan_100": -28.0
+     },
+     "B": {
+      "n": 24,
+      "acierto": 0.3333,
+      "casa": 0.46,
+      "cuota": 2.0492,
+      "gan_100": -34.1
+     }
+    },
+    "método − casa > 3": {
+     "A": {
+      "n": 18,
+      "acierto": 0.3889,
+      "casa": 0.4408,
+      "cuota": 2.1317,
+      "gan_100": -19.3
+     },
+     "B": {
+      "n": 11,
+      "acierto": 0.2727,
+      "casa": 0.4467,
+      "cuota": 2.1055,
+      "gan_100": -44.9
+     }
+    },
+    "método − casa > 6": {
+     "A": {
+      "n": 9,
+      "acierto": 0.3333,
+      "casa": 0.4393,
+      "cuota": 2.1389,
+      "gan_100": -29.9
+     },
+     "B": {
+      "n": 1,
+      "acierto": 1.0,
+      "casa": 0.4548,
+      "cuota": 2.05,
+      "gan_100": 105.0
+     }
+    },
+    "método − casa > 9": {
+     "A": {
+      "n": 4,
+      "acierto": 0.0,
+      "casa": 0.4263,
+      "cuota": 2.2,
+      "gan_100": -100.0
+     },
+     "B": {
+      "n": 0
+     }
+    }
+   }
+  }
+ },
+ "veredicto_por_piso": {
+  "1.30": "no pasa",
+  "1.45": "no pasa",
+  "1.60": "no pasa",
+  "1.70": "parcial",
+  "1.80": "parcial"
+ },
+ "segundos": 188.6
+}

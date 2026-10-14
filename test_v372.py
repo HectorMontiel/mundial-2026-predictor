@@ -72,8 +72,9 @@ def probar():
     check(f['A']['acierto'] > 0.66 and f['B']['acierto'] > 0.66 and f['2023']['acierto'] > 0.66,
           'lo medido queda guardado (67-69 % en las dos mitades y desde 2023)')
     src = open('sonadora_ui.py', encoding='utf-8').read()
-    check("'🔷🏠 Sumar ganador (más cuota)'" in src and "'🔷🏠 Más cuota primero'" in src
-          and 'se.con_ganador(' in src, 'la pantalla tiene el selector')
+    # v373 — la Soñadora por cuota mínima incluye el ganador con su casilla
+    check("'Incluir ganador'" in src and 'sp.del_dia(' in src,
+          'la pantalla deja incluir el ganador')
 
 
 if __name__ == '__main__':

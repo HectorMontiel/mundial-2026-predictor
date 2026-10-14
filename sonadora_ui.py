@@ -219,6 +219,8 @@ def _vigencia_pata(q: Dict, p: Optional[Dict]) -> Dict:
         return {'estado': '?', 'texto': '⏳ por jugar · Método Casa 70/130'}
     if q.get('origen') == 'riesgo':
         return {'estado': '?', 'texto': '⏳ por jugar · ganador con la casa a favor'}
+    if q.get('origen') == 'piso':
+        return {'estado': '?', 'texto': '⏳ por jugar · Soñadora por cuota mínima'}
     if p is None:
         return {'estado': '?', 'texto': 'el partido ya no está en el barrido'}
     try:
@@ -402,41 +404,57 @@ def filtrar_por_dias(r: Dict, dia: Optional[str] = None,
 
 
 def _sencillas(st, r: Dict, dia: Optional[str] = None) -> None:
-    """v371 — «🎯 Sencillas a 1,30+» con el Método Casa 70/130 (ver
-    `sencillas`). Nunca lanza."""
+    """v373 — «🎯 Soñadora por cuota mínima»: eliges la cuota mínima por pata
+    y cuántas patas; en cada partido entra la pata que la casa ve más probable
+    a esa cuota (ver `sonadora_piso`: medido, a 1,45+ nada le gana a la casa;
+    a 1,30 entra sola la Casa 70/130). Cada pata con su justificación y el
+    boleto con su valor esperado, con o sin booster. Nunca lanza."""
     try:
-        import sencillas as se
+        import sonadora_piso as sp
         import vista_compacta as vc
     except Exception as e:
-        logger.debug('[sonadora] sencillas: %s', e)
+        logger.debug('[sonadora] por cuota mínima: %s', e)
         return
-    with st.expander('🎯 Sencillas a 1,30+ · %s' % se.NOMBRE, expanded=True):
-        st.caption('🎯 cuota 1,30+ sólo si la casa la ve al 70 %+ (78 % medido). '
-                   'Ganador con la casa a favor, más cuota (~1,40-1,50): 🔷 con el '
-                   'modelo de acuerdo (72 %) o 🏠 favorito de la casa al 62-70 % (68 %, '
-                   '16 años). Una por partido. Fútbol, en Playdoit.')
-        c_g, c_p = st.columns([1, 1])
-        con_g = c_g.checkbox('🔷🏠 Sumar ganador (más cuota)', value=True, key='son_se_ganador')
-        prio = c_p.selectbox('Prioridad', ['🎯 Más seguras primero', '🔷🏠 Más cuota primero'],
-                             key='son_se_prio', disabled=not con_g)
-        if con_g:
-            pats = se.con_ganador((r or {}).get('pronosticos') or [],
-                                  'cuota' if prio.startswith('🔷') else 'seguras')
-        else:
-            pats = se.del_dia((r or {}).get('pronosticos') or [])
+    with st.expander('🎯 Soñadora por cuota mínima', expanded=True):
+        st.caption('Eliges la cuota mínima por pata (p. ej. 1,60 para un booster) y '
+                   'cuántas patas. En cada partido entra la pata que la casa ve más '
+                   'probable a esa cuota: medido con 6 semanas de Playdoit y 16 años de '
+                   'partidos, a 1,45 o más nada le gana a la casa. Bajo cada pata, lo que '
+                   've la casa y el Método Contexto (⚠️ si el método la ve más baja). '
+                   'Fútbol, en Playdoit.')
+        c1, c2, c3 = st.columns([1, 1, 1])
+        piso = c1.selectbox('Cuota mínima por pata', list(sp.PISOS), key='son_se_piso',
+                            format_func=lambda x: '%.2f' % x)
+        con_g = c2.checkbox('Incluir ganador', value=True, key='son_se_ganador')
+        boost = c3.selectbox('Booster', [0, 10, 20, 30, 50, 80, 100], key='son_se_boost',
+                             format_func=lambda b: 'sin booster' if not b else '+%d %%' % b)
+        pats = sp.del_dia((r or {}).get('pronosticos') or [], float(piso), bool(con_g))
         if not pats:
-            st.info('Ahora no hay ninguna pata que cumpla la regla (cuota 1,30+ con la '
-                    'casa al 70 %+). Mira otro día.')
+            st.info('Ahora no hay patas a cuota %.2f o más en los partidos por empezar. '
+                    'Mira otro día o baja la cuota mínima.' % piso)
             return
-        n = st.number_input('Patas', min_value=1, max_value=max(1, min(10, len(pats))),
-                            value=min(3, len(pats)), step=1, key='son_se_patas')
-        b = se.boleto(pats, int(n))
-        st.markdown('**%d patas**%s · paga **×%.2f** (100 → %s) · sale entero ~**%.0f %%**'
-                    % (len(b['patas']), (' · %d de ganador' % b['n_ganador']) if b.get('n_ganador') else '',
-                       b['momio'], format(round(100 * b['momio']), ','), 100 * b['prob']))
+        # el máximo cambia con la cuota y el día: la memoria del control no puede pasarse
+        if int(st.session_state.get('son_se_patas') or 0) > len(pats):
+            st.session_state['son_se_patas'] = len(pats)
+        n = st.number_input('Patas (hoy hay %d partidos con pata a esta cuota)' % len(pats),
+                            min_value=1, max_value=len(pats), value=min(4, len(pats)), step=1,
+                            key='son_se_patas')
+        b = sp.boleto(pats, int(n))
+        ev = sp.valor_esperado(b, boost / 100.0)
+        mom = b['momio'] * (1 + boost / 100.0)
+        st.markdown('**%d patas** · paga **×%.2f**%s (100 → %s) · sale entero ~**%.1f %%** · '
+                    'valor esperado: **%+.0f** por cada $100'
+                    % (len(b['patas']), mom,
+                       (' con el booster (×%.2f sin él)' % b['momio']) if boost else '',
+                       format(round(100 * mom), ','), 100 * b['prob'], ev))
         st.markdown(vc.html_lista(b['patas']), unsafe_allow_html=True)
-        st.caption(se.medido(len(b['patas'])) + ' Hay %d patas así hoy.' % len(pats))
-        _seguir(st, b['patas'], dia, 'son_se_seguir', se.ORIGEN)
+        st.caption(sp.medido(float(piso), len(b['patas'])))
+        if len(b['patas']) >= 8:
+            tr = sp.partir(b, 4)
+            st.markdown('**O partido en %d boletos de hasta 4** (en orden de hora): %s'
+                        % (len(tr), ' · '.join('×%.2f (~%.0f %%)' % (x['momio'], 100 * x['prob'])
+                                               for x in tr)))
+        _seguir(st, b['patas'], dia, 'son_se_seguir', sp.ORIGEN)
 
 
 def _boleto_largo(st, r: Dict) -> None:

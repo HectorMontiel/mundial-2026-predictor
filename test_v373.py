@@ -61,8 +61,56 @@ def probar_pantalla():
           'la lista bajo el marcador enseña las ya empezadas y cuenta verdes/rojas de las ⭐')
 
 
+TAB = {'1x2': {'home': 0.58, 'draw': 0.24, 'away': 0.18}, '1x2_cuotas': {'home': 1.62, 'draw': 3.9, 'away': 5.0},
+       'goles': {'2.5': {'p': 0.60, 'mas': 1.60, 'menos': 2.3}, '1.5': {'p': 0.74, 'mas': 1.30, 'menos': 3.4},
+                 '2.25': {'p': 0.66, 'mas': 1.45, 'menos': 2.6}},
+       'corners': {'9.5': {'p': 0.45, 'mas': 2.1, 'menos': 1.66}},
+       'corners_home': {'4.5': {'p': 0.62, 'mas': 1.55, 'menos': 2.3}},
+       'tarjetas': {'3.5': {'p': 0.62, 'mas': 1.55, 'menos': 2.3}},
+       'btts': 0.57, 'btts_cuotas': {'si': 1.65, 'no': 2.1}}
+
+
+def probar_piso():
+    import mercado_implicito as mi
+    import sonadora_piso as sp
+    v = mi.del_partido
+    mi.del_partido = lambda h, a, **k: TAB
+    try:
+        p = {'partido': 'Uno FC vs Dos FC', 'deporte': 'Fútbol', 'inicio': '2099-01-01T12:00:00Z'}
+        c160 = sp.candidatas(p, 1.60)
+        ap = [x['apuesta'] for x in c160]
+        check(ap[0] == 'Goles: Más de 2.5' and 'Gana Uno FC' in ap and 'Ambos marcan: Sí' in ap
+              and 'Córners: Menos de 9.5' in ap and all(1.60 <= x['cuota'] <= 2.10 for x in c160),
+              'a 1,60: sólo patas a 1,60-2,10, de la más probable a la menos (%s)' % ap)
+        check(not any('Tarjetas' in a or 'Córners Uno' in a or '2.25' in a for a in ap),
+              'fuera tarjetas, córners de equipo y líneas de cuarto')
+        c130 = sp.candidatas(p, 1.30)
+        check(c130[0]['apuesta'] == 'Goles: Más de 1.5' and c130[0]['prob'] == 0.78
+              and 'Casa 70/130' in c130[0]['porque'],
+              'a 1,30 la Casa 70/130 entra primero, con su 78 % medido')
+        check(sp.candidatas(p, 1.60, con_ganador=False) and
+              not any(x['bloque'] == 'resultado' for x in sp.candidatas(p, 1.60, con_ganador=False)),
+              'sin ganador si no se pide')
+        dd = sp.del_dia([p, dict(p, partido='Tres FC vs Cuatro FC')], 1.60, ahora=0)
+        check(len(dd) == 2 and len({x['partido'] for x in dd}) == 2, 'una pata por partido')
+        b = sp.boleto(dd, 2)
+        ev0, ev2 = sp.valor_esperado(b), sp.valor_esperado(b, 0.2)
+        check(abs(ev2 - (1.2 * b['momio'] * b['prob'] - 1) * 100) < 1e-9 and ev2 > ev0,
+              'el valor esperado con y sin booster')
+        check('NINGUNO' in sp.medido(1.6, 12) and '56 %' in sp.medido(1.6, 4),
+              'dice lo medido del piso y avisa con 10+ patas')
+    finally:
+        mi.del_partido = v
+    ui = open('sonadora_ui.py', encoding='utf-8').read()
+    check("'🎯 Soñadora por cuota mínima'" in ui and "'Cuota mínima por pata'" in ui
+          and "'Booster'" in ui and "max_value=len(pats)" in ui,
+          'la pantalla: cuota mínima, booster y tantas patas como partidos haya')
+
+
 if __name__ == '__main__':
-    print('=== 1. las empezadas ===')
+    print('=== 0. la soñadora por cuota mínima ===')
+    probar_piso()
+    print('\n=== 1. las empezadas ===')
     probar_finalizadas()
     print('\n=== 2. la pantalla ===')
     probar_pantalla()

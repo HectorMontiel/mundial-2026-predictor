@@ -111,7 +111,7 @@ def probar_boletos():
     src = open('sonadora_ui.py', encoding='utf-8').read()
     check("key='son_mb_ant'" in src and "key='son_mb_sig'" in src and 'Boleto <b>%d</b> de %d' in src
           and '🗑️ Dejar de seguir este boleto' in src, 'Mis boletos en carrusel, con quitar')
-    check("_seguir(st, b['patas'], dia, 'son_se_seguir', se.ORIGEN)" in src
+    check("_seguir(st, b['patas'], dia, 'son_se_seguir', sp.ORIGEN)" in src
           and "_seguir(st, b['patas'], None, 'son_bl_seguir', 'largo')" in src,
           '«📌 Seguir este boleto» en las sencillas y en el boleto largo')
     check("'⚡ Armar con los picks de «Apuestas del Día»',\n                     expanded=False" in src

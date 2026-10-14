@@ -15100,8 +15100,11 @@ def test_la_sonadora_ya_no_pregunta_por_el_boost():
     fuente = open('sonadora_ui.py', encoding='utf-8').read().lower()
     check('son_boost' not in fuente,
           'la pantalla ya no tiene el selector de boost')
-    check('boost' not in fuente,
-          'ni una mención al boost en la pantalla')
+    # v373 — el usuario pidió de nuevo el booster (promociones de Draftea con
+    # cuota mínima por pata): vive SÓLO en la Soñadora por cuota mínima, como
+    # multiplicador del valor esperado, no como tope del motor
+    check(fuente.count("key='son_se_boost'") == 1 and 'son_boost' not in fuente,
+          'el booster sólo está en la soñadora por cuota mínima')
     check(not hasattr(su, 'BOOSTS'), 'ni la tabla de boosts')
 
 

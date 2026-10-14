@@ -1,0 +1,1959 @@
+{
+ "fugas": {
+  "mitades": {
+   "A_hasta": "2026-09-11",
+   "B_desde": "2026-09-12",
+   "partidos_en_las_dos": 0
+  },
+  "mid_lineas_sin_partido_contexto": 37,
+  "partidos_contexto_con_2_o_mas_mid": 0,
+  "mid_con_mismos_totales_liga_fecha": 25,
+  "contexto_antes_del_partido": {
+   "l5_tiros_vs_5_anteriores_mae": 0.3769,
+   "l5_tiros_vs_5_con_el_partido_mae": 1.2338,
+   "descanso_igual_dias_desde_el_anterior": 0.9598
+  },
+  "equipo_por_lambda_vs_resultado": 0.9642
+ },
+ "reglas_fijas": {
+  "corte_70": "2026-09-19",
+  "1.70": {
+   "R1 más · descanso parejo · >6 (la elegida a 1,70 y 1,80)": {
+    "A (mitad 1)": {
+     "n": 83,
+     "patas_dia": 5.53,
+     "acierto": 0.7349,
+     "cuota": 1.8205,
+     "casa": 0.503,
+     "metodo": 0.6123,
+     "gan_100": 34.3,
+     "gan_p5": 18.8,
+     "base_acierto": 0.4891,
+     "dif": 0.2459,
+     "dif_p5": 0.1574,
+     "dif_gan_100": 48.6,
+     "dif_gan_p5": 32.3
+    },
+    "B (mitad 2)": {
+     "n": 112,
+     "patas_dia": 5.89,
+     "acierto": 0.5536,
+     "cuota": 1.8206,
+     "casa": 0.5038,
+     "metodo": 0.6116,
+     "gan_100": 0.1,
+     "gan_p5": -13.6,
+     "base_acierto": 0.538,
+     "dif": 0.0155,
+     "dif_p5": -0.0654,
+     "dif_gan_100": 6.6,
+     "dif_gan_p5": -7.6
+    },
+    "agosto": {
+     "n": 34,
+     "patas_dia": 8.5,
+     "acierto": 0.8235,
+     "cuota": 1.8305,
+     "casa": 0.4997,
+     "metodo": 0.6109,
+     "gan_100": 51.1,
+     "gan_p5": 28.4,
+     "base_acierto": 0.4058,
+     "dif": 0.4177,
+     "dif_p5": 0.2574,
+     "dif_gan_100": 80.7,
+     "dif_gan_p5": 51.2
+    },
+    "septiembre": {
+     "n": 150,
+     "patas_dia": 6.0,
+     "acierto": 0.5933,
+     "cuota": 1.8183,
+     "casa": 0.5042,
+     "metodo": 0.612,
+     "gan_100": 7.8,
+     "gan_p5": -4.3,
+     "base_acierto": 0.5245,
+     "dif": 0.0688,
+     "dif_p5": -0.0003,
+     "dif_gan_100": 16.3,
+     "dif_gan_p5": 3.5
+    },
+    "octubre": {
+     "n": 11,
+     "patas_dia": 2.2,
+     "acierto": 0.5455,
+     "cuota": 1.821,
+     "casa": 0.5051,
+     "metodo": 0.6135,
+     "gan_100": -5.2,
+     "gan_p5": -50.1,
+     "base_acierto": 0.6818,
+     "dif": -0.1364,
+     "dif_p5": -0.4318,
+     "dif_gan_100": -22.9,
+     "dif_gan_p5": -73.8
+    },
+    "primer 70 %": {
+     "n": 123,
+     "patas_dia": 5.59,
+     "acierto": 0.6667,
+     "cuota": 1.8178,
+     "casa": 0.5039,
+     "metodo": 0.6141,
+     "gan_100": 21.4,
+     "gan_p5": 9.7,
+     "base_acierto": 0.525,
+     "dif": 0.1417,
+     "dif_p5": 0.0714,
+     "dif_gan_100": 29.7,
+     "dif_gan_p5": 17.0
+    },
+    "último 30 %": {
+     "n": 72,
+     "patas_dia": 6.0,
+     "acierto": 0.5694,
+     "cuota": 1.8253,
+     "casa": 0.5026,
+     "metodo": 0.6081,
+     "gan_100": 3.0,
+     "gan_p5": -12.7,
+     "base_acierto": 0.5,
+     "dif": 0.0694,
+     "dif_p5": -0.0275,
+     "dif_gan_100": 16.3,
+     "dif_gan_p5": -1.2
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 32,
+      "acierto": 0.8125,
+      "base_acierto": 0.4032,
+      "dif": 0.4093,
+      "gan_100": 49.2
+     },
+     "2026-08-31": {
+      "n": 37,
+      "acierto": 0.7027,
+      "base_acierto": 0.5,
+      "dif": 0.2027,
+      "gan_100": 28.7
+     },
+     "2026-09-07": {
+      "n": 39,
+      "acierto": 0.5128,
+      "base_acierto": 0.5621,
+      "dif": -0.0493,
+      "gan_100": -8.8
+     },
+     "2026-09-14": {
+      "n": 58,
+      "acierto": 0.569,
+      "base_acierto": 0.5158,
+      "dif": 0.0532,
+      "gan_100": 3.5
+     },
+     "2026-09-21": {
+      "n": 15,
+      "acierto": 0.7333,
+      "base_acierto": 0.4706,
+      "dif": 0.2627,
+      "gan_100": 35.6
+     },
+     "2026-09-28": {
+      "n": 6,
+      "acierto": 0.3333,
+      "base_acierto": 0.5333,
+      "dif": -0.2,
+      "gan_100": -41.2
+     },
+     "2026-10-05": {
+      "n": 8,
+      "acierto": 0.625,
+      "base_acierto": 0.9,
+      "dif": -0.275,
+      "gan_100": 8.4
+     }
+    },
+    "semanas_dif_positiva": "4 de 7"
+   },
+   "R2 más de equipo · >6 («lo único que se repite»)": {
+    "A (mitad 1)": {
+     "n": 89,
+     "patas_dia": 5.93,
+     "acierto": 0.7079,
+     "cuota": 1.8178,
+     "casa": 0.5038,
+     "metodo": 0.6134,
+     "gan_100": 29.1,
+     "gan_p5": 15.4,
+     "base_acierto": 0.4891,
+     "dif": 0.2188,
+     "dif_p5": 0.1376,
+     "dif_gan_100": 43.4,
+     "dif_gan_p5": 28.0
+    },
+    "B (mitad 2)": {
+     "n": 127,
+     "patas_dia": 6.68,
+     "acierto": 0.5669,
+     "cuota": 1.8203,
+     "casa": 0.504,
+     "metodo": 0.6096,
+     "gan_100": 2.5,
+     "gan_p5": -10.3,
+     "base_acierto": 0.538,
+     "dif": 0.0289,
+     "dif_p5": -0.0497,
+     "dif_gan_100": 9.1,
+     "dif_gan_p5": -5.2
+    },
+    "agosto": {
+     "n": 34,
+     "patas_dia": 8.5,
+     "acierto": 0.8235,
+     "cuota": 1.8305,
+     "casa": 0.4997,
+     "metodo": 0.6109,
+     "gan_100": 51.1,
+     "gan_p5": 31.6,
+     "base_acierto": 0.4058,
+     "dif": 0.4177,
+     "dif_p5": 0.2649,
+     "dif_gan_100": 80.7,
+     "dif_gan_p5": 53.5
+    },
+    "septiembre": {
+     "n": 171,
+     "patas_dia": 6.84,
+     "acierto": 0.5906,
+     "cuota": 1.8169,
+     "casa": 0.5047,
+     "metodo": 0.6111,
+     "gan_100": 7.2,
+     "gan_p5": -3.8,
+     "base_acierto": 0.5245,
+     "dif": 0.0661,
+     "dif_p5": 0.0026,
+     "dif_gan_100": 15.7,
+     "dif_gan_p5": 4.3
+    },
+    "octubre": {
+     "n": 11,
+     "patas_dia": 2.2,
+     "acierto": 0.5455,
+     "cuota": 1.821,
+     "casa": 0.5051,
+     "metodo": 0.6135,
+     "gan_100": -5.2,
+     "gan_p5": -48.2,
+     "base_acierto": 0.6818,
+     "dif": -0.1364,
+     "dif_p5": -0.4353,
+     "dif_gan_100": -22.9,
+     "dif_gan_p5": -74.1
+    },
+    "primer 70 %": {
+     "n": 136,
+     "patas_dia": 6.18,
+     "acierto": 0.6544,
+     "cuota": 1.8153,
+     "casa": 0.5047,
+     "metodo": 0.6145,
+     "gan_100": 19.1,
+     "gan_p5": 6.5,
+     "base_acierto": 0.525,
+     "dif": 0.1294,
+     "dif_p5": 0.0514,
+     "dif_gan_100": 27.3,
+     "dif_gan_p5": 13.2
+    },
+    "último 30 %": {
+     "n": 80,
+     "patas_dia": 6.67,
+     "acierto": 0.575,
+     "cuota": 1.826,
+     "casa": 0.5025,
+     "metodo": 0.6056,
+     "gan_100": 4.0,
+     "gan_p5": -11.8,
+     "base_acierto": 0.5,
+     "dif": 0.075,
+     "dif_p5": -0.0308,
+     "dif_gan_100": 17.3,
+     "dif_gan_p5": -1.8
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 32,
+      "acierto": 0.8125,
+      "base_acierto": 0.4032,
+      "dif": 0.4093,
+      "gan_100": 49.2
+     },
+     "2026-08-31": {
+      "n": 39,
+      "acierto": 0.6667,
+      "base_acierto": 0.5,
+      "dif": 0.1667,
+      "gan_100": 22.1
+     },
+     "2026-09-07": {
+      "n": 48,
+      "acierto": 0.5208,
+      "base_acierto": 0.5621,
+      "dif": -0.0413,
+      "gan_100": -7.7
+     },
+     "2026-09-14": {
+      "n": 66,
+      "acierto": 0.5909,
+      "base_acierto": 0.5158,
+      "dif": 0.0751,
+      "gan_100": 7.8
+     },
+     "2026-09-21": {
+      "n": 17,
+      "acierto": 0.7059,
+      "base_acierto": 0.4706,
+      "dif": 0.2353,
+      "gan_100": 30.1
+     },
+     "2026-09-28": {
+      "n": 6,
+      "acierto": 0.3333,
+      "base_acierto": 0.5333,
+      "dif": -0.2,
+      "gan_100": -41.2
+     },
+     "2026-10-05": {
+      "n": 8,
+      "acierto": 0.625,
+      "base_acierto": 0.9,
+      "dif": -0.275,
+      "gan_100": 8.4
+     }
+    },
+    "semanas_dif_positiva": "4 de 7"
+   },
+   "C1 control: más · descanso parejo SIN método": {
+    "A (mitad 1)": {
+     "n": 130,
+     "patas_dia": 8.67,
+     "acierto": 0.5615,
+     "cuota": 1.7575,
+     "casa": 0.5195,
+     "metodo": 0.5332,
+     "gan_100": -1.0,
+     "gan_p5": -13.5,
+     "base_acierto": 0.4891,
+     "dif": 0.0725,
+     "dif_p5": -0.007,
+     "dif_gan_100": 13.3,
+     "dif_gan_p5": -0.8
+    },
+    "B (mitad 2)": {
+     "n": 190,
+     "patas_dia": 10.0,
+     "acierto": 0.5421,
+     "cuota": 1.7781,
+     "casa": 0.5146,
+     "metodo": 0.5275,
+     "gan_100": -4.2,
+     "gan_p5": -15.0,
+     "base_acierto": 0.538,
+     "dif": 0.0041,
+     "dif_p5": -0.0609,
+     "dif_gan_100": 2.3,
+     "dif_gan_p5": -9.3
+    },
+    "agosto": {
+     "n": 56,
+     "patas_dia": 14.0,
+     "acierto": 0.5893,
+     "cuota": 1.7621,
+     "casa": 0.5177,
+     "metodo": 0.5213,
+     "gan_100": 3.8,
+     "gan_p5": -16.5,
+     "base_acierto": 0.4058,
+     "dif": 0.1835,
+     "dif_p5": 0.0514,
+     "dif_gan_100": 33.5,
+     "dif_gan_p5": 10.2
+    },
+    "septiembre": {
+     "n": 242,
+     "patas_dia": 9.68,
+     "acierto": 0.5248,
+     "cuota": 1.7701,
+     "casa": 0.5167,
+     "metodo": 0.532,
+     "gan_100": -7.3,
+     "gan_p5": -16.6,
+     "base_acierto": 0.5245,
+     "dif": 0.0003,
+     "dif_p5": -0.0564,
+     "dif_gan_100": 1.2,
+     "dif_gan_p5": -8.8
+    },
+    "octubre": {
+     "n": 22,
+     "patas_dia": 4.4,
+     "acierto": 0.7273,
+     "cuota": 1.7859,
+     "casa": 0.5128,
+     "metodo": 0.5277,
+     "gan_100": 28.4,
+     "gan_p5": -2.4,
+     "base_acierto": 0.6818,
+     "dif": 0.0455,
+     "dif_p5": -0.1364,
+     "dif_gan_100": 10.7,
+     "dif_gan_p5": -23.2
+    },
+    "primer 70 %": {
+     "n": 200,
+     "patas_dia": 9.09,
+     "acierto": 0.565,
+     "cuota": 1.7694,
+     "casa": 0.5165,
+     "metodo": 0.5306,
+     "gan_100": -0.2,
+     "gan_p5": -10.7,
+     "base_acierto": 0.525,
+     "dif": 0.04,
+     "dif_p5": -0.0261,
+     "dif_gan_100": 8.1,
+     "dif_gan_p5": -3.7
+    },
+    "último 30 %": {
+     "n": 120,
+     "patas_dia": 10.0,
+     "acierto": 0.525,
+     "cuota": 1.7703,
+     "casa": 0.5169,
+     "metodo": 0.5286,
+     "gan_100": -7.4,
+     "gan_p5": -20.5,
+     "base_acierto": 0.5,
+     "dif": 0.025,
+     "dif_p5": -0.0607,
+     "dif_gan_100": 5.8,
+     "dif_gan_p5": -9.6
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 53,
+      "acierto": 0.6038,
+      "base_acierto": 0.4032,
+      "dif": 0.2005,
+      "gan_100": 6.4
+     },
+     "2026-08-31": {
+      "n": 56,
+      "acierto": 0.4643,
+      "base_acierto": 0.5,
+      "dif": -0.0357,
+      "gan_100": -17.5
+     },
+     "2026-09-07": {
+      "n": 72,
+      "acierto": 0.5972,
+      "base_acierto": 0.5621,
+      "dif": 0.0351,
+      "gan_100": 5.8
+     },
+     "2026-09-14": {
+      "n": 83,
+      "acierto": 0.506,
+      "base_acierto": 0.5158,
+      "dif": -0.0098,
+      "gan_100": -11.0
+     },
+     "2026-09-21": {
+      "n": 31,
+      "acierto": 0.5161,
+      "base_acierto": 0.4706,
+      "dif": 0.0455,
+      "gan_100": -9.3
+     },
+     "2026-09-28": {
+      "n": 15,
+      "acierto": 0.6,
+      "base_acierto": 0.5333,
+      "dif": 0.0667,
+      "gan_100": 8.3
+     },
+     "2026-10-05": {
+      "n": 10,
+      "acierto": 0.8,
+      "base_acierto": 0.9,
+      "dif": -0.1,
+      "gan_100": 37.5
+     }
+    },
+    "semanas_dif_positiva": "4 de 7"
+   },
+   "C2 control: más de equipo SIN método": {
+    "A (mitad 1)": {
+     "n": 142,
+     "patas_dia": 9.47,
+     "acierto": 0.5493,
+     "cuota": 1.758,
+     "casa": 0.5195,
+     "metodo": 0.533,
+     "gan_100": -3.3,
+     "gan_p5": -14.8,
+     "base_acierto": 0.4891,
+     "dif": 0.0602,
+     "dif_p5": -0.0188,
+     "dif_gan_100": 11.0,
+     "dif_gan_p5": -2.9
+    },
+    "B (mitad 2)": {
+     "n": 209,
+     "patas_dia": 11.0,
+     "acierto": 0.5407,
+     "cuota": 1.7749,
+     "casa": 0.5155,
+     "metodo": 0.5277,
+     "gan_100": -4.6,
+     "gan_p5": -14.2,
+     "base_acierto": 0.538,
+     "dif": 0.0026,
+     "dif_p5": -0.058,
+     "dif_gan_100": 1.9,
+     "dif_gan_p5": -8.7
+    },
+    "agosto": {
+     "n": 56,
+     "patas_dia": 14.0,
+     "acierto": 0.5893,
+     "cuota": 1.7621,
+     "casa": 0.5177,
+     "metodo": 0.5213,
+     "gan_100": 3.8,
+     "gan_p5": -16.9,
+     "base_acierto": 0.4058,
+     "dif": 0.1835,
+     "dif_p5": 0.0467,
+     "dif_gan_100": 33.5,
+     "dif_gan_p5": 9.1
+    },
+    "septiembre": {
+     "n": 273,
+     "patas_dia": 10.92,
+     "acierto": 0.5201,
+     "cuota": 1.7679,
+     "casa": 0.5173,
+     "metodo": 0.5318,
+     "gan_100": -8.3,
+     "gan_p5": -17.1,
+     "base_acierto": 0.5245,
+     "dif": -0.0044,
+     "dif_p5": -0.0622,
+     "dif_gan_100": 0.1,
+     "dif_gan_p5": -10.1
+    },
+    "octubre": {
+     "n": 22,
+     "patas_dia": 4.4,
+     "acierto": 0.7273,
+     "cuota": 1.7859,
+     "casa": 0.5128,
+     "metodo": 0.5277,
+     "gan_100": 28.4,
+     "gan_p5": -2.2,
+     "base_acierto": 0.6818,
+     "dif": 0.0455,
+     "dif_p5": -0.1364,
+     "dif_gan_100": 10.7,
+     "dif_gan_p5": -23.5
+    },
+    "primer 70 %": {
+     "n": 221,
+     "patas_dia": 10.05,
+     "acierto": 0.5611,
+     "cuota": 1.7685,
+     "casa": 0.5168,
+     "metodo": 0.5299,
+     "gan_100": -1.1,
+     "gan_p5": -11.4,
+     "base_acierto": 0.525,
+     "dif": 0.0361,
+     "dif_p5": -0.0287,
+     "dif_gan_100": 7.2,
+     "dif_gan_p5": -4.2
+    },
+    "último 30 %": {
+     "n": 130,
+     "patas_dia": 10.83,
+     "acierto": 0.5154,
+     "cuota": 1.7673,
+     "casa": 0.5177,
+     "metodo": 0.5298,
+     "gan_100": -9.2,
+     "gan_p5": -22.6,
+     "base_acierto": 0.5,
+     "dif": 0.0154,
+     "dif_p5": -0.071,
+     "dif_gan_100": 4.1,
+     "dif_gan_p5": -11.1
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 53,
+      "acierto": 0.6038,
+      "base_acierto": 0.4032,
+      "dif": 0.2005,
+      "gan_100": 6.4
+     },
+     "2026-08-31": {
+      "n": 63,
+      "acierto": 0.4444,
+      "base_acierto": 0.5,
+      "dif": -0.0556,
+      "gan_100": -21.3
+     },
+     "2026-09-07": {
+      "n": 83,
+      "acierto": 0.6145,
+      "base_acierto": 0.5621,
+      "dif": 0.0523,
+      "gan_100": 8.5
+     },
+     "2026-09-14": {
+      "n": 94,
+      "acierto": 0.4787,
+      "base_acierto": 0.5158,
+      "dif": -0.0371,
+      "gan_100": -16.0
+     },
+     "2026-09-21": {
+      "n": 33,
+      "acierto": 0.5455,
+      "base_acierto": 0.4706,
+      "dif": 0.0749,
+      "gan_100": -4.2
+     },
+     "2026-09-28": {
+      "n": 15,
+      "acierto": 0.6,
+      "base_acierto": 0.5333,
+      "dif": 0.0667,
+      "gan_100": 8.3
+     },
+     "2026-10-05": {
+      "n": 10,
+      "acierto": 0.8,
+      "base_acierto": 0.9,
+      "dif": -0.1,
+      "gan_100": 37.5
+     }
+    },
+    "semanas_dif_positiva": "4 de 7"
+   }
+  },
+  "1.80": {
+   "R1 más · descanso parejo · >6 (la elegida a 1,70 y 1,80)": {
+    "A (mitad 1)": {
+     "n": 67,
+     "patas_dia": 4.47,
+     "acierto": 0.6866,
+     "cuota": 1.9246,
+     "casa": 0.4765,
+     "metodo": 0.58,
+     "gan_100": 32.3,
+     "gan_p5": 13.9,
+     "base_acierto": 0.5,
+     "dif": 0.1866,
+     "dif_p5": 0.0817,
+     "dif_gan_100": 39.3,
+     "dif_gan_p5": 18.6
+    },
+    "B (mitad 2)": {
+     "n": 101,
+     "patas_dia": 5.32,
+     "acierto": 0.5149,
+     "cuota": 1.9238,
+     "casa": 0.4773,
+     "metodo": 0.5807,
+     "gan_100": -0.4,
+     "gan_p5": -15.9,
+     "base_acierto": 0.4565,
+     "dif": 0.0583,
+     "dif_p5": -0.0225,
+     "dif_gan_100": 15.0,
+     "dif_gan_p5": -0.8
+    },
+    "agosto": {
+     "n": 28,
+     "patas_dia": 7.0,
+     "acierto": 0.75,
+     "cuota": 1.9239,
+     "casa": 0.4756,
+     "metodo": 0.5782,
+     "gan_100": 45.3,
+     "gan_p5": 17.9,
+     "base_acierto": 0.4928,
+     "dif": 0.2572,
+     "dif_p5": 0.0954,
+     "dif_gan_100": 54.9,
+     "dif_gan_p5": 22.6
+    },
+    "septiembre": {
+     "n": 130,
+     "patas_dia": 5.2,
+     "acierto": 0.5385,
+     "cuota": 1.9209,
+     "casa": 0.4782,
+     "metodo": 0.5818,
+     "gan_100": 3.8,
+     "gan_p5": -9.7,
+     "base_acierto": 0.4682,
+     "dif": 0.0702,
+     "dif_p5": -0.0032,
+     "dif_gan_100": 16.7,
+     "dif_gan_p5": 2.3
+    },
+    "octubre": {
+     "n": 10,
+     "patas_dia": 2.0,
+     "acierto": 0.7,
+     "cuota": 1.9666,
+     "casa": 0.4651,
+     "metodo": 0.5689,
+     "gan_100": 35.8,
+     "gan_p5": -10.6,
+     "base_acierto": 0.5909,
+     "dif": 0.1091,
+     "dif_p5": -0.1627,
+     "dif_gan_100": 27.7,
+     "dif_gan_p5": -24.3
+    },
+    "primer 70 %": {
+     "n": 99,
+     "patas_dia": 4.5,
+     "acierto": 0.596,
+     "cuota": 1.9222,
+     "casa": 0.4773,
+     "metodo": 0.5811,
+     "gan_100": 15.3,
+     "gan_p5": -0.1,
+     "base_acierto": 0.4841,
+     "dif": 0.1119,
+     "dif_p5": 0.0212,
+     "dif_gan_100": 25.2,
+     "dif_gan_p5": 7.9
+    },
+    "último 30 %": {
+     "n": 69,
+     "patas_dia": 5.75,
+     "acierto": 0.5652,
+     "cuota": 1.9269,
+     "casa": 0.4764,
+     "metodo": 0.5795,
+     "gan_100": 8.9,
+     "gan_p5": -9.5,
+     "base_acierto": 0.4554,
+     "dif": 0.1098,
+     "dif_p5": 0.0081,
+     "dif_gan_100": 24.6,
+     "dif_gan_p5": 4.9
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 27,
+      "acierto": 0.7407,
+      "base_acierto": 0.4677,
+      "dif": 0.273,
+      "gan_100": 43.9
+     },
+     "2026-08-31": {
+      "n": 27,
+      "acierto": 0.7407,
+      "base_acierto": 0.5309,
+      "dif": 0.2099,
+      "gan_100": 39.7
+     },
+     "2026-09-07": {
+      "n": 31,
+      "acierto": 0.3871,
+      "base_acierto": 0.4675,
+      "dif": -0.0804,
+      "gan_100": -23.2
+     },
+     "2026-09-14": {
+      "n": 53,
+      "acierto": 0.5283,
+      "base_acierto": 0.4158,
+      "dif": 0.1125,
+      "gan_100": 2.3
+     },
+     "2026-09-21": {
+      "n": 17,
+      "acierto": 0.6471,
+      "base_acierto": 0.5294,
+      "dif": 0.1176,
+      "gan_100": 23.8
+     },
+     "2026-09-28": {
+      "n": 5,
+      "acierto": 0.0,
+      "base_acierto": 0.5333,
+      "dif": -0.5333,
+      "gan_100": -100.0
+     },
+     "2026-10-05": {
+      "n": 8,
+      "acierto": 0.875,
+      "base_acierto": 0.6,
+      "dif": 0.275,
+      "gan_100": 69.7
+     }
+    },
+    "semanas_dif_positiva": "5 de 7"
+   },
+   "R2 más de equipo · >6 («lo único que se repite»)": {
+    "A (mitad 1)": {
+     "n": 74,
+     "patas_dia": 4.93,
+     "acierto": 0.6757,
+     "cuota": 1.9294,
+     "casa": 0.4753,
+     "metodo": 0.5785,
+     "gan_100": 30.8,
+     "gan_p5": 13.0,
+     "base_acierto": 0.5,
+     "dif": 0.1757,
+     "dif_p5": 0.0755,
+     "dif_gan_100": 37.8,
+     "dif_gan_p5": 18.2
+    },
+    "B (mitad 2)": {
+     "n": 111,
+     "patas_dia": 5.84,
+     "acierto": 0.5135,
+     "cuota": 1.9283,
+     "casa": 0.4761,
+     "metodo": 0.5797,
+     "gan_100": -0.4,
+     "gan_p5": -15.7,
+     "base_acierto": 0.4565,
+     "dif": 0.057,
+     "dif_p5": -0.0266,
+     "dif_gan_100": 15.0,
+     "dif_gan_p5": -0.7
+    },
+    "agosto": {
+     "n": 28,
+     "patas_dia": 7.0,
+     "acierto": 0.75,
+     "cuota": 1.9239,
+     "casa": 0.4756,
+     "metodo": 0.5782,
+     "gan_100": 45.3,
+     "gan_p5": 16.1,
+     "base_acierto": 0.4928,
+     "dif": 0.2572,
+     "dif_p5": 0.1001,
+     "dif_gan_100": 54.9,
+     "dif_gan_p5": 24.4
+    },
+    "septiembre": {
+     "n": 147,
+     "patas_dia": 5.88,
+     "acierto": 0.5374,
+     "cuota": 1.9271,
+     "casa": 0.4766,
+     "metodo": 0.5801,
+     "gan_100": 4.1,
+     "gan_p5": -8.7,
+     "base_acierto": 0.4682,
+     "dif": 0.0692,
+     "dif_p5": -0.0045,
+     "dif_gan_100": 17.0,
+     "dif_gan_p5": 2.6
+    },
+    "octubre": {
+     "n": 10,
+     "patas_dia": 2.0,
+     "acierto": 0.7,
+     "cuota": 1.9666,
+     "casa": 0.4651,
+     "metodo": 0.5689,
+     "gan_100": 35.8,
+     "gan_p5": -10.5,
+     "base_acierto": 0.5909,
+     "dif": 0.1091,
+     "dif_p5": -0.1364,
+     "dif_gan_100": 27.7,
+     "dif_gan_p5": -19.3
+    },
+    "primer 70 %": {
+     "n": 110,
+     "patas_dia": 5.0,
+     "acierto": 0.6,
+     "cuota": 1.9274,
+     "casa": 0.476,
+     "metodo": 0.5802,
+     "gan_100": 16.7,
+     "gan_p5": 1.2,
+     "base_acierto": 0.4841,
+     "dif": 0.1159,
+     "dif_p5": 0.0318,
+     "dif_gan_100": 26.7,
+     "dif_gan_p5": 10.5
+    },
+    "último 30 %": {
+     "n": 75,
+     "patas_dia": 6.25,
+     "acierto": 0.5467,
+     "cuota": 1.9307,
+     "casa": 0.4754,
+     "metodo": 0.5778,
+     "gan_100": 5.3,
+     "gan_p5": -12.6,
+     "base_acierto": 0.4554,
+     "dif": 0.0912,
+     "dif_p5": -0.0116,
+     "dif_gan_100": 21.0,
+     "dif_gan_p5": 1.4
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 27,
+      "acierto": 0.7407,
+      "base_acierto": 0.4677,
+      "dif": 0.273,
+      "gan_100": 43.9
+     },
+     "2026-08-31": {
+      "n": 29,
+      "acierto": 0.6897,
+      "base_acierto": 0.5309,
+      "dif": 0.1588,
+      "gan_100": 30.1
+     },
+     "2026-09-07": {
+      "n": 38,
+      "acierto": 0.4474,
+      "base_acierto": 0.4675,
+      "dif": -0.0201,
+      "gan_100": -10.3
+     },
+     "2026-09-14": {
+      "n": 60,
+      "acierto": 0.5333,
+      "base_acierto": 0.4158,
+      "dif": 0.1175,
+      "gan_100": 3.5
+     },
+     "2026-09-21": {
+      "n": 18,
+      "acierto": 0.6111,
+      "base_acierto": 0.5294,
+      "dif": 0.0817,
+      "gan_100": 16.9
+     },
+     "2026-09-28": {
+      "n": 5,
+      "acierto": 0.0,
+      "base_acierto": 0.5333,
+      "dif": -0.5333,
+      "gan_100": -100.0
+     },
+     "2026-10-05": {
+      "n": 8,
+      "acierto": 0.875,
+      "base_acierto": 0.6,
+      "dif": 0.275,
+      "gan_100": 69.7
+     }
+    },
+    "semanas_dif_positiva": "5 de 7"
+   },
+   "C1 control: más · descanso parejo SIN método": {
+    "A (mitad 1)": {
+     "n": 125,
+     "patas_dia": 8.33,
+     "acierto": 0.52,
+     "cuota": 1.8497,
+     "casa": 0.4942,
+     "metodo": 0.5035,
+     "gan_100": -3.5,
+     "gan_p5": -17.7,
+     "base_acierto": 0.5,
+     "dif": 0.02,
+     "dif_p5": -0.0584,
+     "dif_gan_100": 3.5,
+     "dif_gan_p5": -11.2
+    },
+    "B (mitad 2)": {
+     "n": 184,
+     "patas_dia": 9.68,
+     "acierto": 0.4402,
+     "cuota": 1.864,
+     "casa": 0.4915,
+     "metodo": 0.4998,
+     "gan_100": -18.0,
+     "gan_p5": -28.9,
+     "base_acierto": 0.4565,
+     "dif": -0.0163,
+     "dif_p5": -0.0827,
+     "dif_gan_100": -2.6,
+     "dif_gan_p5": -15.2
+    },
+    "agosto": {
+     "n": 55,
+     "patas_dia": 13.75,
+     "acierto": 0.4909,
+     "cuota": 1.8526,
+     "casa": 0.4929,
+     "metodo": 0.494,
+     "gan_100": -8.3,
+     "gan_p5": -28.6,
+     "base_acierto": 0.4928,
+     "dif": -0.0018,
+     "dif_p5": -0.133,
+     "dif_gan_100": 1.3,
+     "dif_gan_p5": -23.1
+    },
+    "septiembre": {
+     "n": 233,
+     "patas_dia": 9.32,
+     "acierto": 0.4592,
+     "cuota": 1.8584,
+     "casa": 0.4927,
+     "metodo": 0.5057,
+     "gan_100": -14.6,
+     "gan_p5": -24.8,
+     "base_acierto": 0.4682,
+     "dif": -0.009,
+     "dif_p5": -0.0693,
+     "dif_gan_100": -1.8,
+     "dif_gan_p5": -12.9
+    },
+    "octubre": {
+     "n": 21,
+     "patas_dia": 4.2,
+     "acierto": 0.5714,
+     "cuota": 1.8718,
+     "casa": 0.4901,
+     "metodo": 0.4715,
+     "gan_100": 5.4,
+     "gan_p5": -26.2,
+     "base_acierto": 0.5909,
+     "dif": -0.0195,
+     "dif_p5": -0.2539,
+     "dif_gan_100": -2.7,
+     "dif_gan_p5": -47.0
+    },
+    "primer 70 %": {
+     "n": 191,
+     "patas_dia": 8.68,
+     "acierto": 0.4869,
+     "cuota": 1.8582,
+     "casa": 0.4922,
+     "metodo": 0.5042,
+     "gan_100": -9.3,
+     "gan_p5": -19.8,
+     "base_acierto": 0.4841,
+     "dif": 0.0028,
+     "dif_p5": -0.0613,
+     "dif_gan_100": 0.7,
+     "dif_gan_p5": -10.9
+    },
+    "último 30 %": {
+     "n": 118,
+     "patas_dia": 9.83,
+     "acierto": 0.4492,
+     "cuota": 1.8584,
+     "casa": 0.4932,
+     "metodo": 0.4965,
+     "gan_100": -16.8,
+     "gan_p5": -31.3,
+     "base_acierto": 0.4554,
+     "dif": -0.0063,
+     "dif_p5": -0.0902,
+     "dif_gan_100": -1.1,
+     "dif_gan_p5": -16.9
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 52,
+      "acierto": 0.4808,
+      "base_acierto": 0.4677,
+      "dif": 0.013,
+      "gan_100": -10.0
+     },
+     "2026-08-31": {
+      "n": 53,
+      "acierto": 0.5472,
+      "base_acierto": 0.5309,
+      "dif": 0.0163,
+      "gan_100": 1.0
+     },
+     "2026-09-07": {
+      "n": 68,
+      "acierto": 0.4559,
+      "base_acierto": 0.4675,
+      "dif": -0.0116,
+      "gan_100": -14.6
+     },
+     "2026-09-14": {
+      "n": 81,
+      "acierto": 0.4444,
+      "base_acierto": 0.4158,
+      "dif": 0.0287,
+      "gan_100": -16.8
+     },
+     "2026-09-21": {
+      "n": 31,
+      "acierto": 0.4194,
+      "base_acierto": 0.5294,
+      "dif": -0.1101,
+      "gan_100": -23.8
+     },
+     "2026-09-28": {
+      "n": 14,
+      "acierto": 0.4286,
+      "base_acierto": 0.5333,
+      "dif": -0.1048,
+      "gan_100": -20.1
+     },
+     "2026-10-05": {
+      "n": 10,
+      "acierto": 0.6,
+      "base_acierto": 0.6,
+      "dif": 0.0,
+      "gan_100": 9.5
+     }
+    },
+    "semanas_dif_positiva": "3 de 7"
+   },
+   "C2 control: más de equipo SIN método": {
+    "A (mitad 1)": {
+     "n": 136,
+     "patas_dia": 9.07,
+     "acierto": 0.5221,
+     "cuota": 1.8506,
+     "casa": 0.494,
+     "metodo": 0.503,
+     "gan_100": -3.2,
+     "gan_p5": -17.1,
+     "base_acierto": 0.5,
+     "dif": 0.0221,
+     "dif_p5": -0.0624,
+     "dif_gan_100": 3.8,
+     "dif_gan_p5": -12.0
+    },
+    "B (mitad 2)": {
+     "n": 203,
+     "patas_dia": 10.68,
+     "acierto": 0.4433,
+     "cuota": 1.8634,
+     "casa": 0.4917,
+     "metodo": 0.4989,
+     "gan_100": -17.5,
+     "gan_p5": -28.3,
+     "base_acierto": 0.4565,
+     "dif": -0.0132,
+     "dif_p5": -0.0771,
+     "dif_gan_100": -2.1,
+     "dif_gan_p5": -14.1
+    },
+    "agosto": {
+     "n": 55,
+     "patas_dia": 13.75,
+     "acierto": 0.4909,
+     "cuota": 1.8526,
+     "casa": 0.4929,
+     "metodo": 0.494,
+     "gan_100": -8.3,
+     "gan_p5": -29.3,
+     "base_acierto": 0.4928,
+     "dif": -0.0018,
+     "dif_p5": -0.1274,
+     "dif_gan_100": 1.3,
+     "dif_gan_p5": -22.0
+    },
+    "septiembre": {
+     "n": 263,
+     "patas_dia": 10.52,
+     "acierto": 0.4639,
+     "cuota": 1.8583,
+     "casa": 0.4927,
+     "metodo": 0.5042,
+     "gan_100": -13.8,
+     "gan_p5": -23.2,
+     "base_acierto": 0.4682,
+     "dif": -0.0044,
+     "dif_p5": -0.0594,
+     "dif_gan_100": -1.0,
+     "dif_gan_p5": -11.3
+    },
+    "octubre": {
+     "n": 21,
+     "patas_dia": 4.2,
+     "acierto": 0.5714,
+     "cuota": 1.8718,
+     "casa": 0.4901,
+     "metodo": 0.4715,
+     "gan_100": 5.4,
+     "gan_p5": -29.9,
+     "base_acierto": 0.5909,
+     "dif": -0.0195,
+     "dif_p5": -0.2727,
+     "dif_gan_100": -2.7,
+     "dif_gan_p5": -49.5
+    },
+    "primer 70 %": {
+     "n": 211,
+     "patas_dia": 9.59,
+     "acierto": 0.4929,
+     "cuota": 1.8588,
+     "casa": 0.4921,
+     "metodo": 0.5034,
+     "gan_100": -8.2,
+     "gan_p5": -18.7,
+     "base_acierto": 0.4841,
+     "dif": 0.0088,
+     "dif_p5": -0.0565,
+     "dif_gan_100": 1.7,
+     "dif_gan_p5": -10.5
+    },
+    "último 30 %": {
+     "n": 128,
+     "patas_dia": 10.67,
+     "acierto": 0.4453,
+     "cuota": 1.8573,
+     "casa": 0.4934,
+     "metodo": 0.4957,
+     "gan_100": -17.5,
+     "gan_p5": -31.1,
+     "base_acierto": 0.4554,
+     "dif": -0.0101,
+     "dif_p5": -0.0953,
+     "dif_gan_100": -1.8,
+     "dif_gan_p5": -17.7
+    },
+    "semanas": {
+     "2026-08-24": {
+      "n": 52,
+      "acierto": 0.4808,
+      "base_acierto": 0.4677,
+      "dif": 0.013,
+      "gan_100": -10.0
+     },
+     "2026-08-31": {
+      "n": 59,
+      "acierto": 0.5085,
+      "base_acierto": 0.5309,
+      "dif": -0.0224,
+      "gan_100": -6.1
+     },
+     "2026-09-07": {
+      "n": 79,
+      "acierto": 0.5063,
+      "base_acierto": 0.4675,
+      "dif": 0.0389,
+      "gan_100": -5.6
+     },
+     "2026-09-14": {
+      "n": 92,
+      "acierto": 0.4239,
+      "base_acierto": 0.4158,
+      "dif": 0.0081,
+      "gan_100": -20.6
+     },
+     "2026-09-21": {
+      "n": 33,
+      "acierto": 0.4545,
+      "base_acierto": 0.5294,
+      "dif": -0.0749,
+      "gan_100": -17.5
+     },
+     "2026-09-28": {
+      "n": 14,
+      "acierto": 0.4286,
+      "base_acierto": 0.5333,
+      "dif": -0.1048,
+      "gan_100": -20.1
+     },
+     "2026-10-05": {
+      "n": 10,
+      "acierto": 0.6,
+      "base_acierto": 0.6,
+      "dif": 0.0,
+      "gan_100": 9.5
+     }
+    },
+    "semanas_dif_positiva": "3 de 7"
+   }
+  }
+ },
+ "procedimiento": {
+  "70/30": {
+   "dias_eleccion": 22,
+   "dias_juicio": 12,
+   "1.30": {
+    "regla": "más · λ a favor ≥0,5 sd · método − casa > 9 pts",
+    "eleccion": {
+     "n": 79,
+     "acierto": 0.7468,
+     "cuota": 1.5451,
+     "base_acierto": 0.7455,
+     "dif": 0.0014,
+     "dif_p5": -0.0949
+    },
+    "juicio": {
+     "n": 46,
+     "acierto": 0.7391,
+     "cuota": 1.5014,
+     "casa": 0.6118,
+     "base_acierto": 0.6881,
+     "dif": 0.051,
+     "dif_p5": -0.0748,
+     "gan_100": 9.8,
+     "gan_p5": -6.0
+    },
+    "candidatos": 335,
+    "p5_eleccion_mayor_0": 0,
+    "de_esos_dif_juicio_mayor_0": 0,
+    "de_esos_p5_juicio_mayor_0": 0,
+    "veredicto": "parcial"
+   },
+   "1.45": {
+    "regla": "favorito · λ a favor ≥0,5 sd · método − casa > 0 pts",
+    "eleccion": {
+     "n": 74,
+     "acierto": 0.7162,
+     "cuota": 1.5836,
+     "base_acierto": 0.6023,
+     "dif": 0.1139,
+     "dif_p5": 0.0175
+    },
+    "juicio": {
+     "n": 47,
+     "acierto": 0.617,
+     "cuota": 1.5696,
+     "casa": 0.5831,
+     "base_acierto": 0.6287,
+     "dif": -0.0117,
+     "dif_p5": -0.1558,
+     "gan_100": -4.9,
+     "gan_p5": -24.9
+    },
+    "candidatos": 355,
+    "p5_eleccion_mayor_0": 9,
+    "de_esos_dif_juicio_mayor_0": 6,
+    "de_esos_p5_juicio_mayor_0": 0,
+    "veredicto": "no pasa"
+   },
+   "1.60": {
+    "regla": "tiros · λ a favor ≥0,5 sd · método − casa > 9 pts",
+    "eleccion": {
+     "n": 43,
+     "acierto": 0.6977,
+     "cuota": 1.7413,
+     "base_acierto": 0.5773,
+     "dif": 0.1204,
+     "dif_p5": -0.0045
+    },
+    "juicio": {
+     "n": 27,
+     "acierto": 0.5556,
+     "cuota": 1.7097,
+     "casa": 0.5354,
+     "base_acierto": 0.5545,
+     "dif": 0.0011,
+     "dif_p5": -0.174,
+     "gan_100": -4.9,
+     "gan_p5": -32.8
+    },
+    "candidatos": 365,
+    "p5_eleccion_mayor_0": 0,
+    "de_esos_dif_juicio_mayor_0": 0,
+    "de_esos_p5_juicio_mayor_0": 0,
+    "veredicto": "parcial"
+   },
+   "1.70": {
+    "regla": "más · descanso parejo · método − casa > 6 pts",
+    "eleccion": {
+     "n": 123,
+     "acierto": 0.6667,
+     "cuota": 1.8178,
+     "base_acierto": 0.525,
+     "dif": 0.1417,
+     "dif_p5": 0.0659
+    },
+    "juicio": {
+     "n": 72,
+     "acierto": 0.5694,
+     "cuota": 1.8253,
+     "casa": 0.5026,
+     "base_acierto": 0.5,
+     "dif": 0.0694,
+     "dif_p5": -0.0499,
+     "gan_100": 3.0,
+     "gan_p5": -14.7
+    },
+    "candidatos": 335,
+    "p5_eleccion_mayor_0": 53,
+    "de_esos_dif_juicio_mayor_0": 50,
+    "de_esos_p5_juicio_mayor_0": 11,
+    "veredicto": "parcial"
+   },
+   "1.80": {
+    "regla": "más · no favorito · método − casa > 3 pts",
+    "eleccion": {
+     "n": 95,
+     "acierto": 0.6316,
+     "cuota": 1.927,
+     "base_acierto": 0.4841,
+     "dif": 0.1475,
+     "dif_p5": 0.0653
+    },
+    "juicio": {
+     "n": 63,
+     "acierto": 0.6032,
+     "cuota": 1.9572,
+     "casa": 0.4692,
+     "base_acierto": 0.4554,
+     "dif": 0.1477,
+     "dif_p5": 0.036,
+     "gan_100": 16.9,
+     "gan_p5": -2.7
+    },
+    "candidatos": 282,
+    "p5_eleccion_mayor_0": 23,
+    "de_esos_dif_juicio_mayor_0": 23,
+    "de_esos_p5_juicio_mayor_0": 13,
+    "veredicto": "pasa"
+   }
+  },
+  "hasta sep → oct": {
+   "dias_eleccion": 29,
+   "dias_juicio": 5,
+   "1.30": {
+    "regla": "λ a favor ≥0,5 sd · liga_mx · método − casa > 0 pts",
+    "eleccion": {
+     "n": 41,
+     "acierto": 0.8537,
+     "cuota": 1.3525,
+     "base_acierto": 0.7274,
+     "dif": 0.1262,
+     "dif_p5": 0.0213
+    },
+    "juicio": {
+     "n": 0,
+     "acierto": null,
+     "cuota": null,
+     "casa": null,
+     "base_acierto": null,
+     "dif": null,
+     "dif_p5": null,
+     "gan_100": null,
+     "gan_p5": null
+    },
+    "candidatos": 441,
+    "p5_eleccion_mayor_0": 4,
+    "de_esos_dif_juicio_mayor_0": 0,
+    "de_esos_p5_juicio_mayor_0": 0,
+    "veredicto": "no pasa"
+   },
+   "1.45": {
+    "regla": "λ a favor ≥0,5 sd · liga_mx · método − casa > 6 pts",
+    "eleccion": {
+     "n": 34,
+     "acierto": 0.8529,
+     "cuota": 1.5397,
+     "base_acierto": 0.6113,
+     "dif": 0.2417,
+     "dif_p5": 0.1361
+    },
+    "juicio": {
+     "n": 0,
+     "acierto": null,
+     "cuota": null,
+     "casa": null,
+     "base_acierto": null,
+     "dif": null,
+     "dif_p5": null,
+     "gan_100": null,
+     "gan_p5": null
+    },
+    "candidatos": 485,
+    "p5_eleccion_mayor_0": 20,
+    "de_esos_dif_juicio_mayor_0": 7,
+    "de_esos_p5_juicio_mayor_0": 3,
+    "veredicto": "no pasa"
+   },
+   "1.60": {
+    "regla": "no favorito · brasil · método − casa > 3 pts",
+    "eleccion": {
+     "n": 36,
+     "acierto": 0.8056,
+     "cuota": 1.7793,
+     "base_acierto": 0.5677,
+     "dif": 0.2378,
+     "dif_p5": 0.1251
+    },
+    "juicio": {
+     "n": 10,
+     "acierto": 0.6,
+     "cuota": 1.6935,
+     "casa": 0.5415,
+     "base_acierto": 0.6364,
+     "dif": -0.0364,
+     "dif_p5": -0.3745,
+     "gan_100": 3.6,
+     "gan_p5": -43.6
+    },
+    "candidatos": 486,
+    "p5_eleccion_mayor_0": 16,
+    "de_esos_dif_juicio_mayor_0": 6,
+    "de_esos_p5_juicio_mayor_0": 1,
+    "veredicto": "no pasa"
+   },
+   "1.70": {
+    "regla": "no favorito · brasil · método − casa > 3 pts",
+    "eleccion": {
+     "n": 36,
+     "acierto": 0.8333,
+     "cuota": 1.8289,
+     "base_acierto": 0.5113,
+     "dif": 0.322,
+     "dif_p5": 0.2118
+    },
+    "juicio": {
+     "n": 10,
+     "acierto": 0.6,
+     "cuota": 1.8137,
+     "casa": 0.5057,
+     "base_acierto": 0.6818,
+     "dif": -0.0818,
+     "dif_p5": -0.3728,
+     "gan_100": 7.4,
+     "gan_p5": -40.3
+    },
+    "candidatos": 463,
+    "p5_eleccion_mayor_0": 129,
+    "de_esos_dif_juicio_mayor_0": 29,
+    "de_esos_p5_juicio_mayor_0": 6,
+    "veredicto": "no pasa"
+   },
+   "1.80": {
+    "regla": "más · liga_mx · método − casa > 6 pts",
+    "eleccion": {
+     "n": 31,
+     "acierto": 0.7742,
+     "cuota": 1.92,
+     "base_acierto": 0.471,
+     "dif": 0.3032,
+     "dif_p5": 0.1687
+    },
+    "juicio": {
+     "n": 0,
+     "acierto": null,
+     "cuota": null,
+     "casa": null,
+     "base_acierto": null,
+     "dif": null,
+     "dif_p5": null,
+     "gan_100": null,
+     "gan_p5": null
+    },
+    "candidatos": 414,
+    "p5_eleccion_mayor_0": 103,
+    "de_esos_dif_juicio_mayor_0": 64,
+    "de_esos_p5_juicio_mayor_0": 25,
+    "veredicto": "no pasa"
+   }
+  },
+  "invertido B → A": {
+   "dias_eleccion": 19,
+   "dias_juicio": 15,
+   "1.30": {
+    "regla": "menos · λ a favor ≥0,5 sd · método − casa > 0 pts",
+    "eleccion": {
+     "n": 71,
+     "acierto": 0.7746,
+     "cuota": 1.3925,
+     "base_acierto": 0.7255,
+     "dif": 0.0491,
+     "dif_p5": -0.0383
+    },
+    "juicio": {
+     "n": 41,
+     "acierto": 0.7073,
+     "cuota": 1.4173,
+     "casa": 0.6433,
+     "base_acierto": 0.7299,
+     "dif": -0.0226,
+     "dif_p5": -0.144,
+     "gan_100": -0.3,
+     "gan_p5": -17.8
+    },
+    "candidatos": 326,
+    "p5_eleccion_mayor_0": 0,
+    "de_esos_dif_juicio_mayor_0": 0,
+    "de_esos_p5_juicio_mayor_0": 0,
+    "veredicto": "no pasa"
+   },
+   "1.45": {
+    "regla": "tarjetas · menos · método − casa > 9 pts",
+    "eleccion": {
+     "n": 50,
+     "acierto": 0.78,
+     "cuota": 1.6495,
+     "base_acierto": 0.6141,
+     "dif": 0.1659,
+     "dif_p5": 0.0687
+    },
+    "juicio": {
+     "n": 35,
+     "acierto": 0.6286,
+     "cuota": 1.6442,
+     "casa": 0.5572,
+     "base_acierto": 0.6058,
+     "dif": 0.0227,
+     "dif_p5": -0.1204,
+     "gan_100": 3.4,
+     "gan_p5": -19.0
+    },
+    "candidatos": 335,
+    "p5_eleccion_mayor_0": 21,
+    "de_esos_dif_juicio_mayor_0": 18,
+    "de_esos_p5_juicio_mayor_0": 0,
+    "veredicto": "parcial"
+   },
+   "1.60": {
+    "regla": "a_puerta · local · método − casa > 6 pts",
+    "eleccion": {
+     "n": 60,
+     "acierto": 0.7333,
+     "cuota": 1.7908,
+     "base_acierto": 0.5679,
+     "dif": 0.1654,
+     "dif_p5": 0.0582
+    },
+    "juicio": {
+     "n": 43,
+     "acierto": 0.6279,
+     "cuota": 1.8096,
+     "casa": 0.5085,
+     "base_acierto": 0.573,
+     "dif": 0.0549,
+     "dif_p5": -0.0677,
+     "gan_100": 12.7,
+     "gan_p5": -8.4
+    },
+    "candidatos": 342,
+    "p5_eleccion_mayor_0": 19,
+    "de_esos_dif_juicio_mayor_0": 8,
+    "de_esos_p5_juicio_mayor_0": 1,
+    "veredicto": "parcial"
+   },
+   "1.70": {
+    "regla": "a_puerta · local · método − casa > 6 pts",
+    "eleccion": {
+     "n": 45,
+     "acierto": 0.7111,
+     "cuota": 1.8917,
+     "base_acierto": 0.538,
+     "dif": 0.1731,
+     "dif_p5": 0.0563
+    },
+    "juicio": {
+     "n": 34,
+     "acierto": 0.6176,
+     "cuota": 1.8821,
+     "casa": 0.4888,
+     "base_acierto": 0.4891,
+     "dif": 0.1286,
+     "dif_p5": -0.0262,
+     "gan_100": 16.4,
+     "gan_p5": -12.5
+    },
+    "candidatos": 309,
+    "p5_eleccion_mayor_0": 20,
+    "de_esos_dif_juicio_mayor_0": 17,
+    "de_esos_p5_juicio_mayor_0": 9,
+    "veredicto": "parcial"
+   },
+   "1.80": {
+    "regla": "a_puerta · local · método − casa > 6 pts",
+    "eleccion": {
+     "n": 34,
+     "acierto": 0.7647,
+     "cuota": 1.9978,
+     "base_acierto": 0.4565,
+     "dif": 0.3082,
+     "dif_p5": 0.175
+    },
+    "juicio": {
+     "n": 19,
+     "acierto": 0.6316,
+     "cuota": 2.0158,
+     "casa": 0.4557,
+     "base_acierto": 0.5,
+     "dif": 0.1316,
+     "dif_p5": -0.0696,
+     "gan_100": 28.5,
+     "gan_p5": -10.3
+    },
+    "candidatos": 289,
+    "p5_eleccion_mayor_0": 72,
+    "de_esos_dif_juicio_mayor_0": 56,
+    "de_esos_p5_juicio_mayor_0": 6,
+    "veredicto": "parcial"
+   }
+  }
+ },
+ "walk_forward_semanal": {
+  "1.30": {
+   "resultado": {
+    "n": 45,
+    "patas_dia": 1.88,
+    "acierto": 0.5556,
+    "cuota": 1.4524,
+    "casa": 0.6333,
+    "base_acierto": 0.7177,
+    "dif": -0.1621,
+    "dif_p5": -0.2932,
+    "gan_100": -22.3,
+    "gan_p5": -39.2,
+    "dif_gan_100": -18.1,
+    "dif_gan_p5": -36.9
+   },
+   "semanas": [
+    {
+     "semana": "2026-09-07",
+     "regla": "a_puerta · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "n": 21,
+     "acierto": 0.619
+    },
+    {
+     "semana": "2026-09-14",
+     "regla": "a_puerta · λ a favor ≥0,5 sd · método − casa > 9 pts",
+     "n": 12,
+     "acierto": 0.5
+    },
+    {
+     "semana": "2026-09-21",
+     "regla": "no favorito · liga_mx · método − casa > 3 pts",
+     "n": 10,
+     "acierto": 0.4
+    },
+    {
+     "semana": "2026-09-28",
+     "regla": "λ a favor ≥0,5 sd · liga_mx · método − casa > 0 pts",
+     "n": 2,
+     "acierto": 1.0
+    },
+    {
+     "semana": "2026-10-05",
+     "regla": "λ a favor ≥0,5 sd · liga_mx · método − casa > 0 pts",
+     "n": 0,
+     "acierto": null
+    }
+   ]
+  },
+  "1.45": {
+   "resultado": {
+    "n": 77,
+    "patas_dia": 3.21,
+    "acierto": 0.6104,
+    "cuota": 1.5946,
+    "casa": 0.5731,
+    "base_acierto": 0.6005,
+    "dif": 0.0099,
+    "dif_p5": -0.0866,
+    "gan_100": -3.7,
+    "gan_p5": -17.9,
+    "dif_gan_100": 6.5,
+    "dif_gan_p5": -8.7
+   },
+   "semanas": [
+    {
+     "semana": "2026-09-07",
+     "regla": "λ a favor ≥0,5 sd · descanso parejo · método − casa > 6 pts",
+     "n": 32,
+     "acierto": 0.625
+    },
+    {
+     "semana": "2026-09-14",
+     "regla": "favorito · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "n": 34,
+     "acierto": 0.5882
+    },
+    {
+     "semana": "2026-09-21",
+     "regla": "local · liga_mx · método − casa > 0 pts",
+     "n": 10,
+     "acierto": 0.6
+    },
+    {
+     "semana": "2026-09-28",
+     "regla": "λ a favor ≥0,5 sd · liga_mx · método − casa > 6 pts",
+     "n": 1,
+     "acierto": 1.0
+    },
+    {
+     "semana": "2026-10-05",
+     "regla": "λ a favor ≥0,5 sd · liga_mx · método − casa > 6 pts",
+     "n": 0,
+     "acierto": null
+    }
+   ]
+  },
+  "1.60": {
+   "resultado": {
+    "n": 59,
+    "patas_dia": 2.46,
+    "acierto": 0.5593,
+    "cuota": 1.7396,
+    "casa": 0.527,
+    "base_acierto": 0.5694,
+    "dif": -0.0101,
+    "dif_p5": -0.1196,
+    "gan_100": -3.5,
+    "gan_p5": -21.9,
+    "dif_gan_100": 3.2,
+    "dif_gan_p5": -16.2
+   },
+   "semanas": [
+    {
+     "semana": "2026-09-07",
+     "regla": "más · descanso parejo · método − casa > 9 pts",
+     "n": 34,
+     "acierto": 0.5294
+    },
+    {
+     "semana": "2026-09-14",
+     "regla": "tiros · λ a favor ≥0,5 sd · método − casa > 9 pts",
+     "n": 15,
+     "acierto": 0.6
+    },
+    {
+     "semana": "2026-09-21",
+     "regla": "no favorito · brasil · método − casa > 3 pts",
+     "n": 0,
+     "acierto": null
+    },
+    {
+     "semana": "2026-09-28",
+     "regla": "no favorito · brasil · método − casa > 3 pts",
+     "n": 1,
+     "acierto": 0.0
+    },
+    {
+     "semana": "2026-10-05",
+     "regla": "no favorito · brasil · método − casa > 3 pts",
+     "n": 9,
+     "acierto": 0.6667
+    }
+   ]
+  },
+  "1.70": {
+   "resultado": {
+    "n": 61,
+    "patas_dia": 2.54,
+    "acierto": 0.5246,
+    "cuota": 1.8011,
+    "casa": 0.5087,
+    "base_acierto": 0.5407,
+    "dif": -0.0161,
+    "dif_p5": -0.1241,
+    "gan_100": -6.8,
+    "gan_p5": -27.2,
+    "dif_gan_100": -0.8,
+    "dif_gan_p5": -20.3
+   },
+   "semanas": [
+    {
+     "semana": "2026-09-07",
+     "regla": "más · descanso parejo · método − casa > 6 pts",
+     "n": 39,
+     "acierto": 0.5128
+    },
+    {
+     "semana": "2026-09-14",
+     "regla": "tiros · λ a favor ≥0,5 sd · método − casa > 0 pts",
+     "n": 12,
+     "acierto": 0.5
+    },
+    {
+     "semana": "2026-09-21",
+     "regla": "no favorito · brasil · método − casa > 3 pts",
+     "n": 0,
+     "acierto": null
+    },
+    {
+     "semana": "2026-09-28",
+     "regla": "no favorito · brasil · método − casa > 3 pts",
+     "n": 1,
+     "acierto": 0.0
+    },
+    {
+     "semana": "2026-10-05",
+     "regla": "no favorito · brasil · método − casa > 3 pts",
+     "n": 9,
+     "acierto": 0.6667
+    }
+   ]
+  },
+  "1.80": {
+   "resultado": {
+    "n": 92,
+    "patas_dia": 3.83,
+    "acierto": 0.5652,
+    "cuota": 1.9332,
+    "casa": 0.4749,
+    "base_acierto": 0.4545,
+    "dif": 0.1107,
+    "dif_p5": 0.0197,
+    "gan_100": 10.2,
+    "gan_p5": -5.2,
+    "dif_gan_100": 25.9,
+    "dif_gan_p5": 8.8
+   },
+   "semanas": [
+    {
+     "semana": "2026-09-07",
+     "regla": "más · descanso parejo · método − casa > 6 pts",
+     "n": 31,
+     "acierto": 0.3871
+    },
+    {
+     "semana": "2026-09-14",
+     "regla": "más · no favorito · método − casa > 3 pts",
+     "n": 46,
+     "acierto": 0.6304
+    },
+    {
+     "semana": "2026-09-21",
+     "regla": "más · no favorito · método − casa > 3 pts",
+     "n": 14,
+     "acierto": 0.7143
+    },
+    {
+     "semana": "2026-09-28",
+     "regla": "a_puerta · más · método − casa > 6 pts",
+     "n": 1,
+     "acierto": 1.0
+    },
+    {
+     "semana": "2026-10-05",
+     "regla": "más · liga_mx · método − casa > 6 pts",
+     "n": 0,
+     "acierto": null
+    }
+   ]
+  }
+ },
+ "segundos": 446.5
+}
