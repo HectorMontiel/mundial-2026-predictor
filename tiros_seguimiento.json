@@ -7,16 +7,16 @@
  },
  "desde": "2026-09-10",
  "min_apuestas": 150,
- "n": 237,
+ "n": 240,
  "activo": false,
- "medido": "2026-10-14T12:04:46Z",
- "partidos": 114,
- "acierto": 0.5949,
- "promete": 0.6626,
- "cuota_media": 1.802,
- "roi": 0.0653,
- "p5": -0.0738,
- "vivas": 153,
+ "medido": "2026-10-14T13:42:26Z",
+ "partidos": 115,
+ "acierto": 0.6,
+ "promete": 0.6621,
+ "cuota_media": 1.803,
+ "roi": 0.0751,
+ "p5": -0.0667,
+ "vivas": 156,
  "alta": {
   "regla": {
    "mercados": [
@@ -28,13 +28,13 @@
   },
   "desde": "2026-09-10",
   "min_apuestas": 100,
-  "n": 219,
+  "n": 225,
   "activo": false,
-  "partidos": 160,
-  "acierto": 0.7443,
-  "promete": 0.7703,
-  "cuota_media": 1.398,
-  "roi": 0.0274,
-  "p5": -0.0441
+  "partidos": 164,
+  "acierto": 0.7378,
+  "promete": 0.77,
+  "cuota_media": 1.396,
+  "roi": 0.0178,
+  "p5": -0.0511
  }
 }
