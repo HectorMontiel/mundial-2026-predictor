@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T07:15:26Z",
+"actualizado": "2026-10-14T10:25:15Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6281,6 +6281,26 @@
 "cuota": 1.82,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Melbourne Victory (Aus) vs Seoul (Kor)",
+"apuesta": "Gana Melbourne Victory (Aus)",
+"cuota": 2.3,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Tjen J. vs Snigur D.",
+"apuesta": "Gana Snigur D.",
+"cuota": 1.67,
+"resultado": "rojo",
+"marcador": "2-0"
 }
 ]
 }
