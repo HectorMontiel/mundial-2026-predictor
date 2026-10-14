@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T15:16:18Z",
+"actualizado": "2026-10-14T16:48:28Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6304,6 +6304,26 @@
 },
 {
 "dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Atyrau vs Yelimay Semey",
+"apuesta": "Gana Atyrau",
+"cuota": 3.35,
+"resultado": "rojo",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Atyrau vs Yelimay Semey",
+"apuesta": "Gana Yelimay Semey",
+"cuota": 3.2,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-14",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Iwata vs Kawasaki Frontale",
@@ -6331,6 +6351,16 @@
 "cuota": 1.9091,
 "resultado": "rojo",
 "marcador": "4-1"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "MO Constantine vs Azazga",
+"apuesta": "Gana MO Constantine",
+"cuota": 2.08,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-14",
@@ -6394,6 +6424,26 @@
 },
 {
 "dia": "2026-10-14",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Punjab FC vs Odisha FC",
+"apuesta": "Punjab FC o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Punjab vs Odisha FC",
+"apuesta": "Gana Punjab",
+"cuota": 1.9,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-14",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Sagan Tosu vs Avispa Fukuoka",
@@ -6401,6 +6451,16 @@
 "cuota": 3.05,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Shi H. vs Fernandez L.",
+"apuesta": "Gana Fernandez L.",
+"cuota": 1.3,
+"resultado": "verde",
+"marcador": "0-2"
 },
 {
 "dia": "2026-10-14",
@@ -6431,6 +6491,26 @@
 "cuota": 1.67,
 "resultado": "rojo",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Umraniyespor vs Boluspor",
+"apuesta": "Gana Umraniyespor",
+"cuota": 1.48,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "WA Mostaganem vs RC Kouba",
+"apuesta": "Gana WA Mostaganem",
+"cuota": 3.55,
+"resultado": "rojo",
+"marcador": "0-0"
 }
 ]
 }
