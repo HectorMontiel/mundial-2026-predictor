@@ -211,15 +211,15 @@
   },
   "Real Betis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Pilar",
-    "ratio": 0.6,
-    "visto": "2026-10-12"
+    "candidato": "Real Potosi",
+    "ratio": 0.6667,
+    "visto": "2026-10-14"
   },
   "Real Madrid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Pilar",
-    "ratio": 0.6667,
-    "visto": "2026-10-11"
+    "candidato": "Real Santander",
+    "ratio": 0.64,
+    "visto": "2026-10-14"
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
@@ -521,8 +521,8 @@
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maritimo",
-    "ratio": 0.7647,
+    "candidato": "Deportivo Mixco",
+    "ratio": 0.7097,
     "visto": "2026-10-14"
   },
   "Cúcuta Deportivo": {
@@ -761,9 +761,9 @@
   },
   "Boston River": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Boston Utd",
-    "ratio": 0.6364,
-    "visto": "2026-10-10"
+    "candidato": "River Plate",
+    "ratio": 0.4348,
+    "visto": "2026-10-14"
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
@@ -1145,9 +1145,9 @@
   },
   "West Ham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "West Ham U21",
-    "ratio": 0.7407,
-    "visto": "2026-10-12"
+    "candidato": "Minnesota United",
+    "ratio": 0.7097,
+    "visto": "2026-10-14"
   },
   "San Antonio Bulo Bulo": {
     "contexto": "cuotas_mx→futbol",
@@ -1271,8 +1271,8 @@
   },
   "Deportivo Garcilaso": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maritimo",
-    "ratio": 0.7568,
+    "candidato": "Deportivo Mixco",
+    "ratio": 0.7059,
     "visto": "2026-10-14"
   },
   "Sporting San José": {
@@ -1289,8 +1289,8 @@
   },
   "Deportivo La Guaira": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maritimo",
-    "ratio": 0.6486,
+    "candidato": "Deportivo Mixco",
+    "ratio": 0.6471,
     "visto": "2026-10-14"
   },
   "Deportivo Táchira": {
@@ -1325,9 +1325,9 @@
   },
   "Sheffield United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
+    "candidato": "DC United",
     "ratio": 0.64,
-    "visto": "2026-10-13"
+    "visto": "2026-10-14"
   },
   "Santa Clara": {
     "contexto": "cuotas_mx→futbol",
@@ -2123,7 +2123,7 @@
   },
   "Real Tomayapo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid",
+    "candidato": "Real Potosi",
     "ratio": 0.5833,
     "visto": "2026-10-14"
   },
