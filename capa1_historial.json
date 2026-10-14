@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T21:39:44Z",
+"actualizado": "2026-10-14T23:20:01Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6696,6 +6696,26 @@
 "dia": "2026-10-14",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Trujillanos vs Rayo Zuliano",
+"apuesta": "Gana Trujillanos",
+"cuota": 1.85,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Trujillanos vs Rayo Zuliano",
+"apuesta": "Gana Rayo Zuliano",
+"cuota": 2.9,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Umraniyespor vs Boluspor",
 "apuesta": "Gana Umraniyespor",
 "cuota": 1.48,
@@ -6731,6 +6751,16 @@
 "cuota": 1.93,
 "resultado": "verde",
 "marcador": "5-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Yaracuyanos vs Barquisimeto",
+"apuesta": "Gana Yaracuyanos",
+"cuota": 2.03,
+"resultado": "rojo",
+"marcador": "1-1"
 }
 ]
 }
