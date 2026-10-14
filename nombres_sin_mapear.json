@@ -109,8 +109,8 @@
   },
   "Fuerte San Francisco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.5,
+    "candidato": "San Marcos",
+    "ratio": 0.4667,
     "visto": "2026-10-14"
   },
   "Gimnasia y Esgrima (Jujuy)": {
@@ -151,9 +151,9 @@
   },
   "Inter de San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter Santa Tecla",
-    "ratio": 0.6667,
-    "visto": "2026-10-11"
+    "candidato": "San Marcos",
+    "ratio": 0.5517,
+    "visto": "2026-10-14"
   },
   "Jaguares de Córdoba": {
     "contexto": "cuotas_mx→futbol",
@@ -1151,8 +1151,8 @@
   },
   "San Antonio Bulo Bulo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Carlos",
-    "ratio": 0.4516,
+    "candidato": "San Lorenzo",
+    "ratio": 0.4375,
     "visto": "2026-10-14"
   },
   "Stade Laval": {
@@ -1499,9 +1499,9 @@
   },
   "AD San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Carlos Mannucci",
-    "ratio": 0.4286,
-    "visto": "2026-10-12"
+    "candidato": "San Marcos",
+    "ratio": 0.6957,
+    "visto": "2026-10-14"
   },
   "Nacional Potosí": {
     "contexto": "cuotas_mx→futbol",
@@ -1667,7 +1667,7 @@
   },
   "GV San José": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Carlos",
+    "candidato": "San Marcos",
     "ratio": 0.5714,
     "visto": "2026-10-14"
   },

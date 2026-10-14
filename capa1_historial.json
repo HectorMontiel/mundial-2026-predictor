@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T00:56:50Z",
+"actualizado": "2026-10-14T02:31:35Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5714,6 +5714,26 @@
 },
 {
 "dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Carolina Hurricanes vs Washington Capitals",
+"apuesta": "Handicap: Carolina Hurricanes +2.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Cartaginés vs Puntarenas FC",
+"apuesta": "Cartaginés o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "3-1"
+},
+{
+"dia": "2026-10-13",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Cong An Ha Noi (Vie) vs Kashima Antlers (Jpn)",
@@ -5894,6 +5914,16 @@
 },
 {
 "dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Montreal Canadiens vs Buffalo Sabres",
+"apuesta": "Handicap: Montreal Canadiens +2.5",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "4-3"
+},
+{
+"dia": "2026-10-13",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "National Bank Egypt vs El Gaish",
@@ -5911,6 +5941,16 @@
 "cuota": 3.1,
 "resultado": "rojo",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "New York Islanders vs Vancouver Canucks",
+"apuesta": "Handicap: Vancouver Canucks +3.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-13",
@@ -5961,6 +6001,16 @@
 "cuota": 1.37,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Ottawa Senators vs St. Louis Blues",
+"apuesta": "Handicap: Ottawa Senators +2.5",
+"cuota": 1.125,
+"resultado": "rojo",
+"marcador": "2-7"
 },
 {
 "dia": "2026-10-13",
@@ -6091,6 +6141,16 @@
 "cuota": 1.7,
 "resultado": "verde",
 "marcador": "2-5"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Tapatío vs Tepatitlán FC",
+"apuesta": "Tapatío o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "4-1"
 },
 {
 "dia": "2026-10-13",
