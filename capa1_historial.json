@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T19:57:58Z",
+"actualizado": "2026-10-14T21:39:44Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6296,11 +6296,51 @@
 "dia": "2026-10-14",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Al Faisaly Amman (Jor) vs Al Nahda (Oma)",
+"apuesta": "Gana Al Nahda (Oma)",
+"cuota": 3.2,
+"resultado": "rojo",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Aston Villa U19 vs Fenerbahce U19",
 "apuesta": "Gana Aston Villa U19",
 "cuota": 1.52,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-14",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Aston Villa vs Fenerbahce",
+"apuesta": "Aston Villa o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "6-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Aston Villa vs Fenerbahce",
+"apuesta": "Gana Aston Villa",
+"cuota": 1.615,
+"resultado": "verde",
+"marcador": "6-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Aston Villa vs Fenerbahce",
+"apuesta": "Gana Aston Villa",
+"cuota": 1.66,
+"resultado": "verde",
+"marcador": "6-0"
 },
 {
 "dia": "2026-10-14",
@@ -6331,6 +6371,26 @@
 "cuota": 2.1,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Bodo/Glimt vs Borussia Dortmund",
+"apuesta": "Gana Bodo/Glimt",
+"cuota": 2.85,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Bodo/Glimt vs Dortmund",
+"apuesta": "Gana Bodo/Glimt",
+"cuota": 2.85,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-14",
@@ -6391,6 +6451,26 @@
 "cuota": 2.08,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Manchester City vs PSG",
+"apuesta": "Gana Manchester City",
+"cuota": 2.05,
+"resultado": "rojo",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Manchester City vs Paris Saint-Germain",
+"apuesta": "Gana Manchester City",
+"cuota": 2.05,
+"resultado": "rojo",
+"marcador": "2-4"
 },
 {
 "dia": "2026-10-14",
@@ -6464,6 +6544,26 @@
 },
 {
 "dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Portsmouth vs Sheffield United",
+"apuesta": "Gana Sheffield United",
+"cuota": 3.1,
+"resultado": "rojo",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Portsmouth vs Sheffield Utd",
+"apuesta": "Gana Sheffield Utd",
+"cuota": 3.1,
+"resultado": "rojo",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-14",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Punjab FC vs Odisha FC",
@@ -6511,6 +6611,36 @@
 "cuota": 1.5,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Slovan Bratislava vs Stuttgart",
+"apuesta": "Gana Stuttgart",
+"cuota": 1.33,
+"resultado": "verde",
+"marcador": "0-3"
+},
+{
+"dia": "2026-10-14",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Slovan Bratislava vs VfB Stuttgart",
+"apuesta": "VfB Stuttgart o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "0-3"
+},
+{
+"dia": "2026-10-14",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Slovan Bratislava vs VfB Stuttgart",
+"apuesta": "Gana VfB Stuttgart",
+"cuota": 1.4,
+"resultado": "verde",
+"marcador": "0-3"
 },
 {
 "dia": "2026-10-14",
@@ -6591,6 +6721,16 @@
 "cuota": 3.55,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Whyteleafe vs Whitehawk",
+"apuesta": "Gana Whyteleafe",
+"cuota": 1.93,
+"resultado": "verde",
+"marcador": "5-0"
 }
 ]
 }
