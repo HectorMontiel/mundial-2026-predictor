@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T04:06:16Z",
+"actualizado": "2026-10-14T07:15:26Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5625,6 +5625,16 @@
 {
 "dia": "2026-10-13",
 "nivel": "🏆",
+"deporte": "NHL",
+"partido": "Anaheim Ducks vs Calgary Flames",
+"apuesta": "Handicap: Calgary Flames +3.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Arsenal vs Lille",
 "apuesta": "Gana Arsenal",
@@ -5885,6 +5895,16 @@
 {
 "dia": "2026-10-13",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Kartal S. vs Bencic B.",
+"apuesta": "Gana Bencic B.",
+"cuota": 1.5,
+"resultado": "rojo",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Leamington vs Redditch",
 "apuesta": "Gana Redditch",
@@ -5901,6 +5921,16 @@
 "cuota": 2.02,
 "resultado": "verde",
 "marcador": "4-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Los Angeles Kings vs Edmonton Oilers",
+"apuesta": "Handicap: Edmonton Oilers +2.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "1-4"
 },
 {
 "dia": "2026-10-13",
