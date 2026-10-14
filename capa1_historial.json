@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-13T23:26:48Z",
+"actualizado": "2026-10-14T00:56:50Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5641,6 +5641,26 @@
 "cuota": 1.24,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Athletic Club vs Londrina",
+"apuesta": "Gana Athletic Club",
+"cuota": 2.09,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-13",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Athletic vs Londrina",
+"apuesta": "Gana Athletic",
+"cuota": 2.09,
+"resultado": "rojo",
+"marcador": "2-2"
 },
 {
 "dia": "2026-10-13",
