@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T02:31:35Z",
+"actualizado": "2026-10-14T04:06:16Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -5676,6 +5676,16 @@
 "dia": "2026-10-13",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Boca Juniors vs Vasco da Gama",
+"apuesta": "Boca Juniors o empate",
+"cuota": 1.177,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Burnley vs Charlton",
 "apuesta": "Burnley o empate",
 "cuota": 1.154,
@@ -5731,6 +5741,16 @@
 "cuota": 1.125,
 "resultado": "verde",
 "marcador": "3-1"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Chicago Blackhawks vs Pittsburgh Penguins",
+"apuesta": "Handicap: Pittsburgh Penguins +2.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "5-3"
 },
 {
 "dia": "2026-10-13",
@@ -5921,6 +5941,16 @@
 "cuota": 1.133,
 "resultado": "verde",
 "marcador": "4-3"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Nashville Predators vs Vegas Golden Knights",
+"apuesta": "Handicap: Vegas Golden Knights +2.5",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "2-5"
 },
 {
 "dia": "2026-10-13",
@@ -6171,6 +6201,16 @@
 "cuota": 1.93,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-13",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Utah Mammoth vs Toronto Maple Leafs",
+"apuesta": "Handicap: Utah Mammoth +2.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "5-4"
 },
 {
 "dia": "2026-10-13",
