@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-14T16:48:28Z",
+"actualizado": "2026-10-14T18:27:13Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6324,6 +6324,26 @@
 },
 {
 "dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "BATE vs Neman",
+"apuesta": "Gana Neman",
+"cuota": 2.1,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Bohemians vs Mlada Boleslav",
+"apuesta": "Gana Bohemians",
+"cuota": 2.15,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-14",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Iwata vs Kawasaki Frontale",
@@ -6411,6 +6431,16 @@
 "cuota": 2.2223,
 "resultado": "rojo",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Parnu JK Vaprus U21 vs Tabasalu",
+"apuesta": "Gana Parnu JK Vaprus U21",
+"cuota": 1.45,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-14",
