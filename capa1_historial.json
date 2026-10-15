@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T10:39:10Z",
+"actualizado": "2026-10-15T12:15:41Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6951,6 +6951,16 @@
 "cuota": 2.03,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Preston Lions vs Wollongong Wolves",
+"apuesta": "Gana Preston Lions",
+"cuota": 1.52,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-15",
