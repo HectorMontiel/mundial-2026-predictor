@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T12:15:41Z",
+"actualizado": "2026-10-15T13:49:56Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6971,6 +6971,16 @@
 "cuota": 1.4286,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Uttaradit vs Satun FC",
+"apuesta": "Gana Uttaradit",
+"cuota": 2.4,
+"resultado": "rojo",
+"marcador": "1-1"
 }
 ]
 }
