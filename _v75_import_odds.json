@@ -1,6 +1,6 @@
 {
- "generado": "2026-10-14T11:49:03Z",
- "filas_insertadas": 234584,
+ "generado": "2026-10-15T11:14:35Z",
+ "filas_insertadas": 234597,
  "ligas_con_cuota": 36,
  "ligas_sin_cuota": [
   "afc_champions",
@@ -65,8 +65,8 @@
    "partidos": 1626
   },
   "eng_championship": {
-   "filas": 5345,
-   "partidos": 2867
+   "filas": 5357,
+   "partidos": 2879
   },
   "eng_league_one": {
    "filas": 15969,
@@ -157,8 +157,8 @@
    "partidos": 1942
   },
   "sco_championship": {
-   "filas": 2989,
-   "partidos": 1579
+   "filas": 2990,
+   "partidos": 1580
   },
   "sco_premiership": {
    "filas": 6615,
