@@ -524,11 +524,11 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple,linea_l
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,tarjetas,1.83,1.928,3.758,2.5,0.7243,,,0.5,0.8396,0.5,0.8546,,
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,tiros,6.468,14.386,20.854,16.5,0.7522,,,4.5,0.7225,10.5,0.757,,
 2026-10-13,Queens Park vs Inverness C,sco_championship,2026-10-13 18:45:00,a_puerta,2.336,5.799,8.135,5.5,0.7785,,,0.5,0.8843,3.5,0.7787,,
-2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,goles,1.716,1.251,2.967,1.5,0.7835,,,0.5,0.8058,0.5,0.7016,,
-2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,corners,5.43,4.173,9.603,6.5,0.7913,,,3.5,0.7308,2.5,0.7372,,
-2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,tarjetas,2.457,1.543,4.0,2.5,0.7619,,,1.5,0.7038,0.5,0.7863,,
-2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,tiros,13.664,11.21,24.874,20.5,0.7297,,,10.5,0.7144,8.5,0.7112,,
-2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,a_puerta,4.63,3.907,8.537,6.5,0.7122,,,2.5,0.7995,2.5,0.7117,,
+2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,goles,1.716,1.251,2.967,1.5,0.7835,2.0,1.0,0.5,0.8058,0.5,0.7016,1.0,1.0
+2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,corners,5.43,4.173,9.603,6.5,0.7913,14.0,1.0,3.5,0.7308,2.5,0.7372,11.0,3.0
+2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,tarjetas,2.457,1.543,4.0,2.5,0.7619,2.0,0.0,1.5,0.7038,0.5,0.7863,2.0,0.0
+2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,tiros,13.664,11.21,24.874,20.5,0.7297,31.0,1.0,10.5,0.7144,8.5,0.7112,24.0,7.0
+2026-10-15,Mansfield vs Oxford,eng_league_one,2026-10-15 19:00:00,a_puerta,4.63,3.907,8.537,6.5,0.7122,6.0,0.0,2.5,0.7995,2.5,0.7117,4.0,2.0
 2026-10-16,Laval vs Clermont,fra_ligue2,2026-10-16 18:00:00,goles,1.175,1.252,2.427,0.5,0.9045,,,,,0.5,0.7019,,
 2026-10-16,Laval vs Clermont,fra_ligue2,2026-10-16 18:00:00,corners,5.148,4.542,9.69,7.5,0.7016,,,2.5,0.835,2.5,0.7795,,
 2026-10-16,Laval vs Clermont,fra_ligue2,2026-10-16 18:00:00,tarjetas,2.052,1.888,3.94,2.5,0.753,,,0.5,0.8715,0.5,0.8486,,
@@ -639,11 +639,11 @@ dia,partido,clave_liga,inicio,obj,local,visita,total,linea,p,real,cumple,linea_l
 2026-10-17,Crewe vs Rochdale,eng_league_two,2026-10-17 14:00:00,tarjetas,1.209,1.681,2.89,1.5,0.7838,,,0.5,0.7015,0.5,0.8138,,
 2026-10-17,Crewe vs Rochdale,eng_league_two,2026-10-17 14:00:00,tiros,14.092,11.333,25.425,21.5,0.7017,,,10.5,0.7403,8.5,0.7201,,
 2026-10-17,Crewe vs Rochdale,eng_league_two,2026-10-17 14:00:00,a_puerta,4.707,2.977,7.684,5.5,0.7431,,,2.5,0.8073,1.5,0.7679,,
-2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,goles,1.038,1.211,2.249,0.5,0.8871,,,,,,,,
-2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,corners,3.85,4.952,8.802,6.5,0.7272,,,1.5,0.8576,2.5,0.8188,,
-2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,tarjetas,1.82,1.489,3.309,1.5,0.8425,,,0.5,0.838,0.5,0.7744,,
-2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,tiros,12.761,12.488,25.249,20.5,0.7475,,,9.5,0.734,9.5,0.7163,,
-2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,a_puerta,4.134,3.3,7.434,5.5,0.719,,,2.5,0.7425,1.5,0.8107,,
+2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,goles,1.031,1.11,2.141,0.5,0.875,,,,,,,,
+2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,corners,3.712,4.244,7.956,5.5,0.7606,,,1.5,0.8454,2.5,0.7459,,
+2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,tarjetas,1.847,1.468,3.315,1.5,0.8432,,,0.5,0.8423,0.5,0.7696,,
+2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,tiros,12.718,12.317,25.035,20.5,0.7377,,,9.5,0.7313,9.5,0.7047,,
+2026-10-17,Port Vale vs Chesterfield,eng_league_two,2026-10-17 14:00:00,a_puerta,4.138,3.326,7.464,5.5,0.7222,,,2.5,0.743,1.5,0.8138,,
 2026-10-17,Oldham vs Cheltenham,eng_league_two,2026-10-17 14:00:00,goles,1.247,0.832,2.079,0.5,0.8672,,,0.5,0.7005,,,,
 2026-10-17,Oldham vs Cheltenham,eng_league_two,2026-10-17 14:00:00,corners,6.083,4.69,10.773,7.5,0.7851,,,3.5,0.7926,2.5,0.7945,,
 2026-10-17,Oldham vs Cheltenham,eng_league_two,2026-10-17 14:00:00,tarjetas,1.458,1.824,3.282,1.5,0.8392,,,0.5,0.7673,0.5,0.8386,,

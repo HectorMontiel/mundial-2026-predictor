@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T20:14:11Z",
+"actualizado": "2026-10-15T21:46:37Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6994,6 +6994,26 @@
 },
 {
 "dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Benfica vs Celtic",
+"apuesta": "Gana Benfica",
+"cuota": 1.27,
+"resultado": "verde",
+"marcador": "4-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Bournemouth vs Sturm Graz",
+"apuesta": "Gana Bournemouth",
+"cuota": 1.22,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-15",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "CSKA Sofia vs Monaco",
@@ -7011,6 +7031,26 @@
 "cuota": 1.52,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Caen vs La Roche",
+"apuesta": "Gana Caen",
+"cuota": 2.07,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Caen vs La Roche",
+"apuesta": "Gana La Roche",
+"cuota": 3.65,
+"resultado": "rojo",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-15",
@@ -7044,6 +7084,16 @@
 },
 {
 "dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "FC Copenhagen vs Braga",
+"apuesta": "Gana FC Copenhagen",
+"cuota": 2.5,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-15",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "FC Tallinn vs Tartu Welco",
@@ -7071,6 +7121,16 @@
 "cuota": 1.52,
 "resultado": "verde",
 "marcador": "1-3"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Freiburg vs Jablonec",
+"apuesta": "Gana Freiburg",
+"cuota": 1.29,
+"resultado": "verde",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-15",
@@ -7176,6 +7236,16 @@
 "dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Rennes vs OFI Crete",
+"apuesta": "Gana Rennes",
+"cuota": 1.27,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Salzburg vs AC Milan",
 "apuesta": "Gana AC Milan",
 "cuota": 2.09,
@@ -7241,6 +7311,16 @@
 "cuota": 2.4,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Xelaju vs Malacateco",
+"apuesta": "Gana Xelaju",
+"cuota": 1.5,
+"resultado": "verde",
+"marcador": "2-1"
 }
 ]
 }

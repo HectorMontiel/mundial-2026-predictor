@@ -141,7 +141,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Academia del Balompie",
     "ratio": 0.5,
-    "visto": "2026-10-10"
+    "visto": "2026-10-15"
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
@@ -485,8 +485,8 @@
   },
   "Internacional Santa Tecla": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Union de Santa Fe 2",
-    "ratio": 0.5455,
+    "candidato": "Santa Fe W (Col)",
+    "ratio": 0.4615,
     "visto": "2026-10-15"
   },
   "Cruz Azul Hidalgo": {
@@ -587,8 +587,8 @@
   },
   "Mitre (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente del Valle W (Ecu)",
-    "ratio": 0.4074,
+    "candidato": "Academia del Balompie",
+    "ratio": 0.3913,
     "visto": "2026-10-15"
   },
   "San Telmo": {
@@ -1705,7 +1705,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Jaguares de Cordoba",
     "ratio": 0.6857,
-    "visto": "2026-10-14"
+    "visto": "2026-10-15"
   },
   "SK Sturm Graz": {
     "contexto": "cuotas_mx→futbol",
@@ -2179,6 +2179,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Warta Poznan",
     "ratio": 0.6087,
+    "visto": "2026-10-15"
+  },
+  "Golden Arrows": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Red Arrows (Zam)",
+    "ratio": 0.5926,
     "visto": "2026-10-15"
   }
 }
