@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T15:28:54Z",
+"actualizado": "2026-10-15T17:05:48Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6956,6 +6956,26 @@
 "dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Al Faisaly vs Al Kholood",
+"apuesta": "Gana Al Faisaly",
+"cuota": 3.4,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Al Khaleej vs Al Fayha",
+"apuesta": "Gana Al Khaleej",
+"cuota": 2.08,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "El Daklyeh vs WE SC",
 "apuesta": "Gana WE SC",
 "cuota": 2.25,
@@ -6971,6 +6991,16 @@
 "cuota": 1.82,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Mardin 1969 vs Karagumruk",
+"apuesta": "Gana Mardin 1969",
+"cuota": 1.98,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-15",

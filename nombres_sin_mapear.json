@@ -1,8 +1,8 @@
 {
   "América de Cali": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Dep. Cali W (Col)",
-    "ratio": 0.4828,
+    "candidato": "America MG U20",
+    "ratio": 0.6207,
     "visto": "2026-10-15"
   },
   "Atletico Balboa": {
@@ -761,9 +761,9 @@
   },
   "Boston River": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "River Plate",
-    "ratio": 0.4348,
-    "visto": "2026-10-14"
+    "candidato": "Boston City U20",
+    "ratio": 0.5926,
+    "visto": "2026-10-15"
   },
   "Atlético Bucaramanga": {
     "contexto": "cuotas_mx→futbol",
@@ -905,9 +905,9 @@
   },
   "América Mineiro": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sol de America",
-    "ratio": 0.4828,
-    "visto": "2026-10-14"
+    "candidato": "America MG U20",
+    "ratio": 0.6207,
+    "visto": "2026-10-15"
   },
   "Los Chankas": {
     "contexto": "cuotas_mx→futbol",
@@ -1265,8 +1265,8 @@
   },
   "Stade de Reims": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Stade d'Abidjan",
-    "ratio": 0.6207,
+    "candidato": "Stade Nyonnais",
+    "ratio": 0.5714,
     "visto": "2026-10-15"
   },
   "Deportivo Garcilaso": {
@@ -1979,9 +1979,9 @@
   },
   "Sparta Prague": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Slavia Prague",
-    "ratio": 0.7692,
-    "visto": "2026-10-13"
+    "candidato": "Slavia Prague B",
+    "ratio": 0.7143,
+    "visto": "2026-10-15"
   },
   "Pohang Steelers": {
     "contexto": "cuotas_mx→futbol",
@@ -2075,9 +2075,9 @@
   },
   "CSKA Sofia": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "CSKA Moscow",
-    "ratio": 0.6667,
-    "visto": "2026-10-13"
+    "candidato": "Levski Sofia",
+    "ratio": 0.7273,
+    "visto": "2026-10-15"
   },
   "Como": {
     "contexto": "cuotas_mx→futbol",
@@ -2173,6 +2173,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Chongqing Yongchuan W",
     "ratio": 0.7143,
+    "visto": "2026-10-15"
+  },
+  "Lech Poznan": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Warta Poznan",
+    "ratio": 0.6087,
     "visto": "2026-10-15"
   }
 }
