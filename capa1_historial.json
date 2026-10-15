@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T13:49:56Z",
+"actualizado": "2026-10-15T15:28:54Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6956,9 +6956,39 @@
 "dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "El Daklyeh vs WE SC",
+"apuesta": "Gana WE SC",
+"cuota": 2.25,
+"resultado": "verde",
+"marcador": "1-3"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Kuching City FC (Mys) vs Kitchee (Hkg)",
+"apuesta": "Gana Kuching City FC (Mys)",
+"cuota": 1.82,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Preston Lions vs Wollongong Wolves",
 "apuesta": "Gana Preston Lions",
 "cuota": 1.52,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Svay Rieng (Cam) vs Shanghai Shenhua (Chn)",
+"apuesta": "Gana Shanghai Shenhua (Chn)",
+"cuota": 1.54,
 "resultado": "rojo",
 "marcador": "0-0"
 },
@@ -6971,6 +7001,16 @@
 "cuota": 1.4286,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Tanta vs Dayrout",
+"apuesta": "Gana Tanta",
+"cuota": 1.83,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-15",
