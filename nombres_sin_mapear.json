@@ -121,9 +121,9 @@
   },
   "Independiente Medellín": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Independiente CBBA",
-    "ratio": 0.7,
-    "visto": "2026-10-11"
+    "candidato": "Independiente del Valle W (Ecu)",
+    "ratio": 0.7059,
+    "visto": "2026-10-15"
   },
   "Independiente Rivadavia": {
     "contexto": "cuotas_mx→futbol",
@@ -175,8 +175,8 @@
   },
   "Manchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Minnesota United",
-    "ratio": 0.7273,
+    "candidato": "Muras United",
+    "ratio": 0.6897,
     "visto": "2026-10-15"
   },
   "Montevideo City Torque": {
@@ -229,9 +229,9 @@
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid U19",
-    "ratio": 0.4828,
-    "visto": "2026-10-13"
+    "candidato": "Real Santander",
+    "ratio": 0.7143,
+    "visto": "2026-10-15"
   },
   "Real Sociedad": {
     "contexto": "cuotas_mx→futbol",
@@ -241,8 +241,8 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Salt Lake",
-    "ratio": 0.6207,
+    "candidato": "Real Santander",
+    "ratio": 0.5517,
     "visto": "2026-10-15"
   },
   "San Antonio FC": {
@@ -419,8 +419,8 @@
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Minnesota United",
-    "ratio": 0.6061,
+    "candidato": "Mombasa United",
+    "ratio": 0.5806,
     "visto": "2026-10-15"
   },
   "Scunthorpe United": {
@@ -559,7 +559,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Mombasa United",
     "ratio": 0.6667,
-    "visto": "2026-10-13"
+    "visto": "2026-10-15"
   },
   "New England Revolution": {
     "contexto": "cuotas_mx→futbol",
@@ -569,9 +569,9 @@
   },
   "San Jose Earthquakes": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin S.J. 2",
-    "ratio": 0.4444,
-    "visto": "2026-10-13"
+    "candidato": "San Lorenzo 2",
+    "ratio": 0.4242,
+    "visto": "2026-10-15"
   },
   "D.C. United": {
     "contexto": "cuotas_mx→futbol",
@@ -1133,9 +1133,9 @@
   },
   "Qingdao Hainiu": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Qingdao Red Lions",
-    "ratio": 0.6452,
-    "visto": "2026-10-06"
+    "candidato": "Qingdao West Coast W",
+    "ratio": 0.5625,
+    "visto": "2026-10-15"
   },
   "BEIJING GUOAN": {
     "contexto": "cuotas_mx→futbol",
@@ -1145,8 +1145,8 @@
   },
   "West Ham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Minnesota United",
-    "ratio": 0.7097,
+    "candidato": "Pathum United (Tha)",
+    "ratio": 0.625,
     "visto": "2026-10-15"
   },
   "San Antonio Bulo Bulo": {
@@ -1181,8 +1181,8 @@
   },
   "Shanghai Port": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shanghai Shenhua (Chn)",
-    "ratio": 0.5455,
+    "candidato": "Shanghai RCB B W",
+    "ratio": 0.7407,
     "visto": "2026-10-15"
   },
   "Libertad (Ecuador)": {
@@ -1385,9 +1385,9 @@
   },
   "West Bromwich Albion": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Albion",
-    "ratio": 0.4615,
-    "visto": "2026-10-14"
+    "candidato": "Qingdao West Coast W",
+    "ratio": 0.3684,
+    "visto": "2026-10-15"
   },
   "Cercle Brugge KSV": {
     "contexto": "cuotas_mx→futbol",
@@ -1763,9 +1763,9 @@
   },
   "Wuhan Three Towns": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Three Bridges",
-    "ratio": 0.4667,
-    "visto": "2026-10-10"
+    "candidato": "Wuhan Sports University W",
+    "ratio": 0.45,
+    "visto": "2026-10-15"
   },
   "Deportes Limache": {
     "contexto": "cuotas_mx→futbol",
@@ -2167,6 +2167,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Johvi Phoenix",
     "ratio": 0.5806,
+    "visto": "2026-10-15"
+  },
+  "Chongqing Tonglianglong": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Chongqing Yongchuan W",
+    "ratio": 0.7143,
     "visto": "2026-10-15"
   }
 }
