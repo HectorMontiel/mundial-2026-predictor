@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T03:59:46Z",
+"actualizado": "2026-10-15T05:48:35Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6571,6 +6571,16 @@
 "cuota": 1.9091,
 "resultado": "rojo",
 "marcador": "4-1"
+},
+{
+"dia": "2026-10-14",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Los Angeles FC vs Austin FC",
+"apuesta": "Gana Los Angeles FC",
+"cuota": 1.46,
+"resultado": "verde",
+"marcador": "3-1"
 },
 {
 "dia": "2026-10-14",
