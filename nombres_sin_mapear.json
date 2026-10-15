@@ -85,14 +85,14 @@
   },
   "Deportivo Moquegua": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.7273,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.5946,
     "visto": "2026-10-15"
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.7273,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.6486,
     "visto": "2026-10-15"
   },
   "Estudiantes de La Plata": {
@@ -115,8 +115,8 @@
   },
   "Gimnasia y Esgrima (Jujuy)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gimnasia Mendoza 2",
-    "ratio": 0.5714,
+    "candidato": "Gimnasia L.P.",
+    "ratio": 0.5556,
     "visto": "2026-10-15"
   },
   "Independiente Medellín": {
@@ -151,8 +151,8 @@
   },
   "Inter de San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter Escaldes",
-    "ratio": 0.5455,
+    "candidato": "Inter Palmira",
+    "ratio": 0.5,
     "visto": "2026-10-15"
   },
   "Jaguares de Córdoba": {
@@ -223,8 +223,8 @@
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Sociedad",
-    "ratio": 0.75,
+    "candidato": "Real Potosi",
+    "ratio": 0.6364,
     "visto": "2026-10-15"
   },
   "Real Salt Lake": {
@@ -235,9 +235,9 @@
   },
   "Real Sociedad": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid",
+    "candidato": "Real Potosi",
     "ratio": 0.5833,
-    "visto": "2026-10-13"
+    "visto": "2026-10-15"
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
@@ -365,8 +365,8 @@
   },
   "Philadelphia Union": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Royale Union SG",
-    "ratio": 0.4848,
+    "candidato": "SV Union Gnas",
+    "ratio": 0.3871,
     "visto": "2026-10-15"
   },
   "Red Bull New York": {
@@ -401,9 +401,9 @@
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bedford W",
-    "ratio": 0.5714,
-    "visto": "2026-10-10"
+    "candidato": "Real Potosi",
+    "ratio": 0.5185,
+    "visto": "2026-10-15"
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
@@ -521,8 +521,8 @@
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.7097,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.7429,
     "visto": "2026-10-15"
   },
   "Cúcuta Deportivo": {
@@ -569,8 +569,8 @@
   },
   "San Jose Earthquakes": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo 2",
-    "ratio": 0.4242,
+    "candidato": "San Antonio",
+    "ratio": 0.3226,
     "visto": "2026-10-15"
   },
   "D.C. United": {
@@ -581,9 +581,9 @@
   },
   "Deportivo Morón": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Maipu",
-    "ratio": 0.7333,
-    "visto": "2026-10-11"
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.7059,
+    "visto": "2026-10-15"
   },
   "Mitre (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
@@ -611,20 +611,20 @@
   },
   "Deportivo Maipú": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Paraguayo",
+    "candidato": "Deportivo San Pedro",
     "ratio": 0.7059,
-    "visto": "2026-10-11"
+    "visto": "2026-10-15"
   },
   "Racing (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Club 2",
-    "ratio": 0.6667,
+    "candidato": "Central Cordoba 2",
+    "ratio": 0.6452,
     "visto": "2026-10-15"
   },
   "Godoy Cruz Antonio Tomba": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Godoy Cruz 2",
-    "ratio": 0.6111,
+    "candidato": "San Antonio",
+    "ratio": 0.4571,
     "visto": "2026-10-15"
   },
   "New Mexico United": {
@@ -797,13 +797,13 @@
   },
   "San Martín (Tucumán)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atl. Tucuman 2",
-    "ratio": 0.6452,
+    "candidato": "San Antonio",
+    "ratio": 0.4138,
     "visto": "2026-10-15"
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo 2",
+    "candidato": "Deportivo San Pedro",
     "ratio": 0.6667,
     "visto": "2026-10-15"
   },
@@ -947,9 +947,9 @@
   },
   "San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Telmo",
-    "ratio": 0.6,
-    "visto": "2026-10-11"
+    "candidato": "San Antonio",
+    "ratio": 0.6364,
+    "visto": "2026-10-15"
   },
   "Red Bull Bragantino": {
     "contexto": "cuotas_mx→futbol",
@@ -1039,7 +1039,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Gimnasia L.P.",
     "ratio": 0.6429,
-    "visto": "2026-10-14"
+    "visto": "2026-10-15"
   },
   "Deportivo Riestra": {
     "contexto": "cuotas_mx→futbol",
@@ -1091,8 +1091,8 @@
   },
   "Rosario Central": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Barracas Central 2",
-    "ratio": 0.6061,
+    "candidato": "Central Esp.",
+    "ratio": 0.5385,
     "visto": "2026-10-15"
   },
   "Vancouver Whitecaps": {
@@ -1271,8 +1271,8 @@
   },
   "Deportivo Garcilaso": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.7059,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.6842,
     "visto": "2026-10-15"
   },
   "Sporting San José": {
@@ -1289,14 +1289,14 @@
   },
   "Deportivo La Guaira": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.6471,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.6842,
     "visto": "2026-10-15"
   },
   "Deportivo Táchira": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.6875,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.6667,
     "visto": "2026-10-15"
   },
   "Al Ittihad": {
@@ -1667,8 +1667,8 @@
   },
   "GV San José": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Lorenzo 2",
-    "ratio": 0.5,
+    "candidato": "Deportivo San Pedro",
+    "ratio": 0.4667,
     "visto": "2026-10-15"
   },
   "NorthEast United FC": {
@@ -1865,9 +1865,9 @@
   },
   "Ciudad de Bolívar": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ciudad Nueva SC",
-    "ratio": 0.6897,
-    "visto": "2026-10-11"
+    "candidato": "Bolivar W (Bol)",
+    "ratio": 0.4667,
+    "visto": "2026-10-15"
   },
   "Universidad de Chile": {
     "contexto": "cuotas_mx→futbol",
@@ -2093,9 +2093,9 @@
   },
   "Inter D'Escaldes": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter San Carlos",
-    "ratio": 0.6875,
-    "visto": "2026-10-13"
+    "candidato": "Inter Palmira",
+    "ratio": 0.5517,
+    "visto": "2026-10-15"
   },
   "CSU Craiova": {
     "contexto": "cuotas_mx→futbol",
