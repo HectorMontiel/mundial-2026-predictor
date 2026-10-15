@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T18:41:05Z",
+"actualizado": "2026-10-15T20:14:11Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6994,6 +6994,46 @@
 },
 {
 "dia": "2026-10-15",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "CSKA Sofia vs Monaco",
+"apuesta": "Gana Monaco",
+"cuota": 1.5,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "CSKA Sofia vs Monaco",
+"apuesta": "Gana Monaco",
+"cuota": 1.52,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Egnatia vs Midtjylland",
+"apuesta": "Gana Midtjylland",
+"cuota": 1.51,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Egnatia vs Midtjylland",
+"apuesta": "Gana Midtjylland",
+"cuota": 1.54,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "El Daklyeh vs WE SC",
@@ -7034,6 +7074,36 @@
 },
 {
 "dia": "2026-10-15",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Hajduk Split vs Ajax",
+"apuesta": "Gana Ajax",
+"cuota": 1.52,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "KuPS Kuopio vs Trabzonspor",
+"apuesta": "Trabzonspor o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "KuPS vs Trabzonspor",
+"apuesta": "Gana Trabzonspor",
+"cuota": 1.5295,
+"resultado": "verde",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Kuching City FC (Mys) vs Kitchee (Hkg)",
@@ -7041,6 +7111,36 @@
 "cuota": 1.82,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Lech Poznan vs Bayer Leverkusen",
+"apuesta": "Bayer Leverkusen o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "0-4"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Lech Poznan vs Bayer Leverkusen",
+"apuesta": "Gana Bayer Leverkusen",
+"cuota": 1.67,
+"resultado": "verde",
+"marcador": "0-4"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Lyon vs Crystal Palace",
+"apuesta": "Gana Crystal Palace",
+"cuota": 3.1,
+"resultado": "rojo",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-15",
@@ -7054,6 +7154,16 @@
 },
 {
 "dia": "2026-10-15",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Muglaspor vs Bursaspor",
+"apuesta": "Gana Bursaspor",
+"cuota": 1.62,
+"resultado": "verde",
+"marcador": "0-3"
+},
+{
+"dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Preston Lions vs Wollongong Wolves",
@@ -7061,6 +7171,26 @@
 "cuota": 1.52,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Salzburg vs AC Milan",
+"apuesta": "Gana AC Milan",
+"cuota": 2.09,
+"resultado": "verde",
+"marcador": "0-4"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sparta Prague vs Lillestrom",
+"apuesta": "Gana Sparta Prague",
+"cuota": 1.36,
+"resultado": "rojo",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-15",
@@ -7091,6 +7221,16 @@
 "cuota": 1.83,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Torreense vs Sunderland",
+"apuesta": "Gana Sunderland",
+"cuota": 1.4,
+"resultado": "verde",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-15",
