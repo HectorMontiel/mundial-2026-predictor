@@ -208,15 +208,15 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Goles FC Cincinnati: Más de 1.5,goles,equipo,local,1.5,0.662,1.526,2.0,1.0
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Tiros a puerta FC Cincinnati: Más de 5.5,a_puerta,equipo,local,5.5,0.5875,1.733,9.0,1.0
 2026-10-14,FC Cincinnati vs New England Revolution,2026-10-14 23:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5698,1.556,17.0,1.0
-2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.6572,1.5,,
-2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Tiros a puerta Sporting Kansas City: Más de 2.5,a_puerta,equipo,visita,2.5,0.6289,1.615,,
-2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Goles Sporting Kansas City: Más de 0.5,goles,equipo,visita,0.5,0.6015,1.546,,
-2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5647,1.647,,
-2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6664,1.455,,
-2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6448,1.455,,
-2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Goles Real Salt Lake: Más de 1.5,goles,equipo,local,1.5,0.6218,1.625,,
-2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.565,1.455,,
-2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5565,1.647,,
+2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.6572,1.5,11.0,1.0
+2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Tiros a puerta Sporting Kansas City: Más de 2.5,a_puerta,equipo,visita,2.5,0.6289,1.615,1.0,0.0
+2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Goles Sporting Kansas City: Más de 0.5,goles,equipo,visita,0.5,0.6015,1.546,0.0,0.0
+2026-10-14,Nashville SC vs Sporting Kansas City,2026-10-15 00:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5647,1.647,0.0,0.0
+2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6664,1.455,2.0,0.0
+2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6448,1.455,1.0,1.0
+2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Goles Real Salt Lake: Más de 1.5,goles,equipo,local,1.5,0.6218,1.625,1.0,0.0
+2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.565,1.455,10.0,1.0
+2026-10-14,Real Salt Lake vs San Jose Earthquakes,2026-10-15 01:30:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5565,1.647,10.0,1.0
 2026-10-16,Grenoble vs Boulogne,2026-10-16 18:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.6279,1.75,,
 2026-10-16,Grenoble vs Boulogne,2026-10-16 18:00:00,Ambos marcan: No,btts,btts,total,0.0,0.6084,1.75,,
 2026-10-17,Metz vs Sochaux,2026-10-17 12:00:00,Goles Sochaux: Más de 0.5,goles,equipo,visita,0.5,0.5797,1.5,,
