@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T05:48:35Z",
+"actualizado": "2026-10-15T10:39:10Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -6951,6 +6951,16 @@
 "cuota": 2.03,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Tang Q./Xu Y. vs Bucsa C./Melichar-Martinez N.",
+"apuesta": "Gana Bucsa C./Melichar-Martinez N.",
+"cuota": 1.4286,
+"resultado": "verde",
+"marcador": "0-2"
 }
 ]
 }
