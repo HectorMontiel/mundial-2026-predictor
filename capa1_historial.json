@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-16T22:03:32Z",
+"actualizado": "2026-10-16T23:12:53Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7561,6 +7561,16 @@
 "cuota": 2.05,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-16",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Deportivo Cuenca vs Técnico Universitario",
+"apuesta": "Deportivo Cuenca o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-16",

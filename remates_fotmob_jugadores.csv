@@ -12852,22 +12852,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000015429,2026-07-24,per_liga1,Alianza Atlético,Jairo Molina,496951,F,0,13,0,0,0,0.0,,3.0,450943.0
 1000015429,2026-07-24,per_liga1,Alianza Atlético,José Luján,852081,D,0,8,0,0,0,0.0,,1.0,171242.0
 1000015429,2026-07-24,per_liga1,Alianza Atlético,Stefano Fernández,1502875,M,0,8,0,0,0,0.0,,2.0,255543.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Hairo Camacho,1432784,G,1,90,0,0,0,0.0,11.0,0.0,228151.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Carlos Pimienta,1368496,D,1,90,2,2,0,0.0,33.0,1.0,227052.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Héctor Gonzalez,847141,D,1,90,0,0,0,0.0,35.0,1.0,156902.0
-1000015429,2026-07-24,per_liga1,Los Chankas,David Gonzáles,1702695,D,1,62,0,0,0,0.0,37.0,1.0,175154.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Oshiro Takeuchi,625150,D,1,90,1,0,0,0.0,51.0,1.0,317161.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Ayrthon Quintana,1355518,D,1,80,3,1,0,0.0,59.0,1.0,334805.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Accel Campos,2077206,M,1,61,0,0,0,0.0,73.0,2.0,50000.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Jorge Palomino,1381138,M,1,80,0,0,0,0.0,75.0,2.0,220486.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Kelvin Sánchez,1419499,M,1,90,1,0,0,0.0,77.0,2.0,197226.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Jarlín Quintero,571225,F,1,90,4,2,1,0.0,104.0,3.0,289840.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Marlon Torres,1130739,F,1,21,1,1,0,0.0,106.0,3.0,287589.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Félix Espinoza,905979,F,0,69,3,1,0,0.0,,3.0,129517.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Juan Ospina,1440919,F,0,29,1,0,0,0.0,,3.0,
-1000015429,2026-07-24,per_liga1,Los Chankas,Michel Kaufman,1897193,D,0,28,0,0,0,0.0,,1.0,269776.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Brayan Guevara,802164,D,0,10,0,0,0,0.0,,1.0,174757.0
-1000015429,2026-07-24,per_liga1,Los Chankas,Gonzalo Rizzo,921741,D,0,10,0,0,0,0.0,,1.0,124416.0
 5847120,2026-07-24,rus_premier,CSKA Moscow,Vladislav Torop,1083848,G,1,90,0,0,0,0.0,11.0,0.0,1322775.0
 5847120,2026-07-24,rus_premier,CSKA Moscow,Danil Krugovoy,807823,F,1,90,2,0,0,0.06,32.0,3.0,4099082.0
 5847120,2026-07-24,rus_premier,CSKA Moscow,João Victor,1047358,D,1,90,0,0,0,0.0,34.0,1.0,3327114.0
@@ -13599,21 +13583,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000015433,2026-07-25,per_liga1,Sport Boys,Federico Illanes,616536,M,0,13,0,0,0,0.0,,2.0,150592.0
 1000015433,2026-07-25,per_liga1,Sport Boys,Carlos Liza,1053398,F,0,13,1,1,0,0.0,,3.0,271535.0
 1000015433,2026-07-25,per_liga1,Sport Boys,Gustavo Dulanto,661777,D,0,3,0,0,0,0.0,,1.0,
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Juan Valencia,425441,G,1,90,0,0,0,0.0,11.0,0.0,224663.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Ángel Ojeda,246413,D,1,70,0,0,0,0.0,32.0,1.0,124416.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Leonardo Rugel,1249302,D,1,80,1,0,0,0.0,34.0,1.0,255475.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Horacio Benincasa,461733,D,1,90,1,0,0,0.0,36.0,1.0,261210.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Orlando Núñez,1130782,D,1,90,0,0,0,0.0,38.0,1.0,
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Luis Pérez,1350543,M,1,90,0,0,0,0.0,64.0,2.0,157738.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Josue Alvino,1639208,M,1,80,0,0,0,0.0,66.0,2.0,
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Jeremy Canela,1039018,F,1,90,1,0,0,0.0,83.0,3.0,210320.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Víctor Cedrón,252279,M,1,70,0,0,0,0.0,85.0,2.0,169173.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Joao Rojas,114065,F,1,90,2,0,0,0.0,87.0,3.0,176828.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Jonathan Bauman,186404,F,1,90,3,1,0,0.0,115.0,3.0,196553.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Joaquín Pereyra,618084,D,0,20,0,0,0,0.0,,1.0,220652.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Jhojan Garcilazo,1785969,F,0,20,0,0,0,0.0,,3.0,242939.0
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Said Peralta,1710849,M,0,10,0,0,0,0.0,,2.0,
-1000015433,2026-07-25,per_liga1,Asociación Deportiva Tarma,Aldair Rodríguez,497520,F,0,10,0,0,0,0.0,,3.0,177473.0
 5853443,2026-07-25,rumania,FCV Farul Constanta,Rafael Munteanu,1782906,G,1,90,0,0,0,0.0,11.0,0.0,424893.0
 5853443,2026-07-25,rumania,FCV Farul Constanta,Dan Sîrbu,1227520,D,1,90,0,0,0,0.0,32.0,1.0,501307.0
 5853443,2026-07-25,rumania,FCV Farul Constanta,Victor Dican,1080768,M,1,90,2,0,0,0.0,34.0,2.0,487128.0
@@ -16292,22 +16261,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009052,2026-08-01,ecu_liga_pro,Universidad Católica,Jeysinio Chalá,1829018,M,0,26,1,0,0,0.0,,2.0,
 1000009052,2026-08-01,ecu_liga_pro,Universidad Católica,Byron Palacios,977808,F,0,26,0,0,0,0.0,,3.0,667982.0
 1000009052,2026-08-01,ecu_liga_pro,Universidad Católica,Rooney Troya,1635045,M,0,16,0,0,0,0.0,,2.0,353840.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Santiago Razzeto,1909378,G,1,90,0,0,0,0.0,11.0,0.0,287602.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Luis Cordova,1473772,D,1,76,1,0,0,0.0,33.0,1.0,242899.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Julian Anaya,1331245,D,1,90,1,0,0,0.0,35.0,1.0,203380.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Stiwar Mena,1353280,D,1,90,0,0,0,0.0,37.0,1.0,88030.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Edwin Mesa,1348054,M,1,90,1,0,0,0.0,62.0,2.0,196652.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Yorlin Arce,1905245,M,1,43,0,0,0,0.0,64.0,2.0,302375.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Matheo Castaño,945023,M,1,61,0,0,0,0.0,66.0,2.0,242938.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Rafael Chila,1967696,M,1,43,1,0,0,0.0,68.0,2.0,
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Felipe Castillo,1840815,M,1,90,1,0,0,0.0,84.0,2.0,
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Johan Bocanegra,950569,M,1,61,1,1,0,0.0,86.0,2.0,220742.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Heuyín Guardia,1526297,F,1,90,0,0,0,0.0,105.0,3.0,254131.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,José Caicedo,1910726,M,0,47,1,0,0,0.0,,2.0,278549.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Bagner Delgado,1031507,F,0,47,0,0,0,0.0,,3.0,177473.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Kener Arce,207771,D,0,29,0,0,0,0.0,,1.0,88857.0
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Carlos Estupiñán,1922561,M,0,29,2,1,0,0.0,,2.0,
-1000009052,2026-08-01,ecu_liga_pro,Técnico Universitario,Marco Carrasco,497320,M,0,14,1,0,0,0.0,,2.0,98141.0
 5851068,2026-08-01,per_liga1,Atlético Grau,Patricio Álvarez,678060,G,1,90,0,0,0,0.0,11.0,0.0,164821.0
 5851068,2026-08-01,per_liga1,Atlético Grau,Diego Rodríguez,1360566,D,1,90,0,0,0,0.0,32.0,1.0,298501.0
 5851068,2026-08-01,per_liga1,Atlético Grau,Rodrigo Tapia,724476,D,1,90,0,0,0,0.0,34.0,1.0,188000.0
@@ -18218,21 +18171,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Ronald Briones,1248973,M,0,12,2,0,0,0.0,,2.0,486144.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Darwin Guagua,1732291,M,0,12,0,0,0,0.0,,2.0,2102160.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Edwin Quintero,1829195,M,0,3,0,0,0,0.0,,2.0,
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Facundo Ferrero,875877,G,1,90,0,0,0,0.0,11.0,0.0,246027.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Eddie Guevara,1083607,D,1,90,0,0,0,0.0,33.0,1.0,135408.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Patricio Boolsen,1116948,D,1,90,0,0,0,0.0,35.0,1.0,187398.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Mateo Piedra,1356948,D,1,90,0,0,0,0.0,37.0,1.0,219178.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Andrés López,244576,D,1,83,0,0,0,0.0,51.0,1.0,153231.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Carlos Arboleda,424436,D,1,90,2,0,0,0.0,59.0,1.0,230795.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Lucas Mancinelli,280135,M,1,64,0,0,0,0.0,72.0,2.0,162182.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Mateo Maccari,1200747,M,1,90,0,0,0,0.0,74.0,2.0,263205.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Édison Vega,245348,M,1,90,0,0,0,0.0,76.0,2.0,190244.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,David González,1528895,M,1,46,0,0,0,0.0,78.0,2.0,
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Melvin Díaz,1415299,F,1,78,0,0,0,0.0,115.0,3.0,329345.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Jorge Ordóñez,852079,F,0,44,0,0,0,0.0,,3.0,246413.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Yeltzin Erique,1472521,D,0,26,0,0,0,0.0,,1.0,271285.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Jeremy Mejía,1817802,M,0,12,0,0,0,0.0,,2.0,713358.0
-1000009056,2026-08-02,ecu_liga_pro,Deportivo Cuenca,Germán Rivero,724809,F,0,7,0,0,0,0.0,,3.0,174458.0
 5847127,2026-08-02,rus_premier,FK Akhmat,Giorgi Shelia,108824,G,1,90,0,0,0,0.0,11.0,0.0,
 5847127,2026-08-02,rus_premier,FK Akhmat,Arsen Adamov,864312,D,1,90,0,0,0,0.0,32.0,1.0,1049556.0
 5847127,2026-08-02,rus_premier,FK Akhmat,Turpal-Ali Ibishev,1289972,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -149254,3 +149192,67 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017255,2026-10-16,per_liga1,Cusco FC,Gu Choi,1355712,D,0,16,0,0,0,0.0,,1.0,
 1000017255,2026-10-16,per_liga1,Cusco FC,Juan Manuel Tévez,529119,F,0,16,2,0,0,0.0,,3.0,226749.0
 1000017255,2026-10-16,per_liga1,Cusco FC,Marlon Ruidías,1130799,D,0,15,0,0,0,0.0,,1.0,417601.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Hairo Camacho,1432784,G,1,90,0,0,0,0.0,11.0,0.0,200123.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Carlos Pimienta,1368496,D,1,90,1,0,0,0.0,32.0,1.0,198826.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Héctor Gonzalez,847141,D,1,90,1,0,0,0.0,34.0,1.0,151932.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Gonzalo Rizzo,921741,D,1,46,0,0,0,0.0,36.0,1.0,144691.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Kenyi Barrios,1605042,D,1,45,1,0,0,0.0,38.0,1.0,144691.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Oshiro Takeuchi,625150,M,1,90,0,0,0,0.0,72.0,2.0,325228.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Marlon Torres,1130739,M,1,90,2,1,1,0.0,74.0,2.0,257734.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Juan Ospina,1440919,M,1,46,0,0,0,0.0,76.0,2.0,
+1000017256,2026-10-16,per_liga1,Los Chankas,Jorge Palomino,1381138,M,1,90,0,0,0,0.0,78.0,2.0,202561.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Jarlín Quintero,571225,F,1,87,4,2,1,0.0,104.0,3.0,245388.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Franco Torres,988189,F,1,84,2,0,0,0.0,106.0,3.0,295777.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Michel Kaufman,1897193,D,0,44,0,0,0,0.0,,1.0,246029.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Axel Chávez,941883,D,0,44,0,0,0,0.0,,1.0,144106.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Christian Velarde,1345062,M,0,44,0,0,0,0.0,,2.0,158535.0
+1000017256,2026-10-16,per_liga1,Los Chankas,Kelvin Sánchez,1419499,M,0,6,0,0,0,0.0,,2.0,174206.0
+1000017256,2026-10-16,per_liga1,Los Chankas,David Gonzáles,1702695,D,0,3,0,0,0,0.0,,1.0,153030.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Juan Valencia,425441,G,1,90,0,0,0,0.0,11.0,0.0,162748.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Alejandro Ramos,941882,D,1,63,1,0,0,0.0,32.0,1.0,167649.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Joaquín Pereyra,618084,D,1,90,0,0,0,0.0,34.0,1.0,111162.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Horacio Benincasa,461733,D,1,63,0,0,0,0.0,36.0,1.0,304735.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Orlando Núñez,1130782,D,1,90,0,0,0,0.0,38.0,1.0,
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Ángel Ojeda,246413,M,1,90,1,1,0,0.0,64.0,2.0,161772.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Luis Pérez,1350543,M,1,90,1,0,0,0.0,66.0,2.0,151786.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Juan Lucumí,1636084,F,1,81,2,1,1,0.0,83.0,3.0,188339.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Joao Rojas,114065,M,1,90,0,0,0,0.0,85.0,2.0,181135.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Aylton Mazzo,1898325,F,1,75,3,0,0,0.0,87.0,3.0,251365.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Said Peralta,1710849,F,1,82,1,1,0,0.0,115.0,3.0,
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Jerry Navarro,1432803,D,0,27,0,0,0,0.0,,1.0,
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Jhair Soto,1513147,D,0,27,1,0,0,0.0,,1.0,
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Aldair Rodríguez,497520,F,0,15,0,0,0,0.0,,3.0,177473.0
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Josue Alvino,1639208,M,0,9,0,0,0,0.0,,2.0,
+1000017256,2026-10-16,per_liga1,Asociación Deportiva Tarma,Jonathan Bauman,186404,F,0,8,1,0,0,0.0,,3.0,222000.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Facundo Ferrero,875877,G,1,90,0,0,0,0.0,11.0,0.0,386333.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Eddie Guevara,1083607,D,1,46,0,0,0,0.0,32.0,1.0,135207.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Patricio Boolsen,1116948,D,1,90,0,0,0,0.0,34.0,1.0,232914.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Santiago Postel,1585709,D,1,90,2,1,0,0.0,36.0,1.0,367219.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Carlos Arboleda,424436,D,1,90,0,0,0,0.0,38.0,1.0,279210.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Mateo Maccari,1200747,M,1,90,0,0,0,0.0,65.0,2.0,431299.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Lucas Mancinelli,280135,F,1,75,2,1,0,0.0,82.0,3.0,179741.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Jeremy Mejía,1817802,M,1,61,1,0,0,0.0,84.0,2.0,589682.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Yeltzin Erique,1472521,M,1,90,4,0,0,0.0,86.0,2.0,263450.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Melvin Díaz,1415299,F,1,75,2,1,0,0.0,88.0,3.0,377916.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Matías Klimowicz,1676916,F,1,75,4,2,0,0.0,115.0,3.0,929701.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Gian Nardelli,1201766,D,0,44,0,0,0,0.0,,1.0,211686.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,David González,1528895,M,0,29,2,0,0,0.0,,2.0,
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Édison Vega,245348,M,0,15,0,0,0,0.0,,2.0,231108.0
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Cristhian Benalcazar,2183635,M,0,15,1,1,1,0.0,,2.0,
+1000022069,2026-10-16,ecu_liga_pro,Deportivo Cuenca,Jorge Ordóñez,852079,F,0,15,0,0,0,0.0,,3.0,335725.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Santiago Razzeto,1909378,G,1,90,0,0,0,0.0,11.0,0.0,254765.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Edwin Mesa,1348054,D,1,90,0,0,0,0.0,33.0,1.0,225362.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Julian Anaya,1331245,D,1,90,0,0,0,0.0,35.0,1.0,207074.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Stiwar Mena,1353280,D,1,90,0,0,0,0.0,37.0,1.0,127306.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Jonathan Majao,1828126,M,1,79,1,1,0,0.0,65.0,2.0,
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Johan Bocanegra,950569,F,1,79,3,1,0,0.0,82.0,3.0,269852.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Matheo Castaño,945023,M,1,73,6,1,0,0.0,84.0,2.0,212639.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Yorlin Arce,1905245,M,1,90,0,0,0,0.0,86.0,2.0,292173.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Bagner Delgado,1031507,F,1,73,2,1,0,0.0,88.0,3.0,190634.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Wagner Caicedo,1966125,F,1,66,4,1,1,0.0,104.0,3.0,
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Diego Armas,207782,F,1,90,4,0,0,0.0,106.0,3.0,
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Heuyín Guardia,1526297,F,0,24,0,0,0,0.0,,3.0,228958.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Adrian Cela,1130690,M,0,17,0,0,0,0.0,,2.0,166735.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Anthony Castillo,1829425,F,0,17,0,0,0,0.0,,3.0,474796.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Kener Arce,207771,D,0,11,0,0,0,0.0,,1.0,77814.0
+1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Luis Estupiñán,1003280,F,0,11,0,0,0,0.0,,3.0,304454.0
