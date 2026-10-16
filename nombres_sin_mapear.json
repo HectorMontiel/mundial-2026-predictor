@@ -165,7 +165,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sportivo Las Parejas",
     "ratio": 0.5333,
-    "visto": "2026-10-11"
+    "visto": "2026-10-16"
   },
   "Liga de Quito": {
     "contexto": "cuotas_mx→futbol",
@@ -803,8 +803,8 @@
   },
   "Sportivo San Lorenzo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sportivo Italiano",
-    "ratio": 0.6486,
+    "candidato": "Sportivo Las Parejas",
+    "ratio": 0.65,
     "visto": "2026-10-16"
   },
   "Wycombe Wanderers": {
@@ -1651,7 +1651,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Sportivo Las Parejas",
     "ratio": 0.3889,
-    "visto": "2026-10-11"
+    "visto": "2026-10-16"
   },
   "Vélez Sarsfield": {
     "contexto": "cuotas_mx→futbol",
@@ -2197,6 +2197,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Jong AZ",
     "ratio": 0.6667,
+    "visto": "2026-10-16"
+  },
+  "Asteras Tripoli": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Al Ahly Tripoli (Lby)",
+    "ratio": 0.5882,
     "visto": "2026-10-16"
   }
 }
