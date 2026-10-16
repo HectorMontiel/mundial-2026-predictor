@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-16T02:33:35Z",
+"actualizado": "2026-10-16T04:05:35Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7054,6 +7054,16 @@
 },
 {
 "dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Chicago Blackhawks vs Winnipeg Jets",
+"apuesta": "Handicap: Winnipeg Jets +2.5",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "4-3"
+},
+{
+"dia": "2026-10-15",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Egnatia vs Midtjylland",
@@ -7251,6 +7261,16 @@
 "cuota": 1.52,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Nashville Predators vs San Jose Sharks",
+"apuesta": "Handicap: Nashville Predators +2.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "2-3"
 },
 {
 "dia": "2026-10-15",
