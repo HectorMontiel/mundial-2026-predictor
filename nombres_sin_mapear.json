@@ -1,8 +1,8 @@
 {
   "América de Cali": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "America MG U20",
-    "ratio": 0.6207,
+    "candidato": "Dep. Cali W (Col)",
+    "ratio": 0.4828,
     "visto": "2026-10-16"
   },
   "Atletico Balboa": {
@@ -91,8 +91,8 @@
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.7429,
+    "candidato": "Deportivo Rincon",
+    "ratio": 0.7647,
     "visto": "2026-10-16"
   },
   "Estudiantes de La Plata": {
@@ -353,9 +353,9 @@
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Delta United",
-    "ratio": 0.7692,
-    "visto": "2026-10-15"
+    "candidato": "Atletico Atlanta",
+    "ratio": 0.4667,
+    "visto": "2026-10-16"
   },
   "New York City FC": {
     "contexto": "cuotas_mx→futbol",
@@ -365,14 +365,14 @@
   },
   "Philadelphia Union": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "SV Union Gnas",
-    "ratio": 0.3871,
+    "candidato": "Royal Union SG 2",
+    "ratio": 0.4118,
     "visto": "2026-10-16"
   },
   "Red Bull New York": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Kelantan Red Warrior",
-    "ratio": 0.3784,
+    "candidato": "Red Star-Penzing",
+    "ratio": 0.3636,
     "visto": "2026-10-16"
   },
   "Cambridge United": {
@@ -521,8 +521,8 @@
   },
   "Deportivo Madryn": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
-    "ratio": 0.7273,
+    "candidato": "Deportivo Rincon",
+    "ratio": 0.75,
     "visto": "2026-10-16"
   },
   "Cúcuta Deportivo": {
@@ -743,8 +743,8 @@
   },
   "Houston Dynamo FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Dynamo Moscow U19",
-    "ratio": 0.3871,
+    "candidato": "Dynamo Brest",
+    "ratio": 0.4615,
     "visto": "2026-10-16"
   },
   "Sporting Kansas City": {
@@ -1193,9 +1193,9 @@
   },
   "Dynamo Makhachkala": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Houston Dynamo",
-    "ratio": 0.375,
-    "visto": "2026-10-15"
+    "candidato": "Dynamo Moscow U19",
+    "ratio": 0.5143,
+    "visto": "2026-10-16"
   },
   "1. FC Union Berlin": {
     "contexto": "cuotas_mx→futbol",
@@ -1255,12 +1255,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Red Star-Penzing",
     "ratio": 0.6,
-    "visto": "2026-10-15"
+    "visto": "2026-10-16"
   },
   "Dynamo Dresden": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Dynamo Moscow U19",
-    "ratio": 0.5161,
+    "candidato": "Dynamo Brest",
+    "ratio": 0.7692,
     "visto": "2026-10-16"
   },
   "Stade de Reims": {
@@ -1343,8 +1343,8 @@
   },
   "Urawa Red Diamonds": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Kelantan Red Warrior",
-    "ratio": 0.4737,
+    "candidato": "Red Arrows (Zam)",
+    "ratio": 0.375,
     "visto": "2026-10-16"
   },
   "Aston Villa": {
@@ -1555,7 +1555,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Brothers U.",
     "ratio": 0.5714,
-    "visto": "2026-10-09"
+    "visto": "2026-10-16"
   },
   "Sparta Rotterdam": {
     "contexto": "cuotas_mx→futbol",
@@ -1649,8 +1649,8 @@
   },
   "Las Vegas Lights FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sportivo Las Parejas",
-    "ratio": 0.3889,
+    "candidato": "Huracan Las Heras",
+    "ratio": 0.4242,
     "visto": "2026-10-16"
   },
   "Vélez Sarsfield": {
@@ -1715,7 +1715,7 @@
   },
   "Lokomotiv Moscow": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rodina Moscow U19",
+    "candidato": "Dynamo Moscow U19",
     "ratio": 0.5455,
     "visto": "2026-10-16"
   },
@@ -1723,12 +1723,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Spartak Pribram",
     "ratio": 0.6207,
-    "visto": "2026-10-10"
+    "visto": "2026-10-16"
   },
   "CSKA Moscow": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Spartak Moscow U19",
-    "ratio": 0.6207,
+    "candidato": "Dynamo Moscow U19",
+    "ratio": 0.5714,
     "visto": "2026-10-16"
   },
   "Sporting CP": {
@@ -2203,6 +2203,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Al Ahly Tripoli (Lby)",
     "ratio": 0.5882,
+    "visto": "2026-10-16"
+  },
+  "Rodina Moscow": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Dynamo Moscow U19",
+    "ratio": 0.6667,
     "visto": "2026-10-16"
   }
 }
