@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-16T04:05:35Z",
+"actualizado": "2026-10-16T05:41:59Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7401,6 +7401,26 @@
 "cuota": 2.4,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Vegas Golden Knights vs Calgary Flames",
+"apuesta": "Handicap: Vegas Golden Knights +1.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "6-2"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Vegas Golden Knights vs Calgary Flames",
+"apuesta": "Handicap: Calgary Flames +3.5",
+"cuota": 1.154,
+"resultado": "rojo",
+"marcador": "6-2"
 },
 {
 "dia": "2026-10-15",
