@@ -79,21 +79,6 @@
    ]
   },
   {
-   "liga": "argentina",
-   "precision": 0.425,
-   "techo_mercado": 0.4197,
-   "margen": -0.0053,
-   "partidos": 3825,
-   "roi_sim": 6.83,
-   "n_apuestas": 260,
-   "p5": -0.0679,
-   "pasa": false,
-   "motivos": [
-    "margen -0.5 pts, por debajo de 1.5",
-    "p5 -6.8 %, no llega a positivo"
-   ]
-  },
-  {
    "liga": "polonia",
    "precision": 0.4534,
    "techo_mercado": 0.449,
@@ -106,6 +91,21 @@
    "motivos": [
     "margen -0.4 pts, por debajo de 1.5",
     "p5 -11.6 %, no llega a positivo"
+   ]
+  },
+  {
+   "liga": "argentina",
+   "precision": 0.4221,
+   "techo_mercado": 0.4168,
+   "margen": -0.0053,
+   "partidos": 3827,
+   "roi_sim": -0.77,
+   "n_apuestas": 267,
+   "p5": -0.1407,
+   "pasa": false,
+   "motivos": [
+    "margen -0.5 pts, por debajo de 1.5",
+    "p5 -14.1 %, no llega a positivo"
    ]
   },
   {
@@ -226,6 +226,20 @@
    ]
   },
   {
+   "liga": "mls",
+   "precision": 0.4648,
+   "techo_mercado": 0.5033,
+   "margen": 0.0385,
+   "partidos": 3767,
+   "roi_sim": -10.02,
+   "n_apuestas": 283,
+   "p5": -0.2137,
+   "pasa": false,
+   "motivos": [
+    "p5 -21.4 %, no llega a positivo"
+   ]
+  },
+  {
    "liga": "bel_pro_league",
    "precision": 0.5111,
    "techo_mercado": 0.5,
@@ -266,20 +280,6 @@
    "pasa": false,
    "motivos": [
     "p5 -23.0 %, no llega a positivo"
-   ]
-  },
-  {
-   "liga": "mls",
-   "precision": 0.4634,
-   "techo_mercado": 0.5007,
-   "margen": 0.0373,
-   "partidos": 3756,
-   "roi_sim": -11.96,
-   "n_apuestas": 261,
-   "p5": -0.2376,
-   "pasa": false,
-   "motivos": [
-    "p5 -23.8 %, no llega a positivo"
    ]
   },
   {
@@ -828,7 +828,7 @@
   },
   {
    "liga": "nba",
-   "precision": 0.6697,
+   "precision": 0.6705,
    "techo_mercado": null,
    "margen": null,
    "partidos": 6140,
@@ -937,7 +937,7 @@
   },
   {
    "liga": "tennis",
-   "precision": 0.6724,
+   "precision": 0.6723,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
@@ -953,7 +953,7 @@
   },
   {
    "liga": "tennis_wta",
-   "precision": 0.6863,
+   "precision": 0.6852,
    "techo_mercado": null,
    "margen": null,
    "partidos": 0,
