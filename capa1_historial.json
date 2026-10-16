@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-16T01:06:00Z",
+"actualizado": "2026-10-16T02:33:35Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7124,6 +7124,16 @@
 },
 {
 "dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Florida Panthers vs Vancouver Canucks",
+"apuesta": "Handicap: Florida Panthers +1.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Freiburg vs Jablonec",
@@ -7141,6 +7151,16 @@
 "cuota": 1.52,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Inter Bogotá vs Llaneros",
+"apuesta": "Gana Llaneros",
+"cuota": 3.35,
+"resultado": "rojo",
+"marcador": "4-1"
 },
 {
 "dia": "2026-10-15",
@@ -7226,6 +7246,26 @@
 "dia": "2026-10-15",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Nacional vs Rentistas",
+"apuesta": "Gana Nacional",
+"cuota": 1.52,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "New Jersey Devils vs New York Rangers",
+"apuesta": "Handicap: New Jersey Devils +2.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "7-1"
+},
+{
+"dia": "2026-10-15",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Preston Lions vs Wollongong Wolves",
 "apuesta": "Gana Preston Lions",
 "cuota": 1.52,
@@ -7271,6 +7311,26 @@
 "cuota": 1.54,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Tampa Bay Lightning vs Seattle Kraken",
+"apuesta": "Handicap: Seattle Kraken +3.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "4-3"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Tampa Bay Lightning vs Seattle Kraken",
+"apuesta": "Handicap: Tampa Bay Lightning +1.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "4-3"
 },
 {
 "dia": "2026-10-15",
