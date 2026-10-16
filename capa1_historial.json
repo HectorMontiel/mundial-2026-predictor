@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-15T21:46:37Z",
+"actualizado": "2026-10-16T01:06:00Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7271,6 +7271,16 @@
 "cuota": 1.54,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-15",
+"nivel": "🏆",
+"deporte": "MLB",
+"partido": "Tampa Bay Rays @ Cleveland Guardians",
+"apuesta": "Handicap: Tampa Bay Rays +4.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-15",
