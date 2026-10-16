@@ -112,6 +112,24 @@ def construir_mensaje(resultado: Optional[dict] = None) -> str:
         r = guardia_barrido.barrido(alpha_finder.apuestas_del_dia_universal)
     lineas = [f"🎯 *APUESTAS DEL DÍA* — {r.get('actualizado', 'hoy')}",
               f"Deportes: {', '.join(r.get('deportes_cubiertos') or ['—'])}", ""]
+    # v374 — LO PRIMERO, LO QUE LA APP DICE METER (lo mismo que la tarjeta y
+    # el documento: `formato_ia.que_meter`, ⭐ primero). La auditoría: el
+    # mensaje diario sólo traía el sistema viejo por EV.
+    try:
+        import formato_ia as _fi_q
+        import mercados_dia as _md_q
+        _qm = [x for x in _fi_q.que_meter(r, [_md_q.dia_cdmx(0)])
+               if x[:1] in ('⭐', '🏆', '•')]
+        if _qm:
+            lineas.append('✅ *QUÉ METER HOY* (%d · ⭐ %d)'
+                          % (len(_qm), sum(1 for x in _qm if x.startswith('⭐'))))
+            lineas += [x.replace('*', '').replace('_', ' ') for x in _qm[:20]]
+            if len(_qm) > 20:
+                lineas.append('…y %d más en la app' % (len(_qm) - 20))
+            lineas += ['❌ Lo que no está aquí no se mete. Lo de abajo es otro '
+                       'sistema (valor por precio), no medido como «se mete».', '']
+    except Exception as _e_qm:
+        logger.debug('qué meter: %s', _e_qm)
 
     # v41: ALARMA de datos AL PRINCIPIO — distingue "no llegaron datos"
     # (problema) de "llegaron pero hoy no hay picks" (normal). El fallo del
@@ -146,7 +164,7 @@ def construir_mensaje(resultado: Optional[dict] = None) -> str:
 
     capa1 = _hoy_primero(r.get('capa1') or [])
     if capa1:
-        lineas.append(f"💎 *CAPA 1 — con cuota real* ({len(capa1)})")
+        lineas.append(f"💎 *Valor por precio — con cuota real* ({len(capa1)})")
         lineas += [_fmt_pick(p) for p in capa1[:8]]
         lineas.append("")
     # v47: si la Capa 1 quedó vacía, mostramos la Selección del día para que
@@ -199,29 +217,78 @@ def construir_mensaje(resultado: Optional[dict] = None) -> str:
     if r.get('ev_extremo'):
         lineas.append(f"⚠️ {len(r['ev_extremo'])} picks de EV extremo "
                       "excluidos (histórico: aciertan 15 pp por debajo).")
-    lineas.append("\n_Juego responsable. Cuota justa = 1/probabilidad._")
-    texto = '\n'.join(lineas)
-    return texto[:MAX_LEN]
+    # v374 — se recorta ANTES del pie y en un salto de línea: cortar a la
+    # mitad dejaba un «_» o un «*» sin cerrar y Telegram rechazaba el mensaje
+    # (400 «can't parse entities»: 7, 9 y 13-oct)
+    pie = "\n\n_Juego responsable. Cuota justa = 1/probabilidad._"
+    cuerpo = '\n'.join(lineas)
+    if len(cuerpo) > MAX_LEN - len(pie):
+        cuerpo = cuerpo[:MAX_LEN - len(pie)].rsplit('\n', 1)[0]
+    return cuerpo + pie
+
+
+# v374 — por qué falló el último envío (para la pantalla), sin el token
+ULTIMO_ERROR = ''
+
+
+def limpio(x) -> str:
+    """El texto sin el token del bot. Un error de red de `requests` trae la
+    URL entera (https://api.telegram.org/bot<TOKEN>/...) y la app lo pintaba
+    con st.error: la auditoría lo encontró. Nunca lanza."""
+    s = str(x)
+    tk = os.environ.get('TELEGRAM_BOT_TOKEN') or ''
+    if tk:
+        s = s.replace(tk, '***')
+    import re as _re
+    return _re.sub(r'bot\d+:[A-Za-z0-9_-]{20,}', 'bot***', s)
+
+
+def _post(metodo: str, **kw):
+    """POST a la API de Telegram. (respuesta o None, motivo limpio)."""
+    token = os.environ.get('TELEGRAM_BOT_TOKEN')
+    import requests
+    try:
+        r = requests.post('https://api.telegram.org/bot%s/%s' % (token, metodo), **kw)
+    except Exception as e:
+        return None, limpio('%s: %s' % (type(e).__name__, e))
+    if r.ok:
+        return r, ''
+    try:
+        motivo = r.json().get('description', '?')
+    except Exception:
+        motivo = 'error'
+    return r, limpio('Telegram respondió %s: %s' % (r.status_code, motivo))
+
+
+def motivo_fallo() -> str:
+    """«sin credenciales» o el motivo del último rechazo (sin el token)."""
+    if not os.environ.get('TELEGRAM_BOT_TOKEN') or not os.environ.get('TELEGRAM_CHAT_ID'):
+        return 'faltan TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en los Secrets'
+    return ULTIMO_ERROR or 'Telegram no confirmó el envío'
 
 
 def enviar(texto: str) -> bool:
+    global ULTIMO_ERROR
     token = os.environ.get('TELEGRAM_BOT_TOKEN')
     chat_id = os.environ.get('TELEGRAM_CHAT_ID')
     if not token or not chat_id:
         logger.warning("Sin TELEGRAM_BOT_TOKEN/TELEGRAM_CHAT_ID en el entorno: "
                        "modo seco (no se envía nada).")
+        ULTIMO_ERROR = ''
         return False
-    import requests
-    r = requests.post(f'https://api.telegram.org/bot{token}/sendMessage',
-                      json={'chat_id': chat_id, 'text': texto,
-                            'parse_mode': 'Markdown',
-                            'disable_web_page_preview': True}, timeout=30)
-    if r.ok:
+    cuerpo = {'chat_id': chat_id, 'text': texto, 'parse_mode': 'Markdown',
+              'disable_web_page_preview': True}
+    r, motivo = _post('sendMessage', json=cuerpo, timeout=30)
+    if r is not None and not r.ok and 'parse entities' in motivo:
+        # v374 — el formato roto no puede costar el mensaje: va sin negritas
+        cuerpo.pop('parse_mode')
+        r, motivo = _post('sendMessage', json=cuerpo, timeout=30)
+    if r is not None and r.ok:
         logger.info("Mensaje enviado a Telegram.")
+        ULTIMO_ERROR = ''
         return True
-    # nunca registrar el token: solo el código y el motivo
-    logger.error(f"Telegram respondió {r.status_code}: "
-                 f"{r.json().get('description', '?') if r.headers.get('content-type','').startswith('application/json') else 'error'}")
+    ULTIMO_ERROR = motivo
+    logger.error(motivo)
     return False
 
 
@@ -250,7 +317,11 @@ if __name__ == '__main__':
     except UnicodeEncodeError:
         sys.stdout.buffer.write(mensaje.encode('utf-8', 'replace') + b'\n')
     if '--dry-run' not in sys.argv:
-        enviar(mensaje)
+        # v374 — si había credenciales y no llegó, el workflow sale en ROJO
+        # (antes salía verde los días que Telegram lo rechazaba)
+        if not enviar(mensaje) and os.environ.get('TELEGRAM_BOT_TOKEN') \
+                and os.environ.get('TELEGRAM_CHAT_ID'):
+            sys.exit(1)
 
 
 # ---------------------------------------------------------------------------
@@ -631,20 +702,19 @@ def enviar_documento(texto: str, nombre: str, pie: str = '') -> bool:
     if pie:
         datos['caption'] = pie[:MAX_CAPTION]
         datos['parse_mode'] = 'Markdown'
-    r = requests.post(
-        f'https://api.telegram.org/bot{token}/sendDocument',
-        data=datos,
-        files={'document': (nombre, texto.encode('utf-8'), 'text/plain')},
-        timeout=90)
-    if r.ok:
+    global ULTIMO_ERROR
+    archivo = {'document': (nombre, texto.encode('utf-8'), 'text/plain')}
+    r, motivo = _post('sendDocument', data=datos, files=archivo, timeout=90)
+    if r is not None and not r.ok and 'parse entities' in motivo:
+        datos.pop('parse_mode', None)
+        r, motivo = _post('sendDocument', data=datos, files=archivo, timeout=90)
+    if r is not None and r.ok:
         logger.info("Documento enviado a Telegram (%d KB).",
                     len(texto.encode('utf-8')) // 1024)
+        ULTIMO_ERROR = ''
         return True
-    # nunca registrar el token: sólo el código y el motivo
-    logger.error("Telegram respondió %s al adjunto: %s", r.status_code,
-                 (r.json().get('description', '?')
-                  if r.headers.get('content-type', '').startswith(
-                      'application/json') else 'error'))
+    ULTIMO_ERROR = motivo
+    logger.error('%s (adjunto)', motivo)
     return False
 
 

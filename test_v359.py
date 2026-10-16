@@ -99,9 +99,10 @@ def probar_tarjeta(t):
           'el hándicap no llega (77,6 %% o cuota < 1,15): sale el más probable, informativo (%s)' % inf)
     g = {'deporte': 'NHL', 'apuesta': 'Gana Edmonton Oilers', 'mercado': 'Moneyline'}
     check(vp.evaluar(dict(g, prob=0.77, cuota=1.27))['veredicto'] == vp.METER
-          and vp.evaluar(dict(g, prob=0.70, cuota=1.38))['veredicto'] == vp.NO_METER
+          and vp.evaluar(dict(g, prob=0.71, cuota=1.36))['veredicto'] == vp.METER
+          and vp.evaluar(dict(g, prob=0.68, cuota=1.42))['veredicto'] == vp.NO_METER
           and vp.evaluar(dict(g, prob=0.77, cuota=1.27, pretemporada=True))['veredicto'] == vp.NO_METER,
-          'el ganador: con la casa ≥ 75 % sí; al 70 % no; en pretemporada no')
+          'el ganador (v375): con la casa ≥ 70 % sí; al 68 % no; en pretemporada no')
     c1 = lm.del_pick(dict(pick, board={}))
     check(c1 is not None and c1['prob'] >= 0.85 and c1['cuota'] >= 1.10 and c1['deporte'] == 'NHL',
           'la Capa 1 🏆: una línea de ≥ 85 %% con cuota ≥ 1,10 (%s)' % (c1 and c1['apuesta']))

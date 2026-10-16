@@ -2949,11 +2949,11 @@ def render_ev_automatico(deporte: str, obtener, ayuda: str = '',
                 if _bt.enviar(_msg):
                     st.success("✅ Enviado a Telegram.")
                 else:
-                    st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en "
-                               "los Secrets. Vista previa del mensaje:")
+                    st.warning("No se envió: %s. Vista previa del mensaje:"
+                               % __import__("bot_telegram").motivo_fallo())
                     st.code(_msg, language=None)
             except Exception as e:
-                st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+                st.error("No se pudo enviar (%s)." % __import__("bot_telegram").limpio("%s: %s" % (type(e).__name__, e)))
 
     from bankroll_manager import AVISO_JUEGO_RESPONSABLE
     st.caption(AVISO_JUEGO_RESPONSABLE)
@@ -3170,11 +3170,11 @@ def render_beisbol_pitchers() -> None:
             if _bt_p.enviar(_msg_p):
                 st.success("✅ Sección de ponches enviada a Telegram.")
             else:
-                st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en los "
-                           "Secrets. Vista previa del mensaje:")
+                st.warning("No se envió: %s. Vista previa del mensaje:"
+                           % __import__("bot_telegram").motivo_fallo())
                 st.code(_msg_p, language=None)
         except Exception as e:
-            st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+            st.error("No se pudo enviar (%s)." % __import__("bot_telegram").limpio("%s: %s" % (type(e).__name__, e)))
 
     for a in analisis:
         v = a['veredicto']
@@ -4089,11 +4089,11 @@ def render_parlay_partido(motor, home: str, away: str, key: str):
                 if bot_telegram.enviar(msg):
                     st.success("✅ Parlays enviados a Telegram.")
                 else:
-                    st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en "
-                               "los Secrets. Vista previa del mensaje:")
+                    st.warning("No se envió: %s. Vista previa del mensaje:"
+                               % __import__("bot_telegram").motivo_fallo())
                     st.code(msg, language=None)
             except Exception as e:
-                st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+                st.error("No se pudo enviar (%s)." % __import__("bot_telegram").limpio("%s: %s" % (type(e).__name__, e)))
 
     # v64: CUOTAS REALES AUTOMÁTICAS (ESPN core: 1X2, O/U, HÁNDICAP y props de
     # jugador con cuota decimal). Sin pegar nada, sin clave y sin scraping.
@@ -5471,11 +5471,11 @@ def render_alpha_finder():
             if bot_telegram.enviar(msg):
                 st.success("✅ Enviado a Telegram.")
             else:
-                st.warning("Sin TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID en los "
-                           "Secrets. Vista previa del mensaje:")
+                st.warning("No se envió: %s. Vista previa del mensaje:"
+                           % __import__("bot_telegram").motivo_fallo())
                 st.code(msg, language=None)
         except Exception as e:
-            st.error(f"No se pudo enviar ({type(e).__name__}: {e}).")
+            st.error("No se pudo enviar (%s)." % __import__("bot_telegram").limpio("%s: %s" % (type(e).__name__, e)))
 
     # v196 — el envío del DÍA COMPLETO, con el mismo barrido ya calculado.
     #

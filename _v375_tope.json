@@ -1,0 +1,48 @@
+{
+ "1.22 A": {
+  "antes": "549/713 77.0%",
+  "despues": "260/306 85.0%",
+  "rojas_quitadas": 118,
+  "verdes_quitadas": 289,
+  "p5_dif_vs_quitadas": 0.0894
+ },
+ "1.22 B": {
+  "antes": "1058/1296 81.6%",
+  "despues": "735/868 84.7%",
+  "rojas_quitadas": 105,
+  "verdes_quitadas": 323,
+  "p5_dif_vs_quitadas": 0.054
+ },
+ "1.25 A": {
+  "antes": "549/713 77.0%",
+  "despues": "350/422 82.9%",
+  "rojas_quitadas": 92,
+  "verdes_quitadas": 199,
+  "p5_dif_vs_quitadas": 0.0907
+ },
+ "1.25 B": {
+  "antes": "1058/1296 81.6%",
+  "despues": "895/1080 82.9%",
+  "rojas_quitadas": 53,
+  "verdes_quitadas": 163,
+  "p5_dif_vs_quitadas": 0.0221
+ },
+ "1.28 A": {
+  "antes": "549/713 77.0%",
+  "despues": "391/474 82.5%",
+  "rojas_quitadas": 81,
+  "verdes_quitadas": 158,
+  "p5_dif_vs_quitadas": 0.1027
+ },
+ "1.28 B": {
+  "antes": "1058/1296 81.6%",
+  "despues": "951/1153 82.5%",
+  "rojas_quitadas": 36,
+  "verdes_quitadas": 107,
+  "p5_dif_vs_quitadas": 0.012
+ },
+ "Fútbol A": "≤1,25 82.4% (187) · >1,25 75.7% (103)",
+ "Fútbol B": "≤1,25 81.0% (600) · >1,25 75.6% (45)",
+ "Tenis A": "≤1,25 83.8% (234) · >1,25 64.4% (188)",
+ "Tenis B": "≤1,25 85.5% (344) · >1,25 75.3% (158)"
+}

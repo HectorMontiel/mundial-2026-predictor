@@ -44,7 +44,11 @@ META_METER = 0.78
 CUOTA_MIN = 1.15
 META_CAPA1 = 0.85
 CUOTA_MIN_CAPA1 = 1.10
-META_GANADOR = 0.75
+# v375 — el usuario: «más flexibles en NHL, baja a 70 %». Medido con los
+# cierres 2014-2026 (15.565 partidos): con la casa al 70-75 % el favorito ganó
+# 73,7 % (+5,4 por $100 al cierre) y al 75 %+ 79,3 %. Por debajo de la meta
+# de 78 % de las líneas: se sigue con el seguimiento.
+META_GANADOR = 0.70
 CLAVE = 'nhl_playdoit'
 # LA PRETEMPORADA (ESPN 2022-2026, 408 partidos con cuota): con la regla del
 # 78 % los cuatro lados aguantan en las dos mitades (2022-23 / 2024-26):

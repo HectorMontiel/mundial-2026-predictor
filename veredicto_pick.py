@@ -562,7 +562,7 @@ def senales_visibles(pick: Dict, con_contexto: bool = False) -> List[Dict]:
 
 
 # ---------------------------------------------------------------------------
-def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
+def _evaluar_sin_tope(pick: Dict, con_contexto: bool = False) -> Dict:
     """El veredicto: meter o no, con su fuerza y su porqué en una línea.
 
     Barato por defecto: sin `con_contexto` no toca red ni disco pesado, para
@@ -899,6 +899,47 @@ def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
             'cuota': cuota,
             'razones': razones[:2],
             'senales': senales}
+
+
+# v375 — EL TOPE DE CUOTA DE LA «SE METE»: 1,25.
+#
+# El usuario: «de las que no se cumplieron, ¿hay algún patrón para saber por
+# qué y anticiparnos? si hay más verdes, hay que darle». Medido con lo
+# archivado al pitido del 3 al 15-oct (`_v375_rojas.py`, 2.009 «se mete»): la
+# cuota es lo que más separa. A ≤ 1,12 aciertan 91 / 91 %; a 1,13-1,25,
+# 80-84 %; a MÁS DE 1,25, 68 / 75 % (tenis 64 / 75 %, fútbol 76 / 76 %).
+# Con el tope de 1,25 (`_v375_tope.json`): 77,0 → 82,9 % y 81,6 → 82,9 % en las
+# dos mitades, p5 de la diferencia +9 / +2 pts; se quitan 145 rojas y 362
+# verdes. Lo de más de 1,25 sigue en la tarjeta como «no meter».
+TOPE_CUOTA_METER = 1.25
+
+
+def evaluar(pick: Dict, con_contexto: bool = False) -> Dict:
+    """El veredicto (ver `_evaluar_sin_tope`) con el tope de cuota de la v375."""
+    r = _evaluar_sin_tope(pick, con_contexto)
+    try:
+        cu = _f((pick or {}).get('cuota'))
+        # la NHL va aparte: su ganador (casa ≥ 75 %) paga 1,30-1,40 y está
+        # medido con siete temporadas (78-82 %, `nhl_lineas`)
+        # v375b — y la NBA y la NFL (sus líneas y su ganador van con reglas
+        # propias; a más de 1,25 acertaron 7/8 y 3/3). El tope es para el
+        # fútbol (75,7 %, −2,1 por $100) y el tenis (69,4 %, −7,5).
+        # sólo lo medido: la «se mete» de la tarjeta (que siempre trae su
+        # deporte) en fútbol y tenis; ni la Capa 1, ni la regla de tiros
+        # (medida aparte, mete a 1,50-1,85), ni el veredicto genérico de
+        # Soñadoras y combinadas (sin deporte)
+        pk = pick or {}
+        dep = pk.get('deporte')
+        merc = str(pk.get('mercado') or '') + ' ' + str(pk.get('bloque') or '')
+        fuera = (dep not in ('Fútbol', 'Tenis') or pk.get('elite')
+                 or any(x in merc.lower() for x in ('remates', 'tiros')))
+        if r.get('veredicto') == METER and cu is not None and cu > TOPE_CUOTA_METER and not fuera:
+            r = dict(r, veredicto=NO_METER,
+                     razones=['cuota %.2f: por encima de %.2f se cumple menos (medido 68-75 %%)'
+                              % (cu, TOPE_CUOTA_METER)] + list(r.get('razones') or [])[:1])
+    except Exception:
+        pass
+    return r
 
 
 def evaluar_lista(picks, con_contexto: bool = False) -> List[Dict]:

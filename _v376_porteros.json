@@ -1,0 +1,89 @@
+{
+ "partidos": 1901,
+ "temporadas": [
+  "2023",
+  "2024"
+ ],
+ "total": {
+  "2023 · medio": {
+   "n": 299,
+   "menos_acierta": 0.4983,
+   "casa_dice_menos": 0.494,
+   "gan_menos_100": -3.3,
+   "gan_mas_100": -5.0
+  },
+  "2023 · porteros buenos": {
+   "n": 344,
+   "menos_acierta": 0.5058,
+   "casa_dice_menos": 0.4949,
+   "gan_menos_100": -2.1,
+   "gan_mas_100": -6.3
+  },
+  "2023 · porteros malos": {
+   "n": 253,
+   "menos_acierta": 0.5257,
+   "casa_dice_menos": 0.4904,
+   "gan_menos_100": 2.6,
+   "gan_mas_100": -11.0
+  },
+  "2024 · medio": {
+   "n": 317,
+   "menos_acierta": 0.5079,
+   "casa_dice_menos": 0.5013,
+   "gan_menos_100": -2.8,
+   "gan_mas_100": -5.4
+  },
+  "2024 · porteros buenos": {
+   "n": 271,
+   "menos_acierta": 0.5129,
+   "casa_dice_menos": 0.4985,
+   "gan_menos_100": -1.1,
+   "gan_mas_100": -6.7
+  },
+  "2024 · porteros malos": {
+   "n": 370,
+   "menos_acierta": 0.527,
+   "casa_dice_menos": 0.5019,
+   "gan_menos_100": 0.4,
+   "gan_mas_100": -9.1
+  }
+ },
+ "ganador": {
+  "2023 · favorito con mejor portero (+1 pt)": {
+   "n": 344,
+   "gana": 0.5872,
+   "casa_dice": 0.6171,
+   "gan_100": 14.2
+  },
+  "2023 · favorito con peor portero (−1 pt)": {
+   "n": 234,
+   "gana": 0.5897,
+   "casa_dice": 0.5821,
+   "gan_100": 23.3
+  },
+  "2023 · porteros parecidos": {
+   "n": 365,
+   "gana": 0.6192,
+   "casa_dice": 0.6049,
+   "gan_100": 23.3
+  },
+  "2024 · favorito con mejor portero (+1 pt)": {
+   "n": 367,
+   "gana": 0.6049,
+   "casa_dice": 0.609,
+   "gan_100": -4.6
+  },
+  "2024 · favorito con peor portero (−1 pt)": {
+   "n": 204,
+   "gana": 0.6225,
+   "casa_dice": 0.5903,
+   "gan_100": 1.2
+  },
+  "2024 · porteros parecidos": {
+   "n": 387,
+   "gana": 0.6047,
+   "casa_dice": 0.601,
+   "gan_100": -3.3
+  }
+ }
+}
