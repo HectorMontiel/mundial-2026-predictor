@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-16T18:26:13Z",
+"actualizado": "2026-10-16T20:02:01Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7496,6 +7496,16 @@
 "dia": "2026-10-16",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Cottbus vs Nurnberg",
+"apuesta": "Gana Nurnberg",
+"cuota": 2.05,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Doqarah vs Al Jazeera Amman",
 "apuesta": "Gana Al Jazeera Amman",
 "cuota": 2.55,
@@ -7554,6 +7564,26 @@
 },
 {
 "dia": "2026-10-16",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "F. Amager vs Nykobing",
+"apuesta": "Gana Nykobing",
+"cuota": 1.75,
+"resultado": "rojo",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Gloggnitz vs SV Oberwart",
+"apuesta": "Gana SV Oberwart",
+"cuota": 1.89,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-16",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Gomora vs Cape Town City",
@@ -7586,6 +7616,26 @@
 "dia": "2026-10-16",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Lafnitz vs Gleisdorf",
+"apuesta": "Gana Lafnitz",
+"cuota": 1.5715,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "MSK Senec vs FKM Nove Zamky",
+"apuesta": "Gana FKM Nove Zamky",
+"cuota": 2.55,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Madura United vs FC Bhayangkara",
 "apuesta": "Gana FC Bhayangkara",
 "cuota": 2.3,
@@ -7601,6 +7651,16 @@
 "cuota": 2.25,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Neusiedl vs Bad Sauerbrunn",
+"apuesta": "Gana Bad Sauerbrunn",
+"cuota": 2.15,
+"resultado": "verde",
+"marcador": "1-3"
 },
 {
 "dia": "2026-10-16",
@@ -7656,6 +7716,26 @@
 "dia": "2026-10-16",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "SV Wildon vs Pachern",
+"apuesta": "Gana SV Wildon",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Seekirchen vs UFC Hallein",
+"apuesta": "Gana Seekirchen",
+"cuota": 2.08,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Tersana vs Delta United",
 "apuesta": "Gana Tersana",
 "cuota": 1.8,
@@ -7681,6 +7761,16 @@
 "cuota": 1.74,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Warth vs Kremser",
+"apuesta": "Gana Kremser",
+"cuota": 2.15,
+"resultado": "verde",
+"marcador": "1-2"
 }
 ]
 }

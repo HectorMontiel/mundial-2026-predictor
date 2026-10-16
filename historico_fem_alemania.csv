@@ -284,8 +284,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2023-10-13,Nürnberg,TSG 1899 Hoffenheim,0.0,3.0,Frauen-Bundesliga,4250033,20231013_Nürnberg_TSG-1899-Hoffenheim
 2023-10-14,Bayern München,Eintracht Frankfurt,0.0,0.0,Frauen-Bundesliga,4250047,20231014_Bayern-München_Eintracht-Frankfurt
 2023-10-14,Werder Bremen,FC Köln,3.0,0.0,Frauen-Bundesliga,4250049,20231014_Werder-Bremen_FC-Köln
-2023-10-15,Bayer Leverkusen,Freiburg,3.0,0.0,Frauen-Bundesliga,4250032,20231015_Bayer-Leverkusen_Freiburg
 2023-10-15,RB Leipzig,VfL Wolfsburg,0.0,2.0,Frauen-Bundesliga,4250046,20231015_RB-Leipzig_VfL-Wolfsburg
+2023-10-15,Bayer Leverkusen,Freiburg,3.0,0.0,Frauen-Bundesliga,4250032,20231015_Bayer-Leverkusen_Freiburg
 2023-10-16,MSV Duisburg,SGS Essen,0.0,1.0,Frauen-Bundesliga,4250048,20231016_MSV-Duisburg_SGS-Essen
 2023-10-20,FC Köln,Bayer Leverkusen,0.0,1.0,Frauen-Bundesliga,4250018,20231020_FC-Köln_Bayer-Leverkusen
 2023-10-21,Freiburg,Nürnberg,0.0,2.0,Frauen-Bundesliga,4250017,20231021_Freiburg_Nürnberg
@@ -300,8 +300,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2023-11-05,Bayern München,VfL Wolfsburg,2.0,1.0,Frauen-Bundesliga,4250011,20231105_Bayern-München_VfL-Wolfsburg
 2023-11-06,Werder Bremen,Eintracht Frankfurt,0.0,1.0,Frauen-Bundesliga,4250013,20231106_Werder-Bremen_Eintracht-Frankfurt
 2023-11-10,Eintracht Frankfurt,Bayer Leverkusen,2.0,2.0,Frauen-Bundesliga,4250027,20231110_Eintracht-Frankfurt_Bayer-Leverkusen
-2023-11-11,SGS Essen,Nürnberg,5.0,0.0,Frauen-Bundesliga,4250026,20231111_SGS-Essen_Nürnberg
 2023-11-11,RB Leipzig,Werder Bremen,0.0,5.0,Frauen-Bundesliga,4250028,20231111_RB-Leipzig_Werder-Bremen
+2023-11-11,SGS Essen,Nürnberg,5.0,0.0,Frauen-Bundesliga,4250026,20231111_SGS-Essen_Nürnberg
 2023-11-12,VfL Wolfsburg,Freiburg,4.0,0.0,Frauen-Bundesliga,4250021,20231112_VfL-Wolfsburg_Freiburg
 2023-11-12,Bayern München,MSV Duisburg,2.0,0.0,Frauen-Bundesliga,4250029,20231112_Bayern-München_MSV-Duisburg
 2023-11-13,FC Köln,TSG 1899 Hoffenheim,1.0,2.0,Frauen-Bundesliga,4250030,20231113_FC-Köln_TSG-1899-Hoffenheim
@@ -324,10 +324,10 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2023-12-17,Nürnberg,Bayern München,1.0,1.0,Frauen-Bundesliga,4250088,20231217_Nürnberg_Bayern-München
 2023-12-18,VfL Wolfsburg,Werder Bremen,1.0,0.0,Frauen-Bundesliga,4250083,20231218_VfL-Wolfsburg_Werder-Bremen
 2024-01-26,Werder Bremen,Bayer Leverkusen,2.0,1.0,Frauen-Bundesliga,4250097,20240126_Werder-Bremen_Bayer-Leverkusen
-2024-01-27,Bayern München,TSG 1899 Hoffenheim,1.0,0.0,Frauen-Bundesliga,4250095,20240127_Bayern-München_TSG-1899-Hoffenheim
 2024-01-27,RB Leipzig,Freiburg,0.0,2.0,Frauen-Bundesliga,4250094,20240127_RB-Leipzig_Freiburg
-2024-01-28,Eintracht Frankfurt,FC Köln,1.0,0.0,Frauen-Bundesliga,4250093,20240128_Eintracht-Frankfurt_FC-Köln
+2024-01-27,Bayern München,TSG 1899 Hoffenheim,1.0,0.0,Frauen-Bundesliga,4250095,20240127_Bayern-München_TSG-1899-Hoffenheim
 2024-01-28,MSV Duisburg,Nürnberg,1.0,2.0,Frauen-Bundesliga,4250096,20240128_MSV-Duisburg_Nürnberg
+2024-01-28,Eintracht Frankfurt,FC Köln,1.0,0.0,Frauen-Bundesliga,4250093,20240128_Eintracht-Frankfurt_FC-Köln
 2024-01-29,SGS Essen,VfL Wolfsburg,1.0,3.0,Frauen-Bundesliga,4250092,20240129_SGS-Essen_VfL-Wolfsburg
 2024-02-02,MSV Duisburg,TSG 1899 Hoffenheim,0.0,2.0,Frauen-Bundesliga,4250078,20240202_MSV-Duisburg_TSG-1899-Hoffenheim
 2024-02-03,Werder Bremen,Nürnberg,4.0,0.0,Frauen-Bundesliga,4250077,20240203_Werder-Bremen_Nürnberg
@@ -336,22 +336,22 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2024-02-04,Eintracht Frankfurt,SGS Essen,1.0,0.0,Frauen-Bundesliga,4250066,20240204_Eintracht-Frankfurt_SGS-Essen
 2024-02-05,Bayern München,Freiburg,4.0,0.0,Frauen-Bundesliga,4250079,20240205_Bayern-München_Freiburg
 2024-02-09,SGS Essen,RB Leipzig,4.0,4.0,Frauen-Bundesliga,4250062,20240209_SGS-Essen_RB-Leipzig
-2024-02-10,TSG 1899 Hoffenheim,Werder Bremen,1.0,1.0,Frauen-Bundesliga,4250065,20240210_TSG-1899-Hoffenheim_Werder-Bremen
 2024-02-10,FC Köln,Bayern München,0.0,5.0,Frauen-Bundesliga,4250063,20240210_FC-Köln_Bayern-München
+2024-02-10,TSG 1899 Hoffenheim,Werder Bremen,1.0,1.0,Frauen-Bundesliga,4250065,20240210_TSG-1899-Hoffenheim_Werder-Bremen
 2024-02-11,VfL Wolfsburg,Eintracht Frankfurt,3.0,0.0,Frauen-Bundesliga,4250061,20240211_VfL-Wolfsburg_Eintracht-Frankfurt
 2024-02-11,Freiburg,MSV Duisburg,1.0,1.0,Frauen-Bundesliga,4250064,20240211_Freiburg_MSV-Duisburg
 2024-02-12,Nürnberg,Bayer Leverkusen,1.0,2.0,Frauen-Bundesliga,4250060,20240212_Nürnberg_Bayer-Leverkusen
 2024-02-16,RB Leipzig,Eintracht Frankfurt,2.0,1.0,Frauen-Bundesliga,4250075,20240216_RB-Leipzig_Eintracht-Frankfurt
-2024-02-17,Werder Bremen,Freiburg,0.0,3.0,Frauen-Bundesliga,4250068,20240217_Werder-Bremen_Freiburg
 2024-02-17,Nürnberg,VfL Wolfsburg,1.0,9.0,Frauen-Bundesliga,4250059,20240217_Nürnberg_VfL-Wolfsburg
-2024-02-18,MSV Duisburg,FC Köln,0.0,0.0,Frauen-Bundesliga,4250067,20240218_MSV-Duisburg_FC-Köln
-2024-02-18,Bayern München,SGS Essen,2.0,0.0,Frauen-Bundesliga,4250074,20240218_Bayern-München_SGS-Essen
+2024-02-17,Werder Bremen,Freiburg,0.0,3.0,Frauen-Bundesliga,4250068,20240217_Werder-Bremen_Freiburg
 2024-02-18,Bayer Leverkusen,TSG 1899 Hoffenheim,1.0,2.0,Frauen-Bundesliga,4250076,20240218_Bayer-Leverkusen_TSG-1899-Hoffenheim
+2024-02-18,Bayern München,SGS Essen,2.0,0.0,Frauen-Bundesliga,4250074,20240218_Bayern-München_SGS-Essen
+2024-02-18,MSV Duisburg,FC Köln,0.0,0.0,Frauen-Bundesliga,4250067,20240218_MSV-Duisburg_FC-Köln
 2024-03-08,SGS Essen,MSV Duisburg,4.0,1.0,Frauen-Bundesliga,4250072,20240308_SGS-Essen_MSV-Duisburg
 2024-03-09,Eintracht Frankfurt,Bayern München,1.0,2.0,Frauen-Bundesliga,4250071,20240309_Eintracht-Frankfurt_Bayern-München
 2024-03-09,TSG 1899 Hoffenheim,Nürnberg,2.0,0.0,Frauen-Bundesliga,4250069,20240309_TSG-1899-Hoffenheim_Nürnberg
-2024-03-10,Freiburg,Bayer Leverkusen,0.0,0.0,Frauen-Bundesliga,4250058,20240310_Freiburg_Bayer-Leverkusen
 2024-03-10,FC Köln,Werder Bremen,2.0,1.0,Frauen-Bundesliga,4250073,20240310_FC-Köln_Werder-Bremen
+2024-03-10,Freiburg,Bayer Leverkusen,0.0,0.0,Frauen-Bundesliga,4250058,20240310_Freiburg_Bayer-Leverkusen
 2024-03-11,VfL Wolfsburg,RB Leipzig,4.0,0.0,Frauen-Bundesliga,4250070,20240311_VfL-Wolfsburg_RB-Leipzig
 2024-03-15,TSG 1899 Hoffenheim,VfL Wolfsburg,2.0,1.0,Frauen-Bundesliga,4250099,20240315_TSG-1899-Hoffenheim_VfL-Wolfsburg
 2024-03-16,Bayern München,RB Leipzig,5.0,0.0,Frauen-Bundesliga,4250102,20240316_Bayern-München_RB-Leipzig
@@ -362,8 +362,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2024-03-22,Freiburg,TSG 1899 Hoffenheim,2.0,4.0,Frauen-Bundesliga,4250125,20240322_Freiburg_TSG-1899-Hoffenheim
 2024-03-23,FC Köln,Nürnberg,3.0,4.0,Frauen-Bundesliga,4250126,20240323_FC-Köln_Nürnberg
 2024-03-23,VfL Wolfsburg,Bayern München,0.0,4.0,Frauen-Bundesliga,4250107,20240323_VfL-Wolfsburg_Bayern-München
-2024-03-24,RB Leipzig,MSV Duisburg,3.0,0.0,Frauen-Bundesliga,4250106,20240324_RB-Leipzig_MSV-Duisburg
 2024-03-24,SGS Essen,Bayer Leverkusen,0.0,0.0,Frauen-Bundesliga,4250127,20240324_SGS-Essen_Bayer-Leverkusen
+2024-03-24,RB Leipzig,MSV Duisburg,3.0,0.0,Frauen-Bundesliga,4250106,20240324_RB-Leipzig_MSV-Duisburg
 2024-03-25,Eintracht Frankfurt,Werder Bremen,2.0,0.0,Frauen-Bundesliga,4250105,20240325_Eintracht-Frankfurt_Werder-Bremen
 2024-04-12,Werder Bremen,RB Leipzig,1.0,1.0,Frauen-Bundesliga,4250131,20240412_Werder-Bremen_RB-Leipzig
 2024-04-13,Freiburg,VfL Wolfsburg,1.0,4.0,Frauen-Bundesliga,4250128,20240413_Freiburg_VfL-Wolfsburg
@@ -374,8 +374,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2024-04-19,RB Leipzig,Bayer Leverkusen,1.0,0.0,Frauen-Bundesliga,4250139,20240419_RB-Leipzig_Bayer-Leverkusen
 2024-04-20,SGS Essen,TSG 1899 Hoffenheim,2.0,1.0,Frauen-Bundesliga,4250137,20240420_SGS-Essen_TSG-1899-Hoffenheim
 2024-04-20,Eintracht Frankfurt,Nürnberg,4.0,1.0,Frauen-Bundesliga,4250138,20240420_Eintracht-Frankfurt_Nürnberg
-2024-04-21,MSV Duisburg,VfL Wolfsburg,1.0,4.0,Frauen-Bundesliga,4250135,20240421_MSV-Duisburg_VfL-Wolfsburg
 2024-04-21,FC Köln,Freiburg,2.0,0.0,Frauen-Bundesliga,4250136,20240421_FC-Köln_Freiburg
+2024-04-21,MSV Duisburg,VfL Wolfsburg,1.0,4.0,Frauen-Bundesliga,4250135,20240421_MSV-Duisburg_VfL-Wolfsburg
 2024-04-22,Bayern München,Werder Bremen,3.0,0.0,Frauen-Bundesliga,4250134,20240422_Bayern-München_Werder-Bremen
 2024-05-03,VfL Wolfsburg,FC Köln,5.0,1.0,Frauen-Bundesliga,4250124,20240503_VfL-Wolfsburg_FC-Köln
 2024-05-04,Bayer Leverkusen,Bayern München,1.0,2.0,Frauen-Bundesliga,4250108,20240504_Bayer-Leverkusen_Bayern-München
@@ -384,8 +384,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2024-05-05,Werder Bremen,MSV Duisburg,4.0,2.0,Frauen-Bundesliga,4250123,20240505_Werder-Bremen_MSV-Duisburg
 2024-05-06,Nürnberg,RB Leipzig,0.0,1.0,Frauen-Bundesliga,4250109,20240506_Nürnberg_RB-Leipzig
 2024-05-10,RB Leipzig,TSG 1899 Hoffenheim,3.0,0.0,Frauen-Bundesliga,4250115,20240510_RB-Leipzig_TSG-1899-Hoffenheim
-2024-05-11,MSV Duisburg,Bayer Leverkusen,1.0,3.0,Frauen-Bundesliga,4250117,20240511_MSV-Duisburg_Bayer-Leverkusen
 2024-05-11,SGS Essen,FC Köln,2.0,1.0,Frauen-Bundesliga,4250113,20240511_SGS-Essen_FC-Köln
+2024-05-11,MSV Duisburg,Bayer Leverkusen,1.0,3.0,Frauen-Bundesliga,4250117,20240511_MSV-Duisburg_Bayer-Leverkusen
 2024-05-12,Werder Bremen,VfL Wolfsburg,0.0,3.0,Frauen-Bundesliga,4250112,20240512_Werder-Bremen_VfL-Wolfsburg
 2024-05-12,Bayern München,Nürnberg,4.0,0.0,Frauen-Bundesliga,4250116,20240512_Bayern-München_Nürnberg
 2024-05-13,Eintracht Frankfurt,Freiburg,4.0,2.0,Frauen-Bundesliga,4250114,20240513_Eintracht-Frankfurt_Freiburg
@@ -421,8 +421,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2024-10-04,VfL Wolfsburg,RB Leipzig,5.0,0.0,Frauen-Bundesliga,4561669,20241004_VfL-Wolfsburg_RB-Leipzig
 2024-10-05,Freiburg,Turbine Potsdam,3.0,0.0,Frauen-Bundesliga,4561673,20241005_Freiburg_Turbine-Potsdam
 2024-10-05,Bayern München,FC Köln,1.0,0.0,Frauen-Bundesliga,4561670,20241005_Bayern-München_FC-Köln
-2024-10-06,SGS Essen,Eintracht Frankfurt,1.0,3.0,Frauen-Bundesliga,4561668,20241006_SGS-Essen_Eintracht-Frankfurt
 2024-10-06,TSG 1899 Hoffenheim,Werder Bremen,1.0,0.0,Frauen-Bundesliga,4561671,20241006_TSG-1899-Hoffenheim_Werder-Bremen
+2024-10-06,SGS Essen,Eintracht Frankfurt,1.0,3.0,Frauen-Bundesliga,4561668,20241006_SGS-Essen_Eintracht-Frankfurt
 2024-10-07,Bayer Leverkusen,FC Carl Zeiss Jena,1.0,0.0,Frauen-Bundesliga,4561672,20241007_Bayer-Leverkusen_FC-Carl-Zeiss-Jena
 2024-10-11,Turbine Potsdam,SGS Essen,0.0,3.0,Frauen-Bundesliga,4561677,20241011_Turbine-Potsdam_SGS-Essen
 2024-10-12,Werder Bremen,Bayer Leverkusen,1.0,1.0,Frauen-Bundesliga,4561674,20241012_Werder-Bremen_Bayer-Leverkusen
@@ -433,24 +433,24 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2024-10-18,TSG 1899 Hoffenheim,Turbine Potsdam,6.0,0.0,Frauen-Bundesliga,4561700,20241018_TSG-1899-Hoffenheim_Turbine-Potsdam
 2024-10-19,Eintracht Frankfurt,Werder Bremen,0.0,1.0,Frauen-Bundesliga,4561701,20241019_Eintracht-Frankfurt_Werder-Bremen
 2024-10-19,FC Carl Zeiss Jena,FC Köln,2.0,2.0,Frauen-Bundesliga,4561698,20241019_FC-Carl-Zeiss-Jena_FC-Köln
+2024-10-20,Freiburg,RB Leipzig,4.0,1.0,Frauen-Bundesliga,4561706,20241020_Freiburg_RB-Leipzig
 2024-10-20,Bayer Leverkusen,Bayern München,2.0,3.0,Frauen-Bundesliga,4561702,20241020_Bayer-Leverkusen_Bayern-München
 2024-10-20,SGS Essen,VfL Wolfsburg,0.0,2.0,Frauen-Bundesliga,4561699,20241020_SGS-Essen_VfL-Wolfsburg
-2024-10-20,Freiburg,RB Leipzig,4.0,1.0,Frauen-Bundesliga,4561706,20241020_Freiburg_RB-Leipzig
 2024-11-01,FC Köln,Bayer Leverkusen,1.0,2.0,Frauen-Bundesliga,4561708,20241101_FC-Köln_Bayer-Leverkusen
 2024-11-02,Werder Bremen,SGS Essen,1.0,0.0,Frauen-Bundesliga,4561707,20241102_Werder-Bremen_SGS-Essen
 2024-11-02,Turbine Potsdam,FC Carl Zeiss Jena,0.0,0.0,Frauen-Bundesliga,4561697,20241102_Turbine-Potsdam_FC-Carl-Zeiss-Jena
-2024-11-03,RB Leipzig,TSG 1899 Hoffenheim,3.0,1.0,Frauen-Bundesliga,4561704,20241103_RB-Leipzig_TSG-1899-Hoffenheim
 2024-11-03,VfL Wolfsburg,Freiburg,3.0,0.0,Frauen-Bundesliga,4561703,20241103_VfL-Wolfsburg_Freiburg
+2024-11-03,RB Leipzig,TSG 1899 Hoffenheim,3.0,1.0,Frauen-Bundesliga,4561704,20241103_RB-Leipzig_TSG-1899-Hoffenheim
 2024-11-04,Bayern München,Eintracht Frankfurt,1.0,1.0,Frauen-Bundesliga,4561705,20241104_Bayern-München_Eintracht-Frankfurt
 2024-11-08,Freiburg,Bayern München,2.0,2.0,Frauen-Bundesliga,4561710,20241108_Freiburg_Bayern-München
-2024-11-09,Eintracht Frankfurt,FC Köln,8.0,0.0,Frauen-Bundesliga,4561689,20241109_Eintracht-Frankfurt_FC-Köln
 2024-11-09,TSG 1899 Hoffenheim,VfL Wolfsburg,0.0,3.0,Frauen-Bundesliga,4561713,20241109_TSG-1899-Hoffenheim_VfL-Wolfsburg
-2024-11-10,FC Carl Zeiss Jena,Werder Bremen,0.0,1.0,Frauen-Bundesliga,4561709,20241110_FC-Carl-Zeiss-Jena_Werder-Bremen
+2024-11-09,Eintracht Frankfurt,FC Köln,8.0,0.0,Frauen-Bundesliga,4561689,20241109_Eintracht-Frankfurt_FC-Köln
 2024-11-10,Bayer Leverkusen,Turbine Potsdam,3.0,0.0,Frauen-Bundesliga,4561712,20241110_Bayer-Leverkusen_Turbine-Potsdam
+2024-11-10,FC Carl Zeiss Jena,Werder Bremen,0.0,1.0,Frauen-Bundesliga,4561709,20241110_FC-Carl-Zeiss-Jena_Werder-Bremen
 2024-11-11,SGS Essen,RB Leipzig,0.0,0.0,Frauen-Bundesliga,4561711,20241111_SGS-Essen_RB-Leipzig
 2024-11-15,Freiburg,SGS Essen,1.0,0.0,Frauen-Bundesliga,4561686,20241115_Freiburg_SGS-Essen
-2024-11-16,TSG 1899 Hoffenheim,Eintracht Frankfurt,0.0,1.0,Frauen-Bundesliga,4561682,20241116_TSG-1899-Hoffenheim_Eintracht-Frankfurt
 2024-11-16,VfL Wolfsburg,Turbine Potsdam,3.0,1.0,Frauen-Bundesliga,4561683,20241116_VfL-Wolfsburg_Turbine-Potsdam
+2024-11-16,TSG 1899 Hoffenheim,Eintracht Frankfurt,0.0,1.0,Frauen-Bundesliga,4561682,20241116_TSG-1899-Hoffenheim_Eintracht-Frankfurt
 2024-11-17,Bayern München,FC Carl Zeiss Jena,5.0,0.0,Frauen-Bundesliga,4561685,20241117_Bayern-München_FC-Carl-Zeiss-Jena
 2024-11-17,RB Leipzig,Bayer Leverkusen,0.0,1.0,Frauen-Bundesliga,4561684,20241117_RB-Leipzig_Bayer-Leverkusen
 2024-11-18,FC Köln,Werder Bremen,1.0,4.0,Frauen-Bundesliga,4561681,20241118_FC-Köln_Werder-Bremen
@@ -460,30 +460,30 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2024-12-08,Werder Bremen,Freiburg,0.0,3.0,Frauen-Bundesliga,4561691,20241208_Werder-Bremen_Freiburg
 2024-12-09,Eintracht Frankfurt,RB Leipzig,3.0,0.0,Frauen-Bundesliga,4561687,20241209_Eintracht-Frankfurt_RB-Leipzig
 2024-12-13,FC Carl Zeiss Jena,Eintracht Frankfurt,0.0,3.0,Frauen-Bundesliga,4561695,20241213_FC-Carl-Zeiss-Jena_Eintracht-Frankfurt
-2024-12-14,Bayer Leverkusen,Freiburg,2.0,0.0,Frauen-Bundesliga,4561714,20241214_Bayer-Leverkusen_Freiburg
 2024-12-14,Werder Bremen,VfL Wolfsburg,1.0,3.0,Frauen-Bundesliga,4561694,20241214_Werder-Bremen_VfL-Wolfsburg
+2024-12-14,Bayer Leverkusen,Freiburg,2.0,0.0,Frauen-Bundesliga,4561714,20241214_Bayer-Leverkusen_Freiburg
 2024-12-15,Bayern München,Turbine Potsdam,2.0,0.0,Frauen-Bundesliga,4561715,20241215_Bayern-München_Turbine-Potsdam
 2024-12-15,TSG 1899 Hoffenheim,SGS Essen,1.0,0.0,Frauen-Bundesliga,4561693,20241215_TSG-1899-Hoffenheim_SGS-Essen
 2024-12-16,FC Köln,RB Leipzig,1.0,3.0,Frauen-Bundesliga,4561696,20241216_FC-Köln_RB-Leipzig
-2025-01-26,FC Carl Zeiss Jena,TSG 1899 Hoffenheim,0.0,3.0,Frauen-Bundesliga,4561690,20250126_FC-Carl-Zeiss-Jena_TSG-1899-Hoffenheim
 2025-01-26,Freiburg,Bayer Leverkusen,1.0,2.0,Frauen-Bundesliga,4689102,20250126_Freiburg_Bayer-Leverkusen
+2025-01-26,FC Carl Zeiss Jena,TSG 1899 Hoffenheim,0.0,3.0,Frauen-Bundesliga,4561690,20250126_FC-Carl-Zeiss-Jena_TSG-1899-Hoffenheim
 2025-01-31,Eintracht Frankfurt,Bayer Leverkusen,3.0,2.0,Frauen-Bundesliga,4561737,20250131_Eintracht-Frankfurt_Bayer-Leverkusen
 2025-02-01,Turbine Potsdam,Werder Bremen,1.0,4.0,Frauen-Bundesliga,4561743,20250201_Turbine-Potsdam_Werder-Bremen
 2025-02-02,Freiburg,TSG 1899 Hoffenheim,0.0,3.0,Frauen-Bundesliga,4561735,20250202_Freiburg_TSG-1899-Hoffenheim
 2025-02-02,RB Leipzig,Bayern München,0.0,1.0,Frauen-Bundesliga,4561738,20250202_RB-Leipzig_Bayern-München
 2025-02-03,VfL Wolfsburg,FC Carl Zeiss Jena,3.0,0.0,Frauen-Bundesliga,4561739,20250203_VfL-Wolfsburg_FC-Carl-Zeiss-Jena
 2025-02-07,FC Köln,VfL Wolfsburg,0.0,0.0,Frauen-Bundesliga,4561741,20250207_FC-Köln_VfL-Wolfsburg
-2025-02-08,Werder Bremen,RB Leipzig,1.0,4.0,Frauen-Bundesliga,4561745,20250208_Werder-Bremen_RB-Leipzig
 2025-02-08,Bayer Leverkusen,SGS Essen,1.0,1.0,Frauen-Bundesliga,4561742,20250208_Bayer-Leverkusen_SGS-Essen
-2025-02-09,Eintracht Frankfurt,Turbine Potsdam,9.0,0.0,Frauen-Bundesliga,4561740,20250209_Eintracht-Frankfurt_Turbine-Potsdam
+2025-02-08,Werder Bremen,RB Leipzig,1.0,4.0,Frauen-Bundesliga,4561745,20250208_Werder-Bremen_RB-Leipzig
 2025-02-09,TSG 1899 Hoffenheim,Bayern München,1.0,3.0,Frauen-Bundesliga,4561744,20250209_TSG-1899-Hoffenheim_Bayern-München
+2025-02-09,Eintracht Frankfurt,Turbine Potsdam,9.0,0.0,Frauen-Bundesliga,4561740,20250209_Eintracht-Frankfurt_Turbine-Potsdam
 2025-02-11,SGS Essen,FC Köln,0.0,0.0,Frauen-Bundesliga,4561736,20250211_SGS-Essen_FC-Köln
 2025-02-14,RB Leipzig,Turbine Potsdam,4.0,1.0,Frauen-Bundesliga,4561748,20250214_RB-Leipzig_Turbine-Potsdam
 2025-02-15,Freiburg,FC Köln,2.0,0.0,Frauen-Bundesliga,4561749,20250215_Freiburg_FC-Köln
 2025-02-15,SGS Essen,FC Carl Zeiss Jena,4.0,1.0,Frauen-Bundesliga,4561750,20250215_SGS-Essen_FC-Carl-Zeiss-Jena
 2025-02-16,TSG 1899 Hoffenheim,Bayer Leverkusen,1.0,0.0,Frauen-Bundesliga,4561746,20250216_TSG-1899-Hoffenheim_Bayer-Leverkusen
-2025-02-16,VfL Wolfsburg,Eintracht Frankfurt,6.0,1.0,Frauen-Bundesliga,4561751,20250216_VfL-Wolfsburg_Eintracht-Frankfurt
 2025-02-16,Bayern München,Werder Bremen,1.0,0.0,Frauen-Bundesliga,4561747,20250216_Bayern-München_Werder-Bremen
+2025-02-16,VfL Wolfsburg,Eintracht Frankfurt,6.0,1.0,Frauen-Bundesliga,4561751,20250216_VfL-Wolfsburg_Eintracht-Frankfurt
 2025-03-05,FC Carl Zeiss Jena,Freiburg,0.0,2.0,Frauen-Bundesliga,4561734,20250305_FC-Carl-Zeiss-Jena_Freiburg
 2025-03-07,Eintracht Frankfurt,SGS Essen,2.0,1.0,Frauen-Bundesliga,4561721,20250307_Eintracht-Frankfurt_SGS-Essen
 2025-03-08,RB Leipzig,VfL Wolfsburg,0.0,2.0,Frauen-Bundesliga,4561720,20250308_RB-Leipzig_VfL-Wolfsburg
@@ -494,15 +494,15 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2025-03-14,Bayern München,VfL Wolfsburg,3.0,1.0,Frauen-Bundesliga,4561724,20250314_Bayern-München_VfL-Wolfsburg
 2025-03-15,TSG 1899 Hoffenheim,FC Köln,5.0,1.0,Frauen-Bundesliga,4561723,20250315_TSG-1899-Hoffenheim_FC-Köln
 2025-03-15,FC Carl Zeiss Jena,RB Leipzig,1.0,1.0,Frauen-Bundesliga,4561716,20250315_FC-Carl-Zeiss-Jena_RB-Leipzig
-2025-03-16,Bayer Leverkusen,Werder Bremen,6.0,0.0,Frauen-Bundesliga,4561727,20250316_Bayer-Leverkusen_Werder-Bremen
 2025-03-16,SGS Essen,Turbine Potsdam,2.0,1.0,Frauen-Bundesliga,4561726,20250316_SGS-Essen_Turbine-Potsdam
+2025-03-16,Bayer Leverkusen,Werder Bremen,6.0,0.0,Frauen-Bundesliga,4561727,20250316_Bayer-Leverkusen_Werder-Bremen
 2025-03-17,Freiburg,Eintracht Frankfurt,3.0,2.0,Frauen-Bundesliga,4561722,20250317_Freiburg_Eintracht-Frankfurt
 2025-03-28,FC Köln,FC Carl Zeiss Jena,0.0,1.0,Frauen-Bundesliga,4561730,20250328_FC-Köln_FC-Carl-Zeiss-Jena
-2025-03-29,Turbine Potsdam,TSG 1899 Hoffenheim,0.0,7.0,Frauen-Bundesliga,4561728,20250329_Turbine-Potsdam_TSG-1899-Hoffenheim
 2025-03-29,Werder Bremen,Eintracht Frankfurt,1.0,4.0,Frauen-Bundesliga,4561729,20250329_Werder-Bremen_Eintracht-Frankfurt
-2025-03-30,VfL Wolfsburg,SGS Essen,5.0,1.0,Frauen-Bundesliga,4561731,20250330_VfL-Wolfsburg_SGS-Essen
+2025-03-29,Turbine Potsdam,TSG 1899 Hoffenheim,0.0,7.0,Frauen-Bundesliga,4561728,20250329_Turbine-Potsdam_TSG-1899-Hoffenheim
 2025-03-30,RB Leipzig,Freiburg,1.0,1.0,Frauen-Bundesliga,4561732,20250330_RB-Leipzig_Freiburg
 2025-03-30,Bayern München,Bayer Leverkusen,2.0,0.0,Frauen-Bundesliga,4561733,20250330_Bayern-München_Bayer-Leverkusen
+2025-03-30,VfL Wolfsburg,SGS Essen,5.0,1.0,Frauen-Bundesliga,4561731,20250330_VfL-Wolfsburg_SGS-Essen
 2025-04-11,SGS Essen,Werder Bremen,0.0,1.0,Frauen-Bundesliga,4561774,20250411_SGS-Essen_Werder-Bremen
 2025-04-12,FC Carl Zeiss Jena,Turbine Potsdam,1.0,0.0,Frauen-Bundesliga,4561764,20250412_FC-Carl-Zeiss-Jena_Turbine-Potsdam
 2025-04-12,Eintracht Frankfurt,Bayern München,0.0,3.0,Frauen-Bundesliga,4561772,20250412_Eintracht-Frankfurt_Bayern-München
@@ -512,8 +512,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2025-04-25,Turbine Potsdam,Bayer Leverkusen,1.0,3.0,Frauen-Bundesliga,4561770,20250425_Turbine-Potsdam_Bayer-Leverkusen
 2025-04-26,RB Leipzig,SGS Essen,0.0,3.0,Frauen-Bundesliga,4561767,20250426_RB-Leipzig_SGS-Essen
 2025-04-26,Werder Bremen,FC Carl Zeiss Jena,3.0,0.0,Frauen-Bundesliga,4561769,20250426_Werder-Bremen_FC-Carl-Zeiss-Jena
-2025-04-27,FC Köln,Eintracht Frankfurt,0.0,4.0,Frauen-Bundesliga,4561766,20250427_FC-Köln_Eintracht-Frankfurt
 2025-04-27,Bayern München,Freiburg,3.0,1.0,Frauen-Bundesliga,4561765,20250427_Bayern-München_Freiburg
+2025-04-27,FC Köln,Eintracht Frankfurt,0.0,4.0,Frauen-Bundesliga,4561766,20250427_FC-Köln_Eintracht-Frankfurt
 2025-04-28,VfL Wolfsburg,TSG 1899 Hoffenheim,2.0,1.0,Frauen-Bundesliga,4561768,20250428_VfL-Wolfsburg_TSG-1899-Hoffenheim
 2025-05-02,SGS Essen,Freiburg,0.0,0.0,Frauen-Bundesliga,4561761,20250502_SGS-Essen_Freiburg
 2025-05-03,Bayer Leverkusen,RB Leipzig,1.0,0.0,Frauen-Bundesliga,4561760,20250503_Bayer-Leverkusen_RB-Leipzig
@@ -523,71 +523,71 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2025-05-05,FC Carl Zeiss Jena,Bayern München,0.0,1.0,Frauen-Bundesliga,4561759,20250505_FC-Carl-Zeiss-Jena_Bayern-München
 2025-05-11,TSG 1899 Hoffenheim,FC Carl Zeiss Jena,4.0,0.0,Frauen-Bundesliga,4561757,20250511_TSG-1899-Hoffenheim_FC-Carl-Zeiss-Jena
 2025-05-11,Bayern München,SGS Essen,3.0,0.0,Frauen-Bundesliga,4561753,20250511_Bayern-München_SGS-Essen
-2025-05-11,FC Köln,Turbine Potsdam,4.0,0.0,Frauen-Bundesliga,4561756,20250511_FC-Köln_Turbine-Potsdam
-2025-05-11,Freiburg,Werder Bremen,3.0,2.0,Frauen-Bundesliga,4561758,20250511_Freiburg_Werder-Bremen
 2025-05-11,RB Leipzig,Eintracht Frankfurt,0.0,2.0,Frauen-Bundesliga,4561754,20250511_RB-Leipzig_Eintracht-Frankfurt
 2025-05-11,VfL Wolfsburg,Bayer Leverkusen,3.0,1.0,Frauen-Bundesliga,4561755,20250511_VfL-Wolfsburg_Bayer-Leverkusen
+2025-05-11,FC Köln,Turbine Potsdam,4.0,0.0,Frauen-Bundesliga,4561756,20250511_FC-Köln_Turbine-Potsdam
+2025-05-11,Freiburg,Werder Bremen,3.0,2.0,Frauen-Bundesliga,4561758,20250511_Freiburg_Werder-Bremen
 2025-09-05,Eintracht Frankfurt,SGS Essen,5.0,0.0,Frauen-Bundesliga,4863530,20250905_Eintracht-Frankfurt_SGS-Essen
 2025-09-06,FC Köln,RB Leipzig,0.0,2.0,Frauen-Bundesliga,4863532,20250906_FC-Köln_RB-Leipzig
 2025-09-06,Bayern München,Bayer Leverkusen,2.0,0.0,Frauen-Bundesliga,4863527,20250906_Bayern-München_Bayer-Leverkusen
+2025-09-07,Union Berlin,Nürnberg,1.0,1.0,Frauen-Bundesliga,4863528,20250907_Union-Berlin_Nürnberg
 2025-09-07,Werder Bremen,Freiburg,1.0,1.0,Frauen-Bundesliga,4863529,20250907_Werder-Bremen_Freiburg
 2025-09-07,Hamburger SV,VfL Wolfsburg,3.0,3.0,Frauen-Bundesliga,4863533,20250907_Hamburger-SV_VfL-Wolfsburg
-2025-09-07,Union Berlin,Nürnberg,1.0,1.0,Frauen-Bundesliga,4863528,20250907_Union-Berlin_Nürnberg
 2025-09-08,FC Carl Zeiss Jena,TSG 1899 Hoffenheim,1.0,4.0,Frauen-Bundesliga,4863531,20250908_FC-Carl-Zeiss-Jena_TSG-1899-Hoffenheim
 2025-09-12,Freiburg,FC Köln,1.0,0.0,Frauen-Bundesliga,4863535,20250912_Freiburg_FC-Köln
-2025-09-13,SGS Essen,Hamburger SV,0.0,0.0,Frauen-Bundesliga,4863534,20250913_SGS-Essen_Hamburger-SV
 2025-09-13,Nürnberg,Werder Bremen,1.0,4.0,Frauen-Bundesliga,4863538,20250913_Nürnberg_Werder-Bremen
+2025-09-13,SGS Essen,Hamburger SV,0.0,0.0,Frauen-Bundesliga,4863534,20250913_SGS-Essen_Hamburger-SV
 2025-09-14,RB Leipzig,Bayern München,0.0,3.0,Frauen-Bundesliga,4863536,20250914_RB-Leipzig_Bayern-München
 2025-09-14,VfL Wolfsburg,FC Carl Zeiss Jena,3.0,1.0,Frauen-Bundesliga,4863539,20250914_VfL-Wolfsburg_FC-Carl-Zeiss-Jena
 2025-09-14,TSG 1899 Hoffenheim,Eintracht Frankfurt,3.0,0.0,Frauen-Bundesliga,4863540,20250914_TSG-1899-Hoffenheim_Eintracht-Frankfurt
 2025-09-15,Bayer Leverkusen,Union Berlin,3.0,2.0,Frauen-Bundesliga,4863537,20250915_Bayer-Leverkusen_Union-Berlin
 2025-09-19,Freiburg,Hamburger SV,6.0,2.0,Frauen-Bundesliga,4863666,20250919_Freiburg_Hamburger-SV
-2025-09-20,Union Berlin,SGS Essen,2.0,0.0,Frauen-Bundesliga,4863541,20250920_Union-Berlin_SGS-Essen
 2025-09-20,Bayern München,FC Carl Zeiss Jena,0.0,0.0,Frauen-Bundesliga,4863545,20250920_Bayern-München_FC-Carl-Zeiss-Jena
+2025-09-20,Union Berlin,SGS Essen,2.0,0.0,Frauen-Bundesliga,4863541,20250920_Union-Berlin_SGS-Essen
 2025-09-21,FC Köln,VfL Wolfsburg,1.0,2.0,Frauen-Bundesliga,4863544,20250921_FC-Köln_VfL-Wolfsburg
 2025-09-21,Werder Bremen,TSG 1899 Hoffenheim,2.0,1.0,Frauen-Bundesliga,4863542,20250921_Werder-Bremen_TSG-1899-Hoffenheim
 2025-09-21,Nürnberg,Bayer Leverkusen,0.0,1.0,Frauen-Bundesliga,4863546,20250921_Nürnberg_Bayer-Leverkusen
 2025-09-22,Eintracht Frankfurt,RB Leipzig,4.0,3.0,Frauen-Bundesliga,4863547,20250922_Eintracht-Frankfurt_RB-Leipzig
 2025-09-23,FC Carl Zeiss Jena,Union Berlin,1.0,2.0,Frauen-Bundesliga,4863551,20250923_FC-Carl-Zeiss-Jena_Union-Berlin
 2025-09-23,Bayern München,Freiburg,4.0,0.0,Frauen-Bundesliga,4863549,20250923_Bayern-München_Freiburg
+2025-09-24,SGS Essen,FC Köln,1.0,2.0,Frauen-Bundesliga,4863548,20250924_SGS-Essen_FC-Köln
 2025-09-24,TSG 1899 Hoffenheim,Nürnberg,1.0,1.0,Frauen-Bundesliga,4863550,20250924_TSG-1899-Hoffenheim_Nürnberg
 2025-09-24,VfL Wolfsburg,Werder Bremen,4.0,2.0,Frauen-Bundesliga,4863554,20250924_VfL-Wolfsburg_Werder-Bremen
-2025-09-24,SGS Essen,FC Köln,1.0,2.0,Frauen-Bundesliga,4863548,20250924_SGS-Essen_FC-Köln
 2025-09-25,Bayer Leverkusen,Eintracht Frankfurt,2.0,1.0,Frauen-Bundesliga,4863553,20250925_Bayer-Leverkusen_Eintracht-Frankfurt
 2025-09-25,RB Leipzig,Hamburger SV,0.0,1.0,Frauen-Bundesliga,4863552,20250925_RB-Leipzig_Hamburger-SV
 2025-10-03,Eintracht Frankfurt,FC Carl Zeiss Jena,3.0,1.0,Frauen-Bundesliga,4863590,20251003_Eintracht-Frankfurt_FC-Carl-Zeiss-Jena
 2025-10-04,SGS Essen,VfL Wolfsburg,0.0,8.0,Frauen-Bundesliga,4863593,20251004_SGS-Essen_VfL-Wolfsburg
 2025-10-04,Bayern München,Werder Bremen,4.0,0.0,Frauen-Bundesliga,4863589,20251004_Bayern-München_Werder-Bremen
-2025-10-05,Nürnberg,RB Leipzig,1.0,1.0,Frauen-Bundesliga,4863588,20251005_Nürnberg_RB-Leipzig
 2025-10-05,Union Berlin,Freiburg,0.0,3.0,Frauen-Bundesliga,4863594,20251005_Union-Berlin_Freiburg
+2025-10-05,Nürnberg,RB Leipzig,1.0,1.0,Frauen-Bundesliga,4863588,20251005_Nürnberg_RB-Leipzig
 2025-10-06,Hamburger SV,TSG 1899 Hoffenheim,1.0,4.0,Frauen-Bundesliga,4863591,20251006_Hamburger-SV_TSG-1899-Hoffenheim
 2025-10-10,RB Leipzig,SGS Essen,2.0,1.0,Frauen-Bundesliga,4863599,20251010_RB-Leipzig_SGS-Essen
-2025-10-11,VfL Wolfsburg,Bayern München,1.0,3.0,Frauen-Bundesliga,4863601,20251011_VfL-Wolfsburg_Bayern-München
 2025-10-11,Werder Bremen,Hamburger SV,2.0,0.0,Frauen-Bundesliga,4863600,20251011_Werder-Bremen_Hamburger-SV
+2025-10-11,VfL Wolfsburg,Bayern München,1.0,3.0,Frauen-Bundesliga,4863601,20251011_VfL-Wolfsburg_Bayern-München
+2025-10-12,FC Köln,Union Berlin,2.0,1.0,Frauen-Bundesliga,4863598,20251012_FC-Köln_Union-Berlin
 2025-10-12,Freiburg,Eintracht Frankfurt,3.0,2.0,Frauen-Bundesliga,4863595,20251012_Freiburg_Eintracht-Frankfurt
 2025-10-12,TSG 1899 Hoffenheim,Bayer Leverkusen,0.0,2.0,Frauen-Bundesliga,4863596,20251012_TSG-1899-Hoffenheim_Bayer-Leverkusen
-2025-10-12,FC Köln,Union Berlin,2.0,1.0,Frauen-Bundesliga,4863598,20251012_FC-Köln_Union-Berlin
 2025-10-13,FC Carl Zeiss Jena,Nürnberg,2.0,3.0,Frauen-Bundesliga,4863597,20251013_FC-Carl-Zeiss-Jena_Nürnberg
 2025-10-16,FC Köln,Bayer Leverkusen,2.0,2.0,Frauen-Bundesliga,5006346,20251016_FC-Köln_Bayer-Leverkusen
 2025-10-17,SGS Essen,TSG 1899 Hoffenheim,0.0,1.0,Frauen-Bundesliga,4863607,20251017_SGS-Essen_TSG-1899-Hoffenheim
-2025-10-18,Hamburger SV,FC Carl Zeiss Jena,1.0,1.0,Frauen-Bundesliga,4863606,20251018_Hamburger-SV_FC-Carl-Zeiss-Jena
 2025-10-18,Nürnberg,Freiburg,3.0,2.0,Frauen-Bundesliga,4863602,20251018_Nürnberg_Freiburg
-2025-10-19,Union Berlin,RB Leipzig,5.0,0.0,Frauen-Bundesliga,4863608,20251019_Union-Berlin_RB-Leipzig
-2025-10-19,Eintracht Frankfurt,Werder Bremen,2.0,0.0,Frauen-Bundesliga,4863605,20251019_Eintracht-Frankfurt_Werder-Bremen
+2025-10-18,Hamburger SV,FC Carl Zeiss Jena,1.0,1.0,Frauen-Bundesliga,4863606,20251018_Hamburger-SV_FC-Carl-Zeiss-Jena
 2025-10-19,Bayern München,FC Köln,5.0,1.0,Frauen-Bundesliga,4863604,20251019_Bayern-München_FC-Köln
 2025-10-19,Bayer Leverkusen,VfL Wolfsburg,1.0,5.0,Frauen-Bundesliga,4863603,20251019_Bayer-Leverkusen_VfL-Wolfsburg
+2025-10-19,Union Berlin,RB Leipzig,5.0,0.0,Frauen-Bundesliga,4863608,20251019_Union-Berlin_RB-Leipzig
+2025-10-19,Eintracht Frankfurt,Werder Bremen,2.0,0.0,Frauen-Bundesliga,4863605,20251019_Eintracht-Frankfurt_Werder-Bremen
 2025-10-31,FC Köln,Nürnberg,3.0,0.0,Frauen-Bundesliga,4863613,20251031_FC-Köln_Nürnberg
-2025-11-01,VfL Wolfsburg,TSG 1899 Hoffenheim,2.0,1.0,Frauen-Bundesliga,4863615,20251101_VfL-Wolfsburg_TSG-1899-Hoffenheim
 2025-11-01,Werder Bremen,Union Berlin,3.0,0.0,Frauen-Bundesliga,4863614,20251101_Werder-Bremen_Union-Berlin
 2025-11-01,Bayern München,SGS Essen,4.0,1.0,Frauen-Bundesliga,4863609,20251101_Bayern-München_SGS-Essen
+2025-11-01,VfL Wolfsburg,TSG 1899 Hoffenheim,2.0,1.0,Frauen-Bundesliga,4863615,20251101_VfL-Wolfsburg_TSG-1899-Hoffenheim
 2025-11-02,FC Carl Zeiss Jena,Bayer Leverkusen,2.0,4.0,Frauen-Bundesliga,4863612,20251102_FC-Carl-Zeiss-Jena_Bayer-Leverkusen
 2025-11-02,Hamburger SV,Eintracht Frankfurt,0.0,4.0,Frauen-Bundesliga,4863611,20251102_Hamburger-SV_Eintracht-Frankfurt
 2025-11-03,Freiburg,RB Leipzig,2.0,4.0,Frauen-Bundesliga,4863610,20251103_Freiburg_RB-Leipzig
 2025-11-04,Nürnberg,Bayern München,0.0,6.0,Frauen-Bundesliga,4863616,20251104_Nürnberg_Bayern-München
 2025-11-04,Union Berlin,VfL Wolfsburg,1.0,4.0,Frauen-Bundesliga,4863622,20251104_Union-Berlin_VfL-Wolfsburg
-2025-11-05,Bayer Leverkusen,Hamburger SV,2.0,1.0,Frauen-Bundesliga,4863617,20251105_Bayer-Leverkusen_Hamburger-SV
-2025-11-05,Eintracht Frankfurt,FC Köln,1.0,1.0,Frauen-Bundesliga,4863618,20251105_Eintracht-Frankfurt_FC-Köln
 2025-11-05,SGS Essen,Werder Bremen,2.0,3.0,Frauen-Bundesliga,4863621,20251105_SGS-Essen_Werder-Bremen
+2025-11-05,Eintracht Frankfurt,FC Köln,1.0,1.0,Frauen-Bundesliga,4863618,20251105_Eintracht-Frankfurt_FC-Köln
+2025-11-05,Bayer Leverkusen,Hamburger SV,2.0,1.0,Frauen-Bundesliga,4863617,20251105_Bayer-Leverkusen_Hamburger-SV
 2025-11-06,RB Leipzig,FC Carl Zeiss Jena,2.0,0.0,Frauen-Bundesliga,4863620,20251106_RB-Leipzig_FC-Carl-Zeiss-Jena
 2025-11-06,TSG 1899 Hoffenheim,Freiburg,2.0,1.0,Frauen-Bundesliga,4863619,20251106_TSG-1899-Hoffenheim_Freiburg
 2025-11-07,Bayern München,Union Berlin,4.0,0.0,Frauen-Bundesliga,4863623,20251107_Bayern-München_Union-Berlin
@@ -598,38 +598,38 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2025-11-09,Werder Bremen,RB Leipzig,2.0,1.0,Frauen-Bundesliga,4863628,20251109_Werder-Bremen_RB-Leipzig
 2025-11-10,Freiburg,Bayer Leverkusen,2.0,1.0,Frauen-Bundesliga,4863624,20251110_Freiburg_Bayer-Leverkusen
 2025-11-21,Union Berlin,Hamburger SV,1.0,1.0,Frauen-Bundesliga,4863635,20251121_Union-Berlin_Hamburger-SV
-2025-11-22,Freiburg,FC Carl Zeiss Jena,3.0,0.0,Frauen-Bundesliga,4863632,20251122_Freiburg_FC-Carl-Zeiss-Jena
 2025-11-22,Bayer Leverkusen,SGS Essen,0.0,1.0,Frauen-Bundesliga,4863631,20251122_Bayer-Leverkusen_SGS-Essen
+2025-11-22,Freiburg,FC Carl Zeiss Jena,3.0,0.0,Frauen-Bundesliga,4863632,20251122_Freiburg_FC-Carl-Zeiss-Jena
 2025-11-23,RB Leipzig,VfL Wolfsburg,1.0,3.0,Frauen-Bundesliga,4863634,20251123_RB-Leipzig_VfL-Wolfsburg
 2025-11-23,TSG 1899 Hoffenheim,Bayern München,1.0,5.0,Frauen-Bundesliga,4863633,20251123_TSG-1899-Hoffenheim_Bayern-München
 2025-11-23,Werder Bremen,FC Köln,1.0,1.0,Frauen-Bundesliga,4863636,20251123_Werder-Bremen_FC-Köln
 2025-12-05,VfL Wolfsburg,Freiburg,3.0,1.0,Frauen-Bundesliga,4863643,20251205_VfL-Wolfsburg_Freiburg
-2025-12-06,Bayer Leverkusen,RB Leipzig,3.0,2.0,Frauen-Bundesliga,4863637,20251206_Bayer-Leverkusen_RB-Leipzig
 2025-12-06,FC Carl Zeiss Jena,Werder Bremen,0.0,1.0,Frauen-Bundesliga,4863641,20251206_FC-Carl-Zeiss-Jena_Werder-Bremen
-2025-12-07,Eintracht Frankfurt,Bayern München,0.0,5.0,Frauen-Bundesliga,4863638,20251207_Eintracht-Frankfurt_Bayern-München
+2025-12-06,Bayer Leverkusen,RB Leipzig,3.0,2.0,Frauen-Bundesliga,4863637,20251206_Bayer-Leverkusen_RB-Leipzig
 2025-12-07,SGS Essen,Nürnberg,2.0,0.0,Frauen-Bundesliga,4863642,20251207_SGS-Essen_Nürnberg
+2025-12-07,Eintracht Frankfurt,Bayern München,0.0,5.0,Frauen-Bundesliga,4863638,20251207_Eintracht-Frankfurt_Bayern-München
 2025-12-07,TSG 1899 Hoffenheim,Union Berlin,3.0,0.0,Frauen-Bundesliga,4863640,20251207_TSG-1899-Hoffenheim_Union-Berlin
 2025-12-08,Hamburger SV,FC Köln,1.0,4.0,Frauen-Bundesliga,4863639,20251208_Hamburger-SV_FC-Köln
 2025-12-10,Nürnberg,Eintracht Frankfurt,5.0,3.0,Frauen-Bundesliga,4863630,20251210_Nürnberg_Eintracht-Frankfurt
 2025-12-12,Werder Bremen,Bayer Leverkusen,1.0,0.0,Frauen-Bundesliga,4863650,20251212_Werder-Bremen_Bayer-Leverkusen
-2025-12-13,Freiburg,SGS Essen,0.0,0.0,Frauen-Bundesliga,4863646,20251213_Freiburg_SGS-Essen
 2025-12-13,Nürnberg,VfL Wolfsburg,1.0,6.0,Frauen-Bundesliga,4863644,20251213_Nürnberg_VfL-Wolfsburg
-2025-12-14,Bayern München,Hamburger SV,6.0,0.0,Frauen-Bundesliga,4863645,20251214_Bayern-München_Hamburger-SV
+2025-12-13,Freiburg,SGS Essen,0.0,0.0,Frauen-Bundesliga,4863646,20251213_Freiburg_SGS-Essen
 2025-12-14,FC Köln,FC Carl Zeiss Jena,0.0,1.0,Frauen-Bundesliga,4863647,20251214_FC-Köln_FC-Carl-Zeiss-Jena
 2025-12-14,RB Leipzig,TSG 1899 Hoffenheim,2.0,3.0,Frauen-Bundesliga,4863648,20251214_RB-Leipzig_TSG-1899-Hoffenheim
+2025-12-14,Bayern München,Hamburger SV,6.0,0.0,Frauen-Bundesliga,4863645,20251214_Bayern-München_Hamburger-SV
 2025-12-15,Union Berlin,Eintracht Frankfurt,2.0,2.0,Frauen-Bundesliga,4863649,20251215_Union-Berlin_Eintracht-Frankfurt
 2025-12-19,SGS Essen,Eintracht Frankfurt,1.0,4.0,Frauen-Bundesliga,4863656,20251219_SGS-Essen_Eintracht-Frankfurt
-2025-12-20,TSG 1899 Hoffenheim,FC Carl Zeiss Jena,5.0,1.0,Frauen-Bundesliga,4863654,20251220_TSG-1899-Hoffenheim_FC-Carl-Zeiss-Jena
 2025-12-20,Nürnberg,Union Berlin,1.0,2.0,Frauen-Bundesliga,4863651,20251220_Nürnberg_Union-Berlin
-2025-12-21,Freiburg,Werder Bremen,3.0,0.0,Frauen-Bundesliga,4863653,20251221_Freiburg_Werder-Bremen
-2025-12-21,RB Leipzig,FC Köln,0.0,1.0,Frauen-Bundesliga,4863655,20251221_RB-Leipzig_FC-Köln
+2025-12-20,TSG 1899 Hoffenheim,FC Carl Zeiss Jena,5.0,1.0,Frauen-Bundesliga,4863654,20251220_TSG-1899-Hoffenheim_FC-Carl-Zeiss-Jena
 2025-12-21,VfL Wolfsburg,Hamburger SV,3.0,1.0,Frauen-Bundesliga,4863657,20251221_VfL-Wolfsburg_Hamburger-SV
+2025-12-21,RB Leipzig,FC Köln,0.0,1.0,Frauen-Bundesliga,4863655,20251221_RB-Leipzig_FC-Köln
+2025-12-21,Freiburg,Werder Bremen,3.0,0.0,Frauen-Bundesliga,4863653,20251221_Freiburg_Werder-Bremen
 2025-12-22,Bayer Leverkusen,Bayern München,0.0,3.0,Frauen-Bundesliga,4863652,20251222_Bayer-Leverkusen_Bayern-München
 2026-01-23,Union Berlin,Bayer Leverkusen,1.0,2.0,Frauen-Bundesliga,4863663,20260123_Union-Berlin_Bayer-Leverkusen
 2026-01-24,FC Köln,Freiburg,1.0,0.0,Frauen-Bundesliga,4863662,20260124_FC-Köln_Freiburg
-2026-01-25,Werder Bremen,Nürnberg,1.0,1.0,Frauen-Bundesliga,4863664,20260125_Werder-Bremen_Nürnberg
 2026-01-25,Hamburger SV,SGS Essen,2.0,1.0,Frauen-Bundesliga,4863660,20260125_Hamburger-SV_SGS-Essen
 2026-01-25,Bayern München,RB Leipzig,3.0,0.0,Frauen-Bundesliga,4863658,20260125_Bayern-München_RB-Leipzig
+2026-01-25,Werder Bremen,Nürnberg,1.0,1.0,Frauen-Bundesliga,4863664,20260125_Werder-Bremen_Nürnberg
 2026-01-31,SGS Essen,Union Berlin,2.0,4.0,Frauen-Bundesliga,4863670,20260131_SGS-Essen_Union-Berlin
 2026-01-31,Bayer Leverkusen,Nürnberg,4.0,0.0,Frauen-Bundesliga,4863665,20260131_Bayer-Leverkusen_Nürnberg
 2026-02-01,RB Leipzig,Eintracht Frankfurt,2.0,2.0,Frauen-Bundesliga,4863669,20260201_RB-Leipzig_Eintracht-Frankfurt
@@ -691,8 +691,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2026-05-01,Hamburger SV,Union Berlin,0.0,1.0,Frauen-Bundesliga,4863723,20260501_Hamburger-SV_Union-Berlin
 2026-05-02,FC Köln,Werder Bremen,3.0,0.0,Frauen-Bundesliga,4863725,20260502_FC-Köln_Werder-Bremen
 2026-05-02,VfL Wolfsburg,RB Leipzig,3.0,2.0,Frauen-Bundesliga,4863727,20260502_VfL-Wolfsburg_RB-Leipzig
-2026-05-03,SGS Essen,Bayer Leverkusen,0.0,4.0,Frauen-Bundesliga,4863726,20260503_SGS-Essen_Bayer-Leverkusen
 2026-05-03,FC Carl Zeiss Jena,Freiburg,1.0,5.0,Frauen-Bundesliga,4863724,20260503_FC-Carl-Zeiss-Jena_Freiburg
+2026-05-03,SGS Essen,Bayer Leverkusen,0.0,4.0,Frauen-Bundesliga,4863726,20260503_SGS-Essen_Bayer-Leverkusen
 2026-05-04,Eintracht Frankfurt,Nürnberg,4.0,1.0,Frauen-Bundesliga,4863722,20260504_Eintracht-Frankfurt_Nürnberg
 2026-05-06,Bayern München,TSG 1899 Hoffenheim,1.0,1.0,Frauen-Bundesliga,4863721,20260506_Bayern-München_TSG-1899-Hoffenheim
 2026-05-08,Nürnberg,SGS Essen,3.0,0.0,Frauen-Bundesliga,4863728,20260508_Nürnberg_SGS-Essen
@@ -717,17 +717,17 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2026-08-23,Hamburger SV,Freiburg,1.0,1.0,Frauen-Bundesliga,5934503,20260823_Hamburger-SV_Freiburg
 2026-08-24,Mainz 05,Werder Bremen,1.0,2.0,Frauen-Bundesliga,5934505,20260824_Mainz-05_Werder-Bremen
 2026-08-28,FC Köln,TSG 1899 Hoffenheim,1.0,0.0,Frauen-Bundesliga,5934511,20260828_FC-Köln_TSG-1899-Hoffenheim
-2026-08-29,Freiburg,Union Berlin,1.0,0.0,Frauen-Bundesliga,5934510,20260829_Freiburg_Union-Berlin
 2026-08-29,VfB Stuttgart,Hamburger SV,2.0,1.0,Frauen-Bundesliga,5934512,20260829_VfB-Stuttgart_Hamburger-SV
-2026-08-30,Bayer Leverkusen,VfL Wolfsburg,1.0,2.0,Frauen-Bundesliga,5934507,20260830_Bayer-Leverkusen_VfL-Wolfsburg
+2026-08-29,Freiburg,Union Berlin,1.0,0.0,Frauen-Bundesliga,5934510,20260829_Freiburg_Union-Berlin
 2026-08-30,Werder Bremen,RB Leipzig,2.0,0.0,Frauen-Bundesliga,5934513,20260830_Werder-Bremen_RB-Leipzig
 2026-08-30,Eintracht Frankfurt,Nürnberg,1.0,1.0,Frauen-Bundesliga,5934509,20260830_Eintracht-Frankfurt_Nürnberg
+2026-08-30,Bayer Leverkusen,VfL Wolfsburg,1.0,2.0,Frauen-Bundesliga,5934507,20260830_Bayer-Leverkusen_VfL-Wolfsburg
 2026-08-31,Bayern München,Mainz 05,2.0,0.0,Frauen-Bundesliga,5934508,20260831_Bayern-München_Mainz-05
 2026-09-04,TSG 1899 Hoffenheim,Bayer Leverkusen,1.0,2.0,Frauen-Bundesliga,5934517,20260904_TSG-1899-Hoffenheim_Bayer-Leverkusen
 2026-09-05,Hamburger SV,RB Leipzig,1.0,1.0,Frauen-Bundesliga,5934516,20260905_Hamburger-SV_RB-Leipzig
 2026-09-05,Mainz 05,FC Köln,0.0,4.0,Frauen-Bundesliga,5934518,20260905_Mainz-05_FC-Köln
-2026-09-06,Bayern München,Freiburg,4.0,1.0,Frauen-Bundesliga,5934515,20260906_Bayern-München_Freiburg
 2026-09-06,VfL Wolfsburg,Werder Bremen,3.0,2.0,Frauen-Bundesliga,5934520,20260906_VfL-Wolfsburg_Werder-Bremen
+2026-09-06,Bayern München,Freiburg,4.0,1.0,Frauen-Bundesliga,5934515,20260906_Bayern-München_Freiburg
 2026-09-06,Nürnberg,VfB Stuttgart,3.0,3.0,Frauen-Bundesliga,5934514,20260906_Nürnberg_VfB-Stuttgart
 2026-09-07,Union Berlin,Eintracht Frankfurt,0.0,1.0,Frauen-Bundesliga,5934519,20260907_Union-Berlin_Eintracht-Frankfurt
 2026-09-11,Werder Bremen,Hamburger SV,1.0,0.0,Frauen-Bundesliga,5934527,20260911_Werder-Bremen_Hamburger-SV
@@ -737,8 +737,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2026-09-13,Eintracht Frankfurt,TSG 1899 Hoffenheim,4.0,2.0,Frauen-Bundesliga,5934522,20260913_Eintracht-Frankfurt_TSG-1899-Hoffenheim
 2026-09-13,Freiburg,Mainz 05,3.0,0.0,Frauen-Bundesliga,5934523,20260913_Freiburg_Mainz-05
 2026-09-14,Bayer Leverkusen,Bayern München,2.0,3.0,Frauen-Bundesliga,5934521,20260914_Bayer-Leverkusen_Bayern-München
-2026-09-18,Mainz 05,Eintracht Frankfurt,2.0,3.0,Frauen-Bundesliga,5934532,20260918_Mainz-05_Eintracht-Frankfurt
 2026-09-18,TSG 1899 Hoffenheim,VfL Wolfsburg,2.0,1.0,Frauen-Bundesliga,5934531,20260918_TSG-1899-Hoffenheim_VfL-Wolfsburg
+2026-09-18,Mainz 05,Eintracht Frankfurt,2.0,3.0,Frauen-Bundesliga,5934532,20260918_Mainz-05_Eintracht-Frankfurt
 2026-09-19,Bayern München,FC Köln,5.0,2.0,Frauen-Bundesliga,5934528,20260919_Bayern-München_FC-Köln
 2026-09-20,Hamburger SV,Nürnberg,5.0,1.0,Frauen-Bundesliga,5934530,20260920_Hamburger-SV_Nürnberg
 2026-09-20,Freiburg,Bayer Leverkusen,1.0,2.0,Frauen-Bundesliga,5934529,20260920_Freiburg_Bayer-Leverkusen
@@ -748,6 +748,7 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID
 2026-10-03,RB Leipzig,Mainz 05,5.0,0.0,Frauen-Bundesliga,5934539,20261003_RB-Leipzig_Mainz-05
 2026-10-03,FC Köln,Freiburg,0.0,1.0,Frauen-Bundesliga,5934538,20261003_FC-Köln_Freiburg
 2026-10-03,Eintracht Frankfurt,Bayern München,0.0,1.0,Frauen-Bundesliga,5934537,20261003_Eintracht-Frankfurt_Bayern-München
+2026-10-04,VfL Wolfsburg,Hamburger SV,2.0,1.0,Frauen-Bundesliga,5934541,20261004_VfL-Wolfsburg_Hamburger-SV
 2026-10-04,Nürnberg,TSG 1899 Hoffenheim,1.0,2.0,Frauen-Bundesliga,5934535,20261004_Nürnberg_TSG-1899-Hoffenheim
 2026-10-04,VfB Stuttgart,Union Berlin,0.0,4.0,Frauen-Bundesliga,5934540,20261004_VfB-Stuttgart_Union-Berlin
-2026-10-04,VfL Wolfsburg,Hamburger SV,2.0,1.0,Frauen-Bundesliga,5934541,20261004_VfL-Wolfsburg_Hamburger-SV
+2026-10-16,Freiburg,RB Leipzig,0.0,3.0,Frauen-Bundesliga,5934544,20261016_Freiburg_RB-Leipzig

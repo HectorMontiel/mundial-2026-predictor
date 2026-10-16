@@ -61,8 +61,8 @@
   },
   "Cienciano del Cusco": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Academia del Balompie",
-    "ratio": 0.5,
+    "candidato": "Estrella Del Sur",
+    "ratio": 0.4571,
     "visto": "2026-10-16"
   },
   "Club Olimpia": {
@@ -211,8 +211,8 @@
   },
   "Real Betis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Potosi",
-    "ratio": 0.6667,
+    "candidato": "Real Oruro",
+    "ratio": 0.5,
     "visto": "2026-10-16"
   },
   "Real Madrid": {
@@ -229,20 +229,20 @@
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Potosi",
-    "ratio": 0.48,
+    "candidato": "Real Oruro",
+    "ratio": 0.4167,
     "visto": "2026-10-16"
   },
   "Real Sociedad": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Potosi",
-    "ratio": 0.5833,
+    "candidato": "Real Oruro",
+    "ratio": 0.5217,
     "visto": "2026-10-16"
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Potosi",
-    "ratio": 0.5385,
+    "candidato": "Real Oruro",
+    "ratio": 0.48,
     "visto": "2026-10-16"
   },
   "San Antonio FC": {
@@ -293,15 +293,15 @@
   },
   "Deportivo Cali": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Armenio",
+    "candidato": "Deportivo Espanol",
     "ratio": 0.7742,
     "visto": "2026-10-16"
   },
   "Ayr United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Madura United",
-    "ratio": 0.7826,
-    "visto": "2026-10-15"
+    "candidato": "Cambrian United",
+    "ratio": 0.72,
+    "visto": "2026-10-16"
   },
   "Queen's Park": {
     "contexto": "cuotas_mx→futbol",
@@ -371,8 +371,8 @@
   },
   "Red Bull New York": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Red Star-Penzing",
-    "ratio": 0.3636,
+    "candidato": "Red Arrows (Zam)",
+    "ratio": 0.3226,
     "visto": "2026-10-16"
   },
   "Cambridge United": {
@@ -401,8 +401,8 @@
   },
   "Real Sociedad II": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Potosi",
-    "ratio": 0.5185,
+    "candidato": "Real Oruro",
+    "ratio": 0.4615,
     "visto": "2026-10-16"
   },
   "Carlisle United": {
@@ -953,8 +953,8 @@
   },
   "Red Bull Bragantino": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Red Star-Penzing",
-    "ratio": 0.4571,
+    "candidato": "Red Arrows (Zam)",
+    "ratio": 0.3636,
     "visto": "2026-10-16"
   },
   "Atlético-MG": {
@@ -1199,8 +1199,8 @@
   },
   "1. FC Union Berlin": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "SV Union Gnas",
-    "ratio": 0.5333,
+    "candidato": "Central Union",
+    "ratio": 0.4667,
     "visto": "2026-10-16"
   },
   "Stockport County": {
@@ -1217,9 +1217,9 @@
   },
   "Port Vale": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Port MTI FC (Tha)",
-    "ratio": 0.5,
-    "visto": "2026-10-14"
+    "candidato": "Shanghai Port B",
+    "ratio": 0.4167,
+    "visto": "2026-10-16"
   },
   "Partick Thistle": {
     "contexto": "cuotas_mx→futbol",
@@ -1253,8 +1253,8 @@
   },
   "Red Star FC 93": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Red Star-Penzing",
-    "ratio": 0.6,
+    "candidato": "Red Arrows (Zam)",
+    "ratio": 0.5,
     "visto": "2026-10-16"
   },
   "Dynamo Dresden": {
@@ -1379,9 +1379,9 @@
   },
   "Shanghai Shenhua": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shanghai Port",
-    "ratio": 0.6207,
-    "visto": "2026-10-09"
+    "candidato": "Shanghai Second",
+    "ratio": 0.7742,
+    "visto": "2026-10-16"
   },
   "West Bromwich Albion": {
     "contexto": "cuotas_mx→futbol",
@@ -1493,9 +1493,9 @@
   },
   "Real Potosí": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Sociedad",
-    "ratio": 0.5833,
-    "visto": "2026-10-14"
+    "candidato": "Real Oruro",
+    "ratio": 0.6667,
+    "visto": "2026-10-16"
   },
   "AD San Carlos": {
     "contexto": "cuotas_mx→futbol",
@@ -1505,8 +1505,8 @@
   },
   "Nacional Potosí": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Potosi",
-    "ratio": 0.6923,
+    "candidato": "Nacional de Muriae",
+    "ratio": 0.6061,
     "visto": "2026-10-16"
   },
   "Unión La Calera": {
@@ -2149,7 +2149,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Eintracht Rheine",
     "ratio": 0.6857,
-    "visto": "2026-10-15"
+    "visto": "2026-10-16"
   },
   "Machida Zelvia": {
     "contexto": "cuotas_mx→futbol",
@@ -2215,6 +2215,18 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "San Juan FC",
     "ratio": 0.381,
+    "visto": "2026-10-16"
+  },
+  "Beijing Guoan": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Beijing Technology",
+    "ratio": 0.5806,
+    "visto": "2026-10-16"
+  },
+  "CF Montréal": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Montreal Roses W",
+    "ratio": 0.64,
     "visto": "2026-10-16"
   }
 }
