@@ -16149,22 +16149,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115907,2026-08-01,argentina,Estudiantes,Ramiro Funes Mori,213878,D,0,18,0,0,0,0.0,,1.0,344785.0
 5115907,2026-08-01,argentina,Estudiantes,Brian Aguirre,1200746,F,0,18,0,0,0,0.0,,3.0,2229095.0
 5115907,2026-08-01,argentina,Estudiantes,Lucas Alario,269222,F,0,10,0,0,0,0.0,,3.0,322298.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Matías Borgogno,938344,G,1,90,0,0,0,0.0,11.0,0.0,1723370.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Lucas Souto,1216361,D,1,14,0,0,0,0.0,32.0,1.0,441750.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Damián Fernández,1087551,D,1,90,0,0,0,0.0,34.0,1.0,1464191.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Esteban Lucero,1410456,D,1,90,0,0,0,0.0,36.0,1.0,897975.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Máximo Rodríguez,1895887,D,1,64,0,0,0,0.0,38.0,1.0,
-5115907,2026-08-01,argentina,Defensa y Justicia,César Pérez,1338317,M,1,90,2,0,0,0.07,64.0,2.0,2228631.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Santiago Sosa,1635811,M,1,64,1,1,0,0.04,66.0,2.0,2217118.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Agustín Hausch,1128740,F,1,79,2,2,0,0.1,83.0,3.0,642576.0
-5115907,2026-08-01,argentina,Defensa y Justicia,David Barbona,609985,M,1,90,4,3,0,0.86,85.0,2.0,253806.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Juan Gutiérrez,1086539,F,1,90,3,1,0,0.07,87.0,3.0,1310424.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Leandro Fernández,306126,F,1,64,1,0,0,0.08,115.0,3.0,393146.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Ayrton Portillo,1226758,M,0,76,1,0,0,0.02,,2.0,1016765.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Fernando Román,1206543,D,0,26,1,0,0,0.05,,1.0,466054.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Domingo Blanco,723671,M,0,26,1,0,0,0.06,,2.0,874194.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Tomás Pérez,1485764,F,0,26,2,0,0,0.12,,3.0,678141.0
-5115907,2026-08-01,argentina,Defensa y Justicia,Ramiro Gagliardi,2087557,F,0,11,2,1,0,0.1,,3.0,
 1000013185,2026-08-01,chi_primera,Palestino,Sebastián Pérez,172971,G,1,90,0,0,0,0.0,11.0,0.0,176598.0
 1000013185,2026-08-01,chi_primera,Palestino,Ian Garguez,1636881,D,1,90,0,0,0,0.0,32.0,1.0,
 1000013185,2026-08-01,chi_primera,Palestino,Vicente Espinoza,1464264,D,1,90,0,0,0,0.0,34.0,1.0,321882.0
@@ -19845,22 +19829,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5147614,2026-08-03,finlandia,HJK,Mouhamed Guèye,1478013,M,0,19,2,0,0,0.0,,2.0,332632.0
 5147614,2026-08-03,finlandia,HJK,Teemu Pukki,66578,F,0,18,3,1,0,0.0,,3.0,144367.0
 5147614,2026-08-03,finlandia,HJK,Martin Kirilov,1901622,M,0,5,1,0,0,0.0,,2.0,520828.0
-5115911,2026-08-03,argentina,Instituto,Marcos Ledesma,591557,G,1,90,0,0,0,0.0,11.0,0.0,852323.0
-5115911,2026-08-03,argentina,Instituto,Agustín Massaccesi,1606849,D,1,90,1,0,0,0.03,33.0,1.0,360471.0
-5115911,2026-08-03,argentina,Instituto,Leonel Mosevich,690435,D,1,90,0,0,0,0.0,35.0,1.0,670910.0
-5115911,2026-08-03,argentina,Instituto,Jonathan Galván,615932,D,1,46,0,0,0,0.0,37.0,1.0,433278.0
-5115911,2026-08-03,argentina,Instituto,Giuliano Cerato,1098253,M,1,90,0,0,0,0.0,62.0,2.0,970392.0
-5115911,2026-08-03,argentina,Instituto,Gustavo Abregú,960080,M,1,90,0,0,0,0.0,64.0,2.0,275148.0
-5115911,2026-08-03,argentina,Instituto,Matías Gallardo,1653420,M,1,75,1,1,0,0.04,66.0,2.0,680310.0
-5115911,2026-08-03,argentina,Instituto,Diego Sosa,867739,M,1,90,5,3,0,0.3,68.0,2.0,374435.0
-5115911,2026-08-03,argentina,Instituto,Jhon Córdoba,1390351,M,1,65,2,0,0,0.2,84.0,2.0,995581.0
-5115911,2026-08-03,argentina,Instituto,Alex Luna,1314218,M,1,86,5,1,0,0.14,86.0,2.0,4728222.0
-5115911,2026-08-03,argentina,Instituto,Matías Tissera,832836,F,1,65,1,0,0,0.02,105.0,3.0,424714.0
-5115911,2026-08-03,argentina,Instituto,Fernando Alarcón,647928,D,0,45,1,1,1,0.22,,1.0,722294.0
-5115911,2026-08-03,argentina,Instituto,Jeremías Lázaro,1609545,M,0,25,1,0,0,0.03,,2.0,668495.0
-5115911,2026-08-03,argentina,Instituto,Nicolás Guerra,864260,F,0,25,2,1,0,0.13,,3.0,365402.0
-5115911,2026-08-03,argentina,Instituto,Gastón Lodico,917619,M,0,15,0,0,0,0.0,,2.0,2280484.0
-5115911,2026-08-03,argentina,Instituto,Matías Fonseca,1110568,F,0,4,0,0,0,0.0,,3.0,523335.0
 5853454,2026-08-03,rumania,Universitatea Cluj,Stefan Lefter,1106564,G,1,90,0,0,0,0.0,11.0,0.0,670510.0
 5853454,2026-08-03,rumania,Universitatea Cluj,Dino Mikanovic,343434,D,1,74,0,0,0,0.0,32.0,1.0,134642.0
 5853454,2026-08-03,rumania,Universitatea Cluj,Iulian Cristea,769657,D,1,90,1,0,0,0.0,34.0,1.0,791532.0
@@ -30706,22 +30674,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5836754,2026-08-14,eng_championship,Blackburn Rovers,Yuki Ohashi,988074,F,0,22,0,0,0,0.0,,3.0,1157120.0
 5836754,2026-08-14,eng_championship,Blackburn Rovers,Jake Garrett,1113804,M,0,11,1,1,0,0.04,,2.0,403801.0
 5836754,2026-08-14,eng_championship,Blackburn Rovers,Yuri Ribeiro,614956,M,0,11,0,0,0,0.0,,2.0,609896.0
-1000017379,2026-08-14,par_division,Recoleta,Oscar Toledo,1215642,G,1,90,0,0,0,0.0,11.0,0.0,
-1000017379,2026-08-14,par_division,Recoleta,Marcelo Medina,1795626,D,1,67,0,0,0,0.0,32.0,1.0,258370.0
-1000017379,2026-08-14,par_division,Recoleta,Marcos Pereira,1787452,D,1,90,3,1,0,0.0,34.0,1.0,368451.0
-1000017379,2026-08-14,par_division,Recoleta,Lucas Monzón,1606816,D,1,90,1,0,0,0.0,36.0,1.0,531481.0
-1000017379,2026-08-14,par_division,Recoleta,Luis Mendoza,1787537,D,1,85,0,0,0,0.0,38.0,1.0,238872.0
-1000017379,2026-08-14,par_division,Recoleta,Wilfrido Báez,570683,M,1,90,1,0,0,0.0,72.0,2.0,345471.0
-1000017379,2026-08-14,par_division,Recoleta,Alexander Franco,1350581,M,1,90,1,0,0,0.0,74.0,2.0,
-1000017379,2026-08-14,par_division,Recoleta,José Espínola,1556404,M,1,45,1,0,0,0.0,76.0,2.0,674882.0
-1000017379,2026-08-14,par_division,Recoleta,Héctor López,1755975,M,1,90,0,0,0,0.0,78.0,2.0,644008.0
-1000017379,2026-08-14,par_division,Recoleta,Kevin Parzajuk,1509811,F,1,45,4,1,0,0.0,104.0,3.0,
-1000017379,2026-08-14,par_division,Recoleta,Paul Charpentier,861187,F,1,81,1,0,0,0.0,106.0,3.0,362316.0
-1000017379,2026-08-14,par_division,Recoleta,Alejandro Silva,206090,M,0,45,2,2,1,0.0,,2.0,238330.0
-1000017379,2026-08-14,par_division,Recoleta,Richart Ortiz,1350594,F,0,45,3,0,0,0.0,,3.0,307824.0
-1000017379,2026-08-14,par_division,Recoleta,Fernando Galeano,1795624,M,0,23,0,0,0,0.0,,2.0,254980.0
-1000017379,2026-08-14,par_division,Recoleta,Orlín Barreto,1759460,M,0,9,1,0,0,0.0,,2.0,437746.0
-1000017379,2026-08-14,par_division,Recoleta,Manuel Schupp,1787448,M,0,5,0,0,0,0.0,,2.0,736556.0
 1000017379,2026-08-14,par_division,2 de Mayo,Nicolás Rossi,1249290,G,1,90,0,0,0,0.0,11.0,0.0,284784.0
 1000017379,2026-08-14,par_division,2 de Mayo,Alexis Villalba,1036576,D,1,90,0,0,0,0.0,33.0,1.0,320963.0
 1000017379,2026-08-14,par_division,2 de Mayo,Pedro Sosa,1642554,D,1,90,0,0,0,0.0,35.0,1.0,253459.0
@@ -33123,22 +33075,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017378,2026-08-15,par_division,Guaraní,Victor Céspedes,1486269,F,0,25,0,0,0,0.0,,3.0,391343.0
 1000017378,2026-08-15,par_division,Guaraní,Pedro González,0,D,0,25,0,0,0,0.0,,1.0,
 1000017378,2026-08-15,par_division,Guaraní,Ángel Ibarra,1626779,D,0,9,0,0,0,0.0,,1.0,
-1000017378,2026-08-15,par_division,Rubio Ñú,Lautaro Maldonado,1278556,G,1,90,0,0,0,0.0,11.0,0.0,557525.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Víctor Cabañas,1634832,D,1,90,1,0,0,0.0,32.0,1.0,367440.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Brian Blasi,693432,D,1,90,2,1,1,0.0,34.0,1.0,267266.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Javier Vallejos,1458798,D,1,90,0,0,0,0.0,36.0,1.0,
-1000017378,2026-08-15,par_division,Rubio Ñú,Pedro Álvarez,1458739,D,1,90,0,0,0,0.0,38.0,1.0,
-1000017378,2026-08-15,par_division,Rubio Ñú,Alan Ledesma,1765409,M,1,45,1,0,0,0.0,72.0,2.0,904902.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Rodrigo Rojas,71324,M,1,90,1,0,0,0.0,74.0,2.0,259121.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Cristian Nuñez,918511,M,1,75,0,0,0,0.0,76.0,2.0,280969.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Carlos Giménez,1910568,M,1,75,2,1,1,0.0,78.0,2.0,
-1000017378,2026-08-15,par_division,Rubio Ñú,Estiven Pérez,1061256,F,1,58,3,1,0,0.0,104.0,3.0,371744.0
-1000017378,2026-08-15,par_division,Rubio Ñú,William Mendieta,202710,F,1,64,3,1,1,0.0,106.0,3.0,254417.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Tobías Leiva,1607563,M,0,44,0,0,0,0.0,,2.0,447096.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Mauricio Roldán,1457902,F,0,32,0,0,0,0.0,,3.0,553813.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Rodrigo Ruiz Díaz,823684,F,0,26,0,0,0,0.0,,3.0,383920.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Sergio Fretes,938681,M,0,15,0,0,0,0.0,,2.0,307367.0
-1000017378,2026-08-15,par_division,Rubio Ñú,Elías Alfonso,1346620,M,0,15,0,0,0,0.0,,2.0,363075.0
 5811723,2026-08-15,bel_pro_league,OH Leuven,Dani van den Heuvel,1192954,G,1,90,0,0,0,0.0,11.0,0.0,316528.0
 5811723,2026-08-15,bel_pro_league,OH Leuven,Ewoud Pletinckx,965823,D,1,90,2,0,0,0.05,33.0,1.0,1400969.0
 5811723,2026-08-15,bel_pro_league,OH Leuven,Noë Dussenne,202471,D,1,75,1,0,0,0.05,35.0,1.0,340265.0
@@ -48442,20 +48378,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190670,2026-08-23,bra_serie_b,Náutico,Patricio Núñez,1245739,M,0,16,0,0,0,0.0,,2.0,202482.0
 5190670,2026-08-23,bra_serie_b,Náutico,Luiz Cláudio,1796789,F,0,16,0,0,0,0.0,,3.0,
 5190670,2026-08-23,bra_serie_b,Náutico,Wendell,1797933,M,0,5,1,0,0,0.03,,2.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Vinicius Ferrari,1636515,G,1,90,0,0,0,0.0,11.0,0.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Diego Leão,1937502,D,1,90,0,0,0,0.0,33.0,1.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Lucas Cunha,631754,D,1,90,1,0,0,0.04,35.0,1.0,634839.0
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Gustavo Almeida,1936798,D,1,90,1,0,0,0.02,37.0,1.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Júlio,1936806,M,1,75,0,0,0,0.0,72.0,2.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,André Lima,1248916,M,1,90,1,0,0,0.01,74.0,2.0,273197.0
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Léo Gomes,934247,M,1,90,2,0,0,0.03,76.0,2.0,190619.0
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Matheus Souza,2139754,M,1,60,2,0,0,0.03,78.0,2.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Baianinho,1436043,F,1,90,1,1,0,0.01,103.0,3.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Brandão,1550696,F,1,90,0,0,0,0.0,105.0,3.0,323174.0
-5190669,2026-08-23,bra_serie_b,Ponte Preta,David da Hora,1265991,F,1,56,1,0,0,0.07,107.0,3.0,429937.0
-5190669,2026-08-23,bra_serie_b,Ponte Preta,João Damião,1929042,F,0,34,2,0,0,0.18,,3.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Juan,1936789,D,0,30,0,0,0,0.0,,1.0,
-5190669,2026-08-23,bra_serie_b,Ponte Preta,Murilo,1085677,M,0,15,1,1,0,0.03,,2.0,199913.0
 5190669,2026-08-23,bra_serie_b,Avaí,Bruno,319972,G,1,90,0,0,0,0.0,11.0,0.0,265746.0
 5190669,2026-08-23,bra_serie_b,Avaí,Jefferson Maciel,1460519,D,1,90,1,0,0,0.08,33.0,1.0,246397.0
 5190669,2026-08-23,bra_serie_b,Avaí,Allyson,693500,D,1,90,0,0,0,0.0,35.0,1.0,103680.0
@@ -52284,22 +52206,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190678,2026-08-25,bra_serie_b,CRB,Geovane,1232090,M,0,18,0,0,0,0.0,,2.0,227208.0
 5190678,2026-08-25,bra_serie_b,CRB,Douglas Baggio,638749,F,0,8,1,0,0,0.15,,3.0,269413.0
 5190678,2026-08-25,bra_serie_b,CRB,Estêvão,1356901,M,0,7,0,0,0,0.0,,2.0,160465.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Paulo Vítor,728763,G,1,90,0,0,0,0.0,11.0,0.0,244273.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Warley Leandro,1100346,D,1,90,0,0,0,0.0,32.0,1.0,106131.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Junior Barreto,1350567,D,1,90,1,1,0,0.07,34.0,1.0,278050.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Adriano Martins,1336899,D,1,90,1,1,1,0.03,36.0,1.0,307276.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Guilherme Lopes,1222807,D,1,90,2,1,0,0.45,38.0,1.0,638198.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Peixoto,1526933,M,1,90,2,0,0,0.11,64.0,2.0,
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Leandro Vilela,849499,M,1,72,0,0,0,0.0,66.0,2.0,208799.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Henrique Freitas,1938613,F,1,59,3,0,0,0.15,83.0,3.0,
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Marrony,951066,M,1,72,4,1,1,0.56,85.0,2.0,328894.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Geovany Soares,1786140,F,1,58,0,0,0,0.0,87.0,3.0,
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Gustavo Coutinho Lopes,1051843,F,1,21,0,0,0,0.0,115.0,3.0,1152073.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,João Pedro,522770,F,0,69,4,1,1,0.23,,3.0,422126.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Gustavo Maia,1296383,F,0,32,4,1,0,0.14,,3.0,299902.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Bruno José,1035342,M,0,31,1,0,0,0.19,,2.0,241997.0
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Klebert,1854201,M,0,18,0,0,0,0.0,,2.0,
-5190674,2026-08-25,bra_serie_b,Atlético-GO,Cristiano,1292459,M,0,18,0,0,0,0.0,,2.0,
 5190674,2026-08-25,bra_serie_b,Botafogo SP,Victor Bernardes,1189602,G,1,90,0,0,0,0.0,11.0,0.0,235141.0
 5190674,2026-08-25,bra_serie_b,Botafogo SP,Gabriel Inocêncio,1172407,D,1,78,0,0,0,0.0,32.0,1.0,182750.0
 5190674,2026-08-25,bra_serie_b,Botafogo SP,Ericson,905495,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -149256,3 +149162,96 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Anthony Castillo,1829425,F,0,17,0,0,0,0.0,,3.0,474796.0
 1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Kener Arce,207771,D,0,11,0,0,0,0.0,,1.0,77814.0
 1000022069,2026-10-16,ecu_liga_pro,Técnico Universitario,Luis Estupiñán,1003280,F,0,11,0,0,0,0.0,,3.0,304454.0
+1000017437,2026-10-16,par_division,Recoleta,Oscar Toledo,1215642,G,1,90,0,0,0,0.0,11.0,0.0,
+1000017437,2026-10-16,par_division,Recoleta,Facundo Echeguren,1712466,D,1,45,1,0,0,0.0,32.0,1.0,842213.0
+1000017437,2026-10-16,par_division,Recoleta,Nicolás Marotta,1082376,D,1,90,0,0,0,0.0,34.0,1.0,308503.0
+1000017437,2026-10-16,par_division,Recoleta,Lucas Monzón,1606816,D,1,46,0,0,0,0.0,36.0,1.0,562440.0
+1000017437,2026-10-16,par_division,Recoleta,Pedro Ríos,1903977,D,1,90,0,0,0,0.0,38.0,1.0,
+1000017437,2026-10-16,par_division,Recoleta,Brahian Ferreira,1794960,M,1,90,3,0,0,0.0,72.0,2.0,521003.0
+1000017437,2026-10-16,par_division,Recoleta,José Espínola,1556404,M,1,87,2,0,0,0.0,74.0,2.0,767961.0
+1000017437,2026-10-16,par_division,Recoleta,Claudio Garay,858024,M,1,63,0,0,0,0.0,76.0,2.0,207632.0
+1000017437,2026-10-16,par_division,Recoleta,Aldo González,1336656,M,1,90,1,0,0,0.0,78.0,2.0,297838.0
+1000017437,2026-10-16,par_division,Recoleta,Kevin Parzajuk,1509811,F,1,46,0,0,0,0.0,104.0,3.0,
+1000017437,2026-10-16,par_division,Recoleta,Renzo Martino,1832666,F,1,90,4,2,1,0.0,106.0,3.0,
+1000017437,2026-10-16,par_division,Recoleta,Blas Medina,1795626,D,0,44,0,0,0,0.0,,1.0,266139.0
+1000017437,2026-10-16,par_division,Recoleta,Marcos Pereira,1787452,D,0,44,0,0,0,0.0,,1.0,337064.0
+1000017437,2026-10-16,par_division,Recoleta,Wilfrido Báez,570683,F,0,44,0,0,0,0.0,,3.0,404131.0
+1000017437,2026-10-16,par_division,Recoleta,Alejandro Silva,206090,M,0,27,1,0,0,0.0,,2.0,239574.0
+1000017437,2026-10-16,par_division,Recoleta,Ronal Domínguez,1458809,M,0,3,0,0,0,0.0,,2.0,241456.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Franco Fragueda,1025392,G,1,90,0,0,0,0.0,11.0,0.0,348654.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Víctor Cabañas,1634832,D,1,90,1,0,0,0.0,32.0,1.0,330962.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Javier Vallejos,1458798,D,1,90,1,1,0,0.0,34.0,1.0,
+1000017437,2026-10-16,par_division,Rubio Ñú,Pedro Álvarez,1458739,D,1,90,1,1,0,0.0,36.0,1.0,
+1000017437,2026-10-16,par_division,Rubio Ñú,Maximiliano Garrone,1923415,D,1,70,1,0,0,0.0,38.0,1.0,
+1000017437,2026-10-16,par_division,Rubio Ñú,Tobías Leiva,1607563,M,1,72,3,1,0,0.0,64.0,2.0,360660.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Cristian Nuñez,918511,M,1,90,0,0,0,0.0,66.0,2.0,248857.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Sergio Fretes,938681,F,1,72,3,2,0,0.0,83.0,3.0,291520.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Octavio Alfonso,1736528,M,1,66,4,1,0,0.0,85.0,2.0,336405.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Lucas Montiel,1910428,F,1,66,3,1,0,0.0,87.0,3.0,
+1000017437,2026-10-16,par_division,Rubio Ñú,Rodrigo Ruiz Díaz,823684,F,1,73,2,0,0,0.0,115.0,3.0,409608.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Carlos Giménez,1910568,D,0,24,0,0,0,0.0,,1.0,
+1000017437,2026-10-16,par_division,Rubio Ñú,Rodrigo Rojas,71324,M,0,24,0,0,0,0.0,,2.0,293709.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Elías Alfonso,1346620,M,0,18,0,0,0,0.0,,2.0,324681.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Aaron Páez,1787413,F,0,18,1,0,0,0.0,,3.0,492242.0
+1000017437,2026-10-16,par_division,Rubio Ñú,Estiven Pérez,1061256,F,0,17,0,0,0,0.0,,3.0,408418.0
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Vinicius,1636515,G,1,90,0,0,0,0.0,11.0,0.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Felipe Di Mauro,2240040,D,1,90,0,0,0,0.0,32.0,1.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Sergio Palacios,1532951,D,1,90,0,0,0,0.0,34.0,1.0,1193937.0
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Gabriel Caran,1795370,D,1,90,2,1,0,0.19,36.0,1.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Danilo,498624,D,1,90,0,0,0,0.0,38.0,1.0,149299.0
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Gustavo Teles,1800471,M,1,90,0,0,0,0.0,73.0,2.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Rodrigo Souza,500605,M,1,90,1,0,0,0.02,75.0,2.0,142549.0
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Peu,1406477,M,1,90,0,0,0,0.0,77.0,2.0,317592.0
+5190769,2026-10-16,bra_serie_b,Ponte Preta,David da Hora,1265991,F,1,74,3,2,1,0.73,103.0,3.0,421991.0
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Brandão,1550696,F,1,90,1,1,0,0.03,105.0,3.0,294928.0
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Karl,667972,F,1,61,0,0,0,0.0,107.0,3.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Ryan Andrade,2175420,M,0,29,1,1,0,0.15,,2.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Emanuell Ferreira,1525143,F,0,16,0,0,0,0.0,,3.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Juan,1936789,D,0,1,0,0,0,0.0,,1.0,
+5190769,2026-10-16,bra_serie_b,Ponte Preta,Diego Leão,1937502,D,0,1,0,0,0,0.0,,1.0,
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Paulo Vítor,728763,G,1,90,0,0,0,0.0,11.0,0.0,300385.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Ewerthon,1174317,D,1,63,0,0,0,0.0,32.0,1.0,
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Junior Barreto,1350567,D,1,90,1,0,0,0.06,34.0,1.0,309504.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Adriano Martins,1336899,D,1,90,3,0,0,0.22,36.0,1.0,376186.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Guilherme Lopes,1222807,D,1,76,2,0,0,0.17,38.0,1.0,982860.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Leandro Vilela,849499,M,1,46,0,0,0,0.0,64.0,2.0,214981.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Netinho,1439755,M,1,90,8,2,0,0.3,66.0,2.0,
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Geovany Soares,1786140,F,1,90,2,0,0,0.18,83.0,3.0,
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Guilherme,196824,M,1,45,1,1,0,0.05,85.0,2.0,212575.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Gustavo Maia,1296383,F,1,90,6,0,0,0.39,87.0,3.0,547223.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Gustavo Coutinho,1051843,F,1,90,6,2,0,0.65,115.0,3.0,1191904.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Bruno José,1035342,M,0,45,1,0,0,0.01,,2.0,243231.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Matheusinho,749387,M,0,45,2,0,0,0.14,,2.0,741629.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,João Pedro,522770,F,0,27,1,1,1,0.1,,3.0,633214.0
+5190769,2026-10-16,bra_serie_b,Atlético-GO,Yuri,1945910,G,0,14,0,0,0,0.0,,0.0,
+1000019576,2026-10-16,argentina,Defensa y Justicia,Matías Borgogno,938344,G,1,90,0,0,0,0.0,11.0,0.0,1718342.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Valentín Loza,1901742,D,1,70,0,0,0,0.0,32.0,1.0,
+1000019576,2026-10-16,argentina,Defensa y Justicia,Damián Fernández,1087551,D,1,90,1,0,0,0.06,34.0,1.0,1576589.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,David Martínez,892174,D,1,90,2,0,0,0.17,36.0,1.0,667536.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Demián Domínguez,1815995,D,1,89,0,0,0,0.0,38.0,1.0,
+1000019576,2026-10-16,argentina,Defensa y Justicia,Maximiliano Porcel,1662970,M,1,81,1,0,0,0.03,64.0,2.0,754951.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,César Pérez,1338317,M,1,90,0,0,0,0.0,66.0,2.0,2221481.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Jeremías Lucco,1523550,F,1,90,0,0,0,0.0,83.0,3.0,828512.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,David Barbona,609985,M,1,90,2,1,0,0.21,85.0,2.0,276974.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Juan Gutiérrez,1086539,F,1,71,6,1,0,0.25,87.0,3.0,1887009.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Leandro Fernández,306126,F,1,90,5,1,0,0.17,115.0,3.0,456954.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Ayrton Portillo,1226758,M,0,20,1,0,0,0.05,,2.0,993530.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Tiziano Perrotta,1778729,F,0,19,1,0,0,0.69,,3.0,2488557.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Aarón Molinas,1186693,M,0,9,1,0,0,0.04,,2.0,2461120.0
+1000019576,2026-10-16,argentina,Defensa y Justicia,Agustín Hausch,1128740,F,0,1,0,0,0,0.0,,3.0,625755.0
+1000019576,2026-10-16,argentina,Instituto,Marcos Ledesma,591557,G,1,90,0,0,0,0.0,11.0,0.0,859788.0
+1000019576,2026-10-16,argentina,Instituto,Jonathan Galván,615932,D,1,90,0,0,0,0.0,33.0,1.0,541924.0
+1000019576,2026-10-16,argentina,Instituto,Leonel Mosevich,690435,D,1,90,0,0,0,0.0,35.0,1.0,817482.0
+1000019576,2026-10-16,argentina,Instituto,Fernando Alarcón,647928,D,1,90,0,0,0,0.0,37.0,1.0,863201.0
+1000019576,2026-10-16,argentina,Instituto,Hernán de la Fuente,900404,M,1,74,0,0,0,0.0,72.0,2.0,246297.0
+1000019576,2026-10-16,argentina,Instituto,Gustavo Abregú,960080,M,1,89,0,0,0,0.0,74.0,2.0,395205.0
+1000019576,2026-10-16,argentina,Instituto,Matías Gallardo,1653420,M,1,90,1,0,0,0.01,76.0,2.0,623183.0
+1000019576,2026-10-16,argentina,Instituto,Diego Sosa,867739,M,1,90,0,0,0,0.0,78.0,2.0,560192.0
+1000019576,2026-10-16,argentina,Instituto,Jeremías Lázaro,1609545,F,1,74,1,1,1,0.16,103.0,3.0,747993.0
+1000019576,2026-10-16,argentina,Instituto,Matías Tissera,832836,F,1,65,1,1,0,0.01,105.0,3.0,376916.0
+1000019576,2026-10-16,argentina,Instituto,Alex Luna,1314218,F,1,73,3,1,0,0.08,107.0,3.0,4928724.0
+1000019576,2026-10-16,argentina,Instituto,Facundo Suárez,971269,F,0,25,1,0,0,0.08,,3.0,272611.0
+1000019576,2026-10-16,argentina,Instituto,Jonás Acevedo,882460,M,0,17,0,0,0,0.0,,2.0,281730.0
+1000019576,2026-10-16,argentina,Instituto,Andrés Meli,1296305,D,0,16,0,0,0,0.0,,1.0,552949.0
+1000019576,2026-10-16,argentina,Instituto,Jhon Córdoba,1390351,M,0,16,0,0,0,0.0,,2.0,1115625.0
+1000019576,2026-10-16,argentina,Instituto,Ignacio Méndez,847986,M,0,1,0,0,0,0.0,,2.0,437834.0
