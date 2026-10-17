@@ -35,8 +35,13 @@ from typing import Dict, List, Optional
 logger = logging.getLogger('ia_gemini')
 DATOS = os.environ.get('WEB_DATOS', os.path.join('web', 'datos', 'hoy.json'))
 PRIVADO = os.environ.get('WEB_PRIVADO', os.path.join('datos_privados', 'premium.json'))
-MODELOS = [m for m in (os.environ.get('GEMINI_MODELO'), 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.5-flash-lite') if m]
-MAX_POR_PASADA = int(os.environ.get('IA_MAX', '15'))
+MODELOS = [m for m in (os.environ.get('GEMINI_MODELO'), 'gemini-flash-latest', 'gemini-2.5-flash',
+                        'gemini-flash-lite-latest', 'gemini-2.5-flash-lite') if m]
+# v394 — VARIOS PARTIDOS POR CONSULTA. El nivel gratis cuenta CONSULTAS por día y
+# por modelo, no partidos: con una por partido se agotaba a media mañana y la
+# mayoría de los partidos se quedaban sin análisis (el usuario lo vio el 17-oct).
+LOTE = int(os.environ.get('IA_LOTE', '5'))
+MAX_POR_PASADA = int(os.environ.get('IA_MAX', '40'))
 HORAS = 30
 PAUSA_S = 4.5            # ~13 por minuto: debajo del límite del nivel gratis
 
@@ -56,6 +61,9 @@ ESQUEMA = {
         'pred_corners': {'type': 'STRING', 'enum': ['mas', 'menos']},
         'tarjetas_esperadas': {'type': 'NUMBER'}, 'linea_tarjetas': {'type': 'NUMBER'},
         'pred_tarjetas': {'type': 'STRING', 'enum': ['mas', 'menos']},
+        # v394 — para saber qué meter: los goles de cada equipo y SU mejor apuesta
+        'goles_local_esperados': {'type': 'NUMBER'}, 'goles_visita_esperados': {'type': 'NUMBER'},
+        'mejor_apuesta': {'type': 'STRING'}, 'prob_mejor_apuesta': {'type': 'NUMBER'},
         # v391 — el usuario: «si ve que la apuesta que metemos no se va a cumplir, que lo diga»
         'veredictos': {'type': 'ARRAY', 'items': {'type': 'OBJECT', 'properties': {
             'apuesta': {'type': 'STRING'}, 'opinion': {'type': 'STRING', 'enum': ['a_favor', 'en_contra']},
@@ -63,8 +71,13 @@ ESQUEMA = {
     },
     'required': ['analisis', 'p_local', 'p_empate', 'p_visita', 'pred_goles', 'confianza', 'pick_ia', 'coincide', 'veredictos',
                  'marcador_probable', 'goles_esperados', 'ambos_anotan', 'corners_esperados', 'linea_corners', 'pred_corners',
-                 'tarjetas_esperadas', 'linea_tarjetas', 'pred_tarjetas'],
+                 'tarjetas_esperadas', 'linea_tarjetas', 'pred_tarjetas', 'goles_local_esperados',
+                 'goles_visita_esperados', 'mejor_apuesta', 'prob_mejor_apuesta'],
 }
+ESQUEMA['properties']['partido'] = {'type': 'STRING'}
+ESQUEMA['required'] = ['partido'] + ESQUEMA['required']
+ESQUEMA_LOTE = {'type': 'OBJECT', 'properties': {'partidos': {'type': 'ARRAY', 'items': ESQUEMA}},
+                'required': ['partidos']}
 INSTRUCCION = (
     'Eres el analista de fútbol de SharPicks, una app mexicana de pronósticos. Recibes los datos de UN partido '
     'en JSON. Reglas: 1) Usa SÓLO esos datos; no inventes jugadores, lesiones, rachas ni noticias que no estén. '
@@ -81,7 +94,11 @@ INSTRUCCION = (
     'equipos): estima cuántos habrá con los promedios de cada equipo y la media de la liga que te damos, elige la '
     'línea .5 más cercana a tu estimación (por ejemplo 9.5 córners, 4.5 tarjetas) y di si habrá más o menos. Si '
     'faltan los promedios, apóyate en la media de la liga y baja la confianza. Menciona en el análisis lo más '
-    'llamativo de córners o tarjetas si lo hay.'
+    'llamativo de córners o tarjetas si lo hay. 9) Da los goles esperados de CADA equipo (un decimal) y tu mejor '
+    'apuesta del partido en cualquier mercado (resultado, doble oportunidad, goles, goles de un equipo, ambos '
+    'anotan, córners o tarjetas), con la probabilidad que le das (0 a 1): la que más se va a cumplir, no la que '
+    'más paga. 10) Recibes una LISTA de partidos: responde uno por cada uno, en "partidos", copiando el campo '
+    '"partido" tal cual.'
 )
 
 
@@ -173,15 +190,24 @@ def _media_liga(clave, que):
         return None
 
 
-def preguntar(datos: Dict) -> Optional[Dict]:
+_AGOTADOS: set = set()
+
+
+def preguntar(lista: List[Dict]) -> Optional[Dict]:
+    """{partido: análisis} de un lote; {'_limite': True} si TODOS los modelos
+    agotaron su cupo del día. Cada modelo tiene su propio cupo: si uno dice 429
+    se pasa al siguiente (antes se paraba la pasada entera en el primero)."""
     import requests
     k = os.environ.get('GEMINI_API_KEY')
     if not k:
         return None
     cuerpo = {'systemInstruction': {'parts': [{'text': INSTRUCCION}]},
-              'contents': [{'role': 'user', 'parts': [{'text': json.dumps(datos, ensure_ascii=False)}]}],
-              'generationConfig': {'temperature': 0.3, 'responseMimeType': 'application/json', 'responseSchema': ESQUEMA}}
+              'contents': [{'role': 'user', 'parts': [{'text': json.dumps(lista, ensure_ascii=False)}]}],
+              'generationConfig': {'temperature': 0.3, 'responseMimeType': 'application/json',
+                                   'responseSchema': ESQUEMA_LOTE}}
     for modelo in MODELOS:
+        if modelo in _AGOTADOS:
+            continue
         try:
             for intento in range(3):          # 503 = Gemini saturado: se espera y se reintenta
                 r = requests.post('https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent' % modelo,
@@ -190,17 +216,22 @@ def preguntar(datos: Dict) -> Optional[Dict]:
                     break
                 time.sleep(6 * (intento + 1))
             if r.status_code == 429:
-                logger.warning('[ia] %s: límite del nivel gratis; se sigue en la próxima pasada', modelo)
-                return {'_limite': True}
+                logger.warning('[ia] %s: límite del nivel gratis; se prueba el siguiente modelo', modelo)
+                _AGOTADOS.add(modelo)
+                continue
             if not r.ok:
                 logger.warning('[ia] %s respondió %s', modelo, r.status_code)
                 continue
             txt = r.json()['candidates'][0]['content']['parts'][0]['text']
-            d = json.loads(txt)
-            d['_modelo'] = modelo
-            return d
+            fuera = {}
+            for d in json.loads(txt).get('partidos') or []:
+                d['_modelo'] = modelo
+                fuera[str(d.get('partido') or '')] = d
+            return fuera
         except Exception as e:
             logger.warning('[ia] %s: %s', modelo, type(e).__name__)
+    if all(m in _AGOTADOS for m in MODELOS):
+        return {'_limite': True}
     return None
 
 
@@ -226,7 +257,20 @@ def fila(m: Dict, d: Dict, mercado: Dict) -> Dict:
             'corners_esperados': _num(d.get('corners_esperados')), 'linea_corners': _linea(d.get('linea_corners')),
             'pred_corners': d.get('pred_corners') if d.get('pred_corners') in ('mas', 'menos') else None,
             'tarjetas_esperadas': _num(d.get('tarjetas_esperadas')), 'linea_tarjetas': _linea(d.get('linea_tarjetas')),
-            'pred_tarjetas': d.get('pred_tarjetas') if d.get('pred_tarjetas') in ('mas', 'menos') else None}
+            'pred_tarjetas': d.get('pred_tarjetas') if d.get('pred_tarjetas') in ('mas', 'menos') else None,
+            'goles_local_esperados': _num(d.get('goles_local_esperados')),
+            'goles_visita_esperados': _num(d.get('goles_visita_esperados')),
+            'mejor_apuesta': str(d.get('mejor_apuesta') or '')[:160] or None,
+            'prob_mejor_apuesta': _prob(d.get('prob_mejor_apuesta'))}
+
+
+def _prob(x):
+    try:
+        v = float(x)
+    except (TypeError, ValueError):
+        return None
+    v = v / 100 if v > 1 else v
+    return round(min(max(v, 0.0), 1.0), 3)
 
 
 def _num(x):
@@ -254,8 +298,10 @@ def _sb():
 def ya_hechos(sb) -> Optional[set]:
     import requests
     desde = (dt.date.today() - dt.timedelta(days=3)).isoformat()
-    r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos', 'fecha': 'gte.' + desde, 'limit': 5000}, timeout=30)
-    return {x['id'] for x in r.json() if x.get('veredictos') is not None} if r.ok else None
+    r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos,mejor_apuesta', 'fecha': 'gte.' + desde,
+                                                   'limit': 5000}, timeout=30)
+    # v394 — lo analizado con el esquema viejo (sin «qué meter» ni marcador) se vuelve a pedir
+    return {x['id'] for x in r.json() if x.get('veredictos') is not None and x.get('mejor_apuesta')} if r.ok else None
 
 
 def _final(partido: str, fecha: str, picks: List[Dict]):
@@ -384,15 +430,20 @@ def main() -> int:
         return 0
     import requests
     hechos_ahora = 0
-    for m in nuevos:
-        d = preguntar(datos_del_partido(m, mercado))
-        if not d:
-            continue
-        if d.get('_limite'):
+    for i in range(0, len(nuevos), LOTE):
+        lote = nuevos[i:i + LOTE]
+        res = preguntar([datos_del_partido(m, mercado) for m in lote])
+        if res and res.get('_limite'):
+            print('ia: todos los modelos agotaron su cupo de hoy')
             break
-        r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
-                          json=fila(m, d, mercado), timeout=30)
-        hechos_ahora += bool(r.ok)
+        filas = [fila(m, res[m['partido']], mercado) for m in lote if res and m['partido'] in res]
+        if filas:
+            r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
+                              json=filas, timeout=30)
+            if r.ok:
+                hechos_ahora += len(filas)
+            else:
+                logger.warning('[ia] la base rechazó el lote: %s %s', r.status_code, r.text[:200])
         time.sleep(PAUSA_S)
     print('ia: %d analizados, %d evaluados' % (hechos_ahora, evaluados))
     return 0

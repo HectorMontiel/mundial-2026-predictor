@@ -476,3 +476,8 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 
 /* v392 — las barras de comparación sin colores de equipo: los de la marca (verde local, azul visitante) */
 :root { --c-l: #3ddc84; --c-r: #60a5fa; --t-l: #03150b; --t-r: #04122b; }
+
+/* v394 */
+.sin-stats { font-size: 13px; color: var(--tenue); line-height: 1.4; }
+.ia-meter { margin: 8px 0; padding: 8px 10px; border-radius: 10px; background: rgba(61,220,132,.10);
+  border: 1px solid rgba(61,220,132,.35); font-size: 14px; }

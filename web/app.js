@@ -253,8 +253,17 @@
       '<i class="l" style="width:' + (100 * a / t) + '%">' + Math.round(a) + '%</i>' +
       '<i class="r" style="width:' + (100 * b / t) + '%">' + Math.round(b) + '%</i></div></div>';
   }
+  // v394 — si ESPN todavía no manda las estadísticas (ligas chicas: llegan con
+  // retraso o sólo al final) se dice, en vez de pintar barras en cero
+  const AVISO_SIN_STATS = '<div class="mini sin-stats">📡 Las estadísticas en vivo de este partido aún no llegan: ' +
+    'ESPN las publica con retraso en esta liga. El marcador sí va al minuto y esto se actualiza solo.</div>';
+  function statsVacias(v) {
+    const vals = Object.values(v.stats || {}).flatMap((s) => (s.v || []).map((x) => num(x)));
+    return !vals.length || vals.every((x) => x === 0);
+  }
   function miniStats(v) {
     if (!v || !v.stats) return '';
+    if (v.fase === 'in' && statsVacias(v)) return AVISO_SIN_STATS;
     const q = [['totalShots', 'Tiros'], ['shotsOnTarget', 'A puerta'], ['wonCorners', 'Córners']].filter(([k]) => v.stats[k]);
     if (!q.length && !v.stats.possessionPct) return '';
     return '<div class="mini" style="' + varsColor(v) + '">' + posesion(v) + q.map(([k, n]) => filaStat(n, v.stats[k].v[0], v.stats[k].v[1], true)).join('') + '</div>';
@@ -265,6 +274,7 @@
     ['Disciplina', [['foulsCommitted', 'Faltas'], ['yellowCards', 'Amarillas'], ['redCards', 'Rojas']]],
   ];
   function estadisticas(p, v) {
+    if (v.fase === 'in' && statsVacias(v)) return AVISO_SIN_STATS;
     let h = posesion(v);
     if (p.deporte === 'Fútbol') {
       for (const [tit, filas] of SECCIONES_FUT) {
@@ -339,7 +349,7 @@
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>' +
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
-      iaHtml(window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null, L, V) +
+      iaHtml(window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null, L, V, (ps.find((x) => x.ctx) || {}).ctx) +
       miniStats(v) +
       ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
       (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
@@ -348,7 +358,7 @@
   const dict = (a, b) => Object.assign({}, a, b);
   // v384 — «un H2H en las tarjetas por si la gente quiere analizar el partido»
   // v387 — el análisis y la predicción de la IA (Gemini), medida aparte
-  function iaHtml(a, L, V) {
+  function iaHtml(a, L, V, ctx) {
     if (!a) return '';
     const res = { local: 'gana ' + L, empate: 'empate', visita: 'gana ' + V }[a.pred_resultado] || '';
     const est = a.evaluado ? (a.ok_resultado ? ' · <b class="txt-verde">✅ acertó</b>' : ' · <b class="txt-rojo">❌ falló</b>') : '';
@@ -366,6 +376,15 @@
         a.linea_corners != null ? ['🚩 Córners', (a.pred_corners === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_corners + (a.corners_esperados != null ? ' (~' + a.corners_esperados + ')' : ''), a.ok_corners] : null,
         a.linea_tarjetas != null ? ['🟨 Tarjetas', (a.pred_tarjetas === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_tarjetas + (a.tarjetas_esperadas != null ? ' (~' + a.tarjetas_esperadas + ')' : ''), a.ok_tarjetas] : null,
       ].filter(Boolean).map(([t, v, ok]) => '<div><small>' + t + '</small><b>' + esc(v) + (ok === true ? ' ✅' : ok === false ? ' ❌' : '') + '</b></div>').join('') + '</div>' +
+      // v394 — qué metería la IA (cualquier mercado) y los goles de cada equipo
+      (a.mejor_apuesta ? '<div class="ia-meter">🧠 Lo que metería la IA: <b>' + esc(a.mejor_apuesta) + '</b>' +
+        (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +
+      (a.goles_local_esperados != null && a.goles_visita_esperados != null
+        ? filaStat('Goles esperados', a.goles_local_esperados, a.goles_visita_esperados, true) : '') +
+      (ctx && ctx.sl && ctx.sv ? '<div class="ctx-tit">📊 Lo que usó (promedio de sus últimos partidos)</div>' +
+        [['gf', 'Goles a favor'], ['gc', 'Goles en contra'], ['cor', 'Córners'], ['tap', 'Tiros a puerta'], ['tar', 'Amarillas']]
+          .filter(([k]) => ctx.sl[k] != null && ctx.sv[k] != null)
+          .map(([k, et]) => filaStat(et, ctx.sl[k], ctx.sv[k], true)).join('') : '') +
       (a.pick_ia && a.pick_ia !== 'ninguno' ? '<div class="ia-pred">Su pick favorito: <b>' + esc(a.pick_ia) + '</b> ' + (a.coincide ? '✅ coincide con nuestro análisis' : '⚠️ ve el partido distinto') + '</div>' : '') +
       (a.veredictos && a.veredictos.length ? '<div class="ia-ver">' + a.veredictos.map((v) =>
         '<div class="' + (v.opinion === 'en_contra' ? 'contra' : 'favor') + '">' + (v.opinion === 'en_contra' ? '❌ En contra' : '✅ A favor') +
@@ -571,7 +590,7 @@
     if (estado.fase !== 'todos' && estado.vista !== 'vivo') grupos = grupos.filter((g) => faseDe(g) === estado.fase);
 
     // 💎 Destacados: los Diamante que aún no terminan
-    const dest = estado.vista === 'picks' ? agrupar(listaBase().filter(pasaDep)).filter((g) => g[0].elige && faseDe(g) !== 'terminado')
+    const dest = estado.vista === 'picks' ? agrupar(listaBase().filter(pasaDep)).filter((g) => g[0].elige && (estado.fase === 'todos' ? faseDe(g) !== 'terminado' : faseDe(g) === estado.fase))
       .sort((a, b) => String(a[0].inicio).localeCompare(String(b[0].inicio))).slice(0, 12) : [];
     $('destacados').hidden = !dest.length;
     $('destacados-lista').innerHTML = dest.map(seguro(destacado)).join('');
