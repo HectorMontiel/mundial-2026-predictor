@@ -55,8 +55,8 @@
   },
   "Chippa United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.7273,
+    "candidato": "Galway United W",
+    "ratio": 0.6154,
     "visto": "2026-10-17"
   },
   "Cienciano del Cusco": {
@@ -175,9 +175,9 @@
   },
   "Manchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.625,
-    "visto": "2026-10-16"
+    "candidato": "Galway United W",
+    "ratio": 0.5333,
+    "visto": "2026-10-17"
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
@@ -205,20 +205,20 @@
   },
   "Racing (Montevideo)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Club Warwick",
-    "ratio": 0.4444,
+    "candidato": "Racing CFF",
+    "ratio": 0.5185,
     "visto": "2026-10-17"
   },
   "Real Betis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bamako (Mli)",
-    "ratio": 0.56,
+    "candidato": "Real Oruro",
+    "ratio": 0.5,
     "visto": "2026-10-17"
   },
   "Real Madrid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bamako (Mli)",
-    "ratio": 0.6154,
+    "candidato": "Real Oruro",
+    "ratio": 0.5714,
     "visto": "2026-10-17"
   },
   "Real Oviedo": {
@@ -229,8 +229,8 @@
   },
   "Real Salt Lake": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bamako (Mli)",
-    "ratio": 0.5517,
+    "candidato": "Real Oruro",
+    "ratio": 0.4167,
     "visto": "2026-10-17"
   },
   "Real Sociedad": {
@@ -241,8 +241,8 @@
   },
   "Real Valladolid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Bamako (Mli)",
-    "ratio": 0.6667,
+    "candidato": "Real Oruro",
+    "ratio": 0.48,
     "visto": "2026-10-17"
   },
   "San Antonio FC": {
@@ -317,9 +317,9 @@
   },
   "Loudoun United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.5517,
-    "visto": "2026-10-16"
+    "candidato": "Galway United W",
+    "ratio": 0.5926,
+    "visto": "2026-10-17"
   },
   "Hartford Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -353,8 +353,8 @@
   },
   "Atlanta United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.6087,
+    "candidato": "Galway United W",
+    "ratio": 0.7407,
     "visto": "2026-10-17"
   },
   "New York City FC": {
@@ -377,14 +377,14 @@
   },
   "Cambridge United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.64,
+    "candidato": "Galway United W",
+    "ratio": 0.5517,
     "visto": "2026-10-17"
   },
   "Peterborough United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Peterborough Sports",
-    "ratio": 0.7368,
+    "candidato": "Galway United W",
+    "ratio": 0.5,
     "visto": "2026-10-17"
   },
   "Sheffield Wednesday": {
@@ -413,15 +413,15 @@
   },
   "Rotherham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.56,
+    "candidato": "Galway United W",
+    "ratio": 0.5517,
     "visto": "2026-10-17"
   },
   "Colchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.5625,
-    "visto": "2026-10-16"
+    "candidato": "Galway United W",
+    "ratio": 0.5333,
+    "visto": "2026-10-17"
   },
   "Scunthorpe United": {
     "contexto": "cuotas_mx→futbol",
@@ -557,8 +557,8 @@
   },
   "Minnesota United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.56,
+    "candidato": "Galway United W",
+    "ratio": 0.5517,
     "visto": "2026-10-17"
   },
   "New England Revolution": {
@@ -575,9 +575,9 @@
   },
   "D.C. United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.64,
-    "visto": "2026-10-16"
+    "candidato": "Galway United W",
+    "ratio": 0.6087,
+    "visto": "2026-10-17"
   },
   "Deportivo Morón": {
     "contexto": "cuotas_mx→futbol",
@@ -629,8 +629,8 @@
   },
   "New Mexico United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.6154,
+    "candidato": "Galway United W",
+    "ratio": 0.5333,
     "visto": "2026-10-17"
   },
   "Sacramento Republic FC": {
@@ -853,7 +853,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "AFC Fylde",
     "ratio": 0.5455,
-    "visto": "2026-10-10"
+    "visto": "2026-10-17"
   },
   "AFC Hornchurch": {
     "contexto": "cuotas_mx→futbol",
@@ -1145,9 +1145,9 @@
   },
   "West Ham United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.6,
-    "visto": "2026-10-16"
+    "candidato": "Galway United W",
+    "ratio": 0.6429,
+    "visto": "2026-10-17"
   },
   "San Antonio Bulo Bulo": {
     "contexto": "cuotas_mx→futbol",
@@ -1307,27 +1307,27 @@
   },
   "Leeds United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.6667,
+    "candidato": "Galway United W",
+    "ratio": 0.64,
     "visto": "2026-10-17"
   },
   "Oxford United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.7273,
+    "candidato": "Galway United W",
+    "ratio": 0.5385,
     "visto": "2026-10-17"
   },
   "Dundee United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.6364,
+    "candidato": "Galway United W",
+    "ratio": 0.5385,
     "visto": "2026-10-17"
   },
   "Sheffield United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.5161,
-    "visto": "2026-10-16"
+    "candidato": "Galway United W",
+    "ratio": 0.5517,
+    "visto": "2026-10-17"
   },
   "Santa Clara": {
     "contexto": "cuotas_mx→futbol",
@@ -1415,9 +1415,9 @@
   },
   "Bayern Munich": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Munich 1860 II",
-    "ratio": 0.4444,
-    "visto": "2026-10-16"
+    "candidato": "Munich 1860 U19",
+    "ratio": 0.4286,
+    "visto": "2026-10-17"
   },
   "RB Leipzig": {
     "contexto": "cuotas_mx→futbol",
@@ -1529,8 +1529,8 @@
   },
   "Preston North End": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Preston",
-    "ratio": 0.5833,
+    "candidato": "North Village Rams",
+    "ratio": 0.4,
     "visto": "2026-10-17"
   },
   "Bolton Wanderers": {
@@ -1673,9 +1673,9 @@
   },
   "NorthEast United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.5161,
-    "visto": "2026-10-16"
+    "candidato": "Galway United W",
+    "ratio": 0.5517,
+    "visto": "2026-10-17"
   },
   "Alianza Atlético": {
     "contexto": "cuotas_mx→futbol",
@@ -1799,8 +1799,8 @@
   },
   "AFC Bournemouth": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AFC Wimbledon",
-    "ratio": 0.5,
+    "candidato": "AFC Fylde",
+    "ratio": 0.4167,
     "visto": "2026-10-17"
   },
   "Slavia Prague": {
@@ -1847,9 +1847,9 @@
   },
   "Stade Rennais": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Stade d'Abidjan",
-    "ratio": 0.5,
-    "visto": "2026-10-15"
+    "candidato": "Stade Briochin",
+    "ratio": 0.5926,
+    "visto": "2026-10-17"
   },
   "Independiente Petrolero": {
     "contexto": "cuotas_mx→futbol",
@@ -1895,9 +1895,9 @@
   },
   "VfB Stuttgart": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Stuttgart II",
-    "ratio": 0.72,
-    "visto": "2026-10-13"
+    "candidato": "Stuttgart U19",
+    "ratio": 0.6923,
+    "visto": "2026-10-17"
   },
   "Sarmiento (Junín)": {
     "contexto": "cuotas_mx→futbol",
@@ -1913,8 +1913,8 @@
   },
   "Racing Santander": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing Club Warwick",
-    "ratio": 0.5143,
+    "candidato": "Racing CFF",
+    "ratio": 0.5385,
     "visto": "2026-10-17"
   },
   "Richards Bay FC": {
@@ -2129,14 +2129,14 @@
   },
   "Sekhukhune United FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.5385,
+    "candidato": "Galway United W",
+    "ratio": 0.4667,
     "visto": "2026-10-17"
   },
   "Kruger United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC United",
-    "ratio": 0.6364,
+    "candidato": "Galway United W",
+    "ratio": 0.6154,
     "visto": "2026-10-17"
   },
   "Central Coast Mariners": {
@@ -2227,6 +2227,30 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Montreal Roses W",
     "ratio": 0.64,
+    "visto": "2026-10-17"
+  },
+  "Volos NFC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Sarakinos Volos",
+    "ratio": 0.4167,
+    "visto": "2026-10-17"
+  },
+  "Paris Saint-Germain": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Saint-Pryve",
+    "ratio": 0.4667,
+    "visto": "2026-10-17"
+  },
+  "Lyon": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Lyon - La Duchere",
+    "ratio": 0.4211,
+    "visto": "2026-10-17"
+  },
+  "Saint-Étienne": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Saint-Pryve",
+    "ratio": 0.5833,
     "visto": "2026-10-17"
   }
 }
