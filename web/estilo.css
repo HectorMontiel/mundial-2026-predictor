@@ -277,3 +277,28 @@ body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 .plan .precio small { font-size: 14px; color: var(--tenue); font-weight: 600; }
 .plan .vip-btn { margin-top: 10px; }
 button.tg { border: 0; font: inherit; cursor: pointer; }
+
+/* v384 — Cuota alta, contexto del partido, ayuda, sin pick */
+:root { --error: #fbbf24; }
+.et.nivel.error { background: rgba(251,191,36,.15); color: var(--error); }
+.partido-fila.error { box-shadow: inset 3px 0 0 var(--error); }
+.tarjeta.error { border-color: rgba(251,191,36,.4); }
+.ctx { background: rgba(255,255,255,.03); border: 1px solid var(--borde); border-radius: 12px; padding: 8px 12px; font-size: 13px; }
+.ctx summary { cursor: pointer; font-weight: 700; }
+.ctx-tit { color: var(--tenue); font-size: 11px; text-transform: uppercase; letter-spacing: .05em; margin: 10px 0 4px; }
+.ctx-f { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin: 3px 0; }
+.ctx-f span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fr { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 5px; font-style: normal; font-weight: 800; font-size: 11px; margin-left: 3px; background: rgba(255,255,255,.12); }
+.fr.g { background: var(--verde); color: #04210f; } .fr.p { background: var(--rojo); color: #fff; } .fr.e { background: #94a3b8; color: #111; }
+.ctx-h { display: grid; grid-template-columns: 58px 1fr auto 1fr; gap: 6px; align-items: center; margin: 3px 0; }
+.ctx-h span:last-child { text-align: right; }
+.ctx-h b { background: rgba(255,255,255,.08); border-radius: 6px; padding: 1px 6px; }
+.ctx-b { margin: 3px 0; color: #c9cbe0; }
+.ayuda-btn { width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--borde); background: var(--panel); color: var(--texto); font: inherit; font-weight: 800; cursor: pointer; }
+.ayuda h4 { margin: 16px 0 6px; font-size: 14px; color: var(--tenue); text-transform: uppercase; letter-spacing: .05em; }
+.ayuda ul { margin: 0; padding-left: 18px; line-height: 1.6; font-size: 14px; color: #d6d8ea; }
+.ayuda p { font-size: 14px; line-height: 1.6; }
+.ay-niveles { list-style: none; padding-left: 0 !important; }
+.ay-niveles li { margin: 6px 0; }
+.boton-ayuda { width: 100%; text-align: left; color: var(--texto); font: inherit; font-weight: 700; cursor: pointer; margin-top: 18px; }
+.sin-pick { background: var(--panel); border: 1px dashed var(--borde); border-radius: 14px; padding: 12px 14px; font-size: 14px; color: #c9cbe0; }

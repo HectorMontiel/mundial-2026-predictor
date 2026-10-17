@@ -36,7 +36,9 @@ CAMPOS = ('partido', 'inicio', 'fecha', 'deporte', 'liga', 'apuesta', 'cuota', '
           # v378 — para lo en vivo (ver `espn_vivo`)
           'espn', 'logo_h', 'logo_a', 'girado',
           # v379 — el modo de pago (`premium`)
-          'premium')
+          'premium',
+          # v384 — errores de cuota (`errores_web`) y el contexto del partido
+          'tipo', 'casa', 'ventaja', 'gratis', 'ctx')
 
 
 def _id(p: Dict) -> str:
@@ -55,7 +57,9 @@ def _fila(p: Dict, estado: str, ligas: Dict = None) -> Dict:
     f['fecha'] = f.get('fecha') or str(f.get('inicio') or '')[:10] or None
     f['id'] = _id(p)
     f['elige'] = bool(f.get('elige'))
-    for k in ('cuota', 'prob'):
+    f['gratis'] = bool(f.get('gratis'))
+    f['tipo'] = f.get('tipo') or 'pick'
+    for k in ('cuota', 'prob', 'ventaja'):
         try:
             f[k] = round(float(f[k]), 3) if f.get(k) is not None else None
         except (TypeError, ValueError):
@@ -85,11 +89,31 @@ def construir() -> Dict:
         ligas = {x.get('partido'): x.get('liga') for x in lst}
         jugadas += [_fila(p, {'verde': 'verde', 'rojo': 'roja', 'nula': 'nula'}.get(
             p.get('resultado_c1'), 'vivo'), ligas) for p in mm.lista_finalizadas(lst)]
+    # v384 — los errores de cuota (💰 «Cuota alta»): ver `errores_web`
+    errs = []
+    try:
+        import errores_web
+        errs = [_fila(e, e['estado']) for e in errores_web.errores(doc.get('datos') or {})]
+    except Exception as e:
+        logger.warning('[web] sin errores de cuota: %s', e)
     vistos, picks = set(), []
-    for f in [x for x in jugadas + proximas if x.get('fecha')]:          # lo jugado manda sobre lo pendiente
+    for f in [x for x in jugadas + proximas + errs if x.get('fecha')]:          # lo jugado manda sobre lo pendiente
         if f['id'] not in vistos:
             vistos.add(f['id'])
             picks.append(f)
+    # v384 — el contexto (forma, H2H, bajas) de cada partido de fútbol que aún no empieza
+    try:
+        import errores_web
+        memo = {}
+        for f in picks:
+            if f.get('estado') == 'pendiente' and f.get('deporte') == 'Fútbol':
+                k = f.get('partido')
+                if k not in memo:
+                    memo[k] = errores_web.contexto(f)
+                if memo[k]:
+                    f['ctx'] = memo[k]
+    except Exception as e:
+        logger.warning('[web] sin contexto: %s', e)
     # v378 — el partido de ESPN de cada pick (marcador y estadísticas en vivo)
     try:
         import espn_vivo
@@ -105,6 +129,8 @@ def construir() -> Dict:
 
 def nivel(p: Dict) -> str:
     """El mismo nivel que la página (`web/app.js`) y Telegram (`telegram_canales`)."""
+    if p.get('tipo') == 'error':
+        return 'Cuota alta'
     if p.get('elige'):
         return 'Diamante'
     pr = float(p.get('prob') or 0)
@@ -123,7 +149,8 @@ def premium(picks: List[Dict]) -> List[Dict]:
     nv = {x.strip().capitalize() for x in os.environ.get('PREMIUM_NIVELES', '').split(',') if x.strip()}
     secretos = []
     for p in picks:
-        p['premium'] = bool(nv) and nivel(p) in nv and p.get('estado') == 'pendiente'
+        # v384 — lo que va al canal gratis es muestra: no se tapa
+        p['premium'] = bool(nv) and nivel(p) in nv and p.get('estado') == 'pendiente' and not p.get('gratis')
         if p['premium']:
             secretos.append({'id': p['id'], 'apuesta': p['apuesta']})
             p['apuesta'] = '🔒 Pick %s' % nivel(p)
@@ -137,6 +164,24 @@ def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
         return 0
     import requests
     filas = [dict(p, actualizado=dt.datetime.now(dt.timezone.utc).isoformat()) for p in picks]
+    # v384 — un error de cuota deja de salir en la Capa 1 al empezar su partido:
+    # su verde o roja se toma de lo anunciado y se pone a la fila que ya está
+    try:
+        import errores_web
+        res = errores_web._resultados_anunciados()
+        ya = {p['id'] for p in picks}
+        r0 = requests.get(url.rstrip('/') + '/rest/v1/picks', timeout=30,
+                          headers={'apikey': key, 'Authorization': 'Bearer ' + key},
+                          params={'select': '*', 'tipo': 'eq.error', 'estado': 'eq.pendiente',
+                                  'inicio': 'lt.' + dt.datetime.now(dt.timezone.utc).isoformat()})
+        for x in (r0.json() if r0.ok else []):
+            rr = res.get((x.get('partido'), x.get('apuesta')))
+            if rr and x['id'] not in ya:
+                x.update(estado={'verde': 'verde', 'rojo': 'roja'}.get(rr[0], 'pendiente'), marcador=rr[1],
+                         actualizado=dt.datetime.now(dt.timezone.utc).isoformat())
+                filas.append({k: x.get(k) for k in filas[0]} if filas else x)
+    except Exception as e:
+        logger.warning('[web] errores ya jugados: %s', e)
     n = 0
     hdr = {'apikey': key, 'Authorization': 'Bearer ' + key,
            'Prefer': 'resolution=merge-duplicates,return=minimal'}
@@ -181,6 +226,21 @@ def main() -> int:
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(r, f, ensure_ascii=False, indent=0)
     os.replace(tmp, SALIDA)
+    # v384 — deportes con partidos hoy pero sin ningún pick (para decirlo en la página)
+    try:
+        import precalculo_dia as pc
+        prons = ((pc.leer() or {}).get('datos') or {}).get('pronosticos') or []
+        hoy = dt.datetime.now(dt.timezone(dt.timedelta(hours=-6))).date().isoformat()
+        con = {p.get('deporte') for p in r['picks'] if str(p.get('fecha') or '') == hoy}
+        sin = {}
+        for p in prons:
+            dep = str(p.get('deporte') or '')
+            if dep and dep not in con and str(p.get('fecha') or p.get('fecha_cdmx') or '')[:10] == hoy:
+                sin[dep] = sin.get(dep, 0) + 1
+        with open(os.path.join(os.path.dirname(SALIDA), 'meta.json'), 'w', encoding='utf-8') as f:
+            json.dump({'sin_pick': sin}, f, ensure_ascii=False)
+    except Exception as e:
+        logger.warning('[web] sin meta: %s', e)
     try:
         os.makedirs(os.path.dirname(PRIVADO), exist_ok=True)
         with open(PRIVADO, 'w', encoding='utf-8') as f:

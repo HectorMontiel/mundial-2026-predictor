@@ -15,7 +15,7 @@
 <body>
 <header class="top">
   <div class="marca"><span class="logo">S</span><span id="nombre">SharPicks</span></div>
-  <div class="derecha"><div class="reloj" id="reloj"></div><div class="cuenta" id="cuenta"></div></div>
+  <div class="derecha"><div class="reloj" id="reloj"></div><button class="ayuda-btn" data-ayuda aria-label="Ayuda">?</button><div class="cuenta" id="cuenta"></div></div>
 </header>
 
 <main>
@@ -89,10 +89,7 @@
       <p class="aviso">🎉 Lanzamiento: con tu cuenta gratis ves los 💎 y 🔷 por tiempo limitado, y te llevas 50 🪙 de regalo.</p>
       <div id="telegram" class="tg-links"></div>
     </section>
-    <section class="caja niveles-ayuda">
-      <div class="tit">Qué significa cada nivel</div>
-      <p>💎 <b>Diamante</b>: las ⭐ ELIGE, las que más se cumplen de verdad. 🔷 <b>Platino</b>: aciertan 85 % o más. 🥇 <b>Oro</b>: 80-85 %. 🥈 <b>Plata</b>: el resto de las «se mete». El porcentaje es lo que acertaron apuestas iguales en partidos ya jugados, no una corazonada.</p>
-    </section>
+    <button class="caja niveles-ayuda boton-ayuda" data-ayuda>❓ ¿Qué significa cada cosa? Toca aquí</button>
     <footer>
       <p>Juego responsable · Sólo mayores de 18 años. Acertar mucho no garantiza ganar dinero: a cuota baja hace falta acertar muchísimo para no perder.</p>
       <p class="tenue" id="actualizado"></p>
@@ -139,6 +136,38 @@
 </div></div>
 
 <div class="ficha" id="micuenta" hidden><div class="ficha-caja acceso" id="micuenta-cuerpo"></div></div>
+
+<div class="ficha" id="ayuda" hidden><div class="ficha-caja acceso ayuda">
+  <button class="cerrar" data-cerrar-ayuda>✕</button>
+  <h3>¿Cómo funciona SharPicks?</h3>
+  <p>Te damos <b>apuestas deportivas analizadas</b>. Cada una dice qué tan seguido se cumplen las apuestas como ella: lo medimos con miles de partidos que ya se jugaron, no es una corazonada.</p>
+  <h4>Los niveles</h4>
+  <ul class="ay-niveles">
+    <li>💎 <b>Diamante</b> — nuestra máxima confianza. <b>De cada 10 como ésta, se cumplen 9.</b></li>
+    <li>🔷 <b>Platino</b> — muy segura: se cumplen entre 8 y 9 de cada 10.</li>
+    <li>🥇 <b>Oro</b> — segura: se cumplen 8 de cada 10.</li>
+    <li>🥈 <b>Plata</b> — buena: se cumplen entre 7 y 8 de cada 10.</li>
+    <li>💰 <b>Cuota alta</b> — una casa de apuestas <b>paga más de lo que vale</b> el resultado. Salen menos seguido (de 3 a 7 de cada 10, según la cuota), pero pagan mucho más. En 8 años de partidos, en conjunto dejaron ganancia. <b>Riesgo alto: apuesta poco a cada una.</b></li>
+  </ul>
+  <h4>Palabras que verás</h4>
+  <ul>
+    <li><b>Cuota</b>: lo que te pagan. Cuota 1.50 = apuestas $100 y, si se cumple, recibes $150.</li>
+    <li><b>Se cumplen 86 %</b> o <b>9 de 10</b>: de cada 10 apuestas iguales que ya se jugaron, cuántas salieron bien.</li>
+    <li><b>Paga de más</b> (en Cuota alta): cuánto más paga esa casa que el precio justo del mercado.</li>
+    <li><b>Menos de 2.5 goles</b>: que en el partido haya 2 goles o menos. <b>Más de 1.5</b>: 2 o más.</li>
+    <li><b>Handicap +1.5</b>: el equipo puede perder por 1 y la apuesta igual se cumple.</li>
+    <li><b>«Gana X o empate»</b>: se cumple si ese equipo gana o empata.</li>
+  </ul>
+  <h4>Lo que puedes hacer</h4>
+  <ul>
+    <li>🔴 <b>En vivo</b>: marcador, minuto y estadísticas del partido mientras se juega, y si tu apuesta ya se cumplió.</li>
+    <li>★ <b>Seguir</b>: guarda un pick en «Mis picks» para verlo rápido.</li>
+    <li>📋 <b>Antes del partido</b>: la forma de cada equipo y sus últimos enfrentamientos.</li>
+    <li>🪙 <b>Monedas</b>: sirven para abrir un pick premium suelto. <b>Si sale mal, te regresamos tus monedas solas.</b></li>
+    <li>💎 <b>VIP</b>: ves todos los picks premium sin gastar monedas y entras al grupo VIP de Telegram.</li>
+  </ul>
+  <p class="tenue chico">Juego responsable: apuesta sólo lo que puedas perder. Acertar mucho no garantiza ganar dinero. Sólo mayores de 18 años.</p>
+</div></div>
 
 <div class="ficha" id="ficha" hidden><div class="ficha-caja" id="ficha-cuerpo"></div></div>
 

@@ -39,7 +39,7 @@ PRIVADO = os.environ.get('WEB_PRIVADO', os.path.join('datos_privados', 'premium.
 SITIO = os.environ.get('SITIO_URL', 'https://sharpicks.pages.dev')
 VIP_URL = os.environ.get('TELEGRAM_VIP_URL', 'https://t.me/+qqtEBbAClQwxYzYx')
 HORAS_ANTES = 18
-ICONO = {'Diamante': '💎', 'Platino': '🔷', 'Oro': '🥇', 'Plata': '🥈'}
+ICONO = {'Diamante': '💎', 'Platino': '🔷', 'Oro': '🥇', 'Plata': '🥈', 'Cuota alta': '💰'}
 MAX_LEN = 3800
 CDMX = dt.timezone(dt.timedelta(hours=-6))
 # el canal gratis: horarios (hora de CDMX) y qué toca en cada uno
@@ -52,6 +52,8 @@ PIE = '\n\n<i>Juego responsable · +18 · %s</i>' % SITIO
 
 def nivel(p: Dict) -> str:
     """El mismo nivel que la página (`web/app.js`, `nivel`)."""
+    if p.get('tipo') == 'error':
+        return 'Cuota alta'
     if p.get('elige'):
         return 'Diamante'
     pr = float(p.get('prob') or 0)
@@ -59,7 +61,7 @@ def nivel(p: Dict) -> str:
 
 
 def niveles_vip() -> Set[str]:
-    v = os.environ.get('TELEGRAM_VIP_NIVELES') or 'Diamante,Platino'   # vacío = lo de siempre
+    v = os.environ.get('TELEGRAM_VIP_NIVELES') or 'Diamante,Platino,Cuota alta'   # vacío = lo de siempre
     return {x.strip().capitalize() for x in v.split(',') if x.strip()}
 
 
@@ -121,6 +123,10 @@ def _e(x) -> str:
 
 
 def _apuesta(p: Dict) -> str:
+    if p.get('tipo') == 'error':
+        return '➜ %s · cuota <b>%.2f</b> · se cumple ~%d %% · paga %d %% de más%s' % (
+            _e(p.get('apuesta')), float(p.get('cuota') or 0), round(100 * float(p.get('prob') or 0)),
+            round(100 * float(p.get('ventaja') or 0)), (' en ' + _e(p.get('casa'))) if p.get('casa') else '')
     return '➜ %s · cuota <b>%.2f</b> · acierta %d %%' % (
         _e(p.get('apuesta')), float(p.get('cuota') or 0), round(100 * float(p.get('prob') or 0)))
 
@@ -268,6 +274,16 @@ def armar_gratis(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[T
                                           _e(p.get('apuesta')), _e(p.get('partido')), _e(p.get('marcador') or ''))
                        for p in ps) + PIE)
         out.append((t, [(k, 'gratis', 'resultado')]))
+    # v384 — a mediodía, los 1-2 errores de cuota «muestra» (los más probables)
+    if loc.hour >= 12:
+        clave = 'error-gratis:' + hoy
+        mues = [p for p in picks if p.get('tipo') == 'error' and p.get('gratis') and p.get('estado') == 'pendiente'
+                and (p['id'], 'gratis', 'pick') not in enviados]
+        if mues and (clave, 'gratis', 'horario') not in enviados:
+            t = ('💰 <b>Error de cuota del día</b>\nUna casa paga más de lo que vale. Riesgo alto: apuesta poco.\n\n' +
+                 '\n\n'.join(_cab_partido(p, ahora) + '\n   ' + _apuesta(p) for p in mues) +
+                 '\n\n🔒 En el VIP hay más todos los días.' + PIE)
+            out.append((t, [(clave, 'gratis', 'horario')] + [(p['id'], 'gratis', 'pick') for p in mues]))
     # una vez al día: cómo le fue ayer al VIP (la prueba de que vale la pena)
     ayer = (loc - dt.timedelta(days=1)).strftime('%Y-%m-%d')
     clave = 'resumen-vip:' + ayer

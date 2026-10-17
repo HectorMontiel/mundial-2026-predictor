@@ -134,8 +134,10 @@
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace]');
+    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda]');
     if (!t) return;
+    if (t.hasAttribute('data-ayuda')) { $('ayuda').hidden = false; return; }
+    if (t.hasAttribute('data-cerrar-ayuda')) { $('ayuda').hidden = true; return; }
     if (t.hasAttribute('data-google')) {
       const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
       if (error) $('acceso-msg').textContent = 'Google no respondió; intenta con tu usuario.';

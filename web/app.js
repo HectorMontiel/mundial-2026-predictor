@@ -9,7 +9,14 @@
   const estado = { dia: 'hoy', deporte: 'Todos', nivel: 'Todos', soloElige: false, orden: 'hora', picks: [], vivo: {} };
 
   const diaCdmx = (d) => new Intl.DateTimeFormat('en-CA', { timeZone: ZONA }).format(d);
-  const aFecha = (s) => s ? new Date(String(s).replace(' ', 'T') + (/[zZ+]/.test(String(s).slice(10)) ? '' : 'Z')) : null;
+  // v384 — nunca truena: una fecha sin hora o mal escrita da null (antes, «Invalid time value» tumbaba la página)
+  const aFecha = (s) => {
+    if (!s) return null;
+    let t = String(s).trim().replace(' ', 'T');
+    if (/^\d{4}-\d{2}-\d{2}$/.test(t)) t += 'T12:00:00';
+    const d = new Date(t + (/[zZ+]/.test(t.slice(10)) ? '' : 'Z'));
+    return isNaN(d) ? null : d;
+  };
   const horaCdmx = (d) => d ? new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(d) : '';
   const pct = (x) => x == null ? '—' : Math.round(100 * x) + ' %';
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -21,6 +28,7 @@
 
   // Niveles (como los «stakes» de BetFlipAi), pero con lo MEDIDO de verdad
   function nivel(p) {
+    if (p.tipo === 'error') return { n: 'Cuota alta', c: 'error', i: '💰' };
     if (p.elige) return { n: 'Diamante', c: 'diamante', i: '💎' };
     if ((p.prob || 0) >= 0.85) return { n: 'Platino', c: 'platino', i: '🔷' };
     if ((p.prob || 0) >= 0.80) return { n: 'Oro', c: 'oro', i: '🥇' };
@@ -28,6 +36,8 @@
   }
 
   async function cargar() {
+    // v384 — datos de apoyo (deportes con partidos pero sin pick)
+    fetch('datos/meta.json?t=' + Date.now()).then((r) => r.ok ? r.json() : null).then((m) => { estado.meta = m || {}; }).catch(() => {});
     try {
       if (C.SUPABASE_URL && C.SUPABASE_ANON_KEY) {
         const desde = diaPestana(-2);
@@ -284,8 +294,10 @@
       '<div class="apuesta">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
       (pr ? '<div class="progreso ' + pr.e + '">' + esc(pr.t) + '</div>' : '') +
       '<div class="datos"><div class="dato"><small>Cuota</small><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '—') + '</b></div>' +
-      '<div class="dato"><small>Acierta (medido)</small><b>' + pct(p.prob) + '</b></div>' +
-      '<div class="dato"><small>Cuota justa</small><b>' + (p.prob ? (1 / p.prob).toFixed(2) : '—') + '</b></div></div>' +
+      '<div class="dato"><small>Se cumplen</small><b>' + pct(p.prob) + '</b></div>' +
+      '<div class="dato"><small>' + (p.tipo === 'error' ? 'Paga de más' : 'De cada 10') + '</b>'.replace('</b>', '</small><b>') +
+      (p.tipo === 'error' ? '+' + Math.round(100 * (p.ventaja || 0)) + ' %' : (p.prob ? Math.round(10 * p.prob) + ' de 10' : '—')) + '</b></div></div>' +
+      (p.tipo === 'error' && p.porque ? '<div class="porque">' + esc(p.porque) + ' · riesgo alto: apuesta poco</div>' : '') +
       (window.SPX ? SPX.extra(p) : '') + '</div>';
   }
   function tarjeta(ps) {
@@ -304,12 +316,36 @@
       '<div class="marc">' + (marc ? esc(marc) : 'vs') + '</div>' +
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>' +
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
+      contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
       miniStats(v) +
       ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
       (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
       '</article>';
   }
   const dict = (a, b) => Object.assign({}, a, b);
+  // v384 — «un H2H en las tarjetas por si la gente quiere analizar el partido»
+  function formaHtml(f) {
+    return String(f || '').split('').map((c) => '<i class="fr ' + ({ G: 'g', E: 'e', P: 'p' }[c] || '') + '">' + c + '</i>').join('');
+  }
+  function contextoHtml(ctx, L, V) {
+    if (!ctx) return '';
+    let h = '<details class="ctx"><summary>📋 Antes del partido: forma y H2H</summary>';
+    if (ctx.fl || ctx.fv) {
+      h += '<div class="ctx-tit">Últimos 5 partidos (el más reciente a la derecha)</div>' +
+        '<div class="ctx-f"><span>' + esc(L) + '</span><span>' + formaHtml(ctx.fl) + '</span></div>' +
+        '<div class="ctx-f"><span>' + esc(V) + '</span><span>' + formaHtml(ctx.fv) + '</span></div>';
+    }
+    if (ctx.h2h && ctx.h2h.length) {
+      h += '<div class="ctx-tit">Últimos enfrentamientos</div>' + ctx.h2h.map((x) =>
+        '<div class="ctx-h"><small>' + esc(x[0]) + '</small><span>' + esc(x[1]) + '</span><b>' + esc(x[2]) + '</b><span>' + esc(x[3]) + '</span></div>').join('');
+    }
+    if (ctx.bl || ctx.bv) {
+      h += '<div class="ctx-tit">Bajas</div>' +
+        (ctx.bl ? '<div class="ctx-b"><b>' + esc(L) + ':</b> ' + ctx.bl.map(esc).join(', ') + '</div>' : '') +
+        (ctx.bv ? '<div class="ctx-b"><b>' + esc(V) + ':</b> ' + ctx.bv.map(esc).join(', ') + '</div>' : '');
+    }
+    return h + '<p class="tenue chico">G = ganó · E = empató · P = perdió. Es información para que analices; el pick ya la toma en cuenta a través del mercado.</p></details>';
+  }
 
   // ---------- FICHA DEL PARTIDO (tipo SofaScore) ----------
   let fichaId = null;
@@ -446,7 +482,7 @@
     if (!deps.includes(estado.deporte)) estado.deporte = 'Todos';
     const ICO = { 'Fútbol': '⚽', 'Tenis': '🎾', 'NBA': '🏀', 'NFL': '🏈', 'NHL': '🏒', 'MLB': '⚾' };
     $('deportes').innerHTML = deps.map((d) => '<button class="chip' + (d === estado.deporte ? ' activa' : '') + '" data-dep="' + esc(d) + '">' + (ICO[d] ? ICO[d] + ' ' : '') + esc(d) + '</button>').join('');
-    $('niveles').innerHTML = ['Todos', 'Diamante', 'Platino', 'Oro', 'Plata'].map((n) => '<button class="chip' + (n === estado.nivel ? ' activa' : '') + '" data-niv="' + n + '">' + ({ Diamante: '💎 ', Platino: '🔷 ', Oro: '🥇 ', Plata: '🥈 ' }[n] || '') + n + '</button>').join('');
+    $('niveles').innerHTML = ['Todos', 'Diamante', 'Platino', 'Oro', 'Plata', 'Cuota alta'].map((n) => '<button class="chip' + (n === estado.nivel ? ' activa' : '') + '" data-niv="' + n + '">' + ({ Diamante: '💎 ', Platino: '🔷 ', Oro: '🥇 ', Plata: '🥈 ', 'Cuota alta': '💰 ' }[n] || '') + n + '</button>').join('');
     if (estado.deporte !== 'Todos') lista = lista.filter((p) => p.deporte === estado.deporte);
     if (estado.nivel !== 'Todos') lista = lista.filter((p) => nivel(p).n === estado.nivel);
     const q = estado.busca.trim().toLowerCase();
@@ -508,6 +544,14 @@
       estado.vista === 'mios' ? (window.SPX && SPX.yo.user ? 'Todavía no sigues ningún pick: abre un partido y pulsa «☆ Seguir».' : 'Entra con tu correo para guardar tus picks.')
         : estado.vista === 'vivo' ? 'Ahorita no hay partidos en vivo con picks.' : 'Sin partidos con estos filtros.';
     const b = $('nav-vivo-n'); if (b) { b.textContent = enVivo || ''; b.hidden = !enVivo; }
+    // v384 — «falta béisbol»: si hay partidos de un deporte y ninguno pasó, se dice
+    const sp = (estado.meta && estado.meta.sin_pick) || {};
+    const conPick = new Set(lista.map((p) => p.deporte));
+    const avisos = Object.entries(sp).filter(([dep, n]) => n > 0 && !conPick.has(dep) && estado.vista === 'picks' && estado.dia === 'hoy'
+      && (estado.deporte === 'Todos' || estado.deporte === dep));
+    if (avisos.length) $('tarjetas').insertAdjacentHTML('beforeend', avisos.map(([dep, n]) =>
+      '<div class="sin-pick">' + ({ MLB: '⚾', KBO: '⚾', NBA: '🏀', NFL: '🏈', NHL: '🏒', Tenis: '🎾' }[dep] || '•') + ' <b>' + esc(dep) + '</b>: ' + n +
+      (n === 1 ? ' partido hoy' : ' partidos hoy') + ', pero ninguno llegó a nuestro mínimo de seguridad. Preferimos no darte un pick flojo.</div>').join(''));
   }
 
   window.SP = { nivel, pintar, estado };
