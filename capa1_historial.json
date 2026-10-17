@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T00:49:05Z",
+"actualizado": "2026-10-17T02:22:35Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8069,6 +8069,16 @@
 "partido": "Seekirchen vs UFC Hallein",
 "apuesta": "Gana Seekirchen",
 "cuota": 2.08,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sport vs Fortaleza",
+"apuesta": "Gana Sport",
+"cuota": 2.7143,
 "resultado": "rojo",
 "marcador": "0-2"
 },
