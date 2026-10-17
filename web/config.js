@@ -8,6 +8,6 @@ window.CONFIG = {
   SUPABASE_URL: 'https://lyfmyehvfywnjasinbne.supabase.co',
   SUPABASE_ANON_KEY: 'sb_publishable_SmDi-ah0LYBl2-F4wO70Sw_39B0SIpo',
   // v379 — enlaces de invitación de los canales (t.me/...); vacíos = «muy pronto»
-  TELEGRAM_GRATIS: '',
-  TELEGRAM_VIP: '',
+  TELEGRAM_GRATIS: 'https://t.me/sharpicks_mx',
+  TELEGRAM_VIP: 'https://t.me/+qqtEBbAClQwxYzYx',
 };
