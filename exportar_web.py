@@ -31,7 +31,9 @@ SALIDA = os.environ.get('WEB_DATOS', os.path.join('web', 'datos', 'hoy.json'))
 CAMPOS = ('partido', 'inicio', 'fecha', 'deporte', 'liga', 'apuesta', 'cuota', 'prob',
           'elige', 'porque', 'resultado_c1', 'marcador',
           # v378 — para lo en vivo (ver `espn_vivo`)
-          'espn', 'logo_h', 'logo_a', 'girado')
+          'espn', 'logo_h', 'logo_a', 'girado',
+          # v379 — el modo de pago (`premium`)
+          'premium')
 
 
 def _id(p: Dict) -> str:
@@ -98,7 +100,34 @@ def construir() -> Dict:
             'precalculo': doc.get('generado'), 'picks': picks}
 
 
-def subir_supabase(picks: List[Dict]) -> int:
+def nivel(p: Dict) -> str:
+    """El mismo nivel que la página (`web/app.js`) y Telegram (`telegram_canales`)."""
+    if p.get('elige'):
+        return 'Diamante'
+    pr = float(p.get('prob') or 0)
+    return 'Platino' if pr >= 0.85 else ('Oro' if pr >= 0.80 else 'Plata')
+
+
+def premium(picks: List[Dict]) -> List[Dict]:
+    """v379 — EL MODO DE PAGO (apagado en el lanzamiento: todo gratis).
+
+    Con `PREMIUM_NIVELES` (p. ej. «Diamante»), el texto de esos picks que aún
+    no empiezan SALE de lo público (el fichero de la página y la tabla
+    `picks`, que lee cualquiera) y va sólo a `picks_premium`, que la base deja
+    leer a quien lo desbloqueó o es Pro (`web/negocio.sql`). Esconderlo en la
+    página no serviría: el fichero se ve en el navegador. Devuelve las filas
+    para `picks_premium`."""
+    nv = {x.strip().capitalize() for x in os.environ.get('PREMIUM_NIVELES', '').split(',') if x.strip()}
+    secretos = []
+    for p in picks:
+        p['premium'] = bool(nv) and nivel(p) in nv and p.get('estado') == 'pendiente'
+        if p['premium']:
+            secretos.append({'id': p['id'], 'apuesta': p['apuesta']})
+            p['apuesta'] = '🔒 Pick %s' % nivel(p)
+    return secretos
+
+
+def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
     """Sube (o actualiza) cada pick en Supabase. Devuelve cuántos; 0 sin claves."""
     url, key = os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SERVICE_KEY')
     if not url or not key or not picks:
@@ -106,14 +135,33 @@ def subir_supabase(picks: List[Dict]) -> int:
     import requests
     filas = [dict(p, actualizado=dt.datetime.now(dt.timezone.utc).isoformat()) for p in picks]
     n = 0
+    hdr = {'apikey': key, 'Authorization': 'Bearer ' + key,
+           'Prefer': 'resolution=merge-duplicates,return=minimal'}
     for i in range(0, len(filas), 200):
         r = requests.post(url.rstrip('/') + '/rest/v1/picks', json=filas[i:i + 200], timeout=30,
-                          headers={'apikey': key, 'Authorization': 'Bearer ' + key,
-                                   'Prefer': 'resolution=merge-duplicates,return=minimal'})
+                          headers=hdr)
         if r.ok:
             n += len(filas[i:i + 200])
         else:
             logger.warning('[web] Supabase respondió %s: %s', r.status_code, r.text[:200])
+    # v379 — LO RETIRADO SE BORRA. Si el modelo cambia «Menos de 3.5» por
+    # «Menos de 4.5», la vieja se quedaba «pendiente» en la base para siempre y
+    # el partido salía dos veces. Se borran las pendientes de partidos que aún
+    # no empiezan y que ya no están en esta pasada (sólo si la pasada trae
+    # picks: una vacía por un fallo no debe vaciar la base).
+    if n == len(filas) and filas:
+        ahora = dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S')
+        vivos = ','.join(sorted({p['id'] for p in picks}))
+        r = requests.delete(url.rstrip('/') + '/rest/v1/picks', timeout=30, headers=hdr,
+                            params={'estado': 'eq.pendiente', 'inicio': 'gt.' + ahora,
+                                    'id': 'not.in.(%s)' % vivos})
+        if not r.ok:
+            logger.warning('[web] no se pudo limpiar lo retirado: %s %s', r.status_code, r.text[:200])
+    if secretos:
+        r = requests.post(url.rstrip('/') + '/rest/v1/picks_premium', json=list(secretos), timeout=30,
+                          headers=hdr)
+        if not r.ok:
+            logger.warning('[web] picks premium: %s %s', r.status_code, r.text[:200])
     return n
 
 
@@ -124,13 +172,14 @@ def main() -> int:
     except Exception:
         pass
     r = construir()
+    secretos = premium(r['picks'])
     os.makedirs(os.path.dirname(SALIDA), exist_ok=True)
     tmp = SALIDA + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(r, f, ensure_ascii=False, indent=0)
     os.replace(tmp, SALIDA)
-    n = subir_supabase(r['picks'])
-    print('web: %d picks en %s; %d subidos a Supabase' % (len(r['picks']), SALIDA, n))
+    n = subir_supabase(r['picks'], secretos)
+    print('web: %d picks en %s; %d subidos a Supabase; %d premium' % (len(r['picks']), SALIDA, n, len(secretos)))
     return 0
 
 

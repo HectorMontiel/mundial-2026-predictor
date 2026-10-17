@@ -15,7 +15,7 @@
 <body>
 <header class="top">
   <div class="marca"><span class="logo">S</span><span id="nombre">SharPicks</span></div>
-  <div class="reloj" id="reloj"></div>
+  <div class="derecha"><div class="reloj" id="reloj"></div><div class="cuenta" id="cuenta"></div></div>
 </header>
 
 <main>
@@ -31,6 +31,7 @@
     <button data-dia="manana">Mañana</button>
     <button data-dia="pasado">Pasado</button>
     <button data-dia="ayer">Ayer</button>
+    <button data-dia="mios">★ Mis picks</button>
   </nav>
 
   <div class="filtros">
@@ -49,6 +50,34 @@
   <p class="aviso" id="aviso"></p>
   <section class="tarjetas" id="tarjetas"></section>
 
+  <section class="caja bloque-hist">
+    <div class="tit">Historial público · todo lo jugado, con verdes, rojas y dinero</div>
+    <div id="historial"></div>
+  </section>
+
+  <section class="planes" id="planes">
+    <h2>Planes</h2>
+    <div class="planes-grid">
+      <div class="caja plan">
+        <div class="tit">Gratis</div>
+        <div class="precio">$0</div>
+        <ul><li>Picks 🥇 Oro y 🥈 Plata</li><li>Marcador y estadísticas en vivo</li><li>Historial público y simulador</li><li>Canal gratis de Telegram</li></ul>
+      </div>
+      <div class="caja plan destacado">
+        <div class="tit">No Win, No Pay</div>
+        <div class="precio">🪙 por pick</div>
+        <ul><li>Desbloquea los 💎 Diamante y 🔷 Platino</li><li><b>Si el pick sale rojo, tus monedas regresan solas</b></li><li>50 🪙 de regalo al registrarte</li></ul>
+      </div>
+      <div class="caja plan">
+        <div class="tit">VIP</div>
+        <div class="precio">Mensual</div>
+        <ul><li>Todos los 💎 y 🔷 sin gastar monedas</li><li>Grupo VIP de Telegram con avisos al momento</li><li>La Soñadora y los boletos armados</li></ul>
+      </div>
+    </div>
+    <p class="aviso">🎉 Lanzamiento: hoy todo es gratis. Registrarte te guarda tus picks y tus 50 🪙 de regalo.</p>
+    <div id="telegram" class="tg-links"></div>
+  </section>
+
   <section class="caja simulador">
     <div class="tit">Simulador de banca · con lo que ya se jugó</div>
     <div class="sim-campos">
@@ -65,15 +94,27 @@
   </section>
 </main>
 
+<div class="ficha" id="acceso" hidden><div class="ficha-caja acceso">
+  <button class="cerrar" data-cerrar-acceso>✕</button>
+  <h3>Entra a SharPicks</h3>
+  <p class="tenue">Te mandamos un enlace a tu correo; sin contraseñas.</p>
+  <form id="acceso-form"><input type="email" id="acceso-correo" placeholder="tu@correo.com" required autocomplete="email"><button class="ver" type="submit">Enviarme el enlace</button></form>
+  <p class="sub" id="acceso-msg"></p>
+  <p class="tenue chico">Al entrar aceptas los <a href="terminos.html">términos</a> y el <a href="privacidad.html">aviso de privacidad</a>. Sólo mayores de 18 años.</p>
+</div></div>
+
 <div class="ficha" id="ficha" hidden><div class="ficha-caja" id="ficha-cuerpo"></div></div>
 
 <footer>
   <p>Juego responsable · Sólo mayores de 18 años. Acertar mucho no garantiza ganar dinero: a cuota baja hace falta acertar muchísimo para no perder.</p>
   <p class="tenue" id="actualizado"></p>
+  <p class="legal"><a href="terminos.html">Términos</a> · <a href="privacidad.html">Aviso de privacidad</a> · <a href="#planes">Planes</a></p>
 </footer>
 
 <script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="app.js"></script>
+<script src="cuenta.js"></script>
 <script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});</script>
 </body>
 </html>

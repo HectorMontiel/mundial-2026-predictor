@@ -54,7 +54,21 @@ jobs:
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          # v379 — vacío en el lanzamiento (todo gratis); «Diamante» u otros
+          # niveles para cobrar (variable del repositorio, no secreto)
+          PREMIUM_NIVELES: ${{ vars.PREMIUM_NIVELES }}
         run: python exportar_web.py
+      # v379 — los dos canales de Telegram (gratis y VIP); sin canales, no hace nada
+      - name: Canales de Telegram
+        continue-on-error: true
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_VIP: ${{ secrets.TELEGRAM_CHAT_VIP }}
+          TELEGRAM_CHAT_GRATIS: ${{ secrets.TELEGRAM_CHAT_GRATIS }}
+          TELEGRAM_VIP_NIVELES: ${{ vars.TELEGRAM_VIP_NIVELES }}
+        run: python telegram_canales.py
       - name: Publicar en Cloudflare Pages (sharpicks.pages.dev)
         if: env.CF_TOKEN != ''
         continue-on-error: true

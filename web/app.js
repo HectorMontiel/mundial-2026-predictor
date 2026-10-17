@@ -222,6 +222,7 @@
   function posesion(v) {
     const s = v.stats.possessionPct; if (!s) return '';
     const a = num(s.v[0]), b = num(s.v[1]), t = a + b || 1;
+    if (!a || !b) return '';           // 0 % - 100 %: ESPN aún no la calcula
     return '<div class="posesion"><div class="pos-etq">Posesión</div><div class="pos-barra">' +
       '<i class="l" style="width:' + (100 * a / t) + '%">' + Math.round(a) + '%</i>' +
       '<i class="r" style="width:' + (100 * b / t) + '%">' + Math.round(b) + '%</i></div></div>';
@@ -251,29 +252,64 @@
     }
     return h;
   }
-  function tarjeta(p) {
-    const v = p.espn ? estado.vivo[p.espn] : null;
+  // v379 — UNA TARJETA POR PARTIDO. El usuario: «que no haya partidos
+  // repetidos, ni de tenis ni de fútbol ni de ningún deporte». Antes iba una
+  // tarjeta por apuesta: un partido con dos apuestas salía dos veces. Ahora
+  // el partido sale una vez y sus apuestas van dentro (la mejor primero); si
+  // la misma apuesta llegara dos veces, se queda una.
+  // los dos nombres en cualquier orden («A vs B» y «B vs A» son el mismo partido)
+  const clavePartido = (p) => [p.deporte || '', lados(p).map((x) => x.toLowerCase().trim()).sort().join(' / '), diaDe(p)].join('|');
+  function agrupar(lista) {
+    const g = new Map();
+    for (const p of lista) {
+      const k = clavePartido(p);
+      if (!g.has(k)) g.set(k, []);
+      const ya = g.get(k);
+      if (!ya.some((x) => String(x.apuesta).trim() === String(p.apuesta).trim())) ya.push(p);
+    }
+    for (const ps of g.values()) ps.sort((a, b) => (b.elige - a.elige) || ((b.prob || 0) - (a.prob || 0)));
+    return [...g.values()];
+  }
+  function estadoPick(p) {
+    if (p.estado === 'verde') return '<span class="et verde">✅ Verde</span>';
+    if (p.estado === 'roja') return '<span class="et roja">❌ Roja</span>';
+    if (p.estado === 'nula') return '<span class="et">Nula</span>';
+    return '';
+  }
+  function filaPick(p, v, varias) {
     const pr = progreso(p, v);
+    const nv = nivel(p);
+    return '<div class="pick-fila ' + (p.estado === 'verde' ? 'verde' : p.estado === 'roja' ? 'roja' : '') + '">' +
+      ((varias || p.estado === 'verde' || p.estado === 'roja') ? '<div class="fila"><span class="et nivel ' + nv.c + '">' + nv.i + ' ' + nv.n + '</span>' + estadoPick(p) + '</div>' : '') +
+      '<div class="apuesta">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
+      (pr ? '<div class="progreso ' + pr.e + '">' + esc(pr.t) + '</div>' : '') +
+      '<div class="datos"><div class="dato"><small>Cuota</small><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '—') + '</b></div>' +
+      '<div class="dato"><small>Acierta (medido)</small><b>' + pct(p.prob) + '</b></div>' +
+      '<div class="dato"><small>Cuota justa</small><b>' + (p.prob ? (1 / p.prob).toFixed(2) : '—') + '</b></div></div>' +
+      (window.SPX ? SPX.extra(p) : '') + '</div>';
+  }
+  function tarjeta(ps) {
+    const p = ps[0];
+    const v = (ps.find((x) => x.espn) || {}).espn ? estado.vivo[ps.find((x) => x.espn).espn] : null;
     const nv = nivel(p);
     const [L, V] = lados(p);
     const marc = v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : (p.marcador || '');
-    const clase = ['tarjeta', nv.c, p.estado === 'verde' ? 'verde' : '', p.estado === 'roja' ? 'roja' : ''].join(' ');
+    const todas = ps.every((x) => x.estado === 'verde' || x.estado === 'roja' || x.estado === 'nula');
+    const clase = ['tarjeta', nv.c, todas && ps.every((x) => x.estado !== 'roja') ? 'verde' : '', todas && ps.every((x) => x.estado === 'roja') ? 'roja' : ''].join(' ');
+    const cab = todas && !(v && v.fase === 'in') ? '<span class="et">Terminado</span>' : etiquetaEstado(dict(p, { estado: 'pendiente' }), v);
     return '<article class="' + clase + '" data-id="' + esc(p.id) + '">' +
       '<div class="fila"><div class="etiquetas"><span class="et nivel ' + nv.c + '">' + nv.i + ' ' + nv.n + '</span>' +
-      '<span class="et">' + esc(p.deporte || '') + '</span></div>' + etiquetaEstado(p, v) + '</div>' +
+      '<span class="et">' + esc(p.deporte || '') + '</span>' + (ps.length > 1 ? '<span class="et">' + ps.length + ' apuestas</span>' : '') + '</div>' + cab + '</div>' +
       '<div class="equipos"><div class="eq">' + escudo(p.logo_h, L) + '<span>' + esc(L) + '</span></div>' +
       '<div class="marc">' + (marc ? esc(marc) : 'vs') + '</div>' +
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>' +
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       miniStats(v) +
-      '<div class="apuesta">' + esc(p.apuesta) + '</div>' +
-      (pr ? '<div class="progreso ' + pr.e + '">' + esc(pr.t) + '</div>' : '') +
-      '<div class="datos"><div class="dato"><small>Cuota</small><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '—') + '</b></div>' +
-      '<div class="dato"><small>Acierta (medido)</small><b>' + pct(p.prob) + '</b></div>' +
-      '<div class="dato"><small>Cuota justa</small><b>' + (p.prob ? (1 / p.prob).toFixed(2) : '—') + '</b></div></div>' +
-      (p.espn ? '<button class="ver" data-ficha="' + esc(p.id) + '">Ver partido →</button>' : '') +
+      ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
+      (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
       '</article>';
   }
+  const dict = (a, b) => Object.assign({}, a, b);
 
   // ---------- FICHA DEL PARTIDO (tipo SofaScore) ----------
   let fichaId = null;
@@ -282,14 +318,14 @@
     fichaId = id;
     const v = estado.vivo[p.espn];
     const [L, V] = lados(p);
-    const otras = estado.picks.filter((x) => x.partido === p.partido && x.fecha === p.fecha);
+    const otras = (agrupar(estado.picks.filter((x) => clavePartido(x) === clavePartido(p)))[0]) || [p];
     let h = '<button class="cerrar" data-cerrar>✕</button>' +
       '<div class="equipos grande"><div class="eq">' + escudo(p.logo_h, L) + '<span>' + esc(L) + '</span></div>' +
       '<div class="marc">' + (v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : 'vs') + '<small>' + esc(v ? v.detalle : horaCdmx(aFecha(p.inicio))) + '</small></div>' +
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>';
     h += '<h3>Nuestras apuestas en este partido</h3>' + otras.map((x) => {
       const pr = progreso(x, v);
-      return '<div class="linea-ap"><span>' + nivel(x).i + ' ' + esc(x.apuesta) + ' · ' + (x.cuota ? Number(x.cuota).toFixed(2) : '') + '</span>' +
+      return '<div class="linea-ap"><span>' + nivel(x).i + ' ' + (window.SPX ? SPX.apuesta(x) : esc(x.apuesta)) + ' · ' + (x.cuota ? Number(x.cuota).toFixed(2) : '') + '</span>' +
         (pr ? '<span class="progreso ' + pr.e + '">' + esc(pr.t) + '</span>' : '<span class="tenue">' + pct(x.prob) + '</span>') + '</div>';
     }).join('');
     if (v && Object.keys(v.stats).length) {
@@ -335,8 +371,10 @@
     const hoy = diaPestana(0), ayer = diaPestana(-1);
     $('marcadores').innerHTML = cajaMarcador('Hoy', estado.picks.filter((p) => diaDe(p) === hoy)) +
       cajaMarcador('Ayer', estado.picks.filter((p) => diaDe(p) === ayer));
-    const dia = diaPestana(OFFS[estado.dia]);
-    let lista = estado.picks.filter((p) => diaDe(p) === dia);
+    const dia = estado.dia in OFFS ? diaPestana(OFFS[estado.dia]) : null;
+    // v379 — «Mis picks»: los que sigue el usuario, de cualquier día
+    let lista = estado.dia === 'mios' ? (window.SPX ? SPX.filtrarMios(estado.picks) : [])
+      : estado.picks.filter((p) => diaDe(p) === dia);
     const deps = ['Todos'].concat([...new Set(lista.map((p) => p.deporte).filter(Boolean))].sort());
     if (!deps.includes(estado.deporte)) estado.deporte = 'Todos';
     $('deportes').innerHTML = deps.map((d) => '<button class="chip' + (d === estado.deporte ? ' activa' : '') + '" data-dep="' + esc(d) + '">' + esc(d) + '</button>').join('');
@@ -349,10 +387,15 @@
     // las 💎 primero (son las que se meten); dentro, el orden elegido
     lista.sort((a, b) => (b.elige - a.elige) || (k(a) < k(b) ? -1 : k(a) > k(b) ? 1 : 0));
     const enVivo = Object.values(estado.vivo).filter((v) => v.fase === 'in').length;
-    $('aviso').textContent = (lista.length ? lista.length + ' apuestas' : 'Sin apuestas para este día con estos filtros.') + (enVivo ? ' · 🔴 ' + enVivo + ' partidos en vivo' : '');
-    $('tarjetas').innerHTML = lista.map(tarjeta).join('');
+    $('aviso').textContent = (lista.length ? agrupar(lista).length + ' partidos · ' + lista.length + ' apuestas'
+      : estado.dia === 'mios' ? (window.SPX && SPX.yo.user ? 'Todavía no sigues ningún pick: pulsa «☆ Seguir» en los que te gusten.' : 'Entra con tu correo para guardar tus picks.')
+      : 'Sin apuestas para este día con estos filtros.') + (enVivo ? ' · 🔴 ' + enVivo + ' partidos en vivo' : '');
+    const grupos = agrupar(lista);
+    $('tarjetas').innerHTML = grupos.map(tarjeta).join('');
     simular();
   }
+
+  window.SP = { nivel, pintar, estado };
 
   $('pestanas').addEventListener('click', (e) => {
     const b = e.target.closest('button'); if (!b) return;
