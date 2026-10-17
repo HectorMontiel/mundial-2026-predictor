@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T10:09:00Z",
+"actualizado": "2026-10-17T11:53:22Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8255,12 +8255,32 @@
 {
 "dia": "2026-10-17",
 "nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Brandys n. Labem vs Sokolov",
+"apuesta": "Gana Brandys n. Labem",
+"cuota": 2.9,
+"resultado": "verde",
+"marcador": "3-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
 "deporte": "Tenis",
 "partido": "Kalinina A. vs Waltert S.",
 "apuesta": "Gana Kalinina A.",
 "cuota": 1.58,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Sherif M. vs Prozorova T.",
+"apuesta": "Gana Prozorova T.",
+"cuota": 1.5,
+"resultado": "verde",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-17",
