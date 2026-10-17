@@ -150,7 +150,7 @@ def premium(picks: List[Dict]) -> List[Dict]:
     secretos = []
     for p in picks:
         # v384 — lo que va al canal gratis es muestra: no se tapa
-        p['premium'] = bool(nv) and nivel(p) in nv and p.get('estado') == 'pendiente' and not p.get('gratis')
+        p['premium'] = bool(nv) and nivel(p) in nv and p.get('estado') in ('pendiente', 'vivo') and not p.get('gratis')
         if p['premium']:
             secretos.append({'id': p['id'], 'apuesta': p['apuesta']})
             p['apuesta'] = '🔒 Pick %s' % nivel(p)

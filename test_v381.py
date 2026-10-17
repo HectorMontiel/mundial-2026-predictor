@@ -43,7 +43,7 @@ def probar():
     check('upload-pages-artifact' in wf and 'path: web\n' in wf and 'pages deploy web ' in wf,
           'sólo se publica la carpeta web (no datos_privados)')
     cu = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
-    check('Entra gratis para verlo' in cu and "provider: 'google'" in cu, 'sin cuenta, candado; y entrar con Google')
+    check('Entra gratis y desbloquéalo' in cu and "provider: 'google'" in cu, 'sin cuenta, candado; y entrar con Google')
     check('LOGIN_GOOGLE: true' in open(os.path.join('web', 'config.js'), encoding='utf-8').read(), 'Google encendido')
     app = open(os.path.join('web', 'app.js'), encoding='utf-8').read()
     check('SPX.yo.desbloqueados[p.id]) || p.apuesta' in app, 'el premium se sigue en vivo con su texto real')

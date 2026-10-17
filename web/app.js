@@ -186,13 +186,16 @@
     const din = lista.reduce((s, p) => s + (p.estado === 'verde' ? (p.cuota || 1) - 1 : p.estado === 'roja' ? -1 : 0), 0);
     return { v, r, pct: v + r ? v / (v + r) : null, din };
   }
-  function cajaMarcador(titulo, lista) {
-    const t = cuenta(lista), e = cuenta(lista.filter((p) => p.elige));
+  function cajaMarcador(titulo, todo) {
+    // v386 — los errores de cuota (💰) con su propio marcador, aparte
+    const lista = todo.filter((p) => p.tipo !== 'error');
+    const t = cuenta(lista), e = cuenta(lista.filter((p) => p.elige)), er = cuenta(todo.filter((p) => p.tipo === 'error'));
     const pend = lista.filter((p) => p.estado === 'pendiente' || p.estado === 'vivo').length;
     return '<div class="caja"><div class="tit">' + titulo + '</div>' +
       '<div class="num">✅ ' + t.v + ' &nbsp;❌ ' + t.r + ' <span class="pct">' + pct(t.pct) + '</span></div>' +
       '<div class="barra"><i style="width:' + (t.pct == null ? 0 : 100 * t.pct) + '%"></i></div>' +
-      '<div class="sub">💎 Diamante: ✅ ' + e.v + ' ❌ ' + e.r + (e.pct == null ? '' : ' · ' + pct(e.pct)) + ' · por jugar ' + pend + '</div></div>';
+      '<div class="sub">💎 Diamante: ✅ ' + e.v + ' ❌ ' + e.r + (e.pct == null ? '' : ' · ' + pct(e.pct)) + ' · por jugar ' + pend + '</div>' +
+      (er.v + er.r ? '<div class="sub">💰 Cuota alta: ✅ ' + er.v + ' ❌ ' + er.r + ' · ' + pct(er.pct) + '</div>' : '') + '</div>';
   }
 
   // ---------- TARJETAS ----------
@@ -317,6 +320,7 @@
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>' +
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
+      iaHtml(window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null, L, V) +
       miniStats(v) +
       ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
       (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
@@ -324,6 +328,20 @@
   }
   const dict = (a, b) => Object.assign({}, a, b);
   // v384 — «un H2H en las tarjetas por si la gente quiere analizar el partido»
+  // v387 — el análisis y la predicción de la IA (Gemini), medida aparte
+  function iaHtml(a, L, V) {
+    if (!a) return '';
+    const res = { local: 'gana ' + L, empate: 'empate', visita: 'gana ' + V }[a.pred_resultado] || '';
+    const est = a.evaluado ? (a.ok_resultado ? ' · <b class="txt-verde">✅ acertó</b>' : ' · <b class="txt-rojo">❌ falló</b>') : '';
+    return '<details class="ctx ia"><summary>🤖 Análisis IA' + est + '</summary>' +
+      '<p class="ia-txt">' + esc(a.analisis || '') + '</p>' +
+      '<div class="ia-pred">La IA ve: <b>' + esc(res) + '</b> · ' + L.slice(0, 14) + ' ' + Math.round(100 * (a.p_local || 0)) + ' % · empate ' +
+      Math.round(100 * (a.p_empate || 0)) + ' % · ' + V.slice(0, 14) + ' ' + Math.round(100 * (a.p_visita || 0)) + ' %</div>' +
+      '<div class="ia-pred">Goles: <b>' + (a.pred_goles === 'mas' ? 'más de 2.5' : a.pred_goles === 'menos' ? 'menos de 2.5' : '—') + '</b> · confianza ' +
+      '★'.repeat(a.confianza || 0) + '☆'.repeat(5 - (a.confianza || 0)) + '</div>' +
+      (a.pick_ia && a.pick_ia !== 'ninguno' ? '<div class="ia-pred">Su pick favorito: <b>' + esc(a.pick_ia) + '</b> ' + (a.coincide ? '✅ coincide con nuestro análisis' : '⚠️ ve el partido distinto') + '</div>' : '') +
+      '<p class="tenue chico">La IA es experimental y la medimos aparte (Historial → 🤖). Nuestros picks NO dependen de ella.</p></details>';
+  }
   function formaHtml(f) {
     return String(f || '').split('').map((c) => '<i class="fr ' + ({ G: 'g', E: 'e', P: 'p' }[c] || '') + '">' + c + '</i>').join('');
   }
@@ -456,9 +474,11 @@
       '<div class="dest-pie"><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</b><span>acierta ' + pct(p.prob) + '</span></div></button>';
   }
   function tiraMarcador() {
-    const hoy = diaPestana(0), l = estado.picks.filter((p) => diaDe(p) === hoy), t = cuenta(l), e = cuenta(l.filter((p) => p.elige));
+    const hoy = diaPestana(0), l0 = estado.picks.filter((p) => diaDe(p) === hoy), l = l0.filter((p) => p.tipo !== 'error'),
+      t = cuenta(l), e = cuenta(l.filter((p) => p.elige)), er = cuenta(l0.filter((p) => p.tipo === 'error'));
     return '<button class="tira" data-vista-ir="historial">Hoy <b>✅ ' + t.v + ' ❌ ' + t.r + '</b> ' + pct(t.pct) +
-      ' · 💎 <b>' + e.v + '-' + e.r + '</b>' + (e.pct == null ? '' : ' ' + pct(e.pct)) + ' <span>Ver historial ›</span></button>';
+      ' · 💎 <b>' + e.v + '-' + e.r + '</b>' + (e.pct == null ? '' : ' ' + pct(e.pct)) +
+      (er.v + er.r ? ' · 💰 <b>' + er.v + '-' + er.r + '</b>' : '') + ' <span>Ver historial ›</span></button>';
   }
 
   function listaBase() {

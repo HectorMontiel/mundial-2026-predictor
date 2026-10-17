@@ -69,6 +69,15 @@ jobs:
           TELEGRAM_CHAT_GRATIS: ${{ secrets.TELEGRAM_CHAT_GRATIS }}
           TELEGRAM_VIP_NIVELES: ${{ vars.TELEGRAM_VIP_NIVELES }}
         run: python telegram_canales.py
+      # v387 — la IA (Gemini) analiza y predice; se le mide aparte
+      - name: IA (Gemini)
+        continue-on-error: true
+        timeout-minutes: 6
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: python ia_gemini.py
       - name: Publicar en Cloudflare Pages (sharpicks.pages.dev)
         if: env.CF_TOKEN != ''
         continue-on-error: true

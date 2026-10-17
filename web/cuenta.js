@@ -6,8 +6,11 @@
   const C = window.CONFIG || {};
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const sb = (window.supabase && C.SUPABASE_URL && C.SUPABASE_ANON_KEY)
-    ? window.supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY) : null;
+  let sb = null;
+  try {
+    sb = (window.supabase && C.SUPABASE_URL && C.SUPABASE_ANON_KEY)
+      ? window.supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY) : null;
+  } catch (e) { sb = null; }          // un navegador que no deja guardar la sesión no rompe la página
   const yo = { user: null, perfil: null, seguidos: new Set(), desbloqueados: {}, conteo: {}, precios: {} };
   window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar };
 
@@ -26,7 +29,7 @@
     if (p.premium && !yo.desbloqueados[p.id]) {
       const pr = precio(p);
       // v381 — lanzamiento: con cuenta (gratis) se ven todos; sin cuenta, candado
-      if (!yo.user) h += '<button class="desbloquear" data-entrar>🔓 Entra gratis para verlo</button>';
+      if (!yo.user) h += '<button class="desbloquear" data-entrar>🔓 Entra gratis y desbloquéalo</button>';
       else h += '<button class="desbloquear" data-desbloquear="' + esc(p.id) + '">' +
         (pr ? 'Desbloquear por ' + pr + ' 🪙' : 'Desbloquear gratis') + '</button>' +
         '<small class="nwnp">Si sale roja, se te devuelve</small>';
@@ -43,8 +46,10 @@
   // ---------- sesión ----------
   async function refrescar() {
     if (!sb) return;
-    const { data } = await sb.auth.getSession();
-    yo.user = data && data.session ? data.session.user : null;
+    try {
+      const { data } = await sb.auth.getSession();
+      yo.user = data && data.session ? data.session.user : null;
+    } catch (e) { yo.user = null; }
     const tareas = [
       sb.from('ajustes').select('clave,valor').then(({ data }) => { (data || []).forEach((x) => { yo.precios[x.clave] = x.valor; }); }),
       sb.from('seguidores').select('pick,n').then(({ data }) => { yo.conteo = {}; (data || []).forEach((x) => { yo.conteo[x.pick] = x.n; }); }),
@@ -52,10 +57,17 @@
     if (yo.user) {
       tareas.push(sb.from('perfiles').select('*').eq('id', yo.user.id).maybeSingle().then(({ data }) => { yo.perfil = data; }));
       tareas.push(sb.from('seguidos').select('pick').then(({ data }) => { yo.seguidos = new Set((data || []).map((x) => x.pick)); }));
+      tareas.push(sb.from('ia_analisis').select('*').gte('fecha', new Date(Date.now() - 2 * 864e5).toISOString().slice(0, 10)).limit(2000)
+        .then(({ data }) => { yo.ia = {}; (data || []).forEach((x) => { yo.ia[x.partido] = x; }); }));
       tareas.push(sb.from('picks_premium').select('id,apuesta').then(({ data }) => { yo.desbloqueados = {}; (data || []).forEach((x) => { yo.desbloqueados[x.id] = x.apuesta; }); }));
     } else { yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; }
-    await Promise.all(tareas.map((t) => t.catch(() => {})));
-    pintarCabecera();
+    await Promise.all(tareas.map((t) => Promise.resolve(t).catch(() => {})));
+    try { pintarCabecera(); } catch (e) {
+      // pase lo que pase, la cabecera dice algo (y se reintenta en 20 s)
+      const c = $('cuenta');
+      if (c) c.innerHTML = yo.user ? '<button class="entrar" data-mi-cuenta>Mi cuenta ▾</button>' : '<button class="entrar" data-entrar>Entrar</button>';
+      setTimeout(refrescar, 20000);
+    }
     if (window.SP) window.SP.pintar();
   }
 
@@ -70,7 +82,7 @@
     const c = $('cuenta'); if (!c) return;
     if (!sb) { c.innerHTML = ''; return; }
     if (!yo.user) { c.innerHTML = '<button class="entrar" data-entrar>Entrar</button>'; return; }
-    const nom = (yo.perfil && (yo.perfil.usuario || yo.perfil.nombre)) || (yo.user.email || '').split('@')[0];
+    const nom = (yo.perfil && (yo.perfil.usuario || yo.perfil.nombre)) || String(yo.user.email || 'Mi cuenta').split('@')[0];
     c.innerHTML = '<span class="saldo" title="Tus monedas">🪙 ' + (esAdmin() ? '∞' : ((yo.perfil && yo.perfil.monedas) || 0)) + '</span>' +
       (esVip() ? '<span class="et nivel diamante">' + (esAdmin() ? 'ADMIN' : 'VIP') + '</span>' : '') +
       '<button class="entrar" data-mi-cuenta>' + esc(nom) + ' ▾</button>';
@@ -125,6 +137,8 @@
         '<button class="vip-btn sec" data-vip="semestral">Semestral: $' + ps + ' cada 6 meses <small>≈ $' + Math.round(ps / 6) + ' al mes</small></button>' +
         '<p class="tenue chico">Precios en pesos con IVA incluido. El cobro lo hace Mercado Pago; nosotros nunca vemos tu tarjeta.</p></div>';
     }
+    h += '<div class="caja"><div class="tit">👤 Nombre de usuario</div><div class="fila-form"><input id="mi-usuario" value="' + esc(p.usuario || '') +
+      '" placeholder="3-20 letras, números, _ o ." autocapitalize="off"><button class="ver" data-mi-usuario>Guardar</button></div></div>';
     h += '<div class="caja"><div class="tit">🎁 Canjear código</div><div class="fila-form"><input id="codigo" placeholder="SHARP-XXXX-XXXX" autocomplete="off"><button class="ver" data-canjear>Canjear</button></div></div>' +
       '<div class="caja"><div class="tit">🔑 ' + (yo.user.app_metadata && yo.user.app_metadata.provider === 'google' ? 'Crear contraseña (para entrar con tu usuario)' : 'Cambiar contraseña') + '</div>' +
       '<div class="fila-form"><input type="password" id="nueva-contra" placeholder="Mínimo 8 caracteres" autocomplete="new-password"><button class="ver" data-contra>Guardar</button></div></div>' +
@@ -134,7 +148,7 @@
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda]');
+    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario]');
     if (!t) return;
     if (t.hasAttribute('data-ayuda')) { $('ayuda').hidden = false; return; }
     if (t.hasAttribute('data-cerrar-ayuda')) { $('ayuda').hidden = true; return; }
@@ -157,6 +171,18 @@
       return;
     }
     if (!yo.user) { abrirAcceso('Inicia sesión para seguir y desbloquear picks.'); return; }
+    if (t.hasAttribute('data-mi-usuario')) {
+      const u = $('mi-usuario').value.trim();
+      if (!RE_USUARIO.test(u)) { abrirMiCuenta('El usuario: de 3 a 20 letras, números, «_» o «.», sin espacios.'); return; }
+      if (yo.perfil && (yo.perfil.usuario || '').toLowerCase() !== u.toLowerCase()) {
+        const { data: libre } = await sb.rpc('usuario_libre', { u });
+        if (!libre) { abrirMiCuenta('Ese usuario ya existe. Prueba otro.'); return; }
+      }
+      const { error } = await sb.from('perfiles').update({ usuario: u, nombre: u }).eq('id', yo.user.id);
+      await refrescar();
+      abrirMiCuenta(error ? 'No se pudo guardar. Prueba otro.' : '👤 Listo: ahora eres @' + u + '.');
+      return;
+    }
     if (t.hasAttribute('data-canjear')) {
       const { data } = await sb.rpc('canjear_codigo', { c: $('codigo').value });
       await refrescar();
@@ -251,14 +277,20 @@
   async function historial() {
     const caja = $('historial'); if (!caja || !sb) return;
     const { data } = await sb.from('historial').select('*').limit(30);
-    const filas = (data || []).filter((d) => d.verdes + d.rojas > 0);
+    const filas = (data || []).filter((d) => d.verdes + d.rojas + (d.verdes_error || 0) + (d.rojas_error || 0) > 0);
     if (!filas.length) { caja.innerHTML = '<p class="tenue">El historial se va llenando día con día.</p>'; return; }
     const tv = filas.reduce((s, d) => s + d.verdes, 0), tr = filas.reduce((s, d) => s + d.rojas, 0);
     const ev = filas.reduce((s, d) => s + d.verdes_elige, 0), er = filas.reduce((s, d) => s + d.rojas_elige, 0);
+    const xv = filas.reduce((s, d) => s + (d.verdes_error || 0), 0), xr = filas.reduce((s, d) => s + (d.rojas_error || 0), 0);
+    const { data: ia } = await sb.from('ia_aciertos').select('*').maybeSingle();
+    const p100 = (a, b) => (a + b ? Math.round(100 * a / (a + b)) + ' %' : '—');
     caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + Math.round(100 * tv / (tv + tr)) + ' %</span></div>' +
       '<div class="sub">💎 Diamante: ✅ ' + ev + ' ❌ ' + er + (ev + er ? ' · ' + Math.round(100 * ev / (ev + er)) + ' %' : '') + '</div>' +
-      '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th></tr>' +
-      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td></tr>').join('') + '</table>';
+      (xv + xr ? '<div class="sub">💰 Cuota alta (errores de cuota): ✅ ' + xv + ' ❌ ' + xr + ' · ' + p100(xv, xr) + '</div>' : '') +
+      (ia && (ia.resultado_ok + ia.resultado_mal) ? '<div class="sub">🤖 La IA (ganador): ✅ ' + ia.resultado_ok + ' ❌ ' + ia.resultado_mal + ' · ' + p100(ia.resultado_ok, ia.resultado_mal) +
+        ' — elegir al favorito: ' + p100(ia.mercado_ok, ia.mercado_mal) + ' · goles: ' + p100(ia.goles_ok, ia.goles_mal) + '</div>' : '') +
+      '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
+      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
   }
 
   // ---------- v380: LO QUE MANDAMOS POR TELEGRAM, CON SU RESULTADO ----------

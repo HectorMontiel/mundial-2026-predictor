@@ -95,6 +95,20 @@ def errores(datos: Dict, ahora: Optional[dt.datetime] = None) -> List[Dict]:
                         'estado': estado, 'resultado_c1': None, 'marcador': (r or (None, None))[1], 'gratis': False})
         except Exception as ex:
             logger.debug('[errores] %s: %s', c.get('partido'), ex)
+    # v386 — UNO POR PARTIDO: en «Gomora vs Cape Town City» pasaban los dos
+    # lados (uno pierde seguro) y «Ayr vs Partick» salía con dos nombres. Se
+    # queda el más probable. Medido (9-16 oct): 134 → 127, 54 → 57 %.
+    import re
+    def _k(p):
+        a, _, b = str(p.get('partido') or '').partition(' vs ')
+        n = lambda t: re.sub(r'[^a-z]', '', t.lower())[:5]
+        return (str(p.get('fecha')), n(a), n(b))
+    mejor = {}
+    for p in out:
+        k = _k(p)
+        if k not in mejor or p['prob'] > mejor[k]['prob']:
+            mejor[k] = p
+    out = list(mejor.values())
     # al gratis: los más probables de las próximas horas (uno por partido)
     fin = ahora + dt.timedelta(hours=HORAS_GRATIS)
     vistos = set()

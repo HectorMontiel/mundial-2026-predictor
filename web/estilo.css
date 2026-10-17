@@ -302,3 +302,103 @@ button.tg { border: 0; font: inherit; cursor: pointer; }
 .ay-niveles li { margin: 6px 0; }
 .boton-ayuda { width: 100%; text-align: left; color: var(--texto); font: inherit; font-weight: 700; cursor: pointer; margin-top: 18px; }
 .sin-pick { background: var(--panel); border: 1px dashed var(--borde); border-radius: 14px; padding: 12px 14px; font-size: 14px; color: #c9cbe0; }
+
+/* v387 — la IA */
+.ctx.ia { border-color: rgba(124,92,255,.35); background: rgba(124,92,255,.06); }
+.ia-txt { font-size: 14px; line-height: 1.55; margin: 8px 0; }
+.ia-pred { font-size: 13px; margin: 4px 0; color: #d6d8ea; }
+
+/* v386 — la cabecera cabe en el celular con la sesión abierta */
+.top { gap: 8px; }
+.marca { min-width: 0; flex-shrink: 1; }
+.derecha { flex-shrink: 0; }
+@media (max-width: 430px) {
+  .cuenta .et { display: none; }
+  .entrar { max-width: 118px; padding: 7px 11px; }
+  .marca #nombre { font-size: 16px; }
+}
+
+/* ====================================================================== */
+/* v388 — LIQUID GLASS. El usuario: «me gusta el diseño, pero más moderno,
+   tipo Liquid Glass». Sólo estilo: vidrio translúcido con desenfoque y
+   brillo de borde, fondo de luces que se mueve lento, barra flotante. Si el
+   navegador no tiene desenfoque, queda como antes; con «reducir
+   movimiento», el fondo no se mueve. */
+:root {
+  --vidrio: rgba(255,255,255,.055);
+  --vidrio-fuerte: rgba(255,255,255,.09);
+  --borde-vidrio: rgba(255,255,255,.14);
+  --brillo: inset 0 1px 0 rgba(255,255,255,.22), inset 0 -1px 0 rgba(255,255,255,.04);
+  --sombra-vidrio: 0 10px 40px rgba(0,0,0,.38);
+}
+body { background: #07081a; isolation: isolate; }
+body::before, body::after {
+  content: ''; position: fixed; z-index: -1; pointer-events: none; border-radius: 50%; filter: blur(90px); opacity: .55;
+}
+body::before { width: 70vmax; height: 70vmax; left: -20vmax; top: -25vmax;
+  background: radial-gradient(circle at 30% 30%, #7c5cff 0%, rgba(124,92,255,0) 60%); animation: aurora1 26s ease-in-out infinite alternate; }
+body::after { width: 60vmax; height: 60vmax; right: -22vmax; bottom: -20vmax;
+  background: radial-gradient(circle at 60% 60%, #ff5ca8 0%, rgba(255,92,168,0) 60%); animation: aurora2 32s ease-in-out infinite alternate; }
+@keyframes aurora1 { to { transform: translate(18vmax, 22vmax) scale(1.15); } }
+@keyframes aurora2 { to { transform: translate(-16vmax, -18vmax) scale(1.1); } }
+@media (prefers-reduced-motion: reduce) { body::before, body::after { animation: none; } }
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .caja, .tarjeta, .liga-bloque, .dest, .ficha-caja, .tira, .segmentos, .sin-pick, .ctx, .mini, .seccion,
+  .buscador input, .buscador select, .chip, .pestanas button, .fin-cab {
+    background: var(--vidrio);
+    -webkit-backdrop-filter: blur(22px) saturate(170%); backdrop-filter: blur(22px) saturate(170%);
+    border: 1px solid var(--borde-vidrio);
+    box-shadow: var(--brillo), var(--sombra-vidrio);
+  }
+  .chip, .pestanas button, .buscador input, .buscador select { box-shadow: var(--brillo); }
+  .top { background: rgba(10,11,28,.45); -webkit-backdrop-filter: blur(24px) saturate(180%); backdrop-filter: blur(24px) saturate(180%);
+    border-bottom: 1px solid rgba(255,255,255,.08); }
+  .ficha { background: rgba(4,5,15,.45); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  .ficha-caja { background: rgba(20,22,48,.62); }
+  .nav-abajo {
+    left: 12px; right: 12px; bottom: calc(10px + env(safe-area-inset-bottom)); border-radius: 26px; padding: 6px;
+    background: rgba(18,20,44,.55); -webkit-backdrop-filter: blur(26px) saturate(190%); backdrop-filter: blur(26px) saturate(190%);
+    border: 1px solid rgba(255,255,255,.16); box-shadow: var(--brillo), 0 14px 44px rgba(0,0,0,.5);
+  }
+  body { padding-bottom: calc(92px + env(safe-area-inset-bottom)); }
+}
+/* el brillo del borde superior (la «luz» del vidrio) */
+.tarjeta, .liga-bloque, .dest, .caja, .ficha-caja { position: relative; overflow: hidden; }
+.tarjeta::after, .liga-bloque::after, .dest::after, .caja::after, .ficha-caja::after {
+  content: ''; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(160deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 32%, rgba(255,255,255,0) 70%, rgba(255,255,255,.04) 100%);
+}
+.ficha-caja { overflow-y: auto; }
+/* barra de abajo: la pantalla activa con su píldora de luz */
+.nav-abajo button { border-radius: 20px; transition: background .25s, color .25s, transform .2s; }
+.nav-abajo button.activa { background: linear-gradient(135deg, rgba(124,92,255,.35), rgba(255,92,168,.22));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.25); }
+.nav-abajo button:active { transform: scale(.94); }
+/* botones con reflejo */
+.entrar, .desbloquear, .vip-btn, .pestanas button.activa, .chip.activa, .seg.activa {
+  position: relative; overflow: hidden;
+  background: linear-gradient(135deg, rgba(124,92,255,.95), rgba(255,92,168,.85));
+  border: 1px solid rgba(255,255,255,.22); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 6px 20px rgba(124,92,255,.35);
+}
+.entrar::before, .desbloquear::before, .vip-btn::before {
+  content: ''; position: absolute; top: 0; left: -60%; width: 40%; height: 100%;
+  background: linear-gradient(100deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0));
+  transform: skewX(-20deg); transition: left .6s;
+}
+.entrar:hover::before, .desbloquear:hover::before, .vip-btn:hover::before { left: 130%; }
+.vip-btn.sec { background: var(--vidrio-fuerte); box-shadow: var(--brillo); }
+.ver, .seguir, .ayuda-btn { background: var(--vidrio); border: 1px solid var(--borde-vidrio); box-shadow: var(--brillo); }
+/* los 💎 con un borde de luz */
+.dest, .partido-fila.diamante .pf, .tarjeta.diamante {
+  background-image: linear-gradient(160deg, rgba(103,232,249,.10), rgba(124,92,255,.06));
+}
+.dest { border-color: rgba(103,232,249,.38); box-shadow: var(--brillo), 0 10px 34px rgba(103,232,249,.10); }
+.tarjeta.diamante { border-color: rgba(103,232,249,.4); }
+/* tacto */
+.tarjeta, .dest, .pf, .chip, .seg, .ver, .seguir { transition: transform .18s, border-color .2s, background .2s; }
+.dest:active, .pf:active { transform: scale(.985); }
+.liga-cab { background: rgba(255,255,255,.035); }
+.partido-fila { border-top-color: rgba(255,255,255,.07); }
+.logo { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 6px 18px rgba(124,92,255,.45); }
+.marcadores .caja .num, .vista-tit { text-shadow: 0 2px 18px rgba(124,92,255,.35); }
