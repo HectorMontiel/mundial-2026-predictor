@@ -144,7 +144,8 @@
   // ¿Cómo va la apuesta? (sólo para enseñarlo; lo oficial lo liquida el modelo)
   function progreso(p, v) {
     if (!v || v.fase === 'pre') return null;
-    const [L, V] = lados(p), a = String(p.apuesta || '');
+    // v381 — el premium se sigue en vivo con su texto real (si el usuario lo ve)
+    const [L, V] = lados(p), a = String((window.SPX && SPX.yo.desbloqueados[p.id]) || p.apuesta || '');
     const sv = (k) => { const s = v.stats[k]; return s ? s.v.map((x) => Number(x || 0)) : null; };
     let m, cuenta = null, lado = null, linea = null, tipo = null;
     if ((m = a.match(/^(Goles|Puntos|Córners|Tarjetas): (Más|Menos) de ([\d.]+)/))) {
@@ -313,9 +314,21 @@
 
   // ---------- FICHA DEL PARTIDO (tipo SofaScore) ----------
   let fichaId = null;
+  // v380 — el usuario: «en los terminados, al picarle en Ver partido no se
+  // ven las estadísticas». Lo en vivo sólo pide los partidos en juego; uno
+  // terminado se pide a ESPN al abrir su ficha (una vez) y se pinta igual.
+  async function pedirResumen(p) {
+    if (!p.espn || estado.vivo[p.espn]) return;
+    const [ruta, id] = p.espn.split(':');
+    try {
+      const r = await fetch(ESPN + ruta + '/summary?event=' + id);
+      if (r.ok) estado.vivo[p.espn] = leerResumen(await r.json(), p);
+    } catch (e) { /* sin red: la ficha queda sin estadísticas */ }
+  }
   function ficha(id) {
     const p = estado.picks.find((x) => x.id === id); if (!p) return;
     fichaId = id;
+    if (p.espn && !estado.vivo[p.espn]) { pedirResumen(p).then(() => { if (fichaId === id) ficha(id); pintar(); }); }
     const v = estado.vivo[p.espn];
     const [L, V] = lados(p);
     const otras = (agrupar(estado.picks.filter((x) => clavePartido(x) === clavePartido(p)))[0]) || [p];
@@ -367,52 +380,190 @@
   }
 
   // ---------- PINTAR ----------
+  // ---------- v380: LA PÁGINA COMO APP ----------
+  // El usuario: «está muy larga de scrollear, tiene un buen de partidos, es
+  // mucho escanear… que sea más fácil, más intuitiva, que no sea aburrida».
+  // Antes: una tira con 120 tarjetas grandes. Ahora: barra de abajo con
+  // pantallas (Picks · En vivo · Mis picks · Historial · Planes), 💎 Destacados
+  // en carrusel, y la lista COMPACTA POR LIGA (una línea por partido, como
+  // SofaScore) que se abre al tocarla con la tarjeta completa.
+  estado.vista = 'picks';
+  estado.fase = 'todos';
+  estado.busca = '';
+  estado.liga = '';
+  estado.abiertos = new Set();
+  estado.ligasCerradas = new Set();
+  estado.verFinales = false;
+
+  function vivoDe(ps) { const x = ps.find((q) => q.espn); return x ? estado.vivo[x.espn] : null; }
+  function faseDe(ps) {
+    const v = vivoDe(ps);
+    const fin = ps.every((x) => x.estado === 'verde' || x.estado === 'roja' || x.estado === 'nula');
+    if (v && v.fase === 'in') return 'vivo';
+    if (fin || (v && v.terminado)) return 'terminado';
+    const ini = aFecha(ps[0].inicio);
+    // empezado sin dato en vivo: en juego las primeras 3 h y media; después, terminado (liquidando)
+    if (ini && ini <= new Date()) return Date.now() - ini > 3.5 * 3600e3 ? 'terminado' : 'vivo';
+    return 'proximo';
+  }
+  function relojFila(ps) {
+    const v = vivoDe(ps), f = faseDe(ps);
+    if (f === 'vivo') return '<span class="rl vivo"><i class="punto"></i>' + esc(v ? (v.reloj || v.detalle || 'Vivo') : 'Vivo') + '</span>';
+    if (f === 'terminado') return '<span class="rl">Final</span>';
+    const d = aFecha(ps[0].inicio);
+    return '<span class="rl">' + (d ? new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, hour: '2-digit', minute: '2-digit' }).format(d) : '') + '</span>';
+  }
+  function resumenPicks(ps) {
+    const v = ps.filter((x) => x.estado === 'verde').length, r = ps.filter((x) => x.estado === 'roja').length;
+    if (v || r) return (v ? '<span class="ok">✅' + (v > 1 ? v : '') + '</span>' : '') + (r ? '<span class="ko">❌' + (r > 1 ? r : '') + '</span>' : '');
+    return '';
+  }
+  function filaPartido(ps) {
+    const p = ps[0], nv = nivel(p), [L, V] = lados(p), v = vivoDe(ps);
+    const k = clavePartido(p), abierto = estado.abiertos.has(k);
+    const marc = v && v.fase !== 'pre' ? v.g : (p.marcador ? String(p.marcador).split('-').map((x) => x.trim()) : null);
+    const ap = window.SPX ? SPX.apuesta(p) : esc(p.apuesta);
+    return '<div class="partido-fila ' + nv.c + (abierto ? ' abierto' : '') + '">' +
+      '<button class="pf" data-abrir="' + esc(k) + '" aria-expanded="' + abierto + '">' +
+      relojFila(ps) +
+      '<span class="pf-eqs"><span class="pf-eq">' + escudo(p.logo_h, L) + '<b>' + esc(L) + '</b>' + (marc ? '<em>' + esc(marc[0]) + '</em>' : '') + '</span>' +
+      '<span class="pf-eq">' + escudo(p.logo_a, V) + '<b>' + esc(V) + '</b>' + (marc ? '<em>' + esc(marc[1]) + '</em>' : '') + '</span></span>' +
+      '<span class="pf-pick"><span class="pf-niv">' + nv.i + '</span><span class="pf-ap">' + ap + '</span>' +
+      '<span class="pf-cu">' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</span>' +
+      (ps.length > 1 ? '<span class="pf-mas">+' + (ps.length - 1) + '</span>' : '') + resumenPicks(ps) + '</span>' +
+      '</button>' + (abierto ? '<div class="pf-detalle">' + tarjeta(ps) + '</div>' : '') + '</div>';
+  }
+  function destacado(ps) {
+    const p = ps[0], [L, V] = lados(p), v = vivoDe(ps);
+    const marc = v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : '';
+    return '<button class="dest" data-abrir="' + esc(clavePartido(p)) + '" data-ir="1">' +
+      '<div class="fila"><span class="et nivel diamante">💎 Diamante</span>' + relojFila(ps) + '</div>' +
+      '<div class="dest-eqs">' + escudo(p.logo_h, L) + '<span>' + esc(marc || 'vs') + '</span>' + escudo(p.logo_a, V) + '</div>' +
+      '<div class="dest-nom">' + esc(L) + ' – ' + esc(V) + '</div>' +
+      '<div class="dest-ap">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
+      '<div class="dest-pie"><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</b><span>acierta ' + pct(p.prob) + '</span></div></button>';
+  }
+  function tiraMarcador() {
+    const hoy = diaPestana(0), l = estado.picks.filter((p) => diaDe(p) === hoy), t = cuenta(l), e = cuenta(l.filter((p) => p.elige));
+    return '<button class="tira" data-vista-ir="historial">Hoy <b>✅ ' + t.v + ' ❌ ' + t.r + '</b> ' + pct(t.pct) +
+      ' · 💎 <b>' + e.v + '-' + e.r + '</b>' + (e.pct == null ? '' : ' ' + pct(e.pct)) + ' <span>Ver historial ›</span></button>';
+  }
+
+  function listaBase() {
+    if (estado.vista === 'mios') return window.SPX ? SPX.filtrarMios(estado.picks) : [];
+    if (estado.vista === 'vivo') return estado.picks.filter((p) => { const d = aFecha(p.inicio); return d && d <= new Date() && Date.now() - d < 5 * 3600e3; });
+    const dia = diaPestana(OFFS[estado.dia] || 0);
+    return estado.picks.filter((p) => diaDe(p) === dia);
+  }
+
   function pintar() {
+    document.querySelectorAll('[data-vista]').forEach((s) => { s.hidden = !String(s.dataset.vista).split(' ').includes(estado.vista); });
+    document.querySelectorAll('#nav button').forEach((b) => b.classList.toggle('activa', b.dataset.vistaIr === estado.vista));
     const hoy = diaPestana(0), ayer = diaPestana(-1);
     $('marcadores').innerHTML = cajaMarcador('Hoy', estado.picks.filter((p) => diaDe(p) === hoy)) +
       cajaMarcador('Ayer', estado.picks.filter((p) => diaDe(p) === ayer));
-    const dia = estado.dia in OFFS ? diaPestana(OFFS[estado.dia]) : null;
-    // v379 — «Mis picks»: los que sigue el usuario, de cualquier día
-    let lista = estado.dia === 'mios' ? (window.SPX ? SPX.filtrarMios(estado.picks) : [])
-      : estado.picks.filter((p) => diaDe(p) === dia);
+    $('tira').innerHTML = tiraMarcador();
+    if (!['picks', 'vivo', 'mios'].includes(estado.vista)) { simular(); return; }
+
+    let lista = listaBase();
     const deps = ['Todos'].concat([...new Set(lista.map((p) => p.deporte).filter(Boolean))].sort());
     if (!deps.includes(estado.deporte)) estado.deporte = 'Todos';
-    $('deportes').innerHTML = deps.map((d) => '<button class="chip' + (d === estado.deporte ? ' activa' : '') + '" data-dep="' + esc(d) + '">' + esc(d) + '</button>').join('');
-    const niveles = ['Todos', 'Diamante', 'Platino', 'Oro', 'Plata'];
-    $('niveles').innerHTML = niveles.map((n) => '<button class="chip' + (n === estado.nivel ? ' activa' : '') + '" data-niv="' + n + '">' + ({ Diamante: '💎 ', Platino: '🔷 ', Oro: '🥇 ', Plata: '🥈 ' }[n] || '') + n + '</button>').join('');
+    const ICO = { 'Fútbol': '⚽', 'Tenis': '🎾', 'NBA': '🏀', 'NFL': '🏈', 'NHL': '🏒', 'MLB': '⚾' };
+    $('deportes').innerHTML = deps.map((d) => '<button class="chip' + (d === estado.deporte ? ' activa' : '') + '" data-dep="' + esc(d) + '">' + (ICO[d] ? ICO[d] + ' ' : '') + esc(d) + '</button>').join('');
+    $('niveles').innerHTML = ['Todos', 'Diamante', 'Platino', 'Oro', 'Plata'].map((n) => '<button class="chip' + (n === estado.nivel ? ' activa' : '') + '" data-niv="' + n + '">' + ({ Diamante: '💎 ', Platino: '🔷 ', Oro: '🥇 ', Plata: '🥈 ' }[n] || '') + n + '</button>').join('');
     if (estado.deporte !== 'Todos') lista = lista.filter((p) => p.deporte === estado.deporte);
     if (estado.nivel !== 'Todos') lista = lista.filter((p) => nivel(p).n === estado.nivel);
-    if (estado.soloVivo) lista = lista.filter((p) => p.espn && (estado.vivo[p.espn] || {}).fase === 'in');
-    const k = { hora: (p) => String(p.inicio || ''), prob: (p) => -(p.prob || 0), cuota: (p) => -(p.cuota || 0) }[estado.orden];
-    // las 💎 primero (son las que se meten); dentro, el orden elegido
-    lista.sort((a, b) => (b.elige - a.elige) || (k(a) < k(b) ? -1 : k(a) > k(b) ? 1 : 0));
+    const q = estado.busca.trim().toLowerCase();
+    if (q) lista = lista.filter((p) => (String(p.partido) + ' ' + String(p.liga || '')).toLowerCase().includes(q));
+    // v380 — «en lugar de escribir, un desplegable con todas las ligas»
+    const nomLiga = (p) => p.liga || p.deporte || 'Otros';
+    const cuentaLigas = new Map();
+    agrupar(lista).forEach((g) => { const l = nomLiga(g[0]); cuentaLigas.set(l, (cuentaLigas.get(l) || 0) + 1); });
+    if (estado.liga && !cuentaLigas.has(estado.liga)) estado.liga = '';
+    $('liga').innerHTML = '<option value="">🏆 Todas las ligas (' + cuentaLigas.size + ')</option>' +
+      [...cuentaLigas.entries()].sort((a, b) => a[0].localeCompare(b[0], 'es'))
+        .map(([l, n]) => '<option value="' + esc(l) + '"' + (l === estado.liga ? ' selected' : '') + '>' + esc(l) + ' · ' + n + '</option>').join('');
+    if (estado.liga) lista = lista.filter((p) => nomLiga(p) === estado.liga);
+
+    let grupos = agrupar(lista);
+    const n = { todos: grupos.length, proximo: 0, vivo: 0, terminado: 0 };
+    grupos.forEach((g) => { n[faseDe(g)]++; });
+    $('fases').innerHTML = [['todos', 'Todos'], ['proximo', 'Próximos'], ['vivo', '🔴 Vivo'], ['terminado', 'Final']]
+      .map(([k, t]) => '<button class="seg' + (estado.fase === k ? ' activa' : '') + '" data-fase="' + k + '">' + t + ' <small>' + n[k] + '</small></button>').join('');
+    $('fases').hidden = estado.vista === 'vivo';
+    if (estado.fase !== 'todos' && estado.vista !== 'vivo') grupos = grupos.filter((g) => faseDe(g) === estado.fase);
+
+    // 💎 Destacados: los Diamante que aún no terminan
+    const dest = estado.vista === 'picks' ? agrupar(listaBase()).filter((g) => g[0].elige && faseDe(g) !== 'terminado')
+      .sort((a, b) => String(a[0].inicio).localeCompare(String(b[0].inicio))).slice(0, 12) : [];
+    $('destacados').hidden = !dest.length;
+    $('destacados-lista').innerHTML = dest.map(destacado).join('');
+
+    // por liga: en vivo primero, luego por hora; la liga con su partido más temprano
+    const orden = { vivo: 0, proximo: 1, terminado: 2 };
+    grupos.sort((a, b) => (orden[faseDe(a)] - orden[faseDe(b)]) || String(a[0].inicio).localeCompare(String(b[0].inicio)));
+    // en «Todos», lo ya terminado va al final en UN bloque plegado (de noche
+    // son la mayoría y obligaban a bajar mucho para ver lo que viene)
+    const plegar = estado.fase === 'todos' && estado.vista === 'picks';
+    const fin = plegar ? grupos.filter((g) => faseDe(g) === 'terminado') : [];
+    if (plegar) grupos = grupos.filter((g) => faseDe(g) !== 'terminado');
+    const porLiga = (gs0) => {
+      const m = new Map();
+      gs0.forEach((g) => { const l = (g[0].deporte === 'Tenis' ? '🎾 ' : '') + (g[0].liga || g[0].deporte || 'Otros'); if (!m.has(l)) m.set(l, []); m.get(l).push(g); });
+      return m;
+    };
+    const ligas = porLiga(grupos);
+    let finHtml = '';
+    if (fin.length) {
+      const ps = fin.flat(), v = ps.filter((x) => x.estado === 'verde').length, r = ps.filter((x) => x.estado === 'roja').length;
+      finHtml = '<button class="fin-cab" data-ver-fin>' + (estado.verFinales ? '▾' : '▸') + ' Terminados · ' + fin.length + ' partidos · <b>✅ ' + v + ' ❌ ' + r + '</b></button>' +
+        (estado.verFinales ? '<div class="fin-lista">' + pintarLigas(porLiga(fin)) + '</div>' : '');
+    }
+    $('tarjetas').innerHTML = pintarLigas(ligas) + finHtml;
+    function pintarLigas(mapa) { return [...mapa.entries()].map(([l, gs]) => {
+      const cerrada = estado.ligasCerradas.has(l);
+      const dia = gs.filter((g) => g[0].elige).length;
+      return '<section class="liga-bloque"><button class="liga-cab" data-liga="' + esc(l) + '"><span>' + esc(l) + '</span>' +
+        '<small>' + (dia ? '💎 ' + dia + ' · ' : '') + gs.length + ' ' + (gs.length === 1 ? 'partido' : 'partidos') + ' ' + (cerrada ? '▸' : '▾') + '</small></button>' +
+        (cerrada ? '' : gs.map(filaPartido).join('')) + '</section>';
+    }).join(''); }
     const enVivo = Object.values(estado.vivo).filter((v) => v.fase === 'in').length;
-    $('aviso').textContent = (lista.length ? agrupar(lista).length + ' partidos · ' + lista.length + ' apuestas'
-      : estado.dia === 'mios' ? (window.SPX && SPX.yo.user ? 'Todavía no sigues ningún pick: pulsa «☆ Seguir» en los que te gusten.' : 'Entra con tu correo para guardar tus picks.')
-      : 'Sin apuestas para este día con estos filtros.') + (enVivo ? ' · 🔴 ' + enVivo + ' partidos en vivo' : '');
-    const grupos = agrupar(lista);
-    $('tarjetas').innerHTML = grupos.map(tarjeta).join('');
+    $('aviso').textContent = grupos.length ? '' :
+      estado.vista === 'mios' ? (window.SPX && SPX.yo.user ? 'Todavía no sigues ningún pick: abre un partido y pulsa «☆ Seguir».' : 'Entra con tu correo para guardar tus picks.')
+        : estado.vista === 'vivo' ? 'Ahorita no hay partidos en vivo con picks.' : 'Sin partidos con estos filtros.';
+    const b = $('nav-vivo-n'); if (b) { b.textContent = enVivo || ''; b.hidden = !enVivo; }
     simular();
   }
 
   window.SP = { nivel, pintar, estado };
 
-  $('pestanas').addEventListener('click', (e) => {
-    const b = e.target.closest('button'); if (!b) return;
-    estado.dia = b.dataset.dia;
-    document.querySelectorAll('#pestanas button').forEach((x) => x.classList.toggle('activa', x === b));
-    pintar();
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin]');
+    if (!t) return;
+    if (t.hasAttribute('data-ver-fin')) { estado.verFinales = !estado.verFinales; pintar(); return; }
+    if (t.dataset.vistaIr) { estado.vista = t.dataset.vistaIr; window.scrollTo({ top: 0 }); pintar(); return; }
+    if (t.dataset.dia) { estado.dia = t.dataset.dia; document.querySelectorAll('#pestanas button').forEach((x) => x.classList.toggle('activa', x === t)); pintar(); return; }
+    if (t.dataset.dep) { estado.deporte = t.dataset.dep; pintar(); return; }
+    if (t.dataset.niv) { estado.nivel = t.dataset.niv; pintar(); return; }
+    if (t.dataset.fase) { estado.fase = t.dataset.fase; pintar(); return; }
+    if (t.dataset.ficha) { ficha(t.dataset.ficha); return; }
+    if (t.dataset.liga) { const l = t.dataset.liga; estado.ligasCerradas.has(l) ? estado.ligasCerradas.delete(l) : estado.ligasCerradas.add(l); pintar(); return; }
+    if (t.dataset.abrir) {
+      const k = t.dataset.abrir;
+      if (t.dataset.ir) { estado.abiertos.add(k); estado.fase = 'todos'; estado.nivel = 'Todos'; }
+      else if (estado.abiertos.has(k)) estado.abiertos.delete(k); else estado.abiertos.add(k);
+      pintar();
+      const el = [...document.querySelectorAll('.pf')].find((x) => x.dataset.abrir === k);
+      if (el && t.dataset.ir) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   });
-  $('deportes').addEventListener('click', (e) => { const b = e.target.closest('.chip'); if (b) { estado.deporte = b.dataset.dep; pintar(); } });
-  $('niveles').addEventListener('click', (e) => { const b = e.target.closest('.chip'); if (b) { estado.nivel = b.dataset.niv; pintar(); } });
-  $('solo-vivo').addEventListener('change', (e) => { estado.soloVivo = e.target.checked; pintar(); });
-  $('orden').addEventListener('change', (e) => { estado.orden = e.target.value; pintar(); });
-  $('tarjetas').addEventListener('click', (e) => { const b = e.target.closest('[data-ficha]'); if (b) ficha(b.dataset.ficha); });
+  $('busca').addEventListener('input', (e) => { estado.busca = e.target.value; pintar(); });
+  $('liga').addEventListener('change', (e) => { estado.liga = e.target.value; pintar(); });
   $('ficha').addEventListener('click', (e) => { if (e.target.id === 'ficha' || e.target.closest('[data-cerrar]')) { $('ficha').hidden = true; fichaId = null; } });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { $('ficha').hidden = true; fichaId = null; } });
   ['sim-banca', 'sim-pct', 'sim-nivel'].forEach((i) => $(i).addEventListener('input', simular));
   $('nombre').textContent = C.NOMBRE || 'SharPicks';
-  setInterval(() => { $('reloj').textContent = 'Hora CDMX · ' + new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(new Date()); }, 1000);
+  setInterval(() => { $('reloj').textContent = new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, hour: '2-digit', minute: '2-digit' }).format(new Date()) + ' CDMX'; }, 1000);
   cargar();
   setInterval(cargar, 3 * 60 * 1000);   // picks nuevos y verdes/rojas oficiales
   setInterval(vivo, 30 * 1000);         // marcador y estadísticas

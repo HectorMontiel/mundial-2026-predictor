@@ -173,3 +173,21 @@ alter table public.telegram_enviados enable row level security;
 grant all on public.telegram_enviados to service_role;
 
 notify pgrst, 'reload schema';
+
+-- v380 — lo que se mandó a Telegram (gratis y VIP), para el historial público
+create or replace view public.telegram_publicados with (security_invoker = false) as
+  select canal, pick as clave, min(enviado) as enviado
+    from public.telegram_enviados where tipo = 'pick' group by canal, pick;
+grant select on public.telegram_publicados to anon, authenticated;
+
+-- v381 — LANZAMIENTO: los premium los ve cualquiera CON CUENTA (gratis).
+-- Para cobrar: update public.ajustes set valor = '0' where clave = 'premium_con_cuenta';
+insert into public.ajustes (clave, valor) values ('premium_con_cuenta', '1') on conflict (clave) do nothing;
+drop policy if exists "premium a quien le toca" on public.picks_premium;
+create policy "premium a quien le toca" on public.picks_premium for select using (
+  public.es_pro()
+  or exists (select 1 from public.desbloqueos d where d.pick = picks_premium.id and d.usuario = auth.uid())
+  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.inicio <= now())
+  or (auth.uid() is not null and exists (select 1 from public.ajustes a where a.clave = 'premium_con_cuenta' and a.valor = '1'))
+);
+notify pgrst, 'reload schema';

@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SharPicks · Picks medidos, no adivinados</title>
 <meta name="description" content="Pronósticos deportivos medidos con partidos reales: en vivo, con estadísticas, y verdes y rojas a la vista.">
 <meta name="theme-color" content="#0b0d17">
@@ -19,97 +19,115 @@
 </header>
 
 <main>
-  <section class="hero">
-    <h1>Pronósticos <span class="grad">medidos</span>, no adivinados</h1>
-    <p>Cada apuesta sale de un modelo comparado contra la casa y medido con partidos ya jugados. En vivo, con estadísticas, y las verdes y las rojas a la vista.</p>
+  <!-- PICKS · EN VIVO · MIS PICKS -->
+  <section data-vista="picks vivo mios">
+    <div data-vista="picks" id="tira"></div>
+
+    <section class="destacados" id="destacados" data-vista="picks" hidden>
+      <h2>💎 Destacados</h2>
+      <div class="carrusel" id="destacados-lista"></div>
+    </section>
+
+    <h2 class="vista-tit" data-vista="vivo" hidden>🔴 En vivo</h2>
+    <h2 class="vista-tit" data-vista="mios" hidden>★ Mis picks</h2>
+
+    <nav class="pestanas" id="pestanas" data-vista="picks">
+      <button data-dia="hoy" class="activa">Hoy</button>
+      <button data-dia="manana">Mañana</button>
+      <button data-dia="pasado">Pasado</button>
+      <button data-dia="ayer">Ayer</button>
+    </nav>
+
+    <div class="buscador"><select id="liga" aria-label="Liga"></select><input type="search" id="busca" placeholder="🔍 Equipo" autocomplete="off"></div>
+    <div class="chips desliza" id="niveles"></div>
+    <div class="chips desliza" id="deportes"></div>
+    <div class="segmentos" id="fases"></div>
+
+    <p class="aviso" id="aviso"></p>
+    <section id="tarjetas"></section>
   </section>
 
-  <section class="marcadores" id="marcadores"></section>
-
-  <nav class="pestanas" id="pestanas">
-    <button data-dia="hoy" class="activa">Hoy</button>
-    <button data-dia="manana">Mañana</button>
-    <button data-dia="pasado">Pasado</button>
-    <button data-dia="ayer">Ayer</button>
-    <button data-dia="mios">★ Mis picks</button>
-  </nav>
-
-  <div class="filtros">
-    <div class="chips" id="niveles"></div>
-  </div>
-  <div class="filtros">
-    <div class="chips" id="deportes"></div>
-    <label class="interruptor"><input type="checkbox" id="solo-vivo"> Sólo 🔴 en vivo</label>
-    <select id="orden" aria-label="Ordenar">
-      <option value="hora">Ordenar por hora</option>
-      <option value="prob">Ordenar por acierto</option>
-      <option value="cuota">Ordenar por cuota</option>
-    </select>
-  </div>
-
-  <p class="aviso" id="aviso"></p>
-  <section class="tarjetas" id="tarjetas"></section>
-
-  <section class="caja bloque-hist">
-    <div class="tit">Historial público · todo lo jugado, con verdes, rojas y dinero</div>
-    <div id="historial"></div>
-  </section>
-
-  <section class="planes" id="planes">
-    <h2>Planes</h2>
-    <div class="planes-grid">
-      <div class="caja plan">
-        <div class="tit">Gratis</div>
-        <div class="precio">$0</div>
-        <ul><li>Picks 🥇 Oro y 🥈 Plata</li><li>Marcador y estadísticas en vivo</li><li>Historial público y simulador</li><li>Canal gratis de Telegram</li></ul>
+  <!-- HISTORIAL -->
+  <section data-vista="historial" hidden>
+    <h2 class="vista-tit">📊 Historial</h2>
+    <section class="marcadores" id="marcadores"></section>
+    <section class="caja bloque-hist">
+      <div class="tit">Todo lo jugado, con verdes, rojas y dinero</div>
+      <div id="historial"></div>
+    </section>
+    <section class="caja bloque-hist">
+      <div class="tit">📢 Lo que mandamos por Telegram</div>
+      <div id="tg-hist"><p class="tenue">Cargando…</p></div>
+    </section>
+    <section class="caja simulador">
+      <div class="tit">Simulador de banca · con lo que ya se jugó</div>
+      <div class="sim-campos">
+        <label>Banca inicial $<input type="number" id="sim-banca" value="1000" min="1"></label>
+        <label>% por apuesta <input type="number" id="sim-pct" value="5" min="0.5" max="50" step="0.5"></label>
+        <label>Nivel <select id="sim-nivel"><option>Todos</option><option>Diamante</option><option>Platino</option><option>Oro</option><option>Plata</option></select></label>
       </div>
-      <div class="caja plan destacado">
-        <div class="tit">No Win, No Pay</div>
-        <div class="precio">🪙 por pick</div>
-        <ul><li>Desbloquea los 💎 Diamante y 🔷 Platino</li><li><b>Si el pick sale rojo, tus monedas regresan solas</b></li><li>50 🪙 de regalo al registrarte</li></ul>
-      </div>
-      <div class="caja plan">
-        <div class="tit">VIP</div>
-        <div class="precio">Mensual</div>
-        <ul><li>Todos los 💎 y 🔷 sin gastar monedas</li><li>Grupo VIP de Telegram con avisos al momento</li><li>La Soñadora y los boletos armados</li></ul>
-      </div>
-    </div>
-    <p class="aviso">🎉 Lanzamiento: hoy todo es gratis. Registrarte te guarda tus picks y tus 50 🪙 de regalo.</p>
-    <div id="telegram" class="tg-links"></div>
+      <div id="sim-res"></div>
+    </section>
   </section>
 
-  <section class="caja simulador">
-    <div class="tit">Simulador de banca · con lo que ya se jugó</div>
-    <div class="sim-campos">
-      <label>Banca inicial $<input type="number" id="sim-banca" value="1000" min="1"></label>
-      <label>% por apuesta <input type="number" id="sim-pct" value="5" min="0.5" max="50" step="0.5"></label>
-      <label>Nivel <select id="sim-nivel"><option>Todos</option><option>Diamante</option><option>Platino</option><option>Oro</option><option>Plata</option></select></label>
-    </div>
-    <div id="sim-res"></div>
-  </section>
-
-  <section class="caja niveles-ayuda">
-    <div class="tit">Qué significa cada nivel</div>
-    <p>💎 <b>Diamante</b>: las ⭐ ELIGE, las que más se cumplen de verdad. 🔷 <b>Platino</b>: aciertan 85 % o más. 🥇 <b>Oro</b>: 80-85 %. 🥈 <b>Plata</b>: el resto de las «se mete». El porcentaje es lo que acertaron apuestas iguales en partidos ya jugados, no una corazonada.</p>
+  <!-- PLANES -->
+  <section data-vista="planes" hidden>
+    <section class="hero">
+      <h1>Picks <span class="grad">medidos</span>, no adivinados</h1>
+      <p>Cada apuesta sale de un modelo comparado contra la casa y medido con partidos ya jugados. En vivo, con estadísticas, y las verdes y las rojas a la vista.</p>
+    </section>
+    <section class="planes" id="planes">
+      <div class="planes-grid">
+        <div class="caja plan">
+          <div class="tit">Gratis</div>
+          <div class="precio">$0</div>
+          <ul><li>Picks 🥇 Oro y 🥈 Plata</li><li>Marcador y estadísticas en vivo</li><li>Historial público y simulador</li><li>Canal gratis de Telegram</li></ul>
+        </div>
+        <div class="caja plan destacado">
+          <div class="tit">No Win, No Pay</div>
+          <div class="precio">🪙 por pick</div>
+          <ul><li>Desbloquea los 💎 Diamante y 🔷 Platino</li><li><b>Si el pick sale rojo, tus monedas regresan solas</b></li><li>50 🪙 de regalo al registrarte</li></ul>
+        </div>
+        <div class="caja plan">
+          <div class="tit">VIP</div>
+          <div class="precio">Mensual</div>
+          <ul><li>Todos los 💎 y 🔷 sin gastar monedas</li><li>Grupo VIP de Telegram con avisos al momento</li><li>La Soñadora y los boletos armados</li></ul>
+        </div>
+      </div>
+      <p class="aviso">🎉 Lanzamiento: hoy todo es gratis. Registrarte te guarda tus picks y tus 50 🪙 de regalo.</p>
+      <div id="telegram" class="tg-links"></div>
+    </section>
+    <section class="caja niveles-ayuda">
+      <div class="tit">Qué significa cada nivel</div>
+      <p>💎 <b>Diamante</b>: las ⭐ ELIGE, las que más se cumplen de verdad. 🔷 <b>Platino</b>: aciertan 85 % o más. 🥇 <b>Oro</b>: 80-85 %. 🥈 <b>Plata</b>: el resto de las «se mete». El porcentaje es lo que acertaron apuestas iguales en partidos ya jugados, no una corazonada.</p>
+    </section>
+    <footer>
+      <p>Juego responsable · Sólo mayores de 18 años. Acertar mucho no garantiza ganar dinero: a cuota baja hace falta acertar muchísimo para no perder.</p>
+      <p class="tenue" id="actualizado"></p>
+      <p class="legal"><a href="terminos.html">Términos</a> · <a href="privacidad.html">Aviso de privacidad</a></p>
+    </footer>
   </section>
 </main>
+
+<nav class="nav-abajo" id="nav">
+  <button data-vista-ir="picks" class="activa"><span>🏠</span>Picks</button>
+  <button data-vista-ir="vivo"><span>🔴</span>En vivo<i id="nav-vivo-n" hidden></i></button>
+  <button data-vista-ir="mios"><span>★</span>Mis picks</button>
+  <button data-vista-ir="historial"><span>📊</span>Historial</button>
+  <button data-vista-ir="planes"><span>💎</span>Planes</button>
+</nav>
 
 <div class="ficha" id="acceso" hidden><div class="ficha-caja acceso">
   <button class="cerrar" data-cerrar-acceso>✕</button>
   <h3>Entra a SharPicks</h3>
-  <p class="tenue">Te mandamos un enlace a tu correo; sin contraseñas.</p>
+  <button class="google" data-google hidden><svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continuar con Google</button>
+  <p class="tenue">O te mandamos un enlace a tu correo; sin contraseñas.</p>
   <form id="acceso-form"><input type="email" id="acceso-correo" placeholder="tu@correo.com" required autocomplete="email"><button class="ver" type="submit">Enviarme el enlace</button></form>
   <p class="sub" id="acceso-msg"></p>
   <p class="tenue chico">Al entrar aceptas los <a href="terminos.html">términos</a> y el <a href="privacidad.html">aviso de privacidad</a>. Sólo mayores de 18 años.</p>
 </div></div>
 
 <div class="ficha" id="ficha" hidden><div class="ficha-caja" id="ficha-cuerpo"></div></div>
-
-<footer>
-  <p>Juego responsable · Sólo mayores de 18 años. Acertar mucho no garantiza ganar dinero: a cuota baja hace falta acertar muchísimo para no perder.</p>
-  <p class="tenue" id="actualizado"></p>
-  <p class="legal"><a href="terminos.html">Términos</a> · <a href="privacidad.html">Aviso de privacidad</a> · <a href="#planes">Planes</a></p>
-</footer>
 
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>

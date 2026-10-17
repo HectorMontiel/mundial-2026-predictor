@@ -25,7 +25,9 @@
     let h = '<div class="acciones">';
     if (p.premium && !yo.desbloqueados[p.id]) {
       const pr = precio(p);
-      h += '<button class="desbloquear" data-desbloquear="' + esc(p.id) + '">' +
+      // v381 — lanzamiento: con cuenta (gratis) se ven todos; sin cuenta, candado
+      if (!yo.user) h += '<button class="desbloquear" data-entrar>🔓 Entra gratis para verlo</button>';
+      else h += '<button class="desbloquear" data-desbloquear="' + esc(p.id) + '">' +
         (pr ? 'Desbloquear por ' + pr + ' 🪙' : 'Desbloquear gratis') + '</button>' +
         '<small class="nwnp">Si sale roja, se te devuelve</small>';
     }
@@ -69,13 +71,21 @@
 
   function abrirAcceso(msg) {
     $('acceso-msg').textContent = msg || '';
+    const g = document.querySelector('[data-google]'); if (g) g.hidden = !C.LOGIN_GOOGLE;
     $('acceso').hidden = false;
     setTimeout(() => $('acceso-correo').focus(), 50);
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso]');
+    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google]');
     if (!t) return;
+    // v380 — entrar con Google (se enciende con CONFIG.LOGIN_GOOGLE cuando
+    // el proveedor está activo en Supabase → Authentication → Providers)
+    if (t.hasAttribute('data-google')) {
+      const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
+      if (error) $('acceso-msg').textContent = 'Google todavía no está disponible; entra con tu correo.';
+      return;
+    }
     if (t.hasAttribute('data-cerrar-acceso')) { $('acceso').hidden = true; return; }
     if (t.hasAttribute('data-entrar')) { abrirAcceso(); return; }
     if (t.hasAttribute('data-salir')) { await sb.auth.signOut(); await refrescar(); return; }
@@ -126,6 +136,59 @@
       filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td class="' + (d.gana_por_100 >= 0 ? 'txt-verde' : 'txt-rojo') + '">' + (d.gana_por_100 >= 0 ? '+' : '') + d.gana_por_100 + '</td></tr>').join('') + '</table>';
   }
 
+  // ---------- v380: LO QUE MANDAMOS POR TELEGRAM, CON SU RESULTADO ----------
+  // El usuario: «saber de los picks que mandamos gratis y VIP, combinados e
+  // individuales, cuáles salieron verdes; la combinada, verde hasta que
+  // termine el último partido». De `telegram_publicados` (lo enviado) y el
+  // estado de cada pick en la base; la combinada es ❌ en cuanto falla una
+  // pata, ✅ cuando todas terminan bien, y ⏳ «1 de 2 ✅» mientras tanto.
+  const tg = { canal: 'gratis', items: [] };
+  function estadoItem(ps) {
+    if (ps.some((p) => p.estado === 'roja')) return 'roja';
+    if (ps.every((p) => p.estado === 'verde' || p.estado === 'nula') && ps.some((p) => p.estado === 'verde')) return 'verde';
+    return 'pendiente';
+  }
+  async function telegramHist() {
+    const caja = $('tg-hist'); if (!caja || !sb) return;
+    const desde = new Date(Date.now() - 30 * 864e5).toISOString();
+    const { data } = await sb.from('telegram_publicados').select('*').gte('enviado', desde).order('enviado', { ascending: false }).limit(1000);
+    const filas = data || [];
+    const ids = [...new Set(filas.flatMap((f) => f.clave.startsWith('comb:') ? f.clave.slice(5).split('+') : [f.clave]))];
+    const picks = {};
+    for (let i = 0; i < ids.length; i += 100) {
+      const r = await sb.from('picks').select('id,partido,apuesta,cuota,estado,marcador,inicio,prob').in('id', ids.slice(i, i + 100));
+      (r.data || []).forEach((p) => { picks[p.id] = p; });
+    }
+    tg.items = filas.map((f) => {
+      const ps = (f.clave.startsWith('comb:') ? f.clave.slice(5).split('+') : [f.clave]).map((i) => picks[i]).filter(Boolean);
+      return { canal: f.canal, enviado: f.enviado, comb: f.clave.startsWith('comb:'), ps, est: ps.length ? estadoItem(ps) : 'pendiente' };
+    }).filter((x) => x.ps.length);
+    pintarTg();
+  }
+  function pintarTg() {
+    const caja = $('tg-hist'); if (!caja) return;
+    const it = tg.items.filter((x) => x.canal === tg.canal);
+    const v = it.filter((x) => x.est === 'verde').length, r = it.filter((x) => x.est === 'roja').length;
+    const comb = it.filter((x) => x.comb), cv = comb.filter((x) => x.est === 'verde').length, cr = comb.filter((x) => x.est === 'roja').length;
+    const tab = (c, t) => '<button class="seg' + (tg.canal === c ? ' activa' : '') + '" data-tg-canal="' + c + '">' + t + '</button>';
+    let h = '<div class="segmentos dos">' + tab('gratis', '📢 Gratis') + tab('vip', '💎 VIP') + '</div>';
+    if (!it.length) { caja.innerHTML = h + '<p class="tenue">Todavía no hay envíos en este canal.</p>'; return; }
+    h += '<div class="num">✅ ' + v + ' ❌ ' + r + (v + r ? ' <span class="pct">' + Math.round(100 * v / (v + r)) + ' %</span>' : '') + '</div>' +
+      (comb.length ? '<div class="sub">🔗 Combinadas: ✅ ' + cv + ' ❌ ' + cr + ' · ⏳ ' + (comb.length - cv - cr) + '</div>' : '') +
+      '<div class="tg-items">' + it.slice(0, 40).map((x) => {
+        const hechas = x.ps.filter((p) => p.estado === 'verde').length;
+        const chip = x.est === 'verde' ? '<span class="et verde">✅ Verde</span>' : x.est === 'roja' ? '<span class="et roja">❌ Roja</span>'
+          : '<span class="et vivo">⏳ ' + (x.comb ? hechas + ' de ' + x.ps.length + ' ✅' : 'Pendiente') + '</span>';
+        const cuota = x.ps.reduce((s, p) => s * Number(p.cuota || 1), 1);
+        return '<div class="tg-item ' + x.est + '"><div class="fila"><span>' + (x.comb ? '🔗 Combinada' : (tg.canal === 'vip' ? '💎 Pick' : '🎯 Pick del día')) +
+          ' · <b>' + cuota.toFixed(2) + '</b></span>' + chip + '</div>' +
+          x.ps.map((p) => '<div class="tg-pata">' + (p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : '⏳') + ' ' + esc(p.apuesta) +
+            ' <span class="tenue">· ' + esc(p.partido) + (p.marcador ? ' ' + esc(p.marcador) : '') + '</span></div>').join('') + '</div>';
+      }).join('') + '</div>';
+    caja.innerHTML = h;
+  }
+  document.addEventListener('click', (e) => { const b = e.target.closest('[data-tg-canal]'); if (b) { tg.canal = b.dataset.tgCanal; pintarTg(); } });
+
   // ---------- Telegram ----------
   function telegram() {
     const c = $('telegram'); if (!c) return;
@@ -139,7 +202,8 @@
     sb.auth.onAuthStateChange(() => refrescar());
     refrescar();
     historial();
-    setInterval(historial, 10 * 60 * 1000);
+    telegramHist();
+    setInterval(() => { historial(); telegramHist(); }, 10 * 60 * 1000);
   }
   telegram();
 })();

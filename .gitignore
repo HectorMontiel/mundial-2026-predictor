@@ -244,3 +244,4 @@ _v315_rojos.csv
 
 # v377: el sitio web genera sus datos en el workflow (sitio_web.yml)
 web/datos/
+datos_privados/

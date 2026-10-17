@@ -28,6 +28,9 @@ from typing import Dict, List
 
 logger = logging.getLogger('exportar_web')
 SALIDA = os.environ.get('WEB_DATOS', os.path.join('web', 'datos', 'hoy.json'))
+# v381 — el texto real de los picks premium, para el bot del canal VIP. Fuera
+# de `web/` a propósito: lo de `web/` se publica y cualquiera lo leería.
+PRIVADO = os.environ.get('WEB_PRIVADO', os.path.join('datos_privados', 'premium.json'))
 CAMPOS = ('partido', 'inicio', 'fecha', 'deporte', 'liga', 'apuesta', 'cuota', 'prob',
           'elige', 'porque', 'resultado_c1', 'marcador',
           # v378 — para lo en vivo (ver `espn_vivo`)
@@ -178,6 +181,12 @@ def main() -> int:
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(r, f, ensure_ascii=False, indent=0)
     os.replace(tmp, SALIDA)
+    try:
+        os.makedirs(os.path.dirname(PRIVADO), exist_ok=True)
+        with open(PRIVADO, 'w', encoding='utf-8') as f:
+            json.dump({x['id']: x['apuesta'] for x in secretos}, f, ensure_ascii=False)
+    except Exception as e:
+        logger.warning('[web] sin fichero privado: %s', e)
     n = subir_supabase(r['picks'], secretos)
     print('web: %d picks en %s; %d subidos a Supabase; %d premium' % (len(r['picks']), SALIDA, n, len(secretos)))
     return 0

@@ -10,4 +10,6 @@ window.CONFIG = {
   // v379 — enlaces de invitación de los canales (t.me/...); vacíos = «muy pronto»
   TELEGRAM_GRATIS: 'https://t.me/sharpicks_mx',
   TELEGRAM_VIP: 'https://t.me/+qqtEBbAClQwxYzYx',
+  // v380 — true cuando Google esté activo en Supabase (Authentication → Providers)
+  LOGIN_GOOGLE: true,
 };
