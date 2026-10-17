@@ -233,12 +233,10 @@ def proximos(dias: int = 14) -> pd.DataFrame:
     hoy = pd.Timestamp.utcnow().tz_localize(None).normalize()
     fin = hoy + pd.Timedelta(days=dias)
     try:
-        r = requests.get(
+        import espn_fechas          # v393: sin rangos con guion
+        eventos = espn_fechas.eventos(
             f'https://site.api.espn.com/apis/site/v2/sports/soccer/{ESPN_LIGA}/scoreboard',
-            params={'dates': f"{hoy:%Y%m%d}-{fin:%Y%m%d}", 'limit': 500},
-            timeout=30)
-        r.raise_for_status()
-        eventos = r.json().get('events', []) or []
+            hoy, fin, {'limit': 500}, timeout=30)
     except Exception as e:
         logger.warning(f'[leagues_cup] próximos: {type(e).__name__}: {e}')
         return pd.DataFrame()

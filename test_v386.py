@@ -63,8 +63,14 @@ def probar():
     cu = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
     check("p.tipo !== 'error'" in app and 'Cuota alta: ✅' in app and 'function iaHtml(' in app,
           'la página separa el marcador de los errores y enseña la IA')
-    check("from('ia_aciertos')" in cu and 'elegir al favorito' in cu and "from('ia_analisis')" in cu,
-          'el historial mide a la IA contra elegir al favorito')
+    check("from('ia_aciertos')" in cu and 'Elegir al favorito' in cu and "from('ia_analisis')" in cu and "$('ia-hist')" in cu,
+          'el historial mide a la IA contra elegir al favorito (y sale siempre)')
+    src = open('ia_gemini.py', encoding='utf-8').read()
+    check("'enum': ['a_favor', 'en_contra']" in src and "'veredictos': vs" in src and 'function iaDelPick(' in app,
+          'la IA dice a favor o en contra de cada pick, se mide, y se avisa en la fila')
+    check("'pred_corners'" in src and "'pred_tarjetas'" in src and "'marcador_probable'" in src and 'def _corners_tarjetas(' in src,
+          'la IA da marcador, córners y tarjetas, y se miden contra lo real')
+    check(ia._linea(9.2) == 9.5 and ia._linea(4) == 4.5 and ia._linea(None) is None, 'las líneas de la IA siempre son .5')
 
 
 if __name__ == '__main__':

@@ -84,11 +84,11 @@ def descargar_espn(liga_espn: str, desde: str, hasta: Optional[str] = None,
     saltar = MESES_SIN_UEFA if liga_espn in LIGAS_CON_RECESO_JULIO else ()
     for ini, fin in _rango_meses(desde, hasta, saltar_meses=saltar):
         try:
-            r = requests.get(ESPN_BASE.format(liga=liga_espn),
-                             params={'dates': f'{ini}-{fin}', 'limit': 500},
-                             timeout=30)
-            r.raise_for_status()
-            eventos = r.json().get('events', []) or []
+            # v393: ESPN ya no acepta `dates=ini-fin` (HTTP 400): por mes y
+            # filtrando el rango (ver `espn_fechas`).
+            import espn_fechas
+            eventos = espn_fechas.eventos(ESPN_BASE.format(liga=liga_espn), ini, fin,
+                                          {'limit': 500}, timeout=30)
         except Exception as e:
             logger.warning(f"[uefa/{liga_espn}] {ini}-{fin}: {type(e).__name__} {e}")
             continue

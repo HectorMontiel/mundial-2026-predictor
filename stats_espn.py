@@ -105,6 +105,16 @@ UA = {'User-Agent': 'Mozilla/5.0'}
 TIMEOUT = 25
 HILOS = 8
 
+# v393 — COMPETICIONES QUE ESPN CUBRE SÓLO PARA ESTADÍSTICAS. No están en
+# `fixtures_espn.ESPN_CODIGOS` (sus partidos salen de FotMob o la liga no está
+# activa), pero el boxscore de ESPN trae córners y tarjetas (medido el 17-oct).
+# La Femenil MX era «sin cobertura en ESPN» y FotMob no publica sus
+# estadísticas: ésta es su única fuente real.
+CODIGOS_SOLO_STATS = {
+    'mex_femenil': 'mex.w.1', 'fem_inglaterra': 'eng.w.1',
+    'fem_espana': 'esp.w.1', 'fem_francia': 'fra.w.1', 'suiza': 'sui.1',
+}
+
 # El nombre de ESPN -> la columna del histórico. `totalShots` no está aquí
 # porque el histórico guarda remates DENTRO y FUERA por separado, y el de fuera
 # se deriva restando (ver `_fila_de_evento`).
@@ -260,13 +270,13 @@ def _fila_de_evento(code: str, ev: Dict) -> Optional[Dict]:
 # ---------------------------------------------------------------------------
 # caché en disco
 # ---------------------------------------------------------------------------
-def ruta(clave: str) -> str:
-    return os.path.join(DIRECTORIO, '%s.csv.gz' % clave)
+def ruta(clave: str, directorio: str = None) -> str:
+    return os.path.join(directorio or DIRECTORIO, '%s.csv.gz' % clave)
 
 
-def leer(clave: str) -> pd.DataFrame:
+def leer(clave: str, directorio: str = None) -> pd.DataFrame:
     """Lo que ya está descargado de esta competición. Vacío si no hay nada."""
-    r = ruta(clave)
+    r = ruta(clave, directorio)
     if not os.path.exists(r):
         return pd.DataFrame(columns=COLUMNAS)
     try:
@@ -280,11 +290,41 @@ def leer(clave: str) -> pd.DataFrame:
         return pd.DataFrame(columns=COLUMNAS)
 
 
-def _guardar(clave: str, d: pd.DataFrame) -> None:
-    os.makedirs(DIRECTORIO, exist_ok=True)
+def _filas_en_disco(clave: str, directorio: str = None) -> Optional[int]:
+    """Cuántas filas tiene hoy el fichero; 0 si no existe; None si existe y
+    NO se puede leer (entonces no se toca: ver `_guardar`)."""
+    r = ruta(clave, directorio)
+    if not os.path.exists(r):
+        return 0
+    try:
+        return len(pd.read_csv(r, compression='gzip', usecols=['event_id']))
+    except Exception:
+        return None
+
+
+class EscrituraPeligrosa(RuntimeError):
+    pass
+
+
+def _guardar(clave: str, d: pd.DataFrame, permitir_perder: bool = False,
+             directorio: str = None) -> None:
+    """Escribe la caché. CANDADO (v393): no se pisa un fichero que existe y
+    no se puede leer, ni se escribe una versión con 30 % menos filas.
+
+    Pasó el 13-oct: el fichero estaba dañado (ver `git_sin_conflictos`),
+    `leer` devolvía vacío, y `backfill --dias 10` lo reescribió con lo de
+    esos 10 días. 34 competiciones perdieron casi todo su histórico."""
+    os.makedirs(directorio or DIRECTORIO, exist_ok=True)
     d = d.drop_duplicates(subset=['event_id'], keep='last')
     d = d.sort_values('fecha').reset_index(drop=True)
-    d.to_csv(ruta(clave), index=False, compression='gzip')
+    antes = _filas_en_disco(clave, directorio)
+    if antes is None:
+        raise EscrituraPeligrosa('%s existe y está ilegible: no se sobrescribe'
+                                 % ruta(clave, directorio))
+    if not permitir_perder and antes >= 20 and len(d) < 0.7 * antes:
+        raise EscrituraPeligrosa('%s pasaría de %d a %d filas: no se escribe'
+                                 % (ruta(clave, directorio), antes, len(d)))
+    d.to_csv(ruta(clave, directorio), index=False, compression='gzip')
 
 
 def backfill(clave: str, desde: str, hasta: str, hilos: int = HILOS,
@@ -299,7 +339,7 @@ def backfill(clave: str, desde: str, hasta: str, hilos: int = HILOS,
     from concurrent.futures import ThreadPoolExecutor
     import fixtures_espn
 
-    code = fixtures_espn.ESPN_CODIGOS.get(clave)
+    code = fixtures_espn.ESPN_CODIGOS.get(clave) or CODIGOS_SOLO_STATS.get(clave)
     if not code:
         return {'clave': clave, 'error': 'sin código ESPN'}
 
@@ -428,7 +468,8 @@ def _traductor(nombres_espn, catalogo) -> Dict[str, str]:
     return salida
 
 
-def inyectar(df: pd.DataFrame, clave: str) -> pd.DataFrame:
+def inyectar(df: pd.DataFrame, clave: str, directorio: str = None,
+             origen: str = 'espn') -> pd.DataFrame:
     """
     Mete en `df` las estadísticas reales que haya para esos partidos.
 
@@ -445,7 +486,7 @@ def inyectar(df: pd.DataFrame, clave: str) -> pd.DataFrame:
     """
     if df is None or getattr(df, 'empty', True):
         return df
-    cache = leer(clave)
+    cache = leer(clave, directorio)
     if not len(cache):
         return df
 
@@ -543,8 +584,8 @@ def inyectar(df: pd.DataFrame, clave: str) -> pd.DataFrame:
                 continue
             d.iat[pos, j] = float(v)
             algo = True
-        if algo:
-            d.iat[pos, d.columns.get_loc('stats_origen')] = 'espn'
+        if algo and pd.isna(d.iat[pos, d.columns.get_loc('stats_origen')]):
+            d.iat[pos, d.columns.get_loc('stats_origen')] = origen
         puestos += int(algo)
 
     if puestos:
@@ -569,7 +610,7 @@ def limpiar(clave: str) -> Dict:
     vacias = (ph + pa) <= 1.0
     n = int(vacias.sum())
     if n:
-        _guardar(clave, d[~vacias])
+        _guardar(clave, d[~vacias], permitir_perder=True)
     return {'clave': clave, 'antes': int(len(d)), 'quitadas': n,
             'quedan': int(len(d) - n)}
 
@@ -610,7 +651,8 @@ def main() -> int:
 
     claves = ([args.liga] if args.liga else
               [c for c, v in LEAGUES.items()
-               if v.get('disponible') and c in fixtures_espn.ESPN_CODIGOS])
+               if v.get('disponible') and c in fixtures_espn.ESPN_CODIGOS]
+              + list(CODIGOS_SOLO_STATS))
 
     if args.limpiar:
         total = 0
@@ -647,7 +689,11 @@ def main() -> int:
     print('ventana %s → %s · %d competiciones' % (desde, hasta, len(claves)))
     total_nuevas = 0
     for c in claves:
-        r = backfill(c, desde, hasta, hilos=args.hilos)
+        try:
+            r = backfill(c, desde, hasta, hilos=args.hilos)
+        except EscrituraPeligrosa as e:
+            print('::warning::[stats_espn] %s' % e)
+            continue
         if r.get('error'):
             print('  %-24s %s' % (c, r['error']))
             continue

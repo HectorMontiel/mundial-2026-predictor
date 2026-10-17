@@ -194,8 +194,57 @@ def _forma(df, idx, eq, antes) -> str:
     return out
 
 
+def _norm(t) -> str:
+    """Para empatar nombres parecidos entre fuentes («Sociedad B» / «Real Sociedad B»)."""
+    import re
+    import unicodedata
+    t = unicodedata.normalize('NFKD', str(t or '')).encode('ascii', 'ignore').decode().lower()
+    pal = [w for w in re.split(r'[^a-z0-9]+', t) if w and w not in ('fc', 'cf', 'sc', 'cd', 'ud', 'club', 'real', 'de', 'the', 'afc', 'sd')]
+    return ' '.join(pal)
+
+
+def _equipo_fs(nombre, idx) -> Optional[str]:
+    """El nombre de Flashscore de un equipo: exacto o, si no, el parecido."""
+    if nombre in idx:
+        return nombre
+    n = _norm(nombre)
+    if not n:
+        return None
+    if 'norm' not in _FS:
+        _FS['norm'] = {}
+        for k in idx:
+            _FS['norm'].setdefault(_norm(k), k)
+    return _FS['norm'].get(n)
+
+
+def _promedios(h, eq, antes, n=10) -> Optional[Dict]:
+    """v391 — lo de los últimos `n` partidos del equipo en el histórico de la liga."""
+    import pandas as pd
+    m = h[((h['home_team'] == eq) | (h['away_team'] == eq)) & (h['date'] < antes)].sort_values('date').tail(n)
+    if len(m) < 3:
+        return None
+    out = {'n': int(len(m))}
+    def lado(col):
+        a = pd.to_numeric(m['home_' + col], errors='coerce').where(m['home_team'] == eq, pd.to_numeric(m['away_' + col], errors='coerce'))
+        b = pd.to_numeric(m['away_' + col], errors='coerce').where(m['home_team'] == eq, pd.to_numeric(m['home_' + col], errors='coerce'))
+        return a, b
+    gf, gc = lado('goals')
+    out['gf'], out['gc'] = round(float(gf.mean()), 2), round(float(gc.mean()), 2)
+    tot = gf + gc
+    out['o25'] = round(float((tot > 2.5).mean()), 2)
+    out['btts'] = round(float(((gf > 0) & (gc > 0)).mean()), 2)
+    for col, k in (('corners', 'cor'), ('shots_on', 'tap'), ('yellow', 'tar'), ('possession', 'pos')):
+        if 'home_' + col in m.columns:
+            a, _ = lado(col)
+            if a.notna().sum() >= 3:
+                out[k] = round(float(a.mean()), 1)
+    res = ['G' if a > b else ('E' if a == b else 'P') for a, b in zip(gf, gc)]
+    out['forma'] = ''.join(res[-5:])
+    return out
+
+
 def contexto(p: Dict) -> Optional[Dict]:
-    """{'fl': 'GGEPG', 'fv': ..., 'h2h': [[fecha, local, marcador, visita], …], 'bl': [...], 'bv': [...]}"""
+    """{'fl': 'GGEPG', 'fv': ..., 'sl'/'sv': promedios de los últimos 10, 'h2h': [[fecha, local, marcador, visita], …], 'bl': [...], 'bv': [...]}"""
     try:
         if str(p.get('deporte') or '') != 'Fútbol' or ' vs ' not in str(p.get('partido') or ''):
             return None
@@ -204,9 +253,36 @@ def contexto(p: Dict) -> Optional[Dict]:
         import pandas as pd
         antes = pd.Timestamp(str(p.get('inicio') or '')[:10] or dt.date.today().isoformat())
         ctx = {}
+        # v391 — 1.º el histórico de la LIGA (mismos nombres que el pick, y con
+        # córners, tiros, tarjetas, posesión); 2.º Flashscore con nombres parecidos
+        clave = p.get('clave_liga')
+        if clave:
+            try:
+                import panel_equipos as pe
+                h = pe._historico(clave)
+                if h is not None and len(h):
+                    h = h.copy()
+                    h['date'] = pd.to_datetime(h['date'], errors='coerce')
+                    pl, pv = _promedios(h, home, antes), _promedios(h, away, antes)
+                    if pl:
+                        ctx['sl'], ctx['fl'] = pl, pl['forma']
+                    if pv:
+                        ctx['sv'], ctx['fv'] = pv, pv['forma']
+                    c = h[(((h.home_team == home) & (h.away_team == away)) | ((h.home_team == away) & (h.away_team == home))) & (h['date'] < antes)]
+                    c = c.sort_values('date').tail(5)
+                    if len(c):
+                        ctx['h2h'] = [[d.strftime('%d/%m/%y'), a, '%d-%d' % (gh, ga), b] for d, a, gh, ga, b in
+                                      zip(c['date'], c['home_team'], c['home_goals'], c['away_goals'], c['away_team'])
+                                      if pd.notna(gh) and pd.notna(ga)][::-1]
+            except Exception as ex:
+                logger.debug('[errores] liga %s: %s', clave, ex)
         if df is not None:
-            ctx['fl'], ctx['fv'] = _forma(df, idx, home, antes), _forma(df, idx, away, antes)
-            comun = sorted(set(idx.get(home, [])) & set(idx.get(away, [])))
+            hf, af = _equipo_fs(home, idx) or home, _equipo_fs(away, idx) or away
+            if not ctx.get('fl'):
+                ctx['fl'] = _forma(df, idx, hf, antes)
+            if not ctx.get('fv'):
+                ctx['fv'] = _forma(df, idx, af, antes)
+            comun = sorted(set(idx.get(hf, [])) & set(idx.get(af, []))) if len(ctx.get('h2h') or []) < 2 else []
             if comun:
                 m = df.iloc[comun]
                 m = m[m['date'] < antes].tail(5)
@@ -217,7 +293,7 @@ def contexto(p: Dict) -> Optional[Dict]:
             ctx['bl'] = b[home][:6]
         if b.get(away):
             ctx['bv'] = b[away][:6]
-        return {k: v for k, v in ctx.items() if v} or None
+        return {k: v for k, v in ctx.items() if v} or None   # (fl, fv, sl, sv, h2h, bl, bv)
     except Exception as ex:
         logger.debug('[errores] contexto %s: %s', p.get('partido'), ex)
         return None

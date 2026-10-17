@@ -68,11 +68,51 @@ def es_codigo(ruta: str) -> bool:
     return ruta.endswith('.py') or ruta.startswith('.github/')
 
 
-def _lado(ruta: str, etapa: int) -> Optional[str]:
+def _lado(ruta: str, etapa: int) -> Optional[bytes]:
     """El contenido de `ruta` en la etapa 2 (lo de arriba: main) o 3 (lo
-    recién generado por este job). None si ese lado no existe."""
-    r = _git('show', ':%d:%s' % (etapa, ruta))
+    recién generado por este job), EN BYTES. None si ese lado no existe.
+
+    v393: antes se leía como texto con errors='replace'; un `.csv.gz` se
+    convertía en basura (bytes EF BF BD) y se guardaba así. Pasó el 12-oct
+    con 34 ficheros de `stats_espn/`, y al día siguiente el reentrenamiento,
+    al no poder leerlos, los reescribió con sólo los últimos 10 días: la
+    Liga MX se quedó con 9 partidos con córners de los 1.837 que tenía."""
+    r = subprocess.run(['git', 'show', ':%d:%s' % (etapa, ruta)],
+                       capture_output=True)
     return r.stdout if r.returncode == 0 else None
+
+
+def _texto(b: Optional[bytes]) -> Optional[str]:
+    return None if b is None else b.decode('utf-8', errors='replace')
+
+
+def _gz_texto(b: Optional[bytes]) -> Optional[str]:
+    """El CSV de dentro de un `.csv.gz`; None si no existe o está roto (un
+    lado roto no cuenta: se queda el otro entero)."""
+    if b is None:
+        return None
+    import gzip
+    try:
+        return gzip.decompress(b).decode('utf-8')
+    except Exception:
+        _aviso('un lado del .csv.gz no se puede leer: se ignora')
+        return None
+
+
+def fundir(ruta: str, arriba: Optional[bytes], nuevo: Optional[bytes]):
+    """(contenido en bytes o None, cómo). Nunca pasa un binario por texto."""
+    if ruta.endswith('.csv'):
+        a, b = _texto(arriba), _texto(nuevo)
+        if a is None and b is None:
+            return None, 'borrado'
+        return unir_csv(a, b).encode('utf-8'), 'filas unidas'
+    if ruta.endswith('.csv.gz'):
+        import gzip
+        a, b = _gz_texto(arriba), _gz_texto(nuevo)
+        if a is None and b is None:
+            return (nuevo if nuevo is not None else arriba), 'versión recién generada'
+        return gzip.compress(unir_csv(a, b).encode('utf-8'), mtime=0), 'filas unidas (gz)'
+    return (nuevo if nuevo is not None else arriba), 'versión recién generada'
 
 
 def unir_csv(a: Optional[str], b: Optional[str]) -> str:
@@ -110,18 +150,12 @@ def resolver() -> int:
             _git('checkout', '--ours', '--', ruta)
             _git('add', '--', ruta)
             continue
-        arriba, nuevo = _lado(ruta, 2), _lado(ruta, 3)
-        if ruta.endswith('.csv'):
-            contenido = unir_csv(arriba, nuevo)
-            como = 'filas unidas'
-        else:
-            contenido = nuevo if nuevo is not None else arriba
-            como = 'versión recién generada'
+        contenido, como = fundir(ruta, _lado(ruta, 2), _lado(ruta, 3))
         if contenido is None:
             _git('rm', '-q', '-f', '--', ruta)
         else:
             os.makedirs(os.path.dirname(ruta) or '.', exist_ok=True)
-            with open(ruta, 'w', encoding='utf-8', newline='') as f:
+            with open(ruta, 'wb') as f:
                 f.write(contenido)
             _git('add', '--', ruta)
         print('resuelto %s: %s' % (ruta, como), flush=True)

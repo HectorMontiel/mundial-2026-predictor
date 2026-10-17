@@ -105,14 +105,12 @@ def _desde_espn() -> pd.DataFrame:
     try:
         ini = FASES_2026[0][1].replace('-', '')
         fin = FASES_2026[-1][2].replace('-', '')
-        r = requests.get(
+        import espn_fechas          # v393: sin rangos con guion
+        evs = espn_fechas.eventos(
             'https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard',
-            params={'dates': f'{ini}-{fin}', 'limit': 200},
-            headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'},
-            timeout=30)
-        r.raise_for_status()
+            ini, fin, {'limit': 200}, timeout=30)
         filas = []
-        for ev in r.json().get('events', []):
+        for ev in evs:
             estado = ev.get('status', {}).get('type', {}).get('name', '')
             if estado not in ('STATUS_FULL_TIME', 'STATUS_FINAL', 'STATUS_FINAL_AET',
                               'STATUS_FINAL_PEN'):

@@ -411,3 +411,68 @@ body::after { width: 60vmax; height: 60vmax; right: -22vmax; bottom: -20vmax;
 .paquete b { font-size: 20px; } .paquete span { font-weight: 800; color: var(--verde); } .paquete small { color: var(--tenue); font-size: 11px; }
 .paquete.top { border-color: rgba(245,179,1,.6); background: linear-gradient(160deg, rgba(245,179,1,.16), rgba(124,92,255,.08)); }
 .tabla.precios { margin-top: 8px; } .tabla.precios td, .tabla.precios th { text-align: left; }
+
+/* ====================================================================== */
+/* v390 — LA IDENTIDAD DE SHARPICKS. El usuario mandó el logo: emblema «SP»
+   plateado y verde esmeralda sobre azul marino. Los colores del Liquid Glass
+   pasan del morado/rosa a los de la marca. (Los colores de cada EQUIPO en las
+   estadísticas no se tocan: son de los equipos.) */
+:root {
+  --marca: #3ddc84; --marca-2: #16a864; --marca-luz: #8ff0bd; --plata: #dfe6ef; --plata-2: #9aa7b8;
+  --fondo: #0a1222; --morado: #2fd27f; --rosa: #7ee8c0;
+  --borde-vidrio: rgba(205,235,220,.14);
+}
+body { background: #070d19; }
+body::before { background: radial-gradient(circle at 30% 30%, #18a35e 0%, rgba(24,163,94,0) 62%); opacity: .42; }
+body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29,78,216,0) 62%); opacity: .38; }
+/* el emblema */
+.marca { gap: 10px; }
+.marca-img { display: grid; place-items: center; width: 40px; height: 40px; }
+.marca-img img { width: 38px; height: 38px; filter: drop-shadow(0 0 8px rgba(61,220,132,.45)) drop-shadow(0 2px 6px rgba(0,0,0,.5)); }
+#nombre { font-weight: 800; font-size: 19px; letter-spacing: .2px; }
+#nombre .m1 { color: var(--plata); background: linear-gradient(180deg, #ffffff, #b9c3cf); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+#nombre .m2 { background: linear-gradient(180deg, var(--marca-luz), var(--marca)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 10px rgba(61,220,132,.35)); }
+.grad { background: linear-gradient(90deg, #eef2f6, var(--marca)); -webkit-background-clip: text; background-clip: text; }
+/* botones y estados activos en verde de la marca (texto oscuro para que se lea) */
+.entrar, .desbloquear, .vip-btn, .pestanas button.activa, .chip.activa, .seg.activa {
+  background: linear-gradient(135deg, #43e08c, #14a35f); color: #03150b; border-color: rgba(255,255,255,.28);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.45), 0 6px 22px rgba(43,212,125,.32);
+}
+.vip-btn small, .seg.activa small { color: #063a1f; opacity: .85; }
+.vip-btn.sec { color: var(--texto); background: var(--vidrio-fuerte); border-color: rgba(61,220,132,.45); }
+.nav-abajo button.activa { background: linear-gradient(135deg, rgba(61,220,132,.30), rgba(154,167,184,.12)); color: #ffffff; }
+.nav-abajo i { background: var(--marca); color: #03150b; }
+.apuesta { background: rgba(61,220,132,.09); border-color: rgba(61,220,132,.30); }
+.pf-cu { background: rgba(61,220,132,.18); color: #eafff3; }
+.tarjeta:hover { border-color: rgba(61,220,132,.5); }
+.ver { border-color: rgba(61,220,132,.42); }
+.ver:hover { background: rgba(61,220,132,.14); }
+.partido-fila.abierto .pf { background: rgba(61,220,132,.07); }
+.ctx.ia { border-color: rgba(61,220,132,.32); background: rgba(61,220,132,.05); }
+.aviso-ok { background: rgba(61,220,132,.12); border-color: rgba(61,220,132,.35); }
+.plan.destacado { border-color: rgba(61,220,132,.55); box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 10px 40px rgba(61,220,132,.14); }
+.tg.vip { background: linear-gradient(135deg, #67e8f9, var(--marca-2)); }
+.logo { background: linear-gradient(135deg, var(--marca), var(--marca-2)); }
+.marcadores .caja .num, .vista-tit { text-shadow: 0 2px 18px rgba(61,220,132,.28); }
+.barra i { background: var(--marca); }
+.curva { color: var(--marca); }
+.ayuda-btn { color: var(--marca-luz); }
+.paquete span { color: var(--marca); }
+.top { background: rgba(8,14,28,.55); }
+
+/* v391 — los veredictos de la IA */
+.ia-ver div { font-size: 13px; margin: 5px 0; line-height: 1.45; }
+.ia-ver .contra { color: #fecaca; } .ia-ver .favor { color: #d1fae5; }
+.ia-aviso { font-size: 12px; font-weight: 600; color: #fecaca; background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.35); border-radius: 10px; padding: 6px 10px; }
+.ia-fila { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 7px 0; border-bottom: 1px solid var(--borde); font-size: 14px; }
+.ia-fila small { color: var(--tenue); min-width: 44px; text-align: right; }
+
+/* v392 — la IA más precisa */
+.ia-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 6px; margin: 8px 0; }
+.ia-grid div { background: rgba(255,255,255,.04); border: 1px solid var(--borde); border-radius: 10px; padding: 7px 9px; }
+.ia-grid small { display: block; color: var(--tenue); font-size: 11px; }
+.ia-grid b { font-size: 14px; }
+
+/* v392 — las barras de comparación sin colores de equipo: los de la marca (verde local, azul visitante) */
+:root { --c-l: #3ddc84; --c-r: #60a5fa; --t-l: #03150b; --t-r: #04122b; }

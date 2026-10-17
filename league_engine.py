@@ -973,6 +973,13 @@ def descargar_liga(clave: str, temporadas: int = None) -> pd.DataFrame:
     try:
         import stats_espn as _se
         df = _se.inyectar(df, clave)
+        # v393 — y después FotMob, para las ligas que ESPN no cubre (Polonia,
+        # Finlandia, Suiza, Irlanda…). Sólo rellena huecos: ESPN y
+        # football-data mandan donde ya tienen el dato. Ver `stats_fotmob`.
+        df = _se.inyectar(df, clave, directorio='stats_fotmob', origen='fotmob')
+        # y Flashscore, para las ocho que ni ESPN ni FotMob publican
+        # (Expansión, Uruguay, Costa Rica…). Ver `stats_flashscore`.
+        df = _se.inyectar(df, clave, directorio='stats_flashscore', origen='flashscore')
     except Exception as e:
         # Que esto falle no puede tumbar un reentrenamiento: sin estadísticas
         # reales la liga vuelve al relleno sintético, que es donde estaba.

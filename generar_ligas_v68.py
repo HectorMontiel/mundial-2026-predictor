@@ -223,11 +223,9 @@ def catalogo_espn() -> Dict[str, str]:
 
 def _cuenta_tramo(slug: str, ini: pd.Timestamp, fin: pd.Timestamp) -> Optional[int]:
     try:
-        r = requests.get(ESPN_SCOREBOARD.format(liga=slug),
-                         params={'dates': f'{ini:%Y%m%d}-{fin:%Y%m%d}', 'limit': 500},
-                         headers=UA, timeout=45)
-        r.raise_for_status()
-        return sum(1 for e in r.json().get('events', [])
+        import espn_fechas          # v393: sin rangos con guion
+        return sum(1 for e in espn_fechas.eventos(ESPN_SCOREBOARD.format(liga=slug), ini, fin,
+                                                  {'limit': 500}, timeout=45)
                    if e.get('status', {}).get('type', {}).get('completed'))
     except Exception:
         return None

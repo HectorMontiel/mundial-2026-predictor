@@ -175,8 +175,9 @@ def _partidos_del_equipo(liga: str, equipo: str, dias: int,
     for salto in range(0, max(dias, 1), TRAMO_DIAS):
         fin = hoy - pd.Timedelta(days=salto)
         ini = fin - pd.Timedelta(days=TRAMO_DIAS)
-        j = _get(BASE.format(liga=liga) + '/scoreboard',
-                 {'dates': f'{ini:%Y%m%d}-{fin:%Y%m%d}', 'limit': 400})
+        import espn_fechas          # v393: sin rangos con guion
+        j = {'events': espn_fechas.eventos(BASE.format(liga=liga) + '/scoreboard',
+                                           ini, fin, {'limit': 400}, obtener=_get)}
         if not j:
             continue
         for ev in j.get('events', []):
@@ -324,8 +325,9 @@ def equipos_de_liga(liga: str, dias: int = 120) -> List[str]:
     for salto in range(0, max(dias, 1), TRAMO_DIAS):
         fin = hoy - pd.Timedelta(days=salto)
         ini = fin - pd.Timedelta(days=TRAMO_DIAS)
-        j = _get(BASE.format(liga=liga) + '/scoreboard',
-                 {'dates': f'{ini:%Y%m%d}-{fin:%Y%m%d}', 'limit': 400})
+        import espn_fechas          # v393: sin rangos con guion
+        j = {'events': espn_fechas.eventos(BASE.format(liga=liga) + '/scoreboard',
+                                           ini, fin, {'limit': 400}, obtener=_get)}
         antes = len(nombres)
         for ev in (j or {}).get('events', []):
             for c in (ev.get('competitions') or [{}])[0].get('competitors', []):

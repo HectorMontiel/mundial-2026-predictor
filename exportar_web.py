@@ -114,11 +114,12 @@ def construir() -> Dict:
     try:
         import errores_web
         memo = {}
+        claves = {p.get('partido'): p.get('clave_liga') for p in prons if p.get('clave_liga')}
         for f in picks:
             if f.get('estado') == 'pendiente' and f.get('deporte') == 'Fútbol':
                 k = f.get('partido')
                 if k not in memo:
-                    memo[k] = errores_web.contexto(f)
+                    memo[k] = errores_web.contexto(dict(f, clave_liga=f.get('clave_liga') or claves.get(k)))
                 if memo[k]:
                     f['ctx'] = memo[k]
     except Exception as e:

@@ -170,6 +170,16 @@ def actualizar(clave: str) -> Dict:
     d = descargar(clave)
     if d.empty:
         return {'clave': clave, 'partidos': 0}
+    # v393 — los córners, tarjetas y remates REALES de cada partido, de ESPN
+    # (femeniles de Inglaterra, España, Francia y México) y de FotMob
+    # (`stats_fotmob`). Sin esto estas ligas sólo tenían goles.
+    try:
+        import stats_espn as _se
+        d = _se.inyectar(d, clave)
+        d = _se.inyectar(d, clave, directorio='stats_fotmob', origen='fotmob')
+        d = _se.inyectar(d, clave, directorio='stats_flashscore', origen='flashscore')
+    except Exception as e:
+        logger.warning('[historico_fotmob] %s: estadísticas no inyectadas: %s', clave, e)
     ruta = 'historico_%s.csv' % clave
     tmp = ruta + '.nuevo'
     d.to_csv(tmp, index=False)

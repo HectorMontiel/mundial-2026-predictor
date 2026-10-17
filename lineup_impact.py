@@ -112,8 +112,9 @@ def eventos_liga(liga: str, desde: str, hasta: str) -> List[dict]:
     cur, fin = pd.Timestamp(desde), pd.Timestamp(hasta)
     while cur < fin:
         tope = min(cur + pd.Timedelta(days=TRAMO_DIAS), fin)
-        j = _get(BASE.format(liga=liga) + '/scoreboard',
-                 {'dates': f'{cur:%Y%m%d}-{tope:%Y%m%d}', 'limit': 500})
+        import espn_fechas          # v393: sin rangos con guion
+        j = {'events': espn_fechas.eventos(BASE.format(liga=liga) + '/scoreboard',
+                                           cur, tope, {'limit': 500}, obtener=_get)}
         for ev in (j or {}).get('events', []):
             if not ev.get('status', {}).get('type', {}).get('completed'):
                 continue

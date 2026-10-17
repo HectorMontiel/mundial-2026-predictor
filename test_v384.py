@@ -61,9 +61,14 @@ def probar():
     check(len(g) == 1 and 'Gana A' in g[0] and 'Gana D' not in g[0], 'a mediodía, el gratis recibe el error de muestra')
     # contexto
     ctx = ew.contexto({'deporte': 'Fútbol', 'partido': 'Everton vs Chelsea', 'inicio': '2026-10-17 11:30:00'})
-    check(ctx is None or (set(ctx) <= {'fl', 'fv', 'h2h', 'bl', 'bv'} and all(len(x) == 4 for x in ctx.get('h2h', []))),
+    check(ctx is None or (set(ctx) <= {'fl', 'fv', 'sl', 'sv', 'h2h', 'bl', 'bv'} and all(len(x) == 4 for x in ctx.get('h2h', []))),
           'el contexto trae forma, H2H (fecha, local, marcador, visita) y bajas (%s)' % (ctx and list(ctx)))
     check(ew.contexto({'deporte': 'Tenis', 'partido': 'A vs B'}) is None, 'sin contexto fuera del fútbol')
+    check(ew._norm('Real Sociedad B') == ew._norm('Sociedad B') and ew._norm('FC Köln') == 'koln',
+          'nombres parecidos entre fuentes empatan («Sociedad B» / «Real Sociedad B»)')
+    c2 = ew.contexto({'deporte': 'Fútbol', 'partido': 'Sociedad B vs Almeria', 'inicio': '2026-10-17 12:00:00', 'clave_liga': 'esp_hypermotion'})
+    check(c2 is None or (c2.get('sl') and c2.get('sv') and len(c2.get('fl', '')) == 5),
+          'con la liga, los dos equipos traen forma y promedios (%s)' % (c2 and {k: c2[k] for k in ('fl', 'fv') if k in c2}))
     app = open(os.path.join('web', 'app.js'), encoding='utf-8').read()
     html = open(os.path.join('web', 'index.html'), encoding='utf-8').read()
     check("p.tipo === 'error'" in app and 'function contextoHtml(' in app and "'Cuota alta'" in app,

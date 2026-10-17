@@ -49,8 +49,21 @@ ESQUEMA = {
         'confianza': {'type': 'INTEGER'},
         'pick_ia': {'type': 'STRING'},
         'coincide': {'type': 'BOOLEAN'},
+        # v392 — más precisa: marcador, goles esperados, ambos anotan, córners y tarjetas
+        'marcador_probable': {'type': 'STRING'}, 'goles_esperados': {'type': 'NUMBER'},
+        'ambos_anotan': {'type': 'STRING', 'enum': ['si', 'no']},
+        'corners_esperados': {'type': 'NUMBER'}, 'linea_corners': {'type': 'NUMBER'},
+        'pred_corners': {'type': 'STRING', 'enum': ['mas', 'menos']},
+        'tarjetas_esperadas': {'type': 'NUMBER'}, 'linea_tarjetas': {'type': 'NUMBER'},
+        'pred_tarjetas': {'type': 'STRING', 'enum': ['mas', 'menos']},
+        # v391 — el usuario: «si ve que la apuesta que metemos no se va a cumplir, que lo diga»
+        'veredictos': {'type': 'ARRAY', 'items': {'type': 'OBJECT', 'properties': {
+            'apuesta': {'type': 'STRING'}, 'opinion': {'type': 'STRING', 'enum': ['a_favor', 'en_contra']},
+            'motivo': {'type': 'STRING'}}, 'required': ['apuesta', 'opinion', 'motivo']}},
     },
-    'required': ['analisis', 'p_local', 'p_empate', 'p_visita', 'pred_goles', 'confianza', 'pick_ia', 'coincide'],
+    'required': ['analisis', 'p_local', 'p_empate', 'p_visita', 'pred_goles', 'confianza', 'pick_ia', 'coincide', 'veredictos',
+                 'marcador_probable', 'goles_esperados', 'ambos_anotan', 'corners_esperados', 'linea_corners', 'pred_corners',
+                 'tarjetas_esperadas', 'linea_tarjetas', 'pred_tarjetas'],
 }
 INSTRUCCION = (
     'Eres el analista de fútbol de SharPicks, una app mexicana de pronósticos. Recibes los datos de UN partido '
@@ -60,7 +73,15 @@ INSTRUCCION = (
     'forma, el H2H o las bajas lo justifican claramente. 3) Escribe un análisis de 3 o 4 frases en español '
     'sencillo, para alguien que no sabe de estadística: qué dicen los datos y por qué. Nada de garantías ni de '
     '"apuesta segura". 4) Di cuál de NUESTROS picks te gusta más (copia su texto) o "ninguno", y si coincide '
-    'con tu lectura del partido. 5) Confianza de 1 (muy dudoso) a 5 (muy claro).'
+    'con tu lectura del partido. 5) Confianza de 1 (muy dudoso) a 5 (muy claro). 6) Para CADA uno de nuestros '
+    'picks (copia su texto exacto en "apuesta") di si estás "a_favor" o "en_contra" de que se cumpla, con un motivo '
+    'de una frase. Sé honesto: si los datos dicen que un pick no se ve, dilo ("en_contra"), aunque tenga '
+    'probabilidad alta; no lo digas por decir. 7) Sé PRECISO: da el marcador más probable ("1-2"), los goles '
+    'totales esperados (con un decimal) y si ambos anotan. 8) Córners y tarjetas TOTALES del partido (de los dos '
+    'equipos): estima cuántos habrá con los promedios de cada equipo y la media de la liga que te damos, elige la '
+    'línea .5 más cercana a tu estimación (por ejemplo 9.5 córners, 4.5 tarjetas) y di si habrá más o menos. Si '
+    'faltan los promedios, apóyate en la media de la liga y baja la confianza. Menciona en el análisis lo más '
+    'llamativo de córners o tarjetas si lo hay.'
 )
 
 
@@ -85,7 +106,8 @@ def _mercado() -> Dict:
             x = im.get('1x2') or {}
             if x.get('home') is not None:
                 g = ((im.get('goles') or {}).get('2.5') or {}).get('p')
-                out[p.get('partido')] = {'1x2': {k: round(float(v), 3) for k, v in x.items()}, 'mas25': g}
+                out[p.get('partido')] = {'1x2': {k: round(float(v), 3) for k, v in x.items()}, 'mas25': g,
+                                         'clave': p.get('clave_liga')}
     except Exception as e:
         logger.debug('[ia] mercado: %s', e)
     return out
@@ -124,7 +146,31 @@ def datos_del_partido(m: Dict, mercado: Dict) -> Dict:
         'nota_forma': 'G=ganó, E=empató, P=perdió; el más reciente a la derecha',
         'h2h_ultimos': [{'fecha': h[0], 'local': h[1], 'marcador': h[2], 'visitante': h[3]} for h in ctx.get('h2h') or []],
         'bajas_local': ctx.get('bl'), 'bajas_visitante': ctx.get('bv'),
+        # v392 — promedios de sus últimos 10 (gf/gc goles a favor/en contra, o25 y btts en proporción,
+        # cor córners, tap tiros a puerta, tar amarillas, pos posesión %) y la media de la liga
+        'promedios_local_ultimos_10': ctx.get('sl'), 'promedios_visitante_ultimos_10': ctx.get('sv'),
+        'nota_promedios': 'gf=goles a favor, gc=en contra, o25=partidos con +2.5 goles, btts=ambos anotan, '
+                          'cor=córners propios por partido, tap=tiros a puerta, tar=amarillas propias, pos=posesión %',
+        'media_corners_liga_por_partido': _media_liga(mk.get('clave'), 'corners'),
+        'media_tarjetas_liga_por_partido': _media_liga(mk.get('clave'), 'tarjetas'),
     }
+
+
+def _media_liga(clave, que):
+    """Media OBSERVADA de la liga (córners o tarjetas totales por partido); None si no hay."""
+    if not clave:
+        return None
+    try:
+        import rendimiento_equipos as rq
+        if que == 'corners':
+            return rq.media_corners_liga(clave)
+        _d, ts = rq._serie_tarjetas(clave)    # (histórico, (tarjetas local, tarjetas visita)) observadas
+        if not ts:
+            return None
+        tot = (ts[0] + ts[1]).dropna()
+        return round(float(tot.tail(1000).mean()), 2) if len(tot) >= 100 else None
+    except Exception:
+        return None
 
 
 def preguntar(datos: Dict) -> Optional[Dict]:
@@ -170,7 +216,30 @@ def fila(m: Dict, d: Dict, mercado: Dict) -> Dict:
             'pred_goles': d.get('pred_goles') if d.get('pred_goles') in ('mas', 'menos') else None,
             'confianza': max(1, min(5, int(d.get('confianza') or 3))), 'pick_ia': str(d.get('pick_ia') or '')[:160],
             'coincide': bool(d.get('coincide')), 'modelo': d.get('_modelo'),
-            'p_mercado_local': mk.get('home'), 'p_mercado_empate': mk.get('draw'), 'p_mercado_visita': mk.get('away')}
+            'veredictos': [{'apuesta': str(v.get('apuesta') or '')[:160], 'opinion': v.get('opinion'),
+                            'motivo': str(v.get('motivo') or '')[:240]}
+                           for v in (d.get('veredictos') or []) if v.get('opinion') in ('a_favor', 'en_contra')][:8],
+            'p_mercado_local': mk.get('home'), 'p_mercado_empate': mk.get('draw'), 'p_mercado_visita': mk.get('away'),
+            'clave_liga': (mercado.get(m['partido']) or {}).get('clave'),
+            'marcador_ia': str(d.get('marcador_probable') or '').replace(' ', '')[:7] or None,
+            'goles_esperados': _num(d.get('goles_esperados')), 'btts': d.get('ambos_anotan') if d.get('ambos_anotan') in ('si', 'no') else None,
+            'corners_esperados': _num(d.get('corners_esperados')), 'linea_corners': _linea(d.get('linea_corners')),
+            'pred_corners': d.get('pred_corners') if d.get('pred_corners') in ('mas', 'menos') else None,
+            'tarjetas_esperadas': _num(d.get('tarjetas_esperadas')), 'linea_tarjetas': _linea(d.get('linea_tarjetas')),
+            'pred_tarjetas': d.get('pred_tarjetas') if d.get('pred_tarjetas') in ('mas', 'menos') else None}
+
+
+def _num(x):
+    try:
+        return round(float(x), 1)
+    except (TypeError, ValueError):
+        return None
+
+
+def _linea(x):
+    """Siempre una línea .5 (para que no haya empate con el real)."""
+    v = _num(x)
+    return None if v is None else float(int(v)) + 0.5
 
 
 # ---------- la base ----------
@@ -185,8 +254,8 @@ def _sb():
 def ya_hechos(sb) -> Optional[set]:
     import requests
     desde = (dt.date.today() - dt.timedelta(days=3)).isoformat()
-    r = requests.get(sb[0], headers=sb[1], params={'select': 'id', 'fecha': 'gte.' + desde, 'limit': 5000}, timeout=30)
-    return {x['id'] for x in r.json()} if r.ok else None
+    r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos', 'fecha': 'gte.' + desde, 'limit': 5000}, timeout=30)
+    return {x['id'] for x in r.json() if x.get('veredictos') is not None} if r.ok else None
 
 
 def _final(partido: str, fecha: str, picks: List[Dict]):
@@ -215,12 +284,39 @@ def _final(partido: str, fecha: str, picks: List[Dict]):
     return None
 
 
+def _corners_tarjetas(x: Dict):
+    """Córners y tarjetas TOTALES reales del partido, del histórico de su liga
+    (llega con la actualización de datos del día). (None, None) si aún no."""
+    try:
+        import pandas as pd
+        import panel_equipos as pe
+        h = pe._historico(x.get('clave_liga')) if x.get('clave_liga') else None
+        if h is None or getattr(h, 'empty', True):
+            return None, None
+        home, _, away = str(x['partido']).partition(' vs ')
+        f = pd.Timestamp(str(x.get('fecha')))
+        h = h[(h['home_team'] == home.strip()) & (h['away_team'] == away.strip())]
+        h = h[(pd.to_datetime(h['date']) - f).abs() <= pd.Timedelta(days=1)]
+        if not len(h):
+            return None, None
+        r = h.iloc[-1]
+        k = (r.get('home_corners'), r.get('away_corners'))
+        t = (r.get('home_yellow'), r.get('away_yellow'), r.get('home_red', 0), r.get('away_red', 0))
+        kk = int(k[0] + k[1]) if all(pd.notna(v) for v in k) else None
+        tt = int(sum(v for v in t if pd.notna(v))) if pd.notna(t[0]) and pd.notna(t[1]) else None
+        return kk, tt
+    except Exception:
+        return None, None
+
+
 def evaluar(sb, picks: List[Dict]) -> int:
     """✅/❌ a lo que la IA predijo de los partidos ya terminados."""
     import requests
     hace = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(hours=2.5)).isoformat()
+    tres = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=3)).isoformat()
     r = requests.get(sb[0], headers=sb[1], timeout=30,
-                     params={'select': '*', 'evaluado': 'is.null', 'inicio': 'lt.' + hace, 'limit': 500})
+                     params={'select': '*', 'inicio': 'lt.' + hace, 'limit': 500,
+                             'or': '(evaluado.is.null,and(corners_real.is.null,linea_corners.not.is.null,inicio.gt.%s))' % tres})
     n = 0
     for x in (r.json() if r.ok else []):
         g = _final(x['partido'], x['fecha'], picks)
@@ -229,9 +325,25 @@ def evaluar(sb, picks: List[Dict]) -> int:
         real = 'local' if g[0] > g[1] else ('visita' if g[0] < g[1] else 'empate')
         mk = [x.get('p_mercado_local'), x.get('p_mercado_empate'), x.get('p_mercado_visita')]
         fav = ['local', 'empate', 'visita'][max(range(3), key=lambda i: mk[i] or 0)] if all(v is not None for v in mk) else None
-        cambio = {'marcador': '%d-%d' % g, 'ok_resultado': x['pred_resultado'] == real,
+        est = {p.get('apuesta'): p.get('estado') for p in picks if p.get('partido') == x['partido']}
+        vs = [dict(v, estado=est.get(v.get('apuesta'))) for v in (x.get('veredictos') or [])]
+        k_real, t_real = _corners_tarjetas(x)
+        extra = {'ok_marcador': (str(x.get('marcador_ia') or '') == '%d-%d' % g) if x.get('marcador_ia') else None,
+                 'ok_btts': ((x['btts'] == 'si') == (g[0] > 0 and g[1] > 0)) if x.get('btts') else None}
+        if k_real is not None and x.get('linea_corners') is not None and x.get('pred_corners'):
+            extra.update(corners_real=k_real, ok_corners=(k_real > float(x['linea_corners'])) == (x['pred_corners'] == 'mas'))
+        if t_real is not None and x.get('linea_tarjetas') is not None and x.get('pred_tarjetas'):
+            extra.update(tarjetas_real=t_real, ok_tarjetas=(t_real > float(x['linea_tarjetas'])) == (x['pred_tarjetas'] == 'mas'))
+        if x.get('evaluado'):                 # ya evaluado: sólo faltaban córners/tarjetas
+            if 'corners_real' in extra or 'tarjetas_real' in extra:
+                u = requests.patch(sb[0], headers=sb[1], params={'id': 'eq.' + x['id']},
+                                   json={k: v for k, v in extra.items() if k.startswith(('corners', 'ok_corners', 'tarjetas', 'ok_tarjetas'))}, timeout=30)
+                n += bool(u.ok)
+            continue
+        cambio = dict(extra, **{'marcador': '%d-%d' % g, 'ok_resultado': x['pred_resultado'] == real, 'veredictos': vs})
+        cambio.update({
                   'ok_goles': (x['pred_goles'] == ('mas' if sum(g) > 2.5 else 'menos')) if x.get('pred_goles') else None,
-                  'ok_mercado': (fav == real) if fav else None, 'evaluado': dt.datetime.now(dt.timezone.utc).isoformat()}
+                  'ok_mercado': (fav == real) if fav else None, 'evaluado': dt.datetime.now(dt.timezone.utc).isoformat()})
         u = requests.patch(sb[0], headers=sb[1], params={'id': 'eq.' + x['id']}, json=cambio, timeout=30)
         n += bool(u.ok)
     return n

@@ -674,7 +674,9 @@ def fixtures_nfl(dias: int = 3) -> List[Dict]:
     ini = hoy.strftime('%Y%m%d')
     fin = (hoy + pd.Timedelta(days=dias)).strftime('%Y%m%d')
     salida: List[Dict] = []
-    j = _get(f'{SITE}/scoreboard', {'dates': f'{ini}-{fin}', 'limit': 300})
+    import espn_fechas              # v393: sin rangos con guion
+    j = {'events': espn_fechas.eventos(f'{SITE}/scoreboard', ini, fin,
+                                       {'limit': 300}, obtener=_get)}
     for ev in ((j or {}).get('events') or []):
         try:
             comp = (ev.get('competitions') or [{}])[0]

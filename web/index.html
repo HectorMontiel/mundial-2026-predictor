@@ -5,16 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>SharPicks · Picks medidos, no adivinados</title>
 <meta name="description" content="Pronósticos deportivos medidos con partidos reales: en vivo, con estadísticas, y verdes y rojas a la vista.">
-<meta name="theme-color" content="#0b0d17">
+<meta name="theme-color" content="#0a1222">
+<meta property="og:title" content="SharPicks · Predictive Sports Intelligence">
+<meta property="og:description" content="Picks medidos con miles de partidos reales, en vivo y con estadísticas.">
+<meta property="og:image" content="https://sharpicks.pages.dev/marca/portada.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="marca/apple-touch-icon.png">
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="icon" href="marca/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
 <header class="top">
-  <div class="marca"><span class="logo">S</span><span id="nombre">SharPicks</span></div>
+  <div class="marca"><span class="marca-img"><img src="marca/logo-96.png" alt="" width="38" height="38"></span><span id="nombre"><b class="m1">Shar</b><b class="m2">Picks</b></span></div>
   <div class="derecha"><div class="reloj" id="reloj"></div><button class="ayuda-btn" data-ayuda aria-label="Ayuda">?</button><div class="cuenta" id="cuenta"><button class="entrar" data-entrar>Entrar</button></div></div>
 </header>
 
@@ -54,6 +59,10 @@
     <section class="caja bloque-hist">
       <div class="tit">Todo lo jugado: verdes y rojas de cada día</div>
       <div id="historial"></div>
+    </section>
+    <section class="caja bloque-hist">
+      <div class="tit">🤖 La IA, medida</div>
+      <div id="ia-hist"><p class="tenue">Cargando…</p></div>
     </section>
     <section class="caja bloque-hist">
       <div class="tit">📢 Lo que mandamos por Telegram</div>

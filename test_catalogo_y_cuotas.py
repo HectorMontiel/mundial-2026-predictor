@@ -7210,9 +7210,11 @@ def test_las_probabilidades_de_corners_usan_la_sobredispersion():
     # La cola alta de la binomial negativa es MENOS optimista que la de Poisson
     # cuando la linea esta por debajo de la media: es justo la correccion que se
     # midio contra la frecuencia real.
-    check(p_nb < p_poi,
-          f"con sobredispersion, «mas de 8.5» sale por debajo de Poisson "
-          f"({p_nb:.3f} < {p_poi:.3f})")
+    # v392 — si falta un número, FALLO y se sigue (antes reventaba con
+    # TypeError y la suite se quedaba colgada sin terminar)
+    check(p_nb is not None and p_poi is not None and p_nb < p_poi,
+          "con sobredispersion, «mas de 8.5» sale por debajo de Poisson "
+          "(%s < %s)" % (p_nb, p_poi))
     # y con dispersion 1 tiene que dar EXACTAMENTE Poisson, para que una
     # competicion sin datos se comporte como antes del cambio
     check(abs(rq.prob_mas_de(m, 9.5, 1.0) - rq.prob_mas_de(m, 9.5, None)) < 1e-9,
@@ -20492,7 +20494,10 @@ def test_la_mezcla_va_despues_de_la_correccion_historica():
     """
     import io as _io
     s = _io.open('veredicto_pick.py', encoding='utf-8').read()
-    cuerpo = s.split('def evaluar(')[1].split('\ndef ')[0]
+    # v375: el cuerpo vive en `_evaluar_sin_tope`; `evaluar` sólo le pone el
+    # tope de cuota encima
+    nombre = 'def _evaluar_sin_tope(' if 'def _evaluar_sin_tope(' in s else 'def evaluar('
+    cuerpo = s.split(nombre)[1].split('\ndef ')[0]
     i_corr = cuerpo.find("c = correccion(")
     i_conc = cuerpo.find('concordancia')
     check(i_corr > 0 and i_conc > i_corr,

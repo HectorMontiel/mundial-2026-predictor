@@ -536,9 +536,57 @@ def _solo_reales(d, col: str):
         # —donde la columna entera es observada— o no hay datos y quien llama
         # ya lo detectará con `stats_disponibles`.
         return d
+    # v392 — LAS FILAS SIN MARCA SE COMPRUEBAN, NO SE SUPONEN.
+    #
+    # Antes se daba por hecho que, si había ALGUNA fila marcada por ESPN, las
+    # demás eran del generador. Falso en las ligas de football-data (Premier,
+    # LaLiga, Bundesliga, Eredivisie): desde el 10-oct ESPN completó ~10
+    # partidos recientes y los marcó; con 10 marcadas (< 200) esto devolvía
+    # NADA, y las 6.130 filas OBSERVADAS de football-data quedaban fuera. Las
+    # cuatro ligas grandes perdieron la media de córners, tarjetas y remates
+    # (5 comprobaciones del catálogo en rojo desde entonces). Ahora: si las
+    # filas sin marca NO las reproduce el generador sintético, son reales y se
+    # usan todas; si las reproduce, sólo valen las marcadas.
+    sin = d[~marcadas]
+    if len(sin) >= 50 and _sin_marca_es_real(sin, col):
+        return d
     if n < 200:
         return d.iloc[0:0]        # hay marcas, pero no dan para promediar
     return d[marcadas]
+
+
+_CACHE_SIN_MARCA: Dict = {}
+
+
+def _sin_marca_es_real(sin, col: str) -> bool:
+    """¿La columna de las filas SIN marca de ESPN es observada? Misma prueba
+    que `_columnas_sinteticas`: se le pide al generador sintético (determinista
+    por MATCH_ID) y, si la reproduce, es suya. Ante la duda, no (conservador).
+    Nunca lanza."""
+    c = 'home_' + col
+    try:
+        if c not in sin.columns or 'MATCH_ID' not in sin.columns:
+            return False
+        base = sin[sin[c].notna()].tail(_MUESTRA_SINT).copy()
+        if len(base) < 50:
+            return False
+        k = (len(sin), str(sin['date'].max()) if 'date' in sin.columns else '', c)
+        if k in _CACHE_SIN_MARCA:
+            return _CACHE_SIN_MARCA[k]
+        import numpy as np
+        import statsbomb_calibration
+        from correlated_synthetic_generator import CorrelatedSyntheticGenerator
+        rehecho = CorrelatedSyntheticGenerator().generate_advanced_metrics(
+            base.drop(columns=[c]), statsbomb_calibration.calibrar())
+        a = pd.to_numeric(base[c], errors='coerce').to_numpy(float)
+        b = pd.to_numeric(rehecho[c], errors='coerce').to_numpy(float)
+        m = ~(np.isnan(a) | np.isnan(b))
+        real = bool(m.sum() >= 50 and float(np.mean(np.abs(a[m] - b[m]) <= 0.011)) < 0.95)
+        _CACHE_SIN_MARCA[k] = real
+        return real
+    except Exception as e:
+        logger.debug('[rendimiento] filas sin marca (%s): %s', col, e)
+        return False
 
 
 _CACHE_GOLES: Dict[str, Optional[float]] = {}

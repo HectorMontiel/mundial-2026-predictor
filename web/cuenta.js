@@ -9,7 +9,13 @@
   let sb = null;
   try {
     sb = (window.supabase && C.SUPABASE_URL && C.SUPABASE_ANON_KEY)
-      ? window.supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY) : null;
+      ? window.supabase.createClient(C.SUPABASE_URL, C.SUPABASE_ANON_KEY, {
+          // v390 — el usuario: «tras un rato, pico en mi nombre y no se abre». El
+          // candado del navegador que usa Supabase para la sesión se queda trabado
+          // en el celular (al volver a la app) y TODA consulta espera para siempre.
+          // Sin candado: una sola pestaña de SharPicks no lo necesita.
+          auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: true, lock: async (_n, _t, fn) => await fn() },
+        }) : null;
   } catch (e) { sb = null; }          // un navegador que no deja guardar la sesión no rompe la página
   const yo = { user: null, perfil: null, seguidos: new Set(), desbloqueados: {}, conteo: {}, precios: {} };
   window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar };
@@ -52,12 +58,14 @@
   function filtrarMios(lista) { return lista.filter((p) => yo.seguidos.has(p.id)); }
 
   // ---------- sesión ----------
+  const aTiempo = (p, ms, porDefecto) => Promise.race([Promise.resolve(p).catch(() => porDefecto),
+    new Promise((r) => setTimeout(() => r(porDefecto), ms || 5000))]);
   async function refrescar() {
     if (!sb) return;
     try {
-      const { data } = await sb.auth.getSession();
+      const { data } = await aTiempo(sb.auth.getSession(), 5000, { data: { session: yo.user ? { user: yo.user } : null } });
       yo.user = data && data.session ? data.session.user : null;
-    } catch (e) { yo.user = null; }
+    } catch (e) { /* se queda la sesión que había */ }
     const tareas = [
       sb.from('ajustes').select('clave,valor').then(({ data }) => { (data || []).forEach((x) => { yo.precios[x.clave] = x.valor; }); }),
       sb.from('precios_cuota').select('*').order('desde').then(({ data }) => { yo.bandas = data || []; }),
@@ -71,7 +79,7 @@
         .then(({ data }) => { yo.ia = {}; (data || []).forEach((x) => { yo.ia[x.partido] = x; }); }));
       tareas.push(sb.from('picks_premium').select('id,apuesta').then(({ data }) => { yo.desbloqueados = {}; (data || []).forEach((x) => { yo.desbloqueados[x.id] = x.apuesta; }); }));
     } else { yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; }
-    await Promise.all(tareas.map((t) => Promise.resolve(t).catch(() => {})));
+    await Promise.all(tareas.map((t) => aTiempo(t, 6000, null)));
     try { pintarCabecera(); } catch (e) {
       // pase lo que pase, la cabecera dice algo (y se reintenta en 20 s)
       const c = $('cuenta');
@@ -127,10 +135,18 @@
   async function abrirMiCuenta(msg) {
     if (!yo.user) { abrirAcceso(); return; }
     const p = yo.perfil || {};
-    const [{ data: lugares }, { data: vipUrl }] = await Promise.all([
-      sb.rpc('lugares_fundador').then((x) => x, () => ({ data: 0 })),
-      sb.rpc('enlace_vip').then((x) => x, () => ({ data: null })),
+    // se abre YA con lo básico (y «Cerrar sesión»); lo que tarda se agrega después
+    if ($('micuenta').hidden) {
+      $('micuenta-cuerpo').innerHTML = '<button class="cerrar" data-cerrar-cuenta>✕</button><h3>Mi cuenta</h3>' +
+        '<div class="cuenta-cab"><b>@' + esc(p.usuario || '—') + '</b><span class="tenue">' + esc(yo.user.email || '') + '</span></div>' +
+        '<p class="tenue">Cargando…</p><button class="salir" data-salir>Cerrar sesión</button>';
+      $('micuenta').hidden = false;
+    }
+    const [r1, r2] = await Promise.all([
+      aTiempo(sb.rpc('lugares_fundador'), 5000, { data: 0 }),
+      aTiempo(sb.rpc('enlace_vip'), 5000, { data: null }),
     ]);
+    const lugares = (r1 && r1.data) || 0, vipUrl = r2 && r2.data;
     const pm = Number(yo.precios.precio_mensual || 149), pf = Number(yo.precios.precio_fundador || 99), ps = Number(yo.precios.precio_semestral || 749);
     let h = '<button class="cerrar" data-cerrar-cuenta>✕</button><h3>Mi cuenta</h3>' +
       '<div class="cuenta-cab"><b>@' + esc(p.usuario || '—') + '</b><span class="tenue">' + esc(yo.user.email || '') + '</span></div>' +
@@ -178,7 +194,14 @@
     if (t.hasAttribute('data-cerrar-cuenta')) { $('micuenta').hidden = true; return; }
     if (t.hasAttribute('data-entrar')) { abrirAcceso(); return; }
     if (t.hasAttribute('data-mi-cuenta')) { abrirMiCuenta(); return; }
-    if (t.hasAttribute('data-salir')) { await sb.auth.signOut(); $('micuenta').hidden = true; await refrescar(); return; }
+    if (t.hasAttribute('data-salir')) {
+      $('micuenta').hidden = true;
+      await aTiempo(sb.auth.signOut(), 4000, null);
+      try { Object.keys(localStorage).filter((k) => k.startsWith('sb-')).forEach((k) => localStorage.removeItem(k)); } catch (e) {}
+      yo.user = null; yo.perfil = null;
+      pintarCabecera(); await refrescar();
+      return;
+    }
     if (t.hasAttribute('data-enlace')) {
       const correo = $('e-usuario').value.trim();
       if (!correo.includes('@')) { $('acceso-msg').textContent = 'Escribe tu correo arriba para mandarte el enlace.'; return; }
@@ -235,10 +258,18 @@
       return;
     }
     if (t.dataset.seguir) {
-      const id = t.dataset.seguir;
-      if (yo.seguidos.has(id)) { await sb.from('seguidos').delete().eq('pick', id); yo.seguidos.delete(id); yo.conteo[id] = Math.max(0, (yo.conteo[id] || 1) - 1); }
-      else { const { error } = await sb.from('seguidos').insert({ pick: id }); if (!error) { yo.seguidos.add(id); yo.conteo[id] = (yo.conteo[id] || 0) + 1; } }
-      window.SP.pintar();
+      const id = t.dataset.seguir, sigo = yo.seguidos.has(id);
+      // v391 — la estrella cambia YA; la base se actualiza detrás (si falla, se regresa)
+      if (sigo) { yo.seguidos.delete(id); yo.conteo[id] = Math.max(0, (yo.conteo[id] || 1) - 1); }
+      else { yo.seguidos.add(id); yo.conteo[id] = (yo.conteo[id] || 0) + 1; }
+      t.classList.toggle('si', !sigo); t.textContent = !sigo ? '★ Siguiendo' : '☆ Seguir';
+      const q = sigo ? sb.from('seguidos').delete().eq('pick', id) : sb.from('seguidos').insert({ pick: id });
+      aTiempo(q, 6000, { error: 'tiempo' }).then((res) => {
+        if (res && res.error && res.error !== 'tiempo') {
+          if (sigo) yo.seguidos.add(id); else yo.seguidos.delete(id);
+          window.SP.pintar();
+        }
+      });
       return;
     }
     if (t.dataset.desbloquear) {
@@ -321,8 +352,22 @@
     caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + Math.round(100 * tv / (tv + tr)) + ' %</span></div>' +
       '<div class="sub">💎 Diamante: ✅ ' + ev + ' ❌ ' + er + (ev + er ? ' · ' + Math.round(100 * ev / (ev + er)) + ' %' : '') + '</div>' +
       (xv + xr ? '<div class="sub">💰 Cuota alta (errores de cuota): ✅ ' + xv + ' ❌ ' + xr + ' · ' + p100(xv, xr) + '</div>' : '') +
-      (ia && (ia.resultado_ok + ia.resultado_mal) ? '<div class="sub">🤖 La IA (ganador): ✅ ' + ia.resultado_ok + ' ❌ ' + ia.resultado_mal + ' · ' + p100(ia.resultado_ok, ia.resultado_mal) +
-        ' — elegir al favorito: ' + p100(ia.mercado_ok, ia.mercado_mal) + ' · goles: ' + p100(ia.goles_ok, ia.goles_mal) + '</div>' : '') +
+      ''; caja.innerHTML += '';
+    // v391 — el bloque de la IA sale SIEMPRE (aunque aún no haya partidos terminados)
+    const iaCaja = $('ia-hist');
+    if (iaCaja) iaCaja.innerHTML = !ia ? '<p class="tenue">Sin datos de la IA todavía.</p>' :
+      '<div class="ia-fila"><span>Partidos analizados</span><b>' + (ia.analizados || 0) + '</b><small>' + (ia.pendientes || 0) + ' esperando resultado</small></div>' +
+      '<div class="ia-fila"><span>🤖 Acierta el ganador</span><b>✅ ' + ia.resultado_ok + ' ❌ ' + ia.resultado_mal + '</b><small>' + p100(ia.resultado_ok, ia.resultado_mal) + '</small></div>' +
+      '<div class="ia-fila"><span>📈 Elegir al favorito (la vara)</span><b>✅ ' + ia.mercado_ok + ' ❌ ' + ia.mercado_mal + '</b><small>' + p100(ia.mercado_ok, ia.mercado_mal) + '</small></div>' +
+      '<div class="ia-fila"><span>⚽ Más / menos de 2.5 goles</span><b>✅ ' + ia.goles_ok + ' ❌ ' + ia.goles_mal + '</b><small>' + p100(ia.goles_ok, ia.goles_mal) + '</small></div>' +
+      '<div class="ia-fila"><span>⚽ Marcador exacto</span><b>✅ ' + (ia.marcador_ok || 0) + ' ❌ ' + (ia.marcador_mal || 0) + '</b><small>' + p100(ia.marcador_ok || 0, ia.marcador_mal || 0) + '</small></div>' +
+      '<div class="ia-fila"><span>🎯 Ambos anotan</span><b>✅ ' + (ia.btts_ok || 0) + ' ❌ ' + (ia.btts_mal || 0) + '</b><small>' + p100(ia.btts_ok || 0, ia.btts_mal || 0) + '</small></div>' +
+      '<div class="ia-fila"><span>🚩 Córners (más / menos)</span><b>✅ ' + (ia.corners_ok || 0) + ' ❌ ' + (ia.corners_mal || 0) + '</b><small>' + p100(ia.corners_ok || 0, ia.corners_mal || 0) + '</small></div>' +
+      '<div class="ia-fila"><span>🟨 Tarjetas (más / menos)</span><b>✅ ' + (ia.tarjetas_ok || 0) + ' ❌ ' + (ia.tarjetas_mal || 0) + '</b><small>' + p100(ia.tarjetas_ok || 0, ia.tarjetas_mal || 0) + '</small></div>' +
+      '<div class="ia-fila"><span>❌ Cuando dijo «en contra», el pick falló</span><b>' + ia.aviso_bien + ' de ' + (ia.aviso_bien + ia.aviso_mal) + '</b><small>' + p100(ia.aviso_bien, ia.aviso_mal) + '</small></div>' +
+      '<div class="ia-fila"><span>✅ Cuando dijo «a favor», el pick salió</span><b>' + ia.favor_bien + ' de ' + (ia.favor_bien + ia.favor_mal) + '</b><small>' + p100(ia.favor_bien, ia.favor_mal) + '</small></div>' +
+      '<p class="tenue chico">Si la IA no le gana a «elegir al favorito», no aporta: por eso la medimos aparte y nuestros picks no dependen de ella.</p>';
+    caja.innerHTML = caja.innerHTML +
       '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
       filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
   }
