@@ -73,7 +73,7 @@ def probar():
     html = open(os.path.join('web', 'index.html'), encoding='utf-8').read()
     check("p.tipo === 'error'" in app and 'function contextoHtml(' in app and "'Cuota alta'" in app,
           'la página tiene el nivel Cuota alta y el contexto del partido')
-    check('id="ayuda"' in html and 'data-ayuda' in html and 'De cada 10 como ésta, se cumplen 9' in html,
+    check('id="ayuda"' in html and 'data-ayuda' in html and 'probabilidad muy alta' in html and 'ninguna apuesta es segura' in html,
           'la ayuda explica todo en lenguaje sencillo')
     check('sin_pick' in app and "'meta.json'" in open('exportar_web.py', encoding='utf-8').read(),
           'se avisa cuando un deporte tiene partidos pero ningún pick')

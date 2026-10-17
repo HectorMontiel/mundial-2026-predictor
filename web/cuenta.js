@@ -18,7 +18,7 @@
         }) : null;
   } catch (e) { sb = null; }          // un navegador que no deja guardar la sesión no rompe la página
   const yo = { user: null, perfil: null, seguidos: new Set(), desbloqueados: {}, conteo: {}, precios: {} };
-  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar };
+  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb };
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
   // v389 — el precio de un pick premium depende de su CUOTA (tabla `precios_cuota`);
@@ -27,7 +27,7 @@
   function precio(p) {
     if (yo.perfil && yo.perfil.admin) return 0;
     const n = window.SP.nivel(p).n;
-    if (!['Diamante', 'Platino', 'Cuota alta'].includes(n)) return 0;
+    if (!p._forzar && !['Diamante', 'Platino', 'Cuota alta'].includes(n)) return 0;
     const c = Number(p.cuota || 1), b = (yo.bandas || []).find((x) => c >= Number(x.desde) && c < Number(x.hasta));
     return b ? Number(b.monedas) : 10;
   }
@@ -54,6 +54,26 @@
     if (n) h += '<span class="siguen">👥 ' + n + '</span>';
     return h + '</div>';
   }
+
+  // v397 — DESBLOQUEAR UNA COMBINADA ENTERA: el precio de su cuota total (la
+  // misma tabla), menos si ya tenías alguna pata; si sale roja, se devuelve
+  function extraComb(c) {
+    const m = (window.SP && window.SP.estado.picks) || [];
+    const premium = (c.patas || []).map((x) => m.find((p) => p.id === x.id)).filter((p) => p && p.premium);
+    const faltan = premium.filter((p) => !yo.desbloqueados[p.id]);
+    if (!faltan.length || esVip()) return '';
+    const empezo = (c.patas || []).some((x) => new Date(String(x.inicio).replace(' ', 'T') + (/[zZ]|[+-]\d\d:?\d\d$/.test(String(x.inicio)) ? '' : 'Z')) <= new Date());
+    if (empezo) return '';
+    if (!yo.user) return '<button class="desbloquear" data-entrar>🔓 Entra gratis y desbloquéala</button>';
+    const cu = Number(c.cuota || 1), b = (yo.bandas || []).find((x) => cu >= Number(x.desde) && cu < Number(x.hasta));
+    const total = b ? Number(b.monedas) : 10;
+    const suelto = faltan.reduce((s, p) => s + precio(dict2(p, { _forzar: 1 })), 0);
+    const pr = esAdmin() ? 0 : Math.min(total, suelto || total);
+    return '<div class="acciones"><button class="desbloquear" data-desb-comb="' + esc(c.id) + '">' +
+      (pr ? 'Desbloquear la combinada por ' + pr + ' 🪙' : 'Desbloquear gratis') + '</button>' +
+      '<small class="nwnp">Si sale roja, se te devuelve</small></div>';
+  }
+  const dict2 = (a, b) => Object.assign({}, a, b);
 
   function filtrarMios(lista) { return lista.filter((p) => yo.seguidos.has(p.id)); }
 
@@ -241,7 +261,7 @@
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario],[data-comprar],[data-metodo],[data-sus],[data-portal],[data-cerrar-aviso]');
+    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario],[data-comprar],[data-metodo],[data-sus],[data-portal],[data-cerrar-aviso],[data-desb-comb]');
     if (!t) return;
     if (t.hasAttribute('data-ayuda')) { $('ayuda').hidden = false; return; }
     if (t.hasAttribute('data-cerrar-ayuda')) { $('ayuda').hidden = true; return; }
@@ -356,6 +376,13 @@
           window.SP.pintar();
         }
       });
+      return;
+    }
+    if (t.dataset.desbComb) {
+      t.disabled = true;
+      const { data, error } = await sb.rpc('desbloquear_combinada', { comb_id: t.dataset.desbComb });
+      if (error || data !== 'ok') { alert(data === 'sin monedas' ? 'No te alcanzan las monedas.' : data === 'ya empezó' ? 'Uno de sus partidos ya empezó.' : 'No se pudo desbloquear. Intenta de nuevo.'); t.disabled = false; return; }
+      await refrescar();
       return;
     }
     if (t.dataset.desbloquear) {

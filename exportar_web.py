@@ -262,7 +262,20 @@ def main() -> int:
     except Exception as e:
         logger.warning('[web] sin fichero privado: %s', e)
     n = subir_supabase(r['picks'], secretos)
-    print('web: %d picks en %s; %d subidos a Supabase; %d premium' % (len(r['picks']), SALIDA, n, len(secretos)))
+    # v396 — las combinadas del día (de cada deporte y mixtas): `combinadas_web`.
+    # Con el texto real de las patas premium SÓLO para compararlo con la IA; a la
+    # tabla pública va el texto tapado.
+    nc = 0
+    try:
+        import combinadas_web
+        url, key = os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SERVICE_KEY')
+        if url and key:
+            reales = {x['id']: x['apuesta'] for x in secretos}
+            nc = combinadas_web.subir([dict(p, _real=reales.get(p['id'])) for p in r['picks']], url, key)
+    except Exception as e:
+        logger.warning('[web] combinadas: %s', e)
+    print('web: %d picks en %s; %d subidos a Supabase; %d premium; %d combinadas'
+          % (len(r['picks']), SALIDA, n, len(secretos), nc))
     return 0
 
 

@@ -491,3 +491,11 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
   background: rgba(250, 204, 21, .14); border-bottom: 1px solid rgba(250, 204, 21, .45); color: #fde68a; backdrop-filter: blur(12px); }
 .aviso-renovacion .ver { margin-left: 6px; padding: 4px 10px; }
 .cerrar-aviso { background: none; border: 0; color: inherit; font-size: 16px; cursor: pointer; float: right; }
+
+/* v396 — combinadas y probabilidades de la IA */
+.dest.comb { min-width: 280px; text-align: left; }
+.comb-pata { display: flex; gap: 8px; align-items: flex-start; margin: 6px 0; font-size: 13px; line-height: 1.35; }
+.comb-pata b { display: block; font-size: 14px; }
+.comb-pata small { color: var(--tenue); }
+.ia-prob { display: block; color: var(--tenue); font-size: 11px; font-weight: 500; margin-top: 2px; }
+.ia-pred .ia-prob { display: inline; }

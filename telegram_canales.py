@@ -127,7 +127,7 @@ def _apuesta(p: Dict) -> str:
         return '➜ %s · cuota <b>%.2f</b> · se cumple ~%d %% · paga %d %% de más%s' % (
             _e(p.get('apuesta')), float(p.get('cuota') or 0), round(100 * float(p.get('prob') or 0)),
             round(100 * float(p.get('ventaja') or 0)), (' en ' + _e(p.get('casa'))) if p.get('casa') else '')
-    return '➜ %s · cuota <b>%.2f</b> · acierta %d %%' % (
+    return '➜ %s · cuota <b>%.2f</b> · probabilidad %d %%' % (
         _e(p.get('apuesta')), float(p.get('cuota') or 0), round(100 * float(p.get('prob') or 0)))
 
 
@@ -248,7 +248,7 @@ def armar_gratis(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[T
             if comb:
                 c = float(comb[0]['cuota']) * float(comb[1]['cuota'])
                 pj = float(comb[0]['prob']) * float(comb[1]['prob'])
-                t = ('🔗 <b>Combinada del día</b> · cuota total <b>%.2f</b> · acierta ~%d %%\n\n' % (c, round(100 * pj)) +
+                t = ('🔗 <b>Combinada del día</b> · cuota total <b>%.2f</b> · probabilidad ~%d %%\n\n' % (c, round(100 * pj)) +
                      '\n\n'.join(_cab_partido(p, ahora) + '\n   ' + _apuesta(p) for p in comb) + PIE)
                 out.append((t, [(clave, 'gratis', 'horario'),
                                 ('comb:' + '+'.join(p['id'] for p in comb), 'gratis', 'pick')]))

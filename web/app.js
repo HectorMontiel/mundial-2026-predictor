@@ -35,6 +35,12 @@
     return { n: 'Plata', c: 'plata', i: '🥈' };
   }
 
+  // v396 — el nivel en palabras: probabilidad, nunca «segura» ni «se cumplen 9 de 10»
+  function grado(p) {
+    const n = nivel(p).n;
+    return { Diamante: 'Muy alta', Platino: 'Muy alta', Oro: 'Alta', Plata: 'Buena' }[n] || '—';
+  }
+
   async function cargar() {
     // v384 — datos de apoyo (deportes con partidos pero sin pick)
     fetch('datos/meta.json?t=' + Date.now()).then((r) => r.ok ? r.json() : null).then((m) => { estado.meta = m || {}; }).catch(() => {});
@@ -59,6 +65,14 @@
         estado.picks = [];
       }
     }
+    // v396 — las combinadas (tabla pública `combinadas`)
+    try {
+      if (C.SUPABASE_URL && C.SUPABASE_ANON_KEY) {
+        const rc = await fetch(C.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/combinadas?select=*&fecha=gte.' + diaPestana(-30) + '&order=inicio.asc&limit=2000',
+          { headers: { apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY } });
+        estado.combinadas = rc.ok ? await rc.json() : [];
+      }
+    } catch (e) { estado.combinadas = []; }
     pintar();
     vivo();
   }
@@ -326,11 +340,43 @@
       '<div class="apuesta">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
       (pr ? '<div class="progreso ' + pr.e + '">' + esc(pr.t) + '</div>' : '') + iaDelPick(p) +
       '<div class="datos"><div class="dato"><small>Cuota</small><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '—') + '</b></div>' +
-      '<div class="dato"><small>Se cumplen</small><b>' + pct(p.prob) + '</b></div>' +
-      '<div class="dato"><small>' + (p.tipo === 'error' ? 'Paga de más' : 'De cada 10') + '</b>'.replace('</b>', '</small><b>') +
-      (p.tipo === 'error' ? '+' + Math.round(100 * (p.ventaja || 0)) + ' %' : (p.prob ? Math.round(10 * p.prob) + ' de 10' : '—')) + '</b></div></div>' +
+      '<div class="dato"><small>Probabilidad</small><b>' + pct(p.prob) + '</b></div>' +
+      '<div class="dato"><small>' + (p.tipo === 'error' ? 'Paga de más' : 'Nivel') + '</small><b>' +
+      (p.tipo === 'error' ? '+' + Math.round(100 * (p.ventaja || 0)) + ' %' : grado(p)) + '</b></div></div>' +
       (p.tipo === 'error' && p.porque ? '<div class="porque">' + esc(p.porque) + ' · riesgo alto: apuesta poco</div>' : '') +
       (window.SPX ? SPX.extra(p) : '') + '</div>';
+  }
+  // ---------- v396: COMBINADAS ----------
+  const ICONO_DEP = { 'Fútbol': '⚽', Tenis: '🎾', NFL: '🏈', NBA: '🏀', NHL: '🏒', MLB: '⚾', KBO: '⚾', Mixta: '🔀' };
+  const porId = () => { if (!estado._porId || estado._porIdN !== estado.picks.length) { estado._porId = new Map(estado.picks.map((p) => [p.id, p])); estado._porIdN = estado.picks.length; } return estado._porId; };
+  function faseCombinada(c) {
+    if (c.estado === 'verde' || c.estado === 'roja' || c.estado === 'nula') return 'terminado';
+    const empezo = (c.patas || []).some((x) => { const d = aFecha(x.inicio); return d && d <= new Date(); });
+    return empezo ? 'vivo' : 'proximo';
+  }
+  function tarjetaCombinada(c) {
+    const m = porId();
+    const patas = (c.patas || []).map((x) => {
+      const p = m.get(x.id) || x;
+      const e = p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '➖' : '⏳';
+      const txt = window.SPX && m.get(x.id) ? SPX.apuesta(p) : esc(x.apuesta);
+      return '<div class="comb-pata"><span>' + e + '</span><div><b>' + txt + '</b><small>' + (ICONO_DEP[x.deporte] || '•') + ' ' + esc(x.partido || '') +
+        ' · ' + Number(x.cuota || 0).toFixed(2) + ' · ' + pct(x.prob) + (x.ia === 'a_favor' ? ' · 🤖 a favor' : '') + '</small></div></div>';
+    }).join('');
+    const est = c.estado === 'verde' ? '<span class="et verde">✅ Verde</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
+      : faseCombinada(c) === 'vivo' ? '<span class="et vivo"><i class="punto"></i>En juego</span>' : '<span class="et">⏳ ' + esc(horaCdmx(aFecha(c.inicio))) + '</span>';
+    return '<div class="dest comb ' + (c.estado === 'verde' ? 'verde' : c.estado === 'roja' ? 'roja' : '') + '">' +
+      '<div class="fila"><span class="et nivel">' + (ICONO_DEP[c.alcance] || '🔗') + ' ' + esc(c.alcance) + (c.tipo === 'alta' ? ' · cuota alta' : '') + '</span>' + est + '</div>' +
+      patas + '<div class="dest-pie"><b>' + Number(c.cuota || 0).toFixed(2) + '</b><span>probabilidad ' + pct(c.prob) + '</span></div>' +
+      (window.SPX && SPX.extraComb ? SPX.extraComb(c) : '') + '</div>';
+  }
+  function histCombinadas() {
+    const t = (estado.combinadas || []).filter((c) => c.estado === 'verde' || c.estado === 'roja');
+    if (!t.length) return '<p class="tenue">Aún no termina ninguna combinada. Aquí se van a ver sus verdes y rojas, sin quitar nada.</p>';
+    const fila = (titulo, xs) => { const v = xs.filter((c) => c.estado === 'verde').length, r = xs.length - v;
+      return '<div class="ia-fila"><span>' + titulo + '</span><b>✅ ' + v + ' ❌ ' + r + '</b><small>' + (xs.length ? pct(v / xs.length) : '—') + '</small></div>'; };
+    return fila('🔗 Combinadas (2 patas)', t.filter((c) => c.tipo !== 'alta')) + fila('🔗 Cuota alta (3 patas)', t.filter((c) => c.tipo === 'alta')) +
+      fila('🔀 Mixtas', t.filter((c) => c.alcance === 'Mixta'));
   }
   function tarjeta(ps) {
     const p = ps[0];
@@ -358,6 +404,7 @@
   const dict = (a, b) => Object.assign({}, a, b);
   // v384 — «un H2H en las tarjetas por si la gente quiere analizar el partido»
   // v387 — el análisis y la predicción de la IA (Gemini), medida aparte
+  const pp = (x) => (x == null ? '' : ' <span class="ia-prob">(' + Math.round(100 * x) + ' %)</span>');
   function iaHtml(a, L, V, ctx) {
     if (!a) return '';
     const res = { local: 'gana ' + L, empate: 'empate', visita: 'gana ' + V }[a.pred_resultado] || '';
@@ -366,16 +413,18 @@
       '<p class="ia-txt">' + esc(a.analisis || '') + '</p>' +
       '<div class="ia-pred">La IA ve: <b>' + esc(res) + '</b> · ' + L.slice(0, 14) + ' ' + Math.round(100 * (a.p_local || 0)) + ' % · empate ' +
       Math.round(100 * (a.p_empate || 0)) + ' % · ' + V.slice(0, 14) + ' ' + Math.round(100 * (a.p_visita || 0)) + ' %</div>' +
-      '<div class="ia-pred">Goles: <b>' + (a.pred_goles === 'mas' ? 'más de 2.5' : a.pred_goles === 'menos' ? 'menos de 2.5' : '—') + '</b> · confianza ' +
+      '<div class="ia-pred">Goles: <b>' + (a.pred_goles === 'mas' ? 'más de 2.5' : a.pred_goles === 'menos' ? 'menos de 2.5' : '—') + '</b>' + pp(a.prob_goles) + ' · confianza ' +
       '★'.repeat(a.confianza || 0) + '☆'.repeat(5 - (a.confianza || 0)) + '</div>' +
       // v392 — más precisa: marcador, goles esperados, ambos anotan, córners, tarjetas (con ✅/❌ al terminar)
       '<div class="ia-grid">' + [
-        a.marcador_ia ? ['⚽ Marcador', a.marcador_ia, a.ok_marcador] : null,
-        a.goles_esperados != null ? ['🥅 Goles esperados', String(a.goles_esperados), null] : null,
-        a.btts ? ['🎯 Ambos anotan', a.btts === 'si' ? 'Sí' : 'No', a.ok_btts] : null,
-        a.linea_corners != null ? ['🚩 Córners', (a.pred_corners === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_corners + (a.corners_esperados != null ? ' (~' + a.corners_esperados + ')' : ''), a.ok_corners] : null,
-        a.linea_tarjetas != null ? ['🟨 Tarjetas', (a.pred_tarjetas === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_tarjetas + (a.tarjetas_esperadas != null ? ' (~' + a.tarjetas_esperadas + ')' : ''), a.ok_tarjetas] : null,
-      ].filter(Boolean).map(([t, v, ok]) => '<div><small>' + t + '</small><b>' + esc(v) + (ok === true ? ' ✅' : ok === false ? ' ❌' : '') + '</b></div>').join('') + '</div>' +
+        // v396 — con la probabilidad que le da la IA a cada predicción
+        a.marcador_ia ? ['⚽ Marcador', a.marcador_ia, a.ok_marcador, a.prob_marcador] : null,
+        a.goles_esperados != null ? ['🥅 Goles esperados', String(a.goles_esperados), null, null] : null,
+        a.btts ? ['🎯 Ambos anotan', a.btts === 'si' ? 'Sí' : 'No', a.ok_btts, a.prob_ambos == null ? null : (a.btts === 'si' ? a.prob_ambos : 1 - a.prob_ambos)] : null,
+        a.linea_corners != null ? ['🚩 Córners', (a.pred_corners === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_corners + (a.corners_esperados != null ? ' (~' + a.corners_esperados + ')' : ''), a.ok_corners, a.prob_corners] : null,
+        a.linea_tarjetas != null ? ['🟨 Tarjetas', (a.pred_tarjetas === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_tarjetas + (a.tarjetas_esperadas != null ? ' (~' + a.tarjetas_esperadas + ')' : ''), a.ok_tarjetas, a.prob_tarjetas] : null,
+      ].filter(Boolean).map(([t, v, ok, pr]) => '<div><small>' + t + '</small><b>' + esc(v) + (ok === true ? ' ✅' : ok === false ? ' ❌' : '') + '</b>' +
+        (pr != null ? '<span class="ia-prob">probabilidad ' + Math.round(100 * pr) + ' %</span>' : '') + '</div>').join('') + '</div>' +
       // v394 — qué metería la IA (cualquier mercado) y los goles de cada equipo
       (a.mejor_apuesta ? '<div class="ia-meter">🧠 Lo que metería la IA: <b>' + esc(a.mejor_apuesta) + '</b>' +
         (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +
@@ -531,7 +580,7 @@
       '<div class="dest-eqs">' + escudo(p.logo_h, L) + '<span>' + esc(marc || 'vs') + '</span>' + escudo(p.logo_a, V) + '</div>' +
       '<div class="dest-nom">' + esc(L) + ' – ' + esc(V) + '</div>' +
       '<div class="dest-ap">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
-      '<div class="dest-pie"><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</b><span>acierta ' + pct(p.prob) + '</span></div></button>';
+      '<div class="dest-pie"><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</b><span>probabilidad ' + pct(p.prob) + '</span></div></button>';
   }
   function tiraMarcador() {
     const hoy = diaPestana(0), l0 = estado.picks.filter((p) => diaDe(p) === hoy), l = l0.filter((p) => p.tipo !== 'error'),
@@ -594,6 +643,15 @@
       .sort((a, b) => String(a[0].inicio).localeCompare(String(b[0].inicio))).slice(0, 12) : [];
     $('destacados').hidden = !dest.length;
     $('destacados-lista').innerHTML = dest.map(seguro(destacado)).join('');
+    // 🔗 Combinadas del día elegido, del deporte elegido (las mixtas siempre)
+    const diaC = diaPestana(OFFS[estado.dia] || 0);
+    const combs = estado.vista === 'picks' ? (estado.combinadas || []).filter((c) => c.fecha === diaC &&
+      (estado.deportes.size === 0 || c.alcance === 'Mixta' || estado.deportes.has(c.alcance)) &&
+      (estado.fase === 'todos' || faseCombinada(c) === estado.fase)) : [];
+    $('combinadas').hidden = !combs.length;
+    $('combinadas-lista').innerHTML = combs.sort((a, b) => (a.alcance === 'Mixta') - (b.alcance === 'Mixta') || String(a.alcance).localeCompare(b.alcance) ||
+      (a.tipo === 'alta') - (b.tipo === 'alta')).map(seguro(tarjetaCombinada)).join('');
+    if ($('comb-hist')) $('comb-hist').innerHTML = histCombinadas();
     estado.grupos = new Map(agrupar(listaBase()).map((g) => [clavePartido(g[0]), g]));
 
     // por liga: en vivo primero, luego por hora; la liga con su partido más temprano
@@ -636,7 +694,7 @@
       && (estado.deportes.size === 0 || estado.deportes.has(dep)));
     if (avisos.length) $('tarjetas').insertAdjacentHTML('beforeend', avisos.map(([dep, n]) =>
       '<div class="sin-pick">' + ({ MLB: '⚾', KBO: '⚾', NBA: '🏀', NFL: '🏈', NHL: '🏒', Tenis: '🎾' }[dep] || '•') + ' <b>' + esc(dep) + '</b>: ' + n +
-      (n === 1 ? ' partido hoy' : ' partidos hoy') + ', pero ninguno llegó a nuestro mínimo de seguridad. Preferimos no darte un pick flojo.</div>').join(''));
+      (n === 1 ? ' partido hoy' : ' partidos hoy') + ', pero ninguno llegó a nuestro mínimo de probabilidad. Preferimos no darte un pick flojo.</div>').join(''));
   }
 
   window.SP = { nivel, pintar, estado };

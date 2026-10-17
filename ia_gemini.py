@@ -64,6 +64,9 @@ ESQUEMA = {
         # v394 — para saber qué meter: los goles de cada equipo y SU mejor apuesta
         'goles_local_esperados': {'type': 'NUMBER'}, 'goles_visita_esperados': {'type': 'NUMBER'},
         'mejor_apuesta': {'type': 'STRING'}, 'prob_mejor_apuesta': {'type': 'NUMBER'},
+        # v396 — la probabilidad (0 a 1) de cada predicción, para saber qué tan fuerte es
+        'prob_goles': {'type': 'NUMBER'}, 'prob_ambos_anotan': {'type': 'NUMBER'},
+        'prob_corners': {'type': 'NUMBER'}, 'prob_tarjetas': {'type': 'NUMBER'}, 'prob_marcador': {'type': 'NUMBER'},
         # v391 — el usuario: «si ve que la apuesta que metemos no se va a cumplir, que lo diga»
         'veredictos': {'type': 'ARRAY', 'items': {'type': 'OBJECT', 'properties': {
             'apuesta': {'type': 'STRING'}, 'opinion': {'type': 'STRING', 'enum': ['a_favor', 'en_contra']},
@@ -72,7 +75,8 @@ ESQUEMA = {
     'required': ['analisis', 'p_local', 'p_empate', 'p_visita', 'pred_goles', 'confianza', 'pick_ia', 'coincide', 'veredictos',
                  'marcador_probable', 'goles_esperados', 'ambos_anotan', 'corners_esperados', 'linea_corners', 'pred_corners',
                  'tarjetas_esperadas', 'linea_tarjetas', 'pred_tarjetas', 'goles_local_esperados',
-                 'goles_visita_esperados', 'mejor_apuesta', 'prob_mejor_apuesta'],
+                 'goles_visita_esperados', 'mejor_apuesta', 'prob_mejor_apuesta', 'prob_goles', 'prob_ambos_anotan',
+                 'prob_corners', 'prob_tarjetas', 'prob_marcador'],
 }
 ESQUEMA['properties']['partido'] = {'type': 'STRING'}
 ESQUEMA['required'] = ['partido'] + ESQUEMA['required']
@@ -97,7 +101,9 @@ INSTRUCCION = (
     'llamativo de córners o tarjetas si lo hay. 9) Da los goles esperados de CADA equipo (un decimal) y tu mejor '
     'apuesta del partido en cualquier mercado (resultado, doble oportunidad, goles, goles de un equipo, ambos '
     'anotan, córners o tarjetas), con la probabilidad que le das (0 a 1): la que más se va a cumplir, no la que '
-    'más paga. 10) Recibes una LISTA de partidos: responde uno por cada uno, en "partidos", copiando el campo '
+    'más paga. 11) Da la PROBABILIDAD (0 a 1) de cada predicción: la de tu lado de goles (más o menos de 2.5), la de que '
+    'AMBOS anoten (sí), la de tu lado de córners, la de tu lado de tarjetas y la del marcador exacto (suele ser baja, '
+    '0.08-0.15). Que sean coherentes con lo demás. 12) Recibes una LISTA de partidos: responde uno por cada uno, en "partidos", copiando el campo '
     '"partido" tal cual.'
 )
 
@@ -261,7 +267,10 @@ def fila(m: Dict, d: Dict, mercado: Dict) -> Dict:
             'goles_local_esperados': _num(d.get('goles_local_esperados')),
             'goles_visita_esperados': _num(d.get('goles_visita_esperados')),
             'mejor_apuesta': str(d.get('mejor_apuesta') or '')[:160] or None,
-            'prob_mejor_apuesta': _prob(d.get('prob_mejor_apuesta'))}
+            'prob_mejor_apuesta': _prob(d.get('prob_mejor_apuesta')),
+            'prob_goles': _prob(d.get('prob_goles')), 'prob_ambos': _prob(d.get('prob_ambos_anotan')),
+            'prob_corners': _prob(d.get('prob_corners')), 'prob_tarjetas': _prob(d.get('prob_tarjetas')),
+            'prob_marcador': _prob(d.get('prob_marcador'))}
 
 
 def _prob(x):
@@ -298,10 +307,11 @@ def _sb():
 def ya_hechos(sb) -> Optional[set]:
     import requests
     desde = (dt.date.today() - dt.timedelta(days=3)).isoformat()
-    r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos,mejor_apuesta', 'fecha': 'gte.' + desde,
+    r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos,mejor_apuesta,prob_goles', 'fecha': 'gte.' + desde,
                                                    'limit': 5000}, timeout=30)
-    # v394 — lo analizado con el esquema viejo (sin «qué meter» ni marcador) se vuelve a pedir
-    return {x['id'] for x in r.json() if x.get('veredictos') is not None and x.get('mejor_apuesta')} if r.ok else None
+    # v394-v396 — lo analizado con un esquema viejo (sin «qué meter» ni probabilidades) se vuelve a pedir
+    return {x['id'] for x in r.json() if x.get('veredictos') is not None and x.get('mejor_apuesta')
+            and x.get('prob_goles') is not None} if r.ok else None
 
 
 def _final(partido: str, fecha: str, picks: List[Dict]):
