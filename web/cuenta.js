@@ -77,9 +77,12 @@
       tareas.push(sb.from('seguidos').select('pick').then(({ data }) => { yo.seguidos = new Set((data || []).map((x) => x.pick)); }));
       tareas.push(sb.from('ia_analisis').select('*').gte('fecha', new Date(Date.now() - 2 * 864e5).toISOString().slice(0, 10)).limit(2000)
         .then(({ data }) => { yo.ia = {}; (data || []).forEach((x) => { yo.ia[x.partido] = x; }); }));
+      tareas.push(sb.from('suscripciones').select('*').eq('usuario', yo.user.id).order('actualizado', { ascending: false }).limit(10)
+        .then(({ data }) => { yo.subs = data || []; }));
       tareas.push(sb.from('picks_premium').select('id,apuesta').then(({ data }) => { yo.desbloqueados = {}; (data || []).forEach((x) => { yo.desbloqueados[x.id] = x.apuesta; }); }));
-    } else { yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; }
+    } else { yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; yo.subs = []; }
     await Promise.all(tareas.map((t) => aTiempo(t, 6000, null)));
+    try { avisoRenovacion(); } catch (e) { /* el aviso nunca tumba la página */ }
     try { pintarCabecera(); } catch (e) {
       // pase lo que pase, la cabecera dice algo (y se reintenta en 20 s)
       const c = $('cuenta');
@@ -95,6 +98,60 @@
   const esVip = () => esAdmin() || !!(yo.perfil && yo.perfil.plan === 'pro' && (!yo.perfil.plan_hasta || new Date(yo.perfil.plan_hasta) > new Date()));
   const RE_USUARIO = /^[A-Za-z0-9_.]{3,20}$/;
   const fecha = (s) => s ? new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(s)) : '';
+
+  // v395 — la suscripción que manda (la más reciente que siga viva) y su aviso
+  const DIAS_AVISO = 7;
+  function miSub() {
+    return (yo.subs || []).find((s) => ['authorized', 'cancela_al_final', 'cancelled', 'pagado'].includes(s.estado) &&
+      (s.estado !== 'cancelled' || esVip())) || null;
+  }
+  function renuevaPronto(s) {
+    if (!s || !s.renueva || s.estado !== 'authorized' || !s.proximo_cobro) return false;
+    const f = new Date(s.proximo_cobro).getTime();
+    return f > Date.now() && f - Date.now() <= DIAS_AVISO * 864e5;
+  }
+  const porQuien = (s) => String(s.id || '').startsWith('stripe') ? 'Stripe' : 'Mercado Pago';
+  // aviso arriba de la página los 7 días antes de cada cobro (además del correo)
+  function avisoRenovacion() {
+    let b = document.getElementById('aviso-renovacion');
+    const s = miSub();
+    const clave = s && s.proximo_cobro ? 'sp_aviso_' + s.id + '_' + String(s.proximo_cobro).slice(0, 10) : '';
+    let visto = false;
+    try { visto = !!(clave && localStorage.getItem(clave)); } catch (e) { /* sin almacenamiento: se enseña */ }
+    if (!renuevaPronto(s) || visto) { if (b) b.remove(); return; }
+    if (!b) {
+      b = document.createElement('div'); b.id = 'aviso-renovacion'; b.className = 'aviso-renovacion';
+      document.body.insertBefore(b, document.body.firstChild);
+    }
+    b.innerHTML = '⏰ Tu VIP se renueva el <b>' + esc(fecha(s.proximo_cobro)) + '</b> por <b>$' + Math.round(s.precio) + '</b> (' + porQuien(s) + '). ' +
+      '<button class="ver" data-mi-cuenta>Ver o cancelar</button> <button class="cerrar-aviso" data-cerrar-aviso="' + esc(clave) + '">✕</button>';
+  }
+  function cajaSuscripcion() {
+    const s = miSub(); const p = yo.perfil || {};
+    if (!s || esAdmin()) return '';
+    let h = '<div class="caja"><div class="tit">🔁 Mi suscripción</div>';
+    if (s.estado === 'authorized' && s.renueva) {
+      h += '<p class="sub">VIP ' + esc(s.tipo) + ' con ' + porQuien(s) + '. Se renueva <b>automáticamente</b> el <b>' + esc(fecha(s.proximo_cobro)) +
+        '</b> por <b>$' + Math.round(s.precio) + '</b>. Te avisamos ' + DIAS_AVISO + ' días antes.</p>' +
+        '<button class="vip-btn sec" data-sus="cancelar">Cancelar renovación</button>' +
+        '<p class="tenue chico">Si cancelas, sigues siendo VIP hasta el ' + esc(fecha(p.plan_hasta || s.proximo_cobro)) + ' y no se te vuelve a cobrar.</p>';
+    } else if (s.estado === 'cancela_al_final') {
+      h += '<p class="sub">Cancelaste la renovación: eres VIP hasta el <b>' + esc(fecha(p.plan_hasta || s.proximo_cobro)) + '</b> y no se te volverá a cobrar.</p>' +
+        '<button class="vip-btn sec" data-sus="reactivar">Volver a renovar automáticamente</button>';
+    } else if (s.estado === 'pagado') {
+      h += '<p class="sub">Pago único, <b>sin renovación automática</b>: eres VIP hasta el <b>' + esc(fecha(p.plan_hasta)) + '</b>. Al terminar no se cobra nada.</p>';
+    } else {
+      h += '<p class="sub">Renovación cancelada: eres VIP hasta el <b>' + esc(fecha(p.plan_hasta)) + '</b> y no se te volverá a cobrar.</p>';
+    }
+    if (String(s.id).startsWith('stripe:')) h += '<button class="ver" data-portal>💳 Cambiar tarjeta o ver mis recibos (Stripe)</button>';
+    return h + '</div>';
+  }
+  function metodoPago() {
+    const m = yo.metodo || 'stripe';
+    return '<div class="metodo"><span class="tenue chico">Pagar con:</span>' +
+      '<button class="seg' + (m === 'stripe' ? ' activa' : '') + '" data-metodo="stripe"> Pay · tarjeta</button>' +
+      '<button class="seg' + (m === 'mp' ? ' activa' : '') + '" data-metodo="mp">Mercado Pago · OXXO</button></div>';
+  }
 
   function pintarCabecera() {
     const c = $('cuenta'); if (!c) return;
@@ -155,19 +212,23 @@
       '<span>🪙 ' + (esAdmin() ? '∞' : (p.monedas || 0)) + '</span></div>';
     if (msg) h += '<p class="aviso-ok">' + esc(msg) + '</p>';
     if (vipUrl) h += '<a class="tg vip bloque" href="' + esc(vipUrl) + '" target="_blank" rel="noopener">💎 Entrar al grupo VIP de Telegram</a>';
+    h += cajaSuscripcion();
     if (!esVip()) {
       h += '<div class="caja vip-caja"><div class="tit">Hazte VIP</div>' +
         '<p class="sub">Todos los 💎 y 🔷 sin gastar monedas y el grupo VIP de Telegram con avisos al momento. Cancelas cuando quieras.</p>' +
-        '<label class="campo">Correo de tu cuenta de Mercado Pago<input type="email" id="mp-correo" value="' + esc(yo.user.email || '') + '"></label>' +
+        metodoPago() +
+        ((yo.metodo || 'stripe') === 'mp' ? '<label class="campo">Correo de tu cuenta de Mercado Pago<input type="email" id="mp-correo" value="' + esc(yo.user.email || '') + '"></label>' : '') +
+        '<label class="renovar"><input type="checkbox" id="vip-renovar" checked> <span>🔁 <b>Renovar automáticamente</b> cada periodo. ' +
+        'Te avisamos ' + DIAS_AVISO + ' días antes de cada cobro y cancelas cuando quieras. Sin marcar: pagas sólo este periodo.</span></label>' +
         '<button class="vip-btn" data-vip="mensual">' + (lugares > 0 ? '⭐ Fundador: $' + pf + ' al mes <small>quedan ' + lugares + ' de 50 · después $' + pm + '</small>' : 'Mensual: $' + pm + ' al mes') + '</button>' +
         '<button class="vip-btn sec" data-vip="semestral">Semestral: $' + ps + ' cada 6 meses <small>≈ $' + Math.round(ps / 6) + ' al mes</small></button>' +
-        '<p class="tenue chico">Precios en pesos con IVA incluido. El cobro lo hace Mercado Pago; nosotros nunca vemos tu tarjeta.</p></div>';
+        '<p class="tenue chico">Precios en pesos con IVA incluido. El cobro lo hace Stripe o Mercado Pago; nosotros nunca vemos tu tarjeta.</p></div>';
     }
     if (!esAdmin()) {
-      h += '<div class="caja"><div class="tit">🪙 Comprar monedas</div><div class="paquetes">' +
+      h += '<div class="caja"><div class="tit">🪙 Comprar monedas</div>' + (esVip() ? metodoPago() : '') + '<div class="paquetes">' +
         (yo.paquetes || []).map((k) => '<button class="paquete' + (k.id === 'popular' ? ' top' : '') + '" data-comprar="' + esc(k.id) + '"><b>' + k.monedas +
           ' 🪙</b><span>$' + Math.round(k.precio) + '</span><small>' + esc(k.nombre) + (k.id === 'popular' ? ' · el más pedido' : '') + '</small></button>').join('') +
-        '</div><p class="tenue chico">💎 🔷 💰 cuestan de 5 a 25 🪙 según su cuota. Si el pick sale rojo, te regresamos tus monedas solas. Pago con Mercado Pago.</p></div>';
+        '</div><p class="tenue chico">💎 🔷 💰 cuestan de 5 a 25 🪙 según su cuota. Si el pick sale rojo, te regresamos tus monedas solas.</p></div>';
     }
     h += '<div class="caja"><div class="tit">👤 Nombre de usuario</div><div class="fila-form"><input id="mi-usuario" value="' + esc(p.usuario || '') +
       '" placeholder="3-20 letras, números, _ o ." autocapitalize="off"><button class="ver" data-mi-usuario>Guardar</button></div></div>';
@@ -180,7 +241,7 @@
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario],[data-comprar]');
+    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario],[data-comprar],[data-metodo],[data-sus],[data-portal],[data-cerrar-aviso]');
     if (!t) return;
     if (t.hasAttribute('data-ayuda')) { $('ayuda').hidden = false; return; }
     if (t.hasAttribute('data-cerrar-ayuda')) { $('ayuda').hidden = true; return; }
@@ -209,12 +270,34 @@
       $('acceso-msg').textContent = error ? 'No se pudo enviar: ' + error.message : 'Listo: revisa tu correo (también «spam»).';
       return;
     }
+    if (t.dataset.cerrarAviso != null) {
+      try { localStorage.setItem(t.dataset.cerrarAviso, '1'); } catch (e2) { /* sin almacenamiento */ }
+      const b = document.getElementById('aviso-renovacion'); if (b) b.remove();
+      return;
+    }
     if (!yo.user) { abrirAcceso('Inicia sesión para seguir y desbloquear picks.'); return; }
+    if (t.dataset.metodo) { yo.metodo = t.dataset.metodo; abrirMiCuenta(); return; }
+    if (t.dataset.sus || t.hasAttribute('data-portal')) {
+      if (t.dataset.sus === 'cancelar' && !confirm('¿Cancelar la renovación automática? Sigues siendo VIP hasta el final de lo ya pagado.')) return;
+      t.disabled = true;
+      const { data: s } = await sb.auth.getSession();
+      const r = await fetch(FN + (t.dataset.sus ? 'suscripcion' : 'stripe'), { method: 'POST', headers: { 'Content-Type': 'application/json',
+        apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + (s.session ? s.session.access_token : '') },
+        body: JSON.stringify({ accion: t.dataset.sus || 'portal' }) });
+      const d = await r.json().catch(() => ({}));
+      if (d.url) { location.href = d.url; return; }
+      await refrescar();
+      abrirMiCuenta(d.error || (t.dataset.sus === 'cancelar' ? '✅ Renovación cancelada. Sigues siendo VIP hasta el ' + fecha(d.hasta) + '.'
+        : '✅ Listo: tu VIP se volverá a renovar automáticamente.'));
+      return;
+    }
     if (t.dataset.comprar) {
       t.disabled = true;
       const { data: s } = await sb.auth.getSession();
-      const r = await fetch(FN + 'monedas', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY,
-        Authorization: 'Bearer ' + (s.session ? s.session.access_token : '') }, body: JSON.stringify({ paquete: t.dataset.comprar }) });
+      const conStripe = (yo.metodo || 'stripe') === 'stripe';
+      const r = await fetch(FN + (conStripe ? 'stripe' : 'monedas'), { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY,
+        Authorization: 'Bearer ' + (s.session ? s.session.access_token : '') },
+        body: JSON.stringify(conStripe ? { accion: 'monedas', paquete: t.dataset.comprar } : { paquete: t.dataset.comprar }) });
       const d = await r.json().catch(() => ({}));
       if (d.url) { location.href = d.url; return; }
       t.disabled = false;
@@ -249,8 +332,11 @@
     if (t.dataset.vip) {
       t.disabled = true;
       const { data: s } = await sb.auth.getSession();
-      const r = await fetch(FN + 'vip', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY,
-        Authorization: 'Bearer ' + (s.session ? s.session.access_token : '') }, body: JSON.stringify({ tipo: t.dataset.vip, correo: ($('mp-correo') || {}).value }) });
+      const renovar = !$('vip-renovar') || $('vip-renovar').checked;
+      const conStripe = (yo.metodo || 'stripe') === 'stripe';
+      const r = await fetch(FN + (conStripe ? 'stripe' : 'vip'), { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY,
+        Authorization: 'Bearer ' + (s.session ? s.session.access_token : '') },
+        body: JSON.stringify(conStripe ? { accion: 'vip', tipo: t.dataset.vip, renovar } : { tipo: t.dataset.vip, correo: ($('mp-correo') || {}).value, renovar }) });
       const d = await r.json().catch(() => ({}));
       if (d.url) { location.href = d.url; return; }
       t.disabled = false;
@@ -324,10 +410,14 @@
   if (/[?&]monedas=/.test(location.search)) {
     const ok = /monedas=ok/.test(location.search), pend = /monedas=pendiente/.test(location.search);
     history.replaceState(null, '', location.pathname);
-    setTimeout(() => abrirMiCuenta(ok ? '🎉 ¡Gracias! Tus monedas llegan en unos segundos.' : pend ? 'Tu pago está en proceso; las monedas llegan en cuanto Mercado Pago lo apruebe.' : 'El pago no se completó.'), 1500);
+    setTimeout(() => abrirMiCuenta(ok ? '🎉 ¡Gracias! Tus monedas llegan en unos segundos.' : pend ? 'Tu pago está en proceso; las monedas llegan en cuanto se apruebe.' : 'El pago no se completó.'), 1500);
     if (ok || pend) { let n = 0; const t2 = setInterval(async () => { await refrescar(); if (++n > 12) clearInterval(t2); }, 5000); }
   }
-  // de regreso de Mercado Pago
+  if (/[?&]cuenta=1/.test(location.search)) {
+    history.replaceState(null, '', location.pathname);
+    setTimeout(() => abrirMiCuenta(), 1500);
+  }
+  // de regreso de Mercado Pago o de Stripe
   if (/[?&]vip=ok/.test(location.search)) {
     history.replaceState(null, '', location.pathname);
     let n = 0;
@@ -335,7 +425,7 @@
       await refrescar();
       if (esVip() || ++n > 24) { clearInterval(t); if (esVip()) abrirMiCuenta('🎉 ¡Bienvenido al VIP!'); }
     }, 5000);
-    setTimeout(() => abrirMiCuenta('Gracias: en cuanto Mercado Pago confirme el pago se activa tu VIP (unos segundos).'), 1500);
+    setTimeout(() => abrirMiCuenta('Gracias: en cuanto se confirme el pago se activa tu VIP (unos segundos).'), 1500);
   }
 
   // ---------- historial público (verdes, rojas y porcentaje) ----------

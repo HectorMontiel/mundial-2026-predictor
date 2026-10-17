@@ -27,7 +27,7 @@ def probar():
           'la página tiene entrar, crear cuenta, elegir usuario y Mi cuenta')
     check("FN + 'entrar'" in cu and 'setSession' in cu and "sb.auth.signUp" in cu and "options: { data: { usuario: u } }" in cu,
           'entrar con usuario (por el servidor) y registrarse con usuario')
-    check("sb.rpc('canjear_codigo'" in cu and "FN + 'vip'" in cu and "sb.rpc('enlace_vip')" in cu,
+    check("sb.rpc('canjear_codigo'" in cu and ("FN + 'vip'" in cu or "conStripe ? 'stripe' : 'vip'" in cu) and "sb.rpc('enlace_vip')" in cu,
           'canjear código, hacerse VIP y el enlace del VIP desde la cuenta')
     check('t.me/+' not in cfg and 't.me/+' not in html and 't.me/+' not in cu,
           'el enlace del grupo VIP ya no está en la página pública')

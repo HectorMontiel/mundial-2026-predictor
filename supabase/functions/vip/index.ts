@@ -22,7 +22,7 @@ Deno.serve(async (req) => {
       global: { headers: { Authorization: req.headers.get('Authorization') ?? '' } }, auth: { persistSession: false } });
     const { data: { user } } = await yo.auth.getUser();
     if (!user) return json({ error: 'Inicia sesión para hacerte VIP.' }, 401);
-    const { tipo = 'mensual', correo } = await req.json().catch(() => ({}));
+    const { tipo = 'mensual', correo, renovar = true } = await req.json().catch(() => ({}));
     const admin = createClient(URL_, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, { auth: { persistSession: false } });
     const { data: aj } = await admin.from('ajustes').select('clave,valor');
     const A: Record<string, string> = Object.fromEntries((aj ?? []).map((x) => [x.clave, x.valor]));
@@ -30,6 +30,23 @@ Deno.serve(async (req) => {
     const semestral = tipo === 'semestral';
     const fundador = !semestral && Number(lugares ?? 0) > 0;
     const precio = Number(semestral ? A.precio_semestral ?? 749 : fundador ? A.precio_fundador ?? 99 : A.precio_mensual ?? 149);
+    if (!renovar) {
+      // v395 — el usuario eligió NO renovar: un solo pago por ese periodo (Checkout Pro)
+      const meses = semestral ? 6 : 1;
+      const r1 = await fetch('https://api.mercadopago.com/checkout/preferences', {
+        method: 'POST', headers: { Authorization: 'Bearer ' + MP, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          items: [{ id: 'vip-' + meses, title: 'SharPicks VIP ' + (semestral ? '6 meses' : '1 mes') + ' (sin renovación automática)',
+                    quantity: 1, unit_price: precio, currency_id: 'MXN' }],
+          external_reference: 'vip|' + user.id + '|' + meses + '|' + (fundador ? '1' : '0'),
+          back_urls: { success: SITIO + '/?vip=ok', pending: SITIO + '/?vip=pendiente', failure: SITIO + '/?vip=no' },
+          auto_return: 'approved', notification_url: URL_ + '/functions/v1/mp-webhook', statement_descriptor: 'SHARPICKS',
+        }),
+      });
+      const d1 = await r1.json();
+      if (!r1.ok || !d1.init_point) return json({ error: 'Mercado Pago: ' + (d1.message || 'no se pudo crear el cobro') }, 502);
+      return json({ url: d1.init_point, precio, fundador });
+    }
     const pagador = String(correo || user.email || '').trim();
     if (!pagador) return json({ error: 'Falta el correo de tu cuenta de Mercado Pago.' }, 400);
     const r = await fetch('https://api.mercadopago.com/preapproval', {
@@ -47,7 +64,7 @@ Deno.serve(async (req) => {
     const d = await r.json();
     if (!r.ok || !d.init_point) return json({ error: 'Mercado Pago: ' + (d.message || 'no se pudo crear la suscripción') }, 502);
     await admin.from('suscripciones').upsert({
-      id: d.id, usuario: user.id, tipo: semestral ? 'semestral' : 'mensual', precio, fundador, estado: d.status ?? 'pending',
+      id: d.id, usuario: user.id, tipo: semestral ? 'semestral' : 'mensual', precio, fundador, estado: d.status ?? 'pending', renueva: true,
       actualizado: new Date().toISOString() });
     return json({ url: d.init_point, precio, fundador });
   } catch (_e) {

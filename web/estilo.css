@@ -481,3 +481,13 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .sin-stats { font-size: 13px; color: var(--tenue); line-height: 1.4; }
 .ia-meter { margin: 8px 0; padding: 8px 10px; border-radius: 10px; background: rgba(61,220,132,.10);
   border: 1px solid rgba(61,220,132,.35); font-size: 14px; }
+
+/* v395 — renovación, método de pago y aviso antes del cobro */
+.metodo { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 8px 0; }
+.metodo .seg { flex: 1 1 140px; }
+.renovar { display: flex; gap: 8px; align-items: flex-start; margin: 10px 0; font-size: 13px; line-height: 1.4; }
+.renovar input { margin-top: 3px; width: 18px; height: 18px; accent-color: var(--marca); }
+.aviso-renovacion { position: sticky; top: 0; z-index: 60; padding: 10px 14px; font-size: 14px; line-height: 1.4;
+  background: rgba(250, 204, 21, .14); border-bottom: 1px solid rgba(250, 204, 21, .45); color: #fde68a; backdrop-filter: blur(12px); }
+.aviso-renovacion .ver { margin-left: 6px; padding: 4px 10px; }
+.cerrar-aviso { background: none; border: 0; color: inherit; font-size: 16px; cursor: pointer; float: right; }

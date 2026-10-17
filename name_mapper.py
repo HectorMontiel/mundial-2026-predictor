@@ -166,6 +166,56 @@ MISMO_EQUIPO_CON_CALIFICADOR = frozenset((
 ))
 
 
+# v395 — CLUBES QUE NUNCA SON EL MISMO, AUNQUE UNO CONTENGA AL OTRO.
+#
+# El 17-oct «Strasbourg vs Paris Saint-Germain» salió como «Strasbourg vs
+# Paris FC»: `normalizar` deja «Paris FC» en «paris», y la contención aceptó
+# «paris saint germain» porque «paris» casa entera. Desde que el Paris FC subió
+# (2025) los dos están en la Ligue 1, y el PSG se pronosticaba con los números
+# del Paris FC. La auditoría de todas las ligas (cada nombre de ESPN contra su
+# catálogo, buscando dos clubes que caigan en el mismo) encontró dos más:
+# Lillestrøm → Lille (Europa League) y Deportivo → Deportivo Alavés (femenil).
+# Las siglas («Paris SG») van aparte, en `_por_siglas`; esto es el freno para
+# lo que ninguna regla general separa.
+_NUNCA_CRUDO = {
+    'Paris Saint-Germain': ['Paris FC'], 'Paris FC': ['Paris Saint-Germain', 'Paris SG'],
+    'Lillestrom': ['Lille'], 'Lillestrøm': ['Lille'], 'Lillestrom SK': ['Lille'],
+    'Deportivo': ['Deportivo Alavés'], 'Deportivo La Coruña': ['Deportivo Alavés'],
+    # y los que salieron mirando el histórico entero de cada competición
+    'Cong An Hanoi': ['Hanoi'], 'Unión Wanderers': ['Santiago Wanderers'],
+    'Haro Deportivo': ['Deportivo'], '12 de Octubre': ['9 de Octubre'],
+    'River Plate (Asunción)': ['River Plate'],
+}
+
+
+def _nunca() -> Dict[str, set]:
+    if not hasattr(_nunca, 'm'):
+        m: Dict[str, set] = {}
+        for k, vs in _NUNCA_CRUDO.items():
+            for v in vs:
+                m.setdefault(normalizar(k), set()).add(normalizar(v))
+                m.setdefault(normalizar(v), set()).add(normalizar(k))
+        _nunca.m = m
+    return _nunca.m
+
+
+def _por_siglas(objetivo: str, candidato: str) -> bool:
+    """«paris saint germain» y «paris sg»: las palabras iguales al principio y,
+    lo que sigue, escrito con sus iniciales (de 2 letras o más). En los dos
+    sentidos."""
+    for a, b in ((objetivo, candidato), (candidato, objetivo)):
+        ta, tb = a.split(), b.split()
+        if len(tb) < 2 or len(ta) <= len(tb):
+            continue
+        k = len(tb) - 1
+        if ta[:k] != tb[:k]:
+            continue
+        siglas = ''.join(w[0] for w in ta[k:])
+        if len(siglas) >= 2 and tb[-1] == siglas:
+            return True
+    return False
+
+
 def _contencion_fiable(objetivo: str, candidato: str) -> bool:
     """
     v163.1 — LA CONTENCIÓN EMPAREJABA CLUBES DISTINTOS, Y SIN AVISAR.
@@ -279,6 +329,12 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
         if ' '.join(w for w in _expandir(n).split()
                     if w not in ('de', 'del', 'la', 'el')) == sin_conector:
             return c
+    # v395 — siglas antes que contención: «Paris Saint-Germain» es «Paris SG»
+    # y no el «Paris FC» (que normalizado se queda en «paris»)
+    prohibidos = _nunca().get(objetivo, set())
+    for c, n in normalizados.items():
+        if n not in prohibidos and _por_siglas(objetivo, n):
+            return c
     # Contención (subcadena). v66: antes devolvía el PRIMER candidato que
     # contuviera al objetivo, lo que con catálogos grandes es una lotería —
     # "Congo" entra en "DR Congo", "Guinea" en "Equatorial Guinea" y
@@ -287,13 +343,15 @@ def mapear(nombre: str, catalogo: Iterable[str], umbral: float = UMBRAL,
     # devuelve el más parecido (mayor ratio y, a igualdad, el de longitud más
     # próxima), que es siempre el correcto en esos pares.
     contenidos = [c for c, n in normalizados.items()
-                  if len(objetivo) >= 5 and _contencion_fiable(objetivo, n)]
+                  if len(objetivo) >= 5 and n not in prohibidos and _contencion_fiable(objetivo, n)]
     if contenidos:
         return max(contenidos,
                    key=lambda c: (SequenceMatcher(None, objetivo, normalizados[c]).ratio(),
                                   -abs(len(normalizados[c]) - len(objetivo))))
     mejor, ratio = None, 0.0
     for c, n in normalizados.items():
+        if n in prohibidos:
+            continue
         s = SequenceMatcher(None, objetivo, n).ratio()
         if s > ratio:
             mejor, ratio = c, s

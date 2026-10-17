@@ -32,6 +32,15 @@ Deno.serve(async (req) => {
         await admin.rpc('acreditar_compra', { p_id: String(p.id), p_usuario: usuario, p_paquete: paquete,
                                               p_precio: Number(p.transaction_amount ?? 0) });
       }
+      if (p && ref.startsWith('vip|') && p.status === 'approved') {
+        // v395 — VIP de un solo pago (sin renovación): se suma el periodo UNA vez
+        const [, usuario, meses, fund] = ref.split('|');
+        const { error } = await admin.from('suscripciones').insert({
+          id: 'mp-unico:' + p.id, usuario, tipo: Number(meses) >= 6 ? 'semestral' : 'mensual',
+          precio: Number(p.transaction_amount ?? 0), fundador: fund === '1', estado: 'pagado', renueva: false,
+          actualizado: new Date().toISOString() });
+        if (!error) await admin.rpc('sumar_vip', { p_usuario: usuario, p_meses: Number(meses) || 1 });
+      }
       if (p) return ok();
     }
 
@@ -46,7 +55,8 @@ Deno.serve(async (req) => {
     await admin.from('suscripciones').upsert({
       id: s.id, usuario: s.external_reference, tipo: meses >= 6 ? 'semestral' : 'mensual',
       precio: Number(s.auto_recurring?.transaction_amount ?? 0), fundador: String(s.reason || '').includes('fundador'),
-      estado: s.status, proximo_cobro: s.next_payment_date ?? null, actualizado: new Date().toISOString() });
+      estado: s.status, renueva: s.status === 'authorized', proximo_cobro: s.next_payment_date ?? null,
+      actualizado: new Date().toISOString() });
     if (s.status === 'authorized') {
       const base = s.next_payment_date ? new Date(s.next_payment_date) : new Date(Date.now() + meses * 31 * 864e5);
       const hasta = new Date(base.getTime() + 3 * 864e5);
