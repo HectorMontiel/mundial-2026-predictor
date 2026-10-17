@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T05:23:14Z",
+"actualizado": "2026-10-17T08:32:55Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7494,6 +7494,16 @@
 },
 {
 "dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Alycia Parks vs Jeline Vandromme",
+"apuesta": "Gana Alycia Parks",
+"cuota": 2.65,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-16",
 "nivel": "🏆",
 "deporte": "NHL",
 "partido": "Anaheim Ducks vs Boston Bruins",
@@ -7915,12 +7925,32 @@
 {
 "dia": "2026-10-16",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Ito A. vs Grant T. C.",
+"apuesta": "Gana Ito A.",
+"cuota": 2.125,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Java United vs Bali United",
 "apuesta": "Gana Java United",
 "cuota": 3.35,
 "resultado": "verde",
 "marcador": "3-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "MLB",
+"partido": "KIA Tigers vs LG Twins",
+"apuesta": "Gana KIA Tigers",
+"cuota": 1.625,
+"resultado": "verde",
+"marcador": "5-1"
 },
 {
 "dia": "2026-10-16",
@@ -8051,6 +8081,16 @@
 "cuota": 3.7,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Parks A. vs Vandromme J.",
+"apuesta": "Gana Parks A.",
+"cuota": 2.65,
+"resultado": "rojo",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-16",
@@ -8191,6 +8231,16 @@
 "cuota": 2.15,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Watson H. vs Jones E.",
+"apuesta": "Gana Jones E.",
+"cuota": 1.4,
+"resultado": "verde",
+"marcador": "0-2"
 }
 ]
 }
