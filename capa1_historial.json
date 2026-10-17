@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T03:57:54Z",
+"actualizado": "2026-10-17T05:23:14Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7494,6 +7494,16 @@
 },
 {
 "dia": "2026-10-16",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Anaheim Ducks vs Boston Bruins",
+"apuesta": "Handicap: Anaheim Ducks +2.5",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-16",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Annecy vs Nancy",
@@ -7601,6 +7611,16 @@
 "cuota": 1.48,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-16",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Club Atlético La Paz vs Tlaxcala FC",
+"apuesta": "Club Atlético La Paz o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "2-2"
 },
 {
 "dia": "2026-10-16",
