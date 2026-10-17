@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T08:32:55Z",
+"actualizado": "2026-10-17T10:09:00Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8175,6 +8175,16 @@
 {
 "dia": "2026-10-16",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Sorribes Tormo S. vs Inglis M.",
+"apuesta": "Gana Inglis M.",
+"cuota": 1.93,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Sport vs Fortaleza",
 "apuesta": "Gana Sport",
@@ -8239,6 +8249,26 @@
 "partido": "Watson H. vs Jones E.",
 "apuesta": "Gana Jones E.",
 "cuota": 1.4,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Kalinina A. vs Waltert S.",
+"apuesta": "Gana Kalinina A.",
+"cuota": 1.58,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Sorribes Tormo S. vs Inglis M.",
+"apuesta": "Gana Inglis M.",
+"cuota": 1.93,
 "resultado": "verde",
 "marcador": "0-2"
 }
