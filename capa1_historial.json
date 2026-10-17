@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T19:43:31Z",
+"actualizado": "2026-10-17T22:52:48Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8306,6 +8306,16 @@
 "dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Boyacá Chicó FC vs Atlético Nacional",
+"apuesta": "Gana Atlético Nacional",
+"cuota": 1.5834,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Brandys n. Labem vs Sokolov",
 "apuesta": "Gana Brandys n. Labem",
 "cuota": 2.9,
@@ -8334,6 +8344,26 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Chico vs Atl. Nacional",
+"apuesta": "Gana Atl. Nacional",
+"cuota": 1.62,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Chico vs Atl. Nacional",
+"apuesta": "Gana Atl. Nacional",
+"cuota": 1.5834,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Chrudim B vs Letohrad",
@@ -8341,6 +8371,26 @@
 "cuota": 3.3,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Cobreloa vs Recoleta",
+"apuesta": "Gana Cobreloa",
+"cuota": 1.78,
+"resultado": "verde",
+"marcador": "6-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Defensores Belgrano VR vs Sportivo Las Parejas",
+"apuesta": "Gana Defensores Belgrano VR",
+"cuota": 2.15,
+"resultado": "rojo",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-17",
@@ -8514,6 +8564,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Maringa FC vs Ferroviaria",
+"apuesta": "Gana Maringa FC",
+"cuota": 2.3,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Metz vs Sochaux",
@@ -8566,6 +8626,26 @@
 "dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Real Oruro vs Aurora",
+"apuesta": "Gana Real Oruro",
+"cuota": 2.95,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Real Oruro vs Aurora",
+"apuesta": "Gana Aurora",
+"cuota": 2.3334,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Red Arrows (Zam) vs Kaizer Chiefs (Rsa)",
 "apuesta": "Gana Kaizer Chiefs (Rsa)",
 "cuota": 3.05,
@@ -8581,6 +8661,26 @@
 "cuota": 1.111,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "San Martin Burzaco vs Excursionistas",
+"apuesta": "Gana Excursionistas",
+"cuota": 1.9,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "San Martin Burzaco vs Excursionistas",
+"apuesta": "Gana Excursionistas",
+"cuota": 1.9,
+"resultado": "rojo",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-17",
@@ -8634,6 +8734,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Sparta Rotterdam vs Willem II",
+"apuesta": "Sparta Rotterdam o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Sportunion Mauer vs Lac Inter",
@@ -8664,6 +8774,26 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Tampa Bay Lightning vs Vancouver Canucks",
+"apuesta": "Handicap: Tampa Bay Lightning +1.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Tampa Bay Lightning vs Vancouver Canucks",
+"apuesta": "Handicap: Vancouver Canucks +4.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Tempo Prague vs Meteor Prague",
@@ -8686,11 +8816,31 @@
 "dia": "2026-10-17",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Tristán Suárez vs Patronato",
+"apuesta": "Tristán Suárez o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Union Berlin vs Dortmund",
 "apuesta": "Dortmund o empate",
 "cuota": 1.182,
 "resultado": "verde",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Villa San Carlos vs Villa Dalmine",
+"apuesta": "Gana Villa San Carlos",
+"cuota": 3.2,
+"resultado": "verde",
+"marcador": "3-0"
 },
 {
 "dia": "2026-10-17",
@@ -8724,6 +8874,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Waregem vs Seraing",
+"apuesta": "Gana Waregem",
+"cuota": 1.37,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-17",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Whitby vs Curzon Ashton",
@@ -8741,6 +8901,16 @@
 "cuota": 1.154,
 "resultado": "verde",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Zamora vs Anzoategui FC",
+"apuesta": "Gana Anzoategui FC",
+"cuota": 1.7334,
+"resultado": "verde",
+"marcador": "1-2"
 }
 ]
 }
