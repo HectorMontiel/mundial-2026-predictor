@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T15:06:31Z",
+"actualizado": "2026-10-17T16:40:42Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8266,11 +8266,101 @@
 "dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Aldershot vs Tadley",
+"apuesta": "Gana Aldershot",
+"cuota": 1.1667,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Aveley vs Chatham",
+"apuesta": "Gana Chatham",
+"cuota": 2.5,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Brandys n. Labem vs Sokolov",
 "apuesta": "Gana Brandys n. Labem",
 "cuota": 2.9,
 "resultado": "verde",
 "marcador": "3-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Bregenz vs Amstetten",
+"apuesta": "Gana Amstetten",
+"cuota": 2.1,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Chesham vs Forest Green",
+"apuesta": "Gana Forest Green",
+"cuota": 1.64,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Chrudim B vs Letohrad",
+"apuesta": "Gana Letohrad",
+"cuota": 3.3,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Dover vs Dorking",
+"apuesta": "Gana Dover",
+"cuota": 2.65,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "FC Halifax vs South Shields",
+"apuesta": "Gana FC Halifax",
+"cuota": 1.73,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "FK Pardubice vs Zlin",
+"apuesta": "Gana FK Pardubice",
+"cuota": 1.58,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Genclerbirligi vs Galatasaray",
+"apuesta": "Galatasaray o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-17",
@@ -8286,11 +8376,61 @@
 "dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Tenis",
+"partido": "Hunter S./Siniakova K. vs Errani S./Paolini J.",
+"apuesta": "Gana Errani S./Paolini J.",
+"cuota": 2.35,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Tenis",
 "partido": "Kalinina A. vs Waltert S.",
 "apuesta": "Gana Kalinina A.",
 "cuota": 1.58,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Kilmarnock vs Motherwell",
+"apuesta": "Gana Kilmarnock",
+"cuota": 3.1,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Kitara (Uga) vs Al Ahly (Egy)",
+"apuesta": "Gana Al Ahly (Egy)",
+"cuota": 1.52,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Kitara (Uga) vs Al Ahly (Egy)",
+"apuesta": "Gana Al Ahly (Egy)",
+"cuota": 1.44,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Liniers vs UAI Urquiza",
+"apuesta": "Gana UAI Urquiza",
+"cuota": 2.95,
+"resultado": "rojo",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-17",
@@ -8344,6 +8484,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Norwich vs Portsmouth",
+"apuesta": "Norwich o empate",
+"cuota": 1.2,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Ostrov vs Steti",
@@ -8351,6 +8501,26 @@
 "cuota": 2.1,
 "resultado": "rojo",
 "marcador": "1-4"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Red Arrows (Zam) vs Kaizer Chiefs (Rsa)",
+"apuesta": "Gana Kaizer Chiefs (Rsa)",
+"cuota": 3.05,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Salford vs Crawley Town",
+"apuesta": "Salford o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-17",
@@ -8374,6 +8544,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Southampton vs Bolton",
+"apuesta": "Southampton o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Sportunion Mauer vs Lac Inter",
@@ -8394,6 +8574,46 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Swansea vs West Ham",
+"apuesta": "Gana West Ham",
+"cuota": 2.2858,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Tempo Prague vs Meteor Prague",
+"apuesta": "Gana Tempo Prague",
+"cuota": 1.92,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Union Berlin vs Dortmund",
+"apuesta": "Dortmund o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Villarreal vs Elche",
+"apuesta": "Villarreal o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Vsetin vs Artis Brno B",
@@ -8401,6 +8621,26 @@
 "cuota": 1.53,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Vysoke Myto vs Vykan",
+"apuesta": "Gana Vysoke Myto",
+"cuota": 1.41,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Whitby vs Curzon Ashton",
+"apuesta": "Gana Curzon Ashton",
+"cuota": 1.6154,
+"resultado": "rojo",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-17",
