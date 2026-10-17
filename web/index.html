@@ -25,7 +25,7 @@
 
 <main>
   <!-- PICKS · EN VIVO · MIS PICKS -->
-  <section data-vista="picks vivo mios">
+  <section data-vista="picks vivo mios combinadas">
     <div data-vista="picks" id="tira"></div>
 
     <section class="destacados" id="destacados" data-vista="picks" hidden>
@@ -33,29 +33,29 @@
       <div class="carrusel" id="destacados-lista"></div>
     </section>
 
-    <section class="destacados" id="combinadas" data-vista="picks" hidden>
-      <h2>🔗 Combinadas</h2>
-      <p class="tenue chico">Armadas con las patas de mayor probabilidad del modelo; la IA las revisa y saca las que ve en contra. Se cobran sólo si se cumplen todas.</p>
-      <div class="carrusel" id="combinadas-lista"></div>
-    </section>
+    <!-- v398 — en Picks, sólo una línea; las combinadas tienen su pestaña -->
+    <div data-vista="picks" id="comb-tira"></div>
+    <h2 class="vista-tit" data-vista="combinadas" hidden>🔗 Combinadas</h2>
+    <p class="tenue chico" data-vista="combinadas" hidden>Armadas con las patas de mayor probabilidad del modelo; la IA las revisa y saca las que ve en contra. Se cobran sólo si se cumplen todas. Toca una pata para ver su partido.</p>
 
     <h2 class="vista-tit" data-vista="vivo" hidden>🔴 En vivo</h2>
     <h2 class="vista-tit" data-vista="mios" hidden>★ Mis picks</h2>
 
-    <nav class="pestanas" id="pestanas" data-vista="picks">
+    <nav class="pestanas" id="pestanas" data-vista="picks combinadas">
       <button data-dia="hoy" class="activa">Hoy</button>
       <button data-dia="manana">Mañana</button>
       <button data-dia="pasado">Pasado</button>
       <button data-dia="ayer">Ayer</button>
     </nav>
 
-    <div class="buscador"><select id="liga" aria-label="Liga"></select><input type="search" id="busca" placeholder="🔍 Equipo" autocomplete="off"></div>
-    <div class="chips desliza" id="niveles"></div>
-    <div class="chips desliza" id="deportes"></div>
-    <div class="segmentos" id="fases"></div>
+    <div class="buscador" data-vista="picks vivo mios"><select id="liga" aria-label="Liga"></select><input type="search" id="busca" placeholder="🔍 Equipo" autocomplete="off"></div>
+    <div class="chips desliza" id="niveles" data-vista="picks vivo mios"></div>
+    <div class="chips desliza" id="deportes" data-vista="picks vivo mios combinadas"></div>
+    <div class="segmentos" id="fases" data-vista="picks vivo mios"></div>
 
-    <p class="aviso" id="aviso"></p>
-    <section id="tarjetas"></section>
+    <section class="comb-lista" id="combinadas" data-vista="combinadas" hidden><div id="combinadas-lista"></div></section>
+    <p class="aviso" id="aviso" data-vista="picks vivo mios"></p>
+    <section id="tarjetas" data-vista="picks vivo mios"></section>
   </section>
 
   <!-- HISTORIAL -->
@@ -125,6 +125,7 @@
 <nav class="nav-abajo" id="nav">
   <button data-vista-ir="picks" class="activa"><span>🏠</span>Picks</button>
   <button data-vista-ir="vivo"><span>🔴</span>En vivo<i id="nav-vivo-n" hidden></i></button>
+  <button data-vista-ir="combinadas"><span>🔗</span>Combinadas</button>
   <button data-vista-ir="mios"><span>★</span>Mis picks</button>
   <button data-vista-ir="historial"><span>📊</span>Historial</button>
   <button data-vista-ir="planes"><span>💎</span>Planes</button>

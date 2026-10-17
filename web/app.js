@@ -360,8 +360,9 @@
       const p = m.get(x.id) || x;
       const e = p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '➖' : '⏳';
       const txt = window.SPX && m.get(x.id) ? SPX.apuesta(p) : esc(x.apuesta);
-      return '<div class="comb-pata"><span>' + e + '</span><div><b>' + txt + '</b><small>' + (ICONO_DEP[x.deporte] || '•') + ' ' + esc(x.partido || '') +
-        ' · ' + Number(x.cuota || 0).toFixed(2) + ' · ' + pct(x.prob) + (x.ia === 'a_favor' ? ' · 🤖 a favor' : '') + '</small></div></div>';
+      return '<div class="comb-pata"' + (m.get(x.id) ? ' data-ficha="' + esc(x.id) + '" role="button" tabindex="0"' : '') + '><span>' + e + '</span><div><b>' + txt + '</b><small>' + (ICONO_DEP[x.deporte] || '•') + ' ' + esc(x.partido || '') +
+        ' · ' + Number(x.cuota || 0).toFixed(2) + ' · ' + pct(x.prob) + (x.ia === 'a_favor' ? ' · 🤖 a favor' : '') + '</small></div>' +
+        (m.get(x.id) ? '<i class="comb-ir">›</i>' : '') + '</div>';
     }).join('');
     const est = c.estado === 'verde' ? '<span class="et verde">✅ Verde</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
       : faseCombinada(c) === 'vivo' ? '<span class="et vivo"><i class="punto"></i>En juego</span>' : '<span class="et">⏳ ' + esc(horaCdmx(aFecha(c.inicio))) + '</span>';
@@ -604,7 +605,7 @@
     $('marcadores').innerHTML = cajaMarcador('Hoy', estado.picks.filter((p) => diaDe(p) === hoy)) +
       cajaMarcador('Ayer', estado.picks.filter((p) => diaDe(p) === ayer));
     $('tira').innerHTML = tiraMarcador();
-    if (!['picks', 'vivo', 'mios'].includes(estado.vista)) return;
+    if (!['picks', 'vivo', 'mios', 'combinadas'].includes(estado.vista)) return;
 
     let lista = listaBase();
     const deps = ['Todos'].concat([...new Set(lista.map((p) => p.deporte).filter(Boolean))].sort());
@@ -635,7 +636,7 @@
     grupos.forEach((g) => { n[faseDe(g)]++; });
     $('fases').innerHTML = [['todos', 'Todos'], ['proximo', 'Próximos'], ['vivo', '🔴 Vivo'], ['terminado', 'Final']]
       .map(([k, t]) => '<button class="seg' + (estado.fase === k ? ' activa' : '') + '" data-fase="' + k + '">' + t + ' <small>' + n[k] + '</small></button>').join('');
-    $('fases').hidden = estado.vista === 'vivo';
+    $('fases').hidden = estado.vista === 'vivo' || estado.vista === 'combinadas';
     if (estado.fase !== 'todos' && estado.vista !== 'vivo') grupos = grupos.filter((g) => faseDe(g) === estado.fase);
 
     // 💎 Destacados: los Diamante que aún no terminan
@@ -645,13 +646,21 @@
     $('destacados-lista').innerHTML = dest.map(seguro(destacado)).join('');
     // 🔗 Combinadas del día elegido, del deporte elegido (las mixtas siempre)
     const diaC = diaPestana(OFFS[estado.dia] || 0);
-    const combs = estado.vista === 'picks' ? (estado.combinadas || []).filter((c) => c.fecha === diaC &&
-      (estado.deportes.size === 0 || c.alcance === 'Mixta' || estado.deportes.has(c.alcance)) &&
-      (estado.fase === 'todos' || faseCombinada(c) === estado.fase)) : [];
-    $('combinadas').hidden = !combs.length;
-    $('combinadas-lista').innerHTML = combs.sort((a, b) => (a.alcance === 'Mixta') - (b.alcance === 'Mixta') || String(a.alcance).localeCompare(b.alcance) ||
-      (a.tipo === 'alta') - (b.tipo === 'alta')).map(seguro(tarjetaCombinada)).join('');
+    // v398 — tienen su pestaña; en Picks sólo una línea que lleva a ella
+    const combs = (estado.combinadas || []).filter((c) => c.fecha === diaC &&
+      (estado.deportes.size === 0 || c.alcance === 'Mixta' || estado.deportes.has(c.alcance)));
     if ($('comb-hist')) $('comb-hist').innerHTML = histCombinadas();
+    const vivas = combs.filter((c) => faseCombinada(c) !== 'terminado').length;
+    $('comb-tira').innerHTML = combs.length ? '<button class="tira comb-tira" data-vista-ir="combinadas"><em>🔗 <b>' + combs.length + '</b> ' +
+      (combs.length === 1 ? 'combinada' : 'combinadas') + (vivas ? '' : ' (ya jugadas)') + '</em><span>Ver ›</span></button>' : '';
+    if (estado.vista === 'combinadas') {
+      const orden = { vivo: 0, proximo: 1, terminado: 2 };
+      $('combinadas-lista').innerHTML = combs.length ? combs.sort((a, b) => orden[faseCombinada(a)] - orden[faseCombinada(b)] ||
+        (a.alcance === 'Mixta') - (b.alcance === 'Mixta') || String(a.alcance).localeCompare(b.alcance) || (a.tipo === 'alta') - (b.tipo === 'alta'))
+        .map(seguro(tarjetaCombinada)).join('')
+        : '<p class="aviso">No hay combinadas para este día con estos filtros. Se arman con las patas de mayor probabilidad: si no hay suficientes, preferimos no darte una floja.</p>';
+      return;
+    }
     estado.grupos = new Map(agrupar(listaBase()).map((g) => [clavePartido(g[0]), g]));
 
     // por liga: en vivo primero, luego por hora; la liga con su partido más temprano

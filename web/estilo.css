@@ -191,14 +191,14 @@ footer a, .chico a { color: var(--texto); }
 body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 [hidden] { display: none !important; }
 .vista-tit { margin: 18px 0 8px; font-size: 22px; }
-.nav-abajo { position: fixed; left: 0; right: 0; bottom: 0; z-index: 15; display: grid; grid-template-columns: repeat(5, 1fr);
+.nav-abajo { position: fixed; left: 0; right: 0; bottom: 0; z-index: 15; display: grid; grid-template-columns: repeat(6, 1fr);
   background: rgba(13,15,28,.92); backdrop-filter: blur(14px); border-top: 1px solid var(--borde); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); }
 .nav-abajo button { position: relative; background: none; border: 0; color: var(--tenue); font: inherit; font-size: 11px; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 0; cursor: pointer; }
 .nav-abajo button span { font-size: 20px; line-height: 1; filter: grayscale(.6); }
 .nav-abajo button.activa { color: var(--texto); }
 .nav-abajo button.activa span { filter: none; }
 .nav-abajo i { position: absolute; top: 0; right: 22%; background: var(--rojo); color: #fff; font-style: normal; font-size: 10px; font-weight: 800; border-radius: 999px; padding: 1px 5px; }
-@media (min-width: 900px) { .nav-abajo { left: 50%; right: auto; transform: translateX(-50%); width: 560px; bottom: 14px; border-radius: 18px; border: 1px solid var(--borde); } }
+@media (min-width: 900px) { .nav-abajo { left: 50%; right: auto; transform: translateX(-50%); width: 640px; bottom: 14px; border-radius: 18px; border: 1px solid var(--borde); } }
 .tira { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; width: 100%; margin: 14px 0 6px; padding: 10px 14px; border-radius: 14px;
   background: var(--panel); border: 1px solid var(--borde); color: var(--texto); font: inherit; font-size: 14px; cursor: pointer; text-align: left; }
 .tira span { margin-left: auto; color: var(--tenue); font-size: 12px; }
@@ -499,3 +499,15 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .comb-pata small { color: var(--tenue); }
 .ia-prob { display: block; color: var(--tenue); font-size: 11px; font-weight: 500; margin-top: 2px; }
 .ia-pred .ia-prob { display: inline; }
+
+/* v398 — combinadas en su pestaña: una debajo de otra; patas que se pueden tocar */
+.comb-lista #combinadas-lista { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+.comb-lista .dest.comb { flex: none; width: 100%; min-width: 0; cursor: default; }
+.comb-pata[data-ficha] { cursor: pointer; border-radius: 10px; padding: 4px 6px; margin: 4px -6px; }
+.comb-pata[data-ficha]:hover, .comb-pata[data-ficha]:active { background: rgba(255,255,255,.06); }
+.comb-pata > div { flex: 1; }
+.comb-ir { font-style: normal; color: var(--tenue); font-size: 20px; line-height: 1; align-self: center; }
+.comb-tira { margin-top: 8px; }
+.nav-abajo button { font-size: 10px; }
+.comb-tira { flex-wrap: nowrap; padding: 8px 14px; }
+.comb-tira em { font-style: normal; white-space: nowrap; }

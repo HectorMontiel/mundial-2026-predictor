@@ -70,7 +70,8 @@ def probar_ia_y_textos():
           'las tarjetas dicen «Probabilidad» y «Nivel», no «se cumplen» ni «9 de 10»')
     check('De cada 10 como ésta, se cumplen 9' not in html and 'muy segura' not in html and '— segura' not in html
           and 'ninguna apuesta es segura' in html, 'la ayuda habla de probabilidad, nunca de «segura»')
-    check('id="combinadas-lista"' in html and 'id="comb-hist"' in html and 'function tarjetaCombinada(' in app,
+    check('id="combinadas-lista"' in html and 'id="comb-hist"' in html and 'function tarjetaCombinada(' in app
+          and 'data-vista-ir="combinadas"' in html and "id=\"comb-tira\"" in html and 'comb-pata"\' + (m.get(x.id) ? \' data-ficha=' in app,
           'la página tiene combinadas y su historial')
     tg = open('telegram_canales.py', encoding='utf-8').read()
     check('acierta %d' not in tg and 'acierta ~%d' not in tg, 'Telegram también dice probabilidad')
