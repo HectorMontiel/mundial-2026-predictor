@@ -17859,20 +17859,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115912,2026-08-02,argentina,Newell's Old Boys,Bruno Cabrera,1112939,D,0,1,0,0,0,0.0,,1.0,567919.0
 5115912,2026-08-02,argentina,Newell's Old Boys,Blas Benedetto,2100797,M,0,1,0,0,0,0.0,,2.0,
 5115912,2026-08-02,argentina,Newell's Old Boys,Valentino Acuña,1580951,M,0,1,0,0,0,0.0,,2.0,1138458.0
-5115912,2026-08-02,argentina,Boca Juniors,Álvaro Montero,498457,G,1,90,0,0,0,0.0,11.0,0.0,1854924.0
-5115912,2026-08-02,argentina,Boca Juniors,Dylan Gorosito,1661230,D,1,75,0,0,0,0.0,32.0,1.0,
-5115912,2026-08-02,argentina,Boca Juniors,Lautaro Di Lollo,1385954,D,1,90,1,1,0,0.01,34.0,1.0,6482476.0
-5115912,2026-08-02,argentina,Boca Juniors,Ayrton Costa,1213769,D,1,90,0,0,0,0.0,36.0,1.0,2078323.0
-5115912,2026-08-02,argentina,Boca Juniors,Lautaro Blanco,1200014,D,1,90,0,0,0,0.0,38.0,1.0,2590821.0
-5115912,2026-08-02,argentina,Boca Juniors,Leandro Paredes,237606,M,1,90,0,0,0,0.0,64.0,2.0,2184801.0
-5115912,2026-08-02,argentina,Boca Juniors,Santiago Ascacíbar,724854,M,1,90,1,1,1,0.18,66.0,2.0,3830216.0
-5115912,2026-08-02,argentina,Boca Juniors,Leonel Flores,1899030,F,1,90,3,0,0,0.12,83.0,3.0,
-5115912,2026-08-02,argentina,Boca Juniors,Tomás Aranda,1899032,M,1,90,3,0,0,0.25,85.0,2.0,1332942.0
-5115912,2026-08-02,argentina,Boca Juniors,Sebastián Villa,859319,F,1,75,3,0,0,0.11,87.0,3.0,2289112.0
-5115912,2026-08-02,argentina,Boca Juniors,Miguel Merentiel,826418,F,1,63,2,1,0,0.71,115.0,3.0,2678857.0
-5115912,2026-08-02,argentina,Boca Juniors,Milton Giménez,670344,F,0,27,1,0,0,0.07,,3.0,1754679.0
-5115912,2026-08-02,argentina,Boca Juniors,Leandro Lozano,1238138,D,0,15,0,0,0,0.0,,1.0,2553001.0
-5115912,2026-08-02,argentina,Boca Juniors,Alan Velasco,1053392,M,0,15,1,1,1,0.16,,2.0,2147765.0
 1000012449,2026-08-02,bra_copa,Chapecoense,Anderson,950459,G,1,90,0,0,0,0.0,11.0,0.0,397804.0
 1000012449,2026-08-02,bra_copa,Chapecoense,Bruno Tubarão,979414,D,1,90,1,0,0,0.0,32.0,1.0,
 1000012449,2026-08-02,bra_copa,Chapecoense,Rafael Thyere,535799,D,1,90,1,0,0,0.0,34.0,1.0,179866.0
@@ -19456,22 +19442,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115913,2026-08-03,argentina,Club Atlético Platense,Héctor Bobadilla,1666607,F,0,36,1,0,0,0.1,,3.0,321963.0
 5115913,2026-08-03,argentina,Club Atlético Platense,Luciano Giménez,1226851,F,0,22,1,0,0,0.01,,3.0,515903.0
 5115913,2026-08-03,argentina,Club Atlético Platense,Iván Gómez,770895,M,0,8,0,0,0,0.0,,2.0,866478.0
-5115913,2026-08-03,argentina,Talleres,Ezequiel Unsain,618946,G,1,90,0,0,0,0.0,11.0,0.0,1415639.0
-5115913,2026-08-03,argentina,Talleres,Augusto Schott,1200762,D,1,90,0,0,0,0.0,33.0,1.0,869701.0
-5115913,2026-08-03,argentina,Talleres,Román Riquelme,1277345,D,1,90,0,0,0,0.0,35.0,1.0,985213.0
-5115913,2026-08-03,argentina,Talleres,Santiago Fernández,1437367,D,1,52,0,0,0,0.0,37.0,1.0,2258962.0
-5115913,2026-08-03,argentina,Talleres,Timoteo Chamorro,1732523,M,1,90,0,0,0,0.0,72.0,2.0,623345.0
-5115913,2026-08-03,argentina,Talleres,Federico Fattori,616508,M,1,90,0,0,0,0.0,74.0,2.0,738312.0
-5115913,2026-08-03,argentina,Talleres,Matías Galarza,1277340,M,1,90,0,0,0,0.0,76.0,2.0,4792855.0
-5115913,2026-08-03,argentina,Talleres,Alexandro Maidana,1736527,M,1,79,0,0,0,0.0,78.0,2.0,1894371.0
-5115913,2026-08-03,argentina,Talleres,Franco Cristaldo,543317,F,1,79,1,1,1,0.42,103.0,3.0,1770821.0
-5115913,2026-08-03,argentina,Talleres,Ronaldo Martínez,659738,F,1,63,2,2,0,0.14,105.0,3.0,2333587.0
-5115913,2026-08-03,argentina,Talleres,Rick,1044317,F,1,79,4,3,2,0.94,107.0,3.0,1619515.0
-5115913,2026-08-03,argentina,Talleres,Valentín Fascendini,1606009,D,0,38,0,0,0,0.0,,1.0,1386764.0
-5115913,2026-08-03,argentina,Talleres,Valentín Depietri,1088084,F,0,27,1,1,1,0.43,,3.0,368663.0
-5115913,2026-08-03,argentina,Talleres,Gabriel Báez,647991,D,0,11,0,0,0,0.0,,1.0,453752.0
-5115913,2026-08-03,argentina,Talleres,Lautaro Ortíz,1897272,M,0,11,0,0,0,0.0,,2.0,
-5115913,2026-08-03,argentina,Talleres,Bruno Barticciotto,1128929,F,0,11,0,0,0,0.0,,3.0,1636160.0
 5115916,2026-08-03,argentina,Sarmiento,Thyago Ayala,1513003,G,1,90,0,0,0,0.0,11.0,0.0,
 5115916,2026-08-03,argentina,Sarmiento,Santiago Salle,1439529,D,1,90,1,0,0,0.02,32.0,1.0,1001742.0
 5115916,2026-08-03,argentina,Sarmiento,Renzo Orihuela,1139354,D,1,90,0,0,0,0.0,34.0,1.0,553560.0
@@ -149272,3 +149242,65 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103668,2026-10-16,brasil,Internacional,João Victor,1893746,F,0,31,1,0,0,0.02,,3.0,
 5103668,2026-10-16,brasil,Internacional,Johan Carbonero,1053727,F,0,30,0,0,0,0.0,,3.0,6532130.0
 5103668,2026-10-16,brasil,Internacional,João Bezerra,1899001,F,0,8,1,1,0,0.15,,3.0,
+1000014598,2026-10-17,liga_mx,Necaxa,Javier Orantes,1504802,G,1,90,0,0,0,0.0,11.0,0.0,
+1000014598,2026-10-17,liga_mx,Necaxa,Emilio Martínez,1209379,D,1,74,2,0,0,0.12,32.0,1.0,1000830.0
+1000014598,2026-10-17,liga_mx,Necaxa,Diego Ochoa,1603102,D,1,90,3,1,0,0.16,34.0,1.0,600683.0
+1000014598,2026-10-17,liga_mx,Necaxa,Agustín Oliveros,952324,D,1,90,0,0,0,0.0,36.0,1.0,1957855.0
+1000014598,2026-10-17,liga_mx,Necaxa,Carlos Vargas,832692,D,1,81,1,0,0,0.09,38.0,1.0,365837.0
+1000014598,2026-10-17,liga_mx,Necaxa,Pedro Pedraza,1202775,M,1,74,0,0,0,0.0,65.0,2.0,1573216.0
+1000014598,2026-10-17,liga_mx,Necaxa,Emilio Rodríguez,1502908,F,1,90,3,0,0,0.35,82.0,3.0,973616.0
+1000014598,2026-10-17,liga_mx,Necaxa,Danny Leyva,1045163,M,1,90,0,0,0,0.0,84.0,2.0,1921817.0
+1000014598,2026-10-17,liga_mx,Necaxa,Matías Espíndola,1343371,M,1,64,1,0,0,0.06,86.0,2.0,790755.0
+1000014598,2026-10-17,liga_mx,Necaxa,Owen González,1529775,F,1,82,5,2,0,0.74,88.0,3.0,
+1000014598,2026-10-17,liga_mx,Necaxa,Julián Carranza,874618,F,1,90,1,0,0,0.17,115.0,3.0,2871779.0
+1000014598,2026-10-17,liga_mx,Necaxa,Javier Ruiz,1513420,M,0,26,3,0,0,0.1,,2.0,5595123.0
+1000014598,2026-10-17,liga_mx,Necaxa,Leonardo Becerra,1727067,M,0,16,0,0,0,0.0,,2.0,
+1000014598,2026-10-17,liga_mx,Necaxa,Juan Valencia,1524299,F,0,16,1,0,0,0.02,,3.0,551760.0
+1000014598,2026-10-17,liga_mx,Necaxa,Miguel Pedroza,1327190,F,0,9,0,0,0,0.0,,3.0,468094.0
+1000014598,2026-10-17,liga_mx,Necaxa,Rogelio Cortéz,1393763,M,0,8,0,0,0,0.0,,2.0,626799.0
+1000014598,2026-10-17,liga_mx,Atlas,Camilo Vargas,50207,G,1,90,0,0,0,0.0,11.0,0.0,734120.0
+1000014598,2026-10-17,liga_mx,Atlas,Jorge Sánchez,727586,D,1,85,0,0,0,0.0,32.0,1.0,1883003.0
+1000014598,2026-10-17,liga_mx,Atlas,Adonis Frías,950270,D,1,90,1,0,0,0.42,34.0,1.0,3552754.0
+1000014598,2026-10-17,liga_mx,Atlas,Juan Purata,950069,D,1,90,0,0,0,0.0,36.0,1.0,1830898.0
+1000014598,2026-10-17,liga_mx,Atlas,Milton Valenzuela,724490,D,1,67,1,0,0,0.03,38.0,1.0,602625.0
+1000014598,2026-10-17,liga_mx,Atlas,Elías Montiel,1502909,M,1,90,2,1,0,0.1,64.0,2.0,
+1000014598,2026-10-17,liga_mx,Atlas,Paulo Ramírez,1664780,M,1,90,0,0,0,0.0,66.0,2.0,1316828.0
+1000014598,2026-10-17,liga_mx,Atlas,Kevin Zenón,1201039,F,1,76,2,1,0,0.11,82.0,3.0,2496511.0
+1000014598,2026-10-17,liga_mx,Atlas,Luís Esteves,1222175,F,1,76,0,0,0,0.0,88.0,3.0,4840509.0
+1000014598,2026-10-17,liga_mx,Atlas,Florián Monzón,1200720,F,1,90,5,1,0,0.5,104.0,3.0,2379458.0
+1000014598,2026-10-17,liga_mx,Atlas,Ryan Mmaee,635606,F,1,70,2,1,1,1.01,106.0,3.0,1335320.0
+1000014598,2026-10-17,liga_mx,Atlas,Jorge Rodríguez,1222434,D,0,20,0,0,0,0.0,,1.0,654218.0
+1000014598,2026-10-17,liga_mx,Atlas,Manuel Capasso,816132,D,0,14,1,1,1,0.05,,1.0,869454.0
+1000014598,2026-10-17,liga_mx,Atlas,Édgar Zaldívar,766852,M,0,14,0,0,0,0.0,,2.0,463655.0
+1000014598,2026-10-17,liga_mx,Atlas,Gaddi Aguirre,721448,D,0,5,0,0,0,0.0,,1.0,594204.0
+1000019575,2026-10-17,argentina,Boca Juniors,Álvaro Montero,498457,G,1,90,0,0,0,0.0,11.0,0.0,1936707.0
+1000019575,2026-10-17,argentina,Boca Juniors,Leandro Lozano,1238138,D,1,45,1,0,0,0.06,32.0,1.0,3058472.0
+1000019575,2026-10-17,argentina,Boca Juniors,Lautaro Di Lollo,1385954,D,1,90,0,0,0,0.0,34.0,1.0,9524218.0
+1000019575,2026-10-17,argentina,Boca Juniors,Ayrton Costa,1213769,D,1,90,1,1,0,0.05,36.0,1.0,5475883.0
+1000019575,2026-10-17,argentina,Boca Juniors,Lautaro Blanco,1200014,D,1,90,0,0,0,0.0,38.0,1.0,3656050.0
+1000019575,2026-10-17,argentina,Boca Juniors,Milton Delgado,1634839,M,1,90,0,0,0,0.0,64.0,2.0,13287617.0
+1000019575,2026-10-17,argentina,Boca Juniors,Rodrigo Andrés Battaglia,229803,M,1,90,0,0,0,0.0,66.0,2.0,623684.0
+1000019575,2026-10-17,argentina,Boca Juniors,Ángel Romero,265996,F,1,72,1,0,0,0.04,83.0,3.0,337401.0
+1000019575,2026-10-17,argentina,Boca Juniors,Santiago Ascacíbar,724854,M,1,90,3,0,0,0.41,85.0,2.0,4364067.0
+1000019575,2026-10-17,argentina,Boca Juniors,Leonel Flores,1899030,F,1,86,3,2,1,0.1,87.0,3.0,
+1000019575,2026-10-17,argentina,Boca Juniors,Miguel Merentiel,826418,F,1,77,2,2,1,0.19,115.0,3.0,2653790.0
+1000019575,2026-10-17,argentina,Boca Juniors,Dylan Gorosito,1661230,D,0,44,0,0,0,0.0,,1.0,405226.0
+1000019575,2026-10-17,argentina,Boca Juniors,Carlos Palacios,885351,M,0,18,1,0,0,0.08,,2.0,2161922.0
+1000019575,2026-10-17,argentina,Boca Juniors,Enner Valencia,195927,F,0,13,1,0,0,0.03,,3.0,1053796.0
+1000019575,2026-10-17,argentina,Boca Juniors,Rodrigo Bacidalupe,1950641,F,0,4,0,0,0,0.0,,3.0,
+1000019575,2026-10-17,argentina,Talleres,Ezequiel Unsain,618946,G,1,90,0,0,0,0.0,11.0,0.0,1441069.0
+1000019575,2026-10-17,argentina,Talleres,Augusto Schott,1200762,D,1,79,0,0,0,0.0,32.0,1.0,974772.0
+1000019575,2026-10-17,argentina,Talleres,Matías Catalán,427912,D,1,90,0,0,0,0.0,34.0,1.0,390679.0
+1000019575,2026-10-17,argentina,Talleres,Román Riquelme,1277345,D,1,90,1,0,0,0.03,36.0,1.0,1418706.0
+1000019575,2026-10-17,argentina,Talleres,Gabriel Báez,647991,D,1,90,1,0,0,0.03,38.0,1.0,453752.0
+1000019575,2026-10-17,argentina,Talleres,Federico Fattori,616508,M,1,59,0,0,0,0.0,64.0,2.0,779752.0
+1000019575,2026-10-17,argentina,Talleres,Matías Galarza,1277340,M,1,90,3,1,1,0.1,66.0,2.0,5835062.0
+1000019575,2026-10-17,argentina,Talleres,Rick,1044317,F,1,53,2,0,0,0.04,83.0,3.0,1766694.0
+1000019575,2026-10-17,argentina,Talleres,Giovanni Baroni,1783366,M,1,53,1,0,0,0.03,85.0,2.0,
+1000019575,2026-10-17,argentina,Talleres,Valentín Depietri,1088084,F,1,79,0,0,0,0.0,87.0,3.0,366774.0
+1000019575,2026-10-17,argentina,Talleres,Agustín Álvarez,1192576,F,1,90,1,0,0,0.05,115.0,3.0,1650717.0
+1000019575,2026-10-17,argentina,Talleres,Mateo Cáceres,1295032,M,0,37,1,0,0,0.02,,2.0,
+1000019575,2026-10-17,argentina,Talleres,Diego Valoyes,783809,F,0,37,0,0,0,0.0,,3.0,822326.0
+1000019575,2026-10-17,argentina,Talleres,Valentín Dávila,1695460,F,0,31,1,0,0,0.09,,3.0,2091897.0
+1000019575,2026-10-17,argentina,Talleres,Timoteo Chamorro,1732523,D,0,11,0,0,0,0.0,,1.0,656672.0
+1000019575,2026-10-17,argentina,Talleres,Emiliano Chiavassa,1739039,F,0,11,0,0,0,0.0,,3.0,644738.0

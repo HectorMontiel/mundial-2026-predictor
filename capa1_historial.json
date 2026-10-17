@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-17T02:22:35Z",
+"actualizado": "2026-10-17T03:57:54Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -7554,6 +7554,26 @@
 },
 {
 "dia": "2026-10-16",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Boca Juniors vs Talleres Cordoba",
+"apuesta": "Boca Juniors o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-16",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Boca Juniors vs Talleres Cordoba",
+"apuesta": "Gana Boca Juniors",
+"cuota": 1.59,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-16",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Caerau Ely vs Llanelli",
@@ -7581,6 +7601,26 @@
 "cuota": 1.48,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-16",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Colorado Avalanche vs Pittsburgh Penguins",
+"apuesta": "Handicap: Pittsburgh Penguins +3.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "5-2"
+},
+{
+"dia": "2026-10-16",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Correcaminos UAT vs Dorados de Sinaloa",
+"apuesta": "Correcaminos UAT o empate",
+"cuota": 1.167,
+"resultado": "rojo",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-16",
