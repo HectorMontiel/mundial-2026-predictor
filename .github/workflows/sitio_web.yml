@@ -1,0 +1,72 @@
+name: Sitio web
+
+# v377 — EL SITIO NUEVO (carpeta `web/`), FUERA DE STREAMLIT, GRATIS.
+#
+# El sitio no calcula nada: `exportar_web.py` saca las «se mete» del
+# precálculo (las mismas funciones que la app) a `web/datos/hoy.json` y, si
+# hay secretos de Supabase, las sube a la base. Después se publica en GitHub
+# Pages. Corre detrás de cada precálculo (que es quien liquida verdes y rojas)
+# y, por si GitHub se salta algo, cada hora.
+#
+# v378 — SharPicks: además va a Cloudflare Pages (sharpicks.pages.dev, gratis
+# y sí admite negocio) cuando existen los secretos CLOUDFLARE_API_TOKEN y
+# CLOUDFLARE_ACCOUNT_ID. Sin ellos se salta, y queda GitHub Pages.
+
+on:
+  workflow_run:
+    workflows: ["Precálculo del día"]
+    types: [completed]
+  push:
+    branches: [main]
+    paths: ['web/**', 'exportar_web.py', '.github/workflows/sitio_web.yml']
+  schedule:
+    - cron: '41 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: sitio-web
+  cancel-in-progress: true
+
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # el `if` de un paso no ve el `env` del propio paso: va aquí
+      CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Sacar los pronósticos al sitio
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: python exportar_web.py
+      - name: Publicar en Cloudflare Pages (sharpicks.pages.dev)
+        if: env.CF_TOKEN != ''
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          npx --yes wrangler@3.114.0 pages project create sharpicks --production-branch=main 2>/dev/null || true
+          npx --yes wrangler@3.114.0 pages deploy web --project-name=sharpicks --branch=main --commit-dirty=true
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: web
+      - id: pages
+        uses: actions/deploy-pages@v4

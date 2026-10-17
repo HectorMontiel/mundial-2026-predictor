@@ -1,0 +1,100 @@
+{
+ "todas A": {
+  "n": 809,
+  "acierto": 0.764,
+  "cuota_media": 1.234,
+  "gana_por_100": -6.6,
+  "p5": -9.6
+ },
+ "todas B": {
+  "n": 1210,
+  "acierto": 0.821,
+  "cuota_media": 1.19,
+  "gana_por_100": -2.7,
+  "p5": -5.0
+ },
+ "cuota<=1.25 A": {
+  "n": 499,
+  "acierto": 0.81,
+  "cuota_media": 1.169,
+  "gana_por_100": -5.8,
+  "p5": -9.2
+ },
+ "cuota<=1.25 B": {
+  "n": 1007,
+  "acierto": 0.835,
+  "cuota_media": 1.168,
+  "gana_por_100": -2.7,
+  "p5": -5.0
+ },
+ "⭐ ELIGE A": {
+  "n": 154,
+  "acierto": 0.857,
+  "cuota_media": 1.108,
+  "gana_por_100": -5.2,
+  "p5": -10.9
+ },
+ "⭐ ELIGE B": {
+  "n": 386,
+  "acierto": 0.891,
+  "cuota_media": 1.125,
+  "gana_por_100": 0.1,
+  "p5": -2.9
+ },
+ "⭐ y <=1.25 A": {
+  "n": 154,
+  "acierto": 0.857,
+  "cuota_media": 1.108,
+  "gana_por_100": -5.2,
+  "p5": -10.5
+ },
+ "⭐ y <=1.25 B": {
+  "n": 386,
+  "acierto": 0.891,
+  "cuota_media": 1.125,
+  "gana_por_100": 0.1,
+  "p5": -2.9
+ },
+ "Fútbol A": {
+  "n": 343,
+  "acierto": 0.781,
+  "cuota_media": 1.23,
+  "gana_por_100": -4.1,
+  "p5": -8.6
+ },
+ "Fútbol B": {
+  "n": 592,
+  "acierto": 0.818,
+  "cuota_media": 1.191,
+  "gana_por_100": -2.8,
+  "p5": -5.9
+ },
+ "Tenis A": {
+  "n": 465,
+  "acierto": 0.753,
+  "cuota_media": 1.237,
+  "gana_por_100": -8.2,
+  "p5": -12.3
+ },
+ "Tenis B": {
+  "n": 469,
+  "acierto": 0.819,
+  "cuota_media": 1.188,
+  "gana_por_100": -3.5,
+  "p5": -6.8
+ },
+ "otros deportes A": {
+  "n": 1,
+  "acierto": 0.0,
+  "cuota_media": 1.222,
+  "gana_por_100": -100.0,
+  "p5": -100.0
+ },
+ "otros deportes B": {
+  "n": 149,
+  "acierto": 0.839,
+  "cuota_media": 1.194,
+  "gana_por_100": -0.1,
+  "p5": -6.2
+ }
+}

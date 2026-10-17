@@ -1,0 +1,9 @@
+{
+  "name": "SharPicks · Picks medidos",
+  "short_name": "SharPicks",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0b0d17",
+  "theme_color": "#0b0d17",
+  "icons": [{ "src": "icono.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }]
+}

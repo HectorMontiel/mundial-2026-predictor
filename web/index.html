@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SharPicks · Picks medidos, no adivinados</title>
+<meta name="description" content="Pronósticos deportivos medidos con partidos reales: en vivo, con estadísticas, y verdes y rojas a la vista.">
+<meta name="theme-color" content="#0b0d17">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icono.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<header class="top">
+  <div class="marca"><span class="logo">S</span><span id="nombre">SharPicks</span></div>
+  <div class="reloj" id="reloj"></div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Pronósticos <span class="grad">medidos</span>, no adivinados</h1>
+    <p>Cada apuesta sale de un modelo comparado contra la casa y medido con partidos ya jugados. En vivo, con estadísticas, y las verdes y las rojas a la vista.</p>
+  </section>
+
+  <section class="marcadores" id="marcadores"></section>
+
+  <nav class="pestanas" id="pestanas">
+    <button data-dia="hoy" class="activa">Hoy</button>
+    <button data-dia="manana">Mañana</button>
+    <button data-dia="pasado">Pasado</button>
+    <button data-dia="ayer">Ayer</button>
+  </nav>
+
+  <div class="filtros">
+    <div class="chips" id="niveles"></div>
+  </div>
+  <div class="filtros">
+    <div class="chips" id="deportes"></div>
+    <label class="interruptor"><input type="checkbox" id="solo-vivo"> Sólo 🔴 en vivo</label>
+    <select id="orden" aria-label="Ordenar">
+      <option value="hora">Ordenar por hora</option>
+      <option value="prob">Ordenar por acierto</option>
+      <option value="cuota">Ordenar por cuota</option>
+    </select>
+  </div>
+
+  <p class="aviso" id="aviso"></p>
+  <section class="tarjetas" id="tarjetas"></section>
+
+  <section class="caja simulador">
+    <div class="tit">Simulador de banca · con lo que ya se jugó</div>
+    <div class="sim-campos">
+      <label>Banca inicial $<input type="number" id="sim-banca" value="1000" min="1"></label>
+      <label>% por apuesta <input type="number" id="sim-pct" value="5" min="0.5" max="50" step="0.5"></label>
+      <label>Nivel <select id="sim-nivel"><option>Todos</option><option>Diamante</option><option>Platino</option><option>Oro</option><option>Plata</option></select></label>
+    </div>
+    <div id="sim-res"></div>
+  </section>
+
+  <section class="caja niveles-ayuda">
+    <div class="tit">Qué significa cada nivel</div>
+    <p>💎 <b>Diamante</b>: las ⭐ ELIGE, las que más se cumplen de verdad. 🔷 <b>Platino</b>: aciertan 85 % o más. 🥇 <b>Oro</b>: 80-85 %. 🥈 <b>Plata</b>: el resto de las «se mete». El porcentaje es lo que acertaron apuestas iguales en partidos ya jugados, no una corazonada.</p>
+  </section>
+</main>
+
+<div class="ficha" id="ficha" hidden><div class="ficha-caja" id="ficha-cuerpo"></div></div>
+
+<footer>
+  <p>Juego responsable · Sólo mayores de 18 años. Acertar mucho no garantiza ganar dinero: a cuota baja hace falta acertar muchísimo para no perder.</p>
+  <p class="tenue" id="actualizado"></p>
+</footer>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});</script>
+</body>
+</html>
