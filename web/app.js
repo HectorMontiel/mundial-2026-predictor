@@ -182,8 +182,7 @@
     return '<div class="caja"><div class="tit">' + titulo + '</div>' +
       '<div class="num">✅ ' + t.v + ' &nbsp;❌ ' + t.r + ' <span class="pct">' + pct(t.pct) + '</span></div>' +
       '<div class="barra"><i style="width:' + (t.pct == null ? 0 : 100 * t.pct) + '%"></i></div>' +
-      '<div class="sub">💎 Diamante: ✅ ' + e.v + ' ❌ ' + e.r + (e.pct == null ? '' : ' · ' + pct(e.pct)) + ' · por jugar ' + pend + '</div>' +
-      '<div class="sub">Apostando $100 a cada una: <b class="' + (t.din >= 0 ? 'txt-verde' : 'txt-rojo') + '">' + (t.din >= 0 ? '+' : '−') + '$' + Math.abs(Math.round(100 * t.din)) + '</b></div></div>';
+      '<div class="sub">💎 Diamante: ✅ ' + e.v + ' ❌ ' + e.r + (e.pct == null ? '' : ' · ' + pct(e.pct)) + ' · por jugar ' + pend + '</div></div>';
   }
 
   // ---------- TARJETAS ----------
@@ -356,29 +355,6 @@
   }
   function refrescarFicha() { if (fichaId && !$('ficha').hidden) ficha(fichaId); }
 
-  // ---------- SIMULADOR DE BANCA ----------
-  function simular() {
-    const banca0 = Math.max(1, Number($('sim-banca').value) || 1000);
-    const pctA = Math.min(50, Math.max(0.5, Number($('sim-pct').value) || 5)) / 100;
-    const solo = $('sim-nivel').value;
-    const jug = estado.picks.filter((p) => (p.estado === 'verde' || p.estado === 'roja') && p.cuota &&
-      (solo === 'Todos' || nivel(p).n === solo)).sort((a, b) => String(a.inicio).localeCompare(String(b.inicio)));
-    let b = banca0, max = banca0, caida = 0;
-    const serie = [b];
-    for (const p of jug) {
-      const ap = b * pctA;
-      b += p.estado === 'verde' ? ap * (p.cuota - 1) : -ap;
-      max = Math.max(max, b); caida = Math.max(caida, 1 - b / max); serie.push(b);
-    }
-    const w = 300, hgt = 70, mn = Math.min(...serie), mx = Math.max(...serie) || 1;
-    const pts = serie.map((y, i) => (i * w / Math.max(1, serie.length - 1)).toFixed(1) + ',' + (hgt - (y - mn) / ((mx - mn) || 1) * hgt).toFixed(1)).join(' ');
-    $('sim-res').innerHTML = jug.length
-      ? '<div class="num ' + (b >= banca0 ? 'txt-verde' : 'txt-rojo') + '">$' + Math.round(b).toLocaleString('es-MX') + '</div>' +
-        '<div class="sub">' + jug.length + ' apuestas jugadas · ' + (b >= banca0 ? '+' : '') + (100 * (b / banca0 - 1)).toFixed(1) + ' % · peor caída ' + (100 * caida).toFixed(1) + ' %</div>' +
-        '<svg viewBox="0 0 ' + w + ' ' + hgt + '" class="curva"><polyline fill="none" stroke="currentColor" stroke-width="2" points="' + pts + '"/></svg>'
-      : '<div class="sub">Todavía no hay apuestas terminadas con estos filtros.</div>';
-  }
-
   // ---------- PINTAR ----------
   // ---------- v380: LA PÁGINA COMO APP ----------
   // El usuario: «está muy larga de scrollear, tiene un buen de partidos, es
@@ -463,7 +439,7 @@
     $('marcadores').innerHTML = cajaMarcador('Hoy', estado.picks.filter((p) => diaDe(p) === hoy)) +
       cajaMarcador('Ayer', estado.picks.filter((p) => diaDe(p) === ayer));
     $('tira').innerHTML = tiraMarcador();
-    if (!['picks', 'vivo', 'mios'].includes(estado.vista)) { simular(); return; }
+    if (!['picks', 'vivo', 'mios'].includes(estado.vista)) return;
 
     let lista = listaBase();
     const deps = ['Todos'].concat([...new Set(lista.map((p) => p.deporte).filter(Boolean))].sort());
@@ -532,7 +508,6 @@
       estado.vista === 'mios' ? (window.SPX && SPX.yo.user ? 'Todavía no sigues ningún pick: abre un partido y pulsa «☆ Seguir».' : 'Entra con tu correo para guardar tus picks.')
         : estado.vista === 'vivo' ? 'Ahorita no hay partidos en vivo con picks.' : 'Sin partidos con estos filtros.';
     const b = $('nav-vivo-n'); if (b) { b.textContent = enVivo || ''; b.hidden = !enVivo; }
-    simular();
   }
 
   window.SP = { nivel, pintar, estado };
@@ -561,7 +536,6 @@
   $('liga').addEventListener('change', (e) => { estado.liga = e.target.value; pintar(); });
   $('ficha').addEventListener('click', (e) => { if (e.target.id === 'ficha' || e.target.closest('[data-cerrar]')) { $('ficha').hidden = true; fichaId = null; } });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { $('ficha').hidden = true; fichaId = null; } });
-  ['sim-banca', 'sim-pct', 'sim-nivel'].forEach((i) => $(i).addEventListener('input', simular));
   $('nombre').textContent = C.NOMBRE || 'SharPicks';
   setInterval(() => { $('reloj').textContent = new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, hour: '2-digit', minute: '2-digit' }).format(new Date()) + ' CDMX'; }, 1000);
   cargar();

@@ -54,8 +54,8 @@ def probar():
     check('site.api.espn.com' in js and '/summary?event=' in js and 'setInterval(vivo, 30 * 1000)' in js,
           'la página lee el en vivo de ESPN cada 30 s')
     check('function ficha(' in js and 'function filaStat(' in js and 'function posesion(' in js
-          and 'function simular(' in js and 'function nivel(' in js,
-          'ficha del partido con barras tipo SofaScore, niveles y simulador de banca')
+          and 'function nivel(' in js and 'function simular(' not in js,
+          'ficha del partido con barras tipo SofaScore y niveles (el simulador se quitó en la v382)')
     html = open(os.path.join('web', 'index.html'), encoding='utf-8').read()
     check('manifest.json' in html and 'sw.js' in html and os.path.exists(os.path.join('web', 'sw.js')),
           'se puede instalar en el celular')

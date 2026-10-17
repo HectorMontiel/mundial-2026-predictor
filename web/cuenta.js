@@ -115,25 +115,18 @@
       : 'Listo: revisa tu correo y abre el enlace para entrar (revisa también «spam»).';
   });
 
-  // ---------- historial público (con dinero) ----------
+  // ---------- historial público (verdes, rojas y porcentaje) ----------
   async function historial() {
     const caja = $('historial'); if (!caja || !sb) return;
     const { data } = await sb.from('historial').select('*').limit(30);
     const filas = (data || []).filter((d) => d.verdes + d.rojas > 0);
     if (!filas.length) { caja.innerHTML = '<p class="tenue">El historial se va llenando día con día.</p>'; return; }
-    let acum = 0;
-    const serie = filas.slice().reverse().map((d) => (acum += Number(d.gana_por_100 || 0)));
     const tv = filas.reduce((s, d) => s + d.verdes, 0), tr = filas.reduce((s, d) => s + d.rojas, 0);
     const ev = filas.reduce((s, d) => s + d.verdes_elige, 0), er = filas.reduce((s, d) => s + d.rojas_elige, 0);
-    const w = 320, h = 70, mn = Math.min(0, ...serie), mx = Math.max(0, ...serie);
-    const y = (v) => (h - (v - mn) / ((mx - mn) || 1) * h).toFixed(1);
-    const pts = serie.map((v, i) => (i * w / Math.max(1, serie.length - 1)).toFixed(1) + ',' + y(v)).join(' ');
     caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + Math.round(100 * tv / (tv + tr)) + ' %</span></div>' +
       '<div class="sub">💎 Diamante: ✅ ' + ev + ' ❌ ' + er + (ev + er ? ' · ' + Math.round(100 * ev / (ev + er)) + ' %' : '') + '</div>' +
-      '<div class="sub">Apostando $100 a cada pick: <b class="' + (acum >= 0 ? 'txt-verde' : 'txt-rojo') + '">' + (acum >= 0 ? '+' : '−') + '$' + Math.abs(Math.round(acum)) + '</b> en ' + filas.length + ' días</div>' +
-      '<svg viewBox="0 0 ' + w + ' ' + h + '" class="curva"><line x1="0" x2="' + w + '" y1="' + y(0) + '" y2="' + y(0) + '" stroke="rgba(255,255,255,.2)" stroke-dasharray="4"/><polyline fill="none" stroke="currentColor" stroke-width="2" points="' + pts + '"/></svg>' +
-      '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>$ por $100</th></tr>' +
-      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td class="' + (d.gana_por_100 >= 0 ? 'txt-verde' : 'txt-rojo') + '">' + (d.gana_por_100 >= 0 ? '+' : '') + d.gana_por_100 + '</td></tr>').join('') + '</table>';
+      '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th></tr>' +
+      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td></tr>').join('') + '</table>';
   }
 
   // ---------- v380: LO QUE MANDAMOS POR TELEGRAM, CON SU RESULTADO ----------
