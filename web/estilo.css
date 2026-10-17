@@ -257,3 +257,23 @@ body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
 .tg-item.roja { border-color: rgba(239,68,68,.45); background: rgba(239,68,68,.06); }
 .tg-pata { line-height: 1.4; }
 .google { display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%; margin: 12px 0 4px; background: #fff; color: #1f1f1f; border: 0; border-radius: 10px; padding: 11px; font: inherit; font-weight: 700; cursor: pointer; }
+
+/* v383 — acceso con usuario, Mi cuenta, VIP */
+.acceso form { display: flex; flex-direction: column; gap: 10px; margin: 12px 0; }
+.liga-btn { background: none; border: 0; color: var(--tenue); font: inherit; font-size: 12px; text-decoration: underline; cursor: pointer; padding: 0; }
+.cuenta-cab { display: flex; flex-direction: column; gap: 2px; margin: 6px 0 10px; }
+.cuenta-plan { display: flex; justify-content: space-between; align-items: center; background: var(--panel); border: 1px solid var(--borde); border-radius: 12px; padding: 10px 12px; margin-bottom: 10px; font-size: 14px; }
+.aviso-ok { background: rgba(124,92,255,.14); border: 1px solid rgba(124,92,255,.35); border-radius: 10px; padding: 8px 10px; font-size: 14px; }
+.vip-caja { margin: 10px 0; display: flex; flex-direction: column; gap: 8px; }
+.vip-btn { display: flex; flex-direction: column; align-items: center; gap: 2px; width: 100%; background: linear-gradient(135deg, var(--morado), var(--rosa)); color: #fff; border: 0; border-radius: 12px; padding: 12px; font: inherit; font-weight: 800; cursor: pointer; }
+.vip-btn small { font-weight: 600; opacity: .85; font-size: 11px; }
+.vip-btn.sec { background: var(--panel); border: 1px solid rgba(124,92,255,.5); }
+.campo { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--tenue); }
+.campo input, .fila-form input { background: var(--panel); color: var(--texto); border: 1px solid var(--borde); border-radius: 10px; padding: 10px 12px; font: inherit; }
+.fila-form { display: grid; grid-template-columns: 1fr auto; gap: 8px; margin-top: 8px; }
+#micuenta .caja { margin-top: 10px; }
+.tg.bloque { display: block; text-align: center; margin: 8px 0; }
+.salir { width: 100%; margin-top: 12px; background: none; border: 1px solid var(--borde); color: var(--tenue); border-radius: 10px; padding: 10px; font: inherit; cursor: pointer; }
+.plan .precio small { font-size: 14px; color: var(--tenue); font-weight: 600; }
+.plan .vip-btn { margin-top: 10px; }
+button.tg { border: 0; font: inherit; cursor: pointer; }

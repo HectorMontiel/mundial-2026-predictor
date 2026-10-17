@@ -81,11 +81,12 @@
         </div>
         <div class="caja plan">
           <div class="tit">VIP</div>
-          <div class="precio">Mensual</div>
-          <ul><li>Todos los 💎 y 🔷 sin gastar monedas</li><li>Grupo VIP de Telegram con avisos al momento</li><li>La Soñadora y los boletos armados</li></ul>
+          <div class="precio">$149 <small>al mes</small></div>
+          <ul><li>⭐ <b>Fundadores: $99 al mes</b> para los primeros 50, para siempre</li><li>O semestral: $749 cada 6 meses</li><li>Todos los 💎 y 🔷 sin gastar monedas</li><li>Grupo VIP de Telegram con avisos al momento</li></ul>
+          <button class="vip-btn" data-mi-cuenta>Hacerme VIP</button>
         </div>
       </div>
-      <p class="aviso">🎉 Lanzamiento: hoy todo es gratis. Registrarte te guarda tus picks y tus 50 🪙 de regalo.</p>
+      <p class="aviso">🎉 Lanzamiento: con tu cuenta gratis ves los 💎 y 🔷 por tiempo limitado, y te llevas 50 🪙 de regalo.</p>
       <div id="telegram" class="tg-links"></div>
     </section>
     <section class="caja niveles-ayuda">
@@ -110,13 +111,34 @@
 
 <div class="ficha" id="acceso" hidden><div class="ficha-caja acceso">
   <button class="cerrar" data-cerrar-acceso>✕</button>
-  <h3>Entra a SharPicks</h3>
+  <h3>SharPicks</h3>
+  <div class="segmentos dos"><button class="seg activa" data-ir-modo="entrar">Entrar</button><button class="seg" data-ir-modo="crear">Crear cuenta</button></div>
   <button class="google" data-google hidden><svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>Continuar con Google</button>
-  <p class="tenue">O te mandamos un enlace a tu correo; sin contraseñas.</p>
-  <form id="acceso-form"><input type="email" id="acceso-correo" placeholder="tu@correo.com" required autocomplete="email"><button class="ver" type="submit">Enviarme el enlace</button></form>
+  <form id="f-entrar" data-modo="entrar">
+    <input id="e-usuario" placeholder="Usuario (o correo)" autocomplete="username" autocapitalize="off">
+    <input id="e-contra" type="password" placeholder="Contraseña" autocomplete="current-password">
+    <button class="ver" type="submit">Entrar</button>
+    <button class="liga-btn" type="button" data-enlace>Olvidé mi contraseña: mándame un enlace al correo</button>
+  </form>
+  <form id="f-crear" data-modo="crear" hidden>
+    <input id="c-usuario" placeholder="Nombre de usuario (3-20, sin espacios)" autocomplete="username" autocapitalize="off">
+    <input id="c-correo" type="email" placeholder="Correo (para recuperar tu contraseña)" autocomplete="email" required>
+    <input id="c-contra" type="password" placeholder="Contraseña (mínimo 8)" autocomplete="new-password">
+    <input id="c-contra2" type="password" placeholder="Repite la contraseña" autocomplete="new-password">
+    <button class="ver" type="submit">Crear cuenta</button>
+  </form>
   <p class="sub" id="acceso-msg"></p>
   <p class="tenue chico">Al entrar aceptas los <a href="terminos.html">términos</a> y el <a href="privacidad.html">aviso de privacidad</a>. Sólo mayores de 18 años.</p>
 </div></div>
+
+<div class="ficha" id="elegir" hidden><div class="ficha-caja acceso">
+  <h3>Elige tu nombre de usuario</h3>
+  <p class="tenue">Con él te verán en SharPicks y podrás entrar también con contraseña.</p>
+  <form id="f-elegir"><input id="u-nuevo" placeholder="3-20 letras, números, _ o ." autocapitalize="off"><button class="ver" type="submit">Guardar</button></form>
+  <p class="sub" id="elegir-msg"></p>
+</div></div>
+
+<div class="ficha" id="micuenta" hidden><div class="ficha-caja acceso" id="micuenta-cuerpo"></div></div>
 
 <div class="ficha" id="ficha" hidden><div class="ficha-caja" id="ficha-cuerpo"></div></div>
 

@@ -278,8 +278,9 @@ def armar_gratis(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[T
               and _utc(p.get('inicio')).astimezone(CDMX).strftime('%Y-%m-%d') == ayer]
         if ps:
             v = sum(1 for p in ps if p.get('estado') == 'verde')
+            # v383 — el enlace del VIP ya no se publica: se da en la app a quien le toca
             t = ('💎 <b>Ayer en el VIP</b>: ✅ %d ❌ %d · %d %% de acierto\n'
-                 'Únete gratis durante el lanzamiento: %s' % (v, len(ps) - v, round(100 * v / len(ps)), VIP_URL))
+                 'Hazte VIP (o entra gratis con tu cuenta en el lanzamiento): %s' % (v, len(ps) - v, round(100 * v / len(ps)), SITIO))
             out.append((t, [(clave, 'gratis', 'resumen')]))
     return out
 

@@ -59,37 +59,126 @@
     if (window.SP) window.SP.pintar();
   }
 
+  // ---------- v383: CUENTA CON USUARIO, MI CUENTA, CÓDIGOS Y VIP ----------
+  const FN = (C.SUPABASE_URL || '').replace(/\/$/, '') + '/functions/v1/';
+  const esAdmin = () => !!(yo.perfil && yo.perfil.admin);
+  const esVip = () => esAdmin() || !!(yo.perfil && yo.perfil.plan === 'pro' && (!yo.perfil.plan_hasta || new Date(yo.perfil.plan_hasta) > new Date()));
+  const RE_USUARIO = /^[A-Za-z0-9_.]{3,20}$/;
+  const fecha = (s) => s ? new Intl.DateTimeFormat('es-MX', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(s)) : '';
+
   function pintarCabecera() {
     const c = $('cuenta'); if (!c) return;
     if (!sb) { c.innerHTML = ''; return; }
     if (!yo.user) { c.innerHTML = '<button class="entrar" data-entrar>Entrar</button>'; return; }
-    const nom = (yo.perfil && yo.perfil.nombre) || (yo.user.email || '').split('@')[0];
-    c.innerHTML = '<span class="saldo" title="Tus monedas">🪙 ' + ((yo.perfil && yo.perfil.monedas) || 0) + '</span>' +
-      (yo.perfil && yo.perfil.plan === 'pro' ? '<span class="et nivel diamante">PRO</span>' : '') +
-      '<button class="entrar" data-salir title="Cerrar sesión">' + esc(nom) + ' ✕</button>';
+    const nom = (yo.perfil && (yo.perfil.usuario || yo.perfil.nombre)) || (yo.user.email || '').split('@')[0];
+    c.innerHTML = '<span class="saldo" title="Tus monedas">🪙 ' + (esAdmin() ? '∞' : ((yo.perfil && yo.perfil.monedas) || 0)) + '</span>' +
+      (esVip() ? '<span class="et nivel diamante">' + (esAdmin() ? 'ADMIN' : 'VIP') + '</span>' : '') +
+      '<button class="entrar" data-mi-cuenta>' + esc(nom) + ' ▾</button>';
+    // con Google no se eligió usuario: se pide una vez
+    if (yo.perfil && !yo.perfil.usuario && $('elegir').hidden) $('elegir').hidden = false;
   }
 
-  function abrirAcceso(msg) {
+  function abrirAcceso(msg, modo) {
+    verModo(modo || 'entrar');
     $('acceso-msg').textContent = msg || '';
     const g = document.querySelector('[data-google]'); if (g) g.hidden = !C.LOGIN_GOOGLE;
     $('acceso').hidden = false;
-    setTimeout(() => $('acceso-correo').focus(), 50);
+  }
+  function verModo(m) {
+    document.querySelectorAll('[data-modo]').forEach((x) => { x.hidden = x.dataset.modo !== m; });
+    document.querySelectorAll('[data-ir-modo]').forEach((x) => x.classList.toggle('activa', x.dataset.irModo === m));
+  }
+
+  async function entrarConUsuario(u, contra) {
+    if (u.includes('@')) {
+      const { error } = await sb.auth.signInWithPassword({ email: u, password: contra });
+      return error ? 'Correo o contraseña incorrectos.' : '';
+    }
+    const r = await fetch(FN + 'entrar', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY },
+      body: JSON.stringify({ usuario: u, contrasena: contra }) });
+    const d = await r.json().catch(() => ({}));
+    if (!r.ok || !d.access_token) return d.error || 'No se pudo entrar.';
+    const { error } = await sb.auth.setSession({ access_token: d.access_token, refresh_token: d.refresh_token });
+    return error ? 'No se pudo entrar.' : '';
+  }
+
+  async function abrirMiCuenta(msg) {
+    if (!yo.user) { abrirAcceso(); return; }
+    const p = yo.perfil || {};
+    const [{ data: lugares }, { data: vipUrl }] = await Promise.all([
+      sb.rpc('lugares_fundador').then((x) => x, () => ({ data: 0 })),
+      sb.rpc('enlace_vip').then((x) => x, () => ({ data: null })),
+    ]);
+    const pm = Number(yo.precios.precio_mensual || 149), pf = Number(yo.precios.precio_fundador || 99), ps = Number(yo.precios.precio_semestral || 749);
+    let h = '<button class="cerrar" data-cerrar-cuenta>✕</button><h3>Mi cuenta</h3>' +
+      '<div class="cuenta-cab"><b>@' + esc(p.usuario || '—') + '</b><span class="tenue">' + esc(yo.user.email || '') + '</span></div>' +
+      '<div class="cuenta-plan">' + (esAdmin() ? '👑 <b>Administrador</b> · monedas y VIP ilimitados'
+        : esVip() ? '💎 <b>VIP</b> hasta el ' + esc(fecha(p.plan_hasta)) : 'Plan <b>Gratis</b>') +
+      '<span>🪙 ' + (esAdmin() ? '∞' : (p.monedas || 0)) + '</span></div>';
+    if (msg) h += '<p class="aviso-ok">' + esc(msg) + '</p>';
+    if (vipUrl) h += '<a class="tg vip bloque" href="' + esc(vipUrl) + '" target="_blank" rel="noopener">💎 Entrar al grupo VIP de Telegram</a>';
+    if (!esVip()) {
+      h += '<div class="caja vip-caja"><div class="tit">Hazte VIP</div>' +
+        '<p class="sub">Todos los 💎 y 🔷 sin gastar monedas y el grupo VIP de Telegram con avisos al momento. Cancelas cuando quieras.</p>' +
+        '<label class="campo">Correo de tu cuenta de Mercado Pago<input type="email" id="mp-correo" value="' + esc(yo.user.email || '') + '"></label>' +
+        '<button class="vip-btn" data-vip="mensual">' + (lugares > 0 ? '⭐ Fundador: $' + pf + ' al mes <small>quedan ' + lugares + ' de 50 · después $' + pm + '</small>' : 'Mensual: $' + pm + ' al mes') + '</button>' +
+        '<button class="vip-btn sec" data-vip="semestral">Semestral: $' + ps + ' cada 6 meses <small>≈ $' + Math.round(ps / 6) + ' al mes</small></button>' +
+        '<p class="tenue chico">Precios en pesos con IVA incluido. El cobro lo hace Mercado Pago; nosotros nunca vemos tu tarjeta.</p></div>';
+    }
+    h += '<div class="caja"><div class="tit">🎁 Canjear código</div><div class="fila-form"><input id="codigo" placeholder="SHARP-XXXX-XXXX" autocomplete="off"><button class="ver" data-canjear>Canjear</button></div></div>' +
+      '<div class="caja"><div class="tit">🔑 ' + (yo.user.app_metadata && yo.user.app_metadata.provider === 'google' ? 'Crear contraseña (para entrar con tu usuario)' : 'Cambiar contraseña') + '</div>' +
+      '<div class="fila-form"><input type="password" id="nueva-contra" placeholder="Mínimo 8 caracteres" autocomplete="new-password"><button class="ver" data-contra>Guardar</button></div></div>' +
+      '<button class="salir" data-salir>Cerrar sesión</button>';
+    $('micuenta-cuerpo').innerHTML = h;
+    $('micuenta').hidden = false;
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google]');
+    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace]');
     if (!t) return;
-    // v380 — entrar con Google (se enciende con CONFIG.LOGIN_GOOGLE cuando
-    // el proveedor está activo en Supabase → Authentication → Providers)
     if (t.hasAttribute('data-google')) {
       const { error } = await sb.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: location.origin + location.pathname } });
-      if (error) $('acceso-msg').textContent = 'Google todavía no está disponible; entra con tu correo.';
+      if (error) $('acceso-msg').textContent = 'Google no respondió; intenta con tu usuario.';
       return;
     }
+    if (t.dataset.irModo) { verModo(t.dataset.irModo); $('acceso-msg').textContent = ''; return; }
     if (t.hasAttribute('data-cerrar-acceso')) { $('acceso').hidden = true; return; }
+    if (t.hasAttribute('data-cerrar-cuenta')) { $('micuenta').hidden = true; return; }
     if (t.hasAttribute('data-entrar')) { abrirAcceso(); return; }
-    if (t.hasAttribute('data-salir')) { await sb.auth.signOut(); await refrescar(); return; }
+    if (t.hasAttribute('data-mi-cuenta')) { abrirMiCuenta(); return; }
+    if (t.hasAttribute('data-salir')) { await sb.auth.signOut(); $('micuenta').hidden = true; await refrescar(); return; }
+    if (t.hasAttribute('data-enlace')) {
+      const correo = $('e-usuario').value.trim();
+      if (!correo.includes('@')) { $('acceso-msg').textContent = 'Escribe tu correo arriba para mandarte el enlace.'; return; }
+      const { error } = await sb.auth.signInWithOtp({ email: correo, options: { emailRedirectTo: location.origin + location.pathname } });
+      $('acceso-msg').textContent = error ? 'No se pudo enviar: ' + error.message : 'Listo: revisa tu correo (también «spam»).';
+      return;
+    }
     if (!yo.user) { abrirAcceso('Inicia sesión para seguir y desbloquear picks.'); return; }
+    if (t.hasAttribute('data-canjear')) {
+      const { data } = await sb.rpc('canjear_codigo', { c: $('codigo').value });
+      await refrescar();
+      abrirMiCuenta(data === 'ok' ? '🎉 ¡Listo! Ya eres VIP.' : data === 'ya usado' ? 'Ese código ya se usó.' : 'Ese código no existe. Revísalo.');
+      return;
+    }
+    if (t.hasAttribute('data-contra')) {
+      const c1 = $('nueva-contra').value;
+      if (c1.length < 8) { abrirMiCuenta('La contraseña debe tener al menos 8 caracteres.'); return; }
+      const { error } = await sb.auth.updateUser({ password: c1 });
+      abrirMiCuenta(error ? 'No se pudo guardar: ' + error.message : '🔑 Contraseña guardada. Ya puedes entrar con tu usuario.');
+      return;
+    }
+    if (t.dataset.vip) {
+      t.disabled = true;
+      const { data: s } = await sb.auth.getSession();
+      const r = await fetch(FN + 'vip', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY,
+        Authorization: 'Bearer ' + (s.session ? s.session.access_token : '') }, body: JSON.stringify({ tipo: t.dataset.vip, correo: ($('mp-correo') || {}).value }) });
+      const d = await r.json().catch(() => ({}));
+      if (d.url) { location.href = d.url; return; }
+      t.disabled = false;
+      abrirMiCuenta(d.error || 'No se pudo iniciar el pago.');
+      return;
+    }
     if (t.dataset.seguir) {
       const id = t.dataset.seguir;
       if (yo.seguidos.has(id)) { await sb.from('seguidos').delete().eq('pick', id); yo.seguidos.delete(id); yo.conteo[id] = Math.max(0, (yo.conteo[id] || 1) - 1); }
@@ -105,15 +194,56 @@
     }
   });
 
-  $('acceso-form') && $('acceso-form').addEventListener('submit', async (e) => {
+  // entrar con usuario (o correo) y contraseña
+  $('f-entrar') && $('f-entrar').addEventListener('submit', async (e) => {
     e.preventDefault();
-    const correo = $('acceso-correo').value.trim();
-    if (!correo) return;
-    $('acceso-msg').textContent = 'Enviando…';
-    const { error } = await sb.auth.signInWithOtp({ email: correo, options: { emailRedirectTo: location.origin + location.pathname } });
-    $('acceso-msg').textContent = error ? 'No se pudo enviar: ' + error.message
-      : 'Listo: revisa tu correo y abre el enlace para entrar (revisa también «spam»).';
+    const u = $('e-usuario').value.trim(), c1 = $('e-contra').value;
+    if (!u || !c1) { $('acceso-msg').textContent = 'Escribe tu usuario y tu contraseña.'; return; }
+    $('acceso-msg').textContent = 'Entrando…';
+    const err = await entrarConUsuario(u, c1);
+    if (err) { $('acceso-msg').textContent = err; return; }
+    $('acceso').hidden = true;
+    await refrescar();
   });
+  // crear cuenta: usuario + correo + contraseña
+  $('f-crear') && $('f-crear').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const u = $('c-usuario').value.trim(), correo = $('c-correo').value.trim(), c1 = $('c-contra').value, c2 = $('c-contra2').value;
+    const msg = (x) => { $('acceso-msg').textContent = x; };
+    if (!RE_USUARIO.test(u)) return msg('El usuario: de 3 a 20 letras, números, «_» o «.», sin espacios.');
+    if (c1.length < 8) return msg('La contraseña debe tener al menos 8 caracteres.');
+    if (c1 !== c2) return msg('Las contraseñas no coinciden.');
+    msg('Creando tu cuenta…');
+    const { data: libre } = await sb.rpc('usuario_libre', { u });
+    if (!libre) return msg('Ese usuario ya existe. Prueba otro.');
+    const { data, error } = await sb.auth.signUp({ email: correo, password: c1, options: { data: { usuario: u } } });
+    if (error) return msg(/registered|exists/i.test(error.message) ? 'Ese correo ya tiene cuenta: entra con él.' : 'No se pudo crear: ' + error.message);
+    if (!data.session) return msg('Cuenta creada. Revisa tu correo para confirmarla.');
+    $('acceso').hidden = true;
+    await refrescar();
+  });
+  // elegir usuario (la primera vez con Google)
+  $('f-elegir') && $('f-elegir').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const u = $('u-nuevo').value.trim();
+    if (!RE_USUARIO.test(u)) { $('elegir-msg').textContent = 'De 3 a 20 letras, números, «_» o «.», sin espacios.'; return; }
+    const { data: libre } = await sb.rpc('usuario_libre', { u });
+    if (!libre) { $('elegir-msg').textContent = 'Ese usuario ya existe. Prueba otro.'; return; }
+    const { error } = await sb.from('perfiles').update({ usuario: u, nombre: u }).eq('id', yo.user.id);
+    if (error) { $('elegir-msg').textContent = 'No se pudo guardar. Prueba otro.'; return; }
+    $('elegir').hidden = true;
+    await refrescar();
+  });
+  // de regreso de Mercado Pago
+  if (/[?&]vip=ok/.test(location.search)) {
+    history.replaceState(null, '', location.pathname);
+    let n = 0;
+    const t = setInterval(async () => {
+      await refrescar();
+      if (esVip() || ++n > 24) { clearInterval(t); if (esVip()) abrirMiCuenta('🎉 ¡Bienvenido al VIP!'); }
+    }, 5000);
+    setTimeout(() => abrirMiCuenta('Gracias: en cuanto Mercado Pago confirme el pago se activa tu VIP (unos segundos).'), 1500);
+  }
 
   // ---------- historial público (verdes, rojas y porcentaje) ----------
   async function historial() {
@@ -183,12 +313,12 @@
   document.addEventListener('click', (e) => { const b = e.target.closest('[data-tg-canal]'); if (b) { tg.canal = b.dataset.tgCanal; pintarTg(); } });
 
   // ---------- Telegram ----------
+  // v383 — el enlace del VIP ya no es público: se da en «Mi cuenta» a quien le toca
   function telegram() {
     const c = $('telegram'); if (!c) return;
-    const g = C.TELEGRAM_GRATIS, v = C.TELEGRAM_VIP;
+    const g = C.TELEGRAM_GRATIS;
     c.innerHTML = (g ? '<a class="tg" href="' + esc(g) + '" target="_blank" rel="noopener">📢 Canal gratis de Telegram</a>' : '') +
-      (v ? '<a class="tg vip" href="' + esc(v) + '" target="_blank" rel="noopener">💎 Grupo VIP de Telegram</a>' : '') +
-      (!g && !v ? '<p class="tenue">Los canales de Telegram abren muy pronto.</p>' : '');
+      '<button class="tg vip" data-mi-cuenta>💎 Grupo VIP de Telegram</button>';
   }
 
   if (sb) {
