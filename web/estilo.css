@@ -402,3 +402,12 @@ body::after { width: 60vmax; height: 60vmax; right: -22vmax; bottom: -20vmax;
 .partido-fila { border-top-color: rgba(255,255,255,.07); }
 .logo { box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 6px 18px rgba(124,92,255,.45); }
 .marcadores .caja .num, .vista-tit { text-shadow: 0 2px 18px rgba(124,92,255,.35); }
+
+/* v389 — paquetes de monedas */
+.paquetes { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px; }
+.paquete { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 12px 8px; border-radius: 14px; cursor: pointer;
+  background: var(--vidrio, rgba(255,255,255,.05)); border: 1px solid var(--borde-vidrio, rgba(255,255,255,.12)); color: var(--texto); font: inherit;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.2); }
+.paquete b { font-size: 20px; } .paquete span { font-weight: 800; color: var(--verde); } .paquete small { color: var(--tenue); font-size: 11px; }
+.paquete.top { border-color: rgba(245,179,1,.6); background: linear-gradient(160deg, rgba(245,179,1,.16), rgba(124,92,255,.08)); }
+.tabla.precios { margin-top: 8px; } .tabla.precios td, .tabla.precios th { text-align: left; }

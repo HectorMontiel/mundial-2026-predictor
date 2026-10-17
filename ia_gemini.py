@@ -35,7 +35,7 @@ from typing import Dict, List, Optional
 logger = logging.getLogger('ia_gemini')
 DATOS = os.environ.get('WEB_DATOS', os.path.join('web', 'datos', 'hoy.json'))
 PRIVADO = os.environ.get('WEB_PRIVADO', os.path.join('datos_privados', 'premium.json'))
-MODELOS = [m for m in (os.environ.get('GEMINI_MODELO'), 'gemini-flash-latest', 'gemini-2.5-flash') if m]
+MODELOS = [m for m in (os.environ.get('GEMINI_MODELO'), 'gemini-flash-latest', 'gemini-2.5-flash', 'gemini-2.5-flash-lite') if m]
 MAX_POR_PASADA = int(os.environ.get('IA_MAX', '15'))
 HORAS = 30
 PAUSA_S = 4.5            # ~13 por minuto: debajo del límite del nivel gratis
@@ -137,8 +137,12 @@ def preguntar(datos: Dict) -> Optional[Dict]:
               'generationConfig': {'temperature': 0.3, 'responseMimeType': 'application/json', 'responseSchema': ESQUEMA}}
     for modelo in MODELOS:
         try:
-            r = requests.post('https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent' % modelo,
-                              params={'key': k}, json=cuerpo, timeout=60)
+            for intento in range(3):          # 503 = Gemini saturado: se espera y se reintenta
+                r = requests.post('https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent' % modelo,
+                                  params={'key': k}, json=cuerpo, timeout=60)
+                if r.status_code != 503:
+                    break
+                time.sleep(6 * (intento + 1))
             if r.status_code == 429:
                 logger.warning('[ia] %s: límite del nivel gratis; se sigue en la próxima pasada', modelo)
                 return {'_limite': True}

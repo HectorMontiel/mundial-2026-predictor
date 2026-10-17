@@ -53,6 +53,15 @@ def _fila(p: Dict, estado: str, ligas: Dict = None) -> Dict:
         f['liga'] = ligas.get(p.get('partido'))
     f['apuesta'] = str(f.get('apuesta') or '').replace('⭐ ', '').replace('🏆 ', '')
     f['estado'] = estado
+    # v389 — la hora, siempre como fecha (nunca segundos sueltos ni texto raro):
+    # un solo pick así hacía que Supabase rechazara el lote entero
+    ini = str(f.get('inicio') or '').strip()
+    if ini.replace('.', '', 1).isdigit():
+        try:
+            ini = dt.datetime.fromtimestamp(float(ini), dt.timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+        except Exception:
+            ini = ''
+    f['inicio'] = ini if len(ini) >= 10 and ini[:4].isdigit() and ini[4] == '-' else None
     # la tabla exige la fecha: sin ella, Supabase rechazaría el lote entero
     f['fecha'] = f.get('fecha') or str(f.get('inicio') or '')[:10] or None
     f['id'] = _id(p)
@@ -192,6 +201,10 @@ def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
             n += len(filas[i:i + 200])
         else:
             logger.warning('[web] Supabase respondió %s: %s', r.status_code, r.text[:200])
+            # v389 — si el lote falla, uno por uno: que un pick malo no tire a los otros 199
+            for fila1 in filas[i:i + 200]:
+                r1 = requests.post(url.rstrip('/') + '/rest/v1/picks', json=[fila1], timeout=30, headers=hdr)
+                n += bool(r1.ok)
     # v379 — LO RETIRADO SE BORRA. Si el modelo cambia «Menos de 3.5» por
     # «Menos de 4.5», la vieja se quedaba «pendiente» en la base para siempre y
     # el partido salía dos veces. Se borran las pendientes de partidos que aún

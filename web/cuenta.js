@@ -15,8 +15,16 @@
   window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar };
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
-  const CLAVE = { Diamante: 'precio_diamante', Platino: 'precio_platino', Oro: 'precio_oro', Plata: 'precio_plata' };
-  function precio(p) { return Number(yo.precios[CLAVE[window.SP.nivel(p).n]] || 0); }
+  // v389 — el precio de un pick premium depende de su CUOTA (tabla `precios_cuota`);
+  // 🥇 y 🥈 son gratis; el administrador no paga. Lo que cobra de verdad lo
+  // decide la base (`precio_pick`); esto sólo lo enseña.
+  function precio(p) {
+    if (yo.perfil && yo.perfil.admin) return 0;
+    const n = window.SP.nivel(p).n;
+    if (!['Diamante', 'Platino', 'Cuota alta'].includes(n)) return 0;
+    const c = Number(p.cuota || 1), b = (yo.bandas || []).find((x) => c >= Number(x.desde) && c < Number(x.hasta));
+    return b ? Number(b.monedas) : 10;
+  }
 
   function apuesta(p) {
     if (!p.premium) return esc(p.apuesta);
@@ -52,6 +60,8 @@
     } catch (e) { yo.user = null; }
     const tareas = [
       sb.from('ajustes').select('clave,valor').then(({ data }) => { (data || []).forEach((x) => { yo.precios[x.clave] = x.valor; }); }),
+      sb.from('precios_cuota').select('*').order('desde').then(({ data }) => { yo.bandas = data || []; }),
+      sb.from('paquetes').select('*').order('orden').then(({ data }) => { yo.paquetes = data || []; }),
       sb.from('seguidores').select('pick,n').then(({ data }) => { yo.conteo = {}; (data || []).forEach((x) => { yo.conteo[x.pick] = x.n; }); }),
     ];
     if (yo.user) {
@@ -137,6 +147,12 @@
         '<button class="vip-btn sec" data-vip="semestral">Semestral: $' + ps + ' cada 6 meses <small>≈ $' + Math.round(ps / 6) + ' al mes</small></button>' +
         '<p class="tenue chico">Precios en pesos con IVA incluido. El cobro lo hace Mercado Pago; nosotros nunca vemos tu tarjeta.</p></div>';
     }
+    if (!esAdmin()) {
+      h += '<div class="caja"><div class="tit">🪙 Comprar monedas</div><div class="paquetes">' +
+        (yo.paquetes || []).map((k) => '<button class="paquete' + (k.id === 'popular' ? ' top' : '') + '" data-comprar="' + esc(k.id) + '"><b>' + k.monedas +
+          ' 🪙</b><span>$' + Math.round(k.precio) + '</span><small>' + esc(k.nombre) + (k.id === 'popular' ? ' · el más pedido' : '') + '</small></button>').join('') +
+        '</div><p class="tenue chico">💎 🔷 💰 cuestan de 5 a 25 🪙 según su cuota. Si el pick sale rojo, te regresamos tus monedas solas. Pago con Mercado Pago.</p></div>';
+    }
     h += '<div class="caja"><div class="tit">👤 Nombre de usuario</div><div class="fila-form"><input id="mi-usuario" value="' + esc(p.usuario || '') +
       '" placeholder="3-20 letras, números, _ o ." autocapitalize="off"><button class="ver" data-mi-usuario>Guardar</button></div></div>';
     h += '<div class="caja"><div class="tit">🎁 Canjear código</div><div class="fila-form"><input id="codigo" placeholder="SHARP-XXXX-XXXX" autocomplete="off"><button class="ver" data-canjear>Canjear</button></div></div>' +
@@ -148,7 +164,7 @@
   }
 
   document.addEventListener('click', async (e) => {
-    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario]');
+    const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario],[data-comprar]');
     if (!t) return;
     if (t.hasAttribute('data-ayuda')) { $('ayuda').hidden = false; return; }
     if (t.hasAttribute('data-cerrar-ayuda')) { $('ayuda').hidden = true; return; }
@@ -171,6 +187,17 @@
       return;
     }
     if (!yo.user) { abrirAcceso('Inicia sesión para seguir y desbloquear picks.'); return; }
+    if (t.dataset.comprar) {
+      t.disabled = true;
+      const { data: s } = await sb.auth.getSession();
+      const r = await fetch(FN + 'monedas', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY,
+        Authorization: 'Bearer ' + (s.session ? s.session.access_token : '') }, body: JSON.stringify({ paquete: t.dataset.comprar }) });
+      const d = await r.json().catch(() => ({}));
+      if (d.url) { location.href = d.url; return; }
+      t.disabled = false;
+      abrirMiCuenta(d.error || 'No se pudo iniciar el pago.');
+      return;
+    }
     if (t.hasAttribute('data-mi-usuario')) {
       const u = $('mi-usuario').value.trim();
       if (!RE_USUARIO.test(u)) { abrirMiCuenta('El usuario: de 3 a 20 letras, números, «_» o «.», sin espacios.'); return; }
@@ -262,6 +289,13 @@
     $('elegir').hidden = true;
     await refrescar();
   });
+  // v389 — de regreso de comprar monedas
+  if (/[?&]monedas=/.test(location.search)) {
+    const ok = /monedas=ok/.test(location.search), pend = /monedas=pendiente/.test(location.search);
+    history.replaceState(null, '', location.pathname);
+    setTimeout(() => abrirMiCuenta(ok ? '🎉 ¡Gracias! Tus monedas llegan en unos segundos.' : pend ? 'Tu pago está en proceso; las monedas llegan en cuanto Mercado Pago lo apruebe.' : 'El pago no se completó.'), 1500);
+    if (ok || pend) { let n = 0; const t2 = setInterval(async () => { await refrescar(); if (++n > 12) clearInterval(t2); }, 5000); }
+  }
   // de regreso de Mercado Pago
   if (/[?&]vip=ok/.test(location.search)) {
     history.replaceState(null, '', location.pathname);

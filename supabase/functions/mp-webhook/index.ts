@@ -1,8 +1,9 @@
-// v383 — EL AVISO DE MERCADO PAGO (webhook). Mercado Pago llama aquí cuando
-// una suscripción cambia o se cobra un mes. No se confía en lo que llega:
-// con el id se le PREGUNTA a Mercado Pago (con nuestro token) cómo está, y con
-// eso se activa o se deja vencer el VIP. Autorizada → plan «pro» hasta el
-// próximo cobro + 3 días de gracia; cancelada o en pausa → vence sola.
+// v383-v389 — EL AVISO DE MERCADO PAGO (webhook). No se confía en lo que
+// llega: con el id se le PREGUNTA a Mercado Pago (con nuestro token) cómo está.
+//  · Suscripción (preapproval / authorized_payment): autorizada → VIP hasta
+//    el próximo cobro + 3 días de gracia; cancelada o en pausa → vence sola.
+//  · Pago único de monedas (payment, referencia «monedas|usuario|paquete»):
+//    aprobado → se acreditan las monedas UNA vez (`acreditar_compra`).
 import { createClient } from 'npm:@supabase/supabase-js@2.45.4';
 
 const ok = () => new Response('ok', { status: 200 });
@@ -20,13 +21,27 @@ Deno.serve(async (req) => {
       const r = await fetch('https://api.mercadopago.com' + ruta, { headers: { Authorization: 'Bearer ' + MP } });
       return r.ok ? await r.json() : null;
     };
+    const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, { auth: { persistSession: false } });
+
+    // pago único: monedas
+    if (tipo === 'payment' || tipo === '') {
+      const p = await mp('/v1/payments/' + id);
+      const ref = String(p?.external_reference || '');
+      if (p && ref.startsWith('monedas|') && p.status === 'approved') {
+        const [, usuario, paquete] = ref.split('|');
+        await admin.rpc('acreditar_compra', { p_id: String(p.id), p_usuario: usuario, p_paquete: paquete,
+                                              p_precio: Number(p.transaction_amount ?? 0) });
+      }
+      if (p) return ok();
+    }
+
+    // suscripción VIP
     let pre: string | null = null;
     if (tipo.includes('authorized_payment')) pre = (await mp('/authorized_payments/' + id))?.preapproval_id ?? null;
     else if (tipo.includes('preapproval')) pre = id;
     if (!pre) return ok();
     const s = await mp('/preapproval/' + pre);
     if (!s || !s.external_reference) return ok();
-    const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, { auth: { persistSession: false } });
     const meses = Number(s.auto_recurring?.frequency ?? 1);
     await admin.from('suscripciones').upsert({
       id: s.id, usuario: s.external_reference, tipo: meses >= 6 ? 'semestral' : 'mensual',
@@ -35,8 +50,8 @@ Deno.serve(async (req) => {
     if (s.status === 'authorized') {
       const base = s.next_payment_date ? new Date(s.next_payment_date) : new Date(Date.now() + meses * 31 * 864e5);
       const hasta = new Date(base.getTime() + 3 * 864e5);
-      const { data: p } = await admin.from('perfiles').select('plan_hasta').eq('id', s.external_reference).maybeSingle();
-      const actual = p?.plan_hasta ? new Date(p.plan_hasta) : null;
+      const { data: pf } = await admin.from('perfiles').select('plan_hasta').eq('id', s.external_reference).maybeSingle();
+      const actual = pf?.plan_hasta ? new Date(pf.plan_hasta) : null;
       await admin.from('perfiles').update({ plan: 'pro', plan_hasta: (actual && actual > hasta ? actual : hasta).toISOString() })
         .eq('id', s.external_reference);
     }

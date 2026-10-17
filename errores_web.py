@@ -50,6 +50,19 @@ def _f(x) -> Optional[float]:
         return None
 
 
+def _hora(x) -> str:
+    """La hora de inicio en «AAAA-MM-DD HH:MM:SS» (UTC). Algunos errores de
+    cuota la traen en segundos desde 1970 («1792242000»): Supabase rechazaba
+    el lote ENTERO de 200 por uno así (v389, 17-oct)."""
+    s = str(x or '').strip()
+    if s.replace('.', '', 1).isdigit():
+        try:
+            return dt.datetime.fromtimestamp(float(s), dt.timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+        except Exception:
+            return ''
+    return s.replace('T', ' ')[:19]
+
+
 def _resultados_anunciados(ruta: str = 'anunciadas_dia.json') -> Dict:
     """(partido, apuesta) → (resultado, marcador) de los 💰 ya liquidados."""
     out = {}
@@ -86,7 +99,7 @@ def errores(datos: Dict, ahora: Optional[dt.datetime] = None) -> List[Dict]:
             fuerte = ventaja >= 0.12 or (local and prob >= 0.45)
             r = res.get((c.get('partido'), c.get('apuesta')))
             estado = {'verde': 'verde', 'rojo': 'roja'}.get((r or ('',))[0], 'pendiente')
-            out.append({'partido': c.get('partido'), 'inicio': str(c.get('inicio') or '').replace('T', ' ')[:19],
+            out.append({'partido': c.get('partido'), 'inicio': _hora(c.get('inicio')),
                         'fecha': c.get('fecha'), 'deporte': c.get('deporte'), 'liga': c.get('liga'),
                         'clave_liga': c.get('clave_liga'),
                         'apuesta': c.get('apuesta'), 'cuota': round(cuota, 3), 'prob': round(prob, 3),
