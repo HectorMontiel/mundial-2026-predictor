@@ -108,3 +108,31 @@ Nunca usar simplemente “listo” como evidencia.
 - Último commit de main observado después de crear la rama: 1e077067cf18afb2ad548c9fa859908200a7bd48 (precálculo automático del 18-oct-2026 a las 06:55:32 UTC). Antes de realizar cambios funcionales, volver a consultar main y rebasar con cuidado.
 - El sitio sharpicks.pages.dev no pudo recuperarse con el navegador disponible en esta sesión; no confundir esa limitación de herramienta con un fallo de producción.
 - Aún no se han ejecutado aquí los 97 tests, no se ha leído cada archivo del repositorio y no hay verificación directa de la base desplegada. No anunciar la auditoría como completa.
+
+
+## Estado de la rama compartida y PR #2 — 18-oct-2026
+
+La rama y la PR evolucionaron durante la revisión. La PR [#2](https://github.com/HectorMontiel/mundial-2026-predictor/pull/2) sigue en **borrador, sin merge**. No representa una aprobación de producción. En la misma rama aparecieron commits candidatos v402 para fechas/feed en vivo, estados de error, historial, permisos de perfiles, enlace VIP, webhooks de pagos, comentarios con rate limit y validaciones de build. Estos commits aparecen con autor GitHub HMREY; no se debe inferir qué agente los escribió.
+
+### Hallazgos con una corrección candidata presente en la rama, pendiente de validar
+- SHP-001/002: los webhooks propagan algunos errores y los pagos VIP únicos usan la RPC transaccional procesar_vip_unico.
+- SHP-004: se revoca INSERT directo a perfiles y se limitan actualizaciones a columnas permitidas.
+- SHP-005: enlace de Telegram VIP usa telegram_vip_abierto, separada de premium_con_cuenta.
+- SHP-008: parser ISO pasa a web/fechas.js y test_web_v402.cjs cubre offsets con Z, + y -.
+- SHP-009: el bucle en vivo usa vivoCursor para rotar el grupo de hasta 40 partidos por pasada.
+- SHP-010/011: se separan algunos estados de error de los estados vacíos; se protegen porcentajes contra denominador cero.
+- SHP-012: sitio_web.yml incluye validaciones previas y un resumen de integraciones/despliegue.
+- SHP-014: los comentarios pasan por Edge Function y RPC con límite por huella.
+
+**Todo lo anterior es “CORRECCIÓN CANDIDATA EN RAMA”, no “validado”.** Faltan pruebas ejecutadas y, para SQL/Edge Functions, aplicar la migración y desplegar la función en staging antes de darlo por corregido.
+
+### Hallazgos que siguen abiertos en la rama consultada
+- SHP-003: la historia de migraciones de pagos sigue sin reproducir todo el esquema/funciones.
+- SHP-006: web/negocio.sql sigue conteniendo definiciones históricas que pueden degradar funciones; el comentario preventivo no reemplaza una migración canónica segura.
+- SHP-007: cupo fundador sigue calculado por lectura separada del checkout; pagos únicos con estado pagado tampoco entran en el conteo de estado authorized.
+- SHP-015: la política premium sigue permitiendo lectura desde p.inicio <= now() en los scripts inspeccionados, mientras v389 documenta que debe abrirse al terminar. Requiere decidir y aplicar la regla actual.
+- SHP-016: el precio mostrado en cuenta.js sigue calculado por precios_cuota, mientras precio_pick en negocio.sql usa ajustes por nivel y no contempla tipo error de forma explícita.
+- SHP-017: exportar_web.py aún puede devolver 0 después de fallos al subir contenido premium/combinadas.
+
+### Validación bloqueada
+Intenté clonar la rama de forma superficial para ejecutar Node/Python tests; la terminal no pudo resolver github.com. Por tanto no se ha ejecutado test_web_v402.cjs, test_v400.py ni el resto de la suite desde este entorno. La PR no debe fusionarse hasta ejecutar esos tests en el clon local/CI y revisar logs reales.
