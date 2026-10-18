@@ -18,12 +18,17 @@ async function firmaValida(cuerpo: string, cabecera: string, secreto: string): P
   const k = await crypto.subtle.importKey('raw', new TextEncoder().encode(secreto), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
   const esperado = hex(await crypto.subtle.sign('HMAC', k, new TextEncoder().encode(t + '.' + cuerpo)));
   const v1 = cabecera.split(',').filter((p) => p.startsWith('v1=')).map((p) => p.slice(3));
-  return v1.some((v) => v.length === esperado.length && [...v].every((c, i) => c === esperado[i]));
+  return v1.some((v) => {
+    if (v.length !== esperado.length) return false;
+    let diferencia = 0;
+    for (let i = 0; i < esperado.length; i++) diferencia |= v.charCodeAt(i) ^ esperado.charCodeAt(i);
+    return diferencia === 0;
+  });
 }
 
 Deno.serve(async (req) => {
   const SK = Deno.env.get('STRIPE_SECRET_KEY'), WS = Deno.env.get('STRIPE_WEBHOOK_SECRET');
-  if (!SK || !WS) return ok();
+  if (!SK || !WS) return new Response('Webhook no configurado', { status: 503 });
   const cuerpo = await req.text();
   if (!(await firmaValida(cuerpo, req.headers.get('stripe-signature') || '', WS))) return ok(400);
   try {
@@ -40,18 +45,21 @@ Deno.serve(async (req) => {
       const s = await stripe('/checkout/sessions/' + obj.id);
       if (!s) return ok(500);                                                // Stripe reintenta
       if (s.mode === 'payment' && s.payment_status === 'paid' && s.metadata?.tipo === 'monedas') {
-        await admin.rpc('acreditar_compra', { p_id: 'stripe:' + s.id, p_usuario: s.metadata.usuario,
-                                              p_paquete: s.metadata.paquete, p_precio: Number(s.amount_total ?? 0) / 100 });
+        const { error } = await admin.rpc('acreditar_compra', {
+          p_id: 'stripe:' + s.id, p_usuario: s.metadata.usuario,
+          p_paquete: s.metadata.paquete, p_precio: Number(s.amount_total ?? 0) / 100,
+        });
+        if (error) throw new Error('No se pudo acreditar la compra de monedas');
         return ok();
       }
       if (s.mode === 'payment' && s.payment_status === 'paid' && s.metadata?.tipo === 'vip_unico') {
         // VIP de un solo pago: se suma el periodo UNA vez (el id de la fila es el candado)
         const meses = Number(s.metadata.meses || 1);
-        const { error } = await admin.from('suscripciones').insert({
-          id: 'stripe-unico:' + s.id, usuario: s.metadata.usuario, tipo: meses >= 6 ? 'semestral' : 'mensual',
-          precio: Number(s.amount_total ?? 0) / 100, fundador: s.metadata.fundador === '1', estado: 'pagado', renueva: false,
-          actualizado: new Date().toISOString() });
-        if (!error) await admin.rpc('sumar_vip', { p_usuario: s.metadata.usuario, p_meses: meses });
+        const { error } = await admin.rpc('procesar_vip_unico', {
+          p_id: 'stripe-unico:' + s.id, p_usuario: s.metadata.usuario, p_meses: meses,
+          p_precio: Number(s.amount_total ?? 0) / 100, p_fundador: s.metadata.fundador === '1',
+        });
+        if (error) throw new Error('No se pudo activar el VIP de pago único');
         return ok();
       }
       if (s.mode === 'subscription') subId = typeof s.subscription === 'string' ? s.subscription : s.subscription?.id;
@@ -71,22 +79,25 @@ Deno.serve(async (req) => {
     const fin = Number(item.current_period_end || sub.current_period_end || 0);
     const activa = sub.status === 'active' || sub.status === 'trialing';
     const sigue = activa && !sub.cancel_at_period_end;      // activa, pero ¿se volverá a cobrar?
-    await admin.from('suscripciones').upsert({
+    const { error: errorSub } = await admin.from('suscripciones').upsert({
       id: 'stripe:' + sub.id, usuario: m.usuario, tipo: m.plan === 'semestral' ? 'semestral' : 'mensual',
       precio: Number(item.price?.unit_amount ?? 0) / 100, fundador: m.fundador === '1',
-      // «authorized» es el estado que ya cuenta para los 50 lugares de fundador (`lugares_fundador`)
       estado: sigue ? 'authorized' : activa ? 'cancela_al_final' : sub.status, renueva: sigue,
       proximo_cobro: fin ? new Date(fin * 1000).toISOString() : null,
       actualizado: new Date().toISOString() });
+    if (errorSub) throw new Error('No se pudo actualizar la suscripción de Stripe');
     if (activa && fin) {
       const hasta = new Date(fin * 1000 + 3 * 864e5);                         // 3 días de gracia, como con Mercado Pago
       const { data: pf } = await admin.from('perfiles').select('plan_hasta').eq('id', m.usuario).maybeSingle();
       const actual = pf?.plan_hasta ? new Date(pf.plan_hasta) : null;
-      await admin.from('perfiles').update({ plan: 'pro', plan_hasta: (actual && actual > hasta ? actual : hasta).toISOString() })
+      const { error: errorPerfil } = await admin.from('perfiles')
+        .update({ plan: 'pro', plan_hasta: (actual && actual > hasta ? actual : hasta).toISOString() })
         .eq('id', m.usuario);
+      if (errorPerfil) throw new Error('No se pudo actualizar el periodo VIP del perfil');
     }
     return ok();
-  } catch (_e) {
+  } catch (e) {
+    console.error('[sharpicks] fallo al procesar webhook de Stripe', e instanceof Error ? e.message : 'error desconocido');
     return ok(500);
   }
 });
