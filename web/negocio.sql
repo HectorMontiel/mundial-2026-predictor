@@ -135,12 +135,12 @@ grant select on public.precios_cuota to anon, authenticated;
 create or replace function public.precio_pick(p public.picks) returns integer
 language sql stable set search_path = public as $$
   select case
-    when not (coalesce(p.elige, false)
-              or coalesce(p.tipo, 'pick') = 'error'
-              or coalesce(p.prob, 0) >= 0.85) then 0
+    when not (coalesce((p).elige, false)
+              or coalesce((p).tipo, 'pick') = 'error'
+              or coalesce((p).prob, 0) >= 0.85) then 0
     else coalesce((
       select pc.monedas from public.precios_cuota pc
-       where coalesce(p.cuota, 1) >= pc.desde
+       where coalesce((p).cuota, 1) >= pc.desde
          and coalesce(p.cuota, 1) < pc.hasta
        order by pc.desde limit 1
     ), 10)
