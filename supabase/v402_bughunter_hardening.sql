@@ -276,9 +276,8 @@ grant execute on function public.registrar_comentario(text, text, text, text, te
   to service_role;
 
 alter table public.comentarios enable row level security;
-drop policy if exists "cualquiera deja comentario" on public.comentarios;
-revoke insert on public.comentarios from anon, authenticated;
-grant all on public.comentarios to service_role;
-grant all on sequence public.comentarios_id_seq to service_role;
+-- Compatibilidad de despliegue: mientras se publica la nueva interfaz, el INSERT
+-- directo antiguo sigue funcionando. Tras verificar el sitio nuevo, ejecutar
+-- v405_comentarios_solo_edge.sql para cerrar la ruta antigua definitivamente.
 
 notify pgrst, 'reload schema';
