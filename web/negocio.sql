@@ -3,7 +3,7 @@
 -- reemplazar comportamiento de usuario/admin. En bases existentes, aplica las migraciones
 -- versionadas en orden; v402_bughunter_hardening.sql endurece los permisos actuales.
 -- v379 — SharPicks: cuentas, «Mis picks», monedas y «No Win, No Pay».
--- Se puede correr las veces que haga falta (todo es «si no existe»).
+-- En una base nueva se ejecuta una sola vez después de web/supabase.sql; NO se reejecuta en bases migradas.
 --
 -- LANZAMIENTO: todo GRATIS (precio 0 y ningún pick premium), como hace
 -- BetFlipAi. El día que se decida cobrar sólo se cambia `ajustes`:
@@ -132,16 +132,20 @@ create policy "precios_cuota_public_read" on public.precios_cuota
   for select to anon, authenticated using (true);
 grant select on public.precios_cuota to anon, authenticated;
 
+-- v389: precio_pick usa el tipo de selección ('pick'/'error').
+-- La columna debe existir antes de compilar la función, también en instalaciones nuevas.
+alter table public.picks add column if not exists tipo text default 'pick';
+
 create or replace function public.precio_pick(p public.picks) returns integer
 language sql stable set search_path = public as $$
   select case
-    when not (coalesce(p.elige, false)
-              or coalesce(p.tipo, 'pick') = 'error'
-              or coalesce(p.prob, 0) >= 0.85) then 0
+    when not (coalesce((p).elige, false)
+              or coalesce((p).tipo, 'pick') = 'error'
+              or coalesce((p).prob, 0) >= 0.85) then 0
     else coalesce((
       select pc.monedas from public.precios_cuota pc
-       where coalesce(p.cuota, 1) >= pc.desde
-         and coalesce(p.cuota, 1) < pc.hasta
+       where coalesce((p).cuota, 1) >= pc.desde
+         and coalesce((p).cuota, 1) < pc.hasta
        order by pc.desde limit 1
     ), 10)
   end;

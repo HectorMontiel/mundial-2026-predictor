@@ -63,9 +63,13 @@ assert.doesNotMatch(stripeEdge, /Number\(lugares \?\? 0\)/);
 
 const priceMigration = fs.readFileSync('supabase/v404_precios_cuota_canonico.sql', 'utf8');
 assert.match(priceMigration, /create table if not exists public\.precios_cuota/);
-assert.match(priceMigration, /coalesce\(p\.tipo, 'pick'\) = 'error'/);
-assert.match(priceMigration, /coalesce\(p\.cuota, 1\) >= pc\.desde/);
-assert.match(priceMigration, /coalesce\(p\.prob, 0\) >= 0\.85/);
+assert.match(priceMigration, /coalesce\(\(p\)\.tipo, 'pick'\) = 'error'/);
+assert.doesNotMatch(priceMigration, /coalesce\(p\.(?:elige|tipo|prob|cuota)/, 'v404 debe usar la referencia portable (p).campo');
+assert.doesNotMatch(negocio, /coalesce\(p\.(?:elige|tipo|prob|cuota)/, 'bootstrap debe usar la referencia portable (p).campo');
+assert.match(negocio, /and coalesce\(\(p\)\.cuota, 1\) < pc\.hasta/, 'bootstrap debe usar (p).cuota en ambos límites de la banda');
+assert.match(priceMigration, /and coalesce\(\(p\)\.cuota, 1\) < pc\.hasta/, 'migración de precio debe usar (p).cuota en ambos límites de la banda');
+assert.match(priceMigration, /coalesce\(\(p\)\.cuota, 1\) >= pc\.desde/);
+assert.match(priceMigration, /coalesce\(\(p\)\.prob, 0\) >= 0\.85/);
 assert.match(negocio, /create table if not exists public\.precios_cuota/);
 
 const vipSql = fs.readFileSync('supabase/v383_usuarios_vip.sql', 'utf8');
