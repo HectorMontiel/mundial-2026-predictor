@@ -94,11 +94,13 @@ def probar_comentarios():
     wf = open(os.path.join('.github', 'workflows', 'sitio_web.yml'), encoding='utf-8').read()
     sql = open(os.path.join('supabase', 'v401_comentarios.sql'), encoding='utf-8').read()
     hardening = open(os.path.join('supabase', 'v402_bughunter_hardening.sql'), encoding='utf-8').read()
+    cierre = open(os.path.join('supabase', 'v405_comentarios_solo_edge.sql'), encoding='utf-8').read()
     edge = open(os.path.join('supabase', 'functions', 'comentario', 'index.ts'), encoding='utf-8').read()
     check('python comentarios_correo.py' in wf and 'for insert to anon, authenticated' in sql and 'for select' not in sql
-          and 'revoke insert on public.comentarios from anon, authenticated' in hardening
+          and 'create or replace function public.registrar_comentario' in hardening
+          and 'revoke insert on public.comentarios from public, anon, authenticated' in cierre
           and "rpc('registrar_comentario'" in edge,
-          'los comentarios pasan por Edge Function con rate limit y no se leen desde la web')
+          'la nueva ruta de comentarios tiene rate limit y el cierre directo queda versionado para el cutover')
 
 
 if __name__ == '__main__':
