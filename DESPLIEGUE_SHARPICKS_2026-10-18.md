@@ -103,3 +103,30 @@ Además de los workflows, se ejecutaron tres comprobaciones directas en Supabase
 - **Límite de comentarios:** cinco llamadas sintéticas se aceptaron y la sexta devolvió `rate_limit`; la transacción se revirtió. PASS.
 
 Estas pruebas validan la lógica PostgreSQL desplegada, no sustituyen una compra real/sandbox ni validan la entrega del webhook por Stripe/Mercado Pago. El smoke HTTP de producción sigue siendo no destructivo: comprueba el endpoint con un body inválido y no crea comentarios.
+
+## Verificación posterior al corte de comentarios — 18-oct-2026, 17:50 UTC
+
+Esta sección registra la verificación más reciente y prevalece sobre cualquier apartado anterior que describa la PR como abierta, v405 como pendiente o el frontend como no desplegado.
+
+- **PR #2 fusionada:** commit de merge `68d8f139834fce15a6867a5bad6ff1912bf05b02`. La rama `main` avanzó después con los bots; el último SHA observado fue `c24b93fa858c9dca8d5c1080f25e87557a62db08`.
+- **Smoke test reejecutado después de v405:** [run 39147099500, intento 2](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39147099500). Resultado PASS en el paso `Comprobar página y endpoint de comentarios sin crear registros`: homepage HTTP 200, `cuenta.js` sirve desde producción y usa `fetch(FN + 'comentario')`, no contiene el INSERT directo, la petición inválida devuelve 400 y CORS devuelve el origen canónico. No creó comentarios.
+- **Edge Functions comparadas byte por byte con `main`:** `comentario` v1, `vip` v5, `stripe` v2, `mp-webhook` v6 y `stripe-webhook` v2. Resultado: 5/5 fuentes coinciden exactamente; las cinco están ACTIVE.
+- **Migraciones que aparecen en el historial de Supabase:** `v403_finanzas_rpc_auth`, `v402_bughunter_hardening`, `v404_precios_cuota_canonico` y `v405_comentarios_solo_edge`.
+- **Once comprobaciones de permisos/objetos posteriores a las migraciones:** anon no puede ejecutar el resumen financiero, `enlace_vip` ni `desbloquear`; authenticated sí puede ejecutar `enlace_vip` y `desbloquear`; anon/authenticated no pueden insertar perfiles ni comentarios; y la tabla de rate limit, la RPC de comentarios y la RPC financiera con guarda están presentes. Todo coincide con el diseño esperado.
+- **Precio y paywall:** las cinco bandas reales siguen en 5/8/12/18/25 monedas. La política efectiva de `picks_premium` permite lectura pública sólo cuando el partido está liquidado (`verde`, `roja`, `nula`); VIP y desbloqueos se evalúan por separado.
+
+## Medición del resultado
+
+No hay una medición válida de rendimiento en milisegundos antes/después, por lo que no se publica un porcentaje de mejora de velocidad. La mejora verificada es de **seguridad y corrección**:
+
+| Indicador | Resultado comprobado |
+|---|---|
+| Funciones Edge activas y sincronizadas con `main` | 5/5 |
+| Migraciones v403/v402/v404/v405 registradas | 4/4 |
+| Smoke test del sitio y comentarios después del corte | PASS |
+| Comprobaciones posteriores de permisos/objetos | 11/11 esperadas |
+| Precio observado en los casos sintéticos | 1.04 premium → 5; error 3.50 → 25; normal no premium → 0 |
+
+## Pendiente real
+
+La auditoría global sigue abierta: SHP-003/SHP-006 (reconstrucción repetible de una instalación desde cero y limpieza de bootstrap históricos), prueba de pago end-to-end con sandbox de Stripe/Mercado Pago y prueba de comentario válido en staging con correo controlado. El smoke test de producción fue deliberadamente no destructivo y no sustituye dichas pruebas.
