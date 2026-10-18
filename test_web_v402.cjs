@@ -36,7 +36,8 @@ assert.match(hardening, /v_intentos > 5/);
 
 const commentEdge = fs.readFileSync('supabase/functions/comentario/index.ts', 'utf8');
 assert.match(commentEdge, /rpc\('registrar_comentario'/);
-assert.match(commentEdge, /status: 429/);\nassert.match(commentEdge, /const esClavePublica = token === ANON \|\| token\.startsWith\('sb_publishable_'\)/);
+assert.match(commentEdge, /status: 429/);
+assert.match(commentEdge, /const esClavePublica = token === ANON \|\| token\.startsWith\('sb_publishable_'\)/);
 
 const mp = fs.readFileSync('supabase/functions/mp-webhook/index.ts', 'utf8');
 const stripe = fs.readFileSync('supabase/functions/stripe-webhook/index.ts', 'utf8');
