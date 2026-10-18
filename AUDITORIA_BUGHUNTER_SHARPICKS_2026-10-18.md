@@ -1,5 +1,7 @@
 # Auditoría Bug Hunter — SharPicks
 
+> **Estado vigente (18-oct-2026, posterior al smoke test de las 17:50 UTC):** la PR #2 se fusionó en `main`; v403, v402, v404 y v405 constan en el historial de Supabase; el smoke test de producción volvió a pasar en el intento 2; y las cinco Edge Functions activas coinciden byte por byte con sus archivos de `main`. Las notas intermedias de este informe conservan el historial de investigación y pueden reflejar estados anteriores; para el estado actual, usa la sección final **“Verificación posterior al corte de comentarios”**. La auditoría completa no está certificada: instalación desde cero, sandbox de pagos y prueba de comentario válido en staging siguen abiertos.
+
 **Fecha:** 18 de octubre de 2026 (CDMX)  
 **Repositorio auditado:** [HectorMontiel/mundial-2026-predictor](https://github.com/HectorMontiel/mundial-2026-predictor)  
 **Rama base:** `main` en `a86a9d5c7e05fa5dfdefe6d225e9a64704dbe5c4` al iniciar esta auditoría.  
