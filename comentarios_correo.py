@@ -46,10 +46,25 @@ def main() -> int:
     import requests
     base = url.rstrip('/') + '/rest/v1/comentarios'
     hdr = {'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}
-    r = requests.get(base, headers=hdr, timeout=30, params={'select': '*', 'enviado': 'is.null', 'order': 'creado.asc', 'limit': 100})
-    cs = r.json() if r.ok else []
+    try:
+        r = requests.get(base, headers=hdr, timeout=30,
+                         params={'select': '*', 'enviado': 'is.null', 'order': 'creado.asc', 'limit': 100})
+    except requests.RequestException as exc:
+        print('comentarios: ERROR consultando la base (%s)' % type(exc).__name__)
+        return 1
+    if not r.ok:
+        print('comentarios: ERROR leyendo la base (HTTP %s)' % r.status_code)
+        return 1
+    try:
+        cs = r.json()
+    except ValueError:
+        print('comentarios: ERROR la base devolvió una respuesta que no es JSON')
+        return 1
+    if not isinstance(cs, list):
+        print('comentarios: ERROR la respuesta no es una lista')
+        return 1
     if not cs:
-        print('comentarios: 0 nuevos')
+        print('comentarios: lectura verificada, 0 nuevos')
         return 0
     if not k or not de:
         print('comentarios: %d nuevos, pero falta BREVO_API_KEY / BREVO_REMITENTE' % len(cs))
@@ -61,13 +76,21 @@ def main() -> int:
                              'htmlContent': cuerpo(cs),
                              **({'replyTo': {'email': cs[0]['correo']}} if len(cs) == 1 and cs[0].get('correo') else {})})
     if not rr.ok:
-        print('comentarios: Brevo respondió %s %s' % (rr.status_code, rr.text[:200]))
-        return 0
+        print('comentarios: ERROR Brevo respondió %s %s' % (rr.status_code, rr.text[:200]))
+        return 1
     import datetime as dt
     ids = ','.join(str(c['id']) for c in cs)
-    requests.patch(base, headers=dict(hdr, Prefer='return=minimal'), timeout=30,
-                   params={'id': 'in.(%s)' % ids}, json={'enviado': dt.datetime.now(dt.timezone.utc).isoformat()})
-    print('comentarios: %d enviados a tu correo' % len(cs))
+    try:
+        marcado = requests.patch(base, headers=dict(hdr, Prefer='return=minimal'), timeout=30,
+                                 params={'id': 'in.(%s)' % ids},
+                                 json={'enviado': dt.datetime.now(dt.timezone.utc).isoformat()})
+    except requests.RequestException as exc:
+        print('comentarios: CORREO ENVIADO, pero falló el marcado en base (%s); revisar para evitar duplicados' % type(exc).__name__)
+        return 1
+    if not marcado.ok:
+        print('comentarios: CORREO ENVIADO, pero la base no marcó los registros (HTTP %s); revisar para evitar duplicados' % marcado.status_code)
+        return 1
+    print('comentarios: %d enviados a tu correo y marcados en base' % len(cs))
     return 0
 
 
