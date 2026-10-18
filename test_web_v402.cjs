@@ -37,7 +37,7 @@ assert.match(hardening, /v_intentos > 5/);
 
 assert.equal((hardening.match(/create or replace function public\.registrar_comentario/g) || []).length, 1);
 assert.equal((hardening.match(/-- SHP-014:/g) || []).length, 1);
-assert.doesNotMatch(hardening, /^\s*or p_usuario is null/m);
+assert.match(hardening, /if p_id is null or length\(p_id\) <> 44 or left\(p_id, 8\) <> 'reserva:'\s+or p_usuario is null or p_precio is null or p_precio <= 0 then/);
 assert.doesNotMatch(hardening, /^\s*as \$(?:\s|$)/m);
 const dollarTags = [...hardening.matchAll(/\$[A-Za-z_][A-Za-z0-9_]*\$|\$\$/g)].map(m => m[0]);
 for (const tag of new Set(dollarTags)) {
