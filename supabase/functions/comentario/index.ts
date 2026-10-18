@@ -62,7 +62,7 @@ Deno.serve(async (req) => {
     let usuario: string | null = null;
     const authorization = req.headers.get('authorization') || '';
     const token = authorization.replace(/^Bearer\s+/i, '');
-    if (token && token !== ANON) {
+    // La web usa una clave sb_publishable_...; no es un access token de usuario.\n    const esClavePublica = token === ANON || token.startsWith('sb_publishable_');\n    if (token && !esClavePublica) {
       const authClient = createClient(URL_, ANON, {
         global: { headers: { Authorization: authorization } },
         auth: { persistSession: false, autoRefreshToken: false },
