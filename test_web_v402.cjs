@@ -34,6 +34,10 @@ assert.match(hardening, /telegram_vip_abierto/);
 assert.match(hardening, /procesar_vip_unico/);
 assert.match(hardening, /registrar_comentario/);
 assert.match(hardening, /v_intentos > 5/);
+const commentsCutover = fs.readFileSync('supabase/v405_comentarios_solo_edge.sql', 'utf8');
+assert.match(commentsCutover, /revoke insert on public\\.comentarios from public, anon, authenticated/);
+assert.match(commentsCutover, /drop policy if exists "cualquiera deja comentario"/);
+assert.match(hardening, /Compatibilidad de despliegue/);
 
 assert.equal((hardening.match(/create or replace function public\.registrar_comentario/g) || []).length, 1);
 assert.equal((hardening.match(/-- SHP-014:/g) || []).length, 1);
