@@ -3,7 +3,7 @@
 -- reemplazar comportamiento de usuario/admin. En bases existentes, aplica las migraciones
 -- versionadas en orden; v402_bughunter_hardening.sql endurece los permisos actuales.
 -- v379 — SharPicks: cuentas, «Mis picks», monedas y «No Win, No Pay».
--- Se puede correr las veces que haga falta (todo es «si no existe»).
+-- En una base nueva se ejecuta una sola vez después de web/supabase.sql; NO se reejecuta en bases migradas.
 --
 -- LANZAMIENTO: todo GRATIS (precio 0 y ningún pick premium), como hace
 -- BetFlipAi. El día que se decida cobrar sólo se cambia `ajustes`:
