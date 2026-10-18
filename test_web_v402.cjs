@@ -35,6 +35,11 @@ assert.match(hardening, /registrar_comentario/);
 assert.match(hardening, /v_intentos > 5/);
 
 const negocio = fs.readFileSync('web/negocio.sql', 'utf8');
+const vipSql = fs.readFileSync('supabase/v383_usuarios_vip.sql', 'utf8');
+for (const [nombre, sql] of [['web/negocio.sql', negocio], ['supabase/v383_usuarios_vip.sql', vipSql], ['supabase/v402_bughunter_hardening.sql', hardening]]) {
+  assert.doesNotMatch(sql, /end \$;/, nombre + ': no debe truncarse el delimitador $$');
+  assert.equal((sql.match(/\$\$/g) || []).length % 2, 0, nombre + ': delimitadores $$ balanceados');
+}
 assert.match(negocio, /p\.estado in \('verde','roja','nula'\)/);
 assert.doesNotMatch(negocio, /p\.id = picks_premium\.id and p\.inicio <= now\(\)/);
 assert.match(hardening, /p\.estado in \('verde','roja','nula'\)/);
