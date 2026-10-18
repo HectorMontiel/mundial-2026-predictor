@@ -208,3 +208,14 @@ El frontend modificado todavía necesita que esta PR se fusione y que el workflo
 Detalles, porqués, pruebas, limitaciones y enlaces: [DESPLIEGUE_SHARPICKS_2026-10-18.md](./DESPLIEGUE_SHARPICKS_2026-10-18.md).
 
 **Aún abierto:** SHP-003/SHP-006 (instalación desde cero/migraciones históricas), pagos E2E con sandbox y un comentario válido con correo en staging. No declarar auditoría total certificada ni haber validado pagos reales.
+
+
+## Pruebas transaccionales adicionales — finalización del 18-oct-2026
+
+Además de los workflows, se ejecutaron tres comprobaciones directas en Supabase dentro de transacciones que terminaron en `ROLLBACK`; no se dejaron suscripciones, modificaciones de perfil, reservas ni comentarios sintéticos persistidos:
+
+- **Pago VIP único/idempotencia:** la primera llamada a `procesar_vip_unico` insertó una sola suscripción de prueba; la segunda con el mismo ID devolvió el resultado de duplicado; `plan_hasta` no volvió a extenderse y el conteo de filas quedó en uno durante la prueba. PASS.
+- **Reserva fundador:** dos llamadas para la misma cuenta sintética/reversible produjeron una sola reserva pendiente activa; no se duplicó la plaza. PASS.
+- **Límite de comentarios:** cinco llamadas sintéticas se aceptaron y la sexta devolvió `rate_limit`; la transacción se revirtió. PASS.
+
+Estas pruebas validan la lógica PostgreSQL desplegada, no sustituyen una compra real/sandbox ni validan la entrega del webhook por Stripe/Mercado Pago. El smoke HTTP de producción sigue siendo no destructivo: comprueba el endpoint con un body inválido y no crea comentarios.
