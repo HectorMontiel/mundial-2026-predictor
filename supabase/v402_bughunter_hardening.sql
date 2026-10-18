@@ -48,7 +48,7 @@ declare
 begin
   if p_id is null or length(p_id) < 6 or length(p_id) > 200
      or p_usuario is null
-     or p_meses not in (1, 6)
+     or p_meses is null or p_meses not in (1, 6)
      or p_precio is null or p_precio < 0 then
     raise exception 'Parámetros de pago inválidos';
   end if;
