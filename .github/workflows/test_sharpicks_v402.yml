@@ -1,0 +1,47 @@
+name: Tests seguros SharPicks v402
+
+on:
+  push:
+    branches:
+      - audit/sharpicks-bughunter-2026-10-18
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sharpicks-v402-tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Validar sintaxis
+        run: |
+          node --check web/fechas.js
+          node --check web/app.js
+          node --check web/cuenta.js
+          python -m py_compile exportar_web.py combinadas_web.py comentarios_correo.py telegram_canales.py
+      - name: Tests de regresión frontend
+        run: node test_web_v402.cjs
+      - name: Tests de sincronización de datos premium/combinadas
+        run: python test_exportador_web_v402.py
+      - name: Tests existentes de precios y exportador
+        run: |
+          python test_v389.py
+          python test_v400.py
