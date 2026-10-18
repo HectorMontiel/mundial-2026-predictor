@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-18T13:02:27Z",
+"actualizado": "2026-10-18T16:15:49Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -9284,6 +9284,16 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Brighton vs Crystal Palace",
+"apuesta": "Gana Brighton",
+"cuota": 1.55,
+"resultado": "verde",
+"marcador": "5-0"
+},
+{
+"dia": "2026-10-18",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Chernomorets 1919 vs Botev Plovdiv",
@@ -9291,6 +9301,16 @@
 "cuota": 1.54,
 "resultado": "verde",
 "marcador": "0-4"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Chwalinska M. vs Kartal S.",
+"apuesta": "Gana Chwalinska M.",
+"cuota": 2.15,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-18",
@@ -9306,11 +9326,161 @@
 "dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Dinamo Tbilisi vs Spaeri",
+"apuesta": "Gana Dinamo Tbilisi",
+"cuota": 1.65,
+"resultado": "verde",
+"marcador": "3-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Furstenfeld vs UFC Fehring",
 "apuesta": "Gana Furstenfeld",
 "cuota": 1.84,
 "resultado": "verde",
 "marcador": "5-2"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Hajduk Split vs Varazdin",
+"apuesta": "Gana Hajduk Split",
+"cuota": 1.83,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Hostoun vs Chomutov",
+"apuesta": "Gana Hostoun",
+"cuota": 1.9334,
+"resultado": "rojo",
+"marcador": "1-3"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Hvidovre IF vs Hillerod",
+"apuesta": "Gana Hvidovre IF",
+"cuota": 1.63,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Imisli FK vs Turan Tovuz",
+"apuesta": "Gana Turan Tovuz",
+"cuota": 1.63,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Khroub vs Skikda",
+"apuesta": "Gana Khroub",
+"cuota": 2.02,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Lanzhot vs Hluk",
+"apuesta": "Gana Lanzhot",
+"cuota": 1.92,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Leverkusen vs Freiburg",
+"apuesta": "Leverkusen o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Maja Chwalinska vs Sonay Kartal",
+"apuesta": "Gana Maja Chwalinska",
+"cuota": 2.15,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Ostrava vs Sparta Prague",
+"apuesta": "Gana Sparta Prague",
+"cuota": 1.75,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "RC Kouba vs ASM Oran",
+"apuesta": "Gana RC Kouba",
+"cuota": 1.7,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Roubaix W vs Lille W",
+"apuesta": "Gana Roubaix W",
+"cuota": 3.55,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Shaanxi Union vs Guangdong GZ-Power",
+"apuesta": "Gana Shaanxi Union",
+"cuota": 2.25,
+"resultado": "verde",
+"marcador": "4-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Streymur vs HB Torshavn",
+"apuesta": "Gana HB Torshavn",
+"cuota": 1.5834,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Streymur vs HB Torshavn",
+"apuesta": "Gana HB Torshavn",
+"cuota": 1.54,
+"resultado": "verde",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-18",
@@ -9334,6 +9504,26 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Torpedo Kutaisi vs Rustavi",
+"apuesta": "Gana Rustavi",
+"cuota": 2.625,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Tusker (Ken) vs Singida Black Stars (Tan)",
+"apuesta": "Gana Tusker (Ken)",
+"cuota": 3.55,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Udinese vs Lecce",
@@ -9341,6 +9531,16 @@
 "cuota": 1.2,
 "resultado": "rojo",
 "marcador": "0-3"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Wolfurt vs Schwaz",
+"apuesta": "Gana Schwaz",
+"cuota": 1.5,
+"resultado": "verde",
+"marcador": "2-5"
 },
 {
 "dia": "2026-10-18",

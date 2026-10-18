@@ -31,8 +31,8 @@
   },
   "Barracas Central": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Norte",
-    "ratio": 0.4828,
+    "candidato": "Central Esp.",
+    "ratio": 0.5185,
     "visto": "2026-10-18"
   },
   "Belgrano (Córdoba)": {
@@ -175,14 +175,14 @@
   },
   "Manchester United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Minnesota United",
-    "ratio": 0.7273,
-    "visto": "2026-10-17"
+    "candidato": "Bechem United",
+    "ratio": 0.6667,
+    "visto": "2026-10-18"
   },
   "Montevideo City Torque": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "London City Lionesses W",
-    "ratio": 0.5581,
+    "candidato": "Durban City (Rsa)",
+    "ratio": 0.4324,
     "visto": "2026-10-18"
   },
   "Montevideo Wanderers": {
@@ -377,14 +377,14 @@
   },
   "Cambridge United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Victoria United",
-    "ratio": 0.6452,
+    "candidato": "Karonga United",
+    "ratio": 0.6667,
     "visto": "2026-10-18"
   },
   "Peterborough United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Victoria United",
-    "ratio": 0.5882,
+    "candidato": "Karonga United",
+    "ratio": 0.6061,
     "visto": "2026-10-18"
   },
   "Sheffield Wednesday": {
@@ -551,7 +551,7 @@
   },
   "Sportivo Trinidense": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sportivo Belgrano",
+    "candidato": "Sportivo Barracas",
     "ratio": 0.6111,
     "visto": "2026-10-18"
   },
@@ -647,9 +647,9 @@
   },
   "C.D. Platense": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Platense 2",
-    "ratio": 0.7273,
-    "visto": "2026-10-07"
+    "candidato": "Platense Municipal",
+    "ratio": 0.5333,
+    "visto": "2026-10-18"
   },
   "Colón (Santa Fe)": {
     "contexto": "cuotas_mx→futbol",
@@ -733,7 +733,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Dandy Town Hornets",
     "ratio": 0.4667,
-    "visto": "2026-10-17"
+    "visto": "2026-10-18"
   },
   "FC Halifax Town": {
     "contexto": "cuotas_mx→futbol",
@@ -991,7 +991,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Dandy Town Hornets",
     "ratio": 0.4,
-    "visto": "2026-10-17"
+    "visto": "2026-10-18"
   },
   "Luton Town": {
     "contexto": "cuotas_mx→futbol",
@@ -1025,9 +1025,9 @@
   },
   "Boca Juniors": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ind. Juniors",
-    "ratio": 0.6957,
-    "visto": "2026-10-14"
+    "candidato": "Malaga Juniors",
+    "ratio": 0.6923,
+    "visto": "2026-10-18"
   },
   "Argentinos Juniors": {
     "contexto": "cuotas_mx→futbol",
@@ -1217,8 +1217,8 @@
   },
   "Port Vale": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shanghai Port",
-    "ratio": 0.3636,
+    "candidato": "Port Louis (Mus)",
+    "ratio": 0.5217,
     "visto": "2026-10-18"
   },
   "Partick Thistle": {
@@ -1301,9 +1301,9 @@
   },
   "Al Ittihad": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ittihad Al Ramtha",
+    "candidato": "Ittihad Khemisset",
     "ratio": 0.5185,
-    "visto": "2026-10-07"
+    "visto": "2026-10-18"
   },
   "Leeds United": {
     "contexto": "cuotas_mx→futbol",
@@ -1313,8 +1313,8 @@
   },
   "Oxford United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Victoria United",
-    "ratio": 0.6429,
+    "candidato": "Karonga United",
+    "ratio": 0.5926,
     "visto": "2026-10-18"
   },
   "Dundee United": {
@@ -1351,7 +1351,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Villa Mitre",
     "ratio": 0.4545,
-    "visto": "2026-10-17"
+    "visto": "2026-10-18"
   },
   "Charlton Athletic": {
     "contexto": "cuotas_mx→futbol",
@@ -1499,8 +1499,8 @@
   },
   "AD San Carlos": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Martin S.J.",
-    "ratio": 0.5185,
+    "candidato": "AD San Juan",
+    "ratio": 0.6667,
     "visto": "2026-10-18"
   },
   "Nacional Potosí": {
@@ -1721,8 +1721,8 @@
   },
   "Spartak Moscow": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Spartak Pleven",
-    "ratio": 0.5714,
+    "candidato": "Spartak Varna",
+    "ratio": 0.5926,
     "visto": "2026-10-18"
   },
   "CSKA Moscow": {
@@ -1805,8 +1805,8 @@
   },
   "Slavia Prague": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sparta Prague",
-    "ratio": 0.7692,
+    "candidato": "Slavia Mozyr",
+    "ratio": 0.64,
     "visto": "2026-10-18"
   },
   "Mohun Bagan Super Giant": {
@@ -2275,6 +2275,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Altach U21",
     "ratio": 0.4138,
+    "visto": "2026-10-18"
+  },
+  "Rayo Zuliano": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Rayo Vallecano B",
+    "ratio": 0.6429,
     "visto": "2026-10-18"
   }
 }
