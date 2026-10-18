@@ -1277,8 +1277,8 @@
   },
   "Sporting San José": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sporting Escaldes",
-    "ratio": 0.7059,
+    "candidato": "San Martin S.J.",
+    "ratio": 0.5806,
     "visto": "2026-10-18"
   },
   "Universidad Católica": {
@@ -2263,6 +2263,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Deportivo Tigres",
     "ratio": 0.4444,
+    "visto": "2026-10-18"
+  },
+  "Borussia Dortmund": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "ASC 09 Dortmund",
+    "ratio": 0.625,
     "visto": "2026-10-18"
   }
 }
