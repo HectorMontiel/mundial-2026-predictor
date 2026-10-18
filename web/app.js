@@ -6,17 +6,11 @@
   const ZONA = 'America/Mexico_City';
   const ESPN = 'https://site.api.espn.com/apis/site/v2/sports/';
   const $ = (id) => document.getElementById(id);
-  const estado = { dia: 'hoy', deporte: 'Todos', nivel: 'Todos', soloElige: false, orden: 'hora', picks: [], vivo: {} };
+  const estado = { dia: 'hoy', deporte: 'Todos', nivel: 'Todos', soloElige: false, orden: 'hora', picks: [], vivo: {}, vivoCursor: 0, errorPicks: false, respaldoPicks: false, errorCombinadas: false };
 
   const diaCdmx = (d) => new Intl.DateTimeFormat('en-CA', { timeZone: ZONA }).format(d);
-  // v384 — nunca truena: una fecha sin hora o mal escrita da null (antes, «Invalid time value» tumbaba la página)
-  const aFecha = (s) => {
-    if (!s) return null;
-    let t = String(s).trim().replace(' ', 'T');
-    if (/^\d{4}-\d{2}-\d{2}$/.test(t)) t += 'T12:00:00';
-    const d = new Date(t + (/[zZ+]/.test(t.slice(10)) ? '' : 'Z'));
-    return isNaN(d) ? null : d;
-  };
+  // v402 — parser ISO aislado y cubierto por test_web_v402.cjs. Reconoce Z y offsets ±HH:MM/±HHMM.
+  const aFecha = window.SharPicksFechas.aFecha;
   const horaCdmx = (d) => d ? new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(d) : '';
   const pct = (x) => x == null ? '—' : Math.round(100 * x) + ' %';
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -50,19 +44,31 @@
         const r = await fetch(C.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/picks?select=*&fecha=gte.' + desde + '&order=inicio.asc&limit=5000',
           { headers: { apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY } });
         if (!r.ok) throw new Error('base de datos ' + r.status);
-        estado.picks = await r.json();
-        if (!estado.picks.length) throw new Error('la base aún está vacía');
+        const datos = await r.json();
+        if (!Array.isArray(datos)) throw new Error('respuesta de picks no es una lista');
+        estado.picks = datos;
+        estado.errorPicks = false;
+        estado.respaldoPicks = false;
         $('actualizado').textContent = 'Datos de la base · ' + horaCdmx(new Date());
       } else { throw new Error('sin base'); }
     } catch (e) {
+      console.warn('[sharpicks] falló la consulta principal de picks', e);
       try {
         const r = await fetch('datos/hoy.json?t=' + Date.now());
+        if (!r.ok) throw new Error('respaldo HTTP ' + r.status);
         const d = await r.json();
-        estado.picks = d.picks || [];
-        $('actualizado').textContent = 'Actualizado: ' + horaCdmx(new Date(d.generado));
+        if (!d || !Array.isArray(d.picks)) throw new Error('respaldo sin lista de picks');
+        estado.picks = d.picks;
+        estado.errorPicks = false;
+        estado.respaldoPicks = true;
+        const generada = aFecha(d.generado);
+        $('actualizado').textContent = generada ? 'Respaldo local · ' + horaCdmx(generada) : 'Respaldo local · fecha de generación no verificable';
       } catch (e2) {
-        $('aviso').textContent = 'No se pudieron cargar los pronósticos. Reintenta en un momento.';
+        console.error('[sharpicks] falló también el respaldo local de picks', e2);
         estado.picks = [];
+        estado.errorPicks = true;
+        estado.respaldoPicks = false;
+        $('aviso').textContent = 'No se pudieron consultar los pronósticos. La fuente y el respaldo fallaron; reintenta en un momento.';
       }
     }
     // v396 — las combinadas (tabla pública `combinadas`)
@@ -70,9 +76,20 @@
       if (C.SUPABASE_URL && C.SUPABASE_ANON_KEY) {
         const rc = await fetch(C.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/combinadas?select=*&fecha=gte.' + diaPestana(-30) + '&order=inicio.asc&limit=2000',
           { headers: { apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY } });
-        estado.combinadas = rc.ok ? await rc.json() : [];
+        if (!rc.ok) throw new Error('combinadas HTTP ' + rc.status);
+        const datosCombinadas = await rc.json();
+        if (!Array.isArray(datosCombinadas)) throw new Error('respuesta de combinadas no es una lista');
+        estado.combinadas = datosCombinadas;
+        estado.errorCombinadas = false;
+      } else {
+        estado.combinadas = [];
+        estado.errorCombinadas = true;
       }
-    } catch (e) { estado.combinadas = []; }
+    } catch (e) {
+      console.warn('[sharpicks] no se pudieron consultar las combinadas', e);
+      estado.combinadas = [];
+      estado.errorCombinadas = true;
+    }
     pintar();
     vivo();
   }
@@ -154,8 +171,13 @@
       const yaFin = (estado.vivo[p.espn] || {}).terminado;
       if (ahora >= desde && ahora <= hasta && !yaFin) ids[p.espn] = p;
     }
-    const lista = Object.entries(ids).slice(0, 40);
-    if (estado.vivoCorriendo || !lista.length) return;
+    const entradas = Object.entries(ids);
+    if (estado.vivoCorriendo || !entradas.length) return;
+    // v402 — ventana rotatoria: un límite de 40 por pasada no debe excluir siempre a los mismos partidos.
+    const n = Math.min(40, entradas.length);
+    const cursor = estado.vivoCursor % entradas.length;
+    const lista = Array.from({ length: n }, (_, i) => entradas[(cursor + i) % entradas.length]);
+    estado.vivoCursor = (cursor + n) % entradas.length;
     estado.vivoCorriendo = true;
     let cambio = false;
     try {
@@ -658,7 +680,9 @@
       $('combinadas-lista').innerHTML = combs.length ? combs.sort((a, b) => orden[faseCombinada(a)] - orden[faseCombinada(b)] ||
         (a.alcance === 'Mixta') - (b.alcance === 'Mixta') || String(a.alcance).localeCompare(b.alcance) || (a.tipo === 'alta') - (b.tipo === 'alta'))
         .map(seguro(tarjetaCombinada)).join('')
-        : '<p class="aviso">No hay combinadas para este día con estos filtros. Se arman con las patas de mayor probabilidad: si no hay suficientes, preferimos no darte una floja.</p>';
+        : estado.errorCombinadas
+          ? '<p class="aviso">No se pudieron consultar las combinadas. No es posible confirmar que no haya; reintenta en un momento.</p>'
+          : '<p class="aviso">No hay combinadas para este día con estos filtros. Se arman con las patas de mayor probabilidad: si no hay suficientes, preferimos no darte una floja.</p>';
       return;
     }
     estado.grupos = new Map(agrupar(listaBase()).map((g) => [clavePartido(g[0]), g]));
@@ -694,7 +718,11 @@
     const enVivo = Object.values(estado.vivo).filter((v) => v.fase === 'in').length;
     $('aviso').textContent = grupos.length ? '' :
       estado.vista === 'mios' ? (window.SPX && SPX.yo.user ? 'Todavía no sigues ningún pick: abre un partido y pulsa «☆ Seguir».' : 'Entra con tu correo para guardar tus picks.')
-        : estado.vista === 'vivo' ? 'Ahorita no hay partidos en vivo con picks.' : 'Sin partidos con estos filtros.';
+        : estado.vista === 'vivo' ? 'Ahorita no hay partidos en vivo con picks.'
+          : estado.errorPicks ? 'No se pudieron consultar los pronósticos. Reintenta en un momento.'
+            : !estado.picks.length ? 'La fuente respondió, pero no devolvió pronósticos. Revisa el precálculo o la publicación de datos.'
+              : 'Sin partidos con estos filtros.';
+    if (estado.respaldoPicks) $('aviso').textContent = '⚠️ La base no respondió; mostramos el archivo de respaldo. Los datos podrían estar desactualizados.';
     const b = $('nav-vivo-n'); if (b) { b.textContent = enVivo || ''; b.hidden = !enVivo; }
     // v384 — «falta béisbol»: si hay partidos de un deporte y ninguno pasó, se dice
     const sp = (estado.meta && estado.meta.sin_pick) || {};
