@@ -37,7 +37,7 @@ language sql stable set search_path = public as $function$
       select pc.monedas
         from public.precios_cuota pc
        where coalesce((p).cuota, 1) >= pc.desde
-         and coalesce(p.cuota, 1) < pc.hasta
+         and coalesce((p).cuota, 1) < pc.hasta
        order by pc.desde
        limit 1
     ), 10)
