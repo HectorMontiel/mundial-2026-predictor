@@ -108,7 +108,7 @@ drop policy if exists "premium a quien le toca" on public.picks_premium;
 create policy "premium a quien le toca" on public.picks_premium for select using (
   public.es_pro()
   or exists (select 1 from public.desbloqueos d where d.pick = picks_premium.id and d.usuario = auth.uid())
-  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.inicio <= now())
+  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.estado in ('verde','roja','nula'))
 );
 grant select on public.picks_premium to anon, authenticated;
 grant all on public.picks_premium to service_role;
@@ -187,12 +187,12 @@ grant select on public.telegram_publicados to anon, authenticated;
 
 -- v381 — LANZAMIENTO: los premium los ve cualquiera CON CUENTA (gratis).
 -- Para cobrar: update public.ajustes set valor = '0' where clave = 'premium_con_cuenta';
-insert into public.ajustes (clave, valor) values ('premium_con_cuenta', '1') on conflict (clave) do nothing;
+insert into public.ajustes (clave, valor) values ('premium_con_cuenta', '0') on conflict (clave) do nothing;
 drop policy if exists "premium a quien le toca" on public.picks_premium;
 create policy "premium a quien le toca" on public.picks_premium for select using (
   public.es_pro()
   or exists (select 1 from public.desbloqueos d where d.pick = picks_premium.id and d.usuario = auth.uid())
-  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.inicio <= now())
+  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.estado in ('verde','roja','nula'))
   or (auth.uid() is not null and exists (select 1 from public.ajustes a where a.clave = 'premium_con_cuenta' and a.valor = '1'))
 );
 notify pgrst, 'reload schema';
