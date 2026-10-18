@@ -91,7 +91,7 @@ begin
   insert into public.movimientos (usuario, cantidad, motivo) values (auth.uid(), 0, 'codigo ' || r.codigo);
   return 'ok';
 end $$;
-revoke execute on function public.canjear_codigo(text) from anon;
+revoke execute on function public.canjear_codigo(text) from public, anon;
 grant execute on function public.canjear_codigo(text) to authenticated;
 
 -- suscripciones de Mercado Pago (las escriben las funciones `vip` y `mp-webhook`)
@@ -122,7 +122,7 @@ language sql stable security definer set search_path = public as $$
   select valor from public.privados where clave = 'telegram_vip'
      and (public.es_pro() or (auth.uid() is not null and exists (select 1 from public.ajustes where clave = 'telegram_vip_abierto' and valor = '1')));
 $$;
-revoke execute on function public.enlace_vip() from anon;
+revoke execute on function public.enlace_vip() from public, anon;
 grant execute on function public.enlace_vip() to authenticated;
 
 -- (el registro del administrador: cuando el dueño cree su cuenta «HMREY»)
