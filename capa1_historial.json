@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-18T01:55:12Z",
+"actualizado": "2026-10-18T03:30:48Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8454,6 +8454,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Columbus Blue Jackets vs New York Rangers",
+"apuesta": "Handicap: Columbus Blue Jackets +2.5",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Colón (Santa Fe) vs Almirante Brown",
@@ -8471,6 +8481,16 @@
 "cuota": 2.15,
 "resultado": "rojo",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Detroit Red Wings vs San Jose Sharks",
+"apuesta": "Handicap: Detroit Red Wings +2.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "4-3"
 },
 {
 "dia": "2026-10-17",
@@ -8581,6 +8601,16 @@
 "cuota": 2.35,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Isidro Metapán vs Fuerte San Francisco",
+"apuesta": "Gana Isidro Metapán",
+"cuota": 1.385,
+"resultado": "verde",
+"marcador": "3-2"
 },
 {
 "dia": "2026-10-17",
