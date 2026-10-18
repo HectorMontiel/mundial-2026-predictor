@@ -486,16 +486,24 @@
   // ---------- historial público (verdes, rojas y porcentaje) ----------
   async function historial() {
     const caja = $('historial'); if (!caja || !sb) return;
-    const { data } = await sb.from('historial').select('*').limit(30);
+    const { data, error } = await sb.from('historial').select('*').limit(30);
+    if (error) {
+      console.error('[sharpicks] no se pudo consultar el historial', error);
+      caja.innerHTML = '<p class="aviso">No se pudo consultar el historial. No podemos confirmar los resultados; reintenta en un momento.</p>';
+      const iaError = $('ia-hist'); if (iaError) iaError.innerHTML = '<p class="aviso">No se pudieron consultar las mediciones de la IA desde Supabase.</p>';
+      const tgError = $('tg-hist'); if (tgError) tgError.innerHTML = '<p class="aviso">No se pudo consultar lo publicado en Telegram.</p>';
+      return;
+    }
     const filas = (data || []).filter((d) => d.verdes + d.rojas + (d.verdes_error || 0) + (d.rojas_error || 0) > 0);
-    if (!filas.length) { caja.innerHTML = '<p class="tenue">El historial se va llenando día con día.</p>'; return; }
-    const tv = filas.reduce((s, d) => s + d.verdes, 0), tr = filas.reduce((s, d) => s + d.rojas, 0);
+    if (!filas.length) caja.innerHTML = '<p class="tenue">Todavía no hay resultados liquidados para mostrar.</p>';
+    const tv = filas.reduce((s, d) => s + (Number(d.verdes) || 0), 0), tr = filas.reduce((s, d) => s + (Number(d.rojas) || 0), 0);
     const ev = filas.reduce((s, d) => s + d.verdes_elige, 0), er = filas.reduce((s, d) => s + d.rojas_elige, 0);
     const xv = filas.reduce((s, d) => s + (d.verdes_error || 0), 0), xr = filas.reduce((s, d) => s + (d.rojas_error || 0), 0);
     const { data: ia } = await sb.from('ia_aciertos').select('*').maybeSingle();
-    const { data: med } = await sb.from('ia_medicion').select('*');
-    const p100 = (a, b) => (a + b ? Math.round(100 * a / (a + b)) + ' %' : '—');
-    caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + Math.round(100 * tv / (tv + tr)) + ' %</span></div>' +
+    const { data: med, error: medError } = await sb.from('ia_medicion').select('*');
+    const p100 = (a, b) => (Number(a || 0) + Number(b || 0) ? Math.round(100 * Number(a || 0) / (Number(a || 0) + Number(b || 0))) + ' %' : '—');
+    if (medError) console.error('[sharpicks] no se pudo consultar la calibración de la IA', medError);
+    if (filas.length) caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + p100(tv, tr) + '</span></div>' +
       '<div class="sub">💎 Diamante: ✅ ' + ev + ' ❌ ' + er + (ev + er ? ' · ' + Math.round(100 * ev / (ev + er)) + ' %' : '') + '</div>' +
       (xv + xr ? '<div class="sub">💰 Cuota alta (errores de cuota): ✅ ' + xv + ' ❌ ' + xr + ' · ' + p100(xv, xr) + '</div>' : '') +
       ''; caja.innerHTML += '';
@@ -516,7 +524,8 @@
       '<p class="tenue chico">Si la IA no le gana a «elegir al favorito», no aporta: por eso la medimos aparte y nuestros picks no dependen de ella.</p>';
     caja.innerHTML = caja.innerHTML +
       '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
-      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
+      (filas.length ? '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
+        filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + esc(p100(d.verdes, d.rojas).replace(' %', '')) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>' : '');
   }
 
   // v399 — «lo que metería la IA» con ✅/❌, y si sus probabilidades son
