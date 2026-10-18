@@ -253,14 +253,14 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-05-13,Pomigliano Calcio,Sassuolo,1.0,2.0,Serie A Femminile,4130554,20230513_Pomigliano-Calcio_Sassuolo,,,,,,,,,,,,,,,,,
 2023-05-13,Milan,Roma,2.0,2.0,Serie A Femminile,4130570,20230513_Milan_Roma,,,,,,,,,,,,,,,,,
 2023-05-14,Parma Calcio 1913,Como Women,2.0,2.0,Serie A Femminile,4130553,20230514_Parma-Calcio-1913_Como-Women,,,,,,,,,,,,,,,,,
-2023-05-20,Roma,Inter,2.0,1.0,Serie A Femminile,4130569,20230520_Roma_Inter,,,,,,,,,,,,,,,,,
-2023-05-20,UC Sampdoria,Parma Calcio 1913,3.0,0.0,Serie A Femminile,4130555,20230520_UC-Sampdoria_Parma-Calcio-1913,,,,,,,,,,,,,,,,,
 2023-05-20,Como Women,Pomigliano Calcio,0.0,1.0,Serie A Femminile,4130575,20230520_Como-Women_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
+2023-05-20,UC Sampdoria,Parma Calcio 1913,3.0,0.0,Serie A Femminile,4130555,20230520_UC-Sampdoria_Parma-Calcio-1913,,,,,,,,,,,,,,,,,
+2023-05-20,Roma,Inter,2.0,1.0,Serie A Femminile,4130569,20230520_Roma_Inter,,,,,,,,,,,,,,,,,
 2023-05-21,Fiorentina,Juventus,4.0,2.0,Serie A Femminile,4130568,20230521_Fiorentina_Juventus,,,,,,,,,,,,,,,,,
 2023-05-27,Inter,Milan,0.0,1.0,Serie A Femminile,4130557,20230527_Inter_Milan,,,,,,,,,,,,,,,,,
+2023-05-27,Juventus,Roma,5.0,2.0,Serie A Femminile,4130556,20230527_Juventus_Roma,,,,,,,,,,,,,,,,,
 2023-05-27,Pomigliano Calcio,UC Sampdoria,2.0,4.0,Serie A Femminile,4130577,20230527_Pomigliano-Calcio_UC-Sampdoria,,,,,,,,,,,,,,,,,
 2023-05-27,Sassuolo,Como Women,2.0,1.0,Serie A Femminile,4130576,20230527_Sassuolo_Como-Women,,,,,,,,,,,,,,,,,
-2023-05-27,Juventus,Roma,5.0,2.0,Serie A Femminile,4130556,20230527_Juventus_Roma,,,,,,,,,,,,,,,,,
 2023-09-16,Pomigliano Calcio,Juventus,2.0,3.0,Serie A Femminile,4300776,20230916_Pomigliano-Calcio_Juventus,,,,,,,,,,,,,,,,,
 2023-09-16,Fiorentina,Sassuolo,2.0,1.0,Serie A Femminile,4300778,20230916_Fiorentina_Sassuolo,,,,,,,,,,,,,,,,,
 2023-09-17,UC Sampdoria,Inter,0.0,2.0,Serie A Femminile,4300775,20230917_UC-Sampdoria_Inter,,,,,,,,,,,,,,,,,
@@ -278,31 +278,31 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-10-08,Sassuolo,Inter,1.0,2.0,Serie A Femminile,4300805,20231008_Sassuolo_Inter,,,,,,,,,,,,,,,,,
 2023-10-14,Como Women,Milan,0.0,0.0,Serie A Femminile,4300806,20231014_Como-Women_Milan,,,,,,,,,,,,,,,,,
 2023-10-14,S.S.D. Napoli Femminile,UC Sampdoria,0.0,2.0,Serie A Femminile,4300808,20231014_S.S.D.-Napoli-Femminile_UC-Sampdoria,,,,,,,,,,,,,,,,,
-2023-10-15,Roma,Inter,2.0,0.0,Serie A Femminile,4300810,20231015_Roma_Inter,,,,,,,,,,,,,,,,,
-2023-10-15,Pomigliano Calcio,Fiorentina,1.0,4.0,Serie A Femminile,4300809,20231015_Pomigliano-Calcio_Fiorentina,,,,,,,,,,,,,,,,,
 2023-10-15,Juventus,Sassuolo,4.0,0.0,Serie A Femminile,4300807,20231015_Juventus_Sassuolo,,,,,,,,,,,,,,,,,
-2023-10-21,Inter,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4300812,20231021_Inter_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
+2023-10-15,Pomigliano Calcio,Fiorentina,1.0,4.0,Serie A Femminile,4300809,20231015_Pomigliano-Calcio_Fiorentina,,,,,,,,,,,,,,,,,
+2023-10-15,Roma,Inter,2.0,0.0,Serie A Femminile,4300810,20231015_Roma_Inter,,,,,,,,,,,,,,,,,
 2023-10-21,Sassuolo,Como Women,1.0,2.0,Serie A Femminile,4300815,20231021_Sassuolo_Como-Women,,,,,,,,,,,,,,,,,
+2023-10-21,Inter,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4300812,20231021_Inter_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
 2023-10-22,Fiorentina,Juventus,1.0,2.0,Serie A Femminile,4300811,20231022_Fiorentina_Juventus,,,,,,,,,,,,,,,,,
-2023-10-22,UC Sampdoria,Roma,0.0,5.0,Serie A Femminile,4300814,20231022_UC-Sampdoria_Roma,,,,,,,,,,,,,,,,,
 2023-10-22,Milan,Pomigliano Calcio,4.0,1.0,Serie A Femminile,4300813,20231022_Milan_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
-2023-11-04,Pomigliano Calcio,UC Sampdoria,0.0,1.0,Serie A Femminile,4300786,20231104_Pomigliano-Calcio_UC-Sampdoria,,,,,,,,,,,,,,,,,
+2023-10-22,UC Sampdoria,Roma,0.0,5.0,Serie A Femminile,4300814,20231022_UC-Sampdoria_Roma,,,,,,,,,,,,,,,,,
 2023-11-04,Fiorentina,Milan,1.0,0.0,Serie A Femminile,4300799,20231104_Fiorentina_Milan,,,,,,,,,,,,,,,,,
-2023-11-05,Juventus,Roma,1.0,3.0,Serie A Femminile,4300798,20231105_Juventus_Roma,,,,,,,,,,,,,,,,,
+2023-11-04,Pomigliano Calcio,UC Sampdoria,0.0,1.0,Serie A Femminile,4300786,20231104_Pomigliano-Calcio_UC-Sampdoria,,,,,,,,,,,,,,,,,
 2023-11-05,S.S.D. Napoli Femminile,Sassuolo,0.0,1.0,Serie A Femminile,4300797,20231105_S.S.D.-Napoli-Femminile_Sassuolo,,,,,,,,,,,,,,,,,
+2023-11-05,Juventus,Roma,1.0,3.0,Serie A Femminile,4300798,20231105_Juventus_Roma,,,,,,,,,,,,,,,,,
 2023-11-05,Como Women,Inter,2.0,1.0,Serie A Femminile,4300816,20231105_Como-Women_Inter,,,,,,,,,,,,,,,,,
 2023-11-11,Roma,S.S.D. Napoli Femminile,6.0,0.0,Serie A Femminile,4300782,20231111_Roma_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
 2023-11-11,Milan,Sassuolo,1.0,1.0,Serie A Femminile,4300783,20231111_Milan_Sassuolo,,,,,,,,,,,,,,,,,
-2023-11-12,Inter,Pomigliano Calcio,2.0,1.0,Serie A Femminile,4300784,20231112_Inter_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
-2023-11-12,Como Women,Juventus,0.0,3.0,Serie A Femminile,4300785,20231112_Como-Women_Juventus,,,,,,,,,,,,,,,,,
 2023-11-12,UC Sampdoria,Fiorentina,0.0,1.0,Serie A Femminile,4300781,20231112_UC-Sampdoria_Fiorentina,,,,,,,,,,,,,,,,,
+2023-11-12,Como Women,Juventus,0.0,3.0,Serie A Femminile,4300785,20231112_Como-Women_Juventus,,,,,,,,,,,,,,,,,
+2023-11-12,Inter,Pomigliano Calcio,2.0,1.0,Serie A Femminile,4300784,20231112_Inter_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
 2023-11-18,Fiorentina,Como Women,3.0,0.0,Serie A Femminile,4300780,20231118_Fiorentina_Como-Women,,,,,,,,,,,,,,,,,
 2023-11-18,Milan,UC Sampdoria,1.0,1.0,Serie A Femminile,4300787,20231118_Milan_UC-Sampdoria,,,,,,,,,,,,,,,,,
 2023-11-19,Sassuolo,Roma,0.0,2.0,Serie A Femminile,4300796,20231119_Sassuolo_Roma,,,,,,,,,,,,,,,,,
 2023-11-19,Juventus,Inter,5.0,0.0,Serie A Femminile,4300779,20231119_Juventus_Inter,,,,,,,,,,,,,,,,,
 2023-11-19,Pomigliano Calcio,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,4300788,20231119_Pomigliano-Calcio_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
-2023-11-25,Inter,Milan,1.0,0.0,Serie A Femminile,4300794,20231125_Inter_Milan,,,,,,,,,,,,,,,,,
 2023-11-25,Como Women,Pomigliano Calcio,0.0,0.0,Serie A Femminile,4300795,20231125_Como-Women_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
+2023-11-25,Inter,Milan,1.0,0.0,Serie A Femminile,4300794,20231125_Inter_Milan,,,,,,,,,,,,,,,,,
 2023-11-26,S.S.D. Napoli Femminile,Juventus,1.0,3.0,Serie A Femminile,4300793,20231126_S.S.D.-Napoli-Femminile_Juventus,,,,,,,,,,,,,,,,,
 2023-11-26,Roma,Fiorentina,2.0,1.0,Serie A Femminile,4300792,20231126_Roma_Fiorentina,,,,,,,,,,,,,,,,,
 2023-11-26,UC Sampdoria,Sassuolo,0.0,4.0,Serie A Femminile,4300791,20231126_UC-Sampdoria_Sassuolo,,,,,,,,,,,,,,,,,
@@ -311,14 +311,14 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-12-10,Roma,Milan,2.0,1.0,Serie A Femminile,4300818,20231210_Roma_Milan,,,,,,,,,,,,,,,,,
 2023-12-10,S.S.D. Napoli Femminile,Como Women,0.0,0.0,Serie A Femminile,4300790,20231210_S.S.D.-Napoli-Femminile_Como-Women,,,,,,,,,,,,,,,,,
 2023-12-11,Sassuolo,Fiorentina,1.0,2.0,Serie A Femminile,4300789,20231211_Sassuolo_Fiorentina,,,,,,,,,,,,,,,,,
-2023-12-16,UC Sampdoria,Juventus,1.0,0.0,Serie A Femminile,4300836,20231216_UC-Sampdoria_Juventus,,,,,,,,,,,,,,,,,
 2023-12-16,Milan,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,4300837,20231216_Milan_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
+2023-12-16,UC Sampdoria,Juventus,1.0,0.0,Serie A Femminile,4300836,20231216_UC-Sampdoria_Juventus,,,,,,,,,,,,,,,,,
 2023-12-17,Pomigliano Calcio,Sassuolo,0.0,2.0,Serie A Femminile,4300839,20231217_Pomigliano-Calcio_Sassuolo,,,,,,,,,,,,,,,,,
 2023-12-17,Como Women,Roma,2.0,3.0,Serie A Femminile,4300838,20231217_Como-Women_Roma,,,,,,,,,,,,,,,,,
 2023-12-18,Fiorentina,Inter,4.0,2.0,Serie A Femminile,4300835,20231218_Fiorentina_Inter,,,,,,,,,,,,,,,,,
-2024-01-13,S.S.D. Napoli Femminile,Fiorentina,2.0,4.0,Serie A Femminile,4300840,20240113_S.S.D.-Napoli-Femminile_Fiorentina,,,,,,,,,,,,,,,,,
-2024-01-13,Roma,Pomigliano Calcio,3.0,0.0,Serie A Femminile,4300842,20240113_Roma_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
 2024-01-13,Juventus,Milan,2.0,1.0,Serie A Femminile,4300841,20240113_Juventus_Milan,,,,,,,,,,,,,,,,,
+2024-01-13,Roma,Pomigliano Calcio,3.0,0.0,Serie A Femminile,4300842,20240113_Roma_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
+2024-01-13,S.S.D. Napoli Femminile,Fiorentina,2.0,4.0,Serie A Femminile,4300840,20240113_S.S.D.-Napoli-Femminile_Fiorentina,,,,,,,,,,,,,,,,,
 2024-01-14,Como Women,UC Sampdoria,0.0,1.0,Serie A Femminile,4300843,20240114_Como-Women_UC-Sampdoria,,,,,,,,,,,,,,,,,
 2024-01-14,Inter,Sassuolo,0.0,1.0,Serie A Femminile,4300844,20240114_Inter_Sassuolo,,,,,,,,,,,,,,,,,
 2024-01-20,Inter,Roma,2.0,0.0,Serie A Femminile,4300821,20240120_Inter_Roma,,,,,,,,,,,,,,,,,
@@ -331,16 +331,16 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2024-01-28,Como Women,Sassuolo,0.0,1.0,Serie A Femminile,4300826,20240128_Como-Women_Sassuolo,,,,,,,,,,,,,,,,,
 2024-01-28,Pomigliano Calcio,Milan,0.0,0.0,Serie A Femminile,4300824,20240128_Pomigliano-Calcio_Milan,,,,,,,,,,,,,,,,,
 2024-01-29,Juventus,Fiorentina,2.0,2.0,Serie A Femminile,4300822,20240129_Juventus_Fiorentina,,,,,,,,,,,,,,,,,
+2024-02-03,Sassuolo,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4300830,20240203_Sassuolo_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
 2024-02-03,Milan,Fiorentina,2.0,2.0,Serie A Femminile,4300828,20240203_Milan_Fiorentina,,,,,,,,,,,,,,,,,
 2024-02-03,Inter,Como Women,2.0,3.0,Serie A Femminile,4300827,20240203_Inter_Como-Women,,,,,,,,,,,,,,,,,
-2024-02-03,Sassuolo,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4300830,20240203_Sassuolo_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
 2024-02-04,UC Sampdoria,Pomigliano Calcio,1.0,0.0,Serie A Femminile,4300845,20240204_UC-Sampdoria_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
 2024-02-04,Roma,Juventus,3.0,1.0,Serie A Femminile,4300829,20240204_Roma_Juventus,,,,,,,,,,,,,,,,,
 2024-02-10,S.S.D. Napoli Femminile,Roma,0.0,1.0,Serie A Femminile,4300857,20240210_S.S.D.-Napoli-Femminile_Roma,,,,,,,,,,,,,,,,,
 2024-02-10,Sassuolo,Milan,1.0,0.0,Serie A Femminile,4300858,20240210_Sassuolo_Milan,,,,,,,,,,,,,,,,,
+2024-02-11,Pomigliano Calcio,Inter,2.0,6.0,Serie A Femminile,4300859,20240211_Pomigliano-Calcio_Inter,,,,,,,,,,,,,,,,,
 2024-02-11,Fiorentina,UC Sampdoria,2.0,1.0,Serie A Femminile,4300856,20240211_Fiorentina_UC-Sampdoria,,,,,,,,,,,,,,,,,
 2024-02-11,Juventus,Como Women,5.0,0.0,Serie A Femminile,4300846,20240211_Juventus_Como-Women,,,,,,,,,,,,,,,,,
-2024-02-11,Pomigliano Calcio,Inter,2.0,6.0,Serie A Femminile,4300859,20240211_Pomigliano-Calcio_Inter,,,,,,,,,,,,,,,,,
 2024-02-13,Roma,Sassuolo,3.0,0.0,Serie A Femminile,4300851,20240213_Roma_Sassuolo,,,,,,,,,,,,,,,,,
 2024-02-14,Como Women,Fiorentina,0.0,1.0,Serie A Femminile,4300855,20240214_Como-Women_Fiorentina,,,,,,,,,,,,,,,,,
 2024-02-14,UC Sampdoria,Milan,1.0,3.0,Serie A Femminile,4300853,20240214_UC-Sampdoria_Milan,,,,,,,,,,,,,,,,,
@@ -349,42 +349,42 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2024-02-17,Sassuolo,UC Sampdoria,2.0,0.0,Serie A Femminile,4300860,20240217_Sassuolo_UC-Sampdoria,,,,,,,,,,,,,,,,,
 2024-02-17,Fiorentina,Roma,0.0,1.0,Serie A Femminile,4300847,20240217_Fiorentina_Roma,,,,,,,,,,,,,,,,,
 2024-02-18,Juventus,S.S.D. Napoli Femminile,4.0,1.0,Serie A Femminile,4300848,20240218_Juventus_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
-2024-02-18,Pomigliano Calcio,Como Women,3.0,4.0,Serie A Femminile,4300850,20240218_Pomigliano-Calcio_Como-Women,,,,,,,,,,,,,,,,,
 2024-02-18,Milan,Inter,2.0,1.0,Serie A Femminile,4300849,20240218_Milan_Inter,,,,,,,,,,,,,,,,,
-2024-03-16,Sassuolo,Fiorentina,1.0,0.0,Serie A Femminile,4432437,20240316_Sassuolo_Fiorentina,,,,,,,,,,,,,,,,,
+2024-02-18,Pomigliano Calcio,Como Women,3.0,4.0,Serie A Femminile,4300850,20240218_Pomigliano-Calcio_Como-Women,,,,,,,,,,,,,,,,,
 2024-03-16,Pomigliano Calcio,UC Sampdoria,0.0,5.0,Serie A Femminile,4432467,20240316_Pomigliano-Calcio_UC-Sampdoria,,,,,,,,,,,,,,,,,
-2024-03-17,Inter,Juventus,3.0,3.0,Serie A Femminile,4432436,20240317_Inter_Juventus,,,,,,,,,,,,,,,,,
+2024-03-16,Sassuolo,Fiorentina,1.0,0.0,Serie A Femminile,4432437,20240316_Sassuolo_Fiorentina,,,,,,,,,,,,,,,,,
 2024-03-17,Como Women,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,4432468,20240317_Como-Women_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
-2024-03-23,Roma,Sassuolo,3.0,0.0,Serie A Femminile,4432439,20240323_Roma_Sassuolo,,,,,,,,,,,,,,,,,
+2024-03-17,Inter,Juventus,3.0,3.0,Serie A Femminile,4432436,20240317_Inter_Juventus,,,,,,,,,,,,,,,,,
 2024-03-23,UC Sampdoria,Como Women,1.0,0.0,Serie A Femminile,4432465,20240323_UC-Sampdoria_Como-Women,,,,,,,,,,,,,,,,,
-2024-03-24,Fiorentina,Inter,0.0,3.0,Serie A Femminile,4432438,20240324_Fiorentina_Inter,,,,,,,,,,,,,,,,,
+2024-03-23,Roma,Sassuolo,3.0,0.0,Serie A Femminile,4432439,20240323_Roma_Sassuolo,,,,,,,,,,,,,,,,,
 2024-03-24,Milan,Pomigliano Calcio,4.0,0.0,Serie A Femminile,4432466,20240324_Milan_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
+2024-03-24,Fiorentina,Inter,0.0,3.0,Serie A Femminile,4432438,20240324_Fiorentina_Inter,,,,,,,,,,,,,,,,,
 2024-03-29,Inter,Roma,1.0,2.0,Serie A Femminile,4432440,20240329_Inter_Roma,,,,,,,,,,,,,,,,,
-2024-03-30,Como Women,Milan,1.0,4.0,Serie A Femminile,4432464,20240330_Como-Women_Milan,,,,,,,,,,,,,,,,,
-2024-03-30,Juventus,Fiorentina,4.0,0.0,Serie A Femminile,4432441,20240330_Juventus_Fiorentina,,,,,,,,,,,,,,,,,
 2024-03-30,S.S.D. Napoli Femminile,UC Sampdoria,2.0,0.0,Serie A Femminile,4432463,20240330_S.S.D.-Napoli-Femminile_UC-Sampdoria,,,,,,,,,,,,,,,,,
+2024-03-30,Juventus,Fiorentina,4.0,0.0,Serie A Femminile,4432441,20240330_Juventus_Fiorentina,,,,,,,,,,,,,,,,,
+2024-03-30,Como Women,Milan,1.0,4.0,Serie A Femminile,4432464,20240330_Como-Women_Milan,,,,,,,,,,,,,,,,,
 2024-04-13,Sassuolo,Inter,2.0,1.0,Serie A Femminile,4432443,20240413_Sassuolo_Inter,,,,,,,,,,,,,,,,,
-2024-04-14,Milan,S.S.D. Napoli Femminile,3.0,2.0,Serie A Femminile,4432448,20240414_Milan_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
 2024-04-14,Pomigliano Calcio,Como Women,1.0,2.0,Serie A Femminile,4432461,20240414_Pomigliano-Calcio_Como-Women,,,,,,,,,,,,,,,,,
+2024-04-14,Milan,S.S.D. Napoli Femminile,3.0,2.0,Serie A Femminile,4432448,20240414_Milan_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
 2024-04-15,Roma,Juventus,2.0,1.0,Serie A Femminile,4432442,20240415_Roma_Juventus,,,,,,,,,,,,,,,,,
 2024-04-20,Juventus,Sassuolo,2.0,1.0,Serie A Femminile,4432445,20240420_Juventus_Sassuolo,,,,,,,,,,,,,,,,,
 2024-04-20,Fiorentina,Roma,0.0,0.0,Serie A Femminile,4432444,20240420_Fiorentina_Roma,,,,,,,,,,,,,,,,,
 2024-04-21,UC Sampdoria,Milan,1.0,3.0,Serie A Femminile,4432459,20240421_UC-Sampdoria_Milan,,,,,,,,,,,,,,,,,
 2024-04-21,S.S.D. Napoli Femminile,Pomigliano Calcio,1.0,1.0,Serie A Femminile,4432460,20240421_S.S.D.-Napoli-Femminile_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
 2024-04-26,Juventus,Inter,0.0,2.0,Serie A Femminile,4432446,20240426_Juventus_Inter,,,,,,,,,,,,,,,,,
-2024-04-27,UC Sampdoria,Pomigliano Calcio,2.0,2.0,Serie A Femminile,4432457,20240427_UC-Sampdoria_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
-2024-04-27,Fiorentina,Sassuolo,4.0,4.0,Serie A Femminile,4432447,20240427_Fiorentina_Sassuolo,,,,,,,,,,,,,,,,,
 2024-04-27,S.S.D. Napoli Femminile,Como Women,1.0,1.0,Serie A Femminile,4432458,20240427_S.S.D.-Napoli-Femminile_Como-Women,,,,,,,,,,,,,,,,,
-2024-05-01,Inter,Fiorentina,2.0,2.0,Serie A Femminile,4432462,20240501_Inter_Fiorentina,,,,,,,,,,,,,,,,,
-2024-05-01,Sassuolo,Roma,5.0,6.0,Serie A Femminile,4432475,20240501_Sassuolo_Roma,,,,,,,,,,,,,,,,,
+2024-04-27,Fiorentina,Sassuolo,4.0,4.0,Serie A Femminile,4432447,20240427_Fiorentina_Sassuolo,,,,,,,,,,,,,,,,,
+2024-04-27,UC Sampdoria,Pomigliano Calcio,2.0,2.0,Serie A Femminile,4432457,20240427_UC-Sampdoria_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
 2024-05-01,Pomigliano Calcio,Milan,2.0,2.0,Serie A Femminile,4432456,20240501_Pomigliano-Calcio_Milan,,,,,,,,,,,,,,,,,
 2024-05-01,Como Women,UC Sampdoria,3.0,1.0,Serie A Femminile,4432455,20240501_Como-Women_UC-Sampdoria,,,,,,,,,,,,,,,,,
-2024-05-05,Milan,Como Women,1.0,0.0,Serie A Femminile,4432454,20240505_Milan_Como-Women,,,,,,,,,,,,,,,,,
-2024-05-05,UC Sampdoria,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4432453,20240505_UC-Sampdoria_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
+2024-05-01,Sassuolo,Roma,5.0,6.0,Serie A Femminile,4432475,20240501_Sassuolo_Roma,,,,,,,,,,,,,,,,,
+2024-05-01,Inter,Fiorentina,2.0,2.0,Serie A Femminile,4432462,20240501_Inter_Fiorentina,,,,,,,,,,,,,,,,,
 2024-05-05,Roma,Inter,4.0,3.0,Serie A Femminile,4432474,20240505_Roma_Inter,,,,,,,,,,,,,,,,,
+2024-05-05,UC Sampdoria,S.S.D. Napoli Femminile,2.0,0.0,Serie A Femminile,4432453,20240505_UC-Sampdoria_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
+2024-05-05,Milan,Como Women,1.0,0.0,Serie A Femminile,4432454,20240505_Milan_Como-Women,,,,,,,,,,,,,,,,,
 2024-05-06,Fiorentina,Juventus,0.0,2.0,Serie A Femminile,4432473,20240506_Fiorentina_Juventus,,,,,,,,,,,,,,,,,
-2024-05-12,Inter,Sassuolo,2.0,4.0,Serie A Femminile,4432471,20240512_Inter_Sassuolo,,,,,,,,,,,,,,,,,
 2024-05-12,Como Women,Pomigliano Calcio,2.0,0.0,Serie A Femminile,4432451,20240512_Como-Women_Pomigliano-Calcio,,,,,,,,,,,,,,,,,
+2024-05-12,Inter,Sassuolo,2.0,4.0,Serie A Femminile,4432471,20240512_Inter_Sassuolo,,,,,,,,,,,,,,,,,
 2024-05-12,S.S.D. Napoli Femminile,Milan,1.0,1.0,Serie A Femminile,4432452,20240512_S.S.D.-Napoli-Femminile_Milan,,,,,,,,,,,,,,,,,
 2024-05-13,Juventus,Roma,3.0,1.0,Serie A Femminile,4432472,20240513_Juventus_Roma,,,,,,,,,,,,,,,,,
 2024-05-18,Sassuolo,Juventus,2.0,3.0,Serie A Femminile,4432469,20240518_Sassuolo_Juventus,,,,,,,,,,,,,,,,,
@@ -403,11 +403,11 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2024-09-15,UC Sampdoria,Lazio,1.0,1.0,Serie A Femminile,4540632,20240915_UC-Sampdoria_Lazio,6.0,9.0,0.0,2.0,1.0,0.0,2.0,3.0,10.0,10.0,8.0,12.0,41.0,59.0,6.0,2.0,flashscore
 2024-09-20,S.S.D. Napoli Femminile,Sassuolo,1.0,0.0,Serie A Femminile,4540637,20240920_S.S.D.-Napoli-Femminile_Sassuolo,3.0,9.0,1.0,2.0,0.0,0.0,1.0,2.0,7.0,11.0,18.0,16.0,35.0,65.0,1.0,1.0,flashscore
 2024-09-21,Lazio,Juventus,1.0,2.0,Serie A Femminile,4540636,20240921_Lazio_Juventus,7.0,5.0,2.0,1.0,0.0,0.0,4.0,4.0,5.0,10.0,9.0,15.0,53.0,47.0,1.0,0.0,flashscore
-2024-09-22,Como Women,Roma,1.0,3.0,Serie A Femminile,4540633,20240922_Como-Women_Roma,,,,,,,,,,,,,,,,,
 2024-09-22,Inter,Milan,1.0,1.0,Serie A Femminile,4540635,20240922_Inter_Milan,3.0,5.0,1.0,1.0,0.0,0.0,9.0,3.0,16.0,8.0,5.0,11.0,64.0,36.0,4.0,2.0,flashscore
 2024-09-22,Fiorentina,UC Sampdoria,4.0,0.0,Serie A Femminile,4540634,20240922_Fiorentina_UC-Sampdoria,6.0,6.0,3.0,1.0,0.0,0.0,9.0,3.0,13.0,10.0,19.0,9.0,61.0,39.0,1.0,2.0,flashscore
-2024-09-28,Sassuolo,Inter,1.0,3.0,Serie A Femminile,4540656,20240928_Sassuolo_Inter,2.0,6.0,3.0,2.0,0.0,0.0,1.0,4.0,11.0,6.0,17.0,11.0,45.0,55.0,3.0,1.0,flashscore
+2024-09-22,Como Women,Roma,1.0,3.0,Serie A Femminile,4540633,20240922_Como-Women_Roma,,,,,,,,,,,,,,,,,
 2024-09-28,Como Women,UC Sampdoria,1.0,1.0,Serie A Femminile,4540660,20240928_Como-Women_UC-Sampdoria,,,,,,,,,,,,,,,,,
+2024-09-28,Sassuolo,Inter,1.0,3.0,Serie A Femminile,4540656,20240928_Sassuolo_Inter,2.0,6.0,3.0,2.0,0.0,0.0,1.0,4.0,11.0,6.0,17.0,11.0,45.0,55.0,3.0,1.0,flashscore
 2024-09-29,Roma,S.S.D. Napoli Femminile,3.0,1.0,Serie A Femminile,4540657,20240929_Roma_S.S.D.-Napoli-Femminile,4.0,3.0,1.0,1.0,0.0,0.0,11.0,2.0,15.0,5.0,16.0,9.0,79.0,21.0,0.0,1.0,flashscore
 2024-09-29,Milan,Lazio,2.0,1.0,Serie A Femminile,4540658,20240929_Milan_Lazio,4.0,5.0,2.0,0.0,0.0,0.0,5.0,3.0,7.0,9.0,11.0,15.0,51.0,49.0,2.0,4.0,flashscore
 2024-09-30,Juventus,Fiorentina,4.0,0.0,Serie A Femminile,4540659,20240930_Juventus_Fiorentina,7.0,4.0,0.0,2.0,0.0,0.0,6.0,3.0,14.0,6.0,7.0,12.0,46.0,54.0,1.0,1.0,flashscore
@@ -527,8 +527,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2025-10-04,S.S.D. Napoli Femminile,Fiorentina,1.0,0.0,Serie A Femminile,4895812,20251004_S.S.D.-Napoli-Femminile_Fiorentina,4.0,2.0,2.0,1.0,0.0,0.0,5.0,3.0,4.0,3.0,11.0,8.0,41.0,59.0,3.0,4.0,fotmob
 2025-10-05,Como Women,Lazio,1.0,2.0,Serie A Femminile,4895809,20251005_Como-Women_Lazio,5.0,3.0,2.0,3.0,0.0,0.0,4.0,4.0,7.0,5.0,13.0,20.0,50.0,50.0,0.0,0.0,fotmob
 2025-10-05,Genoa,Milan,1.0,2.0,Serie A Femminile,4895810,20251005_Genoa_Milan,1.0,10.0,1.0,1.0,0.0,0.0,2.0,5.0,5.0,16.0,10.0,13.0,34.0,66.0,1.0,0.0,fotmob
-2025-10-11,Juventus,Como Women,0.0,1.0,Serie A Femminile,4895816,20251011_Juventus_Como-Women,8.0,4.0,1.0,2.0,0.0,0.0,7.0,3.0,15.0,5.0,8.0,14.0,66.0,34.0,0.0,0.0,fotmob
 2025-10-11,Lazio,Genoa,2.0,1.0,Serie A Femminile,4895817,20251011_Lazio_Genoa,6.0,4.0,1.0,1.0,0.0,0.0,5.0,3.0,12.0,2.0,13.0,7.0,57.0,43.0,2.0,3.0,fotmob
+2025-10-11,Juventus,Como Women,0.0,1.0,Serie A Femminile,4895816,20251011_Juventus_Como-Women,8.0,4.0,1.0,2.0,0.0,0.0,7.0,3.0,15.0,5.0,8.0,14.0,66.0,34.0,0.0,0.0,fotmob
 2025-10-11,Fiorentina,Inter,2.0,2.0,Serie A Femminile,4895815,20251011_Fiorentina_Inter,7.0,2.0,2.0,2.0,0.0,0.0,5.0,5.0,12.0,8.0,10.0,12.0,52.0,48.0,3.0,6.0,fotmob
 2025-10-12,Ternana Femminile,S.S.D. Napoli Femminile,3.0,4.0,Serie A Femminile,4895819,20251012_Ternana-Femminile_S.S.D.-Napoli-Femminile,1.0,7.0,1.0,1.0,0.0,0.0,5.0,6.0,6.0,7.0,7.0,16.0,45.0,55.0,3.0,1.0,fotmob
 2025-10-12,Parma Calcio 1913,Sassuolo,2.0,1.0,Serie A Femminile,4895818,20251012_Parma-Calcio-1913_Sassuolo,2.0,3.0,1.0,0.0,0.0,0.0,4.0,5.0,3.0,2.0,10.0,7.0,60.0,40.0,0.0,3.0,fotmob
@@ -536,11 +536,11 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2025-10-18,Genoa,Ternana Femminile,3.0,1.0,Serie A Femminile,4895821,20251018_Genoa_Ternana-Femminile,7.0,1.0,1.0,1.0,0.0,0.0,6.0,3.0,10.0,7.0,9.0,7.0,46.0,54.0,1.0,3.0,fotmob
 2025-10-18,Sassuolo,Como Women,1.0,0.0,Serie A Femminile,4895825,20251018_Sassuolo_Como-Women,5.0,7.0,1.0,1.0,0.0,0.0,5.0,5.0,8.0,16.0,7.0,12.0,38.0,62.0,4.0,2.0,fotmob
 2025-10-18,Fiorentina,Milan,4.0,3.0,Serie A Femminile,4895820,20251018_Fiorentina_Milan,5.0,3.0,1.0,2.0,0.0,0.0,5.0,6.0,4.0,9.0,5.0,15.0,53.0,47.0,2.0,0.0,fotmob
+2025-10-19,Inter,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895822,20251019_Inter_Parma-Calcio-1913,2.0,2.0,0.0,3.0,0.0,0.0,1.0,2.0,11.0,3.0,10.0,15.0,57.0,43.0,2.0,0.0,fotmob
 2025-10-19,S.S.D. Napoli Femminile,Roma,1.0,3.0,Serie A Femminile,4895824,20251019_S.S.D.-Napoli-Femminile_Roma,5.0,7.0,1.0,1.0,0.0,0.0,3.0,8.0,4.0,7.0,6.0,7.0,43.0,57.0,1.0,5.0,fotmob
 2025-10-19,Lazio,Juventus,0.0,1.0,Serie A Femminile,4895823,20251019_Lazio_Juventus,2.0,8.0,2.0,3.0,0.0,0.0,3.0,5.0,4.0,12.0,16.0,12.0,40.0,60.0,6.0,3.0,fotmob
-2025-10-19,Inter,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895822,20251019_Inter_Parma-Calcio-1913,2.0,2.0,0.0,3.0,0.0,0.0,1.0,2.0,11.0,3.0,10.0,15.0,57.0,43.0,2.0,0.0,fotmob
-2025-11-01,Como Women,Genoa,2.0,1.0,Serie A Femminile,4895828,20251101_Como-Women_Genoa,2.0,4.0,2.0,2.0,0.0,0.0,4.0,5.0,15.0,7.0,18.0,10.0,46.0,54.0,0.0,0.0,fotmob
 2025-11-01,Parma Calcio 1913,S.S.D. Napoli Femminile,1.0,1.0,Serie A Femminile,4895830,20251101_Parma-Calcio-1913_S.S.D.-Napoli-Femminile,4.0,7.0,1.0,0.0,0.0,0.0,3.0,2.0,4.0,7.0,9.0,13.0,48.0,52.0,5.0,1.0,fotmob
+2025-11-01,Como Women,Genoa,2.0,1.0,Serie A Femminile,4895828,20251101_Como-Women_Genoa,2.0,4.0,2.0,2.0,0.0,0.0,4.0,5.0,15.0,7.0,18.0,10.0,46.0,54.0,0.0,0.0,fotmob
 2025-11-01,Milan,Lazio,4.0,2.0,Serie A Femminile,4895826,20251101_Milan_Lazio,2.0,11.0,1.0,2.0,0.0,0.0,6.0,7.0,6.0,9.0,13.0,8.0,45.0,55.0,4.0,1.0,fotmob
 2025-11-02,Roma,Inter,3.0,0.0,Serie A Femminile,4895827,20251102_Roma_Inter,6.0,3.0,1.0,2.0,0.0,0.0,4.0,4.0,7.0,4.0,8.0,12.0,51.0,49.0,2.0,0.0,fotmob
 2025-11-02,Juventus,Ternana Femminile,2.0,1.0,Serie A Femminile,4895829,20251102_Juventus_Ternana-Femminile,7.0,1.0,2.0,2.0,0.0,0.0,4.0,1.0,17.0,2.0,15.0,14.0,63.0,37.0,0.0,0.0,fotmob
@@ -548,101 +548,101 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2025-11-07,Fiorentina,Roma,5.0,2.0,Serie A Femminile,4895833,20251107_Fiorentina_Roma,11.0,3.0,0.0,2.0,0.0,1.0,7.0,5.0,15.0,6.0,6.0,10.0,55.0,45.0,2.0,1.0,fotmob
 2025-11-08,Inter,Sassuolo,2.0,2.0,Serie A Femminile,4895835,20251108_Inter_Sassuolo,7.0,3.0,1.0,2.0,0.0,0.0,4.0,5.0,7.0,5.0,10.0,12.0,59.0,41.0,3.0,1.0,fotmob
 2025-11-08,Milan,Juventus,2.0,1.0,Serie A Femminile,4895832,20251108_Milan_Juventus,0.0,9.0,2.0,1.0,0.0,0.0,7.0,8.0,3.0,16.0,12.0,6.0,43.0,57.0,1.0,2.0,fotmob
-2025-11-09,Ternana Femminile,Como Women,2.0,4.0,Serie A Femminile,4895837,20251109_Ternana-Femminile_Como-Women,4.0,7.0,0.0,1.0,0.0,0.0,4.0,5.0,10.0,11.0,6.0,13.0,58.0,42.0,2.0,2.0,fotmob
-2025-11-09,Lazio,S.S.D. Napoli Femminile,1.0,0.0,Serie A Femminile,4895836,20251109_Lazio_S.S.D.-Napoli-Femminile,5.0,5.0,1.0,2.0,0.0,0.0,2.0,2.0,7.0,12.0,7.0,20.0,48.0,52.0,2.0,1.0,fotmob
 2025-11-09,Genoa,Parma Calcio 1913,1.0,0.0,Serie A Femminile,4895834,20251109_Genoa_Parma-Calcio-1913,1.0,10.0,1.0,2.0,0.0,0.0,3.0,3.0,5.0,8.0,8.0,13.0,43.0,57.0,2.0,3.0,fotmob
+2025-11-09,Lazio,S.S.D. Napoli Femminile,1.0,0.0,Serie A Femminile,4895836,20251109_Lazio_S.S.D.-Napoli-Femminile,5.0,5.0,1.0,2.0,0.0,0.0,2.0,2.0,7.0,12.0,7.0,20.0,48.0,52.0,2.0,1.0,fotmob
+2025-11-09,Ternana Femminile,Como Women,2.0,4.0,Serie A Femminile,4895837,20251109_Ternana-Femminile_Como-Women,4.0,7.0,0.0,1.0,0.0,0.0,4.0,5.0,10.0,11.0,6.0,13.0,58.0,42.0,2.0,2.0,fotmob
 2025-11-15,Sassuolo,Ternana Femminile,0.0,1.0,Serie A Femminile,4895843,20251115_Sassuolo_Ternana-Femminile,5.0,3.0,2.0,1.0,0.0,0.0,4.0,2.0,8.0,8.0,13.0,12.0,67.0,33.0,0.0,1.0,fotmob
-2025-11-15,Parma Calcio 1913,Fiorentina,1.0,1.0,Serie A Femminile,4895842,20251115_Parma-Calcio-1913_Fiorentina,1.0,6.0,2.0,2.0,0.0,0.0,2.0,3.0,5.0,9.0,9.0,16.0,42.0,58.0,1.0,1.0,fotmob
 2025-11-15,Como Women,Milan,1.0,0.0,Serie A Femminile,4895839,20251115_Como-Women_Milan,4.0,5.0,1.0,1.0,0.0,1.0,5.0,3.0,11.0,7.0,8.0,10.0,41.0,59.0,2.0,1.0,fotmob
-2025-11-16,S.S.D. Napoli Femminile,Inter,1.0,0.0,Serie A Femminile,4895841,20251116_S.S.D.-Napoli-Femminile_Inter,3.0,12.0,0.0,0.0,0.0,0.0,3.0,5.0,8.0,13.0,7.0,2.0,46.0,54.0,0.0,3.0,fotmob
-2025-11-16,Juventus,Genoa,2.0,0.0,Serie A Femminile,4895840,20251116_Juventus_Genoa,11.0,2.0,1.0,1.0,0.0,0.0,6.0,3.0,11.0,1.0,7.0,7.0,58.0,42.0,1.0,5.0,fotmob
+2025-11-15,Parma Calcio 1913,Fiorentina,1.0,1.0,Serie A Femminile,4895842,20251115_Parma-Calcio-1913_Fiorentina,1.0,6.0,2.0,2.0,0.0,0.0,2.0,3.0,5.0,9.0,9.0,16.0,42.0,58.0,1.0,1.0,fotmob
 2025-11-16,Roma,Lazio,1.0,0.0,Serie A Femminile,4895838,20251116_Roma_Lazio,14.0,1.0,0.0,0.0,0.0,0.0,5.0,2.0,19.0,6.0,10.0,10.0,48.0,52.0,1.0,1.0,fotmob
+2025-11-16,Juventus,Genoa,2.0,0.0,Serie A Femminile,4895840,20251116_Juventus_Genoa,11.0,2.0,1.0,1.0,0.0,0.0,6.0,3.0,11.0,1.0,7.0,7.0,58.0,42.0,1.0,5.0,fotmob
+2025-11-16,S.S.D. Napoli Femminile,Inter,1.0,0.0,Serie A Femminile,4895841,20251116_S.S.D.-Napoli-Femminile_Inter,3.0,12.0,0.0,0.0,0.0,0.0,3.0,5.0,8.0,13.0,7.0,2.0,46.0,54.0,0.0,3.0,fotmob
 2025-11-22,Genoa,S.S.D. Napoli Femminile,1.0,3.0,Serie A Femminile,4895846,20251122_Genoa_S.S.D.-Napoli-Femminile,2.0,6.0,1.0,2.0,0.0,0.0,2.0,8.0,8.0,10.0,6.0,10.0,44.0,56.0,2.0,2.0,fotmob
 2025-11-22,Ternana Femminile,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895849,20251122_Ternana-Femminile_Parma-Calcio-1913,4.0,5.0,2.0,1.0,0.0,0.0,5.0,1.0,4.0,2.0,11.0,14.0,42.0,58.0,4.0,1.0,fotmob
 2025-11-23,Como Women,Roma,0.0,1.0,Serie A Femminile,4895845,20251123_Como-Women_Roma,2.0,6.0,0.0,1.0,0.0,0.0,3.0,8.0,11.0,10.0,8.0,13.0,53.0,47.0,0.0,1.0,fotmob
 2025-11-23,Lazio,Inter,0.0,2.0,Serie A Femminile,4895848,20251123_Lazio_Inter,7.0,6.0,3.0,2.0,0.0,0.0,6.0,6.0,8.0,8.0,12.0,11.0,48.0,52.0,1.0,1.0,fotmob
 2025-11-23,Juventus,Fiorentina,1.0,0.0,Serie A Femminile,4895847,20251123_Juventus_Fiorentina,5.0,2.0,0.0,2.0,0.0,0.0,8.0,1.0,18.0,5.0,8.0,12.0,43.0,57.0,1.0,1.0,fotmob
 2025-11-23,Milan,Sassuolo,2.0,2.0,Serie A Femminile,4895844,20251123_Milan_Sassuolo,4.0,5.0,0.0,0.0,1.0,0.0,4.0,8.0,11.0,7.0,11.0,10.0,50.0,50.0,1.0,0.0,fotmob
-2025-12-06,S.S.D. Napoli Femminile,Milan,0.0,2.0,Serie A Femminile,4895853,20251206_S.S.D.-Napoli-Femminile_Milan,5.0,7.0,1.0,1.0,0.0,0.0,0.0,5.0,3.0,14.0,11.0,6.0,49.0,51.0,2.0,1.0,fotmob
 2025-12-06,Roma,Juventus,1.0,1.0,Serie A Femminile,4895850,20251206_Roma_Juventus,4.0,5.0,1.0,1.0,0.0,0.0,1.0,1.0,2.0,6.0,12.0,8.0,40.0,60.0,0.0,4.0,fotmob
+2025-12-06,S.S.D. Napoli Femminile,Milan,0.0,2.0,Serie A Femminile,4895853,20251206_S.S.D.-Napoli-Femminile_Milan,5.0,7.0,1.0,1.0,0.0,0.0,0.0,5.0,3.0,14.0,11.0,6.0,49.0,51.0,2.0,1.0,fotmob
 2025-12-07,Parma Calcio 1913,Como Women,0.0,1.0,Serie A Femminile,4895854,20251207_Parma-Calcio-1913_Como-Women,2.0,1.0,1.0,2.0,0.0,0.0,2.0,3.0,13.0,6.0,11.0,15.0,60.0,40.0,2.0,0.0,fotmob
 2025-12-07,Inter,Genoa,5.0,0.0,Serie A Femminile,4895852,20251207_Inter_Genoa,7.0,4.0,1.0,0.0,0.0,0.0,10.0,4.0,7.0,6.0,5.0,7.0,59.0,41.0,3.0,2.0,fotmob
 2025-12-07,Fiorentina,Ternana Femminile,1.0,0.0,Serie A Femminile,4895851,20251207_Fiorentina_Ternana-Femminile,11.0,5.0,0.0,1.0,0.0,0.0,3.0,0.0,12.0,6.0,16.0,13.0,60.0,40.0,0.0,1.0,fotmob
 2025-12-08,Sassuolo,Lazio,1.0,2.0,Serie A Femminile,4895855,20251208_Sassuolo_Lazio,4.0,4.0,1.0,1.0,0.0,0.0,1.0,6.0,12.0,7.0,8.0,12.0,43.0,57.0,2.0,0.0,fotmob
+2025-12-13,Como Women,Fiorentina,1.0,3.0,Serie A Femminile,4895857,20251213_Como-Women_Fiorentina,6.0,7.0,1.0,2.0,0.0,0.0,3.0,9.0,5.0,16.0,11.0,6.0,37.0,63.0,0.0,0.0,fotmob
 2025-12-13,Juventus,S.S.D. Napoli Femminile,2.0,1.0,Serie A Femminile,4895859,20251213_Juventus_S.S.D.-Napoli-Femminile,5.0,11.0,1.0,1.0,0.0,0.0,3.0,3.0,8.0,13.0,6.0,11.0,51.0,49.0,0.0,2.0,fotmob
 2025-12-13,Milan,Inter,1.0,5.0,Serie A Femminile,4895856,20251213_Milan_Inter,3.0,6.0,0.0,0.0,0.0,0.0,4.0,6.0,4.0,5.0,11.0,8.0,52.0,48.0,0.0,2.0,fotmob
 2025-12-13,Ternana Femminile,Roma,0.0,2.0,Serie A Femminile,4895861,20251213_Ternana-Femminile_Roma,6.0,6.0,1.0,1.0,0.0,0.0,0.0,5.0,10.0,12.0,8.0,17.0,45.0,55.0,2.0,0.0,fotmob
-2025-12-13,Como Women,Fiorentina,1.0,3.0,Serie A Femminile,4895857,20251213_Como-Women_Fiorentina,6.0,7.0,1.0,2.0,0.0,0.0,3.0,9.0,5.0,16.0,11.0,6.0,37.0,63.0,0.0,0.0,fotmob
 2025-12-14,Genoa,Sassuolo,0.0,1.0,Serie A Femminile,4895858,20251214_Genoa_Sassuolo,6.0,2.0,1.0,1.0,0.0,0.0,3.0,3.0,11.0,8.0,12.0,13.0,52.0,48.0,1.0,1.0,fotmob
 2025-12-14,Lazio,Parma Calcio 1913,1.0,0.0,Serie A Femminile,4895860,20251214_Lazio_Parma-Calcio-1913,1.0,4.0,1.0,1.0,1.0,0.0,1.0,4.0,2.0,8.0,12.0,12.0,36.0,64.0,1.0,2.0,fotmob
 2026-01-17,Parma Calcio 1913,Milan,0.0,0.0,Serie A Femminile,4895866,20260117_Parma-Calcio-1913_Milan,5.0,3.0,1.0,1.0,0.0,0.0,5.0,1.0,7.0,4.0,8.0,13.0,44.0,56.0,4.0,0.0,fotmob
 2026-01-17,Fiorentina,Genoa,1.0,1.0,Serie A Femminile,4895863,20260117_Fiorentina_Genoa,15.0,1.0,0.0,3.0,0.0,0.0,2.0,2.0,13.0,5.0,10.0,12.0,67.0,33.0,1.0,1.0,fotmob
 2026-01-17,S.S.D. Napoli Femminile,Como Women,0.0,0.0,Serie A Femminile,4895865,20260117_S.S.D.-Napoli-Femminile_Como-Women,9.0,4.0,3.0,0.0,0.0,0.0,5.0,2.0,13.0,8.0,14.0,4.0,58.0,42.0,0.0,2.0,fotmob
+2026-01-18,Roma,Sassuolo,2.0,1.0,Serie A Femminile,4895862,20260118_Roma_Sassuolo,8.0,4.0,1.0,2.0,0.0,0.0,4.0,7.0,11.0,7.0,9.0,12.0,52.0,48.0,4.0,2.0,fotmob
 2026-01-18,Inter,Juventus,2.0,1.0,Serie A Femminile,4895864,20260118_Inter_Juventus,5.0,8.0,1.0,1.0,0.0,0.0,4.0,7.0,5.0,16.0,12.0,12.0,44.0,56.0,1.0,1.0,fotmob
 2026-01-18,Ternana Femminile,Lazio,1.0,0.0,Serie A Femminile,4895867,20260118_Ternana-Femminile_Lazio,3.0,6.0,3.0,5.0,0.0,1.0,5.0,2.0,3.0,5.0,7.0,22.0,41.0,59.0,3.0,1.0,fotmob
-2026-01-18,Roma,Sassuolo,2.0,1.0,Serie A Femminile,4895862,20260118_Roma_Sassuolo,8.0,4.0,1.0,2.0,0.0,0.0,4.0,7.0,11.0,7.0,9.0,12.0,52.0,48.0,4.0,2.0,fotmob
 2026-01-24,Lazio,Fiorentina,3.0,0.0,Serie A Femminile,4895872,20260124_Lazio_Fiorentina,3.0,5.0,2.0,1.0,0.0,0.0,7.0,6.0,7.0,4.0,10.0,13.0,51.0,49.0,3.0,0.0,fotmob
-2026-01-25,Milan,Ternana Femminile,3.0,0.0,Serie A Femminile,4895868,20260125_Milan_Ternana-Femminile,4.0,2.0,1.0,0.0,0.0,0.0,6.0,4.0,6.0,6.0,17.0,7.0,61.0,39.0,1.0,3.0,fotmob
-2026-01-25,Genoa,Roma,0.0,1.0,Serie A Femminile,4895870,20260125_Genoa_Roma,3.0,7.0,1.0,0.0,0.0,0.0,3.0,6.0,5.0,17.0,3.0,5.0,39.0,61.0,2.0,1.0,fotmob
-2026-01-25,Como Women,Inter,2.0,3.0,Serie A Femminile,4895869,20260125_Como-Women_Inter,3.0,7.0,1.0,2.0,0.0,0.0,7.0,8.0,8.0,5.0,12.0,8.0,31.0,69.0,1.0,3.0,fotmob
 2026-01-25,Sassuolo,S.S.D. Napoli Femminile,0.0,2.0,Serie A Femminile,4895873,20260125_Sassuolo_S.S.D.-Napoli-Femminile,7.0,7.0,0.0,1.0,0.0,0.0,3.0,8.0,9.0,8.0,8.0,5.0,43.0,57.0,4.0,0.0,fotmob
+2026-01-25,Como Women,Inter,2.0,3.0,Serie A Femminile,4895869,20260125_Como-Women_Inter,3.0,7.0,1.0,2.0,0.0,0.0,7.0,8.0,8.0,5.0,12.0,8.0,31.0,69.0,1.0,3.0,fotmob
+2026-01-25,Genoa,Roma,0.0,1.0,Serie A Femminile,4895870,20260125_Genoa_Roma,3.0,7.0,1.0,0.0,0.0,0.0,3.0,6.0,5.0,17.0,3.0,5.0,39.0,61.0,2.0,1.0,fotmob
+2026-01-25,Milan,Ternana Femminile,3.0,0.0,Serie A Femminile,4895868,20260125_Milan_Ternana-Femminile,4.0,2.0,1.0,0.0,0.0,0.0,6.0,4.0,6.0,6.0,17.0,7.0,61.0,39.0,1.0,3.0,fotmob
 2026-01-26,Juventus,Parma Calcio 1913,3.0,0.0,Serie A Femminile,4895871,20260126_Juventus_Parma-Calcio-1913,4.0,5.0,1.0,2.0,0.0,0.0,9.0,4.0,7.0,6.0,8.0,13.0,54.0,46.0,0.0,1.0,fotmob
-2026-02-01,Juventus,Sassuolo,4.0,0.0,Serie A Femminile,4895876,20260201_Juventus_Sassuolo,4.0,5.0,1.0,0.0,0.0,0.0,7.0,2.0,7.0,1.0,4.0,10.0,59.0,41.0,1.0,3.0,fotmob
 2026-02-01,Lazio,Como Women,1.0,1.0,Serie A Femminile,4895877,20260201_Lazio_Como-Women,13.0,4.0,0.0,1.0,0.0,0.0,3.0,6.0,8.0,11.0,11.0,7.0,59.0,41.0,0.0,0.0,fotmob
-2026-02-01,Milan,Genoa,2.0,1.0,Serie A Femminile,4895874,20260201_Milan_Genoa,5.0,5.0,2.0,2.0,0.0,0.0,4.0,4.0,10.0,8.0,9.0,8.0,66.0,34.0,1.0,3.0,fotmob
-2026-02-01,Parma Calcio 1913,Roma,3.0,3.0,Serie A Femminile,4895878,20260201_Parma-Calcio-1913_Roma,2.0,5.0,0.0,1.0,1.0,0.0,5.0,6.0,6.0,8.0,12.0,14.0,42.0,58.0,1.0,0.0,fotmob
+2026-02-01,Juventus,Sassuolo,4.0,0.0,Serie A Femminile,4895876,20260201_Juventus_Sassuolo,4.0,5.0,1.0,0.0,0.0,0.0,7.0,2.0,7.0,1.0,4.0,10.0,59.0,41.0,1.0,3.0,fotmob
 2026-02-01,Ternana Femminile,Inter,0.0,1.0,Serie A Femminile,4895879,20260201_Ternana-Femminile_Inter,2.0,10.0,3.0,3.0,0.0,0.0,1.0,8.0,10.0,10.0,15.0,12.0,39.0,61.0,2.0,1.0,fotmob
+2026-02-01,Parma Calcio 1913,Roma,3.0,3.0,Serie A Femminile,4895878,20260201_Parma-Calcio-1913_Roma,2.0,5.0,0.0,1.0,1.0,0.0,5.0,6.0,6.0,8.0,12.0,14.0,42.0,58.0,1.0,0.0,fotmob
+2026-02-01,Milan,Genoa,2.0,1.0,Serie A Femminile,4895874,20260201_Milan_Genoa,5.0,5.0,2.0,2.0,0.0,0.0,4.0,4.0,10.0,8.0,9.0,8.0,66.0,34.0,1.0,3.0,fotmob
 2026-02-02,Fiorentina,S.S.D. Napoli Femminile,1.0,2.0,Serie A Femminile,4895875,20260202_Fiorentina_S.S.D.-Napoli-Femminile,5.0,4.0,2.0,2.0,0.0,0.0,4.0,2.0,12.0,2.0,8.0,7.0,59.0,41.0,5.0,1.0,fotmob
-2026-02-07,Genoa,Lazio,2.0,5.0,Serie A Femminile,4895882,20260207_Genoa_Lazio,5.0,5.0,1.0,1.0,0.0,0.0,5.0,9.0,9.0,8.0,9.0,8.0,36.0,64.0,0.0,2.0,fotmob
 2026-02-07,Como Women,Juventus,0.0,2.0,Serie A Femminile,4895881,20260207_Como-Women_Juventus,6.0,3.0,1.0,0.0,0.0,0.0,5.0,3.0,6.0,4.0,6.0,12.0,37.0,63.0,1.0,0.0,fotmob
 2026-02-07,Sassuolo,Parma Calcio 1913,1.0,0.0,Serie A Femminile,4895885,20260207_Sassuolo_Parma-Calcio-1913,8.0,4.0,3.0,1.0,0.0,0.0,4.0,5.0,16.0,10.0,16.0,11.0,55.0,45.0,0.0,0.0,fotmob
+2026-02-07,Genoa,Lazio,2.0,5.0,Serie A Femminile,4895882,20260207_Genoa_Lazio,5.0,5.0,1.0,1.0,0.0,0.0,5.0,9.0,9.0,8.0,9.0,8.0,36.0,64.0,0.0,2.0,fotmob
 2026-02-08,Roma,Milan,1.0,0.0,Serie A Femminile,4895880,20260208_Roma_Milan,4.0,8.0,1.0,0.0,0.0,1.0,8.0,2.0,3.0,10.0,9.0,9.0,46.0,54.0,6.0,1.0,fotmob
 2026-02-08,S.S.D. Napoli Femminile,Ternana Femminile,3.0,1.0,Serie A Femminile,4895884,20260208_S.S.D.-Napoli-Femminile_Ternana-Femminile,3.0,5.0,2.0,0.0,0.0,1.0,8.0,3.0,4.0,13.0,11.0,11.0,64.0,36.0,3.0,3.0,fotmob
 2026-02-08,Inter,Fiorentina,3.0,0.0,Serie A Femminile,4895883,20260208_Inter_Fiorentina,4.0,6.0,0.0,0.0,0.0,0.0,8.0,5.0,9.0,8.0,12.0,10.0,53.0,47.0,3.0,0.0,fotmob
-2026-02-14,Como Women,Sassuolo,2.0,0.0,Serie A Femminile,4895888,20260214_Como-Women_Sassuolo,1.0,4.0,0.0,1.0,0.0,0.0,5.0,5.0,6.0,10.0,6.0,11.0,41.0,59.0,1.0,2.0,fotmob
 2026-02-14,Ternana Femminile,Genoa,3.0,1.0,Serie A Femminile,4895891,20260214_Ternana-Femminile_Genoa,7.0,2.0,1.0,1.0,0.0,0.0,8.0,1.0,13.0,4.0,5.0,20.0,61.0,39.0,0.0,0.0,fotmob
 2026-02-14,Milan,Fiorentina,0.0,1.0,Serie A Femminile,4895886,20260214_Milan_Fiorentina,5.0,7.0,0.0,4.0,0.0,1.0,6.0,5.0,14.0,11.0,6.0,19.0,55.0,45.0,2.0,4.0,fotmob
-2026-02-15,Roma,S.S.D. Napoli Femminile,2.0,2.0,Serie A Femminile,4895887,20260215_Roma_S.S.D.-Napoli-Femminile,6.0,3.0,2.0,0.0,0.0,0.0,7.0,5.0,9.0,1.0,12.0,11.0,47.0,53.0,4.0,0.0,fotmob
+2026-02-14,Como Women,Sassuolo,2.0,0.0,Serie A Femminile,4895888,20260214_Como-Women_Sassuolo,1.0,4.0,0.0,1.0,0.0,0.0,5.0,5.0,6.0,10.0,6.0,11.0,41.0,59.0,1.0,2.0,fotmob
 2026-02-15,Parma Calcio 1913,Inter,2.0,3.0,Serie A Femminile,4895890,20260215_Parma-Calcio-1913_Inter,0.0,5.0,0.0,2.0,0.0,0.0,2.0,5.0,4.0,12.0,10.0,10.0,37.0,63.0,0.0,2.0,fotmob
 2026-02-15,Juventus,Lazio,0.0,0.0,Serie A Femminile,4895889,20260215_Juventus_Lazio,11.0,1.0,1.0,1.0,0.0,0.0,7.0,1.0,19.0,3.0,9.0,9.0,59.0,41.0,0.0,3.0,fotmob
-2026-02-21,Genoa,Como Women,0.0,1.0,Serie A Femminile,4895893,20260221_Genoa_Como-Women,2.0,6.0,0.0,0.0,0.0,0.0,4.0,7.0,5.0,3.0,12.0,5.0,39.0,61.0,2.0,0.0,fotmob
-2026-02-21,Lazio,Milan,2.0,2.0,Serie A Femminile,4895895,20260221_Lazio_Milan,3.0,3.0,2.0,0.0,0.0,0.0,3.0,4.0,5.0,7.0,11.0,17.0,54.0,46.0,7.0,0.0,fotmob
+2026-02-15,Roma,S.S.D. Napoli Femminile,2.0,2.0,Serie A Femminile,4895887,20260215_Roma_S.S.D.-Napoli-Femminile,6.0,3.0,2.0,0.0,0.0,0.0,7.0,5.0,9.0,1.0,12.0,11.0,47.0,53.0,4.0,0.0,fotmob
 2026-02-21,S.S.D. Napoli Femminile,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895896,20260221_S.S.D.-Napoli-Femminile_Parma-Calcio-1913,10.0,1.0,3.0,0.0,0.0,0.0,5.0,2.0,9.0,8.0,12.0,6.0,68.0,32.0,0.0,2.0,fotmob
+2026-02-21,Lazio,Milan,2.0,2.0,Serie A Femminile,4895895,20260221_Lazio_Milan,3.0,3.0,2.0,0.0,0.0,0.0,3.0,4.0,5.0,7.0,11.0,17.0,54.0,46.0,7.0,0.0,fotmob
+2026-02-21,Genoa,Como Women,0.0,1.0,Serie A Femminile,4895893,20260221_Genoa_Como-Women,2.0,6.0,0.0,0.0,0.0,0.0,4.0,7.0,5.0,3.0,12.0,5.0,39.0,61.0,2.0,0.0,fotmob
 2026-02-22,Ternana Femminile,Juventus,2.0,2.0,Serie A Femminile,4895897,20260222_Ternana-Femminile_Juventus,4.0,5.0,2.0,2.0,0.0,0.0,7.0,4.0,8.0,7.0,10.0,14.0,36.0,64.0,2.0,0.0,fotmob
 2026-02-22,Inter,Roma,0.0,1.0,Serie A Femminile,4895894,20260222_Inter_Roma,3.0,0.0,3.0,1.0,0.0,0.0,4.0,4.0,11.0,4.0,12.0,12.0,63.0,37.0,1.0,0.0,fotmob
 2026-02-22,Fiorentina,Sassuolo,3.0,2.0,Serie A Femminile,4895892,20260222_Fiorentina_Sassuolo,6.0,4.0,1.0,4.0,0.0,0.0,6.0,4.0,7.0,5.0,9.0,13.0,53.0,47.0,0.0,2.0,fotmob
 2026-03-14,Parma Calcio 1913,Genoa,1.0,1.0,Serie A Femminile,4895902,20260314_Parma-Calcio-1913_Genoa,2.0,5.0,0.0,2.0,0.0,0.0,3.0,1.0,7.0,6.0,4.0,18.0,53.0,47.0,1.0,0.0,fotmob
 2026-03-14,S.S.D. Napoli Femminile,Lazio,0.0,1.0,Serie A Femminile,4895901,20260314_S.S.D.-Napoli-Femminile_Lazio,6.0,5.0,1.0,0.0,0.0,0.0,6.0,6.0,3.0,9.0,15.0,10.0,50.0,50.0,0.0,8.0,fotmob
+2026-03-15,Roma,Fiorentina,1.0,1.0,Serie A Femminile,4895898,20260315_Roma_Fiorentina,8.0,9.0,1.0,1.0,0.0,0.0,1.0,5.0,16.0,6.0,4.0,9.0,43.0,57.0,1.0,0.0,fotmob
 2026-03-15,Como Women,Ternana Femminile,0.0,0.0,Serie A Femminile,4895899,20260315_Como-Women_Ternana-Femminile,5.0,2.0,1.0,1.0,1.0,0.0,3.0,1.0,5.0,5.0,13.0,8.0,49.0,51.0,0.0,5.0,fotmob
 2026-03-15,Juventus,Milan,0.0,1.0,Serie A Femminile,4895900,20260315_Juventus_Milan,5.0,4.0,0.0,2.0,0.0,0.0,5.0,4.0,11.0,7.0,12.0,9.0,51.0,49.0,7.0,1.0,fotmob
-2026-03-15,Roma,Fiorentina,1.0,1.0,Serie A Femminile,4895898,20260315_Roma_Fiorentina,8.0,9.0,1.0,1.0,0.0,0.0,1.0,5.0,16.0,6.0,4.0,9.0,43.0,57.0,1.0,0.0,fotmob
 2026-03-16,Sassuolo,Inter,0.0,3.0,Serie A Femminile,4895903,20260316_Sassuolo_Inter,2.0,6.0,0.0,3.0,0.0,0.0,3.0,10.0,6.0,10.0,9.0,17.0,50.0,50.0,0.0,2.0,fotmob
-2026-03-21,Lazio,Roma,1.0,2.0,Serie A Femminile,4895908,20260321_Lazio_Roma,4.0,3.0,1.0,0.0,0.0,0.0,4.0,5.0,2.0,10.0,15.0,12.0,42.0,58.0,0.0,0.0,fotmob
 2026-03-21,Genoa,Juventus,0.0,0.0,Serie A Femminile,4895906,20260321_Genoa_Juventus,5.0,4.0,2.0,2.0,0.0,0.0,5.0,2.0,13.0,12.0,17.0,9.0,33.0,67.0,3.0,0.0,fotmob
 2026-03-21,Inter,S.S.D. Napoli Femminile,2.0,2.0,Serie A Femminile,4895907,20260321_Inter_S.S.D.-Napoli-Femminile,4.0,7.0,0.0,1.0,0.0,0.0,4.0,5.0,12.0,6.0,5.0,18.0,54.0,46.0,0.0,1.0,fotmob
+2026-03-21,Lazio,Roma,1.0,2.0,Serie A Femminile,4895908,20260321_Lazio_Roma,4.0,3.0,1.0,0.0,0.0,0.0,4.0,5.0,2.0,10.0,15.0,12.0,42.0,58.0,0.0,0.0,fotmob
 2026-03-22,Fiorentina,Parma Calcio 1913,0.0,0.0,Serie A Femminile,4895905,20260322_Fiorentina_Parma-Calcio-1913,7.0,1.0,1.0,1.0,0.0,0.0,3.0,6.0,12.0,7.0,10.0,6.0,63.0,37.0,0.0,0.0,fotmob
 2026-03-22,Ternana Femminile,Sassuolo,1.0,1.0,Serie A Femminile,4895909,20260322_Ternana-Femminile_Sassuolo,12.0,3.0,2.0,4.0,0.0,0.0,4.0,3.0,11.0,4.0,10.0,26.0,59.0,41.0,1.0,1.0,fotmob
 2026-03-22,Milan,Como Women,0.0,0.0,Serie A Femminile,4895904,20260322_Milan_Como-Women,4.0,3.0,2.0,0.0,0.0,0.0,3.0,4.0,5.0,3.0,20.0,8.0,66.0,34.0,3.0,3.0,fotmob
 2026-04-03,Roma,Como Women,4.0,3.0,Serie A Femminile,4895910,20260403_Roma_Como-Women,8.0,3.0,0.0,1.0,0.0,0.0,8.0,3.0,7.0,6.0,6.0,5.0,55.0,45.0,3.0,1.0,fotmob
 2026-04-03,Sassuolo,Milan,0.0,3.0,Serie A Femminile,4895915,20260403_Sassuolo_Milan,7.0,7.0,0.0,0.0,0.0,0.0,0.0,6.0,10.0,8.0,10.0,6.0,38.0,62.0,2.0,0.0,fotmob
-2026-04-04,Fiorentina,Juventus,1.0,2.0,Serie A Femminile,4895911,20260404_Fiorentina_Juventus,8.0,3.0,1.0,1.0,0.0,0.0,6.0,3.0,6.0,10.0,8.0,6.0,52.0,48.0,2.0,2.0,fotmob
 2026-04-04,S.S.D. Napoli Femminile,Genoa,4.0,1.0,Serie A Femminile,4895913,20260404_S.S.D.-Napoli-Femminile_Genoa,10.0,8.0,0.0,1.0,0.0,0.0,11.0,2.0,7.0,7.0,6.0,6.0,58.0,42.0,5.0,5.0,fotmob
 2026-04-04,Inter,Lazio,5.0,2.0,Serie A Femminile,4895912,20260404_Inter_Lazio,0.0,7.0,2.0,0.0,0.0,0.0,4.0,3.0,3.0,14.0,12.0,10.0,42.0,58.0,2.0,1.0,fotmob
 2026-04-04,Parma Calcio 1913,Ternana Femminile,2.0,0.0,Serie A Femminile,4895914,20260404_Parma-Calcio-1913_Ternana-Femminile,5.0,3.0,2.0,1.0,0.0,0.0,4.0,0.0,5.0,7.0,12.0,11.0,55.0,45.0,1.0,3.0,fotmob
-2026-04-25,Como Women,Parma Calcio 1913,1.0,1.0,Serie A Femminile,4895917,20260425_Como-Women_Parma-Calcio-1913,3.0,4.0,0.0,0.0,0.0,0.0,4.0,1.0,10.0,11.0,5.0,8.0,52.0,48.0,1.0,1.0,fotmob
-2026-04-25,Juventus,Roma,0.0,1.0,Serie A Femminile,4895919,20260425_Juventus_Roma,7.0,2.0,2.0,1.0,0.0,0.0,4.0,6.0,10.0,10.0,6.0,9.0,49.0,51.0,2.0,1.0,fotmob
-2026-04-25,Lazio,Sassuolo,0.0,3.0,Serie A Femminile,4895920,20260425_Lazio_Sassuolo,10.0,3.0,1.0,1.0,1.0,0.0,2.0,5.0,12.0,8.0,8.0,8.0,72.0,28.0,3.0,2.0,fotmob
+2026-04-04,Fiorentina,Juventus,1.0,2.0,Serie A Femminile,4895911,20260404_Fiorentina_Juventus,8.0,3.0,1.0,1.0,0.0,0.0,6.0,3.0,6.0,10.0,8.0,6.0,52.0,48.0,2.0,2.0,fotmob
 2026-04-25,Milan,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4895916,20260425_Milan_S.S.D.-Napoli-Femminile,6.0,7.0,1.0,1.0,0.0,0.0,3.0,4.0,7.0,3.0,9.0,5.0,48.0,52.0,1.0,3.0,fotmob
 2026-04-25,Genoa,Inter,1.0,2.0,Serie A Femminile,4895918,20260425_Genoa_Inter,2.0,9.0,1.0,1.0,0.0,0.0,5.0,6.0,6.0,18.0,6.0,5.0,32.0,68.0,0.0,1.0,fotmob
+2026-04-25,Juventus,Roma,0.0,1.0,Serie A Femminile,4895919,20260425_Juventus_Roma,7.0,2.0,2.0,1.0,0.0,0.0,4.0,6.0,10.0,10.0,6.0,9.0,49.0,51.0,2.0,1.0,fotmob
+2026-04-25,Lazio,Sassuolo,0.0,3.0,Serie A Femminile,4895920,20260425_Lazio_Sassuolo,10.0,3.0,1.0,1.0,1.0,0.0,2.0,5.0,12.0,8.0,8.0,8.0,72.0,28.0,3.0,2.0,fotmob
+2026-04-25,Como Women,Parma Calcio 1913,1.0,1.0,Serie A Femminile,4895917,20260425_Como-Women_Parma-Calcio-1913,3.0,4.0,0.0,0.0,0.0,0.0,4.0,1.0,10.0,11.0,5.0,8.0,52.0,48.0,1.0,1.0,fotmob
 2026-04-26,Ternana Femminile,Fiorentina,2.0,2.0,Serie A Femminile,4895921,20260426_Ternana-Femminile_Fiorentina,1.0,11.0,1.0,3.0,0.0,0.0,4.0,11.0,7.0,6.0,14.0,14.0,32.0,68.0,3.0,0.0,fotmob
-2026-05-02,Inter,Milan,1.0,0.0,Serie A Femminile,4895924,20260502_Inter_Milan,5.0,5.0,0.0,0.0,1.0,0.0,3.0,1.0,5.0,12.0,10.0,7.0,49.0,51.0,5.0,1.0,fotmob
 2026-05-02,Roma,Ternana Femminile,2.0,0.0,Serie A Femminile,4895922,20260502_Roma_Ternana-Femminile,6.0,2.0,0.0,0.0,0.0,0.0,4.0,2.0,6.0,1.0,11.0,5.0,64.0,36.0,3.0,1.0,fotmob
-2026-05-02,S.S.D. Napoli Femminile,Juventus,2.0,3.0,Serie A Femminile,4895925,20260502_S.S.D.-Napoli-Femminile_Juventus,0.0,4.0,1.0,0.0,0.0,0.0,3.0,9.0,3.0,8.0,7.0,8.0,59.0,41.0,2.0,1.0,fotmob
 2026-05-02,Sassuolo,Genoa,0.0,0.0,Serie A Femminile,4895927,20260502_Sassuolo_Genoa,8.0,9.0,2.0,0.0,0.0,0.0,3.0,4.0,11.0,8.0,11.0,11.0,51.0,49.0,1.0,1.0,fotmob
+2026-05-02,S.S.D. Napoli Femminile,Juventus,2.0,3.0,Serie A Femminile,4895925,20260502_S.S.D.-Napoli-Femminile_Juventus,0.0,4.0,1.0,0.0,0.0,0.0,3.0,9.0,3.0,8.0,7.0,8.0,59.0,41.0,2.0,1.0,fotmob
+2026-05-02,Inter,Milan,1.0,0.0,Serie A Femminile,4895924,20260502_Inter_Milan,5.0,5.0,0.0,0.0,1.0,0.0,3.0,1.0,5.0,12.0,10.0,7.0,49.0,51.0,5.0,1.0,fotmob
 2026-05-03,Parma Calcio 1913,Lazio,1.0,3.0,Serie A Femminile,4895926,20260503_Parma-Calcio-1913_Lazio,4.0,4.0,1.0,1.0,0.0,0.0,5.0,3.0,9.0,6.0,6.0,8.0,55.0,45.0,0.0,1.0,fotmob
 2026-05-03,Fiorentina,Como Women,1.0,0.0,Serie A Femminile,4895923,20260503_Fiorentina_Como-Women,4.0,2.0,2.0,1.0,0.0,1.0,2.0,4.0,5.0,7.0,10.0,13.0,53.0,47.0,1.0,2.0,fotmob
-2026-05-09,Como Women,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4895929,20260509_Como-Women_S.S.D.-Napoli-Femminile,5.0,8.0,0.0,1.0,0.0,0.0,3.0,4.0,7.0,6.0,5.0,13.0,45.0,55.0,4.0,1.0,fotmob
 2026-05-09,Genoa,Fiorentina,2.0,3.0,Serie A Femminile,4895930,20260509_Genoa_Fiorentina,3.0,5.0,3.0,0.0,0.0,0.0,6.0,9.0,6.0,17.0,14.0,10.0,38.0,62.0,1.0,2.0,fotmob
+2026-05-09,Como Women,S.S.D. Napoli Femminile,0.0,0.0,Serie A Femminile,4895929,20260509_Como-Women_S.S.D.-Napoli-Femminile,5.0,8.0,0.0,1.0,0.0,0.0,3.0,4.0,7.0,6.0,5.0,13.0,45.0,55.0,4.0,1.0,fotmob
 2026-05-10,Milan,Parma Calcio 1913,3.0,1.0,Serie A Femminile,4895928,20260510_Milan_Parma-Calcio-1913,9.0,4.0,0.0,1.0,0.0,0.0,8.0,6.0,12.0,7.0,9.0,12.0,41.0,59.0,2.0,3.0,fotmob
 2026-05-10,Juventus,Inter,3.0,3.0,Serie A Femminile,4895931,20260510_Juventus_Inter,2.0,4.0,2.0,1.0,0.0,0.0,4.0,3.0,9.0,7.0,13.0,11.0,40.0,60.0,0.0,2.0,fotmob
 2026-05-10,Sassuolo,Roma,0.0,3.0,Serie A Femminile,4895933,20260510_Sassuolo_Roma,5.0,7.0,0.0,1.0,0.0,0.0,1.0,4.0,8.0,8.0,10.0,3.0,34.0,66.0,2.0,2.0,fotmob
@@ -665,8 +665,9 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2026-10-04,Como Women,Inter,0.0,2.0,Serie A Femminile,5977774,20261004_Como-Women_Inter,2.0,7.0,1.0,0.0,0.0,0.0,2.0,9.0,7.0,9.0,14.0,13.0,43.0,57.0,1.0,1.0,fotmob
 2026-10-04,Milan,Juventus,2.0,1.0,Serie A Femminile,5977772,20261004_Milan_Juventus,6.0,4.0,1.0,1.0,0.0,0.0,7.0,4.0,6.0,10.0,10.0,7.0,32.0,68.0,2.0,7.0,fotmob
 2026-10-04,S.S.D. Napoli Femminile,Calcio Como 1907,1.0,2.0,Serie A Femminile,5977776,20261004_S.S.D.-Napoli-Femminile_Calcio-Como-1907,2.0,3.0,2.0,1.0,0.0,0.0,1.0,8.0,8.0,6.0,10.0,12.0,55.0,45.0,0.0,9.0,fotmob
+2026-10-17,Como Women,Fiorentina,1.0,1.0,Serie A Femminile,5977779,20261017_Como-Women_Fiorentina,,,,,,,,,,,,,,,,,
 2026-10-17,Sassuolo,S.S.D. Napoli Femminile,1.0,4.0,Serie A Femminile,5977782,20261017_Sassuolo_S.S.D.-Napoli-Femminile,,,,,,,,,,,,,,,,,
 2026-10-17,Ternana Femminile,Lazio,1.0,0.0,Serie A Femminile,5977783,20261017_Ternana-Femminile_Lazio,,,,,,,,,,,,,,,,,
-2026-10-17,Como Women,Fiorentina,1.0,1.0,Serie A Femminile,5977779,20261017_Como-Women_Fiorentina,,,,,,,,,,,,,,,,,
 2026-10-18,Juventus,Calcio Como 1907,2.0,4.0,Serie A Femminile,5977781,20261018_Juventus_Calcio-Como-1907,,,,,,,,,,,,,,,,,
 2026-10-18,Roma,Milan,4.0,2.0,Serie A Femminile,5977778,20261018_Roma_Milan,,,,,,,,,,,,,,,,,
+2026-10-18,Inter,Parma Calcio 1913,3.0,0.0,Serie A Femminile,5977780,20261018_Inter_Parma-Calcio-1913,,,,,,,,,,,,,,,,,

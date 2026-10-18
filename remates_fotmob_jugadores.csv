@@ -12227,22 +12227,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5104947,2026-07-18,noruega,Start,Eirik Schulze,203548,F,0,44,0,0,0,0.0,,3.0,276999.0
 5104947,2026-07-18,noruega,Start,James Ampofo,1459262,F,0,45,3,0,0,0.13,,3.0,318792.0
 5104947,2026-07-18,noruega,Start,Deni Dashaev,1377072,M,0,12,1,1,0,0.02,,2.0,153980.0
-5104949,2026-07-18,noruega,KFUM,Emil Ødegaard,629821,G,1,90,0,0,0,0.0,11.0,0.0,246901.0
-5104949,2026-07-18,noruega,KFUM,Daniel Schneider,1280719,D,1,90,0,0,0,0.0,33.0,1.0,445928.0
-5104949,2026-07-18,noruega,KFUM,Brage Skaret,932224,D,1,90,1,0,0,0.12,35.0,1.0,525176.0
-5104949,2026-07-18,noruega,KFUM,Eirik Saunes,736686,D,1,90,0,0,0,0.0,37.0,1.0,432894.0
-5104949,2026-07-18,noruega,KFUM,Sander Sjökvist,1024164,M,1,88,0,0,0,0.0,72.0,2.0,287662.0
-5104949,2026-07-18,noruega,KFUM,Robin Rasch,457224,M,1,89,1,1,0,0.03,74.0,2.0,328101.0
-5104949,2026-07-18,noruega,KFUM,Tore André Sørås,739727,M,1,90,1,0,0,0.05,76.0,2.0,338147.0
-5104949,2026-07-18,noruega,KFUM,Jonas Lange Hjorth,1047489,M,1,90,2,0,0,0.05,78.0,2.0,510200.0
-5104949,2026-07-18,noruega,KFUM,Rasmus Eggen Vinge,1280548,F,1,68,1,1,1,0.04,103.0,3.0,381904.0
-5104949,2026-07-18,noruega,KFUM,Magnus Retsius Grødem,29209,F,1,75,0,0,0,0.0,105.0,3.0,
-5104949,2026-07-18,noruega,KFUM,Bilal Njie,876446,F,1,67,0,0,0,0.0,107.0,3.0,349833.0
-5104949,2026-07-18,noruega,KFUM,Bjørn Martin Kristensen,1250878,F,0,23,0,0,0,0.0,,3.0,422625.0
-5104949,2026-07-18,noruega,KFUM,David Hickson Gyedu,633572,F,0,22,1,0,0,0.02,,3.0,231343.0
-5104949,2026-07-18,noruega,KFUM,Teodor Berg Haltvik,1047036,F,0,15,1,1,0,0.04,,3.0,299558.0
-5104949,2026-07-18,noruega,KFUM,Amin Nouri,73563,M,0,2,0,0,0,0.0,,2.0,163400.0
-5104949,2026-07-18,noruega,KFUM,Mostafa Najafzadeh,1644937,M,0,2,0,0,0,0.0,,2.0,
 5186556,2026-07-18,china,Shenzhen Peng City,Peng Peng,19716,G,1,90,0,0,0,0.0,11.0,0.0,346675.0
 5186556,2026-07-18,china,Shenzhen Peng City,Yiming Yang,730983,D,1,58,0,0,0,0.0,32.0,1.0,248656.0
 5186556,2026-07-18,china,Shenzhen Peng City,Gabriel Xavier,1384473,D,1,90,0,0,0,0.0,34.0,1.0,3287052.0
@@ -12697,22 +12681,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5100936,2026-07-25,irlanda,Drogheda United,Keegan Ancelin,1726793,M,0,30,2,1,0,0.11,,2.0,
 5100936,2026-07-25,irlanda,Drogheda United,Jago Godden,1572678,M,0,25,0,0,0,0.0,,2.0,90647.0
 5100936,2026-07-25,irlanda,Drogheda United,Warren Davis,1441589,F,0,14,0,0,0,0.0,,3.0,189936.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Aleksandar Maksimenko,742481,G,1,90,0,0,0,0.0,11.0,0.0,2331526.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Gedson Fernandes,747785,M,1,63,2,0,0,0.06,32.0,2.0,18984237.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Ruslan Litvinov,1084160,D,1,90,1,1,0,0.02,34.0,1.0,4228468.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Srdjan Babic,540967,D,1,84,3,0,0,0.17,36.0,1.0,2734981.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Roman Zobnin,464304,D,1,90,3,1,0,0.29,38.0,1.0,1318803.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Nail Umyarov,948955,M,1,90,2,0,0,0.1,64.0,2.0,7361797.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Victor Parada,1056071,D,1,63,0,0,0,0.0,66.0,1.0,2139820.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Pablo Solari,1201406,F,1,90,2,1,0,0.16,83.0,3.0,8506841.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Esequiel Barco,789068,M,1,90,2,1,0,0.14,85.0,2.0,12051339.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Marquinhos,857270,F,1,81,3,2,1,0.14,87.0,3.0,6463691.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Manfred Ugalde,1016738,F,1,63,4,2,0,0.53,115.0,3.0,15990247.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Alexander Djiku,407765,D,0,27,1,0,0,0.26,,1.0,1827863.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Danil Denisov,1172804,D,0,27,0,0,0,0.0,,1.0,4074462.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Christopher Martins,561200,M,0,27,2,1,1,0.77,,2.0,2479455.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Igor Dmitriev,1265176,D,0,9,0,0,0,0.0,,1.0,5489813.0
-5847126,2026-07-25,rus_premier,Spartak Moscow,Danil Prutsev,880227,M,0,6,1,1,1,0.16,,2.0,3928803.0
 5847126,2026-07-25,rus_premier,Rodina,Sergey Volkov,1172832,G,1,90,0,0,0,0.0,11.0,0.0,664436.0
 5847126,2026-07-25,rus_premier,Rodina,Artem Sokol,782824,D,1,82,0,0,0,0.0,32.0,1.0,300558.0
 5847126,2026-07-25,rus_premier,Rodina,Mitja Krizan,754563,D,1,75,0,0,0,0.0,34.0,1.0,454631.0
@@ -12809,22 +12777,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5804220,2026-07-25,suiza,Grasshopper,Denis Sahin,1970906,M,0,21,1,0,0,0.01,,2.0,
 5804220,2026-07-25,suiza,Grasshopper,Samuele Bengondo,1821486,F,0,21,2,1,1,0.1,,3.0,338354.0
 5804220,2026-07-25,suiza,Grasshopper,Alieu Conateh,1795740,F,0,11,0,0,0,0.0,,3.0,693817.0
-5739464,2026-07-25,dinamarca,AGF,Jesper Hansen,25329,G,1,90,0,0,0,0.0,11.0,0.0,354890.0
-5739464,2026-07-25,dinamarca,AGF,Jacob Andersen,1258304,M,1,76,0,0,0,0.0,33.0,2.0,509201.0
-5739464,2026-07-25,dinamarca,AGF,Frederik Tingager,371728,D,1,90,1,0,0,0.07,35.0,1.0,379304.0
-5739464,2026-07-25,dinamarca,AGF,Eric Kahl,1096495,D,1,90,0,0,0,0.0,37.0,1.0,1708973.0
-5739464,2026-07-25,dinamarca,AGF,Gift Links,787031,M,1,88,3,1,0,0.31,72.0,2.0,1476188.0
-5739464,2026-07-25,dinamarca,AGF,Magnus Knudsen,1025560,M,1,90,0,0,0,0.0,74.0,2.0,2118122.0
-5739464,2026-07-25,dinamarca,AGF,Kristian Arnstad,1053293,F,1,90,1,1,1,0.79,76.0,3.0,4194194.0
-5739464,2026-07-25,dinamarca,AGF,Frederik Emmery,1645317,M,1,76,2,1,0,0.11,78.0,2.0,997632.0
-5739464,2026-07-25,dinamarca,AGF,Sebastian Jørgensen,954929,F,1,61,1,0,0,0.03,103.0,3.0,721089.0
-5739464,2026-07-25,dinamarca,AGF,Tobias Bech,981047,F,1,90,2,0,0,0.13,105.0,3.0,4065974.0
-5739464,2026-07-25,dinamarca,AGF,Mikael Anderson,723695,M,1,61,2,0,0,0.39,107.0,2.0,925292.0
-5739464,2026-07-25,dinamarca,AGF,Jens Jønsson,274334,M,0,29,0,0,0,0.0,,2.0,452921.0
-5739464,2026-07-25,dinamarca,AGF,James Bogere,1843410,F,0,29,0,0,0,0.0,,3.0,542423.0
-5739464,2026-07-25,dinamarca,AGF,Jonas Jensen-Abbew,1243931,D,0,14,0,0,0,0.0,,1.0,891071.0
-5739464,2026-07-25,dinamarca,AGF,Rasmus Carstensen,1026834,M,0,14,1,0,0,0.08,,2.0,1395709.0
-5739464,2026-07-25,dinamarca,AGF,Tómas Kristjánsson,1759271,F,0,2,0,0,0,0.0,,3.0,
 5804221,2026-07-25,suiza,Servette,Léo Besson,1284338,G,1,90,0,0,0,0.0,11.0,0.0,170705.0
 5804221,2026-07-25,suiza,Servette,Houboulang Mendes,764841,D,1,85,3,0,0,0.08,32.0,1.0,345532.0
 5804221,2026-07-25,suiza,Servette,Steve Rouiller,248680,D,1,90,2,1,0,0.08,34.0,1.0,285247.0
@@ -13223,21 +13175,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009044,2026-07-26,ecu_liga_pro,Independiente del Valle,Júnior Sornoza,291154,M,0,33,0,0,0,0.0,,2.0,584520.0
 1000009044,2026-07-26,ecu_liga_pro,Independiente del Valle,Hugo Quintana,971597,M,0,33,1,1,1,0.0,,2.0,1642615.0
 1000009044,2026-07-26,ecu_liga_pro,Independiente del Valle,Edwin Quintero,1829195,M,0,11,0,0,0,0.0,,2.0,
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Matías Córdova,1253279,G,1,90,0,0,0,0.0,11.0,0.0,175274.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Renato Rojas,936919,D,1,90,0,0,0,0.0,32.0,1.0,236371.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Piero Guzmán,1344768,D,1,90,1,1,0,0.0,34.0,1.0,274513.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Juan Rodríguez,1606731,D,1,90,1,0,0,0.0,36.0,1.0,
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Alexis Cossio,497441,D,1,90,2,1,0,0.0,38.0,1.0,172917.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Alexis Arias,547844,M,1,90,0,0,0,0.0,64.0,2.0,169992.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,José Parodi,1342744,M,1,79,1,0,0,0.0,66.0,2.0,157329.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Josuee Herrera,1003245,F,1,79,2,1,1,0.0,83.0,3.0,196014.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Rodrigo Vilca,1100577,M,1,90,2,1,0,0.0,85.0,2.0,232703.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Mathías Carpio,1133029,F,1,66,1,0,0,0.0,87.0,3.0,
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Matías Sen,579932,F,1,90,5,2,1,0.0,115.0,3.0,341714.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Óscar Pinto,1195395,M,0,24,0,0,0,0.0,,2.0,259983.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Agustín Rodríguez,1436118,M,0,11,0,0,0,0.0,,2.0,302307.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Wilter Ayoví,768895,F,0,11,0,0,0,0.0,,3.0,289030.0
-1000015436,2026-07-26,per_liga1,Comerciantes Unidos,Jean Olivares,1541940,F,0,1,0,0,0,0.0,,3.0,
 1000015435,2026-07-26,per_liga1,CD UT Cajamarca,Ignacio Barrios,1432708,G,1,90,0,0,0,0.0,11.0,0.0,160633.0
 1000015435,2026-07-26,per_liga1,CD UT Cajamarca,Gilmar Paredes,1274376,D,1,90,1,0,0,0.0,32.0,1.0,271485.0
 1000015435,2026-07-26,per_liga1,CD UT Cajamarca,Manuel Ganoza,1028042,D,1,90,1,0,0,0.0,34.0,1.0,206926.0
@@ -13316,22 +13253,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853441,2026-07-26,rumania,FCSB,Octavian Popescu,1190097,F,0,45,3,1,0,0.0,,3.0,520136.0
 5853441,2026-07-26,rumania,FCSB,Luca Stancu,1781565,D,0,14,0,0,0,0.0,,1.0,437888.0
 5853441,2026-07-26,rumania,FCSB,João Paulo,1241301,M,0,14,0,0,0,0.0,,2.0,400485.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Evgeni Staver,949473,G,1,90,0,0,0,0.0,11.0,0.0,1488334.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Ilya Rozhkov,1386110,M,1,90,0,0,0,0.0,33.0,2.0,6948107.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Igor Vujacic,463300,D,1,90,0,0,0,0.0,35.0,1.0,2022824.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Yegor Teslenko,936922,D,1,88,0,0,0,0.0,37.0,1.0,2242352.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Anderson Arroyo,1034755,D,1,77,0,0,0,0.0,72.0,1.0,1117422.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Ignacio Saavedra,905825,M,1,90,0,0,0,0.0,74.0,2.0,1076021.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Veldin Hodza,1190351,M,1,90,2,0,0,0.09,76.0,2.0,4233444.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Konstantin Nizhegorodov,1278889,D,1,64,0,0,0,0.0,78.0,1.0,856243.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Nazmi Gripshi,761784,F,1,46,0,0,0,0.0,103.0,3.0,1141110.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Mirlind Daku,1059398,F,1,90,3,3,1,0.52,105.0,3.0,10551469.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Ruslan Bezrukov,1188770,F,1,65,0,0,0,0.0,107.0,3.0,1316768.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Ilya Samoshnikov,876016,D,0,44,0,0,0,0.0,,1.0,1601726.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Denil Maldonado,848535,D,0,26,0,0,0,0.0,,1.0,1237667.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Jacques Siwe,1245978,F,0,25,0,0,0,0.0,,3.0,2045005.0
-5847125,2026-07-26,rus_premier,Rubin Kazan,Daniil Kuznetsov,1276330,F,0,13,0,0,0,0.0,,3.0,
-5847125,2026-07-26,rus_premier,Rubin Kazan,Nikita Lobov,1641034,D,0,2,0,0,0,0.0,,1.0,
 5847124,2026-07-26,rus_premier,FC Orenburg,Bogdan Ovsyannikov,1027313,G,1,90,0,0,0,0.0,11.0,0.0,681996.0
 5847124,2026-07-26,rus_premier,FC Orenburg,Maxime Sivis,822680,D,1,90,0,0,0,0.0,32.0,1.0,399096.0
 5847124,2026-07-26,rus_premier,FC Orenburg,John Palacios,1433042,D,1,90,0,0,0,0.0,34.0,1.0,
@@ -13571,22 +13492,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5107543,2026-07-26,suecia,Elfsborg,Frederik Ihler,1166548,F,0,14,1,0,0,0.58,,3.0,1217677.0
 5107543,2026-07-26,suecia,Elfsborg,Rufai Mohammed,1681811,D,0,5,0,0,0,0.0,,1.0,674903.0
 5107543,2026-07-26,suecia,Elfsborg,Frode Aronsson,1670920,M,0,5,1,1,0,0.06,,2.0,458468.0
-5739468,2026-07-26,dinamarca,FC København,Dominik Kotarski,873557,G,1,90,0,0,0,0.0,11.0,0.0,6727996.0
-5739468,2026-07-26,dinamarca,FC København,Birger Meling,566681,D,1,90,2,2,2,0.3,32.0,1.0,912132.0
-5739468,2026-07-26,dinamarca,FC København,Gabriel Pereira,1288187,D,1,57,0,0,0,0.0,34.0,1.0,5830496.0
-5739468,2026-07-26,dinamarca,FC København,Felix Beijmo,628816,D,1,90,0,0,0,0.0,36.0,1.0,1619759.0
-5739468,2026-07-26,dinamarca,FC København,Marcos López,823209,D,1,90,1,0,0,0.04,38.0,1.0,2152950.0
-5739468,2026-07-26,dinamarca,FC København,Mohamed Elyounoussi,261936,F,1,90,3,2,1,0.52,72.0,3.0,2089600.0
-5739468,2026-07-26,dinamarca,FC København,Alex Král,836797,M,1,57,0,0,0,0.0,74.0,2.0,1528609.0
-5739468,2026-07-26,dinamarca,FC København,Thomas Delaney,170218,M,1,57,0,0,0,0.0,76.0,2.0,422491.0
-5739468,2026-07-26,dinamarca,FC København,Geovanni Vianney,1901848,F,1,46,0,0,0,0.0,78.0,3.0,
-5739468,2026-07-26,dinamarca,FC København,Youssoufa Moukoko,1174708,F,1,90,1,0,0,0.04,104.0,3.0,10639205.0
-5739468,2026-07-26,dinamarca,FC København,Andreas Cornelius,313981,F,1,90,2,1,0,0.7,106.0,3.0,347187.0
-5739468,2026-07-26,dinamarca,FC København,Robert,1494913,M,0,45,2,1,0,0.05,,2.0,2023930.0
-5739468,2026-07-26,dinamarca,FC København,Junnosuke Suzuki,1337765,D,0,6,0,0,0,0.0,,1.0,1771547.0
-5739468,2026-07-26,dinamarca,FC København,Mads Emil Madsen,775246,M,0,33,1,0,0,0.07,,2.0,1417902.0
-5739468,2026-07-26,dinamarca,FC København,William Clem,1320887,M,0,33,0,0,0,0.0,,2.0,3065294.0
-5739468,2026-07-26,dinamarca,FC København,Munashe Garananga,1353490,D,0,27,0,0,0,0.0,,1.0,1276455.0
 5803903,2026-07-26,polonia,Wisła Płock,Rafal Leszczynski,208302,G,1,90,0,0,0,0.0,11.0,0.0,265921.0
 5803903,2026-07-26,polonia,Wisła Płock,Martin Haglind Sangré,320377,D,1,90,1,1,0,0.13,33.0,1.0,
 5803903,2026-07-26,polonia,Wisła Płock,Marcin Kaminski,189190,D,1,90,0,0,0,0.0,35.0,1.0,269456.0
@@ -13835,22 +13740,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186561,2026-07-26,china,Shenzhen Peng City,Wesley,656562,F,1,90,2,1,1,0.0,115.0,3.0,
 5186561,2026-07-26,china,Shenzhen Peng City,Dalong Xia,1285303,F,0,42,0,0,0,0.0,,3.0,232708.0
 5186561,2026-07-26,china,Shenzhen Peng City,Jianfei Zhao,977081,D,0,41,2,0,0,0.0,,1.0,357295.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Diego Enríquez,1432728,G,1,90,0,0,0,0.0,11.0,0.0,1159478.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Juan González,795225,D,1,46,0,0,0,0.0,32.0,1.0,150793.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Miguel Araujo,427202,D,1,90,0,0,0,0.0,34.0,1.0,265536.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Luis Abram,547740,D,1,90,0,0,0,0.0,36.0,1.0,686786.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Cristiano,860517,D,1,90,0,0,0,0.0,38.0,1.0,223195.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Martín Távara,834703,M,1,65,3,1,0,0.0,65.0,2.0,422930.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Maxloren Castro,1607385,F,1,90,1,0,0,0.0,82.0,3.0,
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Catriel Cabellos,1418741,M,1,46,0,0,0,0.0,84.0,2.0,686768.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Yoshimar Yotún,116911,M,1,90,1,0,0,0.0,86.0,2.0,194351.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Luis Iberico,547724,F,1,46,0,0,0,0.0,88.0,3.0,201502.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Michael Hoyos,193881,F,1,65,2,1,0,0.0,115.0,3.0,290898.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Rafael Lutiger,1049675,D,0,45,1,0,0,0.0,,1.0,767041.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Ian Wisdom,1451309,M,0,44,0,0,0,0.0,,2.0,863369.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Santiago González,892828,F,0,45,1,1,0,0.0,,3.0,990480.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Írven Ávila,116937,F,0,25,1,1,1,0.0,,3.0,310462.0
-1000015434,2026-07-26,per_liga1,Sporting Cristal,Hernán Barcos,18694,F,0,25,1,0,0,0.0,,3.0,335107.0
 1000013174,2026-07-26,chi_primera,Universidad Católica,Darío Melo,533401,G,1,90,0,0,0,0.0,11.0,0.0,132165.0
 1000013174,2026-07-26,chi_primera,Universidad Católica,Sebastián Arancibia,1736325,D,1,90,0,0,0,0.0,32.0,1.0,749193.0
 1000013174,2026-07-26,chi_primera,Universidad Católica,Daniel Gónzalez,1128926,D,1,90,2,0,0,0.0,34.0,1.0,1096894.0
@@ -14965,22 +14854,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853455,2026-08-01,rumania,Petrolul Ploiesti,Robert Jerdea,1248223,F,0,26,1,1,0,0.0,,3.0,204438.0
 5853455,2026-08-01,rumania,Petrolul Ploiesti,Rodrigo Martins,955822,F,0,26,0,0,0,0.0,,3.0,237247.0
 5853455,2026-08-01,rumania,Petrolul Ploiesti,Mark Tutu,1688903,D,0,7,0,0,0,0.0,,1.0,606273.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Wálter Chávez,341820,G,1,90,0,0,0,0.0,11.0,0.0,146614.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Alexander Medina,1644435,D,1,67,0,0,0,0.0,33.0,1.0,
-1000009053,2026-08-01,ecu_liga_pro,Manta,Alejandro Moscarelli,1502431,D,1,90,0,0,0,0.0,35.0,1.0,277468.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Glendys Mina,1031504,D,1,90,0,0,0,0.0,37.0,1.0,153030.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Juan Nazareno,689903,M,1,46,0,0,0,0.0,65.0,2.0,190699.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Braian Ramírez,1727102,F,1,67,0,0,0,0.0,82.0,3.0,239483.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Robert Burbano,497023,M,1,90,0,0,0,0.0,84.0,2.0,170126.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Jefferson Troya,1251021,M,1,90,2,1,0,0.0,86.0,2.0,230739.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Josué Chalá,1828093,F,1,80,1,0,0,0.0,88.0,3.0,
-1000009053,2026-08-01,ecu_liga_pro,Manta,José Angulo,684745,F,1,90,3,2,1,0.0,104.0,3.0,192737.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Joaquín Vergés,589240,F,1,46,0,0,0,0.0,106.0,3.0,92646.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Alejandro Rialpe,1920143,M,0,44,0,0,0,0.0,,2.0,
-1000009053,2026-08-01,ecu_liga_pro,Manta,Wálter Chalá,209311,F,0,45,1,1,0,0.0,,3.0,171106.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Justin Alman,764262,F,0,23,1,0,0,0.0,,3.0,257681.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Maikel Valencia,1828140,F,0,23,0,0,0,0.0,,3.0,218126.0
-1000009053,2026-08-01,ecu_liga_pro,Manta,Feyiseitan Asagidigbi,1200327,F,0,10,1,0,0,0.0,,3.0,211019.0
 1000009053,2026-08-01,ecu_liga_pro,Mushuc Runa,Rodrigo Formento,950401,G,1,90,0,0,0,0.0,11.0,0.0,296464.0
 1000009053,2026-08-01,ecu_liga_pro,Mushuc Runa,Kevin Peralta,971783,D,1,90,0,0,0,0.0,32.0,1.0,193224.0
 1000009053,2026-08-01,ecu_liga_pro,Mushuc Runa,Ronny Biojó,1340585,D,1,90,1,0,0,0.0,34.0,1.0,299230.0
@@ -18407,21 +18280,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009054,2026-08-04,ecu_liga_pro,LDU de Quito,Rodney Redes,943113,F,0,45,2,0,0,0.0,,3.0,670982.0
 1000009054,2026-08-04,ecu_liga_pro,LDU de Quito,Deyverson,476769,F,0,30,1,1,0,0.0,,3.0,282957.0
 1000009054,2026-08-04,ecu_liga_pro,LDU de Quito,Ruddy Mina,1795576,M,0,1,0,0,0,0.0,,2.0,
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Brian Heras,497200,G,1,90,0,0,0,0.0,11.0,0.0,259414.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Enzo Alejandro Rubio,1909838,D,1,90,0,0,0,0.0,32.0,1.0,295240.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Anthony Bedoya,921728,D,1,90,0,0,0,0.0,34.0,1.0,175154.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Ober Medina,1828941,D,1,90,0,0,0,0.0,36.0,1.0,289394.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Erick Zúñiga,1635053,D,1,90,0,0,0,0.0,38.0,1.0,271022.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Maikel Reyes,1573233,M,1,56,0,0,0,0.0,72.0,2.0,255543.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Gerónimo Heredia,1523536,M,1,81,1,0,0,0.0,74.0,2.0,718286.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Jonathan Morocho,1910457,M,1,90,0,0,0,0.0,76.0,2.0,209382.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Thiago Ozaeta,1640497,M,1,81,2,2,1,0.0,78.0,2.0,626283.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Danny Luna,323437,M,1,56,2,0,0,0.0,95.0,2.0,143447.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Franco Ayunta,1383147,F,1,90,0,0,0,0.0,115.0,3.0,286383.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Ayrton Cisneros,1021932,D,0,34,0,0,0,0.0,,1.0,
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Kevin Ushiña,1746497,M,0,34,0,0,0,0.0,,2.0,188167.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Jefferson Arce,1053700,M,0,9,0,0,0,0.0,,2.0,226370.0
-1000009054,2026-08-04,ecu_liga_pro,Delfín,Luis Castro,1625949,M,0,9,1,0,0,0.0,,2.0,175154.0
 1000012454,2026-08-04,bra_copa,Athletico Paranaense,Santos,265435,G,1,90,0,0,0,0.0,11.0,0.0,430636.0
 1000012454,2026-08-04,bra_copa,Athletico Paranaense,Gastón Benavídez,929338,D,1,90,2,1,0,0.0,33.0,1.0,2236888.0
 1000012454,2026-08-04,bra_copa,Athletico Paranaense,Juan Aguirre,923698,D,1,90,0,0,0,0.0,35.0,1.0,
@@ -154503,3 +154361,480 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5882320,2026-10-18,fem_espana,Deportivo de A Coruña,Michi Apóstol,1687019,F,0,4,0,0,0,0.0,,3.0,
 5882320,2026-10-18,fem_espana,Deportivo de A Coruña,Paula Monteagudo,1676466,D,0,1,0,0,0,0.0,,1.0,
 5882320,2026-10-18,fem_espana,Deportivo de A Coruña,Redru,1714468,M,0,1,0,0,0,0.0,,2.0,
+5943269,2026-10-18,gre_super_league,Kifisia FC,Moisés Ramirez,978290,G,1,90,0,0,0,0.0,11.0,0.0,666734.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Tiago Manso,1525157,D,1,90,0,0,0,0.0,32.0,1.0,378315.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Clément Jolibois,1668201,D,1,90,0,0,0,0.0,34.0,1.0,178035.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Roshon van Eijma,924844,D,1,90,0,0,0,0.0,36.0,1.0,61185.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Leroy Abanda,1133599,D,1,90,3,0,0,0.04,38.0,1.0,116572.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Imam Jagne,1103937,M,1,89,1,0,0,0.03,64.0,2.0,288898.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Konstantinos Roukounakis,1284538,M,1,90,1,0,0,0.12,66.0,2.0,257003.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Ángelo Sagal,304555,F,1,73,3,1,1,0.2,83.0,3.0,108907.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Jorge Pombo,623758,M,1,84,1,0,0,0.02,85.0,2.0,220903.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Jeremy Antonisse,1210947,F,1,84,0,0,0,0.0,87.0,3.0,481114.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Dimitrios Theodoridis,1634971,F,1,73,2,1,0,0.21,115.0,3.0,287121.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Apostolos Christopoulos,1423601,F,0,17,0,0,0,0.0,,3.0,301207.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Georgios Kyriopoulos,1418919,F,0,17,1,0,0,0.06,,3.0,
+5943269,2026-10-18,gre_super_league,Kifisia FC,Bernardo Martins,776606,M,0,6,0,0,0,0.0,,2.0,281893.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Gerson Sousa,1050830,M,0,6,0,0,0,0.0,,2.0,493677.0
+5943269,2026-10-18,gre_super_league,Kifisia FC,Jordi Mboula,748378,F,0,1,1,0,0,0.02,,3.0,134768.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Ricardo Velho,863848,G,1,90,0,0,0,0.0,11.0,0.0,1848883.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Jeremy Petris,1002682,D,1,90,0,0,0,0.0,32.0,1.0,1099453.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Fabiano Leismann,498313,D,1,90,1,0,0,0.02,34.0,1.0,106371.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Boško Šutalo,949350,D,1,90,0,0,0,0.0,36.0,1.0,1352551.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Omar Richards,798608,D,1,90,0,0,0,0.0,38.0,1.0,1253709.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Martin Hongla,797758,M,1,90,1,1,0,0.02,64.0,2.0,719115.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Uroš Račić,764624,M,1,90,0,0,0,0.0,66.0,2.0,1795883.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Benjamín Garré,872965,F,1,89,2,1,1,0.44,83.0,3.0,2289268.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Christian Kouamé,776940,F,1,89,2,0,0,0.1,85.0,3.0,943603.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Bruma,361322,M,1,72,2,1,1,0.89,87.0,2.0,1861172.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Tino Kadewere,666860,F,1,72,2,1,0,0.07,115.0,3.0,1037256.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Othman Boussaid,839476,F,0,18,0,0,0,0.0,,3.0,875776.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Rafa Mir,640492,F,0,18,0,0,0,0.0,,3.0,2261195.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Noah Fadiga,988119,D,0,1,0,0,0,0.0,,1.0,1334731.0
+5943269,2026-10-18,gre_super_league,Aris Thessaloniki,Fredrik Jensen,774625,M,0,1,0,0,0,0.0,,2.0,1252316.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Ofir Marciano,487334,G,1,90,0,0,0,0.0,11.0,0.0,156418.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Yoan Stoyanov,1308396,D,1,90,2,1,0,0.0,32.0,1.0,578271.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Miguel Vítor,96937,D,1,90,0,0,0,0.0,34.0,1.0,157489.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Itay Rotman,1339625,D,1,90,0,0,0,0.0,36.0,1.0,805832.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Ofir Davidzada,557580,D,1,90,0,0,0,0.0,38.0,1.0,166772.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Eliel Peretz,763312,M,1,46,0,0,0,0.0,73.0,2.0,876724.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Niv Yehoshua,1605895,M,1,90,0,0,0,0.0,75.0,2.0,1508850.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Mohamad Kanaan,1109151,M,1,70,2,0,0,0.0,77.0,2.0,925267.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Mohammed Abu Rumi,1497826,F,1,45,1,0,0,0.0,103.0,3.0,1237442.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Adrián Ugarriza,547722,F,1,89,3,0,0,0.0,105.0,3.0,1108692.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Amir Ganah,1414052,F,1,90,4,0,0,0.0,107.0,3.0,1688558.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Lucas Ventura,846750,M,0,7,0,0,0,0.0,,2.0,1566042.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Javon East,919525,F,0,45,2,1,0,0.0,,3.0,520802.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Forson Amankwah,1229526,M,0,37,1,0,0,0.0,,2.0,1930695.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Igor Zlatanović,805779,F,0,20,2,2,2,0.0,,3.0,1125625.0
+1000015290,2026-10-18,isr_premier,Hapoel Beer Sheva,Amit Ohana,1828112,F,0,1,1,1,0,0.0,,3.0,
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Nadav Zamir,1793019,G,1,90,0,0,0,0.0,11.0,0.0,743939.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Omer Agvadish,1233183,D,1,90,0,0,0,0.0,32.0,1.0,370492.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Hilay Sharabi Melman,2335818,D,1,90,0,0,0,0.0,34.0,1.0,
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Noam Malmud,1451135,D,1,90,0,0,0,0.0,36.0,1.0,470005.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Ofek Nadir,1131940,D,1,90,0,0,0,0.0,38.0,1.0,232044.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Nadim Vrasana,1793029,M,1,73,0,0,0,0.0,72.0,2.0,
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Tamir Haimovich,1680389,M,1,90,0,0,0,0.0,74.0,2.0,385879.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Ilay Madmon,1179179,M,1,79,0,0,0,0.0,76.0,2.0,259263.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Andrew Idoko,1241568,M,1,79,2,1,0,0.0,78.0,2.0,871161.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Vitalie Damaşcan,798522,F,1,63,1,1,1,0.0,104.0,3.0,317725.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Christ Tiéhi,853112,F,1,90,0,0,0,0.0,106.0,3.0,174916.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Sharani Zuberu,1064715,D,0,27,1,1,0,0.0,,1.0,229842.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Li On Mizrahi,1179212,D,0,17,0,0,0,0.0,,1.0,235693.0
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Netanel Shprauo,1793028,M,0,11,1,0,0,0.0,,2.0,
+1000015290,2026-10-18,isr_premier,Hapoel Jerusalem FC,Hamza Mohammed,0,M,0,11,0,0,0,0.0,,2.0,
+5105031,2026-10-18,noruega,Tromsø,Jakob Haugaard,188971,G,1,90,0,0,0,0.0,11.0,0.0,239207.0
+5105031,2026-10-18,noruega,Tromsø,Vetle Skjærvik,935100,D,1,90,1,0,0,0.02,33.0,1.0,645805.0
+5105031,2026-10-18,noruega,Tromsø,Casper Øyvann,935515,D,1,70,0,0,0,0.0,35.0,1.0,439435.0
+5105031,2026-10-18,noruega,Tromsø,Isak Vådebu,1281041,D,1,90,1,0,0,0.07,37.0,1.0,1108287.0
+5105031,2026-10-18,noruega,Tromsø,Sander Håvik Innvær,1353091,M,1,90,0,0,0,0.0,51.0,2.0,644508.0
+5105031,2026-10-18,noruega,Tromsø,Alexander Warneryd,1442050,M,1,90,3,2,0,0.13,59.0,2.0,2370352.0
+5105031,2026-10-18,noruega,Tromsø,David Edvardsson,1231795,M,1,86,1,0,0,0.13,73.0,2.0,1409596.0
+5105031,2026-10-18,noruega,Tromsø,Ruben Yttergård Jenssen,28115,M,1,90,0,0,0,0.0,75.0,2.0,211662.0
+5105031,2026-10-18,noruega,Tromsø,Morten Bjørlo,635465,M,1,68,2,0,0,0.25,77.0,2.0,427826.0
+5105031,2026-10-18,noruega,Tromsø,Troy Nyhammer,1377921,F,1,77,4,1,1,0.31,104.0,3.0,2051071.0
+5105031,2026-10-18,noruega,Tromsø,Heine Åsen Larsen,1295653,F,1,77,1,0,0,0.13,106.0,3.0,671413.0
+5105031,2026-10-18,noruega,Tromsø,Lars Olden Larsen,837334,F,0,21,0,0,0,0.0,,3.0,622029.0
+5105031,2026-10-18,noruega,Tromsø,Vince Osuji,1658826,D,0,20,0,0,0,0.0,,1.0,1159116.0
+5105031,2026-10-18,noruega,Tromsø,Daniel Braut,1344554,F,0,13,2,0,0,0.27,,3.0,701269.0
+5105031,2026-10-18,noruega,Tromsø,Vegard Østraat Erlien,841973,F,0,13,0,0,0,0.0,,3.0,713363.0
+5105031,2026-10-18,noruega,Tromsø,Jesper Grundt,1173371,M,0,3,0,0,0,0.0,,2.0,465718.0
+5105031,2026-10-18,noruega,KFUM,Emil Ødegaard,629821,G,1,90,0,0,0,0.0,11.0,0.0,207902.0
+5105031,2026-10-18,noruega,KFUM,Brage Skaret,932224,D,1,90,0,0,0,0.0,33.0,1.0,424428.0
+5105031,2026-10-18,noruega,KFUM,Fredrik Tobias Berglie,934688,D,1,85,1,1,1,0.27,35.0,1.0,326793.0
+5105031,2026-10-18,noruega,KFUM,Daniel Schneider,1280719,D,1,90,0,0,0,0.0,37.0,1.0,572060.0
+5105031,2026-10-18,noruega,KFUM,Håkon Hoseth,632875,M,1,90,0,0,0,0.0,72.0,2.0,338272.0
+5105031,2026-10-18,noruega,KFUM,Eirik Saunes,736686,D,1,66,1,1,0,0.09,74.0,1.0,395764.0
+5105031,2026-10-18,noruega,KFUM,Martin Tangen Vinjor,737091,M,1,57,0,0,0,0.0,76.0,2.0,274820.0
+5105031,2026-10-18,noruega,KFUM,Jonas Lange Hjorth,1047489,M,1,90,0,0,0,0.0,78.0,2.0,390260.0
+5105031,2026-10-18,noruega,KFUM,Ola Visted,1636179,F,1,90,1,0,0,0.03,103.0,3.0,746874.0
+5105031,2026-10-18,noruega,KFUM,Bjørn Martin Kristensen,1250878,F,1,66,0,0,0,0.0,105.0,3.0,405768.0
+5105031,2026-10-18,noruega,KFUM,Bilal Njie,876446,F,1,85,0,0,0,0.0,107.0,3.0,367512.0
+5105031,2026-10-18,noruega,KFUM,Robin Rasch,457224,M,0,34,2,0,0,0.14,,2.0,324551.0
+5105031,2026-10-18,noruega,KFUM,Tore André Sørås,739727,M,0,24,1,0,0,0.21,,2.0,338545.0
+5105031,2026-10-18,noruega,KFUM,Magnus Retsius Grødem,29209,F,0,24,1,0,0,0.03,,3.0,402147.0
+5105031,2026-10-18,noruega,KFUM,Håkon Røsten,1310473,D,0,5,0,0,0,0.0,,1.0,859741.0
+5105031,2026-10-18,noruega,KFUM,Rasmus Eggen Vinge,1280548,F,0,5,0,0,0,0.0,,3.0,507485.0
+5934546,2026-10-18,fem_alemania,Mainz 05,Marisa Schoen,2148486,G,1,90,0,0,0,0.0,11.0,0.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Kara Bathmann,1406591,D,1,82,0,0,0,0.0,32.0,1.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Marina Georgieva,856538,D,1,90,1,0,0,0.0,34.0,1.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Johanna Berg,1835396,D,1,90,0,0,0,0.0,36.0,1.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Maja Pageler,1678803,M,1,62,0,0,0,0.0,38.0,2.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Yurina Imai,2148511,M,1,90,0,0,0,0.0,63.0,2.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Rio Takizawa,1638166,M,1,62,0,0,0,0.0,65.0,2.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Akari Kurishima,2148505,M,1,90,1,0,0,0.0,67.0,2.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Mattson Strickler,2148545,D,1,62,0,0,0,0.0,85.0,1.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Gentiana Fetaj,1345189,M,1,90,1,0,0,0.0,104.0,2.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Vital Kats,1200283,F,1,75,2,0,0,0.0,106.0,3.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Paula Flach,1406649,D,0,28,0,0,0,0.0,,1.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Lara Martin,2148536,M,0,28,1,0,0,0.0,,2.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Leonie Stoehr,2148503,F,0,28,0,0,0,0.0,,3.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Chiara Bouziane,1195088,F,0,15,0,0,0,0.0,,3.0,
+5934546,2026-10-18,fem_alemania,Mainz 05,Suguri Hashitani,1822684,D,0,8,0,0,0,0.0,,1.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Stina Johannes,896085,G,1,90,0,0,0,0.0,11.0,0.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Thea Bjelde,784540,D,1,90,2,1,0,0.0,32.0,1.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Sophia Kleinherne,1095778,D,1,90,0,0,0,0.0,34.0,1.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Camilla Küver,1195311,D,1,67,1,0,0,0.0,36.0,1.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Sarai Linder,884218,D,1,78,1,0,0,0.0,38.0,1.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Svenja Huth,294952,F,1,90,3,1,1,0.0,73.0,3.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Smilla Vallotto,1261770,M,1,55,0,0,0,0.0,75.0,2.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Janina Minge,896372,M,1,54,2,0,0,0.0,77.0,2.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Ella Peddemors,1091627,M,1,90,4,2,2,0.0,103.0,2.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Anny Kerim,1651904,D,1,90,3,2,1,0.0,105.0,1.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Cora Zicai,1238107,F,1,67,0,0,0,0.0,107.0,3.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Katharina Piljić,1345245,M,0,36,0,0,0,0.0,,2.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Lena Lattwein,889551,M,0,35,1,0,0,0.0,,2.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Lieske Carleer,1684317,D,0,23,0,0,0,0.0,,1.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Kessya Bussy,1192872,F,0,23,1,1,1,0.0,,3.0,
+5934546,2026-10-18,fem_alemania,VfL Wolfsburg,Lou Bogaert,1403040,D,0,12,0,0,0,0.0,,1.0,
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Álvaro Aceves,1357591,G,1,90,0,0,0,0.0,11.0,0.0,537328.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Trilli,1785753,D,1,66,0,0,0,0.0,32.0,1.0,321414.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Pablo Tomeo,1287470,D,1,90,0,0,0,0.0,34.0,1.0,906670.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,David Torres,1395716,D,1,90,1,0,0,0.01,36.0,1.0,1990009.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Iván Garriel,1526226,D,1,90,0,0,0,0.0,38.0,1.0,455284.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Stanko Jurić,953065,M,1,90,3,0,0,0.26,65.0,2.0,624455.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Thiago Ojeda,1392303,M,1,66,2,0,0,0.04,83.0,2.0,608434.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Víctor Fernández,1670167,M,1,72,2,1,0,0.03,85.0,2.0,746526.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Julien Ponceau,955206,M,1,76,1,0,0,0.02,87.0,2.0,1637173.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Juanmi Latasa,1231032,F,1,30,0,0,0,0.0,104.0,3.0,1485897.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Adrián Arnuncio,1553774,F,1,76,1,1,1,0.22,106.0,3.0,
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Víctor Barberà,1403392,F,0,60,4,3,1,0.76,,3.0,534957.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Iván Alejo,640089,D,0,24,0,0,0,0.0,,1.0,421853.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Tay Abed,1377639,F,0,24,1,0,0,0.04,,3.0,1225238.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Kaj de Rooij,926293,F,0,14,1,0,0,0.1,,3.0,1006566.0
+5868502,2026-10-18,esp_hypermotion,Real Valladolid,Robin van Duiven,1554140,F,0,14,0,0,0,0.0,,3.0,1127180.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Ramón Vilà,1658531,G,1,90,0,0,0,0.0,11.0,0.0,510594.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Jesús Clemente,1204395,D,1,90,1,0,0,0.02,32.0,1.0,281079.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Álex Serra,1669653,D,1,90,0,0,0,0.0,34.0,1.0,349174.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Floris Smand,1393472,D,1,90,0,0,0,0.0,36.0,1.0,625893.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Juan Larios,1195885,D,1,81,0,0,0,0.0,38.0,1.0,929730.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Carlos Guirao,1669636,M,1,90,2,0,0,0.35,64.0,2.0,412994.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Justin Smith,1283073,M,1,64,0,0,0,0.0,66.0,2.0,
+5868502,2026-10-18,esp_hypermotion,Eldense,Fidel Chaves,202610,F,1,81,0,0,0,0.0,83.0,3.0,312711.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Javi Martínez,920741,M,1,73,1,0,0,0.02,85.0,2.0,702056.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Aingeru Olabarrieta,1575777,F,1,90,3,2,1,0.28,87.0,3.0,970220.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Jorge Rastrojo,1432918,F,1,64,3,1,1,0.62,115.0,3.0,
+5868502,2026-10-18,esp_hypermotion,Eldense,Marcos Bustillo,1323239,M,0,26,0,0,0,0.0,,2.0,259488.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Mariano Carmona,1685541,F,0,26,2,2,1,1.42,,3.0,469640.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Jordi Martín,1086527,F,0,17,0,0,0,0.0,,3.0,387990.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Iker Recio,1210310,D,0,9,0,0,0,0.0,,1.0,927433.0
+5868502,2026-10-18,esp_hypermotion,Eldense,Manu Nieto,1093784,F,0,9,1,0,0,0.05,,3.0,557209.0
+5868496,2026-10-18,esp_hypermotion,Girona,Paulo Gazzaniga,278285,G,1,90,0,0,0,0.0,11.0,0.0,1111168.0
+5868496,2026-10-18,esp_hypermotion,Girona,Mateu Morey,844478,D,1,71,0,0,0,0.0,32.0,1.0,1174537.0
+5868496,2026-10-18,esp_hypermotion,Girona,David López,215584,D,1,90,0,0,0,0.0,34.0,1.0,244346.0
+5868496,2026-10-18,esp_hypermotion,Girona,Alejandro Francés,1112511,D,1,90,1,0,0,0.04,36.0,1.0,3432409.0
+5868496,2026-10-18,esp_hypermotion,Girona,Álex Moreno,477588,D,1,90,0,0,0,0.0,38.0,1.0,1908980.0
+5868496,2026-10-18,esp_hypermotion,Girona,Carles Pérez,873297,F,1,84,2,1,0,0.04,72.0,3.0,928502.0
+5868496,2026-10-18,esp_hypermotion,Girona,Izan González,1683631,M,1,90,2,0,0,0.06,74.0,2.0,1522118.0
+5868496,2026-10-18,esp_hypermotion,Girona,Fran Beltrán,785511,M,1,90,0,0,0,0.0,76.0,2.0,3159226.0
+5868496,2026-10-18,esp_hypermotion,Girona,Bryan Gil,970692,F,1,63,2,1,1,0.11,78.0,3.0,8689749.0
+5868496,2026-10-18,esp_hypermotion,Girona,Vladyslav Vanat,1231648,F,1,71,3,2,1,0.91,104.0,3.0,14345848.0
+5868496,2026-10-18,esp_hypermotion,Girona,Oleksandr Pyshchur,1665022,F,1,84,0,0,0,0.0,106.0,3.0,455734.0
+5868496,2026-10-18,esp_hypermotion,Girona,Yáser Asprilla,1277380,F,0,27,1,0,0,0.07,,3.0,16076500.0
+5868496,2026-10-18,esp_hypermotion,Girona,Javier Boñar,1367926,D,0,19,0,0,0,0.0,,1.0,
+5868496,2026-10-18,esp_hypermotion,Girona,Unai Hernández,1326046,F,0,19,0,0,0,0.0,,3.0,1584099.0
+5868496,2026-10-18,esp_hypermotion,Girona,Portu,282692,M,0,6,0,0,0,0.0,,2.0,694188.0
+5868496,2026-10-18,esp_hypermotion,Girona,Abel Ruiz,748380,F,0,6,0,0,0,0.0,,3.0,1629869.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Jesús Owono,1088754,G,1,90,0,0,0,0.0,11.0,0.0,942655.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Thomas Carrique,889102,D,1,90,0,0,0,0.0,32.0,1.0,549316.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Lautaro Spatz,1132864,D,1,83,0,0,0,0.0,34.0,1.0,161000.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Diego Alende,638736,D,1,90,0,0,0,0.0,36.0,1.0,272039.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Martí Vilà,957211,D,1,90,0,0,0,0.0,38.0,1.0,270238.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Marc Domènech,1639357,M,1,90,0,0,0,0.0,73.0,2.0,691456.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Sergio Molina,789544,M,1,46,0,0,0,0.0,75.0,2.0,448981.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Efe Akman,1517798,M,1,89,1,0,0,0.02,77.0,2.0,1383552.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Diego Díaz,1693550,M,1,46,0,0,0,0.0,103.0,2.0,
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Jordi Cano,1324041,F,1,45,1,1,0,0.17,105.0,3.0,509613.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Moró Sidibe,1816777,F,1,90,3,2,0,0.09,107.0,3.0,271318.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Julian Rijkhoff,1336012,M,0,44,0,0,0,0.0,,2.0,1134452.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Hugo López,1807857,F,0,45,1,0,0,0.04,,3.0,1609428.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Lautaro de León,1094493,F,0,44,0,0,0,0.0,,3.0,1142352.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Randy Schneider,1168058,M,0,7,0,0,0,0.0,,2.0,485136.0
+5868496,2026-10-18,esp_hypermotion,FC Andorra,Nacho Quintana,1254705,F,0,1,0,0,0,0.0,,3.0,426297.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Brian Heras,497200,G,1,90,0,0,0,0.0,11.0,0.0,312589.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Bryan Hernández,1045814,D,1,68,0,0,0,0.0,32.0,1.0,169994.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Anthony Bedoya,921728,D,1,90,0,0,0,0.0,34.0,1.0,226565.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Ober Medina,1828941,D,1,90,3,0,0,0.0,36.0,1.0,332342.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Erick Zúñiga,1635053,D,1,90,0,0,0,0.0,38.0,1.0,244605.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Gerónimo Heredia,1523536,M,1,68,1,0,0,0.0,64.0,2.0,649086.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Jonathan Morocho,1910457,M,1,90,1,0,0,0.0,66.0,2.0,284082.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Jefferson Arce,1053700,F,1,68,1,0,0,0.0,83.0,3.0,208857.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Danny Luna,323437,M,1,78,1,0,0,0.0,85.0,2.0,160633.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Thiago Ozaeta,1640497,F,1,90,3,0,0,0.0,87.0,3.0,661802.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Franco Ayunta,1383147,F,1,89,4,3,3,0.0,115.0,3.0,446492.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Enzo Alejandro Rubio,1909838,D,0,22,0,0,0,0.0,,1.0,323267.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Maikel Reyes,1573233,D,0,22,2,0,0,0.0,,1.0,264522.0
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Emerson Espinoza,0,M,0,22,0,0,0,0.0,,2.0,
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Lucas Cornejo,1685813,M,0,12,1,0,0,0.0,,2.0,
+1000022070,2026-10-18,ecu_liga_pro,Delfín,Kevin Ushiña,1746497,M,0,1,1,1,1,0.0,,2.0,204678.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Felix Zambrano,1828010,G,1,90,0,0,0,0.0,11.0,0.0,214141.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Alexander Medina,1644435,D,1,71,0,0,0,0.0,32.0,1.0,
+1000022070,2026-10-18,ecu_liga_pro,Manta,Jefferson Nazareno,1463621,D,1,90,0,0,0,0.0,34.0,1.0,185936.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Alejandro Moscarelli,1502431,D,1,90,0,0,0,0.0,36.0,1.0,319432.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Glendys Mina,1031504,D,1,90,0,0,0,0.0,38.0,1.0,176583.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Jefferson Troya,1251021,M,1,62,0,0,0,0.0,72.0,2.0,230739.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Juan Jiménez,1197522,M,1,76,0,0,0,0.0,74.0,2.0,
+1000022070,2026-10-18,ecu_liga_pro,Manta,Braian Ramírez,1727102,M,1,90,1,1,0,0.0,76.0,2.0,308261.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Joaquín Vergés,589240,M,1,62,4,0,0,0.0,78.0,2.0,161973.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,José Angulo,684745,F,1,62,6,2,2,0.0,104.0,3.0,202593.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Justin Alman,764262,F,1,90,3,0,0,0.0,106.0,3.0,287374.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Robert Burbano,497023,M,0,28,1,1,0,0.0,,2.0,179982.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Jeremy Mina,1828142,M,0,28,0,0,0,0.0,,2.0,211323.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Jean Carlos Blanco,175367,F,0,28,0,0,0,0.0,,3.0,276679.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Juan Nazareno,689903,M,0,19,0,0,0,0.0,,2.0,216489.0
+1000022070,2026-10-18,ecu_liga_pro,Manta,Ángel Ledesma,208020,M,0,14,0,0,0,0.0,,2.0,183392.0
+5868096,2026-10-18,laliga,Málaga,Alfonso Herrero,616538,G,1,90,0,0,0,0.0,11.0,0.0,654220.0
+5868096,2026-10-18,laliga,Málaga,Rafita,1717331,D,1,90,0,0,0,0.0,32.0,1.0,
+5868096,2026-10-18,laliga,Málaga,Fernando Calero,839232,D,1,90,0,0,0,0.0,34.0,1.0,1276026.0
+5868096,2026-10-18,laliga,Málaga,Ángel Recio,1260010,D,1,90,1,0,0,0.01,36.0,1.0,696019.0
+5868096,2026-10-18,laliga,Málaga,José Salinas,1187478,D,1,46,0,0,0,0.0,38.0,1.0,1566023.0
+5868096,2026-10-18,laliga,Málaga,David Larrubia,1108863,M,1,68,1,0,0,0.06,72.0,2.0,4336287.0
+5868096,2026-10-18,laliga,Málaga,Izan Merino,1669619,M,1,46,0,0,0,0.0,74.0,2.0,3890645.0
+5868096,2026-10-18,laliga,Málaga,Carlos Dotor,1209421,M,1,64,0,0,0,0.0,76.0,2.0,1156407.0
+5868096,2026-10-18,laliga,Málaga,Pablo Martínez,923298,M,1,90,3,1,1,0.13,78.0,2.0,1723934.0
+5868096,2026-10-18,laliga,Málaga,Adrián Nino,1403695,F,1,82,3,2,1,0.25,104.0,3.0,
+5868096,2026-10-18,laliga,Málaga,Chupe,1669622,F,1,90,5,2,0,0.37,106.0,3.0,4313430.0
+5868096,2026-10-18,laliga,Málaga,Adam Aznou,1573563,D,0,45,1,0,0,0.12,,1.0,14216652.0
+5868096,2026-10-18,laliga,Málaga,Ramón Enríquez,1082957,M,0,44,0,0,0,0.0,,2.0,363054.0
+5868096,2026-10-18,laliga,Málaga,Dani Lorenzo,1317624,M,0,26,1,0,0,0.03,,2.0,1807067.0
+5868096,2026-10-18,laliga,Málaga,Joaquín Muñoz,951739,M,0,22,2,1,0,0.1,,2.0,1083845.0
+5868096,2026-10-18,laliga,Málaga,Carlos Puga,1668274,D,0,8,0,0,0,0.0,,1.0,1056655.0
+5868096,2026-10-18,laliga,Real Sociedad,Alex Remiro,616539,G,1,90,0,0,0,0.0,11.0,0.0,8208878.0
+5868096,2026-10-18,laliga,Real Sociedad,Héctor Fort,1490110,D,1,61,0,0,0,0.0,32.0,1.0,15964170.0
+5868096,2026-10-18,laliga,Real Sociedad,Jon Martín,1523234,D,1,90,1,0,0,0.07,34.0,1.0,23783318.0
+5868096,2026-10-18,laliga,Real Sociedad,Mamadou Sarr,1426170,D,1,90,1,0,0,0.1,36.0,1.0,29358065.0
+5868096,2026-10-18,laliga,Real Sociedad,Aihen Muñoz,999159,D,1,71,1,0,0,0.03,38.0,1.0,1516794.0
+5868096,2026-10-18,laliga,Real Sociedad,Takefusa Kubo,848289,F,1,71,1,1,1,0.01,72.0,3.0,21480692.0
+5868096,2026-10-18,laliga,Real Sociedad,Jon Gorrotxategi,1323827,M,1,90,0,0,0,0.0,74.0,2.0,11510728.0
+5868096,2026-10-18,laliga,Real Sociedad,Carlos Soler,708890,M,1,90,2,2,0,0.1,76.0,2.0,6612601.0
+5868096,2026-10-18,laliga,Real Sociedad,Ander Barrenetxea,1002618,F,1,61,2,1,0,0.3,78.0,3.0,19299256.0
+5868096,2026-10-18,laliga,Real Sociedad,Mikel Oyarzabal,678234,F,1,90,5,3,2,0.35,104.0,3.0,22588238.0
+5868096,2026-10-18,laliga,Real Sociedad,Orri Óskarsson,1097229,F,1,79,4,1,1,1.12,106.0,3.0,22425770.0
+5868096,2026-10-18,laliga,Real Sociedad,Igor Zubeldia,698653,D,0,29,0,0,0,0.0,,1.0,5707452.0
+5868096,2026-10-18,laliga,Real Sociedad,Gonçalo Guedes,536455,F,0,29,3,1,1,0.29,,3.0,5011662.0
+5868096,2026-10-18,laliga,Real Sociedad,Sergio Gómez,844477,D,0,19,0,0,0,0.0,,1.0,17059320.0
+5868096,2026-10-18,laliga,Real Sociedad,Job Ochieng,1724551,F,0,19,1,0,0,0.03,,3.0,1174360.0
+5868096,2026-10-18,laliga,Real Sociedad,Álex Marchal,1721611,F,0,11,0,0,0,0.0,,3.0,2416812.0
+5977780,2026-10-18,fem_italia,Inter,Cecilia Rán Runarsdottir,1241206,G,1,90,0,0,0,0.0,11.0,0.0,
+5977780,2026-10-18,fem_italia,Inter,Emma Kullberg,1038494,D,1,90,0,0,0,0.0,32.0,1.0,
+5977780,2026-10-18,fem_italia,Inter,Marija Milinković,1398364,D,1,90,0,0,0,0.0,34.0,1.0,
+5977780,2026-10-18,fem_italia,Inter,Ivana Andrés,646113,D,1,90,0,0,0,0.0,36.0,1.0,
+5977780,2026-10-18,fem_italia,Inter,Chiara Robustellini,1400282,D,1,90,0,0,0,0.0,38.0,1.0,
+5977780,2026-10-18,fem_italia,Inter,Benedetta Glionna,1184942,M,1,67,1,1,0,0.0,72.0,2.0,
+5977780,2026-10-18,fem_italia,Inter,Irene Santi,1185040,M,1,85,0,0,0,0.0,74.0,2.0,
+5977780,2026-10-18,fem_italia,Inter,Karolina Lea Vilhjálmsdottir,1091704,M,1,67,1,1,1,0.0,76.0,2.0,
+5977780,2026-10-18,fem_italia,Inter,Marie Detruyer,1375221,M,1,90,3,1,0,0.0,78.0,2.0,
+5977780,2026-10-18,fem_italia,Inter,Brittany Raphino,1622303,F,1,72,0,0,0,0.0,104.0,3.0,
+5977780,2026-10-18,fem_italia,Inter,Haley Bugeja,1138109,F,1,72,5,3,1,0.0,106.0,3.0,
+5977780,2026-10-18,fem_italia,Inter,Rachele Giudici,1811995,M,0,23,1,0,0,0.0,,2.0,
+5977780,2026-10-18,fem_italia,Inter,Toni Payne,887281,M,0,23,0,0,0,0.0,,2.0,
+5977780,2026-10-18,fem_italia,Inter,Elisa Polli,1184940,F,0,18,0,0,0,0.0,,3.0,
+5977780,2026-10-18,fem_italia,Inter,Michela Cambiaghi,1184979,F,0,18,1,1,1,0.0,,3.0,
+5977780,2026-10-18,fem_italia,Inter,Maša Tomašević,1555904,M,0,5,0,0,0,0.0,,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Camelia Ceasar,734733,G,1,90,0,0,0,0.0,11.0,0.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Beatrice Merlo,1184903,M,1,72,0,0,0,0.0,32.0,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Hannah Sharts,1477582,D,1,90,0,0,0,0.0,34.0,1.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Weronika Szymaszek,1961900,D,1,90,2,0,0,0.0,36.0,1.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Laura Domínguez,1044292,M,1,90,0,0,0,0.0,38.0,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Cecilia Cavallin,1826338,F,1,60,0,0,0,0.0,72.0,3.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Manon Uffren,880050,M,1,90,1,0,0,0.0,74.0,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Julie Aune Jorde,1140230,M,1,59,0,0,0,0.0,76.0,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Tegan Leigh Bowie,1716798,F,1,45,1,0,0,0.0,78.0,3.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Emina Ekić,1259341,M,1,90,3,1,0,0.0,104.0,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Gaia Distefano,1819546,M,1,81,4,1,0,0.0,106.0,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Iara Lobo,2028758,D,0,44,0,0,0,0.0,,1.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Martina Tomaselli,887256,M,0,31,0,0,0,0.0,,2.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Signe Søndergård,1444310,F,0,30,0,0,0,0.0,,3.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Erin Healy,1561236,F,0,18,0,0,0,0.0,,3.0,
+5977780,2026-10-18,fem_italia,Parma Calcio 1913,Birta Georgsdóttir,1301829,F,0,9,0,0,0,0.0,,3.0,
+5904769,2026-10-18,turquia,Başakşehir,Muhammed Şengezer,814153,G,1,90,0,0,0,0.0,11.0,0.0,2328109.0
+5904769,2026-10-18,turquia,Başakşehir,Michał Karbownik,1065940,D,1,90,1,0,0,0.2,32.0,1.0,1511855.0
+5904769,2026-10-18,turquia,Başakşehir,Emin Bayram,1114123,D,1,90,0,0,0,0.0,34.0,1.0,5051676.0
+5904769,2026-10-18,turquia,Başakşehir,Ousseynou Ba,864066,D,1,90,0,0,0,0.0,36.0,1.0,573169.0
+5904769,2026-10-18,turquia,Başakşehir,Saba Kharebashvili,1658140,D,1,46,0,0,0,0.0,38.0,1.0,
+5904769,2026-10-18,turquia,Başakşehir,Olivier Kemen,625164,M,1,90,0,0,0,0.0,64.0,2.0,1366608.0
+5904769,2026-10-18,turquia,Başakşehir,Jakub Kałuziński,1131992,M,1,57,1,0,0,0.04,66.0,2.0,1995406.0
+5904769,2026-10-18,turquia,Başakşehir,Andreas Skov Olsen,861932,F,1,57,2,0,0,0.08,83.0,3.0,5788005.0
+5904769,2026-10-18,turquia,Başakşehir,Eldor Shomurodov,619513,M,1,90,1,1,1,0.71,85.0,2.0,5735477.0
+5904769,2026-10-18,turquia,Başakşehir,Ivan Brnić,1186010,F,1,73,3,1,0,0.11,87.0,3.0,1542209.0
+5904769,2026-10-18,turquia,Başakşehir,Umut Bozok,791915,F,1,72,4,2,0,0.55,115.0,3.0,1427130.0
+5904769,2026-10-18,turquia,Başakşehir,Ömer Ali Sahiner,303187,D,0,44,0,0,0,0.0,,1.0,507800.0
+5904769,2026-10-18,turquia,Başakşehir,Umut Günes,844473,M,0,33,1,1,1,0.12,,2.0,2147385.0
+5904769,2026-10-18,turquia,Başakşehir,Yusuf Sarı,863858,F,0,33,1,1,0,0.23,,3.0,2300853.0
+5904769,2026-10-18,turquia,Başakşehir,Bertuğ Yıldırım,1282765,F,0,18,0,0,0,0.0,,3.0,5682400.0
+5904769,2026-10-18,turquia,Başakşehir,Edin Višća,199302,M,0,17,0,0,0,0.0,,2.0,146906.0
+5904769,2026-10-18,turquia,Gaziantep FK,Kacper Tobiasz,1194358,G,1,90,0,0,0,0.0,11.0,0.0,760389.0
+5904769,2026-10-18,turquia,Gaziantep FK,Luis Pérez,766957,D,1,85,0,0,0,0.0,32.0,1.0,420002.0
+5904769,2026-10-18,turquia,Gaziantep FK,Arda Kızıldağ,1079065,D,1,90,1,0,0,0.17,34.0,1.0,429918.0
+5904769,2026-10-18,turquia,Gaziantep FK,Myenty Abena,523380,D,1,90,1,0,0,0.04,36.0,1.0,339046.0
+5904769,2026-10-18,turquia,Gaziantep FK,Abakar Sylla,1359613,D,1,46,0,0,0,0.0,38.0,1.0,
+5904769,2026-10-18,turquia,Gaziantep FK,Ogün Özcicek,1289513,M,1,90,0,0,0,0.0,65.0,2.0,325714.0
+5904769,2026-10-18,turquia,Gaziantep FK,Deian Sorescu,783806,M,1,90,3,0,0,0.11,82.0,2.0,791009.0
+5904769,2026-10-18,turquia,Gaziantep FK,Victor Gidado,1637892,M,1,46,0,0,0,0.0,84.0,2.0,586886.0
+5904769,2026-10-18,turquia,Gaziantep FK,Kacper Kozłowski,1051411,M,1,90,2,1,0,0.13,86.0,2.0,4791803.0
+5904769,2026-10-18,turquia,Gaziantep FK,Drissa Camara,967759,M,1,64,2,1,0,0.15,88.0,2.0,2507696.0
+5904769,2026-10-18,turquia,Gaziantep FK,Trivante Stewart,1420378,F,1,57,0,0,0,0.0,115.0,3.0,1238506.0
+5904769,2026-10-18,turquia,Gaziantep FK,Kerim Çalhanoğlu,1211252,D,0,44,0,0,0,0.0,,1.0,533946.0
+5904769,2026-10-18,turquia,Gaziantep FK,Alexandru Maxim,298923,M,0,45,1,0,0,0.09,,2.0,319642.0
+5904769,2026-10-18,turquia,Gaziantep FK,Serdar Dursun,317267,F,0,33,2,2,1,0.45,,3.0,375528.0
+5904769,2026-10-18,turquia,Gaziantep FK,Karamba Gassama,1717397,F,0,26,0,0,0,0.0,,3.0,783824.0
+5904769,2026-10-18,turquia,Gaziantep FK,Sabahattin Destici,1564576,D,0,5,0,0,0,0.0,,1.0,439300.0
+5749700,2026-10-18,serie_a,Milan,Mike Maignan,466439,G,1,90,0,0,0,0.0,11.0,0.0,20225627.0
+5749700,2026-10-18,serie_a,Milan,Mario Gila,1106074,D,1,84,1,1,1,0.37,33.0,1.0,32318693.0
+5749700,2026-10-18,serie_a,Milan,Koni De Winter,1200630,D,1,90,0,0,0,0.0,35.0,1.0,24155306.0
+5749700,2026-10-18,serie_a,Milan,Strahinja Pavlović,1048023,D,1,90,0,0,0,0.0,37.0,1.0,37450726.0
+5749700,2026-10-18,serie_a,Milan,Samuel Chukwueze,688300,F,1,53,1,0,0,0.05,62.0,3.0,15482395.0
+5749700,2026-10-18,serie_a,Milan,Yunus Musah,1137272,M,1,75,1,0,0,0.08,64.0,2.0,15960702.0
+5749700,2026-10-18,serie_a,Milan,Luka Modrić,31097,M,1,75,0,0,0,0.0,66.0,2.0,1859263.0
+5749700,2026-10-18,serie_a,Milan,Diego Moreira,1342754,F,1,90,1,0,0,0.01,68.0,3.0,26460743.0
+5749700,2026-10-18,serie_a,Milan,Adrien Rabiot,352879,M,1,90,3,1,1,0.16,84.0,2.0,14865100.0
+5749700,2026-10-18,serie_a,Milan,Christian Pulisic,688295,F,1,75,0,0,0,0.0,86.0,3.0,29234537.0
+5749700,2026-10-18,serie_a,Milan,Gonçalo Ramos,940087,F,1,90,3,3,1,1.69,105.0,3.0,49403020.0
+5749700,2026-10-18,serie_a,Milan,Omari Hutchinson,1215652,F,0,37,0,0,0,0.0,,3.0,39013857.0
+5749700,2026-10-18,serie_a,Milan,Ardon Jashari,1163219,M,0,15,1,1,0,0.05,,2.0,25996906.0
+5749700,2026-10-18,serie_a,Milan,Pervis Estupinán,688278,M,0,15,0,0,0,0.0,,2.0,12941535.0
+5749700,2026-10-18,serie_a,Milan,Ruben Loftus-Cheek,604982,M,0,15,0,0,0,0.0,,2.0,4033003.0
+5749700,2026-10-18,serie_a,Milan,Fikayo Tomori,749662,D,0,6,0,0,0,0.0,,1.0,11392535.0
+5749700,2026-10-18,serie_a,Atalanta,Marco Carnesecchi,1013021,G,1,90,0,0,0,0.0,11.0,0.0,32215246.0
+5749700,2026-10-18,serie_a,Atalanta,Raoul Bellanova,902651,M,1,90,0,0,0,0.0,32.0,2.0,16775464.0
+5749700,2026-10-18,serie_a,Atalanta,Thomas Kristensen,1190029,D,1,90,0,0,0,0.0,34.0,1.0,12912888.0
+5749700,2026-10-18,serie_a,Atalanta,Sead Kolašinac,304345,D,1,20,0,0,0,0.0,36.0,1.0,2175437.0
+5749700,2026-10-18,serie_a,Atalanta,Lorenzo Bernasconi,1191093,M,1,75,0,0,0,0.0,38.0,2.0,12551652.0
+5749700,2026-10-18,serie_a,Atalanta,Lazar Samardžić,1050178,M,1,75,3,0,0,0.09,73.0,2.0,17294361.0
+5749700,2026-10-18,serie_a,Atalanta,Éderson,957203,M,1,90,1,0,0,0.04,75.0,2.0,43922555.0
+5749700,2026-10-18,serie_a,Atalanta,Mario Pašalić,446266,M,1,58,0,0,0,0.0,77.0,2.0,4458791.0
+5749700,2026-10-18,serie_a,Atalanta,Charles De Ketelaere,1095432,M,1,90,1,0,0,0.03,103.0,2.0,42844691.0
+5749700,2026-10-18,serie_a,Atalanta,Nikola Krstović,833638,F,1,90,4,1,1,0.63,105.0,3.0,33404241.0
+5749700,2026-10-18,serie_a,Atalanta,Jonathan Rowe,1113694,F,1,58,0,0,0,0.0,107.0,3.0,32148084.0
+5749700,2026-10-18,serie_a,Atalanta,Relja Obrić,1692456,D,0,70,0,0,0,0.0,,1.0,1384239.0
+5749700,2026-10-18,serie_a,Atalanta,Gianluca Gaetano,1012842,M,0,31,1,1,1,0.44,,2.0,7230126.0
+5749700,2026-10-18,serie_a,Atalanta,Nicola Zalewski,1053714,M,0,32,0,0,0,0.0,,2.0,23228976.0
+5749700,2026-10-18,serie_a,Atalanta,Davide Zappacosta,244811,M,0,15,2,2,0,0.41,,2.0,2797925.0
+5749700,2026-10-18,serie_a,Atalanta,Gianluca Scamacca,721089,F,0,15,0,0,0,0.0,,3.0,20868092.0
+5882319,2026-10-18,fem_espana,Atlético Madrid,Lola Gallardo,646081,G,1,90,0,0,0,0.0,11.0,0.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Lucía Rodríguez,1044269,D,1,90,0,0,0,0.0,32.0,1.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Lauren,1345436,D,1,81,0,0,0,0.0,34.0,1.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Viola Calligaris,859018,D,1,90,0,0,0,0.0,36.0,1.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Rosa Otermín,887334,D,1,90,0,0,0,0.0,38.0,1.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Fiamma Benítez,1345374,M,1,73,2,1,1,0.0,73.0,2.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Maite Zubieta,1345266,M,1,90,1,0,0,0.0,75.0,2.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Natalia Peñalvo,1821332,M,1,45,1,1,0,0.0,77.0,2.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Giovana Queiroz,1178009,F,1,90,2,2,0,0.0,103.0,3.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Synne Jensen,440247,F,1,73,5,4,2,0.0,105.0,3.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Celia Segura,1686784,M,1,61,2,2,1,0.0,107.0,2.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Henrietta Csiszár,908518,M,0,44,0,0,0,0.0,,2.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Luany,1451903,F,0,29,0,0,0,0.0,,3.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Jennifer Hermoso,298612,M,0,17,0,0,0,0.0,,2.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Gabriela Nunes Da Silva,1296338,F,0,17,0,0,0,0.0,,3.0,
+5882319,2026-10-18,fem_espana,Atlético Madrid,Génesis Pérez,1510592,G,0,9,0,0,0,0.0,,0.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Paola Ulloa,1044311,G,1,90,0,0,0,0.0,11.0,0.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Sandra Villafañe,1406210,D,1,90,1,0,0,0.0,32.0,1.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Kate Taylor,1341216,D,1,90,2,0,0,0.0,34.0,1.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Romane Lejeune,1346003,D,1,77,0,0,0,0.0,36.0,1.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Raiderlin Carrasco,1406571,M,1,76,0,0,0,0.0,38.0,2.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Marina Rivas,1345557,M,1,90,0,0,0,0.0,72.0,2.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Ana González,1093242,M,1,90,3,2,0,0.0,74.0,2.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Debora Bebe,2155781,M,1,46,0,0,0,0.0,76.0,2.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Emilie Luplau Holt,1531752,M,1,45,1,1,0,0.0,78.0,2.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Emilie Nautnes,658219,F,1,90,5,2,0,0.0,104.0,3.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Sakina Ouzraoui,1077625,F,1,46,0,0,0,0.0,106.0,3.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Alba Ruiz,1345451,M,0,45,2,1,0,0.0,,2.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Mariana Silva,1835420,M,0,44,0,0,0,0.0,,2.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Hasnath Ubamba,1795753,F,0,45,3,1,0,0.0,,3.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Mônica,646056,D,0,14,0,0,0,0.0,,1.0,
+5882319,2026-10-18,fem_espana,Madrid CFF,Sofía Hernández,1807880,D,0,13,0,0,0,0.0,,1.0,
+5739526,2026-10-18,dinamarca,FC København,Diant Ramaj,1042347,G,1,90,0,0,0,0.0,11.0,0.0,5616670.0
+5739526,2026-10-18,dinamarca,FC København,Felix Beijmo,628816,D,1,90,2,1,0,0.52,32.0,1.0,2058177.0
+5739526,2026-10-18,dinamarca,FC København,Asger Sørensen,509349,D,1,90,1,0,0,0.11,34.0,1.0,1553667.0
+5739526,2026-10-18,dinamarca,FC København,Ákos Markgráf,1591669,D,1,90,0,0,0,0.0,36.0,1.0,1187289.0
+5739526,2026-10-18,dinamarca,FC København,Marcos López,823209,D,1,84,1,0,0,0.03,38.0,1.0,2418658.0
+5739526,2026-10-18,dinamarca,FC København,Alex Král,836797,M,1,90,1,0,0,0.14,64.0,2.0,1775059.0
+5739526,2026-10-18,dinamarca,FC København,William Clem,1320887,M,1,65,2,0,0,0.05,66.0,2.0,2801909.0
+5739526,2026-10-18,dinamarca,FC København,Junnosuke Suzuki,1337765,D,1,90,4,1,0,0.2,83.0,1.0,2287942.0
+5739526,2026-10-18,dinamarca,FC København,Mohamed Elyounoussi,261936,M,1,84,2,0,0,0.07,85.0,2.0,2298883.0
+5739526,2026-10-18,dinamarca,FC København,Robert,1494913,F,1,84,7,3,1,0.52,87.0,3.0,2500782.0
+5739526,2026-10-18,dinamarca,FC København,Viktor Daðason,1509069,F,1,75,2,2,0,0.22,115.0,3.0,953856.0
+5739526,2026-10-18,dinamarca,FC København,Thomas Delaney,170218,M,0,25,0,0,0,0.0,,2.0,304487.0
+5739526,2026-10-18,dinamarca,FC København,Geovanni Vianney,1901848,F,0,15,1,0,0,0.09,,3.0,1042799.0
+5739526,2026-10-18,dinamarca,FC København,Birger Meling,566681,D,0,6,0,0,0,0.0,,1.0,539395.0
+5739526,2026-10-18,dinamarca,FC København,Mads Madsen,775246,M,0,6,1,0,0,0.02,,2.0,1719885.0
+5739526,2026-10-18,dinamarca,FC København,Thapelo Maseko,1394951,F,0,6,0,0,0,0.0,,3.0,891996.0
+5739526,2026-10-18,dinamarca,AGF,Jesper Hansen,25329,G,1,90,0,0,0,0.0,11.0,0.0,264266.0
+5739526,2026-10-18,dinamarca,AGF,Tobias Mølgaard,586712,D,1,90,0,0,0,0.0,33.0,1.0,506805.0
+5739526,2026-10-18,dinamarca,AGF,Frederik Tingager,371728,D,1,90,1,0,0,0.05,35.0,1.0,379304.0
+5739526,2026-10-18,dinamarca,AGF,Daníel Grétarsson,289237,D,1,67,0,0,0,0.0,37.0,1.0,299207.0
+5739526,2026-10-18,dinamarca,AGF,Rasmus Carstensen,1026834,M,1,46,0,0,0,0.0,62.0,2.0,1621172.0
+5739526,2026-10-18,dinamarca,AGF,Kristian Arnstad,1053293,M,1,90,0,0,0,0.0,64.0,2.0,6656183.0
+5739526,2026-10-18,dinamarca,AGF,Magnus Knudsen,1025560,M,1,90,1,0,0,0.03,66.0,2.0,2340582.0
+5739526,2026-10-18,dinamarca,AGF,Frederik Emmery,1645317,M,1,90,1,0,0,0.22,68.0,2.0,1349738.0
+5739526,2026-10-18,dinamarca,AGF,Tobias Bech,981047,F,1,90,2,1,0,0.21,84.0,3.0,4085159.0
+5739526,2026-10-18,dinamarca,AGF,Callum McCowatt,848352,M,1,75,0,0,0,0.0,86.0,2.0,1726028.0
+5739526,2026-10-18,dinamarca,AGF,Janni Serra,641597,F,1,74,2,2,1,0.3,105.0,3.0,328983.0
+5739526,2026-10-18,dinamarca,AGF,Jacob Andersen,1258304,M,0,44,0,0,0,0.0,,2.0,543533.0
+5739526,2026-10-18,dinamarca,AGF,Eric Kahl,1096495,D,0,23,0,0,0,0.0,,1.0,2336058.0
+5739526,2026-10-18,dinamarca,AGF,James Bogere,1843410,F,0,16,0,0,0,0.0,,3.0,987296.0
+5739526,2026-10-18,dinamarca,AGF,Markus Solbakken,742410,M,0,15,0,0,0,0.0,,2.0,1715962.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Diego Enríquez,1432728,G,1,90,0,0,0,0.0,11.0,0.0,1473315.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Leandro Sosa,581722,D,1,90,0,0,0,0.0,32.0,1.0,207046.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Miguel Araujo,427202,D,1,90,1,0,0,0.0,34.0,1.0,278449.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Rafael Lutiger,1049675,D,1,90,1,0,0,0.0,36.0,1.0,1106756.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Cristiano,860517,D,1,90,0,0,0,0.0,38.0,1.0,252400.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Agustín Álvarez,1186012,M,1,63,1,0,0,0.0,64.0,2.0,358787.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Yoshimar Yotún,116911,M,1,90,2,0,0,0.0,66.0,2.0,237290.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Santiago González,892828,F,1,90,3,1,0,0.0,83.0,3.0,941127.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Luis Iberico,547724,M,1,89,3,2,2,0.0,85.0,2.0,215547.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Maxloren Castro,1607385,F,1,73,1,0,0,0.0,87.0,3.0,
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Michael Hoyos,193881,F,1,63,3,1,0,0.0,115.0,3.0,325330.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Martín Távara,834703,M,0,27,1,0,0,0.0,,2.0,412008.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Hernán Barcos,18694,F,0,27,2,2,2,0.0,,3.0,257839.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Luis Abram,547740,D,0,17,0,0,0,0.0,,1.0,802692.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Juan González,795225,D,0,1,0,0,0,0.0,,1.0,168973.0
+1000017263,2026-10-18,per_liga1,Sporting Cristal,Gabriel,263933,M,0,1,0,0,0,0.0,,2.0,120941.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Matías Córdova,1253279,G,1,90,0,0,0,0.0,11.0,0.0,302871.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Jhon Sánchez,1031760,D,1,90,0,0,0,0.0,32.0,1.0,245006.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Flavio Alcedo,1254926,D,1,90,2,1,0,0.0,34.0,1.0,356481.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Juan Rodríguez,1606731,D,1,90,4,0,0,0.0,36.0,1.0,
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Daniel Lino,1130934,D,1,90,0,0,0,0.0,38.0,1.0,239124.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Yimy Gamero,1202979,M,1,46,0,0,0,0.0,72.0,2.0,
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,José Parodi,1342744,M,1,84,0,0,0,0.0,74.0,2.0,150793.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Alexis Arias,547844,M,1,39,0,0,0,0.0,76.0,2.0,158757.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Jean Olivares,1541940,M,1,84,0,0,0,0.0,78.0,2.0,
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Rodrigo Vilca,1100577,M,1,78,0,0,0,0.0,95.0,2.0,329717.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Matías Sen,579932,F,1,90,6,2,1,0.0,115.0,3.0,390309.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Agustín Rodríguez,1436118,M,0,51,0,0,0,0.0,,2.0,366939.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Josuee Herrera,1003245,M,0,45,1,1,1,0.0,,2.0,280401.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Thiago Salinas,1898422,M,0,12,0,0,0,0.0,,2.0,376131.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Óscar Pinto,1195395,M,0,6,1,1,0,0.0,,2.0,222982.0
+1000017263,2026-10-18,per_liga1,Comerciantes Unidos,Maximiliano Pérez,832200,F,0,6,0,0,0,0.0,,3.0,
+5847205,2026-10-18,rus_premier,Spartak Moscow,Ilya Pomazun,308232,G,1,90,0,0,0,0.0,11.0,0.0,1118145.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Roman Zobnin,464304,D,1,90,1,0,0,0.01,32.0,1.0,1144888.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Ruslan Litvinov,1084160,M,1,90,1,0,0,0.02,34.0,2.0,6710577.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Srdjan Babić,540967,D,1,90,0,0,0,0.0,36.0,1.0,1808999.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Víctor Parada,1056071,D,1,63,2,1,0,0.18,38.0,1.0,4542432.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Nail Umyarov,948955,M,1,90,1,0,0,0.02,65.0,2.0,8652866.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Pablo Solari,1201406,F,1,74,6,4,1,1.54,82.0,3.0,9213315.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Danil Prutsev,880227,M,1,90,0,0,0,0.0,84.0,2.0,5771172.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Esequiel Barco,789068,M,1,83,4,2,0,0.33,86.0,2.0,13137906.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Marquinhos,857270,F,1,63,1,0,0,0.04,88.0,3.0,6791173.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Manfred Ugalde,1016738,F,1,64,1,1,1,0.38,115.0,3.0,13438217.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Danil Denisov,1172804,D,0,27,0,0,0,0.0,,1.0,5242613.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Igor Dmitriev,1265176,D,0,27,0,0,0,0.0,,1.0,5057701.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Mirlind Daku,1059398,F,0,26,4,2,2,0.76,,3.0,9460992.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Nikita Massalyga,1735777,M,0,16,0,0,0,0.0,,2.0,926730.0
+5847205,2026-10-18,rus_premier,Spartak Moscow,Ivan Sorokin,1920203,M,0,7,1,0,0,0.03,,2.0,
+5847205,2026-10-18,rus_premier,Rubin Kazan,Evgeni Staver,949473,G,1,90,0,0,0,0.0,11.0,0.0,1533975.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Nikita Lobov,1641034,D,1,90,1,0,0,0.01,33.0,1.0,
+5847205,2026-10-18,rus_premier,Rubin Kazan,Igor Vujačić,463300,D,1,90,0,0,0,0.0,35.0,1.0,1864644.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Jakhongir Urozov,1477513,D,1,69,0,0,0,0.0,37.0,1.0,937923.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Anderson Arroyo,1034755,D,1,90,0,0,0,0.0,51.0,1.0,1824969.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Ilya Rozhkov,1386110,M,1,90,0,0,0,0.0,59.0,2.0,6205824.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Veldin Hodža,1190351,M,1,69,1,1,0,0.01,72.0,2.0,4298055.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Eddie Salcedo,872344,F,1,79,0,0,0,0.0,74.0,3.0,1234377.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Ugochukwu Iwu,1200931,M,1,90,2,0,0,0.04,76.0,2.0,2003346.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Ulvi Babaev,1369899,F,1,45,2,0,0,0.11,78.0,3.0,1016837.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Jacques Siwe,1245978,F,1,70,0,0,0,0.0,115.0,3.0,2001979.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Nazmi Gripshi,761784,F,0,45,1,0,0,0.01,,3.0,1677897.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Yegor Teslenko,936922,D,0,21,0,0,0,0.0,,1.0,2287162.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Ignacio Saavedra,905825,M,0,21,1,0,0,0.04,,2.0,1737514.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Ruslan Bezrukov,1188770,F,0,21,1,0,0,0.05,,3.0,1366770.0
+5847205,2026-10-18,rus_premier,Rubin Kazan,Daniil Motorin,1386112,F,0,11,0,0,0,0.0,,3.0,298598.0

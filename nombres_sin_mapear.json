@@ -13,8 +13,8 @@
   },
   "Atlético Madrid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Sucre",
-    "ratio": 0.6897,
+    "candidato": "Atletico Balboa",
+    "ratio": 0.6667,
     "visto": "2026-10-18"
   },
   "Atlético Tucumán": {
@@ -85,7 +85,7 @@
   },
   "Deportivo Moquegua": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Moron",
+    "candidato": "Deportivo Mixco",
     "ratio": 0.7273,
     "visto": "2026-10-18"
   },
@@ -211,15 +211,15 @@
   },
   "Real Betis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Madrid W",
-    "ratio": 0.5714,
-    "visto": "2026-10-17"
+    "candidato": "Real Santander",
+    "ratio": 0.5,
+    "visto": "2026-10-18"
   },
   "Real Madrid": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Real Oruro",
-    "ratio": 0.5714,
-    "visto": "2026-10-17"
+    "candidato": "Real Santander",
+    "ratio": 0.64,
+    "visto": "2026-10-18"
   },
   "Real Oviedo": {
     "contexto": "cuotas_mx→futbol",
@@ -329,9 +329,9 @@
   },
   "São Bernardo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Paulo",
-    "ratio": 0.5714,
-    "visto": "2026-10-17"
+    "candidato": "Sao Joseense",
+    "ratio": 0.5,
+    "visto": "2026-10-18"
   },
   "Nacional Asunción": {
     "contexto": "cuotas_mx→futbol",
@@ -527,7 +527,7 @@
   },
   "Cúcuta Deportivo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Moron",
+    "candidato": "Deportivo Mixco",
     "ratio": 0.5806,
     "visto": "2026-10-18"
   },
@@ -605,8 +605,8 @@
   },
   "Deportivo Maldonado": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Moron",
-    "ratio": 0.7647,
+    "candidato": "Deportivo Santani",
+    "ratio": 0.7222,
     "visto": "2026-10-18"
   },
   "Deportivo Maipú": {
@@ -869,9 +869,9 @@
   },
   "Deportes Tolima": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "U. de Deportes W (Per)",
-    "ratio": 0.5294,
-    "visto": "2026-10-15"
+    "candidato": "U. de Deportes",
+    "ratio": 0.5714,
+    "visto": "2026-10-18"
   },
   "Tampa Bay Rowdies": {
     "contexto": "cuotas_mx→futbol",
@@ -899,9 +899,9 @@
   },
   "Los Andes": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Los Chankas",
-    "ratio": 0.7,
-    "visto": "2026-10-16"
+    "candidato": "Los Angeles FC 2",
+    "ratio": 0.64,
+    "visto": "2026-10-18"
   },
   "América Mineiro": {
     "contexto": "cuotas_mx→futbol",
@@ -959,8 +959,8 @@
   },
   "Atlético-MG": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Atletico Sucre",
-    "ratio": 0.72,
+    "candidato": "Atletico Balboa",
+    "ratio": 0.6923,
     "visto": "2026-10-18"
   },
   "Oldham Athletic": {
@@ -1019,8 +1019,8 @@
   },
   "Newell's Old Boys": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "All Boys",
-    "ratio": 0.56,
+    "candidato": "Old Road",
+    "ratio": 0.4,
     "visto": "2026-10-18"
   },
   "Boca Juniors": {
@@ -1343,8 +1343,8 @@
   },
   "Urawa Red Diamonds": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Qingdao Red Lions",
-    "ratio": 0.5714,
+    "candidato": "New York Red Bulls II",
+    "ratio": 0.359,
     "visto": "2026-10-18"
   },
   "Aston Villa": {
@@ -1505,9 +1505,9 @@
   },
   "Nacional Potosí": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Nacional Asuncion",
-    "ratio": 0.625,
-    "visto": "2026-10-17"
+    "candidato": "Club Nacional de Football W (Uru)",
+    "ratio": 0.4783,
+    "visto": "2026-10-18"
   },
   "Unión La Calera": {
     "contexto": "cuotas_mx→futbol",
@@ -2033,9 +2033,9 @@
   },
   "PSV Eindhoven": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "PSV U19",
-    "ratio": 0.4,
-    "visto": "2026-10-12"
+    "candidato": "Jong PSV",
+    "ratio": 0.2857,
+    "visto": "2026-10-18"
   },
   "Al-Shamal": {
     "contexto": "cuotas_mx→futbol",
@@ -2111,9 +2111,9 @@
   },
   "York City": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "New York City",
-    "ratio": 0.6667,
-    "visto": "2026-10-14"
+    "candidato": "New York City II",
+    "ratio": 0.4,
+    "visto": "2026-10-18"
   },
   "Tokyo Verdy 1969": {
     "contexto": "cuotas_mx→futbol",
@@ -2281,6 +2281,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Rayo Vallecano B",
     "ratio": 0.6429,
+    "visto": "2026-10-18"
+  },
+  "FC Utrecht": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Jong Utrecht",
+    "ratio": 0.7273,
     "visto": "2026-10-18"
   }
 }
