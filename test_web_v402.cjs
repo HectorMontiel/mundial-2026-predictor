@@ -34,6 +34,16 @@ assert.match(hardening, /procesar_vip_unico/);
 assert.match(hardening, /registrar_comentario/);
 assert.match(hardening, /v_intentos > 5/);
 
+assert.match(hardening, /pg_advisory_xact_lock/);
+assert.match(hardening, /reservar_lugar_fundador/);
+assert.match(hardening, /estado in \('authorized', 'pagado'\)/);
+const vipEdge = fs.readFileSync('supabase/functions/vip/index.ts', 'utf8');
+const stripeEdge = fs.readFileSync('supabase/functions/stripe/index.ts', 'utf8');
+assert.match(vipEdge, /rpc\('reservar_lugar_fundador'/);
+assert.match(stripeEdge, /rpc\('reservar_lugar_fundador'/);
+assert.doesNotMatch(vipEdge, /Number\(lugares \?\? 0\)/);
+assert.doesNotMatch(stripeEdge, /Number\(lugares \?\? 0\)/);
+
 const negocio = fs.readFileSync('web/negocio.sql', 'utf8');
 const vipSql = fs.readFileSync('supabase/v383_usuarios_vip.sql', 'utf8');
 for (const [nombre, sql] of [['web/negocio.sql', negocio], ['supabase/v383_usuarios_vip.sql', vipSql], ['supabase/v402_bughunter_hardening.sql', hardening]]) {
