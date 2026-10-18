@@ -96,7 +96,7 @@
         <div class="caja plan destacado">
           <div class="tit">No Win, No Pay</div>
           <div class="precio">🪙 por pick</div>
-          <ul><li>Desbloquea un 💎, 🔷 o 💰 suelto</li><li><b>Si el pick sale rojo, tus monedas regresan solas</b></li><li>50 🪙 de regalo al registrarte</li></ul>
+          <ul><li>Desbloquea un 💎, 🔷 o 💰 suelto, o una 🔗 combinada entera</li><li><b>Si sale roja, tus monedas regresan solas</b></li><li>50 🪙 de regalo al registrarte</li></ul>
           <table class="tabla precios"><tr><th>Cuota del pick</th><th>Cuesta</th></tr>
             <tr><td>1.01 – 1.29</td><td>5 🪙</td></tr><tr><td>1.30 – 1.59</td><td>8 🪙</td></tr><tr><td>1.60 – 1.99</td><td>12 🪙</td></tr>
             <tr><td>2.00 – 2.99</td><td>18 🪙</td></tr><tr><td>3.00 o más</td><td>25 🪙</td></tr></table>
@@ -106,14 +106,30 @@
         <div class="caja plan">
           <div class="tit">VIP</div>
           <div class="precio">$149 <small>al mes</small></div>
-          <ul><li>⭐ <b>Fundadores: $99 al mes</b> para los primeros 50, para siempre</li><li>O semestral: $749 cada 6 meses</li><li>Todos los 💎 y 🔷 sin gastar monedas</li><li>Grupo VIP de Telegram con avisos al momento</li></ul>
+          <ul><li>⭐ <b>Fundadores: $99 al mes</b> para los primeros 50, para siempre</li><li>O semestral: $749 cada 6 meses</li><li>Todos los 💎, 🔷 y 🔗 combinadas sin gastar monedas</li><li>Grupo VIP de Telegram con avisos al momento: 💰 errores de cuota en cuanto aparecen, ⏰ «ya es hora de apostar», ♻️ cambios y 🌙 el resumen de la noche</li></ul>
           <button class="vip-btn" data-mi-cuenta>Hacerme VIP</button>
         </div>
       </div>
-      <p class="aviso">🎉 Lanzamiento: con tu cuenta gratis ves los 💎 y 🔷 por tiempo limitado, y te llevas 50 🪙 de regalo.</p>
+      <p class="aviso">🎉 Al crear tu cuenta gratis te llevas 50 🪙 de regalo para desbloquear tus primeros picks.</p>
       <div id="telegram" class="tg-links"></div>
     </section>
     <button class="caja niveles-ayuda boton-ayuda" data-ayuda>❓ ¿Qué significa cada cosa? Toca aquí</button>
+    <!-- v401 — comentarios: llegan al correo de SharPicks (`comentarios_correo.py`) -->
+    <section class="caja comentarios" id="comentarios">
+      <div class="tit">💬 ¿Qué mejorarías de SharPicks?</div>
+      <p class="sub">Ideas, algo que no funciona o lo que quieras decirnos. Lo leemos todo.</p>
+      <form id="f-comentario">
+        <div class="chips" id="com-tipo">
+          <button type="button" class="chip activa" data-com-tipo="idea">💡 Idea</button>
+          <button type="button" class="chip" data-com-tipo="falla">🐞 Algo no funciona</button>
+          <button type="button" class="chip" data-com-tipo="otro">💬 Otro</button>
+        </div>
+        <textarea id="com-texto" rows="4" maxlength="2000" required placeholder="Escribe aquí tu comentario…"></textarea>
+        <input type="email" id="com-correo" maxlength="200" placeholder="Tu correo (opcional, para responderte)" autocomplete="email">
+        <button type="submit" class="vip-btn">Enviar comentario</button>
+        <p class="tenue chico" id="com-msg"></p>
+      </form>
+    </section>
     <footer>
       <p>Juego responsable · Sólo mayores de 18 años. Acertar mucho no garantiza ganar dinero: a cuota baja hace falta acertar muchísimo para no perder.</p>
       <p class="tenue" id="actualizado"></p>
@@ -190,8 +206,9 @@
     <li>★ <b>Seguir</b>: guarda un pick en «Mis picks» para verlo rápido.</li>
     <li>📋 <b>Antes del partido</b>: la forma de cada equipo y sus últimos enfrentamientos.</li>
     <li>🪙 <b>Monedas</b>: sirven para abrir un pick premium suelto. <b>Si sale mal, te regresamos tus monedas solas.</b></li>
-    <li>💎 <b>VIP</b>: ves todos los picks premium sin gastar monedas y entras al grupo VIP de Telegram.</li>
+    <li>💎 <b>VIP</b>: ves todos los picks premium y las combinadas sin gastar monedas, y entras al grupo VIP de Telegram con avisos al momento.</li>
   </ul>
+  <button class="vip-btn sec" data-ir-comentarios>💬 Déjanos tu comentario: ¿qué mejorarías?</button>
   <p class="tenue chico">Juego responsable: apuesta sólo lo que puedas perder. Acertar mucho no garantiza ganar dinero. Sólo mayores de 18 años.</p>
 </div></div>
 

@@ -101,7 +101,10 @@ INSTRUCCION = (
     'llamativo de córners o tarjetas si lo hay. 9) Da los goles esperados de CADA equipo (un decimal) y tu mejor '
     'apuesta del partido en cualquier mercado (resultado, doble oportunidad, goles, goles de un equipo, ambos '
     'anotan, córners o tarjetas), con la probabilidad que le das (0 a 1): la que más se va a cumplir, no la que '
-    'más paga. 11) Da la PROBABILIDAD (0 a 1) de cada predicción: la de tu lado de goles (más o menos de 2.5), la de que '
+    'más paga. Escríbela EXACTAMENTE en uno de estos formatos (con el nombre del equipo tal como te llega): '
+    '"Gana <equipo>", "Empate", "<equipo> o empate", "Goles: Más de 2.5", "Goles: Menos de 3.5", '
+    '"Goles <equipo>: Más de 0.5", "Ambos anotan: Sí", "Ambos anotan: No", "Córners: Más de 8.5", '
+    '"Tarjetas: Menos de 4.5". 11) Da la PROBABILIDAD (0 a 1) de cada predicción: la de tu lado de goles (más o menos de 2.5), la de que '
     'AMBOS anoten (sí), la de tu lado de córners, la de tu lado de tarjetas y la del marcador exacto (suele ser baja, '
     '0.08-0.15). Que sean coherentes con lo demás. 12) Recibes una LISTA de partidos: responde uno por cada uno, en "partidos", copiando el campo '
     '"partido" tal cual.'
@@ -365,6 +368,55 @@ def _corners_tarjetas(x: Dict):
         return None, None
 
 
+def _lado(nombre: str, home: str, away: str) -> Optional[str]:
+    """'h' o 'a' según a qué equipo del partido se refiere `nombre`."""
+    import name_mapper as nm
+    n = nm.normalizar(nombre)
+    for k, eq in (('h', home), ('a', away)):
+        e = nm.normalizar(eq)
+        if n and e and (n == e or n in e or e in n):
+            return k
+    m = nm.mapear(nombre, [home, away], contexto='ia_mejor')
+    return 'h' if m == home else 'a' if m == away else None
+
+
+def liquidar(apuesta: str, home: str, away: str, g, corners=None, tarjetas=None) -> Optional[bool]:
+    """v399 — ✅/❌ de «lo que metería la IA», con el marcador final y, si hace
+    falta, los córners o tarjetas reales. None si no se puede calificar (aún no
+    hay córners, o la IA no usó el formato): NO se cuenta, ni como verde ni roja."""
+    import re
+    a = str(apuesta or '').strip().rstrip('.').replace('Mas de', 'Más de')
+    if not a or not g:
+        return None
+    gh, ga = g
+    m = re.match(r'^(Goles|Córners|Corners|Tarjetas): (Más|Menos) de ([\d.]+)$', a, re.I)
+    if m:
+        total = {'goles': gh + ga, 'córners': corners, 'corners': corners, 'tarjetas': tarjetas}[m.group(1).lower()]
+        if total is None:
+            return None
+        return (total > float(m.group(3))) == (m.group(2).lower() == 'más')
+    m = re.match(r'^Goles (.+): (Más|Menos) de ([\d.]+)$', a, re.I)
+    if m:
+        k = _lado(m.group(1), home, away)
+        if not k:
+            return None
+        return ((gh if k == 'h' else ga) > float(m.group(3))) == (m.group(2).lower() == 'más')
+    m = re.match(r'^Ambos anotan: (Sí|Si|No)$', a, re.I)
+    if m:
+        return (gh > 0 and ga > 0) == (m.group(1).lower() != 'no')
+    if a.lower() == 'empate':
+        return gh == ga
+    m = re.match(r'^(.+) o empate$', a, re.I)
+    if m:
+        k = _lado(m.group(1), home, away)
+        return None if not k else (gh >= ga if k == 'h' else ga >= gh)
+    m = re.match(r'^Gana (.+)$', a, re.I)
+    if m:
+        k = _lado(m.group(1), home, away)
+        return None if not k else (gh > ga if k == 'h' else ga > gh)
+    return None
+
+
 def evaluar(sb, picks: List[Dict]) -> int:
     """✅/❌ a lo que la IA predijo de los partidos ya terminados."""
     import requests
@@ -372,7 +424,8 @@ def evaluar(sb, picks: List[Dict]) -> int:
     tres = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=3)).isoformat()
     r = requests.get(sb[0], headers=sb[1], timeout=30,
                      params={'select': '*', 'inicio': 'lt.' + hace, 'limit': 500,
-                             'or': '(evaluado.is.null,and(corners_real.is.null,linea_corners.not.is.null,inicio.gt.%s))' % tres})
+                             'or': '(evaluado.is.null,and(corners_real.is.null,linea_corners.not.is.null,inicio.gt.%s),'
+                                   'and(ok_mejor.is.null,mejor_apuesta.not.is.null,inicio.gt.%s))' % (tres, tres)})
     n = 0
     for x in (r.json() if r.ok else []):
         g = _final(x['partido'], x['fecha'], picks)
@@ -390,10 +443,16 @@ def evaluar(sb, picks: List[Dict]) -> int:
             extra.update(corners_real=k_real, ok_corners=(k_real > float(x['linea_corners'])) == (x['pred_corners'] == 'mas'))
         if t_real is not None and x.get('linea_tarjetas') is not None and x.get('pred_tarjetas'):
             extra.update(tarjetas_real=t_real, ok_tarjetas=(t_real > float(x['linea_tarjetas'])) == (x['pred_tarjetas'] == 'mas'))
-        if x.get('evaluado'):                 # ya evaluado: sólo faltaban córners/tarjetas
-            if 'corners_real' in extra or 'tarjetas_real' in extra:
-                u = requests.patch(sb[0], headers=sb[1], params={'id': 'eq.' + x['id']},
-                                   json={k: v for k, v in extra.items() if k.startswith(('corners', 'ok_corners', 'tarjetas', 'ok_tarjetas'))}, timeout=30)
+        # v399 — lo que metería la IA, también verde o roja
+        home, _, away = str(x['partido']).partition(' vs ')
+        okm = liquidar(x.get('mejor_apuesta'), home, away, g, k_real, t_real) if x.get('mejor_apuesta') else None
+        if okm is not None:
+            extra['ok_mejor'] = okm
+        if x.get('evaluado'):                 # ya evaluado: sólo faltaban córners/tarjetas o lo que metería
+            falta = {k: v for k, v in extra.items()
+                     if k.startswith(('corners', 'ok_corners', 'tarjetas', 'ok_tarjetas')) or (k == 'ok_mejor' and x.get('ok_mejor') is None)}
+            if falta:
+                u = requests.patch(sb[0], headers=sb[1], params={'id': 'eq.' + x['id']}, json=falta, timeout=30)
                 n += bool(u.ok)
             continue
         cambio = dict(extra, **{'marcador': '%d-%d' % g, 'ok_resultado': x['pred_resultado'] == real, 'veredictos': vs})

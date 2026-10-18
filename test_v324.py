@@ -229,8 +229,11 @@ def probar_render(doc):
     # a media mañana ya habían empezado todos y la prueba se quedaba sin nada
     # que revisar («0 de 60»), según la hora a la que corriera
     lista = [p for p in doc['datos']['pronosticos'] if not p.get('jugado') and not _empezo(p)][:60]
+    # v401 — los que no tienen NI modelo NI cuota van a otro desplegable (el de
+    # «sin nada que enseñar», ver `render`), no al de «sin nada que meter»
+    _sin_nada_que_ensenar = lambda p: (p.get('sin_modelo') or p.get('prob') is None) and p.get('sin_cuota', True)
     sin_nada = {p.get('partido') for p in lista
-                if mm.nada_que_meter(p) and not _empezo(p)}
+                if mm.nada_que_meter(p) and not _empezo(p) and not _sin_nada_que_ensenar(p)}
     pintadas = []
     _t, _nq = mm.tarjeta, mm.nada_que_meter
     mm.tarjeta = lambda st, p, **k: pintadas.append(p.get('partido')) or _t(st, p, **k)

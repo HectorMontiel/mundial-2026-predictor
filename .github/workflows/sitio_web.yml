@@ -88,6 +88,16 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           BREVO_REMITENTE: ${{ secrets.BREVO_REMITENTE }}
         run: python avisos_renovacion.py
+      # v401 — los comentarios de la página, a tu correo (el de Brevo)
+      - name: Comentarios al correo
+        continue-on-error: true
+        timeout-minutes: 2
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
+          BREVO_REMITENTE: ${{ secrets.BREVO_REMITENTE }}
+        run: python comentarios_correo.py
       - name: Publicar en Cloudflare Pages (sharpicks.pages.dev)
         if: env.CF_TOKEN != ''
         continue-on-error: true

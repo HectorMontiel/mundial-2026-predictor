@@ -71,8 +71,11 @@ def probar():
     os.environ.pop('TELEGRAM_VIP_NIVELES', None)
     m = tc.armar(ps, set(), ahora)          # 12:00 UTC = 6:00 CDMX: aún no toca el gratis
     vip = '\n'.join(t for t, _ in m['vip'])
-    check('Gana A1' in vip and 'Gana A2' not in vip and 'Gana A3' not in vip and 'Gana A4' in vip,
-          'el VIP: sus 💎 nuevos de las próximas horas y sus resultados')
+    # v400 — los 💎 se mandan al abrir su ventana para apostar (4 h antes), no al aparecer
+    check('Gana A1' not in vip and 'Gana A4' in vip, 'a 8 h del partido el VIP aún no lo manda; sí los resultados')
+    vip4 = '\n'.join(t for t, _ in tc.armar(ps, set(), dt.datetime(2026, 10, 17, 16, 30, tzinfo=dt.timezone.utc))['vip'])
+    check('Gana A1' in vip4 and 'Ya es hora de apostar' in vip4 and 'Gana A2' not in vip4 and 'Gana A3' not in vip4,
+          'el VIP: sus 💎 al abrir la ventana para apostar, y sus resultados')
     check(not [t for t, _ in m['gratis'] if t], 'el gratis no publica fuera de sus horarios')
     # el usuario: «en el gratis, combinadas de máximo 1,5 o una individual cada cierto tiempo»
     a9 = dt.datetime(2026, 10, 17, 15, 5, tzinfo=dt.timezone.utc)      # 9:05 CDMX

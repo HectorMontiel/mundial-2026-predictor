@@ -444,6 +444,34 @@
     history.replaceState(null, '', location.pathname);
     setTimeout(() => abrirMiCuenta(), 1500);
   }
+  // v401 — «¿Qué mejorarías?»: se guarda en `comentarios` (nadie lo puede leer
+  // desde la página) y el bot lo manda al correo de SharPicks
+  let comTipo = 'idea';
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-com-tipo],[data-ir-comentarios]');
+    if (!t) return;
+    if (t.dataset.comTipo) {
+      comTipo = t.dataset.comTipo;
+      document.querySelectorAll('[data-com-tipo]').forEach((b) => b.classList.toggle('activa', b === t));
+      return;
+    }
+    $('ayuda').hidden = true;
+    const ir = document.querySelector('[data-vista-ir="planes"]'); if (ir) ir.click();
+    setTimeout(() => { const c = $('comentarios'); if (c) c.scrollIntoView({ behavior: 'smooth' }); const x = $('com-texto'); if (x) x.focus(); }, 250);
+  });
+  $('f-comentario') && $('f-comentario').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const texto = $('com-texto').value.trim(), correo = $('com-correo').value.trim() || (yo.user && yo.user.email) || null;
+    if (texto.length < 3) { $('com-msg').textContent = 'Escribe un poco más, por favor.'; return; }
+    const b = e.target.querySelector('button[type=submit]'); b.disabled = true;
+    const { error } = await sb.from('comentarios').insert({ tipo: comTipo, texto, correo, pagina: location.pathname + location.search,
+      usuario: yo.user ? yo.user.id : null });
+    b.disabled = false;
+    if (error) { $('com-msg').textContent = 'No se pudo enviar. Intenta de nuevo en un momento.'; return; }
+    $('com-texto').value = '';
+    $('com-msg').textContent = '🙌 ¡Gracias! Ya nos llegó tu comentario.';
+  });
+
   // de regreso de Mercado Pago o de Stripe
   if (/[?&]vip=ok/.test(location.search)) {
     history.replaceState(null, '', location.pathname);
@@ -465,6 +493,7 @@
     const ev = filas.reduce((s, d) => s + d.verdes_elige, 0), er = filas.reduce((s, d) => s + d.rojas_elige, 0);
     const xv = filas.reduce((s, d) => s + (d.verdes_error || 0), 0), xr = filas.reduce((s, d) => s + (d.rojas_error || 0), 0);
     const { data: ia } = await sb.from('ia_aciertos').select('*').maybeSingle();
+    const { data: med } = await sb.from('ia_medicion').select('*');
     const p100 = (a, b) => (a + b ? Math.round(100 * a / (a + b)) + ' %' : '—');
     caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + Math.round(100 * tv / (tv + tr)) + ' %</span></div>' +
       '<div class="sub">💎 Diamante: ✅ ' + ev + ' ❌ ' + er + (ev + er ? ' · ' + Math.round(100 * ev / (ev + er)) + ' %' : '') + '</div>' +
@@ -483,10 +512,30 @@
       '<div class="ia-fila"><span>🟨 Tarjetas (más / menos)</span><b>✅ ' + (ia.tarjetas_ok || 0) + ' ❌ ' + (ia.tarjetas_mal || 0) + '</b><small>' + p100(ia.tarjetas_ok || 0, ia.tarjetas_mal || 0) + '</small></div>' +
       '<div class="ia-fila"><span>❌ Cuando dijo «en contra», el pick falló</span><b>' + ia.aviso_bien + ' de ' + (ia.aviso_bien + ia.aviso_mal) + '</b><small>' + p100(ia.aviso_bien, ia.aviso_mal) + '</small></div>' +
       '<div class="ia-fila"><span>✅ Cuando dijo «a favor», el pick salió</span><b>' + ia.favor_bien + ' de ' + (ia.favor_bien + ia.favor_mal) + '</b><small>' + p100(ia.favor_bien, ia.favor_mal) + '</small></div>' +
+      filaMejor(med) + calibracion(med) +
       '<p class="tenue chico">Si la IA no le gana a «elegir al favorito», no aporta: por eso la medimos aparte y nuestros picks no dependen de ella.</p>';
     caja.innerHTML = caja.innerHTML +
       '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
       filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
+  }
+
+  // v399 — «lo que metería la IA» con ✅/❌, y si sus probabilidades son
+  // honestas: cuando dijo 70-80 %, ¿cuánto salió de verdad? (`ia_medicion`)
+  function filaMejor(med) {
+    const xs = (med || []).filter((m) => m.que === 'mejor');
+    const ok = xs.reduce((s, m) => s + m.ok, 0), tot = xs.reduce((s, m) => s + m.total, 0);
+    return '<div class="ia-fila"><span>🧠 Lo que metería la IA</span><b>✅ ' + ok + ' ❌ ' + (tot - ok) + '</b><small>' +
+      (tot ? Math.round(100 * ok / tot) + ' %' : '—') + '</small></div>';
+  }
+  function calibracion(med) {
+    const xs = (med || []).filter((m) => m.total > 0);
+    if (!xs.length) return '<p class="tenue chico">¿Sus probabilidades son honestas? Aquí se va a ver: cuando dice 70 %, cuánto sale de verdad (aún sin partidos calificados).</p>';
+    const N = { goles: '⚽ Goles 2.5', ambos: '🎯 Ambos anotan', corners: '🚩 Córners', tarjetas: '🟨 Tarjetas', mejor: '🧠 Lo que metería' };
+    const orden = ['50-60 %', '60-70 %', '70-80 %', '80 % o más'];
+    xs.sort((a, b) => Object.keys(N).indexOf(a.que) - Object.keys(N).indexOf(b.que) || orden.indexOf(a.banda) - orden.indexOf(b.banda));
+    return '<div class="ctx-tit">¿Sus probabilidades son honestas?</div><table class="tabla"><tr><th>Predicción</th><th>Dijo</th><th>Salió</th><th>N</th></tr>' +
+      xs.map((m) => '<tr><td>' + (N[m.que] || esc(m.que)) + '</td><td>' + esc(m.banda) + '</td><td>' + Math.round(100 * m.ok / m.total) + ' %</td><td>' + m.total + '</td></tr>').join('') +
+      '</table><p class="tenue chico">Si «salió» queda muy por debajo de «dijo», la IA promete de más.</p>';
   }
 
   // ---------- v380: LO QUE MANDAMOS POR TELEGRAM, CON SU RESULTADO ----------

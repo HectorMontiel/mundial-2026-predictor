@@ -22,6 +22,21 @@ Qué es VIP lo dice `TELEGRAM_VIP_NIVELES` (por defecto «Diamante,Platino»).
 Para no repetir, lo enviado se apunta en Supabase (`telegram_enviados`, con la
 clave de servicio). Sin el canal o sin la base, no manda nada: nunca falla.
 
+v400 — AVISOS AL MOMENTO (el usuario: «el Telegram VIP no tiene ningún valor
+añadido a comparación de la suscripción… que empiece a mandar notificaciones
+en ambas, en el VIP más y mejores»). La app se CONSULTA; Telegram AVISA:
+  VIP
+    💰 errores de cuota en cuanto aparecen (una casa que paga de más suele
+       corregir pronto: el que se entera tarde ya no la alcanza);
+    ⏰ «ya es hora de apostar»: cada 💎/🔷 al abrir su ventana de 4 h antes del
+       partido (v351-v352: fijar ahí acierta 82 % contra 79 % al pitido);
+    ♻️ si retiramos o cambiamos algo que ya mandamos;
+    🌙 resumen de la noche: verdes y rojas del día.
+  GRATIS
+    lo de siempre (3 publicaciones, error de muestra, «ayer en el VIP») y además
+    ♻️ si se retira lo publicado, 🌙 el resumen de la noche y 🎉 al llegar a
+    100 miembros, 5 códigos de VIP de regalo (una sola vez).
+
 Ejecutar:  python telegram_canales.py [--seco]
 """
 import datetime as dt
@@ -48,6 +63,13 @@ VENTANA_GRATIS_H = 8              # sólo partidos que empiezan en las próximas
 COMB_MIN, COMB_MAX = 1.30, 1.50   # cuota total de la combinada (pedido del usuario)
 PROB_MIN_GRATIS = 0.78            # cada pata (y la sencilla) con al menos esto medido
 PIE = '\n\n<i>Juego responsable · +18 · %s</i>' % SITIO
+VENTANA_APUESTA_H = 4             # v351: la hora para apostar
+HORA_NOCHE = 22                   # 🌙 resumen del día (hora de CDMX)
+META_MIEMBROS = int(os.environ.get('TG_META_MIEMBROS', '100'))
+META_CODIGOS = 5
+META_DIAS = int(os.environ.get('TG_META_DIAS', '7'))
+# lo ya mandado con su texto (para poder avisar si se retira): {(pick, canal): fila}
+_DETALLES: Dict[Tuple[str, str], Dict] = {}
 
 
 def nivel(p: Dict) -> str:
@@ -100,21 +122,33 @@ def ya_enviados() -> Optional[Set[Tuple[str, str, str]]]:
     import requests
     desde = (dt.datetime.now(dt.timezone.utc) - dt.timedelta(days=4)).isoformat()
     r = requests.get(sb[0], headers=sb[1], timeout=30,
-                     params={'select': 'pick,canal,tipo', 'enviado': 'gte.' + desde, 'limit': 20000})
+                     params={'select': '*', 'enviado': 'gte.' + desde, 'limit': 20000})
     if not r.ok:
         logger.warning('[telegram] no se pudo leer lo enviado: %s', r.status_code)
         return None
+    _DETALLES.clear()
+    for x in r.json():
+        if x.get('tipo') == 'pick' and x.get('texto'):
+            _DETALLES[(x['pick'], x['canal'])] = x
     return {(x['pick'], x['canal'], x['tipo']) for x in r.json()}
 
 
-def apuntar(filas: List[Tuple[str, str, str]]) -> None:
+def apuntar(filas: List[Tuple]) -> None:
+    """(pick, canal, tipo) o, para los picks, (pick, canal, tipo, texto,
+    partido, inicio): con el texto se puede avisar si luego se retira."""
     sb = _sb()
     if sb is None or not filas:
         return
     import requests
     h = dict(sb[1], Prefer='resolution=ignore-duplicates,return=minimal')
+    filas = [tuple(f) + (None,) * (6 - len(f)) for f in filas]
     requests.post(sb[0], headers=h, timeout=30,
-                  json=[{'pick': a, 'canal': b, 'tipo': c} for a, b, c in filas])
+                  json=[{'pick': a, 'canal': b, 'tipo': c, 'texto': d, 'partido': e, 'inicio': f}
+                        for a, b, c, d, e, f in filas])
+
+
+def _cubre_pick(p: Dict, canal: str) -> Tuple:
+    return (p['id'], canal, 'pick', p.get('apuesta'), p.get('partido'), p.get('inicio'))
 
 
 # ---------- formato ----------
@@ -171,16 +205,67 @@ def _resultado_txt(ps: List[Dict]) -> Optional[str]:
 
 
 # ---------- el canal VIP ----------
+def _retirados(picks: List[Dict], enviados: Set, canal: str, ahora: dt.datetime) -> List[Dict]:
+    """Lo que ya mandamos a `canal`, aún sin empezar, que el modelo ya NO da.
+    Sólo con una pasada completa (si viniera casi vacía por un fallo, se callaría)."""
+    pend = [p for p in picks if p.get('estado') == 'pendiente']
+    if len(pend) < 30:
+        return []
+    vivos = {p['id'] for p in picks}
+    out = []
+    for (k, c), x in list(_DETALLES.items()):
+        ini = _utc(x.get('inicio'))
+        if c != canal or ini is None or ini <= ahora or (k, canal, 'retirado') in enviados:
+            continue
+        ids = k[5:].split('+') if k.startswith('comb:') else [k]
+        if any(i not in vivos for i in ids):
+            out.append(x)
+    return out
+
+
+def _avisos_retiro(picks: List[Dict], enviados: Set, canal: str, ahora: dt.datetime) -> List[Tuple[str, List]]:
+    rs = _retirados(picks, enviados, canal, ahora)
+    if not rs:
+        return []
+    t = ('♻️ <b>Cambio</b>: ya no recomendamos esto (el modelo lo retiró con los datos nuevos):\n\n' +
+         '\n'.join('✖️ %s · %s' % (_e(x.get('texto')), _e(x.get('partido'))) for x in rs) +
+         '\n\nSi ya lo metiste, tú decides; nosotros ya no lo contamos.' + PIE)
+    return [(t, [(x['pick'], canal, 'retirado') for x in rs])]
+
+
+def _dia_cdmx(p: Dict) -> Optional[str]:
+    ini = _utc(p.get('inicio'))
+    return ini.astimezone(CDMX).strftime('%Y-%m-%d') if ini else None
+
+
+def _tres(enviados) -> Set:
+    """(pick, canal, tipo) aunque llegue con el texto detrás (v400)."""
+    return {tuple(x[:3]) for x in enviados}
+
+
 def armar_vip(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[Tuple[str, List]]:
+    enviados = _tres(enviados)
     vip = niveles_vip()
     out = []
-    nuevos = [p for p in picks if nivel(p) in vip and p.get('estado') == 'pendiente'
-              and _utc(p.get('inicio')) is not None
-              and ahora < _utc(p.get('inicio')) <= ahora + dt.timedelta(hours=HORAS_ANTES)
-              and (p['id'], 'vip', 'pick') not in enviados]
-    if nuevos:
-        trozos = _trozos('🆕 <b>SharPicks VIP · picks nuevos</b>', _por_partido(nuevos, ahora))
-        out += [(t, []) for t in trozos[:-1]] + [(trozos[-1], [(p['id'], 'vip', 'pick') for p in nuevos])]
+    loc = ahora.astimezone(CDMX)
+    pend = [p for p in picks if nivel(p) in vip and p.get('estado') == 'pendiente'
+            and _utc(p.get('inicio')) is not None and _utc(p.get('inicio')) > ahora
+            and (p['id'], 'vip', 'pick') not in enviados]
+    # 💰 errores de cuota: AL MOMENTO (se corrigen pronto)
+    errs = [p for p in pend if p.get('tipo') == 'error'
+            and _utc(p.get('inicio')) <= ahora + dt.timedelta(hours=HORAS_ANTES)]
+    if errs:
+        trozos = _trozos('💰 <b>Error de cuota · al momento</b>\nUna casa paga más de lo que vale; estas cuotas se '
+                         'corrigen pronto. Riesgo alto: apuesta poco.', _por_partido(errs, ahora))
+        out += [(t, []) for t in trozos[:-1]] + [(trozos[-1], [_cubre_pick(p, 'vip') for p in errs])]
+    # ⏰ los demás, al abrir su ventana para apostar (4 h antes)
+    ya = [p for p in pend if p.get('tipo') != 'error'
+          and _utc(p.get('inicio')) <= ahora + dt.timedelta(hours=VENTANA_APUESTA_H)]
+    if ya:
+        trozos = _trozos('⏰ <b>Ya es hora de apostar</b> · empiezan en las próximas %d h' % VENTANA_APUESTA_H,
+                         _por_partido(ya, ahora))
+        out += [(t, []) for t in trozos[:-1]] + [(trozos[-1], [_cubre_pick(p, 'vip') for p in ya])]
+    out += _avisos_retiro(picks, enviados, 'vip', ahora)
     res = [p for p in picks if nivel(p) in vip and p.get('estado') in ('verde', 'roja')
            and _utc(p.get('inicio')) is not None and _utc(p.get('inicio')) >= ahora - dt.timedelta(hours=8)
            and (p['id'], 'vip', 'resultado') not in enviados]
@@ -190,7 +275,28 @@ def armar_vip(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[Tupl
                                      _e(p.get('partido')), _e(p.get('marcador') or '')) for p in res]
         trozos = _trozos('📊 <b>Resultados VIP</b> · ✅ %d ❌ %d\n' % (v, len(res) - v), lineas, sep='\n')
         out += [(t, []) for t in trozos[:-1]] + [(trozos[-1], [(p['id'], 'vip', 'resultado') for p in res])]
+    # 🌙 el resumen de la noche
+    hoy = loc.strftime('%Y-%m-%d')
+    if loc.hour >= HORA_NOCHE and ('noche:' + hoy, 'vip', 'resumen') not in enviados:
+        dia = [p for p in picks if nivel(p) in vip and _dia_cdmx(p) == hoy]
+        t = _resumen_noche('💎 <b>Hoy en el VIP</b>', dia)
+        if t:
+            out.append((t, [('noche:' + hoy, 'vip', 'resumen')]))
     return out
+
+
+def _resumen_noche(titulo: str, ps: List[Dict]) -> Optional[str]:
+    hechos = [p for p in ps if p.get('estado') in ('verde', 'roja')]
+    if not hechos:
+        return None
+    v = sum(1 for p in hechos if p.get('estado') == 'verde')
+    er = [p for p in hechos if p.get('tipo') == 'error']
+    ev = sum(1 for p in er if p.get('estado') == 'verde')
+    falta = sum(1 for p in ps if p.get('estado') in ('pendiente', 'vivo'))
+    return ('🌙 %s: ✅ %d ❌ %d · %d %%' % (titulo, v, len(hechos) - v, round(100 * v / len(hechos))) +
+            (('\n💰 Errores de cuota: ✅ %d ❌ %d' % (ev, len(er) - ev)) if er else '') +
+            (('\n⏳ %d por terminar' % falta) if falta else '') +
+            '\n\nTodo, verde y rojo, en el historial: %s' % SITIO)
 
 
 # ---------- el canal gratis: poco y bueno ----------
@@ -234,6 +340,7 @@ def mejor_sencilla(cands: List[Dict]) -> Optional[Dict]:
 
 
 def armar_gratis(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[Tuple[str, List]]:
+    enviados = _tres(enviados)
     out = []
     loc = ahora.astimezone(CDMX)
     hoy = loc.strftime('%Y-%m-%d')
@@ -251,10 +358,12 @@ def armar_gratis(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[T
                 t = ('🔗 <b>Combinada del día</b> · cuota total <b>%.2f</b> · probabilidad ~%d %%\n\n' % (c, round(100 * pj)) +
                      '\n\n'.join(_cab_partido(p, ahora) + '\n   ' + _apuesta(p) for p in comb) + PIE)
                 out.append((t, [(clave, 'gratis', 'horario'),
-                                ('comb:' + '+'.join(p['id'] for p in comb), 'gratis', 'pick')]))
+                                ('comb:' + '+'.join(p['id'] for p in comb), 'gratis', 'pick',
+                                 ' + '.join(str(p.get('apuesta')) for p in comb),
+                                 ' / '.join(str(p.get('partido')) for p in comb), comb[0].get('inicio'))]))
             elif sen:
                 t = ('🎯 <b>Pick del día</b>\n\n' + _cab_partido(sen, ahora) + '\n   ' + _apuesta(sen) + PIE)
-                out.append((t, [(clave, 'gratis', 'horario'), (sen['id'], 'gratis', 'pick')]))
+                out.append((t, [(clave, 'gratis', 'horario'), _cubre_pick(sen, 'gratis')]))
             else:
                 out.append(('', [(clave, 'gratis', 'horario')]))     # nada que valga: no se publica
     # el resultado de lo que se publicó
@@ -298,7 +407,49 @@ def armar_gratis(picks: List[Dict], enviados: Set, ahora: dt.datetime) -> List[T
             t = ('💎 <b>Ayer en el VIP</b>: ✅ %d ❌ %d · %d %% de acierto\n'
                  'Hazte VIP (o entra gratis con tu cuenta en el lanzamiento): %s' % (v, len(ps) - v, round(100 * v / len(ps)), SITIO))
             out.append((t, [(clave, 'gratis', 'resumen')]))
+    out += _avisos_retiro(picks, enviados, 'gratis', ahora)
+    # 🌙 la noche: lo que se publicó aquí y el total del día en la app
+    if loc.hour >= HORA_NOCHE and ('noche:' + hoy, 'gratis', 'resumen') not in enviados:
+        dia = [p for p in picks if _dia_cdmx(p) == hoy and p.get('tipo') != 'error']
+        t = _resumen_noche('<b>Hoy en SharPicks</b> (todos los picks de la app)', dia)
+        if t:
+            out.append((t, [('noche:' + hoy, 'gratis', 'resumen')]))
     return out
+
+
+def meta_miembros(chat: str, enviados: Set) -> Optional[Tuple[str, List]]:
+    """🎉 Al llegar a META_MIEMBROS en el canal gratis, UNA vez: 5 códigos de
+    VIP de META_DIAS días, creados en la base (`codigos_regalo`)."""
+    clave = 'meta-miembros:%d' % META_MIEMBROS
+    if not chat or (clave, 'gratis', 'regalo') in enviados:
+        return None
+    import bot_telegram as bt
+    r, _ = bt._post('getChatMemberCount', timeout=20, json={'chat_id': chat})
+    try:
+        n = int(r.json().get('result')) if r is not None and r.ok else 0
+    except Exception:
+        n = 0
+    if n < META_MIEMBROS:
+        return None
+    url, key = os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SERVICE_KEY')
+    if not url or not key:
+        return None
+    import requests
+    import secrets
+    abc = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+    cods = ['SHARP-%s-%s' % (''.join(secrets.choice(abc) for _ in range(4)), ''.join(secrets.choice(abc) for _ in range(4)))
+            for _ in range(META_CODIGOS)]
+    rr = requests.post(url.rstrip('/') + '/rest/v1/codigos_regalo', timeout=30,
+                       headers={'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json',
+                                'Prefer': 'return=minimal'},
+                       json=[{'codigo': c, 'dias': META_DIAS} for c in cods])
+    if not rr.ok:
+        logger.warning('[telegram] no se pudieron crear los códigos: %s %s', rr.status_code, rr.text[:200])
+        return None
+    t = ('🎉 <b>¡Ya somos %d en la comunidad!</b>\nPara celebrarlo regalamos <b>%d códigos de %d días de VIP</b>. '
+         'El primero que canjee cada uno se lo queda: entra a %s → Mi cuenta → 🎁 Canjear código.\n\n%s' %
+         (n, META_CODIGOS, META_DIAS, SITIO, '\n'.join('<code>%s</code>' % c for c in cods)) + PIE)
+    return t, [(clave, 'gratis', 'regalo')]
 
 
 def armar(picks: List[Dict], enviados: Set, ahora: Optional[dt.datetime] = None) -> Dict[str, List]:
@@ -346,6 +497,13 @@ def main() -> int:
         print('telegram: sin la base no se sabe qué ya se mandó: no se manda nada')
         return 0
     lotes = armar(picks, enviados)
+    if not seco:
+        try:
+            m = meta_miembros(chats.get('gratis'), enviados)
+            if m:
+                lotes['gratis'].append(m)
+        except Exception as e:
+            logger.warning('[telegram] meta de miembros: %s', e)
     for canal, msgs in lotes.items():
         for texto, cubre in msgs:
             if not texto:                      # horario sin nada que valga: sólo se apunta
