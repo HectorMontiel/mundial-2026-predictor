@@ -35,6 +35,15 @@ assert.match(hardening, /procesar_vip_unico/);
 assert.match(hardening, /registrar_comentario/);
 assert.match(hardening, /v_intentos > 5/);
 
+assert.equal((hardening.match(/create or replace function public\\.registrar_comentario/g) || []).length, 1);
+assert.equal((hardening.match(/-- SHP-014:/g) || []).length, 1);
+assert.doesNotMatch(hardening, /^\\s*or p_usuario is null/m);
+assert.doesNotMatch(hardening, /^\\s*as \\$(?:\\s|$)/m);
+const dollarTags = [...hardening.matchAll(/\\$[A-Za-z_][A-Za-z0-9_]*\\$|\\$\\$/g)].map(m => m[0]);
+for (const tag of new Set(dollarTags)) {
+  assert.equal(dollarTags.filter(x => x === tag).length % 2, 0, 'delimitador SQL balanceado: ' + tag);
+}
+
 assert.match(hardening, /pg_advisory_xact_lock/);
 assert.match(hardening, /reservar_lugar_fundador/);
 assert.match(hardening, /estado in \('authorized', 'pagado'\)/);
