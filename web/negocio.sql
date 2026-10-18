@@ -13,7 +13,7 @@
 -- SEGURIDAD: el texto de una apuesta premium NO va en `picks` (que lee
 -- todo el mundo) sino en `picks_premium`, y la base sólo lo deja leer a
 -- quien la desbloqueó, a quien tiene plan Pro, o cuando el partido ya
--- empezó. Esconderlo en la página no serviría: cualquiera mira el código.
+-- terminó y quedó liquidado. Esconderlo en la página no serviría: cualquiera mira el código.
 
 -- ---------- ajustes (precios) ----------
 create table if not exists public.ajustes (clave text primary key, valor text not null);
@@ -185,8 +185,8 @@ create or replace view public.telegram_publicados with (security_invoker = false
     from public.telegram_enviados where tipo = 'pick' group by canal, pick;
 grant select on public.telegram_publicados to anon, authenticated;
 
--- v381 — LANZAMIENTO: los premium los ve cualquiera CON CUENTA (gratis).
--- Para cobrar: update public.ajustes set valor = '0' where clave = 'premium_con_cuenta';
+-- v381 — el acceso premium con cuenta queda cerrado por defecto.
+-- Sólo abrirlo mediante un ajuste explícito cuando esa política comercial esté aprobada.
 insert into public.ajustes (clave, valor) values ('premium_con_cuenta', '0') on conflict (clave) do nothing;
 drop policy if exists "premium a quien le toca" on public.picks_premium;
 create policy "premium a quien le toca" on public.picks_premium for select using (
