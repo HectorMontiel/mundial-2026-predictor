@@ -170,7 +170,11 @@ def premium(picks: List[Dict]) -> List[Dict]:
 def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
     """Sube (o actualiza) cada pick en Supabase. Devuelve cuántos; 0 sin claves."""
     url, key = os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SERVICE_KEY')
-    if not url or not key or not picks:
+    if not url or not key:
+        if secretos:
+            raise RuntimeError('Hay picks premium por publicar pero faltan SUPABASE_URL/SUPABASE_SERVICE_KEY')
+        return 0
+    if not picks:
         return 0
     import requests
     filas = [dict(p, actualizado=dt.datetime.now(dt.timezone.utc).isoformat()) for p in picks]
@@ -193,6 +197,7 @@ def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
     except Exception as e:
         logger.warning('[web] errores ya jugados: %s', e)
     n = 0
+    fallos_filas = []
     hdr = {'apikey': key, 'Authorization': 'Bearer ' + key,
            'Prefer': 'resolution=merge-duplicates,return=minimal'}
     for i in range(0, len(filas), 200):
@@ -205,7 +210,10 @@ def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
             # v389 — si el lote falla, uno por uno: que un pick malo no tire a los otros 199
             for fila1 in filas[i:i + 200]:
                 r1 = requests.post(url.rstrip('/') + '/rest/v1/picks', json=[fila1], timeout=30, headers=hdr)
-                n += bool(r1.ok)
+                if r1.ok:
+                    n += 1
+                else:
+                    fallos_filas.append(fila1.get('id'))
     # v379 — LO RETIRADO SE BORRA. Si el modelo cambia «Menos de 3.5» por
     # «Menos de 4.5», la vieja se quedaba «pendiente» en la base para siempre y
     # el partido salía dos veces. Se borran las pendientes de partidos que aún
@@ -218,12 +226,17 @@ def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
                             params={'estado': 'eq.pendiente', 'inicio': 'gt.' + ahora,
                                     'id': 'not.in.(%s)' % vivos})
         if not r.ok:
-            logger.warning('[web] no se pudo limpiar lo retirado: %s %s', r.status_code, r.text[:200])
+            logger.error('[web] no se pudo limpiar lo retirado: %s %s', r.status_code, r.text[:200])
+            raise RuntimeError('Supabase no pudo limpiar picks retirados; se bloquea la publicación')
+    if fallos_filas:
+        logger.error('[web] no se sincronizaron %d picks: %s', len(fallos_filas), ','.join(str(x) for x in fallos_filas[:10]))
+        raise RuntimeError('Supabase rechazó %d picks incluso tras reintentar uno por uno' % len(fallos_filas))
     if secretos:
         r = requests.post(url.rstrip('/') + '/rest/v1/picks_premium', json=list(secretos), timeout=30,
                           headers=hdr)
         if not r.ok:
-            logger.warning('[web] picks premium: %s %s', r.status_code, r.text[:200])
+            logger.error('[web] picks premium: %s %s', r.status_code, r.text[:200])
+            raise RuntimeError('No se pudo guardar el texto premium en Supabase; se bloquea la publicación')
     return n
 
 
@@ -273,7 +286,8 @@ def main() -> int:
             reales = {x['id']: x['apuesta'] for x in secretos}
             nc = combinadas_web.subir([dict(p, _real=reales.get(p['id'])) for p in r['picks']], url, key)
     except Exception as e:
-        logger.warning('[web] combinadas: %s', e)
+        logger.exception('[web] no se pudieron sincronizar las combinadas')
+        raise RuntimeError('No se pudo sincronizar combinadas; se bloquea la publicación') from e
     print('web: %d picks en %s; %d subidos a Supabase; %d premium; %d combinadas'
           % (len(r['picks']), SALIDA, n, len(secretos), nc))
     return 0
