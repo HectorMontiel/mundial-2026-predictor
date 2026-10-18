@@ -1,6 +1,6 @@
 # Auditoría Bug Hunter — SharPicks
 
-> **Estado vigente (18-oct-2026, posterior al smoke test de las 17:50 UTC):** la PR #2 se fusionó en `main`; v403, v402, v404 y v405 constan en el historial de Supabase; el smoke test de producción volvió a pasar en el intento 2; y las cinco Edge Functions activas coinciden byte por byte con sus archivos de `main`. Las notas intermedias de este informe conservan el historial de investigación y pueden reflejar estados anteriores; para el estado actual, usa la sección final **“Verificación posterior al corte de comentarios”**. La auditoría completa no está certificada: instalación desde cero, sandbox de pagos y prueba de comentario válido en staging siguen abiertos.
+> **Estado vigente (18-oct-2026, 21:52 UTC):** las PR #2–#5 están fusionadas; v403, v402, v404 y v405 constan en Supabase; las cinco Edge Functions revisadas coinciden con `main`; el smoke test post-v405 pasó; la instalación limpia con PostgreSQL 16 pasó; y el workflow del sitio post-PR #5 terminó en verde. Para el estado final, hallazgos cerrados y limitaciones, consulta [INFORME_FINAL_BUGHUNTER_SHARPICKS_2026-10-18.md](./INFORME_FINAL_BUGHUNTER_SHARPICKS_2026-10-18.md). Las secciones siguientes conservan el historial de investigación; las anotaciones históricas `ABIERTO` deben leerse según su fecha y no reemplazan el estado del informe final. Lo que sigue sin certificarse son el checkout/webhook E2E en sandbox y un comentario válido end-to-end en staging.
 
 **Fecha:** 18 de octubre de 2026 (CDMX)  
 **Repositorio auditado:** [HectorMontiel/mundial-2026-predictor](https://github.com/HectorMontiel/mundial-2026-predictor)  
@@ -19,7 +19,7 @@ El frontend estático se publica desde `web/` mediante `.github/workflows/sitio_
 2. **Antes de dar la web por estable:** SHP-006, SHP-007, SHP-008 y SHP-009.
 3. **Calidad, operación y confianza:** SHP-010, SHP-011 y SHP-012.
 
-Los hallazgos mantienen IDs estables para que Claude y ChatGPT puedan anotar evidencia, correcciones y pruebas sin duplicar investigaciones. Todos siguen **ABIERTO** hasta que se corrija el código pertinente y la prueba de aceptación se ejecute con resultado verificable.
+Los hallazgos mantienen IDs estables para que Claude y ChatGPT anoten evidencia y pruebas sin duplicar investigaciones. Las etiquetas históricas de estado de esta versión inicial pueden estar desactualizadas; el estado definitivo de cada bloque corregido está consolidado en el informe final.
 
 ## Hallazgos
 
