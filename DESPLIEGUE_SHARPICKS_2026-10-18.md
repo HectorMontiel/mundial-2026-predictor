@@ -92,3 +92,14 @@ El workflow de sitio ahora corre pruebas antes de exportar/publicar, y publica r
 ## Reglas para el siguiente agente (Claude/ChatGPT)
 
 Antes de continuar, leer `AUDITORIA_BUGHUNTER_SHARPICKS_2026-10-18.md` y `CONTINUIDAD_AUDITORIA_SHARPICKS.md`. No reabrir ni volver a aplicar v402–v405 en producción a ciegas: ya están registradas como migraciones aplicadas. Verificar la versión actual de `main` y los logs más recientes antes de reintentar cualquier acción.
+
+
+## Pruebas transaccionales adicionales — finalización del 18-oct-2026
+
+Además de los workflows, se ejecutaron tres comprobaciones directas en Supabase dentro de transacciones que terminaron en `ROLLBACK`; no se dejaron suscripciones, modificaciones de perfil, reservas ni comentarios sintéticos persistidos:
+
+- **Pago VIP único/idempotencia:** la primera llamada a `procesar_vip_unico` insertó una sola suscripción de prueba; la segunda con el mismo ID devolvió el resultado de duplicado; `plan_hasta` no volvió a extenderse y el conteo de filas quedó en uno durante la prueba. PASS.
+- **Reserva fundador:** dos llamadas para la misma cuenta sintética/reversible produjeron una sola reserva pendiente activa; no se duplicó la plaza. PASS.
+- **Límite de comentarios:** cinco llamadas sintéticas se aceptaron y la sexta devolvió `rate_limit`; la transacción se revirtió. PASS.
+
+Estas pruebas validan la lógica PostgreSQL desplegada, no sustituyen una compra real/sandbox ni validan la entrega del webhook por Stripe/Mercado Pago. El smoke HTTP de producción sigue siendo no destructivo: comprueba el endpoint con un body inválido y no crea comentarios.
