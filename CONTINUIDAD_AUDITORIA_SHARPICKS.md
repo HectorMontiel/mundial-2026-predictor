@@ -1,5 +1,7 @@
 # Continuidad compartida — auditoría de SharPicks
 
+> **Estado vigente (18-oct-2026):** PR #2 fusionada; commit de merge `68d8f139834fce15a6867a5bad6ff1912bf05b02`; la rama `main` continúa avanzando con bots. En producción constan las migraciones `v403_finanzas_rpc_auth`, `v402_bughunter_hardening`, `v404_precios_cuota_canonico` y `v405_comentarios_solo_edge`. Las cinco Edge Functions revisadas coinciden byte por byte con `main`. Smoke test después de v405: PASS en el intento 2 de [run 39147099500](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39147099500). Las notas antiguas más abajo son el historial del trabajo; **no vuelvas a aplicar v402–v405 a ciegas**. Pendientes globales: reconstrucción limpia desde cero (SHP-003/SHP-006), pago E2E con sandbox y prueba de comentario válido en staging.
+
 **Última actualización:** 2026-10-18 (CDMX)  
 **Propietario:** HMREY / Héctor Montiel  
 **Repositorio canónico:** https://github.com/HectorMontiel/mundial-2026-predictor  
