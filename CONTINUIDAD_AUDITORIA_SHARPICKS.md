@@ -136,3 +136,41 @@ La rama y la PR evolucionaron durante la revisión. La PR [#2](https://github.co
 
 ### Validación bloqueada
 Intenté clonar la rama de forma superficial para ejecutar Node/Python tests; la terminal no pudo resolver github.com. Por tanto no se ha ejecutado test_web_v402.cjs, test_v400.py ni el resto de la suite desde este entorno. La PR no debe fusionarse hasta ejecutar esos tests en el clon local/CI y revisar logs reales.
+
+
+---
+
+## Estado verificable actualizado — 18 de octubre de 2026, 10:16 CDMX
+
+Esta sección sustituye cualquier frase anterior que dijera que no se tenía acceso a Supabase. La auditoría pasó de revisar fuentes a comprobar parte del esquema activo. **No equivale todavía a una prueba E2E de navegador ni a una validación completa de pagos.**
+
+### Qué sí se ejecutó y se comprobó
+
+1. **Corrección de privacidad financiera v403 desplegada.** Se aplicó la migración `v403_finanzas_rpc_auth` al proyecto Supabase que usa SharPicks. La migración aparece en el historial como versión `20261018150201`. Después de aplicarla, una consulta de permisos confirmó: `anon_execute=false`, `authenticated_execute=true`, `security_definer=true` y la guarda `auth.uid() = p_user_id` presente en `public.monthly_category_summary(uuid,integer,integer)`. No se consultó ni se exportó ninguna transacción de usuario.
+2. **Migración v402 y v404 validadas contra el esquema real sin persistir cambios.** Se ejecutó el contenido completo de ambas migraciones dentro de una transacción de comprobación seguida de `ROLLBACK`. El SQL compiló; las comprobaciones de firmas de funciones, permisos de RPC, política premium, comentarios y cálculo de precios finalizaron. Eso acredita compatibilidad sintáctica/estructural con el esquema actual; no significa que v402/v404 estén desplegadas.
+3. **Precio real de producción cotejado.** `public.precio_pick` ya consulta `public.precios_cuota` en producción. Las 5 bandas son 1.00–1.30 = 5 monedas; 1.30–1.60 = 8; 1.60–2.00 = 12; 2.00–3.00 = 18; 3.00–99.00 = 25. En la prueba dentro de la transacción: cuota 1.04, premium = 5; error de cuota 3.50 = 25; pick no premium con cuota 1.50 = 0. Por eso SHP-016 no era un fallo de cobro activo: era una discrepancia del SQL de instalación/versionado, corregida en esta rama.
+4. **Política premium de producción cotejada.** La política desplegada sólo habilita lectura pública cuando `p.estado` es `verde`, `roja` o `nula`; VIP/desbloqueos se contemplan por separado. SHP-015 tampoco era un fallo activo de la política en producción: la discrepancia estaba en los SQL históricos/versionados, que ahora usan la misma condición.
+5. **Pruebas de la rama aprobadas en el SHA `3f8ed123e9fdb6ecb17a5ca9ee56c2943b0621cb`.** [Validación sin despliegue](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39144109592) y [tests seguros](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39144109604) terminaron en verde. Incluyen pruebas de fechas, guardas de interfaz, 5 pruebas de fallos de sincronización premium/combinadas y las pruebas existentes `test_v383.py`, `test_v389.py`, `test_v390.py`, `test_v394.py`, `test_v395.py`, `test_v396.py`, `test_v400.py`. La validación añadida de Deno comprobó sintaxis/tipos de las cinco Edge Functions candidatas (`comentario`, `vip`, `stripe`, `mp-webhook`, `stripe-webhook`).
+
+### Qué sigue sin estar desplegado en producción
+
+- La migración `supabase/v402_bughunter_hardening.sql` (perfiles, enlace VIP, reserva de fundador, rate limit de comentarios y RPC de pago único).
+- La migración `supabase/v404_precios_cuota_canonico.sql` (hace reproducible el cálculo de precio que ya coincide con producción).
+- Las versiones candidatas de las Edge Functions y la interfaz nueva de comentarios.
+- Las correcciones de interfaz/exportador están probadas en CI, pero aún dependen de fusionar la PR y de que el workflow de sitio termine correctamente para considerarse desplegadas.
+
+### Historial de fallos y cómo quedó
+
+Los fallos que se ven en las capturas correspondían a revisiones previas de la rama. Se detectó una versión de `v402_bughunter_hardening.sql` con contenido duplicado/truncado; fue reconstruida, y la migración completa se volvió a ejecutar en una transacción de comprobación. Después, una aserción nueva de la suite dio un falso positivo por usar un regex demasiado amplio; se corrigió y la suite volvió a ejecutarse en verde. Los logs de los fallos anteriores no se ocultan: demuestran por qué no se debe equiparar un run antiguo en verde con el estado actual.
+
+### SHP-018 — RPC financiera SECURITY DEFINER permitía consultar el ID de otro usuario
+
+**Estado:** RESUELTO EN PRODUCCIÓN (v403, 18-oct-2026).  
+**Hallazgo:** `public.monthly_category_summary(p_user_id, p_year, p_month)` tenía ejecución permitida a `anon` y no verificaba la propiedad de `p_user_id`.  
+**Corrección:** la función ahora filtra por `auth.uid() = p_user_id` o `auth.role() = 'service_role'`; se revocó EXECUTE a `public/anon` y se concedió a `authenticated/service_role`.  
+**Verificación posterior:** `anon_execute=false`, `authenticated_execute=true`, guarda de propiedad presente. No se usaron datos financieros reales en la prueba.  
+**Registro versionado:** [supabase/v403_finanzas_rpc_auth.sql](https://github.com/HectorMontiel/mundial-2026-predictor/blob/audit/sharpicks-bughunter-2026-10-18/supabase/v403_finanzas_rpc_auth.sql).
+
+### Criterio de publicación vigente
+
+La PR sigue siendo el vehículo de los cambios de SharPicks. No se fusionará hasta que el CI más reciente siga en verde, se actualice el informe con el orden de despliegue, y las migraciones v402/v404 y las Edge Functions se desplieguen en una secuencia que no deje a la página apuntando a endpoints inexistentes. El sitio no se declara validado hasta comprobar el resultado de la ejecución posterior a la fusión y hacer smoke tests del frontend publicado.
