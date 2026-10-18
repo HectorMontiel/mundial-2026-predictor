@@ -51,6 +51,17 @@ jobs:
           node --check web/app.js
           node --check web/cuenta.js
           node test_web_v402.cjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Validar Edge Functions
+        run: |
+          set -eu
+          deno check --no-lock supabase/functions/comentario/index.ts
+          deno check --no-lock supabase/functions/vip/index.ts
+          deno check --no-lock supabase/functions/stripe/index.ts
+          deno check --no-lock supabase/functions/mp-webhook/index.ts
+          deno check --no-lock supabase/functions/stripe-webhook/index.ts
       - name: Compilar módulos modificados
         run: |
           python -m py_compile exportar_web.py combinadas_web.py comentarios_correo.py telegram_canales.py
