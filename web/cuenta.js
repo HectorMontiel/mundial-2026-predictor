@@ -522,10 +522,11 @@
       '<div class="ia-fila"><span>✅ Cuando dijo «a favor», el pick salió</span><b>' + ia.favor_bien + ' de ' + (ia.favor_bien + ia.favor_mal) + '</b><small>' + p100(ia.favor_bien, ia.favor_mal) + '</small></div>' +
       filaMejor(med) + calibracion(med) +
       '<p class="tenue chico">Si la IA no le gana a «elegir al favorito», no aporta: por eso la medimos aparte y nuestros picks no dependen de ella.</p>';
-    caja.innerHTML = caja.innerHTML +
+    if (filas.length) caja.innerHTML +=
       '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
-      (filas.length ? '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
-        filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + esc(p100(d.verdes, d.rojas).replace(' %', '')) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>' : '');
+      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' +
+        esc(p100(d.verdes, d.rojas).replace(' %', '')) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige +
+        '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
   }
 
   // v399 — «lo que metería la IA» con ✅/❌, y si sus probabilidades son
