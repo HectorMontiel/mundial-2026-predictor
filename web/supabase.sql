@@ -61,5 +61,8 @@ alter table public.perfiles enable row level security;
 drop policy if exists "cada quien su perfil" on public.perfiles;
 create policy "cada quien su perfil" on public.perfiles
   for all using (auth.uid() = id) with check (auth.uid() = id);
-grant select, insert, update on public.perfiles to authenticated;
+revoke insert on public.perfiles from anon, authenticated;
+revoke update on public.perfiles from authenticated;
+grant select on public.perfiles to authenticated;
+grant update (nombre) on public.perfiles to authenticated;
 notify pgrst, 'reload schema';
