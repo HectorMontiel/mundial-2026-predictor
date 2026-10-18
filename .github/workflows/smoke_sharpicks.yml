@@ -1,0 +1,68 @@
+name: Smoke test de SharPicks en producción
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/smoke_sharpicks.yml'
+      - 'web/cuenta.js'
+      - 'web/config.js'
+      - 'supabase/functions/comentario/index.ts'
+      - 'supabase/v405_comentarios_solo_edge.sql'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: smoke-sharpicks-production
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Comprobar página y endpoint de comentarios sin crear registros
+        run: |
+          set -eu
+          node <<'NODE'
+          const fs = require('node:fs');
+          const assert = require('node:assert/strict');
+
+          const cfg = fs.readFileSync('web/config.js', 'utf8');
+          const url = cfg.match(/SUPABASE_URL:\s*'([^']+)'/)?.[1];
+          const key = cfg.match(/SUPABASE_ANON_KEY:\s*'([^']+)'/)?.[1];
+          assert.ok(url && key, 'config.js debe tener URL y clave pública de Supabase');
+
+          (async () => {
+            const origin = 'https://sharpicks.pages.dev';
+            const page = await fetch(origin + '/');
+            assert.equal(page.status, 200, 'la página pública debe responder HTTP 200');
+            const cuentaResponse = await fetch(origin + '/cuenta.js');
+            assert.equal(cuentaResponse.status, 200, 'cuenta.js debe estar publicado');
+            const cuenta = await cuentaResponse.text();
+            assert.match(cuenta, /fetch\(FN \+ 'comentario'/, 'el frontend desplegado debe usar la Edge Function');
+            assert.doesNotMatch(cuenta, /sb\.from\('comentarios'\)\.insert/, 'el frontend no debe usar INSERT directo');
+
+            // Cuerpo intencionalmente inválido: valida que la Edge Function está activa,
+            // configurada y devuelve el error de validación esperado sin insertar comentarios.
+            const response = await fetch(url.replace(/\/$/, '') + '/functions/v1/comentario', {
+              method: 'POST',
+              headers: {
+                'apikey': key,
+                'Authorization': 'Bearer ' + key,
+                'Origin': origin,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ tipo: 'tipo-invalido', texto: 'x' })
+            });
+            const body = await response.text();
+            assert.equal(response.status, 400, 'la Edge Function debe validar el cuerpo y responder 400; respuesta recibida: ' + body.slice(0, 200));
+            assert.equal(response.headers.get('access-control-allow-origin'), origin, 'CORS debe permitir únicamente el sitio canónico');
+            console.log('PASS: página=200, cuenta.js publicado, Edge Function=400 esperado, CORS correcto; no se creó ningún comentario.');
+          })().catch(e => { console.error(e); process.exit(1); });
+          NODE
