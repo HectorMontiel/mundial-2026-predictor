@@ -34,6 +34,12 @@ assert.match(hardening, /procesar_vip_unico/);
 assert.match(hardening, /registrar_comentario/);
 assert.match(hardening, /v_intentos > 5/);
 
+const negocio = fs.readFileSync('web/negocio.sql', 'utf8');
+assert.match(negocio, /p\.estado in \('verde','roja','nula'\)/);
+assert.doesNotMatch(negocio, /p\.id = picks_premium\.id and p\.inicio <= now\(\)/);
+assert.match(hardening, /p\.estado in \('verde','roja','nula'\)/);
+assert.match(hardening, /revoke execute on function public\.desbloquear\(text\) from public, anon/);
+
 const commentEdge = fs.readFileSync('supabase/functions/comentario/index.ts', 'utf8');
 assert.match(commentEdge, /rpc\('registrar_comentario'/);
 assert.match(commentEdge, /status: 429/);
