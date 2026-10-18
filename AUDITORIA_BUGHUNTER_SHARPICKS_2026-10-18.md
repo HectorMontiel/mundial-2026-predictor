@@ -263,3 +263,75 @@ Los hallazgos mantienen IDs estables para que Claude y ChatGPT puedan anotar evi
 - El sitio publicado no respondió al método de navegación disponible; no se certifican interacciones de producción.
 - No se cambió código de la app ni se tocaron datos/secretos de Supabase.
 - Este documento es el registro maestro de hallazgos. El archivo CONTINUIDAD_AUDITORIA_SHARPICKS.md define cómo Claude y ChatGPT deben mantenerlo sincronizado.
+
+
+---
+
+## Addendum de revisión cruzada de tests y permisos (18-oct-2026, CDMX)
+
+La revisión de pruebas existentes añadió hallazgos que no estaban en la lista inicial. Este complemento forma parte del mismo registro maestro.
+
+### SHP-015 — La política de RLS puede revelar el texto premium desde el inicio del partido, aunque la nota de v389 dice que debe abrirse al terminar
+**Severidad:** P1 si el requisito vigente sigue siendo “al terminar el partido”; **estado:** CONFIRMADO EN CÓDIGO, REQUISITO/DESPLIEGUE POR VALIDAR.  
+**Confianza:** alta en la discrepancia; el contenido real de la base de producción no se consultó.
+
+**Evidencia**
+- [web/negocio.sql](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/web/negocio.sql) crea la política **premium a quien le toca** con una condición que permite lectura cuando existe un pick con p.inicio <= now(). Conceder SELECT a anon junto con esa política permite que cualquier cliente anónimo que conozca el ID consulte picks_premium tras el inicio, independientemente de si pagó/desbloqueó.
+- [supabase/v383_usuarios_vip.sql](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/supabase/v383_usuarios_vip.sql) contiene la misma condición en la política.
+- [supabase/v389_monedas.sql](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/supabase/v389_monedas.sql) resume que picks_premium “se abre al TERMINAR el partido (verde/roja/nula), no al empezar”.
+- [test_v379.py](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/test_v379.py) comprueba la condición antigua p.inicio <= now() y la describe como “ya empezado”. Esto indica que la intención cambió o quedó contradictoria; no se debe corregir sin confirmar qué regla comercial manda hoy.
+
+**Impacto posible:** usuarios sin pagar podrían recuperar el texto real de los picks premium por API desde que empieza el partido, antes de que termine, aun cuando la UI no lo muestre directamente.
+
+**Prueba necesaria:** en staging, con PREMIUM_NIVELES activo y premium_con_cuenta='0', consultar picks_premium como cliente anónimo antes del partido, durante el partido y después de la liquidación. Confirmar resultados esperados y repetir como VIP y como usuario que desbloqueó. Consultar además la política real desplegada en producción antes de afirmar que es explotable allí.
+
+**Corrección propuesta, si el requisito de v389 es el correcto:** retirar el acceso público por p.inicio <= now() y reemplazarlo por una condición ligada al estado final liquidado, comprobando si p.estado es uno de verde, roja o nula; conservar el acceso de VIP y desbloqueos previos. Añadir test de acceso directo vía API para los tres estados.
+
+**Aceptación:** anon no lee la apuesta mientras esté pendiente/viva; una vez liquidada, el comportamiento coincide con la regla documentada; VIP y usuarios que desbloquearon antes conservan el acceso correcto.
+
+---
+
+### SHP-016 — El precio que muestra la interfaz no coincide necesariamente con el precio que cobra la base al desbloquear un pick
+**Severidad:** P1 comercial/integridad de monedas antes de activar precios reales.  
+**Estado:** CONFIRMADO EN CÓDIGO CANÓNICO; FUNCIÓN EFECTIVA DE PRODUCCIÓN POR VALIDAR.
+
+**Evidencia**
+- [web/cuenta.js](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/web/cuenta.js) calcula el precio mostrado mediante precios_cuota, usando la cuota del pick.
+- [web/negocio.sql](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/web/negocio.sql) define public.precio_pick(p public.picks) usando ajustes por categoría de probabilidad (precio_diamante, precio_platino, precio_oro, precio_plata), no la tabla precios_cuota.
+- La función public.desbloquear(pick_id) cobra el valor devuelto por public.precio_pick(p). La implementación de este SQL no incluye un caso específico para tipo='error'/“Cuota alta”, aunque la interfaz sí lo clasifica como nivel cobrable y muestra precio según cuota.
+- supabase/v389_monedas.sql solo documenta el nuevo esquema de precios en comentarios; en el archivo no queda versionada una definición actualizada de precio_pick que haga coincidir ambos cálculos.
+
+**Impacto posible:** la pantalla puede decir “Desbloquear por N monedas” y descontar otra cantidad. En particular, los errores de cuota pueden caer en el precio de Plata si la función de base no tiene una implementación distinta desplegada; podrían quedar mal cobrados o incluso costar cero si el ajuste correspondiente vale cero.
+
+**Prueba necesaria:** leer la definición efectiva de public.precio_pick en staging/producción; comparar con la función versionada y probar cuotas a ambos lados de cada límite, además de un pick tipo error. Verificar saldo y movimientos antes/después.
+
+**Corrección propuesta:** definir una sola función SQL de precio por cuota/mercado, usada tanto por desbloquear como por combinadas y reflejada por la interfaz. La UI muestra una estimación, pero la base debe ser la autoridad. Añadir pruebas por bandas y garantizar que la etiqueta “Cuota alta” tiene una banda coherente.
+
+**Aceptación:** para todo caso de prueba, el precio mostrado, el descuento en saldo y el registro de movimientos coinciden; los errores de cuota no se cobran según el precio de Plata por accidente.
+
+---
+
+### SHP-017 — El exportador registra fallos al subir picks premium o combinadas, pero aun así termina con código cero
+**Severidad:** P1 funcional cuando se cobra contenido premium; P2 mientras la función de pago siga desactivada.  
+**Estado:** CONFIRMADO EN CÓDIGO; NO REPRODUCIDO EN EJECUCIÓN.
+
+**Evidencia**
+- [exportar_web.py](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/exportar_web.py) registra un warning si falla el POST a picks_premium, pero subir_supabase devuelve el contador público y no informa el fallo de la tabla premium mediante el código de salida.
+- main() ignora el resultado de la subida y termina con return 0; las excepciones al subir combinadas también solo generan warning.
+- [sitio_web.yml](https://github.com/HectorMontiel/mundial-2026-predictor/blob/main/.github/workflows/sitio_web.yml) continúa con despliegue estático después de ejecutar el exportador.
+
+**Impacto posible:** el pick público puede quedar como “🔒 Pick Diamante” mientras su texto real no se insertó en picks_premium; el workflow/CI puede verse verde y publicar de todos modos. Las combinadas también pueden quedar viejas o ausentes sin que el exportador falle.
+
+**Prueba necesaria:** en staging, simular rechazo/timeout al insertar picks_premium y al subir combinadas; verificar exit code del exportador y resultado de Actions. No usar secretos/productos reales para la prueba.
+
+**Corrección propuesta:** propagar errores críticos de sincronización a un resumen estructurado y a un exit code no-cero cuando falle una escritura necesaria para la experiencia publicada. Distinguir explícitamente tareas opcionales de operaciones necesarias para que las tarjetas premium funcionen. Si el modo premium está desactivado, mantener el comportamiento sencillo.
+
+**Aceptación:** una subida crítica fallida bloquea la publicación o deja un estado degradado explícito y alerta; un retry completa la subida de forma idempotente. El workflow no presenta como operación completa una publicación cuyos datos de pago están incompletos.
+
+---
+
+## Nota de alcance actualizada
+
+El árbol consultado de main contiene 1.733 paths y 97 archivos de prueba con nombres test*.py; 62 paths son directamente relevantes a web, hosting y APIs. Se inspeccionaron pruebas de forma dirigida, incluyendo test_v379.py, test_v383.py, test_v389.py, test_v390.py, test_v394.py, test_v395.py, test_v396.py y test_v400.py. No se han leído todos los 1.733 paths ni ejecutado todos los 97 tests. No se debe afirmar que el código de producción es seguro o que el proyecto completo está validado.
+
+El main seguía avanzando automáticamente después de crear la rama. En una consulta posterior, el último commit observado fue 1e077067cf18afb2ad548c9fa859908200a7bd48 (precálculo de 18-oct-2026 06:55:32 UTC). Antes de corregir, volver a consultar main y revisar el diff/rebase.
