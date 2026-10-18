@@ -401,3 +401,24 @@ Los fallos que se ven en las capturas correspondían a revisiones previas de la 
 ### Criterio de publicación vigente
 
 La PR sigue siendo el vehículo de los cambios de SharPicks. No se fusionará hasta que el CI más reciente siga en verde, se actualice el informe con el orden de despliegue, y las migraciones v402/v404 y las Edge Functions se desplieguen en una secuencia que no deje a la página apuntando a endpoints inexistentes. El sitio no se declara validado hasta comprobar el resultado de la ejecución posterior a la fusión y hacer smoke tests del frontend publicado.
+
+
+## Actualización de despliegue — 18 de octubre de 2026, 10:35 CDMX
+
+### Cambios ya aplicados a producción (Supabase)
+- Migración `20261018150201 / v403_finanzas_rpc_auth`: se restringió `monthly_category_summary` para impedir consultas de otros usuarios. Verificación posterior: `anon_execute=false`, `authenticated_execute=true`, guarda de propiedad presente.
+- Migración `20261018163026 / v402_bughunter_hardening`: aplicada correctamente. Verificación posterior: existen `comentarios_rate_limit`, `registrar_comentario`, `procesar_vip_unico` y `reservar_lugar_fundador`; `anon` no puede ejecutar `enlace_vip` ni `desbloquear`; `anon`/autenticados no pueden insertar perfiles. `telegram_vip_abierto=0`.
+- Migración `20261018163111 / v404_precios_cuota_canonico`: aplicada correctamente. Las bandas activas quedan iguales a las que ya usaba la base: 5 / 8 / 12 / 18 / 25 monedas. Prueba de función: cuota 1.04 premium → 5; error de cuota 3.50 → 25; pick 1.50 no premium → 0.
+- Edge Functions desplegadas, todas `ACTIVE`: `comentario` v1; `vip` v5; `stripe` v2; `mp-webhook` v6; `stripe-webhook` v2. Las cinco versiones de esta rama pasaron `deno check` en CI.
+
+### Secuencia segura de comentarios
+La migración v402 crea la RPC/table de rate limit pero deja temporalmente el INSERT directo de comentarios para evitar cortar la web antigua. La nueva Edge Function ya está desplegada. Tras fusionar esta PR y confirmar el despliegue de la web nueva, se debe probar el formulario de comentarios; después ejecutar `supabase/v405_comentarios_solo_edge.sql` para revocar el INSERT directo. **v405 aún no se ha ejecutado en producción.**
+
+### CI actual de la rama
+En el SHA `1f5984e2cf444b0d044b88e6facb712800ba2f6b`:
+- [Validar SharPicks sin desplegar](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39145101203): success.
+- [Tests seguros SharPicks v402](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39145101110): success.
+La rama pasó validación de JS, fechas, controles estáticos, Deno check y las pruebas Python de exportador/combinadas y regresión. Los fallos anteriores eran de commits más antiguos y quedaron superados; sus referencias siguen en el historial, no se borraron.
+
+### Aún no se ha desplegado la web estática nueva
+El frontend modificado todavía necesita que esta PR se fusione y que el workflow canónico de Cloudflare Pages termine exitosamente. Después se debe verificar el sitio servido y probar el formulario de comentarios desde la página. Sólo tras esa comprobación se aplicará v405 y se comprobará que INSERT directo en comentarios ya no está permitido.
