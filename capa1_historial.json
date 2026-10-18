@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-18T05:03:10Z",
+"actualizado": "2026-10-18T06:42:56Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8504,6 +8504,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Durango vs Tapatío",
+"apuesta": "Durango o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "5-0"
+},
+{
+"dia": "2026-10-17",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Emden vs Phonix Lubeck",
@@ -8845,6 +8855,16 @@
 {
 "dia": "2026-10-17",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Preston T. vs Jones E.",
+"apuesta": "Gana Preston T.",
+"cuota": 2.0,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Real Oruro vs Aurora",
 "apuesta": "Gana Real Oruro",
@@ -9041,6 +9061,16 @@
 "cuota": 1.111,
 "resultado": "verde",
 "marcador": "4-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Taylah Preston vs Emerson Jones",
+"apuesta": "Gana Taylah Preston",
+"cuota": 2.0,
+"resultado": "rojo",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-17",
