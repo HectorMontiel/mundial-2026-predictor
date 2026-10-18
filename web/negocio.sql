@@ -1,3 +1,7 @@
+-- ATENCIÓN v402: bootstrap histórico. No lo vuelvas a ejecutar sobre una base que ya recibió
+-- v383 o migraciones posteriores: algunas funciones son versiones antiguas y podrían
+-- reemplazar comportamiento de usuario/admin. En bases existentes, aplica las migraciones
+-- versionadas en orden; v402_bughunter_hardening.sql endurece los permisos actuales.
 -- v379 — SharPicks: cuentas, «Mis picks», monedas y «No Win, No Pay».
 -- Se puede correr las veces que haga falta (todo es «si no existe»).
 --
@@ -29,6 +33,7 @@ alter table public.perfiles add column if not exists plan_hasta timestamptz;
 alter table public.perfiles add column if not exists deportes text[];
 -- el usuario puede cambiar su nombre y deportes, NUNCA sus monedas ni su plan
 revoke update on public.perfiles from authenticated;
+revoke insert on public.perfiles from anon, authenticated;
 grant update (nombre, deportes) on public.perfiles to authenticated;
 
 create or replace function public.nuevo_usuario() returns trigger
