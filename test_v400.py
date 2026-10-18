@@ -92,8 +92,12 @@ def probar_comentarios():
     check('por tiempo limitado' not in html, 'ya no se promete que con cuenta gratis se ven los 💎')
     wf = open(os.path.join('.github', 'workflows', 'sitio_web.yml'), encoding='utf-8').read()
     sql = open(os.path.join('supabase', 'v401_comentarios.sql'), encoding='utf-8').read()
-    check('python comentarios_correo.py' in wf and 'for insert to anon, authenticated' in sql and 'for select' not in sql,
-          'llegan al correo de Brevo; en la base se escriben pero nadie los lee desde la página')
+    hardening = open(os.path.join('supabase', 'v402_bughunter_hardening.sql'), encoding='utf-8').read()
+    edge = open(os.path.join('supabase', 'functions', 'comentario', 'index.ts'), encoding='utf-8').read()
+    check('python comentarios_correo.py' in wf and 'for insert to anon, authenticated' in sql and 'for select' not in sql
+          and 'revoke insert on public.comentarios from anon, authenticated' in hardening
+          and "rpc('registrar_comentario'" in edge,
+          'los comentarios pasan por Edge Function con rate limit y no se leen desde la web')
 
 
 if __name__ == '__main__':
