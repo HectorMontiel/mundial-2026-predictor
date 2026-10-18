@@ -28,6 +28,9 @@ assert.doesNotMatch(cuenta, /sb\.from\('comentarios'\)\.insert/);
 assert.doesNotMatch(cuenta, /Math\.round\(100 \* tv \/ \(tv \+ tr\)\)/);
 
 const negocio = fs.readFileSync('web/negocio.sql', 'utf8');
+assert.doesNotMatch(negocio, /\bas \$(?:\s|$)/m, 'negocio.sql no debe abrir funciones con un delimitador SQL incompleto');
+assert.doesNotMatch(negocio, /^\s*\$;\s*$/m, 'negocio.sql no debe cerrar funciones con un delimitador SQL incompleto');
+assert.equal((negocio.match(/\$\$/g) || []).length % 2, 0, 'delimitadores $ balanceados en negocio.sql');
 const hardening = fs.readFileSync('supabase/v402_bughunter_hardening.sql', 'utf8');
 assert.match(hardening, /revoke insert on public\.perfiles from anon, authenticated/);
 assert.match(hardening, /telegram_vip_abierto/);

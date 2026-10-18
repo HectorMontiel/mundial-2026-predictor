@@ -133,7 +133,7 @@ create policy "precios_cuota_public_read" on public.precios_cuota
 grant select on public.precios_cuota to anon, authenticated;
 
 create or replace function public.precio_pick(p public.picks) returns integer
-language sql stable set search_path = public as $
+language sql stable set search_path = public as $$
   select case
     when not (coalesce(p.elige, false)
               or coalesce(p.tipo, 'pick') = 'error'
@@ -145,7 +145,7 @@ language sql stable set search_path = public as $
        order by pc.desde limit 1
     ), 10)
   end;
-$;
+$$;
 
 -- desbloquear: cobra las monedas (si alcanzan) y lo apunta. Sólo antes del partido.
 create or replace function public.desbloquear(pick_id text) returns text
