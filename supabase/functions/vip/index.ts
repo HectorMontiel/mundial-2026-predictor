@@ -26,9 +26,17 @@ Deno.serve(async (req) => {
     const admin = createClient(URL_, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, { auth: { persistSession: false } });
     const { data: aj } = await admin.from('ajustes').select('clave,valor');
     const A: Record<string, string> = Object.fromEntries((aj ?? []).map((x) => [x.clave, x.valor]));
-    const { data: lugares } = await admin.rpc('lugares_fundador');
     const semestral = tipo === 'semestral';
-    const fundador = !semestral && Number(lugares ?? 0) > 0;
+    let fundador = false;
+    if (!semestral) {
+      const { data: reservado, error: errorReserva } = await admin.rpc('reservar_lugar_fundador', {
+        p_id: 'reserva:' + crypto.randomUUID(),
+        p_usuario: user.id,
+        p_precio: Number(A.precio_fundador ?? 99),
+      });
+      if (errorReserva) throw new Error('No se pudo reservar una plaza fundador');
+      fundador = reservado === true;
+    }
     const precio = Number(semestral ? A.precio_semestral ?? 749 : fundador ? A.precio_fundador ?? 99 : A.precio_mensual ?? 149);
     if (!renovar) {
       // v395 — el usuario eligió NO renovar: un solo pago por ese periodo (Checkout Pro)
