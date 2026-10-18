@@ -8,6 +8,8 @@ do $$ begin
   alter table public.perfiles add constraint usuario_valido check (usuario is null or usuario ~ '^[A-Za-z0-9_.]{3,20}$');
 exception when duplicate_object then null; end $$;
 create unique index if not exists perfiles_usuario on public.perfiles (lower(usuario));
+revoke insert on public.perfiles from anon, authenticated;
+revoke update on public.perfiles from authenticated;
 grant update (nombre, deportes, usuario) on public.perfiles to authenticated;
 
 -- al registrarse: el usuario elegido (si es válido y está libre)
@@ -118,7 +120,7 @@ alter table public.privados enable row level security;
 create or replace function public.enlace_vip() returns text
 language sql stable security definer set search_path = public as $$
   select valor from public.privados where clave = 'telegram_vip'
-     and (public.es_pro() or (auth.uid() is not null and exists (select 1 from public.ajustes where clave = 'premium_con_cuenta' and valor = '1')));
+     and (public.es_pro() or (auth.uid() is not null and exists (select 1 from public.ajustes where clave = 'telegram_vip_abierto' and valor = '1')));
 $$;
 revoke execute on function public.enlace_vip() from anon;
 grant execute on function public.enlace_vip() to authenticated;
