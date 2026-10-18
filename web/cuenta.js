@@ -512,7 +512,8 @@
     const tv = filas.reduce((s, d) => s + (Number(d.verdes) || 0), 0), tr = filas.reduce((s, d) => s + (Number(d.rojas) || 0), 0);
     const ev = filas.reduce((s, d) => s + d.verdes_elige, 0), er = filas.reduce((s, d) => s + d.rojas_elige, 0);
     const xv = filas.reduce((s, d) => s + (d.verdes_error || 0), 0), xr = filas.reduce((s, d) => s + (d.rojas_error || 0), 0);
-    const { data: ia } = await sb.from('ia_aciertos').select('*').maybeSingle();
+    const { data: ia, error: iaError } = await sb.from('ia_aciertos').select('*').maybeSingle();
+    if (iaError) console.error('[sharpicks] no se pudo consultar ia_aciertos', iaError);
     const { data: med, error: medError } = await sb.from('ia_medicion').select('*');
     const p100 = (a, b) => (Number(a || 0) + Number(b || 0) ? Math.round(100 * Number(a || 0) / (Number(a || 0) + Number(b || 0))) + ' %' : '—');
     if (medError) console.error('[sharpicks] no se pudo consultar la calibración de la IA', medError);
@@ -522,7 +523,7 @@
       ''; caja.innerHTML += '';
     // v391 — el bloque de la IA sale SIEMPRE (aunque aún no haya partidos terminados)
     const iaCaja = $('ia-hist');
-    if (iaCaja) iaCaja.innerHTML = !ia ? '<p class="tenue">Sin datos de la IA todavía.</p>' :
+    if (iaCaja) iaCaja.innerHTML = iaError ? '<p class="aviso">No se pudieron consultar las mediciones de la IA. Reintenta en un momento.</p>' : !ia ? '<p class="tenue">Sin datos de la IA todavía.</p>' :
       '<div class="ia-fila"><span>Partidos analizados</span><b>' + (ia.analizados || 0) + '</b><small>' + (ia.pendientes || 0) + ' esperando resultado</small></div>' +
       '<div class="ia-fila"><span>🤖 Acierta el ganador</span><b>✅ ' + ia.resultado_ok + ' ❌ ' + ia.resultado_mal + '</b><small>' + p100(ia.resultado_ok, ia.resultado_mal) + '</small></div>' +
       '<div class="ia-fila"><span>📈 Elegir al favorito (la vara)</span><b>✅ ' + ia.mercado_ok + ' ❌ ' + ia.mercado_mal + '</b><small>' + p100(ia.mercado_ok, ia.mercado_mal) + '</small></div>' +
