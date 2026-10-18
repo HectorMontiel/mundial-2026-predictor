@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-18T00:20:13Z",
+"actualizado": "2026-10-18T01:55:12Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8324,6 +8324,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Blooming vs Independiente Petrolero",
+"apuesta": "Blooming o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Boyacá Chicó FC vs Atlético Nacional",
@@ -8364,6 +8374,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Chicago Blackhawks vs Dallas Stars",
+"apuesta": "Handicap: Chicago Blackhawks +3.5",
+"cuota": 1.1,
+"resultado": "rojo",
+"marcador": "0-4"
+},
+{
+"dia": "2026-10-17",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Chico vs Atl. Nacional",
@@ -8401,6 +8421,16 @@
 "cuota": 3.3,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Club Olimpia vs 2 de Mayo",
+"apuesta": "Club Olimpia o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "3-0"
 },
 {
 "dia": "2026-10-17",
@@ -8485,6 +8515,16 @@
 {
 "dia": "2026-10-17",
 "nivel": "🏆",
+"deporte": "NHL",
+"partido": "Florida Panthers vs Seattle Kraken",
+"apuesta": "Handicap: Seattle Kraken +3.5",
+"cuota": 1.125,
+"resultado": "rojo",
+"marcador": "8-3"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Genclerbirligi vs Galatasaray",
 "apuesta": "Galatasaray o empate",
@@ -8511,6 +8551,16 @@
 "cuota": 1.6667,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Hartford Athletic vs Brooklyn FC",
+"apuesta": "Hartford Athletic o empate",
+"cuota": 1.125,
+"resultado": "rojo",
+"marcador": "2-3"
 },
 {
 "dia": "2026-10-17",
@@ -8644,6 +8694,26 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Melgar vs Deportivo Garcilaso",
+"apuesta": "Melgar o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Melgar vs Deportivo Garcilaso",
+"apuesta": "Gana Melgar",
+"cuota": 1.444,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Metropolitano vs Santa Catarina",
@@ -8701,6 +8771,16 @@
 "cuota": 2.1,
 "resultado": "rojo",
 "marcador": "1-4"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Philadelphia Flyers vs Ottawa Senators",
+"apuesta": "Handicap: Ottawa Senators +2.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "3-1"
 },
 {
 "dia": "2026-10-17",
@@ -8769,6 +8849,16 @@
 "partido": "San Martin Burzaco vs Excursionistas",
 "apuesta": "Gana Excursionistas",
 "cuota": 1.9,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Santos vs AD Cantolao",
+"apuesta": "Gana Santos",
+"cuota": 1.7,
 "resultado": "rojo",
 "marcador": "1-1"
 },
@@ -8915,6 +9005,16 @@
 {
 "dia": "2026-10-17",
 "nivel": "🏆",
+"deporte": "NHL",
+"partido": "Toronto Maple Leafs vs New York Islanders",
+"apuesta": "Handicap: Toronto Maple Leafs +2.5",
+"cuota": 1.125,
+"resultado": "rojo",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Tristán Suárez vs Patronato",
 "apuesta": "Tristán Suárez o empate",
@@ -8951,6 +9051,16 @@
 "cuota": 1.18,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Velez Sarsfield vs Gimnasia Mendoza",
+"apuesta": "Velez Sarsfield o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-17",
