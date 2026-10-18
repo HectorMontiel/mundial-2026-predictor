@@ -9,4 +9,3 @@ revoke insert on public.comentarios from public, anon, authenticated;
 grant all on public.comentarios to service_role;
 grant all on sequence public.comentarios_id_seq to service_role;
 notify pgrst, 'reload schema';
-commit;
