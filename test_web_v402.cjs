@@ -27,6 +27,7 @@ assert.match(cuenta, /fetch\(FN \+ 'comentario'/);
 assert.doesNotMatch(cuenta, /sb\.from\('comentarios'\)\.insert/);
 assert.doesNotMatch(cuenta, /Math\.round\(100 \* tv \/ \(tv \+ tr\)\)/);
 
+const negocio = fs.readFileSync('web/negocio.sql', 'utf8');
 const hardening = fs.readFileSync('supabase/v402_bughunter_hardening.sql', 'utf8');
 assert.match(hardening, /revoke insert on public\.perfiles from anon, authenticated/);
 assert.match(hardening, /telegram_vip_abierto/);
@@ -51,7 +52,6 @@ assert.match(priceMigration, /coalesce\(p\.cuota, 1\) >= pc\.desde/);
 assert.match(priceMigration, /coalesce\(p\.prob, 0\) >= 0\.85/);
 assert.match(negocio, /create table if not exists public\.precios_cuota/);
 
-const negocio = fs.readFileSync('web/negocio.sql', 'utf8');
 const vipSql = fs.readFileSync('supabase/v383_usuarios_vip.sql', 'utf8');
 for (const [nombre, sql] of [['web/negocio.sql', negocio], ['supabase/v383_usuarios_vip.sql', vipSql], ['supabase/v402_bughunter_hardening.sql', hardening]]) {
   assert.doesNotMatch(sql, /end \$;/, nombre + ': no debe truncarse el delimitador $$');
