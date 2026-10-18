@@ -93,11 +93,11 @@ $$;
 revoke all on function public.procesar_vip_unico(text, uuid, integer, numeric, boolean) from public, anon, authenticated;
 grant execute on function public.procesar_vip_unico(text, uuid, integer, numeric, boolean) to service_role;
 
--- SHP-007: contar las reservas recientes y proteger la última plaza con un
--- advisory lock. Una reserva expira a los 30 minutos si el checkout se abandona.
--- Las filas de pago completado (pagado/authorized) no expiran del conteo.
+-- SHP-007: reserva transaccional de plazas fundador.
+-- Se cuentan las suscripciones autorizadas/pagadas y las reservas pendientes
+-- de los últimos 30 minutos; abandonos liberan una plaza sin escritura destructiva.
 create or replace function public.lugares_fundador() returns integer
-language sql stable security definer set search_path = public as $
+language sql stable security definer set search_path = public as $fundador$
   select greatest(0, 50 - (
     select count(distinct usuario)::int
       from public.suscripciones
@@ -107,7 +107,7 @@ language sql stable security definer set search_path = public as $
          or (estado = 'pending' and actualizado > now() - interval '30 minutes')
        )
   ));
-$;
+$fundador$;
 grant execute on function public.lugares_fundador() to anon, authenticated;
 
 create or replace function public.reservar_lugar_fundador(
@@ -115,12 +115,64 @@ create or replace function public.reservar_lugar_fundador(
   p_usuario uuid,
   p_precio numeric
 ) returns boolean
-language plpgsql security definer set search_path = public as $
+language plpgsql security definer set search_path = public as $fundador$
 declare
   v_ocupados integer;
   v_reserva text;
 begin
-  if p_id is null or p_id !~ '^reserva:[0-9a-fA-F-]{36}
+  if p_id is null or length(p_id) <> 44 or left(p_id, 8) <> 'reserva:'
+     or p_usuario is null or p_precio is null or p_precio <= 0 then
+    raise exception 'Parámetros de reserva fundador inválidos';
+  end if;
+
+  perform pg_advisory_xact_lock(hashtextextended('sharpicks_fundador_slots', 0));
+
+  -- Un fundador ya activo conserva su tarifa. Si tiene un checkout reciente
+  -- pendiente, renovar el TTL evita reservar otra plaza para la misma cuenta.
+  if exists (
+    select 1 from public.suscripciones
+     where usuario = p_usuario and fundador and estado in ('authorized', 'pagado')
+  ) then
+    return true;
+  end if;
+
+  select id into v_reserva
+    from public.suscripciones
+   where usuario = p_usuario and fundador and estado = 'pending'
+     and actualizado > now() - interval '30 minutes'
+   order by actualizado desc
+   limit 1
+   for update;
+
+  if v_reserva is not null then
+    update public.suscripciones set actualizado = now() where id = v_reserva;
+    return true;
+  end if;
+
+  select count(distinct usuario)::int into v_ocupados
+    from public.suscripciones
+   where fundador
+     and (
+       estado in ('authorized', 'pagado')
+       or (estado = 'pending' and actualizado > now() - interval '30 minutes')
+     );
+
+  if v_ocupados >= 50 then
+    return false;
+  end if;
+
+  insert into public.suscripciones
+    (id, usuario, tipo, precio, fundador, estado, renueva, actualizado)
+  values
+    (p_id, p_usuario, 'mensual', p_precio, true, 'pending', false, now())
+  on conflict (id) do nothing;
+
+  return found;
+end;
+$fundador$;
+revoke all on function public.reservar_lugar_fundador(text, uuid, numeric) from public, anon, authenticated;
+grant execute on function public.reservar_lugar_fundador(text, uuid, numeric) to service_role;
+
 -- Las RPCs de escritura necesitan sesión autenticada; las funciones de trigger
 -- se ejecutan por el trigger y no deben quedar expuestas como RPC públicas.
 revoke execute on function public.canjear_codigo(text) from public, anon;
