@@ -68,7 +68,7 @@ begin
     insert into public.movimientos (usuario, cantidad, motivo, pick) values (auth.uid(), -precio, 'desbloqueo', pick_id);
   end if;
   return 'ok';
-end $;
+end $$;
 revoke execute on function public.desbloquear(text) from public, anon;
 grant execute on function public.desbloquear(text) to authenticated;
 
