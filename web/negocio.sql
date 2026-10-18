@@ -141,7 +141,7 @@ language sql stable set search_path = public as $$
     else coalesce((
       select pc.monedas from public.precios_cuota pc
        where coalesce((p).cuota, 1) >= pc.desde
-         and coalesce(p.cuota, 1) < pc.hasta
+         and coalesce((p).cuota, 1) < pc.hasta
        order by pc.desde limit 1
     ), 10)
   end;
