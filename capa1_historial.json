@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-18T19:25:58Z",
+"actualizado": "2026-10-18T20:59:23Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -9286,6 +9286,16 @@
 "dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Al Fateh vs Al Khaleej",
+"apuesta": "Gana Al Fateh",
+"cuota": 2.3,
+"resultado": "rojo",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Bohemians 1905 B vs Domazlice",
 "apuesta": "Gana Bohemians 1905 B",
 "cuota": 3.0,
@@ -9406,6 +9416,16 @@
 "dia": "2026-10-18",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "FC Cajamarca vs Deportivo Moquegua",
+"apuesta": "FC Cajamarca o empate",
+"cuota": 1.167,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "FC Copenhagen vs Aarhus",
 "apuesta": "FC Copenhagen o empate",
 "cuota": 1.182,
@@ -9466,6 +9486,16 @@
 "dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Inter Escaldes vs Atletic Escaldes",
+"apuesta": "Gana Inter Escaldes",
+"cuota": 2.08,
+"resultado": "verde",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Jablonec vs Plzen",
 "apuesta": "Gana Jablonec",
 "cuota": 2.65,
@@ -9506,11 +9536,31 @@
 "dia": "2026-10-18",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Leones Negros vs Alebrijes de Oaxaca",
+"apuesta": "Leones Negros o empate",
+"cuota": 1.111,
+"resultado": "rojo",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Leverkusen vs Freiburg",
 "apuesta": "Leverkusen o empate",
 "cuota": 1.182,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Los Andes vs All Boys",
+"apuesta": "Los Andes o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-18",
@@ -9541,6 +9591,26 @@
 "cuota": 1.2,
 "resultado": "verde",
 "marcador": "3-2"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Nacao vs Blumenau",
+"apuesta": "Gana Blumenau",
+"cuota": 1.74,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Nacao vs Blumenau",
+"apuesta": "Gana Blumenau",
+"cuota": 1.74,
+"resultado": "verde",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-18",
@@ -9581,6 +9651,16 @@
 "cuota": 3.55,
 "resultado": "rojo",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "San Martin Formosa vs Olimpo Bahia Blanca",
+"apuesta": "Gana Olimpo Bahia Blanca",
+"cuota": 3.05,
+"resultado": "rojo",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-18",
@@ -9651,6 +9731,16 @@
 "cuota": 2.625,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Tromso vs KFUM Oslo",
+"apuesta": "Tromso o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-18",
