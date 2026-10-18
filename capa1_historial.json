@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-18T03:30:48Z",
+"actualizado": "2026-10-18T05:03:10Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -8784,6 +8784,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Monterey Bay vs Colorado Springs Switchbacks FC",
+"apuesta": "Gana Colorado Springs Switchbacks FC",
+"cuota": 1.8182,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-17",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Norwich vs Portsmouth",
@@ -8821,6 +8831,16 @@
 "cuota": 1.61,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-17",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Portland Timbers vs Colorado Rapids",
+"apuesta": "Gana Portland Timbers",
+"cuota": 2.125,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-17",
@@ -8890,6 +8910,16 @@
 "apuesta": "Gana Santos",
 "cuota": 1.7,
 "resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Seattle Sounders vs CF Montreal",
+"apuesta": "Seattle Sounders o empate",
+"cuota": 1.143,
+"resultado": "verde",
 "marcador": "1-1"
 },
 {
@@ -9074,6 +9104,16 @@
 },
 {
 "dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Utah Mammoth vs Edmonton Oilers",
+"apuesta": "Handicap: Utah Mammoth +2.5",
+"cuota": 1.133,
+"resultado": "rojo",
+"marcador": "2-6"
+},
+{
+"dia": "2026-10-17",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Vasco U20 vs Sampaio Correa FE U20",
@@ -9081,6 +9121,16 @@
 "cuota": 1.18,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-17",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Vegas Golden Knights vs Pittsburgh Penguins",
+"apuesta": "Handicap: Pittsburgh Penguins +3.5",
+"cuota": 1.111,
+"resultado": "rojo",
+"marcador": "6-2"
 },
 {
 "dia": "2026-10-17",
