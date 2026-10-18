@@ -7,6 +7,18 @@ revoke insert on public.perfiles from anon, authenticated;
 revoke update on public.perfiles from authenticated;
 grant update (nombre, deportes, usuario) on public.perfiles to authenticated;
 
+-- SHP-015: la base debe mantener el texto premium oculto hasta liquidación.
+-- Esto alinea la migración versionada con la política efectiva de producción.
+drop policy if exists "premium a quien le toca" on public.picks_premium;
+create policy "premium a quien le toca" on public.picks_premium for select using (
+  public.es_pro()
+  or exists (select 1 from public.desbloqueos d where d.pick = picks_premium.id and d.usuario = auth.uid())
+  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.estado in ('verde','roja','nula'))
+  or (auth.uid() is not null and exists (
+    select 1 from public.ajustes a where a.clave = 'premium_con_cuenta' and a.valor = '1'
+  ))
+);
+
 -- SHP-005: el acceso al contenido premium y el enlace del grupo VIP son permisos distintos.
 insert into public.ajustes (clave, valor)
 values ('telegram_vip_abierto', '0')
@@ -80,6 +92,18 @@ end;
 $$;
 revoke all on function public.procesar_vip_unico(text, uuid, integer, numeric, boolean) from public, anon, authenticated;
 grant execute on function public.procesar_vip_unico(text, uuid, integer, numeric, boolean) to service_role;
+
+-- Las RPCs de escritura necesitan sesión autenticada; las funciones de trigger
+-- se ejecutan por el trigger y no deben quedar expuestas como RPC públicas.
+revoke execute on function public.canjear_codigo(text) from public, anon;
+grant execute on function public.canjear_codigo(text) to authenticated;
+revoke execute on function public.desbloquear(text) from public, anon;
+grant execute on function public.desbloquear(text) to authenticated;
+revoke execute on function public.desbloquear_combinada(text) from public, anon;
+grant execute on function public.desbloquear_combinada(text) to authenticated;
+revoke execute on function public.nuevo_usuario() from public, anon, authenticated;
+revoke execute on function public.devolver_si_falla() from public, anon, authenticated;
+revoke execute on function public.devolver_combinada_si_falla() from public, anon, authenticated;
 
 -- SHP-014: límite de 5 comentarios por huella de origen en una ventana de una hora.
 create table if not exists public.comentarios_rate_limit (
