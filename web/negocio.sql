@@ -47,7 +47,7 @@ begin
     insert into public.movimientos (usuario, cantidad, motivo) values (new.id, bienvenida, 'bienvenida');
   end if;
   return new;
-end $;
+end $$;
 revoke execute on function public.nuevo_usuario() from public, anon, authenticated;
 
 -- ---------- movimientos de monedas (todo queda apuntado) ----------
@@ -160,7 +160,7 @@ begin
     update public.desbloqueos set devuelto = true where pick = new.id and not devuelto;
   end if;
   return new;
-end $;
+end $$;
 revoke execute on function public.devolver_si_falla() from public, anon, authenticated;
 drop trigger if exists no_win_no_pay on public.picks;
 create trigger no_win_no_pay after update of estado on public.picks
