@@ -97,3 +97,14 @@ Añade un registro en el informe maestro:
 - Estado: `ABIERTO`, `CORREGIDO EN CÓDIGO`, `PASÓ TESTS`, `VALIDADO EN STAGING`, `VALIDADO EN PRODUCCIÓN`, o `BLOQUEADO POR ACCESO`.
 
 Nunca usar simplemente “listo” como evidencia.
+
+
+## Inventario y revisión cruzada adicional — 18-oct-2026
+
+- Un árbol recursivo de la rama principal arrojó 1.733 paths y 97 archivos de prueba con nombre tipo test*.py; 62 paths están directamente relacionados con la web, hosting, funciones Supabase y workflows.
+- Leídos parcialmente para revisar cobertura: test_v379.py, test_v383.py, test_v389.py, test_v390.py, test_v394.py, test_v395.py, test_v396.py y test_v400.py. Son en gran parte pruebas de estructura/código fuente; no equivalen a validación de Postgres real, APIs de pago o navegador.
+- Se agregaron tres hallazgos nuevos al informe maestro: SHP-015 (RLS de picks premium permite lectura desde el inicio del partido pese a que la nota de v389 dice al terminar), SHP-016 (precio de la interfaz calculado por precios_cuota, pero la función SQL canónica public.precio_pick usa ajustes por categoría y no contempla tipo error), SHP-017 (fallos al subir datos premium/combinadas pueden quedar como warning mientras exportar_web.py devuelve éxito).
+- Estos hallazgos están confirmados como discrepancias en el código fuente; el estado efectivo de Supabase y la intención de negocio donde los documentos se contradicen aún necesitan validación antes de corregir.
+- Último commit de main observado después de crear la rama: 1e077067cf18afb2ad548c9fa859908200a7bd48 (precálculo automático del 18-oct-2026 a las 06:55:32 UTC). Antes de realizar cambios funcionales, volver a consultar main y rebasar con cuidado.
+- El sitio sharpicks.pages.dev no pudo recuperarse con el navegador disponible en esta sesión; no confundir esa limitación de herramienta con un fallo de producción.
+- Aún no se han ejecutado aquí los 97 tests, no se ha leído cada archivo del repositorio y no hay verificación directa de la base desplegada. No anunciar la auditoría como completa.
