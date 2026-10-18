@@ -58,8 +58,9 @@ def probar():
     check('revoke update on public.perfiles from authenticated' in sql
           and 'grant update (nombre, deportes)' in sql,
           'el usuario no puede cambiarse sus monedas ni su plan')
-    check('premium a quien le toca' in sql and 'p.inicio <= now()' in sql and 'public.es_pro()' in sql,
-          'el pick premium sólo lo lee quien lo desbloqueó, el Pro, o ya empezado')
+    check('premium a quien le toca' in sql and "p.estado in ('verde','roja','nula')" in sql
+          and 'public.es_pro()' in sql,
+          'el pick premium sólo lo lee quien lo desbloqueó, el Pro, o ya liquidado')
     check("p.inicio <= now() then return 'ya empezó'" in sql, 'no se desbloquea lo ya empezado')
 
     import telegram_canales as tc
