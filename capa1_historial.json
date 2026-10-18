@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-18T20:59:23Z",
+"actualizado": "2026-10-18T22:34:47Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -9274,6 +9274,16 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Academia Puerto Cabello vs Monagas SC",
+"apuesta": "Academia Puerto Cabello o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "3-3"
+},
+{
+"dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Acren vs Jette",
@@ -9316,6 +9326,36 @@
 "dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "CRB vs Botafogo SP",
+"apuesta": "Gana CRB",
+"cuota": 1.63,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "CRB vs Botafogo-SP",
+"apuesta": "CRB o empate",
+"cuota": 1.133,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "CRB vs Botafogo-SP",
+"apuesta": "Gana CRB",
+"cuota": 1.63,
+"resultado": "rojo",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Cartagines vs Saprissa",
 "apuesta": "Gana Saprissa",
 "cuota": 2.9,
@@ -9331,6 +9371,26 @@
 "cuota": 2.7,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Cerro Porteño vs Sportivo Ameliano",
+"apuesta": "Cerro Porteño o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Chaco For Ever vs Central Norte",
+"apuesta": "Chaco For Ever o empate",
+"cuota": 1.143,
+"resultado": "rojo",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-18",
@@ -9350,6 +9410,16 @@
 "apuesta": "Gana Chwalinska M.",
 "cuota": 2.15,
 "resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Club A. Guemes vs Almagro",
+"apuesta": "Gana Almagro",
+"cuota": 1.5295,
+"resultado": "rojo",
 "marcador": "2-1"
 },
 {
@@ -9414,6 +9484,26 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Douglas Haig vs El Linqueno",
+"apuesta": "Gana Douglas Haig",
+"cuota": 1.66,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Estudiantes de Mérida vs Metropolitanos",
+"apuesta": "Estudiantes de Mérida o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-18",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "FC Cajamarca vs Deportivo Moquegua",
@@ -9434,6 +9524,16 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Ferro Carril Oeste vs Racing (Córdoba)",
+"apuesta": "Ferro Carril Oeste o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Furstenfeld vs UFC Fehring",
@@ -9441,6 +9541,16 @@
 "cuota": 1.84,
 "resultado": "verde",
 "marcador": "5-2"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Gremio vs Cruzeiro",
+"apuesta": "Gana Cruzeiro",
+"cuota": 2.4,
+"resultado": "verde",
+"marcador": "2-4"
 },
 {
 "dia": "2026-10-18",
@@ -9514,6 +9624,16 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Juventus vs Lazio",
+"apuesta": "Juventus o empate",
+"cuota": 1.177,
+"resultado": "rojo",
+"marcador": "0-3"
+},
+{
+"dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Khroub vs Skikda",
@@ -9541,6 +9661,16 @@
 "cuota": 1.111,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Leones vs Emelec",
+"apuesta": "Leones o empate",
+"cuota": 1.2,
+"resultado": "rojo",
+"marcador": "1-3"
 },
 {
 "dia": "2026-10-18",
@@ -9636,11 +9766,31 @@
 "dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Puerto Cabello vs Monagas",
+"apuesta": "Gana Monagas",
+"cuota": 3.6,
+"resultado": "rojo",
+"marcador": "3-3"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "RC Kouba vs ASM Oran",
 "apuesta": "Gana RC Kouba",
 "cuota": 1.7,
 "resultado": "rojo",
 "marcador": "0-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Rayo Zuliano vs Caracas FC",
+"apuesta": "Caracas FC o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-18",
@@ -9661,6 +9811,16 @@
 "cuota": 3.05,
 "resultado": "rojo",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sao Bernardo vs Criciuma",
+"apuesta": "Gana Criciuma",
+"cuota": 2.5,
+"resultado": "verde",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-18",
@@ -9699,6 +9859,16 @@
 "partido": "Streymur vs HB Torshavn",
 "apuesta": "Gana HB Torshavn",
 "cuota": 1.54,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "São Bernardo vs Criciúma",
+"apuesta": "Gana Criciúma",
+"cuota": 2.5,
 "resultado": "verde",
 "marcador": "0-1"
 },
