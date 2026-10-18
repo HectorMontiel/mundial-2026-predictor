@@ -464,12 +464,25 @@
     const texto = $('com-texto').value.trim(), correo = $('com-correo').value.trim() || (yo.user && yo.user.email) || null;
     if (texto.length < 3) { $('com-msg').textContent = 'Escribe un poco más, por favor.'; return; }
     const b = e.target.querySelector('button[type=submit]'); b.disabled = true;
-    const { error } = await sb.from('comentarios').insert({ tipo: comTipo, texto, correo, pagina: location.pathname + location.search,
-      usuario: yo.user ? yo.user.id : null });
-    b.disabled = false;
-    if (error) { $('com-msg').textContent = 'No se pudo enviar. Intenta de nuevo en un momento.'; return; }
-    $('com-texto').value = '';
-    $('com-msg').textContent = '🙌 ¡Gracias! Ya nos llegó tu comentario.';
+    try {
+      const { data: authData } = await sb.auth.getSession();
+      const token = authData && authData.session ? authData.session.access_token : C.SUPABASE_ANON_KEY;
+      const r = await fetch(FN + 'comentario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + token },
+        body: JSON.stringify({ tipo: comTipo, texto, correo, pagina: location.pathname + location.search }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 429) { $('com-msg').textContent = d.error || 'Has enviado varios comentarios recientemente. Espera un rato.'; return; }
+      if (!r.ok || !d.ok) { $('com-msg').textContent = d.error || 'No se pudo enviar. Intenta de nuevo en un momento.'; return; }
+      $('com-texto').value = '';
+      $('com-msg').textContent = '🙌 ¡Gracias! Ya nos llegó tu comentario.';
+    } catch (err) {
+      console.warn('[sharpicks] falló el envío de comentarios', err);
+      $('com-msg').textContent = 'No se pudo conectar para enviar el comentario. Intenta de nuevo.';
+    } finally {
+      b.disabled = false;
+    }
   });
 
   // de regreso de Mercado Pago o de Stripe
