@@ -422,3 +422,16 @@ La rama pasó validación de JS, fechas, controles estáticos, Deno check y las 
 
 ### Aún no se ha desplegado la web estática nueva
 El frontend modificado todavía necesita que esta PR se fusione y que el workflow canónico de Cloudflare Pages termine exitosamente. Después se debe verificar el sitio servido y probar el formulario de comentarios desde la página. Sólo tras esa comprobación se aplicará v405 y se comprobará que INSERT directo en comentarios ya no está permitido.
+
+
+---
+
+## Estado final de despliegue — 18-oct-2026
+
+**Correcciones principales desplegadas.** La PR #2 está fusionada en `main`; commit de publicación `68d8f139834fce15a6867a5bad6ff1912bf05b02`. El workflow de sitio [39146143725](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39146143725) terminó en verde, con validación pre-publicación y Cloudflare Pages exitoso. La prueba HTTP desde GitHub Actions [39147099500](https://github.com/HectorMontiel/mundial-2026-predictor/actions/runs/39147099500) confirmó homepage/cuenta HTTP 200 y validación esperada 400 del endpoint de comentarios sin insertar datos.
+
+**Migraciones aplicadas a Supabase:** v403_finanzas_rpc_auth, v402_bughunter_hardening, v404_precios_cuota_canonico y v405_comentarios_solo_edge. Los permisos posteriores muestran: `anon/authenticated INSERT comentarios=false`, `service_role INSERT comentarios=true`, tabla de rate limit y RPC de comentarios presentes, y RPC financiera no ejecutable por anon. Las funciones `comentario`, `vip`, `stripe`, `mp-webhook` y `stripe-webhook` coinciden exactamente con los archivos de `main`.
+
+Detalles, porqués, pruebas, limitaciones y enlaces: [DESPLIEGUE_SHARPICKS_2026-10-18.md](./DESPLIEGUE_SHARPICKS_2026-10-18.md).
+
+**Aún abierto:** SHP-003/SHP-006 (instalación desde cero/migraciones históricas), pagos E2E con sandbox y un comentario válido con correo en staging. No declarar auditoría total certificada ni haber validado pagos reales.
