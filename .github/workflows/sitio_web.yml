@@ -59,6 +59,8 @@ jobs:
           node test_web_v402.cjs
           python -m py_compile exportar_web.py combinadas_web.py comentarios_correo.py telegram_canales.py
           python test_exportador_web_v402.py
+          python test_v379.py
+          python test_v389.py
           python test_v400.py
       - name: Sacar los pronósticos al sitio
         env:
