@@ -1,3 +1,7 @@
+-- ATENCIÓN v402: bootstrap histórico. No lo vuelvas a ejecutar sobre una base que ya recibió
+-- v383 o migraciones posteriores: algunas funciones son versiones antiguas y podrían
+-- reemplazar comportamiento de usuario/admin. En bases existentes, aplica las migraciones
+-- versionadas en orden; v402_bughunter_hardening.sql endurece los permisos actuales.
 -- v379 — SharPicks: cuentas, «Mis picks», monedas y «No Win, No Pay».
 -- Se puede correr las veces que haga falta (todo es «si no existe»).
 --
@@ -9,7 +13,7 @@
 -- SEGURIDAD: el texto de una apuesta premium NO va en `picks` (que lee
 -- todo el mundo) sino en `picks_premium`, y la base sólo lo deja leer a
 -- quien la desbloqueó, a quien tiene plan Pro, o cuando el partido ya
--- empezó. Esconderlo en la página no serviría: cualquiera mira el código.
+-- terminó y quedó liquidado. Esconderlo en la página no serviría: cualquiera mira el código.
 
 -- ---------- ajustes (precios) ----------
 create table if not exists public.ajustes (clave text primary key, valor text not null);
@@ -29,6 +33,7 @@ alter table public.perfiles add column if not exists plan_hasta timestamptz;
 alter table public.perfiles add column if not exists deportes text[];
 -- el usuario puede cambiar su nombre y deportes, NUNCA sus monedas ni su plan
 revoke update on public.perfiles from authenticated;
+revoke insert on public.perfiles from anon, authenticated;
 grant update (nombre, deportes) on public.perfiles to authenticated;
 
 create or replace function public.nuevo_usuario() returns trigger
@@ -43,6 +48,7 @@ begin
   end if;
   return new;
 end $$;
+revoke execute on function public.nuevo_usuario() from public, anon, authenticated;
 
 -- ---------- movimientos de monedas (todo queda apuntado) ----------
 create table if not exists public.movimientos (
@@ -103,18 +109,43 @@ drop policy if exists "premium a quien le toca" on public.picks_premium;
 create policy "premium a quien le toca" on public.picks_premium for select using (
   public.es_pro()
   or exists (select 1 from public.desbloqueos d where d.pick = picks_premium.id and d.usuario = auth.uid())
-  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.inicio <= now())
+  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.estado in ('verde','roja','nula'))
 );
 grant select on public.picks_premium to anon, authenticated;
 grant all on public.picks_premium to service_role;
 
--- precio de un pick según su nivel (💎 = ⭐ ELIGE; 🔷 ≥ 85 %; 🥇 ≥ 80 %)
+-- Precio canónico de picks premium por cuota (la misma regla que web/cuenta.js).
+-- Los valores configurados se respetan; sólo se agregan las bandas que falten.
+create table if not exists public.precios_cuota (
+  desde numeric(6,2) primary key,
+  hasta numeric(6,2) not null,
+  monedas integer not null check (monedas >= 0),
+  check (desde < hasta)
+);
+insert into public.precios_cuota (desde, hasta, monedas) values
+  (1.00, 1.30, 5), (1.30, 1.60, 8), (1.60, 2.00, 12),
+  (2.00, 3.00, 18), (3.00, 99.00, 25)
+on conflict (desde) do nothing;
+alter table public.precios_cuota enable row level security;
+drop policy if exists "precios_cuota_public_read" on public.precios_cuota;
+create policy "precios_cuota_public_read" on public.precios_cuota
+  for select to anon, authenticated using (true);
+grant select on public.precios_cuota to anon, authenticated;
+
 create or replace function public.precio_pick(p public.picks) returns integer
-language sql stable set search_path = public as $$
-  select coalesce((select valor::int from public.ajustes where clave =
-    case when p.elige then 'precio_diamante' when p.prob >= 0.85 then 'precio_platino'
-         when p.prob >= 0.80 then 'precio_oro' else 'precio_plata' end), 0);
-$$;
+language sql stable set search_path = public as $
+  select case
+    when not (coalesce(p.elige, false)
+              or coalesce(p.tipo, 'pick') = 'error'
+              or coalesce(p.prob, 0) >= 0.85) then 0
+    else coalesce((
+      select pc.monedas from public.precios_cuota pc
+       where coalesce(p.cuota, 1) >= pc.desde
+         and coalesce(p.cuota, 1) < pc.hasta
+       order by pc.desde limit 1
+    ), 10)
+  end;
+$;
 
 -- desbloquear: cobra las monedas (si alcanzan) y lo apunta. Sólo antes del partido.
 create or replace function public.desbloquear(pick_id text) returns text
@@ -136,7 +167,7 @@ begin
   end if;
   return 'ok';
 end $$;
-revoke execute on function public.desbloquear(text) from anon;
+revoke execute on function public.desbloquear(text) from public, anon;
 grant execute on function public.desbloquear(text) to authenticated;
 
 -- NO WIN, NO PAY: cuando un pick sale rojo (o nulo), se devuelven solas las
@@ -155,6 +186,7 @@ begin
   end if;
   return new;
 end $$;
+revoke execute on function public.devolver_si_falla() from public, anon, authenticated;
 drop trigger if exists no_win_no_pay on public.picks;
 create trigger no_win_no_pay after update of estado on public.picks
   for each row execute function public.devolver_si_falla();
@@ -180,14 +212,14 @@ create or replace view public.telegram_publicados with (security_invoker = false
     from public.telegram_enviados where tipo = 'pick' group by canal, pick;
 grant select on public.telegram_publicados to anon, authenticated;
 
--- v381 — LANZAMIENTO: los premium los ve cualquiera CON CUENTA (gratis).
--- Para cobrar: update public.ajustes set valor = '0' where clave = 'premium_con_cuenta';
-insert into public.ajustes (clave, valor) values ('premium_con_cuenta', '1') on conflict (clave) do nothing;
+-- v381 — el acceso premium con cuenta queda cerrado por defecto.
+-- Sólo abrirlo mediante un ajuste explícito cuando esa política comercial esté aprobada.
+insert into public.ajustes (clave, valor) values ('premium_con_cuenta', '0') on conflict (clave) do nothing;
 drop policy if exists "premium a quien le toca" on public.picks_premium;
 create policy "premium a quien le toca" on public.picks_premium for select using (
   public.es_pro()
   or exists (select 1 from public.desbloqueos d where d.pick = picks_premium.id and d.usuario = auth.uid())
-  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.inicio <= now())
+  or exists (select 1 from public.picks p where p.id = picks_premium.id and p.estado in ('verde','roja','nula'))
   or (auth.uid() is not null and exists (select 1 from public.ajustes a where a.clave = 'premium_con_cuenta' and a.valor = '1'))
 );
 notify pgrst, 'reload schema';

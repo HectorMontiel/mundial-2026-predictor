@@ -156,6 +156,9 @@ def estado_de(patas_: List[Dict], estados: Dict[str, str]) -> str:
 def subir(picks: List[Dict], url: str, key: str, ahora: Optional[dt.datetime] = None) -> int:
     """Lee la IA y lo ya publicado, arma las nuevas, congela las empezadas y
     pone el estado de cada una a partir de sus patas."""
+    if not picks:
+        logger.warning('[combinadas] no se recibieron picks; se conserva lo publicado')
+        return 0
     import requests
     ahora = ahora or dt.datetime.now(dt.timezone.utc)
     base = url.rstrip('/') + '/rest/v1/'
@@ -165,13 +168,14 @@ def subir(picks: List[Dict], url: str, key: str, ahora: Optional[dt.datetime] = 
     ia = {}
     r = requests.get(base + 'ia_analisis', headers=hdr, timeout=30,
                      params={'select': 'partido,veredictos', 'fecha': 'gte.' + desde, 'limit': 5000})
-    if r.ok:
-        ia = {x['partido']: x for x in r.json()}
+    if not r.ok:
+        raise RuntimeError('No se pudo leer ia_analisis para validar las combinadas: HTTP %s' % r.status_code)
+    ia = {x['partido']: x for x in r.json()}
     r = requests.get(base + 'combinadas', headers=hdr, timeout=30,
                      params={'select': '*', 'fecha': 'gte.' + desde, 'limit': 2000})
     if not r.ok:
-        logger.warning('[combinadas] no se pudo leer la tabla: %s %s', r.status_code, r.text[:200])
-        return 0
+        logger.error('[combinadas] no se pudo leer la tabla: %s %s', r.status_code, r.text[:200])
+        raise RuntimeError('No se pudo leer combinadas; no se puede publicar un estado consistente')
     viejas = r.json()
     # el estado de cada pata: de esta pasada o de la base
     estados = {p['id']: p.get('estado') for p in picks}
@@ -179,14 +183,17 @@ def subir(picks: List[Dict], url: str, key: str, ahora: Optional[dt.datetime] = 
     for i in range(0, len(faltan), 150):
         rr = requests.get(base + 'picks', headers=hdr, timeout=30,
                           params={'select': 'id,estado', 'id': 'in.(%s)' % ','.join(faltan[i:i + 150])})
-        if rr.ok:
-            estados.update({x['id']: x.get('estado') for x in rr.json()})
+        if not rr.ok:
+            raise RuntimeError('No se pudieron leer las patas de combinadas desde picks: HTTP %s' % rr.status_code)
+        estados.update({x['id']: x.get('estado') for x in rr.json()})
     empezo = lambda c: any((_utc(x.get('inicio')) or ahora) <= ahora for x in c.get('patas') or [])
     # v397 — lo que alguien ya PAGÓ con monedas tampoco se rehace ni se borra
     # (perdería lo que compró); queda fijo igual que lo ya empezado
     rr = requests.get(base + 'desbloqueos_combinada', headers=hdr, timeout=30,
                       params={'select': 'combinada', 'limit': 10000})
     pagadas = {x['combinada'] for x in rr.json()} if rr.ok else None
+    if pagadas is None:
+        logger.warning('[combinadas] no se pudieron consultar los desbloqueos; se conservarán las combinadas existentes')
     if pagadas is None:                 # sin poder saberlo, no se toca nada que no haya empezado
         pagadas = {c['id'] for c in viejas}
     filas, fijas = [], set()
@@ -212,12 +219,17 @@ def subir(picks: List[Dict], url: str, key: str, ahora: Optional[dt.datetime] = 
         rr = requests.post(base + 'combinadas', headers=up, json=nuevas, timeout=30)
         n += len(nuevas) if rr.ok else 0
         if not rr.ok:
-            logger.warning('[combinadas] %s %s', rr.status_code, rr.text[:200])
+            logger.error('[combinadas] %s %s', rr.status_code, rr.text[:200])
+            raise RuntimeError('No se pudieron guardar combinadas nuevas: HTTP %s' % rr.status_code)
     for f in filas:
         rr = requests.patch(base + 'combinadas', headers=up, params={'id': 'eq.' + f['id']},
                             json={'estado': f['estado'], 'actualizado': f['actualizado']}, timeout=30)
-        n += bool(rr.ok)
+        if not rr.ok:
+            raise RuntimeError('No se pudo actualizar el estado de una combinada: HTTP %s' % rr.status_code)
+        n += 1
     if quitar:
-        requests.delete(base + 'combinadas', headers=hdr, timeout=30,
-                        params={'id': 'in.(%s)' % ','.join(quitar)})
+        rr = requests.delete(base + 'combinadas', headers=hdr, timeout=30,
+                             params={'id': 'in.(%s)' % ','.join(quitar)})
+        if not rr.ok:
+            raise RuntimeError('No se pudieron retirar combinadas pendientes obsoletas: HTTP %s' % rr.status_code)
     return n

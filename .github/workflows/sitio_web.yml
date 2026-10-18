@@ -50,6 +50,18 @@ jobs:
           cache: pip
       - name: Instalar dependencias
         run: pip install -r requirements.txt
+      # v402 — no publicar una web con JavaScript inválido o guardas críticas rotas.
+      - name: Validar código antes de publicar
+        run: |
+          node --check web/fechas.js
+          node --check web/app.js
+          node --check web/cuenta.js
+          node test_web_v402.cjs
+          python -m py_compile exportar_web.py combinadas_web.py comentarios_correo.py telegram_canales.py
+          python test_exportador_web_v402.py
+          python test_v379.py
+          python test_v389.py
+          python test_v400.py
       - name: Sacar los pronósticos al sitio
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -60,6 +72,7 @@ jobs:
         run: python exportar_web.py
       # v379 — los dos canales de Telegram (gratis y VIP); sin canales, no hace nada
       - name: Canales de Telegram
+        id: telegram
         continue-on-error: true
         env:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
@@ -71,6 +84,7 @@ jobs:
         run: python telegram_canales.py
       # v387 — la IA (Gemini) analiza y predice; se le mide aparte
       - name: IA (Gemini)
+        id: ia
         continue-on-error: true
         timeout-minutes: 12
         env:
@@ -80,6 +94,7 @@ jobs:
         run: python ia_gemini.py
       # v395 — aviso 7 días antes de cada renovación del VIP (correo por Brevo)
       - name: Avisos de renovación
+        id: avisos
         continue-on-error: true
         timeout-minutes: 3
         env:
@@ -90,6 +105,7 @@ jobs:
         run: python avisos_renovacion.py
       # v401 — los comentarios de la página, a tu correo (el de Brevo)
       - name: Comentarios al correo
+        id: comentarios
         continue-on-error: true
         timeout-minutes: 2
         env:
@@ -99,6 +115,7 @@ jobs:
           BREVO_REMITENTE: ${{ secrets.BREVO_REMITENTE }}
         run: python comentarios_correo.py
       - name: Publicar en Cloudflare Pages (sharpicks.pages.dev)
+        id: cloudflare
         if: env.CF_TOKEN != ''
         continue-on-error: true
         env:
@@ -113,3 +130,35 @@ jobs:
           path: web
       - id: pages
         uses: actions/deploy-pages@v4
+      # v402 — las integraciones opcionales pueden fallar sin bloquear el backup,
+      # pero sus fallos se publican en el resumen y Cloudflare (sitio canónico) no queda en silencio.
+      - name: Resumen de integraciones y estado del sitio canónico
+        if: always()
+        env:
+          CF_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          TELEGRAM_OUTCOME: ${{ steps.telegram.outcome }}
+          IA_OUTCOME: ${{ steps.ia.outcome }}
+          AVISOS_OUTCOME: ${{ steps.avisos.outcome }}
+          COMENTARIOS_OUTCOME: ${{ steps.comentarios.outcome }}
+          CLOUDFLARE_OUTCOME: ${{ steps.cloudflare.outcome }}
+        run: |
+          {
+            echo "## Resultado de SharPicks"
+            echo ""
+            echo "- Telegram: ${TELEGRAM_OUTCOME:-no ejecutado}"
+            echo "- IA: ${IA_OUTCOME:-no ejecutada}"
+            echo "- Avisos de renovación: ${AVISOS_OUTCOME:-no ejecutados}"
+            echo "- Comentarios por correo: ${COMENTARIOS_OUTCOME:-no ejecutados}"
+            echo "- Cloudflare Pages: ${CLOUDFLARE_OUTCOME:-no ejecutado}"
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$TELEGRAM_OUTCOME" = "failure" ] || [ "$IA_OUTCOME" = "failure" ] || [ "$AVISOS_OUTCOME" = "failure" ] || [ "$COMENTARIOS_OUTCOME" = "failure" ]; then
+            echo "::warning::Una integración auxiliar falló. Consulta el resumen y los logs de ese paso."
+          fi
+          if [ -z "$CF_TOKEN" ]; then
+            echo "::error::Falta CLOUDFLARE_API_TOKEN: no se actualizó el sitio canónico sharpicks.pages.dev."
+            exit 1
+          fi
+          if [ "$CLOUDFLARE_OUTCOME" != "success" ]; then
+            echo "::error::Cloudflare Pages no confirmó el despliegue de sharpicks.pages.dev."
+            exit 1
+          fi

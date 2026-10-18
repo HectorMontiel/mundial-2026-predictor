@@ -1,0 +1,78 @@
+name: Validar SharPicks sin desplegar
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'web/**'
+      - 'supabase/**'
+      - 'exportar_web.py'
+      - 'combinadas_web.py'
+      - 'test_*.py'
+      - 'test_*.cjs'
+      - '.github/workflows/**'
+  push:
+    branches:
+      - 'audit/**'
+    paths:
+      - 'web/**'
+      - 'supabase/**'
+      - 'exportar_web.py'
+      - 'combinadas_web.py'
+      - 'test_*.py'
+      - 'test_*.cjs'
+      - '.github/workflows/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: validar-sharpicks-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Instalar dependencias mínimas de las pruebas
+        run: python -m pip install --disable-pip-version-check 'requests>=2.31'
+      - name: Validar sintaxis y fechas
+        run: |
+          set -eu
+          node --check web/fechas.js
+          node --check web/app.js
+          node --check web/cuenta.js
+          node test_web_v402.cjs
+      - uses: denoland/setup-deno@v2
+        with:
+          deno-version: v2.x
+      - name: Validar Edge Functions
+        run: |
+          set -eu
+          deno check --no-lock supabase/functions/comentario/index.ts
+          deno check --no-lock supabase/functions/vip/index.ts
+          deno check --no-lock supabase/functions/stripe/index.ts
+          deno check --no-lock supabase/functions/mp-webhook/index.ts
+          deno check --no-lock supabase/functions/stripe-webhook/index.ts
+      - name: Compilar módulos modificados
+        run: |
+          python -m py_compile exportar_web.py combinadas_web.py comentarios_correo.py telegram_canales.py
+      - name: Pruebas de sincronización y regresión
+        run: |
+          set -eu
+          python test_exportador_web_v402.py
+          python test_v383.py
+          python test_v389.py
+          python test_v390.py
+          python test_v394.py
+          python test_v395.py
+          python test_v396.py
+          python test_v400.py

@@ -464,12 +464,25 @@
     const texto = $('com-texto').value.trim(), correo = $('com-correo').value.trim() || (yo.user && yo.user.email) || null;
     if (texto.length < 3) { $('com-msg').textContent = 'Escribe un poco más, por favor.'; return; }
     const b = e.target.querySelector('button[type=submit]'); b.disabled = true;
-    const { error } = await sb.from('comentarios').insert({ tipo: comTipo, texto, correo, pagina: location.pathname + location.search,
-      usuario: yo.user ? yo.user.id : null });
-    b.disabled = false;
-    if (error) { $('com-msg').textContent = 'No se pudo enviar. Intenta de nuevo en un momento.'; return; }
-    $('com-texto').value = '';
-    $('com-msg').textContent = '🙌 ¡Gracias! Ya nos llegó tu comentario.';
+    try {
+      const { data: authData } = await sb.auth.getSession();
+      const token = authData && authData.session ? authData.session.access_token : C.SUPABASE_ANON_KEY;
+      const r = await fetch(FN + 'comentario', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + token },
+        body: JSON.stringify({ tipo: comTipo, texto, correo, pagina: location.pathname + location.search }),
+      });
+      const d = await r.json().catch(() => ({}));
+      if (r.status === 429) { $('com-msg').textContent = d.error || 'Has enviado varios comentarios recientemente. Espera un rato.'; return; }
+      if (!r.ok || !d.ok) { $('com-msg').textContent = d.error || 'No se pudo enviar. Intenta de nuevo en un momento.'; return; }
+      $('com-texto').value = '';
+      $('com-msg').textContent = '🙌 ¡Gracias! Ya nos llegó tu comentario.';
+    } catch (err) {
+      console.warn('[sharpicks] falló el envío de comentarios', err);
+      $('com-msg').textContent = 'No se pudo conectar para enviar el comentario. Intenta de nuevo.';
+    } finally {
+      b.disabled = false;
+    }
   });
 
   // de regreso de Mercado Pago o de Stripe
@@ -486,22 +499,31 @@
   // ---------- historial público (verdes, rojas y porcentaje) ----------
   async function historial() {
     const caja = $('historial'); if (!caja || !sb) return;
-    const { data } = await sb.from('historial').select('*').limit(30);
+    const { data, error } = await sb.from('historial').select('*').limit(30);
+    if (error) {
+      console.error('[sharpicks] no se pudo consultar el historial', error);
+      caja.innerHTML = '<p class="aviso">No se pudo consultar el historial. No podemos confirmar los resultados; reintenta en un momento.</p>';
+      const iaError = $('ia-hist'); if (iaError) iaError.innerHTML = '<p class="aviso">No se pudieron consultar las mediciones de la IA desde Supabase.</p>';
+      const tgError = $('tg-hist'); if (tgError) tgError.innerHTML = '<p class="aviso">No se pudo consultar lo publicado en Telegram.</p>';
+      return;
+    }
     const filas = (data || []).filter((d) => d.verdes + d.rojas + (d.verdes_error || 0) + (d.rojas_error || 0) > 0);
-    if (!filas.length) { caja.innerHTML = '<p class="tenue">El historial se va llenando día con día.</p>'; return; }
-    const tv = filas.reduce((s, d) => s + d.verdes, 0), tr = filas.reduce((s, d) => s + d.rojas, 0);
+    if (!filas.length) caja.innerHTML = '<p class="tenue">Todavía no hay resultados liquidados para mostrar.</p>';
+    const tv = filas.reduce((s, d) => s + (Number(d.verdes) || 0), 0), tr = filas.reduce((s, d) => s + (Number(d.rojas) || 0), 0);
     const ev = filas.reduce((s, d) => s + d.verdes_elige, 0), er = filas.reduce((s, d) => s + d.rojas_elige, 0);
     const xv = filas.reduce((s, d) => s + (d.verdes_error || 0), 0), xr = filas.reduce((s, d) => s + (d.rojas_error || 0), 0);
-    const { data: ia } = await sb.from('ia_aciertos').select('*').maybeSingle();
-    const { data: med } = await sb.from('ia_medicion').select('*');
-    const p100 = (a, b) => (a + b ? Math.round(100 * a / (a + b)) + ' %' : '—');
-    caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + Math.round(100 * tv / (tv + tr)) + ' %</span></div>' +
+    const { data: ia, error: iaError } = await sb.from('ia_aciertos').select('*').maybeSingle();
+    if (iaError) console.error('[sharpicks] no se pudo consultar ia_aciertos', iaError);
+    const { data: med, error: medError } = await sb.from('ia_medicion').select('*');
+    const p100 = (a, b) => (Number(a || 0) + Number(b || 0) ? Math.round(100 * Number(a || 0) / (Number(a || 0) + Number(b || 0))) + ' %' : '—');
+    if (medError) console.error('[sharpicks] no se pudo consultar la calibración de la IA', medError);
+    if (filas.length) caja.innerHTML = '<div class="num">✅ ' + tv + ' ❌ ' + tr + ' <span class="pct">' + p100(tv, tr) + '</span></div>' +
       '<div class="sub">💎 Diamante: ✅ ' + ev + ' ❌ ' + er + (ev + er ? ' · ' + Math.round(100 * ev / (ev + er)) + ' %' : '') + '</div>' +
       (xv + xr ? '<div class="sub">💰 Cuota alta (errores de cuota): ✅ ' + xv + ' ❌ ' + xr + ' · ' + p100(xv, xr) + '</div>' : '') +
       ''; caja.innerHTML += '';
     // v391 — el bloque de la IA sale SIEMPRE (aunque aún no haya partidos terminados)
     const iaCaja = $('ia-hist');
-    if (iaCaja) iaCaja.innerHTML = !ia ? '<p class="tenue">Sin datos de la IA todavía.</p>' :
+    if (iaCaja) iaCaja.innerHTML = iaError ? '<p class="aviso">No se pudieron consultar las mediciones de la IA. Reintenta en un momento.</p>' : !ia ? '<p class="tenue">Sin datos de la IA todavía.</p>' :
       '<div class="ia-fila"><span>Partidos analizados</span><b>' + (ia.analizados || 0) + '</b><small>' + (ia.pendientes || 0) + ' esperando resultado</small></div>' +
       '<div class="ia-fila"><span>🤖 Acierta el ganador</span><b>✅ ' + ia.resultado_ok + ' ❌ ' + ia.resultado_mal + '</b><small>' + p100(ia.resultado_ok, ia.resultado_mal) + '</small></div>' +
       '<div class="ia-fila"><span>📈 Elegir al favorito (la vara)</span><b>✅ ' + ia.mercado_ok + ' ❌ ' + ia.mercado_mal + '</b><small>' + p100(ia.mercado_ok, ia.mercado_mal) + '</small></div>' +
@@ -514,9 +536,11 @@
       '<div class="ia-fila"><span>✅ Cuando dijo «a favor», el pick salió</span><b>' + ia.favor_bien + ' de ' + (ia.favor_bien + ia.favor_mal) + '</b><small>' + p100(ia.favor_bien, ia.favor_mal) + '</small></div>' +
       filaMejor(med) + calibracion(med) +
       '<p class="tenue chico">Si la IA no le gana a «elegir al favorito», no aporta: por eso la medimos aparte y nuestros picks no dependen de ella.</p>';
-    caja.innerHTML = caja.innerHTML +
+    if (filas.length) caja.innerHTML +=
       '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
-      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' + Math.round(100 * d.verdes / (d.verdes + d.rojas)) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige + '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
+      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' +
+        esc(p100(d.verdes, d.rojas).replace(' %', '')) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige +
+        '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
   }
 
   // v399 — «lo que metería la IA» con ✅/❌, y si sus probabilidades son

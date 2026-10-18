@@ -87,13 +87,20 @@ def probar_comentarios():
     check('🐞 Algo no funciona' in h and '&lt;b&gt;' in h and 'mailto:a@b.mx' in h, 'el correo trae el comentario (escapado) y a quién responder')
     html = open(os.path.join('web', 'index.html'), encoding='utf-8').read()
     cu = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
-    check('id="f-comentario"' in html and 'data-ir-comentarios' in html and "sb.from('comentarios').insert" in cu,
-          'la página tiene «¿Qué mejorarías?» (en Planes y desde la Ayuda)')
+    check('id="f-comentario"' in html and 'data-ir-comentarios' in html
+          and "fetch(FN + 'comentario'" in cu and "sb.from('comentarios').insert" not in cu,
+          'la página tiene «¿Qué mejorarías?» en Planes y desde Ayuda, usando la Edge Function protegida')
     check('por tiempo limitado' not in html, 'ya no se promete que con cuenta gratis se ven los 💎')
     wf = open(os.path.join('.github', 'workflows', 'sitio_web.yml'), encoding='utf-8').read()
     sql = open(os.path.join('supabase', 'v401_comentarios.sql'), encoding='utf-8').read()
-    check('python comentarios_correo.py' in wf and 'for insert to anon, authenticated' in sql and 'for select' not in sql,
-          'llegan al correo de Brevo; en la base se escriben pero nadie los lee desde la página')
+    hardening = open(os.path.join('supabase', 'v402_bughunter_hardening.sql'), encoding='utf-8').read()
+    cierre = open(os.path.join('supabase', 'v405_comentarios_solo_edge.sql'), encoding='utf-8').read()
+    edge = open(os.path.join('supabase', 'functions', 'comentario', 'index.ts'), encoding='utf-8').read()
+    check('python comentarios_correo.py' in wf and 'for insert to anon, authenticated' in sql and 'for select' not in sql
+          and 'create or replace function public.registrar_comentario' in hardening
+          and 'revoke insert on public.comentarios from public, anon, authenticated' in cierre
+          and "rpc('registrar_comentario'" in edge,
+          'la nueva ruta de comentarios tiene rate limit y el cierre directo queda versionado para el cutover')
 
 
 if __name__ == '__main__':

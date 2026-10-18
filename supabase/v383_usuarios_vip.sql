@@ -8,6 +8,8 @@ do $$ begin
   alter table public.perfiles add constraint usuario_valido check (usuario is null or usuario ~ '^[A-Za-z0-9_.]{3,20}$');
 exception when duplicate_object then null; end $$;
 create unique index if not exists perfiles_usuario on public.perfiles (lower(usuario));
+revoke insert on public.perfiles from anon, authenticated;
+revoke update on public.perfiles from authenticated;
 grant update (nombre, deportes, usuario) on public.perfiles to authenticated;
 
 -- al registrarse: el usuario elegido (si es válido y está libre)
@@ -67,6 +69,8 @@ begin
   end if;
   return 'ok';
 end $$;
+revoke execute on function public.desbloquear(text) from public, anon;
+grant execute on function public.desbloquear(text) to authenticated;
 
 -- códigos de regalo: 1 mes de VIP, un solo uso (los 20 se generaron al correr esto)
 create table if not exists public.codigos_regalo (
@@ -89,7 +93,7 @@ begin
   insert into public.movimientos (usuario, cantidad, motivo) values (auth.uid(), 0, 'codigo ' || r.codigo);
   return 'ok';
 end $$;
-revoke execute on function public.canjear_codigo(text) from anon;
+revoke execute on function public.canjear_codigo(text) from public, anon;
 grant execute on function public.canjear_codigo(text) to authenticated;
 
 -- suscripciones de Mercado Pago (las escriben las funciones `vip` y `mp-webhook`)
@@ -118,9 +122,9 @@ alter table public.privados enable row level security;
 create or replace function public.enlace_vip() returns text
 language sql stable security definer set search_path = public as $$
   select valor from public.privados where clave = 'telegram_vip'
-     and (public.es_pro() or (auth.uid() is not null and exists (select 1 from public.ajustes where clave = 'premium_con_cuenta' and valor = '1')));
+     and (public.es_pro() or (auth.uid() is not null and exists (select 1 from public.ajustes where clave = 'telegram_vip_abierto' and valor = '1')));
 $$;
-revoke execute on function public.enlace_vip() from anon;
+revoke execute on function public.enlace_vip() from public, anon;
 grant execute on function public.enlace_vip() to authenticated;
 
 -- (el registro del administrador: cuando el dueño cree su cuenta «HMREY»)

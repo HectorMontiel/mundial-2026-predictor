@@ -1,0 +1,3 @@
+# SHP-014 — comentario público con validación interna de sesión, incluso para anónimos.
+[functions.comentario]
+verify_jwt = false
