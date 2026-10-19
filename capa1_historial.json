@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T09:51:17Z",
+"actualizado": "2026-10-19T11:43:45Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10221,6 +10221,16 @@
 "cuota": 3.5,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Tai Po vs Southern District",
+"apuesta": "Gana Southern District",
+"cuota": 3.35,
+"resultado": "rojo",
+"marcador": "4-2"
 }
 ]
 }
