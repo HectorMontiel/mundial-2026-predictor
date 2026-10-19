@@ -12446,22 +12446,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5100935,2026-07-24,irlanda,Dundalk,Declan McDaid,263676,F,0,21,0,0,0,0.0,,3.0,50000.0
 5100935,2026-07-24,irlanda,Dundalk,Shane Tracey,1899449,M,0,14,0,0,0,0.0,,2.0,
 5100935,2026-07-24,irlanda,Dundalk,Leonardo Gaxha,1445823,F,0,13,1,0,0,0.05,,3.0,
-5853444,2026-07-24,rumania,FC Arges Pitesti,Catalin Straton,178231,G,1,45,0,0,0,0.0,11.0,0.0,50000.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Costinel Tofan,1026325,D,1,70,1,0,0,0.0,32.0,1.0,160720.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Mario Tudose,1685332,D,1,90,0,0,0,0.0,34.0,1.0,1575181.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Leard Sadriu,948550,D,1,90,1,0,0,0.0,36.0,1.0,767960.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Florin Borta,952191,D,1,90,1,0,0,0.0,38.0,1.0,262724.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Vadim Rata,274683,M,1,90,0,0,0,0.0,64.0,2.0,317788.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Rober Sierra,876478,M,1,90,1,0,0,0.0,66.0,2.0,279320.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Robert Moldoveanu,905771,F,1,79,2,1,1,0.0,83.0,3.0,203741.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Yanis Pîrvu,1419237,F,1,79,1,1,0,0.0,85.0,3.0,1086212.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Xian Emmers,860273,M,1,70,0,0,0,0.0,87.0,2.0,105580.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Ricardo Matos,1084018,F,1,43,2,1,0,0.0,115.0,3.0,604468.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Catalin Cabuz,950711,G,0,45,0,0,0,0.0,,0.0,434115.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Guilherme Gomes Garutti,1191539,D,0,20,0,0,0,0.0,,1.0,
-5853444,2026-07-24,rumania,FC Arges Pitesti,Ionut Radescu,1025759,M,0,20,0,0,0,0.0,,2.0,105574.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Dorinel Oancea,1025711,D,0,11,0,0,0,0.0,,1.0,512083.0
-5853444,2026-07-24,rumania,FC Arges Pitesti,Taylor Luvambo,1387313,F,0,11,0,0,0,0.0,,3.0,254597.0
 5739463,2026-07-24,dinamarca,Viborg,Kasper Kiilerich,1333333,G,1,90,0,0,0,0.0,11.0,0.0,728188.0
 5739463,2026-07-24,dinamarca,Viborg,Srdjan Kuzmic,1382364,D,1,76,0,0,0,0.0,32.0,1.0,1443049.0
 5739463,2026-07-24,dinamarca,Viborg,Lukas Kirkegaard,1517340,D,1,90,1,0,0,0.04,34.0,1.0,
@@ -13159,22 +13143,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5104958,2026-07-26,noruega,Molde,Caleb Zady Sery,962131,F,0,21,2,1,0,0.1,,3.0,1218943.0
 5104958,2026-07-26,noruega,Molde,Trent Koné-Doherty,1347272,F,0,15,0,0,0,0.0,,3.0,547200.0
 5104958,2026-07-26,noruega,Molde,Seydina Diop,1680293,F,0,7,1,1,0,0.15,,3.0,504522.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Neophytos Michael,679101,G,1,90,0,0,0,0.0,11.0,0.0,111363.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Dino Mikanovic,343434,D,1,90,1,1,0,0.0,32.0,1.0,168303.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Florent Poulolo,1110835,D,1,90,1,0,0,0.0,34.0,1.0,241782.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Iulian Cristea,769657,D,1,90,0,0,0,0.0,36.0,1.0,659610.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Alin Techeres,1508966,D,1,46,0,0,0,0.0,38.0,1.0,
-5853446,2026-07-26,rumania,Universitatea Cluj,Pedro Pinho,1356298,M,1,60,0,0,0,0.0,64.0,2.0,567929.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Gabriel Simion,769855,M,1,90,3,0,0,0.0,66.0,2.0,523061.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Issouf Macalou,1227360,F,1,73,2,0,0,0.0,83.0,3.0,423270.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Dan Nistor,249761,M,1,60,0,0,0,0.0,85.0,2.0,157405.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Adams Friday,1392221,D,1,46,0,0,0,0.0,87.0,1.0,205910.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Jovo Lukic,1174844,F,1,90,3,1,0,0.0,115.0,3.0,959713.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Alin Chintes,1508953,D,0,44,0,0,0,0.0,,1.0,438468.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Oucasse Mendy,1227330,F,0,45,2,0,0,0.0,,3.0,612759.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Ovidiu Bic,815900,M,0,30,1,1,0,0.0,,2.0,588386.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Marius Stefanescu,1069276,F,0,30,1,0,0,0.0,,3.0,589529.0
-5853446,2026-07-26,rumania,Universitatea Cluj,Alibek Aliev,614170,F,0,17,0,0,0,0.0,,3.0,379582.0
 5104955,2026-07-26,noruega,Sandefjord,Elias Hadaya,1049254,G,1,90,0,0,0,0.0,11.0,0.0,470242.0
 5104955,2026-07-26,noruega,Sandefjord,Fredrik Carson Pedersen,1169328,D,1,90,0,0,0,0.0,32.0,1.0,723798.0
 5104955,2026-07-26,noruega,Sandefjord,Rasmus Holten,1281389,D,1,90,0,0,0,0.0,34.0,1.0,425441.0
@@ -155131,34 +155099,96 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014606,2026-10-19,liga_mx,Pachuca,Gael Álvarez,1658984,F,0,9,0,0,0,0.0,,3.0,661972.0
 1000014606,2026-10-19,liga_mx,Pachuca,Sebastián Santos,1433093,M,0,3,0,0,0,0.0,,2.0,1227980.0
 1000014606,2026-10-19,liga_mx,Pachuca,Illian Hernández,1280280,F,0,3,0,0,0,0.0,,3.0,463682.0
-6362001,2026-10-19,ind_isl,Punjab FC,Arshdeep Singh,1104545,G,1,90,0,0,0,0.0,11,0,50000
-6362001,2026-10-19,ind_isl,Punjab FC,Khaiminthang Lhungdim,1121524,D,1,90,2,0,0,0.02,32,1,
-6362001,2026-10-19,ind_isl,Punjab FC,Bijoy Varghese,1313481,D,1,90,0,0,0,0.0,34,1,
-6362001,2026-10-19,ind_isl,Punjab FC,Nikhil Prabhu,1207545,M,1,90,0,0,0,0.0,36,2,79862
-6362001,2026-10-19,ind_isl,Punjab FC,Muhammed Uvais,1344675,D,1,90,0,0,0,0.0,38,1,95499
-6362001,2026-10-19,ind_isl,Punjab FC,Ricky John Shabong,1313463,M,1,90,1,0,0,0.03,64,2,85545
-6362001,2026-10-19,ind_isl,Punjab FC,Laishram Rishikanta Meitei,1837674,D,1,36,1,1,0,0.01,66,1,
-6362001,2026-10-19,ind_isl,Punjab FC,Muhammad Suhail,1678513,F,1,77,2,0,0,0.04,83,3,
-6362001,2026-10-19,ind_isl,Punjab FC,Diego Raposo,1437426,F,1,77,1,0,0,0.04,85,3,55786
-6362001,2026-10-19,ind_isl,Punjab FC,Vishal Yadav,1721394,F,1,55,1,0,0,0.02,87,3,
-6362001,2026-10-19,ind_isl,Punjab FC,Messi Bouli,897287,F,1,90,4,1,0,0.16,115,3,50000
-6362001,2026-10-19,ind_isl,Punjab FC,Bishu Sharma,2376464,M,0,54,1,0,0,0.06,,2,
-6362001,2026-10-19,ind_isl,Punjab FC,Gurkirat Singh,1223817,F,0,35,3,1,1,0.63,,3,151054
-6362001,2026-10-19,ind_isl,Punjab FC,Arshvir Singh,2391678,M,0,13,0,0,0,0.0,,2,
-6362001,2026-10-19,ind_isl,Punjab FC,Konsam Sanathoi Singh,1794461,F,0,13,1,0,0,0.02,,3,
-6362001,2026-10-19,ind_isl,Mumbai City FC,TP Rehenesh,581034,G,1,90,0,0,0,0.0,11,0,50000
-6362001,2026-10-19,ind_isl,Mumbai City FC,Valpuia,1104579,D,1,90,0,0,0,0.0,32,1,76516
-6362001,2026-10-19,ind_isl,Mumbai City FC,Lazar Ćirković,280458,D,1,90,0,0,0,0.0,34,1,50000
-6362001,2026-10-19,ind_isl,Mumbai City FC,Carlos Delgado,244456,D,1,90,0,0,0,0.0,36,1,50000
-6362001,2026-10-19,ind_isl,Mumbai City FC,Akash Mishra,1207540,D,1,90,1,1,0,0.1,38,1,337299
-6362001,2026-10-19,ind_isl,Mumbai City FC,Sergio Llamas,574177,M,1,90,1,0,0,0.02,64,2,50000
-6362001,2026-10-19,ind_isl,Mumbai City FC,Zothanpuia,1704605,M,1,86,1,0,0,0.03,66,2,
-6362001,2026-10-19,ind_isl,Mumbai City FC,PN Noufal,1459170,F,1,86,0,0,0,0.0,83,3,50000
-6362001,2026-10-19,ind_isl,Mumbai City FC,Brandon Fernandes,636469,M,1,67,3,2,0,0.12,85,2,50000
-6362001,2026-10-19,ind_isl,Mumbai City FC,Vikram Partap Singh,1013297,F,1,21,0,0,0,0.0,87,3,167732
-6362001,2026-10-19,ind_isl,Mumbai City FC,Leandro Otormín,724807,M,1,67,3,1,1,0.89,115,2,196906
-6362001,2026-10-19,ind_isl,Mumbai City FC,Farukh Choudhary,894712,F,0,69,2,0,0,0.12,,3,50000
-6362001,2026-10-19,ind_isl,Mumbai City FC,Lalnuntluanga Bawitlung,1438018,M,0,23,0,0,0,0.0,,2,
-6362001,2026-10-19,ind_isl,Mumbai City FC,Wilmar Jordán,212581,F,0,23,0,0,0,0.0,,3,140960
-6362001,2026-10-19,ind_isl,Mumbai City FC,Hridaya Jain,1707289,F,0,4,0,0,0,0.0,,3,291331
-6362001,2026-10-19,ind_isl,Mumbai City FC,Muhammad Ajsal,1399583,F,0,4,0,0,0,0.0,,3,106518
+6362001,2026-10-19,ind_isl,Punjab FC,Arshdeep Singh,1104545,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+6362001,2026-10-19,ind_isl,Punjab FC,Khaiminthang Lhungdim,1121524,D,1,90,2,0,0,0.02,32.0,1.0,
+6362001,2026-10-19,ind_isl,Punjab FC,Bijoy Varghese,1313481,D,1,90,0,0,0,0.0,34.0,1.0,
+6362001,2026-10-19,ind_isl,Punjab FC,Nikhil Prabhu,1207545,M,1,90,0,0,0,0.0,36.0,2.0,79862.0
+6362001,2026-10-19,ind_isl,Punjab FC,Muhammed Uvais,1344675,D,1,90,0,0,0,0.0,38.0,1.0,95499.0
+6362001,2026-10-19,ind_isl,Punjab FC,Ricky John Shabong,1313463,M,1,90,1,0,0,0.03,64.0,2.0,85545.0
+6362001,2026-10-19,ind_isl,Punjab FC,Laishram Rishikanta Meitei,1837674,D,1,36,1,1,0,0.01,66.0,1.0,
+6362001,2026-10-19,ind_isl,Punjab FC,Muhammad Suhail,1678513,F,1,77,2,0,0,0.04,83.0,3.0,
+6362001,2026-10-19,ind_isl,Punjab FC,Diego Raposo,1437426,F,1,77,1,0,0,0.04,85.0,3.0,55786.0
+6362001,2026-10-19,ind_isl,Punjab FC,Vishal Yadav,1721394,F,1,55,1,0,0,0.02,87.0,3.0,
+6362001,2026-10-19,ind_isl,Punjab FC,Messi Bouli,897287,F,1,90,4,1,0,0.16,115.0,3.0,50000.0
+6362001,2026-10-19,ind_isl,Punjab FC,Bishu Sharma,2376464,M,0,54,1,0,0,0.06,,2.0,
+6362001,2026-10-19,ind_isl,Punjab FC,Gurkirat Singh,1223817,F,0,35,3,1,1,0.63,,3.0,151054.0
+6362001,2026-10-19,ind_isl,Punjab FC,Arshvir Singh,2391678,M,0,13,0,0,0,0.0,,2.0,
+6362001,2026-10-19,ind_isl,Punjab FC,Konsam Sanathoi Singh,1794461,F,0,13,1,0,0,0.02,,3.0,
+6362001,2026-10-19,ind_isl,Mumbai City FC,TP Rehenesh,581034,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Valpuia,1104579,D,1,90,0,0,0,0.0,32.0,1.0,76516.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Lazar Ćirković,280458,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Carlos Delgado,244456,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Akash Mishra,1207540,D,1,90,1,1,0,0.1,38.0,1.0,337299.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Sergio Llamas,574177,M,1,90,1,0,0,0.02,64.0,2.0,50000.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Zothanpuia,1704605,M,1,86,1,0,0,0.03,66.0,2.0,
+6362001,2026-10-19,ind_isl,Mumbai City FC,PN Noufal,1459170,F,1,86,0,0,0,0.0,83.0,3.0,50000.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Brandon Fernandes,636469,M,1,67,3,2,0,0.12,85.0,2.0,50000.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Vikram Partap Singh,1013297,F,1,21,0,0,0,0.0,87.0,3.0,167732.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Leandro Otormín,724807,M,1,67,3,1,1,0.89,115.0,2.0,196906.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Farukh Choudhary,894712,F,0,69,2,0,0,0.12,,3.0,50000.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Lalnuntluanga Bawitlung,1438018,M,0,23,0,0,0,0.0,,2.0,
+6362001,2026-10-19,ind_isl,Mumbai City FC,Wilmar Jordán,212581,F,0,23,0,0,0,0.0,,3.0,140960.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Hridaya Jain,1707289,F,0,4,0,0,0,0.0,,3.0,291331.0
+6362001,2026-10-19,ind_isl,Mumbai City FC,Muhammad Ajsal,1399583,F,0,4,0,0,0,0.0,,3.0,106518.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Orlando Mosquera,531913,G,1,90,0,0,0,0.0,11.0,0.0,499020.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Makhir Al Rashidi,915152,D,1,89,0,0,0,0.0,33.0,1.0,283107.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Ziyad Al Sahafi,702375,D,1,90,0,0,0,0.0,35.0,1.0,118295.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Omar Colley,440369,D,1,90,0,0,0,0.0,37.0,1.0,589112.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Mohammed Al Baqawi,637281,D,1,88,0,0,0,0.0,51.0,1.0,266888.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Ahmed Bamasud,866401,D,1,90,0,0,0,0.0,59.0,1.0,424191.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Al Hussain Boulahrech,1671250,M,1,90,1,0,0,0.15,73.0,2.0,253165.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Hugo Moura,1028036,M,1,80,1,1,1,0.03,75.0,2.0,841021.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Yago,1590255,M,1,89,1,0,0,0.05,77.0,2.0,
+5970166,2026-10-19,ksa_pro,Al-Fayha,Alfa Semedo,816274,F,1,90,1,0,0,0.02,104.0,3.0,681000.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Jason,451984,F,1,90,4,1,1,0.25,106.0,3.0,1226720.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Mansor Al Beshe,1054058,M,0,10,0,0,0,0.0,,2.0,214814.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Rayan Enad,1780605,F,0,2,0,0,0,0.0,,3.0,344622.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Nawaf Al Harthi,1002614,M,0,1,0,0,0,0.0,,2.0,267066.0
+5970166,2026-10-19,ksa_pro,Al-Fayha,Fahad Majed Alhubayshi,2139541,M,0,1,1,0,0,0.1,,2.0,
+5970166,2026-10-19,ksa_pro,Al Ahli,Abdulrahman Al Sanbi,1524217,G,1,90,0,0,0,0.0,11.0,0.0,312769.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Saeed Baattia,1526851,D,1,80,0,0,0,0.0,32.0,1.0,195119.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Merih Demiral,823078,D,1,90,0,0,0,0.0,34.0,1.0,12516167.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Roger Ibañez,862538,D,1,90,0,0,0,0.0,36.0,1.0,16734130.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Saad Yaslam,1188101,D,1,90,1,0,0,0.04,38.0,1.0,437844.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Ziyad Al Johani,1174962,M,1,14,0,0,0,0.0,64.0,2.0,822508.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Valentin Atangana Edoa,1439625,M,1,89,2,1,0,0.46,66.0,2.0,15590649.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Trincão,732282,F,1,90,2,0,0,0.14,83.0,3.0,27691887.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Eduard Spertsyan,938297,M,1,89,2,0,0,0.13,85.0,2.0,21992013.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Matheus Gonçalves,1414577,F,1,80,1,1,0,0.06,87.0,3.0,7845802.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Feras Al Brikan,844226,F,1,90,3,2,1,1.33,115.0,3.0,2683069.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Artem Bondarenko,1116325,M,0,76,2,2,2,0.52,,2.0,5003896.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Mohammed Abdulrahman,1527140,D,0,10,0,0,0,0.0,,1.0,
+5970166,2026-10-19,ksa_pro,Al Ahli,Meshal Al Mutairi,1527079,F,0,10,2,2,0,0.85,,3.0,
+5970166,2026-10-19,ksa_pro,Al Ahli,Mohammed Sulaiman,1642823,D,0,1,0,0,0,0.0,,1.0,492573.0
+5970166,2026-10-19,ksa_pro,Al Ahli,Ibrahima Diaby,1785898,M,0,1,0,0,0,0.0,,2.0,2002025.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Ştefan Lefter,1106564,G,1,90,0,0,0,0.0,11.0,0.0,720917.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Dino Mikanović,343434,D,1,90,0,0,0,0.0,32.0,1.0,134388.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Florent Poulolo,1110835,D,1,90,1,1,0,0.0,34.0,1.0,278306.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Elio Capradossi,673737,D,1,13,0,0,0,0.0,36.0,1.0,80894.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Alexandru Chipciu,196456,D,1,90,1,1,0,0.0,38.0,1.0,134916.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Ovidiu Bic,815900,M,1,90,2,2,0,0.0,65.0,2.0,549668.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Issouf Macalou,1227360,F,1,71,1,0,0,0.0,82.0,3.0,731409.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Mouhamadou Drammeh,1197029,M,1,33,1,0,0,0.0,84.0,2.0,208043.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Oucasse Mendy,1227330,F,1,71,1,0,0,0.0,86.0,3.0,638011.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Marius Ștefănescu,1069276,F,1,90,1,1,0,0.0,88.0,3.0,301838.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Jovo Lukić,1174844,F,1,90,3,1,1,0.0,115.0,3.0,1340998.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Iulian Cristea,769657,D,0,77,1,0,0,0.0,,1.0,846902.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Pedro Pinho,1356298,M,0,57,2,0,0,0.0,,2.0,759461.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Alibek Aliev,614170,F,0,19,0,0,0,0.0,,3.0,336688.0
+5853525,2026-10-19,rumania,Universitatea Cluj,Jug Stanojev,1179483,F,0,19,0,0,0,0.0,,3.0,663441.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Igor Nikić,1623132,G,1,90,0,0,0,0.0,11.0,0.0,210113.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Guilherme Gomes Garutti,1191539,D,1,46,0,0,0,0.0,33.0,1.0,93178.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Leard Sadriu,948550,D,1,90,1,0,0,0.0,35.0,1.0,807236.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Florin Borţa,952191,D,1,90,3,1,0,0.0,37.0,1.0,357329.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Costinel Tofan,1026325,D,1,90,1,0,0,0.0,62.0,1.0,95616.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Dorinel Oancea,1025711,D,1,90,0,0,0,0.0,64.0,1.0,407466.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Ionuţ Rădescu,1025759,M,1,75,3,1,0,0.0,66.0,2.0,93178.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Tiago Gonçalves,1310441,M,1,46,0,0,0,0.0,68.0,2.0,398101.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Yanis Pîrvu,1419237,F,1,90,4,3,1,0.0,85.0,3.0,1226353.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Claudiu Micovschi,1091074,F,1,72,2,1,0,0.0,104.0,3.0,212235.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Ricardo Matos,1084018,F,1,81,3,2,1,0.0,106.0,3.0,682675.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Patrick Dulcea,1573823,F,0,45,1,1,0,0.0,,3.0,293176.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Taylor Luvambo,1387313,F,0,45,1,0,0,0.0,,3.0,141773.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Silviu Balaure,769872,F,0,18,0,0,0,0.0,,3.0,88776.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Oluwatobiloba Alagbe,1042522,M,0,15,0,0,0,0.0,,2.0,252234.0
+5853525,2026-10-19,rumania,FC Argeș Pitesti,Mamadou Mendy,948470,F,0,9,0,0,0,0.0,,3.0,196353.0

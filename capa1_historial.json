@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T16:16:33Z",
+"actualizado": "2026-10-19T17:48:20Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10224,6 +10224,16 @@
 },
 {
 "dia": "2026-10-19",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Al Fayha vs Al Ahli",
+"apuesta": "Al Ahli o empate",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-19",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Azazga vs CR Beni Thour",
@@ -10231,6 +10241,16 @@
 "cuota": 1.54,
 "resultado": "verde",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "BFC Daugavpils vs Auda",
+"apuesta": "Gana BFC Daugavpils",
+"cuota": 2.55,
+"resultado": "verde",
+"marcador": "2-1"
 },
 {
 "dia": "2026-10-19",
@@ -10281,6 +10301,16 @@
 "cuota": 3.35,
 "resultado": "rojo",
 "marcador": "4-2"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "U. Cluj vs FC Arges",
+"apuesta": "Gana U. Cluj",
+"cuota": 1.84,
+"resultado": "rojo",
+"marcador": "2-2"
 }
 ]
 }
