@@ -1,5 +1,5 @@
 {
- "generado": "2026-10-12 15:26",
+ "generado": "2026-10-19 13:04",
  "criterios": {
   "brier": "<= baseline",
   "p5": ">= 0",
@@ -11,77 +11,77 @@
   "modo_seguridad": {
    "Fútbol": {
     "A": {
-     "n": 60825,
-     "brier": 0.23666863337091165,
-     "ece": 0.01011348179202627,
-     "hit_rate": 0.4944348540896013,
-     "roi": -0.048751335799424575,
-     "p5": -0.05535422112618167,
+     "n": 60795,
+     "brier": 0.2365520904096192,
+     "ece": 0.010131091372645772,
+     "hit_rate": 0.4937412616169093,
+     "roi": -0.050284398388025335,
+     "p5": -0.0571725635331853,
      "montecarlo": {
       "prob_ruina": 0.0,
       "roi_ic90": [
-       -0.34279066217897114,
-       0.24443860523860184
+       -0.3443755966368524,
+       0.23001583455060134
       ],
-      "drawdown_max": 0.387356980528502
+      "drawdown_max": 0.3915223643754349
      }
     },
     "B": {
-     "n": 3575,
-     "brier": 0.2184560244222937,
-     "ece": 0.0052595552447552004,
-     "hit_rate": 0.66993006993007,
-     "roi": -0.006690909090909083,
-     "p5": -0.026266293706293697,
+     "n": 3567,
+     "brier": 0.21753752741813848,
+     "ece": 0.009717866554527622,
+     "hit_rate": 0.6739557050742921,
+     "roi": 0.0013737033922063464,
+     "p5": -0.018180543874404254,
      "montecarlo": {
       "prob_ruina": 0.0,
       "roi_ic90": [
-       -0.21489167368876916,
-       0.21644326609033132
+       -0.2063543380435386,
+       0.23290804511349703
       ],
-      "drawdown_max": 0.26400071302712813
+      "drawdown_max": 0.2573783143857249
      }
     },
     "veredicto": {
      "activa": false,
      "fallos": [
-      "p5 de bootstrap negativo (-2.63%)"
+      "p5 de bootstrap negativo (-1.82%)"
      ],
      "notas": [
-      "brier +0.2185 vs +0.2367 OK",
-      "hit_rate +0.6699 vs +0.4944 OK",
-      "roi -0.0067 vs -0.0488 OK",
-      "p5 -0.0263 FALLA"
+      "brier +0.2175 vs +0.2366 OK",
+      "hit_rate +0.6740 vs +0.4937 OK",
+      "roi +0.0014 vs -0.0503 OK",
+      "p5 -0.0182 FALLA"
      ],
      "muestra_insuficiente": false,
-     "motivo": "no se activa: p5 de bootstrap negativo (-2.63%)"
+     "motivo": "no se activa: p5 de bootstrap negativo (-1.82%)"
     },
-    "n_total": 60825,
-    "n_seguras": 3575
+    "n_total": 60795,
+    "n_seguras": 3567
    },
    "KBO": {
     "A": {
-     "n": 251,
-     "brier": 0.2394081789119522,
-     "ece": 0.04416681274900391,
-     "hit_rate": 0.5816733067729084,
-     "roi": 0.02916334661354582,
-     "p5": -0.06507968127490038,
+     "n": 252,
+     "brier": 0.24229027591031743,
+     "ece": 0.03803404761904762,
+     "hit_rate": 0.5714285714285714,
+     "roi": 0.01738095238095238,
+     "p5": -0.080875,
      "montecarlo": {
       "prob_ruina": 0.0,
       "roi_ic90": [
-       -0.22039209626752146,
-       0.38353723681016394
+       -0.2391533011645625,
+       0.3559103691809022
       ],
-      "drawdown_max": 0.287163581779772
+      "drawdown_max": 0.3041529087906842
      }
     },
     "B": {
-     "n": 8,
-     "brier": 0.16713423125,
-     "ece": 0.25142,
-     "hit_rate": 0.875,
-     "roi": 0.345,
+     "n": 12,
+     "brier": 0.234900713625,
+     "ece": 0.0377358333333333,
+     "hit_rate": 0.5833333333333334,
+     "roi": -0.08666666666666663,
      "p5": null,
      "montecarlo": {
       "prob_ruina": null,
@@ -95,131 +95,132 @@
       "muestra vacía o mínima"
      ],
      "muestra_insuficiente": true,
-     "motivo": "sólo 8 picks: no hay con qué medir"
+     "motivo": "sólo 12 picks: no hay con qué medir"
     },
-    "n_total": 251,
-    "n_seguras": 8
+    "n_total": 252,
+    "n_seguras": 12
    },
    "NFL": {
     "A": {
      "n": 539,
-     "brier": 0.2397326820682746,
-     "ece": 0.015272653061224458,
-     "hit_rate": 0.5899814471243042,
-     "roi": 0.06997588126159555,
-     "p5": -0.0010030612244897887,
+     "brier": 0.23879165820389608,
+     "ece": 0.033460278293135436,
+     "hit_rate": 0.5807050092764379,
+     "roi": 0.057491651205936904,
+     "p5": -0.019518552875695726,
      "montecarlo": {
       "prob_ruina": 0.0,
       "roi_ic90": [
-       -0.19492891823996075,
-       0.5561448532546627
+       -0.21068620520608183,
+       0.5125078346790664
       ],
-      "drawdown_max": 0.2873438241426364
+      "drawdown_max": 0.2971211576443777
      }
     },
     "B": {
-     "n": 34,
-     "brier": 0.19813928932941174,
-     "ece": 0.10098764705882352,
-     "hit_rate": 0.7352941176470589,
-     "roi": 0.15744117647058822,
-     "p5": -0.04218382352941176,
+     "n": 44,
+     "brier": 0.23146902864545452,
+     "ece": 0.026733636363636303,
+     "hit_rate": 0.6363636363636364,
+     "roi": 0.007477272727272736,
+     "p5": -0.17674318181818185,
      "montecarlo": {
       "prob_ruina": 0.0,
       "roi_ic90": [
-       0.04776670876906382,
-       0.6357393068540803
+       -0.20929102238220285,
+       0.27727403485885876
       ],
-      "drawdown_max": 0.14885280821475225
+      "drawdown_max": 0.27120047523264124
      }
     },
     "veredicto": {
      "activa": false,
      "fallos": [
-      "p5 de bootstrap negativo (-4.22%)"
+      "roi empeora (0.0075 contra 0.0575)",
+      "p5 de bootstrap negativo (-17.67%)"
      ],
      "notas": [
-      "brier +0.1981 vs +0.2397 OK",
-      "hit_rate +0.7353 vs +0.5900 OK",
-      "roi +0.1574 vs +0.0700 OK",
-      "p5 -0.0422 FALLA",
-      "muestra 34 < 1000"
+      "brier +0.2315 vs +0.2388 OK",
+      "hit_rate +0.6364 vs +0.5807 OK",
+      "roi +0.0075 vs +0.0575 FALLA",
+      "p5 -0.1767 FALLA",
+      "muestra 44 < 1000"
      ],
      "muestra_insuficiente": true,
-     "motivo": "no se activa: p5 de bootstrap negativo (-4.22%)"
+     "motivo": "no se activa: roi empeora (0.0075 contra 0.0575); p5 de bootstrap negativo (-17.67%)"
     },
     "n_total": 539,
-    "n_seguras": 34
+    "n_seguras": 44
    },
    "Tenis": {
     "A": {
-     "n": 27504,
-     "brier": 0.21458716467915942,
-     "ece": 0.03432039412449095,
-     "hit_rate": 0.6531413612565445,
-     "roi": -0.04622065881326352,
-     "p5": -0.05455531013670738,
+     "n": 27584,
+     "brier": 0.21455611617747972,
+     "ece": 0.033332489124129935,
+     "hit_rate": 0.654292343387471,
+     "roi": -0.043729444605568435,
+     "p5": -0.051868275087006956,
      "montecarlo": {
       "prob_ruina": 0.0,
       "roi_ic90": [
-       -0.28473216550860503,
-       0.16225940714883347
+       -0.2853827392792896,
+       0.16844066970311422
       ],
-      "drawdown_max": 0.3197866129718851
+      "drawdown_max": 0.31762073844201955
      }
     },
     "B": {
-     "n": 5327,
-     "brier": 0.22685904616341282,
-     "ece": 0.037348734747512706,
-     "hit_rate": 0.6480195231837808,
-     "roi": -0.05637037732307114,
-     "p5": -0.07231316876290593,
+     "n": 5332,
+     "brier": 0.22703521539412977,
+     "ece": 0.039169187921980514,
+     "hit_rate": 0.6460990247561891,
+     "roi": -0.05949643660915227,
+     "p5": -0.07509377344336084,
      "montecarlo": {
       "prob_ruina": 0.0,
       "roi_ic90": [
-       -0.2821619785325629,
-       0.11367573249632436
+       -0.2887886194888968,
+       0.1070539216262345
       ],
-      "drawdown_max": 0.31423238525433494
+      "drawdown_max": 0.31949245102079016
      }
     },
     "veredicto": {
      "activa": false,
      "fallos": [
-      "brier empeora (0.2269 contra 0.2146)",
-      "hit_rate empeora (0.6480 contra 0.6531)",
-      "roi empeora (-0.0564 contra -0.0462)",
-      "p5 de bootstrap negativo (-7.23%)"
+      "brier empeora (0.2270 contra 0.2146)",
+      "hit_rate empeora (0.6461 contra 0.6543)",
+      "roi empeora (-0.0595 contra -0.0437)",
+      "p5 de bootstrap negativo (-7.51%)"
      ],
      "notas": [
-      "brier +0.2269 vs +0.2146 FALLA",
-      "hit_rate +0.6480 vs +0.6531 FALLA",
-      "roi -0.0564 vs -0.0462 FALLA",
-      "p5 -0.0723 FALLA"
+      "brier +0.2270 vs +0.2146 FALLA",
+      "hit_rate +0.6461 vs +0.6543 FALLA",
+      "roi -0.0595 vs -0.0437 FALLA",
+      "p5 -0.0751 FALLA"
      ],
      "muestra_insuficiente": false,
-     "motivo": "no se activa: brier empeora (0.2269 contra 0.2146); hit_rate empeora (0.6480 contra 0.6531); roi empeora (-0.0564 contra -0.0462); p5 de bootstrap negativo (-7.23%)"
+     "motivo": "no se activa: brier empeora (0.2270 contra 0.2146); hit_rate empeora (0.6461 contra 0.6543); roi empeora (-0.0595 contra -0.0437); p5 de bootstrap negativo (-7.51%)"
     },
-    "n_total": 27504,
-    "n_seguras": 5327
+    "n_total": 27584,
+    "n_seguras": 5332
    }
   },
   "escalada": {
    "A": {
-    "n": 40579,
-    "brier": 0.24714929423712265,
-    "ece": 0.008991066807954876,
-    "hit_rate": 0.5119150299415954,
-    "roi": -0.047795657852583856,
-    "p5": -0.0552921708272752,
+    "n": 40698,
+    "brier": 0.24729365537954445,
+    "ece": 0.009012892279718932,
+    "hit_rate": 0.512359329696791,
+    "roi": -0.04760627057840681,
+    "p5": -0.05516733008993072,
     "montecarlo": {
      "prob_ruina": 0.0,
      "roi_ic90": [
-      -0.3284834366898111,
-      0.22112959022448478
+      -0.3333608897935653,
+      0.22353825124131899
      ],
-     "drawdown_max": 0.37447978907674623
+     "drawdown_max": 0.3754646965136596
     }
    },
    "variantes": {
@@ -228,69 +229,69 @@
     },
     "superior": {
      "C": {
-      "n": 1009,
-      "brier": 0.23713086323776014,
-      "ece": 0.012918087215064527,
-      "hit_rate": 0.6184340931615461,
-      "roi": -0.028334985133795818,
-      "p5": -0.06899207135777995,
+      "n": 1037,
+      "brier": 0.2378913326958534,
+      "ece": 0.016141350048216093,
+      "hit_rate": 0.6152362584378014,
+      "roi": -0.031764705882352924,
+      "p5": -0.06992381870781098,
       "montecarlo": {
        "prob_ruina": 0.0,
        "roi_ic90": [
-        -0.260994514250932,
-        0.19167561825195242
+        -0.26128398599259495,
+        0.1914385937454535
        ],
-       "drawdown_max": 0.3064023231185339
+       "drawdown_max": 0.3076781975897615
       }
      },
      "veredicto": {
       "activa": false,
       "fallos": [
-       "p5 de bootstrap negativo (-6.90%)"
+       "p5 de bootstrap negativo (-6.99%)"
       ],
       "notas": [
-       "brier +0.2371 vs +0.2471 OK",
-       "hit_rate +0.6184 vs +0.5119 OK",
-       "roi -0.0283 vs -0.0478 OK",
-       "p5 -0.0690 FALLA"
+       "brier +0.2379 vs +0.2473 OK",
+       "hit_rate +0.6152 vs +0.5124 OK",
+       "roi -0.0318 vs -0.0476 OK",
+       "p5 -0.0699 FALLA"
       ],
       "muestra_insuficiente": false,
-      "motivo": "no se activa: p5 de bootstrap negativo (-6.90%)"
+      "motivo": "no se activa: p5 de bootstrap negativo (-6.99%)"
      },
-     "n_escaladas": 1009
+     "n_escaladas": 1037
     },
     "base": {
      "C": {
-      "n": 1009,
-      "brier": 0.23713086323776014,
-      "ece": 0.012918087215064527,
-      "hit_rate": 0.6184340931615461,
-      "roi": -0.028334985133795818,
-      "p5": -0.06899207135777995,
+      "n": 1037,
+      "brier": 0.2378913326958534,
+      "ece": 0.016141350048216093,
+      "hit_rate": 0.6152362584378014,
+      "roi": -0.031764705882352924,
+      "p5": -0.06992381870781098,
       "montecarlo": {
        "prob_ruina": 0.0,
        "roi_ic90": [
-        -0.260994514250932,
-        0.19167561825195242
+        -0.26128398599259495,
+        0.1914385937454535
        ],
-       "drawdown_max": 0.3064023231185339
+       "drawdown_max": 0.3076781975897615
       }
      },
      "veredicto": {
       "activa": false,
       "fallos": [
-       "p5 de bootstrap negativo (-6.90%)"
+       "p5 de bootstrap negativo (-6.99%)"
       ],
       "notas": [
-       "brier +0.2371 vs +0.2471 OK",
-       "hit_rate +0.6184 vs +0.5119 OK",
-       "roi -0.0283 vs -0.0478 OK",
-       "p5 -0.0690 FALLA"
+       "brier +0.2379 vs +0.2473 OK",
+       "hit_rate +0.6152 vs +0.5124 OK",
+       "roi -0.0318 vs -0.0476 OK",
+       "p5 -0.0699 FALLA"
       ],
       "muestra_insuficiente": false,
-      "motivo": "no se activa: p5 de bootstrap negativo (-6.90%)"
+      "motivo": "no se activa: p5 de bootstrap negativo (-6.99%)"
      },
-     "n_escaladas": 1009
+     "n_escaladas": 1037
     }
    }
   }
@@ -304,16 +305,16 @@
     "Fútbol": {
      "activa": false,
      "fallos": [
-      "p5 de bootstrap negativo (-2.63%)"
+      "p5 de bootstrap negativo (-1.82%)"
      ],
      "notas": [
-      "brier +0.2185 vs +0.2367 OK",
-      "hit_rate +0.6699 vs +0.4944 OK",
-      "roi -0.0067 vs -0.0488 OK",
-      "p5 -0.0263 FALLA"
+      "brier +0.2175 vs +0.2366 OK",
+      "hit_rate +0.6740 vs +0.4937 OK",
+      "roi +0.0014 vs -0.0503 OK",
+      "p5 -0.0182 FALLA"
      ],
      "muestra_insuficiente": false,
-     "motivo": "no se activa: p5 de bootstrap negativo (-2.63%)"
+     "motivo": "no se activa: p5 de bootstrap negativo (-1.82%)"
     },
     "KBO": {
      "activa": false,
@@ -321,39 +322,40 @@
       "muestra vacía o mínima"
      ],
      "muestra_insuficiente": true,
-     "motivo": "sólo 8 picks: no hay con qué medir"
+     "motivo": "sólo 12 picks: no hay con qué medir"
     },
     "NFL": {
      "activa": false,
      "fallos": [
-      "p5 de bootstrap negativo (-4.22%)"
+      "roi empeora (0.0075 contra 0.0575)",
+      "p5 de bootstrap negativo (-17.67%)"
      ],
      "notas": [
-      "brier +0.1981 vs +0.2397 OK",
-      "hit_rate +0.7353 vs +0.5900 OK",
-      "roi +0.1574 vs +0.0700 OK",
-      "p5 -0.0422 FALLA",
-      "muestra 34 < 1000"
+      "brier +0.2315 vs +0.2388 OK",
+      "hit_rate +0.6364 vs +0.5807 OK",
+      "roi +0.0075 vs +0.0575 FALLA",
+      "p5 -0.1767 FALLA",
+      "muestra 44 < 1000"
      ],
      "muestra_insuficiente": true,
-     "motivo": "no se activa: p5 de bootstrap negativo (-4.22%)"
+     "motivo": "no se activa: roi empeora (0.0075 contra 0.0575); p5 de bootstrap negativo (-17.67%)"
     },
     "Tenis": {
      "activa": false,
      "fallos": [
-      "brier empeora (0.2269 contra 0.2146)",
-      "hit_rate empeora (0.6480 contra 0.6531)",
-      "roi empeora (-0.0564 contra -0.0462)",
-      "p5 de bootstrap negativo (-7.23%)"
+      "brier empeora (0.2270 contra 0.2146)",
+      "hit_rate empeora (0.6461 contra 0.6543)",
+      "roi empeora (-0.0595 contra -0.0437)",
+      "p5 de bootstrap negativo (-7.51%)"
      ],
      "notas": [
-      "brier +0.2269 vs +0.2146 FALLA",
-      "hit_rate +0.6480 vs +0.6531 FALLA",
-      "roi -0.0564 vs -0.0462 FALLA",
-      "p5 -0.0723 FALLA"
+      "brier +0.2270 vs +0.2146 FALLA",
+      "hit_rate +0.6461 vs +0.6543 FALLA",
+      "roi -0.0595 vs -0.0437 FALLA",
+      "p5 -0.0751 FALLA"
      ],
      "muestra_insuficiente": false,
-     "motivo": "no se activa: brier empeora (0.2269 contra 0.2146); hit_rate empeora (0.6480 contra 0.6531); roi empeora (-0.0564 contra -0.0462); p5 de bootstrap negativo (-7.23%)"
+     "motivo": "no se activa: brier empeora (0.2270 contra 0.2146); hit_rate empeora (0.6461 contra 0.6543); roi empeora (-0.0595 contra -0.0437); p5 de bootstrap negativo (-7.51%)"
     }
    }
   },
@@ -370,30 +372,30 @@
      "superior": {
       "activa": false,
       "fallos": [
-       "p5 de bootstrap negativo (-6.90%)"
+       "p5 de bootstrap negativo (-6.99%)"
       ],
       "notas": [
-       "brier +0.2371 vs +0.2471 OK",
-       "hit_rate +0.6184 vs +0.5119 OK",
-       "roi -0.0283 vs -0.0478 OK",
-       "p5 -0.0690 FALLA"
+       "brier +0.2379 vs +0.2473 OK",
+       "hit_rate +0.6152 vs +0.5124 OK",
+       "roi -0.0318 vs -0.0476 OK",
+       "p5 -0.0699 FALLA"
       ],
       "muestra_insuficiente": false,
-      "motivo": "no se activa: p5 de bootstrap negativo (-6.90%)"
+      "motivo": "no se activa: p5 de bootstrap negativo (-6.99%)"
      },
      "base": {
       "activa": false,
       "fallos": [
-       "p5 de bootstrap negativo (-6.90%)"
+       "p5 de bootstrap negativo (-6.99%)"
       ],
       "notas": [
-       "brier +0.2371 vs +0.2471 OK",
-       "hit_rate +0.6184 vs +0.5119 OK",
-       "roi -0.0283 vs -0.0478 OK",
-       "p5 -0.0690 FALLA"
+       "brier +0.2379 vs +0.2473 OK",
+       "hit_rate +0.6152 vs +0.5124 OK",
+       "roi -0.0318 vs -0.0476 OK",
+       "p5 -0.0699 FALLA"
       ],
       "muestra_insuficiente": false,
-      "motivo": "no se activa: p5 de bootstrap negativo (-6.90%)"
+      "motivo": "no se activa: p5 de bootstrap negativo (-6.99%)"
      }
     }
    }
@@ -418,10 +420,10 @@
   }
  },
  "pliegues": {
-  "0": 18650,
-  "1": 17660,
-  "2": 17071,
-  "3": 17136,
-  "4": 18602
+  "0": 18732,
+  "1": 17657,
+  "2": 17206,
+  "3": 17144,
+  "4": 18431
  }
 }

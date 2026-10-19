@@ -1,41 +1,41 @@
 {
- "generado": "2026-10-12T15:23:48Z",
+ "generado": "2026-10-19T13:01:33Z",
  "pasos": [
   {
    "paso": "1. ledger (re-predice el histórico con los modelos de hoy)",
    "ok": true,
-   "segundos": 4563.3,
-   "detalle": "futbol: 78163 filas (-12) | deportes: 338137 filas (+431) | totales: 80841 filas | total: 416038 filas"
+   "segundos": 4884.3,
+   "detalle": "futbol: 78461 filas (+298) | deportes: 338540 filas (+403) | totales: 81232 filas | total: 416743 filas"
   },
   {
    "paso": "2. calibración de confianza (acierto real por banda)",
    "ok": true,
-   "segundos": 24.3,
-   "detalle": "89149 predicciones medidas · umbral 0.65"
+   "segundos": 22.6,
+   "detalle": "89200 predicciones medidas · umbral 0.70"
   },
   {
    "paso": "3. techo de acierto por liga",
    "ok": true,
-   "segundos": 9.0,
-   "detalle": "37 ligas · correlación 0.739 · publicado"
+   "segundos": 8.5,
+   "detalle": "37 ligas · correlación 0.684 · publicado"
   },
   {
    "paso": "4. banda de EV rentable",
    "ok": true,
    "segundos": 0.4,
-   "detalle": "banda EV [0.025, 0.110] · piso de probabilidad 0.60"
+   "detalle": "banda EV [0.040, 0.120] · piso de probabilidad 0.60"
   },
   {
    "paso": "5. qué deportes tienen edge validado",
    "ok": true,
-   "segundos": 2.0,
+   "segundos": 1.5,
    "detalle": "con edge validado: ['Fútbol', 'KBO', 'NFL']"
   },
   {
    "paso": "6. peso del encogimiento al mercado",
    "ok": true,
-   "segundos": 1.9,
-   "detalle": "w global 0.25 · 28 ligas adoptadas · log-loss 0.0169"
+   "segundos": 1.4,
+   "detalle": "w global 0.25 · 33 ligas adoptadas · log-loss 0.0201"
   },
   {
    "paso": "7. autopsia de los picks publicados",
@@ -46,53 +46,53 @@
   {
    "paso": "8. calibración adaptativa (aprende de lo liquidado)",
    "ok": true,
-   "segundos": 13.3,
+   "segundos": 13.1,
    "detalle": "6 nodos · fuentes {'ledger_goles': 4, 'produccion': 4} · n global 318"
   },
   {
    "paso": "9. calibración por banda de cuota (isotónica walk-forward)",
    "ok": true,
-   "segundos": 1.0,
-   "detalle": "n=124085 · bandas=5"
+   "segundos": 0.9,
+   "detalle": "n=124241 · bandas=5"
   },
   {
    "paso": "10. liquidar los pronósticos ya jugados",
    "ok": true,
-   "segundos": 9.4,
-   "detalle": "28 partidos, 52 picks liquidados"
+   "segundos": 8.7,
+   "detalle": "584 partidos, 1570 picks liquidados"
   },
   {
    "paso": "11. curva por línea del mercado de goles",
    "ok": true,
    "segundos": 0.8,
-   "detalle": "APAGADA · log-loss sin 0.61125 / con 0.61090 · p5 -0.00021 · sesgo Under -0.5 -> -3.3 pp"
+   "detalle": "APAGADA · log-loss sin 0.61085 / con 0.61083 · p5 -0.00055 · sesgo Under -0.8 -> -3.5 pp"
   },
   {
    "paso": "12. ledger del hándicap asiático",
    "ok": true,
-   "segundos": 80.5,
-   "detalle": "77869 partidos · -0,50 dijo 0.440 pasa 0.440 · +0,00 dijo 0.598 pasa 0.596 · +0,50 dijo 0.703 pasa 0.702"
+   "segundos": 77.7,
+   "detalle": "78206 partidos · -0,50 dijo 0.440 pasa 0.440 · +0,00 dijo 0.598 pasa 0.596 · +0,50 dijo 0.704 pasa 0.702"
   },
   {
    "paso": "13. memoria de errores por equipo",
    "ok": true,
    "segundos": 0.4,
-   "detalle": "1,328 equipos · sesgo medio +0.0150 · desv 0.4190 · hasta 2026-10-09"
+   "detalle": "1,336 equipos · sesgo medio +0.0174 · desv 0.4112 · hasta 2026-10-18"
   },
   {
    "paso": "14. selector de apuestas (aprende cuál tomar)",
    "ok": true,
-   "segundos": 183.0,
-   "detalle": "3,202,233 apuestas · log-loss 0.54060 -> 0.53615 · p5 +0.00431 · ROI -5.12 % (n=20,519)"
+   "segundos": 198.6,
+   "detalle": "3,214,045 apuestas · log-loss 0.54022 -> 0.53574 · p5 +0.00433 · ROI -5.41 % (n=20,751)"
   },
   {
    "paso": "15. radar de errores de cuota (dónde mirar)",
    "ok": true,
-   "segundos": 3.2,
-   "detalle": "64,489 partidos · AUC 0.6137 · barriendo el 20 % mejor, 1.5x errores · capturas propias: 13,743 filas en 23 días"
+   "segundos": 5.2,
+   "detalle": "NO se publica: AUC 0.5460 por debajo del mínimo"
   }
  ],
  "ok": 15,
  "fallos": [],
- "segundos_total": 4893.0
+ "segundos_total": 5224.6
 }

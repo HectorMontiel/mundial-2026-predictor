@@ -35,7 +35,7 @@
   "noruega": {
    "id": 59,
    "nombre": "Eliteserien",
-   "solape": 0.875,
+   "solape": 0.938,
    "equipos": 16,
    "origen": "conocido",
    "slug": "eliteserien"
@@ -74,7 +74,7 @@
   },
   "turquia": {
    "id": 71,
-   "nombre": "Super Lig",
+   "nombre": "Süper Lig",
    "solape": 1.0,
    "equipos": 18,
    "origen": "conocido",
@@ -131,7 +131,7 @@
   "suiza": {
    "id": 69,
    "nombre": "Super League",
-   "solape": 0.917,
+   "solape": 1.0,
    "equipos": 12,
    "origen": "conocido",
    "slug": "super-league"
@@ -203,7 +203,7 @@
   "europa_league": {
    "id": 73,
    "nombre": "Europa League",
-   "solape": 0.611,
+   "solape": 0.972,
    "equipos": 36,
    "origen": "conocido",
    "slug": "europa-league"
@@ -211,7 +211,7 @@
   "conference_league": {
    "id": 10216,
    "nombre": "Conference League",
-   "solape": 0.222,
+   "solape": 0.861,
    "equipos": 36,
    "origen": "conocido",
    "slug": "conference-league"
@@ -227,7 +227,7 @@
   "eng_championship": {
    "id": 48,
    "nombre": "Championship",
-   "solape": 0.958,
+   "solape": 1.0,
    "equipos": 24,
    "origen": "conocido",
    "slug": "championship"
@@ -354,7 +354,7 @@
   },
   "bra_serie_b": {
    "id": 8814,
-   "nombre": "Serie B",
+   "nombre": "Série B",
    "solape": 0.95,
    "equipos": 20,
    "origen": "conocido",
@@ -483,7 +483,7 @@
   "ind_isl": {
    "id": 9478,
    "nombre": "Indian Super League",
-   "solape": 0.769,
+   "solape": 0.923,
    "equipos": 13,
    "origen": "conocido",
    "slug": "indian-super-league"
@@ -491,7 +491,7 @@
   "esp_copa_rey": {
    "id": 138,
    "nombre": "Copa del Rey",
-   "solape": 0.741,
+   "solape": 0.812,
    "equipos": 112,
    "origen": "conocido",
    "slug": "copa-del-rey"
@@ -499,7 +499,7 @@
   "afc_champions": {
    "id": 525,
    "nombre": "AFC Champions League Elite",
-   "solape": 0.594,
+   "solape": 1.0,
    "equipos": 32,
    "origen": "conocido",
    "slug": "afc-champions-league-elite"
@@ -515,7 +515,7 @@
   "eng_carabao": {
    "id": 133,
    "nombre": "EFL Cup",
-   "solape": 0.989,
+   "solape": 1.0,
    "equipos": 90,
    "origen": "conocido",
    "slug": "efl-cup"

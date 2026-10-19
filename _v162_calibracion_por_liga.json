@@ -1,428 +1,428 @@
 {
- "generado": "2026-10-12T14:02:03Z",
+ "generado": "2026-10-19T11:34:19Z",
  "ligas": [
   {
    "clave": "liga_mx",
    "estado": "ok",
-   "partidos_espn": 1837,
+   "partidos_espn": 1845,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1837,
-    "dispersion_equipo": 1.6967,
-    "dispersion_total": 1.2646,
-    "media_total": 9.887,
+    "n_filas": 1845,
+    "dispersion_equipo": 1.7011,
+    "dispersion_total": 1.2663,
+    "media_total": 9.894,
     "por_equipo": {
-     "error_calib": 0.0148,
-     "corr": 0.2179,
-     "n": 1084,
-     "media_pred": 4.858,
-     "media_real": 4.92
+     "error_calib": 0.0143,
+     "corr": 0.2164,
+     "n": 1086,
+     "media_pred": 4.863,
+     "media_real": 4.924
     },
     "total": {
-     "error_calib": 0.006,
-     "corr": -0.0249,
-     "n": 550,
+     "error_calib": 0.0058,
+     "corr": -0.0259,
+     "n": 552,
      "media_pred": 9.878,
-     "media_real": 9.853
+     "media_real": 9.861
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1837,
+    "n_filas": 1845,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1092,
+    "dispersion_total": 1.1069,
     "media_total": 4.602,
     "por_equipo": {
-     "error_calib": 0.0119,
-     "corr": 0.1081,
-     "n": 1084,
-     "media_pred": 2.329,
-     "media_real": 2.324
+     "error_calib": 0.0117,
+     "corr": 0.1162,
+     "n": 1086,
+     "media_pred": 2.331,
+     "media_real": 2.319
     },
     "total": {
-     "error_calib": 0.0106,
-     "corr": 0.1019,
-     "n": 542,
-     "media_pred": 4.657,
-     "media_real": 4.648
+     "error_calib": 0.0093,
+     "corr": 0.1099,
+     "n": 543,
+     "media_pred": 4.661,
+     "media_real": 4.637
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1837,
-    "dispersion_equipo": 2.0731,
-    "dispersion_total": 1.3741,
-    "media_total": 26.579,
+    "n_filas": 1845,
+    "dispersion_equipo": 2.0757,
+    "dispersion_total": 1.3727,
+    "media_total": 26.586,
     "por_equipo": {
-     "error_calib": 0.0198,
-     "corr": 0.4493,
-     "n": 1084,
-     "media_pred": 13.19,
-     "media_real": 13.463
+     "error_calib": 0.0197,
+     "corr": 0.4491,
+     "n": 1086,
+     "media_pred": 13.201,
+     "media_real": 13.471
     },
     "total": {
-     "error_calib": 0.0295,
-     "corr": 0.2398,
-     "n": 542,
-     "media_pred": 26.379,
-     "media_real": 26.926
+     "error_calib": 0.0289,
+     "corr": 0.2397,
+     "n": 543,
+     "media_pred": 26.402,
+     "media_real": 26.943
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1837,
-    "dispersion_equipo": 1.3057,
-    "dispersion_total": 1.1462,
-    "media_total": 8.88,
+    "n_filas": 1845,
+    "dispersion_equipo": 1.3044,
+    "dispersion_total": 1.1463,
+    "media_total": 8.883,
     "por_equipo": {
-     "error_calib": 0.0155,
-     "corr": 0.3556,
-     "n": 1084,
-     "media_pred": 4.506,
-     "media_real": 4.578
+     "error_calib": 0.0158,
+     "corr": 0.3532,
+     "n": 1086,
+     "media_pred": 4.508,
+     "media_real": 4.585
     },
     "total": {
-     "error_calib": 0.0214,
-     "corr": 0.1277,
-     "n": 542,
-     "media_pred": 9.012,
-     "media_real": 9.157
+     "error_calib": 0.0204,
+     "corr": 0.1324,
+     "n": 543,
+     "media_pred": 9.015,
+     "media_real": 9.169
     }
    }
   },
   {
    "clave": "mls",
    "estado": "ok",
-   "partidos_espn": 2908,
+   "partidos_espn": 2938,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2908,
-    "dispersion_equipo": 1.509,
-    "dispersion_total": 1.1358,
-    "media_total": 9.885,
+    "n_filas": 2938,
+    "dispersion_equipo": 1.5097,
+    "dispersion_total": 1.1367,
+    "media_total": 9.89,
     "por_equipo": {
-     "error_calib": 0.0082,
-     "corr": 0.2178,
-     "n": 1734,
-     "media_pred": 4.906,
-     "media_real": 4.939
+     "error_calib": 0.0089,
+     "corr": 0.2211,
+     "n": 1764,
+     "media_pred": 4.909,
+     "media_real": 4.942
     },
     "total": {
-     "error_calib": 0.0108,
-     "corr": -0.0419,
-     "n": 867,
+     "error_calib": 0.0107,
+     "corr": -0.0399,
+     "n": 882,
      "media_pred": 9.868,
-     "media_real": 9.879
+     "media_real": 9.883
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2908,
+    "n_filas": 2938,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 4.205,
+    "media_total": 4.199,
     "por_equipo": {
-     "error_calib": 0.0175,
-     "corr": 0.1475,
-     "n": 1734,
-     "media_pred": 2.122,
-     "media_real": 2.112
+     "error_calib": 0.0174,
+     "corr": 0.1491,
+     "n": 1764,
+     "media_pred": 2.121,
+     "media_real": 2.1
     },
     "total": {
-     "error_calib": 0.0146,
-     "corr": 0.1744,
-     "n": 867,
+     "error_calib": 0.0125,
+     "corr": 0.1829,
+     "n": 882,
      "media_pred": 4.243,
-     "media_real": 4.225
+     "media_real": 4.201
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2908,
-    "dispersion_equipo": 1.9163,
-    "dispersion_total": 1.3665,
-    "media_total": 25.719,
+    "n_filas": 2938,
+    "dispersion_equipo": 1.9242,
+    "dispersion_total": 1.3689,
+    "media_total": 25.739,
     "por_equipo": {
-     "error_calib": 0.0104,
-     "corr": 0.354,
-     "n": 1734,
-     "media_pred": 12.853,
-     "media_real": 13.044
+     "error_calib": 0.0108,
+     "corr": 0.3538,
+     "n": 1764,
+     "media_pred": 12.873,
+     "media_real": 13.082
     },
     "total": {
-     "error_calib": 0.0164,
-     "corr": 0.1965,
-     "n": 867,
-     "media_pred": 25.705,
-     "media_real": 26.089
+     "error_calib": 0.0203,
+     "corr": 0.2013,
+     "n": 882,
+     "media_pred": 25.746,
+     "media_real": 26.164
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2908,
-    "dispersion_equipo": 1.2747,
-    "dispersion_total": 1.1764,
-    "media_total": 9.206,
+    "n_filas": 2938,
+    "dispersion_equipo": 1.2775,
+    "dispersion_total": 1.1746,
+    "media_total": 9.212,
     "por_equipo": {
-     "error_calib": 0.0209,
-     "corr": 0.2698,
-     "n": 1734,
-     "media_pred": 4.706,
-     "media_real": 4.797
+     "error_calib": 0.0212,
+     "corr": 0.2704,
+     "n": 1764,
+     "media_pred": 4.713,
+     "media_real": 4.809
     },
     "total": {
-     "error_calib": 0.0229,
-     "corr": 0.1376,
-     "n": 867,
-     "media_pred": 9.411,
-     "media_real": 9.594
+     "error_calib": 0.0254,
+     "corr": 0.1429,
+     "n": 882,
+     "media_pred": 9.425,
+     "media_real": 9.618
     }
    }
   },
   {
    "clave": "brasil",
    "estado": "ok",
-   "partidos_espn": 2150,
+   "partidos_espn": 2162,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2150,
-    "dispersion_equipo": 1.705,
-    "dispersion_total": 1.1983,
-    "media_total": 10.473,
+    "n_filas": 2162,
+    "dispersion_equipo": 1.71,
+    "dispersion_total": 1.202,
+    "media_total": 10.487,
     "por_equipo": {
-     "error_calib": 0.0069,
-     "corr": 0.2206,
-     "n": 1264,
-     "media_pred": 5.033,
-     "media_real": 5.054
+     "error_calib": 0.0078,
+     "corr": 0.2149,
+     "n": 1268,
+     "media_pred": 5.038,
+     "media_real": 5.087
     },
     "total": {
-     "error_calib": 0.056,
-     "corr": -0.0905,
-     "n": 644,
-     "media_pred": 10.511,
-     "media_real": 10.104
+     "error_calib": 0.0509,
+     "corr": -0.0954,
+     "n": 646,
+     "media_pred": 10.509,
+     "media_real": 10.169
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2150,
+    "n_filas": 2162,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.107,
-    "media_total": 5.075,
+    "dispersion_total": 1.1075,
+    "media_total": 5.07,
     "por_equipo": {
-     "error_calib": 0.0153,
-     "corr": 0.1632,
-     "n": 1264,
-     "media_pred": 2.503,
+     "error_calib": 0.0171,
+     "corr": 0.161,
+     "n": 1268,
+     "media_pred": 2.498,
      "media_real": 2.467
     },
     "total": {
-     "error_calib": 0.0102,
-     "corr": 0.1256,
-     "n": 632,
-     "media_pred": 5.005,
+     "error_calib": 0.0089,
+     "corr": 0.13,
+     "n": 634,
+     "media_pred": 4.996,
      "media_real": 4.934
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2150,
-    "dispersion_equipo": 2.0987,
-    "dispersion_total": 1.2878,
-    "media_total": 26.665,
+    "n_filas": 2162,
+    "dispersion_equipo": 2.1017,
+    "dispersion_total": 1.2935,
+    "media_total": 26.696,
     "por_equipo": {
-     "error_calib": 0.0183,
-     "corr": 0.398,
-     "n": 1264,
-     "media_pred": 13.224,
-     "media_real": 13.393
+     "error_calib": 0.0197,
+     "corr": 0.393,
+     "n": 1268,
+     "media_pred": 13.248,
+     "media_real": 13.451
     },
     "total": {
-     "error_calib": 0.0159,
-     "corr": 0.1281,
-     "n": 632,
-     "media_pred": 26.447,
-     "media_real": 26.786
+     "error_calib": 0.0202,
+     "corr": 0.1532,
+     "n": 634,
+     "media_pred": 26.495,
+     "media_real": 26.902
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2150,
-    "dispersion_equipo": 1.2732,
-    "dispersion_total": 1.0611,
-    "media_total": 8.835,
+    "n_filas": 2162,
+    "dispersion_equipo": 1.2833,
+    "dispersion_total": 1.0737,
+    "media_total": 8.852,
     "por_equipo": {
-     "error_calib": 0.0123,
-     "corr": 0.311,
-     "n": 1264,
-     "media_pred": 4.42,
-     "media_real": 4.455
+     "error_calib": 0.0112,
+     "corr": 0.309,
+     "n": 1268,
+     "media_pred": 4.425,
+     "media_real": 4.483
     },
     "total": {
-     "error_calib": 0.0072,
-     "corr": 0.0624,
-     "n": 632,
-     "media_pred": 8.839,
-     "media_real": 8.91
+     "error_calib": 0.0075,
+     "corr": 0.0726,
+     "n": 634,
+     "media_pred": 8.85,
+     "media_real": 8.965
     }
    }
   },
   {
    "clave": "argentina",
    "estado": "ok",
-   "partidos_espn": 2396,
+   "partidos_espn": 2411,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2396,
-    "dispersion_equipo": 1.5373,
-    "dispersion_total": 1.1484,
-    "media_total": 9.231,
+    "n_filas": 2411,
+    "dispersion_equipo": 1.5379,
+    "dispersion_total": 1.147,
+    "media_total": 9.243,
     "por_equipo": {
-     "error_calib": 0.0067,
-     "corr": 0.2785,
-     "n": 1410,
+     "error_calib": 0.0113,
+     "corr": 0.2847,
+     "n": 1420,
      "media_pred": 4.435,
-     "media_real": 4.467
+     "media_real": 4.497
     },
     "total": {
-     "error_calib": 0.0311,
-     "corr": -0.0227,
-     "n": 717,
-     "media_pred": 9.285,
-     "media_real": 8.93
+     "error_calib": 0.0237,
+     "corr": -0.0311,
+     "n": 722,
+     "media_pred": 9.283,
+     "media_real": 8.99
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2396,
+    "n_filas": 2411,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
     "media_total": 5.068,
     "por_equipo": {
-     "error_calib": 0.0214,
-     "corr": 0.1972,
-     "n": 1410,
-     "media_pred": 2.686,
-     "media_real": 2.648
+     "error_calib": 0.0229,
+     "corr": 0.1886,
+     "n": 1420,
+     "media_pred": 2.682,
+     "media_real": 2.637
     },
     "total": {
-     "error_calib": 0.0115,
-     "corr": 0.0812,
-     "n": 705,
-     "media_pred": 5.372,
-     "media_real": 5.295
+     "error_calib": 0.0132,
+     "corr": 0.0841,
+     "n": 710,
+     "media_pred": 5.364,
+     "media_real": 5.275
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2396,
-    "dispersion_equipo": 1.93,
-    "dispersion_total": 1.3784,
-    "media_total": 24.385,
+    "n_filas": 2411,
+    "dispersion_equipo": 1.9252,
+    "dispersion_total": 1.374,
+    "media_total": 24.399,
     "por_equipo": {
-     "error_calib": 0.0201,
-     "corr": 0.4524,
-     "n": 1410,
-     "media_pred": 11.933,
-     "media_real": 12.256
+     "error_calib": 0.0197,
+     "corr": 0.4495,
+     "n": 1420,
+     "media_pred": 11.953,
+     "media_real": 12.277
     },
     "total": {
-     "error_calib": 0.0368,
-     "corr": 0.2614,
-     "n": 705,
-     "media_pred": 23.866,
-     "media_real": 24.512
+     "error_calib": 0.0385,
+     "corr": 0.2545,
+     "n": 710,
+     "media_pred": 23.905,
+     "media_real": 24.554
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2396,
-    "dispersion_equipo": 1.2562,
-    "dispersion_total": 1.1661,
-    "media_total": 7.881,
+    "n_filas": 2411,
+    "dispersion_equipo": 1.2546,
+    "dispersion_total": 1.1649,
+    "media_total": 7.882,
     "por_equipo": {
-     "error_calib": 0.0267,
-     "corr": 0.314,
-     "n": 1410,
-     "media_pred": 3.843,
-     "media_real": 3.98
+     "error_calib": 0.0256,
+     "corr": 0.3094,
+     "n": 1420,
+     "media_pred": 3.851,
+     "media_real": 3.985
     },
     "total": {
-     "error_calib": 0.0376,
-     "corr": 0.0994,
-     "n": 705,
-     "media_pred": 7.686,
-     "media_real": 7.96
+     "error_calib": 0.0354,
+     "corr": 0.0925,
+     "n": 710,
+     "media_pred": 7.703,
+     "media_real": 7.969
     }
    }
   },
   {
    "clave": "noruega",
    "estado": "ok",
-   "partidos_espn": 550,
+   "partidos_espn": 559,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 550,
-    "dispersion_equipo": 1.9438,
-    "dispersion_total": 1.4195,
-    "media_total": 10.675,
+    "n_filas": 559,
+    "dispersion_equipo": 1.9411,
+    "dispersion_total": 1.4327,
+    "media_total": 10.665,
     "por_equipo": {
-     "error_calib": 0.0423,
-     "corr": 0.3959,
-     "n": 308,
-     "media_pred": 5.334,
-     "media_real": 5.422
+     "error_calib": 0.0375,
+     "corr": 0.3766,
+     "n": 316,
+     "media_pred": 5.341,
+     "media_real": 5.408
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 550,
+    "n_filas": 559,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0808,
-    "media_total": 3.329,
+    "dispersion_total": 1.0762,
+    "media_total": 3.335,
     "por_equipo": {
      "error_calib": 0.0086,
-     "corr": 0.198,
-     "n": 308,
-     "media_pred": 1.748,
-     "media_real": 1.711
+     "corr": 0.1903,
+     "n": 316,
+     "media_pred": 1.746,
+     "media_real": 1.718
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 550,
-    "dispersion_equipo": 2.3663,
-    "dispersion_total": 1.6801,
-    "media_total": 26.68,
+    "n_filas": 559,
+    "dispersion_equipo": 2.3567,
+    "dispersion_total": 1.6856,
+    "media_total": 26.744,
     "por_equipo": {
-     "error_calib": 0.0836,
-     "corr": 0.4728,
-     "n": 308,
-     "media_pred": 13.411,
-     "media_real": 14.211
+     "error_calib": 0.0816,
+     "corr": 0.4793,
+     "n": 316,
+     "media_pred": 13.448,
+     "media_real": 14.285
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 550,
-    "dispersion_equipo": 1.3916,
-    "dispersion_total": 1.2058,
-    "media_total": 9.284,
+    "n_filas": 559,
+    "dispersion_equipo": 1.3954,
+    "dispersion_total": 1.2171,
+    "media_total": 9.299,
     "por_equipo": {
-     "error_calib": 0.0201,
-     "corr": 0.372,
-     "n": 308,
+     "error_calib": 0.0211,
+     "corr": 0.3663,
+     "n": 316,
      "media_pred": 4.757,
-     "media_real": 4.89
+     "media_real": 4.908
     },
     "total": null
    }
@@ -430,65 +430,65 @@
   {
    "clave": "suecia",
    "estado": "ok",
-   "partidos_espn": 559,
+   "partidos_espn": 568,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 559,
-    "dispersion_equipo": 1.4624,
-    "dispersion_total": 1.1583,
-    "media_total": 10.753,
+    "n_filas": 568,
+    "dispersion_equipo": 1.4615,
+    "dispersion_total": 1.1573,
+    "media_total": 10.759,
     "por_equipo": {
-     "error_calib": 0.0122,
-     "corr": 0.2217,
-     "n": 328,
-     "media_pred": 5.169,
-     "media_real": 5.125
+     "error_calib": 0.0125,
+     "corr": 0.2163,
+     "n": 332,
+     "media_pred": 5.151,
+     "media_real": 5.181
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 559,
+    "n_filas": 568,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0195,
-    "media_total": 3.589,
+    "dispersion_total": 1.0153,
+    "media_total": 3.579,
     "por_equipo": {
-     "error_calib": 0.0149,
-     "corr": 0.0883,
-     "n": 328,
-     "media_pred": 1.759,
-     "media_real": 1.683
+     "error_calib": 0.0202,
+     "corr": 0.1001,
+     "n": 332,
+     "media_pred": 1.754,
+     "media_real": 1.651
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 559,
-    "dispersion_equipo": 2.0794,
-    "dispersion_total": 1.3819,
-    "media_total": 27.311,
+    "n_filas": 568,
+    "dispersion_equipo": 2.0735,
+    "dispersion_total": 1.3776,
+    "media_total": 27.338,
     "por_equipo": {
-     "error_calib": 0.0227,
-     "corr": 0.4128,
-     "n": 328,
-     "media_pred": 13.813,
-     "media_real": 13.979
+     "error_calib": 0.0291,
+     "corr": 0.4148,
+     "n": 332,
+     "media_pred": 13.837,
+     "media_real": 14.093
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 559,
-    "dispersion_equipo": 1.3808,
-    "dispersion_total": 1.2544,
-    "media_total": 9.077,
+    "n_filas": 568,
+    "dispersion_equipo": 1.3731,
+    "dispersion_total": 1.2411,
+    "media_total": 9.081,
     "por_equipo": {
-     "error_calib": 0.0052,
-     "corr": 0.2695,
-     "n": 328,
-     "media_pred": 4.688,
-     "media_real": 4.771
+     "error_calib": 0.0142,
+     "corr": 0.2803,
+     "n": 332,
+     "media_pred": 4.707,
+     "media_real": 4.822
     },
     "total": null
    }
@@ -497,16 +497,40 @@
    "clave": "finlandia",
    "partidos_espn": 0,
    "corners": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 476,
+    "dispersion_equipo": 1.6743,
+    "dispersion_total": 1.1768,
+    "media_total": 10.393,
+    "por_equipo": null,
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 476,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0,
+    "media_total": 3.603,
+    "por_equipo": null,
+    "total": null
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 476,
+    "dispersion_equipo": 2.7038,
+    "dispersion_total": 2.6281,
+    "media_total": 23.023,
+    "por_equipo": null,
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 476,
+    "dispersion_equipo": 1.3791,
+    "dispersion_total": 1.2762,
+    "media_total": 8.782,
+    "por_equipo": null,
+    "total": null
    },
    "estado": "ok"
   },
@@ -514,20 +538,40 @@
    "clave": "rumania",
    "partidos_espn": 328,
    "corners": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 440,
+    "dispersion_equipo": 1.6001,
+    "dispersion_total": 1.1572,
+    "media_total": 9.57,
+    "por_equipo": null,
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 440,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1675,
+    "media_total": 4.191,
+    "por_equipo": null,
+    "total": null
    },
    "remates": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 440,
+    "dispersion_equipo": 2.3213,
+    "dispersion_total": 1.7024,
+    "media_total": 26.243,
+    "por_equipo": null,
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 440,
+    "dispersion_equipo": 1.4616,
+    "dispersion_total": 1.2632,
+    "media_total": 8.664,
+    "por_equipo": null,
+    "total": null
    },
    "estado": "ok"
   },
@@ -535,81 +579,105 @@
    "clave": "irlanda",
    "partidos_espn": 0,
    "corners": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 419,
+    "dispersion_equipo": 1.5752,
+    "dispersion_total": 1.2428,
+    "media_total": 9.928,
+    "por_equipo": null,
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 419,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0,
+    "media_total": 4.842,
+    "por_equipo": null,
+    "total": null
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 419,
+    "dispersion_equipo": 2.2209,
+    "dispersion_total": 1.4661,
+    "media_total": 26.029,
+    "por_equipo": null,
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 419,
+    "dispersion_equipo": 1.3051,
+    "dispersion_total": 1.1131,
+    "media_total": 8.265,
+    "por_equipo": null,
+    "total": null
    },
    "estado": "ok"
   },
   {
    "clave": "turquia",
    "estado": "ok",
-   "partidos_espn": 712,
+   "partidos_espn": 721,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 712,
-    "dispersion_equipo": 1.6408,
-    "dispersion_total": 1.1854,
-    "media_total": 9.581,
+    "n_filas": 721,
+    "dispersion_equipo": 1.638,
+    "dispersion_total": 1.1923,
+    "media_total": 9.588,
     "por_equipo": {
-     "error_calib": 0.0143,
-     "corr": 0.2471,
-     "n": 392,
-     "media_pred": 4.746,
-     "media_real": 4.765
+     "error_calib": 0.0155,
+     "corr": 0.2268,
+     "n": 396,
+     "media_pred": 4.728,
+     "media_real": 4.763
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 712,
-    "dispersion_equipo": 1.0073,
-    "dispersion_total": 1.2732,
-    "media_total": 4.711,
+    "n_filas": 721,
+    "dispersion_equipo": 1.0078,
+    "dispersion_total": 1.2782,
+    "media_total": 4.695,
     "por_equipo": {
-     "error_calib": 0.0125,
-     "corr": 0.0958,
-     "n": 392,
-     "media_pred": 2.304,
-     "media_real": 2.276
+     "error_calib": 0.0123,
+     "corr": 0.0865,
+     "n": 396,
+     "media_pred": 2.305,
+     "media_real": 2.275
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 712,
-    "dispersion_equipo": 2.2207,
-    "dispersion_total": 1.4226,
-    "media_total": 25.785,
+    "n_filas": 721,
+    "dispersion_equipo": 2.22,
+    "dispersion_total": 1.4318,
+    "media_total": 25.798,
     "por_equipo": {
-     "error_calib": 0.027,
-     "corr": 0.4617,
-     "n": 392,
-     "media_pred": 12.915,
-     "media_real": 13.079
+     "error_calib": 0.0296,
+     "corr": 0.4354,
+     "n": 396,
+     "media_pred": 12.902,
+     "media_real": 13.083
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 712,
-    "dispersion_equipo": 1.4536,
-    "dispersion_total": 1.3121,
-    "media_total": 8.782,
+    "n_filas": 721,
+    "dispersion_equipo": 1.4436,
+    "dispersion_total": 1.304,
+    "media_total": 8.788,
     "por_equipo": {
-     "error_calib": 0.0233,
-     "corr": 0.3934,
-     "n": 392,
-     "media_pred": 4.284,
-     "media_real": 4.36
+     "error_calib": 0.0289,
+     "corr": 0.3793,
+     "n": 396,
+     "media_pred": 4.28,
+     "media_real": 4.379
     },
     "total": null
    }
@@ -617,41 +685,41 @@
   {
    "clave": "dinamarca",
    "estado": "ok",
-   "partidos_espn": 445,
+   "partidos_espn": 451,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 445,
-    "dispersion_equipo": 1.5612,
-    "dispersion_total": 1.1546,
-    "media_total": 10.018,
+    "n_filas": 451,
+    "dispersion_equipo": 1.5712,
+    "dispersion_total": 1.141,
+    "media_total": 10.022,
     "por_equipo": null,
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 445,
+    "n_filas": 451,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0402,
-    "media_total": 3.452,
+    "dispersion_total": 1.0517,
+    "media_total": 3.457,
     "por_equipo": null,
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 445,
-    "dispersion_equipo": 1.9735,
-    "dispersion_total": 1.2155,
-    "media_total": 26.654,
+    "n_filas": 451,
+    "dispersion_equipo": 1.9695,
+    "dispersion_total": 1.2112,
+    "media_total": 26.645,
     "por_equipo": null,
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 445,
-    "dispersion_equipo": 1.2665,
-    "dispersion_total": 1.172,
-    "media_total": 9.355,
+    "n_filas": 451,
+    "dispersion_equipo": 1.2618,
+    "dispersion_total": 1.1733,
+    "media_total": 9.37,
     "por_equipo": null,
     "total": null
    }
@@ -659,90 +727,90 @@
   {
    "clave": "china",
    "estado": "ok",
-   "partidos_espn": 1409,
+   "partidos_espn": 1417,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1409,
-    "dispersion_equipo": 1.748,
-    "dispersion_total": 1.2421,
-    "media_total": 9.674,
+    "n_filas": 1417,
+    "dispersion_equipo": 1.7441,
+    "dispersion_total": 1.2437,
+    "media_total": 9.675,
     "por_equipo": {
-     "error_calib": 0.0065,
-     "corr": 0.2588,
-     "n": 814,
-     "media_pred": 5.131,
-     "media_real": 5.042
+     "error_calib": 0.0075,
+     "corr": 0.259,
+     "n": 820,
+     "media_pred": 5.126,
+     "media_real": 5.02
     },
     "total": {
-     "error_calib": 0.0434,
-     "corr": -0.063,
-     "n": 423,
-     "media_pred": 9.614,
-     "media_real": 10.071
+     "error_calib": 0.0379,
+     "corr": -0.0457,
+     "n": 424,
+     "media_pred": 9.617,
+     "media_real": 10.033
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1409,
+    "n_filas": 1417,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0805,
-    "media_total": 3.873,
+    "dispersion_total": 1.0817,
+    "media_total": 3.869,
     "por_equipo": {
-     "error_calib": 0.0115,
-     "corr": 0.1338,
-     "n": 814,
-     "media_pred": 2.06,
-     "media_real": 2.012
+     "error_calib": 0.0102,
+     "corr": 0.1376,
+     "n": 820,
+     "media_pred": 2.056,
+     "media_real": 2.002
     },
     "total": {
-     "error_calib": 0.0066,
-     "corr": 0.0674,
-     "n": 407,
-     "media_pred": 4.121,
-     "media_real": 4.025
+     "error_calib": 0.006,
+     "corr": 0.0805,
+     "n": 410,
+     "media_pred": 4.111,
+     "media_real": 4.005
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1409,
-    "dispersion_equipo": 2.7198,
-    "dispersion_total": 1.744,
-    "media_total": 25.172,
+    "n_filas": 1417,
+    "dispersion_equipo": 2.7175,
+    "dispersion_total": 1.7439,
+    "media_total": 25.185,
     "por_equipo": {
-     "error_calib": 0.033,
-     "corr": 0.4127,
-     "n": 814,
-     "media_pred": 13.162,
-     "media_real": 13.249
+     "error_calib": 0.0351,
+     "corr": 0.4249,
+     "n": 820,
+     "media_pred": 13.153,
+     "media_real": 13.257
     },
     "total": {
-     "error_calib": 0.0291,
-     "corr": 0.2165,
-     "n": 407,
-     "media_pred": 26.324,
-     "media_real": 26.499
+     "error_calib": 0.031,
+     "corr": 0.2221,
+     "n": 410,
+     "media_pred": 26.307,
+     "media_real": 26.515
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1409,
-    "dispersion_equipo": 1.6102,
-    "dispersion_total": 1.311,
-    "media_total": 8.805,
+    "n_filas": 1417,
+    "dispersion_equipo": 1.6164,
+    "dispersion_total": 1.3191,
+    "media_total": 8.806,
     "por_equipo": {
-     "error_calib": 0.0161,
-     "corr": 0.3318,
-     "n": 814,
-     "media_pred": 4.603,
-     "media_real": 4.597
+     "error_calib": 0.0174,
+     "corr": 0.3343,
+     "n": 820,
+     "media_pred": 4.591,
+     "media_real": 4.6
     },
     "total": {
-     "error_calib": 0.0099,
-     "corr": 0.1611,
-     "n": 407,
-     "media_pred": 9.206,
-     "media_real": 9.194
+     "error_calib": 0.0117,
+     "corr": 0.1689,
+     "n": 410,
+     "media_pred": 9.183,
+     "media_real": 9.2
     }
    }
   },
@@ -770,782 +838,850 @@
   {
    "clave": "rus_premier",
    "estado": "ok",
-   "partidos_espn": 559,
+   "partidos_espn": 566,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 559,
-    "dispersion_equipo": 1.4812,
-    "dispersion_total": 1.1179,
-    "media_total": 9.506,
+    "n_filas": 566,
+    "dispersion_equipo": 1.4784,
+    "dispersion_total": 1.1092,
+    "media_total": 9.5,
     "por_equipo": {
-     "error_calib": 0.0113,
-     "corr": 0.1108,
-     "n": 324,
-     "media_pred": 4.611,
-     "media_real": 4.596
+     "error_calib": 0.0094,
+     "corr": 0.1193,
+     "n": 326,
+     "media_pred": 4.61,
+     "media_real": 4.574
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 559,
+    "n_filas": 566,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0788,
-    "media_total": 4.386,
+    "dispersion_total": 1.0772,
+    "media_total": 4.383,
     "por_equipo": {
-     "error_calib": 0.0181,
-     "corr": 0.1124,
-     "n": 324,
+     "error_calib": 0.0234,
+     "corr": 0.0948,
+     "n": 326,
      "media_pred": 2.128,
-     "media_real": 2.191
+     "media_real": 2.215
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 559,
-    "dispersion_equipo": 2.1989,
-    "dispersion_total": 1.4349,
-    "media_total": 25.678,
+    "n_filas": 566,
+    "dispersion_equipo": 2.1873,
+    "dispersion_total": 1.4275,
+    "media_total": 25.689,
     "por_equipo": {
-     "error_calib": 0.0397,
-     "corr": 0.4274,
-     "n": 324,
-     "media_pred": 12.352,
-     "media_real": 12.701
+     "error_calib": 0.0408,
+     "corr": 0.4348,
+     "n": 326,
+     "media_pred": 12.381,
+     "media_real": 12.727
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 559,
-    "dispersion_equipo": 1.3829,
-    "dispersion_total": 1.1912,
-    "media_total": 8.472,
+    "n_filas": 566,
+    "dispersion_equipo": 1.388,
+    "dispersion_total": 1.2016,
+    "media_total": 8.481,
     "por_equipo": {
-     "error_calib": 0.0455,
-     "corr": 0.3415,
-     "n": 324,
-     "media_pred": 3.96,
-     "media_real": 4.127
+     "error_calib": 0.0402,
+     "corr": 0.3528,
+     "n": 326,
+     "media_pred": 3.971,
+     "media_real": 4.141
     },
     "total": null
    }
   },
   {
    "clave": "gre_super_league",
-   "partidos_espn": 255,
+   "partidos_espn": 262,
    "corners": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 2191,
+    "dispersion_equipo": 1.7161,
+    "dispersion_total": 1.1379,
+    "media_total": 8.697,
+    "por_equipo": {
+     "error_calib": 0.0053,
+     "corr": 0.4147,
+     "n": 1278,
+     "media_pred": 4.404,
+     "media_real": 4.434
+    },
+    "total": {
+     "error_calib": 0.0172,
+     "corr": -0.1066,
+     "n": 656,
+     "media_pred": 8.688,
+     "media_real": 8.84
+    }
    },
    "tarjetas": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 2191,
+    "dispersion_equipo": 1.0173,
+    "dispersion_total": 1.1821,
+    "media_total": 5.431,
+    "por_equipo": {
+     "error_calib": 0.0087,
+     "corr": 0.2135,
+     "n": 1278,
+     "media_pred": 2.824,
+     "media_real": 2.778
+    },
+    "total": {
+     "error_calib": 0.0067,
+     "corr": 0.1371,
+     "n": 639,
+     "media_pred": 5.648,
+     "media_real": 5.556
+    }
    },
    "remates": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 2191,
+    "dispersion_equipo": 2.5146,
+    "dispersion_total": 1.8623,
+    "media_total": 19.34,
+    "por_equipo": {
+     "error_calib": 0.0148,
+     "corr": 0.5328,
+     "n": 1278,
+     "media_pred": 11.229,
+     "media_real": 11.388
+    },
+    "total": {
+     "error_calib": 0.021,
+     "corr": 0.1774,
+     "n": 639,
+     "media_pred": 22.458,
+     "media_real": 22.776
+    }
    },
    "remates_on": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 2191,
+    "dispersion_equipo": 1.6396,
+    "dispersion_total": 1.3986,
+    "media_total": 8.329,
+    "por_equipo": {
+     "error_calib": 0.0161,
+     "corr": 0.3867,
+     "n": 1278,
+     "media_pred": 4.393,
+     "media_real": 4.34
+    },
+    "total": {
+     "error_calib": 0.0188,
+     "corr": 0.1584,
+     "n": 639,
+     "media_pred": 8.786,
+     "media_real": 8.681
+    }
    },
    "estado": "ok"
   },
   {
    "clave": "premier",
    "estado": "ok",
-   "partidos_espn": 2045,
+   "partidos_espn": 2055,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2045,
-    "dispersion_equipo": 1.7174,
-    "dispersion_total": 1.1207,
-    "media_total": 10.28,
+    "n_filas": 2055,
+    "dispersion_equipo": 1.7151,
+    "dispersion_total": 1.1201,
+    "media_total": 10.278,
     "por_equipo": {
-     "error_calib": 0.0096,
-     "corr": 0.2377,
-     "n": 1190,
-     "media_pred": 5.001,
-     "media_real": 4.941
+     "error_calib": 0.0085,
+     "corr": 0.2372,
+     "n": 1200,
+     "media_pred": 4.998,
+     "media_real": 4.942
     },
     "total": {
-     "error_calib": 0.0394,
-     "corr": -0.0457,
-     "n": 611,
-     "media_pred": 10.349,
-     "media_real": 9.872
+     "error_calib": 0.0386,
+     "corr": -0.0452,
+     "n": 617,
+     "media_pred": 10.347,
+     "media_real": 9.87
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2045,
+    "n_filas": 2055,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1419,
-    "media_total": 3.835,
+    "dispersion_total": 1.1416,
+    "media_total": 3.839,
     "por_equipo": {
-     "error_calib": 0.011,
-     "corr": 0.2023,
-     "n": 1190,
-     "media_pred": 1.967,
-     "media_real": 1.934
+     "error_calib": 0.0134,
+     "corr": 0.2047,
+     "n": 1200,
+     "media_pred": 1.965,
+     "media_real": 1.948
     },
     "total": {
-     "error_calib": 0.0135,
-     "corr": 0.1188,
-     "n": 595,
-     "media_pred": 3.933,
-     "media_real": 3.867
+     "error_calib": 0.0156,
+     "corr": 0.1331,
+     "n": 600,
+     "media_pred": 3.931,
+     "media_real": 3.895
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2045,
-    "dispersion_equipo": 2.3828,
-    "dispersion_total": 1.3556,
-    "media_total": 25.722,
+    "n_filas": 2055,
+    "dispersion_equipo": 2.3862,
+    "dispersion_total": 1.3513,
+    "media_total": 25.727,
     "por_equipo": {
-     "error_calib": 0.029,
-     "corr": 0.4506,
-     "n": 1190,
-     "media_pred": 12.622,
-     "media_real": 12.635
+     "error_calib": 0.0286,
+     "corr": 0.4573,
+     "n": 1200,
+     "media_pred": 12.626,
+     "media_real": 12.641
     },
     "total": {
-     "error_calib": 0.0182,
-     "corr": 0.1579,
-     "n": 595,
-     "media_pred": 25.243,
-     "media_real": 25.271
+     "error_calib": 0.0189,
+     "corr": 0.1607,
+     "n": 600,
+     "media_pred": 25.253,
+     "media_real": 25.282
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2045,
-    "dispersion_equipo": 1.3812,
-    "dispersion_total": 1.0804,
-    "media_total": 8.925,
+    "n_filas": 2055,
+    "dispersion_equipo": 1.3827,
+    "dispersion_total": 1.0814,
+    "media_total": 8.919,
     "por_equipo": {
-     "error_calib": 0.0182,
-     "corr": 0.292,
-     "n": 1190,
+     "error_calib": 0.0162,
+     "corr": 0.296,
+     "n": 1200,
      "media_pred": 4.333,
-     "media_real": 4.28
+     "media_real": 4.272
     },
     "total": {
-     "error_calib": 0.0072,
-     "corr": 0.0835,
-     "n": 595,
-     "media_pred": 8.667,
-     "media_real": 8.56
+     "error_calib": 0.0078,
+     "corr": 0.0856,
+     "n": 600,
+     "media_pred": 8.666,
+     "media_real": 8.543
     }
    }
   },
   {
    "clave": "laliga",
    "estado": "ok",
-   "partidos_espn": 2159,
+   "partidos_espn": 2169,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2159,
-    "dispersion_equipo": 1.6456,
-    "dispersion_total": 1.148,
-    "media_total": 9.477,
+    "n_filas": 2169,
+    "dispersion_equipo": 1.6463,
+    "dispersion_total": 1.1511,
+    "media_total": 9.474,
     "por_equipo": {
-     "error_calib": 0.0102,
-     "corr": 0.3106,
-     "n": 1250,
-     "media_pred": 4.843,
-     "media_real": 4.859
+     "error_calib": 0.0116,
+     "corr": 0.315,
+     "n": 1254,
+     "media_pred": 4.848,
+     "media_real": 4.858
     },
     "total": {
-     "error_calib": 0.0268,
-     "corr": -0.0113,
-     "n": 648,
-     "media_pred": 9.418,
-     "media_real": 9.767
+     "error_calib": 0.0248,
+     "corr": -0.024,
+     "n": 650,
+     "media_pred": 9.42,
+     "media_real": 9.765
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2159,
+    "n_filas": 2169,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.2142,
-    "media_total": 4.81,
+    "dispersion_total": 1.2115,
+    "media_total": 4.811,
     "por_equipo": {
-     "error_calib": 0.0142,
-     "corr": 0.1518,
-     "n": 1250,
-     "media_pred": 2.285,
+     "error_calib": 0.0153,
+     "corr": 0.1454,
+     "n": 1254,
+     "media_pred": 2.282,
      "media_real": 2.238
     },
     "total": {
-     "error_calib": 0.0108,
-     "corr": 0.1313,
-     "n": 625,
-     "media_pred": 4.57,
-     "media_real": 4.475
+     "error_calib": 0.0091,
+     "corr": 0.1197,
+     "n": 627,
+     "media_pred": 4.564,
+     "media_real": 4.477
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2159,
+    "n_filas": 2169,
     "dispersion_equipo": 2.1868,
-    "dispersion_total": 1.4188,
-    "media_total": 24.062,
+    "dispersion_total": 1.4197,
+    "media_total": 24.083,
     "por_equipo": {
-     "error_calib": 0.0067,
-     "corr": 0.4758,
-     "n": 1250,
-     "media_pred": 12.248,
-     "media_real": 12.489
+     "error_calib": 0.0091,
+     "corr": 0.4786,
+     "n": 1254,
+     "media_pred": 12.265,
+     "media_real": 12.532
     },
     "total": {
-     "error_calib": 0.0321,
-     "corr": 0.281,
-     "n": 625,
-     "media_pred": 24.497,
-     "media_real": 24.978
+     "error_calib": 0.0349,
+     "corr": 0.2838,
+     "n": 627,
+     "media_pred": 24.531,
+     "media_real": 25.064
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2159,
-    "dispersion_equipo": 1.39,
-    "dispersion_total": 1.1926,
-    "media_total": 8.289,
+    "n_filas": 2169,
+    "dispersion_equipo": 1.3912,
+    "dispersion_total": 1.1944,
+    "media_total": 8.299,
     "por_equipo": {
-     "error_calib": 0.0216,
-     "corr": 0.4213,
-     "n": 1250,
-     "media_pred": 4.234,
-     "media_real": 4.326
+     "error_calib": 0.0224,
+     "corr": 0.4257,
+     "n": 1254,
+     "media_pred": 4.244,
+     "media_real": 4.345
     },
     "total": {
-     "error_calib": 0.037,
-     "corr": 0.2125,
-     "n": 625,
-     "media_pred": 8.468,
-     "media_real": 8.653
+     "error_calib": 0.0378,
+     "corr": 0.2202,
+     "n": 627,
+     "media_pred": 8.488,
+     "media_real": 8.691
     }
    }
   },
   {
    "clave": "serie_a",
    "estado": "ok",
-   "partidos_espn": 2109,
+   "partidos_espn": 2119,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2109,
-    "dispersion_equipo": 1.6487,
-    "dispersion_total": 1.2048,
-    "media_total": 9.447,
+    "n_filas": 2119,
+    "dispersion_equipo": 1.65,
+    "dispersion_total": 1.2062,
+    "media_total": 9.448,
     "por_equipo": {
-     "error_calib": 0.0012,
-     "corr": 0.2793,
-     "n": 1248,
+     "error_calib": 0.0017,
+     "corr": 0.2742,
+     "n": 1258,
      "media_pred": 4.555,
-     "media_real": 4.505
+     "media_real": 4.504
     },
     "total": {
-     "error_calib": 0.0558,
-     "corr": 0.0052,
-     "n": 630,
-     "media_pred": 9.535,
-     "media_real": 9.016
+     "error_calib": 0.0557,
+     "corr": -0.0057,
+     "n": 635,
+     "media_pred": 9.533,
+     "media_real": 9.014
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2109,
+    "n_filas": 2119,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 4.209,
+    "media_total": 4.203,
     "por_equipo": {
      "error_calib": 0.0171,
-     "corr": 0.1946,
-     "n": 1248,
-     "media_pred": 1.92,
-     "media_real": 1.875
+     "corr": 0.1945,
+     "n": 1258,
+     "media_pred": 1.917,
+     "media_real": 1.868
     },
     "total": {
-     "error_calib": 0.0134,
-     "corr": 0.2043,
-     "n": 624,
-     "media_pred": 3.84,
-     "media_real": 3.75
+     "error_calib": 0.0118,
+     "corr": 0.2026,
+     "n": 629,
+     "media_pred": 3.835,
+     "media_real": 3.736
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2109,
-    "dispersion_equipo": 2.202,
-    "dispersion_total": 1.3867,
-    "media_total": 25.249,
+    "n_filas": 2119,
+    "dispersion_equipo": 2.2014,
+    "dispersion_total": 1.3921,
+    "media_total": 25.271,
     "por_equipo": {
-     "error_calib": 0.0142,
-     "corr": 0.4457,
-     "n": 1248,
-     "media_pred": 12.216,
-     "media_real": 12.349
+     "error_calib": 0.0141,
+     "corr": 0.4452,
+     "n": 1258,
+     "media_pred": 12.233,
+     "media_real": 12.386
     },
     "total": {
-     "error_calib": 0.0199,
-     "corr": 0.1652,
-     "n": 624,
-     "media_pred": 24.431,
-     "media_real": 24.699
+     "error_calib": 0.0197,
+     "corr": 0.1831,
+     "n": 629,
+     "media_pred": 24.466,
+     "media_real": 24.773
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2109,
-    "dispersion_equipo": 1.3387,
-    "dispersion_total": 1.089,
-    "media_total": 8.376,
+    "n_filas": 2119,
+    "dispersion_equipo": 1.3436,
+    "dispersion_total": 1.0959,
+    "media_total": 8.389,
     "por_equipo": {
-     "error_calib": 0.0146,
-     "corr": 0.3391,
-     "n": 1248,
-     "media_pred": 4.042,
-     "media_real": 4.089
+     "error_calib": 0.0164,
+     "corr": 0.3362,
+     "n": 1258,
+     "media_pred": 4.046,
+     "media_real": 4.107
     },
     "total": {
-     "error_calib": 0.0268,
-     "corr": 0.0686,
-     "n": 624,
-     "media_pred": 8.084,
-     "media_real": 8.178
+     "error_calib": 0.0276,
+     "corr": 0.0813,
+     "n": 629,
+     "media_pred": 8.092,
+     "media_real": 8.213
     }
    }
   },
   {
    "clave": "bundesliga",
    "estado": "ok",
-   "partidos_espn": 1723,
+   "partidos_espn": 1732,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1723,
-    "dispersion_equipo": 1.6208,
-    "dispersion_total": 1.162,
-    "media_total": 9.724,
+    "n_filas": 1732,
+    "dispersion_equipo": 1.6205,
+    "dispersion_total": 1.1621,
+    "media_total": 9.727,
     "por_equipo": {
-     "error_calib": 0.0118,
-     "corr": 0.2738,
-     "n": 996,
-     "media_pred": 4.836,
+     "error_calib": 0.0127,
+     "corr": 0.2776,
+     "n": 998,
+     "media_pred": 4.837,
      "media_real": 4.887
     },
     "total": {
-     "error_calib": 0.027,
-     "corr": -0.037,
-     "n": 514,
-     "media_pred": 9.684,
-     "media_real": 9.786
+     "error_calib": 0.0257,
+     "corr": -0.0265,
+     "n": 517,
+     "media_pred": 9.685,
+     "media_real": 9.795
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1723,
+    "n_filas": 1732,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0982,
-    "media_total": 3.84,
+    "dispersion_total": 1.0991,
+    "media_total": 3.838,
     "por_equipo": {
-     "error_calib": 0.01,
-     "corr": 0.1082,
-     "n": 996,
-     "media_pred": 1.935,
-     "media_real": 1.88
+     "error_calib": 0.009,
+     "corr": 0.1006,
+     "n": 998,
+     "media_pred": 1.934,
+     "media_real": 1.877
     },
     "total": {
-     "error_calib": 0.0125,
-     "corr": 0.097,
-     "n": 498,
-     "media_pred": 3.869,
-     "media_real": 3.759
+     "error_calib": 0.0129,
+     "corr": 0.0897,
+     "n": 499,
+     "media_pred": 3.868,
+     "media_real": 3.754
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1723,
-    "dispersion_equipo": 2.2049,
-    "dispersion_total": 1.4249,
-    "media_total": 26.302,
+    "n_filas": 1732,
+    "dispersion_equipo": 2.2086,
+    "dispersion_total": 1.4367,
+    "media_total": 26.32,
     "por_equipo": {
-     "error_calib": 0.0199,
-     "corr": 0.4001,
-     "n": 996,
-     "media_pred": 13.096,
-     "media_real": 13.254
+     "error_calib": 0.0193,
+     "corr": 0.3961,
+     "n": 998,
+     "media_pred": 13.102,
+     "media_real": 13.264
     },
     "total": {
-     "error_calib": 0.0257,
-     "corr": 0.166,
-     "n": 498,
-     "media_pred": 26.193,
-     "media_real": 26.508
+     "error_calib": 0.0229,
+     "corr": 0.1741,
+     "n": 499,
+     "media_pred": 26.204,
+     "media_real": 26.527
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1723,
-    "dispersion_equipo": 1.4797,
-    "dispersion_total": 1.1429,
-    "media_total": 9.395,
+    "n_filas": 1732,
+    "dispersion_equipo": 1.4879,
+    "dispersion_total": 1.1529,
+    "media_total": 9.403,
     "por_equipo": {
-     "error_calib": 0.0266,
-     "corr": 0.4115,
-     "n": 996,
-     "media_pred": 4.631,
-     "media_real": 4.742
+     "error_calib": 0.025,
+     "corr": 0.4129,
+     "n": 998,
+     "media_pred": 4.634,
+     "media_real": 4.737
     },
     "total": {
-     "error_calib": 0.0238,
-     "corr": 0.2219,
-     "n": 498,
-     "media_pred": 9.262,
-     "media_real": 9.484
+     "error_calib": 0.0217,
+     "corr": 0.2295,
+     "n": 499,
+     "media_pred": 9.269,
+     "media_real": 9.475
     }
    }
   },
   {
    "clave": "ligue_1",
    "estado": "ok",
-   "partidos_espn": 1899,
+   "partidos_espn": 1908,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1899,
-    "dispersion_equipo": 1.5556,
-    "dispersion_total": 1.1525,
-    "media_total": 9.466,
+    "n_filas": 1908,
+    "dispersion_equipo": 1.5539,
+    "dispersion_total": 1.1511,
+    "media_total": 9.459,
     "por_equipo": {
-     "error_calib": 0.0078,
-     "corr": 0.2285,
-     "n": 1116,
-     "media_pred": 4.696,
-     "media_real": 4.767
+     "error_calib": 0.0039,
+     "corr": 0.2268,
+     "n": 1118,
+     "media_pred": 4.7,
+     "media_real": 4.753
     },
     "total": {
-     "error_calib": 0.0014,
-     "corr": -0.0345,
-     "n": 570,
-     "media_pred": 9.433,
-     "media_real": 9.53
+     "error_calib": 0.002,
+     "corr": -0.0464,
+     "n": 571,
+     "media_pred": 9.434,
+     "media_real": 9.503
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1899,
+    "n_filas": 1908,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 3.827,
+    "media_total": 3.828,
     "por_equipo": {
-     "error_calib": 0.0319,
-     "corr": 0.1636,
-     "n": 1116,
-     "media_pred": 1.971,
-     "media_real": 1.906
+     "error_calib": 0.0323,
+     "corr": 0.1615,
+     "n": 1118,
+     "media_pred": 1.965,
+     "media_real": 1.901
     },
     "total": {
-     "error_calib": 0.0198,
-     "corr": 0.1665,
-     "n": 558,
-     "media_pred": 3.941,
-     "media_real": 3.812
+     "error_calib": 0.0205,
+     "corr": 0.1565,
+     "n": 559,
+     "media_pred": 3.931,
+     "media_real": 3.801
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1899,
-    "dispersion_equipo": 2.0289,
-    "dispersion_total": 1.3692,
-    "media_total": 24.579,
+    "n_filas": 1908,
+    "dispersion_equipo": 2.0239,
+    "dispersion_total": 1.3668,
+    "media_total": 24.591,
     "por_equipo": {
-     "error_calib": 0.0093,
-     "corr": 0.423,
-     "n": 1116,
-     "media_pred": 12.409,
-     "media_real": 12.561
+     "error_calib": 0.0077,
+     "corr": 0.4215,
+     "n": 1118,
+     "media_pred": 12.42,
+     "media_real": 12.549
     },
     "total": {
-     "error_calib": 0.0252,
-     "corr": 0.1069,
-     "n": 558,
-     "media_pred": 24.819,
-     "media_real": 25.122
+     "error_calib": 0.022,
+     "corr": 0.1128,
+     "n": 559,
+     "media_pred": 24.839,
+     "media_real": 25.098
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1899,
-    "dispersion_equipo": 1.3605,
-    "dispersion_total": 1.1934,
-    "media_total": 8.805,
+    "n_filas": 1908,
+    "dispersion_equipo": 1.3585,
+    "dispersion_total": 1.1941,
+    "media_total": 8.811,
     "por_equipo": {
-     "error_calib": 0.0066,
-     "corr": 0.379,
-     "n": 1116,
-     "media_pred": 4.485,
-     "media_real": 4.472
+     "error_calib": 0.007,
+     "corr": 0.3767,
+     "n": 1118,
+     "media_pred": 4.484,
+     "media_real": 4.465
     },
     "total": {
-     "error_calib": 0.0056,
-     "corr": 0.1241,
-     "n": 558,
-     "media_pred": 8.971,
-     "media_real": 8.944
+     "error_calib": 0.005,
+     "corr": 0.1144,
+     "n": 559,
+     "media_pred": 8.967,
+     "media_real": 8.93
     }
    }
   },
   {
    "clave": "eredivisie",
    "estado": "ok",
-   "partidos_espn": 1790,
+   "partidos_espn": 1799,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1790,
-    "dispersion_equipo": 1.8406,
+    "n_filas": 1799,
+    "dispersion_equipo": 1.8403,
     "dispersion_total": 1.1596,
-    "media_total": 10.206,
+    "media_total": 10.202,
     "por_equipo": {
-     "error_calib": 0.0162,
-     "corr": 0.3425,
-     "n": 1062,
+     "error_calib": 0.0171,
+     "corr": 0.3391,
+     "n": 1064,
      "media_pred": 5.121,
-     "media_real": 5.145
+     "media_real": 5.126
     },
     "total": {
-     "error_calib": 0.0262,
-     "corr": 0.0032,
-     "n": 537,
-     "media_pred": 10.16,
-     "media_real": 10.302
+     "error_calib": 0.0205,
+     "corr": -0.0067,
+     "n": 538,
+     "media_pred": 10.161,
+     "media_real": 10.264
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1790,
+    "n_filas": 1799,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1632,
-    "media_total": 3.032,
+    "dispersion_total": 1.1654,
+    "media_total": 3.033,
     "por_equipo": {
-     "error_calib": 0.0103,
-     "corr": 0.1952,
-     "n": 1062,
-     "media_pred": 1.613,
-     "media_real": 1.572
+     "error_calib": 0.0084,
+     "corr": 0.1966,
+     "n": 1064,
+     "media_pred": 1.611,
+     "media_real": 1.579
     },
     "total": {
-     "error_calib": 0.0136,
-     "corr": 0.1328,
-     "n": 531,
-     "media_pred": 3.225,
-     "media_real": 3.143
+     "error_calib": 0.0121,
+     "corr": 0.1349,
+     "n": 532,
+     "media_pred": 3.221,
+     "media_real": 3.158
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1790,
-    "dispersion_equipo": 2.7441,
-    "dispersion_total": 1.3726,
-    "media_total": 27.053,
+    "n_filas": 1799,
+    "dispersion_equipo": 2.7429,
+    "dispersion_total": 1.3817,
+    "media_total": 27.076,
     "por_equipo": {
-     "error_calib": 0.0294,
-     "corr": 0.5016,
-     "n": 1062,
-     "media_pred": 13.685,
-     "media_real": 14.024
+     "error_calib": 0.031,
+     "corr": 0.5002,
+     "n": 1064,
+     "media_pred": 13.711,
+     "media_real": 14.065
     },
     "total": {
-     "error_calib": 0.0422,
-     "corr": 0.2174,
-     "n": 531,
-     "media_pred": 27.369,
-     "media_real": 28.047
+     "error_calib": 0.0398,
+     "corr": 0.2166,
+     "n": 532,
+     "media_pred": 27.421,
+     "media_real": 28.13
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1790,
-    "dispersion_equipo": 1.6799,
-    "dispersion_total": 1.1457,
-    "media_total": 9.714,
+    "n_filas": 1799,
+    "dispersion_equipo": 1.6781,
+    "dispersion_total": 1.1489,
+    "media_total": 9.727,
     "por_equipo": {
-     "error_calib": 0.0272,
-     "corr": 0.3723,
-     "n": 1062,
-     "media_pred": 4.939,
-     "media_real": 5.021
+     "error_calib": 0.0297,
+     "corr": 0.3672,
+     "n": 1064,
+     "media_pred": 4.947,
+     "media_real": 5.041
     },
     "total": {
-     "error_calib": 0.0191,
-     "corr": 0.0721,
-     "n": 531,
-     "media_pred": 9.879,
-     "media_real": 10.041
+     "error_calib": 0.0241,
+     "corr": 0.0604,
+     "n": 532,
+     "media_pred": 9.893,
+     "media_real": 10.083
     }
    }
   },
   {
    "clave": "primeira",
    "estado": "ok",
-   "partidos_espn": 1728,
+   "partidos_espn": 1729,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1728,
-    "dispersion_equipo": 1.9235,
-    "dispersion_total": 1.382,
-    "media_total": 10.057,
+    "n_filas": 1729,
+    "dispersion_equipo": 1.923,
+    "dispersion_total": 1.3811,
+    "media_total": 10.058,
     "por_equipo": {
-     "error_calib": 0.014,
-     "corr": 0.3466,
+     "error_calib": 0.0139,
+     "corr": 0.3459,
      "n": 1014,
      "media_pred": 4.697,
-     "media_real": 4.673
+     "media_real": 4.672
     },
     "total": {
-     "error_calib": 0.0995,
-     "corr": -0.0399,
+     "error_calib": 0.1,
+     "corr": -0.0446,
      "n": 519,
-     "media_pred": 10.189,
-     "media_real": 9.314
+     "media_pred": 10.188,
+     "media_real": 9.312
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1728,
+    "n_filas": 1729,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1874,
+    "dispersion_total": 1.1868,
     "media_total": 5.27,
     "por_equipo": {
      "error_calib": 0.0148,
-     "corr": 0.1193,
+     "corr": 0.1192,
      "n": 1014,
      "media_pred": 2.555,
-     "media_real": 2.48
+     "media_real": 2.482
     },
     "total": {
-     "error_calib": 0.0173,
-     "corr": 0.1201,
+     "error_calib": 0.0163,
+     "corr": 0.1189,
      "n": 507,
      "media_pred": 5.11,
-     "media_real": 4.961
+     "media_real": 4.964
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1728,
-    "dispersion_equipo": 2.2679,
-    "dispersion_total": 1.2795,
-    "media_total": 24.576,
+    "n_filas": 1729,
+    "dispersion_equipo": 2.2665,
+    "dispersion_total": 1.2789,
+    "media_total": 24.578,
     "por_equipo": {
      "error_calib": 0.0128,
-     "corr": 0.4931,
+     "corr": 0.4926,
      "n": 1014,
      "media_pred": 11.982,
-     "media_real": 11.996
+     "media_real": 12.001
     },
     "total": {
-     "error_calib": 0.0215,
-     "corr": 0.2247,
+     "error_calib": 0.0231,
+     "corr": 0.2238,
      "n": 507,
-     "media_pred": 23.965,
-     "media_real": 23.992
+     "media_pred": 23.963,
+     "media_real": 24.002
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1728,
-    "dispersion_equipo": 1.3947,
-    "dispersion_total": 1.0429,
-    "media_total": 8.321,
+    "n_filas": 1729,
+    "dispersion_equipo": 1.3943,
+    "dispersion_total": 1.0425,
+    "media_total": 8.32,
     "por_equipo": {
-     "error_calib": 0.0179,
-     "corr": 0.4259,
+     "error_calib": 0.0176,
+     "corr": 0.425,
      "n": 1014,
-     "media_pred": 4.118,
-     "media_real": 4.082
+     "media_pred": 4.119,
+     "media_real": 4.084
     },
     "total": {
-     "error_calib": 0.0129,
-     "corr": 0.1489,
+     "error_calib": 0.0133,
+     "corr": 0.1467,
      "n": 507,
-     "media_pred": 8.237,
-     "media_real": 8.164
+     "media_pred": 8.238,
+     "media_real": 8.168
     }
    }
   },
   {
    "clave": "champions",
    "estado": "ok",
-   "partidos_espn": 792,
+   "partidos_espn": 810,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 792,
-    "dispersion_equipo": 1.892,
-    "dispersion_total": 1.3369,
-    "media_total": 9.593,
+    "n_filas": 810,
+    "dispersion_equipo": 1.9029,
+    "dispersion_total": 1.3561,
+    "media_total": 9.622,
     "por_equipo": {
-     "error_calib": 0.0159,
-     "corr": 0.3632,
-     "n": 374,
-     "media_pred": 4.761,
-     "media_real": 4.824
+     "error_calib": 0.0155,
+     "corr": 0.3595,
+     "n": 372,
+     "media_pred": 4.774,
+     "media_real": 4.815
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 792,
+    "n_filas": 810,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.2119,
-    "media_total": 3.914,
+    "dispersion_total": 1.2021,
+    "media_total": 3.909,
     "por_equipo": {
-     "error_calib": 0.0238,
-     "corr": 0.1087,
-     "n": 374,
-     "media_pred": 1.906,
-     "media_real": 1.77
+     "error_calib": 0.0229,
+     "corr": 0.1207,
+     "n": 372,
+     "media_pred": 1.9,
+     "media_real": 1.769
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 792,
-    "dispersion_equipo": 2.7453,
-    "dispersion_total": 1.4945,
-    "media_total": 26.346,
+    "n_filas": 810,
+    "dispersion_equipo": 2.739,
+    "dispersion_total": 1.5127,
+    "media_total": 26.43,
     "por_equipo": {
-     "error_calib": 0.0068,
-     "corr": 0.5152,
-     "n": 374,
-     "media_pred": 13.397,
-     "media_real": 13.634
+     "error_calib": 0.0156,
+     "corr": 0.5086,
+     "n": 372,
+     "media_pred": 13.396,
+     "media_real": 13.785
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 792,
-    "dispersion_equipo": 1.7523,
-    "dispersion_total": 1.2756,
-    "media_total": 9.725,
+    "n_filas": 810,
+    "dispersion_equipo": 1.745,
+    "dispersion_total": 1.2841,
+    "media_total": 9.774,
     "por_equipo": {
-     "error_calib": 0.0353,
-     "corr": 0.4314,
-     "n": 374,
-     "media_pred": 5.011,
-     "media_real": 5.262
+     "error_calib": 0.0431,
+     "corr": 0.4422,
+     "n": 372,
+     "media_pred": 5.017,
+     "media_real": 5.344
     },
     "total": null
    }
@@ -1553,65 +1689,65 @@
   {
    "clave": "europa_league",
    "estado": "ok",
-   "partidos_espn": 873,
+   "partidos_espn": 891,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 873,
-    "dispersion_equipo": 1.7273,
-    "dispersion_total": 1.2577,
-    "media_total": 9.404,
+    "n_filas": 891,
+    "dispersion_equipo": 1.7257,
+    "dispersion_total": 1.2517,
+    "media_total": 9.396,
     "por_equipo": {
-     "error_calib": 0.0083,
-     "corr": 0.2941,
+     "error_calib": 0.0075,
+     "corr": 0.3147,
      "n": 384,
-     "media_pred": 4.645,
-     "media_real": 4.703
+     "media_pred": 4.669,
+     "media_real": 4.706
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 873,
+    "n_filas": 891,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1881,
-    "media_total": 4.385,
+    "dispersion_total": 1.1751,
+    "media_total": 4.382,
     "por_equipo": {
-     "error_calib": 0.0171,
-     "corr": 0.1707,
+     "error_calib": 0.0196,
+     "corr": 0.1362,
      "n": 384,
-     "media_pred": 2.208,
-     "media_real": 2.128
+     "media_pred": 2.193,
+     "media_real": 2.094
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 873,
-    "dispersion_equipo": 2.5016,
-    "dispersion_total": 1.4629,
-    "media_total": 25.336,
+    "n_filas": 891,
+    "dispersion_equipo": 2.5055,
+    "dispersion_total": 1.4533,
+    "media_total": 25.368,
     "por_equipo": {
-     "error_calib": 0.0118,
-     "corr": 0.4002,
+     "error_calib": 0.0159,
+     "corr": 0.412,
      "n": 384,
-     "media_pred": 12.821,
-     "media_real": 12.779
+     "media_pred": 12.826,
+     "media_real": 12.867
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 873,
-    "dispersion_equipo": 1.5168,
-    "dispersion_total": 1.1908,
-    "media_total": 8.991,
+    "n_filas": 891,
+    "dispersion_equipo": 1.5144,
+    "dispersion_total": 1.1775,
+    "media_total": 9.003,
     "por_equipo": {
-     "error_calib": 0.0107,
-     "corr": 0.2726,
+     "error_calib": 0.0065,
+     "corr": 0.2699,
      "n": 384,
-     "media_pred": 4.601,
-     "media_real": 4.505
+     "media_pred": 4.597,
+     "media_real": 4.547
     },
     "total": null
    }
@@ -1619,41 +1755,41 @@
   {
    "clave": "conference_league",
    "estado": "ok",
-   "partidos_espn": 713,
+   "partidos_espn": 731,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 713,
-    "dispersion_equipo": 1.7867,
-    "dispersion_total": 1.1855,
-    "media_total": 9.285,
+    "n_filas": 731,
+    "dispersion_equipo": 1.8199,
+    "dispersion_total": 1.1951,
+    "media_total": 9.297,
     "por_equipo": null,
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 713,
+    "n_filas": 731,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0694,
-    "media_total": 4.487,
+    "dispersion_total": 1.0737,
+    "media_total": 4.457,
     "por_equipo": null,
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 713,
-    "dispersion_equipo": 2.6767,
-    "dispersion_total": 1.4621,
-    "media_total": 24.907,
+    "n_filas": 731,
+    "dispersion_equipo": 2.7154,
+    "dispersion_total": 1.4723,
+    "media_total": 25.008,
     "por_equipo": null,
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 713,
-    "dispersion_equipo": 1.5834,
-    "dispersion_total": 1.1626,
-    "media_total": 8.749,
+    "n_filas": 731,
+    "dispersion_equipo": 1.5835,
+    "dispersion_total": 1.1567,
+    "media_total": 8.772,
     "por_equipo": null,
     "total": null
    }
@@ -1682,270 +1818,270 @@
   {
    "clave": "eng_championship",
    "estado": "ok",
-   "partidos_espn": 2623,
+   "partidos_espn": 2647,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2623,
-    "dispersion_equipo": 1.6629,
-    "dispersion_total": 1.2861,
-    "media_total": 10.279,
+    "n_filas": 2647,
+    "dispersion_equipo": 1.6661,
+    "dispersion_total": 1.2877,
+    "media_total": 10.275,
     "por_equipo": {
-     "error_calib": 0.0067,
-     "corr": 0.2421,
-     "n": 1472,
-     "media_pred": 5.122,
-     "media_real": 5.14
+     "error_calib": 0.0068,
+     "corr": 0.2478,
+     "n": 1496,
+     "media_pred": 5.125,
+     "media_real": 5.137
     },
     "total": {
-     "error_calib": 0.0066,
-     "corr": -0.0312,
-     "n": 780,
+     "error_calib": 0.0062,
+     "corr": -0.0332,
+     "n": 792,
      "media_pred": 10.254,
-     "media_real": 10.288
+     "media_real": 10.283
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2623,
+    "n_filas": 2647,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0762,
-    "media_total": 3.812,
+    "dispersion_total": 1.0786,
+    "media_total": 3.815,
     "por_equipo": {
-     "error_calib": 0.0128,
-     "corr": 0.0973,
-     "n": 1472,
-     "media_pred": 1.916,
-     "media_real": 1.92
+     "error_calib": 0.0141,
+     "corr": 0.0991,
+     "n": 1496,
+     "media_pred": 1.914,
+     "media_real": 1.932
     },
     "total": {
-     "error_calib": 0.0053,
-     "corr": -0.0143,
-     "n": 736,
-     "media_pred": 3.831,
-     "media_real": 3.84
+     "error_calib": 0.0075,
+     "corr": -0.0085,
+     "n": 748,
+     "media_pred": 3.829,
+     "media_real": 3.864
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2623,
-    "dispersion_equipo": 1.9851,
-    "dispersion_total": 1.413,
-    "media_total": 23.973,
+    "n_filas": 2647,
+    "dispersion_equipo": 2.0003,
+    "dispersion_total": 1.4202,
+    "media_total": 24.011,
     "por_equipo": {
-     "error_calib": 0.0192,
-     "corr": 0.3905,
-     "n": 1472,
-     "media_pred": 12.393,
-     "media_real": 12.471
+     "error_calib": 0.0178,
+     "corr": 0.3923,
+     "n": 1496,
+     "media_pred": 12.419,
+     "media_real": 12.523
     },
     "total": {
-     "error_calib": 0.0299,
-     "corr": 0.2071,
-     "n": 736,
-     "media_pred": 24.787,
-     "media_real": 24.943
+     "error_calib": 0.0311,
+     "corr": 0.2234,
+     "n": 748,
+     "media_pred": 24.838,
+     "media_real": 25.047
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2623,
-    "dispersion_equipo": 1.2955,
-    "dispersion_total": 1.1164,
-    "media_total": 7.887,
+    "n_filas": 2647,
+    "dispersion_equipo": 1.3019,
+    "dispersion_total": 1.1179,
+    "media_total": 7.894,
     "por_equipo": {
-     "error_calib": 0.0153,
-     "corr": 0.2259,
-     "n": 1472,
-     "media_pred": 4.025,
-     "media_real": 4.053
+     "error_calib": 0.0127,
+     "corr": 0.2283,
+     "n": 1496,
+     "media_pred": 4.034,
+     "media_real": 4.055
     },
     "total": {
-     "error_calib": 0.0154,
-     "corr": 0.1089,
-     "n": 736,
-     "media_pred": 8.051,
-     "media_real": 8.106
+     "error_calib": 0.0141,
+     "corr": 0.1189,
+     "n": 748,
+     "media_pred": 8.068,
+     "media_real": 8.111
     }
    }
   },
   {
    "clave": "eng_league_one",
    "estado": "ok",
-   "partidos_espn": 1212,
+   "partidos_espn": 1224,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1212,
-    "dispersion_equipo": 1.556,
-    "dispersion_total": 1.2416,
-    "media_total": 9.978,
+    "n_filas": 1224,
+    "dispersion_equipo": 1.557,
+    "dispersion_total": 1.245,
+    "media_total": 10.0,
     "por_equipo": {
-     "error_calib": 0.0174,
-     "corr": 0.229,
-     "n": 650,
-     "media_pred": 5.053,
-     "media_real": 5.214
+     "error_calib": 0.0173,
+     "corr": 0.2413,
+     "n": 672,
+     "media_pred": 5.066,
+     "media_real": 5.247
     },
     "total": {
-     "error_calib": 0.0601,
-     "corr": 0.0624,
-     "n": 356,
-     "media_pred": 9.852,
-     "media_real": 10.497
+     "error_calib": 0.0679,
+     "corr": 0.0895,
+     "n": 367,
+     "media_pred": 9.857,
+     "media_real": 10.556
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1212,
+    "n_filas": 1224,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 3.876,
+    "media_total": 3.871,
     "por_equipo": {
-     "error_calib": 0.0103,
-     "corr": 0.1251,
-     "n": 650,
+     "error_calib": 0.0121,
+     "corr": 0.1265,
+     "n": 672,
      "media_pred": 1.94,
-     "media_real": 1.908
+     "media_real": 1.903
     },
     "total": {
-     "error_calib": 0.0055,
-     "corr": 0.106,
-     "n": 325,
+     "error_calib": 0.0086,
+     "corr": 0.1084,
+     "n": 336,
      "media_pred": 3.881,
-     "media_real": 3.815
+     "media_real": 3.807
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1212,
-    "dispersion_equipo": 2.0171,
-    "dispersion_total": 1.4548,
-    "media_total": 23.642,
+    "n_filas": 1224,
+    "dispersion_equipo": 2.0293,
+    "dispersion_total": 1.4652,
+    "media_total": 23.704,
     "por_equipo": {
-     "error_calib": 0.0253,
-     "corr": 0.3998,
-     "n": 650,
-     "media_pred": 12.072,
-     "media_real": 12.478
+     "error_calib": 0.0311,
+     "corr": 0.4084,
+     "n": 672,
+     "media_pred": 12.111,
+     "media_real": 12.582
     },
     "total": {
-     "error_calib": 0.0463,
-     "corr": 0.3606,
-     "n": 325,
-     "media_pred": 24.143,
-     "media_real": 24.957
+     "error_calib": 0.0534,
+     "corr": 0.3543,
+     "n": 336,
+     "media_pred": 24.222,
+     "media_real": 25.164
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1212,
-    "dispersion_equipo": 1.3947,
-    "dispersion_total": 1.2017,
-    "media_total": 7.908,
+    "n_filas": 1224,
+    "dispersion_equipo": 1.3991,
+    "dispersion_total": 1.2009,
+    "media_total": 7.912,
     "por_equipo": {
-     "error_calib": 0.0169,
-     "corr": 0.2963,
-     "n": 650,
-     "media_pred": 3.99,
-     "media_real": 4.125
+     "error_calib": 0.0177,
+     "corr": 0.2947,
+     "n": 672,
+     "media_pred": 4.002,
+     "media_real": 4.128
     },
     "total": {
-     "error_calib": 0.0185,
-     "corr": 0.1294,
-     "n": 325,
-     "media_pred": 7.98,
-     "media_real": 8.249
+     "error_calib": 0.0207,
+     "corr": 0.1114,
+     "n": 336,
+     "media_pred": 8.004,
+     "media_real": 8.256
     }
    }
   },
   {
    "clave": "eng_league_two",
    "estado": "ok",
-   "partidos_espn": 1226,
+   "partidos_espn": 1238,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1226,
-    "dispersion_equipo": 1.5005,
-    "dispersion_total": 1.1197,
-    "media_total": 9.783,
+    "n_filas": 1238,
+    "dispersion_equipo": 1.5061,
+    "dispersion_total": 1.1151,
+    "media_total": 9.78,
     "por_equipo": {
-     "error_calib": 0.0189,
-     "corr": 0.2658,
+     "error_calib": 0.0194,
+     "corr": 0.2616,
      "n": 678,
-     "media_pred": 4.943,
-     "media_real": 4.994
+     "media_pred": 4.945,
+     "media_real": 5.0
     },
     "total": {
-     "error_calib": 0.0319,
-     "corr": -0.0721,
+     "error_calib": 0.0296,
+     "corr": -0.0966,
      "n": 367,
-     "media_pred": 9.755,
-     "media_real": 9.924
+     "media_pred": 9.757,
+     "media_real": 9.935
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1226,
+    "n_filas": 1238,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0004,
+    "dispersion_total": 1.0052,
     "media_total": 4.042,
     "por_equipo": {
-     "error_calib": 0.0095,
-     "corr": 0.1526,
+     "error_calib": 0.0104,
+     "corr": 0.1568,
      "n": 678,
-     "media_pred": 1.926,
-     "media_real": 1.898
+     "media_pred": 1.919,
+     "media_real": 1.9
     },
     "total": {
-     "error_calib": 0.018,
-     "corr": 0.059,
+     "error_calib": 0.0191,
+     "corr": 0.0536,
      "n": 339,
-     "media_pred": 3.853,
-     "media_real": 3.796
+     "media_pred": 3.838,
+     "media_real": 3.799
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1226,
-    "dispersion_equipo": 1.9529,
-    "dispersion_total": 1.4334,
-    "media_total": 23.931,
+    "n_filas": 1238,
+    "dispersion_equipo": 1.9492,
+    "dispersion_total": 1.4307,
+    "media_total": 23.939,
     "por_equipo": {
-     "error_calib": 0.0189,
-     "corr": 0.294,
+     "error_calib": 0.0216,
+     "corr": 0.3087,
      "n": 678,
-     "media_pred": 12.183,
-     "media_real": 12.307
+     "media_pred": 12.185,
+     "media_real": 12.358
     },
     "total": {
-     "error_calib": 0.0333,
-     "corr": 0.1246,
+     "error_calib": 0.0419,
+     "corr": 0.1498,
      "n": 339,
-     "media_pred": 24.366,
-     "media_real": 24.614
+     "media_pred": 24.371,
+     "media_real": 24.717
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1226,
-    "dispersion_equipo": 1.2569,
-    "dispersion_total": 1.0777,
-    "media_total": 7.795,
+    "n_filas": 1238,
+    "dispersion_equipo": 1.2563,
+    "dispersion_total": 1.0779,
+    "media_total": 7.788,
     "por_equipo": {
-     "error_calib": 0.0057,
-     "corr": 0.1991,
+     "error_calib": 0.0061,
+     "corr": 0.1987,
      "n": 678,
-     "media_pred": 4.01,
-     "media_real": 3.945
+     "media_pred": 4.001,
+     "media_real": 3.926
     },
     "total": {
-     "error_calib": 0.0143,
-     "corr": 0.0906,
+     "error_calib": 0.0162,
+     "corr": 0.0997,
      "n": 339,
-     "media_pred": 8.019,
-     "media_real": 7.891
+     "media_pred": 8.003,
+     "media_real": 7.853
     }
    }
   },
@@ -1953,61 +2089,117 @@
    "clave": "eng_national",
    "partidos_espn": 1,
    "corners": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 1020,
+    "dispersion_equipo": 1.6116,
+    "dispersion_total": 1.2184,
+    "media_total": 9.882,
+    "por_equipo": {
+     "error_calib": 0.0141,
+     "corr": 0.2789,
+     "n": 558,
+     "media_pred": 5.008,
+     "media_real": 4.857
+    },
+    "total": {
+     "error_calib": 0.0085,
+     "corr": -0.088,
+     "n": 305,
+     "media_pred": 9.896,
+     "media_real": 9.777
+    }
    },
    "tarjetas": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 8765,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1498,
+    "media_total": 3.337,
+    "por_equipo": {
+     "error_calib": 0.0164,
+     "corr": 0.1375,
+     "n": 5114,
+     "media_pred": 1.884,
+     "media_real": 1.899
+    },
+    "total": {
+     "error_calib": 0.0196,
+     "corr": 0.128,
+     "n": 2557,
+     "media_pred": 3.767,
+     "media_real": 3.799
+    }
    },
    "remates": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 1020,
+    "dispersion_equipo": 1.914,
+    "dispersion_total": 1.5221,
+    "media_total": 16.677,
+    "por_equipo": {
+     "error_calib": 0.0142,
+     "corr": 0.4669,
+     "n": 558,
+     "media_pred": 8.617,
+     "media_real": 8.622
+    },
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 1020,
+    "dispersion_equipo": 1.6552,
+    "dispersion_total": 1.4687,
+    "media_total": 8.966,
+    "por_equipo": {
+     "error_calib": 0.0241,
+     "corr": 0.3976,
+     "n": 558,
+     "media_pred": 4.746,
+     "media_real": 4.62
+    },
+    "total": null
    },
    "estado": "ok"
   },
   {
    "clave": "sco_premiership",
    "estado": "ok",
-   "partidos_espn": 475,
+   "partidos_espn": 481,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 475,
-    "dispersion_equipo": 1.6814,
-    "dispersion_total": 1.0874,
-    "media_total": 10.604,
+    "n_filas": 481,
+    "dispersion_equipo": 1.6711,
+    "dispersion_total": 1.08,
+    "media_total": 10.584,
     "por_equipo": null,
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 475,
+    "n_filas": 481,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0242,
-    "media_total": 4.002,
+    "dispersion_total": 1.0198,
+    "media_total": 3.998,
     "por_equipo": null,
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 475,
-    "dispersion_equipo": 2.4992,
-    "dispersion_total": 1.4114,
-    "media_total": 25.537,
+    "n_filas": 481,
+    "dispersion_equipo": 2.4799,
+    "dispersion_total": 1.4097,
+    "media_total": 25.597,
     "por_equipo": null,
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 475,
-    "dispersion_equipo": 1.5192,
-    "dispersion_total": 1.1122,
-    "media_total": 8.659,
+    "n_filas": 481,
+    "dispersion_equipo": 1.5129,
+    "dispersion_total": 1.1247,
+    "media_total": 8.711,
     "por_equipo": null,
     "total": null
    }
@@ -2016,265 +2208,333 @@
    "clave": "sco_championship",
    "partidos_espn": 376,
    "corners": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 1585,
+    "dispersion_equipo": 1.6136,
+    "dispersion_total": 1.2323,
+    "media_total": 10.353,
+    "por_equipo": {
+     "error_calib": 0.0166,
+     "corr": 0.2866,
+     "n": 928,
+     "media_pred": 5.059,
+     "media_real": 4.997
+    },
+    "total": {
+     "error_calib": 0.064,
+     "corr": 0.0217,
+     "n": 476,
+     "media_pred": 10.438,
+     "media_real": 10.023
+    }
    },
    "tarjetas": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 1585,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0652,
+    "media_total": 3.703,
+    "por_equipo": {
+     "error_calib": 0.021,
+     "corr": 0.0734,
+     "n": 928,
+     "media_pred": 2.093,
+     "media_real": 2.107
+    },
+    "total": {
+     "error_calib": 0.0182,
+     "corr": 0.0274,
+     "n": 464,
+     "media_pred": 4.187,
+     "media_real": 4.213
+    }
    },
    "remates": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 1585,
+    "dispersion_equipo": 1.875,
+    "dispersion_total": 1.4694,
+    "media_total": 19.082,
+    "por_equipo": {
+     "error_calib": 0.0107,
+     "corr": 0.4201,
+     "n": 928,
+     "media_pred": 9.137,
+     "media_real": 9.041
+    },
+    "total": {
+     "error_calib": 0.0031,
+     "corr": 0.2086,
+     "n": 464,
+     "media_pred": 18.274,
+     "media_real": 18.082
+    }
    },
    "remates_on": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 1585,
+    "dispersion_equipo": 1.2836,
+    "dispersion_total": 1.1204,
+    "media_total": 7.938,
+    "por_equipo": {
+     "error_calib": 0.0034,
+     "corr": 0.3143,
+     "n": 928,
+     "media_pred": 3.798,
+     "media_real": 3.753
+    },
+    "total": {
+     "error_calib": 0.0062,
+     "corr": 0.1294,
+     "n": 464,
+     "media_pred": 7.595,
+     "media_real": 7.506
+    }
    },
    "estado": "ok"
   },
   {
    "clave": "esp_hypermotion",
    "estado": "ok",
-   "partidos_espn": 2435,
+   "partidos_espn": 2449,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2435,
-    "dispersion_equipo": 1.5057,
-    "dispersion_total": 1.1146,
-    "media_total": 9.356,
+    "n_filas": 2449,
+    "dispersion_equipo": 1.5107,
+    "dispersion_total": 1.1154,
+    "media_total": 9.366,
     "por_equipo": {
-     "error_calib": 0.0157,
-     "corr": 0.2075,
-     "n": 1400,
-     "media_pred": 4.691,
-     "media_real": 4.74
+     "error_calib": 0.0153,
+     "corr": 0.2056,
+     "n": 1408,
+     "media_pred": 4.69,
+     "media_real": 4.745
     },
     "total": {
-     "error_calib": 0.0165,
-     "corr": -0.0747,
-     "n": 729,
-     "media_pred": 9.348,
-     "media_real": 9.446
+     "error_calib": 0.0175,
+     "corr": -0.0567,
+     "n": 733,
+     "media_pred": 9.349,
+     "media_real": 9.456
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2435,
+    "n_filas": 2449,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0545,
-    "media_total": 4.994,
+    "dispersion_total": 1.0512,
+    "media_total": 4.997,
     "por_equipo": {
-     "error_calib": 0.0157,
-     "corr": 0.1131,
-     "n": 1400,
-     "media_pred": 2.551,
-     "media_real": 2.584
+     "error_calib": 0.0168,
+     "corr": 0.11,
+     "n": 1408,
+     "media_pred": 2.553,
+     "media_real": 2.592
     },
     "total": {
-     "error_calib": 0.0213,
-     "corr": 0.1092,
-     "n": 700,
-     "media_pred": 5.102,
-     "media_real": 5.169
+     "error_calib": 0.0233,
+     "corr": 0.0988,
+     "n": 704,
+     "media_pred": 5.107,
+     "media_real": 5.185
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2435,
-    "dispersion_equipo": 1.8945,
-    "dispersion_total": 1.3291,
-    "media_total": 24.084,
+    "n_filas": 2449,
+    "dispersion_equipo": 1.8979,
+    "dispersion_total": 1.3349,
+    "media_total": 24.098,
     "por_equipo": {
-     "error_calib": 0.0147,
-     "corr": 0.4056,
-     "n": 1400,
-     "media_pred": 12.336,
-     "media_real": 12.563
+     "error_calib": 0.0158,
+     "corr": 0.4009,
+     "n": 1408,
+     "media_pred": 12.344,
+     "media_real": 12.585
     },
     "total": {
-     "error_calib": 0.0331,
-     "corr": 0.2508,
-     "n": 700,
-     "media_pred": 24.673,
-     "media_real": 25.126
+     "error_calib": 0.0336,
+     "corr": 0.2477,
+     "n": 704,
+     "media_pred": 24.688,
+     "media_real": 25.169
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2435,
-    "dispersion_equipo": 1.261,
-    "dispersion_total": 1.2226,
-    "media_total": 7.952,
+    "n_filas": 2449,
+    "dispersion_equipo": 1.2607,
+    "dispersion_total": 1.2233,
+    "media_total": 7.958,
     "por_equipo": {
-     "error_calib": 0.0159,
-     "corr": 0.3001,
-     "n": 1400,
-     "media_pred": 4.179,
-     "media_real": 4.25
+     "error_calib": 0.0181,
+     "corr": 0.2889,
+     "n": 1408,
+     "media_pred": 4.178,
+     "media_real": 4.263
     },
     "total": {
-     "error_calib": 0.0157,
-     "corr": 0.2043,
-     "n": 700,
-     "media_pred": 8.358,
-     "media_real": 8.5
+     "error_calib": 0.0195,
+     "corr": 0.188,
+     "n": 704,
+     "media_pred": 8.356,
+     "media_real": 8.526
     }
    }
   },
   {
    "clave": "ita_serie_b",
    "estado": "ok",
-   "partidos_espn": 1074,
+   "partidos_espn": 1084,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1074,
-    "dispersion_equipo": 1.7424,
-    "dispersion_total": 1.4265,
-    "media_total": 9.795,
+    "n_filas": 1084,
+    "dispersion_equipo": 1.7441,
+    "dispersion_total": 1.4248,
+    "media_total": 9.8,
     "por_equipo": {
-     "error_calib": 0.0196,
-     "corr": 0.2008,
-     "n": 614,
-     "media_pred": 4.843,
-     "media_real": 4.798
+     "error_calib": 0.0189,
+     "corr": 0.1915,
+     "n": 616,
+     "media_pred": 4.84,
+     "media_real": 4.8
     },
     "total": {
-     "error_calib": 0.0235,
-     "corr": 0.0053,
-     "n": 322,
-     "media_pred": 9.859,
-     "media_real": 9.59
+     "error_calib": 0.0175,
+     "corr": -0.0135,
+     "n": 323,
+     "media_pred": 9.856,
+     "media_real": 9.594
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1074,
+    "n_filas": 1084,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 4.761,
+    "media_total": 4.754,
     "por_equipo": {
-     "error_calib": 0.0236,
-     "corr": 0.1385,
-     "n": 614,
-     "media_pred": 2.286,
-     "media_real": 2.235
+     "error_calib": 0.0243,
+     "corr": 0.1244,
+     "n": 616,
+     "media_pred": 2.283,
+     "media_real": 2.227
     },
     "total": {
-     "error_calib": 0.0153,
-     "corr": 0.0883,
-     "n": 307,
-     "media_pred": 4.573,
-     "media_real": 4.469
+     "error_calib": 0.0108,
+     "corr": 0.078,
+     "n": 308,
+     "media_pred": 4.565,
+     "media_real": 4.455
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1074,
-    "dispersion_equipo": 2.0091,
-    "dispersion_total": 1.3637,
-    "media_total": 25.867,
+    "n_filas": 1084,
+    "dispersion_equipo": 2.0108,
+    "dispersion_total": 1.3614,
+    "media_total": 25.894,
     "por_equipo": {
-     "error_calib": 0.0144,
-     "corr": 0.3717,
-     "n": 614,
-     "media_pred": 13.012,
-     "media_real": 13.213
+     "error_calib": 0.015,
+     "corr": 0.3677,
+     "n": 616,
+     "media_pred": 13.009,
+     "media_real": 13.221
     },
     "total": {
-     "error_calib": 0.0354,
-     "corr": 0.1605,
-     "n": 307,
-     "media_pred": 26.025,
-     "media_real": 26.427
+     "error_calib": 0.035,
+     "corr": 0.165,
+     "n": 308,
+     "media_pred": 26.019,
+     "media_real": 26.442
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1074,
-    "dispersion_equipo": 1.2602,
-    "dispersion_total": 1.1119,
-    "media_total": 8.212,
+    "n_filas": 1084,
+    "dispersion_equipo": 1.2578,
+    "dispersion_total": 1.1047,
+    "media_total": 8.22,
     "por_equipo": {
-     "error_calib": 0.0219,
-     "corr": 0.3335,
-     "n": 614,
-     "media_pred": 4.178,
-     "media_real": 4.324
+     "error_calib": 0.0229,
+     "corr": 0.3163,
+     "n": 616,
+     "media_pred": 4.184,
+     "media_real": 4.334
     },
     "total": {
-     "error_calib": 0.0251,
-     "corr": 0.2051,
-     "n": 307,
-     "media_pred": 8.356,
-     "media_real": 8.648
+     "error_calib": 0.0263,
+     "corr": 0.1897,
+     "n": 308,
+     "media_pred": 8.369,
+     "media_real": 8.669
     }
    }
   },
   {
    "clave": "fra_ligue2",
    "estado": "ok",
-   "partidos_espn": 683,
+   "partidos_espn": 692,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 683,
-    "dispersion_equipo": 1.547,
-    "dispersion_total": 1.1131,
-    "media_total": 9.356,
+    "n_filas": 692,
+    "dispersion_equipo": 1.5354,
+    "dispersion_total": 1.1074,
+    "media_total": 9.361,
     "por_equipo": {
-     "error_calib": 0.0164,
-     "corr": 0.2393,
-     "n": 368,
+     "error_calib": 0.0181,
+     "corr": 0.234,
+     "n": 380,
      "media_pred": 4.633,
-     "media_real": 4.554
+     "media_real": 4.576
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 683,
+    "n_filas": 692,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 4.018,
+    "media_total": 4.004,
     "por_equipo": {
      "error_calib": 0.0469,
-     "corr": -0.0041,
-     "n": 368,
-     "media_pred": 2.119,
-     "media_real": 2.008
+     "corr": 0.0149,
+     "n": 380,
+     "media_pred": 2.11,
+     "media_real": 1.963
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 683,
-    "dispersion_equipo": 1.9105,
-    "dispersion_total": 1.3255,
-    "media_total": 23.536,
+    "n_filas": 692,
+    "dispersion_equipo": 1.9055,
+    "dispersion_total": 1.3243,
+    "media_total": 23.566,
     "por_equipo": {
-     "error_calib": 0.019,
-     "corr": 0.3578,
-     "n": 368,
-     "media_pred": 11.345,
-     "media_real": 11.576
+     "error_calib": 0.0235,
+     "corr": 0.3579,
+     "n": 380,
+     "media_pred": 11.38,
+     "media_real": 11.647
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 683,
-    "dispersion_equipo": 1.3099,
-    "dispersion_total": 1.2021,
-    "media_total": 8.239,
+    "n_filas": 692,
+    "dispersion_equipo": 1.3038,
+    "dispersion_total": 1.1934,
+    "media_total": 8.243,
     "por_equipo": {
-     "error_calib": 0.0283,
-     "corr": 0.2156,
-     "n": 368,
-     "media_pred": 3.893,
-     "media_real": 4.033
+     "error_calib": 0.0292,
+     "corr": 0.2229,
+     "n": 380,
+     "media_pred": 3.91,
+     "media_real": 4.058
     },
     "total": null
    }
@@ -2282,90 +2542,90 @@
   {
    "clave": "ger_bundesliga2",
    "estado": "ok",
-   "partidos_espn": 1600,
+   "partidos_espn": 1609,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1600,
-    "dispersion_equipo": 1.5686,
-    "dispersion_total": 1.222,
-    "media_total": 10.314,
+    "n_filas": 1609,
+    "dispersion_equipo": 1.5695,
+    "dispersion_total": 1.2253,
+    "media_total": 10.307,
     "por_equipo": {
-     "error_calib": 0.023,
-     "corr": 0.122,
-     "n": 934,
-     "media_pred": 5.09,
-     "media_real": 5.062
+     "error_calib": 0.0221,
+     "corr": 0.11,
+     "n": 942,
+     "media_pred": 5.093,
+     "media_real": 5.035
     },
     "total": {
-     "error_calib": 0.0176,
-     "corr": -0.0696,
-     "n": 478,
-     "media_pred": 10.314,
-     "media_real": 10.203
+     "error_calib": 0.0241,
+     "corr": -0.0907,
+     "n": 482,
+     "media_pred": 10.313,
+     "media_real": 10.149
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1600,
+    "n_filas": 1609,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 4.431,
+    "media_total": 4.425,
     "por_equipo": {
-     "error_calib": 0.0145,
-     "corr": 0.109,
-     "n": 934,
-     "media_pred": 2.353,
-     "media_real": 2.294
+     "error_calib": 0.0143,
+     "corr": 0.1121,
+     "n": 942,
+     "media_pred": 2.347,
+     "media_real": 2.288
     },
     "total": {
-     "error_calib": 0.0132,
-     "corr": 0.0745,
-     "n": 467,
-     "media_pred": 4.706,
-     "media_real": 4.589
+     "error_calib": 0.0122,
+     "corr": 0.0869,
+     "n": 471,
+     "media_pred": 4.693,
+     "media_real": 4.575
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1600,
-    "dispersion_equipo": 1.7233,
-    "dispersion_total": 1.2116,
-    "media_total": 27.219,
+    "n_filas": 1609,
+    "dispersion_equipo": 1.7208,
+    "dispersion_total": 1.2125,
+    "media_total": 27.224,
     "por_equipo": {
      "error_calib": 0.0078,
-     "corr": 0.2676,
-     "n": 934,
-     "media_pred": 13.482,
-     "media_real": 13.548
+     "corr": 0.2652,
+     "n": 942,
+     "media_pred": 13.492,
+     "media_real": 13.557
     },
     "total": {
-     "error_calib": 0.0147,
-     "corr": 0.1141,
-     "n": 467,
-     "media_pred": 26.964,
-     "media_real": 27.096
+     "error_calib": 0.0122,
+     "corr": 0.1166,
+     "n": 471,
+     "media_pred": 26.984,
+     "media_real": 27.115
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1600,
-    "dispersion_equipo": 1.2389,
-    "dispersion_total": 1.1053,
+    "n_filas": 1609,
+    "dispersion_equipo": 1.2393,
+    "dispersion_total": 1.1092,
     "media_total": 9.268,
     "por_equipo": {
-     "error_calib": 0.0068,
-     "corr": 0.205,
-     "n": 934,
-     "media_pred": 4.564,
-     "media_real": 4.587
+     "error_calib": 0.007,
+     "corr": 0.2094,
+     "n": 942,
+     "media_pred": 4.567,
+     "media_real": 4.593
     },
     "total": {
-     "error_calib": 0.0086,
-     "corr": 0.0617,
-     "n": 467,
-     "media_pred": 9.129,
-     "media_real": 9.173
+     "error_calib": 0.0094,
+     "corr": 0.0783,
+     "n": 471,
+     "media_pred": 9.134,
+     "media_real": 9.187
     }
    }
   },
@@ -2438,65 +2698,65 @@
   {
    "clave": "jpn_j1",
    "estado": "ok",
-   "partidos_espn": 833,
+   "partidos_espn": 843,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 833,
-    "dispersion_equipo": 1.4085,
-    "dispersion_total": 1.1406,
-    "media_total": 9.505,
+    "n_filas": 843,
+    "dispersion_equipo": 1.4214,
+    "dispersion_total": 1.1441,
+    "media_total": 9.523,
     "por_equipo": {
-     "error_calib": 0.0095,
-     "corr": 0.196,
-     "n": 488,
-     "media_pred": 4.765,
-     "media_real": 4.658
+     "error_calib": 0.0145,
+     "corr": 0.1896,
+     "n": 496,
+     "media_pred": 4.75,
+     "media_real": 4.71
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 833,
+    "n_filas": 843,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 2.472,
+    "media_total": 2.483,
     "por_equipo": {
-     "error_calib": 0.0133,
-     "corr": 0.2095,
-     "n": 488,
-     "media_pred": 1.28,
-     "media_real": 1.277
+     "error_calib": 0.0139,
+     "corr": 0.2003,
+     "n": 496,
+     "media_pred": 1.273,
+     "media_real": 1.292
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 833,
-    "dispersion_equipo": 1.6851,
-    "dispersion_total": 1.2682,
-    "media_total": 24.993,
+    "n_filas": 843,
+    "dispersion_equipo": 1.711,
+    "dispersion_total": 1.2651,
+    "media_total": 24.999,
     "por_equipo": {
-     "error_calib": 0.0236,
-     "corr": 0.3265,
-     "n": 488,
-     "media_pred": 12.55,
-     "media_real": 12.742
+     "error_calib": 0.0217,
+     "corr": 0.3183,
+     "n": 496,
+     "media_pred": 12.562,
+     "media_real": 12.74
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 833,
+    "n_filas": 843,
     "dispersion_equipo": 1.2436,
-    "dispersion_total": 1.1858,
-    "media_total": 8.118,
+    "dispersion_total": 1.1753,
+    "media_total": 8.117,
     "por_equipo": {
-     "error_calib": 0.0084,
-     "corr": 0.2271,
-     "n": 488,
+     "error_calib": 0.0073,
+     "corr": 0.218,
+     "n": 496,
      "media_pred": 4.115,
-     "media_real": 4.15
+     "media_real": 4.145
     },
     "total": null
    }
@@ -2505,441 +2765,513 @@
    "clave": "arg_primera_nacional",
    "partidos_espn": 0,
    "corners": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 1893,
+    "dispersion_equipo": 1.5339,
+    "dispersion_total": 1.1501,
+    "media_total": 8.74,
+    "por_equipo": {
+     "error_calib": 0.0096,
+     "corr": 0.3117,
+     "n": 1102,
+     "media_pred": 4.35,
+     "media_real": 4.305
+    },
+    "total": {
+     "error_calib": 0.0154,
+     "corr": -0.1284,
+     "n": 567,
+     "media_pred": 8.757,
+     "media_real": 8.594
+    }
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 1893,
+    "dispersion_equipo": 1.0083,
+    "dispersion_total": 1.0928,
+    "media_total": 5.222,
+    "por_equipo": {
+     "error_calib": 0.0041,
+     "corr": 0.1887,
+     "n": 1102,
+     "media_pred": 2.669,
+     "media_real": 2.642
+    },
+    "total": {
+     "error_calib": 0.0162,
+     "corr": 0.0735,
+     "n": 551,
+     "media_pred": 5.337,
+     "media_real": 5.283
+    }
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 1893,
+    "dispersion_equipo": 2.2374,
+    "dispersion_total": 2.5083,
+    "media_total": 16.08,
+    "por_equipo": {
+     "error_calib": 0.0228,
+     "corr": 0.3554,
+     "n": 1102,
+     "media_pred": 8.392,
+     "media_real": 8.113
+    },
+    "total": {
+     "error_calib": 0.0283,
+     "corr": 0.2167,
+     "n": 551,
+     "media_pred": 16.784,
+     "media_real": 16.227
+    }
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 1893,
+    "dispersion_equipo": 1.9116,
+    "dispersion_total": 2.3487,
+    "media_total": 7.077,
+    "por_equipo": {
+     "error_calib": 0.0159,
+     "corr": 0.243,
+     "n": 1102,
+     "media_pred": 4.326,
+     "media_real": 4.165
+    },
+    "total": {
+     "error_calib": 0.0176,
+     "corr": 0.0867,
+     "n": 551,
+     "media_pred": 8.652,
+     "media_real": 8.33
+    }
    },
    "estado": "ok"
   },
   {
    "clave": "col_primera_a",
    "estado": "ok",
-   "partidos_espn": 2490,
+   "partidos_espn": 2499,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2490,
-    "dispersion_equipo": 1.6817,
-    "dispersion_total": 1.2782,
-    "media_total": 9.255,
+    "n_filas": 2499,
+    "dispersion_equipo": 1.6811,
+    "dispersion_total": 1.2773,
+    "media_total": 9.252,
     "por_equipo": {
-     "error_calib": 0.01,
-     "corr": 0.2415,
-     "n": 1472,
-     "media_pred": 4.551,
-     "media_real": 4.559
+     "error_calib": 0.0092,
+     "corr": 0.2439,
+     "n": 1484,
+     "media_pred": 4.552,
+     "media_real": 4.557
     },
     "total": {
-     "error_calib": 0.0193,
-     "corr": -0.0043,
-     "n": 745,
+     "error_calib": 0.0188,
+     "corr": 0.0022,
+     "n": 750,
      "media_pred": 9.291,
-     "media_real": 9.133
+     "media_real": 9.132
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2490,
+    "n_filas": 2499,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0327,
-    "media_total": 5.631,
+    "dispersion_total": 1.0321,
+    "media_total": 5.632,
     "por_equipo": {
-     "error_calib": 0.0204,
-     "corr": 0.0971,
-     "n": 1472,
-     "media_pred": 2.991,
-     "media_real": 3.01
+     "error_calib": 0.0219,
+     "corr": 0.0979,
+     "n": 1484,
+     "media_pred": 2.992,
+     "media_real": 3.015
     },
     "total": {
-     "error_calib": 0.0118,
-     "corr": 0.0861,
-     "n": 736,
-     "media_pred": 5.982,
-     "media_real": 6.02
+     "error_calib": 0.0138,
+     "corr": 0.0837,
+     "n": 742,
+     "media_pred": 5.983,
+     "media_real": 6.031
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2490,
-    "dispersion_equipo": 2.0042,
-    "dispersion_total": 1.285,
-    "media_total": 24.991,
+    "n_filas": 2499,
+    "dispersion_equipo": 2.0057,
+    "dispersion_total": 1.2844,
+    "media_total": 24.986,
     "por_equipo": {
      "error_calib": 0.0097,
-     "corr": 0.405,
-     "n": 1472,
-     "media_pred": 12.496,
-     "media_real": 12.606
+     "corr": 0.4071,
+     "n": 1484,
+     "media_pred": 12.505,
+     "media_real": 12.594
     },
     "total": {
-     "error_calib": 0.0155,
-     "corr": 0.2399,
-     "n": 736,
-     "media_pred": 24.993,
-     "media_real": 25.212
+     "error_calib": 0.0123,
+     "corr": 0.2371,
+     "n": 742,
+     "media_pred": 25.01,
+     "media_real": 25.189
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2490,
-    "dispersion_equipo": 1.2554,
-    "dispersion_total": 1.0951,
+    "n_filas": 2499,
+    "dispersion_equipo": 1.2568,
+    "dispersion_total": 1.0949,
     "media_total": 8.141,
     "por_equipo": {
-     "error_calib": 0.0204,
-     "corr": 0.3582,
-     "n": 1472,
-     "media_pred": 4.102,
-     "media_real": 4.2
+     "error_calib": 0.0199,
+     "corr": 0.3587,
+     "n": 1484,
+     "media_pred": 4.107,
+     "media_real": 4.195
     },
     "total": {
-     "error_calib": 0.0227,
-     "corr": 0.1951,
-     "n": 736,
-     "media_pred": 8.203,
-     "media_real": 8.399
+     "error_calib": 0.0202,
+     "corr": 0.1958,
+     "n": 742,
+     "media_pred": 8.214,
+     "media_real": 8.391
     }
    }
   },
   {
    "clave": "usl_championship",
    "estado": "ok",
-   "partidos_espn": 2534,
+   "partidos_espn": 2554,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2534,
-    "dispersion_equipo": 1.6212,
-    "dispersion_total": 1.2299,
-    "media_total": 9.235,
+    "n_filas": 2554,
+    "dispersion_equipo": 1.6199,
+    "dispersion_total": 1.2321,
+    "media_total": 9.245,
     "por_equipo": {
-     "error_calib": 0.0121,
-     "corr": 0.233,
-     "n": 1478,
-     "media_pred": 4.55,
-     "media_real": 4.547
+     "error_calib": 0.0132,
+     "corr": 0.2369,
+     "n": 1492,
+     "media_pred": 4.551,
+     "media_real": 4.562
     },
     "total": {
-     "error_calib": 0.0155,
-     "corr": -0.0791,
-     "n": 757,
-     "media_pred": 9.242,
-     "media_real": 9.112
+     "error_calib": 0.0136,
+     "corr": -0.0898,
+     "n": 764,
+     "media_pred": 9.241,
+     "media_real": 9.141
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2534,
+    "n_filas": 2554,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 4.901,
+    "media_total": 4.89,
     "por_equipo": {
-     "error_calib": 0.008,
-     "corr": 0.1883,
-     "n": 1478,
-     "media_pred": 2.412,
-     "media_real": 2.331
+     "error_calib": 0.0079,
+     "corr": 0.1897,
+     "n": 1492,
+     "media_pred": 2.404,
+     "media_real": 2.319
     },
     "total": {
-     "error_calib": 0.0153,
+     "error_calib": 0.0163,
      "corr": 0.2072,
-     "n": 739,
-     "media_pred": 4.824,
-     "media_real": 4.662
+     "n": 746,
+     "media_pred": 4.807,
+     "media_real": 4.638
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2534,
-    "dispersion_equipo": 2.0133,
-    "dispersion_total": 1.5007,
-    "media_total": 24.176,
+    "n_filas": 2554,
+    "dispersion_equipo": 2.0148,
+    "dispersion_total": 1.5018,
+    "media_total": 24.181,
     "por_equipo": {
-     "error_calib": 0.016,
-     "corr": 0.3422,
-     "n": 1478,
-     "media_pred": 11.848,
-     "media_real": 11.847
+     "error_calib": 0.0144,
+     "corr": 0.3549,
+     "n": 1492,
+     "media_pred": 11.852,
+     "media_real": 11.867
     },
     "total": {
-     "error_calib": 0.0051,
-     "corr": 0.1957,
-     "n": 739,
-     "media_pred": 23.695,
-     "media_real": 23.694
+     "error_calib": 0.0034,
+     "corr": 0.2113,
+     "n": 746,
+     "media_pred": 23.705,
+     "media_real": 23.733
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2534,
-    "dispersion_equipo": 1.3443,
-    "dispersion_total": 1.1841,
-    "media_total": 8.403,
+    "n_filas": 2554,
+    "dispersion_equipo": 1.3418,
+    "dispersion_total": 1.1828,
+    "media_total": 8.398,
     "por_equipo": {
-     "error_calib": 0.0114,
-     "corr": 0.2867,
-     "n": 1478,
+     "error_calib": 0.0104,
+     "corr": 0.2906,
+     "n": 1492,
      "media_pred": 3.999,
-     "media_real": 3.982
+     "media_real": 3.983
     },
     "total": {
-     "error_calib": 0.0035,
-     "corr": 0.1516,
-     "n": 739,
+     "error_calib": 0.004,
+     "corr": 0.1488,
+     "n": 746,
      "media_pred": 7.998,
-     "media_real": 7.963
+     "media_real": 7.966
     }
    }
   },
   {
    "clave": "ned_eerste",
    "estado": "ok",
-   "partidos_espn": 2208,
+   "partidos_espn": 2215,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2208,
-    "dispersion_equipo": 1.5204,
-    "dispersion_total": 1.0977,
-    "media_total": 10.183,
+    "n_filas": 2215,
+    "dispersion_equipo": 1.5221,
+    "dispersion_total": 1.0979,
+    "media_total": 10.186,
     "por_equipo": {
-     "error_calib": 0.0069,
-     "corr": 0.293,
-     "n": 1310,
-     "media_pred": 5.296,
-     "media_real": 5.311
+     "error_calib": 0.0068,
+     "corr": 0.29,
+     "n": 1316,
+     "media_pred": 5.295,
+     "media_real": 5.315
     },
     "total": {
-     "error_calib": 0.054,
-     "corr": -0.0163,
-     "n": 661,
-     "media_pred": 10.104,
-     "media_real": 10.62
+     "error_calib": 0.0548,
+     "corr": -0.0141,
+     "n": 664,
+     "media_pred": 10.105,
+     "media_real": 10.627
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2208,
+    "n_filas": 2215,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1027,
-    "media_total": 3.231,
+    "dispersion_total": 1.1037,
+    "media_total": 3.233,
     "por_equipo": {
-     "error_calib": 0.017,
-     "corr": 0.1168,
-     "n": 1310,
-     "media_pred": 1.704,
-     "media_real": 1.661
+     "error_calib": 0.0153,
+     "corr": 0.1155,
+     "n": 1316,
+     "media_pred": 1.703,
+     "media_real": 1.672
     },
     "total": {
-     "error_calib": 0.0097,
-     "corr": 0.1114,
-     "n": 655,
-     "media_pred": 3.408,
-     "media_real": 3.322
+     "error_calib": 0.0078,
+     "corr": 0.1155,
+     "n": 658,
+     "media_pred": 3.406,
+     "media_real": 3.343
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2208,
-    "dispersion_equipo": 2.045,
-    "dispersion_total": 1.4241,
-    "media_total": 26.579,
+    "n_filas": 2215,
+    "dispersion_equipo": 2.0473,
+    "dispersion_total": 1.4282,
+    "media_total": 26.587,
     "por_equipo": {
-     "error_calib": 0.0198,
-     "corr": 0.4149,
-     "n": 1310,
-     "media_pred": 13.819,
-     "media_real": 14.05
+     "error_calib": 0.0206,
+     "corr": 0.4167,
+     "n": 1316,
+     "media_pred": 13.824,
+     "media_real": 14.069
     },
     "total": {
-     "error_calib": 0.0323,
-     "corr": 0.1517,
-     "n": 655,
-     "media_pred": 27.637,
-     "media_real": 28.099
+     "error_calib": 0.0332,
+     "corr": 0.1552,
+     "n": 658,
+     "media_pred": 27.648,
+     "media_real": 28.138
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2208,
-    "dispersion_equipo": 1.3495,
-    "dispersion_total": 1.1437,
-    "media_total": 9.832,
+    "n_filas": 2215,
+    "dispersion_equipo": 1.3497,
+    "dispersion_total": 1.1438,
+    "media_total": 9.833,
     "por_equipo": {
-     "error_calib": 0.0153,
-     "corr": 0.269,
-     "n": 1310,
-     "media_pred": 4.991,
-     "media_real": 5.036
+     "error_calib": 0.0161,
+     "corr": 0.2745,
+     "n": 1316,
+     "media_pred": 4.99,
+     "media_real": 5.041
     },
     "total": {
-     "error_calib": 0.0141,
-     "corr": 0.0911,
-     "n": 655,
-     "media_pred": 9.982,
-     "media_real": 10.072
+     "error_calib": 0.0156,
+     "corr": 0.0945,
+     "n": 658,
+     "media_pred": 9.98,
+     "media_real": 10.082
     }
    }
   },
   {
    "clave": "bra_serie_b",
    "estado": "ok",
-   "partidos_espn": 2290,
+   "partidos_espn": 2302,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 2290,
-    "dispersion_equipo": 1.7743,
-    "dispersion_total": 1.3321,
-    "media_total": 10.588,
+    "n_filas": 2302,
+    "dispersion_equipo": 1.7771,
+    "dispersion_total": 1.3303,
+    "media_total": 10.596,
     "por_equipo": {
-     "error_calib": 0.0092,
-     "corr": 0.2559,
-     "n": 1322,
-     "media_pred": 5.192,
-     "media_real": 5.184
+     "error_calib": 0.0106,
+     "corr": 0.2568,
+     "n": 1332,
+     "media_pred": 5.194,
+     "media_real": 5.196
     },
     "total": {
-     "error_calib": 0.015,
-     "corr": -0.0307,
-     "n": 687,
-     "media_pred": 10.616,
-     "media_real": 10.383
+     "error_calib": 0.0128,
+     "corr": -0.0412,
+     "n": 688,
+     "media_pred": 10.615,
+     "media_real": 10.397
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 2290,
+    "n_filas": 2302,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0066,
+    "dispersion_total": 1.0038,
     "media_total": 5.122,
     "por_equipo": {
-     "error_calib": 0.0172,
-     "corr": 0.0936,
-     "n": 1322,
-     "media_pred": 2.561,
-     "media_real": 2.51
+     "error_calib": 0.017,
+     "corr": 0.0921,
+     "n": 1332,
+     "media_pred": 2.554,
+     "media_real": 2.508
     },
     "total": {
-     "error_calib": 0.0092,
-     "corr": 0.1155,
-     "n": 661,
-     "media_pred": 5.122,
-     "media_real": 5.02
+     "error_calib": 0.0072,
+     "corr": 0.1136,
+     "n": 666,
+     "media_pred": 5.108,
+     "media_real": 5.015
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 2290,
-    "dispersion_equipo": 2.0461,
-    "dispersion_total": 1.2414,
-    "media_total": 26.577,
+    "n_filas": 2302,
+    "dispersion_equipo": 2.0517,
+    "dispersion_total": 1.2425,
+    "media_total": 26.581,
     "por_equipo": {
-     "error_calib": 0.0256,
-     "corr": 0.4159,
-     "n": 1322,
-     "media_pred": 13.46,
-     "media_real": 13.733
+     "error_calib": 0.0235,
+     "corr": 0.4172,
+     "n": 1332,
+     "media_pred": 13.48,
+     "media_real": 13.745
     },
     "total": {
-     "error_calib": 0.0241,
-     "corr": 0.2216,
-     "n": 661,
-     "media_pred": 26.92,
-     "media_real": 27.466
+     "error_calib": 0.0227,
+     "corr": 0.2231,
+     "n": 666,
+     "media_pred": 26.96,
+     "media_real": 27.489
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 2290,
-    "dispersion_equipo": 1.208,
-    "dispersion_total": 1.0691,
+    "n_filas": 2302,
+    "dispersion_equipo": 1.2067,
+    "dispersion_total": 1.0697,
     "media_total": 8.11,
     "por_equipo": {
-     "error_calib": 0.0139,
-     "corr": 0.3398,
-     "n": 1322,
-     "media_pred": 4.218,
-     "media_real": 4.219
+     "error_calib": 0.0134,
+     "corr": 0.3396,
+     "n": 1332,
+     "media_pred": 4.219,
+     "media_real": 4.217
     },
     "total": {
-     "error_calib": 0.0077,
-     "corr": 0.1786,
-     "n": 661,
-     "media_pred": 8.435,
-     "media_real": 8.437
+     "error_calib": 0.0078,
+     "corr": 0.1833,
+     "n": 666,
+     "media_pred": 8.437,
+     "media_real": 8.434
     }
    }
   },
   {
    "clave": "per_liga1",
    "estado": "ok",
-   "partidos_espn": 758,
+   "partidos_espn": 767,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 758,
-    "dispersion_equipo": 1.734,
-    "dispersion_total": 1.2279,
-    "media_total": 8.958,
+    "n_filas": 767,
+    "dispersion_equipo": 1.7252,
+    "dispersion_total": 1.2212,
+    "media_total": 8.963,
     "por_equipo": {
-     "error_calib": 0.0126,
-     "corr": 0.3912,
-     "n": 438,
+     "error_calib": 0.0137,
+     "corr": 0.3914,
+     "n": 442,
      "media_pred": 4.312,
-     "media_real": 4.429
+     "media_real": 4.428
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 758,
+    "n_filas": 767,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0935,
-    "media_total": 4.74,
+    "dispersion_total": 1.0954,
+    "media_total": 4.735,
     "por_equipo": {
-     "error_calib": 0.0269,
-     "corr": 0.0489,
-     "n": 438,
-     "media_pred": 2.394,
-     "media_real": 2.338
+     "error_calib": 0.0249,
+     "corr": 0.055,
+     "n": 442,
+     "media_pred": 2.389,
+     "media_real": 2.326
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 758,
-    "dispersion_equipo": 2.375,
-    "dispersion_total": 1.3126,
-    "media_total": 26.144,
+    "n_filas": 767,
+    "dispersion_equipo": 2.3726,
+    "dispersion_total": 1.3137,
+    "media_total": 26.185,
     "por_equipo": {
-     "error_calib": 0.0596,
-     "corr": 0.5078,
-     "n": 438,
-     "media_pred": 12.87,
-     "media_real": 13.79
+     "error_calib": 0.0613,
+     "corr": 0.5253,
+     "n": 442,
+     "media_pred": 12.925,
+     "media_real": 13.851
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 758,
-    "dispersion_equipo": 1.4105,
-    "dispersion_total": 1.0322,
-    "media_total": 8.78,
+    "n_filas": 767,
+    "dispersion_equipo": 1.405,
+    "dispersion_total": 1.0291,
+    "media_total": 8.79,
     "por_equipo": {
-     "error_calib": 0.0651,
-     "corr": 0.2841,
-     "n": 438,
-     "media_pred": 4.404,
-     "media_real": 4.674
+     "error_calib": 0.0631,
+     "corr": 0.3029,
+     "n": 442,
+     "media_pred": 4.421,
+     "media_real": 4.672
     },
     "total": null
    }
@@ -2948,37 +3280,129 @@
    "clave": "uru_primera",
    "partidos_espn": 2,
    "corners": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 785,
+    "dispersion_equipo": 1.4297,
+    "dispersion_total": 1.1812,
+    "media_total": 9.061,
+    "por_equipo": {
+     "error_calib": 0.0092,
+     "corr": 0.2838,
+     "n": 448,
+     "media_pred": 4.402,
+     "media_real": 4.404
+    },
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 785,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0424,
+    "media_total": 5.918,
+    "por_equipo": {
+     "error_calib": 0.0197,
+     "corr": 0.1038,
+     "n": 448,
+     "media_pred": 3.217,
+     "media_real": 3.188
+    },
+    "total": null
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 785,
+    "dispersion_equipo": 1.8204,
+    "dispersion_total": 1.9338,
+    "media_total": 16.552,
+    "por_equipo": {
+     "error_calib": 0.0175,
+     "corr": 0.2613,
+     "n": 448,
+     "media_pred": 8.539,
+     "media_real": 8.567
+    },
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 785,
+    "dispersion_equipo": 1.439,
+    "dispersion_total": 1.5142,
+    "media_total": 7.439,
+    "por_equipo": {
+     "error_calib": 0.0196,
+     "corr": 0.1801,
+     "n": 448,
+     "media_pred": 3.822,
+     "media_real": 3.824
+    },
+    "total": null
    },
    "estado": "ok"
   },
   {
    "clave": "ecu_liga_pro",
-   "partidos_espn": 310,
+   "partidos_espn": 316,
    "corners": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 565,
+    "dispersion_equipo": 1.5781,
+    "dispersion_total": 1.0147,
+    "media_total": 9.535,
+    "por_equipo": {
+     "error_calib": 0.0272,
+     "corr": 0.3546,
+     "n": 340,
+     "media_pred": 4.64,
+     "media_real": 4.718
+    },
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 565,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.1282,
+    "media_total": 4.384,
+    "por_equipo": {
+     "error_calib": 0.031,
+     "corr": 0.0754,
+     "n": 340,
+     "media_pred": 2.28,
+     "media_real": 2.171
+    },
+    "total": null
    },
    "remates": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 565,
+    "dispersion_equipo": 2.1384,
+    "dispersion_total": 1.3443,
+    "media_total": 25.777,
+    "por_equipo": {
+     "error_calib": 0.0201,
+     "corr": 0.4969,
+     "n": 340,
+     "media_pred": 12.765,
+     "media_real": 13.159
+    },
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 565,
+    "dispersion_equipo": 1.2971,
+    "dispersion_total": 1.1323,
+    "media_total": 8.375,
+    "por_equipo": {
+     "error_calib": 0.0165,
+     "corr": 0.3095,
+     "n": 340,
+     "media_pred": 4.061,
+     "media_real": 4.168
+    },
+    "total": null
    },
    "estado": "ok"
   },
@@ -2986,16 +3410,19 @@
    "clave": "slv_primera",
    "partidos_espn": 0,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
     "origen": "estimado"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
@@ -3003,20 +3430,40 @@
    "clave": "bol_division",
    "partidos_espn": 85,
    "corners": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 412,
+    "dispersion_equipo": 1.6812,
+    "dispersion_total": 1.1528,
+    "media_total": 9.682,
+    "por_equipo": null,
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 412,
+    "dispersion_equipo": 1.613,
+    "dispersion_total": 2.3993,
+    "media_total": 4.364,
+    "por_equipo": null,
+    "total": null
    },
    "remates": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 412,
+    "dispersion_equipo": 2.2162,
+    "dispersion_total": 1.3782,
+    "media_total": 29.966,
+    "por_equipo": null,
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 412,
+    "dispersion_equipo": 1.6686,
+    "dispersion_total": 1.2448,
+    "media_total": 10.951,
+    "por_equipo": null,
+    "total": null
    },
    "estado": "ok"
   },
@@ -3024,16 +3471,40 @@
    "clave": "par_division",
    "partidos_espn": 53,
    "corners": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 482,
+    "dispersion_equipo": 1.4027,
+    "dispersion_total": 1.2486,
+    "media_total": 8.867,
+    "por_equipo": null,
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 482,
+    "dispersion_equipo": 1.6074,
+    "dispersion_total": 2.4138,
+    "media_total": 3.342,
+    "por_equipo": null,
+    "total": null
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 482,
+    "dispersion_equipo": 1.6922,
+    "dispersion_total": 1.2209,
+    "media_total": 25.346,
+    "por_equipo": null,
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 482,
+    "dispersion_equipo": 1.1891,
+    "dispersion_total": 1.1479,
+    "media_total": 8.129,
+    "por_equipo": null,
+    "total": null
    },
    "estado": "ok"
   },
@@ -3041,16 +3512,40 @@
    "clave": "crc_fpd",
    "partidos_espn": 0,
    "corners": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 510,
+    "dispersion_equipo": 1.6212,
+    "dispersion_total": 1.2273,
+    "media_total": 9.616,
+    "por_equipo": null,
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 510,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0,
+    "media_total": 5.135,
+    "por_equipo": null,
+    "total": null
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 510,
+    "dispersion_equipo": 2.7205,
+    "dispersion_total": 3.1219,
+    "media_total": 19.906,
+    "por_equipo": null,
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 510,
+    "dispersion_equipo": 1.4365,
+    "dispersion_total": 1.499,
+    "media_total": 7.947,
+    "por_equipo": null,
+    "total": null
    },
    "estado": "ok"
   },
@@ -3058,147 +3553,195 @@
    "clave": "mex_expansion",
    "partidos_espn": 0,
    "corners": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 559,
+    "dispersion_equipo": 1.8375,
+    "dispersion_total": 1.3274,
+    "media_total": 10.007,
+    "por_equipo": {
+     "error_calib": 0.0179,
+     "corr": 0.2582,
+     "n": 302,
+     "media_pred": 4.711,
+     "media_real": 4.831
+    },
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 559,
+    "dispersion_equipo": 1.0,
+    "dispersion_total": 1.0096,
+    "media_total": 5.989,
+    "por_equipo": {
+     "error_calib": 0.0328,
+     "corr": 0.1298,
+     "n": 302,
+     "media_pred": 3.09,
+     "media_real": 3.139
+    },
+    "total": null
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 559,
+    "dispersion_equipo": 2.492,
+    "dispersion_total": 2.3905,
+    "media_total": 21.705,
+    "por_equipo": {
+     "error_calib": 0.072,
+     "corr": 0.4331,
+     "n": 302,
+     "media_pred": 11.155,
+     "media_real": 12.179
+    },
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "observado",
+    "n_filas": 559,
+    "dispersion_equipo": 1.7292,
+    "dispersion_total": 1.6637,
+    "media_total": 9.029,
+    "por_equipo": {
+     "error_calib": 0.0379,
+     "corr": 0.3303,
+     "n": 302,
+     "media_pred": 4.61,
+     "media_real": 4.811
+    },
+    "total": null
    },
    "estado": "ok"
   },
   {
    "clave": "chi_primera",
    "estado": "ok",
-   "partidos_espn": 1421,
+   "partidos_espn": 1422,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 1416,
-    "dispersion_equipo": 1.5736,
-    "dispersion_total": 1.2019,
+    "n_filas": 1417,
+    "dispersion_equipo": 1.5731,
+    "dispersion_total": 1.201,
     "media_total": 9.736,
     "por_equipo": {
-     "error_calib": 0.0094,
-     "corr": 0.2757,
-     "n": 826,
-     "media_pred": 4.856,
-     "media_real": 4.883
+     "error_calib": 0.0096,
+     "corr": 0.2789,
+     "n": 822,
+     "media_pred": 4.855,
+     "media_real": 4.886
     },
     "total": {
-     "error_calib": 0.0175,
-     "corr": -0.0745,
-     "n": 425,
+     "error_calib": 0.0191,
+     "corr": -0.0711,
+     "n": 423,
      "media_pred": 9.701,
-     "media_real": 9.767
+     "media_real": 9.773
     }
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 1416,
+    "n_filas": 1417,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 5.245,
+    "media_total": 5.243,
     "por_equipo": {
-     "error_calib": 0.0283,
-     "corr": 0.1438,
-     "n": 826,
+     "error_calib": 0.0271,
+     "corr": 0.1437,
+     "n": 822,
      "media_pred": 2.774,
-     "media_real": 2.719
+     "media_real": 2.71
     },
     "total": {
-     "error_calib": 0.0114,
-     "corr": 0.1306,
-     "n": 413,
-     "media_pred": 5.547,
-     "media_real": 5.438
+     "error_calib": 0.0095,
+     "corr": 0.1309,
+     "n": 411,
+     "media_pred": 5.548,
+     "media_real": 5.421
     }
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 1416,
-    "dispersion_equipo": 1.8029,
-    "dispersion_total": 1.3533,
-    "media_total": 26.01,
+    "n_filas": 1417,
+    "dispersion_equipo": 1.8033,
+    "dispersion_total": 1.3524,
+    "media_total": 26.009,
     "por_equipo": {
-     "error_calib": 0.011,
-     "corr": 0.4496,
-     "n": 826,
-     "media_pred": 13.159,
-     "media_real": 13.274
+     "error_calib": 0.0114,
+     "corr": 0.4497,
+     "n": 822,
+     "media_pred": 13.158,
+     "media_real": 13.286
     },
     "total": {
-     "error_calib": 0.0189,
-     "corr": 0.3325,
-     "n": 413,
-     "media_pred": 26.318,
-     "media_real": 26.547
+     "error_calib": 0.0217,
+     "corr": 0.3299,
+     "n": 411,
+     "media_pred": 26.315,
+     "media_real": 26.572
     }
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 1416,
-    "dispersion_equipo": 1.1957,
-    "dispersion_total": 1.1639,
-    "media_total": 8.831,
+    "n_filas": 1417,
+    "dispersion_equipo": 1.1969,
+    "dispersion_total": 1.1647,
+    "media_total": 8.834,
     "por_equipo": {
-     "error_calib": 0.0144,
-     "corr": 0.3121,
-     "n": 826,
-     "media_pred": 4.492,
-     "media_real": 4.534
+     "error_calib": 0.0148,
+     "corr": 0.3144,
+     "n": 822,
+     "media_pred": 4.491,
+     "media_real": 4.541
     },
     "total": {
-     "error_calib": 0.0246,
-     "corr": 0.2231,
-     "n": 413,
-     "media_pred": 8.983,
-     "media_real": 9.068
+     "error_calib": 0.0266,
+     "corr": 0.2266,
+     "n": 411,
+     "media_pred": 8.981,
+     "media_real": 9.083
     }
    }
   },
   {
    "clave": "rsa_premier",
    "estado": "ok",
-   "partidos_espn": 512,
+   "partidos_espn": 519,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 512,
-    "dispersion_equipo": 1.5991,
-    "dispersion_total": 1.1725,
-    "media_total": 8.865,
+    "n_filas": 519,
+    "dispersion_equipo": 1.5997,
+    "dispersion_total": 1.18,
+    "media_total": 8.838,
     "por_equipo": null,
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 512,
+    "n_filas": 519,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 3.627,
+    "media_total": 3.626,
     "por_equipo": null,
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 512,
-    "dispersion_equipo": 1.9991,
-    "dispersion_total": 1.1974,
-    "media_total": 22.381,
+    "n_filas": 519,
+    "dispersion_equipo": 2.0006,
+    "dispersion_total": 1.191,
+    "media_total": 22.378,
     "por_equipo": null,
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 512,
-    "dispersion_equipo": 1.4044,
-    "dispersion_total": 1.0932,
-    "media_total": 7.25,
+    "n_filas": 519,
+    "dispersion_equipo": 1.4062,
+    "dispersion_total": 1.0902,
+    "media_total": 7.247,
     "por_equipo": null,
     "total": null
    }
@@ -3207,81 +3750,85 @@
    "clave": "ven_primera",
    "partidos_espn": 0,
    "corners": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "tarjetas": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "remates_on": {
-    "origen": "estimado"
+    "origen": "estimado",
+    "motivo": "muestra corta"
    },
    "estado": "ok"
   },
   {
    "clave": "aus_aleague",
    "estado": "ok",
-   "partidos_espn": 987,
+   "partidos_espn": 992,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 987,
-    "dispersion_equipo": 1.8248,
-    "dispersion_total": 1.3713,
-    "media_total": 11.058,
+    "n_filas": 992,
+    "dispersion_equipo": 1.8236,
+    "dispersion_total": 1.3722,
+    "media_total": 11.046,
     "por_equipo": {
-     "error_calib": 0.0194,
-     "corr": 0.3103,
-     "n": 584,
-     "media_pred": 5.141,
-     "media_real": 5.099
+     "error_calib": 0.018,
+     "corr": 0.3097,
+     "n": 594,
+     "media_pred": 5.145,
+     "media_real": 5.088
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 987,
+    "n_filas": 992,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 3.957,
+    "media_total": 3.962,
     "por_equipo": {
-     "error_calib": 0.0201,
-     "corr": 0.1132,
-     "n": 584,
-     "media_pred": 1.789,
-     "media_real": 1.798
+     "error_calib": 0.0217,
+     "corr": 0.1123,
+     "n": 594,
+     "media_pred": 1.786,
+     "media_real": 1.808
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 987,
-    "dispersion_equipo": 2.0559,
-    "dispersion_total": 1.4251,
-    "media_total": 28.293,
+    "n_filas": 992,
+    "dispersion_equipo": 2.0557,
+    "dispersion_total": 1.4328,
+    "media_total": 28.264,
     "por_equipo": {
-     "error_calib": 0.017,
-     "corr": 0.4723,
-     "n": 584,
-     "media_pred": 14.09,
-     "media_real": 14.113
+     "error_calib": 0.0148,
+     "corr": 0.4679,
+     "n": 594,
+     "media_pred": 14.089,
+     "media_real": 14.066
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 987,
-    "dispersion_equipo": 1.2827,
-    "dispersion_total": 1.1295,
-    "media_total": 9.838,
+    "n_filas": 992,
+    "dispersion_equipo": 1.2819,
+    "dispersion_total": 1.1312,
+    "media_total": 9.826,
     "por_equipo": {
-     "error_calib": 0.0133,
-     "corr": 0.3412,
-     "n": 584,
+     "error_calib": 0.0117,
+     "corr": 0.3328,
+     "n": 594,
      "media_pred": 4.838,
-     "media_real": 4.832
+     "media_real": 4.813
     },
     "total": null
    }
@@ -3289,65 +3836,65 @@
   {
    "clave": "libertadores",
    "estado": "ok",
-   "partidos_espn": 772,
+   "partidos_espn": 774,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 772,
-    "dispersion_equipo": 1.8572,
-    "dispersion_total": 1.2521,
-    "media_total": 9.192,
+    "n_filas": 774,
+    "dispersion_equipo": 1.8565,
+    "dispersion_total": 1.2508,
+    "media_total": 9.189,
     "por_equipo": {
-     "error_calib": 0.0286,
-     "corr": 0.345,
-     "n": 310,
-     "media_pred": 4.452,
-     "media_real": 4.606
+     "error_calib": 0.0311,
+     "corr": 0.3468,
+     "n": 312,
+     "media_pred": 4.456,
+     "media_real": 4.615
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 772,
+    "n_filas": 774,
     "dispersion_equipo": 1.0,
     "dispersion_total": 1.0,
-    "media_total": 5.163,
+    "media_total": 5.161,
     "por_equipo": {
-     "error_calib": 0.0227,
-     "corr": 0.2936,
-     "n": 310,
-     "media_pred": 2.547,
-     "media_real": 2.381
+     "error_calib": 0.0242,
+     "corr": 0.2954,
+     "n": 312,
+     "media_pred": 2.545,
+     "media_real": 2.391
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 772,
-    "dispersion_equipo": 2.803,
-    "dispersion_total": 1.5473,
-    "media_total": 25.772,
+    "n_filas": 774,
+    "dispersion_equipo": 2.8051,
+    "dispersion_total": 1.5469,
+    "media_total": 25.762,
     "por_equipo": {
-     "error_calib": 0.0238,
-     "corr": 0.537,
-     "n": 310,
-     "media_pred": 12.769,
-     "media_real": 12.577
+     "error_calib": 0.0246,
+     "corr": 0.5406,
+     "n": 312,
+     "media_pred": 12.767,
+     "media_real": 12.564
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 772,
+    "n_filas": 774,
     "dispersion_equipo": 1.6696,
-    "dispersion_total": 1.1686,
-    "media_total": 8.512,
+    "dispersion_total": 1.1671,
+    "media_total": 8.508,
     "por_equipo": {
-     "error_calib": 0.0431,
-     "corr": 0.4789,
-     "n": 310,
-     "media_pred": 4.228,
-     "media_real": 3.91
+     "error_calib": 0.042,
+     "corr": 0.4806,
+     "n": 312,
+     "media_pred": 4.227,
+     "media_real": 3.904
     },
     "total": null
    }
@@ -3355,65 +3902,65 @@
   {
    "clave": "sudamericana",
    "estado": "ok",
-   "partidos_espn": 935,
+   "partidos_espn": 937,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 935,
-    "dispersion_equipo": 1.785,
-    "dispersion_total": 1.1509,
-    "media_total": 9.29,
+    "n_filas": 937,
+    "dispersion_equipo": 1.7849,
+    "dispersion_total": 1.1484,
+    "media_total": 9.291,
     "por_equipo": {
-     "error_calib": 0.0141,
-     "corr": 0.3378,
-     "n": 302,
-     "media_pred": 4.572,
-     "media_real": 4.503
+     "error_calib": 0.0142,
+     "corr": 0.3481,
+     "n": 306,
+     "media_pred": 4.574,
+     "media_real": 4.51
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 935,
+    "n_filas": 937,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0475,
-    "media_total": 5.005,
+    "dispersion_total": 1.047,
+    "media_total": 5.002,
     "por_equipo": {
-     "error_calib": 0.031,
-     "corr": 0.1354,
-     "n": 302,
-     "media_pred": 2.523,
-     "media_real": 2.285
+     "error_calib": 0.0323,
+     "corr": 0.1395,
+     "n": 306,
+     "media_pred": 2.522,
+     "media_real": 2.278
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 935,
-    "dispersion_equipo": 2.6167,
-    "dispersion_total": 1.5245,
-    "media_total": 25.947,
+    "n_filas": 937,
+    "dispersion_equipo": 2.6155,
+    "dispersion_total": 1.5221,
+    "media_total": 25.943,
     "por_equipo": {
-     "error_calib": 0.0287,
-     "corr": 0.4397,
-     "n": 302,
-     "media_pred": 12.97,
-     "media_real": 13.079
+     "error_calib": 0.0268,
+     "corr": 0.4446,
+     "n": 306,
+     "media_pred": 12.964,
+     "media_real": 13.069
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 935,
-    "dispersion_equipo": 1.6171,
-    "dispersion_total": 1.2276,
-    "media_total": 8.594,
+    "n_filas": 937,
+    "dispersion_equipo": 1.6188,
+    "dispersion_total": 1.2283,
+    "media_total": 8.589,
     "por_equipo": {
-     "error_calib": 0.0311,
-     "corr": 0.3624,
-     "n": 302,
+     "error_calib": 0.0337,
+     "corr": 0.3632,
+     "n": 306,
      "media_pred": 4.243,
-     "media_real": 4.063
+     "media_real": 4.052
     },
     "total": null
    }
@@ -3422,85 +3969,105 @@
    "clave": "eng_fa_cup",
    "partidos_espn": 206,
    "corners": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 405,
+    "dispersion_equipo": 1.9806,
+    "dispersion_total": 1.4619,
+    "media_total": 10.556,
+    "por_equipo": null,
+    "total": null
    },
    "tarjetas": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 405,
+    "dispersion_equipo": 1.0944,
+    "dispersion_total": 1.3173,
+    "media_total": 3.395,
+    "por_equipo": null,
+    "total": null
    },
    "remates": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 405,
+    "dispersion_equipo": 3.3151,
+    "dispersion_total": 2.7334,
+    "media_total": 24.427,
+    "por_equipo": null,
+    "total": null
    },
    "remates_on": {
-    "origen": "estimado",
-    "motivo": "muestra corta"
+    "origen": "observado",
+    "n_filas": 405,
+    "dispersion_equipo": 1.6907,
+    "dispersion_total": 1.3643,
+    "media_total": 9.523,
+    "por_equipo": null,
+    "total": null
    },
    "estado": "ok"
   },
   {
    "clave": "ind_isl",
    "estado": "ok",
-   "partidos_espn": 622,
+   "partidos_espn": 629,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 622,
-    "dispersion_equipo": 1.7946,
-    "dispersion_total": 1.4133,
-    "media_total": 10.304,
+    "n_filas": 629,
+    "dispersion_equipo": 1.7895,
+    "dispersion_total": 1.4155,
+    "media_total": 10.291,
     "por_equipo": {
-     "error_calib": 0.0225,
-     "corr": 0.2608,
-     "n": 336,
-     "media_pred": 5.001,
-     "media_real": 5.217
+     "error_calib": 0.0192,
+     "corr": 0.2698,
+     "n": 338,
+     "media_pred": 5.023,
+     "media_real": 5.21
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 622,
+    "n_filas": 629,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.1266,
-    "media_total": 4.133,
+    "dispersion_total": 1.1168,
+    "media_total": 4.132,
     "por_equipo": {
-     "error_calib": 0.0302,
-     "corr": 0.1672,
-     "n": 336,
-     "media_pred": 2.348,
-     "media_real": 2.152
+     "error_calib": 0.0312,
+     "corr": 0.1582,
+     "n": 338,
+     "media_pred": 2.337,
+     "media_real": 2.13
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 622,
-    "dispersion_equipo": 1.9306,
-    "dispersion_total": 1.3903,
-    "media_total": 25.852,
+    "n_filas": 629,
+    "dispersion_equipo": 1.9343,
+    "dispersion_total": 1.3961,
+    "media_total": 25.893,
     "por_equipo": {
-     "error_calib": 0.014,
-     "corr": 0.2965,
-     "n": 336,
-     "media_pred": 13.36,
-     "media_real": 13.22
+     "error_calib": 0.0107,
+     "corr": 0.3023,
+     "n": 338,
+     "media_pred": 13.34,
+     "media_real": 13.189
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 622,
-    "dispersion_equipo": 1.3098,
-    "dispersion_total": 1.1769,
-    "media_total": 8.322,
+    "n_filas": 629,
+    "dispersion_equipo": 1.3134,
+    "dispersion_total": 1.181,
+    "media_total": 8.332,
     "por_equipo": {
-     "error_calib": 0.01,
-     "corr": 0.2621,
-     "n": 336,
-     "media_pred": 4.308,
-     "media_real": 4.196
+     "error_calib": 0.0156,
+     "corr": 0.2694,
+     "n": 338,
+     "media_pred": 4.307,
+     "media_real": 4.178
     },
     "total": null
    }
@@ -3508,65 +4075,65 @@
   {
    "clave": "afc_champions",
    "estado": "ok",
-   "partidos_espn": 655,
+   "partidos_espn": 671,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 655,
-    "dispersion_equipo": 1.8657,
-    "dispersion_total": 1.2141,
-    "media_total": 9.237,
+    "n_filas": 671,
+    "dispersion_equipo": 1.8433,
+    "dispersion_total": 1.2017,
+    "media_total": 9.241,
     "por_equipo": {
-     "error_calib": 0.0133,
-     "corr": 0.1681,
+     "error_calib": 0.017,
+     "corr": 0.1261,
      "n": 308,
-     "media_pred": 4.635,
-     "media_real": 4.698
+     "media_pred": 4.637,
+     "media_real": 4.692
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 655,
+    "n_filas": 671,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.2267,
-    "media_total": 3.676,
+    "dispersion_total": 1.2271,
+    "media_total": 3.65,
     "por_equipo": {
-     "error_calib": 0.0165,
-     "corr": 0.1879,
+     "error_calib": 0.0107,
+     "corr": 0.1947,
      "n": 308,
-     "media_pred": 1.865,
-     "media_real": 1.932
+     "media_pred": 1.876,
+     "media_real": 1.916
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 655,
-    "dispersion_equipo": 2.9323,
-    "dispersion_total": 1.763,
-    "media_total": 24.798,
+    "n_filas": 671,
+    "dispersion_equipo": 2.8996,
+    "dispersion_total": 1.7375,
+    "media_total": 24.836,
     "por_equipo": {
-     "error_calib": 0.0351,
-     "corr": 0.2896,
+     "error_calib": 0.0325,
+     "corr": 0.2883,
      "n": 308,
      "media_pred": 12.373,
-     "media_real": 12.851
+     "media_real": 12.86
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 655,
-    "dispersion_equipo": 1.7352,
-    "dispersion_total": 1.2864,
-    "media_total": 8.6,
+    "n_filas": 671,
+    "dispersion_equipo": 1.7212,
+    "dispersion_total": 1.277,
+    "media_total": 8.583,
     "por_equipo": {
-     "error_calib": 0.0126,
-     "corr": 0.3553,
+     "error_calib": 0.0128,
+     "corr": 0.356,
      "n": 308,
-     "media_pred": 4.373,
-     "media_real": 4.38
+     "media_pred": 4.353,
+     "media_real": 4.37
     },
     "total": null
    }
@@ -3595,65 +4162,65 @@
   {
    "clave": "ksa_pro",
    "estado": "ok",
-   "partidos_espn": 680,
+   "partidos_espn": 686,
    "fuente": "cache",
    "corners": {
     "origen": "observado",
-    "n_filas": 680,
-    "dispersion_equipo": 1.762,
-    "dispersion_total": 1.1082,
-    "media_total": 9.876,
+    "n_filas": 686,
+    "dispersion_equipo": 1.7613,
+    "dispersion_total": 1.1106,
+    "media_total": 9.885,
     "por_equipo": {
-     "error_calib": 0.0152,
-     "corr": 0.3356,
-     "n": 372,
-     "media_pred": 5.082,
-     "media_real": 5.019
+     "error_calib": 0.0117,
+     "corr": 0.3295,
+     "n": 378,
+     "media_pred": 5.059,
+     "media_real": 5.029
     },
     "total": null
    },
    "tarjetas": {
     "origen": "observado",
-    "n_filas": 680,
+    "n_filas": 686,
     "dispersion_equipo": 1.0,
-    "dispersion_total": 1.0279,
-    "media_total": 4.199,
+    "dispersion_total": 1.0266,
+    "media_total": 4.187,
     "por_equipo": {
-     "error_calib": 0.029,
-     "corr": 0.0561,
-     "n": 372,
-     "media_pred": 2.082,
-     "media_real": 1.954
+     "error_calib": 0.0315,
+     "corr": 0.0644,
+     "n": 378,
+     "media_pred": 2.073,
+     "media_real": 1.947
     },
     "total": null
    },
    "remates": {
     "origen": "observado",
-    "n_filas": 680,
-    "dispersion_equipo": 2.2665,
-    "dispersion_total": 1.4479,
-    "media_total": 24.879,
+    "n_filas": 686,
+    "dispersion_equipo": 2.2602,
+    "dispersion_total": 1.4548,
+    "media_total": 24.864,
     "por_equipo": {
-     "error_calib": 0.0487,
-     "corr": 0.5083,
-     "n": 372,
-     "media_pred": 12.248,
-     "media_real": 12.718
+     "error_calib": 0.0479,
+     "corr": 0.486,
+     "n": 378,
+     "media_pred": 12.26,
+     "media_real": 12.69
     },
     "total": null
    },
    "remates_on": {
     "origen": "observado",
-    "n_filas": 680,
-    "dispersion_equipo": 1.4887,
-    "dispersion_total": 1.2093,
-    "media_total": 9.096,
+    "n_filas": 686,
+    "dispersion_equipo": 1.4871,
+    "dispersion_total": 1.2114,
+    "media_total": 9.079,
     "por_equipo": {
-     "error_calib": 0.0347,
-     "corr": 0.4416,
-     "n": 372,
-     "media_pred": 4.459,
-     "media_real": 4.621
+     "error_calib": 0.0307,
+     "corr": 0.4219,
+     "n": 378,
+     "media_pred": 4.462,
+     "media_real": 4.571
     },
     "total": null
    }
