@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T08:13:47Z",
+"actualizado": "2026-10-19T09:51:17Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -9311,6 +9311,16 @@
 "cuota": 3.4,
 "resultado": "rojo",
 "marcador": "1-4"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Ashlyn Krueger vs Janice Tjen",
+"apuesta": "Gana Ashlyn Krueger",
+"cuota": 1.93,
+"resultado": "verde",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-18",
