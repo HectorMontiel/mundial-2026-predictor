@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T05:12:06Z",
+"actualizado": "2026-10-19T06:37:50Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -9774,6 +9774,16 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Lilli Tagger vs Liudmila Samsonova",
+"apuesta": "Gana Lilli Tagger",
+"cuota": 2.3,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-18",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Los Andes vs All Boys",
@@ -10041,6 +10051,16 @@
 "cuota": 2.5,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Tagger L. vs Samsonova L.",
+"apuesta": "Gana Tagger L.",
+"cuota": 2.3,
+"resultado": "verde",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-18",
