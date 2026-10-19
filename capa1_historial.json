@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T17:48:20Z",
+"actualizado": "2026-10-19T19:20:06Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10236,6 +10236,16 @@
 "dia": "2026-10-19",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Al Jahra vs Kazma SC",
+"apuesta": "Gana Kazma SC",
+"cuota": 1.43,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Azazga vs CR Beni Thour",
 "apuesta": "Gana Azazga",
 "cuota": 1.54,
@@ -10256,11 +10266,31 @@
 "dia": "2026-10-19",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Bursaspor vs Pendikspor",
+"apuesta": "Gana Bursaspor",
+"cuota": 1.4167,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "FC Kharkiv vs Livyi Bereg",
 "apuesta": "Gana FC Kharkiv",
 "cuota": 1.56,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "FC Tallinn vs Viimsi JK",
+"apuesta": "Gana Viimsi JK",
+"cuota": 1.625,
+"resultado": "verde",
+"marcador": "0-3"
 },
 {
 "dia": "2026-10-19",
@@ -10284,6 +10314,26 @@
 },
 {
 "dia": "2026-10-19",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "H. Raanana vs Bnei Yehuda",
+"apuesta": "Gana Bnei Yehuda",
+"cuota": 1.68,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Hapoel Mahane Yehuda vs Jerusalem FC",
+"apuesta": "Gana Jerusalem FC",
+"cuota": 1.5715,
+"resultado": "rojo",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-19",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "MSP Batna vs MO Bejaia",
@@ -10301,6 +10351,16 @@
 "cuota": 3.35,
 "resultado": "rojo",
 "marcador": "4-2"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Trabzonspor vs Besiktas",
+"apuesta": "Gana Trabzonspor",
+"cuota": 3.0,
+"resultado": "verde",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-19",
