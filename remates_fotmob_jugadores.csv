@@ -12663,21 +12663,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5804221,2026-07-25,suiza,Basel,Léo Leroy,1022688,M,0,21,0,0,0,0.0,,2.0,1973199.0
 5804221,2026-07-25,suiza,Basel,Albian Ajeti,527104,F,0,21,1,0,0,0.22,,3.0,920917.0
 5804221,2026-07-25,suiza,Basel,Kazeem Olaigbe,1109486,F,0,21,0,0,0,0.0,,3.0,3804913.0
-5100934,2026-07-25,irlanda,Galway United FC,Hugo Cunha,1188576,G,1,90,0,0,0,0.0,11.0,0.0,
-5100934,2026-07-25,irlanda,Galway United FC,Connor Barratt,1554645,D,1,68,0,0,0,0.0,32.0,1.0,
-5100934,2026-07-25,irlanda,Galway United FC,Wasiri Williams,1247996,D,1,90,2,1,0,0.26,34.0,1.0,50000.0
-5100934,2026-07-25,irlanda,Galway United FC,Leigh Kavanagh,1292786,D,1,90,1,0,0,0.04,36.0,1.0,138665.0
-5100934,2026-07-25,irlanda,Galway United FC,Gianfranco Facchineri,1136262,D,1,90,1,0,0,0.18,38.0,1.0,82992.0
-5100934,2026-07-25,irlanda,Galway United FC,Jimmy Keohane,187637,M,1,89,4,1,0,0.26,64.0,2.0,50000.0
-5100934,2026-07-25,irlanda,Galway United FC,David Hurley,887638,M,1,90,2,0,0,0.14,66.0,2.0,50000.0
-5100934,2026-07-25,irlanda,Galway United FC,Aaron Bolger,794399,M,1,90,1,1,0,0.08,83.0,2.0,78335.0
-5100934,2026-07-25,irlanda,Galway United FC,Edward McCarthy,1248051,F,1,79,1,0,0,0.02,85.0,3.0,
-5100934,2026-07-25,irlanda,Galway United FC,Frantz Pierrot,1443929,F,1,68,2,0,0,0.08,87.0,3.0,58073.0
-5100934,2026-07-25,irlanda,Galway United FC,Stephen Walsh,205933,F,1,90,2,0,0,0.14,115.0,3.0,50000.0
-5100934,2026-07-25,irlanda,Galway United FC,Matty Wolfe,916726,M,0,22,0,0,0,0.0,,2.0,65159.0
-5100934,2026-07-25,irlanda,Galway United FC,Francely Lomboto,1173735,F,0,22,1,0,0,0.07,,3.0,73474.0
-5100934,2026-07-25,irlanda,Galway United FC,Kristopher Twardek,662607,F,0,11,0,0,0,0.0,,3.0,50000.0
-5100934,2026-07-25,irlanda,Galway United FC,Lee Devitt,1060814,D,0,1,0,0,0,0.0,,1.0,66797.0
 5100934,2026-07-25,irlanda,Waterford FC,Stephen McMullan,1420165,G,1,90,0,0,0,0.0,11.0,0.0,135680.0
 5100934,2026-07-25,irlanda,Waterford FC,Jordan Houston,824943,D,1,90,2,0,0,0.22,33.0,1.0,91096.0
 5100934,2026-07-25,irlanda,Waterford FC,Benny Couto,1293901,D,1,90,0,0,0,0.0,35.0,1.0,78852.0
@@ -13001,22 +12986,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5104960,2026-07-26,noruega,Viking,Herman Haugen,1019527,F,0,22,3,1,0,0.35,,3.0,474192.0
 5104960,2026-07-26,noruega,Viking,Amin Cosic,1751162,F,0,6,0,0,0,0.0,,3.0,187611.0
 5104960,2026-07-26,noruega,Viking,Kristoffer Haugen,313128,D,0,3,0,0,0,0.0,,1.0,506343.0
-5853441,2026-07-26,rumania,FCSB,Stefan Târnovanu,905460,G,1,90,0,0,0,0.0,11.0,0.0,2465683.0
-5853441,2026-07-26,rumania,FCSB,Ronny Labonne,999698,D,1,90,1,1,0,0.0,32.0,1.0,156358.0
-5853441,2026-07-26,rumania,FCSB,Joyskim Dawa,926659,D,1,90,1,0,0,0.0,34.0,1.0,1127151.0
-5853441,2026-07-26,rumania,FCSB,André Duarte,1142753,D,1,90,0,0,0,0.0,36.0,1.0,423701.0
-5853441,2026-07-26,rumania,FCSB,Ricardo Padurariu,1645961,D,1,90,0,0,0,0.0,38.0,1.0,509528.0
-5853441,2026-07-26,rumania,FCSB,Risto Radunovic,249510,D,1,76,2,1,1,0.0,65.0,1.0,503831.0
-5853441,2026-07-26,rumania,FCSB,David Popa,1484869,F,1,76,4,2,0,0.0,82.0,3.0,557316.0
-5853441,2026-07-26,rumania,FCSB,Mihai Toma,1425773,F,1,90,0,0,0,0.0,84.0,3.0,1128670.0
-5853441,2026-07-26,rumania,FCSB,Florin Tanase,531047,M,1,45,2,1,0,0.0,86.0,2.0,1081173.0
-5853441,2026-07-26,rumania,FCSB,Dennis Politic,974593,F,1,45,3,3,1,0.0,88.0,3.0,573654.0
-5853441,2026-07-26,rumania,FCSB,Alexandru Stoian,1417588,F,1,46,0,0,0,0.0,115.0,3.0,1374296.0
-5853441,2026-07-26,rumania,FCSB,Daniel Bîrligea,1135820,F,0,45,5,3,0,0.0,,3.0,3235806.0
-5853441,2026-07-26,rumania,FCSB,Juri Cisotti,491482,F,0,45,1,0,0,0.0,,3.0,448959.0
-5853441,2026-07-26,rumania,FCSB,Octavian Popescu,1190097,F,0,45,3,1,0,0.0,,3.0,520136.0
-5853441,2026-07-26,rumania,FCSB,Luca Stancu,1781565,D,0,14,0,0,0,0.0,,1.0,437888.0
-5853441,2026-07-26,rumania,FCSB,João Paulo,1241301,M,0,14,0,0,0,0.0,,2.0,400485.0
 5104958,2026-07-26,noruega,KFUM,Håvar Jenssen,439126,G,1,90,0,0,0,0.0,11.0,0.0,199551.0
 5104958,2026-07-26,noruega,KFUM,Daniel Schneider,1280719,D,1,90,0,0,0,0.0,33.0,1.0,445928.0
 5104958,2026-07-26,noruega,KFUM,Brage Skaret,932224,D,1,90,0,0,0,0.0,35.0,1.0,525176.0
@@ -13567,22 +13536,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5104956,2026-07-27,noruega,Fredrikstad,Jakub Jezierski,1631259,M,0,23,0,0,0,0.0,,2.0,283591.0
 5104956,2026-07-27,noruega,Fredrikstad,Joachim Nysveen,1639621,D,0,15,0,0,0,0.0,,1.0,377370.0
 5104956,2026-07-27,noruega,Fredrikstad,Solomon Owusu,936341,D,0,15,1,0,0,0.06,,1.0,320841.0
-5853440,2026-07-27,rumania,FC Voluntari,Metod Jurhar,558661,G,1,90,0,0,0,0.0,11.0,0.0,209493.0
-5853440,2026-07-27,rumania,FC Voluntari,Denis Harut,861402,D,1,90,0,0,0,0.0,32.0,1.0,
-5853440,2026-07-27,rumania,FC Voluntari,Radu Crisan,950880,D,1,61,0,0,0,0.0,34.0,1.0,77537.0
-5853440,2026-07-27,rumania,FC Voluntari,Daniel Dumbravanu,949253,D,1,90,0,0,0,0.0,36.0,1.0,186861.0
-5853440,2026-07-27,rumania,FC Voluntari,Alexandru Suteu,1296278,D,1,90,1,0,0,0.0,38.0,1.0,168823.0
-5853440,2026-07-27,rumania,FC Voluntari,Ion Gheorghe,929871,M,1,61,2,1,0,0.0,64.0,2.0,130499.0
-5853440,2026-07-27,rumania,FC Voluntari,Lovro Cvek,558489,M,1,90,1,0,0,0.0,66.0,2.0,80995.0
-5853440,2026-07-27,rumania,FC Voluntari,Marvin Schieb,1025629,D,1,74,0,0,0,0.0,83.0,1.0,87766.0
-5853440,2026-07-27,rumania,FC Voluntari,Mihai Roman,196957,F,1,12,2,0,0,0.0,85.0,3.0,56202.0
-5853440,2026-07-27,rumania,FC Voluntari,Remus Gutea,1425717,M,1,61,1,0,0,0.0,87.0,2.0,
-5853440,2026-07-27,rumania,FC Voluntari,Matko Babic,637757,F,1,82,0,0,0,0.0,115.0,3.0,118224.0
-5853440,2026-07-27,rumania,FC Voluntari,Matej Mamic,1508337,D,0,29,0,0,0,0.0,,1.0,192986.0
-5853440,2026-07-27,rumania,FC Voluntari,Mihael Onisa,1172044,D,0,29,0,0,0,0.0,,1.0,144020.0
-5853440,2026-07-27,rumania,FC Voluntari,George Merloi,1098053,F,0,29,1,0,0,0.0,,3.0,170510.0
-5853440,2026-07-27,rumania,FC Voluntari,Florian Haita,1078580,F,0,16,1,0,0,0.0,,3.0,
-5853440,2026-07-27,rumania,FC Voluntari,Ianis Vencu,1682004,F,0,8,0,0,0,0.0,,3.0,
 1000014516,2026-07-27,liga_mx,Querétaro FC,Guillermo Allison,207791,G,1,90,0,0,0,0.0,11.0,0.0,407870.0
 1000014516,2026-07-27,liga_mx,Querétaro FC,Bayron Duarte,1554213,D,1,85,1,0,0,0.03,32.0,1.0,
 1000014516,2026-07-27,liga_mx,Querétaro FC,Diego Reyes,201111,D,1,90,0,0,0,0.0,34.0,1.0,428692.0
@@ -19003,38 +18956,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5781701,2026-08-07,eredivisie,Excelsior,Nesto Groen,1553368,F,0,16,0,0,0,0.0,,3.0,382539.0
 5781701,2026-08-07,eredivisie,Excelsior,Osman Mohamed Turay,1830760,D,0,9,0,0,0,0.0,,1.0,
 5781701,2026-08-07,eredivisie,Excelsior,Ilano Silva Timas,1665413,F,0,4,0,0,0,0.0,,3.0,249697.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Calvin Raatsie,1093306,G,1,90,0,0,0,0.0,11.0,0.0,386136.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Béni Mpanzu,1699508,D,1,90,3,1,0,0.0,32.0,1.0,233307.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Yannis M'Bemba,1283241,D,1,72,0,0,0,0.0,34.0,1.0,155473.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Sem Valk,1257074,D,1,90,2,2,0,0.0,36.0,1.0,171232.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Adil Lechkar,1665419,M,1,80,1,0,0,0.0,38.0,2.0,297271.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Jaden Pinas,1389330,D,1,90,1,0,0,0.0,64.0,1.0,176944.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Senne Vugts,1704880,M,1,90,1,0,0,0.0,66.0,2.0,453754.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Ayoub Ouarghi,1682318,F,1,72,3,2,1,0.0,83.0,3.0,
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Martin Vetkal,1111077,M,1,80,1,1,1,0.0,85.0,2.0,407996.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Nick Venema,775806,F,1,87,2,1,0,0.0,87.0,3.0,186560.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Dario Sits,1341534,F,1,90,3,1,0,0.0,115.0,3.0,254383.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Lorenzo Riccio,1674888,M,0,18,1,0,0,0.0,,2.0,1017946.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Ninho Felicia,2128837,F,0,18,1,0,0,0.0,,3.0,
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Jurre van Aken,1282596,D,0,10,0,0,0,0.0,,1.0,
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Robin van Asten,1791631,M,0,10,0,0,0,0.0,,2.0,1044593.0
-5832799,2026-08-07,ned_eerste,FC Dordrecht,Yunus Younous,1930449,F,0,3,0,0,0,0.0,,3.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Joeri Heerkens,1586548,G,1,90,0,0,0,0.0,11.0,0.0,1562539.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Sinclair de Falco,1813962,D,1,80,0,0,0,0.0,32.0,1.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Marvyn Muzungu,1729332,D,1,90,0,0,0,0.0,34.0,1.0,889685.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Mylo van der Lans,1673149,D,1,90,1,1,0,0.0,36.0,1.0,861467.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Avery Appiah,1480686,D,1,90,0,0,0,0.0,38.0,1.0,172800.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Mohamed Abdalla,1830820,M,1,90,1,1,0,0.0,73.0,2.0,972218.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Jano Monserrate,1664735,M,1,87,0,0,0,0.0,75.0,2.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Jinairo Johnson,1673150,D,1,64,3,1,0,0.0,77.0,1.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Pharell Nash,1820080,F,1,87,3,3,1,0.0,103.0,3.0,785292.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Diego Pugno,1697406,F,1,90,1,0,0,0.0,105.0,3.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Emre Ünüvar,1643771,F,1,80,4,0,0,0.0,107.0,3.0,963846.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Tijn Peters,1791669,M,0,26,0,0,0,0.0,,2.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Fouad Zahouani,1705703,D,0,10,0,0,0,0.0,,1.0,880390.0
-5832799,2026-08-07,ned_eerste,Jong Ajax,Jeshurun Simeon,1830815,F,0,10,0,0,0,0.0,,3.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Levi Acheampong,1830816,M,0,3,0,0,0,0.0,,2.0,
-5832799,2026-08-07,ned_eerste,Jong Ajax,Younes Elias Mechrouch,1830818,F,0,3,0,0,0,0.0,,3.0,
 1000017184,2026-08-07,per_liga1,Sport Huancayo,Ángel Zamudio,846745,G,1,90,0,0,0,0.0,11.0,0.0,261516.0
 1000017184,2026-08-07,per_liga1,Sport Huancayo,Jean Falconí,1432700,D,1,90,3,1,0,0.0,32.0,1.0,158689.0
 1000017184,2026-08-07,per_liga1,Sport Huancayo,Marcelo Gaona,1400558,D,1,90,0,0,0,0.0,34.0,1.0,291622.0
@@ -19065,22 +18986,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017184,2026-08-07,per_liga1,Los Chankas,Gonzalo Rizzo,921741,D,0,44,0,0,0,0.0,,1.0,149299.0
 1000017184,2026-08-07,per_liga1,Los Chankas,Abidel Ayarza,1023880,M,0,45,1,0,0,0.0,,2.0,164439.0
 1000017184,2026-08-07,per_liga1,Los Chankas,André Vásquez,1432954,M,0,15,0,0,0,0.0,,2.0,336596.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Justin Treichel,1665417,G,1,90,0,0,0,0.0,11.0,0.0,262035.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Marco Tol,873580,D,1,90,0,0,0,0.0,33.0,1.0,208871.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Dario van den Buijs,604344,D,1,45,1,0,0,0.0,35.0,1.0,120690.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Lucas Beerten,1323635,D,1,90,0,0,0,0.0,37.0,1.0,203346.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Jay Kruiver,1184358,D,1,30,0,0,0,0.0,62.0,1.0,264945.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Dyon Dorenbosch,1393107,M,1,90,0,0,0,0.0,64.0,2.0,205184.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Jérôme Déom,748547,M,1,82,0,0,0,0.0,66.0,2.0,124186.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Koen Jansen,1243250,D,1,82,1,0,0,0.0,68.0,1.0,318055.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Cain Seedorf,1224913,F,1,65,1,1,0,0.0,84.0,3.0,182098.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Joshua Nisbet,1016158,M,1,90,0,0,0,0.0,86.0,2.0,342508.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Anthony van den Hurk,243461,F,1,90,3,2,0,0.0,105.0,3.0,173455.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Xander van den Berg,1576570,D,0,60,0,0,0,0.0,,1.0,
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Mitchell Paulissen,295087,M,0,45,1,0,0,0.0,,2.0,116210.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Fynn Schenten,1829390,F,0,25,0,0,0,0.0,,3.0,140000.0
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Nadir Maoujoudi,2129096,,0,8,2,1,0,0.0,,,
-5832800,2026-08-07,ned_eerste,Roda JC Kerkrade,Bram Marsman,1606593,D,0,8,0,0,0,0.0,,1.0,247010.0
 5845957,2026-08-07,aut_bundesliga,Altach,Dejan Stojanovic,197952,G,1,90,0,0,0,0.0,11.0,0.0,259263.0
 5845957,2026-08-07,aut_bundesliga,Altach,Filip Milojevic,1663202,D,1,90,0,0,0,0.0,33.0,1.0,918558.0
 5845957,2026-08-07,aut_bundesliga,Altach,Benedikt Zech,176791,D,1,90,0,0,0,0.0,35.0,1.0,124622.0
@@ -24079,21 +23984,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5147618,2026-08-09,finlandia,IFK Mariehamn,Anttoni Huttunen,1031418,M,0,13,0,0,0,0.0,,2.0,146028.0
 5147618,2026-08-09,finlandia,IFK Mariehamn,Wille Nuñez,1626928,F,0,13,1,0,0,0.0,,3.0,294716.0
 5147618,2026-08-09,finlandia,IFK Mariehamn,Viktor Widlund,2068511,M,0,1,0,0,0,0.0,,2.0,
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Mees Eppink,1444583,G,1,90,0,0,0,0.0,11.0,0.0,388898.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Jamie Schuldes,1667993,D,1,90,3,1,0,0.0,33.0,1.0,
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Driss Laaouina,1909883,D,1,90,0,0,0,0.0,35.0,1.0,
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Viggo Plantinga,1791673,D,1,90,1,0,0,0.0,37.0,1.0,516835.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Noël Beulens,1909876,D,1,25,0,0,0,0.0,72.0,1.0,
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Massien Ghaddari,1630503,D,1,90,0,0,0,0.0,74.0,1.0,248071.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Noa Dundas,1285133,M,1,90,4,0,0,0.0,76.0,2.0,198282.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Emeka Adiele,1559634,M,1,58,0,0,0,0.0,78.0,2.0,224640.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Björn Menzo,1708468,F,1,85,1,1,1,0.0,103.0,3.0,503384.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Tijn den Boggende,1604300,F,1,90,1,1,0,0.0,105.0,3.0,417008.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Levi Rietveld,2130928,M,1,85,0,0,0,0.0,107.0,2.0,
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Jessey Sneijder,1795822,M,0,63,3,0,0,0.0,,2.0,387443.0
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Nana Gyamfi-Amoah,2130946,F,0,32,0,0,0,0.0,,3.0,
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Jerayno Hunte,2130948,M,0,5,1,0,0,0.0,,2.0,
-5832812,2026-08-09,ned_eerste,Jong FC Utrecht,Matyas Havelka,2130934,M,0,5,0,0,0,0.0,,2.0,
 5804237,2026-08-09,suiza,St. Gallen,Lawrence Ati-Zigi,615411,G,1,90,0,0,0,0.0,11.0,0.0,844383.0
 5804237,2026-08-09,suiza,St. Gallen,Joel Ruiz,1833207,D,1,90,1,0,0,0.04,33.0,1.0,514989.0
 5804237,2026-08-09,suiza,St. Gallen,Jozo Stanic,957753,D,1,80,0,0,0,0.0,35.0,1.0,1463525.0
@@ -25079,22 +24969,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186578,2026-08-09,china,Qingdao West Coast,Jingchao Meng,1366712,M,0,5,0,0,0,0.0,,2.0,412948.0
 5186578,2026-08-09,china,Qingdao West Coast,Shiming Jin,1900379,M,0,1,0,0,0,0.0,,2.0,
 5186578,2026-08-09,china,Qingdao West Coast,Zhanpeng Yang,1913731,M,0,1,0,0,0,0.0,,2.0,844279.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Ties Wieggers,1299593,G,1,90,0,0,0,0.0,11.0,0.0,298365.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Clint Leemans,561619,M,1,78,0,0,0,0.0,33.0,2.0,212912.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Joran Hardeman,1389268,D,1,90,3,1,0,0.0,35.0,1.0,266569.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Gijs Bolk,1599304,D,1,90,0,0,0,0.0,37.0,1.0,284335.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Donny Warmerdam,1180744,M,1,90,2,0,0,0.0,65.0,2.0,361010.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Jason Meerstadt,1222321,M,1,74,1,0,0,0.0,82.0,2.0,205976.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Denzel Eijken,1595610,M,1,74,2,0,0,0.0,84.0,2.0,160214.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Kaya Symon,1509550,D,1,90,0,0,0,0.0,86.0,1.0,448168.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Nart Ahmeti,1800227,F,1,61,2,1,0,0.0,88.0,3.0,
-5832811,2026-08-09,ned_eerste,De Graafschap,Nathan Kaninda,1658662,F,1,45,1,0,0,0.0,104.0,3.0,292074.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Fedde de Jong,1196708,M,1,90,3,1,1,0.0,106.0,2.0,212760.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Julian Kania,1515970,F,0,45,2,0,0,0.0,,3.0,280551.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Cem Eroglu,2130685,,0,29,0,0,0,0.0,,,
-5832811,2026-08-09,ned_eerste,De Graafschap,Jannes Wieckhoff,1085995,D,0,16,0,0,0,0.0,,1.0,269497.0
-5832811,2026-08-09,ned_eerste,De Graafschap,Bjorn van Zijl,1712584,F,0,16,0,0,0,0.0,,3.0,
-5832811,2026-08-09,ned_eerste,De Graafschap,Milan Smits,1448002,M,0,12,0,0,0,0.0,,2.0,
 5803527,2026-08-09,jpn_j1,V-Varen Nagasaki,Masaaki Goto,833022,G,1,90,0,0,0,0.0,11.0,0.0,194518.0
 5803527,2026-08-09,jpn_j1,V-Varen Nagasaki,Kanta Doi,1436733,D,1,90,2,0,0,0.12,33.0,1.0,979809.0
 5803527,2026-08-09,jpn_j1,V-Varen Nagasaki,Takuma Ominami,727828,D,1,90,1,0,0,0.1,35.0,1.0,862784.0
@@ -25640,22 +25514,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853461,2026-08-10,rumania,FCSB,Alexandru Stoian,1417588,F,0,45,2,0,0,0.0,,3.0,1380692.0
 5853461,2026-08-10,rumania,FCSB,Octavian Popescu,1190097,F,0,29,0,0,0,0.0,,3.0,505457.0
 5853461,2026-08-10,rumania,FCSB,Mihai Toma,1425773,F,0,11,0,0,0,0.0,,3.0,1016773.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Tijn Smolenaars,1402624,G,1,90,0,0,0,0.0,11.0,0.0,416015.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Essien Bassey,1697028,D,1,87,3,0,0,0.0,32.0,1.0,531042.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Fabian Merién,1689729,D,1,90,0,0,0,0.0,34.0,1.0,1202216.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Yarek Gasiorowski,1506480,D,1,90,1,0,0,0.0,36.0,1.0,14212521.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Gino Verhulst,1807237,M,1,90,0,0,0,0.0,38.0,2.0,
-5832814,2026-08-10,ned_eerste,Jong PSV,Sol Sidibé,1524016,M,1,66,2,1,0,0.0,64.0,2.0,1714468.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Jordy Bawuah,1552456,M,1,90,3,2,0,0.0,66.0,2.0,747787.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Esmir Bajraktarevic,1346860,F,1,90,1,0,0,0.0,83.0,3.0,4687845.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Joël van den Berg,1643772,M,1,87,2,1,1,0.0,85.0,2.0,1370590.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Fabio Kluit,1689722,F,1,87,4,3,1,0.0,87.0,3.0,298598.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Jim Koller,1667719,M,1,66,2,0,0,0.0,115.0,2.0,1003439.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Shuryjano Cornecion,1874113,M,0,24,2,2,1,0.0,,2.0,
-5832814,2026-08-10,ned_eerste,Jong PSV,Manuel Bahaty,1692801,F,0,24,0,0,0,0.0,,3.0,534064.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Michael Bresser,1668515,D,0,3,0,0,0,0.0,,1.0,709550.0
-5832814,2026-08-10,ned_eerste,Jong PSV,Boet Mulders,1697029,M,0,3,0,0,0,0.0,,2.0,
-5832814,2026-08-10,ned_eerste,Jong PSV,Jairo Beerens,1798246,F,0,3,0,0,0,0.0,,3.0,
 5107563,2026-08-10,suecia,Västerås SK,Elis Jaeger,1733815,G,1,90,0,0,0,0.0,11.0,0.0,553284.0
 5107563,2026-08-10,suecia,Västerås SK,Herman Magnusson,1315253,D,1,90,1,1,0,0.04,33.0,1.0,50000.0
 5107563,2026-08-10,suecia,Västerås SK,Philip Bonde,1457650,D,1,90,0,0,0,0.0,35.0,1.0,212526.0
@@ -155302,3 +155160,378 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5749706,2026-10-19,serie_a,Cagliari,Kevin Carlos,1166344,F,0,23,2,2,0,0.58,,3.0,4808415.0
 5749706,2026-10-19,serie_a,Cagliari,Alessandro Deiola,449283,M,0,9,1,0,0,0.02,,2.0,1371494.0
 5749706,2026-10-19,serie_a,Cagliari,Joseph Liteta,1807301,M,0,9,0,0,0,0.0,,2.0,1838947.0
+5803289,2026-10-19,fra_ligue2,Rodez,Quentin Braat,700670,G,1,90,0,0,0,0.0,11.0,0.0,873948.0
+5803289,2026-10-19,fra_ligue2,Rodez,Loni Laurent,1523255,D,1,90,0,0,0,0.0,33.0,1.0,438933.0
+5803289,2026-10-19,fra_ligue2,Rodez,Mathis Magnin,1210664,D,1,90,1,0,0,0.13,35.0,1.0,1429694.0
+5803289,2026-10-19,fra_ligue2,Rodez,Raphaël Lipinski,1438300,D,1,90,1,0,0,0.02,37.0,1.0,1617656.0
+5803289,2026-10-19,fra_ligue2,Rodez,Steven Luyambula Biwa,1076509,D,1,62,0,0,0,0.0,51.0,1.0,385905.0
+5803289,2026-10-19,fra_ligue2,Rodez,Ryan Ponti,1124761,D,1,90,2,0,0,0.18,59.0,1.0,186674.0
+5803289,2026-10-19,fra_ligue2,Rodez,Mathis Saka,1664718,M,1,67,4,0,0,0.33,73.0,2.0,776607.0
+5803289,2026-10-19,fra_ligue2,Rodez,Jordan Correia,1529032,M,1,90,0,0,0,0.0,75.0,2.0,1826480.0
+5803289,2026-10-19,fra_ligue2,Rodez,Octave Joly,1668298,M,1,62,2,1,0,0.05,77.0,2.0,529891.0
+5803289,2026-10-19,fra_ligue2,Rodez,Mathis Touho,1481521,F,1,68,1,0,0,0.17,104.0,3.0,585719.0
+5803289,2026-10-19,fra_ligue2,Rodez,Nachon Nsingi,1385771,F,1,80,3,0,0,0.5,106.0,3.0,429687.0
+5803289,2026-10-19,fra_ligue2,Rodez,Evans Jean-Lambert,1003255,D,0,28,0,0,0,0.0,,1.0,615563.0
+5803289,2026-10-19,fra_ligue2,Rodez,Damjan Pavlović,1169693,M,0,28,0,0,0,0.0,,2.0,155757.0
+5803289,2026-10-19,fra_ligue2,Rodez,Antonin Cartillier,1524547,M,0,23,1,0,0,0.07,,2.0,442708.0
+5803289,2026-10-19,fra_ligue2,Rodez,Kenny Nagera,1173790,F,0,22,0,0,0,0.0,,3.0,651422.0
+5803289,2026-10-19,fra_ligue2,Rodez,Kelian Nsona,1050814,F,0,10,1,1,0,0.17,,3.0,357498.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Simon Ngapandouetnbu,1079544,G,1,90,0,0,0,0.0,11.0,0.0,2287897.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Naoufel El Hannach,1697720,D,1,90,1,0,0,0.08,32.0,1.0,1449363.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Julien Laporte,604349,D,1,90,1,0,0,0.09,34.0,1.0,723070.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Daylam Meddah,1074657,D,1,90,0,0,0,0.0,36.0,1.0,1392324.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Théo Sainte-Luce,880618,D,1,70,0,0,0,0.0,38.0,1.0,618857.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Noah Vidal-Cartoux,1927654,M,1,56,0,0,0,0.0,64.0,2.0,649924.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Florian Tardieu,319305,M,1,85,1,0,0,0.02,66.0,2.0,290445.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Nicolas Pays,1610103,F,1,90,3,2,1,0.21,83.0,3.0,1571202.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Lacine Megnan-Pave,2130483,F,1,85,4,2,1,0.8,85.0,3.0,
+5803289,2026-10-19,fra_ligue2,Montpellier,Yaël Mouanga,1643774,D,1,90,1,0,0,0.11,87.0,1.0,2110501.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Mamadou Camara,1167473,F,1,90,1,1,0,0.16,115.0,3.0,1212430.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Daryll Benlahlou,2095083,F,0,34,2,2,1,0.09,,3.0,
+5803289,2026-10-19,fra_ligue2,Montpellier,Yanis Zouaoui,1098243,D,0,20,1,0,0,0.03,,1.0,1469096.0
+5803289,2026-10-19,fra_ligue2,Montpellier,Hichem Abderrebi,2130482,M,0,5,1,1,0,0.1,,2.0,
+5803289,2026-10-19,fra_ligue2,Montpellier,Théo Chennahi,1670190,M,0,5,0,0,0,0.0,,2.0,2260757.0
+5749707,2026-10-19,serie_a,Parma,Edoardo Corvi,1117310,G,1,90,0,0,0,0.0,11.0,0.0,1492520.0
+5749707,2026-10-19,serie_a,Parma,Diego Carlos,570434,D,1,45,3,2,0,0.09,33.0,1.0,2272387.0
+5749707,2026-10-19,serie_a,Parma,Mariano Troilo,1520184,D,1,90,3,1,0,0.14,35.0,1.0,12928014.0
+5749707,2026-10-19,serie_a,Parma,Enrico Del Prato,935380,D,1,90,1,0,0,0.13,37.0,1.0,4647684.0
+5749707,2026-10-19,serie_a,Parma,Sascha Britschgi,1693531,M,1,70,0,0,0,0.0,71.0,2.0,14436181.0
+5749707,2026-10-19,serie_a,Parma,Adrián Bernabé,951714,M,1,80,1,1,0,0.01,73.0,2.0,13517479.0
+5749707,2026-10-19,serie_a,Parma,Mandela Keita,1239749,M,1,90,2,1,0,0.04,75.0,2.0,23322649.0
+5749707,2026-10-19,serie_a,Parma,Giovanni Fabbian,1276505,M,1,45,1,0,0,0.12,77.0,2.0,12619149.0
+5749707,2026-10-19,serie_a,Parma,Emanuele Valeri,867789,M,1,90,0,0,0,0.0,79.0,2.0,2430569.0
+5749707,2026-10-19,serie_a,Parma,David Romero,1233748,F,1,90,4,1,0,0.37,104.0,3.0,2199903.0
+5749707,2026-10-19,serie_a,Parma,El Bilal Touré,1054114,F,1,70,3,1,0,0.2,106.0,3.0,12522404.0
+5749707,2026-10-19,serie_a,Parma,Dominik Drobnič,1891769,D,0,44,0,0,0,0.0,,1.0,1139261.0
+5749707,2026-10-19,serie_a,Parma,Simone Lontani,1843609,F,0,45,4,0,0,0.09,,3.0,
+5749707,2026-10-19,serie_a,Parma,Djibril Diallo,2392905,D,0,20,1,0,0,0.03,,1.0,
+5749707,2026-10-19,serie_a,Parma,Matija Frigan,1190371,F,0,20,1,1,0,0.14,,3.0,9134924.0
+5749707,2026-10-19,serie_a,Parma,Christian Ordóñez,1393542,M,0,10,1,0,0,0.03,,2.0,10056681.0
+5749707,2026-10-19,serie_a,Torino,Lucas Perri,637656,G,1,90,0,0,0,0.0,11.0,0.0,12137938.0
+5749707,2026-10-19,serie_a,Torino,Saúl Coco,941953,D,1,90,1,0,0,0.03,33.0,1.0,8637787.0
+5749707,2026-10-19,serie_a,Torino,Ardian Ismajli,750880,D,1,90,0,0,0,0.0,35.0,1.0,2383312.0
+5749707,2026-10-19,serie_a,Torino,Pietro Comuzzo,1529222,D,1,90,2,0,0,0.27,37.0,1.0,
+5749707,2026-10-19,serie_a,Torino,Rafik Belghali,1231029,M,1,74,0,0,0,0.0,62.0,2.0,10565614.0
+5749707,2026-10-19,serie_a,Torino,Rolando Mandragora,577911,M,1,63,0,0,0,0.0,64.0,2.0,7671676.0
+5749707,2026-10-19,serie_a,Torino,Daniel Bragança,1014980,M,1,90,1,0,0,0.04,66.0,2.0,7475647.0
+5749707,2026-10-19,serie_a,Torino,Alessio Cacciamani,1746591,M,1,90,0,0,0,0.0,68.0,2.0,7251260.0
+5749707,2026-10-19,serie_a,Torino,Nikola Vlašić,557677,M,1,74,0,0,0,0.0,85.0,2.0,6302278.0
+5749707,2026-10-19,serie_a,Torino,Giovanni Simeone,469615,F,1,83,3,2,2,0.41,104.0,3.0,5700267.0
+5749707,2026-10-19,serie_a,Torino,Ché Adams,599353,F,1,63,2,1,1,0.61,106.0,3.0,4684500.0
+5749707,2026-10-19,serie_a,Torino,Gvidas Gineitis,1421505,M,0,27,0,0,0,0.0,,2.0,10051197.0
+5749707,2026-10-19,serie_a,Torino,Sandro Kulenović,823113,F,0,27,0,0,0,0.0,,3.0,3696166.0
+5749707,2026-10-19,serie_a,Torino,Cesare Casadei,1339372,M,0,16,0,0,0,0.0,,2.0,18089620.0
+5749707,2026-10-19,serie_a,Torino,Zakaria Aboukhlal,846761,M,0,16,0,0,0,0.0,,2.0,6061468.0
+5749707,2026-10-19,serie_a,Torino,Duván Zapata,116555,F,0,6,0,0,0,0.0,,3.0,1781060.0
+5100972,2026-10-19,irlanda,Derry City,Tom Norcott,1334827,G,1,90,0,0,0,0.0,11.0,0.0,
+5100972,2026-10-19,irlanda,Derry City,Brooklyn Lyons-Foster,886145,D,1,46,0,0,0,0.0,32.0,1.0,72872.0
+5100972,2026-10-19,irlanda,Derry City,Jamie Stott,789493,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5100972,2026-10-19,irlanda,Derry City,Patrick McClean,621852,D,1,90,0,0,0,0.0,36.0,1.0,65972.0
+5100972,2026-10-19,irlanda,Derry City,Brandon Fleming,874606,D,1,90,1,0,0,0.05,38.0,1.0,136773.0
+5100972,2026-10-19,irlanda,Derry City,Nick Twisk,1251660,M,1,80,0,0,0,0.0,65.0,2.0,70169.0
+5100972,2026-10-19,irlanda,Derry City,Darragh Burns,1068592,F,1,90,4,1,0,0.22,82.0,3.0,204932.0
+5100972,2026-10-19,irlanda,Derry City,James Clarke,204168,F,1,90,1,0,0,0.04,84.0,3.0,150663.0
+5100972,2026-10-19,irlanda,Derry City,Ellis Chapman,866704,M,1,90,1,0,0,0.01,86.0,2.0,65556.0
+5100972,2026-10-19,irlanda,Derry City,Kévin Santos,1304983,F,1,72,1,1,1,0.26,88.0,3.0,
+5100972,2026-10-19,irlanda,Derry City,Tyler Smith,949460,F,1,85,1,0,0,0.04,115.0,3.0,86947.0
+5100972,2026-10-19,irlanda,Derry City,Conor Barr,1439120,D,0,45,1,1,0,0.03,,1.0,85919.0
+5100972,2026-10-19,irlanda,Derry City,Darragh Markey,621665,M,0,18,0,0,0,0.0,,2.0,60593.0
+5100972,2026-10-19,irlanda,Derry City,Cameron Dummigan,511012,M,0,10,0,0,0,0.0,,2.0,50000.0
+5100972,2026-10-19,irlanda,Derry City,Terence Doherty,2029340,F,0,5,0,0,0,0.0,,3.0,
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Joseph Anang,963812,G,1,90,0,0,0,0.0,11.0,0.0,62374.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Joe Redmond,1077899,D,1,90,3,0,0,0.34,33.0,1.0,148477.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Seán Hoare,395686,D,1,90,6,1,0,0.37,35.0,1.0,50000.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Luke Turner,1068648,D,1,75,0,0,0,0.0,37.0,1.0,204805.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Jamie Lennon,923157,M,1,90,3,1,0,0.11,65.0,2.0,103402.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Zack Elbouzedi,760330,M,1,90,1,0,0,0.07,82.0,2.0,109923.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Kian Leavy,1287388,M,1,63,3,0,0,0.33,84.0,2.0,67862.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Barry Baggley,1029064,M,1,64,1,1,0,0.04,86.0,2.0,152900.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Anthony Breslin,798602,M,1,57,0,0,0,0.0,88.0,2.0,
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Anthony Olusanya,942411,F,1,90,3,0,0,0.12,104.0,3.0,106348.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Aidan Keena,825815,F,1,57,1,0,0,0.02,106.0,3.0,65817.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Jason McClelland,734103,M,0,33,0,0,0,0.0,,2.0,57429.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Ryan Edmondson,938518,F,0,33,2,0,0,0.31,,3.0,151611.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Chris Forrester,253253,M,0,27,1,0,0,0.04,,2.0,50000.0
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Ryan Sheridan,1901118,M,0,26,3,1,0,0.14,,2.0,
+5100972,2026-10-19,irlanda,St. Patrick's Athletic,Romal Palmer,1127027,F,0,15,2,1,0,0.49,,3.0,50000.0
+5100975,2026-10-19,irlanda,Waterford FC,Stephen McMullan,1420165,G,1,90,0,0,0,0.0,11.0,0.0,157875.0
+5100975,2026-10-19,irlanda,Waterford FC,John Mahon,825846,D,1,90,0,0,0,0.0,32.0,1.0,62116.0
+5100975,2026-10-19,irlanda,Waterford FC,Hayden Cann,1194048,D,1,90,5,1,0,0.23,34.0,1.0,72000.0
+5100975,2026-10-19,irlanda,Waterford FC,Kevin Long,172323,D,1,90,1,1,0,0.02,36.0,1.0,50000.0
+5100975,2026-10-19,irlanda,Waterford FC,Benny Couto,1293901,D,1,90,2,1,0,0.05,38.0,1.0,78651.0
+5100975,2026-10-19,irlanda,Waterford FC,Jordan Houston,824943,D,1,81,1,0,0,0.04,72.0,1.0,58181.0
+5100975,2026-10-19,irlanda,Waterford FC,Noah Mawéné,1388067,M,1,80,0,0,0,0.0,74.0,2.0,110711.0
+5100975,2026-10-19,irlanda,Waterford FC,Evan McLaughlin,1269330,M,1,90,1,0,0,0.02,76.0,2.0,66964.0
+5100975,2026-10-19,irlanda,Waterford FC,Conan Noonan,1239299,M,1,80,1,0,0,0.11,78.0,2.0,153001.0
+5100975,2026-10-19,irlanda,Waterford FC,Pádraig Amond,116084,F,1,90,6,3,2,1.27,104.0,3.0,115083.0
+5100975,2026-10-19,irlanda,Waterford FC,Tom Lonergan,1263510,F,1,90,1,1,1,0.03,106.0,3.0,192650.0
+5100975,2026-10-19,irlanda,Waterford FC,Dean McMenamy,1248055,M,0,10,0,0,0,0.0,,2.0,66964.0
+5100975,2026-10-19,irlanda,Waterford FC,Luke Heeney,967229,M,0,10,0,0,0,0.0,,2.0,50000.0
+5100975,2026-10-19,irlanda,Waterford FC,Jørgen Voilås,937278,M,0,9,0,0,0,0.0,,2.0,50000.0
+5100975,2026-10-19,irlanda,Galway United FC,Hugo Cunha,1188576,G,1,90,0,0,0,0.0,11.0,0.0,70206.0
+5100975,2026-10-19,irlanda,Galway United FC,Connor Barratt,1554645,D,1,90,0,0,0,0.0,32.0,1.0,82318.0
+5100975,2026-10-19,irlanda,Galway United FC,Anthony O'Connor,361772,D,1,90,0,0,0,0.0,34.0,1.0,222823.0
+5100975,2026-10-19,irlanda,Galway United FC,Gianfranco Facchineri,1136262,D,1,90,0,0,0,0.0,36.0,1.0,65624.0
+5100975,2026-10-19,irlanda,Galway United FC,Lee Devitt,1060814,M,1,89,1,1,1,0.11,38.0,2.0,170547.0
+5100975,2026-10-19,irlanda,Galway United FC,Aaron Bolger,794399,M,1,90,0,0,0,0.0,64.0,2.0,53699.0
+5100975,2026-10-19,irlanda,Galway United FC,Jimmy Keohane,187637,M,1,90,1,0,0,0.03,66.0,2.0,50000.0
+5100975,2026-10-19,irlanda,Galway United FC,Kristopher Twardek,662607,F,1,46,0,0,0,0.0,83.0,3.0,104387.0
+5100975,2026-10-19,irlanda,Galway United FC,David Hurley,887638,M,1,90,1,1,0,0.05,85.0,2.0,50000.0
+5100975,2026-10-19,irlanda,Galway United FC,Edward McCarthy,1248051,F,1,46,0,0,0,0.0,87.0,3.0,
+5100975,2026-10-19,irlanda,Galway United FC,Stephen Walsh,205933,F,1,74,2,2,1,0.2,115.0,3.0,50000.0
+5100975,2026-10-19,irlanda,Galway United FC,Matty Wolfe,916726,M,0,45,2,0,0,0.08,,2.0,63914.0
+5100975,2026-10-19,irlanda,Galway United FC,Francely Lomboto,1173735,F,0,45,1,0,0,0.03,,3.0,62284.0
+5100975,2026-10-19,irlanda,Galway United FC,Frantz Pierrot,1443929,F,0,16,2,1,0,0.06,,3.0,56366.0
+5100975,2026-10-19,irlanda,Galway United FC,Dylan Connolly,400650,M,0,1,0,0,0,0.0,,2.0,50000.0
+5100975,2026-10-19,irlanda,Galway United FC,Junior Thiam,1751164,M,0,1,0,0,0,0.0,,2.0,
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Coke Carrillo,1308413,G,1,90,0,0,0,0.0,11.0,0.0,
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Kike Ribes,1609347,D,1,43,0,0,0,0.0,33.0,1.0,490105.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Pablo Meixus,1426067,D,1,90,1,0,0,0.07,35.0,1.0,517823.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Joel López,1092372,M,1,90,0,0,0,0.0,37.0,2.0,406148.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Pablo Gavian,1838575,M,1,65,0,0,0,0.0,72.0,2.0,
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Adria Capdevila,1721088,M,1,90,0,0,0,0.0,74.0,2.0,534744.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Hugo Cuenca,1515132,M,1,82,2,0,0,0.04,76.0,2.0,416670.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Ángel Arcos,1700562,F,1,82,3,2,0,0.29,78.0,3.0,708114.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Aldrine Kibet,2136736,F,1,65,2,0,0,0.34,103.0,3.0,716182.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Álvaro Marin,1552439,F,1,90,6,2,1,0.31,105.0,3.0,482956.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Oscar Marcos,1697454,F,1,90,0,0,0,0.0,107.0,3.0,816723.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Alexis Olmedo,1554761,D,0,47,0,0,0,0.0,,1.0,583869.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Jan Oliveras,1329533,D,0,25,0,0,0,0.0,,1.0,462828.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Germain Milla,1910012,M,0,25,0,0,0,0.0,,2.0,785225.0
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Mateo Sobral,2140586,M,0,8,0,0,0,0.0,,2.0,
+5868493,2026-10-19,esp_hypermotion,Celta Fortuna,Vladimir Silva,1797312,F,0,8,0,0,0,0.0,,3.0,
+5868493,2026-10-19,esp_hypermotion,Tenerife,Dani Martín,882408,G,1,90,0,0,0,0.0,11.0,0.0,553841.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,César Álvarez,1585840,D,1,90,1,0,0,0.05,32.0,1.0,592241.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Anthony Landázuri,708877,D,1,90,0,0,0,0.0,34.0,1.0,283331.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Jorge Moreno,1288206,D,1,90,0,0,0,0.0,36.0,1.0,520677.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,David Rodríguez,1197723,D,1,90,0,0,0,0.0,38.0,1.0,575756.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Dani Fernández,1647543,M,1,57,0,0,0,0.0,72.0,2.0,
+5868493,2026-10-19,esp_hypermotion,Tenerife,Mauro Pittón,647245,M,1,46,0,0,0,0.0,74.0,2.0,1505993.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Jesús Álvarez,1059674,M,1,45,2,1,0,0.03,76.0,2.0,773531.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Nacho Gil,639136,M,1,90,2,1,1,0.07,78.0,2.0,212835.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Christian Gomis,1204802,F,1,66,0,0,0,0.0,104.0,3.0,750770.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Enric Gallego,639458,F,1,85,3,1,0,0.22,106.0,3.0,314664.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Anes Krdžalić,1403393,M,0,45,1,0,0,0.04,,2.0,250687.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Juanjo,1292813,M,0,44,0,0,0,0.0,,2.0,455317.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Noel López,1292869,F,0,33,0,0,0,0.0,,3.0,291458.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Jesús de Miguel,1199865,F,0,24,0,0,0,0.0,,3.0,510335.0
+5868493,2026-10-19,esp_hypermotion,Tenerife,Fabricio,1693583,M,0,5,0,0,0,0.0,,2.0,341378.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Yassine Bounou,340020,G,1,90,0,0,0,0.0,11.0,0.0,1782041.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Mohammed Mahzari,1527135,D,1,90,0,0,0,0.0,32.0,1.0,538337.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Hassan Al Tambakti,848607,D,1,76,0,0,0,0.0,34.0,1.0,916271.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Kalidou Koulibaly,210428,D,1,90,1,1,0,0.52,36.0,1.0,1778942.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Theo Hernández,724371,D,1,76,2,0,0,0.02,38.0,1.0,18625276.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Sergej Milinković-Savić,463301,M,1,90,2,0,0,0.24,73.0,2.0,10306072.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Rúben Neves,534684,M,1,90,2,0,0,0.06,75.0,2.0,22230181.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Mohamed Kanno,866373,M,1,89,5,1,0,0.67,77.0,2.0,397048.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Gabriel Martinelli,1021586,F,1,89,5,2,1,0.72,103.0,3.0,38346152.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Ollie Watkins,540088,F,1,90,1,0,0,0.35,105.0,3.0,32354793.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Crysencio Summerville,941213,F,1,89,3,0,0,0.5,107.0,3.0,30993927.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Moteb Al Harbi,1138003,D,0,14,0,0,0,0.0,,1.0,1135667.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Sultan Mandash,619824,F,0,14,0,0,0,0.0,,3.0,280609.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Ali Lajami,640284,D,0,1,0,0,0,0.0,,1.0,572382.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Nasser Al Dawsari,848612,M,0,1,0,0,0,0.0,,2.0,454430.0
+5970167,2026-10-19,ksa_pro,Al Hilal,Salem Al Dawsari,307753,M,0,1,0,0,0,0.0,,2.0,639092.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Jindřich Staněk,463967,G,1,90,0,0,0,0.0,11.0,0.0,1286601.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Sultan Tanker,1524243,D,1,90,0,0,0,0.0,33.0,1.0,192936.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Abdurahman Al Dakheel,1034691,D,1,88,0,0,0,0.0,35.0,1.0,119539.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Amine Ben Hamida,1131928,D,1,90,0,0,0,0.0,37.0,1.0,551863.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Abdulaziz Al Harbi,1368065,D,1,87,0,0,0,0.0,51.0,1.0,
+5970167,2026-10-19,ksa_pro,Al Hazem,Ahmed Al Nakhli,1176722,D,1,90,0,0,0,0.0,59.0,1.0,
+5970167,2026-10-19,ksa_pro,Al Hazem,Sofiane Bendebka,641052,M,1,70,1,1,0,0.04,72.0,2.0,433905.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Bonheur Mugisha,1371510,M,1,90,2,1,0,0.03,74.0,2.0,247336.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Aboubacar Bah,1806136,M,1,90,1,0,0,0.02,76.0,2.0,866656.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Aboubacar Diakité,1696412,M,1,23,0,0,0,0.0,78.0,2.0,360171.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Afimico Pululu,861736,F,1,70,0,0,0,0.0,115.0,3.0,3708305.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Ahmed Al Shamrani,1442542,M,0,67,1,0,0,0.41,,2.0,228759.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Amir Sayoud,322997,M,0,20,0,0,0,0.0,,2.0,169209.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Mohammed Al Hamdani,1911199,F,0,20,0,0,0,0.0,,3.0,
+5970167,2026-10-19,ksa_pro,Al Hazem,Mohammed Issa,1396619,D,0,3,0,0,0,0.0,,1.0,177497.0
+5970167,2026-10-19,ksa_pro,Al Hazem,Abdullah Al Shanqiti,1198732,D,0,2,0,0,0,0.0,,1.0,184597.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Mory Diaw,466436,G,1,90,0,0,0,0.0,11.0,0.0,679870.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Mohammed Al Thani,963981,D,1,90,0,0,0,0.0,32.0,1.0,
+5970169,2026-10-19,ksa_pro,Al Shabab,Mamadou Barry,1640990,D,1,90,2,1,0,0.12,34.0,1.0,1249234.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Tin Jedvaj,427062,D,1,90,0,0,0,0.0,36.0,1.0,1054699.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Dhari Al Anazi,1368083,D,1,90,0,0,0,0.0,38.0,1.0,214613.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Abdullah Matuq,1286969,M,1,76,0,0,0,0.0,72.0,2.0,260681.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Josh Brownhill,494597,M,1,90,6,4,2,0.8,74.0,2.0,5075378.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Yacine Adli,846002,M,1,90,3,0,0,0.12,76.0,2.0,8099654.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Daniel Podence,524435,M,1,45,1,1,0,0.04,78.0,2.0,1775485.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Roger Martínez,479026,F,1,90,5,1,0,0.19,104.0,3.0,943718.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Ricardo Mathias,1666534,F,1,90,0,0,0,0.0,106.0,3.0,9460186.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Awad Al Nashri,1174961,M,0,44,0,0,0,0.0,,2.0,347332.0
+5970169,2026-10-19,ksa_pro,Al Shabab,Abdulrahman Al Obud,824687,F,0,14,0,0,0,0.0,,3.0,279162.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Fernando Pacheco,241059,G,1,90,0,0,0,0.0,11.0,0.0,254395.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Abdullah Bin Subayt,1910725,D,1,67,0,0,0,0.0,33.0,1.0,
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Abdoulaye Seck,588626,D,1,90,0,0,0,0.0,35.0,1.0,158757.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Andrei Girotto,498655,D,1,90,1,1,1,0.07,37.0,1.0,1070040.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Yaseen Barnawi,618123,M,1,90,0,0,0,0.0,72.0,2.0,144786.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Flávio,750053,M,1,90,0,0,0,0.0,74.0,2.0,1068595.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Abdullah Al Mogren,1002615,M,1,64,1,1,0,0.02,76.0,2.0,
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Mohammed Al Shanqiti,1054044,M,1,74,1,1,0,0.07,78.0,2.0,
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Abdulaziz Al Bishi,671261,F,1,64,0,0,0,0.0,103.0,3.0,279682.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Alexandre Mendy,560900,F,1,90,3,1,1,0.64,105.0,3.0,645764.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Jaime Seoane,792783,F,1,45,1,0,0,0.04,107.0,3.0,218336.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Christian Bassogog,673854,F,0,45,2,0,0,0.17,,3.0,463875.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Eid Al Muwallad,1524233,M,0,26,0,0,0,0.0,,2.0,323816.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Théo Bongonda,466132,F,0,26,1,0,0,0.05,,3.0,1543726.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Mohammed Jahfali,618289,D,0,23,0,0,0,0.0,,1.0,124617.0
+5970169,2026-10-19,ksa_pro,Al-Faisaly,Abdulrahman Al Sharif,1910842,M,0,16,1,0,0,0.42,,2.0,
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Mees Eppink,1444583,G,1,90,0,0,0,0.0,11.0,0.0,462065.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Jamie Schuldes,1667993,D,1,82,0,0,0,0.0,33.0,1.0,
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Wessel Kooy,1362141,D,1,90,0,0,0,0.0,35.0,1.0,457611.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Viggo Plantinga,1791673,D,1,90,0,0,0,0.0,37.0,1.0,467421.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Per Kloosterboer,1522707,D,1,65,0,0,0,0.0,51.0,1.0,447112.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Yousri Sbai,1712126,D,1,90,0,0,0,0.0,59.0,1.0,596492.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Richie Omorowa,1338070,F,1,65,2,1,0,0.0,72.0,3.0,296049.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Jaygo van Ommeren,1708469,M,1,71,0,0,0,0.0,74.0,2.0,900883.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Ferdinand Pohl,1797101,D,1,65,1,0,0,0.0,76.0,1.0,
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Emmanuel Chigozie Owen,1815075,F,1,90,4,0,0,0.0,78.0,3.0,
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Massien Ghaddari,1630503,M,1,90,3,1,1,0.0,115.0,2.0,169229.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Driss Laaouina,1909883,M,0,25,0,0,0,0.0,,2.0,
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Noa Dundas,1285133,M,0,25,2,0,0,0.0,,2.0,193677.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Björn Menzo,1708468,F,0,25,0,0,0,0.0,,3.0,475196.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Tijn den Boggende,1604300,F,0,19,0,0,0,0.0,,3.0,351641.0
+5832914,2026-10-19,ned_eerste,Jong FC Utrecht,Noël Beulens,1909876,D,0,8,0,0,0,0.0,,1.0,
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Justin Treichel,1665417,G,1,90,0,0,0,0.0,11.0,0.0,264254.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Lucas Beerten,1323635,D,1,90,1,0,0,0.0,33.0,1.0,182558.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Dario van den Buijs,604344,D,1,90,2,0,0,0.0,35.0,1.0,93198.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Marco Tol,873580,D,1,90,1,0,0,0.0,37.0,1.0,211840.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Koen Jansen,1243250,D,1,71,1,1,0,0.0,62.0,1.0,230400.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Joshua Nisbet,1016158,M,1,90,0,0,0,0.0,64.0,2.0,256710.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Dyon Dorenbosch,1393107,M,1,90,2,1,1,0.0,66.0,2.0,251124.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Guilherme Peixoto,1671048,M,1,71,1,1,0,0.0,68.0,2.0,679411.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Mitchell Paulissen,295087,M,1,78,1,0,0,0.0,84.0,2.0,85998.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Cain Seedorf,1224913,F,1,77,5,0,0,0.0,86.0,3.0,158706.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Anthony van den Hurk,243461,F,1,90,3,2,1,0.0,105.0,3.0,185119.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Bram Marsman,1606593,D,0,19,1,0,0,0.0,,1.0,239419.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Xander van den Berg,1576570,M,0,19,1,0,0,0.0,,2.0,
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Fynn Schenten,1829390,F,0,13,1,0,0,0.0,,3.0,241920.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Jeremiah Mensah,1761869,M,0,12,0,0,0,0.0,,2.0,1882494.0
+5832914,2026-10-19,ned_eerste,Roda JC Kerkrade,Luuk Verheij,1641944,D,0,1,0,0,0,0.0,,1.0,199030.0
+5832913,2026-10-19,ned_eerste,Jong PSV,Khadim Ngom,1665374,G,1,90,0,0,0,0.0,11.0,0.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Rivas Manuhutu,1693191,D,1,90,0,0,0,0.0,32.0,1.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Madi Monamay Nsosemo,1388933,D,1,90,0,0,0,0.0,34.0,1.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Fabian Merién,1689729,D,1,90,2,0,0,0.0,36.0,1.0,1347412.0
+5832913,2026-10-19,ned_eerste,Jong PSV,Kyano Penso,1843230,D,1,82,0,0,0,0.0,38.0,1.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Sol Sidibé,1524016,M,1,90,0,0,0,0.0,64.0,2.0,1645551.0
+5832913,2026-10-19,ned_eerste,Jong PSV,Boet Mulders,1697029,M,1,82,1,0,0,0.0,66.0,2.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Fabio Kluit,1689722,F,1,63,0,0,0,0.0,83.0,3.0,363110.0
+5832913,2026-10-19,ned_eerste,Jong PSV,Philip Holseter-Karlsen,1635650,M,1,46,0,0,0,0.0,85.0,2.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Sami Ouaissa,1393117,M,1,46,0,0,0,0.0,87.0,2.0,9988948.0
+5832913,2026-10-19,ned_eerste,Jong PSV,Austyn Jones,1813961,F,1,90,0,0,0,0.0,115.0,3.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Michael Bresser,1668515,D,0,44,0,0,0,0.0,,1.0,597892.0
+5832913,2026-10-19,ned_eerste,Jong PSV,Samuel Dumbili,1841888,F,0,44,0,0,0,0.0,,3.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Jairo Beerens,1798246,F,0,27,0,0,0,0.0,,3.0,
+5832913,2026-10-19,ned_eerste,Jong PSV,Lyfe Oldenstam,1695694,D,0,8,0,0,0,0.0,,1.0,321245.0
+5832913,2026-10-19,ned_eerste,Jong PSV,Mathieu Buyens,2333074,M,0,8,1,0,0,0.0,,2.0,
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Tim Coremans,178751,G,1,90,0,0,0,0.0,11.0,0.0,118901.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Jurre van Aken,1282596,D,1,86,0,0,0,0.0,32.0,1.0,241857.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Jaden Pinas,1389330,D,1,90,2,0,0,0.0,34.0,1.0,112946.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Stan Henderikx,1285772,D,1,90,0,0,0,0.0,36.0,1.0,251496.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Béni Mpanzu,1699508,D,1,90,1,0,0,0.0,38.0,1.0,253746.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Senne Vugts,1704880,M,1,89,1,0,0,0.0,64.0,2.0,411399.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Lorenzo Riccio,1674888,M,1,90,5,1,0,0.0,66.0,2.0,980701.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Robin van Asten,1791631,M,1,86,1,0,0,0.0,83.0,2.0,825282.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Martin Vetkal,1111077,M,1,89,4,0,0,0.0,85.0,2.0,352918.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Nicolás Rossi,1357078,F,1,61,2,0,0,0.0,87.0,3.0,188509.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Joey de Bie,1417580,F,1,87,2,1,1,0.0,115.0,3.0,255635.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Ninho Felicia,2128837,F,0,29,2,1,0,0.0,,3.0,
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Lucas Gardenier,1553384,D,0,4,0,0,0,0.0,,1.0,
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Adil Lechkar,1665419,D,0,3,1,0,0,0.0,,1.0,239351.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Yannis M'Bemba,1283241,D,0,1,0,0,0,0.0,,1.0,155273.0
+5832913,2026-10-19,ned_eerste,FC Dordrecht,Seung-Gyun Bae,1795814,M,0,1,0,0,0,0.0,,2.0,568494.0
+5853522,2026-10-19,rumania,FC Voluntari,Metod Jurhar,558661,G,1,90,0,0,0,0.0,11.0,0.0,375777.0
+5853522,2026-10-19,rumania,FC Voluntari,Denis Haruţ,861402,D,1,88,1,0,0,0.0,32.0,1.0,
+5853522,2026-10-19,rumania,FC Voluntari,Sava-Arangel Čestić,1185235,D,1,90,0,0,0,0.0,34.0,1.0,211323.0
+5853522,2026-10-19,rumania,FC Voluntari,Daniel Dumbrăvanu,949253,D,1,90,0,0,0,0.0,36.0,1.0,272754.0
+5853522,2026-10-19,rumania,FC Voluntari,Alexandru Suteu,1296278,D,1,90,2,0,0,0.0,38.0,1.0,177052.0
+5853522,2026-10-19,rumania,FC Voluntari,Lovro Cvek,558489,M,1,90,0,0,0,0.0,64.0,2.0,72353.0
+5853522,2026-10-19,rumania,FC Voluntari,Ion Gheorghe,929871,M,1,90,2,0,0,0.0,66.0,2.0,120912.0
+5853522,2026-10-19,rumania,FC Voluntari,Marvin Schieb,1025629,D,1,45,1,0,0,0.0,83.0,1.0,64686.0
+5853522,2026-10-19,rumania,FC Voluntari,George Merloi,1098053,F,1,66,1,1,0,0.0,85.0,3.0,102210.0
+5853522,2026-10-19,rumania,FC Voluntari,Remus Gutea,1425717,M,1,82,2,1,1,0.0,87.0,2.0,607479.0
+5853522,2026-10-19,rumania,FC Voluntari,Matko Babić,637757,F,1,83,3,0,0,0.0,115.0,3.0,147011.0
+5853522,2026-10-19,rumania,FC Voluntari,Godfried Roemeratoe,938524,M,0,44,0,0,0,0.0,,2.0,166832.0
+5853522,2026-10-19,rumania,FC Voluntari,Mihael Onișa,1172044,M,0,24,1,0,0,0.0,,2.0,271330.0
+5853522,2026-10-19,rumania,FC Voluntari,Mihai Roman,196957,F,0,8,0,0,0,0.0,,3.0,145675.0
+5853522,2026-10-19,rumania,FC Voluntari,Nuno Rodrigues,1080251,F,0,8,0,0,0,0.0,,3.0,86521.0
+5853522,2026-10-19,rumania,FC Voluntari,Adi Chică-Roșă,1181473,F,0,2,1,0,0,0.0,,3.0,333567.0
+5853522,2026-10-19,rumania,FCSB,Ștefan Târnovanu,905460,G,1,90,0,0,0,0.0,11.0,0.0,2123776.0
+5853522,2026-10-19,rumania,FCSB,Valentin Crețu,171213,D,1,90,0,0,0,0.0,32.0,1.0,124726.0
+5853522,2026-10-19,rumania,FCSB,Joyskim Dawa,926659,D,1,90,1,0,0,0.0,34.0,1.0,779568.0
+5853522,2026-10-19,rumania,FCSB,André Duarte,1142753,D,1,90,0,0,0,0.0,36.0,1.0,216934.0
+5853522,2026-10-19,rumania,FCSB,Ricardo Padurariu,1645961,D,1,90,0,0,0,0.0,38.0,1.0,715858.0
+5853522,2026-10-19,rumania,FCSB,Karlo Muhar,937443,M,1,45,2,1,0,0.0,64.0,2.0,496892.0
+5853522,2026-10-19,rumania,FCSB,Risto Radunović,249510,D,1,72,1,1,0,0.0,66.0,1.0,257960.0
+5853522,2026-10-19,rumania,FCSB,David Miculescu,1026113,F,1,90,1,1,0,0.0,83.0,3.0,1532902.0
+5853522,2026-10-19,rumania,FCSB,Juri Cisotti,491482,F,1,72,1,1,0,0.0,85.0,3.0,345460.0
+5853522,2026-10-19,rumania,FCSB,Meriton Korenica,946399,F,1,45,1,0,0,0.0,87.0,3.0,1640544.0
+5853522,2026-10-19,rumania,FCSB,Paul Arnold Garita,412066,F,1,78,3,2,1,0.0,115.0,3.0,238188.0
+5853522,2026-10-19,rumania,FCSB,João Paulo,1241301,M,0,45,1,0,0,0.0,,2.0,788373.0
+5853522,2026-10-19,rumania,FCSB,Ofri Arad,766814,M,0,44,0,0,0,0.0,,2.0,616628.0
+5853522,2026-10-19,rumania,FCSB,Aymen Boutoutaou,1114137,F,0,18,2,0,0,0.0,,3.0,787845.0
+5853522,2026-10-19,rumania,FCSB,Dennis Politic,974593,F,0,18,3,0,0,0.0,,3.0,456827.0
+5853522,2026-10-19,rumania,FCSB,Alexandru Stoian,1417588,F,0,12,2,1,1,0.0,,3.0,1222036.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Charlie Setford,1243251,G,1,90,0,0,0,0.0,11.0,0.0,241683.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Jahyendrow Amour,1830817,D,1,78,1,0,0,0.0,32.0,1.0,
+5832912,2026-10-19,ned_eerste,Jong Ajax,Marvyn Muzungu,1729332,D,1,90,0,0,0,0.0,34.0,1.0,907105.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Gerónimo Spina,1684516,D,1,90,0,0,0,0.0,36.0,1.0,168203.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Ryan van de Pavert,1695691,D,1,85,1,0,0,0.0,38.0,1.0,390714.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Mohamed Abdalla,1830820,M,1,78,4,3,0,0.0,73.0,2.0,1095149.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Tijn Peters,1791669,M,1,90,0,0,0,0.0,75.0,2.0,195761.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Jano Monserrate,1664735,M,1,85,2,1,1,0.0,77.0,2.0,
+5832912,2026-10-19,ned_eerste,Jong Ajax,Pharell Nash,1820080,F,1,90,1,1,0,0.0,103.0,3.0,692655.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Emre Ünüvar,1643771,F,1,90,4,2,1,0.0,105.0,3.0,916736.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Leo Salazar,1791738,F,1,72,2,1,0,0.0,107.0,3.0,
+5832912,2026-10-19,ned_eerste,Jong Ajax,Anass Moumane,1830813,F,0,18,1,1,0,0.0,,3.0,
+5832912,2026-10-19,ned_eerste,Jong Ajax,Sinclair de Falco,1813962,D,0,12,0,0,0,0.0,,1.0,
+5832912,2026-10-19,ned_eerste,Jong Ajax,Levi Acheampong,1830816,M,0,12,1,1,0,0.0,,2.0,
+5832912,2026-10-19,ned_eerste,Jong Ajax,Jinairo Johnson,1673150,D,0,5,2,1,0,0.0,,1.0,657567.0
+5832912,2026-10-19,ned_eerste,Jong Ajax,Mylo van der Lans,1673149,D,0,5,0,0,0,0.0,,1.0,639666.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Ties Wieggers,1299593,G,1,90,0,0,0,0.0,11.0,0.0,243584.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Levi Schoppema,1389322,D,1,60,1,0,0,0.0,32.0,1.0,268272.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Thomas Kok,728284,D,1,85,0,0,0,0.0,34.0,1.0,79536.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Rowan Besselink,1393113,D,1,90,1,0,0,0.0,36.0,1.0,649862.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Nolan Martens,1587680,D,1,90,0,0,0,0.0,38.0,1.0,271715.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Donny Warmerdam,1180744,M,1,90,1,1,1,0.0,73.0,2.0,155473.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Mark Diemers,351898,M,1,90,2,1,0,0.0,75.0,2.0,210364.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Fedde de Jong,1196708,M,1,90,1,0,0,0.0,77.0,2.0,150069.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Toivo Mero,1639615,F,1,78,1,1,0,0.0,103.0,3.0,
+5832912,2026-10-19,ned_eerste,De Graafschap,Kyano Kwint,1696246,F,1,60,0,0,0,0.0,105.0,3.0,353213.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Gabriele Finocchiaro,1842294,F,1,60,0,0,0,0.0,107.0,3.0,248073.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Jannes Wieckhoff,1085995,D,0,30,1,1,0,0.0,,1.0,244010.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Bjorn van Zijl,1712584,F,0,30,2,1,0,0.0,,3.0,265591.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Julian Kania,1515970,F,0,30,0,0,0,0.0,,3.0,274080.0
+5832912,2026-10-19,ned_eerste,De Graafschap,Nart Ahmeti,1800227,M,0,12,0,0,0,0.0,,2.0,
+5832912,2026-10-19,ned_eerste,De Graafschap,Clint Leemans,561619,M,0,5,1,0,0,0.0,,2.0,196777.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Miguel Silva,571298,G,1,90,0,0,0,0.0,11.0,0.0,214178.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Nana Antwi,1340168,D,1,90,0,0,0,0.0,32.0,1.0,479214.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Brayan Carabalí,1390198,D,1,90,0,0,0,0.0,34.0,1.0,873885.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Luka Gadrani,1044327,D,1,76,0,0,0,0.0,36.0,1.0,588372.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Timothy Muzie,1238252,D,1,90,1,0,0,0.0,38.0,1.0,807898.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Tomer Yosefi,1061473,M,1,60,2,1,0,0.0,73.0,2.0,254025.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Alexis Serna,1031322,M,1,67,0,0,0,0.0,75.0,2.0,441634.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Boris Enow,1052937,M,1,90,2,0,0,0.0,77.0,2.0,1184841.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Omer Atzili,652942,F,1,90,3,1,0,0.0,103.0,3.0,645536.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Yarden Shua,860792,F,1,76,2,1,0,0.0,105.0,3.0,1692850.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Johnbosco Samuel Kalu,1350981,F,1,67,4,1,0,0.0,107.0,3.0,615616.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Adi Yona,1458220,M,0,30,1,0,0,0.0,,2.0,1726731.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Dagats Worko,1407289,M,0,23,0,0,0,0.0,,2.0,496022.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Shon Weissman,821240,F,0,23,0,0,0,0.0,,3.0,776897.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Gil Cohen,1100584,D,0,14,0,0,0,0.0,,1.0,408047.0
+1000015294,2026-10-19,isr_premier,Beitar Jerusalem,Ori Azo,1671347,F,0,14,2,1,0,0.0,,3.0,623812.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Ofek Melika,1477918,G,1,90,0,0,0,0.0,11.0,0.0,1275836.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,James Tavernier,212689,D,1,90,1,0,0,0.0,32.0,1.0,258368.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Mohamed Aly Camara,848174,D,1,90,0,0,0,0.0,34.0,1.0,1136179.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Raz Shlomo,940461,D,1,85,1,0,0,0.0,36.0,1.0,408028.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Noam Harush,1477915,D,1,90,1,1,0,0.0,38.0,1.0,1522907.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Issouf Sissokho,1233589,M,1,90,0,0,0,0.0,65.0,2.0,1101687.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Sagiv Yehezkel,557532,F,1,60,1,0,0,0.0,82.0,3.0,211419.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Dor Peretz,580694,M,1,90,5,2,0,0.0,84.0,2.0,1142931.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Gabi Kanichowsky,819066,M,1,90,2,0,0,0.0,86.0,2.0,1830869.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Hélio Varela,1524518,F,1,90,2,0,0,0.0,88.0,3.0,2011505.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Ester Sokler,813621,F,1,60,0,0,0,0.0,115.0,3.0,1284169.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Elad Madmon,1559823,F,0,30,1,0,0,0.0,,3.0,1311420.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Osher Davida,1155249,F,0,30,1,0,0,0.0,,3.0,1016563.0
+1000015294,2026-10-19,isr_premier,Maccabi Tel Aviv,Itai Ben Hamo,1358125,D,0,5,0,0,0,0.0,,1.0,382635.0
