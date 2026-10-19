@@ -12446,22 +12446,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5100935,2026-07-24,irlanda,Dundalk,Declan McDaid,263676,F,0,21,0,0,0,0.0,,3.0,50000.0
 5100935,2026-07-24,irlanda,Dundalk,Shane Tracey,1899449,M,0,14,0,0,0,0.0,,2.0,
 5100935,2026-07-24,irlanda,Dundalk,Leonardo Gaxha,1445823,F,0,13,1,0,0,0.05,,3.0,
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Steven Rivadeneyra,547744,G,1,90,0,0,0,0.0,11.0,0.0,143246.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Erick Perleche,1122641,D,1,90,1,1,1,0.0,32.0,1.0,410246.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Román Suárez,1668310,D,1,82,0,0,0,0.0,34.0,1.0,277468.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Williams Guzmán,1432951,D,1,90,0,0,0,0.0,36.0,1.0,255527.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Anthony Gordillo,1353366,D,1,90,0,0,0,0.0,38.0,1.0,194623.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Hernán Lupu,1623272,M,1,82,1,0,0,0.0,64.0,2.0,
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Germán Díaz,1311675,M,1,90,1,1,0,0.0,66.0,2.0,172716.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Guillermo Larios,1249292,F,1,77,2,1,1,0.0,83.0,3.0,276902.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Jorge del Castillo,1432693,M,1,90,6,2,1,0.0,85.0,2.0,
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Cristian Penilla,196830,F,1,77,2,0,0,0.0,87.0,3.0,288493.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,José Ingratti,1246591,F,1,77,3,0,0,0.0,115.0,3.0,
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Franchesco Flores,1242309,M,0,13,0,0,0,0.0,,2.0,286055.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Mariano Barreda,1459746,F,0,13,1,0,0,0.0,,3.0,273753.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Jairo Molina,496951,F,0,13,0,0,0,0.0,,3.0,450943.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,José Luján,852081,D,0,8,0,0,0,0.0,,1.0,171242.0
-1000015429,2026-07-24,per_liga1,Alianza Atlético,Stefano Fernández,1502875,M,0,8,0,0,0,0.0,,2.0,255543.0
 5853444,2026-07-24,rumania,FC Arges Pitesti,Catalin Straton,178231,G,1,45,0,0,0,0.0,11.0,0.0,50000.0
 5853444,2026-07-24,rumania,FC Arges Pitesti,Costinel Tofan,1026325,D,1,70,1,0,0,0.0,32.0,1.0,160720.0
 5853444,2026-07-24,rumania,FC Arges Pitesti,Mario Tudose,1685332,D,1,90,0,0,0,0.0,34.0,1.0,1575181.0
@@ -13019,21 +13003,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186557,2026-07-25,china,Tianjin Jinmen Tiger,Cristian Salvador,639177,M,0,18,0,0,0,0.0,,2.0,355794.0
 5186557,2026-07-25,china,Tianjin Jinmen Tiger,Shengpan Ji,1251191,M,0,17,3,1,0,0.0,,2.0,348898.0
 5186557,2026-07-25,china,Tianjin Jinmen Tiger,Yan Shi,1277527,D,0,10,0,0,0,0.0,,1.0,347970.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Diego Romero,1133039,G,1,90,0,0,0,0.0,11.0,0.0,600801.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Andy Polo,263619,D,1,90,0,0,0,0.0,32.0,1.0,516130.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Caín Fara,834676,D,1,90,0,0,0,0.0,34.0,1.0,166614.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Matías Di Benedetto,725300,D,1,90,2,1,0,0.0,36.0,1.0,233628.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,César Inga,1415328,D,1,90,2,0,0,0.0,38.0,1.0,1142115.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Jesús Castillo,1031121,M,1,76,0,0,0,0.0,65.0,2.0,792004.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Lisandro Alzugaray,651387,F,1,86,5,2,0,0.0,83.0,3.0,270301.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Jairo Concha,988208,M,1,90,2,0,0,0.0,85.0,2.0,867951.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Héctor Fértoli,725782,F,1,65,1,0,0,0.0,87.0,3.0,180930.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Álex Valera,1133998,F,1,90,3,1,1,0.0,104.0,3.0,815210.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,José Rivera,847129,F,1,76,1,0,0,0.0,106.0,3.0,411431.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Adrián Quiróz,1353347,M,0,25,0,0,0,0.0,,2.0,258958.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Juan Requena,993748,M,0,14,0,0,0,0.0,,2.0,200683.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Gianluca Lapadula,231521,F,0,14,1,1,1,0.0,,3.0,299365.0
-1000015430,2026-07-25,per_liga1,Universitario de Deportes,Jordan Guivin,922886,M,0,4,0,0,0,0.0,,2.0,237105.0
 1000013173,2026-07-25,chi_primera,Colo Colo,Gabriel Maureira,1816784,G,1,90,0,0,0,0.0,11.0,0.0,
 1000013173,2026-07-25,chi_primera,Colo Colo,Jonathan Villagra,1129024,D,1,90,0,0,0,0.0,33.0,1.0,737527.0
 1000013173,2026-07-25,chi_primera,Colo Colo,Arturo Vidal,49939,D,1,90,0,0,0,0.0,35.0,1.0,162156.0
@@ -13945,22 +13914,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103567,2026-07-30,brasil,Corinthians,Breno Bidon,1380775,M,0,13,0,0,0,0.0,,2.0,20703482.0
 5103567,2026-07-30,brasil,Corinthians,Rodrigo Garro,1093746,M,0,12,0,0,0,0.0,,2.0,10758952.0
 5103567,2026-07-30,brasil,Corinthians,André,1804815,M,0,7,0,0,0,0.0,,2.0,
-5103564,2026-07-30,brasil,Bahia,Ronaldo,812077,G,1,90,0,0,0,0.0,11.0,0.0,1294508.0
-5103564,2026-07-30,brasil,Bahia,Román Gómez,1617809,D,1,90,0,0,0,0.0,32.0,1.0,1477542.0
-5103564,2026-07-30,brasil,Bahia,Marcos Victor,1355337,D,1,90,0,0,0,0.0,34.0,1.0,534887.0
-5103564,2026-07-30,brasil,Bahia,Santiago Ramos,1073724,D,1,90,0,0,0,0.0,36.0,1.0,13368040.0
-5103564,2026-07-30,brasil,Bahia,Luciano Juba,1174329,D,1,65,1,0,0,0.02,38.0,1.0,9436014.0
-5103564,2026-07-30,brasil,Bahia,Nicolás Acevedo,1020027,M,1,90,0,0,0,0.0,64.0,2.0,3219310.0
-5103564,2026-07-30,brasil,Bahia,Rodrigo Nestor,1118194,M,1,90,2,0,0,0.06,66.0,2.0,5904000.0
-5103564,2026-07-30,brasil,Bahia,Ademir,937552,F,1,65,1,0,0,0.02,83.0,3.0,1017964.0
-5103564,2026-07-30,brasil,Bahia,Jean Lucas,934675,M,1,74,1,0,0,0.01,85.0,2.0,11571167.0
-5103564,2026-07-30,brasil,Bahia,Erick Pulga,1340527,F,1,75,0,0,0,0.0,87.0,3.0,9967754.0
-5103564,2026-07-30,brasil,Bahia,Alejo Véliz,1250658,F,1,88,2,0,0,0.16,115.0,3.0,5220805.0
-5103564,2026-07-30,brasil,Bahia,Éverton Ribeiro,263937,M,0,25,1,0,0,0.04,,2.0,717824.0
-5103564,2026-07-30,brasil,Bahia,Michel Araújo,902826,M,0,25,1,0,0,0.01,,2.0,1721999.0
-5103564,2026-07-30,brasil,Bahia,David Martins,1804813,M,0,16,0,0,0,0.0,,2.0,
-5103564,2026-07-30,brasil,Bahia,Kauê Furquim,1784621,F,0,15,1,0,0,0.02,,3.0,
-5103564,2026-07-30,brasil,Bahia,Willian José,179083,F,0,2,0,0,0,0.0,,3.0,1172776.0
 5702740,2026-07-30,sudamericana,Cienciano,Ítalo Espinoza,1036089,G,1,90,0,0,0,0.0,11.0,0.0,194623.0
 5702740,2026-07-30,sudamericana,Cienciano,Claudio Núñez,903076,D,1,21,0,0,0,0.0,32.0,1.0,235211.0
 5702740,2026-07-30,sudamericana,Cienciano,Maximiliano Amondarain,427446,D,1,90,0,0,0,0.0,34.0,1.0,212877.0
@@ -14054,22 +14007,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017174,2026-07-31,per_liga1,Comerciantes Unidos,Wilter Ayoví,768895,F,0,34,2,0,0,0.0,,3.0,231224.0
 1000017174,2026-07-31,per_liga1,Comerciantes Unidos,Jean Olivares,1541940,F,0,14,2,0,0,0.0,,3.0,
 1000017174,2026-07-31,per_liga1,Comerciantes Unidos,Maximiliano Pérez,832200,F,0,7,1,0,0,0.0,,3.0,
-1000011168,2026-07-31,bol_division,The Strongest,Rodrigo Banegas,858039,G,1,90,0,0,0,0.0,11.0,0.0,128965.0
-1000011168,2026-07-31,bol_division,The Strongest,Widen Saucedo,921022,D,1,90,0,0,0,0.0,32.0,1.0,147611.0
-1000011168,2026-07-31,bol_division,The Strongest,Martín Chiatti,1280912,D,1,90,1,1,0,0.0,34.0,1.0,138764.0
-1000011168,2026-07-31,bol_division,The Strongest,Pablo Pedraza,468982,D,1,90,0,0,0,0.0,36.0,1.0,131468.0
-1000011168,2026-07-31,bol_division,The Strongest,Fabricio Quaglio,1458635,D,1,90,1,0,0,0.0,38.0,1.0,292650.0
-1000011168,2026-07-31,bol_division,The Strongest,Raúl Castro,489722,M,1,68,0,0,0,0.0,64.0,2.0,130177.0
-1000011168,2026-07-31,bol_division,The Strongest,Kevin Salvatierra,1031889,M,1,46,0,0,0,0.0,66.0,2.0,240551.0
-1000011168,2026-07-31,bol_division,The Strongest,Adrián Estacio,969887,F,1,86,6,3,1,0.0,83.0,3.0,347319.0
-1000011168,2026-07-31,bol_division,The Strongest,Jaime Arrascaita,479041,M,1,90,0,0,0,0.0,85.0,2.0,144051.0
-1000011168,2026-07-31,bol_division,The Strongest,Kevin Chacon,0,F,1,68,0,0,0,0.0,87.0,3.0,
-1000011168,2026-07-31,bol_division,The Strongest,Darwin Lom,1131954,F,1,86,3,1,0,0.0,115.0,3.0,
-1000011168,2026-07-31,bol_division,The Strongest,Jovani Welch,1054136,M,0,44,0,0,0,0.0,,2.0,142256.0
-1000011168,2026-07-31,bol_division,The Strongest,Juan Cuellar,1638573,M,0,22,3,2,0,0.0,,2.0,
-1000011168,2026-07-31,bol_division,The Strongest,Santiago Arce,1211606,M,0,22,0,0,0,0.0,,2.0,209813.0
-1000011168,2026-07-31,bol_division,The Strongest,Gabriel Sotomayor,1116562,F,0,4,1,0,0,0.0,,3.0,240959.0
-1000011168,2026-07-31,bol_division,The Strongest,Carlos Ventura,1240537,F,0,4,0,0,0,0.0,,3.0,
 5793898,2026-07-31,sco_premiership,Dundee United,Jack Walton,627016,G,1,90,0,0,0,0.0,11.0,0.0,395289.0
 5793898,2026-07-31,sco_premiership,Dundee United,Joshua Rawlins,1069828,D,1,90,0,0,0,0.0,32.0,1.0,548929.0
 5793898,2026-07-31,sco_premiership,Dundee United,Bert Esselink,1295678,D,1,62,0,0,0,0.0,34.0,1.0,321282.0
@@ -14536,22 +14473,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5851066,2026-08-01,per_liga1,CD UT Cajamarca,Jhosep Núñez,1432946,F,0,19,1,0,0,0.0,,3.0,
 5851066,2026-08-01,per_liga1,CD UT Cajamarca,Marlon de Jesús,78912,F,0,1,0,0,0,0.0,,3.0,210779.0
 5851066,2026-08-01,per_liga1,CD UT Cajamarca,Francesco Cavagna,1122589,D,0,1,0,0,0,0.0,,1.0,200765.0
-5115907,2026-08-01,argentina,Estudiantes,Fernando Muslera,56829,G,1,90,0,0,0,0.0,11.0,0.0,652585.0
-5115907,2026-08-01,argentina,Estudiantes,Eric Meza,1201768,D,1,90,1,1,0,0.22,32.0,1.0,1695270.0
-5115907,2026-08-01,argentina,Estudiantes,Santiago Núñez,1315102,D,1,90,0,0,0,0.0,34.0,1.0,1569929.0
-5115907,2026-08-01,argentina,Estudiantes,Tomás Palacios,1344726,D,1,72,1,1,1,0.44,36.0,1.0,2923139.0
-5115907,2026-08-01,argentina,Estudiantes,Gastón Benedetti,1214100,D,1,90,0,0,0,0.0,38.0,1.0,1752169.0
-5115907,2026-08-01,argentina,Estudiantes,Ezequiel Piovi,793315,M,1,90,2,2,1,0.18,64.0,2.0,811399.0
-5115907,2026-08-01,argentina,Estudiantes,Alexis Castro,623986,M,1,71,2,0,0,0.43,66.0,2.0,629994.0
-5115907,2026-08-01,argentina,Estudiantes,Fabricio Pérez,1680411,F,1,72,4,2,0,0.53,83.0,3.0,2099689.0
-5115907,2026-08-01,argentina,Estudiantes,Tiago Palacios,1231195,M,1,70,2,0,0,0.08,85.0,2.0,2803729.0
-5115907,2026-08-01,argentina,Estudiantes,Joaquín Tobio Burgos,1685812,F,1,90,1,1,0,0.05,87.0,3.0,1410454.0
-5115907,2026-08-01,argentina,Estudiantes,Guido Carrillo,267894,F,1,80,2,2,1,0.12,115.0,3.0,415669.0
-5115907,2026-08-01,argentina,Estudiantes,José Sosa,18518,M,0,20,0,0,0,0.0,,2.0,296481.0
-5115907,2026-08-01,argentina,Estudiantes,Gabriel Neves,859754,M,0,19,0,0,0,0.0,,2.0,917870.0
-5115907,2026-08-01,argentina,Estudiantes,Ramiro Funes Mori,213878,D,0,18,0,0,0,0.0,,1.0,344785.0
-5115907,2026-08-01,argentina,Estudiantes,Brian Aguirre,1200746,F,0,18,0,0,0,0.0,,3.0,2229095.0
-5115907,2026-08-01,argentina,Estudiantes,Lucas Alario,269222,F,0,10,0,0,0,0.0,,3.0,322298.0
 1000013185,2026-08-01,chi_primera,Palestino,Sebastián Pérez,172971,G,1,90,0,0,0,0.0,11.0,0.0,176598.0
 1000013185,2026-08-01,chi_primera,Palestino,Ian Garguez,1636881,D,1,90,0,0,0,0.0,32.0,1.0,
 1000013185,2026-08-01,chi_primera,Palestino,Vicente Espinoza,1464264,D,1,90,0,0,0,0.0,34.0,1.0,321882.0
@@ -14712,21 +14633,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009053,2026-08-01,ecu_liga_pro,Mushuc Runa,Renato Ibarra,207243,F,0,9,0,0,0,0.0,,3.0,170628.0
 1000009053,2026-08-01,ecu_liga_pro,Mushuc Runa,Franklin Carabalí,857208,D,0,6,0,0,0,0.0,,1.0,150793.0
 1000009053,2026-08-01,ecu_liga_pro,Mushuc Runa,Bryan Corozo,1645549,M,0,6,0,0,0,0.0,,2.0,232342.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Lucas Bruera,800702,G,1,90,0,0,0,0.0,11.0,0.0,192943.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Gonzalo Maffini,1223816,D,1,90,0,0,0,0.0,33.0,1.0,318417.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Sergio Ojeda,430682,D,1,90,0,0,0,0.0,35.0,1.0,308664.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Agustín Quiroga,1457716,D,1,90,2,0,0,0.05,37.0,1.0,562950.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Francisco Romero,841231,M,1,90,0,0,0,0.0,65.0,2.0,301483.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Nicolás Talpone,741193,F,1,90,1,0,0,0.04,82.0,3.0,277175.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Tomás González,1451614,M,1,90,0,0,0,0.0,84.0,2.0,331762.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Gonzalo González,1373618,M,1,68,1,0,0,0.02,86.0,2.0,468348.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Gabriel Alanís,586720,F,1,79,2,0,0,0.29,88.0,3.0,395853.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Yeison Moreno,1353567,F,1,57,1,0,0,0.02,104.0,3.0,211814.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Juan Fernando Garro,257868,F,1,57,1,0,0,0.05,106.0,3.0,207252.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Ibrahim Hesar,977824,M,0,33,0,0,0,0.0,,2.0,178194.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Mateo Bajamich,1085213,F,0,33,0,0,0,0.0,,3.0,444227.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Siro Rosané,1200765,M,0,22,0,0,0,0.0,,2.0,502903.0
-5115908,2026-08-01,argentina,Estudiantes de Río Cuarto,Facundo Cobos,723495,D,0,11,0,0,0,0.0,,1.0,269388.0
 5804228,2026-08-01,suiza,Thun,Niklas Steffen,1161221,G,1,90,0,0,0,0.0,11.0,0.0,1740273.0
 5804228,2026-08-01,suiza,Thun,Lucien Dähler,1436393,D,1,90,0,0,0,0.0,32.0,1.0,612123.0
 5804228,2026-08-01,suiza,Thun,Nicolas Bürgy,558707,D,1,90,1,1,0,0.03,34.0,1.0,541407.0
@@ -15996,20 +15902,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013180,2026-08-02,chi_primera,Huachipato,Sebastián Mella,1611214,G,0,20,0,0,0,0.0,,0.0,329676.0
 1000013180,2026-08-02,chi_primera,Huachipato,Luciano Arriagada,1130584,F,0,5,0,0,0,0.0,,3.0,228060.0
 1000013180,2026-08-02,chi_primera,Huachipato,Freddy Alegria,2120312,F,0,5,0,0,0,0.0,,3.0,
-1000011169,2026-08-02,bol_division,Always Ready,Alain Baroja,116339,G,1,90,0,0,0,0.0,11.0,0.0,75186.0
-1000011169,2026-08-02,bol_division,Always Ready,Carlitos Rodriguez,1666612,D,1,90,1,0,0,0.0,32.0,1.0,492357.0
-1000011169,2026-08-02,bol_division,Always Ready,Richet Gómez,929518,D,1,90,1,0,0,0.0,34.0,1.0,168730.0
-1000011169,2026-08-02,bol_division,Always Ready,Edisson Restrepo,973703,D,1,90,0,0,0,0.0,36.0,1.0,153231.0
-1000011169,2026-08-02,bol_division,Always Ready,Carlos Medina,1792623,D,1,89,0,0,0,0.0,38.0,1.0,
-1000011169,2026-08-02,bol_division,Always Ready,Álvaro Quiroga,905951,M,1,90,1,0,0,0.0,64.0,2.0,140008.0
-1000011169,2026-08-02,bol_division,Always Ready,Pablo Lima,1246642,M,1,90,3,1,1,0.0,66.0,2.0,
-1000011169,2026-08-02,bol_division,Always Ready,Carlos Collazo,1846646,F,1,46,0,0,0,0.0,83.0,3.0,
-1000011169,2026-08-02,bol_division,Always Ready,Darío Torrico,1213525,M,1,73,1,0,0,0.0,85.0,2.0,322662.0
-1000011169,2026-08-02,bol_division,Always Ready,Jesús Maraude,1792709,F,1,90,3,0,0,0.0,87.0,3.0,
-1000011169,2026-08-02,bol_division,Always Ready,Enrique Triverio,468984,F,1,90,4,2,0,0.0,115.0,3.0,175336.0
-1000011169,2026-08-02,bol_division,Always Ready,Joel Amoroso,616567,M,0,44,0,0,0,0.0,,2.0,117941.0
-1000011169,2026-08-02,bol_division,Always Ready,Juan Godoy,1250780,F,0,17,1,0,0,0.0,,3.0,195662.0
-1000011169,2026-08-02,bol_division,Always Ready,José Herrera,1210950,D,0,1,0,0,0,0.0,,1.0,
 1000017176,2026-08-02,per_liga1,Club Deportivo Moquegua,Carlos Grados,547739,G,1,90,0,0,0,0.0,11.0,0.0,176374.0
 1000017176,2026-08-02,per_liga1,Club Deportivo Moquegua,Eros Montenegro,1898419,D,1,90,1,0,0,0.0,32.0,1.0,
 1000017176,2026-08-02,per_liga1,Club Deportivo Moquegua,Juan Lojas,147990,D,1,90,1,0,0,0.0,34.0,1.0,
@@ -16244,22 +16136,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115906,2026-08-02,argentina,Barracas Central,Maxi Puig,1336136,M,0,14,0,0,0,0.0,,2.0,371986.0
 5115906,2026-08-02,argentina,Barracas Central,Carlos Arce,850731,M,0,3,0,0,0,0.0,,2.0,314246.0
 5115906,2026-08-02,argentina,Barracas Central,Juan Barbieri,1221041,F,0,3,0,0,0,0.0,,3.0,191240.0
-5115903,2026-08-02,argentina,Aldosivi,Ignacio Chicco,833271,G,1,90,0,0,0,0.0,11.0,0.0,388081.0
-5115903,2026-08-02,argentina,Aldosivi,Nicolás Zalazar,805539,D,1,90,2,0,0,0.1,33.0,1.0,388410.0
-5115903,2026-08-02,argentina,Aldosivi,Leonardo Sigali,113611,D,1,90,0,0,0,0.0,35.0,1.0,220613.0
-5115903,2026-08-02,argentina,Aldosivi,Joaquín Pombo,1219709,D,1,90,0,0,0,0.0,37.0,1.0,676247.0
-5115903,2026-08-02,argentina,Aldosivi,Rodrigo González,1029192,M,1,59,1,1,0,0.18,62.0,2.0,371309.0
-5115903,2026-08-02,argentina,Aldosivi,Alan Sosa,1436221,M,1,90,4,1,0,0.06,64.0,2.0,522187.0
-5115903,2026-08-02,argentina,Aldosivi,Lucas Nahuel Castro,166509,M,1,74,2,1,0,0.05,66.0,2.0,328914.0
-5115903,2026-08-02,argentina,Aldosivi,Federico Laurelli,1455479,M,1,59,1,0,0,0.04,68.0,2.0,538596.0
-5115903,2026-08-02,argentina,Aldosivi,Andrés Vombergar,681608,M,1,90,2,0,0,0.26,84.0,2.0,1182317.0
-5115903,2026-08-02,argentina,Aldosivi,Matías Godoy,1042007,M,1,46,0,0,0,0.0,86.0,2.0,540521.0
-5115903,2026-08-02,argentina,Aldosivi,Nicolás Cordero,1020747,F,1,46,0,0,0,0.0,105.0,3.0,496871.0
-5115903,2026-08-02,argentina,Aldosivi,Nicolás Gaitán,164031,M,0,45,2,1,1,0.25,,2.0,
-5115903,2026-08-02,argentina,Aldosivi,Tomás Fernández,994918,F,0,44,0,0,0,0.0,,3.0,302905.0
-5115903,2026-08-02,argentina,Aldosivi,Martín García,1664756,M,0,31,3,0,0,0.07,,2.0,779077.0
-5115903,2026-08-02,argentina,Aldosivi,Agustín Palavecino,1311635,F,0,31,0,0,0,0.0,,3.0,753472.0
-5115903,2026-08-02,argentina,Aldosivi,Andrés Chávez,270322,F,0,16,1,0,0,0.02,,3.0,191012.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Aldair Quintana,921718,G,1,90,0,0,0,0.0,11.0,0.0,721730.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Daykol Romero,1287017,D,1,90,1,1,0,0.0,32.0,1.0,431084.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Mateo Carabajal,934902,D,1,90,2,0,0,0.0,34.0,1.0,546139.0
@@ -18000,36 +17876,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115905,2026-08-04,argentina,Central Córdoba de Santiago,Leonardo Marchi,1199876,D,0,12,0,0,0,0.0,,1.0,344785.0
 5115905,2026-08-04,argentina,Central Córdoba de Santiago,Tiago Cravero,1516002,M,0,12,0,0,0,0.0,,2.0,438230.0
 5115905,2026-08-04,argentina,Central Córdoba de Santiago,Juan Cardozo,1437199,M,0,1,0,0,0,0.0,,2.0,526235.0
-5115905,2026-08-04,argentina,San Lorenzo,Orlando Gill,1683391,G,1,90,0,0,0,0.0,11.0,0.0,3456560.0
-5115905,2026-08-04,argentina,San Lorenzo,Nahuel Arias,1513336,D,1,53,0,0,0,0.0,32.0,1.0,784448.0
-5115905,2026-08-04,argentina,San Lorenzo,Emiliano Amor,602349,D,1,90,1,0,0,0.03,34.0,1.0,275261.0
-5115905,2026-08-04,argentina,San Lorenzo,Alejo Cordoba,1737755,D,1,90,0,0,0,0.0,36.0,1.0,
-5115905,2026-08-04,argentina,San Lorenzo,Mathías de Ritis,1478196,D,1,90,2,1,0,0.04,38.0,1.0,783476.0
-5115905,2026-08-04,argentina,San Lorenzo,Juan Álvarez,848153,M,1,46,0,0,0,0.0,72.0,2.0,401593.0
-5115905,2026-08-04,argentina,San Lorenzo,Nicolás Tripichio,616153,M,1,90,1,0,0,0.02,74.0,2.0,1545488.0
-5115905,2026-08-04,argentina,San Lorenzo,Juan Rattalino,1709841,M,1,78,2,0,0,0.14,76.0,2.0,588744.0
-5115905,2026-08-04,argentina,San Lorenzo,Matías Reali,1271801,M,1,69,1,1,0,0.1,78.0,2.0,1068486.0
-5115905,2026-08-04,argentina,San Lorenzo,Rodrigo Auzmendi,1477849,F,1,90,4,0,0,0.18,104.0,3.0,1841419.0
-5115905,2026-08-04,argentina,San Lorenzo,Alexis Cuello,989370,F,1,90,3,0,0,0.2,106.0,3.0,2259862.0
-5115905,2026-08-04,argentina,San Lorenzo,Gustavo Del Prete,848182,F,0,45,1,0,0,0.14,,3.0,485479.0
-5115905,2026-08-04,argentina,San Lorenzo,Mauricio Cardillo,1442709,M,0,37,0,0,0,0.0,,2.0,606296.0
-5115905,2026-08-04,argentina,San Lorenzo,Diego Herazo,1037554,F,0,21,0,0,0,0.0,,3.0,327621.0
-5115905,2026-08-04,argentina,San Lorenzo,Facundo Gulli,1781586,M,0,12,0,0,0,0.0,,2.0,1834141.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Cristopher Fiermarín,1195101,G,1,90,0,0,0,0.0,11.0,0.0,1216286.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Carlos Romaña,1221306,D,1,90,1,0,0,0.01,33.0,1.0,316055.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,José Ortiz,1071475,D,1,90,1,0,0,0.02,35.0,1.0,865728.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,José García,1562699,D,1,90,2,1,0,0.06,37.0,1.0,801577.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Aldair Gutiérrez,1319785,D,1,67,0,0,0,0.0,51.0,1.0,373125.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Fredy Hinestroza,323438,D,1,75,1,0,0,0.01,59.0,1.0,255516.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Fabry Castro,466633,M,1,67,0,0,0,0.0,72.0,2.0,252273.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Leonardo Flores,921607,M,1,80,0,0,0,0.0,74.0,2.0,374169.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Fabián Sambueza,615929,M,1,90,7,3,0,0.61,76.0,2.0,249705.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Emerson Batalla,1190851,M,1,90,4,3,1,0.61,78.0,2.0,1640575.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Luciano Pons,412815,F,1,90,3,1,0,0.33,115.0,3.0,466056.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Felix Charrupí,1387848,M,0,23,0,0,0,0.0,,2.0,408307.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Jhon Salazar,629672,F,0,23,2,1,0,0.06,,3.0,
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Brandon Caicedo,1054273,F,0,15,1,0,0,0.19,,3.0,406003.0
-1000014075,2026-08-04,col_primera_a,Bucaramanga,Aldair Zárate,1343211,F,0,10,3,0,0,0.09,,3.0,508907.0
 1000009054,2026-08-04,ecu_liga_pro,LDU de Quito,Gonzalo Valle,1614051,G,1,90,0,0,0,0.0,11.0,0.0,1069399.0
 1000009054,2026-08-04,ecu_liga_pro,LDU de Quito,Ricardo Adé,532700,D,1,90,0,0,0,0.0,33.0,1.0,315985.0
 1000009054,2026-08-04,ecu_liga_pro,LDU de Quito,Richard Mina,1053702,D,1,90,1,1,0,0.0,35.0,1.0,418804.0
@@ -23202,22 +23048,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844852,2026-08-09,leagues_cup,Necaxa,Lorenzo Faravelli,245581,M,0,26,1,1,0,0.0,,2.0,813946.0
 5844852,2026-08-09,leagues_cup,Necaxa,Owen González,1529775,M,0,26,1,1,0,0.0,,2.0,
 5844852,2026-08-09,leagues_cup,Necaxa,Omar Dominguez,2131186,M,0,10,0,0,0,0.0,,2.0,
-5103574,2026-08-09,brasil,Flamengo,Agustín Rossi,616528,G,1,90,0,0,0,0.0,11.0,0.0,6181759.0
-5103574,2026-08-09,brasil,Flamengo,Guillermo Varela,465614,D,1,90,1,0,0,0.02,32.0,1.0,1034674.0
-5103574,2026-08-09,brasil,Flamengo,Léo Ortiz,845976,D,1,90,1,0,0,0.07,34.0,1.0,11974384.0
-5103574,2026-08-09,brasil,Flamengo,Léo Pereira,523801,D,1,90,1,1,0,0.01,36.0,1.0,6057416.0
-5103574,2026-08-09,brasil,Flamengo,Ayrton Lucas,578391,D,1,90,1,0,0,0.01,38.0,1.0,2519918.0
-5103574,2026-08-09,brasil,Flamengo,Erick Pulgar,335606,M,1,90,2,1,1,0.06,64.0,2.0,2506490.0
-5103574,2026-08-09,brasil,Flamengo,Jorginho,282775,M,1,74,0,0,0,0.0,66.0,2.0,2729973.0
-5103574,2026-08-09,brasil,Flamengo,Jorge Carrascal,784834,F,1,86,2,1,0,0.13,83.0,3.0,6136392.0
-5103574,2026-08-09,brasil,Flamengo,Giorgian De Arrascaeta,438647,M,1,65,1,1,0,0.06,85.0,2.0,11667457.0
-5103574,2026-08-09,brasil,Flamengo,Samuel Lino,1082941,F,1,74,5,0,0,0.3,87.0,3.0,14738531.0
-5103574,2026-08-09,brasil,Flamengo,Pedro,750067,F,1,74,1,0,0,0.14,115.0,3.0,11688107.0
-5103574,2026-08-09,brasil,Flamengo,Lucas Paquetá,766435,M,0,25,2,1,0,0.09,,2.0,40638836.0
-5103574,2026-08-09,brasil,Flamengo,Evertton Araújo,1555059,M,0,16,1,0,0,0.02,,2.0,5049944.0
-5103574,2026-08-09,brasil,Flamengo,Bruno Henrique,638778,F,0,16,1,1,1,0.15,,3.0,763322.0
-5103574,2026-08-09,brasil,Flamengo,Gonzalo Plata,980311,F,0,16,1,0,0,0.07,,3.0,6670189.0
-5103574,2026-08-09,brasil,Flamengo,Lorran,1435445,M,0,4,0,0,0,0.0,,2.0,8151084.0
 5103574,2026-08-09,brasil,Vitória,Lucas Arcanjo,1281584,G,1,90,0,0,0,0.0,11.0,0.0,1970370.0
 5103574,2026-08-09,brasil,Vitória,Fabiano Souza,1165259,D,1,90,1,0,0,0.03,32.0,1.0,1032441.0
 5103574,2026-08-09,brasil,Vitória,Caíque,1350017,D,1,90,0,0,0,0.0,34.0,1.0,573987.0
@@ -26370,21 +26200,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844856,2026-08-10,leagues_cup,Tijuana,Elias Manoel,1248672,D,0,21,1,0,0,0.0,,1.0,1338553.0
 5844856,2026-08-10,leagues_cup,Tijuana,Alan Vega,1225758,D,0,21,0,0,0,0.0,,1.0,807759.0
 5844856,2026-08-10,leagues_cup,Tijuana,Joban González,1729963,M,0,4,0,0,0,0.0,,2.0,
-1000014086,2026-08-10,col_primera_a,América de Cali,Jean,643686,G,1,90,0,0,0,0.0,11.0,0.0,309797.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Yani Quintero,1513180,D,1,84,0,0,0,0.0,32.0,1.0,493403.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Cristian Tovar,851057,D,1,90,1,0,0,0.05,34.0,1.0,286041.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Dany Rosero,492639,D,1,90,2,1,0,0.13,36.0,1.0,240317.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Omar Bertel,950570,D,1,90,0,0,0,0.0,38.0,1.0,510217.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Rafael Carrascal,425781,M,1,84,1,1,0,0.02,64.0,2.0,512672.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Josen Escobar,1532240,M,1,90,1,1,0,0.04,66.0,2.0,2127398.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Edson Tortolero,726362,F,1,61,1,1,0,0.04,83.0,3.0,290869.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Yeison Guzmán,924269,M,1,90,3,1,1,0.37,85.0,2.0,1506848.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Jhon Palacios,1732963,F,1,90,2,0,0,0.06,87.0,3.0,1470172.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Tomás Ángel,1236377,F,1,72,1,0,0,0.05,115.0,3.0,920482.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Jan Lucumí,1386697,F,0,29,1,1,0,0.05,,3.0,996207.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Adrián Ramos,50345,F,0,18,0,0,0,0.0,,3.0,281664.0
-1000014086,2026-08-10,col_primera_a,América de Cali,Brayan Córdoba,1130737,D,0,6,0,0,0,0.0,,1.0,380488.0
-1000014086,2026-08-10,col_primera_a,América de Cali,José Cavadía,1709861,M,0,6,0,0,0,0.0,,2.0,1051288.0
 5844853,2026-08-10,leagues_cup,Chicago Fire FC,Chris Brady,1245998,G,1,90,0,0,0,0.0,11.0,0.0,2025148.0
 5844853,2026-08-10,leagues_cup,Chicago Fire FC,Leonardo Barroso,1525424,D,1,69,1,0,0,0.0,32.0,1.0,1407447.0
 5844853,2026-08-10,leagues_cup,Chicago Fire FC,Joel Waterman,1100258,D,1,90,1,0,0,0.0,34.0,1.0,1252316.0
@@ -29417,22 +29232,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5868401,2026-08-15,esp_hypermotion,Granada,Oscar Naasei Oppong,1637886,D,0,20,1,0,0,0.03,,1.0,
 5868401,2026-08-15,esp_hypermotion,Granada,Owen Emeka,2018426,F,0,20,0,0,0,0.0,,3.0,
 5868401,2026-08-15,esp_hypermotion,Granada,Abdoul Kader Bamba,913184,M,0,12,0,0,0,0.0,,2.0,500508.0
-5071264,2026-08-15,mls,FC Cincinnati,Roman Celentano,1337962,G,1,90,0,0,0,0.0,11.0,0.0,1738242.0
-5071264,2026-08-15,mls,FC Cincinnati,Miles Robinson,825623,D,1,90,0,0,0,0.0,33.0,1.0,1953195.0
-5071264,2026-08-15,mls,FC Cincinnati,Matt Miazga,458324,D,1,90,0,0,0,0.0,35.0,1.0,772517.0
-5071264,2026-08-15,mls,FC Cincinnati,Samuel Gidi,1383071,M,1,66,0,0,0,0.0,37.0,2.0,1487098.0
-5071264,2026-08-15,mls,FC Cincinnati,Ender Echenique,1248686,M,1,90,2,0,0,0.06,71.0,2.0,1109278.0
-5071264,2026-08-15,mls,FC Cincinnati,Pavel Bucha,923247,M,1,90,1,1,1,0.14,73.0,2.0,1710874.0
-5071264,2026-08-15,mls,FC Cincinnati,Evander Ferreira,787351,M,1,90,5,1,0,0.36,75.0,2.0,11345281.0
-5071264,2026-08-15,mls,FC Cincinnati,Obinna Nwobodo,861112,M,1,46,0,0,0,0.0,77.0,2.0,1445913.0
-5071264,2026-08-15,mls,FC Cincinnati,Bryan Ramírez,1458513,M,1,80,1,0,0,0.06,79.0,2.0,2005676.0
-5071264,2026-08-15,mls,FC Cincinnati,Kévin Denkey,820477,F,1,90,1,0,0,0.58,104.0,3.0,12292874.0
-5071264,2026-08-15,mls,FC Cincinnati,Tom Barlow,847753,F,1,80,0,0,0,0.0,106.0,3.0,136027.0
-5071264,2026-08-15,mls,FC Cincinnati,Brian Anunga,841458,M,0,44,0,0,0,0.0,,2.0,226982.0
-5071264,2026-08-15,mls,FC Cincinnati,Kyle Smith,754583,D,0,24,0,0,0,0.0,,1.0,51903.0
-5071264,2026-08-15,mls,FC Cincinnati,Ayoub Jabbari,1364494,F,0,10,0,0,0,0.0,,3.0,549284.0
-5071264,2026-08-15,mls,FC Cincinnati,Kenji Mboma Dem,1650499,F,0,10,1,1,0,0.41,,3.0,224287.0
-5071264,2026-08-15,mls,FC Cincinnati,Teenage Lingani Hadebe,649947,D,0,1,0,0,0,0.0,,1.0,229740.0
 5109895,2026-08-15,usl_championship,Tampa Bay Rowdies,Jahmali Waite,1352794,G,1,90,0,0,0,0.0,11.0,0.0,56320.0
 5109895,2026-08-15,usl_championship,Tampa Bay Rowdies,Conner Antley,1045118,D,1,84,2,1,1,0.0,33.0,1.0,51536.0
 5109895,2026-08-15,usl_championship,Tampa Bay Rowdies,Ethan Bartlow,1246605,D,1,55,1,1,0,0.0,35.0,1.0,172129.0
@@ -29699,20 +29498,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115935,2026-08-15,argentina,Independiente Rivadavia,Maximiliano Salas,730647,F,0,30,1,0,0,0.04,,3.0,3172973.0
 5115935,2026-08-15,argentina,Independiente Rivadavia,Álex Arce,1320444,F,0,30,0,0,0,0.0,,3.0,2163764.0
 5115935,2026-08-15,argentina,Independiente Rivadavia,Luciano Gómez,725483,D,0,22,0,0,0,0.0,,1.0,339247.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Ethan Bandré,1346730,G,1,90,0,0,0,0.0,11.0,0.0,69120.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Pacifique Niyongabire,915626,M,1,90,0,0,0,0.0,32.0,2.0,68924.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Noah Adnan,1719157,D,1,90,1,1,0,0.0,34.0,1.0,212941.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Salvatore Mazzaferro,1500407,D,1,90,0,0,0,0.0,36.0,1.0,224640.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Kwame Awuah,825620,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,James Murphy,780567,M,1,90,1,0,0,0.0,64.0,2.0,69120.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Bolu Akinyode,675538,D,1,90,1,0,0,0.0,66.0,1.0,50000.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Pedro Santos,281628,M,1,73,2,0,0,0.0,83.0,2.0,50000.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Abdellatif Aboukoura,1252526,F,1,90,3,0,0,0.0,85.0,3.0,142394.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Richard Aman,1459269,M,1,82,1,0,0,0.0,87.0,2.0,
-5109885,2026-08-15,usl_championship,Loudoun United FC,Edward Davis,1374959,F,1,82,0,0,0,0.0,115.0,3.0,
-5109885,2026-08-15,usl_championship,Loudoun United FC,Marcos Dias,1346863,M,0,17,1,0,0,0.0,,2.0,233568.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Akil Watts,1079296,M,0,8,1,1,0,0.0,,2.0,246069.0
-5109885,2026-08-15,usl_championship,Loudoun United FC,Giorgi Lomtadze,1241617,F,0,8,0,0,0,0.0,,3.0,120350.0
 5115941,2026-08-15,argentina,Newell's Old Boys,Josué Reinatti,1643843,G,1,90,0,0,0,0.0,11.0,0.0,926074.0
 5115941,2026-08-15,argentina,Newell's Old Boys,Franco Escobar,577681,D,1,90,0,0,0,0.0,32.0,1.0,489036.0
 5115941,2026-08-15,argentina,Newell's Old Boys,Lautaro Giannetti,315235,D,1,90,0,0,0,0.0,34.0,1.0,851057.0
@@ -29902,22 +29687,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009071,2026-08-15,ecu_liga_pro,Libertad,Jostin Bravo,1817584,M,0,21,0,0,0,0.0,,2.0,272436.0
 1000009071,2026-08-15,ecu_liga_pro,Libertad,Yermán Quiñonez,1829059,D,0,11,1,0,0,0.0,,1.0,
 1000009071,2026-08-15,ecu_liga_pro,Libertad,Stick Castro,1732743,M,0,11,1,0,0,0.0,,2.0,155639.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Matías Dufour,1436132,G,1,90,0,0,0,0.0,11.0,0.0,563260.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Armando Ruiz Díaz,617777,D,1,77,2,0,0,0.0,32.0,1.0,247759.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Agustín Da Silveira,1258853,D,1,90,0,0,0,0.0,34.0,1.0,423359.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,César Benítez,204018,D,1,90,2,0,0,0.0,36.0,1.0,278225.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Sergio Mendoza,559426,D,1,90,0,0,0,0.0,38.0,1.0,260448.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Ariel Gauto,1613311,M,1,77,2,0,0,0.0,65.0,2.0,
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Tomás Rayer,1392213,F,1,70,3,1,0,0.0,82.0,3.0,444677.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Gustavo Viera,478236,M,1,90,2,1,0,0.0,84.0,2.0,248656.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Luis De la Cruz,253848,M,1,70,4,0,0,0.0,86.0,2.0,
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Tobías Morinigo,1367338,F,1,63,0,0,0,0.0,88.0,3.0,1042069.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Clementino González,1019892,F,1,90,4,1,1,0.0,115.0,3.0,365298.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Nicolás Maná,434405,F,0,27,1,0,0,0.0,,3.0,285133.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Alan Cano,1503341,M,0,20,1,0,0,0.0,,2.0,
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Luis Abreu,1736983,M,0,20,2,1,0,0.0,,2.0,496128.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Jorge Marcelino,1754228,M,0,13,1,1,0,0.0,,2.0,365380.0
-1000017377,2026-08-15,par_division,Sportivo Trinidense,Fabrizio Baruja,1817624,M,0,13,0,0,0,0.0,,2.0,434553.0
 5115937,2026-08-15,argentina,Estudiantes,Fernando Muslera,56829,G,1,90,0,0,0,0.0,11.0,0.0,652585.0
 5115937,2026-08-15,argentina,Estudiantes,Eros Mancuso,1249664,D,1,90,2,1,1,0.12,32.0,1.0,2233466.0
 5115937,2026-08-15,argentina,Estudiantes,Santiago Núñez,1315102,D,1,90,0,0,0,0.0,34.0,1.0,1569929.0
@@ -33251,22 +33020,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017376,2026-08-16,par_division,Luqueño,Axel Balbuena,1817619,D,0,26,0,0,0,0.0,,1.0,559145.0
 1000017376,2026-08-16,par_division,Luqueño,Tomás Muro,1337212,M,0,18,1,1,0,0.0,,2.0,535917.0
 1000017376,2026-08-16,par_division,Luqueño,Walter González,618713,F,0,18,2,1,0,0.0,,3.0,307461.0
-1000017376,2026-08-16,par_division,Libertad,Rodrigo Morínigo,940259,G,1,90,0,0,0,0.0,11.0,0.0,598314.0
-1000017376,2026-08-16,par_division,Libertad,Alan Benítez,497395,D,1,90,1,0,0,0.0,32.0,1.0,248857.0
-1000017376,2026-08-16,par_division,Libertad,Robert Rojas,846980,D,1,45,1,0,0,0.0,34.0,1.0,638638.0
-1000017376,2026-08-16,par_division,Libertad,Gilberto Flores,1354562,D,1,90,1,1,0,0.0,36.0,1.0,1157161.0
-1000017376,2026-08-16,par_division,Libertad,Néstor Giménez,834633,D,1,90,3,1,1,0.0,38.0,1.0,697792.0
-1000017376,2026-08-16,par_division,Libertad,Rodrigo Villalba,1613171,M,1,64,1,0,0,0.0,72.0,2.0,
-1000017376,2026-08-16,par_division,Libertad,Álvaro Campuzano,834604,M,1,90,1,0,0,0.0,74.0,2.0,305991.0
-1000017376,2026-08-16,par_division,Libertad,Federico Carrizo,202202,M,1,90,1,1,0,0.0,76.0,2.0,248857.0
-1000017376,2026-08-16,par_division,Libertad,Elvio Vera,1359268,M,1,85,4,1,0,0.0,78.0,2.0,595086.0
-1000017376,2026-08-16,par_division,Libertad,Ivan Ramírez,1758627,F,1,46,0,0,0,0.0,104.0,3.0,
-1000017376,2026-08-16,par_division,Libertad,Marcelo Fernández,1274403,F,1,75,5,4,1,0.0,106.0,3.0,
-1000017376,2026-08-16,par_division,Libertad,Alexis Fretes,1671342,D,0,45,1,0,0,0.0,,1.0,996533.0
-1000017376,2026-08-16,par_division,Libertad,Gustavo Aguilar,1354560,F,0,45,2,1,0,0.0,,3.0,470276.0
-1000017376,2026-08-16,par_division,Libertad,Agustín Manzur,918114,M,0,26,0,0,0,0.0,,2.0,1313702.0
-1000017376,2026-08-16,par_division,Libertad,Joaquín Bogarín,1787416,M,0,15,0,0,0,0.0,,2.0,1408241.0
-1000017376,2026-08-16,par_division,Libertad,Lucas Sanabria,1073739,M,0,5,0,0,0,0.0,,2.0,488801.0
 1000009070,2026-08-16,ecu_liga_pro,Orense,Rolando Silva,1407182,G,1,90,0,0,0,0.0,11.0,0.0,551662.0
 1000009070,2026-08-16,ecu_liga_pro,Orense,Pedro Velasco,244574,D,1,90,1,1,0,0.0,32.0,1.0,197308.0
 1000009070,2026-08-16,ecu_liga_pro,Orense,Alan Lorenzo,1191068,D,1,90,0,0,0,0.0,34.0,1.0,188312.0
@@ -35241,21 +34994,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103586,2026-08-16,brasil,Coritiba,Paulo Roberto,2096660,M,0,16,0,0,0,0.0,,2.0,
 5103586,2026-08-16,brasil,Coritiba,Keno,566112,F,0,16,1,0,0,0.02,,3.0,299159.0
 5103586,2026-08-16,brasil,Coritiba,Vini Paulista,1259119,F,0,16,0,0,0,0.0,,3.0,1049409.0
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Jassem Koleilat,912343,G,1,74,0,0,0,0.0,11.0,0.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Nico Brown,1252148,D,1,49,1,1,1,0.0,32.0,1.0,184308.0
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Phanuel Kavita,621906,D,1,90,0,0,0,0.0,34.0,1.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Bryce Washington,1262891,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Dawson McCartney,1368657,D,1,67,0,0,0,0.0,38.0,1.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Seth Antwi,1682447,M,1,90,0,0,0,0.0,64.0,2.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Samuel McIllhatton,860928,M,1,54,0,0,0,0.0,66.0,2.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Sebastian Tregarthen,1662187,F,1,90,1,0,0,0.0,83.0,3.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Samuel Shashoua,847603,M,1,90,1,0,0,0.0,85.0,2.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Gevork Diarbian,1637902,F,1,84,2,1,0,0.0,87.0,3.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Ronaldo Damus,790332,F,1,90,2,1,0,0.0,115.0,3.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Amir Daley,1624479,D,0,36,0,0,0,0.0,,1.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Serge Ngoma,1190660,M,0,23,1,1,1,0.0,,2.0,670583.0
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Trevor McMullen,1804493,G,0,16,0,0,0,0.0,,0.0,
-5109884,2026-08-16,usl_championship,Birmingham Legion FC,Peter-Lee Vassell,932131,M,0,6,0,0,0,0.0,,2.0,139834.0
 1000017195,2026-08-16,per_liga1,Alianza Lima,Alejandro Duarte,930546,G,1,90,0,0,0,0.0,11.0,0.0,240213.0
 1000017195,2026-08-16,per_liga1,Alianza Lima,Luis Advíncula,190522,D,1,90,1,0,0,0.0,32.0,1.0,224730.0
 1000017195,2026-08-16,per_liga1,Alianza Lima,Renzo Garcés,751527,D,1,80,2,1,0,0.0,34.0,1.0,794022.0
@@ -36305,22 +36043,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009067,2026-08-18,ecu_liga_pro,Universidad Católica,Mauricio Alonso,281241,M,0,9,0,0,0,0.0,,2.0,264285.0
 1000009067,2026-08-18,ecu_liga_pro,Universidad Católica,Álex Rodríguez,1353447,M,0,9,0,0,0,0.0,,2.0,
 1000009067,2026-08-18,ecu_liga_pro,Universidad Católica,Jimmy Evans,1335662,F,0,1,0,0,0,0.0,,3.0,218658.0
-5071277,2026-08-19,mls,Columbus Crew,Patrick Schulte,1083292,G,1,90,0,0,0,0.0,11.0,0.0,2533817.0
-5071277,2026-08-19,mls,Columbus Crew,Steven Moreira,444000,D,1,90,0,0,0,0.0,32.0,1.0,698735.0
-5071277,2026-08-19,mls,Columbus Crew,Rudy Camacho,294253,D,1,14,0,0,0,0.0,34.0,1.0,73826.0
-5071277,2026-08-19,mls,Columbus Crew,Sean Zawadzki,1338763,D,1,90,2,1,0,0.16,36.0,1.0,1282507.0
-5071277,2026-08-19,mls,Columbus Crew,Malte Amundsen,623145,D,1,90,0,0,0,0.0,38.0,1.0,1457938.0
-5071277,2026-08-19,mls,Columbus Crew,Mohamed Farsi,1194635,M,1,56,0,0,0,0.0,72.0,2.0,1298801.0
-5071277,2026-08-19,mls,Columbus Crew,Dylan Chambost,770306,M,1,80,2,1,0,0.11,74.0,2.0,1418767.0
-5071277,2026-08-19,mls,Columbus Crew,André Gomes,361770,M,1,90,0,0,0,0.0,76.0,2.0,1401415.0
-5071277,2026-08-19,mls,Columbus Crew,Taha Habroune,1482266,M,1,80,0,0,0,0.0,78.0,2.0,1450519.0
-5071277,2026-08-19,mls,Columbus Crew,Chase Adams,1626999,F,1,56,0,0,0,0.0,104.0,3.0,1243541.0
-5071277,2026-08-19,mls,Columbus Crew,Brais Méndez,640122,M,1,90,0,0,0,0.0,106.0,2.0,10264895.0
-5071277,2026-08-19,mls,Columbus Crew,Cesar Ruvalcaba,1727042,D,0,76,1,0,0,0.01,,1.0,213502.0
-5071277,2026-08-19,mls,Columbus Crew,Andrés Herrera,965091,M,0,34,1,0,0,0.03,,2.0,879871.0
-5071277,2026-08-19,mls,Columbus Crew,Josef Martínez,239287,F,0,34,0,0,0,0.0,,3.0,965436.0
-5071277,2026-08-19,mls,Columbus Crew,Tarun Karumanchi,1935404,M,0,10,0,0,0,0.0,,2.0,
-5071277,2026-08-19,mls,Columbus Crew,Dániel Gazdag,630102,F,0,10,0,0,0,0.0,,3.0,1742713.0
 5071276,2026-08-19,mls,FC Cincinnati,Roman Celentano,1337962,G,1,90,0,0,0,0.0,11.0,0.0,1738242.0
 5071276,2026-08-19,mls,FC Cincinnati,Miles Robinson,825623,D,1,90,0,0,0,0.0,33.0,1.0,1953195.0
 5071276,2026-08-19,mls,FC Cincinnati,Matt Miazga,458324,D,1,60,0,0,0,0.0,35.0,1.0,772517.0
@@ -43836,21 +43558,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019022,2026-08-23,bol_division,Blooming,Roberto Melgar,1795069,M,0,12,0,0,0,0.0,,2.0,
 1000019022,2026-08-23,bol_division,Blooming,César Menacho,1041289,F,0,5,0,0,0,0.0,,3.0,257266.0
 1000019022,2026-08-23,bol_division,Blooming,Mauricio Cabral,1130893,F,0,5,0,0,0,0.0,,3.0,258194.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Helton Leite,449653,G,1,90,0,0,0,0.0,11.0,0.0,205698.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Hayner,765156,D,1,90,0,0,0,0.0,32.0,1.0,193057.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Tiago Pagnussat,574664,D,1,90,0,0,0,0.0,34.0,1.0,210835.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Breno Augusto,1791139,D,1,90,0,0,0,0.0,36.0,1.0,
-5190672,2026-08-23,bra_serie_b,Vila Nova,Higor,1693772,D,1,90,1,0,0,0.02,38.0,1.0,625471.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,João Vieira,1462413,M,1,90,1,0,0,0.01,64.0,2.0,556106.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Dudu,1376786,M,1,90,2,0,0,0.05,66.0,2.0,
-5190672,2026-08-23,bra_serie_b,Vila Nova,Everton,1034321,F,1,83,2,1,0,0.03,83.0,3.0,653046.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Marquinhos,175644,M,1,87,2,1,0,0.06,85.0,2.0,323665.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Janderson,1045975,F,1,87,1,1,0,0.02,87.0,3.0,799424.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,André Luis,656372,F,1,87,0,0,0,0.0,115.0,3.0,318911.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Nathan Camargo,1366063,M,0,7,1,0,0,0.01,,2.0,
-5190672,2026-08-23,bra_serie_b,Vila Nova,Dodô,494029,M,0,3,1,0,0,0.04,,2.0,177585.0
-5190672,2026-08-23,bra_serie_b,Vila Nova,Emerson,1446567,F,0,3,0,0,0,0.0,,3.0,
-5190672,2026-08-23,bra_serie_b,Vila Nova,Gustavo Puskas,1935530,F,0,3,0,0,0,0.0,,3.0,
 1000017203,2026-08-23,per_liga1,FBC Melgar,Jorge Cabezudo,1248691,G,1,90,0,0,0,0.0,11.0,0.0,338130.0
 1000017203,2026-08-23,per_liga1,FBC Melgar,Matías Lazo,1202976,D,1,90,0,0,0,0.0,32.0,1.0,1336990.0
 1000017203,2026-08-23,per_liga1,FBC Melgar,Juan Escobar,747701,D,1,90,0,0,0,0.0,34.0,1.0,380262.0
@@ -47262,22 +46969,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5190671,2026-08-24,bra_serie_b,Athletic Club,Marcelo Henrique,1673758,D,0,29,0,0,0,0.0,,1.0,687717.0
 5190671,2026-08-24,bra_serie_b,Athletic Club,Assis,1786037,M,0,29,1,0,0,0.16,,2.0,
 5190671,2026-08-24,bra_serie_b,Athletic Club,Felipe Vieira,1807909,D,0,22,0,0,0,0.0,,1.0,
-5190671,2026-08-24,bra_serie_b,Novorizontino,Jordi,575381,G,1,90,0,0,0,0.0,11.0,0.0,306331.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Madson,319973,D,1,90,0,0,0,0.0,32.0,1.0,211466.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Gabriel Bahia,1461831,D,1,90,1,0,0,0.03,34.0,1.0,234302.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Patrick,1612264,D,1,90,0,0,0,0.0,36.0,1.0,490260.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Sander,637564,D,1,90,1,0,0,0.03,38.0,1.0,183869.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Luís Oyama,933054,M,1,90,3,2,1,0.22,64.0,2.0,423144.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Léo Naldi,1238140,M,1,73,0,0,0,0.0,66.0,2.0,686372.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Reidiney,1967834,F,1,61,1,0,0,0.02,83.0,3.0,
-5190671,2026-08-24,bra_serie_b,Novorizontino,Rômulo,1414404,M,1,73,2,1,0,0.67,85.0,2.0,1907107.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Nicolas Careca,583766,F,1,80,2,1,1,0.1,87.0,3.0,212536.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Robson,498459,F,1,80,3,3,1,1.26,115.0,3.0,331090.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Juninho,1131346,M,0,29,1,0,0,0.02,,2.0,635620.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Matheus Bianqui,1116650,M,0,17,1,1,1,0.89,,2.0,314177.0
-5190671,2026-08-24,bra_serie_b,Novorizontino,Diego Galo,1888822,M,0,17,0,0,0,0.0,,2.0,
-5190671,2026-08-24,bra_serie_b,Novorizontino,Maykon Jesus,1755928,D,0,10,0,0,0,0.0,,1.0,
-5190671,2026-08-24,bra_serie_b,Novorizontino,Carlão,672094,F,0,10,1,0,0,0.12,,3.0,258371.0
 5749640,2026-08-24,serie_a,Roma,Mile Svilar,768474,G,1,90,0,0,0,0.0,11.0,0.0,33654258.0
 5749640,2026-08-24,serie_a,Roma,Gianluca Mancini,588687,D,1,90,0,0,0,0.0,33.0,1.0,11512214.0
 5749640,2026-08-24,serie_a,Roma,Evan N'Dicka,787242,D,1,90,1,0,0,0.41,35.0,1.0,29156478.0
@@ -155114,3 +154805,318 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5802960,2026-10-18,ligue_1,Nice,Morgan Sanson,355901,M,0,3,0,0,0,0.0,,2.0,1826873.0
 5802960,2026-10-18,ligue_1,Nice,Sofiane Diop,953812,M,0,3,0,0,0,0.0,,2.0,13359833.0
 5802960,2026-10-18,ligue_1,Nice,Isak Jansson,944385,F,0,3,1,1,0,0.03,,3.0,2176157.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Víctor Samudio,425715,G,1,90,0,0,0,0.0,11.0,0.0,240913.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,César Benítez,204018,D,1,90,0,0,0,0.0,32.0,1.0,240713.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Agustín Da Silveira,1258853,D,1,90,2,1,0,0.0,34.0,1.0,438863.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Axel Cañete,1634833,D,1,90,0,0,0,0.0,36.0,1.0,
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Diego Melgarejo,951025,D,1,90,0,0,0,0.0,38.0,1.0,248857.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Ariel Gauto,1613311,M,1,80,0,0,0,0.0,65.0,2.0,
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Nicolás Maná,434405,F,1,63,0,0,0,0.0,82.0,3.0,274438.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Luis Abreu,1736983,M,1,59,1,0,0,0.0,84.0,2.0,482854.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Gustavo Viera,478236,M,1,90,1,0,0,0.0,86.0,2.0,301653.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Tobías Morinigo,1367338,F,1,80,3,0,0,0.0,88.0,3.0,1036198.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Clementino González,1019892,F,1,79,5,2,1,0.0,115.0,3.0,448958.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Tomás Rayer,1392213,F,0,31,2,0,0,0.0,,3.0,437358.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Junior Gamarra,0,F,0,27,0,0,0,0.0,,3.0,
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Néstor Camacho,69155,F,0,11,1,0,0,0.0,,3.0,308161.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,David Villalba,922003,D,0,10,0,0,0,0.0,,1.0,195535.0
+1000017439,2026-10-18,par_division,Sportivo Trinidense,Luis De la Cruz,253848,D,0,10,0,0,0,0.0,,1.0,
+1000017439,2026-10-18,par_division,Libertad,Rodrigo Morínigo,940259,G,1,90,0,0,0,0.0,11.0,0.0,726421.0
+1000017439,2026-10-18,par_division,Libertad,Alan Benítez,497395,D,1,90,0,0,0,0.0,32.0,1.0,248857.0
+1000017439,2026-10-18,par_division,Libertad,Gilberto Flores,1354562,D,1,90,0,0,0,0.0,34.0,1.0,1301541.0
+1000017439,2026-10-18,par_division,Libertad,Thiago Fernández,1787415,D,1,90,0,0,0,0.0,36.0,1.0,1052740.0
+1000017439,2026-10-18,par_division,Libertad,Néstor Giménez,834633,D,1,32,1,0,0,0.0,38.0,1.0,702464.0
+1000017439,2026-10-18,par_division,Libertad,Ivan Ramírez,1758627,M,1,65,0,0,0,0.0,72.0,2.0,
+1000017439,2026-10-18,par_division,Libertad,Federico Carrizo,202202,M,1,46,0,0,0,0.0,74.0,2.0,270813.0
+1000017439,2026-10-18,par_division,Libertad,Lucas Sanabria,1073739,M,1,90,2,0,0,0.0,76.0,2.0,464838.0
+1000017439,2026-10-18,par_division,Libertad,Agustín Manzur,918114,M,1,65,0,0,0,0.0,78.0,2.0,1314582.0
+1000017439,2026-10-18,par_division,Libertad,Gustavo Aguilar,1354560,F,1,81,1,0,0,0.0,104.0,3.0,473847.0
+1000017439,2026-10-18,par_division,Libertad,Elvio Vera,1359268,F,1,90,2,1,0,0.0,106.0,3.0,557395.0
+1000017439,2026-10-18,par_division,Libertad,José Estigarribia,0,D,0,58,0,0,0,0.0,,1.0,
+1000017439,2026-10-18,par_division,Libertad,Hugo Fernández,1037294,M,0,45,2,0,0,0.0,,2.0,372871.0
+1000017439,2026-10-18,par_division,Libertad,Pedro Villalba,1658758,M,0,25,1,1,0,0.0,,2.0,
+1000017439,2026-10-18,par_division,Libertad,Luciano Nequecaur,492610,F,0,25,2,1,0,0.0,,3.0,239286.0
+1000017439,2026-10-18,par_division,Libertad,Rodrigo Vera,1787414,F,0,9,2,0,0,0.0,,3.0,
+1000019070,2026-10-18,bol_division,The Strongest,Luis Banegas,858039,G,1,90,0,0,0,0.0,11.0,0.0,128965.0
+1000019070,2026-10-18,bol_division,The Strongest,Santiago Arce,1211606,D,1,90,0,0,0,0.0,33.0,1.0,209813.0
+1000019070,2026-10-18,bol_division,The Strongest,Adrián Jusino,1019747,D,1,90,0,0,0,0.0,35.0,1.0,127721.0
+1000019070,2026-10-18,bol_division,The Strongest,Pablo Pedraza,468982,D,1,90,1,0,0,0.0,37.0,1.0,131468.0
+1000019070,2026-10-18,bol_division,The Strongest,Dilan Saavedra,1671063,M,1,70,1,1,0,0.0,72.0,2.0,
+1000019070,2026-10-18,bol_division,The Strongest,Jovani Welch,1054136,M,1,90,0,0,0,0.0,74.0,2.0,170708.0
+1000019070,2026-10-18,bol_division,The Strongest,Jaime Arrascaita,479041,M,1,90,0,0,0,0.0,76.0,2.0,144051.0
+1000019070,2026-10-18,bol_division,The Strongest,Fabricio Quaglio,1458635,M,1,90,0,0,0,0.0,78.0,2.0,292650.0
+1000019070,2026-10-18,bol_division,The Strongest,Adrián Estacio,969887,F,1,77,4,2,1,0.0,103.0,3.0,347319.0
+1000019070,2026-10-18,bol_division,The Strongest,Gabriel Sotomayor,1116562,F,1,70,2,0,0,0.0,105.0,3.0,240959.0
+1000019070,2026-10-18,bol_division,The Strongest,Carlos Ventura,1240537,F,1,84,3,1,1,0.0,107.0,3.0,
+1000019070,2026-10-18,bol_division,The Strongest,Widen Saucedo Candia,921022,D,0,20,0,0,0,0.0,,1.0,147611.0
+1000019070,2026-10-18,bol_division,The Strongest,Roy Ribertt,1840310,M,0,20,1,0,0,0.0,,2.0,
+1000019070,2026-10-18,bol_division,The Strongest,Víctor Cuellar,1317106,M,0,13,0,0,0,0.0,,2.0,258194.0
+1000019070,2026-10-18,bol_division,The Strongest,Pachu,813608,F,0,6,0,0,0,0.0,,3.0,260414.0
+1000019070,2026-10-18,bol_division,Always Ready,Alain Baroja,116339,G,1,90,0,0,0,0.0,11.0,0.0,75186.0
+1000019070,2026-10-18,bol_division,Always Ready,Carlitos Rodriguez,1666612,D,1,90,1,1,0,0.0,32.0,1.0,492357.0
+1000019070,2026-10-18,bol_division,Always Ready,Richet Gómez,929518,D,1,90,1,0,0,0.0,34.0,1.0,168730.0
+1000019070,2026-10-18,bol_division,Always Ready,Edisson Restrepo,973703,D,1,90,1,0,0,0.0,36.0,1.0,153231.0
+1000019070,2026-10-18,bol_division,Always Ready,Carlos Medina,1792623,D,1,70,1,0,0,0.0,38.0,1.0,
+1000019070,2026-10-18,bol_division,Always Ready,Javier Uzeda,1300524,M,1,83,3,1,0,0.0,73.0,2.0,293321.0
+1000019070,2026-10-18,bol_division,Always Ready,Álvaro Quiroga,905951,M,1,90,0,0,0,0.0,75.0,2.0,140008.0
+1000019070,2026-10-18,bol_division,Always Ready,Pablo Lima,1246642,M,1,70,1,0,0,0.0,77.0,2.0,
+1000019070,2026-10-18,bol_division,Always Ready,Joel Amoroso,616567,F,1,55,1,1,0,0.0,103.0,3.0,117941.0
+1000019070,2026-10-18,bol_division,Always Ready,Enrique Triverio,468984,F,1,90,3,1,1,0.0,105.0,3.0,175336.0
+1000019070,2026-10-18,bol_division,Always Ready,Jesús Maraude,1792709,F,1,90,1,0,0,0.0,107.0,3.0,
+1000019070,2026-10-18,bol_division,Always Ready,Juan Godoy,1250780,F,0,35,2,0,0,0.0,,3.0,195662.0
+1000019070,2026-10-18,bol_division,Always Ready,Nicolás Villarroel,1787561,D,0,20,0,0,0,0.0,,1.0,
+1000019070,2026-10-18,bol_division,Always Ready,Darío Torrico,1213525,M,0,20,0,0,0,0.0,,2.0,322662.0
+1000019070,2026-10-18,bol_division,Always Ready,Carmelo Algarañaz,728435,F,0,7,0,0,0,0.0,,3.0,248029.0
+5103672,2026-10-18,brasil,Bahia,Ronaldo,812077,G,1,90,0,0,0,0.0,11.0,0.0,1625693.0
+5103672,2026-10-18,brasil,Bahia,Marcos Victor,1355337,D,1,65,0,0,0,0.0,33.0,1.0,800817.0
+5103672,2026-10-18,brasil,Bahia,David Duarte,638782,D,1,90,0,0,0,0.0,35.0,1.0,1207631.0
+5103672,2026-10-18,brasil,Bahia,Marco Moreno,1343136,D,1,90,0,0,0,0.0,37.0,1.0,1025043.0
+5103672,2026-10-18,brasil,Bahia,Cristian Olivera,1136409,D,1,65,1,0,0,0.12,51.0,1.0,5164917.0
+5103672,2026-10-18,brasil,Bahia,Luciano Juba,1174329,D,1,90,2,0,0,0.13,59.0,1.0,15350297.0
+5103672,2026-10-18,brasil,Bahia,Jean Lucas,934675,M,1,90,0,0,0,0.0,73.0,2.0,14927687.0
+5103672,2026-10-18,brasil,Bahia,Nicolás Acevedo,1020027,M,1,65,1,0,0,0.08,75.0,2.0,6702493.0
+5103672,2026-10-18,brasil,Bahia,Rodrigo Nestor,1118194,M,1,75,1,0,0,0.02,77.0,2.0,6820842.0
+5103672,2026-10-18,brasil,Bahia,Erick Pulga,1340527,F,1,75,1,1,0,0.05,104.0,3.0,11114610.0
+5103672,2026-10-18,brasil,Bahia,Alejo Véliz,1250658,F,1,90,1,1,0,0.07,106.0,3.0,6665863.0
+5103672,2026-10-18,brasil,Bahia,Román Gómez,1617809,D,0,25,0,0,0,0.0,,1.0,1770352.0
+5103672,2026-10-18,brasil,Bahia,Caio Alexandre,1116234,M,0,25,1,0,0,0.06,,2.0,6500373.0
+5103672,2026-10-18,brasil,Bahia,Ademir,937552,F,0,25,1,1,0,0.04,,3.0,739578.0
+5103672,2026-10-18,brasil,Bahia,Éverton Ribeiro,263937,M,0,15,0,0,0,0.0,,2.0,719906.0
+5103672,2026-10-18,brasil,Bahia,Mateo Sanabria,1338045,F,0,15,0,0,0,0.0,,3.0,1986767.0
+5103672,2026-10-18,brasil,Flamengo,Agustín Rossi,616528,G,1,90,0,0,0,0.0,11.0,0.0,10302411.0
+5103672,2026-10-18,brasil,Flamengo,Guillermo Varela,465614,D,1,90,0,0,0,0.0,32.0,1.0,1111687.0
+5103672,2026-10-18,brasil,Flamengo,Léo Ortiz,845976,D,1,83,1,0,0,0.21,34.0,1.0,10669789.0
+5103672,2026-10-18,brasil,Flamengo,Léo Pereira,523801,D,1,90,1,1,0,0.01,36.0,1.0,9013804.0
+5103672,2026-10-18,brasil,Flamengo,Emerson Royal,797908,D,1,90,0,0,0,0.0,38.0,1.0,5113157.0
+5103672,2026-10-18,brasil,Flamengo,Jorginho,282775,M,1,90,1,1,1,0.79,64.0,2.0,2630944.0
+5103672,2026-10-18,brasil,Flamengo,Erick Pulgar,335606,M,1,83,2,1,0,0.24,66.0,2.0,2545937.0
+5103672,2026-10-18,brasil,Flamengo,Gonzalo Plata,980311,F,1,90,3,3,1,0.2,83.0,3.0,6918239.0
+5103672,2026-10-18,brasil,Flamengo,Jorge Carrascal,784834,M,1,68,5,4,0,0.5,85.0,2.0,13591152.0
+5103672,2026-10-18,brasil,Flamengo,Samuel Lino,1082941,F,1,75,1,1,0,0.06,87.0,3.0,16513115.0
+5103672,2026-10-18,brasil,Flamengo,Pedro,750067,F,1,76,4,3,0,0.64,115.0,3.0,17595796.0
+5103672,2026-10-18,brasil,Flamengo,Lucas Paquetá,766435,M,0,22,2,1,1,0.04,,2.0,36543468.0
+5103672,2026-10-18,brasil,Flamengo,Joaquín Freitas,1847899,F,0,15,0,0,0,0.0,,3.0,1698466.0
+5103672,2026-10-18,brasil,Flamengo,Bruno Henrique,638778,F,0,14,0,0,0,0.0,,3.0,1017443.0
+5103672,2026-10-18,brasil,Flamengo,Vitão,834240,D,0,7,0,0,0,0.0,,1.0,11201922.0
+5103672,2026-10-18,brasil,Flamengo,Nicolás de la Cruz,751198,M,0,7,1,0,0,0.04,,2.0,6555338.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Helton Leite,449653,G,1,90,0,0,0,0.0,11.0,0.0,257108.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Hayner,765156,D,1,77,1,0,0,0.02,32.0,1.0,214981.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Douglas Mendes,1406628,D,1,90,1,1,0,0.12,34.0,1.0,1032087.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Jonathan Costa,614304,D,1,90,1,0,0,0.06,36.0,1.0,70912.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Higor,1693772,D,1,90,0,0,0,0.0,38.0,1.0,573660.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Higor Meritão,1033100,M,1,70,0,0,0,0.0,64.0,2.0,688571.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Willian Maranhão,960652,M,1,46,0,0,0,0.0,66.0,2.0,638043.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Everton,1034321,F,1,84,1,0,0,0.05,83.0,3.0,637133.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Marquinhos,175644,M,1,84,1,0,0,0.03,85.0,2.0,373387.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Janderson,1045975,F,1,90,1,1,0,0.02,87.0,3.0,951701.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,André Luis,656372,F,1,77,1,1,1,0.33,115.0,3.0,396131.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Dodô,494029,M,0,45,2,1,1,0.15,,2.0,201799.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Nathan Camargo,1366063,M,0,20,0,0,0,0.0,,2.0,
+5190778,2026-10-18,bra_serie_b,Vila Nova,Igor Cariús,849501,D,0,13,0,0,0,0.0,,1.0,192857.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Dellatorre,278723,F,0,13,0,0,0,0.0,,3.0,403988.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Tiago Pagnussat,574664,D,0,6,1,0,0,0.11,,1.0,266883.0
+5190778,2026-10-18,bra_serie_b,Vila Nova,Enzo,1653507,M,0,6,1,1,0,0.11,,2.0,323229.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Jordi,575381,G,1,90,0,0,0,0.0,11.0,0.0,378251.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Madson,319973,D,1,90,0,0,0,0.0,32.0,1.0,214981.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Carlinhos,1343058,D,1,90,1,0,0,0.02,34.0,1.0,149299.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Eduardo Brock,849498,D,1,90,1,0,0,0.02,36.0,1.0,370396.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Sander,637564,D,1,41,0,0,0,0.0,38.0,1.0,201056.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Matheus Bianqui,1116650,M,1,90,0,0,0,0.0,64.0,2.0,341445.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Luís Oyama,933054,M,1,75,0,0,0,0.0,66.0,2.0,468095.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Reidiney,1967834,F,1,75,1,0,0,0.01,83.0,3.0,
+5190778,2026-10-18,bra_serie_b,Novorizontino,Rômulo,1414404,M,1,84,2,0,0,0.07,85.0,2.0,2012117.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Careca,583766,F,1,65,1,1,0,0.03,87.0,3.0,229413.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Robson,498459,F,1,45,1,1,1,0.07,115.0,3.0,476769.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Maykon Jesus,1755928,D,0,49,1,1,0,0.03,,1.0,
+5190778,2026-10-18,bra_serie_b,Novorizontino,Carlão,672094,F,0,44,0,0,0,0.0,,3.0,299620.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Juninho,1131346,M,0,25,1,0,0,0.01,,2.0,945508.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Vinícius Paiva,1074833,F,0,15,0,0,0,0.0,,3.0,305377.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Ronald Barcellos,1474211,F,0,15,1,0,0,0.14,,3.0,283363.0
+5190778,2026-10-18,bra_serie_b,Novorizontino,Christian Ortíz,215424,F,0,6,1,1,1,0.03,,3.0,206361.0
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Jassem Koleilat,912343,G,1,90,0,0,0,0.0,11.0,0.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Nico Brown,1252148,D,1,46,0,0,0,0.0,32.0,1.0,184308.0
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Bryce Washington,1262891,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,AJ Paterson,1059682,D,1,90,0,0,0,0.0,36.0,1.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Dawson McCartney,1368657,D,1,90,0,0,0,0.0,38.0,1.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Samuel McIllhatton,860928,M,1,90,0,0,0,0.0,64.0,2.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Seth Antwi,1682447,M,1,90,1,1,0,0.0,66.0,2.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Peter-Lee Vassell,932131,M,1,66,2,0,0,0.0,83.0,2.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Samuel Shashoua,847603,M,1,72,3,0,0,0.0,85.0,2.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Gevork Diarbian,1637902,F,1,89,4,2,0,0.0,87.0,3.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Ronaldo Damus,790332,F,1,66,3,0,0,0.0,115.0,3.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Sebastian Tregarthen,1662187,F,0,45,2,0,0,0.0,,3.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Tyler Pasher,530617,M,0,24,0,0,0,0.0,,2.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Romario Williams,621524,F,0,24,1,0,0,0.0,,3.0,103832.0
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Sebastián Saucedo,622027,F,0,18,1,0,0,0.0,,3.0,
+5110013,2026-10-18,usl_championship,Birmingham Legion FC,Serge Ngoma,1190660,M,0,1,1,0,0,0.0,,2.0,670583.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Ethan Bandré,1346730,G,1,90,0,0,0,0.0,11.0,0.0,82035.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Luca Piras,1576399,M,1,59,0,0,0,0.0,32.0,2.0,50000.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Noah Adnan,1719157,D,1,90,0,0,0,0.0,34.0,1.0,101383.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Salvatore Mazzaferro,1500407,D,1,90,0,0,0,0.0,36.0,1.0,311043.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Kwame Awuah,825620,D,1,90,0,0,0,0.0,38.0,1.0,50000.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,James Murphy,780567,M,1,90,3,0,0,0.0,64.0,2.0,92533.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Rida Zouhir,1216799,M,1,90,2,0,0,0.0,66.0,2.0,232662.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Pedro Santos,281628,M,1,74,0,0,0,0.0,83.0,2.0,50000.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Akil Watts,1079296,M,1,90,1,1,0,0.0,85.0,2.0,241249.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Abdellatif Aboukoura,1252526,F,1,81,1,0,0,0.0,87.0,3.0,96747.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Edward Davis,1374959,F,1,45,1,0,0,0.0,115.0,3.0,968992.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Liam Butts,1647585,F,0,45,1,1,0,0.0,,3.0,
+5110013,2026-10-18,usl_championship,Loudoun United FC,Aidan O'Connor,1611219,D,0,31,1,0,0,0.0,,1.0,188744.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Giorgi Lomtadze,1241617,F,0,16,2,0,0,0.0,,3.0,83047.0
+5110013,2026-10-18,usl_championship,Loudoun United FC,Pacifique Niyongabire,915626,D,0,9,1,1,0,0.0,,1.0,66136.0
+5071440,2026-10-18,mls,FC Cincinnati,Roman Celentano,1337962,G,1,90,0,0,0,0.0,11.0,0.0,1865184.0
+5071440,2026-10-18,mls,FC Cincinnati,Samuel Gidi,1383071,M,1,90,0,0,0,0.0,33.0,2.0,2159087.0
+5071440,2026-10-18,mls,FC Cincinnati,Julián Malatini,1201408,D,1,18,0,0,0,0.0,35.0,1.0,1337398.0
+5071440,2026-10-18,mls,FC Cincinnati,Teenage Lingani Hadebe,649947,D,1,90,1,0,0,0.08,37.0,1.0,326699.0
+5071440,2026-10-18,mls,FC Cincinnati,David Douděra,883759,M,1,59,1,0,0,0.09,71.0,2.0,1822065.0
+5071440,2026-10-18,mls,FC Cincinnati,Pavel Bucha,923247,M,1,79,2,1,0,0.11,73.0,2.0,1806529.0
+5071440,2026-10-18,mls,FC Cincinnati,Evander Ferreira,787351,M,1,90,6,2,0,0.2,75.0,2.0,13627760.0
+5071440,2026-10-18,mls,FC Cincinnati,Obinna Nwobodo,861112,M,1,90,1,0,0,0.03,77.0,2.0,1458130.0
+5071440,2026-10-18,mls,FC Cincinnati,Tyrell Malacia,865118,D,1,90,0,0,0,0.0,79.0,1.0,1872637.0
+5071440,2026-10-18,mls,FC Cincinnati,Tom Barlow,847753,F,1,59,5,3,0,0.6,104.0,3.0,136027.0
+5071440,2026-10-18,mls,FC Cincinnati,Kévin Denkey,820477,F,1,90,2,0,0,0.77,106.0,3.0,13399940.0
+5071440,2026-10-18,mls,FC Cincinnati,Nick Hagglund,525614,D,0,61,1,0,0,0.06,,1.0,165344.0
+5071440,2026-10-18,mls,FC Cincinnati,Ender Echenique,1248686,M,0,31,1,0,0,0.04,,2.0,1072438.0
+5071440,2026-10-18,mls,FC Cincinnati,Kenji Mboma Dem,1650499,M,0,31,1,0,0,0.04,,2.0,189858.0
+5071440,2026-10-18,mls,FC Cincinnati,Gerardo Valenzuela,1362857,M,0,11,0,0,0,0.0,,2.0,1372424.0
+5071440,2026-10-18,mls,FC Cincinnati,Ayoub Jabbari,1364494,F,0,11,2,1,0,0.18,,3.0,790968.0
+5071440,2026-10-18,mls,Columbus Crew,Patrick Schulte,1083292,G,1,90,0,0,0,0.0,11.0,0.0,2504733.0
+5071440,2026-10-18,mls,Columbus Crew,Andrés Herrera,965091,D,1,90,0,0,0,0.0,32.0,1.0,1002704.0
+5071440,2026-10-18,mls,Columbus Crew,Steven Moreira,444000,D,1,66,0,0,0,0.0,34.0,1.0,722005.0
+5071440,2026-10-18,mls,Columbus Crew,Sean Zawadzki,1338763,D,1,90,0,0,0,0.0,36.0,1.0,1854659.0
+5071440,2026-10-18,mls,Columbus Crew,Malte Amundsen,623145,D,1,90,0,0,0,0.0,38.0,1.0,1507829.0
+5071440,2026-10-18,mls,Columbus Crew,Brooks Lennon,760725,D,1,90,0,0,0,0.0,72.0,1.0,729946.0
+5071440,2026-10-18,mls,Columbus Crew,Taha Habroune,1482266,M,1,66,1,1,1,0.08,74.0,2.0,2088746.0
+5071440,2026-10-18,mls,Columbus Crew,André Gomes,361770,M,1,90,0,0,0,0.0,76.0,2.0,1406150.0
+5071440,2026-10-18,mls,Columbus Crew,Santiago Rodríguez,1028704,F,1,66,0,0,0,0.0,78.0,3.0,6352184.0
+5071440,2026-10-18,mls,Columbus Crew,Brais Méndez,640122,F,1,46,0,0,0,0.0,104.0,3.0,7852644.0
+5071440,2026-10-18,mls,Columbus Crew,Gonzalo Tapia,1108614,F,1,79,1,1,1,0.19,106.0,3.0,4203546.0
+5071440,2026-10-18,mls,Columbus Crew,Sékou Bangoura,1355686,M,0,44,0,0,0,0.0,,2.0,546844.0
+5071440,2026-10-18,mls,Columbus Crew,Dylan Chambost,770306,M,0,25,0,0,0,0.0,,2.0,1451598.0
+5071440,2026-10-18,mls,Columbus Crew,Eric Bailly,574200,D,0,24,0,0,0,0.0,,1.0,467778.0
+5071440,2026-10-18,mls,Columbus Crew,Jamal Thiaré,420216,F,0,25,1,0,0,0.03,,3.0,92653.0
+5071440,2026-10-18,mls,Columbus Crew,Lautaro Giaccone,1220657,F,0,11,0,0,0,0.0,,3.0,848077.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Lautaro Herrera,1445268,G,1,90,0,0,0,0.0,11.0,0.0,
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Gonzalo Maffini,1223816,D,1,90,1,0,0,0.07,33.0,1.0,324556.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Sergio Ojeda,430682,D,1,90,0,0,0,0.0,35.0,1.0,167954.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Agustín Quiroga,1457716,D,1,80,0,0,0,0.0,37.0,1.0,595523.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Juan Antonini,1231183,D,1,90,5,1,0,0.62,51.0,1.0,301878.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Fernando Rodríguez,1310319,D,1,45,2,0,0,0.13,59.0,1.0,344305.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Tomás González,1451614,M,1,79,2,0,0,0.04,73.0,2.0,360386.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Alejandro Cabrera,930564,M,1,90,1,0,0,0.02,75.0,2.0,437869.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Gabriel Alanís,586720,M,1,90,3,2,1,0.74,77.0,2.0,470354.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Ibrahim Hesar,977824,F,1,90,3,1,1,0.31,104.0,3.0,306981.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Mauro Valiente,964376,F,1,80,2,1,0,0.11,106.0,3.0,348826.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Facundo Cobos,723495,D,0,44,0,0,0,0.0,,1.0,242708.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Siro Rosané,1200765,M,0,11,0,0,0,0.0,,2.0,367618.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Martín Garnerone,1039683,F,0,10,3,0,0,0.08,,3.0,302560.0
+1000019583,2026-10-18,argentina,Estudiantes de Río Cuarto,Juan Fernando Garro,257868,F,0,10,0,0,0,0.0,,3.0,289588.0
+1000019583,2026-10-18,argentina,Aldosivi,Ignacio Chicco,833271,G,1,90,0,0,0,0.0,11.0,0.0,436876.0
+1000019583,2026-10-18,argentina,Aldosivi,Santiago Moya,1250316,D,1,90,0,0,0,0.0,32.0,1.0,823376.0
+1000019583,2026-10-18,argentina,Aldosivi,Néstor Breitenbruch,561038,D,1,90,0,0,0,0.0,34.0,1.0,259520.0
+1000019583,2026-10-18,argentina,Aldosivi,Joaquín Pombo,1219709,D,1,90,0,0,0,0.0,36.0,1.0,709387.0
+1000019583,2026-10-18,argentina,Aldosivi,Braian Cufré,684991,D,1,90,1,1,0,0.03,38.0,1.0,843445.0
+1000019583,2026-10-18,argentina,Aldosivi,Agustín Palavecino,1311635,M,1,77,4,1,0,0.13,72.0,2.0,629872.0
+1000019583,2026-10-18,argentina,Aldosivi,Martín García,1664756,M,1,90,1,0,0,0.01,74.0,2.0,787637.0
+1000019583,2026-10-18,argentina,Aldosivi,Lucas Nahuel Castro,166509,M,1,65,1,0,0,0.03,76.0,2.0,459351.0
+1000019583,2026-10-18,argentina,Aldosivi,Matías Godoy,1042007,M,1,46,0,0,0,0.0,78.0,2.0,395302.0
+1000019583,2026-10-18,argentina,Aldosivi,Nicolás Gaitán,164031,M,1,45,1,1,0,0.01,95.0,2.0,
+1000019583,2026-10-18,argentina,Aldosivi,Nicolás Cordero,1020747,F,1,65,1,0,0,0.03,115.0,3.0,580928.0
+1000019583,2026-10-18,argentina,Aldosivi,Andrés Vombergar,681608,F,0,45,1,1,1,0.98,,3.0,1469602.0
+1000019583,2026-10-18,argentina,Aldosivi,Tomás Fernández,994918,F,0,44,0,0,0,0.0,,3.0,317300.0
+1000019583,2026-10-18,argentina,Aldosivi,Andrés Chávez,270322,F,0,25,0,0,0,0.0,,3.0,330067.0
+1000019583,2026-10-18,argentina,Aldosivi,Bautista Dadín,1771178,F,0,25,0,0,0,0.0,,3.0,977353.0
+1000019583,2026-10-18,argentina,Aldosivi,Natanael Guzmán,1248634,F,0,13,0,0,0,0.0,,3.0,295532.0
+1000019578,2026-10-18,argentina,Estudiantes,Fabricio Iacovich,1364125,G,1,90,0,0,0,0.0,11.0,0.0,678536.0
+1000019578,2026-10-18,argentina,Estudiantes,Leandro González Pírez,256609,D,1,90,0,0,0,0.0,33.0,1.0,413209.0
+1000019578,2026-10-18,argentina,Estudiantes,Marcos Rojo,161035,D,1,90,0,0,0,0.0,35.0,1.0,387757.0
+1000019578,2026-10-18,argentina,Estudiantes,Tomás Palacios,1344726,D,1,60,0,0,0,0.0,37.0,1.0,7006267.0
+1000019578,2026-10-18,argentina,Estudiantes,Edwuin Cetré,924959,D,1,90,2,1,1,0.81,51.0,1.0,2350174.0
+1000019578,2026-10-18,argentina,Estudiantes,Gastón Benedetti,1214100,D,1,90,0,0,0,0.0,59.0,1.0,1930282.0
+1000019578,2026-10-18,argentina,Estudiantes,Miguel Monsalve,1350730,M,1,72,0,0,0,0.0,73.0,2.0,4494752.0
+1000019578,2026-10-18,argentina,Estudiantes,Bautista Kociubinski,1201582,M,1,90,0,0,0,0.0,75.0,2.0,329950.0
+1000019578,2026-10-18,argentina,Estudiantes,José Sosa,18518,M,1,61,0,0,0,0.0,77.0,2.0,297725.0
+1000019578,2026-10-18,argentina,Estudiantes,Joaquín Correa,319631,F,1,60,0,0,0,0.0,104.0,3.0,1132173.0
+1000019578,2026-10-18,argentina,Estudiantes,Lucas Alario,269222,F,1,80,0,0,0,0.0,106.0,3.0,322298.0
+1000019578,2026-10-18,argentina,Estudiantes,Eros Mancuso,1249664,D,0,30,1,0,0,0.02,,1.0,2306651.0
+1000019578,2026-10-18,argentina,Estudiantes,Tiago Palacios,1231195,M,0,30,3,0,0,0.08,,2.0,2915071.0
+1000019578,2026-10-18,argentina,Estudiantes,Baltasar Rodríguez,1362433,M,0,29,2,1,0,0.02,,2.0,4569089.0
+1000019578,2026-10-18,argentina,Estudiantes,Guido Carrillo,267894,F,0,18,2,0,0,0.04,,3.0,488530.0
+1000019578,2026-10-18,argentina,Estudiantes,Adolfo Gaich,957220,F,0,10,1,0,0,0.01,,3.0,985279.0
+1000019578,2026-10-18,argentina,San Lorenzo,José Devecchi,561146,G,1,90,0,0,0,0.0,11.0,0.0,279206.0
+1000019578,2026-10-18,argentina,San Lorenzo,Guzmán Corujo,847131,D,1,90,2,1,1,0.06,33.0,1.0,259520.0
+1000019578,2026-10-18,argentina,San Lorenzo,Danilo Arboleda,857776,D,1,90,0,0,0,0.0,35.0,1.0,446349.0
+1000019578,2026-10-18,argentina,San Lorenzo,Emiliano Amor,602349,D,1,90,1,0,0,0.01,37.0,1.0,514397.0
+1000019578,2026-10-18,argentina,San Lorenzo,Ezequiel Herrera,1353126,M,1,90,1,1,0,0.03,62.0,2.0,2421699.0
+1000019578,2026-10-18,argentina,San Lorenzo,Nicolás Tripichio,616153,M,1,90,0,0,0,0.0,64.0,2.0,1604335.0
+1000019578,2026-10-18,argentina,San Lorenzo,Facundo Gulli,1781586,M,1,90,2,2,1,0.57,66.0,2.0,3938266.0
+1000019578,2026-10-18,argentina,San Lorenzo,Teo Pagano,1729352,M,1,90,0,0,0,0.0,68.0,2.0,904336.0
+1000019578,2026-10-18,argentina,San Lorenzo,Facundo Farías,1108622,M,1,81,1,0,0,0.02,85.0,2.0,2135570.0
+1000019578,2026-10-18,argentina,San Lorenzo,Agustín Ladstatter,1693423,F,1,58,0,0,0,0.0,104.0,3.0,851165.0
+1000019578,2026-10-18,argentina,San Lorenzo,Rodrigo Auzmendi,1477849,F,1,87,5,2,0,0.22,106.0,3.0,2226989.0
+1000019578,2026-10-18,argentina,San Lorenzo,Enzo Salas,2180448,F,0,32,1,0,0,0.03,,3.0,
+1000019578,2026-10-18,argentina,San Lorenzo,Martín Río,1323824,M,0,9,0,0,0,0.0,,2.0,1324405.0
+1000019578,2026-10-18,argentina,San Lorenzo,Gustavo Del Prete,848182,F,0,3,0,0,0,0.0,,3.0,677919.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Cristopher Fiermarín,1195101,G,1,90,0,0,0,0.0,11.0,0.0,1388574.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,José Ortiz,1071475,D,1,90,0,0,0,0.0,33.0,1.0,969272.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Carlos Romaña,1221306,D,1,90,0,0,0,0.0,35.0,1.0,300409.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,José García,1562699,D,1,90,0,0,0,0.0,37.0,1.0,892109.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Nilson Castrillón,739740,M,1,90,1,0,0,0.02,72.0,2.0,215973.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Felix Charrupí,1387848,M,1,90,2,0,0,0.21,74.0,2.0,402507.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Leonardo Flores,921607,M,1,72,2,0,0,0.05,76.0,2.0,388453.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Fredy Hinestroza,323438,M,1,78,0,0,0,0.0,78.0,2.0,239373.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Fabián Sambueza,615929,F,1,73,1,0,0,0.02,103.0,3.0,292979.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Luciano Pons,412815,F,1,86,2,2,1,0.39,105.0,3.0,556145.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Emerson Batalla,1190851,F,1,86,0,0,0,0.0,107.0,3.0,1639207.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Víctor Cantillo,496760,M,0,18,0,0,0,0.0,,2.0,234390.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Omar Albornoz,861556,D,0,17,0,0,0,0.0,,1.0,373701.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Aldair Gutiérrez,1319785,D,0,12,0,0,0,0.0,,1.0,320899.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Brandon Caicedo,1054273,F,0,4,0,0,0,0.0,,3.0,436121.0
+1000014191,2026-10-18,col_primera_a,Bucaramanga,Aldair Zárate,1343211,F,0,4,0,0,0,0.0,,3.0,492789.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Jean,643686,G,1,90,0,0,0,0.0,11.0,0.0,337886.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Yani Quintero,1513180,D,1,90,2,1,1,0.45,32.0,1.0,478056.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Marlon Torres,879810,D,1,90,0,0,0,0.0,34.0,1.0,377313.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Nicolás Hernández,1054270,D,1,74,0,0,0,0.0,36.0,1.0,392580.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Marcos Mina,1249636,D,1,90,1,1,0,0.01,38.0,1.0,264922.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Rafael Carrascal,425781,M,1,90,1,0,0,0.01,64.0,2.0,550053.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Josen Escobar,1532240,M,1,64,0,0,0,0.0,66.0,2.0,2484124.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Luis Quiñones,425810,F,1,90,2,0,0,0.07,83.0,3.0,297838.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Yeison Guzmán,924269,M,1,90,0,0,0,0.0,85.0,2.0,1852582.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Jhon Murillo,423024,F,1,65,0,0,0,0.0,87.0,3.0,318269.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Jorge Valencia,1042106,F,1,32,1,0,0,0.01,115.0,3.0,803477.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Tomás Ángel,1236377,F,0,58,4,1,0,0.33,,3.0,967406.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Jan Lucumí,1386697,F,0,26,1,1,0,0.08,,3.0,1010117.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Jhon Palacios,1732963,F,0,25,2,0,0,0.09,,3.0,1470172.0
+1000014191,2026-10-18,col_primera_a,América de Cali,Brayan Córdoba,1130737,D,0,16,0,0,0,0.0,,1.0,423462.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Steven Rivadeneyra,547744,G,1,90,0,0,0,0.0,11.0,0.0,160633.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Stefano Fernández,1502875,D,1,45,1,0,0,0.0,32.0,1.0,234585.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Román Suárez,1668310,D,1,90,0,0,0,0.0,34.0,1.0,260848.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,José Luján,852081,D,1,90,1,0,0,0.0,36.0,1.0,166534.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Anthony Gordillo,1353366,D,1,66,1,0,0,0.0,38.0,1.0,178681.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Germán Díaz,1311675,M,1,90,1,1,0,0.0,65.0,2.0,196269.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Ariel Muñoz,1435216,F,1,75,3,2,1,0.0,82.0,3.0,251936.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Hernán Lupu,1623272,M,1,90,0,0,0,0.0,84.0,2.0,
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Jorge del Castillo,1432693,M,1,45,1,0,0,0.0,86.0,2.0,
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Cristian Penilla,196830,F,1,90,3,1,0,0.0,88.0,3.0,254106.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,José Ingratti,1246591,F,1,45,1,1,0,0.0,115.0,3.0,224640.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Williams Guzmán,1432951,D,0,45,1,0,0,0.0,,1.0,216681.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Jimmy Pérez,1248846,M,0,44,0,0,0,0.0,,2.0,239829.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Valentín Robaldo,1610973,F,0,45,2,1,0,0.0,,3.0,257077.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Erick Perleche,1122641,D,0,24,0,0,0,0.0,,1.0,355760.0
+1000017260,2026-10-18,per_liga1,Alianza Atlético,Jairo Molina,496951,F,0,15,0,0,0,0.0,,3.0,305533.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Diego Romero,1133039,G,1,90,0,0,0,0.0,11.0,0.0,901127.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Caín Fara,834676,D,1,90,0,0,0,0.0,33.0,1.0,211946.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Williams Riveros,807783,D,1,90,2,1,0,0.0,35.0,1.0,265839.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Anderson Santamaría,253956,D,1,90,0,0,0,0.0,37.0,1.0,264681.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Andy Polo,263619,M,1,90,1,1,1,0.0,62.0,2.0,297364.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Jairo Concha,988208,M,1,67,0,0,0,0.0,64.0,2.0,845054.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Horacio Calcaterra,146810,M,1,81,0,0,0,0.0,66.0,2.0,141510.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,César Inga,1415328,M,1,90,0,0,0,0.0,68.0,2.0,1016372.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Édison Flores,315926,M,1,57,0,0,0,0.0,85.0,2.0,414149.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Gianluca Lapadula,231521,F,1,67,0,0,0,0.0,104.0,3.0,314320.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Álex Valera,1133998,F,1,80,4,2,1,0.0,106.0,3.0,825635.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Lisandro Alzugaray,651387,F,0,33,4,2,0,0.0,,3.0,276759.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Jorge Murrugarra,921734,M,0,23,0,0,0,0.0,,2.0,192918.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,José Rivera,847129,F,0,23,0,0,0,0.0,,3.0,403187.0
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Piero Quispe,1251269,M,0,10,0,0,0,0.0,,2.0,
+1000017260,2026-10-18,per_liga1,Universitario de Deportes,Héctor Fértoli,725782,M,0,9,0,0,0,0.0,,2.0,271966.0
