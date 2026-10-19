@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T01:49:18Z",
+"actualizado": "2026-10-19T03:25:41Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -9394,6 +9394,16 @@
 },
 {
 "dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Calgary Flames vs Carolina Hurricanes",
+"apuesta": "Handicap: Calgary Flames +3.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-18",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Cartagines vs Saprissa",
@@ -9819,6 +9829,16 @@
 "partido": "Minnesota Wild vs Columbus Blue Jackets",
 "apuesta": "Handicap: Columbus Blue Jackets +3.5",
 "cuota": 1.1,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-18",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Monterrey vs Pachuca",
+"apuesta": "Monterrey o empate",
+"cuota": 1.177,
 "resultado": "verde",
 "marcador": "2-1"
 },
