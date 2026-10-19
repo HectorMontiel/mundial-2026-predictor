@@ -13725,22 +13725,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853440,2026-07-27,rumania,FC Voluntari,George Merloi,1098053,F,0,29,1,0,0,0.0,,3.0,170510.0
 5853440,2026-07-27,rumania,FC Voluntari,Florian Haita,1078580,F,0,16,1,0,0,0.0,,3.0,
 5853440,2026-07-27,rumania,FC Voluntari,Ianis Vencu,1682004,F,0,8,0,0,0,0.0,,3.0,
-1000014516,2026-07-27,liga_mx,Pachuca,Carlos Moreno,991005,G,1,90,0,0,0,0.0,11.0,0.0,2257787.0
-1000014516,2026-07-27,liga_mx,Pachuca,Alan Mozo,671944,D,1,71,0,0,0,0.0,32.0,1.0,1574637.0
-1000014516,2026-07-27,liga_mx,Pachuca,Eduardo Bauermann,641247,D,1,90,0,0,0,0.0,34.0,1.0,1089043.0
-1000014516,2026-07-27,liga_mx,Pachuca,Sergio Barreto,907723,D,1,90,0,0,0,0.0,36.0,1.0,2141719.0
-1000014516,2026-07-27,liga_mx,Pachuca,Francisco Venegas,693677,D,1,71,0,0,0,0.0,38.0,1.0,1040041.0
-1000014516,2026-07-27,liga_mx,Pachuca,Christian Rivera,732548,M,1,90,0,0,0,0.0,64.0,2.0,1142405.0
-1000014516,2026-07-27,liga_mx,Pachuca,Elías Montiel,1502909,M,1,90,2,0,0,0.05,66.0,2.0,
-1000014516,2026-07-27,liga_mx,Pachuca,Kenedy,467354,F,1,63,0,0,0,0.0,83.0,3.0,691635.0
-1000014516,2026-07-27,liga_mx,Pachuca,Rodolfo Pizarro,390785,M,1,63,0,0,0,0.0,85.0,2.0,507114.0
-1000014516,2026-07-27,liga_mx,Pachuca,Oussama Idrissi,690188,F,1,84,3,1,0,0.31,87.0,3.0,3745319.0
-1000014516,2026-07-27,liga_mx,Pachuca,José Salomon Rondon,51545,F,1,90,3,1,1,0.62,115.0,3.0,853359.0
-1000014516,2026-07-27,liga_mx,Pachuca,Alexéi Domínguez,1510568,F,0,27,0,0,0,0.0,,3.0,4843333.0
-1000014516,2026-07-27,liga_mx,Pachuca,Nicolás Vallejo,1388237,F,0,27,1,0,0,0.04,,3.0,1075475.0
-1000014516,2026-07-27,liga_mx,Pachuca,Carlos Sánchez,1432143,D,0,19,2,0,0,0.1,,1.0,
-1000014516,2026-07-27,liga_mx,Pachuca,Mauricio Isaís,1128764,D,0,19,2,0,0,0.37,,1.0,852718.0
-1000014516,2026-07-27,liga_mx,Pachuca,Adrián Alcaraz,1354553,F,0,6,0,0,0,0.0,,3.0,1106367.0
 1000014516,2026-07-27,liga_mx,Querétaro FC,Guillermo Allison,207791,G,1,90,0,0,0,0.0,11.0,0.0,407870.0
 1000014516,2026-07-27,liga_mx,Querétaro FC,Bayron Duarte,1554213,D,1,85,1,0,0,0.03,32.0,1.0,
 1000014516,2026-07-27,liga_mx,Querétaro FC,Diego Reyes,201111,D,1,90,0,0,0,0.0,34.0,1.0,428692.0
@@ -155116,3 +155100,34 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014194,2026-10-19,col_primera_a,Junior FC,Jannenson Sarmiento,1437346,M,0,14,0,0,0,0.0,,2.0,633413.0
 1000014194,2026-10-19,col_primera_a,Junior FC,Guillermo Celis,490025,M,0,14,0,0,0,0.0,,2.0,386281.0
 1000014194,2026-10-19,col_primera_a,Junior FC,Teofilo Gutiérrez,98220,F,0,14,0,0,0,0.0,,3.0,346065.0
+1000014606,2026-10-19,liga_mx,Monterrey,Esteban Andrada,184662,G,1,90,0,0,0,0.0,11.0,0.0,405311.0
+1000014606,2026-10-19,liga_mx,Monterrey,Ricardo Chávez,659597,D,1,78,0,0,0,0.0,32.0,1.0,1608454.0
+1000014606,2026-10-19,liga_mx,Monterrey,Víctor Guzmán,1128493,D,1,90,0,0,0,0.0,34.0,1.0,5586792.0
+1000014606,2026-10-19,liga_mx,Monterrey,Carlos Salcedo,431992,D,1,90,0,0,0,0.0,36.0,1.0,1099954.0
+1000014606,2026-10-19,liga_mx,Monterrey,Gerardo Arteaga,797924,D,1,90,1,0,0,0.03,38.0,1.0,1912592.0
+1000014606,2026-10-19,liga_mx,Monterrey,César Garza,1572849,M,1,89,0,0,0,0.0,64.0,2.0,
+1000014606,2026-10-19,liga_mx,Monterrey,Orbelín Pineda,559986,M,1,90,0,0,0,0.0,66.0,2.0,3759855.0
+1000014606,2026-10-19,liga_mx,Monterrey,Lucas Ocampos,357080,F,1,71,4,2,0,0.9,83.0,3.0,1936897.0
+1000014606,2026-10-19,liga_mx,Monterrey,Diego Rossi,743534,M,1,72,1,1,1,0.42,85.0,2.0,6893957.0
+1000014606,2026-10-19,liga_mx,Monterrey,Jesús Corona,210956,F,1,78,3,1,1,0.71,87.0,3.0,1023794.0
+1000014606,2026-10-19,liga_mx,Monterrey,Hugo Cuypers,737974,F,1,90,0,0,0,0.0,115.0,3.0,9728664.0
+1000014606,2026-10-19,liga_mx,Monterrey,Luca Orellano,988833,F,0,19,1,0,0,0.03,,3.0,7483302.0
+1000014606,2026-10-19,liga_mx,Monterrey,Óliver Torres,316771,M,0,18,0,0,0,0.0,,2.0,1773068.0
+1000014606,2026-10-19,liga_mx,Monterrey,Stefan Medina,206767,D,0,12,0,0,0,0.0,,1.0,1103896.0
+1000014606,2026-10-19,liga_mx,Monterrey,Paxon Ruffin,0,M,0,12,0,0,0,0.0,,2.0,
+1000014606,2026-10-19,liga_mx,Monterrey,Jorge Rodríguez,564610,M,0,1,0,0,0,0.0,,2.0,1670452.0
+1000014606,2026-10-19,liga_mx,Pachuca,Carlos Moreno,991005,G,1,90,0,0,0,0.0,11.0,0.0,2729804.0
+1000014606,2026-10-19,liga_mx,Pachuca,Jorge Berlanga,1502906,D,1,87,0,0,0,0.0,32.0,1.0,1712892.0
+1000014606,2026-10-19,liga_mx,Pachuca,Eduardo Bauermann,641247,D,1,90,2,1,0,0.09,34.0,1.0,1062025.0
+1000014606,2026-10-19,liga_mx,Pachuca,Sergio Barreto,907723,D,1,90,1,0,0,0.06,36.0,1.0,2141719.0
+1000014606,2026-10-19,liga_mx,Pachuca,Mauricio Isaís,1128764,D,1,63,0,0,0,0.0,38.0,1.0,837273.0
+1000014606,2026-10-19,liga_mx,Pachuca,Nicolás Vallejo,1388237,M,1,81,2,0,0,0.05,72.0,2.0,1609670.0
+1000014606,2026-10-19,liga_mx,Pachuca,Christian Rivera,732548,M,1,90,1,0,0,0.08,74.0,2.0,1425528.0
+1000014606,2026-10-19,liga_mx,Pachuca,Alán Bautista,1292484,M,1,90,0,0,0,0.0,76.0,2.0,
+1000014606,2026-10-19,liga_mx,Pachuca,Oussama Idrissi,690188,M,1,90,0,0,0,0.0,78.0,2.0,4342396.0
+1000014606,2026-10-19,liga_mx,Pachuca,Rodolfo Pizarro,390785,M,1,87,0,0,0,0.0,95.0,2.0,972475.0
+1000014606,2026-10-19,liga_mx,Pachuca,José Salomon Rondon,51545,F,1,90,5,2,1,0.61,115.0,3.0,1074969.0
+1000014606,2026-10-19,liga_mx,Pachuca,Cristóbal Hernández,1888849,F,0,27,0,0,0,0.0,,3.0,
+1000014606,2026-10-19,liga_mx,Pachuca,Gael Álvarez,1658984,F,0,9,0,0,0,0.0,,3.0,661972.0
+1000014606,2026-10-19,liga_mx,Pachuca,Sebastián Santos,1433093,M,0,3,0,0,0,0.0,,2.0,1227980.0
+1000014606,2026-10-19,liga_mx,Pachuca,Illian Hernández,1280280,F,0,3,0,0,0,0.0,,3.0,463682.0

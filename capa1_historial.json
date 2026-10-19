@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T03:25:41Z",
+"actualizado": "2026-10-19T05:12:06Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -9691,6 +9691,16 @@
 "cuota": 3.15,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-18",
+"nivel": "💰",
+"deporte": "MLB",
+"partido": "Jaguares de Nayarit vs Jalisco",
+"apuesta": "Gana Jaguares de Nayarit",
+"cuota": 2.8,
+"resultado": "rojo",
+"marcador": "6-9"
 },
 {
 "dia": "2026-10-18",
