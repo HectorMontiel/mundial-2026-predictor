@@ -4774,19 +4774,19 @@ fecha,partido,clave_liga,equipo,lado,mercado,linea,c_mas,c_menos,p_casa,p_mod,ap
 2026-10-16,Grenoble vs Boulogne,fra_ligue2,Grenoble,local,a_puerta,3.5,1.75,1.889,0.5191,0.3847,,vivo,1.0,2026-10-16T16:59:01Z
 2026-10-16,Grenoble vs Boulogne,fra_ligue2,Boulogne,visitante,tiros,10.5,1.76,1.875,0.5158,0.5481,,vivo,15.0,2026-10-16T16:59:01Z
 2026-10-16,Grenoble vs Boulogne,fra_ligue2,Boulogne,visitante,a_puerta,3.5,1.818,1.818,0.5,0.509,,vivo,7.0,2026-10-16T16:59:01Z
-2026-10-17,Metz vs Sochaux,fra_ligue2,Metz,local,tiros,14.5,1.857,1.778,0.4891,0.5652,,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Metz vs Sochaux,fra_ligue2,Metz,local,a_puerta,4.5,1.75,1.889,0.5191,0.6079,,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Metz vs Sochaux,fra_ligue2,Sochaux,visitante,tiros,10.5,1.7,1.95,0.5342,0.4578,,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Metz vs Sochaux,fra_ligue2,Sochaux,visitante,a_puerta,3.5,2.0,1.667,0.4546,0.3853,,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Nantes vs Dunkerque,fra_ligue2,Nantes,local,tiros,15.5,1.75,1.889,0.5191,0.5135,,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Nantes vs Dunkerque,fra_ligue2,Nantes,local,a_puerta,5.5,2.0,1.667,0.4546,0.4614,,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Nantes vs Dunkerque,fra_ligue2,Dunkerque,visitante,tiros,8.5,1.692,1.96,0.5367,0.6412,más,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Nantes vs Dunkerque,fra_ligue2,Dunkerque,visitante,a_puerta,2.5,1.546,2.2,0.5873,0.5704,,vivo,,2026-10-17T11:52:29Z
-2026-10-17,Red Star vs St Etienne,fra_ligue2,Red Star,local,tiros,12.5,1.778,1.857,0.5109,0.2548,,vivo,,2026-10-17T16:39:27Z
-2026-10-17,Red Star vs St Etienne,fra_ligue2,Red Star,local,a_puerta,4.5,2.143,1.583,0.4249,0.3833,,vivo,,2026-10-17T16:39:27Z
-2026-10-17,Red Star vs St Etienne,fra_ligue2,St Etienne,visitante,tiros,11.5,1.786,1.85,0.5088,0.4508,,vivo,,2026-10-17T16:39:27Z
-2026-10-17,Red Star vs St Etienne,fra_ligue2,St Etienne,visitante,a_puerta,4.5,2.083,1.615,0.4367,0.3316,,vivo,,2026-10-17T16:39:27Z
-2026-10-19,Rodez vs Montpellier,fra_ligue2,Rodez,local,tiros,14.5,1.857,1.778,0.4891,0.3381,,vivo,,2026-10-19T13:15:41Z
-2026-10-19,Rodez vs Montpellier,fra_ligue2,Rodez,local,a_puerta,4.5,1.818,1.818,0.5,0.4804,,vivo,,2026-10-19T13:15:41Z
-2026-10-19,Rodez vs Montpellier,fra_ligue2,Montpellier,visitante,tiros,12.5,1.933,1.714,0.47,0.5549,,vivo,,2026-10-19T13:15:41Z
-2026-10-19,Rodez vs Montpellier,fra_ligue2,Montpellier,visitante,a_puerta,4.5,1.96,1.692,0.4633,0.4311,,vivo,,2026-10-19T13:15:41Z
+2026-10-17,Metz vs Sochaux,fra_ligue2,Metz,local,tiros,14.5,1.857,1.778,0.4891,0.5652,,vivo,13.0,2026-10-17T11:52:29Z
+2026-10-17,Metz vs Sochaux,fra_ligue2,Metz,local,a_puerta,4.5,1.75,1.889,0.5191,0.6079,,vivo,5.0,2026-10-17T11:52:29Z
+2026-10-17,Metz vs Sochaux,fra_ligue2,Sochaux,visitante,tiros,10.5,1.7,1.95,0.5342,0.4578,,vivo,18.0,2026-10-17T11:52:29Z
+2026-10-17,Metz vs Sochaux,fra_ligue2,Sochaux,visitante,a_puerta,3.5,2.0,1.667,0.4546,0.3853,,vivo,4.0,2026-10-17T11:52:29Z
+2026-10-17,Nantes vs Dunkerque,fra_ligue2,Nantes,local,tiros,15.5,1.75,1.889,0.5191,0.5135,,vivo,19.0,2026-10-17T11:52:29Z
+2026-10-17,Nantes vs Dunkerque,fra_ligue2,Nantes,local,a_puerta,5.5,2.0,1.667,0.4546,0.4614,,vivo,4.0,2026-10-17T11:52:29Z
+2026-10-17,Nantes vs Dunkerque,fra_ligue2,Dunkerque,visitante,tiros,8.5,1.692,1.96,0.5367,0.6412,más,vivo,12.0,2026-10-17T11:52:29Z
+2026-10-17,Nantes vs Dunkerque,fra_ligue2,Dunkerque,visitante,a_puerta,2.5,1.546,2.2,0.5873,0.5704,,vivo,4.0,2026-10-17T11:52:29Z
+2026-10-17,Red Star vs St Etienne,fra_ligue2,Red Star,local,tiros,12.5,1.778,1.857,0.5109,0.2548,,vivo,5.0,2026-10-17T16:39:27Z
+2026-10-17,Red Star vs St Etienne,fra_ligue2,Red Star,local,a_puerta,4.5,2.143,1.583,0.4249,0.3833,,vivo,1.0,2026-10-17T16:39:27Z
+2026-10-17,Red Star vs St Etienne,fra_ligue2,St Etienne,visitante,tiros,11.5,1.786,1.85,0.5088,0.4508,,vivo,9.0,2026-10-17T16:39:27Z
+2026-10-17,Red Star vs St Etienne,fra_ligue2,St Etienne,visitante,a_puerta,4.5,2.083,1.615,0.4367,0.3316,,vivo,3.0,2026-10-17T16:39:27Z
+2026-10-19,Rodez vs Montpellier,fra_ligue2,Rodez,local,tiros,14.5,1.857,1.778,0.4891,0.3307,,vivo,,2026-10-19T14:39:09Z
+2026-10-19,Rodez vs Montpellier,fra_ligue2,Rodez,local,a_puerta,4.5,1.818,1.818,0.5,0.4565,,vivo,,2026-10-19T14:39:09Z
+2026-10-19,Rodez vs Montpellier,fra_ligue2,Montpellier,visitante,tiros,12.5,1.933,1.714,0.47,0.5776,más,vivo,,2026-10-19T14:39:09Z
+2026-10-19,Rodez vs Montpellier,fra_ligue2,Montpellier,visitante,a_puerta,4.5,1.96,1.692,0.4633,0.4418,,vivo,,2026-10-19T14:39:09Z
