@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T22:29:41Z",
+"actualizado": "2026-10-20T22:55:29Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10851,6 +10851,26 @@
 "cuota": 1.97,
 "resultado": "verde",
 "marcador": "0-3"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Atletico F.C. vs Quindio",
+"apuesta": "Gana Quindio",
+"cuota": 1.73,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Atletico F.C. vs Quindio",
+"apuesta": "Gana Quindio",
+"cuota": 1.73,
+"resultado": "verde",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-20",

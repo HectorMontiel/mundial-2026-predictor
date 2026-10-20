@@ -7547,3 +7547,8 @@ game_id,season,tipo,week,gameday,gametime,home,away,home_score,away_score,overti
 2026_18_SF_ARI,2026,regular,18,2027-01-10,13:00,ARI,SF,,,,False,1,,grass,,,7,7,,,,,Jonathan Gannon,Kyle Shanahan,,,,,,,,,,,,,,,,,,,,,,
 2026_18_TB_NO,2026,regular,18,2027-01-10,13:00,NO,TB,,,,False,1,dome,sportturf,,,7,7,,,,,Kellen Moore,Todd Bowles,,,,,,,,,,,,,,,,,,,,,,
 2026_18_TEN_HOU,2026,regular,18,2027-01-10,13:00,HOU,TEN,,,,False,1,,astroturf,,,6,7,,,,,DeMeco Ryans,Robert Saleh,,,,,,,,,,,,,,,,,,,,,,
+2026_07_CIN_BAL,2026,regular,7,2026-10-25,13:00,BAL,CIN,,,,False,1,outdoors,grass,,,7,14,00-0035993,00-0036442,Tyler Huntley,Joe Burrow,Jesse Minter,Zac Taylor,2.5,51.5,-142.0,120.0,-118.0,-102.0,-102.0,-118.0,,,,,,,,,,,,,,
+2026_07_TB_CAR,2026,regular,7,2026-10-25,13:00,CAR,TB,,,,False,1,outdoors,grass,,,7,7,00-0039150,00-0041251,Bryce Young,Jalon Daniels,Dave Canales,Todd Bowles,3.5,44.5,-180.0,150.0,-105.0,-115.0,-110.0,-110.0,,,,,,,,,,,,,,
+2026_07_GB_DET,2026,regular,7,2026-10-25,16:25,DET,GB,,,,False,1,dome,fieldturf,,,14,7,00-0033106,00-0036264,Jared Goff,Jordan Love,Dan Campbell,Matt LaFleur,3.0,53.5,-162.0,136.0,-108.0,-112.0,-110.0,-110.0,,,,,,,,,,,,,,
+2026_07_KC_SEA,2026,regular,7,2026-10-25,20:20,SEA,KC,,,,False,0,outdoors,fieldturf,,,10,7,00-0035704,00-0033873,Drew Lock,Patrick Mahomes,Mike Macdonald,Andy Reid,3.0,42.5,-155.0,130.0,-102.0,-118.0,-110.0,-110.0,,,,,,,,,,,,,,
+2026_08_LAC_LA,2026,regular,8,2026-11-01,16:05,LAR,LAC,,,,False,0,dome,matrixturf,,,7,14,,,,,Sean McVay,Jim Harbaugh,7.5,46.5,-355.0,280.0,-105.0,-115.0,-110.0,-110.0,,,,,,,,,,,,,,
