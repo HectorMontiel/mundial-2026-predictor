@@ -155706,3 +155706,66 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Al Shurafaa,1910864,M,0,31,2,0,0,0.04,,2,
 5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Al Raqwani,2139613,F,0,7,0,0,0,0.0,,3,
 5970163,2026-10-20,ksa_pro,Al Riyadh,Essam Bahri,1888668,D,0,2,0,0,0,0.0,,1,
+6106333,2026-10-20,champions,Fenerbahçe,Ederson,363364,G,1,90,0,0,0,0.0,11,0,8477238
+6106333,2026-10-20,champions,Fenerbahçe,Nélson Semedo,470834,D,1,90,1,0,0,0.01,32,1,2607189
+6106333,2026-10-20,champions,Fenerbahçe,Milan Škriniar,309328,D,1,90,1,0,0,0.03,34,1,7878218
+6106333,2026-10-20,champions,Fenerbahçe,Nathan Aké,417068,D,1,21,0,0,0,0.0,36,1,10206126
+6106333,2026-10-20,champions,Fenerbahçe,Archie Brown,1113704,D,1,90,0,0,0,0.0,38,1,13255503
+6106333,2026-10-20,champions,Fenerbahçe,N'Golo Kanté,319300,M,1,90,0,0,0,0.0,64,2,2040150
+6106333,2026-10-20,champions,Fenerbahçe,Mattéo Guendouzi,800609,M,1,90,1,0,0,0.06,66,2,25102776
+6106333,2026-10-20,champions,Fenerbahçe,Oğuz Aydın,1092015,F,1,63,3,1,1,0.08,83,3,6232626
+6106333,2026-10-20,champions,Fenerbahçe,Mason Greenwood,950473,F,1,82,1,1,1,0.11,85,3,59881115
+6106333,2026-10-20,champions,Fenerbahçe,Kerem Aktürkoglu,1117570,F,1,82,2,0,0,0.09,87,3,21678767
+6106333,2026-10-20,champions,Fenerbahçe,Vedat Muriqi,517052,F,1,63,1,1,0,0.06,115,3,3786895
+6106333,2026-10-20,champions,Fenerbahçe,Kojo Peprah Oppong,1429607,D,0,69,0,0,0,0.0,,1,11245117
+6106333,2026-10-20,champions,Fenerbahçe,Dorgeles Nene,1230287,F,0,27,2,1,0,0.44,,3,23987280
+6106333,2026-10-20,champions,Fenerbahçe,Romelu Lukaku,181276,F,0,27,2,0,0,0.09,,3,5984766
+6106333,2026-10-20,champions,Fenerbahçe,Ismail Yüksek,1183589,M,0,8,1,0,0,0.07,,2,13717837
+6106333,2026-10-20,champions,Fenerbahçe,İrfan Kahveci,316544,F,0,8,0,0,0,0.0,,3,2073621
+6106333,2026-10-20,champions,Slavia Prague,Jakub Markovič,1085744,G,1,90,0,0,0,0.0,11,0,2531209
+6106333,2026-10-20,champions,Slavia Prague,Tomás Vlček,979540,D,1,62,0,0,0,0.0,33,1,2642643
+6106333,2026-10-20,champions,Slavia Prague,David Zima,1085401,D,1,90,1,1,0,0.03,35,1,6686242
+6106333,2026-10-20,champions,Slavia Prague,Ange N'Guessan,1421040,D,1,90,0,0,0,0.0,37,1,3981810
+6106333,2026-10-20,champions,Slavia Prague,Mubarak Suleiman,1840847,M,1,85,2,0,0,0.06,62,2,1693140
+6106333,2026-10-20,champions,Slavia Prague,David Moses,1509423,M,1,90,0,0,0,0.0,64,2,11909064
+6106333,2026-10-20,champions,Slavia Prague,Wiktor Nowak,1395322,M,1,90,1,0,0,0.22,66,2,1505599
+6106333,2026-10-20,champions,Slavia Prague,Oskar Kubiak,1782189,M,1,75,0,0,0,0.0,68,2,1571551
+6106333,2026-10-20,champions,Slavia Prague,Emmanuel Ayaosi,1327747,F,1,90,2,1,0,0.06,84,3,1315456
+6106333,2026-10-20,champions,Slavia Prague,Danijel Šturm,1270718,F,1,62,4,0,0,0.17,86,3,1535448
+6106333,2026-10-20,champions,Slavia Prague,Lukás Provod,791682,M,1,85,3,1,1,0.45,105,2,5950955
+6106333,2026-10-20,champions,Slavia Prague,Samuel Isife,1744791,M,0,28,1,0,0,0.07,,2,2191464
+6106333,2026-10-20,champions,Slavia Prague,Mojmír Chytil,988769,F,0,28,0,0,0,0.0,,3,3641281
+6106333,2026-10-20,champions,Slavia Prague,Toumani Diakité,1781770,M,0,15,0,0,0,0.0,,2,1588135
+6106333,2026-10-20,champions,Slavia Prague,Michal Sadílek,806551,M,0,5,0,0,0,0.0,,2,7082023
+6106333,2026-10-20,champions,Slavia Prague,Pavel Kačor,1585595,M,0,5,1,1,1,0.42,,2,1441099
+6106422,2026-10-20,champions,Sabah FK,Stas Pokatilov,489507,G,1,90,0,0,0,0.0,11,0,154230
+6106422,2026-10-20,champions,Sabah FK,Akim Zedadka,542777,D,1,90,1,0,0,0.01,32,1,315087
+6106422,2026-10-20,champions,Sabah FK,Steve Solvet,764834,D,1,90,1,0,0,0.04,34,1,560764
+6106422,2026-10-20,champions,Sabah FK,Aden McCarthy,1337091,D,1,90,1,1,1,0.55,36,1,342183
+6106422,2026-10-20,champions,Sabah FK,Tymoteusz Puchacz,823121,D,1,90,0,0,0,0.0,38,1,1562803
+6106422,2026-10-20,champions,Sabah FK,Umarali Rakhmonaliev,1429286,M,1,81,1,0,0,0.06,64,2,1014337
+6106422,2026-10-20,champions,Sabah FK,Ivan Lepinjica,906920,M,1,90,1,0,0,0.03,66,2,1090204
+6106422,2026-10-20,champions,Sabah FK,Kaheem Parris,876149,F,1,65,1,1,0,0.08,83,3,861760
+6106422,2026-10-20,champions,Sabah FK,Du Queiroz,1271367,M,1,65,0,0,0,0.0,85,2,1250839
+6106422,2026-10-20,champions,Sabah FK,Veljko Simić,458807,F,1,90,4,1,0,0.51,87,3,544590
+6106422,2026-10-20,champions,Sabah FK,Joy-Lance Mickels,617465,F,1,81,1,1,0,0.02,115,3,328034
+6106422,2026-10-20,champions,Sabah FK,Aleksey İsayev,688887,M,0,25,0,0,0,0.0,,2,558355
+6106422,2026-10-20,champions,Sabah FK,Orphé Mbina,1197093,M,0,25,2,0,0,0.18,,2,202405
+6106422,2026-10-20,champions,Sabah FK,Abdulakh Khaybulaev,1351085,M,0,9,0,0,0,0.0,,2,237155
+6106422,2026-10-20,champions,Sabah FK,Christian Nwachukwu,1624072,F,0,9,0,0,0,0.0,,3,787143
+6106422,2026-10-20,champions,Borussia Dortmund,Gregor Kobel,764018,G,1,90,0,0,0,0.0,11,0,35376847
+6106422,2026-10-20,champions,Borussia Dortmund,Waldemar Anton,664970,D,1,90,0,0,0,0.0,33,1,15188697
+6106422,2026-10-20,champions,Borussia Dortmund,Nico Schlotterbeck,1002058,D,1,90,2,0,0,0.22,35,1,60400514
+6106422,2026-10-20,champions,Borussia Dortmund,Ramy Bensebaini,559065,D,1,72,3,0,0,0.09,37,1,8173244
+6106422,2026-10-20,champions,Borussia Dortmund,Julian Ryerson,659272,M,1,90,1,0,0,0.12,62,2,20595292
+6106422,2026-10-20,champions,Borussia Dortmund,Felix Nmecha,966019,M,1,71,2,1,0,0.2,64,2,58493494
+6106422,2026-10-20,champions,Borussia Dortmund,Joey Veerman,792429,M,1,90,2,2,0,0.2,66,2,20549782
+6106422,2026-10-20,champions,Borussia Dortmund,Daniel Svensson,1209228,M,1,77,0,0,0,0.0,68,2,23955881
+6106422,2026-10-20,champions,Borussia Dortmund,Carney Chukwuemeka,1089685,M,1,71,0,0,0,0.0,84,2,23893745
+6106422,2026-10-20,champions,Borussia Dortmund,Fábio Silva,1050158,F,1,89,4,2,0,0.98,86,3,24433272
+6106422,2026-10-20,champions,Borussia Dortmund,Serhou Guirassy,448540,F,1,90,8,4,2,1.95,105,3,31057599
+6106422,2026-10-20,champions,Borussia Dortmund,Joane Gadou,1479742,D,0,19,0,0,0,0.0,,1,22025620
+6106422,2026-10-20,champions,Borussia Dortmund,Jobe Bellingham,1287373,M,0,19,0,0,0,0.0,,2,45914752
+6106422,2026-10-20,champions,Borussia Dortmund,Marcel Sabitzer,215151,M,0,19,0,0,0,0.0,,2,2668022
+6106422,2026-10-20,champions,Borussia Dortmund,Maximilian Beier,1047667,M,0,13,0,0,0,0.0,,2,44321262
+6106422,2026-10-20,champions,Borussia Dortmund,Ethan Nwaneri,1254234,M,0,1,0,0,0,0.0,,2,36019496

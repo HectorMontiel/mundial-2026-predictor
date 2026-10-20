@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T17:31:52Z",
+"actualizado": "2026-10-20T19:09:14Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10784,6 +10784,16 @@
 },
 {
 "dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Fenerbahce vs Slavia Prague",
+"apuesta": "Gana Fenerbahce",
+"cuota": 1.66,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-20",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Hajer vs Al Najma",
@@ -10826,6 +10836,16 @@
 "dia": "2026-10-20",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Karlovac vs Rijeka",
+"apuesta": "Gana Rijeka",
+"cuota": 1.23,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Maritimo U23 vs Famalicao U23",
 "apuesta": "Gana Famalicao U23",
 "cuota": 1.83,
@@ -10839,6 +10859,16 @@
 "partido": "Paro (Bhu) vs Al Ansar (Leb)",
 "apuesta": "Gana Al Ansar (Leb)",
 "cuota": 1.89,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sabah Baku vs Dortmund",
+"apuesta": "Gana Dortmund",
+"cuota": 1.33,
 "resultado": "verde",
 "marcador": "1-2"
 }
