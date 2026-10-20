@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-19T22:34:32Z",
+"actualizado": "2026-10-20T00:10:22Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10314,6 +10314,16 @@
 },
 {
 "dia": "2026-10-19",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Encarnacion FC vs General Caballero JLM",
+"apuesta": "Gana General Caballero JLM",
+"cuota": 1.5715,
+"resultado": "rojo",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-19",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "FC Kharkiv vs Livyi Bereg",
@@ -10451,6 +10461,16 @@
 "cuota": 2.03,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Mushuc Runa vs Orense",
+"apuesta": "Mushuc Runa o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-19",
