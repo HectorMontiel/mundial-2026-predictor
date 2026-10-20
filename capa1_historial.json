@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T03:06:18Z",
+"actualizado": "2026-10-20T04:44:12Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10314,6 +10314,26 @@
 },
 {
 "dia": "2026-10-19",
+"nivel": "🏆",
+"deporte": "MLB",
+"partido": "Cleveland Guardians @ Tampa Bay Rays",
+"apuesta": "Handicap: Tampa Bay Rays +3.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "7-3"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Cofutpa vs Quepos FC",
+"apuesta": "Gana Quepos FC",
+"cuota": 1.7,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-19",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Dep. Riestra vs Union de Santa Fe",
@@ -10321,6 +10341,16 @@
 "cuota": 2.35,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Deportivo Pasto vs Alianza FC",
+"apuesta": "Deportivo Pasto o empate",
+"cuota": 1.167,
+"resultado": "rojo",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-19",
@@ -10495,6 +10525,16 @@
 {
 "dia": "2026-10-19",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Liu C. vs Linette M.",
+"apuesta": "Gana Liu C.",
+"cuota": 1.63,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Lugano vs Canuelas",
 "apuesta": "Gana Canuelas",
@@ -10551,6 +10591,16 @@
 "cuota": 1.125,
 "resultado": "verde",
 "marcador": "3-2"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Racing United vs Waterhouse",
+"apuesta": "Gana Waterhouse",
+"cuota": 3.35,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-19",
@@ -10634,6 +10684,16 @@
 },
 {
 "dia": "2026-10-19",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Tapachula vs Deportiva Venados",
+"apuesta": "Gana Deportiva Venados",
+"cuota": 1.68,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-19",
 "nivel": "🏆",
 "deporte": "NHL",
 "partido": "Toronto Maple Leafs vs San Jose Sharks",
@@ -10661,6 +10721,26 @@
 "cuota": 1.84,
 "resultado": "rojo",
 "marcador": "2-2"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Utah Mammoth vs Pittsburgh Penguins",
+"apuesta": "Handicap: Utah Mammoth +2.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "5-4"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Utah Mammoth vs Pittsburgh Penguins",
+"apuesta": "Handicap: Pittsburgh Penguins +3.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "5-4"
 },
 {
 "dia": "2026-10-19",
