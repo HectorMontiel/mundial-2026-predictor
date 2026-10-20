@@ -15744,21 +15744,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017177,2026-08-02,per_liga1,Deportivo Garcilaso,Anthony Rosell,778543,D,0,11,0,0,0,0.0,,1.0,166735.0
 1000017177,2026-08-02,per_liga1,Deportivo Garcilaso,Adrián Ascues,1334883,M,0,11,1,0,0,0.0,,2.0,291862.0
 1000017177,2026-08-02,per_liga1,Deportivo Garcilaso,Sharif Ramírez,1432740,F,0,1,0,0,0,0.0,,3.0,233780.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Ignacio Arce,306529,G,1,90,0,0,0,0.0,11.0,0.0,772372.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Ignacio Gariglio,1201809,D,1,90,1,0,0,0.01,33.0,1.0,205194.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Cristian Paz,615905,D,1,90,0,0,0,0.0,35.0,1.0,585182.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Carlos Quintana,113615,D,1,90,1,0,0,0.09,37.0,1.0,458480.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Mariano Bracamonte,1441888,D,1,90,1,0,0,0.03,51.0,1.0,395773.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Nicolás Sansotre,752875,D,1,85,0,0,0,0.0,59.0,1.0,506630.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Alexander Díaz,962674,M,1,90,0,0,0,0.0,72.0,2.0,916801.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Milton Céliz,394125,M,1,90,2,1,0,0.04,74.0,2.0,279656.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Nicólas Watson,1432908,M,1,70,0,0,0,0.0,76.0,2.0,306312.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Antony Alonso,1021588,M,1,70,1,0,0,0.03,78.0,2.0,909157.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Nicolás Benegas,742643,F,1,62,3,2,0,0.45,115.0,3.0,471874.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Tomás González,1347380,F,0,28,3,1,0,0.14,,3.0,526432.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Pablo Monje,1605853,M,0,20,0,0,0,0.0,,2.0,622125.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Braian Sánchez,848187,M,0,20,0,0,0,0.0,,2.0,106276.0
-5115906,2026-08-02,argentina,Deportivo Riestra,Yonatan Goitía,902983,D,0,5,0,0,0,0.0,,1.0,330488.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Aldair Quintana,921718,G,1,90,0,0,0,0.0,11.0,0.0,721730.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Daykol Romero,1287017,D,1,90,1,1,0,0.0,32.0,1.0,431084.0
 1000009056,2026-08-02,ecu_liga_pro,Independiente del Valle,Mateo Carabajal,934902,D,1,90,2,0,0,0.0,34.0,1.0,546139.0
@@ -17670,22 +17655,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844827,2026-08-05,leagues_cup,Atlante,Maximiliano García,1432163,M,0,16,0,0,0,0.0,,2.0,297393.0
 5844827,2026-08-05,leagues_cup,Atlante,Christian Bermúdez,70577,M,0,4,0,0,0,0.0,,2.0,120245.0
 5844827,2026-08-05,leagues_cup,Atlante,José González,1288844,F,0,4,0,0,0,0.0,,3.0,
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Ederson Cabezas,1513184,G,1,90,0,0,0,0.0,11.0,0.0,259501.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Mateo Garavito,1330783,D,1,90,1,0,0,0.01,32.0,1.0,390375.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Julián Quiñónes,341597,D,1,66,0,0,0,0.0,34.0,1.0,256856.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Nicolás Gil,857745,D,1,90,0,0,0,0.0,36.0,1.0,291389.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Hervin Goyes,1789709,D,1,90,1,0,0,0.02,38.0,1.0,587263.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Joider Micolta,1348510,M,1,29,0,0,0,0.0,72.0,2.0,375593.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Enrique Serje,860916,M,1,85,1,1,0,0.09,74.0,2.0,267266.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Yéiler Góez,1130929,M,1,90,0,0,0,0.0,76.0,2.0,424100.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Mayer Gil,1377890,M,1,90,1,0,0,0.04,78.0,2.0,448928.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Diego Chávez,988175,F,1,66,1,0,0,0.01,104.0,3.0,259726.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Santiago Córdoba,1334882,F,1,66,0,0,0,0.0,106.0,3.0,325582.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Santiago Jiménez,1103949,D,0,61,0,0,0,0.0,,1.0,286041.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Harrinson Mancilla,874664,M,0,24,0,0,0,0.0,,2.0,263701.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Jorge Obregón,830159,F,0,24,0,0,0,0.0,,3.0,316105.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Andrés Ibargüen,578025,F,0,24,0,0,0,0.0,,3.0,248979.0
-1000014070,2026-08-05,col_primera_a,Deportivo Pasto,Frank Martínez,1897628,M,0,5,0,0,0,0.0,,2.0,
 5844826,2026-08-05,leagues_cup,Tigres,Nahuel Guzmán,193993,G,1,90,0,0,0,0.0,11.0,0.0,568818.0
 5844826,2026-08-05,leagues_cup,Tigres,Jesús Garza,1075104,D,1,90,0,0,0,0.0,32.0,1.0,1578206.0
 5844826,2026-08-05,leagues_cup,Tigres,Joaquim,1257033,D,1,90,0,0,0,0.0,34.0,1.0,4524625.0
@@ -17907,22 +17876,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844834,2026-08-06,leagues_cup,Santos Laguna,Javier Abella,466755,D,0,17,0,0,0,0.0,,1.0,475372.0
 5844834,2026-08-06,leagues_cup,Santos Laguna,Salvador Mariscal,1239856,M,0,17,0,0,0,0.0,,2.0,959367.0
 5844834,2026-08-06,leagues_cup,Santos Laguna,Kevin Palacios,1300602,F,0,17,1,1,0,0.0,,3.0,1001917.0
-5115902,2026-08-06,argentina,Unión,Matías Mansilla,1273509,G,1,90,0,0,0,0.0,11.0,0.0,1337724.0
-5115902,2026-08-06,argentina,Unión,Lautaro Vargas,1520065,D,1,90,1,0,0,0.02,32.0,1.0,3201311.0
-5115902,2026-08-06,argentina,Unión,Maizon Rodríguez,1710276,D,1,90,0,0,0,0.0,34.0,1.0,1850473.0
-5115902,2026-08-06,argentina,Unión,Juan Pablo Ludueña,1388618,D,1,90,1,0,0,0.07,36.0,1.0,1003215.0
-5115902,2026-08-06,argentina,Unión,Lucas Ayala,2099285,D,1,69,0,0,0,0.0,38.0,1.0,
-5115902,2026-08-06,argentina,Unión,Lucas Menossi,246408,M,1,82,1,1,1,0.03,65.0,2.0,282134.0
-5115902,2026-08-06,argentina,Unión,Julián Palacios,1110614,F,1,83,2,1,0,0.12,83.0,3.0,
-5115902,2026-08-06,argentina,Unión,Joaquín Mosqueira,1451319,M,1,90,2,1,1,0.03,85.0,2.0,1510887.0
-5115902,2026-08-06,argentina,Unión,Ignacio Malcorra,362229,F,1,69,3,0,0,0.17,87.0,3.0,308710.0
-5115902,2026-08-06,argentina,Unión,Cristian Alberto Tarragona,723668,F,1,90,0,0,0,0.0,104.0,3.0,428147.0
-5115902,2026-08-06,argentina,Unión,Misael Aguirre,1821216,F,1,59,1,0,0,0.05,106.0,3.0,
-5115902,2026-08-06,argentina,Unión,Marcelo Estigarribia,809766,F,0,31,0,0,0,0.0,,3.0,1009826.0
-5115902,2026-08-06,argentina,Unión,Bruno Pittón,673769,D,0,21,0,0,0,0.0,,1.0,259520.0
-5115902,2026-08-06,argentina,Unión,Mauro Luna Diale,1034344,M,0,21,0,0,0,0.0,,2.0,428212.0
-5115902,2026-08-06,argentina,Unión,Emilio Giaccone,1700565,M,0,8,0,0,0,0.0,,2.0,442379.0
-5115902,2026-08-06,argentina,Unión,Juan Pintado,799678,D,0,7,0,0,0,0.0,,1.0,816791.0
 1000012446,2026-08-06,bra_copa,Vitória,Lucas Arcanjo,1281584,G,1,90,0,0,0,0.0,11.0,0.0,1970370.0
 1000012446,2026-08-06,bra_copa,Vitória,Emanuel Brítez,427614,D,1,90,1,1,0,0.0,33.0,1.0,367590.0
 1000012446,2026-08-06,bra_copa,Vitória,Cacá,954213,D,1,90,0,0,0,0.0,35.0,1.0,1330524.0
@@ -42194,21 +42147,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014539,2026-08-22,liga_mx,Monterrey,Luis Reyes,766849,D,0,9,1,0,0,0.03,,1.0,340630.0
 1000014539,2026-08-22,liga_mx,Monterrey,Iker Fimbres,1513010,M,0,9,1,0,0,0.01,,2.0,3894700.0
 1000014539,2026-08-22,liga_mx,Monterrey,Roberto de la Rosa,868061,F,0,2,1,0,0,0.43,,3.0,1415802.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Johan Wallens,281984,G,1,90,0,0,0,0.0,11.0,0.0,272321.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Israel Alba,971619,D,1,85,0,0,0,0.0,32.0,1.0,248952.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Juan Viveros,1473800,D,1,90,0,0,0,0.0,34.0,1.0,426166.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Pedro Franco,187324,D,1,90,2,0,0,0.21,36.0,1.0,249996.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Jhildrey Lasso,1531184,D,1,90,2,1,0,0.06,38.0,1.0,367112.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Jhair Castillo,1134076,M,1,62,0,0,0,0.0,65.0,2.0,248857.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Wiston Fernández,934315,F,1,90,3,0,0,0.15,82.0,3.0,256412.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Fabián Cantillo,1350020,M,1,90,4,2,0,0.38,84.0,2.0,250758.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Deinner Quiñónes,496867,M,1,58,0,0,0,0.0,86.0,2.0,246419.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Jesús Muñoz,1432967,F,1,85,1,0,0,0.04,88.0,3.0,360148.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Cristian Vergara,1404375,F,1,90,4,1,0,0.41,115.0,3.0,
-1000014101,2026-08-22,col_primera_a,Alianza FC,Felipe Pardo,101434,M,0,32,2,1,0,0.1,,2.0,263911.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Yeiner Londoño,1537629,M,0,28,2,0,0,0.17,,2.0,361228.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Yilson Rosales,1353352,D,0,5,0,0,0,0.0,,1.0,437472.0
-1000014101,2026-08-22,col_primera_a,Alianza FC,Misael Martínez,1107548,F,0,5,0,0,0,0.0,,3.0,316951.0
 5803541,2026-08-22,jpn_j1,Kashima Antlers,Tomoki Hayakawa,1232143,G,1,90,0,0,0,0.0,11.0,0.0,1363595.0
 5803541,2026-08-22,jpn_j1,Kashima Antlers,Rikuto Hirose,648262,D,1,85,1,0,0,0.05,32.0,1.0,192886.0
 5803541,2026-08-22,jpn_j1,Kashima Antlers,Naomichi Ueda,430831,D,1,90,1,0,0,0.02,34.0,1.0,706596.0
@@ -155645,3 +155583,65 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5103667,2026-10-19,brasil,Vitória,Fabrício,1174974,F,0,5,0,0,0,0.0,,3.0,629550.0
 5103667,2026-10-19,brasil,Vitória,Walace,538540,M,0,1,0,0,0,0.0,,2.0,1689056.0
 5103667,2026-10-19,brasil,Vitória,Ignacio Laquintana,971433,M,0,1,0,0,0,0.0,,2.0,945831.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Geovanni Banguera,1107655,G,1,90,0,0,0,0.0,11.0,0.0,248656.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Mateo Garavito,1330783,D,1,90,0,0,0,0.0,32.0,1.0,372591.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Fáiner Torijano,213161,D,1,90,1,0,0,0.07,34.0,1.0,264266.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Nicolás Gil,857745,D,1,90,0,0,0,0.0,36.0,1.0,343141.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Hervin Goyes,1789709,D,1,90,0,0,0,0.0,38.0,1.0,581176.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Yéiler Góez,1130929,M,1,61,0,0,0,0.0,72.0,2.0,339112.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Enrique Serje,860916,M,1,70,1,0,0,0.03,74.0,2.0,246218.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Franco Leys,497597,M,1,70,0,0,0,0.0,76.0,2.0,280940.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Diego Chávez,988175,M,1,90,5,2,0,0.37,78.0,2.0,248857.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Joider Micolta,1348510,F,1,61,2,1,0,0.06,104.0,3.0,360148.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Jonathan Perlaza,1433110,F,1,86,0,0,0,0.0,106.0,3.0,362568.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Mayer Gil,1377890,M,0,29,0,0,0,0.0,,2.0,391457.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Patrick Preciado,1766572,F,0,29,2,0,0,0.3,,3.0,407106.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Matías Pisano,193928,M,0,20,0,0,0,0.0,,2.0,233669.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Harrinson Mancilla,874664,M,0,20,0,0,0,0.0,,2.0,241456.0
+1000014193,2026-10-20,col_primera_a,Deportivo Pasto,Julián Quiñónes,341597,D,0,4,1,0,0,0.1,,1.0,240713.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Eduar Esteban,1706922,G,1,90,0,0,0,0.0,11.0,0.0,
+1000014193,2026-10-20,col_primera_a,Alianza FC,Kevin Moreno,1031643,D,1,90,0,0,0,0.0,33.0,1.0,313847.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Jesús Figueroa,1279157,D,1,78,0,0,0,0.0,35.0,1.0,381574.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Juan Viveros,1473800,D,1,90,0,0,0,0.0,37.0,1.0,367214.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Israel Alba,971619,M,1,82,1,1,1,0.61,72.0,2.0,250197.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Jhair Castillo,1134076,M,1,90,0,0,0,0.0,74.0,2.0,253364.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Wiston Fernández,934315,M,1,90,2,0,0,0.23,76.0,2.0,259988.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Jhildrey Lasso,1531184,M,1,90,0,0,0,0.0,78.0,2.0,335523.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Leyner Palacios,1683587,F,1,69,2,0,0,0.05,103.0,3.0,190080.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Cristian Vergara,1404375,F,1,69,0,0,0,0.0,105.0,3.0,
+1000014193,2026-10-20,col_primera_a,Alianza FC,Jesús Muñoz,1432967,F,1,82,1,0,0,0.04,107.0,3.0,418869.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Yeiner Londoño,1537629,M,0,21,0,0,0,0.0,,2.0,345081.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Felipe Pardo,101434,M,0,21,0,0,0,0.0,,2.0,276761.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Pedro Franco,187324,D,0,12,0,0,0,0.0,,1.0,264266.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Yilson Rosales,1353352,D,0,8,0,0,0,0.0,,1.0,378826.0
+1000014193,2026-10-20,col_primera_a,Alianza FC,Deinner Quiñónes,496867,F,0,8,0,0,0,0.0,,3.0,242240.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Ignacio Arce,306529,G,1,90,0,0,0,0.0,11.0,0.0,792368.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Facundo Miño,1380869,D,1,72,0,0,0,0.0,33.0,1.0,815259.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Juan Cruz Randazzo,492640,D,1,58,1,1,1,0.07,35.0,1.0,274005.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Cristian Paz,615905,D,1,90,2,0,0,0.04,37.0,1.0,671289.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Mariano Bracamonte,1441888,D,1,90,1,0,0,0.03,51.0,1.0,493494.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Nicolás Sansotre,752875,D,1,90,0,0,0,0.0,59.0,1.0,669676.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Braian Sánchez,848187,M,1,61,1,1,0,0.39,72.0,2.0,229558.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Milton Céliz,394125,M,1,90,2,0,0,0.05,74.0,2.0,402704.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Nicólas Watson,1432908,M,1,90,0,0,0,0.0,76.0,2.0,305626.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Antony Alonso,1021588,M,1,72,2,0,0,0.05,78.0,2.0,1040809.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Alexander Díaz,962674,F,1,62,2,1,0,0.07,115.0,3.0,1117374.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Carlos Quintana,113615,D,0,32,1,0,0,0.02,,1.0,559677.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Tomás González,1347380,F,0,29,1,0,0,0.08,,3.0,559736.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Nicolás Benegas,742643,F,0,28,0,0,0,0.0,,3.0,492781.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Pedro Ramírez,1200663,D,0,18,0,0,0,0.0,,1.0,1189380.0
+1000019577,2026-10-20,argentina,Deportivo Riestra,Yonatan Goitía,902983,D,0,18,0,0,0,0.0,,1.0,395171.0
+1000019577,2026-10-20,argentina,Unión,Matías Mansilla,1273509,G,1,90,0,0,0,0.0,11.0,0.0,1392662.0
+1000019577,2026-10-20,argentina,Unión,Tobías Rubio,1509081,D,1,90,1,1,1,0.39,32.0,1.0,857001.0
+1000019577,2026-10-20,argentina,Unión,Matías Rocha,1231074,D,1,90,0,0,0,0.0,34.0,1.0,368842.0
+1000019577,2026-10-20,argentina,Unión,Juan Pablo Ludueña,1388618,D,1,90,0,0,0,0.0,36.0,1.0,1300287.0
+1000019577,2026-10-20,argentina,Unión,Lucas Ayala,2099285,D,1,90,1,1,0,0.02,38.0,1.0,
+1000019577,2026-10-20,argentina,Unión,Julián Palacios,1110614,M,1,82,0,0,0,0.0,72.0,2.0,
+1000019577,2026-10-20,argentina,Unión,Mateo Peresutti,2099290,M,1,90,3,1,0,0.04,74.0,2.0,
+1000019577,2026-10-20,argentina,Unión,Joaquín Mosqueira,1451319,M,1,88,2,0,0,0.08,76.0,2.0,1380453.0
+1000019577,2026-10-20,argentina,Unión,Brahian Cuello,889715,M,1,72,0,0,0,0.0,78.0,2.0,387976.0
+1000019577,2026-10-20,argentina,Unión,Marcelo Estigarribia,809766,F,1,90,1,1,0,0.02,104.0,3.0,1108647.0
+1000019577,2026-10-20,argentina,Unión,Cristian Alberto Tarragona,723668,F,1,90,4,1,0,0.13,106.0,3.0,543125.0
+1000019577,2026-10-20,argentina,Unión,Mauro Luna Diale,1034344,M,0,18,0,0,0,0.0,,2.0,456338.0
+1000019577,2026-10-20,argentina,Unión,Eric Ramírez,624411,F,0,8,0,0,0,0.0,,3.0,551942.0
+1000019577,2026-10-20,argentina,Unión,Ignacio Malcorra,362229,M,0,2,0,0,0,0.0,,2.0,344754.0
