@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T14:22:36Z",
+"actualizado": "2026-10-20T17:31:52Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10756,6 +10756,46 @@
 "dia": "2026-10-20",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Academico Viseu U23 vs Penafiel U23",
+"apuesta": "Gana Academico Viseu U23",
+"cuota": 1.89,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Al Taawoun vs Al Qadsiah",
+"apuesta": "Al Qadsiah o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Al Taawoun vs Al Qadsiah",
+"apuesta": "Gana Al Qadsiah",
+"cuota": 1.444,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Hajer vs Al Najma",
+"apuesta": "Gana Al Najma",
+"cuota": 1.625,
+"resultado": "verde",
+"marcador": "2-4"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Homs Al Fidaa (Syr) vs Nejmeh SC (Leb)",
 "apuesta": "Gana Homs Al Fidaa (Syr)",
 "cuota": 3.2,
@@ -10771,6 +10811,26 @@
 "cuota": 1.68,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Juarez U21 vs Atlante U21",
+"apuesta": "Gana Juarez U21",
+"cuota": 2.375,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Maritimo U23 vs Famalicao U23",
+"apuesta": "Gana Famalicao U23",
+"cuota": 1.83,
+"resultado": "verde",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-20",
