@@ -30454,20 +30454,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5837868,2026-08-15,eng_league_two,Northampton Town,Harvey Saunders,829534,F,0,19,2,0,0,0.1,,3.0,205164.0
 5837868,2026-08-15,eng_league_two,Northampton Town,Kamarai Simon-Swyer,1089881,M,0,1,0,0,0,0.0,,2.0,224411.0
 5837868,2026-08-15,eng_league_two,Northampton Town,Elliott List,662609,F,0,1,0,0,0,0.0,,3.0,169449.0
-5837870,2026-08-15,eng_league_two,York City,Alfie McNally,1587812,G,1,90,0,0,0,0.0,11.0,0.0,
-5837870,2026-08-15,eng_league_two,York City,Morgan Williams,816481,D,1,90,0,0,0,0.0,33.0,1.0,
-5837870,2026-08-15,eng_league_two,York City,Zak Johnson,1318713,D,1,90,0,0,0,0.0,35.0,1.0,233560.0
-5837870,2026-08-15,eng_league_two,York City,Mark Kitching,532739,D,1,90,0,0,0,0.0,37.0,1.0,
-5837870,2026-08-15,eng_league_two,York City,Joe Felix,1123768,F,1,90,1,0,0,0.02,72.0,3.0,
-5837870,2026-08-15,eng_league_two,York City,Oliver Banks,215120,F,1,90,0,0,0,0.0,74.0,3.0,
-5837870,2026-08-15,eng_league_two,York City,Alex Hunt,955348,M,1,69,1,0,0,0.04,76.0,2.0,261098.0
-5837870,2026-08-15,eng_league_two,York City,Harry Boyes,1206948,D,1,83,4,2,2,0.93,78.0,1.0,169880.0
-5837870,2026-08-15,eng_league_two,York City,Joe Grey,1116458,F,1,90,2,0,0,0.06,103.0,3.0,161117.0
-5837870,2026-08-15,eng_league_two,York City,Dipo Akinyemi,630644,F,1,43,1,1,0,0.12,105.0,3.0,109293.0
-5837870,2026-08-15,eng_league_two,York City,Ollie Pearce,711374,F,1,90,4,1,0,0.4,107.0,3.0,
-5837870,2026-08-15,eng_league_two,York City,Alex Newby,662331,M,0,47,2,1,1,0.18,,2.0,159905.0
-5837870,2026-08-15,eng_league_two,York City,Arthur Read,789539,M,0,21,1,1,0,0.19,,2.0,251006.0
-5837870,2026-08-15,eng_league_two,York City,Zech Medley,961990,D,0,7,0,0,0,0.0,,1.0,152837.0
 5837865,2026-08-15,eng_league_two,Crawley Town,Vito Mannone,37233,G,1,46,0,0,0,0.0,11.0,0.0,71009.0
 5837865,2026-08-15,eng_league_two,Crawley Town,Kellan Gordon,789643,M,1,90,0,0,0,0.0,32.0,2.0,118910.0
 5837865,2026-08-15,eng_league_two,Crawley Town,Priestley Farquharson,1005751,D,1,90,0,0,0,0.0,34.0,1.0,131813.0
@@ -40463,22 +40449,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5837874,2026-08-22,eng_league_two,Exeter City,George Birch,1787195,M,0,9,0,0,0,0.0,,2.0,
 5837874,2026-08-22,eng_league_two,Exeter City,Taylor Perry,962008,M,0,9,1,0,0,0.29,,2.0,268770.0
 5837874,2026-08-22,eng_league_two,Exeter City,Andrew Oluwabori,1309966,F,0,1,0,0,0,0.0,,3.0,205802.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Louie Moulden,997557,G,1,90,0,0,0,0.0,11.0,0.0,599172.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Tom Moore,1270332,M,1,90,0,0,0,0.0,33.0,2.0,
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Farrend Rawson,575792,D,1,90,0,0,0,0.0,35.0,1.0,168834.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Devon Matthews,1396874,D,1,90,1,0,0,0.03,37.0,1.0,266225.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Connor O'Brien,1420163,M,1,78,1,0,0,0.03,62.0,2.0,224660.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Donald Love,684734,D,1,90,2,0,0,0.09,64.0,1.0,185447.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Séamus Conneely,119521,M,1,78,0,0,0,0.0,66.0,2.0,76714.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Joseph Anderson,1086708,D,1,90,1,0,0,0.01,68.0,1.0,246293.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Shaun Whalley,24143,M,1,63,2,1,0,0.06,85.0,2.0,125564.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Josh Woods,1283966,F,1,90,3,0,0,0.32,104.0,3.0,199155.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Charlie Caton,1116908,F,1,78,2,0,0,0.11,106.0,3.0,163786.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Cole Stockton,303659,F,0,26,1,1,0,0.03,,3.0,152698.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Alex Henderson,1585611,M,0,12,0,0,0,0.0,,2.0,247617.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Liam Coyle,1273274,M,0,12,0,0,0,0.0,,2.0,134282.0
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Stefan Mols,886020,M,0,12,0,0,0,0.0,,2.0,
-5837874,2026-08-22,eng_league_two,Accrington Stanley,Charlie Brown,891387,M,0,1,0,0,0,0.0,,2.0,190260.0
 5837873,2026-08-22,eng_league_two,Crewe Alexandra,Tom Booth,1390004,G,1,90,0,0,0,0.0,11.0,0.0,
 5837873,2026-08-22,eng_league_two,Crewe Alexandra,Lewis Billington,1353700,D,1,90,1,0,0,0.1,32.0,1.0,466176.0
 5837873,2026-08-22,eng_league_two,Crewe Alexandra,Luke Offord,902279,D,1,90,0,0,0,0.0,34.0,1.0,255750.0
@@ -155645,127 +155615,219 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019577,2026-10-20,argentina,Unión,Mauro Luna Diale,1034344,M,0,18,0,0,0,0.0,,2.0,456338.0
 1000019577,2026-10-20,argentina,Unión,Eric Ramírez,624411,F,0,8,0,0,0,0.0,,3.0,551942.0
 1000019577,2026-10-20,argentina,Unión,Ignacio Malcorra,362229,M,0,2,0,0,0,0.0,,2.0,344754.0
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Mailson,844530,G,1,90,0,0,0,0.0,11,0,2121815
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Ibrahim Mahnashi,911246,D,1,90,0,0,0,0.0,33,1,
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Zineddine Belaïd,1118823,D,1,90,0,0,0,0.0,35,1,1103324
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Muteb Al Mufarrij,909889,D,1,7,0,0,0,0.0,37,1,223089
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Abdulrahman Hindi,1920085,D,1,14,0,0,0,0.0,51,1,
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Marin Petkov,1054476,D,1,90,0,0,0,0.0,59,1,2221031
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Mohammed Al Kuwaykibi,618398,M,1,79,2,1,0,0.07,72,2,172390
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Faris Al Ghamdi,1559682,M,1,90,0,0,0,0.0,74,2,233996
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Aschraf El Mahdioui,613251,M,1,90,0,0,0,0.0,76,2,1835229
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Younes El Bahraoui,1810430,M,1,46,0,0,0,0.0,78,2,
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Abderrazak Hamdallah,422288,F,1,90,1,1,0,0.16,115,3,659943
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Nasser Al Haleel,1806465,D,0,72,1,0,0,0.04,,1,302080
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Bassam Al Hurayji,1197390,D,0,76,0,0,0,0.0,,1,324410
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Rakan Al Tulayhi,1354479,M,0,45,2,0,0,0.11,,2,233996
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Awn Al Saluli,848596,D,0,11,0,0,0,0.0,,1,154652
-5970170,2026-10-20,ksa_pro,Al-Taawoun,Nedim Bajrami,822794,M,0,11,0,0,0,0.0,,2,1549203
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Koen Casteels,170322,G,1,90,0,0,0,0.0,11,0,1674272
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Jehad Thakri,1232530,D,1,90,1,0,0,0.04,33,1,879407
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Gaston Álvarez,1060634,D,1,90,0,0,0,0.0,35,1,8899474
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Nahitan Nández,643573,D,1,90,0,0,0,0.0,37,1,1882328
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Mohammed Abu Al Shamat,1543647,M,1,88,0,0,0,0.0,71,2,1537083
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Tijjani Reijnders,868344,M,1,90,5,4,1,0.49,73,2,40631339
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Julian Weigl,521421,M,1,90,2,0,0,0.07,75,2,4711389
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Mohammed Al Qahtani,1309655,M,1,58,2,1,0,0.32,77,2,361371
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Christopher Bonsu Baah,1452385,M,1,90,4,1,0,0.14,79,2,16107232
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Julián Quiñones,720560,F,1,90,4,2,0,0.24,104,3,13657949
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Abdullah Al Salem,618180,F,1,58,1,0,0,0.25,106,3,193982
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Musab Al Juwayr,1235341,M,0,32,2,0,0,0.39,,2,8613163
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Mateo Retegui,905546,F,0,32,1,1,0,0.16,,3,24922924
-5970170,2026-10-20,ksa_pro,Al Qadsiah,Turki Al Ammar,899277,M,0,2,0,0,0,0.0,,2,637548
-5970163,2026-10-20,ksa_pro,Al Diriyah,Amin Al Bukhari,670931,G,1,90,0,0,0,0.0,11,0,114083
-5970163,2026-10-20,ksa_pro,Al Diriyah,Taher Wadi,1911207,D,1,90,3,2,0,0.15,32,1,
-5970163,2026-10-20,ksa_pro,Al Diriyah,Berat Djimsiti,260964,D,1,90,0,0,0,0.0,34,1,2668256
-5970163,2026-10-20,ksa_pro,Al Diriyah,Chancel Mbemba,277761,D,1,90,0,0,0,0.0,36,1,1144556
-5970163,2026-10-20,ksa_pro,Al Diriyah,Hussain Al Sibyani,1305614,D,1,46,0,0,0,0.0,38,1,338149
-5970163,2026-10-20,ksa_pro,Al Diriyah,Óscar Rodríguez,863168,M,1,90,3,1,1,0.3,73,2,993207
-5970163,2026-10-20,ksa_pro,Al Diriyah,Abdulelah Al Malki,670415,M,1,80,0,0,0,0.0,75,2,144691
-5970163,2026-10-20,ksa_pro,Al Diriyah,Enzo Millot,1050859,M,1,90,1,1,0,0.06,77,2,20203612
-5970163,2026-10-20,ksa_pro,Al Diriyah,Lovro Chelfi,1830565,F,1,66,1,0,0,0.23,103,3,
-5970163,2026-10-20,ksa_pro,Al Diriyah,Darwin Núñez,950561,F,1,80,4,2,0,0.12,105,3,17491973
-5970163,2026-10-20,ksa_pro,Al Diriyah,Clayton Diandy,1667976,F,1,89,2,1,0,0.09,107,3,1298779
-5970163,2026-10-20,ksa_pro,Al Diriyah,Abdulaziz Al Faraj,1377989,D,0,44,0,0,0,0.0,,1,
-5970163,2026-10-20,ksa_pro,Al Diriyah,Adil Boulbina,1298669,F,0,24,1,0,0,0.17,,3,2328747
-5970163,2026-10-20,ksa_pro,Al Diriyah,Sultan Farhan,889959,M,0,10,0,0,0,0.0,,2,149348
-5970163,2026-10-20,ksa_pro,Al Diriyah,Meshari Al Nemer,1363815,F,0,10,1,1,0,0.16,,3,357803
-5970163,2026-10-20,ksa_pro,Al Diriyah,Khalid Al Asiri,1524218,D,0,1,0,0,0,0.0,,1,226499
-5970163,2026-10-20,ksa_pro,Al Riyadh,Milan Borjan,198337,G,1,90,0,0,0,0.0,11,0,167300
-5970163,2026-10-20,ksa_pro,Al Riyadh,Sultan Al Essa,1616572,D,1,59,1,1,0,0.11,32,1,
-5970163,2026-10-20,ksa_pro,Al Riyadh,Hussam Majrashi,1613518,D,1,83,0,0,0,0.0,34,1,
-5970163,2026-10-20,ksa_pro,Al Riyadh,Rodrigo Abascal,690223,D,1,90,1,0,0,0.01,36,1,220192
-5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Qassem,959072,D,1,88,0,0,0,0.0,38,1,120425
-5970163,2026-10-20,ksa_pro,Al Riyadh,Teddy Okou,841552,M,1,90,2,1,0,0.19,72,2,623316
-5970163,2026-10-20,ksa_pro,Al Riyadh,Victor Lekhal,438786,M,1,90,4,1,0,0.31,74,2,257529
-5970163,2026-10-20,ksa_pro,Al Riyadh,Kader Keïta,1077987,M,1,90,2,0,0,0.04,76,2,861555
-5970163,2026-10-20,ksa_pro,Al Riyadh,Hassan Al Ali,1226017,M,1,59,1,0,0,0.01,78,2,314430
-5970163,2026-10-20,ksa_pro,Al Riyadh,Bernard Mensah,529285,M,1,90,1,1,0,0.05,95,2,829212
-5970163,2026-10-20,ksa_pro,Al Riyadh,Trezeguet,513492,F,1,90,2,0,0,0.13,115,3,2281498
-5970163,2026-10-20,ksa_pro,Al Riyadh,Awad Dahal,1806497,D,0,31,0,0,0,0.0,,1,320871
-5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Al Shurafaa,1910864,M,0,31,2,0,0,0.04,,2,
-5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Al Raqwani,2139613,F,0,7,0,0,0,0.0,,3,
-5970163,2026-10-20,ksa_pro,Al Riyadh,Essam Bahri,1888668,D,0,2,0,0,0,0.0,,1,
-6106333,2026-10-20,champions,Fenerbahçe,Ederson,363364,G,1,90,0,0,0,0.0,11,0,8477238
-6106333,2026-10-20,champions,Fenerbahçe,Nélson Semedo,470834,D,1,90,1,0,0,0.01,32,1,2607189
-6106333,2026-10-20,champions,Fenerbahçe,Milan Škriniar,309328,D,1,90,1,0,0,0.03,34,1,7878218
-6106333,2026-10-20,champions,Fenerbahçe,Nathan Aké,417068,D,1,21,0,0,0,0.0,36,1,10206126
-6106333,2026-10-20,champions,Fenerbahçe,Archie Brown,1113704,D,1,90,0,0,0,0.0,38,1,13255503
-6106333,2026-10-20,champions,Fenerbahçe,N'Golo Kanté,319300,M,1,90,0,0,0,0.0,64,2,2040150
-6106333,2026-10-20,champions,Fenerbahçe,Mattéo Guendouzi,800609,M,1,90,1,0,0,0.06,66,2,25102776
-6106333,2026-10-20,champions,Fenerbahçe,Oğuz Aydın,1092015,F,1,63,3,1,1,0.08,83,3,6232626
-6106333,2026-10-20,champions,Fenerbahçe,Mason Greenwood,950473,F,1,82,1,1,1,0.11,85,3,59881115
-6106333,2026-10-20,champions,Fenerbahçe,Kerem Aktürkoglu,1117570,F,1,82,2,0,0,0.09,87,3,21678767
-6106333,2026-10-20,champions,Fenerbahçe,Vedat Muriqi,517052,F,1,63,1,1,0,0.06,115,3,3786895
-6106333,2026-10-20,champions,Fenerbahçe,Kojo Peprah Oppong,1429607,D,0,69,0,0,0,0.0,,1,11245117
-6106333,2026-10-20,champions,Fenerbahçe,Dorgeles Nene,1230287,F,0,27,2,1,0,0.44,,3,23987280
-6106333,2026-10-20,champions,Fenerbahçe,Romelu Lukaku,181276,F,0,27,2,0,0,0.09,,3,5984766
-6106333,2026-10-20,champions,Fenerbahçe,Ismail Yüksek,1183589,M,0,8,1,0,0,0.07,,2,13717837
-6106333,2026-10-20,champions,Fenerbahçe,İrfan Kahveci,316544,F,0,8,0,0,0,0.0,,3,2073621
-6106333,2026-10-20,champions,Slavia Prague,Jakub Markovič,1085744,G,1,90,0,0,0,0.0,11,0,2531209
-6106333,2026-10-20,champions,Slavia Prague,Tomás Vlček,979540,D,1,62,0,0,0,0.0,33,1,2642643
-6106333,2026-10-20,champions,Slavia Prague,David Zima,1085401,D,1,90,1,1,0,0.03,35,1,6686242
-6106333,2026-10-20,champions,Slavia Prague,Ange N'Guessan,1421040,D,1,90,0,0,0,0.0,37,1,3981810
-6106333,2026-10-20,champions,Slavia Prague,Mubarak Suleiman,1840847,M,1,85,2,0,0,0.06,62,2,1693140
-6106333,2026-10-20,champions,Slavia Prague,David Moses,1509423,M,1,90,0,0,0,0.0,64,2,11909064
-6106333,2026-10-20,champions,Slavia Prague,Wiktor Nowak,1395322,M,1,90,1,0,0,0.22,66,2,1505599
-6106333,2026-10-20,champions,Slavia Prague,Oskar Kubiak,1782189,M,1,75,0,0,0,0.0,68,2,1571551
-6106333,2026-10-20,champions,Slavia Prague,Emmanuel Ayaosi,1327747,F,1,90,2,1,0,0.06,84,3,1315456
-6106333,2026-10-20,champions,Slavia Prague,Danijel Šturm,1270718,F,1,62,4,0,0,0.17,86,3,1535448
-6106333,2026-10-20,champions,Slavia Prague,Lukás Provod,791682,M,1,85,3,1,1,0.45,105,2,5950955
-6106333,2026-10-20,champions,Slavia Prague,Samuel Isife,1744791,M,0,28,1,0,0,0.07,,2,2191464
-6106333,2026-10-20,champions,Slavia Prague,Mojmír Chytil,988769,F,0,28,0,0,0,0.0,,3,3641281
-6106333,2026-10-20,champions,Slavia Prague,Toumani Diakité,1781770,M,0,15,0,0,0,0.0,,2,1588135
-6106333,2026-10-20,champions,Slavia Prague,Michal Sadílek,806551,M,0,5,0,0,0,0.0,,2,7082023
-6106333,2026-10-20,champions,Slavia Prague,Pavel Kačor,1585595,M,0,5,1,1,1,0.42,,2,1441099
-6106422,2026-10-20,champions,Sabah FK,Stas Pokatilov,489507,G,1,90,0,0,0,0.0,11,0,154230
-6106422,2026-10-20,champions,Sabah FK,Akim Zedadka,542777,D,1,90,1,0,0,0.01,32,1,315087
-6106422,2026-10-20,champions,Sabah FK,Steve Solvet,764834,D,1,90,1,0,0,0.04,34,1,560764
-6106422,2026-10-20,champions,Sabah FK,Aden McCarthy,1337091,D,1,90,1,1,1,0.55,36,1,342183
-6106422,2026-10-20,champions,Sabah FK,Tymoteusz Puchacz,823121,D,1,90,0,0,0,0.0,38,1,1562803
-6106422,2026-10-20,champions,Sabah FK,Umarali Rakhmonaliev,1429286,M,1,81,1,0,0,0.06,64,2,1014337
-6106422,2026-10-20,champions,Sabah FK,Ivan Lepinjica,906920,M,1,90,1,0,0,0.03,66,2,1090204
-6106422,2026-10-20,champions,Sabah FK,Kaheem Parris,876149,F,1,65,1,1,0,0.08,83,3,861760
-6106422,2026-10-20,champions,Sabah FK,Du Queiroz,1271367,M,1,65,0,0,0,0.0,85,2,1250839
-6106422,2026-10-20,champions,Sabah FK,Veljko Simić,458807,F,1,90,4,1,0,0.51,87,3,544590
-6106422,2026-10-20,champions,Sabah FK,Joy-Lance Mickels,617465,F,1,81,1,1,0,0.02,115,3,328034
-6106422,2026-10-20,champions,Sabah FK,Aleksey İsayev,688887,M,0,25,0,0,0,0.0,,2,558355
-6106422,2026-10-20,champions,Sabah FK,Orphé Mbina,1197093,M,0,25,2,0,0,0.18,,2,202405
-6106422,2026-10-20,champions,Sabah FK,Abdulakh Khaybulaev,1351085,M,0,9,0,0,0,0.0,,2,237155
-6106422,2026-10-20,champions,Sabah FK,Christian Nwachukwu,1624072,F,0,9,0,0,0,0.0,,3,787143
-6106422,2026-10-20,champions,Borussia Dortmund,Gregor Kobel,764018,G,1,90,0,0,0,0.0,11,0,35376847
-6106422,2026-10-20,champions,Borussia Dortmund,Waldemar Anton,664970,D,1,90,0,0,0,0.0,33,1,15188697
-6106422,2026-10-20,champions,Borussia Dortmund,Nico Schlotterbeck,1002058,D,1,90,2,0,0,0.22,35,1,60400514
-6106422,2026-10-20,champions,Borussia Dortmund,Ramy Bensebaini,559065,D,1,72,3,0,0,0.09,37,1,8173244
-6106422,2026-10-20,champions,Borussia Dortmund,Julian Ryerson,659272,M,1,90,1,0,0,0.12,62,2,20595292
-6106422,2026-10-20,champions,Borussia Dortmund,Felix Nmecha,966019,M,1,71,2,1,0,0.2,64,2,58493494
-6106422,2026-10-20,champions,Borussia Dortmund,Joey Veerman,792429,M,1,90,2,2,0,0.2,66,2,20549782
-6106422,2026-10-20,champions,Borussia Dortmund,Daniel Svensson,1209228,M,1,77,0,0,0,0.0,68,2,23955881
-6106422,2026-10-20,champions,Borussia Dortmund,Carney Chukwuemeka,1089685,M,1,71,0,0,0,0.0,84,2,23893745
-6106422,2026-10-20,champions,Borussia Dortmund,Fábio Silva,1050158,F,1,89,4,2,0,0.98,86,3,24433272
-6106422,2026-10-20,champions,Borussia Dortmund,Serhou Guirassy,448540,F,1,90,8,4,2,1.95,105,3,31057599
-6106422,2026-10-20,champions,Borussia Dortmund,Joane Gadou,1479742,D,0,19,0,0,0,0.0,,1,22025620
-6106422,2026-10-20,champions,Borussia Dortmund,Jobe Bellingham,1287373,M,0,19,0,0,0,0.0,,2,45914752
-6106422,2026-10-20,champions,Borussia Dortmund,Marcel Sabitzer,215151,M,0,19,0,0,0,0.0,,2,2668022
-6106422,2026-10-20,champions,Borussia Dortmund,Maximilian Beier,1047667,M,0,13,0,0,0,0.0,,2,44321262
-6106422,2026-10-20,champions,Borussia Dortmund,Ethan Nwaneri,1254234,M,0,1,0,0,0,0.0,,2,36019496
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Mailson,844530,G,1,90,0,0,0,0.0,11.0,0.0,2121815.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Ibrahim Mahnashi,911246,D,1,90,0,0,0,0.0,33.0,1.0,
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Zineddine Belaïd,1118823,D,1,90,0,0,0,0.0,35.0,1.0,1103324.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Muteb Al Mufarrij,909889,D,1,7,0,0,0,0.0,37.0,1.0,223089.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Abdulrahman Hindi,1920085,D,1,14,0,0,0,0.0,51.0,1.0,
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Marin Petkov,1054476,D,1,90,0,0,0,0.0,59.0,1.0,2221031.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Mohammed Al Kuwaykibi,618398,M,1,79,2,1,0,0.07,72.0,2.0,172390.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Faris Al Ghamdi,1559682,M,1,90,0,0,0,0.0,74.0,2.0,233996.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Aschraf El Mahdioui,613251,M,1,90,0,0,0,0.0,76.0,2.0,1835229.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Younes El Bahraoui,1810430,M,1,46,0,0,0,0.0,78.0,2.0,
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Abderrazak Hamdallah,422288,F,1,90,1,1,0,0.16,115.0,3.0,659943.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Nasser Al Haleel,1806465,D,0,72,1,0,0,0.04,,1.0,302080.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Bassam Al Hurayji,1197390,D,0,76,0,0,0,0.0,,1.0,324410.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Rakan Al Tulayhi,1354479,M,0,45,2,0,0,0.11,,2.0,233996.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Awn Al Saluli,848596,D,0,11,0,0,0,0.0,,1.0,154652.0
+5970170,2026-10-20,ksa_pro,Al-Taawoun,Nedim Bajrami,822794,M,0,11,0,0,0,0.0,,2.0,1549203.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Koen Casteels,170322,G,1,90,0,0,0,0.0,11.0,0.0,1674272.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Jehad Thakri,1232530,D,1,90,1,0,0,0.04,33.0,1.0,879407.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Gaston Álvarez,1060634,D,1,90,0,0,0,0.0,35.0,1.0,8899474.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Nahitan Nández,643573,D,1,90,0,0,0,0.0,37.0,1.0,1882328.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Mohammed Abu Al Shamat,1543647,M,1,88,0,0,0,0.0,71.0,2.0,1537083.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Tijjani Reijnders,868344,M,1,90,5,4,1,0.49,73.0,2.0,40631339.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Julian Weigl,521421,M,1,90,2,0,0,0.07,75.0,2.0,4711389.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Mohammed Al Qahtani,1309655,M,1,58,2,1,0,0.32,77.0,2.0,361371.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Christopher Bonsu Baah,1452385,M,1,90,4,1,0,0.14,79.0,2.0,16107232.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Julián Quiñones,720560,F,1,90,4,2,0,0.24,104.0,3.0,13657949.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Abdullah Al Salem,618180,F,1,58,1,0,0,0.25,106.0,3.0,193982.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Musab Al Juwayr,1235341,M,0,32,2,0,0,0.39,,2.0,8613163.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Mateo Retegui,905546,F,0,32,1,1,0,0.16,,3.0,24922924.0
+5970170,2026-10-20,ksa_pro,Al Qadsiah,Turki Al Ammar,899277,M,0,2,0,0,0,0.0,,2.0,637548.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Amin Al Bukhari,670931,G,1,90,0,0,0,0.0,11.0,0.0,114083.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Taher Wadi,1911207,D,1,90,3,2,0,0.15,32.0,1.0,
+5970163,2026-10-20,ksa_pro,Al Diriyah,Berat Djimsiti,260964,D,1,90,0,0,0,0.0,34.0,1.0,2668256.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Chancel Mbemba,277761,D,1,90,0,0,0,0.0,36.0,1.0,1144556.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Hussain Al Sibyani,1305614,D,1,46,0,0,0,0.0,38.0,1.0,338149.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Óscar Rodríguez,863168,M,1,90,3,1,1,0.3,73.0,2.0,993207.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Abdulelah Al Malki,670415,M,1,80,0,0,0,0.0,75.0,2.0,144691.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Enzo Millot,1050859,M,1,90,1,1,0,0.06,77.0,2.0,20203612.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Lovro Chelfi,1830565,F,1,66,1,0,0,0.23,103.0,3.0,
+5970163,2026-10-20,ksa_pro,Al Diriyah,Darwin Núñez,950561,F,1,80,4,2,0,0.12,105.0,3.0,17491973.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Clayton Diandy,1667976,F,1,89,2,1,0,0.09,107.0,3.0,1298779.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Abdulaziz Al Faraj,1377989,D,0,44,0,0,0,0.0,,1.0,
+5970163,2026-10-20,ksa_pro,Al Diriyah,Adil Boulbina,1298669,F,0,24,1,0,0,0.17,,3.0,2328747.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Sultan Farhan,889959,M,0,10,0,0,0,0.0,,2.0,149348.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Meshari Al Nemer,1363815,F,0,10,1,1,0,0.16,,3.0,357803.0
+5970163,2026-10-20,ksa_pro,Al Diriyah,Khalid Al Asiri,1524218,D,0,1,0,0,0,0.0,,1.0,226499.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Milan Borjan,198337,G,1,90,0,0,0,0.0,11.0,0.0,167300.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Sultan Al Essa,1616572,D,1,59,1,1,0,0.11,32.0,1.0,
+5970163,2026-10-20,ksa_pro,Al Riyadh,Hussam Majrashi,1613518,D,1,83,0,0,0,0.0,34.0,1.0,
+5970163,2026-10-20,ksa_pro,Al Riyadh,Rodrigo Abascal,690223,D,1,90,1,0,0,0.01,36.0,1.0,220192.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Qassem,959072,D,1,88,0,0,0,0.0,38.0,1.0,120425.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Teddy Okou,841552,M,1,90,2,1,0,0.19,72.0,2.0,623316.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Victor Lekhal,438786,M,1,90,4,1,0,0.31,74.0,2.0,257529.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Kader Keïta,1077987,M,1,90,2,0,0,0.04,76.0,2.0,861555.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Hassan Al Ali,1226017,M,1,59,1,0,0,0.01,78.0,2.0,314430.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Bernard Mensah,529285,M,1,90,1,1,0,0.05,95.0,2.0,829212.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Trezeguet,513492,F,1,90,2,0,0,0.13,115.0,3.0,2281498.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Awad Dahal,1806497,D,0,31,0,0,0,0.0,,1.0,320871.0
+5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Al Shurafaa,1910864,M,0,31,2,0,0,0.04,,2.0,
+5970163,2026-10-20,ksa_pro,Al Riyadh,Hussain Al Raqwani,2139613,F,0,7,0,0,0,0.0,,3.0,
+5970163,2026-10-20,ksa_pro,Al Riyadh,Essam Bahri,1888668,D,0,2,0,0,0,0.0,,1.0,
+6106333,2026-10-20,champions,Fenerbahçe,Ederson,363364,G,1,90,0,0,0,0.0,11.0,0.0,8477238.0
+6106333,2026-10-20,champions,Fenerbahçe,Nélson Semedo,470834,D,1,90,1,0,0,0.01,32.0,1.0,2607189.0
+6106333,2026-10-20,champions,Fenerbahçe,Milan Škriniar,309328,D,1,90,1,0,0,0.03,34.0,1.0,7878218.0
+6106333,2026-10-20,champions,Fenerbahçe,Nathan Aké,417068,D,1,21,0,0,0,0.0,36.0,1.0,10206126.0
+6106333,2026-10-20,champions,Fenerbahçe,Archie Brown,1113704,D,1,90,0,0,0,0.0,38.0,1.0,13255503.0
+6106333,2026-10-20,champions,Fenerbahçe,N'Golo Kanté,319300,M,1,90,0,0,0,0.0,64.0,2.0,2040150.0
+6106333,2026-10-20,champions,Fenerbahçe,Mattéo Guendouzi,800609,M,1,90,1,0,0,0.06,66.0,2.0,25102776.0
+6106333,2026-10-20,champions,Fenerbahçe,Oğuz Aydın,1092015,F,1,63,3,1,1,0.08,83.0,3.0,6232626.0
+6106333,2026-10-20,champions,Fenerbahçe,Mason Greenwood,950473,F,1,82,1,1,1,0.11,85.0,3.0,59881115.0
+6106333,2026-10-20,champions,Fenerbahçe,Kerem Aktürkoglu,1117570,F,1,82,2,0,0,0.09,87.0,3.0,21678767.0
+6106333,2026-10-20,champions,Fenerbahçe,Vedat Muriqi,517052,F,1,63,1,1,0,0.06,115.0,3.0,3786895.0
+6106333,2026-10-20,champions,Fenerbahçe,Kojo Peprah Oppong,1429607,D,0,69,0,0,0,0.0,,1.0,11245117.0
+6106333,2026-10-20,champions,Fenerbahçe,Dorgeles Nene,1230287,F,0,27,2,1,0,0.44,,3.0,23987280.0
+6106333,2026-10-20,champions,Fenerbahçe,Romelu Lukaku,181276,F,0,27,2,0,0,0.09,,3.0,5984766.0
+6106333,2026-10-20,champions,Fenerbahçe,Ismail Yüksek,1183589,M,0,8,1,0,0,0.07,,2.0,13717837.0
+6106333,2026-10-20,champions,Fenerbahçe,İrfan Kahveci,316544,F,0,8,0,0,0,0.0,,3.0,2073621.0
+6106333,2026-10-20,champions,Slavia Prague,Jakub Markovič,1085744,G,1,90,0,0,0,0.0,11.0,0.0,2531209.0
+6106333,2026-10-20,champions,Slavia Prague,Tomás Vlček,979540,D,1,62,0,0,0,0.0,33.0,1.0,2642643.0
+6106333,2026-10-20,champions,Slavia Prague,David Zima,1085401,D,1,90,1,1,0,0.03,35.0,1.0,6686242.0
+6106333,2026-10-20,champions,Slavia Prague,Ange N'Guessan,1421040,D,1,90,0,0,0,0.0,37.0,1.0,3981810.0
+6106333,2026-10-20,champions,Slavia Prague,Mubarak Suleiman,1840847,M,1,85,2,0,0,0.06,62.0,2.0,1693140.0
+6106333,2026-10-20,champions,Slavia Prague,David Moses,1509423,M,1,90,0,0,0,0.0,64.0,2.0,11909064.0
+6106333,2026-10-20,champions,Slavia Prague,Wiktor Nowak,1395322,M,1,90,1,0,0,0.22,66.0,2.0,1505599.0
+6106333,2026-10-20,champions,Slavia Prague,Oskar Kubiak,1782189,M,1,75,0,0,0,0.0,68.0,2.0,1571551.0
+6106333,2026-10-20,champions,Slavia Prague,Emmanuel Ayaosi,1327747,F,1,90,2,1,0,0.06,84.0,3.0,1315456.0
+6106333,2026-10-20,champions,Slavia Prague,Danijel Šturm,1270718,F,1,62,4,0,0,0.17,86.0,3.0,1535448.0
+6106333,2026-10-20,champions,Slavia Prague,Lukás Provod,791682,M,1,85,3,1,1,0.45,105.0,2.0,5950955.0
+6106333,2026-10-20,champions,Slavia Prague,Samuel Isife,1744791,M,0,28,1,0,0,0.07,,2.0,2191464.0
+6106333,2026-10-20,champions,Slavia Prague,Mojmír Chytil,988769,F,0,28,0,0,0,0.0,,3.0,3641281.0
+6106333,2026-10-20,champions,Slavia Prague,Toumani Diakité,1781770,M,0,15,0,0,0,0.0,,2.0,1588135.0
+6106333,2026-10-20,champions,Slavia Prague,Michal Sadílek,806551,M,0,5,0,0,0,0.0,,2.0,7082023.0
+6106333,2026-10-20,champions,Slavia Prague,Pavel Kačor,1585595,M,0,5,1,1,1,0.42,,2.0,1441099.0
+6106422,2026-10-20,champions,Sabah FK,Stas Pokatilov,489507,G,1,90,0,0,0,0.0,11.0,0.0,154230.0
+6106422,2026-10-20,champions,Sabah FK,Akim Zedadka,542777,D,1,90,1,0,0,0.01,32.0,1.0,315087.0
+6106422,2026-10-20,champions,Sabah FK,Steve Solvet,764834,D,1,90,1,0,0,0.04,34.0,1.0,560764.0
+6106422,2026-10-20,champions,Sabah FK,Aden McCarthy,1337091,D,1,90,1,1,1,0.55,36.0,1.0,342183.0
+6106422,2026-10-20,champions,Sabah FK,Tymoteusz Puchacz,823121,D,1,90,0,0,0,0.0,38.0,1.0,1562803.0
+6106422,2026-10-20,champions,Sabah FK,Umarali Rakhmonaliev,1429286,M,1,81,1,0,0,0.06,64.0,2.0,1014337.0
+6106422,2026-10-20,champions,Sabah FK,Ivan Lepinjica,906920,M,1,90,1,0,0,0.03,66.0,2.0,1090204.0
+6106422,2026-10-20,champions,Sabah FK,Kaheem Parris,876149,F,1,65,1,1,0,0.08,83.0,3.0,861760.0
+6106422,2026-10-20,champions,Sabah FK,Du Queiroz,1271367,M,1,65,0,0,0,0.0,85.0,2.0,1250839.0
+6106422,2026-10-20,champions,Sabah FK,Veljko Simić,458807,F,1,90,4,1,0,0.51,87.0,3.0,544590.0
+6106422,2026-10-20,champions,Sabah FK,Joy-Lance Mickels,617465,F,1,81,1,1,0,0.02,115.0,3.0,328034.0
+6106422,2026-10-20,champions,Sabah FK,Aleksey İsayev,688887,M,0,25,0,0,0,0.0,,2.0,558355.0
+6106422,2026-10-20,champions,Sabah FK,Orphé Mbina,1197093,M,0,25,2,0,0,0.18,,2.0,202405.0
+6106422,2026-10-20,champions,Sabah FK,Abdulakh Khaybulaev,1351085,M,0,9,0,0,0,0.0,,2.0,237155.0
+6106422,2026-10-20,champions,Sabah FK,Christian Nwachukwu,1624072,F,0,9,0,0,0,0.0,,3.0,787143.0
+6106422,2026-10-20,champions,Borussia Dortmund,Gregor Kobel,764018,G,1,90,0,0,0,0.0,11.0,0.0,35376847.0
+6106422,2026-10-20,champions,Borussia Dortmund,Waldemar Anton,664970,D,1,90,0,0,0,0.0,33.0,1.0,15188697.0
+6106422,2026-10-20,champions,Borussia Dortmund,Nico Schlotterbeck,1002058,D,1,90,2,0,0,0.22,35.0,1.0,60400514.0
+6106422,2026-10-20,champions,Borussia Dortmund,Ramy Bensebaini,559065,D,1,72,3,0,0,0.09,37.0,1.0,8173244.0
+6106422,2026-10-20,champions,Borussia Dortmund,Julian Ryerson,659272,M,1,90,1,0,0,0.12,62.0,2.0,20595292.0
+6106422,2026-10-20,champions,Borussia Dortmund,Felix Nmecha,966019,M,1,71,2,1,0,0.2,64.0,2.0,58493494.0
+6106422,2026-10-20,champions,Borussia Dortmund,Joey Veerman,792429,M,1,90,2,2,0,0.2,66.0,2.0,20549782.0
+6106422,2026-10-20,champions,Borussia Dortmund,Daniel Svensson,1209228,M,1,77,0,0,0,0.0,68.0,2.0,23955881.0
+6106422,2026-10-20,champions,Borussia Dortmund,Carney Chukwuemeka,1089685,M,1,71,0,0,0,0.0,84.0,2.0,23893745.0
+6106422,2026-10-20,champions,Borussia Dortmund,Fábio Silva,1050158,F,1,89,4,2,0,0.98,86.0,3.0,24433272.0
+6106422,2026-10-20,champions,Borussia Dortmund,Serhou Guirassy,448540,F,1,90,8,4,2,1.95,105.0,3.0,31057599.0
+6106422,2026-10-20,champions,Borussia Dortmund,Joane Gadou,1479742,D,0,19,0,0,0,0.0,,1.0,22025620.0
+6106422,2026-10-20,champions,Borussia Dortmund,Jobe Bellingham,1287373,M,0,19,0,0,0,0.0,,2.0,45914752.0
+6106422,2026-10-20,champions,Borussia Dortmund,Marcel Sabitzer,215151,M,0,19,0,0,0,0.0,,2.0,2668022.0
+6106422,2026-10-20,champions,Borussia Dortmund,Maximilian Beier,1047667,M,0,13,0,0,0,0.0,,2.0,44321262.0
+6106422,2026-10-20,champions,Borussia Dortmund,Ethan Nwaneri,1254234,M,0,1,0,0,0,0.0,,2.0,36019496.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Bento,1043761,G,1,90,0,0,0,0.0,11.0,0.0,7913562.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Nawaf Bu Washl,1401228,D,1,90,0,0,0,0.0,32.0,1.0,764200.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Abdulelah Al Amri,848600,D,1,90,0,0,0,0.0,34.0,1.0,1037897.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Iñigo Martínez,282676,D,1,90,1,0,0,0.18,36.0,1.0,1806396.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Aiman Yahya,1095207,D,1,81,1,0,0,0.11,38.0,1.0,
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Abdullah Al Khaibari,823457,M,1,90,1,0,0,0.08,64.0,2.0,578115.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Samú,1130583,M,1,90,1,0,0,0.07,66.0,2.0,11223649.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Ângelo,1199757,F,1,72,2,0,0,0.1,83.0,3.0,15563657.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Joao Félix,794427,M,1,89,4,2,1,0.12,85.0,2.0,19721967.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Sadio Mané,303339,F,1,89,1,0,0,0.04,87.0,3.0,4844754.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Cristiano Ronaldo,30893,F,1,90,6,0,0,1.59,115.0,3.0,5777099.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Abdullah Al Hamddan,909198,F,0,18,0,0,0,0.0,,3.0,176158.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Awad Aman,1608559,D,0,9,0,0,0,0.0,,1.0,352167.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Sami Al Naji,749010,M,0,1,0,0,0,0.0,,2.0,140008.0
+5970168,2026-10-20,ksa_pro,Al Nassr FC,Saad Haqawi,1675653,F,0,1,0,0,0,0.0,,3.0,343504.0
+5970168,2026-10-20,ksa_pro,Neom SC,Marcin Bułka,863455,G,1,90,0,0,0,0.0,11.0,0.0,12766756.0
+5970168,2026-10-20,ksa_pro,Neom SC,Mohammed Al Dossary,882065,D,1,76,0,0,0,0.0,33.0,1.0,
+5970168,2026-10-20,ksa_pro,Neom SC,Nathan Zézé,1429120,D,1,90,0,0,0,0.0,35.0,1.0,20811343.0
+5970168,2026-10-20,ksa_pro,Neom SC,Malang Sarr,782502,D,1,90,0,0,0,0.0,37.0,1.0,14160792.0
+5970168,2026-10-20,ksa_pro,Neom SC,Mohammed Al Burayk,618586,M,1,90,0,0,0,0.0,72.0,2.0,144691.0
+5970168,2026-10-20,ksa_pro,Neom SC,Abdulmalik Al Oyayari,1305882,M,1,77,0,0,0,0.0,74.0,2.0,
+5970168,2026-10-20,ksa_pro,Neom SC,Abbas Al Hassan,1220487,M,1,57,0,0,0,0.0,76.0,2.0,
+5970168,2026-10-20,ksa_pro,Neom SC,Mohannad Abu Taha,1247001,M,1,76,1,0,0,0.02,78.0,2.0,283679.0
+5970168,2026-10-20,ksa_pro,Neom SC,Khalil Al Absi,1189048,F,1,57,1,0,0,0.11,103.0,3.0,326784.0
+5970168,2026-10-20,ksa_pro,Neom SC,Alexandre Lacazette,169193,F,1,90,1,0,0,0.06,105.0,3.0,1878561.0
+5970168,2026-10-20,ksa_pro,Neom SC,Saïd Benrahma,491883,F,1,90,4,1,0,0.19,107.0,3.0,4030514.0
+5970168,2026-10-20,ksa_pro,Neom SC,Valentín Vada,562688,M,0,33,0,0,0,0.0,,2.0,782579.0
+5970168,2026-10-20,ksa_pro,Neom SC,Giorgos Masouras,575227,F,0,33,0,0,0,0.0,,3.0,1088353.0
+5970168,2026-10-20,ksa_pro,Neom SC,Khalifah Al Dawsari,934552,D,0,14,0,0,0,0.0,,1.0,278473.0
+5970168,2026-10-20,ksa_pro,Neom SC,Haroune Camara,922677,F,0,14,0,0,0,0.0,,3.0,280885.0
+5970168,2026-10-20,ksa_pro,Neom SC,Faisal Al Ghamdi,1122232,M,0,13,0,0,0,0.0,,2.0,902022.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Marek Rodák,605643,G,1,90,0,0,0,0.0,11.0,0.0,1391725.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Abdullah Khateeb,1053193,D,1,90,0,0,0,0.0,33.0,1.0,173680.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Pedro Henrique,535597,D,1,90,0,0,0,0.0,35.0,1.0,1792017.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Jack Hendry,640642,D,1,90,0,0,0,0.0,37.0,1.0,1597562.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Radhi Al Otaibi,980983,D,1,42,0,0,0,0.0,51.0,1.0,189094.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Meshal Al Alaeli,1485108,D,1,55,1,0,0,0.04,59.0,1.0,
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Yasir Shammari,1830486,M,1,76,0,0,0,0.0,73.0,2.0,
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Abdoulaye Kanté,1516829,M,1,90,0,0,0,0.0,75.0,2.0,6173378.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Ondrej Duda,350634,M,1,90,1,0,0,0.06,77.0,2.0,1518358.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Matija Gluščević,1562899,F,1,55,1,1,0,0.01,104.0,3.0,733441.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Sultan Harun,1897034,F,1,45,3,2,1,0.88,106.0,3.0,380593.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Madallah Al Olayan,618860,D,0,48,0,0,0,0.0,,1.0,252240.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Bersant Celina,525431,M,0,45,1,0,0,0.06,,2.0,1381780.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Khalid Al Ghannam,1024928,F,0,35,0,0,0,0.0,,3.0,1100709.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Moussa Dembélé,509148,F,0,35,2,1,0,0.42,,3.0,3510911.0
+5970164,2026-10-20,ksa_pro,Al-Ettifaq,Abdulelah Hawsawi,1707180,M,0,14,0,0,0,0.0,,2.0,334957.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Predrag Rajković,435614,G,1,90,0,0,0,0.0,11.0,0.0,4957141.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Muhannad Al Shanqiti,873530,D,1,90,1,0,0,0.05,32.0,1.0,758298.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Saad Al Mosa,1291611,D,1,64,1,0,0,0.02,34.0,1.0,704520.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Danilo Pereira,240235,D,1,90,0,0,0,0.0,36.0,1.0,1675161.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Faris Abdi,1078013,D,1,90,0,0,0,0.0,38.0,1.0,366128.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Richard Ríos,1174630,M,1,90,3,1,0,0.08,64.0,2.0,15119438.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Mukhtar Ali,759808,M,1,90,0,0,0,0.0,66.0,2.0,435805.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Georginio Wijnaldum,108038,F,1,88,0,0,0,0.0,83.0,3.0,1067234.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Houssem Aouar,776299,M,1,88,4,2,1,1.16,85.0,2.0,7578344.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Steven Bergwijn,564818,F,1,73,3,1,0,0.24,87.0,3.0,6569421.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,George Ilenikhena,1431516,F,1,73,3,2,1,0.22,115.0,3.0,12457055.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Ahmed Al Ghamdi,1066583,F,0,26,1,0,0,0.04,,3.0,269038.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Marwan Al Sahafi,1399713,F,0,17,0,0,0,0.0,,3.0,1222730.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Youssef En-Nesyri,788555,F,0,17,3,2,2,1.19,,3.0,10856496.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Muath Fagihy,1429005,D,0,2,0,0,0,0.0,,1.0,344168.0
+5970164,2026-10-20,ksa_pro,Al Ittihad,Saleh Al Shehri,384407,F,0,2,0,0,0,0.0,,3.0,215202.0
+5838002,2026-10-20,eng_league_two,York City,Alfie McNally,1587812,G,1,90,0,0,0,0.0,11.0,0.0,
+5838002,2026-10-20,eng_league_two,York City,Jack Hunt,184461,D,1,63,0,0,0,0.0,33.0,1.0,64785.0
+5838002,2026-10-20,eng_league_two,York City,Zak Johnson,1318713,D,1,90,1,0,0,0.07,35.0,1.0,182422.0
+5838002,2026-10-20,eng_league_two,York City,Mark Kitching,532739,D,1,90,1,0,0,0.06,37.0,1.0,
+5838002,2026-10-20,eng_league_two,York City,Jeff King,564541,D,1,63,1,0,0,0.04,72.0,1.0,
+5838002,2026-10-20,eng_league_two,York City,Alex Hunt,955348,M,1,73,0,0,0,0.0,74.0,2.0,314557.0
+5838002,2026-10-20,eng_league_two,York City,Oliver Banks,215120,F,1,73,1,0,0,0.02,76.0,3.0,
+5838002,2026-10-20,eng_league_two,York City,Harry Boyes,1206948,D,1,90,3,1,0,0.05,78.0,1.0,188873.0
+5838002,2026-10-20,eng_league_two,York City,Joe Grey,1116458,M,1,90,1,0,0,0.08,103.0,2.0,155106.0
+5838002,2026-10-20,eng_league_two,York City,Ollie Pearce,711374,F,1,90,4,3,1,0.98,105.0,3.0,
+5838002,2026-10-20,eng_league_two,York City,Alex Newby,662331,M,1,63,2,2,0,0.28,107.0,2.0,182510.0
+5838002,2026-10-20,eng_league_two,York City,Ryan Fallowfield,612144,D,0,27,0,0,0,0.0,,1.0,
+5838002,2026-10-20,eng_league_two,York City,Frankie Maguire,1229784,M,0,27,0,0,0,0.0,,2.0,
+5838002,2026-10-20,eng_league_two,York City,Joe Felix,1123768,M,0,27,0,0,0,0.0,,2.0,
+5838002,2026-10-20,eng_league_two,York City,Arthur Read,789539,M,0,17,1,0,0,0.03,,2.0,220937.0
+5838002,2026-10-20,eng_league_two,York City,Hiram Boateng,479745,M,0,17,0,0,0,0.0,,2.0,92998.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Louie Moulden,997557,G,1,90,0,0,0,0.0,11.0,0.0,383469.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Donald Love,684734,M,1,90,0,0,0,0.0,33.0,2.0,214769.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Devon Matthews,1396874,D,1,90,1,0,0,0.01,35.0,1.0,257846.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Joseph Anderson,1086708,D,1,90,1,0,0,0.01,37.0,1.0,242754.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Connor O'Brien,1420163,M,1,90,1,0,0,0.15,72.0,2.0,148690.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Stefan Mols,886020,M,1,88,0,0,0,0.0,74.0,2.0,
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Aidan Borland,1614550,M,1,90,0,0,0,0.0,76.0,2.0,248832.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,David Tutonda,616926,M,1,90,2,2,0,0.1,78.0,2.0,67916.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Tyler Walton,792702,F,1,90,0,0,0,0.0,103.0,3.0,151117.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Josh Woods,1283966,F,1,90,4,1,1,0.31,105.0,3.0,269770.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Charlie Warren,1787153,F,1,80,2,1,0,0.22,107.0,3.0,
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Conor Grant,571546,M,0,10,1,0,0,0.22,,2.0,85998.0
+5838002,2026-10-20,eng_league_two,Accrington Stanley,Charlie Brown,891387,M,0,2,0,0,0,0.0,,2.0,123663.0

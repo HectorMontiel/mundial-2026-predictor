@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T19:09:14Z",
+"actualizado": "2026-10-20T20:44:08Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10764,6 +10764,46 @@
 },
 {
 "dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Al Ettifaq vs Al Ittihad",
+"apuesta": "Gana Al Ittihad",
+"cuota": 2.07,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Al Nassr vs Neom SC",
+"apuesta": "Gana Al Nassr",
+"cuota": 1.42,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Al Nassr vs Neom SC",
+"apuesta": "Al Nassr o empate",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Al Nassr vs Neom SC",
+"apuesta": "Gana Al Nassr",
+"cuota": 1.417,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-20",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Al Taawoun vs Al Qadsiah",
@@ -10781,6 +10821,16 @@
 "cuota": 1.444,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "El Gaish vs Pyramids",
+"apuesta": "Gana Pyramids",
+"cuota": 1.56,
+"resultado": "verde",
+"marcador": "1-4"
 },
 {
 "dia": "2026-10-20",
@@ -10871,6 +10921,26 @@
 "cuota": 1.33,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Southampton U21 vs Juventus U21",
+"apuesta": "Gana Southampton U21",
+"cuota": 2.04,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Stoke City U21 vs Nordsjaelland U21",
+"apuesta": "Gana Stoke City U21",
+"cuota": 3.5,
+"resultado": "rojo",
+"marcador": "0-2"
 }
 ]
 }
