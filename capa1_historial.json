@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T11:05:53Z",
+"actualizado": "2026-10-20T14:22:36Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10754,6 +10754,16 @@
 },
 {
 "dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Homs Al Fidaa (Syr) vs Nejmeh SC (Leb)",
+"apuesta": "Gana Homs Al Fidaa (Syr)",
+"cuota": 3.2,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-20",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Isenmulang Kalteng vs Java United",
@@ -10761,6 +10771,16 @@
 "cuota": 1.68,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Paro (Bhu) vs Al Ansar (Leb)",
+"apuesta": "Gana Al Ansar (Leb)",
+"cuota": 1.89,
+"resultado": "verde",
+"marcador": "1-2"
 }
 ]
 }
