@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T04:44:12Z",
+"actualizado": "2026-10-20T11:05:53Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10751,6 +10751,16 @@
 "cuota": 1.77,
 "resultado": "verde",
 "marcador": "3-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Isenmulang Kalteng vs Java United",
+"apuesta": "Gana Java United",
+"cuota": 1.68,
+"resultado": "rojo",
+"marcador": "1-1"
 }
 ]
 }
