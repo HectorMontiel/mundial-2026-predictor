@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-20T00:10:22Z",
+"actualizado": "2026-10-20T01:38:27Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10304,6 +10304,16 @@
 },
 {
 "dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Cartagena vs Patriotas",
+"apuesta": "Gana Cartagena",
+"cuota": 1.8,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-19",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Dolomiti Bellunesi vs Trento",
@@ -10394,6 +10404,36 @@
 },
 {
 "dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Goias vs Nautico",
+"apuesta": "Gana Goias",
+"cuota": 1.75,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Goiás vs Náutico",
+"apuesta": "Goiás o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-19",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Goiás vs Náutico",
+"apuesta": "Gana Goiás",
+"cuota": 1.75,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-19",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "H. Raanana vs Bnei Yehuda",
@@ -10460,6 +10500,16 @@
 "apuesta": "Gana MSP Batna",
 "cuota": 2.03,
 "resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-19",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Molynes vs Cavalier",
+"apuesta": "Gana Cavalier",
+"cuota": 1.79,
+"resultado": "rojo",
 "marcador": "1-0"
 },
 {
