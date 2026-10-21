@@ -496,6 +496,9 @@
     if (ctx.h2h && ctx.h2h.length) {
       h += '<div class="ctx-tit">Últimos enfrentamientos</div>' + ctx.h2h.map((x) =>
         '<div class="ctx-h"><small>' + esc(x[0]) + '</small><span>' + esc(x[1]) + '</span><b>' + esc(x[2]) + '</b><span>' + esc(x[3]) + '</span></div>').join('');
+    } else if (ctx.sl || ctx.sv) {
+      // v415 — sin H2H se dice (antes la sección desaparecía y parecía un fallo)
+      h += '<div class="ctx-tit">Últimos enfrentamientos</div><p class="tenue">No se han enfrentado en nuestros registros.</p>';
     }
     if (ctx.bl || ctx.bv) {
       h += '<div class="ctx-tit">Bajas</div>' +

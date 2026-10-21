@@ -243,6 +243,60 @@ def _promedios(h, eq, antes, n=10) -> Optional[Dict]:
     return out
 
 
+def _con_sus_ligas(h, clave: str, equipos) -> 'pd.DataFrame':
+    """v415 — LOS PARTIDOS DE LA COMPETICIÓN + LOS DE LA LIGA DE CADA EQUIPO.
+
+    El usuario: «Como vs Manchester United no trae las estadísticas ni el H2H
+    que tienen los otros… quiero que todos tengan, no estimaciones: datos
+    reales». En la Champions, Como tenía 2 partidos en el histórico (con menos
+    de 3 no se calcula nada) y los últimos 10 del United eran de temporadas
+    viejas. Pero los dos tienen cientos de partidos REALES y al día en su liga
+    (Serie A, Premier), con córners, tiros y tarjetas. Aquí se juntan: los de
+    esta competición y los de la liga de cada equipo (`catalogo_equipos`), con
+    el nombre del equipo unificado; `_promedios` toma los 10 más recientes.
+    En un partido de liga no cambia nada (su liga es la misma).
+    """
+    import pandas as pd
+    partes = [h] if h is not None and len(h) else []
+    for eq in equipos:
+        try:
+            import catalogo_equipos as ce
+            r = ce.nombre_en_su_liga(eq)
+            liga = r[0] if r else ce.liga_de(eq)
+        except Exception:
+            r, liga = None, None
+        if not liga or liga == clave:
+            continue
+        try:
+            import panel_equipos as pe
+            d = pe._historico(liga)
+        except Exception:
+            d = None
+        if d is None or not len(d):
+            continue
+        nom = r[1] if r else None
+        if not nom:
+            # el catálogo sabe su liga pero no cómo se llama ahí («Man United»):
+            # el traductor del proyecto, SÓLO contra los equipos de esa liga
+            try:
+                import name_mapper as nm
+                nom = nm.mapear(eq, set(d['home_team']) | set(d['away_team']), contexto='contexto ' + liga)
+            except Exception:
+                nom = None
+        if not nom:
+            continue
+        d = d[(d['home_team'] == nom) | (d['away_team'] == nom)].copy()
+        if nom != eq:
+            d['home_team'] = d['home_team'].replace(nom, eq)
+            d['away_team'] = d['away_team'].replace(nom, eq)
+        partes.append(d)
+    if not partes:
+        return h
+    out = pd.concat(partes, ignore_index=True, sort=False)
+    out['date'] = pd.to_datetime(out['date'], errors='coerce', utc=True).dt.tz_localize(None)
+    return out.drop_duplicates(subset=['date', 'home_team', 'away_team'])
+
+
 def contexto(p: Dict) -> Optional[Dict]:
     """{'fl': 'GGEPG', 'fv': ..., 'sl'/'sv': promedios de los últimos 10, 'h2h': [[fecha, local, marcador, visita], …], 'bl': [...], 'bv': [...]}"""
     try:
@@ -259,10 +313,10 @@ def contexto(p: Dict) -> Optional[Dict]:
         if clave:
             try:
                 import panel_equipos as pe
-                h = pe._historico(clave)
+                h = _con_sus_ligas(pe._historico(clave), clave, (home, away))   # v415
                 if h is not None and len(h):
                     h = h.copy()
-                    h['date'] = pd.to_datetime(h['date'], errors='coerce')
+                    h['date'] = pd.to_datetime(h['date'], errors='coerce', utc=True).dt.tz_localize(None)
                     pl, pv = _promedios(h, home, antes), _promedios(h, away, antes)
                     if pl:
                         ctx['sl'], ctx['fl'] = pl, pl['forma']

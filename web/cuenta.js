@@ -125,6 +125,9 @@
     if (yo.user) {
       tareas.push(sb.from('perfiles').select('*').eq('id', yo.user.id).maybeSingle().then(({ data, error }) => {
         if (error) return;                       // sin red: se queda el que había
+        // v416 — vacío al volver a la app (la sesión se está renovando y la
+        // consulta sale sin ella): se queda la copia; nunca se borra por esto
+        if (!data) { if (!yo.perfil) yo.perfil = perfilGuardado(yo.user.id); return; }
         yo.perfil = data; guardarPerfil(data);
       }));
       tareas.push(sb.from('seguidos').select('pick').then(({ data }) => { yo.seguidos = new Set((data || []).map((x) => x.pick)); }));
@@ -210,7 +213,10 @@
     const c = $('cuenta'); if (!c) return;
     if (!sb) { c.innerHTML = ''; return; }
     if (!yo.user) { c.innerHTML = '<button class="entrar" data-entrar>Entrar</button>'; return; }
-    const nom = (yo.perfil && (yo.perfil.usuario || yo.perfil.nombre)) || String(yo.user.email || 'Mi cuenta').split('@')[0];
+    // v416 — mientras el perfil no llega NO se inventa: ni el correo como
+    // nombre ni «0 monedas» (al admin le salía su correo de Google y 0 🪙)
+    if (!yo.perfil) { c.innerHTML = '<span class="saldo" title="Tus monedas">🪙 …</span><button class="entrar" data-mi-cuenta>Mi cuenta ▾</button>'; return; }
+    const nom = yo.perfil.usuario || yo.perfil.nombre || String(yo.user.email || 'Mi cuenta').split('@')[0];
     c.innerHTML = '<span class="saldo" title="Tus monedas">🪙 ' + (esAdmin() ? '∞' : ((yo.perfil && yo.perfil.monedas) || 0)) + '</span>' +
       (esVip() ? '<span class="et nivel diamante">' + (esAdmin() ? 'ADMIN' : 'VIP') + '</span>' : '') +
       '<button class="entrar" data-mi-cuenta>' + esc(nom) + ' ▾</button>';
