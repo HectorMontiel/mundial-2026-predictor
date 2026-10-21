@@ -206,10 +206,17 @@ def probar_v425():
 
 def probar_v427():
     app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
-    check('function cancha(v)' in app and 'fieldPositionX != null' in app and "(j.lado === 0 ? x : 100 - x) * 1.05" in app
-          and "cancha(v) : '')" in app and 'h += cancha(v);' in app, 'v427: la cancha en vivo (jugadas con lugar, el visitante reflejado) en la tarjeta y la ficha')
-    check('Presión cada 5 min' in app and '.cancha-svg .pulso' in css and 'prefers-reduced-motion' in css,
-          'v427: la presión cada 5 minutos y la última jugada que late (sin animación si el usuario la apaga)')
+    check('function cancha(v, p)' in app and 'fieldPositionX != null' in app and "(lado === 0 ? x : 100 - x) * 1.05" in app
+          and "cancha(v, p) : '')" in app and 'h += cancha(v, p);' in app, 'v427: la cancha en vivo (jugadas con lugar, el visitante reflejado) en la tarjeta y la ficha')
+    check('Presión minuto a minuto' in app and '.cancha-svg .balon' in css and 'prefers-reduced-motion' in css,
+          'v429: la ola de presión minuto a minuto y el balón que recorre las jugadas (sin animación si el usuario la apaga)')
+    check("webws.365scores.com/web/" in app and 'async function detalle365(p)' in app and 'yardFormation' in app and 'chartEvents' in app
+          and 'https://webws.365scores.com' in leer('web', '_headers'), 'v429: los 22 en su formación y todos los tiros con su xG (365Scores, la CSP lo permite)')
+    check('function mejorCruce(L, V, lista, kh, ka)' in app and "mejorCruce(L, V, lista, 'home', 'away')" in app,
+          'v429: se empareja con el partido MÁS parecido (no el Sub-19 del mismo día)')
+    check('function estadoVisto(p, v)' in app and "title=\"Al pitazo; el servidor lo confirma\"" in app
+          and "evs.includes('roja') ? 'roja'" in app and "cajaMarcador('Hoy', estado.picks.filter" in app,
+          'v430: cada pick y cada combinada con su verde o rojo al pitazo; los marcadores, sólo lo oficial')
 
 
 def probar_v428():

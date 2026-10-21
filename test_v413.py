@@ -54,13 +54,13 @@ def probar_cabeceras():
     check("frame-ancestors 'none'" in csp and 'X-Frame-Options: DENY' in h, 'nadie mete el sitio dentro de otra página')
     check("object-src 'none'" in csp and "base-uri 'self'" in csp and 'Permissions-Policy:' in h
           and 'Strict-Transport-Security:' in h, 'objetos, base, permisos y HTTPS cerrados')
-    for host in ('lyfmyehvfywnjasinbne.supabase.co', 'site.api.espn.com'):
+    for host in ('lyfmyehvfywnjasinbne.supabase.co', 'site.api.espn.com', 'webws.365scores.com'):
         check(host in csp.split('connect-src')[1].split(';')[0], 'la CSP deja hablar con ' + host)
     html = leer('web', 'index.html')
     check(not re.search(r'<script>(?!</script>)', html) and not re.search(r'\son[a-z]+=', html),
           'index.html sin scripts ni eventos en línea')
     hosts = set(re.findall(r'https?://([a-z0-9.-]+)', leer('web', 'app.js') + leer('web', 'cuenta.js') + leer('web', 'fechas.js')))
-    permitidos = {'lyfmyehvfywnjasinbne.supabase.co', 'site.api.espn.com', 'sharpicks.pages.dev', 't.me', 'fonts.googleapis.com'}
+    permitidos = {'lyfmyehvfywnjasinbne.supabase.co', 'site.api.espn.com', 'sharpicks.pages.dev', 't.me', 'fonts.googleapis.com', 'webws.365scores.com'}   # v429
     check(hosts <= permitidos, 'la página no llama a dominios fuera de la CSP: %s' % sorted(hosts - permitidos))
     wf = leer('.github', 'workflows', 'sitio_web.yml')
     check(wf.index('rm -f web/*.sql') < wf.index('pages deploy web'), 'los .sql no se publican')

@@ -564,3 +564,24 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .boleto-pata span { flex: 1; display: flex; flex-direction: column; } .boleto-pata small { color: var(--tenue); }
 .cerrar-mini { background: none; border: 0; color: var(--tenue); font-size: 14px; cursor: pointer; }
 .boleto-pie { padding-top: 8px; display: flex; flex-direction: column; gap: 6px; }
+
+/* v429 — la cancha: simple, moderna */
+.cancha { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(0,0,0,.18)); border: 1px solid var(--borde-vidrio, rgba(255,255,255,.12)); }
+.cancha-ult { gap: 8px; flex-wrap: wrap; }
+.chip-ult { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 3px 10px; backdrop-filter: blur(8px); }
+.xg { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--tenue); }
+.xg i { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+.cancha-svg .lineas { fill: none; stroke: rgba(255,255,255,.38); stroke-width: .3; }
+.cancha-svg .lineas .punto { fill: rgba(255,255,255,.5); }
+.cancha-svg .jug circle { stroke: rgba(255,255,255,.9); stroke-width: .25; opacity: .92; }
+.cancha-svg .jug .num { font-size: 2px; font-weight: 800; fill: #fff; text-anchor: middle; paint-order: stroke; stroke: rgba(0,0,0,.35); stroke-width: .25; }
+.cancha-svg .jug .nota { font-size: 1.7px; fill: rgba(255,255,255,.8); text-anchor: middle; }
+.cancha-svg .jug .nota.alta { fill: #7dfca0; font-weight: 700; }
+.cancha-svg .tiro circle { stroke-width: .35; fill-opacity: .55; }
+.cancha-svg .tiro.gol circle { fill-opacity: .9; }
+.cancha-svg .tiro .bal { font-size: 2.6px; text-anchor: middle; }
+.cancha-svg .balon { transition: transform .9s cubic-bezier(.45,.05,.25,1); }
+.cancha-svg .balon .halo { opacity: .35; animation: pulso 1.4s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+.cancha-tit { display: flex; justify-content: space-between; align-items: center; }
+@media (prefers-reduced-motion: reduce) { .cancha-svg .balon { transition: none; } .cancha-svg .balon .halo { animation: none; } }
+.presion-svg { height: 48px; }

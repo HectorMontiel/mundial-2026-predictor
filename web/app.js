@@ -224,6 +224,20 @@
   const fichas = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ')
     .split(/\s+/).filter((w) => w.length >= 3 && !GENERICAS.has(w));
   const casan = (a, b) => { const x = fichas(a), y = new Set(fichas(b)); return x.length && y.size && x.some((w) => y.has(w)); };
+  // v429 — el MÁS parecido, no el primero: «Bayern Munich» con «Bayern Munich»
+  // gana a «Bayern Munich Sub19» (la Youth League juega el mismo día)
+  const parecido = (a, b) => { const x = new Set(fichas(a)), y = new Set(fichas(b)); if (!x.size || !y.size) return 0;
+    let c = 0; x.forEach((w) => { if (y.has(w)) c++; }); return c / (x.size + y.size - c); };
+  function mejorCruce(L, V, lista, kh, ka) {
+    let mejor = null, pm = 0;
+    for (const x of lista) {
+      for (const gir of [false, true]) {
+        const a = parecido(L, gir ? x[ka] : x[kh]), b = parecido(V, gir ? x[kh] : x[ka]);
+        if (a > 0 && b > 0 && a + b > pm) { pm = a + b; mejor = { m: x, girado: gir }; }
+      }
+    }
+    return mejor;
+  }
   const STATS_FS = { 'Ball possession': 'possessionPct', 'Total shots': 'totalShots', 'Shots on target': 'shotsOnTarget', 'Corner kicks': 'wonCorners',
     'Yellow cards': 'yellowCards', 'Red cards': 'redCards', 'Fouls': 'foulsCommitted', 'Offsides': 'offsides', 'Goalkeeper saves': 'saves',
     'Expected goals (xG)': 'xg', 'Passes': 'totalPasses' };
@@ -243,8 +257,7 @@
       try { const r = await fetch('vivo?dep=' + dep); if (r.ok) lista = (await r.json()).partidos || []; } catch (e) { continue; }
       for (const p of sin.filter((x) => DEP_FS[x.deporte] === dep)) {
         const [L, V] = lados(p);
-        let m = lista.find((x) => casan(L, x.home) && casan(V, x.away)), girado = false;
-        if (!m) { m = lista.find((x) => casan(L, x.away) && casan(V, x.home)); girado = !!m; }
+        const cr = mejorCruce(L, V, lista, 'home', 'away'), m = cr && cr.m, girado = !!(cr && cr.girado);
         if (!m || m.estado === 'pre') continue;
         const k = clavePartido(p), viejo = estado.fsPor[k];
         const g = [m.gh == null ? 0 : m.gh, m.ga == null ? 0 : m.ga];
@@ -362,45 +375,154 @@
     const vals = Object.values(v.stats || {}).flatMap((s) => (s.v || []).map((x) => num(x)));
     return !vals.length || vals.every((x) => x === 0);
   }
-  // v427 — LA CANCHA EN VIVO (estilo Sofascore). El usuario: «así tienes
-  // información en tiempo real y la gente se queda más tiempo en la app». Las
-  // últimas jugadas con su lugar (tiros con su trayectoria, córners, faltas,
-  // goles), la última destacada y la PRESIÓN de cada equipo cada 5 minutos.
+  // v429 — LA CANCHA, «LO MEJOR DE CADA FUENTE». El usuario: «junta lo mejor
+  // de cada una… que se vea como el partido; simple pero moderno e innovador».
+  //   · 365Scores (abierto a cualquier página): la alineación de los 22 en su
+  //     formación con número y calificación, y TODOS los tiros con su xG, xGOT,
+  //     pie/cabeza y por dónde fueron al arco.
+  //   · ESPN: las jugadas con lugar (faltas, córners, fueras de lugar…).
+  //   · un balón que recorre las últimas jugadas en orden, para que se vea como
+  //     el partido; y la «ola» de presión minuto a minuto (tiros por su xG,
+  //     córners y jugadas de ataque).
+  // Coordenadas: las dos fuentes dan cada jugada en la dirección de ataque de
+  // quien la hizo (hacia 100); el local ataca a la derecha, el visitante se refleja.
+  const API365 = 'https://webws.365scores.com/web/';
+  const P365 = 'appTypeId=5&langId=29&timezoneName=America/Mexico_City&userCountryId=31';
+  estado.d365 = {}; estado.g365 = {}; estado.p365 = {};
+  async function dia365(dia) {
+    const c = estado.g365[dia];
+    if (c && Date.now() - c.ts < 3 * 60e3) return c.juegos;
+    const [a, m, d] = dia.split('-');
+    try {
+      const r = await fetch(API365 + 'games/allscores/?' + P365 + '&sports=1&showOdds=false&startDate=' + d + '/' + m + '/' + a + '&endDate=' + d + '/' + m + '/' + a);
+      const j = r.ok ? await r.json() : null;
+      estado.g365[dia] = { ts: Date.now(), juegos: ((j && j.games) || []).map((g) => ({ id: g.id, home: g.homeCompetitor.name, away: g.awayCompetitor.name })) };
+    } catch (e) { estado.g365[dia] = { ts: Date.now(), juegos: (c && c.juegos) || [] }; }
+    return estado.g365[dia].juegos;
+  }
+  async function detalle365(p) {
+    if (p.deporte !== 'Fútbol') return null;
+    const k = clavePartido(p);
+    let gid = estado.p365[k];
+    if (gid === undefined) {
+      const [L, V] = lados(p), cr = mejorCruce(L, V, await dia365(diaDe(p)), 'home', 'away');
+      gid = estado.p365[k] = cr ? cr.m.id : null;
+      if (cr && cr.girado) estado.p365[k + '|girado'] = true;
+    }
+    if (!gid) return null;
+    const viejo = estado.d365[gid];
+    if (viejo && Date.now() - viejo.ts < 30e3) return viejo;
+    try {
+      const r = await fetch(API365 + 'game/?' + P365 + '&gameId=' + gid);
+      const g = r.ok ? (await r.json()).game : null;
+      if (!g) return viejo || null;
+      const gir = !!estado.p365[k + '|girado'];
+      const nombres = Object.fromEntries((g.members || []).map((m) => [m.id, m]));
+      const once = (comp, lado) => ((comp.lineups || {}).members || []).filter((m) => m.status === 1 && m.yardFormation).map((m) => ({
+        lado, n: (nombres[m.id] || {}).jerseyNumber || '', nombre: (nombres[m.id] || {}).shortName || (nombres[m.id] || {}).name || '',
+        prof: Number(m.yardFormation.fieldLine), ancho: Number(m.yardFormation.fieldSide), nota: m.ranking || null }));
+      const lh = gir ? 1 : 0, la = gir ? 0 : 1;
+      const tiros = (((g.chartEvents || {}).events) || []).map((e) => ({
+        lado: e.competitorNum === 1 ? lh : la, x: Number(e.side), y: Number(e.line), xg: Number(e.xg || 0), xgot: Number(e.xgot || 0),
+        min: e.time || '', gol: ((e.outcome || {}).name) === 'Gol', resultado: ((e.outcome || {}).name) || '', cuerpo: e.bodyPart || '',
+        jugador: (nombres[e.playerId] || {}).shortName || '', arco: e.outcome && e.outcome.y != null ? { y: Number(e.outcome.y), z: Number(e.outcome.z) } : null }));
+      estado.d365[gid] = { ts: Date.now(), once: once(g.homeCompetitor, lh).concat(once(g.awayCompetitor, la)), tiros,
+        formacion: [gir ? g.awayCompetitor.lineups && g.awayCompetitor.lineups.formation : g.homeCompetitor.lineups && g.homeCompetitor.lineups.formation,
+          gir ? g.homeCompetitor.lineups && g.homeCompetitor.lineups.formation : g.awayCompetitor.lineups && g.awayCompetitor.lineups.formation] };
+      return estado.d365[gid];
+    } catch (e) { return viejo || null; }
+  }
+  // sólo de los partidos cuya cancha está a la vista (tarjeta abierta o ficha)
+  async function vivo365() {
+    if (document.hidden) return;
+    const vistos = new Set([...estado.abiertos].concat(fichaId ? [clavePartido(estado.picks.find((x) => x.id === fichaId) || {})] : []));
+    const ps = estado.picks.concat(estado.analisis || []).filter((p) => vistos.has(clavePartido(p)) && p.deporte === 'Fútbol');
+    const hechos = new Set();
+    let cambio = false;
+    for (const p of ps) {
+      const k = clavePartido(p); if (hechos.has(k)) continue; hechos.add(k);
+      const antes = JSON.stringify((estado.d365[estado.p365[k]] || {}).tiros || []);
+      const d = await detalle365(p);
+      if (d && JSON.stringify(d.tiros) !== antes) cambio = true;
+    }
+    if (cambio) { pintar(); refrescarFicha(); }
+  }
+
   const JUGADA = { goal: ['⚽', 'Gol', 5], 'penalty---scored': ['⚽', 'Gol de penal', 5], 'shot-on-target': ['🎯', 'Tiro a puerta', 3],
     'shot-off-target': ['↗️', 'Tiro desviado', 2], 'shot-blocked': ['🧱', 'Tiro bloqueado', 1.5], 'corner-awarded': ['🚩', 'Córner', 1],
     foul: ['✋', 'Falta', 0], offside: ['🚩', 'Fuera de lugar', 0.5], 'yellow-card': ['🟨', 'Amarilla', 0], 'red-card': ['🟥', 'Roja', 0] };
-  function cancha(v) {
-    const js = (v && v.jugadas) || [];
-    if (!js.length) return '';
-    const c = v.colores || { l: '#7c5cff', r: '#ff5ca8' };
-    const col = (j) => (j.lado === 0 ? c.l : c.r);
-    const X = (j, x) => ((j.lado === 0 ? x : 100 - x) * 1.05).toFixed(1), Y = (j, y) => ((j.lado === 0 ? y : 100 - y) * 0.68).toFixed(1);
-    const recientes = js.slice(-12), ult = js[js.length - 1];
+  const minuto = (s) => { const m = String(s || '').match(/(\d+)(?:'\s*\+\s*(\d+))?/); return m ? Number(m[1]) + (m[2] ? Number(m[2]) / 10 : 0) : 0; };
+  function cancha(v, p) {
+    const d = p ? estado.d365[estado.p365[clavePartido(p)]] : null;
+    const js = (v && v.jugadas) || [], tiros = (d && d.tiros) || [], once = (d && d.once) || [];
+    if (!js.length && !tiros.length && !once.length) return '';
+    const c = (v && v.colores) || { l: '#22c55e', r: '#e879f9' };
+    const col = (lado) => (lado === 0 ? c.l : c.r);
+    const X = (lado, x) => ((lado === 0 ? x : 100 - x) * 1.05).toFixed(2), Y = (lado, y) => ((lado === 0 ? y : 100 - y) * 0.68).toFixed(2);
     let s = '<svg class="cancha-svg" viewBox="0 0 105 68" role="img" aria-label="Cancha en vivo">' +
-      '<rect x="0" y="0" width="105" height="68" class="pasto"/><g class="lineas">' +
-      '<rect x="0.5" y="0.5" width="104" height="67"/><line x1="52.5" y1="0.5" x2="52.5" y2="67.5"/><circle cx="52.5" cy="34" r="9.15"/>' +
-      '<rect x="0.5" y="13.85" width="16.5" height="40.3"/><rect x="88" y="13.85" width="16.5" height="40.3"/>' +
-      '<rect x="0.5" y="24.85" width="5.5" height="18.3"/><rect x="99" y="24.85" width="5.5" height="18.3"/></g>';
-    recientes.forEach((j, i) => {
-      const fuerte = i === recientes.length - 1, op = (0.35 + 0.65 * (i + 1) / recientes.length).toFixed(2);
-      if (j.x2 != null && /shot|goal|penalty/.test(j.t)) s += '<line class="tray" x1="' + X(j, j.x) + '" y1="' + Y(j, j.y) + '" x2="' + X(j, j.x2) + '" y2="' + Y(j, j.y2) + '" stroke="' + col(j) + '" opacity="' + op + '"/>';
-      s += '<circle cx="' + X(j, j.x) + '" cy="' + Y(j, j.y) + '" r="' + (fuerte ? 2.6 : /goal|penalty/.test(j.t) ? 2 : 1.3) + '" fill="' + col(j) + '" opacity="' + op + '"' + (fuerte ? ' class="pulso"' : '') + '/>';
+      '<defs><pattern id="franjas" width="10.5" height="68" patternUnits="userSpaceOnUse"><rect width="5.25" height="68" fill="rgba(255,255,255,.025)"/></pattern>' +
+      '<radialGradient id="luz" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#1c7a45"/><stop offset="1" stop-color="#0d3b22"/></radialGradient>' +
+      '<filter id="brillo"><feGaussianBlur stdDeviation=".7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>' +
+      '<rect width="105" height="68" rx="2.5" fill="url(#luz)"/><rect width="105" height="68" rx="2.5" fill="url(#franjas)"/><g class="lineas">' +
+      '<rect x=".6" y=".6" width="103.8" height="66.8" rx="1.6"/><line x1="52.5" y1=".6" x2="52.5" y2="67.4"/><circle cx="52.5" cy="34" r="9.15"/><circle cx="52.5" cy="34" r=".5" class="punto"/>' +
+      '<rect x=".6" y="13.85" width="16.5" height="40.3"/><rect x="87.9" y="13.85" width="16.5" height="40.3"/>' +
+      '<rect x=".6" y="24.85" width="5.5" height="18.3"/><rect x="98.9" y="24.85" width="5.5" height="18.3"/>' +
+      '<path d="M17.1 26.7 A9.15 9.15 0 0 1 17.1 41.3"/><path d="M87.9 26.7 A9.15 9.15 0 0 0 87.9 41.3"/></g>';
+    // los 22 en su formación (tenues: son su lugar, no su posición en vivo)
+    once.forEach((j) => {
+      const x = j.lado === 0 ? 3 + j.prof * 0.45 : 102 - j.prof * 0.45, y = j.lado === 0 ? 5 + j.ancho * 0.58 : 63 - j.ancho * 0.58;
+      s += '<g class="jug" transform="translate(' + x.toFixed(2) + ' ' + y.toFixed(2) + ')"><title>' + esc(j.n + ' ' + j.nombre + (j.nota ? ' · ' + j.nota : '')) + '</title>' +
+        '<circle r="2.1" fill="' + col(j.lado) + '"/><text y=".75" class="num">' + esc(j.n) + '</text>' +
+        (j.nota ? '<text y="4.4" class="nota' + (j.nota >= 7.5 ? ' alta' : '') + '">' + esc(String(j.nota)) + '</text>' : '') + '</g>';
     });
-    s += '</svg>';
-    const u = JUGADA[ult.t] || ['•', ult.t, 0];
-    // la presión: cada 5 minutos, lo que atacó cada uno (tiros, córners, goles)
-    const bins = {}, maxSeg = js.reduce((m, j) => Math.max(m, j.seg), 0), nB = Math.max(1, Math.ceil(maxSeg / 300));
-    js.forEach((j) => { const b = Math.floor(j.seg / 300), w = (JUGADA[j.t] || [0, 0, 0])[2]; bins[b] = (bins[b] || 0) + (j.lado === 0 ? w : -w); });
-    const tope = Math.max(1, ...Object.values(bins).map(Math.abs)), ancho = 100 / nB;
-    let m = '<svg class="presion-svg" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Presión por minuto"><line x1="0" y1="12" x2="100" y2="12" class="eje"/>';
-    for (let b = 0; b < nB; b++) {
-      const val = bins[b] || 0, h = 11 * Math.abs(val) / tope;
-      if (h) m += '<rect x="' + (b * ancho + 0.4).toFixed(2) + '" y="' + (val > 0 ? 12 - h : 12).toFixed(2) + '" width="' + (ancho - 0.8).toFixed(2) + '" height="' + h.toFixed(2) + '" fill="' + (val > 0 ? c.l : c.r) + '"/>';
+    // los tiros: el tamaño es su xG; los goles, con su balón
+    tiros.forEach((t) => {
+      const r = (0.9 + 3.2 * Math.min(1, t.xg)).toFixed(2);
+      s += '<g class="tiro' + (t.gol ? ' gol' : '') + '"><title>' + esc((t.gol ? '⚽ ' : '') + t.jugador + ' · ' + t.min + ' · xG ' + t.xg.toFixed(2) + ' · ' + t.cuerpo + ' · ' + t.resultado) + '</title>' +
+        '<circle cx="' + X(t.lado, t.x) + '" cy="' + Y(t.lado, t.y) + '" r="' + r + '" stroke="' + col(t.lado) + '" fill="' + (t.gol ? col(t.lado) : 'none') + '"/>' +
+        (t.gol ? '<text x="' + X(t.lado, t.x) + '" y="' + (Number(Y(t.lado, t.y)) + 0.9).toFixed(2) + '" class="bal">⚽</text>' : '') + '</g>';
+    });
+    // el balón recorre las últimas jugadas (ESPN y los tiros), en orden
+    const seq = js.map((j) => ({ m: j.seg / 60, x: X(j.lado, j.x), y: Y(j.lado, j.y), t: (JUGADA[j.t] || ['•', ''])[1], lado: j.lado }))
+      .concat(tiros.map((t) => ({ m: minuto(t.min), x: X(t.lado, t.x), y: Y(t.lado, t.y), t: t.gol ? 'Gol' : 'Tiro', lado: t.lado })))
+      .sort((a, b) => a.m - b.m).slice(-8);
+    if (seq.length) {
+      const u = seq[seq.length - 1];
+      s += '<g class="balon" data-ruta="' + esc(JSON.stringify(seq.map((q) => [q.x, q.y]))) + '" style="transform: translate(' + u.x + 'px,' + u.y + 'px)">' +
+        '<circle r="1.5" class="halo" fill="' + col(u.lado) + '"/><circle r="1" fill="#fff" filter="url(#brillo)"/></g>';
     }
-    m += '</svg>';
-    return '<div class="cancha"><div class="cancha-ult"><span>' + u[0] + ' <b>' + esc(u[1]) + '</b> · ' + esc(ult.equipo) + '</span><small>' + esc(ult.min) + '</small></div>' + s +
-      '<div class="cancha-tit">Presión cada 5 min</div>' + m + '</div>';
+    s += '</svg>';
+    // la cabecera: lo último que pasó y el xG de cada uno
+    const ult = js.length ? js[js.length - 1] : null, u = ult ? JUGADA[ult.t] || ['•', ult.t] : null;
+    const xg = [0, 1].map((l) => tiros.filter((t) => t.lado === l).reduce((a, t) => a + t.xg, 0));
+    const cab = '<div class="cancha-ult">' + (u ? '<span class="chip-ult">' + u[0] + ' <b>' + esc(u[1]) + '</b> · ' + esc(ult.equipo) + ' · ' + esc(ult.min) + '</span>' : '<span></span>') +
+      (tiros.length ? '<span class="xg"><i style="background:' + c.l + '"></i>xG ' + xg[0].toFixed(2) + ' · ' + xg[1].toFixed(2) + '<i style="background:' + c.r + '"></i></span>' : '') + '</div>';
+    // la ola de presión: minuto a minuto, suavizada
+    const fin = Math.max(90, ...seq.map((q) => q.m), ...js.map((j) => j.seg / 60));
+    const val = new Array(Math.ceil(fin) + 1).fill(0);
+    const peso = (lado, w) => (lado === 0 ? w : -w);
+    js.filter((j) => !/shot|goal|penalty/.test(j.t) || !tiros.length).forEach((j) => { const m = Math.floor(j.seg / 60); if (val[m] != null) val[m] += peso(j.lado, (JUGADA[j.t] || [0, 0, 0])[2]); });
+    tiros.forEach((t) => { const m = Math.floor(minuto(t.min)); if (val[m] != null) val[m] += peso(t.lado, 1.5 + 8 * t.xg + (t.gol ? 3 : 0)); });
+    const suave = val.map((_, i) => val.slice(Math.max(0, i - 3), i + 1).reduce((a, b, k, arr) => a + b * (k + 1) / arr.length, 0));
+    const tope = Math.max(1, ...suave.map(Math.abs)), W = 100 / (suave.length - 1);
+    const pts = (signo) => suave.map((x, i) => (i * W).toFixed(2) + ',' + (12 - signo * 11 * Math.max(0, signo * x) / tope).toFixed(2)).join(' ');
+    const ola = '<svg class="presion-svg" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Presión minuto a minuto">' +
+      '<polygon points="0,12 ' + pts(1) + ' 100,12" fill="' + c.l + '" opacity=".85"/><polygon points="0,12 ' + pts(-1) + ' 100,12" fill="' + c.r + '" opacity=".85"/>' +
+      '<line x1="50" y1="2" x2="50" y2="22" class="eje"/><line x1="0" y1="12" x2="100" y2="12" class="eje"/></svg>';
+    const form = d && d.formacion && (d.formacion[0] || d.formacion[1]) ? '<small class="tenue">' + esc(d.formacion[0] || '') + ' vs ' + esc(d.formacion[1] || '') + '</small>' : '';
+    return '<div class="cancha">' + cab + s + '<div class="cancha-tit"><span>Presión minuto a minuto</span>' + form + '</div>' + ola + '</div>';
   }
+  // el balón se mueve solo de jugada en jugada (y vuelve a empezar)
+  setInterval(() => {
+    document.querySelectorAll('.cancha-svg .balon[data-ruta]').forEach((b) => {
+      let r; try { r = JSON.parse(b.dataset.ruta); } catch (e) { return; }
+      if (!r.length) return;
+      const i = ((Number(b.dataset.paso) || 0) + 1) % r.length;
+      b.dataset.paso = i;
+      b.style.transform = 'translate(' + r[i][0] + 'px,' + r[i][1] + 'px)';
+    });
+  }, 1100);
+
   function miniStats(v) {
     if (!v || !v.stats) return '';
     if (v.fase === 'in' && statsVacias(v)) return AVISO_SIN_STATS;
@@ -446,7 +568,19 @@
     for (const ps of g.values()) ps.sort((a, b) => (b.elige - a.elige) || ((b.prob || 0) - (a.prob || 0)));
     return [...g.values()];
   }
-  function estadoPick(p) {
+  // v430 — «que cada pick tenga su verde o rojo en cuanto acaba el partido».
+  // Lo oficial lo pone el servidor al liquidar (cada 1-2 h); mientras, la página
+  // lo califica con el marcador en vivo (ESPN / Flashscore) en cuanto se decide
+  // (un «Más de» ya cumplido, un «Menos de» ya pasado o el partido terminado).
+  // Los marcadores del día siguen contando sólo lo oficial.
+  function estadoVisto(p, v) {
+    if (['verde', 'roja', 'nula'].includes(p.estado)) return p.estado;
+    const pr = progreso(p, v || vivoDe([p]));
+    return pr && (pr.e === 'verde' || pr.e === 'roja') ? pr.e : p.estado;
+  }
+  function estadoPick(p, v) {
+    const e = estadoVisto(p, v);
+    if (e !== p.estado) return e === 'verde' ? '<span class="et verde" title="Al pitazo; el servidor lo confirma">✅ Verde</span>' : '<span class="et roja" title="Al pitazo; el servidor lo confirma">❌ Roja</span>';
     if (p.estado === 'verde') return '<span class="et verde">✅ Verde</span>';
     if (p.estado === 'roja') return '<span class="et roja">❌ Roja</span>';
     if (p.estado === 'nula') return '<span class="et">Nula</span>';
@@ -465,8 +599,9 @@
     }
     const pr = progreso(p, v);
     const nv = nivel(p);
-    return '<div class="pick-fila ' + (p.estado === 'verde' ? 'verde' : p.estado === 'roja' ? 'roja' : '') + '">' +
-      ((varias || p.estado === 'verde' || p.estado === 'roja') ? '<div class="fila"><span class="et nivel ' + nv.c + '">' + nv.i + ' ' + nv.n + '</span>' + estadoPick(p) + '</div>' : '') +
+    const ev = estadoVisto(p, v);
+    return '<div class="pick-fila ' + (ev === 'verde' ? 'verde' : ev === 'roja' ? 'roja' : '') + '">' +
+      ((varias || ev === 'verde' || ev === 'roja') ? '<div class="fila"><span class="et nivel ' + nv.c + '">' + nv.i + ' ' + nv.n + '</span>' + estadoPick(p, v) + '</div>' : '') +
       '<div class="apuesta">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
       (pr ? '<div class="progreso ' + pr.e + '">' + esc(pr.t) + '</div>' : '') + iaDelPick(p) +
       '<div class="datos"><div class="dato"><small>Cuota</small><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '—') + '</b></div>' +
@@ -488,12 +623,17 @@
     const m = porId();
     const patas = (c.patas || []).map((x) => {
       const p = m.get(x.id) || x;
-      const e = p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '➖' : '⏳';
+      const ev = m.get(x.id) ? estadoVisto(p) : p.estado;          // v430 — al pitazo
+      const e = ev === 'verde' ? '✅' : ev === 'roja' ? '❌' : ev === 'nula' ? '➖' : '⏳';
       const txt = window.SPX && m.get(x.id) ? SPX.apuesta(p) : esc(x.apuesta);
       return '<div class="comb-pata"' + (m.get(x.id) ? ' data-ficha="' + esc(x.id) + '" role="button" tabindex="0"' : '') + '><span>' + e + '</span><div><b>' + txt + '</b><small>' + (ICONO_DEP[x.deporte] || '•') + ' ' + esc(x.partido || '') +
         ' · ' + Number(x.cuota || 0).toFixed(2) + ' · ' + pct(x.prob) + (x.ia === 'a_favor' ? ' · 🤖 a favor' : '') + '</small></div>' +
         (m.get(x.id) ? '<i class="comb-ir">›</i>' : '') + '</div>';
     }).join('');
+    const evs = (c.patas || []).map((x) => (m.get(x.id) ? estadoVisto(m.get(x.id)) : x.estado));
+    const ce = c.estado !== 'pendiente' && c.estado !== 'vivo' ? c.estado
+      : evs.includes('roja') ? 'roja' : evs.length && evs.every((e) => e === 'verde' || e === 'nula') && evs.includes('verde') ? 'verde' : c.estado;
+    c = Object.assign({}, c, { estado: ce });
     const est = c.estado === 'verde' ? '<span class="et verde">✅ Verde</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
       : faseCombinada(c) === 'vivo' ? '<span class="et vivo"><i class="punto"></i>En juego</span>' : '<span class="et">⏳ ' + esc(horaCdmx(aFecha(c.inicio))) + '</span>';
     return '<div class="dest comb ' + (c.estado === 'verde' ? 'verde' : c.estado === 'roja' ? 'roja' : '') + '">' +
@@ -524,8 +664,9 @@
     const nv = nivel(p);
     const [L, V] = lados(p);
     const marc = v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : (p.marcador || '');
-    const todas = ps.every((x) => x.estado === 'verde' || x.estado === 'roja' || x.estado === 'nula');
-    const clase = ['tarjeta', nv.c, todas && ps.every((x) => x.estado !== 'roja') ? 'verde' : '', todas && ps.every((x) => x.estado === 'roja') ? 'roja' : ''].join(' ');
+    const est = ps.map((x) => estadoVisto(x, v));
+    const todas = est.every((e) => e === 'verde' || e === 'roja' || e === 'nula');
+    const clase = ['tarjeta', nv.c, todas && est.every((e) => e !== 'roja') ? 'verde' : '', todas && est.every((e) => e === 'roja') ? 'roja' : ''].join(' ');
     const cab = todas && !(v && v.fase === 'in') ? '<span class="et">Terminado</span>' : etiquetaEstado(dict(p, { estado: 'pendiente' }), v);
     return '<article class="' + clase + '" data-id="' + esc(p.id) + '">' +
       '<div class="fila"><div class="etiquetas"><span class="et nivel ' + nv.c + '">' + nv.i + ' ' + nv.n + '</span>' +
@@ -536,7 +677,7 @@
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
       iaBloque(p, L, V, (ps.find((x) => x.ctx) || {}).ctx) +
-      miniStats(v) + (v && v.fase === 'in' ? cancha(v) : '') +
+      miniStats(v) + (v && v.fase === 'in' ? cancha(v, p) : '') +
       ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
       (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
       '</article>';
@@ -659,7 +800,8 @@
       '<div class="equipos grande"><div class="eq">' + escudo(p.logo_h, L) + '<span>' + esc(L) + '</span></div>' +
       '<div class="marc">' + (v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : 'vs') + '<small>' + esc(v ? v.detalle : horaCdmx(aFecha(p.inicio))) + '</small></div>' +
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>';
-    h += cancha(v);                      // v427 — la cancha en vivo
+    h += cancha(v, p);                   // v427/v429 — la cancha en vivo
+    setTimeout(vivo365, 50);
     h += '<h3>Nuestras apuestas en este partido</h3>' + otras.map((x) => {
       const pr = progreso(x, v);
       return '<div class="linea-ap"><span>' + nivel(x).i + ' ' + (window.SPX ? SPX.apuesta(x) : esc(x.apuesta)) + ' · ' + (x.cuota ? Number(x.cuota).toFixed(2) : '') + '</span>' +
@@ -704,7 +846,7 @@
   const duracion = (dep) => (DURA[dep] || 3) * 3600e3;
   function faseDe(ps) {
     const v = vivoDe(ps);
-    const fin = ps.every((x) => x.estado === 'verde' || x.estado === 'roja' || x.estado === 'nula');
+    const fin = ps.every((x) => ['verde', 'roja', 'nula'].includes(x.estado) || (v && v.terminado && ['verde', 'roja'].includes(estadoVisto(x, v))));
     if (v && v.fase === 'in') return 'vivo';
     if (fin || (v && v.terminado)) return 'terminado';
     const ini = aFecha(ps[0].inicio);
@@ -989,7 +1131,7 @@
       else {
         if (estado.abiertos.has(k)) estado.abiertos.delete(k); else estado.abiertos.add(k);
         const fila = t.closest('.partido-fila'), g = estado.grupos && estado.grupos.get(k);
-        if (fila && g) { try { fila.outerHTML = filaPartido(g); return; } catch (e) { /* abajo, repinta todo */ } }
+        if (fila && g) { try { fila.outerHTML = filaPartido(g); setTimeout(vivo365, 50); return; } catch (e) { /* abajo, repinta todo */ } }
       }
       pintar();
       const el = [...document.querySelectorAll('.pf')].find((x) => x.dataset.abrir === k);
@@ -1005,5 +1147,6 @@
   setInterval(cargar, 3 * 60 * 1000);   // picks nuevos y verdes/rojas oficiales
   setInterval(vivo, 30 * 1000);         // marcador y estadísticas
   setInterval(vivoFs, 45 * 1000);       // v424 — y lo que ESPN no cubre
+  setInterval(vivo365, 30 * 1000);      // v429 — la alineación y los tiros de las canchas a la vista
   setTimeout(vivoFs, 4000);
 })();
