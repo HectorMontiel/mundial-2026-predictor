@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-21T03:19:52Z",
+"actualizado": "2026-10-21T04:55:34Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10974,6 +10974,16 @@
 },
 {
 "dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Edmonton Oilers vs Minnesota Wild",
+"apuesta": "Handicap: Edmonton Oilers +2.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "4-3"
+},
+{
+"dia": "2026-10-20",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "El Gaish vs Pyramids",
@@ -11166,11 +11176,41 @@
 "dia": "2026-10-20",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Marathon (Hon) vs Alianza FC (Sal)",
+"apuesta": "Gana Alianza FC (Sal)",
+"cuota": 4.3334,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Marathon (Hon) vs Alianza FC (Sal)",
+"apuesta": "Gana Marathon (Hon)",
+"cuota": 2.1667,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Maritimo U23 vs Famalicao U23",
 "apuesta": "Gana Famalicao U23",
 "cuota": 1.83,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Millonarios vs Once Caldas",
+"apuesta": "Millonarios o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-20",
@@ -11271,6 +11311,36 @@
 "cuota": 1.625,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Vancouver Canucks vs Carolina Hurricanes",
+"apuesta": "Handicap: Vancouver Canucks +3.5",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "3-6"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Vancouver Canucks vs Carolina Hurricanes",
+"apuesta": "Handicap: Vancouver Canucks +4.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "3-6"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Vancouver Canucks vs Carolina Hurricanes",
+"apuesta": "Handicap: Carolina Hurricanes +1.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "3-6"
 },
 {
 "dia": "2026-10-20",

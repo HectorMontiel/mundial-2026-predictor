@@ -46203,22 +46203,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115958,2026-08-24,argentina,Boca Juniors,Sebastián Villa,859319,F,0,28,1,0,0,0.09,,3.0,2289112.0
 5115958,2026-08-24,argentina,Boca Juniors,Alan Velasco,1053392,M,0,13,0,0,0,0.0,,2.0,2147765.0
 5115958,2026-08-24,argentina,Boca Juniors,Enner Valencia,195927,F,0,13,2,0,0,0.1,,3.0,800911.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Joan Parra,1433152,G,1,90,0,0,0,0.0,11.0,0.0,500483.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Juan Cuesta,1381137,D,1,90,0,0,0,0.0,32.0,1.0,
-1000014104,2026-08-24,col_primera_a,Once Caldas,Jorge Cardona,1433076,D,1,90,0,0,0,0.0,34.0,1.0,330626.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Daniel Londoño,496939,D,1,90,0,0,0,0.0,36.0,1.0,386050.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Andrés Correa,344121,D,1,90,1,0,0,0.02,38.0,1.0,267065.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Andrés Colorado,1031648,M,1,90,0,0,0,0.0,65.0,2.0,347498.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Edwin Torres,1028609,F,1,76,0,0,0,0.0,82.0,3.0,
-1000014104,2026-08-24,col_primera_a,Once Caldas,Pipe Gómez,1334537,M,1,72,1,0,0,0.05,84.0,2.0,443477.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Andrés Roa,627218,M,1,59,0,0,0,0.0,86.0,2.0,295710.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Michael Barrios,521250,F,1,76,1,0,0,0.02,88.0,3.0,275537.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Jefry Zapata,1407228,F,1,59,2,0,0,0.16,115.0,3.0,778495.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Mateo Zuleta,1440055,M,0,31,1,1,0,0.03,,2.0,910911.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Jader Quiñónes,1512745,M,0,31,1,0,0,0.06,,2.0,423287.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Jaime Alvarado,1053718,M,0,18,0,0,0,0.0,,2.0,426952.0
-1000014104,2026-08-24,col_primera_a,Once Caldas,Helieyker Guzman,1931420,F,0,14,2,0,0,0.07,,3.0,
-1000014104,2026-08-24,col_primera_a,Once Caldas,Dayro Moreno,50111,F,0,14,1,1,1,0.04,,3.0,373788.0
 1000019025,2026-08-25,bol_division,Universitario de Vinto,Bruno Poveda,1361928,G,1,90,0,0,0,0.0,11.0,0.0,515645.0
 1000019025,2026-08-25,bol_division,Universitario de Vinto,Esdras Mendoza,1367025,D,1,45,2,2,1,0.0,32.0,1.0,281592.0
 1000019025,2026-08-25,bol_division,Universitario de Vinto,Paolo Alcócer,1133310,D,1,90,2,0,0,0.0,34.0,1.0,227503.0
@@ -55915,22 +55899,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000018892,2026-08-30,ven_primera,Zamora FC,Erickson Gallardo,668963,F,0,30,0,0,0,0.0,,3.0,153901.0
 1000018892,2026-08-30,ven_primera,Zamora FC,Santos Torrealba,1747822,F,0,22,1,0,0,0.0,,3.0,676828.0
 1000018892,2026-08-30,ven_primera,Zamora FC,Néstor Jiménez,1448025,F,0,1,1,0,0,0.0,,3.0,188771.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Javier Burrai,262597,G,1,90,0,0,0,0.0,11.0,0.0,279839.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Andrés Llinás,1130853,D,1,70,0,0,0,0.0,33.0,1.0,
-1000014122,2026-08-30,col_primera_a,Millonarios,Sergio Mosquera,496937,D,1,90,0,0,0,0.0,35.0,1.0,
-1000014122,2026-08-30,col_primera_a,Millonarios,Stiven Barreiro,282254,D,1,90,1,1,0,0.07,37.0,1.0,1161317.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Jhomier Guerrero,1353655,D,1,90,0,0,0,0.0,51.0,1.0,909954.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Sebastián Valencia,1772540,D,1,65,2,1,0,0.03,59.0,1.0,528634.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Francisco Chaverra,1310086,M,1,90,6,3,0,0.52,73.0,2.0,872323.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Rodrigo Ureña,304875,M,1,90,0,0,0,0.0,75.0,2.0,487392.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Mateo García,1403320,M,1,65,0,0,0,0.0,77.0,2.0,950969.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Daniel Ruiz,1266136,F,1,76,3,1,0,0.22,104.0,3.0,809597.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Leonardo Castro,731805,F,1,76,0,0,0,0.0,106.0,3.0,584241.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Leonai,1136606,M,0,25,0,0,0,0.0,,2.0,500267.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Andrey Estupiñán,977773,F,0,25,2,0,0,0.19,,3.0,485985.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Danovis Banguero,113984,D,0,20,0,0,0,0.0,,1.0,261038.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Carlos Darwin Quintero,51334,M,0,14,0,0,0,0.0,,2.0,240913.0
-1000014122,2026-08-30,col_primera_a,Millonarios,Julián Angulo,1341009,F,0,14,0,0,0,0.0,,3.0,590672.0
 1000014122,2026-08-30,col_primera_a,Internacional de Bogotá,Wuilker Fariñez,644833,G,1,90,0,0,0,0.0,11.0,0.0,710672.0
 1000014122,2026-08-30,col_primera_a,Internacional de Bogotá,Joan Castro,1132896,D,1,90,0,0,0,0.0,33.0,1.0,262932.0
 1000014122,2026-08-30,col_primera_a,Internacional de Bogotá,Carlos Vivas,1209406,D,1,90,0,0,0,0.0,35.0,1.0,1148865.0
@@ -156345,3 +156313,31 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014608,2026-10-21,liga_mx,Atlante,Walter Clar,497408,D,0,10,0,0,0,0.0,,1.0,385035.0
 1000014608,2026-10-21,liga_mx,Atlante,José González,1288844,M,0,10,0,0,0,0.0,,2.0,200961.0
 1000014608,2026-10-21,liga_mx,Atlante,Maximiliano García,1432163,M,0,1,0,0,0,0.0,,2.0,291244.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Javier Burrai,262597,G,1,90,0,0,0,0.0,11.0,0.0,289586.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Samuel Martín,1797280,D,1,28,0,0,0,0.0,32.0,1.0,
+1000014172,2026-10-21,col_primera_a,Millonarios,Stiven Barreiro,282254,D,1,90,0,0,0,0.0,34.0,1.0,1253724.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Sergio Mosquera,496937,D,1,90,0,0,0,0.0,36.0,1.0,
+1000014172,2026-10-21,col_primera_a,Millonarios,Danovis Banguero,113984,D,1,90,0,0,0,0.0,38.0,1.0,262082.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Daniel Ruiz,1266136,M,1,90,2,1,1,0.04,72.0,2.0,650779.0
+1000014172,2026-10-21,col_primera_a,Millonarios,David Silva,95546,M,1,66,2,0,0,0.09,74.0,2.0,240713.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Stiven Vega,1130854,M,1,90,0,0,0,0.0,76.0,2.0,316150.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Juan Cuadrado,155066,M,1,90,5,1,0,0.13,78.0,2.0,479122.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Leonardo Castro,731805,F,1,66,2,0,0,0.06,104.0,3.0,694035.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Andrey Estupiñán,977773,F,1,90,1,0,0,0.04,106.0,3.0,569771.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Rodrigo Ureña,304875,M,0,62,1,0,0,0.05,,2.0,547666.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Sebastián Viveros,1746303,M,0,24,0,0,0,0.0,,2.0,821670.0
+1000014172,2026-10-21,col_primera_a,Millonarios,Rodrigo Contreras,410434,F,0,24,1,1,0,0.05,,3.0,833306.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Joan Parra,1433152,G,1,90,0,0,0,0.0,11.0,0.0,841481.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Juan Cuesta,1381137,D,1,90,1,1,0,0.02,32.0,1.0,
+1000014172,2026-10-21,col_primera_a,Once Caldas,Jorge Cardona,1433076,D,1,90,0,0,0,0.0,34.0,1.0,338331.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Daniel Londoño,496939,D,1,90,0,0,0,0.0,36.0,1.0,437016.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Juan Patiño,1337860,D,1,90,0,0,0,0.0,38.0,1.0,483892.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Juan Nieto,466647,M,1,90,1,0,0,0.01,65.0,2.0,
+1000014172,2026-10-21,col_primera_a,Once Caldas,Michael Barrios,521250,F,1,90,0,0,0,0.0,82.0,3.0,285894.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Andrés Colorado,1031648,M,1,90,0,0,0,0.0,84.0,2.0,398080.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Jader Quiñónes,1512745,M,1,77,0,0,0,0.0,86.0,2.0,404746.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Pipe Gómez,1334537,F,1,82,3,1,0,0.44,88.0,3.0,628705.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Jefry Zapata,1407228,F,1,89,5,1,0,0.3,115.0,3.0,749171.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Dayro Moreno,50111,F,0,13,2,1,1,0.87,,3.0,439746.0
+1000014172,2026-10-21,col_primera_a,Once Caldas,Edwin Torres,1028609,F,0,8,1,0,0,0.02,,3.0,
+1000014172,2026-10-21,col_primera_a,Once Caldas,Jaime Alvarado,1053718,M,0,1,0,0,0,0.0,,2.0,333876.0
