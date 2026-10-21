@@ -19411,22 +19411,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009064,2026-08-08,ecu_liga_pro,Leones del Norte,Brian Kreiman,1826537,D,0,32,0,0,0,0.0,,1.0,
 1000009064,2026-08-08,ecu_liga_pro,Leones del Norte,Elián Pepinós,1828522,M,0,23,0,0,0,0.0,,2.0,
 1000009064,2026-08-08,ecu_liga_pro,Leones del Norte,Tobías Coppo,1403403,M,0,5,0,0,0,0.0,,2.0,246426.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Williams Barlasina,1206589,G,1,90,0,0,0,0.0,11.0,0.0,390783.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Joan Cajares,1635203,D,1,90,0,0,0,0.0,32.0,1.0,386116.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Yesid Díaz,1132536,D,1,90,0,0,0,0.0,34.0,1.0,315582.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Andrés Copete,1910744,D,1,90,1,1,0,0.24,36.0,1.0,
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Juan Castillo,1253556,D,1,90,0,0,0,0.0,38.0,1.0,
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Leonardo Pico,425805,M,1,90,0,0,0,0.0,65.0,2.0,248656.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Richardson Rivas,1795352,F,1,73,3,3,2,0.15,82.0,3.0,513941.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Jhon Velásquez,980609,M,1,62,1,0,0,0.02,84.0,2.0,279031.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Santiago Vivas,1838233,M,1,62,2,0,0,0.05,86.0,2.0,
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Jhon Solís,1343323,F,1,81,2,2,0,0.13,88.0,3.0,251377.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Sebastián Herrera,529477,F,1,80,2,0,0,0.09,115.0,3.0,149299.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Kevin Balanta,1604109,M,0,28,0,0,0,0.0,,2.0,659686.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Sebastián Navarro,1335223,M,0,28,0,0,0,0.0,,2.0,439271.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Andy Batioja,1682123,F,0,17,1,0,0,0.05,,3.0,446052.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Teun Wilke,1391709,F,0,10,1,1,0,0.05,,3.0,467226.0
-1000014080,2026-08-08,col_primera_a,Fortaleza FC,Ítalo Montaño,885505,F,0,9,0,0,0,0.0,,3.0,390281.0
 1000016449,2026-08-08,bol_division,The Strongest,Luis Banegas,858039,G,1,90,0,0,0,0.0,11.0,0.0,128965.0
 1000016449,2026-08-08,bol_division,The Strongest,Dilan Saavedra,1671063,D,1,73,0,0,0,0.0,32.0,1.0,
 1000016449,2026-08-08,bol_division,The Strongest,Martín Chiatti,1280912,D,1,90,2,1,0,0.0,34.0,1.0,138764.0
@@ -35233,23 +35217,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5071276,2026-08-19,mls,FC Cincinnati,Samuel Gidi,1383071,M,0,18,0,0,0,0.0,,2.0,1487098.0
 5071276,2026-08-19,mls,FC Cincinnati,Tom Barlow,847753,F,0,18,1,0,0,0.11,,3.0,136027.0
 5071276,2026-08-19,mls,FC Cincinnati,Brian Anunga,841458,M,0,7,0,0,0,0.0,,2.0,226982.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Federico Abadía,1606820,G,1,90,0,0,0,0.0,11.0,0.0,288763.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Joao Abonía,1471057,D,1,89,1,1,0,0.01,32.0,1.0,343071.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Diego Calcaterra,1215717,D,1,90,0,0,0,0.0,34.0,1.0,333441.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Leison Ochoa,1901689,D,1,90,0,0,0,0.0,36.0,1.0,
-1000014057,2026-08-19,col_primera_a,Cúcuta,Brayan Montaño,1130913,D,1,90,0,0,0,0.0,38.0,1.0,348772.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Víctor Mejía,466632,M,1,70,0,0,0,0.0,64.0,2.0,248857.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Samir Mayo,1451002,M,1,45,1,0,0,0.02,66.0,2.0,469813.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Gustavo Torres,930222,F,1,89,1,0,0,0.02,83.0,3.0,215893.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Léider Berdugo,1253514,M,1,90,3,1,0,0.1,85.0,2.0,406740.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Marlon Carabalí,1606813,F,1,45,1,1,0,0.26,87.0,3.0,185465.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Jaime Peralta,1526707,F,1,90,5,3,0,0.2,115.0,3.0,
-1000014057,2026-08-19,col_primera_a,Cúcuta,Neneco,466581,M,0,45,1,1,1,0.16,,2.0,103680.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Kevin Tamayo,1566626,F,0,44,0,0,0,0.0,,3.0,326054.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Juan Ceballos,1335215,M,0,20,0,0,0,0.0,,2.0,232618.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Jader Manyoma,1512761,M,0,1,0,0,0,0.0,,2.0,171628.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Jhonathan Agudelo,496777,F,0,1,1,0,0,0.06,,3.0,232360.0
-1000014057,2026-08-19,col_primera_a,Cúcuta,Sebastián Támara,696593,M,0,1,0,0,0,0.0,,2.0,222154.0
 1000013045,2026-08-19,sudamericana,Atlético-MG,Everson,268171,G,1,90,0,0,0,0.0,11.0,0.0,1092740.0
 1000013045,2026-08-19,sudamericana,Atlético-MG,Natanael,1173565,D,1,90,0,0,0,0.0,32.0,1.0,4601620.0
 1000013045,2026-08-19,sudamericana,Atlético-MG,Ruan,905494,D,1,90,1,0,0,0.0,34.0,1.0,1891253.0
@@ -37923,22 +37890,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109904,2026-08-22,usl_championship,Loudoun United FC,Giorgi Lomtadze,1241617,F,0,54,0,0,0,0.0,,3.0,120350.0
 5109904,2026-08-22,usl_championship,Loudoun United FC,Marcos Dias,1346863,M,0,19,1,0,0,0.0,,2.0,233568.0
 5109904,2026-08-22,usl_championship,Loudoun United FC,Akil Watts,1079296,M,0,14,1,1,0,0.0,,2.0,246069.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,João Carlos,13308,G,1,90,0,0,0,0.0,11.0,0.0,168810.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,João Basso,793033,D,1,90,0,0,0,0.0,33.0,1.0,474641.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Calebe,1489569,D,1,90,1,0,0,0.01,35.0,1.0,
-5190677,2026-08-22,bra_serie_b,Cuiabá,Vitor Mendes,1069986,D,1,90,1,0,0,0.12,37.0,1.0,239490.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Igor Inocêncio,1187576,M,1,90,2,0,0,0.09,62.0,2.0,110276.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Wesley,841861,M,1,45,1,0,0,0.02,64.0,2.0,121802.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Pepê,977669,M,1,45,4,1,0,0.14,66.0,2.0,863129.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Lorenzo,1785962,M,1,90,1,0,0,0.46,68.0,2.0,
-5190677,2026-08-22,bra_serie_b,Cuiabá,Eliel,1387186,M,1,63,2,1,0,0.09,84.0,2.0,380554.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Jean Dias,1332383,M,1,82,3,1,0,0.19,86.0,2.0,203253.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Pedro,896510,F,1,63,5,2,0,0.67,105.0,3.0,931569.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Luiz Otávio,832060,M,0,45,3,0,0,0.11,,2.0,120316.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Kauan Cristtyan,1640062,F,0,44,0,0,0,0.0,,3.0,
-5190677,2026-08-22,bra_serie_b,Cuiabá,Vinicius Peixoto,1641251,F,0,27,5,2,1,1.18,,3.0,
-5190677,2026-08-22,bra_serie_b,Cuiabá,Fábio Gomes,1033153,F,0,27,0,0,0,0.0,,3.0,431850.0
-5190677,2026-08-22,bra_serie_b,Cuiabá,Weverson,1796277,M,0,8,0,0,0,0.0,,2.0,
 1000009074,2026-08-22,ecu_liga_pro,Técnico Universitario,Ayrton Morales,624768,G,1,90,0,0,0,0.0,11.0,0.0,180000.0
 1000009074,2026-08-22,ecu_liga_pro,Técnico Universitario,Edwin Mesa,1348054,D,1,68,0,0,0,0.0,32.0,1.0,196652.0
 1000009074,2026-08-22,ecu_liga_pro,Técnico Universitario,Yorlin Arce,1905245,D,1,90,0,0,0,0.0,34.0,1.0,302375.0
@@ -38030,22 +37981,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000019019,2026-08-22,bol_division,Real Potosí,Maximiliano Gómez,529127,F,0,17,1,1,0,0.0,,3.0,
 1000019019,2026-08-22,bol_division,Real Potosí,Saúl Severiche,1458613,D,0,9,0,0,0,0.0,,1.0,
 1000019019,2026-08-22,bol_division,Real Potosí,Jairo Thomas,1139231,M,0,9,0,0,0,0.0,,2.0,223350.0
-5190673,2026-08-22,bra_serie_b,Londrina,Maurício,798592,G,1,90,0,0,0,0.0,11.0,0.0,111804.0
-5190673,2026-08-22,bra_serie_b,Londrina,Kauê Leonardo,1720732,D,1,90,0,0,0,0.0,32.0,1.0,
-5190673,2026-08-22,bra_serie_b,Londrina,Gabriel,1174677,D,1,90,0,0,0,0.0,34.0,1.0,179112.0
-5190673,2026-08-22,bra_serie_b,Londrina,Yago Lincoln,1575238,D,1,90,0,0,0,0.0,36.0,1.0,214330.0
-5190673,2026-08-22,bra_serie_b,Londrina,Heron,1083351,D,1,67,0,0,0,0.0,38.0,1.0,152082.0
-5190673,2026-08-22,bra_serie_b,Londrina,Lucas Marques,642764,M,1,90,1,1,0,0.02,65.0,2.0,
-5190673,2026-08-22,bra_serie_b,Londrina,Vitinho,1748316,F,1,51,1,0,0,0.07,82.0,3.0,
-5190673,2026-08-22,bra_serie_b,Londrina,João Tavares,1402099,M,1,46,0,0,0,0.0,84.0,2.0,163377.0
-5190673,2026-08-22,bra_serie_b,Londrina,João Vitor,1441765,M,1,83,4,1,1,0.93,86.0,2.0,410849.0
-5190673,2026-08-22,bra_serie_b,Londrina,Pablo Dyego,444778,F,1,68,0,0,0,0.0,88.0,3.0,114723.0
-5190673,2026-08-22,bra_serie_b,Londrina,William Pottker,288782,F,1,90,0,0,0,0.0,115.0,3.0,182824.0
-5190673,2026-08-22,bra_serie_b,Londrina,Guilherme Portuga,1666535,M,0,44,0,0,0,0.0,,2.0,60000.0
-5190673,2026-08-22,bra_serie_b,Londrina,Raí,820656,F,0,39,2,1,0,0.05,,3.0,162976.0
-5190673,2026-08-22,bra_serie_b,Londrina,Kevyn,1526931,D,0,23,0,0,0,0.0,,1.0,90656.0
-5190673,2026-08-22,bra_serie_b,Londrina,Gilberto,265619,F,0,22,4,1,0,0.24,,3.0,129711.0
-5190673,2026-08-22,bra_serie_b,Londrina,Chumbinho,1669655,M,0,7,0,0,0,0.0,,2.0,115243.0
 1000014097,2026-08-22,col_primera_a,Bucaramanga,Cristopher Fiermarín,1195101,G,1,90,0,0,0,0.0,11.0,0.0,1216286.0
 1000014097,2026-08-22,col_primera_a,Bucaramanga,Carlos Romaña,1221306,D,1,90,0,0,0,0.0,33.0,1.0,316055.0
 1000014097,2026-08-22,col_primera_a,Bucaramanga,José Ortiz,1071475,D,1,90,0,0,0,0.0,35.0,1.0,865728.0
@@ -42241,22 +42176,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5115959,2026-08-23,argentina,Vélez Sarsfield,Dilan Godoy,1765407,F,0,32,0,0,0,0.0,,3.0,1403870.0
 5115959,2026-08-23,argentina,Vélez Sarsfield,Álex Verón,1782368,F,0,3,0,0,0,0.0,,3.0,787639.0
 5115959,2026-08-23,argentina,Vélez Sarsfield,Luca Feler,1911034,M,0,1,0,0,0,0.0,,2.0,913943.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Wuilker Fariñez,644833,G,1,90,0,0,0,0.0,11.0,0.0,710672.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Joan Castro,1132896,D,1,90,2,1,0,0.03,32.0,1.0,262932.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Carlos Vivas,1209406,D,1,90,0,0,0,0.0,34.0,1.0,1148865.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Mateo Rodas,1179027,D,1,90,1,1,0,0.01,36.0,1.0,256938.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Yulián Gómez,863939,D,1,90,1,0,0,0.05,38.0,1.0,322371.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Larry Vásquez,496854,M,1,90,0,0,0,0.0,64.0,2.0,279424.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Rubén Manjarrés,1249745,M,1,60,1,0,0,0.01,66.0,2.0,311684.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Ronaldo Julio,1742599,F,1,46,0,0,0,0.0,83.0,3.0,
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Facundo Boné,574842,M,1,81,1,1,1,0.25,85.0,2.0,437760.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Cristian Dájome,681635,F,1,89,1,0,0,0.02,87.0,3.0,516048.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Diego Duarte,1108882,F,1,82,2,1,1,0.14,115.0,3.0,395221.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Johan Caballero,924153,F,0,45,1,0,0,0.09,,3.0,362144.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Dewar Victoria,1433067,M,0,30,0,0,0,0.0,,2.0,469003.0
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Miguel Amaya,1716446,D,0,9,0,0,0,0.0,,1.0,
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Yojan Garcés,1590304,F,0,9,0,0,0,0.0,,3.0,
-1000014106,2026-08-23,col_primera_a,Internacional de Bogotá,Fabian Chaverra,1620502,M,0,1,0,0,0,0.0,,2.0,
 5103603,2026-08-23,brasil,Chapecoense,Anderson,950459,G,1,90,0,0,0,0.0,11.0,0.0,397804.0
 5103603,2026-08-23,brasil,Chapecoense,Heitor,1068532,D,1,65,2,0,0,0.09,32.0,1.0,
 5103603,2026-08-23,brasil,Chapecoense,Kauan,1681803,D,1,90,2,1,0,0.09,34.0,1.0,
@@ -43098,22 +43017,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014100,2026-08-23,col_primera_a,Fortaleza FC,Jhonier Blanco,1248443,F,0,19,2,1,0,0.06,,3.0,420869.0
 1000014100,2026-08-23,col_primera_a,Fortaleza FC,Teun Wilke,1391709,F,0,11,0,0,0,0.0,,3.0,467226.0
 1000014100,2026-08-23,col_primera_a,Fortaleza FC,Andy Batioja,1682123,F,0,11,1,1,0,0.08,,3.0,446052.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Franco Armani,206758,G,1,90,0,0,0,0.0,11.0,0.0,330090.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Andrés Román,925847,D,1,90,1,0,0,0.28,32.0,1.0,828035.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Simón García,1579303,D,1,90,0,0,0,0.0,34.0,1.0,
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,William Tesillo,207383,D,1,90,1,0,0,0.02,36.0,1.0,292660.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Milton Casco,174813,D,1,70,0,0,0,0.0,38.0,1.0,295301.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Juan Zapata,1199834,M,1,90,2,1,0,0.15,64.0,2.0,948866.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Jorman Campuzano,922875,M,1,90,0,0,0,0.0,66.0,2.0,1273016.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Nicolás Rodríguez,1460577,F,1,31,0,0,0,0.0,83.0,3.0,1255252.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Juan Rengifo,1798773,M,1,45,1,0,0,0.03,85.0,2.0,
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Andrés Sarmiento,942987,F,1,45,1,0,0,0.05,87.0,3.0,729805.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Cristian Arango,452368,F,1,45,3,1,0,0.14,115.0,3.0,1787565.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Marlos Moreno,677249,F,0,59,3,0,0,0.28,,3.0,315224.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Edwin Cardona,177507,M,0,45,3,2,1,0.81,,2.0,271803.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Ian Poveda,962075,F,0,45,1,0,0,0.03,,3.0,686760.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Alfredo Morelos,579660,F,0,45,2,2,1,0.12,,3.0,1683126.0
-1000014100,2026-08-23,col_primera_a,Atlético Nacional,Samuel Velásquez,1433031,M,0,20,0,0,0,0.0,,2.0,750662.0
 5115960,2026-08-23,argentina,Sarmiento,Thyago Ayala,1513003,G,1,90,0,0,0,0.0,11.0,0.0,
 5115960,2026-08-23,argentina,Sarmiento,Santiago Salle,1439529,D,1,90,0,0,0,0.0,32.0,1.0,1001742.0
 5115960,2026-08-23,argentina,Sarmiento,Renzo Orihuela,1139354,D,1,90,0,0,0,0.0,34.0,1.0,553560.0
@@ -156316,3 +156219,97 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014196,2026-10-20,col_primera_a,Chicó FC,Yesús Cabrera,244905,M,0,29,1,0,0,0.11,,2.0,232172.0
 1000014196,2026-10-20,col_primera_a,Chicó FC,Alejandro Maya,1634975,F,0,20,0,0,0,0.0,,3.0,
 1000014196,2026-10-20,col_primera_a,Chicó FC,Daniel Polanco,1416603,D,0,3,0,0,0,0.0,,1.0,255068.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Wuilker Fariñez,644833,G,1,90,0,0,0,0.0,11.0,0.0,848514.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Joan Castro,1132896,D,1,90,0,0,0,0.0,33.0,1.0,249676.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Carlos Vivas,1209406,D,1,90,0,0,0,0.0,35.0,1.0,1273544.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Agustín Irazoque,1328559,D,1,90,0,0,0,0.0,37.0,1.0,551139.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Ronaldo Julio,1742599,M,1,70,1,1,1,0.1,72.0,2.0,
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Dewar Victoria,1433067,M,1,90,3,1,1,0.25,74.0,2.0,449446.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Larry Vásquez,496854,M,1,90,0,0,0,0.0,76.0,2.0,308503.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Miguel Pernía,1371883,M,1,90,0,0,0,0.0,78.0,2.0,326724.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Facundo Boné,574842,F,1,70,1,0,0,0.01,103.0,3.0,541084.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Fabricio Sanguinetti,1606730,F,1,77,0,0,0,0.0,105.0,3.0,684972.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Cristian Dájome,681635,F,1,64,2,0,0,0.06,107.0,3.0,530125.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Johan Caballero,924153,F,0,26,0,0,0,0.0,,3.0,422545.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Miguel Amaya,1716446,D,0,20,0,0,0,0.0,,1.0,
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Rubén Manjarrés,1249745,M,0,20,0,0,0,0.0,,2.0,304090.0
+1000014195,2026-10-20,col_primera_a,Internacional de Bogotá,Diego Duarte,1108882,F,0,13,0,0,0,0.0,,3.0,442872.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Williams Barlasina,1206589,G,1,90,0,0,0,0.0,11.0,0.0,397381.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Joan Cajares,1635203,D,1,75,1,0,0,0.01,32.0,1.0,350968.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Yesid Díaz,1132536,D,1,90,1,0,0,0.05,34.0,1.0,382459.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Jeferson Medina,1790250,D,1,90,0,0,0,0.0,36.0,1.0,
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Santiago Cuero,1520739,D,1,85,1,1,0,0.04,38.0,1.0,537409.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Leonardo Pico,425805,M,1,67,1,0,0,0.05,64.0,2.0,289608.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Santiago Vivas,1838233,M,1,90,2,0,0,0.05,66.0,2.0,
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Ítalo Montaño,885505,F,1,45,1,0,0,0.01,83.0,3.0,415378.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Sebastián Navarro,1335223,M,1,90,0,0,0,0.0,85.0,2.0,420239.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Jhonier Salas,1543758,F,1,85,0,0,0,0.0,87.0,3.0,
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Sebastián Herrera,529477,F,1,90,8,1,0,1.14,115.0,3.0,214989.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Franco Pulicastro,1086412,F,0,45,5,1,1,0.44,,3.0,272427.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Jhon Velásquez,980609,M,0,23,0,0,0,0.0,,2.0,268336.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Mariano Vázquez,783600,M,0,15,0,0,0,0.0,,2.0,137570.0
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Juan David Garcia,1969042,M,0,5,0,0,0,0.0,,2.0,
+1000014195,2026-10-20,col_primera_a,Fortaleza FC,Armando Larrans,0,M,0,5,0,0,0,0.0,,2.0,
+5190772,2026-10-20,bra_serie_b,Londrina,Luan Ribeiro,1460455,G,1,90,0,0,0,0.0,11.0,0.0,
+5190772,2026-10-20,bra_serie_b,Londrina,Kauê Leonardo,1720732,D,1,90,0,0,0,0.0,32.0,1.0,
+5190772,2026-10-20,bra_serie_b,Londrina,Caio,1741917,D,1,90,0,0,0,0.0,34.0,1.0,
+5190772,2026-10-20,bra_serie_b,Londrina,Wallace,130560,D,1,90,0,0,0,0.0,36.0,1.0,56733.0
+5190772,2026-10-20,bra_serie_b,Londrina,Heron,1083351,D,1,90,1,0,0,0.01,38.0,1.0,139225.0
+5190772,2026-10-20,bra_serie_b,Londrina,Tárik,875673,M,1,90,1,0,0,0.11,65.0,2.0,73435.0
+5190772,2026-10-20,bra_serie_b,Londrina,Vitinho,1748316,F,1,63,0,0,0,0.0,82.0,3.0,
+5190772,2026-10-20,bra_serie_b,Londrina,Geovane Meurer,1402131,M,1,80,0,0,0,0.0,84.0,2.0,226265.0
+5190772,2026-10-20,bra_serie_b,Londrina,Guilherme Portuga,1666535,M,1,63,1,0,0,0.02,86.0,2.0,103680.0
+5190772,2026-10-20,bra_serie_b,Londrina,Herbert,1790950,F,1,90,5,1,0,0.62,88.0,3.0,
+5190772,2026-10-20,bra_serie_b,Londrina,William Pottker,288782,F,1,45,1,1,1,0.16,115.0,3.0,125954.0
+5190772,2026-10-20,bra_serie_b,Londrina,Igor Bahia,1437503,F,0,45,1,0,0,0.56,,3.0,
+5190772,2026-10-20,bra_serie_b,Londrina,João Andrade,1813977,F,0,27,2,0,0,0.18,,3.0,
+5190772,2026-10-20,bra_serie_b,Londrina,Pablo Dyego,444778,F,0,27,0,0,0,0.0,,3.0,112640.0
+5190772,2026-10-20,bra_serie_b,Londrina,Gabriel,1174677,D,0,10,0,0,0,0.0,,1.0,154591.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,João Carlos,13308,G,1,90,0,0,0,0.0,11.0,0.0,198698.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,João Basso,793033,D,1,65,1,0,0,0.08,33.0,1.0,395432.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Calebe,1489569,D,1,90,0,0,0,0.0,35.0,1.0,695904.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Vitor Mendes,1069986,D,1,90,1,1,0,0.31,37.0,1.0,260031.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Igor Inocêncio,1187576,M,1,65,3,0,0,0.06,62.0,2.0,196201.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Raul,670947,M,1,90,4,1,0,0.09,64.0,2.0,897040.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,David Miguel,1691246,M,1,45,1,0,0,0.02,66.0,2.0,1105954.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Lorenzo,1785962,M,1,90,3,0,0,0.11,68.0,2.0,932832.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Kauan Cristtyan,1640062,M,1,90,5,2,0,0.37,84.0,2.0,
+5190772,2026-10-20,bra_serie_b,Cuiabá,Jean Dias,1332383,M,1,65,1,0,0,0.09,86.0,2.0,231736.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Pedro,896510,F,1,73,2,1,0,0.14,105.0,3.0,921606.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Vinicius Peixoto,1641251,F,0,45,3,2,0,0.21,,3.0,
+5190772,2026-10-20,bra_serie_b,Cuiabá,Weverson,1796277,M,0,25,0,0,0,0.0,,2.0,
+5190772,2026-10-20,bra_serie_b,Cuiabá,Luiz Otávio,832060,M,0,25,0,0,0,0.0,,2.0,173254.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Eliel,1387186,F,0,25,0,0,0,0.0,,3.0,419987.0
+5190772,2026-10-20,bra_serie_b,Cuiabá,Wesley,841861,M,0,17,0,0,0,0.0,,2.0,171991.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Federico Abadía,1606820,G,1,90,0,0,0,0.0,11.0,0.0,285840.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Sebastián Támara,696593,D,1,70,0,0,0,0.0,32.0,1.0,246419.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Hernán Lópes,198569,D,1,90,0,0,0,0.0,34.0,1.0,245420.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Jhon Quiñónes,1512647,D,1,90,0,0,0,0.0,36.0,1.0,
+1000014189,2026-10-20,col_primera_a,Cúcuta,Brayan Montaño,1130913,D,1,90,0,0,0,0.0,38.0,1.0,335724.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Diego Calcaterra,1215717,M,1,61,1,1,0,0.02,65.0,2.0,336643.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Marlon Carabalí,1606813,F,1,45,1,0,0,0.03,82.0,3.0,185465.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Léider Berdugo,1253514,M,1,70,0,0,0,0.0,84.0,2.0,585705.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Neneco,466581,M,1,90,2,0,0,0.12,86.0,2.0,149299.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Dayan Pérez,1896338,F,1,64,1,0,0,0.13,88.0,3.0,
+1000014189,2026-10-20,col_primera_a,Cúcuta,Gustavo Torres,930222,F,1,90,1,0,0,0.08,115.0,3.0,273099.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Joao Abonía,1471057,D,0,44,0,0,0,0.0,,1.0,311549.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Kevin Londoño,1363231,M,0,29,0,0,0,0.0,,2.0,322260.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Mauricio Duarte,312307,D,0,26,0,0,0,0.0,,1.0,257398.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Juan Ceballos,1335215,M,0,20,0,0,0,0.0,,2.0,270383.0
+1000014189,2026-10-20,col_primera_a,Cúcuta,Lucas Ríos,1016459,M,0,20,0,0,0,0.0,,2.0,250320.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Luis Marquínez,1433036,G,1,90,0,0,0,0.0,11.0,0.0,467801.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Andrés Román,925847,D,1,82,1,1,0,0.03,32.0,1.0,811981.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Neider Parra,1910334,D,1,90,0,0,0,0.0,34.0,1.0,523893.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,César Haydar,1139171,D,1,90,1,0,0,0.01,36.0,1.0,650593.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Samuel Velásquez,1433031,D,1,90,2,1,0,0.04,38.0,1.0,677247.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Nicolás Rodríguez,1460577,M,1,61,3,0,0,0.08,72.0,2.0,1227158.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Andrés Marín,1813504,M,1,90,0,0,0,0.0,74.0,2.0,
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Jorman Campuzano,922875,M,1,82,1,0,0,0.01,76.0,2.0,1210873.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Kevin Parra,1439545,M,1,61,1,0,0,0.24,78.0,2.0,1212638.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,James Rodríguez,164684,F,1,90,2,1,0,0.03,104.0,3.0,849147.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Mateus Uribe,320618,F,1,69,3,2,0,0.23,106.0,3.0,439704.0
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Rafael Díaz,2031373,F,0,29,1,1,0,0.09,,3.0,
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Juan Rengifo,1798773,F,0,29,1,0,0,0.03,,3.0,
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Edwin Echeverria,2386175,F,0,21,2,2,0,0.25,,3.0,
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Xavi Rios,1899835,M,0,8,0,0,0,0.0,,2.0,
+1000014189,2026-10-20,col_primera_a,Atlético Nacional,Matías Lozano,1895028,M,0,8,0,0,0,0.0,,2.0,
