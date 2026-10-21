@@ -169,7 +169,7 @@
   async function vivo() {
     const ahora = Date.now();
     const ids = {};
-    for (const p of estado.picks) {
+    for (const p of estado.picks.concat(estado.analisis || [])) {     // v424: también las de sólo análisis
       const ini = aFecha(p.inicio);
       if (!p.espn || !ini) continue;
       const desde = ini.getTime() - 10 * 60e3, hasta = ini.getTime() + 4 * 3600e3;
@@ -203,6 +203,56 @@
       }
     } finally { estado.vivoCorriendo = false; }
     if (cambio && !document.hidden) { pintar(); refrescarFicha(); }
+  }
+
+  // v424 — EL MARCADOR DE TODOS: lo que ESPN no cubre (Tercera RFEF, Sub-21…)
+  // sale de Flashscore por nuestra función `/vivo` (functions/vivo.js). Se
+  // empareja por los nombres de los dos equipos; cuando la tarjeta está abierta
+  // se piden también sus estadísticas del momento.
+  const DEP_FS = { 'Fútbol': 'futbol', Tenis: 'tenis', NBA: 'basquet', NHL: 'hockey', MLB: 'beisbol', KBO: 'beisbol', 'Béisbol': 'beisbol' };
+  const GENERICAS = new Set(['fc', 'cf', 'cd', 'sc', 'ac', 'club', 'the', 'afc', 'de', 'del', 'and', 'sad']);
+  const fichas = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9 ]/g, ' ')
+    .split(/\s+/).filter((w) => w.length >= 3 && !GENERICAS.has(w));
+  const casan = (a, b) => { const x = fichas(a), y = new Set(fichas(b)); return x.length && y.size && x.some((w) => y.has(w)); };
+  const STATS_FS = { 'Ball possession': 'possessionPct', 'Total shots': 'totalShots', 'Shots on target': 'shotsOnTarget', 'Corner kicks': 'wonCorners',
+    'Yellow cards': 'yellowCards', 'Red cards': 'redCards', 'Fouls': 'foulsCommitted', 'Offsides': 'offsides', 'Goalkeeper saves': 'saves',
+    'Expected goals (xG)': 'xg', 'Passes': 'totalPasses' };
+  estado.fsPor = {}; estado.fsStats = {}; estado.fsPedido = {};
+  async function vivoFs() {
+    if (document.hidden) return;
+    const ahora = Date.now();
+    const sin = estado.picks.concat(estado.analisis || []).filter((p) => {
+      if (p.espn && estado.vivo[p.espn]) return false;          // ESPN ya lo da
+      const ini = aFecha(p.inicio);
+      return ini && DEP_FS[p.deporte] && ahora >= ini - 10 * 60e3 && ahora <= ini.getTime() + duracion(p.deporte) + 30 * 60e3;
+    });
+    if (!sin.length) return;
+    let cambio = false;
+    for (const dep of [...new Set(sin.map((p) => DEP_FS[p.deporte]))]) {
+      let lista = [];
+      try { const r = await fetch('vivo?dep=' + dep); if (r.ok) lista = (await r.json()).partidos || []; } catch (e) { continue; }
+      for (const p of sin.filter((x) => DEP_FS[x.deporte] === dep)) {
+        const [L, V] = lados(p);
+        let m = lista.find((x) => casan(L, x.home) && casan(V, x.away)), girado = false;
+        if (!m) { m = lista.find((x) => casan(L, x.away) && casan(V, x.home)); girado = !!m; }
+        if (!m || m.estado === 'pre') continue;
+        const k = clavePartido(p), viejo = estado.fsPor[k];
+        const g = [m.gh == null ? 0 : m.gh, m.ga == null ? 0 : m.ga];
+        const st = estado.fsStats[m.id] || {};
+        estado.fsPor[k] = { fase: m.estado, terminado: m.estado === 'post', detalle: m.detalle, reloj: m.detalle, g: girado ? [g[1], g[0]] : g,
+          stats: Object.fromEntries(Object.entries(st).map(([n, v]) => [STATS_FS[n] || n, { label: n, v: girado ? [v[1], v[0]] : v }])),
+          eventos: [], nombres: [L, V], colores: null, fuente: 'flashscore', fsId: m.id };
+        if (!viejo || String(viejo.g) !== String(estado.fsPor[k].g) || viejo.fase !== m.estado) cambio = true;
+        // las estadísticas, sólo de las tarjetas abiertas (una vez por minuto)
+        if (estado.abiertos.has(k) && m.estado === 'in' && dep === 'futbol' && !(estado.fsPedido[m.id] > ahora - 60e3)) {
+          estado.fsPedido[m.id] = ahora;
+          fetch('vivo?id=' + encodeURIComponent(m.id)).then((r) => (r.ok ? r.json() : null)).then((d) => {
+            if (d && d.stats && Object.keys(d.stats).length) { estado.fsStats[m.id] = d.stats; vivoFs(); }
+          }).catch(() => {});
+        }
+      }
+    }
+    if (cambio) pintar();
   }
 
   // ¿Cómo va la apuesta? (sólo para enseñarlo; lo oficial lo liquida el modelo)
@@ -362,7 +412,7 @@
   function filaPick(p, v, varias) {
     if (p.solo_analisis) {
       return '<div class="pick-fila analisis"><small class="tenue">📊 Sin pick sugerido' +
-        (p.apuesta ? ' · el modelo ve <b>' + esc(p.apuesta) + '</b>' + (p.prob ? ' (' + pct(p.prob) + ')' : '') : '') + '</small></div>';
+        (p.apuesta ? ' · ' + (p.fuente === 'casa' ? 'la casa ve' : 'el modelo ve') + ' <b>' + esc(p.apuesta) + '</b>' + (p.prob ? ' (' + pct(p.prob) + ')' : '') : '') + '</small></div>';
     }
     const pr = progreso(p, v);
     const nv = nivel(p);
@@ -421,7 +471,7 @@
   }
   function tarjeta(ps) {
     const p = ps[0];
-    const v = (ps.find((x) => x.espn) || {}).espn ? estado.vivo[ps.find((x) => x.espn).espn] : null;
+    const v = vivoDe(ps);
     const nv = nivel(p);
     const [L, V] = lados(p);
     const marc = v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : (p.marcador || '');
@@ -596,8 +646,11 @@
   estado.ligasCerradas = new Set();
   estado.verFinales = false;
 
-  function vivoDe(ps) { const x = ps.find((q) => q.espn); return x ? estado.vivo[x.espn] : null; }
-  const DURA = { 'Fútbol': 2.1, NBA: 2.6, NHL: 2.7, NFL: 3.5, MLB: 3.4, KBO: 3.4, Tenis: 3 };
+  function vivoDe(ps) {
+    const x = ps.find((q) => q.espn);
+    return (x && estado.vivo[x.espn]) || estado.fsPor[clavePartido(ps[0])] || null;      // v424: o Flashscore
+  }
+  const DURA = { 'Fútbol': 2.1, NBA: 2.6, NHL: 2.7, NFL: 3.5, MLB: 3.4, KBO: 3.4, 'Béisbol': 3.4, Tenis: 3 };
   const duracion = (dep) => (DURA[dep] || 3) * 3600e3;
   function faseDe(ps) {
     const v = vivoDe(ps);
@@ -754,7 +807,7 @@
     // varios a la vez: un conjunto (vacío = todos); lo que ya no hay hoy se suelta
     estado.deportes = new Set([...(estado.deportes || [])].filter((d) => deps.includes(d)));
     estado.niveles = estado.niveles || new Set();
-    const ICO = { 'Fútbol': '⚽', 'Tenis': '🎾', 'NBA': '🏀', 'NFL': '🏈', 'NHL': '🏒', 'MLB': '⚾' };
+    const ICO = { 'Fútbol': '⚽', 'Tenis': '🎾', 'NBA': '🏀', 'NFL': '🏈', 'NHL': '🏒', 'MLB': '⚾', 'Béisbol': '⚾' };
     const act = (s, v) => (v === 'Todos' ? s.size === 0 : s.has(v));
     $('deportes').innerHTML = deps.map((d) => '<button class="chip' + (act(estado.deportes, d) ? ' activa' : '') + '" data-dep="' + esc(d) + '">' + (ICO[d] ? ICO[d] + ' ' : '') + esc(d) + '</button>').join('');
     $('niveles').innerHTML = ['Todos', 'Diamante', 'Platino', 'Oro', 'Plata', 'Cuota alta'].map((n) => '<button class="chip' + (act(estado.niveles, n) ? ' activa' : '') + '" data-niv="' + n + '">' + ({ Diamante: '💎 ', Platino: '🔷 ', Oro: '🥇 ', Plata: '🥈 ', 'Cuota alta': '💰 ' }[n] || '') + n + '</button>').join('');
@@ -901,4 +954,6 @@
   cargar();
   setInterval(cargar, 3 * 60 * 1000);   // picks nuevos y verdes/rojas oficiales
   setInterval(vivo, 30 * 1000);         // marcador y estadísticas
+  setInterval(vivoFs, 45 * 1000);       // v424 — y lo que ESPN no cubre
+  setTimeout(vivoFs, 4000);
 })();

@@ -159,6 +159,58 @@ def solo_analisis(prons: List[Dict], picks: List[Dict], terminados: List[Dict], 
     return out
 
 
+# v423 — EL BÉISBOL DE INVIERNO, SÓLO ANÁLISIS. Las casas mexicanas cotizan la
+# Liga Mexicana del Pacífico, la dominicana y la venezolana, que el sistema no
+# tenía. MEDIDO (3.406 partidos 2021-2026 con la cuota de cierre de
+# Betexplorer): la casa SOBREVALORA al favorito —en 60-65 % ganó 51,8 %; con
+# 65 %+ gana 64,3 % (p5 57,7 %, 2.ª mitad 60 %) y deja −11 por cada $100— y
+# casi no hay favoritos de 70 %+ (21 en cinco temporadas). No hay pick que
+# vender: salen como tarjetas de «sólo análisis» con lo que ve la casa y la IA.
+BEISBOL_INVIERNO = {'MEXICO: LMP': 'Liga Mexicana del Pacífico',
+                    'DOMINICAN REPUBLIC: LIDOM': 'Liga Dominicana (LIDOM)',
+                    'VENEZUELA: LVBP': 'Liga Venezolana (LVBP)'}
+
+
+def beisbol_invierno(hoy: dt.date, ruta: str = 'cuotas_mx.json') -> List[Dict]:
+    try:
+        d = json.load(open(ruta, encoding='utf-8'))
+    except Exception:
+        return []
+    ps = d.get('partidos') or []
+    ps = ps if isinstance(ps, list) else list(ps.values())
+    cdmx = dt.timezone(dt.timedelta(hours=-6))
+    out = []
+    for p in ps:
+        liga = BEISBOL_INVIERNO.get(str(p.get('liga') or '').split(' - ')[0])
+        if not liga or not p.get('home') or not p.get('away'):
+            continue
+        try:
+            ini = dt.datetime.fromtimestamp(float(p['inicio']), dt.timezone.utc)
+        except Exception:
+            continue
+        if not (hoy <= ini.astimezone(cdmx).date() <= hoy + dt.timedelta(days=DIAS_ANALISIS - 1)):
+            continue
+        ih, ia = [], []
+        for casa in (p.get('casas') or {}).values():
+            ml = (casa or {}).get('HOME_AWAY') or {}
+            try:
+                ih.append(1 / float(ml['home'])); ia.append(1 / float(ml['away']))
+            except Exception:
+                continue
+        if not ih:
+            continue
+        h, a = sum(ih) / len(ih), sum(ia) / len(ia)
+        ph = h / (h + a)
+        fav, prob = (p['home'], ph) if ph >= 0.5 else (p['away'], 1 - ph)
+        f = _fila({'partido': '%s vs %s' % (p['home'], p['away']), 'deporte': 'Béisbol', 'liga': liga,
+                   'inicio': ini.strftime('%Y-%m-%d %H:%M:%S'), 'fecha': ini.astimezone(cdmx).date().isoformat(),
+                   'apuesta': 'Gana %s' % fav, 'prob': prob}, 'pendiente')
+        f.update(solo_analisis=True, tipo='analisis', premium=False, elige=False, cuota=None, gratis=True, fuente='casa')
+        f['id'] = 'an-' + f['id']
+        out.append(f)
+    return out
+
+
 def construir() -> Dict:
     import modo_modelo as mm
     import partidos_jugados as pj
@@ -191,6 +243,8 @@ def construir() -> Dict:
     analisis = []
     try:
         analisis = solo_analisis(prons, picks, terminados, hoy)
+        ya = {(a['fecha'], a['partido']) for a in analisis}
+        analisis += [b for b in beisbol_invierno(hoy) if (b['fecha'], b['partido']) not in ya]   # v423
     except Exception as e:
         logger.warning('[web] sin tarjetas de sólo análisis: %s', e)
     # v384 — el contexto (forma, H2H, bajas) de cada partido de fútbol que aún no empieza

@@ -48,7 +48,8 @@ HORAS = 72
 # la unidad del «total» y del hándicap en cada deporte (la de nuestros picks)
 _V407 = ('total_esperado', 'linea_total', 'pred_total', 'prob_total', 'ok_total',
          'linea_handicap', 'pred_handicap', 'prob_handicap', 'ok_handicap')
-UNIDAD = {'Fútbol': 'Goles', 'NHL': 'Goles', 'NBA': 'Puntos', 'NFL': 'Puntos',
+UNIDAD = {'Béisbol': 'Carreras',   # v423 — el béisbol de invierno
+          'Fútbol': 'Goles', 'NHL': 'Goles', 'NBA': 'Puntos', 'NFL': 'Puntos',
           'MLB': 'Carreras', 'KBO': 'Carreras', 'Tenis': 'Sets'}
 PAUSA_S = 4.5            # ~13 por minuto: debajo del límite del nivel gratis
 

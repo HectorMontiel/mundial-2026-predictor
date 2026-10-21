@@ -156,7 +156,43 @@ def probar_v422():
     check('add column if not exists ligas text[]' in leer('supabase', 'v422_intereses.sql'), 'v422: las ligas se guardan en el perfil')
 
 
+def probar_v423():
+    import datetime as _dt, tempfile, json as _json
+    import exportar_web as xw
+    ini = _dt.datetime(2026, 10, 22, 1, 30, tzinfo=_dt.timezone.utc).timestamp()
+    doc = {'partidos': [{'deporte': 'mlb', 'liga': 'MEXICO: LMP', 'home': 'Jalisco', 'away': 'Mexicali', 'inicio': str(ini),
+                         'casas': {'A': {'HOME_AWAY': {'home': 1.62, 'away': 2.10}}, 'B': {'HOME_AWAY': {'home': 1.65, 'away': 2.13}}}},
+                        {'deporte': 'mlb', 'liga': 'USA: MLB - Play Offs', 'home': 'X', 'away': 'Y', 'inicio': str(ini),
+                         'casas': {'A': {'HOME_AWAY': {'home': 1.6, 'away': 2.3}}}}]}
+    ruta = os.path.join(tempfile.gettempdir(), '_v423_cmx.json'); _json.dump(doc, open(ruta, 'w'))
+    b = xw.beisbol_invierno(_dt.date(2026, 10, 21), ruta)
+    check(len(b) == 1 and b[0]['partido'] == 'Jalisco vs Mexicali' and b[0]['liga'] == 'Liga Mexicana del Pacífico'
+          and b[0]['fecha'] == '2026-10-21' and b[0]['solo_analisis'] and b[0]['fuente'] == 'casa' and b[0]['cuota'] is None
+          and 0.55 < b[0]['prob'] < 0.58, 'v423: el béisbol de invierno sale como sólo análisis, con lo que ve la casa (no la MLB)')
+    m = _json.load(open('_v423_beisbol_invierno.json', encoding='utf-8'))
+    check(m['casa_065_o_mas']['roi_por_100'] < 0 and 'no se meten picks' in m['veredicto'], 'v423: medido, no hay pick que vender (y queda escrito)')
+    check("p.fuente === 'casa' ? 'la casa ve'" in leer('web', 'app.js'), 'v423: la tarjeta dice que es lo que ve la casa')
+
+
+def probar_v424():
+    fn = leer('functions', 'vivo.js')
+    check('export async function onRequestGet' in fn and "'x-fsign': 'SW9D1eZo'" in fn and "/^[A-Za-z0-9]{6,12}$/.test(id)" in fn
+          and "'Cache-Control': 'public, max-age=30'" in fn, 'v424: /vivo pide a Flashscore lo que ESPN no cubre (sólo lectura, id validado, 30 s de caché)')
+    check("split('~SE÷').filter(Boolean)[0]" in fn, 'v424: las estadísticas son las del partido entero, no las de cada tiempo')
+    app = leer('web', 'app.js')
+    check('async function vivoFs()' in app and "fetch('vivo?dep=' + dep)" in app and 'estado.fsPor[clavePartido(ps[0])]' in app
+          and 'estado.picks.concat(estado.analisis || [])) {' in app and 'setInterval(vivoFs, 45 * 1000)' in app,
+          'v424: todos los partidos en vivo con marcador (ESPN, o si no Flashscore), también los de sólo análisis')
+    check("estado.abiertos.has(k) && m.estado === 'in'" in app and "'Corner kicks': 'wonCorners'" in app,
+          'v424: con la tarjeta abierta, sus estadísticas del momento')
+    check("connect-src 'self'" in leer('web', '_headers'), 'v424: /vivo es del mismo sitio (la CSP lo permite)')
+    wf = leer('.github', 'workflows', 'sitio_web.yml')
+    check('pages deploy web' in wf and os.path.isdir('functions'), 'v424: Cloudflare publica functions/ junto con web/')
+
+
 if __name__ == '__main__':
+    probar_v424()
+    probar_v423()
     probar_v422()
     probar_v421()
     probar_v420_web()
