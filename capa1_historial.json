@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-21T06:32:43Z",
+"actualizado": "2026-10-21T08:03:13Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -11325,12 +11325,32 @@
 {
 "dia": "2026-10-20",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Tereza Valentova vs Lilli Tagger",
+"apuesta": "Gana Lilli Tagger",
+"cuota": 1.93,
+"resultado": "verde",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Tochigi SC vs Reilac Shiga",
 "apuesta": "Gana Reilac Shiga",
 "cuota": 2.95,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Valentova T. vs Tagger L.",
+"apuesta": "Gana Tagger L.",
+"cuota": 1.93,
+"resultado": "verde",
+"marcador": "0-2"
 },
 {
 "dia": "2026-10-20",
