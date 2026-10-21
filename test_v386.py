@@ -65,8 +65,9 @@ def probar():
     cu = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
     check("p.tipo !== 'error'" in app and 'Cuota alta: ✅' in app and 'function iaHtml(' in app,
           'la página separa el marcador de los errores y enseña la IA')
-    check("from('ia_aciertos')" in cu and 'Elegir al favorito' in cu and "from('ia_analisis')" in cu and "$('ia-hist')" in cu,
-          'el historial mide a la IA contra elegir al favorito (y sale siempre)')
+    # v420 — el usuario pidió dejar sólo lo mejor de la IA: «elegir al favorito» ya no se enseña
+    check("from('ia_aciertos')" in cu and 'function mejorIA(med)' in cu and "from('ia_analisis')" in cu and "$('ia-hist')" in cu,
+          'el historial mide a la IA (sólo lo mejor) y sale siempre')
     src = open('ia_gemini.py', encoding='utf-8').read()
     check("'enum': ['a_favor', 'en_contra']" in src and "'veredictos': vs" in src and 'function iaDelPick(' in app,
           'la IA dice a favor o en contra de cada pick, se mide, y se avisa en la fila')

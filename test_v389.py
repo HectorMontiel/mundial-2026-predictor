@@ -14,8 +14,9 @@ def check(c, m):
 def probar():
     cu = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
     check(("FN + 'monedas'" in cu or "conStripe ? 'stripe' : 'monedas'" in cu) and 'data-comprar' in cu and "from('paquetes')" in cu, 'Mi cuenta compra paquetes de monedas')
-    check("from('precios_cuota')" in cu and "['Diamante', 'Platino', 'Cuota alta'].includes(n)" in cu,
-          'el precio de un pick premium sale de su cuota; 🥇 y 🥈 gratis')
+    # v420 — 🥈 Plata pasa a monedas (acierta y paga más que 🥇 Oro, que sigue gratis)
+    check("from('precios_cuota')" in cu and "['Diamante', 'Platino', 'Plata', 'Cuota alta'].includes(n)" in cu,
+          'el precio de un pick premium sale de su cuota; 🥇 Oro gratis')
     m = open(os.path.join('supabase', 'functions', 'monedas', 'index.ts'), encoding='utf-8').read()
     check("checkout/preferences" in m and "'monedas|' + user.id" in m and 'notification_url' in m,
           'el cobro es un pago único de Mercado Pago ligado al usuario y al paquete')

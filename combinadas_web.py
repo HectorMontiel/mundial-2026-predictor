@@ -37,10 +37,42 @@ from typing import Dict, List, Optional
 logger = logging.getLogger(__name__)
 
 PROB_MIN = 0.78
+# v420 — «las de 2 patas están siendo poco eficientes (6-6, 50 %); deberían
+# acertar más que las de 3». La causa: la cuota total mínima de 1,30 dejaba
+# FUERA a los mejores picks (dos 💎 a ~1,12 dan 1,25) y obligaba a armarla con
+# patas más flojas. Simulado sobre los 1.219 picks liquidados del 9 al 21-oct
+# (cada día con lo de ese día y la calibración sólo de los días ANTERIORES):
+#     actual (prob ≥ 0,78, cuota 1,30-1,60) ...... 44,8 % (mitades 67 / 29)
+#     sólo 💎/🔷, por acierto REAL, 1,20-1,60 ..... 82,1 % (mitades 83 / 81),
+#                                     ROI +3,5 por $100, p5 frente a la actual +10,7 pts
+#     (por la prob. del modelo en vez del acierto real: 67,9 %; no se usa)
+# Las de 3 patas no mejoraron con ningún cambio (siguen igual).
 TIPOS = {
-    'combinada': {'patas': 2, 'cuota': (1.30, 1.60)},
+    'combinada': {'patas': 2, 'cuota': (1.20, 1.60), 'solo_altos': True, 'por_acierto': True},
     'alta': {'patas': 3, 'cuota': (1.80, 2.60)},
 }
+
+
+def nivel(p: Dict) -> str:
+    """El mismo nivel que la página (`web/app.js`)."""
+    if p.get('elige'):
+        return 'Diamante'
+    pr = float(p.get('prob') or 0)
+    return 'Platino' if pr >= 0.85 else ('Oro' if pr >= 0.80 else 'Plata')
+
+
+def calibracion(liquidados: List[Dict]) -> Dict:
+    """v420 — el acierto REAL por (nivel, deporte) y por nivel, con un empuje
+    hacia el 80 % para que poca muestra no mande (como en la simulación)."""
+    g: Dict = {}
+    for p in liquidados:
+        if p.get('tipo') in ('error', 'analisis') or p.get('estado') not in ('verde', 'roja'):
+            continue
+        for k in ((nivel(p), p.get('deporte')), nivel(p)):
+            a = g.setdefault(k, [0, 0])
+            a[0] += p.get('estado') == 'verde'
+            a[1] += 1
+    return {k: (a + 8) / (n + 10) for k, (a, n) in g.items()}
 CDMX = dt.timezone(dt.timedelta(hours=-6))
 POZO = 40            # las mejores patas por alcance (C(40,3) ≈ 10 mil: instantáneo)
 
@@ -84,8 +116,10 @@ def patas(picks: List[Dict], ia: Dict, ahora: dt.datetime) -> List[Dict]:
     return out
 
 
-def _mejor(cands: List[Dict], n: int, cmin: float, cmax: float, mixta: bool) -> Optional[List[Dict]]:
-    cands = sorted(cands, key=lambda p: -float(p['prob']))[:POZO]
+def _mejor(cands: List[Dict], n: int, cmin: float, cmax: float, mixta: bool,
+           puntaje=None) -> Optional[List[Dict]]:
+    puntaje = puntaje or (lambda p: float(p['prob']))
+    cands = sorted(cands, key=lambda p: -puntaje(p))[:POZO]
     mejor, pm = None, 0.0
     for combo in combinations(cands, n):
         if len({p['partido'] for p in combo}) < n:
@@ -99,7 +133,7 @@ def _mejor(cands: List[Dict], n: int, cmin: float, cmax: float, mixta: bool) -> 
             continue
         pj = 1.0
         for p in combo:
-            pj *= float(p['prob'])
+            pj *= puntaje(p)
         if pj > pm:
             mejor, pm = list(combo), pj
     return mejor
@@ -124,9 +158,12 @@ def _fila(fecha: str, alcance: str, tipo: str, combo: List[Dict], ia: Dict) -> D
     }
 
 
-def armar(picks: List[Dict], ia: Dict, ahora: Optional[dt.datetime] = None) -> List[Dict]:
+def armar(picks: List[Dict], ia: Dict, ahora: Optional[dt.datetime] = None,
+          cal: Optional[Dict] = None) -> List[Dict]:
     """Las combinadas nuevas de esta pasada (ver la cabecera)."""
     ahora = ahora or dt.datetime.now(dt.timezone.utc)
+    cal = cal if cal is not None else calibracion(picks)
+    acierto = lambda p: cal.get((nivel(p), p.get('deporte')), cal.get(nivel(p), 0.8))
     out = []
     por_dia: Dict[str, List[Dict]] = {}
     for p in patas(picks, ia, ahora):       # cada día con sus partidos: no se mezclan hoy y mañana
@@ -136,7 +173,9 @@ def armar(picks: List[Dict], ia: Dict, ahora: Optional[dt.datetime] = None) -> L
         for alcance in deportes + ['Mixta']:
             cands = pool if alcance == 'Mixta' else [p for p in pool if p.get('deporte') == alcance]
             for tipo, t in TIPOS.items():
-                combo = _mejor(cands, t['patas'], t['cuota'][0], t['cuota'][1], alcance == 'Mixta')
+                cc = [p for p in cands if p.get('elige') or float(p.get('prob') or 0) >= 0.85] if t.get('solo_altos') else cands
+                combo = _mejor(cc, t['patas'], t['cuota'][0], t['cuota'][1], alcance == 'Mixta',
+                               acierto if t.get('por_acierto') else None)
                 if combo:
                     out.append(_fila(fecha, alcance, tipo, combo, ia))
     return out
@@ -207,7 +246,17 @@ def subir(picks: List[Dict], url: str, key: str, ahora: Optional[dt.datetime] = 
             if nuevo != c.get('estado'):
                 filas.append({'id': c['id'], 'fecha': c['fecha'], 'alcance': c['alcance'], 'tipo': c['tipo'],
                               'estado': nuevo, 'actualizado': ahora.isoformat()})
-    nuevas = [c for c in armar(picks, ia, ahora) if c['id'] not in fijas]
+    # v420 — el acierto real de los últimos 30 días (para elegir las patas de las de 2)
+    cal = None
+    try:
+        rr = requests.get(base + 'picks', headers=hdr, timeout=30,
+                          params={'select': 'elige,prob,tipo,deporte,estado', 'estado': 'in.(verde,roja)',
+                                  'fecha': 'gte.' + (hoy - dt.timedelta(days=30)).isoformat(), 'limit': 20000})
+        if rr.ok:
+            cal = calibracion(rr.json())
+    except Exception as e:
+        logger.warning('[combinadas] sin calibración de la base (%s): se usa la de esta pasada', e)
+    nuevas = [c for c in armar(picks, ia, ahora, cal) if c['id'] not in fijas]
     for c in nuevas:
         c['actualizado'] = ahora.isoformat()
     # lo que hoy ya no tiene combinada (sin patas suficientes) y aún no empezó, se quita

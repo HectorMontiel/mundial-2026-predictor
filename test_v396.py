@@ -24,7 +24,7 @@ def probar_combinadas():
     def pk(i, dep, cuota, prob, h=2, **k):
         return dict({'id': 'p%d' % i, 'partido': 'A%d vs B%d' % (i, i), 'deporte': dep, 'apuesta': 'Gana A%d' % i,
                      'cuota': cuota, 'prob': prob, 'inicio': t(h), 'estado': 'pendiente', 'tipo': 'pick'}, **k)
-    ps = [pk(1, 'Fútbol', 1.15, .88), pk(2, 'Fútbol', 1.18, .86), pk(3, 'Fútbol', 1.20, .84),
+    ps = [pk(1, 'Fútbol', 1.15, .88), pk(2, 'Fútbol', 1.18, .86), pk(3, 'Fútbol', 1.20, .85),   # v420: las de 2 patas sólo con 💎 o 🔷 (prob ≥ 0,85)
           pk(4, 'Tenis', 1.15, .87), pk(5, 'Tenis', 1.17, .85),
           pk(6, 'Fútbol', 1.16, .95, tipo='error'),            # error de cuota: no entra
           pk(7, 'Fútbol', 1.16, .95, h=0.1),                    # empieza ya: no entra

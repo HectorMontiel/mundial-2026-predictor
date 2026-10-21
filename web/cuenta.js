@@ -54,7 +54,7 @@
   function precio(p) {
     if (yo.perfil && yo.perfil.admin) return 0;
     const n = window.SP.nivel(p).n;
-    if (!p._forzar && !['Diamante', 'Platino', 'Cuota alta'].includes(n)) return 0;
+    if (!p._forzar && !['Diamante', 'Platino', 'Plata', 'Cuota alta'].includes(n)) return 0;   // v420: 🥈 Plata a monedas
     const c = Number(p.cuota || 1), b = (yo.bandas || []).find((x) => c >= Number(x.desde) && c < Number(x.hasta));
     return b ? Number(b.monedas) : 10;
   }
@@ -581,8 +581,15 @@
     // sólo los niveles que de verdad presumen (75 %+): «los mejores números»
     const nivel = (n, ico) => (N[n] && N[n].verdes / Math.max(1, N[n].verdes + N[n].rojas) >= 0.75 ? linea(ico, n, N[n].verdes, N[n].rojas) : '');
     const pon = (id, h) => { const c = $(id); if (c) c.innerHTML = h ? '<ul class="numeros">' + h + '</ul><small class="tenue">Últimos 30 días, verdes y rojas reales.</small>' : ''; };
-    pon('numeros-gratis', nivel('Oro', '🥇') + nivel('Plata', '🥈'));
-    pon('numeros-monedas', nivel('Diamante', '💎') + nivel('Platino', '🔷') + nivel('Cuota alta', '💰'));
+    // v420 — 💰 Cuota alta acierta ~55 % a cuota ~2,3: lo que presume es lo que GANA
+    const gana = (n, ico) => (N[n] && N[n].gana_por_100 > 0 && N[n].verdes + N[n].rojas >= 30
+      ? '<li class="num-real">' + ico + ' ' + n + ': <b>+' + Math.round(N[n].gana_por_100) + ' por cada $100</b> <small>✅ ' + N[n].verdes + ' ❌ ' + N[n].rojas + '</small></li>' : '');
+    pon('numeros-gratis', nivel('Oro', '🥇'));
+    pon('numeros-monedas', nivel('Diamante', '💎') + nivel('Platino', '🔷') + nivel('Plata', '🥈') + gana('Cuota alta', '💰'));
+    // la tabla de precios, de la base (lo que cobra `precio_pick`, nunca otra cosa)
+    const tp = $('tabla-precios');
+    if (tp && (yo.bandas || []).length) tp.innerHTML = '<tr><th>Cuota del pick</th><th>Cuesta</th></tr>' + yo.bandas.map((b) =>
+      '<tr><td>' + Number(b.desde).toFixed(2) + (Number(b.hasta) >= 50 ? ' o más' : ' – ' + (Number(b.hasta) - 0.01).toFixed(2)) + '</td><td>' + b.monedas + ' 🪙</td></tr>').join('');
     // la IA: sólo lo mejor (la apuesta que metería, en su banda más alta con 30+ partidos, y su «a favor»)
     const DEP = { 'Fútbol': '⚽', Tenis: '🎾', NBA: '🏀', NFL: '🏈', NHL: '🏒', MLB: '⚾' };
     const mejores = ((med && med.data) || []).filter((x) => x.que === 'mejor' && x.total >= 30)
@@ -590,7 +597,9 @@
       .map((x) => linea('🧠', 'IA, lo que metería ' + (DEP[x.deporte] || '') + ' (confianza ' + x.banda + ')', x.ok, x.total - x.ok)).join('');
     const a = ac && ac.data;
     const favor = a ? linea('🤖', 'IA «a favor» de nuestro pick', Number(a.favor_bien || 0), Number(a.favor_mal || 0)) : '';
-    pon('numeros-vip', nivel('Diamante', '💎') + nivel('Platino', '🔷') + mejores + favor);
+    // v420 — «muestra también el % del ganador que predice la IA» (sin presumir: se dice tal cual)
+    const ganador = a ? linea('🏆', 'IA, el ganador del partido', Number(a.resultado_ok || 0), Number(a.resultado_mal || 0)) : '';
+    pon('numeros-vip', nivel('Diamante', '💎') + nivel('Platino', '🔷') + nivel('Plata', '🥈') + mejores + favor + ganador);
   }
   async function historial() {
     const caja = $('historial'); if (!caja || !sb) return;
@@ -621,16 +630,11 @@
     if (iaCaja) iaCaja.innerHTML = iaError ? '<p class="aviso">No se pudieron consultar las mediciones de la IA. Reintenta en un momento.</p>' : !ia ? '<p class="tenue">Sin datos de la IA todavía.</p>' :
       '<div class="ia-fila"><span>Partidos analizados</span><b>' + (ia.analizados || 0) + '</b><small>' + (ia.pendientes || 0) + ' esperando resultado</small></div>' +
       '<div class="ia-fila"><span>🤖 Acierta el ganador</span><b>✅ ' + ia.resultado_ok + ' ❌ ' + ia.resultado_mal + '</b><small>' + p100(ia.resultado_ok, ia.resultado_mal) + '</small></div>' +
-      '<div class="ia-fila"><span>📈 Elegir al favorito (la vara)</span><b>✅ ' + ia.mercado_ok + ' ❌ ' + ia.mercado_mal + '</b><small>' + p100(ia.mercado_ok, ia.mercado_mal) + '</small></div>' +
-      '<div class="ia-fila"><span>⚽ Más / menos de 2.5 goles</span><b>✅ ' + ia.goles_ok + ' ❌ ' + ia.goles_mal + '</b><small>' + p100(ia.goles_ok, ia.goles_mal) + '</small></div>' +
-      '<div class="ia-fila"><span>⚽ Marcador exacto</span><b>✅ ' + (ia.marcador_ok || 0) + ' ❌ ' + (ia.marcador_mal || 0) + '</b><small>' + p100(ia.marcador_ok || 0, ia.marcador_mal || 0) + '</small></div>' +
-      '<div class="ia-fila"><span>🎯 Ambos anotan</span><b>✅ ' + (ia.btts_ok || 0) + ' ❌ ' + (ia.btts_mal || 0) + '</b><small>' + p100(ia.btts_ok || 0, ia.btts_mal || 0) + '</small></div>' +
-      '<div class="ia-fila"><span>🚩 Córners (más / menos)</span><b>✅ ' + (ia.corners_ok || 0) + ' ❌ ' + (ia.corners_mal || 0) + '</b><small>' + p100(ia.corners_ok || 0, ia.corners_mal || 0) + '</small></div>' +
-      '<div class="ia-fila"><span>🟨 Tarjetas (más / menos)</span><b>✅ ' + (ia.tarjetas_ok || 0) + ' ❌ ' + (ia.tarjetas_mal || 0) + '</b><small>' + p100(ia.tarjetas_ok || 0, ia.tarjetas_mal || 0) + '</small></div>' +
-      '<div class="ia-fila"><span>❌ Cuando dijo «en contra», el pick falló</span><b>' + ia.aviso_bien + ' de ' + (ia.aviso_bien + ia.aviso_mal) + '</b><small>' + p100(ia.aviso_bien, ia.aviso_mal) + '</small></div>' +
       '<div class="ia-fila"><span>✅ Cuando dijo «a favor», el pick salió</span><b>' + ia.favor_bien + ' de ' + (ia.favor_bien + ia.favor_mal) + '</b><small>' + p100(ia.favor_bien, ia.favor_mal) + '</small></div>' +
-      filaMejor(med) + calibracion(med) +
-      '<p class="tenue chico">Si la IA no le gana a «elegir al favorito», no aporta: por eso la medimos aparte y nuestros picks no dependen de ella.</p>';
+      mejorIA(med) +
+      '<p class="tenue chico">La IA es experimental y se mide aparte: nuestros picks no dependen de ella.</p>';
+    // v420 — el historial POR DEPORTE (el modelo) y, al lado, lo mejor de la IA en ese deporte
+    porDeporte(med);
     if (filas.length) caja.innerHTML +=
       '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
       filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' +
@@ -645,6 +649,47 @@
     const ok = xs.reduce((s, m) => s + m.ok, 0), tot = xs.reduce((s, m) => s + m.total, 0);
     return '<div class="ia-fila"><span>🧠 Lo que metería la IA</span><b>✅ ' + ok + ' ❌ ' + (tot - ok) + '</b><small>' +
       (tot ? Math.round(100 * ok / tot) + ' %' : '—') + '</small></div>';
+  }
+  // v420 — «es mucho texto: deja sólo lo mejor, nivelado entre porcentaje y
+  // cantidad (el hándicap de 80 %+ con n=2 no cuenta)». Cada predicción en su
+  // mejor banda, ordenadas por el piso de confianza de Wilson (95 %): premia
+  // un acierto alto CON muestra. Sólo con 20+ partidos y si salió 65 %+.
+  function wilson(ok, n) {
+    if (!n) return 0;
+    const z = 1.96, p = ok / n;
+    return (p + z * z / (2 * n) - z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))) / (1 + z * z / n);
+  }
+  function mejorIA(med) {
+    const junto = {};
+    (med || []).filter((m) => m.total > 0).forEach((m) => {
+      const k = m.que + '|' + m.banda;
+      junto[k] = junto[k] || { que: m.que, banda: m.banda, ok: 0, total: 0 };
+      junto[k].ok += m.ok; junto[k].total += m.total;
+    });
+    const mejor = {};
+    Object.values(junto).filter((m) => m.total >= 20 && m.ok / m.total >= 0.65).forEach((m) => {
+      m.lb = wilson(m.ok, m.total);
+      if (!mejor[m.que] || m.lb > mejor[m.que].lb) mejor[m.que] = m;
+    });
+    const xs = Object.values(mejor).sort((a, b) => b.lb - a.lb).slice(0, 5);
+    if (!xs.length) return '';
+    const N = { goles: '⚽ Goles 2.5', ambos: '🎯 Ambos anotan', corners: '🚩 Córners', tarjetas: '🟨 Tarjetas', total: '📊 Total', handicap: '⚖️ Hándicap', mejor: '🧠 Lo que metería' };
+    return '<div class="ctx-tit">🏆 Donde mejor acierta la IA</div>' + xs.map((m) =>
+      '<div class="ia-fila"><span>' + (N[m.que] || esc(m.que)) + ' <small>(confianza ' + esc(m.banda) + ')</small></span><b>✅ ' + m.ok + ' ❌ ' + (m.total - m.ok) + '</b><small>' + Math.round(100 * m.ok / m.total) + ' %</small></div>').join('');
+  }
+  async function porDeporte(med) {
+    const caja = $('dep-hist'); if (!caja || !sb) return;
+    const { data, error } = await sb.from('historial_deportes').select('*');
+    if (error || !(data || []).length) { caja.innerHTML = ''; return; }
+    const ICO = { 'Fútbol': '⚽', Tenis: '🎾', NBA: '🏀', NFL: '🏈', NHL: '🏒', MLB: '⚾', KBO: '⚾' };
+    const ia = {};
+    (med || []).filter((m) => m.que === 'mejor').forEach((m) => { const x = ia[m.deporte] = ia[m.deporte] || [0, 0]; x[0] += m.ok; x[1] += m.total; });
+    caja.innerHTML = '<table class="tabla"><tr><th>Deporte</th><th>Modelo</th><th>%</th><th>🧠 IA</th></tr>' +
+      data.filter((d) => d.verdes + d.rojas >= 10).sort((a, b) => (b.verdes + b.rojas) - (a.verdes + a.rojas)).map((d) => {
+        const n = d.verdes + d.rojas, x = ia[d.deporte];
+        return '<tr><td>' + (ICO[d.deporte] || '•') + ' ' + esc(d.deporte) + '</td><td>✅ ' + d.verdes + ' ❌ ' + d.rojas + '</td><td><b>' + Math.round(100 * d.verdes / n) + ' %</b></td><td>' +
+          (x && x[1] >= 20 ? Math.round(100 * x[0] / x[1]) + ' % <small>(' + x[1] + ')</small>' : '—') + '</td></tr>';
+      }).join('') + '</table><p class="tenue chico">Últimos 30 días. «🧠 IA»: lo que metería la IA en ese deporte (con 20+ partidos).</p>';
   }
   function calibracion(med) {
     // v407 — una fila por predicción y banda, sumando los deportes

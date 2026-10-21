@@ -87,7 +87,48 @@ def probar_v419():
     check('>= 0.75 ? linea(ico, n' in js, 'v419: los planes sólo presumen los niveles de 75 % o más')
 
 
+def probar_v420():
+    import datetime as _dt
+    import combinadas_web as cw
+    check(cw.TIPOS['combinada']['cuota'] == (1.20, 1.60) and cw.TIPOS['combinada'].get('solo_altos')
+          and cw.TIPOS['combinada'].get('por_acierto') and cw.TIPOS['alta']['cuota'] == (1.80, 2.60),
+          'v420: las de 2 patas con 💎/🔷 por acierto real, cuota 1,20-1,60; las de 3 sin cambio')
+    ahora = _dt.datetime(2026, 10, 21, 12, tzinfo=_dt.timezone.utc)
+    ini = (ahora + _dt.timedelta(hours=3)).strftime('%Y-%m-%d %H:%M:%S')
+    pk = lambda i, dep, c, pr, el=False: {'id': 'q%d' % i, 'partido': 'X%d vs Y%d' % (i, i), 'deporte': dep, 'apuesta': 'Gana X%d' % i,
+                                           'cuota': c, 'prob': pr, 'elige': el, 'inicio': ini, 'estado': 'pendiente', 'tipo': 'pick'}
+    ps = [pk(1, 'Tenis', 1.12, .90, True), pk(2, 'Tenis', 1.12, .89, True), pk(3, 'Tenis', 1.25, .80), pk(4, 'Tenis', 1.24, .81)]
+    cs = [c for c in cw.armar(ps, {}, ahora, cal={}) if c['tipo'] == 'combinada' and c['alcance'] == 'Tenis']
+    check(cs and {x['id'] for x in cs[0]['patas']} == {'q1', 'q2'},
+          'v420: dos 💎 a 1,12 (1,25 total) ya entran; antes se forzaban patas más flojas')
+    cal = cw.calibracion([{'elige': True, 'deporte': 'Tenis', 'estado': 'verde'}] * 20 + [{'elige': True, 'deporte': 'NBA', 'estado': 'roja'}] * 20)
+    check(cal[('Diamante', 'Tenis')] > 0.9 and cal[('Diamante', 'NBA')] < 0.3, 'v420: la calibración es el acierto real por nivel y deporte')
+
+
+def probar_v420_web():
+    sql = leer('supabase', 'v420_precios_plata_deportes.sql')
+    import re as _re
+    bandas = [(float(a), float(b), int(m)) for a, b, m in _re.findall(r'\((\d\.\d\d), (\d+\.\d\d), (\d+)\)', sql)]
+    check(bandas and min(m for _, _, m in bandas) == 5 and bandas[0][:2] == (1.00, 1.15) and bandas[1] == (1.15, 1.30, 6)
+          and all(bandas[i][1] == bandas[i + 1][0] and bandas[i][2] < bandas[i + 1][2] for i in range(len(bandas) - 1)),
+          'v420: precios escalonados desde 5 🪙, sin huecos y siempre subiendo: %s' % bandas)
+    check("coalesce((p).prob, 0) >= 0.80 and coalesce((p).prob, 0) < 0.85 then 0" in sql and "= 'analisis' then 0" in sql,
+          'v420: 🥇 Oro gratis, 🥈 Plata a monedas y el «sólo análisis» nunca se cobra')
+    check('create or replace view public.historial_deportes' in sql and 'gana_por_100' in sql.split('create or replace view public.historial_niveles')[-1],
+          'v420: historial por deporte y la ganancia por nivel')
+    js, html = leer('web', 'cuenta.js'), leer('web', 'index.html')
+    check("['Diamante', 'Platino', 'Plata', 'Cuota alta'].includes(n)" in js and '<li>Picks 🥇 Oro</li>' in html,
+          'v420: la página cobra 🥈 Plata y el plan gratis dice sólo 🥇 Oro')
+    check('function mejorIA(med)' in js and 'm.total >= 20 && m.ok / m.total >= 0.65' in js and 'function wilson(ok, n)' in js
+          and 'calibracion(med)' not in js.split('mejorIA(med) +')[0][-400:],
+          'v420: de la IA sólo lo mejor, nivelado entre porcentaje y cantidad (Wilson, 20+ partidos)')
+    check("'IA, el ganador del partido'" in js and "id=\"tabla-precios\"" in html and "from('historial_deportes')" in js
+          and 'id="dep-hist"' in html, 'v420: el ganador de la IA en el VIP, precios de la base y el historial por deporte')
+
+
 if __name__ == '__main__':
+    probar_v420_web()
+    probar_v420()
     probar_v419()
     probar_v417()
     probar_v418()
