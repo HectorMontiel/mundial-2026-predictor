@@ -116,6 +116,11 @@ ARCHIVO = 'calibracion_stats_liga.json'
 # Por encima de este error de calibración, la estimación se enseña con un aviso
 # más fuerte. Es el umbral que se fijó al pedir esto.
 UMBRAL_ACEPTABLE = 0.05
+# v409 — Y LA RECTA TIENE QUE SER BUENA. Con 59 ligas con remates REALES (la
+# v393 sumó FotMob y Flashscore) el TOTAL de remates de una liga casi no se
+# explica por sus goles (corr 0,35; a puerta, 0,79). Una estimación sacada de
+# una recta así no se enseña como «aceptable»: lleva el aviso fuerte.
+CORR_MINIMA = 0.50
 _CACHE: Optional[Dict] = None
 
 
@@ -301,7 +306,10 @@ def estimar(clave: str, objetivo: str) -> Optional[Dict]:
         'origen': 'estimado',
         'clave_liga': clave,
         'error_calibracion': err,
-        'aceptable': bool(err <= UMBRAL_ACEPTABLE),
+        # la recta sólo es la garantía de los REMATES (v163); córners y tarjetas
+        # están validados con su calibración dejando una liga fuera
+        'aceptable': bool(err <= UMBRAL_ACEPTABLE and (objetivo not in ('rem', 'rem_on')
+                                                       or float(recta.get('corr_goles') or 0) >= CORR_MINIMA)),
         'base': 'nivel de la competición derivado de sus goles (%.2f)' % goles,
     }
 

@@ -67,7 +67,7 @@ def probar_pagina():
           'los destacados siguen el filtro Próximos / Vivo / Final')
     check('AVISO_SIN_STATS' in app and "v.fase === 'in' && statsVacias(v)" in app,
           'sin estadísticas de ESPN se avisa en vez de pintar ceros')
-    check('Lo que metería la IA' in app and "filaStat('Goles esperados'" in app and 'Lo que usó' in app,
+    check('Lo que metería la IA' in app and ("filaStat('Goles esperados'" in app or "' esperados', a.goles_local_esperados" in app) and 'Lo que usó' in app,
           'el análisis IA trae qué metería, goles por equipo y los promedios que usó')
     check(os.path.exists(os.path.join('supabase', 'v394_ia_que_meter.sql')), 'el SQL de las columnas nuevas está guardado')
 

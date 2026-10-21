@@ -83,11 +83,47 @@ def _fila(p: Dict, estado: str, ligas: Dict = None) -> Dict:
     return f
 
 
+def decidir_lo_que_falta(datos: Dict) -> int:
+    """v406 — LAS DECISIONES QUE FALTAN SE CALCULAN AQUÍ.
+
+    El usuario: «cuando quise ver los partidos de mañana y pasado mañana me
+    salían vacíos». Las «se mete» las calcula el precálculo y viajan con una
+    huella de los ficheros que usó (`decisiones_dia`); si un bot commitea uno
+    de esos ficheros después (las cuotas, cada hora) o pasa la medianoche UTC,
+    `adjuntar` las descarta («se calculan en vivo»)… pero `lista_por_acierto`
+    NUNCA las calculaba en vivo: sólo lee las guardadas. Medido el 20-oct: la
+    pasada sin decisiones bajaba de 549 picks a 307 (y a 187), y la limpieza
+    de lo retirado borraba los de mañana y pasado.
+
+    Aquí se calculan con la MISMA función del cron (`decisiones_dia.decidir`)
+    para cada partido sin jugar que no la trae. Devuelve cuántos."""
+    import decisiones_dia as dd
+    faltan = [p for lista in dd.LISTAS for p in (datos.get(lista) or [])
+              if isinstance(p, dict) and not p.get('jugado') and dd.CLAVE_PICK not in p]
+    if not faltan:
+        return 0
+    try:                         # el cron decide con los nombres de liga ya unificados
+        import nombres_ligas
+        nombres_ligas.aplicar(datos)
+    except Exception as e:
+        logger.debug('[web] nombres de liga: %s', e)
+    n = 0
+    for p in faltan:
+        try:
+            p[dd.CLAVE_PICK] = {'llave': dd._llave(p), **dd.decidir(p)}
+            n += 1
+        except Exception as e:
+            logger.debug('[web] decisión de %s: %s', p.get('partido'), e)
+    logger.info('[web] %d decisiones calculadas aquí (las del precálculo no valían)', n)
+    return n
+
+
 def construir() -> Dict:
     import modo_modelo as mm
     import partidos_jugados as pj
     import precalculo_dia as pc
     doc = pc.leer() or {}
+    decidir_lo_que_falta(doc.get('datos') or {})
     prons = (doc.get('datos') or {}).get('pronosticos') or []
     proximas = [_fila(p, 'pendiente') for p in mm.lista_por_acierto(prons)
                 if not p.get('sigue')]
@@ -167,6 +203,41 @@ def premium(picks: List[Dict]) -> List[Dict]:
     return secretos
 
 
+CAIDA_MAXIMA_FUTUROS = 0.30
+
+
+def _pasada_incompleta(url: str, key: str, picks: List[Dict]) -> bool:
+    """v406 — ¿esta pasada trae MUCHOS menos picks futuros que la base? Entonces
+    no se borra nada: lo más probable es que le falten decisiones o datos, no que
+    el modelo haya retirado de golpe un tercio de todo. Se borra en la siguiente
+    pasada sana."""
+    import requests
+    ahora = dt.datetime.now(dt.timezone.utc)
+    futuros = 0
+    for p in picks:
+        try:
+            ini = dt.datetime.fromisoformat(str(p.get('inicio')).replace(' ', 'T').replace('Z', '+00:00'))
+            ini = ini if ini.tzinfo else ini.replace(tzinfo=dt.timezone.utc)
+        except Exception:
+            continue
+        futuros += p.get('estado') == 'pendiente' and ini > ahora
+    try:
+        r = requests.get(url.rstrip('/') + '/rest/v1/picks', timeout=30,
+                         headers={'apikey': key, 'Authorization': 'Bearer ' + key,
+                                  'Prefer': 'count=exact', 'Range': '0-0'},
+                         params={'select': 'id', 'estado': 'eq.pendiente',
+                                 'inicio': 'gt.' + ahora.strftime('%Y-%m-%dT%H:%M:%S')})
+        total = int(str(r.headers.get('content-range', '*/0')).split('/')[-1])
+    except Exception as e:
+        logger.warning('[web] no se pudo contar lo publicado: %s', e)
+        return True                         # sin saberlo, no se borra
+    if total and futuros < (1 - CAIDA_MAXIMA_FUTUROS) * total:
+        logger.warning('[web] esta pasada trae %d picks futuros y la base tiene %d: NO se borra lo retirado',
+                       futuros, total)
+        return True
+    return False
+
+
 def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
     """Sube (o actualiza) cada pick en Supabase. Devuelve cuántos; 0 sin claves."""
     url, key = os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SERVICE_KEY')
@@ -219,7 +290,7 @@ def subir_supabase(picks: List[Dict], secretos: List[Dict] = ()) -> int:
     # el partido salía dos veces. Se borran las pendientes de partidos que aún
     # no empiezan y que ya no están en esta pasada (sólo si la pasada trae
     # picks: una vacía por un fallo no debe vaciar la base).
-    if n == len(filas) and filas:
+    if n == len(filas) and filas and not _pasada_incompleta(url, key, picks):
         ahora = dt.datetime.now(dt.timezone.utc).strftime('%Y-%m-%dT%H:%M:%S')
         vivos = ','.join(sorted({p['id'] for p in picks}))
         r = requests.delete(url.rstrip('/') + '/rest/v1/picks', timeout=30, headers=hdr,

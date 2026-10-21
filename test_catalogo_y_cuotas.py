@@ -11409,9 +11409,15 @@ def test_todas_las_ligas_tienen_remates():
         check(bool(recta),
               f"el ajuste de {obj} esta calculado y guardado")
         if recta:
-            check(recta.get('corr_goles', 0) > 0.5,
+            # v409 — si la recta es floja (con más ligas reales el TOTAL de
+            # remates ya no sale de los goles), la estimación tiene que salir
+            # marcada como poco fiable, no como aceptable
+            _est = stats_estimadas.estimar('liga_mx', obj) or {}
+            check(recta.get('corr_goles', 0) > stats_estimadas.CORR_MINIMA
+                  or _est.get('aceptable') is False,
                   f"{obj}: el nivel de remates de una liga se predice bien "
-                  f"desde sus goles (corr {recta.get('corr_goles'):.3f})")
+                  f"desde sus goles (corr {recta.get('corr_goles'):.3f}) o la "
+                  f"estimación va marcada como poco fiable")
         err = (doc.get('calibracion_estimada') or {}).get(obj)
         check(err is not None and err <= stats_estimadas.UMBRAL_ACEPTABLE,
               f"{obj}: la estimacion calibra por debajo del umbral ({err})")

@@ -81,20 +81,60 @@ def eventos(ruta: str, dia: str, _memo: Dict = {}) -> List[Dict]:
             eq = {c.get('homeAway'): c.get('team') or {} for c in comp.get('competitors') or []}
             if 'home' not in eq or 'away' not in eq:
                 continue
+            # v410 — la liga viene en los enlaces («…/league/mex.w.1»); antes se
+            # tomaba el final del primer enlace, que es el nombre del partido
             liga = ''
-            try:
-                liga = (ev.get('season') or {}).get('slug') or ''
-                liga = (((ev.get('competitions') or [{}])[0].get('league') or {}).get('slug')
-                        or ((ev.get('links') or [{}])[0].get('href') or '').split('/')[-1] or liga)
-            except Exception:
-                pass
-            out.append({'id': str(ev.get('id')), 'inicio': _utc(ev.get('date')),
+            for l in ev.get('links') or []:
+                m = re.search(r'/league/([a-z0-9._]+)', str((l or {}).get('href') or ''))
+                if m:
+                    liga = m.group(1)
+                    break
+            out.append({'id': str(ev.get('id')), 'inicio': _utc(ev.get('date')), 'liga': liga,
                         'home': eq['home'].get('displayName') or '', 'away': eq['away'].get('displayName') or '',
-                        'logo_h': eq['home'].get('logo') or '', 'logo_a': eq['away'].get('logo') or ''})
+                        'logo_h': _escudo(liga, eq['home']), 'logo_a': _escudo(liga, eq['away'])})
     except Exception as e:
         logger.debug('[espn_vivo] %s %s: %s', ruta, dia, e)
     _memo[k] = out
     return out
+
+
+# v410 — LOS ESCUDOS DE LAS FEMENILES, DEL MISMO CLUB EN LA VARONIL.
+#
+# El usuario: «ya jugó Toluca contra Santos Laguna de la Liga MX y me estabas
+# mostrando el Santos pero de Brasil». El partido era el correcto (Liga MX
+# Femenil, evento 401924383); el ESCUDO lo manda mal ESPN: su equipo «Santos»
+# de la Femenil (id 133985) trae el escudo del Santos FC de Brasil. Los clubes
+# de estas ligas son los mismos que los de la varonil de su país y llevan el
+# mismo escudo, así que se toma el de la varonil cuando el nombre coincide
+# EXACTO (si no coincide, se deja el de ESPN).
+VARONIL = {'mex.w.1': 'mex.1', 'eng.w.1': 'eng.1', 'esp.w.1': 'esp.1', 'fra.w.1': 'fra.1'}
+_ESCUDOS: Dict[str, Dict[str, str]] = {}
+
+
+def _escudos_varonil(liga: str) -> Dict[str, str]:
+    if liga not in _ESCUDOS:
+        out = {}
+        try:
+            import requests
+            r = requests.get(BASE + 'soccer/%s/teams' % liga, timeout=20)
+            for x in ((((r.json().get('sports') or [{}])[0].get('leagues') or [{}])[0].get('teams') or [])
+                      if r.ok else []):
+                t = x.get('team') or {}
+                logo = ((t.get('logos') or [{}])[0] or {}).get('href')
+                if t.get('displayName') and logo:
+                    out[_norm(t['displayName'])] = logo
+        except Exception as e:
+            logger.debug('[espn_vivo] escudos de %s: %s', liga, e)
+        _ESCUDOS[liga] = out
+    return _ESCUDOS[liga]
+
+
+def _escudo(liga: str, equipo: Dict) -> str:
+    logo = (equipo or {}).get('logo') or ''
+    var = VARONIL.get(str(liga or ''))
+    if var:
+        return _escudos_varonil(var).get(_norm(equipo.get('displayName'))) or logo
+    return logo
 
 
 def _lados(partido: str):

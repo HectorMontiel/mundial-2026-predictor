@@ -353,10 +353,23 @@ def tenis_mete(prob_modelo, prob_casa) -> bool:
 # acuerdo, y 53-59 % en la NBA (`_v350_totales.py`); con los 48 partidos
 # de NFL de 2026, 63-69 % (`_v350_escaleras_reales.py`). Ninguna llega al
 # ~80 %: meterlas bajaría el semáforo (hasta hoy salían «meter» al 65-67 %).
-METER_GANADOR_CASA_MIN = {'NFL': 0.74, 'NBA': 0.78}
+#
+# v408 — EL USUARIO: «ya empecemos a ver ganadores de NHL, de básquetbol… si es
+# necesario bajar un poquito el umbral, hay que hacerlo… al igual que el
+# béisbol». La casa está CALIBRADA banda a banda (`_v350_ganador.json`,
+# `bandas_casa_juzga`; `_v355_mlb_medir.json`), así que bajar el umbral no
+# engaña mientras la página enseñe la probabilidad de la casa sin margen
+# (`modo_modelo._real_otros`), que es lo que acierta:
+#     NBA  casa 70-75 %  72,1 % (727)   75-80 %  76,7 % (623)
+#     MLB  casa 65-70 %  69,4-69,9 %    70-75 %  71-72 %
+#     NHL  casa 70-75 %  73,7 %  (ya en la v375)
+# Salen como 🥈 Plata («probabilidad buena»), no como 💎. Los PUNTOS de la NBA
+# siguen fuera: con las líneas que publica la casa aciertan 53-59 %.
+METER_GANADOR_CASA_MIN = {'NFL': 0.70, 'NBA': 0.72, 'MLB': 0.68, 'KBO': 0.68}
 METER_GANADOR_APP_MIN = 0.70
+METER_GANADOR_APP_MIN_DEP = {'MLB': 0.65, 'KBO': 0.65}   # el modelo del béisbol rara vez pasa de 70
 METER_GANADOR_CUOTA_MIN = 1.10
-METER_GANADOR_CUOTA_MAX = 1.40
+METER_GANADOR_CUOTA_MAX = 1.50
 
 # v350 — Y EL BÉISBOL (MLB, KBO) NO SE METE: NO HAY APUESTA AL ~80 %.
 #
@@ -378,8 +391,9 @@ def ganador_mete(deporte: str, prob_app, prob_casa, cuota) -> bool:
     algo o si el deporte no la tiene."""
     umbral = METER_GANADOR_CASA_MIN.get(str(deporte or ''))
     pa, pc, c = _f(prob_app), _f(prob_casa), _f(cuota)
+    app_min = METER_GANADOR_APP_MIN_DEP.get(str(deporte or ''), METER_GANADOR_APP_MIN)
     return (umbral is not None and None not in (pa, pc, c)
-            and pc >= umbral and pa >= METER_GANADOR_APP_MIN
+            and pc >= umbral and pa >= app_min
             and METER_GANADOR_CUOTA_MIN <= c <= METER_GANADOR_CUOTA_MAX)
 
 
@@ -856,19 +870,25 @@ def _evaluar_sin_tope(pick: Dict, con_contexto: bool = False) -> Dict:
                     razones.insert(0, 'no llega al %.0f %%'
                                    % (100 * METER_GANADOR_APP_MIN))
                 else:
-                    razones.insert(0, 'cuota fuera de 1,10-1,40')
+                    razones.insert(0, 'cuota fuera de 1,10-1,50')
             mete = mete and ok
             if mete:
-                razones.insert(0, 'la casa %.0f %% y la app %.0f %%: con esta '
-                               'regla la %s acertó %s en 2021-2025'
-                               % (100 * _pc, 100 * ajustada, _dep,
-                                  '79 %' if _dep == 'NFL' else '81 %'))
-    # v350 — el béisbol se enseña, no se mete
+                razones.insert(0, 'la casa %.0f %% y la app %.0f %%: en la %s el favorito '
+                               'de la casa gana lo que ella dice (medido 2010-2025)'
+                               % (100 * _pc, 100 * ajustada, _dep))
+    # v350 — el béisbol se enseña, no se mete… v408: salvo el GANADOR con la casa
+    # en 68 % o más (gana lo que ella dice: 69-72 %, `_v355_mlb_medir.json`)
     if es_beisbol:
-        if mete:
-            razones.insert(0, 'en el béisbol no hay apuesta al ~80 %: el '
-                           'favorito más grande ronda el 70 %')
-        mete = False
+        _pc = conc.get('p_mercado') if conc.get('hay') else None
+        if es_ganador(mercado, p.get('apuesta')) and ganador_mete(_dep, ajustada, _pc, cuota):
+            mete = True
+            razones.insert(0, 'la casa lo ve al %.0f %%: en el béisbol el favorito de la '
+                           'casa gana lo que ella dice (69-72 %%, MLB 2010-2021)' % (100 * _pc))
+        else:
+            if mete:
+                razones.insert(0, 'en el béisbol sólo se mete el ganador con la casa en '
+                               '%.0f %% o más' % (100 * METER_GANADOR_CASA_MIN.get(_dep, 0.68)))
+            mete = False
     if not mete and c['medido'] and c['veredicto_banda'] != 'optimista':
         razones.append(f'queda por debajo del {UMBRAL_METER:.0%} que pide '
                        f'una pata de combinada')

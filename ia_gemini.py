@@ -41,8 +41,15 @@ MODELOS = [m for m in (os.environ.get('GEMINI_MODELO'), 'gemini-flash-latest', '
 # por modelo, no partidos: con una por partido se agotaba a media mañana y la
 # mayoría de los partidos se quedaban sin análisis (el usuario lo vio el 17-oct).
 LOTE = int(os.environ.get('IA_LOTE', '5'))
-MAX_POR_PASADA = int(os.environ.get('IA_MAX', '40'))
-HORAS = 30
+MAX_POR_PASADA = int(os.environ.get('IA_MAX', '80'))
+# v407 — 72 h: hoy, mañana y pasado (el usuario: «veo partidos de mañana y pasado
+# mañana que no tienen el análisis de la IA, eso no debe pasar»)
+HORAS = 72
+# la unidad del «total» y del hándicap en cada deporte (la de nuestros picks)
+_V407 = ('total_esperado', 'linea_total', 'pred_total', 'prob_total', 'ok_total',
+         'linea_handicap', 'pred_handicap', 'prob_handicap', 'ok_handicap')
+UNIDAD = {'Fútbol': 'Goles', 'NHL': 'Goles', 'NBA': 'Puntos', 'NFL': 'Puntos',
+          'MLB': 'Carreras', 'KBO': 'Carreras', 'Tenis': 'Sets'}
 PAUSA_S = 4.5            # ~13 por minuto: debajo del límite del nivel gratis
 
 ESQUEMA = {
@@ -67,6 +74,11 @@ ESQUEMA = {
         # v396 — la probabilidad (0 a 1) de cada predicción, para saber qué tan fuerte es
         'prob_goles': {'type': 'NUMBER'}, 'prob_ambos_anotan': {'type': 'NUMBER'},
         'prob_corners': {'type': 'NUMBER'}, 'prob_tarjetas': {'type': 'NUMBER'}, 'prob_marcador': {'type': 'NUMBER'},
+        # v407 — el TEMPLATE común a todos los deportes: total y hándicap con su probabilidad
+        'total_esperado': {'type': 'NUMBER'}, 'linea_total': {'type': 'NUMBER'},
+        'pred_total': {'type': 'STRING', 'enum': ['mas', 'menos']}, 'prob_total': {'type': 'NUMBER'},
+        'linea_handicap': {'type': 'NUMBER'}, 'pred_handicap': {'type': 'STRING', 'enum': ['local', 'visita']},
+        'prob_handicap': {'type': 'NUMBER'},
         # v391 — el usuario: «si ve que la apuesta que metemos no se va a cumplir, que lo diga»
         'veredictos': {'type': 'ARRAY', 'items': {'type': 'OBJECT', 'properties': {
             'apuesta': {'type': 'STRING'}, 'opinion': {'type': 'STRING', 'enum': ['a_favor', 'en_contra']},
@@ -76,12 +88,25 @@ ESQUEMA = {
                  'marcador_probable', 'goles_esperados', 'ambos_anotan', 'corners_esperados', 'linea_corners', 'pred_corners',
                  'tarjetas_esperadas', 'linea_tarjetas', 'pred_tarjetas', 'goles_local_esperados',
                  'goles_visita_esperados', 'mejor_apuesta', 'prob_mejor_apuesta', 'prob_goles', 'prob_ambos_anotan',
-                 'prob_corners', 'prob_tarjetas', 'prob_marcador'],
+                 'prob_corners', 'prob_tarjetas', 'prob_marcador', 'total_esperado', 'linea_total', 'pred_total',
+                 'prob_total', 'linea_handicap', 'pred_handicap', 'prob_handicap'],
 }
+# v407 — los demás deportes: el mismo template sin lo que es sólo del fútbol
+_COMUNES = ['analisis', 'p_local', 'p_empate', 'p_visita', 'confianza', 'pick_ia', 'coincide', 'veredictos',
+            'marcador_probable', 'goles_local_esperados', 'goles_visita_esperados', 'mejor_apuesta',
+            'prob_mejor_apuesta', 'prob_marcador', 'total_esperado', 'linea_total', 'pred_total', 'prob_total',
+            'linea_handicap', 'pred_handicap', 'prob_handicap']
+ESQUEMA_GEN = {'type': 'OBJECT',
+               'properties': {k: ESQUEMA['properties'][k] for k in _COMUNES + ['ambos_anotan', 'prob_ambos_anotan']},
+               'required': list(_COMUNES)}
 ESQUEMA['properties']['partido'] = {'type': 'STRING'}
 ESQUEMA['required'] = ['partido'] + ESQUEMA['required']
+ESQUEMA_GEN['properties']['partido'] = {'type': 'STRING'}
+ESQUEMA_GEN['required'] = ['partido'] + ESQUEMA_GEN['required']
 ESQUEMA_LOTE = {'type': 'OBJECT', 'properties': {'partidos': {'type': 'ARRAY', 'items': ESQUEMA}},
                 'required': ['partidos']}
+ESQUEMA_LOTE_GEN = {'type': 'OBJECT', 'properties': {'partidos': {'type': 'ARRAY', 'items': ESQUEMA_GEN}},
+                    'required': ['partidos']}
 INSTRUCCION = (
     'Eres el analista de fútbol de SharPicks, una app mexicana de pronósticos. Recibes los datos de UN partido '
     'en JSON. Reglas: 1) Usa SÓLO esos datos; no inventes jugadores, lesiones, rachas ni noticias que no estén. '
@@ -106,9 +131,41 @@ INSTRUCCION = (
     '"Goles <equipo>: Más de 0.5", "Ambos anotan: Sí", "Ambos anotan: No", "Córners: Más de 8.5", '
     '"Tarjetas: Menos de 4.5". 11) Da la PROBABILIDAD (0 a 1) de cada predicción: la de tu lado de goles (más o menos de 2.5), la de que '
     'AMBOS anoten (sí), la de tu lado de córners, la de tu lado de tarjetas y la del marcador exacto (suele ser baja, '
-    '0.08-0.15). Que sean coherentes con lo demás. 12) Recibes una LISTA de partidos: responde uno por cada uno, en "partidos", copiando el campo '
+    '0.08-0.15). Que sean coherentes con lo demás. 13) Y SIEMPRE el TOTAL de goles del partido con TU línea .5 '
+    '(total_esperado, linea_total, más o menos, prob_total) y el HÁNDICAP del local (linea_handicap: por ejemplo -1.5 '
+    'si el local es favorito, +1.5 si no; pred_handicap "local" si el local lo cubre, "visita" si no; prob_handicap). '
+    '12) Recibes una LISTA de partidos: responde uno por cada uno, en "partidos", copiando el campo '
     '"partido" tal cual.'
 )
+
+
+def instruccion(deporte: str) -> str:
+    """v407 — la misma plantilla para cada deporte, con su unidad."""
+    if deporte == 'Fútbol':
+        return INSTRUCCION
+    u = UNIDAD.get(deporte, 'Puntos')
+    return (
+        'Eres el analista de %s de SharPicks, una app mexicana de pronósticos. Recibes una LISTA de partidos en '
+        'JSON: responde uno por cada uno, en "partidos", copiando el campo "partido" tal cual. Reglas: 1) Usa SÓLO '
+        'esos datos; no inventes jugadores, lesiones ni noticias. 2) Estima TUS probabilidades de que gane el local, '
+        'el empate y el visitante (suman 1). En este deporte cuenta el GANADOR FINAL (con prórroga o penales si los '
+        'hay), así que p_empate = 0. Las probabilidades de la casa y de nuestro modelo son una base muy buena: '
+        'muévete de ellas sólo con motivo. 3) Análisis de 3 o 4 frases en español sencillo; nada de garantías ni de '
+        '"apuesta segura". 4) Tu pick favorito de NUESTROS picks (copia su texto) o "ninguno", y si coincide con tu '
+        'lectura. 5) Confianza de 1 a 5. 6) Para CADA uno de nuestros picks (texto exacto en "apuesta"): "a_favor" o '
+        '"en_contra", con un motivo de una frase. Sé honesto. 7) Marcador más probable ("%s"), y %s esperados de '
+        'cada uno (goles_local_esperados y goles_visita_esperados, con un decimal). 8) El TOTAL de %s del partido: '
+        'total_esperado, tu línea .5 más cercana (linea_total), más o menos (pred_total) y su probabilidad '
+        '(prob_total). 9) El HÁNDICAP del local en %s: linea_handicap (por ejemplo -%s si el local es favorito, +%s '
+        'si no), pred_handicap "local" si el local lo cubre o "visita" si no, y prob_handicap. 10) Tu mejor apuesta '
+        'del partido, la que MÁS se va a cumplir (no la que más paga), con su probabilidad (0 a 1), EXACTAMENTE en '
+        'uno de estos formatos: "Gana <equipo>", "%s: Más de N.5", "%s: Menos de N.5", "Handicap: <equipo> +N.5"%s. '
+        '11) La probabilidad del marcador exacto (baja).%s'
+        % ('la ' + deporte if deporte in ('NHL', 'NBA', 'NFL', 'MLB', 'KBO') else 'tenis', '2-1' if deporte == 'Tenis' else '3-2',
+           u.lower(), u.lower(), u.lower(), '1.5' if u in ('Goles', 'Carreras', 'Sets') else '5.5',
+           '1.5' if u in ('Goles', 'Carreras', 'Sets') else '5.5', u, u,
+           ', "Ambos anotan: Sí", "Ambos anotan: No"' if deporte == 'NHL' else '',
+           ' 12) Di si AMBOS equipos anotan (ambos_anotan, prob_ambos_anotan).' if deporte == 'NHL' else ''))
 
 
 def _id(fecha, partido) -> str:
@@ -130,21 +187,27 @@ def _mercado() -> Dict:
         for p in ((pc.leer() or {}).get('datos') or {}).get('pronosticos') or []:
             im = p.get('implicitas') or {}
             x = im.get('1x2') or {}
+            fila = {'clave': p.get('clave_liga'),
+                    # v407 — lo de nuestro modelo y las cuotas de la casa, en todos los deportes
+                    'modelo': {k: round(float(v), 3) for k, v in list((p.get('board') or {}).items())[:12]
+                               if isinstance(v, (int, float))},
+                    'cuotas_casa': im.get('1x2_cuotas'), 'totales_casa': im.get('totales_cuotas')}
             if x.get('home') is not None:
-                g = ((im.get('goles') or {}).get('2.5') or {}).get('p')
-                out[p.get('partido')] = {'1x2': {k: round(float(v), 3) for k, v in x.items()}, 'mas25': g,
-                                         'clave': p.get('clave_liga')}
+                fila['1x2'] = {k: round(float(v), 3) for k, v in x.items()}
+                fila['mas25'] = ((im.get('goles') or {}).get('2.5') or {}).get('p')
+            out[p.get('partido')] = fila
     except Exception as e:
         logger.debug('[ia] mercado: %s', e)
     return out
 
 
 def partidos(picks: List[Dict], ahora: dt.datetime) -> List[Dict]:
-    """Los partidos de fútbol con picks que empiezan pronto, los mejores primero."""
+    """v407 — TODOS los partidos con picks (de todos los deportes) que empiezan en
+    las próximas 72 h: los más cercanos y los mejores primero."""
     g = {}
     for p in picks:
         ini = _utc(p.get('inicio'))
-        if (str(p.get('deporte')) != 'Fútbol' or p.get('estado') != 'pendiente' or ini is None
+        if (p.get('estado') != 'pendiente' or ini is None or p.get('tipo') == 'combinada'
                 or not (ahora < ini <= ahora + dt.timedelta(hours=HORAS))):
             continue
         g.setdefault((p.get('fecha'), p.get('partido')), []).append(p)
@@ -152,14 +215,26 @@ def partidos(picks: List[Dict], ahora: dt.datetime) -> List[Dict]:
     for (fecha, partido), ps in g.items():
         peso = max((3 if x.get('elige') else 2 if x.get('tipo') == 'error' else 1 if (x.get('prob') or 0) >= 0.85 else 0) for x in ps)
         out.append({'id': _id(fecha, partido), 'fecha': fecha, 'partido': partido, 'picks': ps, 'peso': peso,
+                    'deporte': str(ps[0].get('deporte') or 'Fútbol'),
                     'inicio': ps[0].get('inicio'), 'liga': ps[0].get('liga'), 'ctx': next((x.get('ctx') for x in ps if x.get('ctx')), None)})
-    return sorted(out, key=lambda x: (-x['peso'], str(x['inicio'])))
+    # lo de las próximas 24 h primero (por peso), después mañana y pasado
+    return sorted(out, key=lambda x: (str(x['inicio'])[:10] > (ahora + dt.timedelta(hours=24)).strftime('%Y-%m-%d'),
+                                      -x['peso'], str(x['inicio'])))
 
 
 def datos_del_partido(m: Dict, mercado: Dict) -> Dict:
     mk = mercado.get(m['partido']) or {}
     ctx = m.get('ctx') or {}
     home, _, away = str(m['partido']).partition(' vs ')
+    if m.get('deporte', 'Fútbol') != 'Fútbol':
+        return {
+            'partido': m['partido'], 'local': home, 'visitante': away, 'liga': m.get('liga'), 'deporte': m.get('deporte'),
+            'unidad_del_total': UNIDAD.get(m.get('deporte'), 'Puntos'),
+            'probabilidades_de_nuestro_modelo': mk.get('modelo'),
+            'cuotas_de_la_casa': mk.get('cuotas_casa'), 'totales_de_la_casa': mk.get('totales_casa'),
+            'nuestros_picks': [{'apuesta': x.get('apuesta'), 'cuota': x.get('cuota'),
+                                'probabilidad_estimada': x.get('prob')} for x in m['picks']],
+        }
     return {
         'partido': m['partido'], 'local': home, 'visitante': away, 'liga': m.get('liga'),
         'probabilidades_del_mercado_sin_margen': mk.get('1x2'),
@@ -202,7 +277,7 @@ def _media_liga(clave, que):
 _AGOTADOS: set = set()
 
 
-def preguntar(lista: List[Dict]) -> Optional[Dict]:
+def preguntar(lista: List[Dict], deporte: str = 'Fútbol') -> Optional[Dict]:
     """{partido: análisis} de un lote; {'_limite': True} si TODOS los modelos
     agotaron su cupo del día. Cada modelo tiene su propio cupo: si uno dice 429
     se pasa al siguiente (antes se paraba la pasada entera en el primero)."""
@@ -210,10 +285,10 @@ def preguntar(lista: List[Dict]) -> Optional[Dict]:
     k = os.environ.get('GEMINI_API_KEY')
     if not k:
         return None
-    cuerpo = {'systemInstruction': {'parts': [{'text': INSTRUCCION}]},
+    cuerpo = {'systemInstruction': {'parts': [{'text': instruccion(deporte)}]},
               'contents': [{'role': 'user', 'parts': [{'text': json.dumps(lista, ensure_ascii=False)}]}],
               'generationConfig': {'temperature': 0.3, 'responseMimeType': 'application/json',
-                                   'responseSchema': ESQUEMA_LOTE}}
+                                   'responseSchema': ESQUEMA_LOTE if deporte == 'Fútbol' else ESQUEMA_LOTE_GEN}}
     for modelo in MODELOS:
         if modelo in _AGOTADOS:
             continue
@@ -249,7 +324,14 @@ def fila(m: Dict, d: Dict, mercado: Dict) -> Dict:
     s = (pl + pe + pv) or 1.0
     pl, pe, pv = pl / s, pe / s, pv / s
     mk = (mercado.get(m['partido']) or {}).get('1x2') or {}
-    return {'id': m['id'], 'fecha': m['fecha'], 'inicio': str(m['inicio']), 'deporte': 'Fútbol', 'liga': m.get('liga'),
+    return {'id': m['id'], 'fecha': m['fecha'], 'inicio': str(m['inicio']), 'deporte': m.get('deporte', 'Fútbol'),
+            'liga': m.get('liga'),
+            # v407 — el template común: total y hándicap con su probabilidad
+            'total_esperado': _num(d.get('total_esperado')), 'linea_total': _linea(d.get('linea_total')),
+            'pred_total': d.get('pred_total') if d.get('pred_total') in ('mas', 'menos') else None,
+            'prob_total': _prob(d.get('prob_total')), 'linea_handicap': _linea_h(d.get('linea_handicap')),
+            'pred_handicap': d.get('pred_handicap') if d.get('pred_handicap') in ('local', 'visita') else None,
+            'prob_handicap': _prob(d.get('prob_handicap')),
             'partido': m['partido'], 'analisis': str(d.get('analisis') or '')[:900],
             'pred_resultado': ['local', 'empate', 'visita'][max(range(3), key=lambda i: (pl, pe, pv)[i])],
             'p_local': round(pl, 3), 'p_empate': round(pe, 3), 'p_visita': round(pv, 3),
@@ -274,6 +356,17 @@ def fila(m: Dict, d: Dict, mercado: Dict) -> Dict:
             'prob_goles': _prob(d.get('prob_goles')), 'prob_ambos': _prob(d.get('prob_ambos_anotan')),
             'prob_corners': _prob(d.get('prob_corners')), 'prob_tarjetas': _prob(d.get('prob_tarjetas')),
             'prob_marcador': _prob(d.get('prob_marcador'))}
+
+
+def _linea_h(x):
+    """La línea de hándicap siempre en .5 (con su signo): -1.2 → -1.5, 0 → +0.5."""
+    v = _num(x)
+    if v is None:
+        return None
+    v = round(v * 2) / 2
+    if v == int(v):
+        v = v + 0.5 if v >= 0 else v - 0.5
+    return v
 
 
 def _prob(x):
@@ -310,11 +403,18 @@ def _sb():
 def ya_hechos(sb) -> Optional[set]:
     import requests
     desde = (dt.date.today() - dt.timedelta(days=3)).isoformat()
-    r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos,mejor_apuesta,prob_goles', 'fecha': 'gte.' + desde,
+    r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos,mejor_apuesta,prob_total', 'fecha': 'gte.' + desde,
                                                    'limit': 5000}, timeout=30)
-    # v394-v396 — lo analizado con un esquema viejo (sin «qué meter» ni probabilidades) se vuelve a pedir
+    # v394-v407 — lo analizado con un esquema viejo (sin «qué meter», sin probabilidades o sin el
+    # template común de total y hándicap) se vuelve a pedir
+    if not r.ok:
+        # sin la migración v407 la columna no existe: se usa el criterio anterior
+        # (si no, se volvería a pedir TODO en cada pasada y se gastaría el cupo)
+        r = requests.get(sb[0], headers=sb[1], params={'select': 'id,veredictos,mejor_apuesta', 'fecha': 'gte.' + desde,
+                                                       'limit': 5000}, timeout=30)
+        return {x['id'] for x in r.json() if x.get('veredictos') is not None and x.get('mejor_apuesta')} if r.ok else None
     return {x['id'] for x in r.json() if x.get('veredictos') is not None and x.get('mejor_apuesta')
-            and x.get('prob_goles') is not None} if r.ok else None
+            and x.get('prob_total') is not None}
 
 
 def _final(partido: str, fecha: str, picks: List[Dict]):
@@ -389,9 +489,17 @@ def liquidar(apuesta: str, home: str, away: str, g, corners=None, tarjetas=None)
     if not a or not g:
         return None
     gh, ga = g
-    m = re.match(r'^(Goles|Córners|Corners|Tarjetas): (Más|Menos) de ([\d.]+)$', a, re.I)
+    m = re.match(r'^Handicap: (.+) ([+-][\d.]+)$', a, re.I)
     if m:
-        total = {'goles': gh + ga, 'córners': corners, 'corners': corners, 'tarjetas': tarjetas}[m.group(1).lower()]
+        k = _lado(m.group(1), home, away)
+        if not k:
+            return None
+        h = float(m.group(2))
+        return (gh + h > ga) if k == 'h' else (ga + h > gh)
+    m = re.match(r'^(Goles|Puntos|Carreras|Sets|Total|Córners|Corners|Tarjetas): (Más|Menos) de ([\d.]+)$', a, re.I)
+    if m:
+        total = {'goles': gh + ga, 'puntos': gh + ga, 'carreras': gh + ga, 'sets': gh + ga, 'total': gh + ga,
+                 'córners': corners, 'corners': corners, 'tarjetas': tarjetas}[m.group(1).lower()]
         if total is None:
             return None
         return (total > float(m.group(3))) == (m.group(2).lower() == 'más')
@@ -436,7 +544,8 @@ def evaluar(sb, picks: List[Dict]) -> int:
         fav = ['local', 'empate', 'visita'][max(range(3), key=lambda i: mk[i] or 0)] if all(v is not None for v in mk) else None
         est = {p.get('apuesta'): p.get('estado') for p in picks if p.get('partido') == x['partido']}
         vs = [dict(v, estado=est.get(v.get('apuesta'))) for v in (x.get('veredictos') or [])]
-        k_real, t_real = _corners_tarjetas(x)
+        futbol = (x.get('deporte') or 'Fútbol') == 'Fútbol'
+        k_real, t_real = _corners_tarjetas(x) if futbol else (None, None)
         extra = {'ok_marcador': (str(x.get('marcador_ia') or '') == '%d-%d' % g) if x.get('marcador_ia') else None,
                  'ok_btts': ((x['btts'] == 'si') == (g[0] > 0 and g[1] > 0)) if x.get('btts') else None}
         if k_real is not None and x.get('linea_corners') is not None and x.get('pred_corners'):
@@ -448,9 +557,15 @@ def evaluar(sb, picks: List[Dict]) -> int:
         okm = liquidar(x.get('mejor_apuesta'), home, away, g, k_real, t_real) if x.get('mejor_apuesta') else None
         if okm is not None:
             extra['ok_mejor'] = okm
+        # v407 — el total y el hándicap del template (todos los deportes)
+        if x.get('linea_total') is not None and x.get('pred_total'):
+            extra['ok_total'] = (sum(g) > float(x['linea_total'])) == (x['pred_total'] == 'mas')
+        if x.get('linea_handicap') is not None and x.get('pred_handicap'):
+            extra['ok_handicap'] = (g[0] + float(x['linea_handicap']) > g[1]) == (x['pred_handicap'] == 'local')
         if x.get('evaluado'):                 # ya evaluado: sólo faltaban córners/tarjetas o lo que metería
             falta = {k: v for k, v in extra.items()
-                     if k.startswith(('corners', 'ok_corners', 'tarjetas', 'ok_tarjetas')) or (k == 'ok_mejor' and x.get('ok_mejor') is None)}
+                     if k.startswith(('corners', 'ok_corners', 'tarjetas', 'ok_tarjetas'))
+                     or (k in ('ok_mejor', 'ok_total', 'ok_handicap') and x.get(k) is None)}
             if falta:
                 u = requests.patch(sb[0], headers=sb[1], params={'id': 'eq.' + x['id']}, json=falta, timeout=30)
                 n += bool(u.ok)
@@ -499,9 +614,12 @@ def main() -> int:
         return 0
     import requests
     hechos_ahora = 0
-    for i in range(0, len(nuevos), LOTE):
-        lote = nuevos[i:i + LOTE]
-        res = preguntar([datos_del_partido(m, mercado) for m in lote])
+    lotes = []
+    for dep in dict.fromkeys(m.get('deporte', 'Fútbol') for m in nuevos):
+        del_dep = [m for m in nuevos if m.get('deporte', 'Fútbol') == dep]
+        lotes += [(dep, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
+    for dep, lote in lotes:
+        res = preguntar([datos_del_partido(m, mercado) for m in lote], dep)
         if res and res.get('_limite'):
             print('ia: todos los modelos agotaron su cupo de hoy')
             break
@@ -509,6 +627,13 @@ def main() -> int:
         if filas:
             r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
                               json=filas, timeout=30)
+            if not r.ok and 'column' in r.text.lower():
+                # v407 — si la base aún no tiene las columnas nuevas (migración
+                # `v407_ia_template.sql` pendiente), se guarda sin ellas
+                logger.warning('[ia] la base no tiene las columnas del template v407: se guarda sin ellas')
+                filas = [{k: v for k, v in f.items() if k not in _V407} for f in filas]
+                r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
+                                  json=filas, timeout=30)
             if r.ok:
                 hechos_ahora += len(filas)
             else:

@@ -40,8 +40,10 @@ def probar():
              {'deporte': 'Fútbol', 'estado': 'pendiente', 'inicio': '2026-10-20 20:00:00', 'fecha': '2026-10-20',
               'partido': 'G vs H', 'apuesta': 'Gana G', 'prob': 0.9}]
     ps = ia.partidos(picks, ahora)
-    check([m['partido'] for m in ps] == ['A vs B', 'C vs D'],
-          'la IA analiza el fútbol de las próximas 30 h, lo más importante primero (%s)' % [m['partido'] for m in ps])
+    # v407 — ahora TODOS los deportes y 72 h (hoy, mañana y pasado); lo de las
+    # próximas 24 h primero y, dentro, lo más importante primero
+    check([m['partido'] for m in ps][:2] == ['A vs B', 'E vs F'] and set(m['partido'] for m in ps) == {'A vs B', 'C vs D', 'E vs F'},
+          'la IA analiza todos los deportes de las próximas 72 h, lo más importante primero (%s)' % [m['partido'] for m in ps])
     d = ia.datos_del_partido(ps[0], {'A vs B': {'1x2': {'home': 0.6, 'draw': 0.25, 'away': 0.15}, 'mas25': 0.5}})
     check(d['probabilidades_del_mercado_sin_margen']['home'] == 0.6 and d['nuestros_picks'][0]['apuesta'] == 'Gana A',
           'a la IA se le da el mercado y nuestros picks')

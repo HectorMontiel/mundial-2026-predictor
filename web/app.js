@@ -431,18 +431,28 @@
   function iaHtml(a, L, V, ctx) {
     if (!a) return '';
     const res = { local: 'gana ' + L, empate: 'empate', visita: 'gana ' + V }[a.pred_resultado] || '';
+    // v407 — el mismo template para todos los deportes, con su unidad
+    const dep = a.deporte || 'Fútbol', fut = dep === 'Fútbol';
+    const U = { 'Fútbol': 'goles', NHL: 'goles', NBA: 'puntos', NFL: 'puntos', MLB: 'carreras', KBO: 'carreras', Tenis: 'sets' }[dep] || 'puntos';
+    const lin = (x) => (x > 0 ? '+' : '') + x;
+    const hand = a.linea_handicap == null || !a.pred_handicap ? null
+      : (a.pred_handicap === 'local' ? L + ' ' + lin(a.linea_handicap) : V + ' ' + lin(-a.linea_handicap));
     const est = a.evaluado ? (a.ok_resultado ? ' · <b class="txt-verde">✅ acertó</b>' : ' · <b class="txt-rojo">❌ falló</b>') : '';
     return '<details class="ctx ia"><summary>🤖 Análisis IA' + est + '</summary>' +
       '<p class="ia-txt">' + esc(a.analisis || '') + '</p>' +
-      '<div class="ia-pred">La IA ve: <b>' + esc(res) + '</b> · ' + L.slice(0, 14) + ' ' + Math.round(100 * (a.p_local || 0)) + ' % · empate ' +
-      Math.round(100 * (a.p_empate || 0)) + ' % · ' + V.slice(0, 14) + ' ' + Math.round(100 * (a.p_visita || 0)) + ' %</div>' +
-      '<div class="ia-pred">Goles: <b>' + (a.pred_goles === 'mas' ? 'más de 2.5' : a.pred_goles === 'menos' ? 'menos de 2.5' : '—') + '</b>' + pp(a.prob_goles) + ' · confianza ' +
-      '★'.repeat(a.confianza || 0) + '☆'.repeat(5 - (a.confianza || 0)) + '</div>' +
+      '<div class="ia-pred">La IA ve: <b>' + esc(res) + '</b> · ' + L.slice(0, 14) + ' ' + Math.round(100 * (a.p_local || 0)) + ' %' +
+      (a.p_empate ? ' · empate ' + Math.round(100 * a.p_empate) + ' %' : '') + ' · ' + V.slice(0, 14) + ' ' + Math.round(100 * (a.p_visita || 0)) + ' %</div>' +
+      '<div class="ia-pred">' + (fut && a.pred_goles ? 'Goles: <b>' + (a.pred_goles === 'mas' ? 'más de 2.5' : 'menos de 2.5') + '</b>' + pp(a.prob_goles) + ' · ' : '') +
+      'confianza ' + '★'.repeat(a.confianza || 0) + '☆'.repeat(5 - (a.confianza || 0)) + '</div>' +
       // v392 — más precisa: marcador, goles esperados, ambos anotan, córners, tarjetas (con ✅/❌ al terminar)
       '<div class="ia-grid">' + [
         // v396 — con la probabilidad que le da la IA a cada predicción
         a.marcador_ia ? ['⚽ Marcador', a.marcador_ia, a.ok_marcador, a.prob_marcador] : null,
         a.goles_esperados != null ? ['🥅 Goles esperados', String(a.goles_esperados), null, null] : null,
+        // v407 — el total y el hándicap, en todos los deportes
+        a.linea_total != null && a.pred_total ? ['📊 Total de ' + U, (a.pred_total === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_total +
+          (a.total_esperado != null ? ' (~' + a.total_esperado + ')' : ''), a.ok_total, a.prob_total] : null,
+        hand ? ['⚖️ Hándicap', hand, a.ok_handicap, a.prob_handicap] : null,
         a.btts ? ['🎯 Ambos anotan', a.btts === 'si' ? 'Sí' : 'No', a.ok_btts, a.prob_ambos == null ? null : (a.btts === 'si' ? a.prob_ambos : 1 - a.prob_ambos)] : null,
         a.linea_corners != null ? ['🚩 Córners', (a.pred_corners === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_corners + (a.corners_esperados != null ? ' (~' + a.corners_esperados + ')' : ''), a.ok_corners, a.prob_corners] : null,
         a.linea_tarjetas != null ? ['🟨 Tarjetas', (a.pred_tarjetas === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_tarjetas + (a.tarjetas_esperadas != null ? ' (~' + a.tarjetas_esperadas + ')' : ''), a.ok_tarjetas, a.prob_tarjetas] : null,
@@ -452,7 +462,7 @@
       (a.mejor_apuesta ? '<div class="ia-meter">🧠 Lo que metería la IA: <b>' + esc(a.mejor_apuesta) + '</b>' +
         (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +
       (a.goles_local_esperados != null && a.goles_visita_esperados != null
-        ? filaStat('Goles esperados', a.goles_local_esperados, a.goles_visita_esperados, true) : '') +
+        ? filaStat(U.charAt(0).toUpperCase() + U.slice(1) + ' esperados', a.goles_local_esperados, a.goles_visita_esperados, true) : '') +
       (ctx && ctx.sl && ctx.sv ? '<div class="ctx-tit">📊 Lo que usó (promedio de sus últimos partidos)</div>' +
         [['gf', 'Goles a favor'], ['gc', 'Goles en contra'], ['cor', 'Córners'], ['tap', 'Tiros a puerta'], ['tar', 'Amarillas']]
           .filter(([k]) => ctx.sl[k] != null && ctx.sv[k] != null)

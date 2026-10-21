@@ -203,9 +203,11 @@ def validar(clave: str, temporadas_juicio: int = 2) -> Dict:
             # POR MERCADO: el 1X2 y los goles se juzgan por separado. En la
             # Champions femenina el motor gana en el 1X2 y pierde en goles, y
             # tirar el 1X2 por culpa de los goles sería tirar lo que sí sirve.
-            'ok_1x2': bool(p5_1 > 0),
-            'ok_goles': bool(p5_2 > 0),
-            'ok': bool(p5_1 > 0)}
+            'ok_1x2': bool(round(p5_1, 4) > 0),
+            # v409 — se decide con el MISMO número que se publica (redondeado):
+            # un p5 de 0,00002 salía «ok» y en el fichero ponía 0,0
+            'ok_goles': bool(round(p5_2, 4) > 0),
+            'ok': bool(round(p5_1, 4) > 0)}
 
 
 def lineas_base(clave: str, dias: int = 730) -> Dict[str, float]:

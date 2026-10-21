@@ -77,7 +77,9 @@ def probar():
           'la ayuda explica todo en lenguaje sencillo')
     check('sin_pick' in app and "'meta.json'" in open('exportar_web.py', encoding='utf-8').read(),
           'se avisa cuando un deporte tiene partidos pero ningún pick')
-    check('isNaN(d) ? null : d' in app, 'una fecha rara no tumba la página')
+    # v402 (auditoría) — el lector de fechas vive en web/fechas.js
+    fechas = open(os.path.join('web', 'fechas.js'), encoding='utf-8').read() if os.path.exists(os.path.join('web', 'fechas.js')) else ''
+    check('isNaN(d) ? null : d' in app or 'isNaN(d.getTime()) ? null : d' in fechas, 'una fecha rara no tumba la página')
 
 
 if __name__ == '__main__':

@@ -51,7 +51,11 @@ def probar_fichero():
           'el modelo está en LF (con CRLF, LightGBM lo rechaza)')
     check(crudo.startswith(b'tree'), 'el modelo empieza por «tree»')
     radar.olvidar()
-    check(radar.disponible() is True, 'el modelo carga y queda disponible')
+    # el bot del radar lo APAGA solo si su medición no pasa (`activo` en la ficha):
+    # entonces lo correcto es que no esté disponible
+    _activo = bool((radar.cargar().get('meta') or {}).get('activo')) if os.path.exists(radar.META) else True
+    check(radar.disponible() is _activo,
+          'el modelo carga y queda disponible si su medición lo deja activo (activo=%s)' % _activo)
 
 
 # ---------------------------------------------------------------------------

@@ -33,10 +33,17 @@ def probar_medicion():
     d = json.load(open('_v350_ganador.json', encoding='utf-8'))
     for dep in ('NFL', 'NBA'):
         a = d[dep]['adoptada']
-        check(a['regla']['casa'] == vp.METER_GANADOR_CASA_MIN[dep]
+        # v408 — el usuario pidió bajar el umbral para ver ganadores: la regla
+        # de producción ya NO es la del 79-81 %, sino la franja calibrada (lo
+        # que se enseña es la probabilidad de la casa, que acierta lo que dice)
+        check(vp.METER_GANADOR_CASA_MIN[dep] <= a['regla']['casa']
               and a['regla']['app'] == vp.METER_GANADOR_APP_MIN,
-              '%s: la regla de producción es la medida (casa ≥ %.0f %%)'
-              % (dep, 100 * a['regla']['casa']))
+              '%s: la regla de producción (casa ≥ %.0f %%) no es más estricta que la medida (%.0f %%)'
+              % (dep, 100 * vp.METER_GANADOR_CASA_MIN[dep], 100 * a['regla']['casa']))
+        if 'bandas_casa_juzga' in d[dep]:
+            ok = all(abs(b['acierto'] - b['casa']) < 0.04 for b in d[dep]['bandas_casa_juzga']
+                     if b['n'] >= 300 and b['casa'] >= vp.METER_GANADOR_CASA_MIN[dep])
+            check(ok, '%s: desde el umbral nuevo, la casa acierta lo que promete (±4 pts por franja)' % dep)
         check(a['juzga']['acierto'] >= 0.79 and a['juzga_vs_hoy']['acierto_dif_p5'] > 0,
               '%s: al juzgar acierta %.1f %% (antes %.1f %%), p5 de la mejora %+.1f pts'
               % (dep, 100 * a['juzga']['acierto'], 100 * d[dep]['hoy_juzga']['acierto'],
@@ -62,9 +69,19 @@ def probar_veredicto():
           'NFL: el ganador con la casa en 79 % y la app en 70 %+ se mete')
     check(not _v('NFL', 'Gana Local', '1X2', 0.80, 1.40, 1.40, 3.0),
           'NFL: con la casa en 68 % ya no (antes bastaba el 65 %)')
+    # v408 — umbral bajado a 72 % (casa calibrada: 70-75 % → 72 %, 75-80 % → 77 %)
     check(_v('NBA', 'Gana Local', '1X2', 0.80, 1.25, 1.25, 4.60)
-          and not _v('NBA', 'Gana Local', '1X2', 0.80, 1.28, 1.28, 4.0),
-          'NBA: con la casa en 79 % sí; en 76 % no (pide 78 %)')
+          and _v('NBA', 'Gana Local', '1X2', 0.80, 1.28, 1.28, 4.0)
+          and not _v('NBA', 'Gana Local', '1X2', 0.80, 1.45, 1.45, 2.8),
+          'NBA: con la casa en 79 % y 76 % sí; en 66 % no (pide 72 %)')
+    # v408 — el béisbol: el ganador con la casa en 68 % o más (cuota 1,35 / 3,10 → 69,7 %)
+    import veredicto_pick as _vp
+    _mlb = lambda ap, mk, ch, ca: _vp.evaluar({'deporte': 'MLB', 'partido': 'Visita @ Local', 'apuesta': ap, 'mercado': mk,
+                                               'prob': 0.72, 'cuota': ch,
+                                               'implicitas': {'ml_cuotas': {'home': ch, 'away': ca}}})['veredicto'] == _vp.METER
+    check(_mlb('Gana Local', '1X2', 1.35, 3.10) and not _mlb('Gana Local', '1X2', 1.55, 2.45)
+          and not _mlb('Carreras: Menos de 9.5', 'Totales', 1.35, 3.10),
+          'MLB: el ganador con la casa en 70 % sí; en 61 % no; las carreras no')
     check(not _v('NFL', 'Gana Local', '1X2', 0.95, 1.04, 1.04, 15.0),
           'cuota por debajo de 1,10: no')
     imp = {'1x2_cuotas': {'home': 1.5, 'away': 2.6},

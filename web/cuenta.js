@@ -552,9 +552,16 @@
       (tot ? Math.round(100 * ok / tot) + ' %' : '—') + '</small></div>';
   }
   function calibracion(med) {
-    const xs = (med || []).filter((m) => m.total > 0);
+    // v407 — una fila por predicción y banda, sumando los deportes
+    const junto = {};
+    (med || []).filter((m) => m.total > 0).forEach((m) => {
+      const k = m.que + '|' + m.banda;
+      junto[k] = junto[k] || { que: m.que, banda: m.banda, ok: 0, total: 0 };
+      junto[k].ok += m.ok; junto[k].total += m.total;
+    });
+    const xs = Object.values(junto);
     if (!xs.length) return '<p class="tenue chico">¿Sus probabilidades son honestas? Aquí se va a ver: cuando dice 70 %, cuánto sale de verdad (aún sin partidos calificados).</p>';
-    const N = { goles: '⚽ Goles 2.5', ambos: '🎯 Ambos anotan', corners: '🚩 Córners', tarjetas: '🟨 Tarjetas', mejor: '🧠 Lo que metería' };
+    const N = { goles: '⚽ Goles 2.5', ambos: '🎯 Ambos anotan', corners: '🚩 Córners', tarjetas: '🟨 Tarjetas', total: '📊 Total', handicap: '⚖️ Hándicap', mejor: '🧠 Lo que metería' };
     const orden = ['50-60 %', '60-70 %', '70-80 %', '80 % o más'];
     xs.sort((a, b) => Object.keys(N).indexOf(a.que) - Object.keys(N).indexOf(b.que) || orden.indexOf(a.banda) - orden.indexOf(b.banda));
     return '<div class="ctx-tit">¿Sus probabilidades son honestas?</div><table class="tabla"><tr><th>Predicción</th><th>Dijo</th><th>Salió</th><th>N</th></tr>' +

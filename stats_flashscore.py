@@ -113,8 +113,14 @@ def fila_de_partido(mid: str) -> Optional[Dict]:
     # Flashscore omite «Red cards» cuando no hubo ninguna
     if 'Yellow cards' in st and 'Red cards' not in st:
         fila['home_red'] = fila['away_red'] = 0.0
+    # v409 — EL TOTAL DE REMATES SÓLO SI TRAE LOS BLOQUEADOS. En varias ligas
+    # (National League, Uruguay, Primera Nacional, El Salvador, parte de Costa
+    # Rica) Flashscore da «Total shots» SIN los bloqueados: ~16 por partido
+    # contra 22-27 de ESPN y FotMob, y eso tumbaba la recta remates↔goles de
+    # `stats_estimadas` (corr 0,50 → 0,43 el 19-oct). Sin ellos, el «fuera» se
+    # deja vacío: mejor un hueco que un total incompleto.
     tot, den = st.get('Total shots'), st.get('Shots on target')
-    if tot and den:
+    if tot and den and 'Blocked shots' in st:
         for i, b in enumerate(('home', 'away')):
             if tot[i] is not None and den[i] is not None:
                 fila['%s_shots_off' % b] = max(tot[i] - den[i], 0.0)
@@ -123,7 +129,7 @@ def fila_de_partido(mid: str) -> Optional[Dict]:
     return fila
 
 
-def backfill(clave: str, dias: Optional[int] = None, hilos: int = HILOS) -> Dict:
+def backfill(clave: str, dias: Optional[int] = None, hilos: int = HILOS, rehacer: bool = False) -> Dict:
     ruta = torneos().get(clave)
     if not ruta:
         return {'clave': clave, 'error': 'sin ruta de Flashscore'}
@@ -131,7 +137,7 @@ def backfill(clave: str, dias: Optional[int] = None, hilos: int = HILOS) -> Dict
     ya = set(previo['event_id'].astype(str)) if len(previo) else set()
     desde = (pd.Timestamp.now('UTC').tz_localize(None).normalize()
              - pd.Timedelta(days=int(dias))) if dias else None
-    pendientes = [p for p in _partidos(ruta, desde) if p['event_id'] not in ya]
+    pendientes = [p for p in _partidos(ruta, desde) if rehacer or p['event_id'] not in ya]
     t0 = time.time()
 
     def uno(p):
@@ -168,11 +174,12 @@ def main(argv=None) -> int:
     ap.add_argument('claves', nargs='*')
     ap.add_argument('--dias', type=int, default=None)
     ap.add_argument('--hilos', type=int, default=HILOS)
+    ap.add_argument('--rehacer', action='store_true', help='vuelve a pedir también lo ya guardado')
     a = ap.parse_args(argv)
     logging.basicConfig(level=logging.WARNING, format='%(levelname)s %(message)s')
     for c in a.claves or list(torneos()):
         try:
-            r = backfill(c, a.dias, a.hilos)
+            r = backfill(c, a.dias, a.hilos, a.rehacer)
         except Exception as e:
             print('::warning::[stats_flashscore] %s: %s: %s' % (c, type(e).__name__, e), flush=True)
             continue
