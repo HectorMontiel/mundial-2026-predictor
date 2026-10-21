@@ -78,7 +78,8 @@
     const sigo = yo.seguidos.has(p.id);
     h += '<button class="seguir' + (sigo ? ' si' : '') + '" data-seguir="' + esc(p.id) + '">' + (sigo ? '★ Siguiendo' : '☆ Seguir') + '</button>';
     const n = yo.conteo[p.id];
-    if (n) h += '<span class="siguen">👥 ' + n + '</span>';
+    const otros = (n || 0) - (sigo ? 1 : 0);            // v421 — tú no cuentas como «más gente»
+    if (otros > 0) h += '<span class="siguen" title="Otras personas siguen este pick">👥 ' + otros + '</span>';
     return h + '</div>';
   }
 
@@ -342,12 +343,14 @@
     if (t.hasAttribute('data-entrar')) { abrirAcceso(); return; }
     if (t.hasAttribute('data-mi-cuenta')) { abrirMiCuenta(); return; }
     if (t.hasAttribute('data-salir')) {
+      // v421 — «al cerrar sesión tarda en actualizarse»: se esperaba a Supabase
+      // (hasta 4 s) ANTES de limpiar. Ahora la pantalla se limpia al instante.
       $('micuenta').hidden = true;
-      await aTiempo(sb.auth.signOut(), 4000, null);
       try { Object.keys(localStorage).filter((k) => k.startsWith('sb-')).forEach((k) => localStorage.removeItem(k)); } catch (e) {}
       guardarPerfil(null);
-      yo.user = null; yo.perfil = null;
-      pintarCabecera(); await refrescar();
+      yo.user = null; yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; yo.ia = {}; yo.subs = [];
+      pintarCabecera(); if (window.SP) window.SP.pintar();
+      aTiempo(sb.auth.signOut({ scope: 'local' }), 4000, null).then(() => refrescar());
       return;
     }
     if (t.hasAttribute('data-enlace')) {
@@ -432,17 +435,25 @@
       return;
     }
     if (t.dataset.seguir) {
+      // v421 — «al darle seguir se buguea y cuenta mis toques como si fueran más
+      // personas»: cada toque sumaba al instante y, con toques seguidos, el
+      // «dejar de seguir» podía llegar antes que el «seguir». Ahora: un toque a
+      // la vez por pick (los demás se ignoran mientras la base responde), la
+      // estrella cambia YA y el número se vuelve a leer de la base al terminar.
       const id = t.dataset.seguir, sigo = yo.seguidos.has(id);
-      // v391 — la estrella cambia YA; la base se actualiza detrás (si falla, se regresa)
-      if (sigo) { yo.seguidos.delete(id); yo.conteo[id] = Math.max(0, (yo.conteo[id] || 1) - 1); }
-      else { yo.seguidos.add(id); yo.conteo[id] = (yo.conteo[id] || 0) + 1; }
-      t.classList.toggle('si', !sigo); t.textContent = !sigo ? '★ Siguiendo' : '☆ Seguir';
-      const q = sigo ? sb.from('seguidos').delete().eq('pick', id) : sb.from('seguidos').insert({ pick: id });
-      aTiempo(q, 6000, { error: 'tiempo' }).then((res) => {
-        if (res && res.error && res.error !== 'tiempo') {
-          if (sigo) yo.seguidos.add(id); else yo.seguidos.delete(id);
-          window.SP.pintar();
-        }
+      yo.siguiendoAhora = yo.siguiendoAhora || new Set();
+      if (yo.siguiendoAhora.has(id)) return;
+      yo.siguiendoAhora.add(id);
+      if (sigo) yo.seguidos.delete(id); else yo.seguidos.add(id);
+      document.querySelectorAll('[data-seguir="' + CSS.escape(id) + '"]').forEach((b) => { b.classList.toggle('si', !sigo); b.textContent = !sigo ? '★ Siguiendo' : '☆ Seguir'; });
+      const q = sigo ? sb.from('seguidos').delete().eq('pick', id).eq('usuario', yo.user.id)
+        : sb.from('seguidos').upsert({ pick: id, usuario: yo.user.id }, { onConflict: 'usuario,pick', ignoreDuplicates: true });
+      aTiempo(q, 6000, { error: 'tiempo' }).then(async (res) => {
+        if (res && res.error) { if (sigo) yo.seguidos.add(id); else yo.seguidos.delete(id); }
+        const { data } = await aTiempo(sb.from('seguidores').select('pick,n').eq('pick', id), 6000, { data: null });
+        if (data) yo.conteo[id] = data[0] ? data[0].n : 0;
+        yo.siguiendoAhora.delete(id);
+        window.SP.pintar();
       });
       return;
     }
@@ -635,9 +646,12 @@
       '<p class="tenue chico">La IA es experimental y se mide aparte: nuestros picks no dependen de ella.</p>';
     // v420 — el historial POR DEPORTE (el modelo) y, al lado, lo mejor de la IA en ese deporte
     porDeporte(med);
-    if (filas.length) caja.innerHTML +=
+    // v421 — sólo los días con picks liquidados (del 9 al 14-oct sólo se guardaban los 💰:
+    // salían «0-0» y parecía que no hubo nada; los 💰 siguen sumados arriba)
+    const conPicks = filas.filter((d) => (Number(d.verdes) || 0) + (Number(d.rojas) || 0) > 0);
+    if (conPicks.length) caja.innerHTML +=
       '<table class="tabla"><tr><th>Día</th><th>✅</th><th>❌</th><th>%</th><th>💎</th><th>💰</th></tr>' +
-      filas.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' +
+      conPicks.map((d) => '<tr><td>' + esc(d.fecha) + '</td><td>' + d.verdes + '</td><td>' + d.rojas + '</td><td>' +
         esc(p100(d.verdes, d.rojas).replace(' %', '')) + '</td><td>' + d.verdes_elige + '-' + d.rojas_elige +
         '</td><td>' + (d.verdes_error || 0) + '-' + (d.rojas_error || 0) + '</td></tr>').join('') + '</table>';
   }

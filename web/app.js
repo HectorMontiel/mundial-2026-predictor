@@ -38,6 +38,7 @@
 
   async function cargar() {
     // v384 — datos de apoyo (deportes con partidos pero sin pick)
+    fetch('combinadas_simuladas.json').then((r) => r.ok ? r.json() : null).then((d) => { estado.combSim = d; }).catch(() => {});   // v421
     fetch('datos/meta.json?t=' + Date.now()).then((r) => r.ok ? r.json() : null).then((m) => { estado.meta = m || {}; }).catch(() => {});
     // v418 — los partidos SIN pick, para analizarlos (no cuentan en ningún marcador)
     fetch('datos/analisis.json?t=' + Date.now()).then((r) => r.ok ? r.json() : null)
@@ -401,13 +402,22 @@
       patas + '<div class="dest-pie"><b>' + Number(c.cuota || 0).toFixed(2) + '</b><span>probabilidad ' + pct(c.prob) + '</span></div>' +
       (window.SPX && SPX.extraComb ? SPX.extraComb(c) : '') + '</div>';
   }
+  // v421 — «actualiza el historial de las combinadas con la mejora, desde la misma
+  // fecha que las demás». Las de 2 patas hasta el 21-oct son la SIMULACIÓN del
+  // método nuevo (v420) con esos partidos reales (`combinadas_simuladas.json`);
+  // desde el 22-oct, las publicadas. Las de 3 patas, todas reales.
+  const DESDE_NUEVO = '2026-10-22';
   function histCombinadas() {
-    const t = (estado.combinadas || []).filter((c) => c.estado === 'verde' || c.estado === 'roja');
+    const sim = (estado.combSim && estado.combSim.combinadas) || [];
+    const t = (estado.combinadas || []).filter((c) => (c.estado === 'verde' || c.estado === 'roja') && (c.tipo === 'alta' || c.fecha >= DESDE_NUEVO))
+      .concat(sim.filter((c) => c.estado === 'verde' || c.estado === 'roja'));
     if (!t.length) return '<p class="tenue">Aún no termina ninguna combinada. Aquí se van a ver sus verdes y rojas, sin quitar nada.</p>';
     const fila = (titulo, xs) => { const v = xs.filter((c) => c.estado === 'verde').length, r = xs.length - v;
       return '<div class="ia-fila"><span>' + titulo + '</span><b>✅ ' + v + ' ❌ ' + r + '</b><small>' + (xs.length ? pct(v / xs.length) : '—') + '</small></div>'; };
     return fila('🔗 Combinadas (2 patas)', t.filter((c) => c.tipo !== 'alta')) + fila('🔗 Cuota alta (3 patas)', t.filter((c) => c.tipo === 'alta')) +
-      fila('🔀 Mixtas', t.filter((c) => c.alcance === 'Mixta'));
+      fila('🔀 Mixtas', t.filter((c) => c.alcance === 'Mixta')) +
+      (sim.length ? '<p class="tenue chico">Las de 2 patas del ' + esc(estado.combSim.desde.slice(8)) + ' al ' + esc(estado.combSim.hasta.slice(8)) +
+        ' de oct. son el método nuevo simulado con esos partidos reales; desde el 22, las publicadas.</p>' : '');
   }
   function tarjeta(ps) {
     const p = ps[0];
@@ -587,14 +597,18 @@
   estado.verFinales = false;
 
   function vivoDe(ps) { const x = ps.find((q) => q.espn); return x ? estado.vivo[x.espn] : null; }
+  const DURA = { 'Fútbol': 2.1, NBA: 2.6, NHL: 2.7, NFL: 3.5, MLB: 3.4, KBO: 3.4, Tenis: 3 };
+  const duracion = (dep) => (DURA[dep] || 3) * 3600e3;
   function faseDe(ps) {
     const v = vivoDe(ps);
     const fin = ps.every((x) => x.estado === 'verde' || x.estado === 'roja' || x.estado === 'nula');
     if (v && v.fase === 'in') return 'vivo';
     if (fin || (v && v.terminado)) return 'terminado';
     const ini = aFecha(ps[0].inicio);
-    // empezado sin dato en vivo: en juego las primeras 3 h y media; después, terminado (liquidando)
-    if (ini && ini <= new Date()) return Date.now() - ini > 3.5 * 3600e3 ? 'terminado' : 'vivo';
+    // v421 — empezado sin dato en vivo: en juego lo que dura ESE deporte; después,
+    // terminado (liquidando). Antes eran 3 h 30 min para todos y un partido de
+    // fútbol (Pachuca vs Cruz Azul Sub-21) seguía «Vivo» hora y media después.
+    if (ini && ini <= new Date()) return Date.now() - ini > duracion(ps[0].deporte) ? 'terminado' : 'vivo';
     return 'proximo';
   }
   function relojFila(ps) {
@@ -651,12 +665,12 @@
     if (!['picks', 'vivo'].includes(estado.vista) || !(estado.analisis || []).length) return base;
     const ya = new Set(base.map(clavePartido));
     const dia = diaPestana(OFFS[estado.dia] || 0);
-    const enVivo = (p) => { const d = aFecha(p.inicio); return d && d <= new Date() && Date.now() - d < 5 * 3600e3; };
+    const enVivo = (p) => faseDe([p]) === 'vivo';
     return base.concat(estado.analisis.filter((a) => !ya.has(clavePartido(a)) && (estado.vista === 'vivo' ? enVivo(a) && a.estado !== 'final' : diaDe(a) === dia)));
   }
   function listaBase() {
     if (estado.vista === 'mios') return window.SPX ? SPX.filtrarMios(estado.picks) : [];
-    if (estado.vista === 'vivo') return estado.picks.filter((p) => { const d = aFecha(p.inicio); return d && d <= new Date() && Date.now() - d < 5 * 3600e3; });
+    if (estado.vista === 'vivo') return estado.picks.filter((p) => faseDe([p]) === 'vivo');
     const dia = diaPestana(OFFS[estado.dia] || 0);
     return estado.picks.filter((p) => diaDe(p) === dia);
   }

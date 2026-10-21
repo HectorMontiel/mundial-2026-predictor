@@ -33,7 +33,8 @@ def probar_filtros():
     check('estado.vivoCorriendo' in app and 'gs.map(seguro(filaPartido))' in app and 'fila.outerHTML = filaPartido(g)' in app,
           'lo en vivo no se pisa, un partido raro no rompe la lista y abrir uno sólo redibuja ese')
     cu = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
-    check("t.textContent = !sigo ? '★ Siguiendo' : '☆ Seguir'" in cu, 'Seguir responde al instante')
+    # v421 — la estrella sigue cambiando al instante (en todas las copias del botón)
+    check("b.textContent = !sigo ? '★ Siguiendo' : '☆ Seguir'" in cu, 'Seguir responde al instante')
 
 
 if __name__ == '__main__':

@@ -126,7 +126,25 @@ def probar_v420_web():
           and 'id="dep-hist"' in html, 'v420: el ganador de la IA en el VIP, precios de la base y el historial por deporte')
 
 
+def probar_v421():
+    import json as _json
+    js, app, html = leer('web', 'cuenta.js'), leer('web', 'app.js'), leer('web', 'index.html')
+    salir = js.split("if (t.hasAttribute('data-salir')) {")[1].split('return;')[0]
+    check(salir.index('yo.user = null') < salir.index('signOut'), 'v421: al cerrar sesión la pantalla se limpia antes de esperar a Supabase')
+    check('yo.siguiendoAhora.has(id)' in js and "onConflict: 'usuario,pick'" in js and "from('seguidores').select('pick,n').eq('pick', id)" in js
+          and 'const otros = (n || 0) - (sigo ? 1 : 0)' in js, 'v421: «seguir» de un toque a la vez, sin duplicar y el 👥 sin contarte a ti')
+    check("Date.now() - ini > duracion(ps[0].deporte)" in app and "'Fútbol': 2.1" in app, 'v421: sin ESPN, el partido se cierra cuando ya no puede seguir jugándose')
+    check('const conPicks = filas.filter(' in js, 'v421: el historial por día sin renglones vacíos')
+    sim = _json.load(open(os.path.join('web', 'combinadas_simuladas.json'), encoding='utf-8'))
+    check(sim['desde'] == '2026-10-17' and len(sim['combinadas']) >= 10 and all(c['tipo'] == 'combinada' for c in sim['combinadas'])
+          and "const DESDE_NUEVO = '2026-10-22'" in app, 'v421: las de 2 patas del historial son el método nuevo desde la misma fecha (simulado, y lo dice)')
+    check('💰 Cuota alta y 🔗 combinadas sin gastar monedas' in html and '20 🪙 de regalo al registrarte' in html and '50 🪙 de regalo' not in html,
+          'v421: el VIP incluye 💰 Cuota alta y se regalan 20 🪙')
+    check("set valor = '20' where clave = 'monedas_bienvenida'" in leer('supabase', 'v421_bienvenida_20.sql'), 'v421: la base regala 20 🪙')
+
+
 if __name__ == '__main__':
+    probar_v421()
     probar_v420_web()
     probar_v420()
     probar_v419()

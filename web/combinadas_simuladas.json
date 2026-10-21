@@ -1,0 +1,427 @@
+{
+ "desde": "2026-10-17",
+ "hasta": "2026-10-21",
+ "metodo": "v420: 2 patas 💎/🔷 por acierto real, cuota 1,20-1,60",
+ "combinadas": [
+  {
+   "fecha": "2026-10-17",
+   "alcance": "Fútbol",
+   "tipo": "combinada",
+   "cuota": 1.347,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "St Johnstone vs Dundee United",
+     "deporte": "Fútbol",
+     "cuota": 1.167,
+     "estado": "verde"
+    },
+    {
+     "partido": "Colchester vs Exeter",
+     "deporte": "Fútbol",
+     "cuota": 1.154,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-17",
+   "alcance": "NHL",
+   "tipo": "combinada",
+   "cuota": 1.284,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Colorado Avalanche vs Pittsburgh Penguins",
+     "deporte": "NHL",
+     "cuota": 1.133,
+     "estado": "verde"
+    },
+    {
+     "partido": "Columbus Blue Jackets vs New York Rangers",
+     "deporte": "NHL",
+     "cuota": 1.133,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-17",
+   "alcance": "Tenis",
+   "tipo": "combinada",
+   "cuota": 1.226,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Mary Stoiana vs Rinko Matsuda",
+     "deporte": "Tenis",
+     "cuota": 1.099,
+     "estado": "verde"
+    },
+    {
+     "partido": "Willian Rejchtman Vinciguerra vs Samir Banerjee",
+     "deporte": "Tenis",
+     "cuota": 1.116,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-17",
+   "alcance": "Mixta",
+   "tipo": "combinada",
+   "cuota": 1.283,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Mary Stoiana vs Rinko Matsuda",
+     "deporte": "Tenis",
+     "cuota": 1.099,
+     "estado": "verde"
+    },
+    {
+     "partido": "St Johnstone vs Dundee United",
+     "deporte": "Fútbol",
+     "cuota": 1.167,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-18",
+   "alcance": "Fútbol",
+   "tipo": "combinada",
+   "cuota": 1.282,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Rayo Zuliano vs Caracas FC",
+     "deporte": "Fútbol",
+     "cuota": 1.111,
+     "estado": "verde"
+    },
+    {
+     "partido": "Chaco For Ever vs Central Norte",
+     "deporte": "Fútbol",
+     "cuota": 1.154,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-18",
+   "alcance": "NHL",
+   "tipo": "combinada",
+   "cuota": 1.25,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Minnesota Wild vs Columbus Blue Jackets",
+     "deporte": "NHL",
+     "cuota": 1.111,
+     "estado": "verde"
+    },
+    {
+     "partido": "Nashville Predators vs St. Louis Blues",
+     "deporte": "NHL",
+     "cuota": 1.125,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-18",
+   "alcance": "Tenis",
+   "tipo": "combinada",
+   "cuota": 1.201,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Takeru Yuzuki vs Svyatoslav Gulin",
+     "deporte": "Tenis",
+     "cuota": 1.085,
+     "estado": "verde"
+    },
+    {
+     "partido": "Carlos Taberner vs Goncalo Marques",
+     "deporte": "Tenis",
+     "cuota": 1.107,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-18",
+   "alcance": "Mixta",
+   "tipo": "combinada",
+   "cuota": 1.205,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Takeru Yuzuki vs Svyatoslav Gulin",
+     "deporte": "Tenis",
+     "cuota": 1.085,
+     "estado": "verde"
+    },
+    {
+     "partido": "Rayo Zuliano vs Caracas FC",
+     "deporte": "Fútbol",
+     "cuota": 1.111,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-19",
+   "alcance": "Fútbol",
+   "tipo": "combinada",
+   "cuota": 1.442,
+   "estado": "roja",
+   "patas": [
+    {
+     "partido": "Rodez vs Montpellier",
+     "deporte": "Fútbol",
+     "cuota": 1.25,
+     "estado": "roja"
+    },
+    {
+     "partido": "Tottenham vs Coventry",
+     "deporte": "Fútbol",
+     "cuota": 1.154,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-19",
+   "alcance": "NHL",
+   "tipo": "combinada",
+   "cuota": 1.259,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Calgary Flames vs Carolina Hurricanes",
+     "deporte": "NHL",
+     "cuota": 1.133,
+     "estado": "verde"
+    },
+    {
+     "partido": "New York Rangers vs Anaheim Ducks",
+     "deporte": "NHL",
+     "cuota": 1.111,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-19",
+   "alcance": "Tenis",
+   "tipo": "combinada",
+   "cuota": 1.203,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Chak Lam Coleman Wong vs Jake Delaney",
+     "deporte": "Tenis",
+     "cuota": 1.09,
+     "estado": "verde"
+    },
+    {
+     "partido": "Emily Victoria Eigelsbach vs Adriana Tkachenko",
+     "deporte": "Tenis",
+     "cuota": 1.104,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-19",
+   "alcance": "Mixta",
+   "tipo": "combinada",
+   "cuota": 1.363,
+   "estado": "roja",
+   "patas": [
+    {
+     "partido": "Chak Lam Coleman Wong vs Jake Delaney",
+     "deporte": "Tenis",
+     "cuota": 1.09,
+     "estado": "verde"
+    },
+    {
+     "partido": "Rodez vs Montpellier",
+     "deporte": "Fútbol",
+     "cuota": 1.25,
+     "estado": "roja"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-20",
+   "alcance": "Fútbol",
+   "tipo": "combinada",
+   "cuota": 1.306,
+   "estado": "roja",
+   "patas": [
+    {
+     "partido": "Liverpool vs Villarreal",
+     "deporte": "Fútbol",
+     "cuota": 1.143,
+     "estado": "verde"
+    },
+    {
+     "partido": "FC Porto vs PSV Eindhoven",
+     "deporte": "Fútbol",
+     "cuota": 1.143,
+     "estado": "roja"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-20",
+   "alcance": "NHL",
+   "tipo": "combinada",
+   "cuota": 1.275,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Montreal Canadiens vs San Jose Sharks",
+     "deporte": "NHL",
+     "cuota": 1.133,
+     "estado": "verde"
+    },
+    {
+     "partido": "Washington Capitals vs Los Angeles Kings",
+     "deporte": "NHL",
+     "cuota": 1.125,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-20",
+   "alcance": "Tenis",
+   "tipo": "combinada",
+   "cuota": 1.2,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Eero Vasa vs Michael Wright",
+     "deporte": "Tenis",
+     "cuota": 1.087,
+     "estado": "verde"
+    },
+    {
+     "partido": "Mark Ceban vs George Loffhagen",
+     "deporte": "Tenis",
+     "cuota": 1.104,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-20",
+   "alcance": "Mixta",
+   "tipo": "combinada",
+   "cuota": 1.242,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Eero Vasa vs Michael Wright",
+     "deporte": "Tenis",
+     "cuota": 1.087,
+     "estado": "verde"
+    },
+    {
+     "partido": "Liverpool vs Villarreal",
+     "deporte": "Fútbol",
+     "cuota": 1.143,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-21",
+   "alcance": "Fútbol",
+   "tipo": "combinada",
+   "cuota": 1.347,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Yokohama F. Marinos vs Verdy",
+     "deporte": "Fútbol",
+     "cuota": 1.154,
+     "estado": "verde"
+    },
+    {
+     "partido": "Nagoya Grampus vs Cerezo Osaka",
+     "deporte": "Fútbol",
+     "cuota": 1.167,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-21",
+   "alcance": "NHL",
+   "tipo": "combinada",
+   "cuota": 1.25,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Dallas Stars vs Boston Bruins",
+     "deporte": "NHL",
+     "cuota": 1.125,
+     "estado": "verde"
+    },
+    {
+     "partido": "Edmonton Oilers vs Minnesota Wild",
+     "deporte": "NHL",
+     "cuota": 1.111,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-21",
+   "alcance": "Tenis",
+   "tipo": "combinada",
+   "cuota": 1.223,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Arthur Bellegy vs Lorenzo Angelini",
+     "deporte": "Tenis",
+     "cuota": 1.1,
+     "estado": "verde"
+    },
+    {
+     "partido": "Rada Zolotareva vs Daria Zelinskaya",
+     "deporte": "Tenis",
+     "cuota": 1.112,
+     "estado": "verde"
+    }
+   ]
+  },
+  {
+   "fecha": "2026-10-21",
+   "alcance": "Mixta",
+   "tipo": "combinada",
+   "cuota": 1.223,
+   "estado": "verde",
+   "patas": [
+    {
+     "partido": "Beamish N. vs Hoole C.",
+     "deporte": "Tenis",
+     "cuota": 1.06,
+     "estado": "verde"
+    },
+    {
+     "partido": "Yokohama F. Marinos vs Verdy",
+     "deporte": "Fútbol",
+     "cuota": 1.154,
+     "estado": "verde"
+    }
+   ]
+  }
+ ]
+}
