@@ -31,6 +31,10 @@ SALIDA = os.environ.get('WEB_DATOS', os.path.join('web', 'datos', 'hoy.json'))
 # v381 — el texto real de los picks premium, para el bot del canal VIP. Fuera
 # de `web/` a propósito: lo de `web/` se publica y cualquiera lo leería.
 PRIVADO = os.environ.get('WEB_PRIVADO', os.path.join('datos_privados', 'premium.json'))
+# v418 — las tarjetas de «sólo análisis» (partidos sin pick): un fichero APARTE,
+# nunca la tabla `picks`, para que no cuenten en verdes/rojas, Telegram ni combinadas
+ANALISIS = os.environ.get('WEB_ANALISIS', os.path.join(os.path.dirname(SALIDA), 'analisis.json'))
+DIAS_ANALISIS = 3          # hoy, mañana y pasado
 CAMPOS = ('partido', 'inicio', 'fecha', 'deporte', 'liga', 'apuesta', 'cuota', 'prob',
           'elige', 'porque', 'resultado_c1', 'marcador',
           # v378 — para lo en vivo (ver `espn_vivo`)
@@ -118,6 +122,43 @@ def decidir_lo_que_falta(datos: Dict) -> int:
     return n
 
 
+def solo_analisis(prons: List[Dict], picks: List[Dict], terminados: List[Dict], hoy: dt.date) -> List[Dict]:
+    """v418 — «quiero que me salgan TODOS los partidos con su tarjeta para
+    analizarlos, con la sugerencia del modelo, la IA y las estadísticas; los
+    que no tengan recomendación, que digan sutil que es sólo análisis».
+
+    Napoli vs Bodø y Sabah vs Dortmund no salían: el modelo los evaluó (y la
+    casa los cotizaba) pero ningún pick pasó los filtros. Aquí sale una fila
+    por cada partido SIN pick: los que vienen (hoy, mañana y pasado) y los ya
+    jugados de hoy y ayer, con la sugerencia del modelo como dato, no como pick.
+    """
+    con_pick = {(str(f.get('fecha')), str(f.get('partido'))) for f in picks}
+    limite = (hoy + dt.timedelta(days=DIAS_ANALISIS - 1)).isoformat()
+    out, vistos = [], set()
+    filas = [(x, 'pendiente') for x in prons if not x.get('jugado') and not x.get('sigue')] + [(x, 'final') for x in terminados]
+    for p, est in filas:
+        if est == 'final' and not p.get('marcador'):
+            gh, ga = p.get('goles_home'), p.get('goles_away')
+            if gh is None or ga is None:
+                continue
+            p = dict(p, marcador='%s-%s' % (gh, ga))
+        try:
+            f = _fila(p, est)
+        except Exception:
+            continue
+        k = (str(f.get('fecha')), str(f.get('partido')))
+        if not f.get('fecha') or ' vs ' not in str(f.get('partido') or '') and ' @ ' not in str(f.get('partido') or '') \
+                and ' - ' not in str(f.get('partido') or '') and ' – ' not in str(f.get('partido') or ''):
+            continue
+        if k in con_pick or k in vistos or (est == 'pendiente' and not (hoy.isoformat() <= str(f['fecha']) <= limite)):
+            continue
+        vistos.add(k)
+        f.update(solo_analisis=True, tipo='analisis', premium=False, elige=False, cuota=None, gratis=True)
+        f['id'] = 'an-' + f['id']
+        out.append(f)
+    return out
+
+
 def construir() -> Dict:
     import modo_modelo as mm
     import partidos_jugados as pj
@@ -127,10 +168,11 @@ def construir() -> Dict:
     prons = (doc.get('datos') or {}).get('pronosticos') or []
     proximas = [_fila(p, 'pendiente') for p in mm.lista_por_acierto(prons)
                 if not p.get('sigue')]
-    jugadas = []
+    jugadas, terminados = [], []
     hoy = dt.datetime.now(dt.timezone(dt.timedelta(hours=-6))).date()
     for d in (hoy - dt.timedelta(days=1), hoy):
         lst = pj._para_la_vista(pj._leer_precalculo(d.isoformat(), permitir_viejo=True) or [])
+        terminados += [x for x in lst if x.get('jugado')]
         ligas = {x.get('partido'): x.get('liga') for x in lst}
         jugadas += [_fila(p, {'verde': 'verde', 'rojo': 'roja', 'nula': 'nula'}.get(
             p.get('resultado_c1'), 'vivo'), ligas) for p in mm.lista_finalizadas(lst)]
@@ -146,12 +188,17 @@ def construir() -> Dict:
         if f['id'] not in vistos:
             vistos.add(f['id'])
             picks.append(f)
+    analisis = []
+    try:
+        analisis = solo_analisis(prons, picks, terminados, hoy)
+    except Exception as e:
+        logger.warning('[web] sin tarjetas de sólo análisis: %s', e)
     # v384 — el contexto (forma, H2H, bajas) de cada partido de fútbol que aún no empieza
     try:
         import errores_web
         memo = {}
         claves = {p.get('partido'): p.get('clave_liga') for p in prons if p.get('clave_liga')}
-        for f in picks:
+        for f in picks + analisis:
             if f.get('estado') == 'pendiente' and f.get('deporte') == 'Fútbol':
                 k = f.get('partido')
                 if k not in memo:
@@ -163,14 +210,14 @@ def construir() -> Dict:
     # v378 — el partido de ESPN de cada pick (marcador y estadísticas en vivo)
     try:
         import espn_vivo
-        crudos = {f['id']: f for f in picks}
+        crudos = {f['id']: f for f in picks + analisis}
         espn_vivo.emparejar(list(crudos.values()))
-        for f in picks:
+        for f in picks + analisis:
             f['girado'] = bool(f.get('girado'))
     except Exception as e:
         logger.warning('[web] sin ESPN: %s', e)
     return {'generado': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'),
-            'precalculo': doc.get('generado'), 'picks': picks}
+            'precalculo': doc.get('generado'), 'picks': picks, 'analisis': analisis}
 
 
 def nivel(p: Dict) -> str:
@@ -320,10 +367,19 @@ def main() -> int:
     r = construir()
     secretos = premium(r['picks'])
     os.makedirs(os.path.dirname(SALIDA), exist_ok=True)
+    analisis = r.pop('analisis', [])
     tmp = SALIDA + '.tmp'
     with open(tmp, 'w', encoding='utf-8') as f:
         json.dump(r, f, ensure_ascii=False, indent=0)
     os.replace(tmp, SALIDA)
+    # v418 — las tarjetas de «sólo análisis», aparte (la página y la IA las leen)
+    try:
+        with open(ANALISIS + '.tmp', 'w', encoding='utf-8') as f:
+            json.dump({'generado': r.get('generado'), 'analisis': analisis}, f, ensure_ascii=False, indent=0)
+        os.replace(ANALISIS + '.tmp', ANALISIS)
+        print('web: %d tarjetas de sólo análisis' % len(analisis))
+    except Exception as e:
+        logger.warning('[web] no se escribió %s: %s', ANALISIS, e)
     # v384 — deportes con partidos hoy pero sin ningún pick (para decirlo en la página)
     try:
         import precalculo_dia as pc

@@ -22,6 +22,7 @@
 
   // Niveles (como los «stakes» de BetFlipAi), pero con lo MEDIDO de verdad
   function nivel(p) {
+    if (p.solo_analisis) return { n: 'Sólo análisis', c: 'analisis', i: '📊' };   // v418
     if (p.tipo === 'error') return { n: 'Cuota alta', c: 'error', i: '💰' };
     if (p.elige) return { n: 'Diamante', c: 'diamante', i: '💎' };
     if ((p.prob || 0) >= 0.85) return { n: 'Platino', c: 'platino', i: '🔷' };
@@ -38,6 +39,9 @@
   async function cargar() {
     // v384 — datos de apoyo (deportes con partidos pero sin pick)
     fetch('datos/meta.json?t=' + Date.now()).then((r) => r.ok ? r.json() : null).then((m) => { estado.meta = m || {}; }).catch(() => {});
+    // v418 — los partidos SIN pick, para analizarlos (no cuentan en ningún marcador)
+    fetch('datos/analisis.json?t=' + Date.now()).then((r) => r.ok ? r.json() : null)
+      .then((d) => { estado.analisis = (d && Array.isArray(d.analisis)) ? d.analisis : []; pintar(); }).catch(() => {});
     try {
       if (C.SUPABASE_URL && C.SUPABASE_ANON_KEY) {
         const desde = diaPestana(-2);
@@ -355,6 +359,10 @@
     return v && v.opinion === 'en_contra' ? '<div class="ia-aviso">🤖 La IA lo ve en contra: ' + esc(v.motivo) + '</div>' : '';
   }
   function filaPick(p, v, varias) {
+    if (p.solo_analisis) {
+      return '<div class="pick-fila analisis"><small class="tenue">📊 Sin pick sugerido' +
+        (p.apuesta ? ' · el modelo ve <b>' + esc(p.apuesta) + '</b>' + (p.prob ? ' (' + pct(p.prob) + ')' : '') : '') + '</small></div>';
+    }
     const pr = progreso(p, v);
     const nv = nivel(p);
     return '<div class="pick-fila ' + (p.estado === 'verde' ? 'verde' : p.estado === 'roja' ? 'roja' : '') + '">' +
@@ -418,7 +426,7 @@
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>' +
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
-      iaHtml(window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null, L, V, (ps.find((x) => x.ctx) || {}).ctx) +
+      iaBloque(p, L, V, (ps.find((x) => x.ctx) || {}).ctx) +
       miniStats(v) +
       ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
       (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
@@ -428,6 +436,16 @@
   // v384 — «un H2H en las tarjetas por si la gente quiere analizar el partido»
   // v387 — el análisis y la predicción de la IA (Gemini), medida aparte
   const pp = (x) => (x == null ? '' : ' <span class="ia-prob">(' + Math.round(100 * x) + ' %)</span>');
+  // v417 — quien no es VIP VE que el partido tiene análisis de la IA, pero
+  // bloqueado: al tocarlo va a Planes, al VIP. Sólo se enseña si de verdad hay
+  // análisis (`ia_disponibles`: nombre del partido, nunca el contenido).
+  function iaBloque(p, L, V, ctx) {
+    const a = window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null;
+    if (a) return iaHtml(a, L, V, ctx);
+    const hay = window.SPX && SPX.yo.iaHay && SPX.yo.iaHay.has(p.partido);
+    if (!hay || (SPX.esVip && SPX.esVip())) return '';
+    return '<button class="ctx ia ia-bloq" data-vista-ir="planes" data-foco="plan-vip">🤖 Análisis IA <span class="candado">🔒 VIP</span></button>';
+  }
   function iaHtml(a, L, V, ctx) {
     if (!a) return '';
     const res = { local: 'gana ' + L, empate: 'empate', visita: 'gana ' + V }[a.pred_resultado] || '';
@@ -597,7 +615,7 @@
     const p = ps[0], nv = nivel(p), [L, V] = lados(p), v = vivoDe(ps);
     const k = clavePartido(p), abierto = estado.abiertos.has(k);
     const marc = v && v.fase !== 'pre' ? v.g : (p.marcador ? String(p.marcador).split('-').map((x) => x.trim()) : null);
-    const ap = window.SPX ? SPX.apuesta(p) : esc(p.apuesta);
+    const ap = p.solo_analisis ? '<span class="sin-pick-txt">Sin pick</span>' : window.SPX ? SPX.apuesta(p) : esc(p.apuesta);
     return '<div class="partido-fila ' + nv.c + (abierto ? ' abierto' : '') + '" data-k="' + esc(k) + '">' +
       '<button class="pf" data-abrir="' + esc(k) + '" aria-expanded="' + abierto + '">' +
       relojFila(ps) +
@@ -626,6 +644,16 @@
       (er.v + er.r ? ' · 💰 <b>' + er.v + '-' + er.r + '</b>' : '') + ' <span>Ver historial ›</span></button>';
   }
 
+  // v418 — la lista de la pantalla: los picks y, en Picks y En vivo, las tarjetas de
+  // «sólo análisis» de los partidos que no tienen ningún pick ese día
+  function listaConAnalisis() {
+    const base = listaBase();
+    if (!['picks', 'vivo'].includes(estado.vista) || !(estado.analisis || []).length) return base;
+    const ya = new Set(base.map(clavePartido));
+    const dia = diaPestana(OFFS[estado.dia] || 0);
+    const enVivo = (p) => { const d = aFecha(p.inicio); return d && d <= new Date() && Date.now() - d < 5 * 3600e3; };
+    return base.concat(estado.analisis.filter((a) => !ya.has(clavePartido(a)) && (estado.vista === 'vivo' ? enVivo(a) && a.estado !== 'final' : diaDe(a) === dia)));
+  }
   function listaBase() {
     if (estado.vista === 'mios') return window.SPX ? SPX.filtrarMios(estado.picks) : [];
     if (estado.vista === 'vivo') return estado.picks.filter((p) => { const d = aFecha(p.inicio); return d && d <= new Date() && Date.now() - d < 5 * 3600e3; });
@@ -675,7 +703,7 @@
     $('tira').innerHTML = tiraMarcador();
     if (!['picks', 'vivo', 'mios', 'combinadas'].includes(estado.vista)) return;
 
-    let lista = listaBase();
+    let lista = listaConAnalisis();
     const deps = ['Todos'].concat([...new Set(lista.map((p) => p.deporte).filter(Boolean))].sort());
     // varios a la vez: un conjunto (vacío = todos); lo que ya no hay hoy se suelta
     estado.deportes = new Set([...(estado.deportes || [])].filter((d) => deps.includes(d)));
@@ -731,7 +759,7 @@
           : '<p class="aviso">No hay combinadas para este día con estos filtros. Se arman con las patas de mayor probabilidad: si no hay suficientes, preferimos no darte una floja.</p>';
       return;
     }
-    estado.grupos = new Map(agrupar(listaBase()).map((g) => [clavePartido(g[0]), g]));
+    estado.grupos = new Map(agrupar(listaConAnalisis()).map((g) => [clavePartido(g[0]), g]));
 
     // por liga: en vivo primero, luego por hora; la liga con su partido más temprano
     const orden = { vivo: 0, proximo: 1, terminado: 2 };
@@ -786,7 +814,12 @@
     const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin]');
     if (!t) return;
     if (t.hasAttribute('data-ver-fin')) { estado.verFinales = !estado.verFinales; pintar(); return; }
-    if (t.dataset.vistaIr) { estado.vista = t.dataset.vistaIr; window.scrollTo({ top: 0 }); pintar(); return; }
+    if (t.dataset.vistaIr) {
+      estado.vista = t.dataset.vistaIr; window.scrollTo({ top: 0 }); pintar();
+      const foco = t.dataset.foco && document.getElementById(t.dataset.foco);   // v417 — directo al plan VIP
+      if (foco) setTimeout(() => { foco.scrollIntoView({ behavior: 'smooth', block: 'start' }); foco.classList.add('resalta'); setTimeout(() => foco.classList.remove('resalta'), 2000); }, 80);
+      return;
+    }
     if (t.dataset.dia) { estado.dia = t.dataset.dia; document.querySelectorAll('#pestanas button').forEach((x) => x.classList.toggle('activa', x === t)); pintar(); return; }
     // tocar uno lo prende o lo apaga; «Todos» limpia
     const alterna = (s, v) => { if (v === 'Todos') s.clear(); else if (s.has(v)) s.delete(v); else s.add(v); };

@@ -213,7 +213,7 @@ def partidos(picks: List[Dict], ahora: dt.datetime) -> List[Dict]:
         g.setdefault((p.get('fecha'), p.get('partido')), []).append(p)
     out = []
     for (fecha, partido), ps in g.items():
-        peso = max((3 if x.get('elige') else 2 if x.get('tipo') == 'error' else 1 if (x.get('prob') or 0) >= 0.85 else 0) for x in ps)
+        peso = max((-1 if x.get('solo_analisis') else 3 if x.get('elige') else 2 if x.get('tipo') == 'error' else 1 if (x.get('prob') or 0) >= 0.85 else 0) for x in ps)
         out.append({'id': _id(fecha, partido), 'fecha': fecha, 'partido': partido, 'picks': ps, 'peso': peso,
                     'deporte': str(ps[0].get('deporte') or 'Fútbol'),
                     'inicio': ps[0].get('inicio'), 'liga': ps[0].get('liga'), 'ctx': next((x.get('ctx') for x in ps if x.get('ctx')), None)})
@@ -223,6 +223,8 @@ def partidos(picks: List[Dict], ahora: dt.datetime) -> List[Dict]:
 
 
 def datos_del_partido(m: Dict, mercado: Dict) -> Dict:
+    # v418 — la sugerencia del modelo de una tarjeta «sólo análisis» NO es un pick nuestro
+    m = dict(m, picks=[x for x in m.get('picks') or [] if not x.get('solo_analisis')])
     mk = mercado.get(m['partido']) or {}
     ctx = m.get('ctx') or {}
     home, _, away = str(m['partido']).partition(' vs ')
@@ -595,6 +597,12 @@ def main() -> int:
     except Exception as e:
         print('ia: sin datos del sitio (%s)' % e)
         return 0
+    # v418 — también los partidos SIN pick (tarjetas de «sólo análisis»): la IA
+    # analiza todos; detrás de los que tienen pick, que pesan más
+    try:
+        picks += json.load(open(os.path.join(os.path.dirname(DATOS), 'analisis.json'), encoding='utf-8')).get('analisis') or []
+    except Exception:
+        pass
     try:                                  # el texto real de lo premium (el público va tapado)
         reales = json.load(open(PRIVADO, encoding='utf-8'))
         for p in picks:

@@ -45,7 +45,7 @@
   if (yo.user) yo.perfil = perfilGuardado(yo.user.id);
   let listo = null;                       // la primera carga de la sesión
   try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) { /* opcional */ }
-  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb };
+  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb, esVip: () => esVip() };
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
   // v389 — el precio de un pick premium depende de su CUOTA (tabla `precios_cuota`);
@@ -121,6 +121,8 @@
       sb.from('precios_cuota').select('*').order('desde').then(({ data }) => { yo.bandas = data || []; }),
       sb.from('paquetes').select('*').order('orden').then(({ data }) => { yo.paquetes = data || []; }),
       sb.from('seguidores').select('pick,n').then(({ data }) => { yo.conteo = {}; (data || []).forEach((x) => { yo.conteo[x.pick] = x.n; }); }),
+      // v417 — qué partidos tienen análisis de la IA (para el 🔒 de quien no es VIP)
+      sb.from('ia_disponibles').select('partido').limit(3000).then(({ data, error }) => { if (!error) yo.iaHay = new Set((data || []).map((x) => x.partido)); }),
     ];
     if (yo.user) {
       tareas.push(sb.from('perfiles').select('*').eq('id', yo.user.id).maybeSingle().then(({ data, error }) => {
@@ -565,6 +567,30 @@
   }
 
   // ---------- historial público (verdes, rojas y porcentaje) ----------
+  // v417 — LOS PLANES CON SUS NÚMEROS REALES. El usuario: «que vengan los
+  // mejores números del historial… los diamantes con sus números reales, y de
+  // la IA únicamente donde mejor acertamos». Todo sale de la base (30 días,
+  // las vistas `historial_niveles`, `ia_medicion` e `ia_aciertos`); con poca
+  // muestra (menos de 30) no se presume nada.
+  async function numerosPlanes() {
+    if (!sb || !$('plan-vip')) return;
+    const [nv, med, ac] = await Promise.all([
+      sb.from('historial_niveles').select('*'), sb.from('ia_medicion').select('*'), sb.from('ia_aciertos').select('*').maybeSingle()]);
+    const N = {}; ((nv && nv.data) || []).forEach((x) => { N[x.nivel] = x; });
+    const linea = (ico, nombre, v, r) => (v + r >= 30 ? '<li class="num-real">' + ico + ' ' + nombre + ': <b>' + Math.round(100 * v / (v + r)) + ' %</b> <small>✅ ' + v + ' ❌ ' + r + '</small></li>' : '');
+    const nivel = (n, ico) => (N[n] ? linea(ico, n, N[n].verdes, N[n].rojas) : '');
+    const pon = (id, h) => { const c = $(id); if (c) c.innerHTML = h ? '<ul class="numeros">' + h + '</ul><small class="tenue">Últimos 30 días, verdes y rojas reales.</small>' : ''; };
+    pon('numeros-gratis', nivel('Oro', '🥇') + nivel('Plata', '🥈'));
+    pon('numeros-monedas', nivel('Diamante', '💎') + nivel('Platino', '🔷') + nivel('Cuota alta', '💰'));
+    // la IA: sólo lo mejor (la apuesta que metería, en su banda más alta con 30+ partidos, y su «a favor»)
+    const DEP = { 'Fútbol': '⚽', Tenis: '🎾', NBA: '🏀', NFL: '🏈', NHL: '🏒', MLB: '⚾' };
+    const mejores = ((med && med.data) || []).filter((x) => x.que === 'mejor' && x.total >= 30)
+      .sort((a, b) => b.ok / b.total - a.ok / a.total).slice(0, 2)
+      .map((x) => linea('🧠', 'IA, lo que metería ' + (DEP[x.deporte] || '') + ' (confianza ' + x.banda + ')', x.ok, x.total - x.ok)).join('');
+    const a = ac && ac.data;
+    const favor = a ? linea('🤖', 'IA «a favor» de nuestro pick', Number(a.favor_bien || 0), Number(a.favor_mal || 0)) : '';
+    pon('numeros-vip', nivel('Diamante', '💎') + nivel('Platino', '🔷') + mejores + favor);
+  }
   async function historial() {
     const caja = $('historial'); if (!caja || !sb) return;
     const { data, error } = await sb.from('historial').select('*').limit(30);
@@ -706,6 +732,7 @@
     document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescar(); });
     historial();
     telegramHist();
+    numerosPlanes();
     setInterval(() => { historial(); telegramHist(); }, 10 * 60 * 1000);
   }
   telegram();

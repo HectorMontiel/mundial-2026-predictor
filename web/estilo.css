@@ -518,3 +518,16 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .comentarios textarea, .comentarios input { width: 100%; box-sizing: border-box; background: rgba(255,255,255,.05); border: 1px solid var(--borde);
   border-radius: 12px; color: var(--texto); font: inherit; padding: 10px 12px; }
 .comentarios textarea { resize: vertical; min-height: 90px; }
+
+/* v417 — la IA bloqueada (lleva a Planes) y los números reales de cada plan */
+.ia-bloq { display: flex; justify-content: space-between; align-items: center; width: 100%; color: inherit; font: inherit; font-weight: 700; text-align: left; cursor: pointer; }
+.ia-bloq .candado { font-size: 12px; font-weight: 600; color: var(--tenue); }
+.numeros { list-style: none; padding: 0; margin: 10px 0 2px; }
+.numeros .num-real { padding: 3px 0; font-size: 13px; }
+.numeros .num-real small { color: var(--tenue); }
+.plan.resalta { outline: 2px solid var(--verde, #5ad48a); outline-offset: 2px; transition: outline .3s; }
+
+/* v418 — tarjetas de «sólo análisis»: sutiles, sin color de nivel */
+.partido-fila.analisis .pf-niv, .tarjeta.analisis .et.nivel { opacity: .75; }
+.sin-pick-txt { color: var(--tenue); font-weight: 500; }
+.pick-fila.analisis { padding: 6px 0 2px; border: 0; background: none; }
