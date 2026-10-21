@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-21T01:42:34Z",
+"actualizado": "2026-10-21T03:19:52Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -10924,6 +10924,16 @@
 },
 {
 "dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Columbus Blue Jackets vs Toronto Maple Leafs",
+"apuesta": "Handicap: Columbus Blue Jackets +2.5",
+"cuota": 1.125,
+"resultado": "rojo",
+"marcador": "2-6"
+},
+{
+"dia": "2026-10-20",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Criciuma U20 vs Flamengo RJ U20",
@@ -10931,6 +10941,26 @@
 "cuota": 3.7,
 "resultado": "rojo",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Cucuta vs Atl. Nacional",
+"apuesta": "Gana Atl. Nacional",
+"cuota": 1.59,
+"resultado": "rojo",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Cúcuta Deportivo vs Atlético Nacional",
+"apuesta": "Atlético Nacional o empate",
+"cuota": 1.133,
+"resultado": "rojo",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-20",
@@ -10981,6 +11011,16 @@
 "cuota": 1.35,
 "resultado": "verde",
 "marcador": "5-0"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Guadalajara Chivas vs Necaxa",
+"apuesta": "Guadalajara Chivas o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-20",
@@ -11134,6 +11174,26 @@
 },
 {
 "dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Montreal Canadiens vs San Jose Sharks",
+"apuesta": "Handicap: San Jose Sharks +3.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "3-4"
+},
+{
+"dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "New York Islanders vs Anaheim Ducks",
+"apuesta": "Handicap: New York Islanders +2.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "3-2"
+},
+{
+"dia": "2026-10-20",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Newington vs Ballymena",
@@ -11174,6 +11234,16 @@
 },
 {
 "dia": "2026-10-20",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "St. Louis Blues vs Winnipeg Jets",
+"apuesta": "Handicap: St. Louis Blues +2.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-20",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Stafford vs Gateshead",
@@ -11201,6 +11271,16 @@
 "cuota": 1.625,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-20",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Vasco da Gama vs Boca Juniors",
+"apuesta": "Gana Vasco da Gama",
+"cuota": 2.8,
+"resultado": "rojo",
+"marcador": "1-3"
 },
 {
 "dia": "2026-10-20",
