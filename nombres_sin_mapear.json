@@ -49,9 +49,9 @@
   },
   "Central Español Fútbol Club": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Norte",
-    "ratio": 0.7143,
-    "visto": "2026-10-18"
+    "candidato": "Central Cordoba 2",
+    "ratio": 0.5625,
+    "visto": "2026-10-21"
   },
   "Chippa United": {
     "contexto": "cuotas_mx→futbol",
@@ -91,8 +91,8 @@
   },
   "Deportivo Recoleta": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.7273,
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.7568,
     "visto": "2026-10-21"
   },
   "Estudiantes de La Plata": {
@@ -431,7 +431,7 @@
   },
   "Hartlepool United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Gasogi United",
+    "candidato": "Madura United",
     "ratio": 0.6,
     "visto": "2026-10-21"
   },
@@ -485,8 +485,8 @@
   },
   "Internacional Santa Tecla": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Colon Santa Fe 2",
-    "ratio": 0.5366,
+    "candidato": "Union de Santa Fe 2",
+    "ratio": 0.5455,
     "visto": "2026-10-21"
   },
   "Cruz Azul Hidalgo": {
@@ -953,8 +953,8 @@
   },
   "Red Bull Bragantino": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Lincoln Red Imps",
-    "ratio": 0.2857,
+    "candidato": "Red Arrows (Zam)",
+    "ratio": 0.3636,
     "visto": "2026-10-21"
   },
   "Atlético-MG": {
@@ -1301,9 +1301,9 @@
   },
   "Al Ittihad": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Ittihad Kalba U23",
-    "ratio": 0.5185,
-    "visto": "2026-10-18"
+    "candidato": "Ittihad Kalba",
+    "ratio": 0.6087,
+    "visto": "2026-10-21"
   },
   "Leeds United": {
     "contexto": "cuotas_mx→futbol",
@@ -1447,7 +1447,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Austria Vienna",
     "ratio": 0.7333,
-    "visto": "2026-10-17"
+    "visto": "2026-10-21"
   },
   "LASK Linz": {
     "contexto": "cuotas_mx→futbol",
@@ -1457,8 +1457,8 @@
   },
   "Rapid Vienna": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "FC Rapid Bucuresti W",
-    "ratio": 0.4667,
+    "candidato": "Austria Vienna",
+    "ratio": 0.6923,
     "visto": "2026-10-21"
   },
   "Dinamo Moscow": {
@@ -1483,7 +1483,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Hertha Wels",
     "ratio": 0.75,
-    "visto": "2026-10-14"
+    "visto": "2026-10-21"
   },
   "Sport Boys": {
     "contexto": "cuotas_mx→futbol",
@@ -1667,8 +1667,8 @@
   },
   "GV San José": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "San Miguel",
-    "ratio": 0.4762,
+    "candidato": "San Bartolome",
+    "ratio": 0.5,
     "visto": "2026-10-21"
   },
   "NorthEast United FC": {
@@ -1913,9 +1913,9 @@
   },
   "Racing Santander": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Racing CFF",
-    "ratio": 0.5385,
-    "visto": "2026-10-17"
+    "candidato": "Racing Club 2",
+    "ratio": 0.4828,
+    "visto": "2026-10-21"
   },
   "Richards Bay FC": {
     "contexto": "cuotas_mx→futbol",
@@ -2009,8 +2009,8 @@
   },
   "Red Star Belgrade": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Lincoln Red Imps",
-    "ratio": 0.303,
+    "candidato": "Red Arrows (Zam)",
+    "ratio": 0.5161,
     "visto": "2026-10-21"
   },
   "Lincoln Red Imps": {
@@ -2105,9 +2105,9 @@
   },
   "Western Sydney Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "WS Wanderers",
-    "ratio": 0.6667,
-    "visto": "2026-10-15"
+    "candidato": "Sydney Utd",
+    "ratio": 0.4706,
+    "visto": "2026-10-21"
   },
   "York City": {
     "contexto": "cuotas_mx→futbol",
@@ -2312,5 +2312,17 @@
     "candidato": "B. Monchengladbach II",
     "ratio": 0.7727,
     "visto": "2026-10-20"
+  },
+  "Melbourne Victory": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "South Melbourne",
+    "ratio": 0.5625,
+    "visto": "2026-10-21"
+  },
+  "Melbourne City FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "South Melbourne",
+    "ratio": 0.75,
+    "visto": "2026-10-21"
   }
 }
