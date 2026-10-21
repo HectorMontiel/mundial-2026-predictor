@@ -50,8 +50,9 @@ Deno.serve(async (req) => {
     const base = {
       client_reference_id: user.id,
       customer_email: user.email || undefined,
-      // tarjeta: incluye Apple Pay y Google Pay (OXXO y SPEI van por Mercado Pago)
-      payment_method_types: { 0: 'card' },
+      // Los métodos (tarjeta, Apple Pay, Google Pay) se eligen en el panel de
+      // Stripe: la API ya no acepta payment_method_types. OXXO y SPEI van por
+      // Mercado Pago.
       locale: 'es-419',
     };
 
