@@ -595,7 +595,7 @@
     const k = clavePartido(p), abierto = estado.abiertos.has(k);
     const marc = v && v.fase !== 'pre' ? v.g : (p.marcador ? String(p.marcador).split('-').map((x) => x.trim()) : null);
     const ap = window.SPX ? SPX.apuesta(p) : esc(p.apuesta);
-    return '<div class="partido-fila ' + nv.c + (abierto ? ' abierto' : '') + '">' +
+    return '<div class="partido-fila ' + nv.c + (abierto ? ' abierto' : '') + '" data-k="' + esc(k) + '">' +
       '<button class="pf" data-abrir="' + esc(k) + '" aria-expanded="' + abierto + '">' +
       relojFila(ps) +
       '<span class="pf-eqs"><span class="pf-eq">' + escudo(p.logo_h, L) + '<b>' + esc(L) + '</b>' + (marc ? '<em>' + esc(marc[0]) + '</em>' : '') + '</span>' +
@@ -630,7 +630,40 @@
     return estado.picks.filter((p) => diaDe(p) === dia);
   }
 
+  // v414 — «cuando ando analizando con la IA se cierra solita y el scroll se va
+  // para abajo». Cada 30 s (marcadores en vivo), cada 3 min (picks) y al
+  // renovarse la sesión la lista se vuelve a pintar: las tarjetas abiertas se
+  // recordaban, pero NO las secciones de dentro (Análisis IA, forma y H2H), que
+  // se cerraban; la página se encogía y el scroll brincaba. Ahora se anota qué
+  // secciones estaban abiertas y dónde estaba el usuario, y se restaura.
+  function memoriaVista() {
+    const abiertas = new Set();
+    document.querySelectorAll('[data-k] details[open]').forEach((d) => {
+      const c = d.closest('[data-k]'), i = [...c.querySelectorAll('details')].indexOf(d);
+      abiertas.add(c.dataset.k + '|' + d.className + '|' + i);
+    });
+    let ancla = null;
+    for (const c of document.querySelectorAll('[data-k]')) {
+      const r = c.getBoundingClientRect();
+      if (r.bottom > 0 && r.height) { ancla = { k: c.dataset.k, top: r.top }; break; }
+    }
+    return { abiertas, ancla };
+  }
+  function restaurarVista(m) {
+    if (!m) return;
+    if (m.abiertas.size) document.querySelectorAll('[data-k]').forEach((c) => {
+      [...c.querySelectorAll('details')].forEach((d, i) => { if (m.abiertas.has(c.dataset.k + '|' + d.className + '|' + i)) d.open = true; });
+    });
+    if (m.ancla) {
+      const c = [...document.querySelectorAll('[data-k]')].find((x) => x.dataset.k === m.ancla.k);
+      if (c) { const dy = c.getBoundingClientRect().top - m.ancla.top; if (Math.abs(dy) > 1) window.scrollBy(0, dy); }
+    }
+  }
   function pintar() {
+    const m = memoriaVista();
+    try { pintarLista(); } finally { try { restaurarVista(m); } catch (e) { /* nunca tumba la página */ } }
+  }
+  function pintarLista() {
     document.querySelectorAll('[data-vista]').forEach((s) => { s.hidden = !String(s.dataset.vista).split(' ').includes(estado.vista); });
     document.querySelectorAll('#nav button').forEach((b) => b.classList.toggle('activa', b.dataset.vistaIr === estado.vista));
     const hoy = diaPestana(0), ayer = diaPestana(-1);

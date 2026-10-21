@@ -114,6 +114,9 @@ jobs:
           BREVO_API_KEY: ${{ secrets.BREVO_API_KEY }}
           BREVO_REMITENTE: ${{ secrets.BREVO_REMITENTE }}
         run: python comentarios_correo.py
+      # v413 — los .sql de referencia viven en el repo, no en el sitio público
+      - name: Quitar los .sql del sitio publicado
+        run: rm -f web/*.sql
       - name: Publicar en Cloudflare Pages (sharpicks.pages.dev)
         id: cloudflare
         if: env.CF_TOKEN != ''

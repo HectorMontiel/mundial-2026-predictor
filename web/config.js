@@ -11,4 +11,7 @@ window.CONFIG = {
   TELEGRAM_GRATIS: 'https://t.me/sharpicks_mx',
   // v380 — true cuando Google esté activo en Supabase (Authentication → Providers)
   LOGIN_GOOGLE: true,
+  // v414 — CAPTCHA de Cloudflare Turnstile: la clave del SITIO es pública (la
+  // secreta vive sólo en Supabase → Authentication → Attack Protection)
+  TURNSTILE_SITE_KEY: '0x4AAAAAAFetvGmYJCb_by_7',
 };

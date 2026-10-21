@@ -31,6 +31,18 @@
     } catch (e) { return null; }
   }
   if (sb) yo.user = sesionGuardada();
+  // v414 — «al volver tras un rato sale mi correo en vez de mi usuario y no
+  // salen mis derechos hasta unos segundos después»: el perfil llegaba de la
+  // red después de la sesión. Se guarda una copia en el dispositivo SÓLO para
+  // pintar al instante (lo que se puede hacer lo decide siempre el servidor).
+  const PERFIL_GUARDADO = 'sharpicks-perfil';
+  function perfilGuardado(id) {
+    try { const p = JSON.parse(localStorage.getItem(PERFIL_GUARDADO) || 'null'); return p && p.id === id ? p : null; } catch (e) { return null; }
+  }
+  function guardarPerfil(p) {
+    try { if (p && p.id) localStorage.setItem(PERFIL_GUARDADO, JSON.stringify(p)); else localStorage.removeItem(PERFIL_GUARDADO); } catch (e) { /* sin almacenamiento */ }
+  }
+  if (yo.user) yo.perfil = perfilGuardado(yo.user.id);
   let listo = null;                       // la primera carga de la sesión
   try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) { /* opcional */ }
   window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb };
@@ -102,6 +114,7 @@
       const { data } = await aTiempo(sb.auth.getSession(), 5000, { data: { session: yo.user ? { user: yo.user } : null } });
       yo.user = data && data.session ? data.session.user : null;
     } catch (e) { /* se queda la sesión que había */ }
+    if (yo.user && (!yo.perfil || yo.perfil.id !== yo.user.id)) yo.perfil = perfilGuardado(yo.user.id);
     try { pintarCabecera(); } catch (e) { /* se repinta al final */ }   // v412: «Entrar» no se queda en pantalla mientras carga
     const tareas = [
       sb.from('ajustes').select('clave,valor').then(({ data }) => { (data || []).forEach((x) => { yo.precios[x.clave] = x.valor; }); }),
@@ -110,7 +123,10 @@
       sb.from('seguidores').select('pick,n').then(({ data }) => { yo.conteo = {}; (data || []).forEach((x) => { yo.conteo[x.pick] = x.n; }); }),
     ];
     if (yo.user) {
-      tareas.push(sb.from('perfiles').select('*').eq('id', yo.user.id).maybeSingle().then(({ data }) => { yo.perfil = data; }));
+      tareas.push(sb.from('perfiles').select('*').eq('id', yo.user.id).maybeSingle().then(({ data, error }) => {
+        if (error) return;                       // sin red: se queda el que había
+        yo.perfil = data; guardarPerfil(data);
+      }));
       tareas.push(sb.from('seguidos').select('pick').then(({ data }) => { yo.seguidos = new Set((data || []).map((x) => x.pick)); }));
       tareas.push(sb.from('ia_analisis').select('*').gte('fecha', new Date(Date.now() - 2 * 864e5).toISOString().slice(0, 10)).limit(2000)
         .then(({ data }) => { yo.ia = {}; (data || []).forEach((x) => { yo.ia[x.partido] = x; }); }));
@@ -207,19 +223,43 @@
     $('acceso-msg').textContent = msg || '';
     const g = document.querySelector('[data-google]'); if (g) g.hidden = !C.LOGIN_GOOGLE;
     $('acceso').hidden = false;
+    captchaListo();
   }
   function verModo(m) {
     document.querySelectorAll('[data-modo]').forEach((x) => { x.hidden = x.dataset.modo !== m; });
     document.querySelectorAll('[data-ir-modo]').forEach((x) => x.classList.toggle('activa', x.dataset.irModo === m));
   }
 
+  // v414 — CAPTCHA (Cloudflare Turnstile) contra robots en registro, entrada y
+  // enlace por correo. Casi nunca le pide nada a una persona («interaction-only»).
+  let captchaId = null;
+  function captchaListo() {
+    try {
+      if (captchaId != null || !C.TURNSTILE_SITE_KEY || !window.turnstile || !$('captcha')) return;
+      captchaId = window.turnstile.render('#captcha', { sitekey: C.TURNSTILE_SITE_KEY, theme: 'dark', size: 'flexible', appearance: 'interaction-only', language: 'es' });
+    } catch (e) { captchaId = null; }
+  }
+  function tokenCaptcha() {
+    try { return (captchaId != null && window.turnstile.getResponse(captchaId)) || undefined; } catch (e) { return undefined; }
+  }
+  function reiniciarCaptcha() { try { if (captchaId != null) window.turnstile.reset(captchaId); } catch (e) { /* nada */ } }
+  // v413 — la misma regla que exige Supabase (8+ caracteres, letras y números)
+  function contraDebil(c) {
+    if (String(c).length < 8) return 'La contraseña debe tener al menos 8 caracteres.';
+    if (!/[A-Za-zÁÉÍÓÚÜÑáéíóúüñ]/.test(c) || !/\d/.test(c)) return 'La contraseña debe tener letras y números.';
+    return '';
+  }
   async function entrarConUsuario(u, contra) {
     if (u.includes('@')) {
-      const { error } = await sb.auth.signInWithPassword({ email: u, password: contra });
+      const { error } = await sb.auth.signInWithPassword({ email: u, password: contra, options: { captchaToken: tokenCaptcha() } });
+      reiniciarCaptcha();
+      if (error && /captcha/i.test(error.message)) return 'Completa la verificación de abajo y vuelve a intentar.';
+      if (error && (error.status === 429 || /rate limit/i.test(error.message))) return 'Demasiados intentos. Espera unos minutos.';
       return error ? 'Correo o contraseña incorrectos.' : '';
     }
     const r = await fetch(FN + 'entrar', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY },
-      body: JSON.stringify({ usuario: u, contrasena: contra }) });
+      body: JSON.stringify({ usuario: u, contrasena: contra, captcha: tokenCaptcha() }) });
+    reiniciarCaptcha();
     const d = await r.json().catch(() => ({}));
     if (!r.ok || !d.access_token) return d.error || 'No se pudo entrar.';
     const { error } = await sb.auth.setSession({ access_token: d.access_token, refresh_token: d.refresh_token });
@@ -272,7 +312,7 @@
       '" placeholder="3-20 letras, números, _ o ." autocapitalize="off"><button class="ver" data-mi-usuario>Guardar</button></div></div>';
     h += '<div class="caja"><div class="tit">🎁 Canjear código</div><div class="fila-form"><input id="codigo" placeholder="SHARP-XXXX-XXXX" autocomplete="off"><button class="ver" data-canjear>Canjear</button></div></div>' +
       '<div class="caja"><div class="tit">🔑 ' + (yo.user.app_metadata && yo.user.app_metadata.provider === 'google' ? 'Crear contraseña (para entrar con tu usuario)' : 'Cambiar contraseña') + '</div>' +
-      '<div class="fila-form"><input type="password" id="nueva-contra" placeholder="Mínimo 8 caracteres" autocomplete="new-password"><button class="ver" data-contra>Guardar</button></div></div>' +
+      '<div class="fila-form"><input type="password" id="nueva-contra" placeholder="8+ caracteres, letras y números" autocomplete="new-password"><button class="ver" data-contra>Guardar</button></div></div>' +
       '<button class="salir" data-salir>Cerrar sesión</button>';
     $('micuenta-cuerpo').innerHTML = h;
     $('micuenta').hidden = false;
@@ -297,6 +337,7 @@
       $('micuenta').hidden = true;
       await aTiempo(sb.auth.signOut(), 4000, null);
       try { Object.keys(localStorage).filter((k) => k.startsWith('sb-')).forEach((k) => localStorage.removeItem(k)); } catch (e) {}
+      guardarPerfil(null);
       yo.user = null; yo.perfil = null;
       pintarCabecera(); await refrescar();
       return;
@@ -304,7 +345,8 @@
     if (t.hasAttribute('data-enlace')) {
       const correo = $('e-usuario').value.trim();
       if (!correo.includes('@')) { $('acceso-msg').textContent = 'Escribe tu correo arriba para mandarte el enlace.'; return; }
-      const { error } = await sb.auth.signInWithOtp({ email: correo, options: { emailRedirectTo: location.origin + location.pathname } });
+      const { error } = await sb.auth.signInWithOtp({ email: correo, options: { emailRedirectTo: location.origin + location.pathname, captchaToken: tokenCaptcha() } });
+      reiniciarCaptcha();
       $('acceso-msg').textContent = error ? 'No se pudo enviar: ' + error.message : 'Listo: revisa tu correo (también «spam»).';
       return;
     }
@@ -362,7 +404,7 @@
     }
     if (t.hasAttribute('data-contra')) {
       const c1 = $('nueva-contra').value;
-      if (c1.length < 8) { abrirMiCuenta('La contraseña debe tener al menos 8 caracteres.'); return; }
+      if (contraDebil(c1)) { abrirMiCuenta(contraDebil(c1)); return; }
       const { error } = await sb.auth.updateUser({ password: c1 });
       abrirMiCuenta(error ? 'No se pudo guardar: ' + error.message : '🔑 Contraseña guardada. Ya puedes entrar con tu usuario.');
       return;
@@ -428,12 +470,14 @@
     const u = $('c-usuario').value.trim(), correo = $('c-correo').value.trim(), c1 = $('c-contra').value, c2 = $('c-contra2').value;
     const msg = (x) => { $('acceso-msg').textContent = x; };
     if (!RE_USUARIO.test(u)) return msg('El usuario: de 3 a 20 letras, números, «_» o «.», sin espacios.');
-    if (c1.length < 8) return msg('La contraseña debe tener al menos 8 caracteres.');
+    if (contraDebil(c1)) return msg(contraDebil(c1));
     if (c1 !== c2) return msg('Las contraseñas no coinciden.');
     msg('Creando tu cuenta…');
     const { data: libre } = await sb.rpc('usuario_libre', { u });
     if (!libre) return msg('Ese usuario ya existe. Prueba otro.');
-    const { data, error } = await sb.auth.signUp({ email: correo, password: c1, options: { data: { usuario: u } } });
+    const { data, error } = await sb.auth.signUp({ email: correo, password: c1, options: { data: { usuario: u }, captchaToken: tokenCaptcha(), emailRedirectTo: location.origin + location.pathname } });
+    reiniciarCaptcha();
+    if (error && /captcha/i.test(error.message)) return msg('Completa la verificación de abajo y vuelve a intentar.');
     if (error) return msg(/registered|exists/i.test(error.message) ? 'Ese correo ya tiene cuenta: entra con él.' : 'No se pudo crear: ' + error.message);
     if (!data.session) return msg('Cuenta creada. Revisa tu correo para confirmarla.');
     $('acceso').hidden = true;

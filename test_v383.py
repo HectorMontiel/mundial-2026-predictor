@@ -25,7 +25,7 @@ def probar():
     sql = leer('supabase', 'v383_usuarios_vip.sql')
     check('id="f-entrar"' in html and 'id="f-crear"' in html and 'id="f-elegir"' in html and 'id="micuenta"' in html,
           'la página tiene entrar, crear cuenta, elegir usuario y Mi cuenta')
-    check("FN + 'entrar'" in cu and 'setSession' in cu and "sb.auth.signUp" in cu and "options: { data: { usuario: u } }" in cu,
+    check("FN + 'entrar'" in cu and 'setSession' in cu and "sb.auth.signUp" in cu and "options: { data: { usuario: u }" in cu,
           'entrar con usuario (por el servidor) y registrarse con usuario')
     check("sb.rpc('canjear_codigo'" in cu and ("FN + 'vip'" in cu or "conStripe ? 'stripe' : 'vip'" in cu) and "sb.rpc('enlace_vip')" in cu,
           'canjear código, hacerse VIP y el enlace del VIP desde la cuenta')
