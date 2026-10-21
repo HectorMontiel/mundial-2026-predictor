@@ -531,3 +531,9 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .partido-fila.analisis .pf-niv, .tarjeta.analisis .et.nivel { opacity: .75; }
 .sin-pick-txt { color: var(--tenue); font-weight: 500; }
 .pick-fila.analisis { padding: 6px 0 2px; border: 0; background: none; }
+
+/* v425 — el botón trabajando (entrar, crear cuenta, mandar el enlace) */
+.cargando { position: relative; opacity: .85; pointer-events: none; }
+.cargando::before { content: ''; display: inline-block; width: 14px; height: 14px; margin-right: 8px; vertical-align: -2px;
+  border: 2px solid currentColor; border-right-color: transparent; border-radius: 50%; animation: girar .7s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }

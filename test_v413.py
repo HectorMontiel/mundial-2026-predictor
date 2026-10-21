@@ -40,7 +40,7 @@ def probar_entrar():
           and 'revoke all on function public.anotar_entrar(text, text, boolean) from public, anon, authenticated' in sql,
           'las funciones del límite sólo las llama el servidor')
     fn = leer('supabase', 'functions', 'entrar', 'index.ts')
-    check("admin.rpc('puede_entrar'" in fn and '429' in fn and fn.count("rpc('anotar_entrar'") == 2,
+    check("admin.rpc('puede_entrar'" in fn and '429' in fn and fn.count("rpc('anotar_entrar'") == 3,
           '`entrar` consulta el límite, anota fallos y aciertos, y responde 429')
     check("x-forwarded-for" in fn and 'Usuario o contraseña incorrectos.' in fn,
           'cuenta por la IP real y responde igual exista o no el usuario')
@@ -88,7 +88,7 @@ def probar_v414():
     js = leer('web', 'cuenta.js')
     check("const PERFIL_GUARDADO = 'sharpicks-perfil'" in js and 'yo.perfil = perfilGuardado(yo.user.id)' in js
           and 'guardarPerfil(null)' in js, 'v414: el usuario y sus derechos salen al instante (y se borran al salir)')
-    check(js.count('captchaToken: tokenCaptcha()') == 3 and 'captcha: tokenCaptcha()' in js and js.count('reiniciarCaptcha();') >= 4,
+    check(js.count('captchaToken: await esperarCaptcha()') == 3 and js.count('captcha: await esperarCaptcha()') == 2 and js.count('reiniciarCaptcha();') >= 4,
           'v414: el CAPTCHA va en entrar, crear cuenta y el enlace por correo')
     cfg, h, html = leer('web', 'config.js'), leer('web', '_headers'), leer('web', 'index.html')
     check("TURNSTILE_SITE_KEY: '0x4" in cfg and 'challenges.cloudflare.com/turnstile/v0/api.js' in html

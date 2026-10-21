@@ -18,12 +18,34 @@ const json = (d: unknown, s = 200) => new Response(JSON.stringify(d), { status: 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: CORS });
   try {
-    const { usuario, contrasena, captcha } = await req.json();
-    if (!usuario || !contrasena) return json({ error: 'Escribe tu usuario y tu contraseña.' }, 400);
+    const { usuario, contrasena, captcha, accion } = await req.json();
     const URL_ = Deno.env.get('SUPABASE_URL')!;
     const admin = createClient(URL_, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!, { auth: { persistSession: false } });
-    const nombre = String(usuario).trim().slice(0, 64);
+    const nombre = String(usuario || '').trim().slice(0, 64);
     const ip = (req.headers.get('x-forwarded-for') || req.headers.get('cf-connecting-ip') || '').split(',')[0].trim().slice(0, 64);
+    // v425 — EL ENLACE POR CORREO CON EL USUARIO: se busca su correo aquí (nunca
+    // llega a la página) y Supabase se lo manda. La respuesta es la misma exista
+    // o no el usuario, y cuenta como intento (frena que se use para mandar spam).
+    if (accion === 'enlace') {
+      if (!nombre) return json({ error: 'Escribe tu usuario o tu correo.' }, 400);
+      const { data: puedeE, error: errE } = await admin.rpc('puede_entrar', { p_usuario: nombre, p_ip: ip });
+      if (!errE && puedeE === false) return json({ error: 'Demasiados intentos. Espera 15 minutos e intenta de nuevo.' }, 429);
+      await admin.rpc('anotar_entrar', { p_usuario: nombre, p_ip: ip, p_ok: false });
+      const { data: idE } = await admin.rpc('id_de_usuario', { u: nombre });
+      if (idE) {
+        const { data: uE } = await admin.auth.admin.getUserById(idE);
+        const correoE = uE?.user?.email;
+        if (correoE) {
+          const anonE = createClient(URL_, Deno.env.get('SUPABASE_ANON_KEY')!, { auth: { persistSession: false } });
+          const { error: eOtp } = await anonE.auth.signInWithOtp({ email: correoE, options: {
+            shouldCreateUser: false, emailRedirectTo: 'https://sharpicks.pages.dev/', captchaToken: captcha ? String(captcha) : undefined } });
+          if (eOtp && /captcha/i.test(eOtp.message)) return json({ error: 'Completa la verificación de abajo y vuelve a intentar.' }, 400);
+          if (eOtp) return json({ error: 'No se pudo enviar el correo. Intenta en unos minutos.' }, 502);
+        }
+      }
+      return json({ ok: true, mensaje: 'Si ese usuario existe, le mandamos el enlace a su correo (revisa también «spam»).' });
+    }
+    if (!usuario || !contrasena) return json({ error: 'Escribe tu usuario y tu contraseña.' }, 400);
     const { data: puede, error: errLimite } = await admin.rpc('puede_entrar', { p_usuario: nombre, p_ip: ip });
     if (!errLimite && puede === false) return json({ error: 'Demasiados intentos. Espera 15 minutos e intenta de nuevo.' }, 429);
     // un fallo se anota y se responde igual (y con la misma demora) exista o no el usuario

@@ -132,6 +132,7 @@
         // consulta sale sin ella): se queda la copia; nunca se borra por esto
         if (!data) { if (!yo.perfil) yo.perfil = perfilGuardado(yo.user.id); return; }
         yo.perfil = data; guardarPerfil(data);
+        try { pintarCabecera(); } catch (e) { /* al final se repinta */ }
       }));
       tareas.push(sb.from('seguidos').select('pick').then(({ data }) => { yo.seguidos = new Set((data || []).map((x) => x.pick)); }));
       tareas.push(sb.from('ia_analisis').select('*').gte('fecha', new Date(Date.now() - 2 * 864e5).toISOString().slice(0, 10)).limit(2000)
@@ -257,6 +258,17 @@
   function tokenCaptcha() {
     try { return (captchaId != null && window.turnstile.getResponse(captchaId)) || undefined; } catch (e) { return undefined; }
   }
+  async function esperarCaptcha(ms = 6000) {
+    if (captchaId == null) return undefined;
+    for (let t = 0; t < ms; t += 200) { const k = tokenCaptcha(); if (k) return k; await new Promise((r) => setTimeout(r, 200)); }
+    return tokenCaptcha();
+  }
+  // el botón con su animación mientras trabaja
+  function ocupado(b, texto) {
+    if (!b) return () => {};
+    const antes = b.textContent; b.disabled = true; b.classList.add('cargando'); b.textContent = texto;
+    return () => { b.disabled = false; b.classList.remove('cargando'); b.textContent = antes; };
+  }
   function reiniciarCaptcha() { try { if (captchaId != null) window.turnstile.reset(captchaId); } catch (e) { /* nada */ } }
   // v413 — la misma regla que exige Supabase (8+ caracteres, letras y números)
   function contraDebil(c) {
@@ -266,18 +278,20 @@
   }
   async function entrarConUsuario(u, contra) {
     if (u.includes('@')) {
-      const { error } = await sb.auth.signInWithPassword({ email: u, password: contra, options: { captchaToken: tokenCaptcha() } });
+      const { data, error } = await sb.auth.signInWithPassword({ email: u, password: contra, options: { captchaToken: await esperarCaptcha() } });
       reiniciarCaptcha();
+      if (!error && data && data.user) yo.user = data.user;
       if (error && /captcha/i.test(error.message)) return 'Completa la verificación de abajo y vuelve a intentar.';
       if (error && (error.status === 429 || /rate limit/i.test(error.message))) return 'Demasiados intentos. Espera unos minutos.';
       return error ? 'Correo o contraseña incorrectos.' : '';
     }
     const r = await fetch(FN + 'entrar', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY },
-      body: JSON.stringify({ usuario: u, contrasena: contra, captcha: tokenCaptcha() }) });
+      body: JSON.stringify({ usuario: u, contrasena: contra, captcha: await esperarCaptcha() }) });
     reiniciarCaptcha();
     const d = await r.json().catch(() => ({}));
     if (!r.ok || !d.access_token) return d.error || 'No se pudo entrar.';
-    const { error } = await sb.auth.setSession({ access_token: d.access_token, refresh_token: d.refresh_token });
+    const { data: ses, error } = await sb.auth.setSession({ access_token: d.access_token, refresh_token: d.refresh_token });
+    if (!error && ses && ses.user) yo.user = ses.user;
     return error ? 'No se pudo entrar.' : '';
   }
 
@@ -362,11 +376,22 @@
       return;
     }
     if (t.hasAttribute('data-enlace')) {
-      const correo = $('e-usuario').value.trim();
-      if (!correo.includes('@')) { $('acceso-msg').textContent = 'Escribe tu correo arriba para mandarte el enlace.'; return; }
-      const { error } = await sb.auth.signInWithOtp({ email: correo, options: { emailRedirectTo: location.origin + location.pathname, captchaToken: tokenCaptcha() } });
-      reiniciarCaptcha();
-      $('acceso-msg').textContent = error ? 'No se pudo enviar: ' + error.message : 'Listo: revisa tu correo (también «spam»).';
+      // v425 — «me pide a fuerza el correo; con el usuario también debería»
+      const quien = $('e-usuario').value.trim();
+      if (!quien) { $('acceso-msg').textContent = 'Escribe arriba tu usuario o tu correo para mandarte el enlace.'; return; }
+      const listo = ocupado(t, 'Enviando…');
+      let msg;
+      if (quien.includes('@')) {
+        const { error } = await sb.auth.signInWithOtp({ email: quien, options: { emailRedirectTo: location.origin + location.pathname, captchaToken: await esperarCaptcha() } });
+        msg = error ? (/captcha/i.test(error.message) ? 'Completa la verificación de abajo y vuelve a intentar.' : 'No se pudo enviar el correo. Intenta en unos minutos.') : 'Listo: revisa tu correo (también «spam»).';
+      } else {
+        const r = await fetch(FN + 'entrar', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY },
+          body: JSON.stringify({ usuario: quien, accion: 'enlace', captcha: await esperarCaptcha() }) }).catch(() => null);
+        const d = r ? await r.json().catch(() => ({})) : {};
+        msg = d.ok ? d.mensaje : (d.error && !/contraseña/.test(d.error) ? d.error : 'Escribe tu correo arriba para mandarte el enlace.');
+      }
+      reiniciarCaptcha(); listo();
+      $('acceso-msg').textContent = msg;
       return;
     }
     if (t.dataset.cerrarAviso != null) {
@@ -485,11 +510,14 @@
     e.preventDefault();
     const u = $('e-usuario').value.trim(), c1 = $('e-contra').value;
     if (!u || !c1) { $('acceso-msg').textContent = 'Escribe tu usuario y tu contraseña.'; return; }
-    $('acceso-msg').textContent = 'Entrando…';
+    $('acceso-msg').textContent = '';
+    const listo = ocupado(e.target.querySelector('button[type=submit]'), 'Entrando…');
     const err = await entrarConUsuario(u, c1);
+    listo();
     if (err) { $('acceso-msg').textContent = err; return; }
     $('acceso').hidden = true;
-    await refrescar();
+    if (yo.user) { yo.perfil = perfilGuardado(yo.user.id) || yo.perfil; pintarCabecera(); }
+    refrescar();                       // lo demás carga detrás
   });
   // crear cuenta: usuario + correo + contraseña
   $('f-crear') && $('f-crear').addEventListener('submit', async (e) => {
@@ -502,7 +530,9 @@
     msg('Creando tu cuenta…');
     const { data: libre } = await sb.rpc('usuario_libre', { u });
     if (!libre) return msg('Ese usuario ya existe. Prueba otro.');
-    const { data, error } = await sb.auth.signUp({ email: correo, password: c1, options: { data: { usuario: u }, captchaToken: tokenCaptcha(), emailRedirectTo: location.origin + location.pathname } });
+    const listo = ocupado(e.target.querySelector('button[type=submit]'), 'Creando…');
+    const { data, error } = await sb.auth.signUp({ email: correo, password: c1, options: { data: { usuario: u }, captchaToken: await esperarCaptcha(), emailRedirectTo: location.origin + location.pathname } });
+    listo();
     reiniciarCaptcha();
     if (error && /captcha/i.test(error.message)) return msg('Completa la verificación de abajo y vuelve a intentar.');
     if (error) return msg(/registered|exists/i.test(error.message) ? 'Ese correo ya tiene cuenta: entra con él.' : 'No se pudo crear: ' + error.message);
@@ -863,7 +893,10 @@
   }
 
   if (sb) {
-    sb.auth.onAuthStateChange(() => refrescar());
+    // v425 — «iniciar sesión tarda ~10 s». Supabase ESPERA a lo que haga este
+    // aviso antes de terminar el inicio de sesión, y aquí se recargaba todo
+    // (perfil, desbloqueos, la IA, las tendencias). Ahora se recarga detrás.
+    sb.auth.onAuthStateChange(() => { setTimeout(refrescar, 0); });
     listo = refrescar();
     // al volver a la app (otra pestaña, Stripe, el celular en reposo) se pone al día
     document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescar(); });

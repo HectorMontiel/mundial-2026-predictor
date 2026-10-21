@@ -190,7 +190,18 @@ def probar_v424():
     check('pages deploy web' in wf and os.path.isdir('functions'), 'v424: Cloudflare publica functions/ junto con web/')
 
 
+def probar_v425():
+    js, fn = leer('web', 'cuenta.js'), leer('supabase', 'functions', 'entrar', 'index.ts')
+    check("sb.auth.onAuthStateChange(() => { setTimeout(refrescar, 0); });" in js,
+          'v425: el inicio de sesión ya no espera a que se recargue todo')
+    check('async function esperarCaptcha(ms = 6000)' in js and "ocupado(e.target.querySelector('button[type=submit]'), 'Entrando…')" in js
+          and '.cargando::before' in leer('web', 'estilo.css'), 'v425: espera al CAPTCHA y el botón muestra que está trabajando')
+    check("accion: 'enlace'" in js and "if (accion === 'enlace') {" in fn and 'shouldCreateUser: false' in fn
+          and 'Si ese usuario existe' in fn, 'v425: el enlace por correo también con el usuario (el correo no sale del servidor)')
+
+
 if __name__ == '__main__':
+    probar_v425()
     probar_v424()
     probar_v423()
     probar_v422()
