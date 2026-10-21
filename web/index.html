@@ -28,6 +28,11 @@
   <section data-vista="picks vivo mios combinadas">
     <div data-vista="picks" id="tira"></div>
 
+    <!-- v422 — «✨ Para ti»: lo que encaja con lo que el usuario sigue, desbloquea y eligió -->
+    <section class="destacados parati" id="parati" data-vista="picks" hidden>
+      <h2>✨ Para ti</h2>
+      <div class="carrusel" id="parati-lista"></div>
+    </section>
     <section class="destacados" id="destacados" data-vista="picks" hidden>
       <h2>💎 Destacados</h2>
       <div class="carrusel" id="destacados-lista"></div>
@@ -175,6 +180,17 @@
   <div id="captcha" class="captcha"></div>
   <p class="sub" id="acceso-msg"></p>
   <p class="tenue chico">Al entrar aceptas los <a href="terminos.html">términos</a> y el <a href="privacidad.html">aviso de privacidad</a>. Sólo mayores de 18 años.</p>
+</div></div>
+
+<!-- v422 — «¿Qué te interesa?» al crear la cuenta (y desde Mi cuenta) -->
+<div class="ficha" id="intereses" hidden><div class="ficha-caja acceso">
+  <h3>🎯 ¿Qué te interesa?</h3>
+  <p class="tenue">Elige tus deportes y ligas: te los ponemos primero y armamos tu «✨ Para ti».</p>
+  <div class="ctx-tit">Deportes</div><div class="chips" id="int-deportes"></div>
+  <div class="ctx-tit">Ligas</div><div class="chips" id="int-ligas"></div>
+  <button class="vip-btn" data-guardar-intereses>Guardar</button>
+  <button class="liga-btn" type="button" data-cerrar-intereses>Ahora no</button>
+  <p class="sub" id="int-msg"></p>
 </div></div>
 
 <div class="ficha" id="elegir" hidden><div class="ficha-caja acceso">

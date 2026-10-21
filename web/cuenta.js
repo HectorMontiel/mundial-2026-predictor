@@ -45,7 +45,7 @@
   if (yo.user) yo.perfil = perfilGuardado(yo.user.id);
   let listo = null;                       // la primera carga de la sesión
   try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) { /* opcional */ }
-  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb, esVip: () => esVip() };
+  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb, esVip: () => esVip(), intereses: () => intereses() };
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
   // v389 — el precio de un pick premium depende de su CUOTA (tabla `precios_cuota`);
@@ -141,6 +141,7 @@
       tareas.push(sb.from('picks_premium').select('id,apuesta').then(({ data }) => { yo.desbloqueados = {}; (data || []).forEach((x) => { yo.desbloqueados[x.id] = x.apuesta; }); }));
     } else { yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; yo.subs = []; }
     await Promise.all(tareas.map((t) => aTiempo(t, 6000, null)));
+    if (yo.user) await aTiempo(cargarGustos(), 6000, null);
     try { avisoRenovacion(); } catch (e) { /* el aviso nunca tumba la página */ }
     try { pintarCabecera(); } catch (e) {
       // pase lo que pase, la cabecera dice algo (y se reintenta en 20 s)
@@ -225,6 +226,11 @@
       '<button class="entrar" data-mi-cuenta>' + esc(nom) + ' ▾</button>';
     // con Google no se eligió usuario: se pide una vez
     if (yo.perfil && !yo.perfil.usuario && $('elegir').hidden) $('elegir').hidden = false;
+    // v422 — los intereses: a quien nunca los eligió, una vez (y no si dijo «ahora no» hace menos de 7 días)
+    else if (yo.perfil && yo.perfil.usuario && yo.perfil.deportes == null && $('intereses').hidden && !yo.intPreguntado) {
+      let no = 0; try { no = Number(localStorage.getItem('sharpicks-intereses-no-' + yo.user.id) || 0); } catch (e) { /* nada */ }
+      if (Date.now() - no > 7 * 864e5) { yo.intPreguntado = true; setTimeout(abrirIntereses, 1200); }
+    }
   }
 
   function abrirAcceso(msg, modo) {
@@ -315,10 +321,12 @@
       h += '<div class="caja"><div class="tit">🪙 Comprar monedas</div>' + (esVip() ? metodoPago() : '') + '<div class="paquetes">' +
         (yo.paquetes || []).map((k) => '<button class="paquete' + (k.id === 'popular' ? ' top' : '') + '" data-comprar="' + esc(k.id) + '"><b>' + k.monedas +
           ' 🪙</b><span>$' + Math.round(k.precio) + '</span><small>' + esc(k.nombre) + (k.id === 'popular' ? ' · el más pedido' : '') + '</small></button>').join('') +
-        '</div><p class="tenue chico">💎 🔷 💰 cuestan de 5 a 25 🪙 según su cuota. Si el pick sale rojo, te regresamos tus monedas solas.</p></div>';
+        '</div><p class="tenue chico">💎 🔷 🥈 💰 cuestan de 5 a 25 🪙 según su cuota. Si el pick sale rojo, te regresamos tus monedas solas.</p></div>';
     }
     h += '<div class="caja"><div class="tit">👤 Nombre de usuario</div><div class="fila-form"><input id="mi-usuario" value="' + esc(p.usuario || '') +
       '" placeholder="3-20 letras, números, _ o ." autocapitalize="off"><button class="ver" data-mi-usuario>Guardar</button></div></div>';
+    h += '<div class="caja"><div class="tit">🎯 Mis intereses</div><p class="tenue chico">Tus deportes y ligas van primero y arman tu «✨ Para ti».</p>' +
+      '<button class="ver" data-intereses>Elegir deportes y ligas</button></div>';
     h += '<div class="caja"><div class="tit">🎁 Canjear código</div><div class="fila-form"><input id="codigo" placeholder="SHARP-XXXX-XXXX" autocomplete="off"><button class="ver" data-canjear>Canjear</button></div></div>' +
       '<div class="caja"><div class="tit">🔑 ' + (yo.user.app_metadata && yo.user.app_metadata.provider === 'google' ? 'Crear contraseña (para entrar con tu usuario)' : 'Cambiar contraseña') + '</div>' +
       '<div class="fila-form"><input type="password" id="nueva-contra" placeholder="8+ caracteres, letras y números" autocomplete="new-password"><button class="ver" data-contra>Guardar</button></div></div>' +
@@ -578,6 +586,75 @@
   }
 
   // ---------- historial público (verdes, rojas y porcentaje) ----------
+  // v422 — «UN ALGORITMO QUE MUESTRE QUÉ PICK LE INTERESA AL USUARIO DE ACUERDO
+  // A SUS TENDENCIAS». Las señales son suyas y se quedan en su sesión: lo que
+  // sigue y lo que desbloquea (deporte, liga, nivel y la cuota que juega), y
+  // los deportes y ligas que eligió. `app.js` (paraTi) puntúa con esto.
+  let gustosDe = '';
+  async function cargarGustos() {
+    const ids = [...new Set([...yo.seguidos, ...Object.keys(yo.desbloqueados || {})])].slice(-200);
+    const firma = ids.join(',');
+    if (firma === gustosDe) return;
+    gustosDe = firma;
+    const g = { deporte: {}, liga: {}, nivel: {}, cuotas: [], n: 0 };
+    if (ids.length) {
+      const { data } = await sb.from('picks').select('id,deporte,liga,cuota,prob,elige,tipo').in('id', ids);
+      (data || []).forEach((p) => {
+        const nv = window.SP ? window.SP.nivel(p).n : '';
+        g.deporte[p.deporte] = (g.deporte[p.deporte] || 0) + 1;
+        if (p.liga) g.liga[p.liga] = (g.liga[p.liga] || 0) + 1;
+        g.nivel[nv] = (g.nivel[nv] || 0) + 1;
+        if (p.cuota) g.cuotas.push(Number(p.cuota));
+        g.n++;
+      });
+    }
+    yo.gustos = g;
+  }
+  function intereses() {
+    const p = yo.perfil || {};
+    let ligas = p.ligas;
+    if (!Array.isArray(ligas)) { try { ligas = JSON.parse(localStorage.getItem('sharpicks-ligas-' + (yo.user && yo.user.id)) || '[]'); } catch (e) { ligas = []; } }
+    return { deportes: new Set(p.deportes || []), ligas: new Set(ligas || []), gustos: yo.gustos || null };
+  }
+  // la pregunta de intereses: chips de deportes y de las ligas con más partidos
+  const DEPORTES_INT = ['Fútbol', 'Tenis', 'NBA', 'NFL', 'NHL', 'MLB'];
+  function abrirIntereses() {
+    const it = intereses();
+    const conteo = {};
+    ((window.SP && window.SP.estado.picks) || []).concat((window.SP && window.SP.estado.analisis) || []).forEach((x) => {
+      if (x.liga) conteo[x.liga] = (conteo[x.liga] || 0) + 1;
+    });
+    const ligas = [...new Set([...it.ligas, ...Object.entries(conteo).sort((a, b) => b[1] - a[1]).map(([l]) => l)])].slice(0, 30);
+    const chip = (v, sel, k) => '<button type="button" class="chip' + (sel ? ' activa' : '') + '" data-int-' + k + '="' + esc(v) + '">' + esc(v) + '</button>';
+    $('int-deportes').innerHTML = DEPORTES_INT.map((d) => chip(d, it.deportes.has(d), 'dep')).join('');
+    $('int-ligas').innerHTML = ligas.map((l) => chip(l, it.ligas.has(l), 'liga')).join('');
+    $('int-msg').textContent = '';
+    $('intereses').hidden = false;
+  }
+  document.addEventListener('click', async (e) => {
+    const t = e.target.closest('[data-int-dep],[data-int-liga],[data-guardar-intereses],[data-cerrar-intereses],[data-intereses]');
+    if (!t) return;
+    if (t.hasAttribute('data-intereses')) { $('micuenta').hidden = true; abrirIntereses(); return; }
+    if (t.dataset.intDep != null || t.dataset.intLiga != null) { t.classList.toggle('activa'); return; }
+    if (t.hasAttribute('data-cerrar-intereses')) {
+      $('intereses').hidden = true;
+      try { localStorage.setItem('sharpicks-intereses-no-' + (yo.user && yo.user.id), String(Date.now())); } catch (e2) { /* nada */ }
+      return;
+    }
+    if (!yo.user) return;
+    const deportes = [...document.querySelectorAll('[data-int-dep].activa')].map((b) => b.dataset.intDep);
+    const ligas = [...document.querySelectorAll('[data-int-liga].activa')].map((b) => b.dataset.intLiga);
+    t.disabled = true;
+    let { error } = await sb.from('perfiles').update({ deportes, ligas }).eq('id', yo.user.id);
+    if (error) ({ error } = await sb.from('perfiles').update({ deportes }).eq('id', yo.user.id));   // sin la columna de ligas
+    try { localStorage.setItem('sharpicks-ligas-' + yo.user.id, JSON.stringify(ligas)); } catch (e2) { /* nada */ }
+    t.disabled = false;
+    if (error) { $('int-msg').textContent = 'No se pudo guardar. Intenta de nuevo.'; return; }
+    yo.perfil = Object.assign({}, yo.perfil, { deportes, ligas }); guardarPerfil(yo.perfil);
+    $('intereses').hidden = true;
+    if (window.SP) window.SP.pintar();
+  });
+
   // v417 — LOS PLANES CON SUS NÚMEROS REALES. El usuario: «que vengan los
   // mejores números del historial… los diamantes con sus números reales, y de
   // la IA únicamente donde mejor acertamos». Todo sale de la base (30 días,

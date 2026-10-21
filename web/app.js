@@ -640,11 +640,43 @@
       (ps.length > 1 ? '<span class="pf-mas">+' + (ps.length - 1) + '</span>' : '') + resumenPicks(ps) + '</span>' +
       '</button>' + (abierto ? '<div class="pf-detalle">' + tarjeta(ps) + '</div>' : '') + '</div>';
   }
-  function destacado(ps) {
+  // v422 — «✨ PARA TI». Cada pick que aún no empieza (hoy y mañana) se puntúa
+  // con lo que el usuario eligió (deportes y ligas) y con sus tendencias (lo que
+  // sigue y desbloquea: deporte, liga, nivel y la cuota que suele jugar); entre
+  // parecidos gana el más probable. Sin intereses ni señales, no sale nada.
+  function paraTi() {
+    if (!window.SPX || !SPX.yo.user || !SPX.intereses) return [];
+    const it = SPX.intereses(), g = it.gustos || { deporte: {}, liga: {}, nivel: {}, cuotas: [], n: 0 };
+    if (!it.deportes.size && !it.ligas.size && !g.n) return [];
+    const parte = (m, k) => { const tot = Object.values(m).reduce((s, x) => s + x, 0); return tot ? (m[k] || 0) / tot : 0; };
+    const cs = g.cuotas.slice().sort((a, b) => a - b), med = cs.length ? cs[Math.floor(cs.length / 2)] : null;
+    const ahora = new Date(), dias = [diaPestana(0), diaPestana(1)];
+    const puntos = (p) => {
+      let s = 0;
+      if (p.liga && it.ligas.has(p.liga)) s += 3;
+      if (it.deportes.has(p.deporte)) s += 2;
+      s += 2 * parte(g.liga, p.liga) + 1.5 * parte(g.deporte, p.deporte) + parte(g.nivel, nivel(p).n);
+      if (med && p.cuota) s += Math.max(0, 1 - Math.abs(Math.log(Number(p.cuota) / med)) * 3);
+      return s + Number(p.prob || 0);
+    };
+    const cand = estado.picks.filter((p) => p.estado === 'pendiente' && dias.includes(diaDe(p)) && (aFecha(p.inicio) || 0) > ahora);
+    const mejor = new Map();
+    cand.forEach((p) => { const k = clavePartido(p), s = puntos(p); if (!mejor.has(k) || mejor.get(k).s < s) mejor.set(k, { s, p }); });
+    const umbral = 2 + 0.8;                       // que encaje en algo más que la probabilidad
+    return [...mejor.values()].filter((x) => x.s >= umbral).sort((a, b) => b.s - a.s).slice(0, 8).map((x) => [x.p]);
+  }
+  // y sus ligas van primero en la lista
+  function ordenPreferido(mapa) {
+    if (!window.SPX || !SPX.intereses) return mapa;
+    const it = SPX.intereses(), g = (it.gustos && it.gustos.liga) || {};
+    const peso = (l) => (it.ligas.has(l.replace(/^🎾 /, '')) ? 2 : 0) + (g[l.replace(/^🎾 /, '')] ? 1 : 0);
+    return new Map([...mapa.entries()].map((e, i) => [e, i]).sort((a, b) => (peso(b[0][0]) - peso(a[0][0])) || (a[1] - b[1])).map((x) => x[0]));
+  }
+  function destacado(ps, etiqueta) {
     const p = ps[0], [L, V] = lados(p), v = vivoDe(ps);
     const marc = v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : '';
     return '<button class="dest" data-abrir="' + esc(clavePartido(p)) + '" data-ir="1">' +
-      '<div class="fila"><span class="et nivel diamante">💎 Diamante</span>' + relojFila(ps) + '</div>' +
+      '<div class="fila">' + (etiqueta || '<span class="et nivel diamante">💎 Diamante</span>') + relojFila(ps) + '</div>' +
       '<div class="dest-eqs">' + escudo(p.logo_h, L) + '<span>' + esc(marc || 'vs') + '</span>' + escudo(p.logo_a, V) + '</div>' +
       '<div class="dest-nom">' + esc(L) + ' – ' + esc(V) + '</div>' +
       '<div class="dest-ap">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
@@ -754,6 +786,12 @@
       .sort((a, b) => String(a[0].inicio).localeCompare(String(b[0].inicio))).slice(0, 12) : [];
     $('destacados').hidden = !dest.length;
     $('destacados-lista').innerHTML = dest.map(seguro(destacado)).join('');
+    // v422 — ✨ Para ti
+    const pt = estado.vista === 'picks' ? paraTi() : [];
+    if ($('parati')) {
+      $('parati').hidden = !pt.length;
+      $('parati-lista').innerHTML = pt.map(seguro((g) => { const n = nivel(g[0]); return destacado(g, '<span class="et nivel ' + n.c + '">' + n.i + ' ' + n.n + '</span>'); })).join('');
+    }
     // 🔗 Combinadas del día elegido, del deporte elegido (las mixtas siempre)
     const diaC = diaPestana(OFFS[estado.dia] || 0);
     // v398 — tienen su pestaña; en Picks sólo una línea que lleva a ella
@@ -788,7 +826,7 @@
       gs0.forEach((g) => { const l = (g[0].deporte === 'Tenis' ? '🎾 ' : '') + (g[0].liga || g[0].deporte || 'Otros'); if (!m.has(l)) m.set(l, []); m.get(l).push(g); });
       return m;
     };
-    const ligas = porLiga(grupos);
+    const ligas = ordenPreferido(porLiga(grupos));
     let finHtml = '';
     if (fin.length) {
       const ps = fin.flat(), v = ps.filter((x) => x.estado === 'verde').length, r = ps.filter((x) => x.estado === 'roja').length;

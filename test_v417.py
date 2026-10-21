@@ -143,7 +143,21 @@ def probar_v421():
     check("set valor = '20' where clave = 'monedas_bienvenida'" in leer('supabase', 'v421_bienvenida_20.sql'), 'v421: la base regala 20 🪙')
 
 
+def probar_v422():
+    js, app, html = leer('web', 'cuenta.js'), leer('web', 'app.js'), leer('web', 'index.html')
+    check('id="intereses"' in html and 'data-guardar-intereses' in html and 'id="parati"' in html,
+          'v422: la pregunta «¿Qué te interesa?» y el carrusel «✨ Para ti»')
+    check('async function cargarGustos()' in js and "select('id,deporte,liga,cuota,prob,elige,tipo').in('id', ids)" in js
+          and 'yo.perfil.deportes == null' in js and '7 * 864e5' in js and 'data-intereses' in js,
+          'v422: las tendencias salen de lo que sigue y desbloquea; se pregunta una vez y se cambia desde Mi cuenta')
+    check('function paraTi()' in app and 'it.ligas.has(p.liga)' in app and 'Math.log(Number(p.cuota) / med)' in app
+          and 'function ordenPreferido(mapa)' in app and 'ordenPreferido(porLiga(grupos))' in app,
+          'v422: Para ti puntúa liga, deporte, nivel y cuota; sus ligas van primero')
+    check('add column if not exists ligas text[]' in leer('supabase', 'v422_intereses.sql'), 'v422: las ligas se guardan en el perfil')
+
+
 if __name__ == '__main__':
+    probar_v422()
     probar_v421()
     probar_v420_web()
     probar_v420()
