@@ -158330,3 +158330,67 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5831135,2026-08-15,cze_first,Mladá Boleslav,Josef Kolárík,1646384,F,0,24,0,0,0,0.0,,3,1369797
 5831135,2026-08-15,cze_first,Mladá Boleslav,Lukás Letenay,958404,F,0,11,0,0,0,0.0,,3,309137
 5831135,2026-08-15,cze_first,Mladá Boleslav,Adam Kadlec,1252019,D,0,1,0,0,0,0.0,,1,591854
+6106312,2026-10-21,champions,Lille,Berke Özer,815912,G,1,90,0,0,0,0.0,11,0,11889734
+6106312,2026-10-21,champions,Lille,Maxima Goffi,1793784,D,1,63,0,0,0,0.0,32,1,1421587
+6106312,2026-10-21,champions,Lille,Nathan Ngoy,1252070,D,1,90,0,0,0,0.0,34,1,17582754
+6106312,2026-10-21,champions,Lille,Alexsandro Ribeiro,1186553,D,1,90,1,0,0,0.25,36,1,13656040
+6106312,2026-10-21,champions,Lille,Calvin Verdonk,622137,D,1,90,0,0,0,0.0,38,1,1676759
+6106312,2026-10-21,champions,Lille,Ngal Ayel Mukau,1428153,M,1,63,0,0,0,0.0,73,2,16898629
+6106312,2026-10-21,champions,Lille,Nabil Bentaleb,500520,M,1,75,1,0,0,0.02,75,2,1258360
+6106312,2026-10-21,champions,Lille,Benjamin André,148830,M,1,62,1,0,0,0.02,77,2,2340292
+6106312,2026-10-21,champions,Lille,Dilane Bakwa,1079539,F,1,90,4,2,0,0.2,103,3,32655776
+6106312,2026-10-21,champions,Lille,Hákon Arnar Haraldsson,1044470,M,1,90,2,0,0,0.28,105,2,25949449
+6106312,2026-10-21,champions,Lille,Soriba Diaoune,1684579,F,1,75,3,3,2,0.8,107,3,1180564
+6106312,2026-10-21,champions,Lille,Maurits Kjærgaard,1070404,M,0,28,1,0,0,0.2,,2,9147344
+6106312,2026-10-21,champions,Lille,Tanguy Nianzou,1070617,D,0,27,0,0,0,0.0,,1,1345648
+6106312,2026-10-21,champions,Lille,Olivier Giroud,46469,F,0,27,0,0,0,0.0,,3,877628
+6106312,2026-10-21,champions,Lille,Başar Önal,1347229,M,0,15,1,0,0,0.04,,2,6820300
+6106312,2026-10-21,champions,Lille,Gaëtan Perrin,708435,F,0,15,1,0,0,0.05,,3,3556737
+6106312,2026-10-21,champions,Galatasaray,Uğurcan Çakir,603669,G,1,90,0,0,0,0.0,11,0,18410155
+6106312,2026-10-21,champions,Galatasaray,Roland Sallai,583601,D,1,90,0,0,0,0.0,32,1,12532217
+6106312,2026-10-21,champions,Galatasaray,Davinson Sánchez,643533,D,1,90,0,0,0,0.0,34,1,18504821
+6106312,2026-10-21,champions,Galatasaray,Abdülkerim Bardakci,291399,D,1,90,0,0,0,0.0,36,1,3500746
+6106312,2026-10-21,champions,Galatasaray,Ismail Jakobs,906945,D,1,90,0,0,0,0.0,38,1,5305118
+6106312,2026-10-21,champions,Galatasaray,Lucas Torreira,592909,M,1,90,1,0,0,0.04,64,2,7385333
+6106312,2026-10-21,champions,Galatasaray,Gabriel Sara,902710,M,1,62,1,0,0,0.02,66,2,24628648
+6106312,2026-10-21,champions,Galatasaray,Yunus Akgün,845991,M,1,76,1,1,1,0.4,83,2,19148055
+6106312,2026-10-21,champions,Galatasaray,Aleksey Batrakov,1504343,M,1,85,1,1,1,0.59,85,2,34308494
+6106312,2026-10-21,champions,Galatasaray,Barış Alper Yılmaz,890232,F,1,75,1,0,0,0.05,87,3,28739891
+6106312,2026-10-21,champions,Galatasaray,Victor Osimhen,687681,F,1,84,4,1,1,0.5,115,3,74320814
+6106312,2026-10-21,champions,Galatasaray,Mario Lemina,421786,M,0,28,1,1,0,0.04,,2,2341069
+6106312,2026-10-21,champions,Galatasaray,Eren Elmalı,1041660,D,0,15,0,0,0,0.0,,1,4399286
+6106312,2026-10-21,champions,Galatasaray,Leroy Sané,530859,F,0,15,0,0,0,0.0,,3,16311041
+6106312,2026-10-21,champions,Galatasaray,Ilkay Gündogan,178818,M,0,5,0,0,0,0.0,,2,1328013
+6106312,2026-10-21,champions,Galatasaray,Deniz Gül,1406300,F,0,5,0,0,0,0.0,,3,4839543
+6106410,2026-10-21,champions,Como,Jean Butez,560939,G,1,90,0,0,0,0.0,11,0,8605667
+6106410,2026-10-21,champions,Como,Yan Couto,1109171,M,1,80,0,0,0,0.0,32,2,18640589
+6106410,2026-10-21,champions,Como,Jacobo Ramón,1413963,D,1,90,1,1,1,0.52,34,1,23685230
+6106410,2026-10-21,champions,Como,Marc-Oliver Kempf,355356,D,1,90,0,0,0,0.0,36,1,2183706
+6106410,2026-10-21,champions,Como,Álex Valle,1384881,D,1,90,0,0,0,0.0,38,1,17740551
+6106410,2026-10-21,champions,Como,Luis Milla,638090,M,1,90,0,0,0,0.0,64,2,2599930
+6106410,2026-10-21,champions,Como,Máximo Perrone,1336582,M,1,80,0,0,0,0.0,66,2,45180747
+6106410,2026-10-21,champions,Como,Lucas Da Cunha,1076647,M,1,69,2,0,0,0.09,83,2,22534524
+6106410,2026-10-21,champions,Como,Nico Paz,1347574,M,1,80,4,4,2,0.55,85,2,75705921
+6106410,2026-10-21,champions,Como,Martin Baturina,1215064,F,1,64,1,1,0,0.04,87,3,35176821
+6106410,2026-10-21,champions,Como,Anastasios Douvikas,873270,F,1,90,3,2,1,0.84,115,3,20614968
+6106410,2026-10-21,champions,Como,Maxence Caqueret,846000,M,0,26,0,0,0,0.0,,2,15768520
+6106410,2026-10-21,champions,Como,Kaiki,1459564,D,0,21,0,0,0,0.0,,1,15236745
+6106410,2026-10-21,champions,Como,Alberto Dossena,822789,D,0,10,0,0,0,0.0,,1,4853422
+6106410,2026-10-21,champions,Como,Ivan Smolčić,1353289,D,0,10,0,0,0,0.0,,1,5305021
+6106410,2026-10-21,champions,Como,Samuele Ricci,941656,M,0,10,0,0,0,0.0,,2,22650496
+6106410,2026-10-21,champions,Manchester United,Senne Lammens,1178602,G,1,90,0,0,0,0.0,11,0,25694269
+6106410,2026-10-21,champions,Manchester United,Diogo Dalot,751550,D,1,90,2,0,0,0.07,32,1,33062873
+6106410,2026-10-21,champions,Manchester United,Matthijs de Ligt,769895,D,1,79,0,0,0,0.0,34,1,38076970
+6106410,2026-10-21,champions,Manchester United,Harry Maguire,255610,D,1,90,2,0,0,0.05,36,1,5811328
+6106410,2026-10-21,champions,Manchester United,Noussair Mazraoui,775539,D,1,90,0,0,0,0.0,38,1,16781589
+6106410,2026-10-21,champions,Manchester United,Mason Mount,750032,M,1,90,1,0,0,0.01,64,2,24297394
+6106410,2026-10-21,champions,Manchester United,Andrey Santos,1372921,M,1,46,0,0,0,0.0,66,2,50721856
+6106410,2026-10-21,champions,Manchester United,Bryan Mbeumo,923312,F,1,86,1,0,0,0.04,83,3,74714544
+6106410,2026-10-21,champions,Manchester United,Youri Tielemans,465960,M,1,90,1,1,0,0.04,85,2,47631944
+6106410,2026-10-21,champions,Manchester United,Matheus Cunha,863098,F,1,45,1,0,0,0.03,87,3,76014204
+6106410,2026-10-21,champions,Manchester United,Bruno Fernandes,422685,M,1,67,1,0,0,0.01,115,2,27178733
+6106410,2026-10-21,champions,Manchester United,Carlos Baleba,1352713,M,0,44,0,0,0,0.0,,2,63181148
+6106410,2026-10-21,champions,Manchester United,Amad Diallo,1070052,F,0,45,3,2,0,0.11,,3,55380731
+6106410,2026-10-21,champions,Manchester United,Joshua Zirkzee,950830,F,0,23,1,1,1,0.7,,3,24341891
+6106410,2026-10-21,champions,Manchester United,Harry Amass,1430832,M,0,11,0,0,0,0.0,,2,10378574
+6106410,2026-10-21,champions,Manchester United,Shea Lacey,1436260,F,0,5,0,0,0,0.0,,3,1965772
