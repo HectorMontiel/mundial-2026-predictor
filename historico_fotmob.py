@@ -58,6 +58,9 @@ LIGAS: Dict[str, tuple] = {
     'fem_francia': ([(9677, 'premiere-ligue-feminine')],
                     'Première Ligue (Francia, femenil)'),
     'fem_italia': ([(10178, 'serie-a-femminile')], 'Serie A Femminile'),
+    # v419 — ligas locales de equipos de copas UEFA que ESPN no publica
+    'cze_first': ([(122, 'chance-liga')], 'Chance Liga (Chequia)'),
+    'aze_premier': ([(262, 'premier-league')], 'Premyer Liqa (Azerbaiyán)'),
 }
 
 # v303 — LA FUERZA DE UN EQUIPO DE CHAMPIONS SALE TAMBIÉN DE SU LIGA.

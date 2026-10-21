@@ -72,6 +72,7 @@ CONOCIDOS = {
     'libertadores': 45, 'sudamericana': 299, 'eng_fa_cup': 132,
     'ind_isl': 9478, 'esp_copa_rey': 138, 'afc_champions': 525,
     'bra_copa': 9067, 'eng_carabao': 133, 'ksa_pro': 536, 'isr_premier': 127,
+    'cze_first': 122, 'aze_premier': 262,
 }
 
 # Palabras para buscar cuando el nombre del proyecto no es el de FotMob.

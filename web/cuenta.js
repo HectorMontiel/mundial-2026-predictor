@@ -578,7 +578,8 @@
       sb.from('historial_niveles').select('*'), sb.from('ia_medicion').select('*'), sb.from('ia_aciertos').select('*').maybeSingle()]);
     const N = {}; ((nv && nv.data) || []).forEach((x) => { N[x.nivel] = x; });
     const linea = (ico, nombre, v, r) => (v + r >= 30 ? '<li class="num-real">' + ico + ' ' + nombre + ': <b>' + Math.round(100 * v / (v + r)) + ' %</b> <small>✅ ' + v + ' ❌ ' + r + '</small></li>' : '');
-    const nivel = (n, ico) => (N[n] ? linea(ico, n, N[n].verdes, N[n].rojas) : '');
+    // sólo los niveles que de verdad presumen (75 %+): «los mejores números»
+    const nivel = (n, ico) => (N[n] && N[n].verdes / Math.max(1, N[n].verdes + N[n].rojas) >= 0.75 ? linea(ico, n, N[n].verdes, N[n].rojas) : '');
     const pon = (id, h) => { const c = $(id); if (c) c.innerHTML = h ? '<ul class="numeros">' + h + '</ul><small class="tenue">Últimos 30 días, verdes y rojas reales.</small>' : ''; };
     pon('numeros-gratis', nivel('Oro', '🥇') + nivel('Plata', '🥈'));
     pon('numeros-monedas', nivel('Diamante', '💎') + nivel('Platino', '🔷') + nivel('Cuota alta', '💰'));

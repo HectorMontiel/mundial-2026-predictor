@@ -58,6 +58,9 @@ EXTRA = {
     'isr_premier': 'football/israel/ligat-ha-al',
     'fem_italia': 'football/italy/serie-a-women',
     'champions_femenil': 'football/europe/uefa-champions-league-women',
+    # v419 — Chequia y Azerbaiyán (sus equipos juegan las copas UEFA)
+    'cze_first': 'football/czech-republic/chance-liga',
+    'aze_premier': 'football/azerbaijan/premier-league',
 }
 
 

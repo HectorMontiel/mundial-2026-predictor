@@ -1,0 +1,897 @@
+date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,home_corners,away_corners,home_yellow,away_yellow,home_red,away_red,home_shots_on,away_shots_on,home_shots_off,away_shots_off,home_fouls,away_fouls,home_possession,away_possession,home_offsides,away_offsides,stats_origen
+2021-08-14,Sabah FK,Sabail,0.0,1.0,Premyer Liqa (Azerbaiyán),3683394,20210814_Sabah-FK_Sabail,,,,,,,,,,,,,,,,,
+2021-08-14,Shamakhi FK,Sumqayıt,0.0,2.0,Premyer Liqa (Azerbaiyán),3683393,20210814_Shamakhi-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2021-08-15,Zira,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3683395,20210815_Zira_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2021-08-15,FK Neftchi,FK Qabala,2.0,2.0,Premyer Liqa (Azerbaiyán),3683396,20210815_FK-Neftchi_FK-Qabala,,,,,,,,,,,,,,,,,
+2021-08-21,FK Qabala,Shamakhi FK,2.0,1.0,Premyer Liqa (Azerbaiyán),3701284,20210821_FK-Qabala_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2021-08-21,Sumqayıt,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),3701285,20210821_Sumqayıt_Sabah-FK,,,,,,,,,,,,,,,,,
+2021-08-22,Zira,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),3701283,20210822_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2021-08-22,Qarabağ FK,Sabail,3.0,0.0,Premyer Liqa (Azerbaiyán),3701286,20210822_Qarabağ-FK_Sabail,,,,,,,,,,,,,,,,,
+2021-09-11,Sabah FK,FK Qabala,0.0,2.0,Premyer Liqa (Azerbaiyán),3715206,20210911_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2021-09-11,Shamakhi FK,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),3715207,20210911_Shamakhi-FK_Zira,,,,,,,,,,,,,,,,,
+2021-09-12,Sabail,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),3715205,20210912_Sabail_Sumqayıt,,,,,,,,,,,,,,,,,
+2021-09-12,FK Neftchi,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),3715204,20210912_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2021-09-18,FK Qabala,Sabail,5.0,0.0,Premyer Liqa (Azerbaiyán),3716060,20210918_FK-Qabala_Sabail,,,,,,,,,,,,,,,,,
+2021-09-18,Zira,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3716059,20210918_Zira_Sabah-FK,,,,,,,,,,,,,,,,,
+2021-09-19,FK Neftchi,Shamakhi FK,3.0,0.0,Premyer Liqa (Azerbaiyán),3716058,20210919_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2021-09-20,Qarabağ FK,Sumqayıt,2.0,0.0,Premyer Liqa (Azerbaiyán),3716057,20210920_Qarabağ-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2021-09-25,Shamakhi FK,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3716064,20210925_Shamakhi-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2021-09-25,Sabail,Zira,1.0,2.0,Premyer Liqa (Azerbaiyán),3716063,20210925_Sabail_Zira,,,,,,,,,,,,,,,,,
+2021-09-26,Sabah FK,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),3716062,20210926_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2021-09-26,Sumqayıt,FK Qabala,0.0,0.0,Premyer Liqa (Azerbaiyán),3716061,20210926_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2021-10-01,Zira,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),3716068,20211001_Zira_Sumqayıt,,,,,,,,,,,,,,,,,
+2021-10-02,Shamakhi FK,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),3716066,20211002_Shamakhi-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2021-10-02,Sabail,FK Neftchi,1.0,3.0,Premyer Liqa (Azerbaiyán),3716067,20211002_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2021-10-03,Qarabağ FK,FK Qabala,2.0,0.0,Premyer Liqa (Azerbaiyán),3716065,20211003_Qarabağ-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2021-10-16,Sabail,Shamakhi FK,1.0,2.0,Premyer Liqa (Azerbaiyán),3716072,20211016_Sabail_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2021-10-16,FK Qabala,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),3716071,20211016_FK-Qabala_Zira,,,,,,,,,,,,,,,,,
+2021-10-17,Sumqayıt,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),3716069,20211017_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2021-10-17,Sabah FK,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),3716070,20211017_Sabah-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2021-10-23,Sabah FK,Sumqayıt,3.0,0.0,Premyer Liqa (Azerbaiyán),3716076,20211023_Sabah-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2021-10-23,FK Neftchi,Zira,2.0,1.0,Premyer Liqa (Azerbaiyán),3716075,20211023_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2021-10-24,Shamakhi FK,FK Qabala,2.0,3.0,Premyer Liqa (Azerbaiyán),3716074,20211024_Shamakhi-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2021-10-25,Sabail,Qarabağ FK,3.0,1.0,Premyer Liqa (Azerbaiyán),3716073,20211025_Sabail_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2021-10-30,Zira,Shamakhi FK,2.0,0.0,Premyer Liqa (Azerbaiyán),3716079,20211030_Zira_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2021-10-30,Qarabağ FK,FK Neftchi,4.0,0.0,Premyer Liqa (Azerbaiyán),3716080,20211030_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2021-10-31,FK Qabala,Sabah FK,1.0,3.0,Premyer Liqa (Azerbaiyán),3716078,20211031_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2021-10-31,Sumqayıt,Sabail,2.0,0.0,Premyer Liqa (Azerbaiyán),3716077,20211031_Sumqayıt_Sabail,,,,,,,,,,,,,,,,,
+2021-11-06,Sabah FK,Zira,3.0,3.0,Premyer Liqa (Azerbaiyán),3716084,20211106_Sabah-FK_Zira,,,,,,,,,,,,,,,,,
+2021-11-06,Shamakhi FK,FK Neftchi,3.0,2.0,Premyer Liqa (Azerbaiyán),3716083,20211106_Shamakhi-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2021-11-07,Sabail,FK Qabala,0.0,2.0,Premyer Liqa (Azerbaiyán),3716081,20211107_Sabail_FK-Qabala,,,,,,,,,,,,,,,,,
+2021-11-07,Sumqayıt,Qarabağ FK,0.0,4.0,Premyer Liqa (Azerbaiyán),3716082,20211107_Sumqayıt_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2021-11-19,Qarabağ FK,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),3716088,20211119_Qarabağ-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2021-11-20,Zira,Sabail,3.0,1.0,Premyer Liqa (Azerbaiyán),3716086,20211120_Zira_Sabail,,,,,,,,,,,,,,,,,
+2021-11-20,FK Neftchi,Sabah FK,1.0,2.0,Premyer Liqa (Azerbaiyán),3716087,20211120_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2021-11-21,FK Qabala,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),3716085,20211121_FK-Qabala_Sumqayıt,,,,,,,,,,,,,,,,,
+2021-11-27,Sabah FK,Shamakhi FK,2.0,1.0,Premyer Liqa (Azerbaiyán),3716091,20211127_Sabah-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2021-11-27,FK Neftchi,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),3716092,20211127_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2021-11-28,Sumqayıt,Zira,0.0,3.0,Premyer Liqa (Azerbaiyán),3716090,20211128_Sumqayıt_Zira,,,,,,,,,,,,,,,,,
+2021-11-29,FK Qabala,Qarabağ FK,0.0,0.0,Premyer Liqa (Azerbaiyán),3716089,20211129_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2021-12-04,Shamakhi FK,Sabail,2.0,2.0,Premyer Liqa (Azerbaiyán),3716095,20211204_Shamakhi-FK_Sabail,,,,,,,,,,,,,,,,,
+2021-12-04,Qarabağ FK,Sabah FK,5.0,1.0,Premyer Liqa (Azerbaiyán),3716096,20211204_Qarabağ-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2021-12-05,FK Neftchi,Sumqayıt,0.0,0.0,Premyer Liqa (Azerbaiyán),3716094,20211205_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2021-12-05,Zira,FK Qabala,1.0,2.0,Premyer Liqa (Azerbaiyán),3716093,20211205_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2021-12-15,FK Qabala,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),3716100,20211215_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2021-12-15,Sumqayıt,Shamakhi FK,1.0,3.0,Premyer Liqa (Azerbaiyán),3716099,20211215_Sumqayıt_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2021-12-16,Sabail,Sabah FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3716097,20211216_Sabail_Sabah-FK,,,,,,,,,,,,,,,,,
+2021-12-16,Qarabağ FK,Zira,2.0,0.0,Premyer Liqa (Azerbaiyán),3716098,20211216_Qarabağ-FK_Zira,,,,,,,,,,,,,,,,,
+2022-02-07,Shamakhi FK,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),3716103,20220207_Shamakhi-FK_Zira,,,,,,,,,,,,,,,,,
+2022-02-07,FK Neftchi,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),3716104,20220207_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-02-08,Sabah FK,FK Qabala,3.0,0.0,Premyer Liqa (Azerbaiyán),3716102,20220208_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-02-08,Sabail,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),3716101,20220208_Sabail_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-02-19,FK Qabala,Sabail,2.0,0.0,Premyer Liqa (Azerbaiyán),3716107,20220219_FK-Qabala_Sabail,,,,,,,,,,,,,,,,,
+2022-02-19,FK Neftchi,Shamakhi FK,3.0,1.0,Premyer Liqa (Azerbaiyán),3716108,20220219_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-02-20,Zira,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),3716106,20220220_Zira_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-02-27,Sabah FK,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),3716111,20220227_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-02-27,Sumqayıt,FK Qabala,0.0,4.0,Premyer Liqa (Azerbaiyán),3716112,20220227_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-02-28,Sabail,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),3716109,20220228_Sabail_Zira,,,,,,,,,,,,,,,,,
+2022-02-28,Shamakhi FK,Qarabağ FK,0.0,0.0,Premyer Liqa (Azerbaiyán),3716110,20220228_Shamakhi-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-03-05,Zira,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),3716115,20220305_Zira_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-03-05,FK Neftchi,Sabail,2.0,0.0,Premyer Liqa (Azerbaiyán),3716116,20220305_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2022-03-06,Shamakhi FK,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3716114,20220306_Shamakhi-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-03-06,Qarabağ FK,FK Qabala,5.0,1.0,Premyer Liqa (Azerbaiyán),3716113,20220306_Qarabağ-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-03-12,Sabail,Shamakhi FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3716119,20220312_Sabail_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-03-12,Sabah FK,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3716120,20220312_Sabah-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-03-13,FK Neftchi,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),3716118,20220313_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-03-14,FK Qabala,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),3716117,20220314_FK-Qabala_Zira,,,,,,,,,,,,,,,,,
+2022-03-18,Shamakhi FK,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),3716123,20220318_Shamakhi-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-03-18,FK Neftchi,FK Qabala,4.0,0.0,Premyer Liqa (Azerbaiyán),3716124,20220318_FK-Neftchi_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-03-19,Sabah FK,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),3716122,20220319_Sabah-FK_Sabail,,,,,,,,,,,,,,,,,
+2022-03-19,Zira,Qarabağ FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3716121,20220319_Zira_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-04-02,Qarabağ FK,Sabail,5.0,1.0,Premyer Liqa (Azerbaiyán),3716128,20220402_Qarabağ-FK_Sabail,,,,,,,,,,,,,,,,,
+2022-04-02,Sumqayıt,Sabah FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3716127,20220402_Sumqayıt_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-04-03,FK Qabala,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3716126,20220403_FK-Qabala_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-04-03,FK Neftchi,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),3716125,20220403_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2022-04-09,Shamakhi FK,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),3716131,20220409_Shamakhi-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-04-09,Sabah FK,Zira,3.0,1.0,Premyer Liqa (Azerbaiyán),3716132,20220409_Sabah-FK_Zira,,,,,,,,,,,,,,,,,
+2022-04-10,Sumqayıt,Qarabağ FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3716130,20220410_Sumqayıt_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-04-10,Sabail,FK Qabala,3.0,0.0,Premyer Liqa (Azerbaiyán),3716129,20220410_Sabail_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-04-15,FK Qabala,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),3716135,20220415_FK-Qabala_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-04-15,Qarabağ FK,Shamakhi FK,8.0,0.0,Premyer Liqa (Azerbaiyán),3716136,20220415_Qarabağ-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-04-16,Zira,Sabail,2.0,1.0,Premyer Liqa (Azerbaiyán),3716134,20220416_Zira_Sabail,,,,,,,,,,,,,,,,,
+2022-04-16,FK Neftchi,Sabah FK,1.0,0.0,Premyer Liqa (Azerbaiyán),3716133,20220416_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-04-24,FK Qabala,Qarabağ FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3716140,20220424_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-04-24,Sabah FK,Shamakhi FK,5.0,1.0,Premyer Liqa (Azerbaiyán),3716137,20220424_Sabah-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-04-24,Sabail,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),3716138,20220424_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-04-24,Sumqayıt,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),3716139,20220424_Sumqayıt_Zira,,,,,,,,,,,,,,,,,
+2022-05-03,Shamakhi FK,Sabail,0.0,0.0,Premyer Liqa (Azerbaiyán),3716143,20220503_Shamakhi-FK_Sabail,,,,,,,,,,,,,,,,,
+2022-05-03,Qarabağ FK,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3716144,20220503_Qarabağ-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-05-04,Zira,FK Qabala,0.0,3.0,Premyer Liqa (Azerbaiyán),3716141,20220504_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-05-04,Sumqayıt,FK Neftchi,0.0,2.0,Premyer Liqa (Azerbaiyán),3716142,20220504_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-05-08,Sabail,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3716147,20220508_Sabail_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-05-08,Qarabağ FK,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),3716148,20220508_Qarabağ-FK_Zira,,,,,,,,,,,,,,,,,
+2022-05-09,Sumqayıt,Shamakhi FK,2.0,0.0,Premyer Liqa (Azerbaiyán),3716145,20220509_Sumqayıt_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-05-09,FK Qabala,FK Neftchi,1.0,0.0,Premyer Liqa (Azerbaiyán),3716146,20220509_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-05-12,Qarabağ FK,Sumqayıt,5.0,0.0,Premyer Liqa (Azerbaiyán),3716105,20220512_Qarabağ-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-05-15,FK Neftchi,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),3716149,20220515_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2022-05-15,Sabah FK,Sumqayıt,2.0,2.0,Premyer Liqa (Azerbaiyán),3716151,20220515_Sabah-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-05-15,Sabail,Qarabağ FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3716152,20220515_Sabail_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-05-15,Shamakhi FK,FK Qabala,0.0,1.0,Premyer Liqa (Azerbaiyán),3716150,20220515_Shamakhi-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-05-21,FK Qabala,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3716154,20220521_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-05-21,Zira,Shamakhi FK,0.0,0.0,Premyer Liqa (Azerbaiyán),3716155,20220521_Zira_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-05-21,Sumqayıt,Sabail,5.0,0.0,Premyer Liqa (Azerbaiyán),3716153,20220521_Sumqayıt_Sabail,,,,,,,,,,,,,,,,,
+2022-05-21,Qarabağ FK,FK Neftchi,4.0,1.0,Premyer Liqa (Azerbaiyán),3716156,20220521_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-08-05,FC Kapaz,Zira,1.0,2.0,Premyer Liqa (Azerbaiyán),3957276,20220805_FC-Kapaz_Zira,,,,,,,,,,,,,,,,,
+2022-08-06,Qarabağ FK,Sabail,3.0,1.0,Premyer Liqa (Azerbaiyán),3957279,20220806_Qarabağ-FK_Sabail,,,,,,,,,,,,,,,,,
+2022-08-07,Shamakhi FK,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),3957277,20220807_Shamakhi-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-08-07,Sabah FK,Sumqayıt,3.0,0.0,Premyer Liqa (Azerbaiyán),3957275,20220807_Sabah-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-08-08,Turan Tovuz,FK Qabala,0.0,2.0,Premyer Liqa (Azerbaiyán),3957278,20220808_Turan-Tovuz_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-08-12,Zira,Sabah FK,1.0,3.0,Premyer Liqa (Azerbaiyán),3958045,20220812_Zira_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-08-13,Sumqayıt,Qarabağ FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3958040,20220813_Sumqayıt_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-08-13,Sabail,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),3958048,20220813_Sabail_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-08-14,FK Qabala,Shamakhi FK,3.0,1.0,Premyer Liqa (Azerbaiyán),3958047,20220814_FK-Qabala_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-08-14,FK Neftchi,FC Kapaz,5.0,2.0,Premyer Liqa (Azerbaiyán),3958046,20220814_FK-Neftchi_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-08-19,Shamakhi FK,Sabail,1.0,1.0,Premyer Liqa (Azerbaiyán),3958041,20220819_Shamakhi-FK_Sabail,,,,,,,,,,,,,,,,,
+2022-08-20,Sabah FK,FK Neftchi,2.0,1.0,Premyer Liqa (Azerbaiyán),3958043,20220820_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-08-21,FC Kapaz,FK Qabala,0.0,3.0,Premyer Liqa (Azerbaiyán),3958042,20220821_FC-Kapaz_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-08-21,Zira,Sumqayıt,0.0,0.0,Premyer Liqa (Azerbaiyán),3958044,20220821_Zira_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-08-26,Sumqayıt,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),3978566,20220826_Sumqayıt_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-08-26,FK Neftchi,Zira,2.0,1.0,Premyer Liqa (Azerbaiyán),3978613,20220826_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2022-08-27,Sabail,FC Kapaz,4.0,1.0,Premyer Liqa (Azerbaiyán),3978568,20220827_Sabail_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-08-27,Qarabağ FK,Shamakhi FK,4.0,0.0,Premyer Liqa (Azerbaiyán),3978567,20220827_Qarabağ-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-08-28,FK Qabala,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3978569,20220828_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-09-01,FC Kapaz,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3978598,20220901_FC-Kapaz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-09-03,Shamakhi FK,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),3978597,20220903_Shamakhi-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-09-03,FK Neftchi,Sumqayıt,3.0,0.0,Premyer Liqa (Azerbaiyán),3978601,20220903_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-09-04,Sabah FK,Sabail,0.0,0.0,Premyer Liqa (Azerbaiyán),3978599,20220904_Sabah-FK_Sabail,,,,,,,,,,,,,,,,,
+2022-09-04,Zira,FK Qabala,2.0,1.0,Premyer Liqa (Azerbaiyán),3978600,20220904_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-09-09,Turan Tovuz,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),3978595,20220909_Turan-Tovuz_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-09-10,FK Qabala,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),3978602,20220910_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-09-10,Sabail,Zira,1.0,2.0,Premyer Liqa (Azerbaiyán),3978593,20220910_Sabail_Zira,,,,,,,,,,,,,,,,,
+2022-09-11,Sumqayıt,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3978596,20220911_Sumqayıt_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-09-11,Qarabağ FK,Sabah FK,4.0,3.0,Premyer Liqa (Azerbaiyán),3978594,20220911_Qarabağ-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-09-16,Sabah FK,Turan Tovuz,3.0,1.0,Premyer Liqa (Azerbaiyán),3978610,20220916_Sabah-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-09-16,Sabail,FK Neftchi,0.0,2.0,Premyer Liqa (Azerbaiyán),3978612,20220916_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-09-17,FK Qabala,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),3978603,20220917_FK-Qabala_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-09-18,FC Kapaz,Shamakhi FK,2.0,1.0,Premyer Liqa (Azerbaiyán),3978609,20220918_FC-Kapaz_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-09-18,Zira,Qarabağ FK,1.0,7.0,Premyer Liqa (Azerbaiyán),3978611,20220918_Zira_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-09-30,Sabail,FK Qabala,1.0,2.0,Premyer Liqa (Azerbaiyán),3978604,20220930_Sabail_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-10-01,Turan Tovuz,Zira,1.0,3.0,Premyer Liqa (Azerbaiyán),3978606,20221001_Turan-Tovuz_Zira,,,,,,,,,,,,,,,,,
+2022-10-01,Qarabağ FK,FK Neftchi,3.0,1.0,Premyer Liqa (Azerbaiyán),3978605,20221001_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-10-02,Shamakhi FK,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3978607,20221002_Shamakhi-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-10-02,Sumqayıt,FC Kapaz,0.0,0.0,Premyer Liqa (Azerbaiyán),3978608,20221002_Sumqayıt_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-10-07,Zira,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),3978578,20221007_Zira_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-10-08,Sabail,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),3978592,20221008_Sabail_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-10-08,FK Neftchi,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),3978579,20221008_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-10-09,FK Qabala,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3978591,20221009_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-10-09,Sabah FK,FC Kapaz,5.0,0.0,Premyer Liqa (Azerbaiyán),3978577,20221009_Sabah-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-10-14,Shamakhi FK,FK Qabala,1.0,1.0,Premyer Liqa (Azerbaiyán),3978574,20221014_Shamakhi-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-10-15,Turan Tovuz,Sabail,2.0,2.0,Premyer Liqa (Azerbaiyán),3978575,20221015_Turan-Tovuz_Sabail,,,,,,,,,,,,,,,,,
+2022-10-15,Sabah FK,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),3978572,20221015_Sabah-FK_Zira,,,,,,,,,,,,,,,,,
+2022-10-16,FC Kapaz,FK Neftchi,0.0,2.0,Premyer Liqa (Azerbaiyán),3978573,20221016_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-10-16,Qarabağ FK,Sumqayıt,3.0,1.0,Premyer Liqa (Azerbaiyán),3978576,20221016_Qarabağ-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-10-20,Qarabağ FK,Turan Tovuz,3.0,0.0,Premyer Liqa (Azerbaiyán),3978589,20221020_Qarabağ-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-10-22,FK Qabala,FC Kapaz,1.0,1.0,Premyer Liqa (Azerbaiyán),3978581,20221022_FK-Qabala_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-10-22,Sumqayıt,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),3978571,20221022_Sumqayıt_Zira,,,,,,,,,,,,,,,,,
+2022-10-23,Sabail,Shamakhi FK,0.0,0.0,Premyer Liqa (Azerbaiyán),3978590,20221023_Sabail_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-10-23,FK Neftchi,Sabah FK,2.0,3.0,Premyer Liqa (Azerbaiyán),3978580,20221023_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-10-28,Turan Tovuz,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),3978588,20221028_Turan-Tovuz_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-10-29,FC Kapaz,Sabail,3.0,0.0,Premyer Liqa (Azerbaiyán),3978586,20221029_FC-Kapaz_Sabail,,,,,,,,,,,,,,,,,
+2022-10-29,Zira,FK Neftchi,0.0,3.0,Premyer Liqa (Azerbaiyán),3978584,20221029_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-10-30,Shamakhi FK,Qarabağ FK,0.0,4.0,Premyer Liqa (Azerbaiyán),3978587,20221030_Shamakhi-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-10-30,Sabah FK,FK Qabala,2.0,1.0,Premyer Liqa (Azerbaiyán),3978585,20221030_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-11-04,Turan Tovuz,Shamakhi FK,1.0,3.0,Premyer Liqa (Azerbaiyán),3978615,20221104_Turan-Tovuz_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-11-05,FK Qabala,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),3978582,20221105_FK-Qabala_Zira,,,,,,,,,,,,,,,,,
+2022-11-05,Sumqayıt,FK Neftchi,2.0,2.0,Premyer Liqa (Azerbaiyán),3978583,20221105_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-11-06,Sabail,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3978570,20221106_Sabail_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-11-06,Qarabağ FK,FC Kapaz,3.0,1.0,Premyer Liqa (Azerbaiyán),3978614,20221106_Qarabağ-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-11-09,Turan Tovuz,Qarabağ FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3958049,20221109_Turan-Tovuz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-11-11,Shamakhi FK,Sumqayıt,4.0,2.0,Premyer Liqa (Azerbaiyán),3978616,20221111_Shamakhi-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-11-12,Zira,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),3978619,20221112_Zira_Sabail,,,,,,,,,,,,,,,,,
+2022-11-12,FK Neftchi,FK Qabala,2.0,0.0,Premyer Liqa (Azerbaiyán),3978620,20221112_FK-Neftchi_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-11-13,FC Kapaz,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),3978617,20221113_FC-Kapaz_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-11-13,Sabah FK,Qarabağ FK,0.0,0.0,Premyer Liqa (Azerbaiyán),3978618,20221113_Sabah-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-11-27,FK Neftchi,Sabail,3.0,1.0,Premyer Liqa (Azerbaiyán),3978622,20221127_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2022-11-28,Shamakhi FK,FC Kapaz,1.0,1.0,Premyer Liqa (Azerbaiyán),3978640,20221128_Shamakhi-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2022-11-28,Qarabağ FK,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),3978638,20221128_Qarabağ-FK_Zira,,,,,,,,,,,,,,,,,
+2022-11-29,Turan Tovuz,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3978639,20221129_Turan-Tovuz_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-11-29,Sumqayıt,FK Qabala,1.0,1.0,Premyer Liqa (Azerbaiyán),3978621,20221129_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-12-02,FK Neftchi,Qarabağ FK,0.0,4.0,Premyer Liqa (Azerbaiyán),3978644,20221202_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-12-03,FK Qabala,Sabail,2.0,1.0,Premyer Liqa (Azerbaiyán),3978645,20221203_FK-Qabala_Sabail,,,,,,,,,,,,,,,,,
+2022-12-03,Sabah FK,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3978642,20221203_Sabah-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-12-04,FC Kapaz,Sumqayıt,0.0,1.0,Premyer Liqa (Azerbaiyán),3978641,20221204_FC-Kapaz_Sumqayıt,,,,,,,,,,,,,,,,,
+2022-12-04,Zira,Turan Tovuz,2.0,1.0,Premyer Liqa (Azerbaiyán),3978643,20221204_Zira_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-12-13,Shamakhi FK,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),3978649,20221213_Shamakhi-FK_Zira,,,,,,,,,,,,,,,,,
+2022-12-13,Qarabağ FK,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),3978647,20221213_Qarabağ-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2022-12-14,FC Kapaz,Sabah FK,2.0,2.0,Premyer Liqa (Azerbaiyán),3978650,20221214_FC-Kapaz_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-12-14,Sumqayıt,Sabail,2.0,0.0,Premyer Liqa (Azerbaiyán),3978646,20221214_Sumqayıt_Sabail,,,,,,,,,,,,,,,,,
+2022-12-15,Turan Tovuz,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),3978648,20221215_Turan-Tovuz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2022-12-23,FK Neftchi,Shamakhi FK,3.0,0.0,Premyer Liqa (Azerbaiyán),3978623,20221223_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2022-12-23,Sumqayıt,Sabah FK,0.0,6.0,Premyer Liqa (Azerbaiyán),3978637,20221223_Sumqayıt_Sabah-FK,,,,,,,,,,,,,,,,,
+2022-12-24,FK Qabala,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),3978624,20221224_FK-Qabala_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2022-12-24,Sabail,Qarabağ FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3978625,20221224_Sabail_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2022-12-25,Zira,FC Kapaz,2.0,2.0,Premyer Liqa (Azerbaiyán),3978636,20221225_Zira_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-01-24,FC Kapaz,FK Qabala,2.0,2.0,Premyer Liqa (Azerbaiyán),3978628,20230124_FC-Kapaz_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-01-25,Turan Tovuz,Qarabağ FK,2.0,3.0,Premyer Liqa (Azerbaiyán),3978630,20230125_Turan-Tovuz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-01-25,Zira,Sumqayıt,3.0,1.0,Premyer Liqa (Azerbaiyán),3978626,20230125_Zira_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-01-26,Shamakhi FK,Sabail,2.0,1.0,Premyer Liqa (Azerbaiyán),3978629,20230126_Shamakhi-FK_Sabail,,,,,,,,,,,,,,,,,
+2023-01-26,Sabah FK,FK Neftchi,2.0,0.0,Premyer Liqa (Azerbaiyán),3978627,20230126_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-01-30,Sumqayıt,Turan Tovuz,2.0,1.0,Premyer Liqa (Azerbaiyán),3978631,20230130_Sumqayıt_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-01-31,Qarabağ FK,Shamakhi FK,3.0,1.0,Premyer Liqa (Azerbaiyán),3978632,20230131_Qarabağ-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-01-31,Sabail,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),3978633,20230131_Sabail_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-02-01,FK Qabala,Sabah FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3978634,20230201_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-02-01,FK Neftchi,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),3978635,20230201_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2023-02-04,FC Kapaz,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3978667,20230204_FC-Kapaz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-02-05,Zira,FK Qabala,2.0,2.0,Premyer Liqa (Azerbaiyán),3978652,20230205_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-02-05,FK Neftchi,Sumqayıt,2.0,0.0,Premyer Liqa (Azerbaiyán),3978651,20230205_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-02-06,Shamakhi FK,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),3978668,20230206_Shamakhi-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-02-06,Sabah FK,Sabail,4.0,0.0,Premyer Liqa (Azerbaiyán),3978666,20230206_Sabah-FK_Sabail,,,,,,,,,,,,,,,,,
+2023-02-10,FK Qabala,FK Neftchi,0.0,0.0,Premyer Liqa (Azerbaiyán),3978673,20230210_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-02-11,Turan Tovuz,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),3978670,20230211_Turan-Tovuz_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-02-11,Qarabağ FK,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3978671,20230211_Qarabağ-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-02-12,Sabail,Zira,2.0,0.0,Premyer Liqa (Azerbaiyán),3978672,20230212_Sabail_Zira,,,,,,,,,,,,,,,,,
+2023-02-12,Sumqayıt,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),3978669,20230212_Sumqayıt_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-02-17,FC Kapaz,Shamakhi FK,3.0,2.0,Premyer Liqa (Azerbaiyán),3978664,20230217_FC-Kapaz_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-02-18,FK Qabala,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),3978674,20230218_FK-Qabala_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-02-18,FK Neftchi,Sabail,3.0,0.0,Premyer Liqa (Azerbaiyán),3978675,20230218_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2023-02-19,Sabah FK,Turan Tovuz,0.0,2.0,Premyer Liqa (Azerbaiyán),3978665,20230219_Sabah-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-02-19,Zira,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3978676,20230219_Zira_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-02-24,Turan Tovuz,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),3978655,20230224_Turan-Tovuz_Zira,,,,,,,,,,,,,,,,,
+2023-02-24,Sabail,FK Qabala,2.0,2.0,Premyer Liqa (Azerbaiyán),3978657,20230224_Sabail_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-02-25,Shamakhi FK,Sabah FK,2.0,1.0,Premyer Liqa (Azerbaiyán),3978654,20230225_Shamakhi-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-02-25,Sumqayıt,FC Kapaz,1.0,2.0,Premyer Liqa (Azerbaiyán),3978653,20230225_Sumqayıt_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-02-27,Qarabağ FK,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),3978656,20230227_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-03-03,Zira,Shamakhi FK,2.0,2.0,Premyer Liqa (Azerbaiyán),3978661,20230303_Zira_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-03-04,Sabail,Sumqayıt,0.0,1.0,Premyer Liqa (Azerbaiyán),3978658,20230304_Sabail_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-03-04,Sabah FK,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),3978662,20230304_Sabah-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-03-05,FK Qabala,Qarabağ FK,1.0,3.0,Premyer Liqa (Azerbaiyán),3978659,20230305_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-03-05,FK Neftchi,Turan Tovuz,4.0,0.0,Premyer Liqa (Azerbaiyán),3978660,20230305_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-03-10,FC Kapaz,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),3978677,20230310_FC-Kapaz_Zira,,,,,,,,,,,,,,,,,
+2023-03-10,Sabah FK,Sumqayıt,4.0,0.0,Premyer Liqa (Azerbaiyán),3978663,20230310_Sabah-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-03-11,Turan Tovuz,FK Qabala,1.0,1.0,Premyer Liqa (Azerbaiyán),3978679,20230311_Turan-Tovuz_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-03-11,Qarabağ FK,Sabail,3.0,0.0,Premyer Liqa (Azerbaiyán),3978680,20230311_Qarabağ-FK_Sabail,,,,,,,,,,,,,,,,,
+2023-03-12,Shamakhi FK,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),3978678,20230312_Shamakhi-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-03-15,Sumqayıt,Qarabağ FK,0.0,6.0,Premyer Liqa (Azerbaiyán),3978681,20230315_Sumqayıt_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-03-15,Zira,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3978716,20230315_Zira_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-03-16,Sabail,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),3978682,20230316_Sabail_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-03-16,FK Neftchi,FC Kapaz,2.0,2.0,Premyer Liqa (Azerbaiyán),3978728,20230316_FK-Neftchi_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-03-17,FK Qabala,Shamakhi FK,2.0,0.0,Premyer Liqa (Azerbaiyán),3978683,20230317_FK-Qabala_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-03-31,Turan Tovuz,Sumqayıt,2.0,3.0,Premyer Liqa (Azerbaiyán),3978715,20230331_Turan-Tovuz_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-04-01,FC Kapaz,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),3978713,20230401_FC-Kapaz_Sabail,,,,,,,,,,,,,,,,,
+2023-04-01,Zira,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),3978711,20230401_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-04-02,Shamakhi FK,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),3978714,20230402_Shamakhi-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-04-02,Sabah FK,FK Qabala,3.0,2.0,Premyer Liqa (Azerbaiyán),3978712,20230402_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-04-07,FK Qabala,Zira,2.0,1.0,Premyer Liqa (Azerbaiyán),3978709,20230407_FK-Qabala_Zira,,,,,,,,,,,,,,,,,
+2023-04-08,Sabail,Sabah FK,2.0,1.0,Premyer Liqa (Azerbaiyán),3978708,20230408_Sabail_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-04-08,Sumqayıt,FK Neftchi,0.0,4.0,Premyer Liqa (Azerbaiyán),3978710,20230408_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-04-09,Turan Tovuz,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3978718,20230409_Turan-Tovuz_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-04-09,Qarabağ FK,FC Kapaz,3.0,1.0,Premyer Liqa (Azerbaiyán),3978717,20230409_Qarabağ-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-04-14,Zira,Sabail,3.0,1.0,Premyer Liqa (Azerbaiyán),3978724,20230414_Zira_Sabail,,,,,,,,,,,,,,,,,
+2023-04-14,FK Neftchi,FK Qabala,1.0,2.0,Premyer Liqa (Azerbaiyán),3978723,20230414_FK-Neftchi_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-04-15,FC Kapaz,Turan Tovuz,1.0,0.0,Premyer Liqa (Azerbaiyán),3978726,20230415_FC-Kapaz_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-04-16,Shamakhi FK,Sumqayıt,0.0,0.0,Premyer Liqa (Azerbaiyán),3978727,20230416_Shamakhi-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-04-16,Sabah FK,Qarabağ FK,2.0,1.0,Premyer Liqa (Azerbaiyán),3978725,20230416_Sabah-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-04-21,Shamakhi FK,FC Kapaz,1.0,1.0,Premyer Liqa (Azerbaiyán),3978707,20230421_Shamakhi-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-04-21,Qarabağ FK,Zira,2.0,2.0,Premyer Liqa (Azerbaiyán),3978720,20230421_Qarabağ-FK_Zira,,,,,,,,,,,,,,,,,
+2023-04-22,Turan Tovuz,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),3978719,20230422_Turan-Tovuz_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-04-22,Sabail,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),3978721,20230422_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-04-23,Sumqayıt,FK Qabala,2.0,3.0,Premyer Liqa (Azerbaiyán),3978722,20230423_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-04-29,FC Kapaz,Sumqayıt,0.0,1.0,Premyer Liqa (Azerbaiyán),3978706,20230429_FC-Kapaz_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-04-29,Sabah FK,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),3978705,20230429_Sabah-FK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-05-01,FK Qabala,Sabail,4.0,2.0,Premyer Liqa (Azerbaiyán),3978691,20230501_FK-Qabala_Sabail,,,,,,,,,,,,,,,,,
+2023-05-01,Zira,Turan Tovuz,1.0,3.0,Premyer Liqa (Azerbaiyán),3978693,20230501_Zira_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-05-02,FK Neftchi,Qarabağ FK,2.0,4.0,Premyer Liqa (Azerbaiyán),3978692,20230502_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-05-05,FC Kapaz,Sabah FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3978686,20230505_FC-Kapaz_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-05-06,Shamakhi FK,Zira,0.0,3.0,Premyer Liqa (Azerbaiyán),3978687,20230506_Shamakhi-FK_Zira,,,,,,,,,,,,,,,,,
+2023-05-07,Turan Tovuz,FK Neftchi,4.0,0.0,Premyer Liqa (Azerbaiyán),3978688,20230507_Turan-Tovuz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-05-07,Sumqayıt,Sabail,1.0,3.0,Premyer Liqa (Azerbaiyán),3978690,20230507_Sumqayıt_Sabail,,,,,,,,,,,,,,,,,
+2023-05-08,Qarabağ FK,FK Qabala,3.0,0.0,Premyer Liqa (Azerbaiyán),3978689,20230508_Qarabağ-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-05-12,Zira,FC Kapaz,1.0,1.0,Premyer Liqa (Azerbaiyán),3978694,20230512_Zira_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-05-13,FK Qabala,Turan Tovuz,1.0,2.0,Premyer Liqa (Azerbaiyán),3978704,20230513_FK-Qabala_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-05-13,Sabail,Qarabağ FK,0.0,3.0,Premyer Liqa (Azerbaiyán),3978703,20230513_Sabail_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-05-14,FK Neftchi,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),3978695,20230514_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-05-17,Sumqayıt,Sabah FK,0.0,4.0,Premyer Liqa (Azerbaiyán),3978685,20230517_Sumqayıt_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-05-21,FC Kapaz,FK Neftchi,1.0,3.0,Premyer Liqa (Azerbaiyán),3978700,20230521_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-05-22,Qarabağ FK,Sumqayıt,1.0,2.0,Premyer Liqa (Azerbaiyán),3978702,20230522_Qarabağ-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-05-22,Sabah FK,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),3978698,20230522_Sabah-FK_Zira,,,,,,,,,,,,,,,,,
+2023-05-22,Shamakhi FK,FK Qabala,0.0,0.0,Premyer Liqa (Azerbaiyán),3978699,20230522_Shamakhi-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-05-22,Turan Tovuz,Sabail,2.0,2.0,Premyer Liqa (Azerbaiyán),3978701,20230522_Turan-Tovuz_Sabail,,,,,,,,,,,,,,,,,
+2023-05-27,FK Qabala,FC Kapaz,1.0,1.0,Premyer Liqa (Azerbaiyán),3978684,20230527_FK-Qabala_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-05-27,Sumqayıt,Zira,0.0,3.0,Premyer Liqa (Azerbaiyán),3978697,20230527_Sumqayıt_Zira,,,,,,,,,,,,,,,,,
+2023-05-27,Sabail,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),3978729,20230527_Sabail_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2023-05-28,FK Neftchi,Sabah FK,1.0,0.0,Premyer Liqa (Azerbaiyán),3978696,20230528_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-05-28,Qarabağ FK,Turan Tovuz,3.0,1.0,Premyer Liqa (Azerbaiyán),3978730,20230528_Qarabağ-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-08-04,Araz PFK,Turan Tovuz,0.0,3.0,Premyer Liqa (Azerbaiyán),4256323,20230804_Araz-PFK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-08-05,Sabail,Sumqayıt,1.0,4.0,Premyer Liqa (Azerbaiyán),4256326,20230805_Sabail_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-08-05,Qarabağ FK,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4256324,20230805_Qarabağ-FK_Zira,,,,,,,,,,,,,,,,,
+2023-08-06,FC Kapaz,FK Neftchi,1.0,0.0,Premyer Liqa (Azerbaiyán),4256325,20230806_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-08-06,Sabah FK,FK Qabala,5.0,0.0,Premyer Liqa (Azerbaiyán),4256347,20230806_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-08-12,Araz PFK,FK Qabala,2.0,0.0,Premyer Liqa (Azerbaiyán),4256327,20230812_Araz-PFK_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-08-12,Zira,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),4256330,20230812_Zira_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-08-13,Qarabağ FK,Turan Tovuz,3.0,0.0,Premyer Liqa (Azerbaiyán),4256346,20230813_Qarabağ-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-08-14,FK Neftchi,Sabail,1.0,1.0,Premyer Liqa (Azerbaiyán),4256329,20230814_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2023-08-18,FC Kapaz,Turan Tovuz,0.0,2.0,Premyer Liqa (Azerbaiyán),4256344,20230818_FC-Kapaz_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-08-19,FK Qabala,Sumqayıt,1.0,2.0,Premyer Liqa (Azerbaiyán),4256341,20230819_FK-Qabala_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-08-19,Sabail,Zira,1.0,2.0,Premyer Liqa (Azerbaiyán),4256343,20230819_Sabail_Zira,,,,,,,,,,,,,,,,,
+2023-08-20,Qarabağ FK,Araz PFK,2.0,1.0,Premyer Liqa (Azerbaiyán),4256345,20230820_Qarabağ-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-08-20,Sabah FK,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),4256342,20230820_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-08-25,Araz PFK,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4256340,20230825_Araz-PFK_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-08-26,Turan Tovuz,Sabail,1.0,3.0,Premyer Liqa (Azerbaiyán),4256337,20230826_Turan-Tovuz_Sabail,,,,,,,,,,,,,,,,,
+2023-08-26,Zira,Sabah FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4256338,20230826_Zira_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-08-27,FK Neftchi,FK Qabala,2.0,0.0,Premyer Liqa (Azerbaiyán),4256339,20230827_FK-Neftchi_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-08-27,Qarabağ FK,FC Kapaz,1.0,1.0,Premyer Liqa (Azerbaiyán),4256336,20230827_Qarabağ-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-09-01,Sabah FK,Turan Tovuz,0.0,3.0,Premyer Liqa (Azerbaiyán),4256333,20230901_Sabah-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-09-02,FK Qabala,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),4256332,20230902_FK-Qabala_Zira,,,,,,,,,,,,,,,,,
+2023-09-02,Sumqayıt,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),4256331,20230902_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-09-03,FC Kapaz,Araz PFK,1.0,2.0,Premyer Liqa (Azerbaiyán),4256335,20230903_FC-Kapaz_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-09-03,Sabail,Qarabağ FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4256334,20230903_Sabail_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-09-15,Zira,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4266983,20230915_Zira_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-09-16,FC Kapaz,Sabail,0.0,3.0,Premyer Liqa (Azerbaiyán),4266986,20230916_FC-Kapaz_Sabail,,,,,,,,,,,,,,,,,
+2023-09-16,Araz PFK,FK Neftchi,1.0,0.0,Premyer Liqa (Azerbaiyán),4266969,20230916_Araz-PFK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-09-17,Turan Tovuz,FK Qabala,2.0,2.0,Premyer Liqa (Azerbaiyán),4266984,20230917_Turan-Tovuz_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-09-17,Qarabağ FK,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4266985,20230917_Qarabağ-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-09-23,Sumqayıt,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),4266990,20230923_Sumqayıt_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-09-23,Zira,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),4266991,20230923_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-09-24,Sabah FK,FC Kapaz,2.0,2.0,Premyer Liqa (Azerbaiyán),4266988,20230924_Sabah-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-09-24,Sabail,Araz PFK,1.0,0.0,Premyer Liqa (Azerbaiyán),4266987,20230924_Sabail_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-09-25,FK Qabala,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4266989,20230925_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-09-29,Qarabağ FK,Sumqayıt,5.0,0.0,Premyer Liqa (Azerbaiyán),4266982,20230929_Qarabağ-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-09-30,Turan Tovuz,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),4266993,20230930_Turan-Tovuz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-09-30,Sabail,Sabah FK,2.0,2.0,Premyer Liqa (Azerbaiyán),4266970,20230930_Sabail_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-10-01,FC Kapaz,FK Qabala,0.0,1.0,Premyer Liqa (Azerbaiyán),4266981,20231001_FC-Kapaz_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-10-01,Araz PFK,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),4266992,20231001_Araz-PFK_Zira,,,,,,,,,,,,,,,,,
+2023-10-06,Zira,Turan Tovuz,2.0,1.0,Premyer Liqa (Azerbaiyán),4266975,20231006_Zira_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-10-07,FK Qabala,Sabail,0.0,1.0,Premyer Liqa (Azerbaiyán),4266972,20231007_FK-Qabala_Sabail,,,,,,,,,,,,,,,,,
+2023-10-07,Sabah FK,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4266971,20231007_Sabah-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-10-08,Sumqayıt,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),4266973,20231008_Sumqayıt_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-10-08,FK Neftchi,Qarabağ FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4266974,20231008_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-10-20,Turan Tovuz,Qarabağ FK,2.0,2.0,Premyer Liqa (Azerbaiyán),4266980,20231020_Turan-Tovuz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-10-20,Sabail,FK Neftchi,2.0,4.0,Premyer Liqa (Azerbaiyán),4266978,20231020_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-10-21,FC Kapaz,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),4266979,20231021_FC-Kapaz_Zira,,,,,,,,,,,,,,,,,
+2023-10-21,Sabah FK,Sumqayıt,3.0,1.0,Premyer Liqa (Azerbaiyán),4266977,20231021_Sabah-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-10-22,FK Qabala,Araz PFK,1.0,4.0,Premyer Liqa (Azerbaiyán),4266976,20231022_FK-Qabala_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-10-25,Sumqayıt,Sabah FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4256328,20231025_Sumqayıt_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-10-28,Zira,Sabail,2.0,2.0,Premyer Liqa (Azerbaiyán),4267008,20231028_Zira_Sabail,,,,,,,,,,,,,,,,,
+2023-10-28,Turan Tovuz,FC Kapaz,4.0,0.0,Premyer Liqa (Azerbaiyán),4266995,20231028_Turan-Tovuz_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-10-29,Sumqayıt,FK Qabala,0.0,0.0,Premyer Liqa (Azerbaiyán),4267010,20231029_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-10-29,FK Neftchi,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4267009,20231029_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-10-30,Araz PFK,Qarabağ FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4266994,20231030_Araz-PFK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-11-03,Sabail,Turan Tovuz,2.0,1.0,Premyer Liqa (Azerbaiyán),4267014,20231103_Sabail_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-11-04,Qarabağ FK,FC Kapaz,7.0,1.0,Premyer Liqa (Azerbaiyán),4267015,20231104_Qarabağ-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-11-04,Sumqayıt,Araz PFK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267011,20231104_Sumqayıt_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-11-05,FK Qabala,FK Neftchi,0.0,2.0,Premyer Liqa (Azerbaiyán),4267012,20231105_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-11-05,Sabah FK,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4267013,20231105_Sabah-FK_Zira,,,,,,,,,,,,,,,,,
+2023-11-10,Araz PFK,FC Kapaz,0.0,1.0,Premyer Liqa (Azerbaiyán),4267016,20231110_Araz-PFK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-11-11,FK Neftchi,Sumqayıt,1.0,2.0,Premyer Liqa (Azerbaiyán),4266996,20231111_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-11-11,Turan Tovuz,Sabah FK,2.0,3.0,Premyer Liqa (Azerbaiyán),4267006,20231111_Turan-Tovuz_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-11-12,Zira,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4267005,20231112_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-11-12,Qarabağ FK,Sabail,3.0,1.0,Premyer Liqa (Azerbaiyán),4267007,20231112_Qarabağ-FK_Sabail,,,,,,,,,,,,,,,,,
+2023-11-24,Sabah FK,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4267000,20231124_Sabah-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-11-25,Sabail,FC Kapaz,0.0,0.0,Premyer Liqa (Azerbaiyán),4267001,20231125_Sabail_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-11-25,FK Qabala,Turan Tovuz,4.0,0.0,Premyer Liqa (Azerbaiyán),4266999,20231125_FK-Qabala_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-11-26,FK Neftchi,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4266997,20231126_FK-Neftchi_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-11-26,Sumqayıt,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),4266998,20231126_Sumqayıt_Zira,,,,,,,,,,,,,,,,,
+2023-12-02,Araz PFK,Sabail,1.0,1.0,Premyer Liqa (Azerbaiyán),4267002,20231202_Araz-PFK_Sabail,,,,,,,,,,,,,,,,,
+2023-12-02,Turan Tovuz,Sumqayıt,2.0,2.0,Premyer Liqa (Azerbaiyán),4267017,20231202_Turan-Tovuz_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-12-03,FC Kapaz,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4267003,20231203_FC-Kapaz_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-12-03,FK Neftchi,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),4267018,20231203_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2023-12-04,Qarabağ FK,FK Qabala,3.0,0.0,Premyer Liqa (Azerbaiyán),4267004,20231204_Qarabağ-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-12-08,Sumqayıt,Qarabağ FK,1.0,6.0,Premyer Liqa (Azerbaiyán),4267032,20231208_Sumqayıt_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2023-12-09,FK Qabala,FC Kapaz,0.0,3.0,Premyer Liqa (Azerbaiyán),4267033,20231209_FK-Qabala_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-12-09,Zira,Araz PFK,0.0,0.0,Premyer Liqa (Azerbaiyán),4267030,20231209_Zira_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-12-10,Sabah FK,Sabail,4.0,0.0,Premyer Liqa (Azerbaiyán),4267034,20231210_Sabah-FK_Sabail,,,,,,,,,,,,,,,,,
+2023-12-10,FK Neftchi,Turan Tovuz,3.0,2.0,Premyer Liqa (Azerbaiyán),4267031,20231210_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2023-12-14,FC Kapaz,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4267037,20231214_FC-Kapaz_Sumqayıt,,,,,,,,,,,,,,,,,
+2023-12-15,Sabail,FK Qabala,3.0,0.0,Premyer Liqa (Azerbaiyán),4267036,20231215_Sabail_FK-Qabala,,,,,,,,,,,,,,,,,
+2023-12-15,Araz PFK,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267035,20231215_Araz-PFK_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-12-16,Turan Tovuz,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),4267029,20231216_Turan-Tovuz_Zira,,,,,,,,,,,,,,,,,
+2023-12-18,Qarabağ FK,FK Neftchi,2.0,0.0,Premyer Liqa (Azerbaiyán),4267038,20231218_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2023-12-22,FK Qabala,Sabah FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4267022,20231222_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2023-12-23,Sumqayıt,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),4267021,20231223_Sumqayıt_Sabail,,,,,,,,,,,,,,,,,
+2023-12-24,Turan Tovuz,Araz PFK,3.0,1.0,Premyer Liqa (Azerbaiyán),4267028,20231224_Turan-Tovuz_Araz-PFK,,,,,,,,,,,,,,,,,
+2023-12-24,FK Neftchi,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),4267020,20231224_FK-Neftchi_FC-Kapaz,,,,,,,,,,,,,,,,,
+2023-12-24,Zira,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4267019,20231224_Zira_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-01-21,Sabah FK,FK Neftchi,0.0,0.0,Premyer Liqa (Azerbaiyán),4267026,20240121_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-01-22,Sabail,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),4267025,20240122_Sabail_Zira,,,,,,,,,,,,,,,,,
+2024-01-22,FC Kapaz,Turan Tovuz,2.0,1.0,Premyer Liqa (Azerbaiyán),4267024,20240122_FC-Kapaz_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-01-23,FK Qabala,Sumqayıt,0.0,1.0,Premyer Liqa (Azerbaiyán),4267027,20240123_FK-Qabala_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-01-23,Qarabağ FK,Araz PFK,3.0,1.0,Premyer Liqa (Azerbaiyán),4267023,20240123_Qarabağ-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-01-26,Turan Tovuz,Sabail,3.0,1.0,Premyer Liqa (Azerbaiyán),4267056,20240126_Turan-Tovuz_Sabail,,,,,,,,,,,,,,,,,
+2024-01-27,FC Kapaz,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4267057,20240127_FC-Kapaz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-01-27,Zira,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4267055,20240127_Zira_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-01-28,Araz PFK,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4267039,20240128_Araz-PFK_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-01-28,FK Neftchi,FK Qabala,3.0,1.0,Premyer Liqa (Azerbaiyán),4267040,20240128_FK-Neftchi_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-02-03,Sabail,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4267059,20240203_Sabail_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-02-03,Sabah FK,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4267060,20240203_Sabah-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-02-04,Sumqayıt,FK Neftchi,2.0,1.0,Premyer Liqa (Azerbaiyán),4267062,20240204_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-02-04,FK Qabala,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),4267061,20240204_FK-Qabala_Zira,,,,,,,,,,,,,,,,,
+2024-02-05,FC Kapaz,Araz PFK,3.0,1.0,Premyer Liqa (Azerbaiyán),4267058,20240205_FC-Kapaz_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-02-11,Qarabağ FK,Sabah FK,3.0,3.0,Premyer Liqa (Azerbaiyán),4267054,20240211_Qarabağ-FK_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-02-12,FC Kapaz,Sabail,1.0,4.0,Premyer Liqa (Azerbaiyán),4267053,20240212_FC-Kapaz_Sabail,,,,,,,,,,,,,,,,,
+2024-02-13,Turan Tovuz,FK Qabala,2.0,1.0,Premyer Liqa (Azerbaiyán),4267065,20240213_Turan-Tovuz_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-02-13,Zira,Sumqayıt,0.0,0.0,Premyer Liqa (Azerbaiyán),4267064,20240213_Zira_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-02-13,Araz PFK,FK Neftchi,1.0,0.0,Premyer Liqa (Azerbaiyán),4267063,20240213_Araz-PFK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-02-17,Sabah FK,FC Kapaz,3.0,2.0,Premyer Liqa (Azerbaiyán),4267041,20240217_Sabah-FK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-02-17,Sabail,Araz PFK,2.0,2.0,Premyer Liqa (Azerbaiyán),4267052,20240217_Sabail_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-02-18,Sumqayıt,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),4267043,20240218_Sumqayıt_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-02-18,FK Neftchi,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),4267044,20240218_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2024-02-23,FC Kapaz,FK Qabala,2.0,1.0,Premyer Liqa (Azerbaiyán),4267048,20240223_FC-Kapaz_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-02-24,Turan Tovuz,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),4267046,20240224_Turan-Tovuz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-02-24,Sabail,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267049,20240224_Sabail_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-02-25,Araz PFK,Zira,0.0,3.0,Premyer Liqa (Azerbaiyán),4267045,20240225_Araz-PFK_Zira,,,,,,,,,,,,,,,,,
+2024-02-25,Qarabağ FK,Sumqayıt,2.0,0.0,Premyer Liqa (Azerbaiyán),4267047,20240225_Qarabağ-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-02-28,FK Qabala,Qarabağ FK,0.0,4.0,Premyer Liqa (Azerbaiyán),4267042,20240228_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-03-01,Sumqayıt,FC Kapaz,1.0,3.0,Premyer Liqa (Azerbaiyán),4267066,20240301_Sumqayıt_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-03-02,Zira,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4267081,20240302_Zira_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-03-02,Sabah FK,Araz PFK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267050,20240302_Sabah-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-03-03,FK Qabala,Sabail,2.0,3.0,Premyer Liqa (Azerbaiyán),4267051,20240303_FK-Qabala_Sabail,,,,,,,,,,,,,,,,,
+2024-03-03,FK Neftchi,Qarabağ FK,1.0,4.0,Premyer Liqa (Azerbaiyán),4267067,20240303_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-03-08,Sabail,Sumqayıt,0.0,1.0,Premyer Liqa (Azerbaiyán),4267077,20240308_Sabail_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-03-09,FC Kapaz,FK Neftchi,3.0,3.0,Premyer Liqa (Azerbaiyán),4267078,20240309_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-03-09,Sabah FK,FK Qabala,2.0,1.0,Premyer Liqa (Azerbaiyán),4267076,20240309_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-03-10,Turan Tovuz,Araz PFK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267080,20240310_Turan-Tovuz_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-03-10,Qarabağ FK,Zira,3.0,1.0,Premyer Liqa (Azerbaiyán),4267079,20240310_Qarabağ-FK_Zira,,,,,,,,,,,,,,,,,
+2024-03-15,FK Neftchi,Sabail,3.0,0.0,Premyer Liqa (Azerbaiyán),4267073,20240315_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2024-03-16,Zira,FC Kapaz,2.0,1.0,Premyer Liqa (Azerbaiyán),4267072,20240316_Zira_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-03-16,Araz PFK,FK Qabala,1.0,1.0,Premyer Liqa (Azerbaiyán),4267075,20240316_Araz-PFK_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-03-17,Turan Tovuz,Qarabağ FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4267071,20240317_Turan-Tovuz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-03-17,Sumqayıt,Sabah FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4267074,20240317_Sumqayıt_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-03-29,FK Qabala,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),4267069,20240329_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-03-29,FC Kapaz,Qarabağ FK,1.0,6.0,Premyer Liqa (Azerbaiyán),4267083,20240329_FC-Kapaz_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-03-30,Sabail,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4267082,20240330_Sabail_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-03-30,Sabah FK,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4267068,20240330_Sabah-FK_Zira,,,,,,,,,,,,,,,,,
+2024-03-31,Sumqayıt,Araz PFK,1.0,0.0,Premyer Liqa (Azerbaiyán),4267070,20240331_Sumqayıt_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-04-05,Araz PFK,FC Kapaz,1.0,2.0,Premyer Liqa (Azerbaiyán),4267101,20240405_Araz-PFK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-04-06,Turan Tovuz,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267103,20240406_Turan-Tovuz_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-04-06,Qarabağ FK,Sabail,4.0,2.0,Premyer Liqa (Azerbaiyán),4267102,20240406_Qarabağ-FK_Sabail,,,,,,,,,,,,,,,,,
+2024-04-07,Zira,FK Qabala,4.0,0.0,Premyer Liqa (Azerbaiyán),4267104,20240407_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-04-07,FK Neftchi,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4267105,20240407_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-04-12,Sumqayıt,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),4267107,20240412_Sumqayıt_Zira,,,,,,,,,,,,,,,,,
+2024-04-13,FK Qabala,Turan Tovuz,1.0,2.0,Premyer Liqa (Azerbaiyán),4267108,20240413_FK-Qabala_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-04-13,FK Neftchi,Araz PFK,3.0,0.0,Premyer Liqa (Azerbaiyán),4267106,20240413_FK-Neftchi_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-04-14,Sabail,FC Kapaz,3.0,3.0,Premyer Liqa (Azerbaiyán),4267110,20240414_Sabail_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-04-14,Sabah FK,Qarabağ FK,3.0,2.0,Premyer Liqa (Azerbaiyán),4267109,20240414_Sabah-FK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-04-19,Turan Tovuz,Sumqayıt,1.0,4.0,Premyer Liqa (Azerbaiyán),4267114,20240419_Turan-Tovuz_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-04-20,Qarabağ FK,FK Qabala,2.0,2.0,Premyer Liqa (Azerbaiyán),4267113,20240420_Qarabağ-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-04-20,Zira,FK Neftchi,3.0,1.0,Premyer Liqa (Azerbaiyán),4267100,20240420_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-04-21,FC Kapaz,Sabah FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4267112,20240421_FC-Kapaz_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-04-21,Araz PFK,Sabail,0.0,2.0,Premyer Liqa (Azerbaiyán),4267111,20240421_Araz-PFK_Sabail,,,,,,,,,,,,,,,,,
+2024-04-27,Sabah FK,Sabail,2.0,0.0,Premyer Liqa (Azerbaiyán),4267086,20240427_Sabah-FK_Sabail,,,,,,,,,,,,,,,,,
+2024-04-28,FK Qabala,FC Kapaz,0.0,1.0,Premyer Liqa (Azerbaiyán),4267085,20240428_FK-Qabala_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-04-28,FK Neftchi,Turan Tovuz,3.0,0.0,Premyer Liqa (Azerbaiyán),4267098,20240428_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-04-28,Sumqayıt,Qarabağ FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4267084,20240428_Sumqayıt_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-04-29,Zira,Araz PFK,0.0,1.0,Premyer Liqa (Azerbaiyán),4267099,20240429_Zira_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-05-04,FC Kapaz,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4267089,20240504_FC-Kapaz_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-05-04,Qarabağ FK,FK Neftchi,5.0,0.0,Premyer Liqa (Azerbaiyán),4267090,20240504_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-05-05,Turan Tovuz,Zira,1.0,2.0,Premyer Liqa (Azerbaiyán),4267091,20240505_Turan-Tovuz_Zira,,,,,,,,,,,,,,,,,
+2024-05-05,Araz PFK,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4267087,20240505_Araz-PFK_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-05-06,Sabail,FK Qabala,2.0,3.0,Premyer Liqa (Azerbaiyán),4267088,20240506_Sabail_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-05-10,FK Neftchi,FC Kapaz,5.0,1.0,Premyer Liqa (Azerbaiyán),4267094,20240510_FK-Neftchi_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-05-11,Araz PFK,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),4267092,20240511_Araz-PFK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-05-11,Zira,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4267093,20240511_Zira_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-05-12,FK Qabala,Sabah FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267096,20240512_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-05-12,Sumqayıt,Sabail,2.0,1.0,Premyer Liqa (Azerbaiyán),4267095,20240512_Sumqayıt_Sabail,,,,,,,,,,,,,,,,,
+2024-05-17,Qarabağ FK,Turan Tovuz,4.0,3.0,Premyer Liqa (Azerbaiyán),4267118,20240517_Qarabağ-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-05-18,FC Kapaz,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4267117,20240518_FC-Kapaz_Zira,,,,,,,,,,,,,,,,,
+2024-05-18,Sabah FK,Sumqayıt,2.0,0.0,Premyer Liqa (Azerbaiyán),4267115,20240518_Sabah-FK_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-05-18,Sabail,FK Neftchi,0.0,3.0,Premyer Liqa (Azerbaiyán),4267116,20240518_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-05-19,FK Qabala,Araz PFK,2.0,0.0,Premyer Liqa (Azerbaiyán),4267097,20240519_FK-Qabala_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-05-25,FK Neftchi,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4267122,20240525_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-05-25,Sumqayıt,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4267123,20240525_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2024-05-25,Zira,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),4267121,20240525_Zira_Sabail,,,,,,,,,,,,,,,,,
+2024-05-26,Turan Tovuz,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),4267120,20240526_Turan-Tovuz_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-05-26,Araz PFK,Qarabağ FK,2.0,2.0,Premyer Liqa (Azerbaiyán),4267119,20240526_Araz-PFK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-08-02,Araz PFK,Qarabağ FK,1.0,4.0,Premyer Liqa (Azerbaiyán),4560589,20240802_Araz-PFK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-08-03,FK Neftchi,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),4560591,20240803_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-08-03,Sumqayıt,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),4560592,20240803_Sumqayıt_FC-Kapaz,7.0,4.0,2.0,3.0,0.0,0.0,5.0,2.0,,,,,65.0,35.0,,,flashscore
+2024-08-04,Sabah FK,Shamakhi FK,2.0,2.0,Premyer Liqa (Azerbaiyán),4560593,20240804_Sabah-FK_Shamakhi-FK,6.0,3.0,1.0,1.0,0.0,0.0,4.0,2.0,,,,,54.0,46.0,,,flashscore
+2024-08-04,Zira,Sabail,4.0,1.0,Premyer Liqa (Azerbaiyán),4560590,20240804_Zira_Sabail,9.0,4.0,0.0,2.0,0.0,0.0,4.0,1.0,,,,,58.0,42.0,,,flashscore
+2024-08-09,Qarabağ FK,FC Kapaz,3.0,0.0,Premyer Liqa (Azerbaiyán),4572503,20240809_Qarabağ-FK_FC-Kapaz,15.0,1.0,0.0,6.0,0.0,1.0,22.0,1.0,,,,,65.0,35.0,,,flashscore
+2024-08-10,Araz PFK,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4572507,20240810_Araz-PFK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2024-08-10,Sabail,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),4572505,20240810_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-08-11,Turan Tovuz,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4572504,20240811_Turan-Tovuz_Sumqayıt,4.0,7.0,4.0,2.0,0.0,0.0,3.0,2.0,,,,,42.0,58.0,,,flashscore
+2024-08-11,Sabah FK,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),4572506,20240811_Sabah-FK_Zira,2.0,2.0,1.0,3.0,0.0,0.0,1.0,3.0,,,,,56.0,44.0,,,flashscore
+2024-08-17,FC Kapaz,Turan Tovuz,0.0,3.0,Premyer Liqa (Azerbaiyán),4572512,20240817_FC-Kapaz_Turan-Tovuz,6.0,3.0,4.0,2.0,0.0,0.0,3.0,4.0,,,,,51.0,49.0,,,flashscore
+2024-08-17,Sumqayıt,Sabail,2.0,1.0,Premyer Liqa (Azerbaiyán),4572511,20240817_Sumqayıt_Sabail,6.0,2.0,3.0,0.0,0.0,0.0,4.0,2.0,,,,,55.0,45.0,,,flashscore
+2024-08-18,FK Neftchi,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4572510,20240818_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-08-23,Sabail,FC Kapaz,4.0,0.0,Premyer Liqa (Azerbaiyán),4572514,20240823_Sabail_FC-Kapaz,2.0,1.0,1.0,2.0,0.0,0.0,9.0,2.0,,,,,60.0,40.0,,,flashscore
+2024-08-24,Qarabağ FK,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),4572513,20240824_Qarabağ-FK_Turan-Tovuz,9.0,4.0,3.0,2.0,0.0,0.0,2.0,5.0,,,,,50.0,50.0,,,flashscore
+2024-08-24,Araz PFK,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),4572535,20240824_Araz-PFK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-08-25,Sabah FK,Sumqayıt,3.0,1.0,Premyer Liqa (Azerbaiyán),4572526,20240825_Sabah-FK_Sumqayıt,8.0,3.0,2.0,1.0,0.0,0.0,8.0,3.0,,,,,50.0,50.0,,,flashscore
+2024-08-25,Zira,Shamakhi FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572534,20240825_Zira_Shamakhi-FK,10.0,4.0,2.0,3.0,0.0,0.0,4.0,1.0,,,,,59.0,41.0,,,flashscore
+2024-08-30,Turan Tovuz,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),4572529,20240830_Turan-Tovuz_Sabail,2.0,7.0,2.0,3.0,0.0,0.0,8.0,0.0,,,,,46.0,54.0,,,flashscore
+2024-08-30,Sumqayıt,Araz PFK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572531,20240830_Sumqayıt_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-08-31,Shamakhi FK,FK Neftchi,0.0,0.0,Premyer Liqa (Azerbaiyán),4572532,20240831_Shamakhi-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-08-31,FC Kapaz,Sabah FK,2.0,3.0,Premyer Liqa (Azerbaiyán),4572530,20240831_FC-Kapaz_Sabah-FK,0.0,5.0,3.0,2.0,0.0,0.0,3.0,9.0,,,,,38.0,62.0,,,flashscore
+2024-09-01,Zira,Qarabağ FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4572533,20240901_Zira_Qarabağ-FK,2.0,5.0,1.0,0.0,0.0,0.0,2.0,4.0,,,,,41.0,59.0,,,flashscore
+2024-09-13,Araz PFK,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),4572515,20240913_Araz-PFK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-09-14,Shamakhi FK,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4572525,20240914_Shamakhi-FK_Sumqayıt,8.0,3.0,4.0,1.0,0.0,0.0,7.0,3.0,,,,,44.0,56.0,,,flashscore
+2024-09-14,Qarabağ FK,Sabail,2.0,1.0,Premyer Liqa (Azerbaiyán),4572528,20240914_Qarabağ-FK_Sabail,6.0,1.0,,,,,8.0,4.0,,,,,68.0,32.0,,,flashscore
+2024-09-15,Zira,FK Neftchi,2.0,0.0,Premyer Liqa (Azerbaiyán),4572524,20240915_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-09-15,Sabah FK,Turan Tovuz,2.0,2.0,Premyer Liqa (Azerbaiyán),4572527,20240915_Sabah-FK_Turan-Tovuz,6.0,10.0,3.0,3.0,0.0,0.0,5.0,7.0,,,,,42.0,58.0,,,flashscore
+2024-09-20,FC Kapaz,Shamakhi FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4572521,20240920_FC-Kapaz_Shamakhi-FK,4.0,5.0,1.0,3.0,0.0,0.0,2.0,8.0,,,,,54.0,46.0,,,flashscore
+2024-09-20,Qarabağ FK,FK Neftchi,4.0,0.0,Premyer Liqa (Azerbaiyán),4572523,20240920_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-09-21,Turan Tovuz,Araz PFK,1.0,2.0,Premyer Liqa (Azerbaiyán),4572520,20240921_Turan-Tovuz_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-09-22,Sabail,Sabah FK,2.0,4.0,Premyer Liqa (Azerbaiyán),4572519,20240922_Sabail_Sabah-FK,6.0,6.0,6.0,4.0,0.0,0.0,8.0,12.0,,,,,47.0,53.0,,,flashscore
+2024-09-22,Sumqayıt,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),4572522,20240922_Sumqayıt_Zira,1.0,2.0,3.0,2.0,0.0,0.0,2.0,3.0,,,,,47.0,53.0,,,flashscore
+2024-09-27,Araz PFK,Sabail,3.0,2.0,Premyer Liqa (Azerbaiyán),4572517,20240927_Araz-PFK_Sabail,,,,,,,,,,,,,,,,,
+2024-09-28,Zira,FC Kapaz,3.0,0.0,Premyer Liqa (Azerbaiyán),4572545,20240928_Zira_FC-Kapaz,2.0,4.0,1.0,1.0,0.0,0.0,12.0,3.0,,,,,52.0,48.0,,,flashscore
+2024-09-28,FK Neftchi,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4572553,20240928_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-09-29,Shamakhi FK,Turan Tovuz,2.0,2.0,Premyer Liqa (Azerbaiyán),4572516,20240929_Shamakhi-FK_Turan-Tovuz,3.0,5.0,4.0,5.0,0.0,0.0,2.0,3.0,,,,,51.0,49.0,,,flashscore
+2024-09-29,Qarabağ FK,Sabah FK,3.0,2.0,Premyer Liqa (Azerbaiyán),4572518,20240929_Qarabağ-FK_Sabah-FK,7.0,6.0,1.0,2.0,0.0,0.0,11.0,9.0,,,,,49.0,51.0,,,flashscore
+2024-10-04,FC Kapaz,FK Neftchi,4.0,3.0,Premyer Liqa (Azerbaiyán),4572551,20241004_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-10-05,Sabail,Shamakhi FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4572549,20241005_Sabail_Shamakhi-FK,4.0,12.0,3.0,6.0,0.0,1.0,8.0,4.0,,,,,59.0,41.0,,,flashscore
+2024-10-05,Sabah FK,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572548,20241005_Sabah-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-10-06,Turan Tovuz,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),4572550,20241006_Turan-Tovuz_Zira,2.0,3.0,2.0,1.0,0.0,0.0,4.0,4.0,,,,,51.0,49.0,,,flashscore
+2024-10-06,Sumqayıt,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572552,20241006_Sumqayıt_Qarabağ-FK,3.0,9.0,3.0,2.0,0.0,0.0,2.0,4.0,,,,,31.0,69.0,,,flashscore
+2024-10-18,FC Kapaz,Qarabağ FK,0.0,5.0,Premyer Liqa (Azerbaiyán),4572547,20241018_FC-Kapaz_Qarabağ-FK,5.0,10.0,0.0,1.0,0.0,0.0,3.0,6.0,,,,,45.0,55.0,,,flashscore
+2024-10-19,Shamakhi FK,Araz PFK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572543,20241019_Shamakhi-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-10-19,FK Neftchi,Sabail,3.0,1.0,Premyer Liqa (Azerbaiyán),4572536,20241019_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2024-10-20,Zira,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572544,20241020_Zira_Sabah-FK,2.0,5.0,1.0,1.0,0.0,0.0,2.0,1.0,,,,,49.0,51.0,,,flashscore
+2024-10-20,Sumqayıt,Turan Tovuz,2.0,4.0,Premyer Liqa (Azerbaiyán),4572546,20241020_Sumqayıt_Turan-Tovuz,6.0,1.0,2.0,1.0,0.0,0.0,2.0,7.0,,,,,59.0,41.0,,,flashscore
+2024-10-25,Turan Tovuz,FC Kapaz,2.0,1.0,Premyer Liqa (Azerbaiyán),4572538,20241025_Turan-Tovuz_FC-Kapaz,3.0,4.0,5.0,4.0,0.0,0.0,3.0,4.0,,,,,36.0,64.0,,,flashscore
+2024-10-26,Araz PFK,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),4572541,20241026_Araz-PFK_Zira,,,,,,,,,,,,,,,,,
+2024-10-26,Sabail,Sumqayıt,0.0,1.0,Premyer Liqa (Azerbaiyán),4572539,20241026_Sabail_Sumqayıt,4.0,4.0,3.0,3.0,0.0,0.0,2.0,1.0,,,,,48.0,52.0,,,flashscore
+2024-10-27,Sabah FK,FK Neftchi,0.0,0.0,Premyer Liqa (Azerbaiyán),4572540,20241027_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-10-27,Qarabağ FK,Shamakhi FK,3.0,0.0,Premyer Liqa (Azerbaiyán),4572542,20241027_Qarabağ-FK_Shamakhi-FK,10.0,2.0,2.0,0.0,0.0,0.0,10.0,2.0,,,,,62.0,38.0,,,flashscore
+2024-11-01,Turan Tovuz,Qarabağ FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4572537,20241101_Turan-Tovuz_Qarabağ-FK,3.0,5.0,1.0,1.0,0.0,0.0,1.0,2.0,,,,,44.0,56.0,,,flashscore
+2024-11-01,FK Neftchi,Araz PFK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572556,20241101_FK-Neftchi_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-11-02,Shamakhi FK,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),4572557,20241102_Shamakhi-FK_Zira,6.0,6.0,3.0,2.0,0.0,0.0,1.0,4.0,,,,,46.0,54.0,,,flashscore
+2024-11-03,FC Kapaz,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),4572554,20241103_FC-Kapaz_Sabail,9.0,7.0,4.0,0.0,0.0,0.0,3.0,2.0,,,,,44.0,56.0,,,flashscore
+2024-11-03,Sumqayıt,Sabah FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4572555,20241103_Sumqayıt_Sabah-FK,3.0,9.0,2.0,2.0,0.0,0.0,1.0,2.0,,,,,31.0,69.0,,,flashscore
+2024-11-06,Zira,Araz PFK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572509,20241106_Zira_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-11-08,FK Neftchi,Shamakhi FK,2.0,2.0,Premyer Liqa (Azerbaiyán),4572559,20241108_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2024-11-09,Sabail,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4572562,20241109_Sabail_Turan-Tovuz,6.0,4.0,2.0,1.0,0.0,0.0,2.0,4.0,,,,,38.0,62.0,,,flashscore
+2024-11-09,Sabah FK,FC Kapaz,2.0,2.0,Premyer Liqa (Azerbaiyán),4572561,20241109_Sabah-FK_FC-Kapaz,3.0,3.0,1.0,2.0,0.0,0.0,2.0,2.0,,,,,,,,,flashscore
+2024-11-10,Araz PFK,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4572560,20241110_Araz-PFK_Sumqayıt,,,,,,,,,,,,,,,,,
+2024-11-10,Qarabağ FK,Zira,4.0,0.0,Premyer Liqa (Azerbaiyán),4572558,20241110_Qarabağ-FK_Zira,8.0,5.0,1.0,2.0,0.0,0.0,4.0,2.0,,,,,63.0,37.0,,,flashscore
+2024-11-22,FC Kapaz,Araz PFK,0.0,2.0,Premyer Liqa (Azerbaiyán),4572565,20241122_FC-Kapaz_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-11-23,Sabail,Qarabağ FK,0.0,3.0,Premyer Liqa (Azerbaiyán),4572563,20241123_Sabail_Qarabağ-FK,2.0,6.0,2.0,4.0,0.0,0.0,1.0,6.0,,,,,36.0,64.0,,,flashscore
+2024-11-23,FK Neftchi,Zira,2.0,1.0,Premyer Liqa (Azerbaiyán),4572567,20241123_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2024-11-24,Turan Tovuz,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572564,20241124_Turan-Tovuz_Sabah-FK,2.0,1.0,1.0,4.0,0.0,0.0,1.0,2.0,,,,,48.0,52.0,,,flashscore
+2024-11-24,Sumqayıt,Shamakhi FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4572566,20241124_Sumqayıt_Shamakhi-FK,14.0,3.0,2.0,3.0,0.0,0.0,3.0,6.0,,,,,54.0,46.0,,,flashscore
+2024-11-29,Araz PFK,Turan Tovuz,1.0,0.0,Premyer Liqa (Azerbaiyán),4572600,20241129_Araz-PFK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2024-11-29,Sabah FK,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),4572599,20241129_Sabah-FK_Sabail,4.0,3.0,3.0,0.0,0.0,0.0,3.0,0.0,,,,,57.0,43.0,,,flashscore
+2024-11-30,Shamakhi FK,FC Kapaz,0.0,1.0,Premyer Liqa (Azerbaiyán),4572601,20241130_Shamakhi-FK_FC-Kapaz,5.0,2.0,1.0,4.0,0.0,0.0,5.0,3.0,,,,,47.0,53.0,,,flashscore
+2024-11-30,Zira,Sumqayıt,4.0,1.0,Premyer Liqa (Azerbaiyán),4572586,20241130_Zira_Sumqayıt,2.0,3.0,1.0,5.0,0.0,0.0,13.0,2.0,,,,,44.0,56.0,,,flashscore
+2024-12-01,FK Neftchi,Qarabağ FK,0.0,3.0,Premyer Liqa (Azerbaiyán),4572568,20241201_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2024-12-07,Sabail,Araz PFK,0.0,2.0,Premyer Liqa (Azerbaiyán),4572597,20241207_Sabail_Araz-PFK,,,,,,,,,,,,,,,,,
+2024-12-07,Sabah FK,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572598,20241207_Sabah-FK_Qarabağ-FK,2.0,9.0,2.0,1.0,0.0,0.0,3.0,8.0,,,,,34.0,66.0,,,flashscore
+2024-12-08,FC Kapaz,Zira,0.0,4.0,Premyer Liqa (Azerbaiyán),4572595,20241208_FC-Kapaz_Zira,0.0,2.0,1.0,0.0,0.0,0.0,2.0,6.0,,,,,48.0,52.0,,,flashscore
+2024-12-08,Sumqayıt,FK Neftchi,2.0,0.0,Premyer Liqa (Azerbaiyán),4572594,20241208_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-12-09,Turan Tovuz,Shamakhi FK,3.0,2.0,Premyer Liqa (Azerbaiyán),4572596,20241209_Turan-Tovuz_Shamakhi-FK,8.0,3.0,3.0,1.0,0.0,0.0,8.0,3.0,,,,,60.0,40.0,,,flashscore
+2024-12-14,Shamakhi FK,Sabail,0.0,0.0,Premyer Liqa (Azerbaiyán),4572590,20241214_Shamakhi-FK_Sabail,6.0,6.0,3.0,0.0,0.0,0.0,1.0,1.0,,,,,44.0,56.0,,,flashscore
+2024-12-14,Araz PFK,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572589,20241214_Araz-PFK_Sabah-FK,,,,,,,,,,,,,,,,,
+2024-12-15,Zira,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),4572591,20241215_Zira_Turan-Tovuz,3.0,3.0,,,,,1.0,0.0,,,,,57.0,43.0,,,flashscore
+2024-12-15,FK Neftchi,FC Kapaz,2.0,1.0,Premyer Liqa (Azerbaiyán),4572592,20241215_FK-Neftchi_FC-Kapaz,,,,,,,,,,,,,,,,,
+2024-12-16,Qarabağ FK,Sumqayıt,5.0,0.0,Premyer Liqa (Azerbaiyán),4572593,20241216_Qarabağ-FK_Sumqayıt,5.0,1.0,1.0,3.0,0.0,0.0,6.0,0.0,,,,,65.0,35.0,,,flashscore
+2024-12-19,Shamakhi FK,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572508,20241219_Shamakhi-FK_Qarabağ-FK,1.0,12.0,1.0,2.0,0.0,0.0,1.0,4.0,,,,,34.0,66.0,,,flashscore
+2024-12-20,FC Kapaz,Sumqayıt,0.0,0.0,Premyer Liqa (Azerbaiyán),4572571,20241220_FC-Kapaz_Sumqayıt,2.0,4.0,0.0,2.0,0.0,0.0,2.0,1.0,,,,,52.0,48.0,,,flashscore
+2024-12-21,Turan Tovuz,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),4572570,20241221_Turan-Tovuz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2024-12-21,Sabail,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4572578,20241221_Sabail_Zira,2.0,5.0,0.0,1.0,0.0,0.0,0.0,2.0,,,,,41.0,59.0,,,flashscore
+2024-12-22,Shamakhi FK,Sabah FK,3.0,1.0,Premyer Liqa (Azerbaiyán),4572587,20241222_Shamakhi-FK_Sabah-FK,4.0,5.0,2.0,1.0,0.0,0.0,7.0,2.0,,,,,48.0,52.0,,,flashscore
+2024-12-22,Qarabağ FK,Araz PFK,2.0,0.0,Premyer Liqa (Azerbaiyán),4572588,20241222_Qarabağ-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-01-17,Qarabağ FK,Shamakhi FK,3.0,2.0,Premyer Liqa (Azerbaiyán),4572572,20250117_Qarabağ-FK_Shamakhi-FK,7.0,2.0,1.0,1.0,0.0,0.0,8.0,5.0,,,,,65.0,35.0,,,flashscore
+2025-01-18,Zira,Araz PFK,1.0,0.0,Premyer Liqa (Azerbaiyán),4572573,20250118_Zira_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-01-18,Sumqayıt,Sabail,0.0,2.0,Premyer Liqa (Azerbaiyán),4572575,20250118_Sumqayıt_Sabail,3.0,2.0,2.0,2.0,0.0,0.0,1.0,6.0,,,,,54.0,46.0,,,flashscore
+2025-01-19,FC Kapaz,Turan Tovuz,5.0,2.0,Premyer Liqa (Azerbaiyán),4572576,20250119_FC-Kapaz_Turan-Tovuz,5.0,0.0,1.0,5.0,0.0,0.0,8.0,3.0,,,,,65.0,35.0,,,flashscore
+2025-01-19,FK Neftchi,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572574,20250119_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2025-01-24,Shamakhi FK,Zira,1.0,2.0,Premyer Liqa (Azerbaiyán),4572581,20250124_Shamakhi-FK_Zira,2.0,3.0,0.0,3.0,0.0,0.0,4.0,3.0,,,,,44.0,56.0,,,flashscore
+2025-01-25,Sabail,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),4572569,20250125_Sabail_FC-Kapaz,1.0,7.0,2.0,2.0,0.0,0.0,3.0,5.0,,,,,40.0,60.0,,,flashscore
+2025-01-25,Sabah FK,Sumqayıt,0.0,0.0,Premyer Liqa (Azerbaiyán),4572579,20250125_Sabah-FK_Sumqayıt,7.0,0.0,0.0,1.0,0.0,0.0,2.0,0.0,,,,,70.0,30.0,,,flashscore
+2025-01-26,Araz PFK,FK Neftchi,2.0,1.0,Premyer Liqa (Azerbaiyán),4572580,20250126_Araz-PFK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-01-26,Qarabağ FK,Turan Tovuz,1.0,2.0,Premyer Liqa (Azerbaiyán),4572577,20250126_Qarabağ-FK_Turan-Tovuz,2.0,1.0,2.0,1.0,0.0,0.0,5.0,5.0,,,,,63.0,37.0,,,flashscore
+2025-01-31,FC Kapaz,Sabah FK,3.0,2.0,Premyer Liqa (Azerbaiyán),4572585,20250131_FC-Kapaz_Sabah-FK,2.0,2.0,1.0,3.0,0.0,1.0,8.0,6.0,,,,,57.0,43.0,,,flashscore
+2025-01-31,FK Neftchi,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4572583,20250131_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2025-02-01,Turan Tovuz,Sabail,1.0,1.0,Premyer Liqa (Azerbaiyán),4572619,20250201_Turan-Tovuz_Sabail,2.0,4.0,1.0,1.0,1.0,0.0,2.0,4.0,,,,,42.0,58.0,,,flashscore
+2025-02-01,Sumqayıt,Araz PFK,0.0,0.0,Premyer Liqa (Azerbaiyán),4572584,20250201_Sumqayıt_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-02-02,Zira,Qarabağ FK,3.0,2.0,Premyer Liqa (Azerbaiyán),4572582,20250202_Zira_Qarabağ-FK,1.0,3.0,3.0,2.0,0.0,0.0,6.0,3.0,,,,,37.0,63.0,,,flashscore
+2025-02-09,Shamakhi FK,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4572631,20250209_Shamakhi-FK_Sumqayıt,3.0,6.0,2.0,0.0,0.0,0.0,5.0,3.0,,,,,41.0,59.0,,,flashscore
+2025-02-09,Sabah FK,Turan Tovuz,2.0,1.0,Premyer Liqa (Azerbaiyán),4572633,20250209_Sabah-FK_Turan-Tovuz,4.0,5.0,2.0,3.0,0.0,0.0,4.0,4.0,,,,,55.0,45.0,,,flashscore
+2025-02-10,Araz PFK,FC Kapaz,0.0,0.0,Premyer Liqa (Azerbaiyán),4572632,20250210_Araz-PFK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2025-02-10,Zira,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),4572630,20250210_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-02-11,Qarabağ FK,Sabail,5.0,0.0,Premyer Liqa (Azerbaiyán),4572634,20250211_Qarabağ-FK_Sabail,9.0,2.0,1.0,0.0,0.0,0.0,6.0,1.0,,,,,57.0,43.0,,,flashscore
+2025-02-15,Sumqayıt,Zira,0.0,3.0,Premyer Liqa (Azerbaiyán),4572628,20250215_Sumqayıt_Zira,2.0,6.0,1.0,1.0,0.0,0.0,0.0,4.0,,,,,48.0,52.0,,,flashscore
+2025-02-16,Turan Tovuz,Araz PFK,1.0,0.0,Premyer Liqa (Azerbaiyán),4572626,20250216_Turan-Tovuz_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-02-16,FK Neftchi,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572629,20250216_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2025-02-17,FC Kapaz,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572627,20250217_FC-Kapaz_Shamakhi-FK,3.0,4.0,0.0,1.0,0.0,0.0,3.0,1.0,,,,,46.0,54.0,,,flashscore
+2025-02-17,Sabail,Sabah FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4572625,20250217_Sabail_Sabah-FK,1.0,3.0,1.0,2.0,0.0,0.0,1.0,0.0,,,,,52.0,48.0,,,flashscore
+2025-02-21,FK Neftchi,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4572620,20250221_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2025-02-22,Araz PFK,Sabail,0.0,0.0,Premyer Liqa (Azerbaiyán),4572623,20250222_Araz-PFK_Sabail,,,,,,,,,,,,,,,,,
+2025-02-22,Qarabağ FK,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572624,20250222_Qarabağ-FK_Sabah-FK,5.0,3.0,1.0,2.0,0.0,0.0,7.0,2.0,,,,,66.0,34.0,,,flashscore
+2025-02-23,Shamakhi FK,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),4572622,20250223_Shamakhi-FK_Turan-Tovuz,11.0,3.0,3.0,2.0,0.0,0.0,6.0,2.0,,,,,60.0,40.0,,,flashscore
+2025-02-24,Zira,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),4572621,20250224_Zira_FC-Kapaz,7.0,1.0,2.0,2.0,0.0,0.0,3.0,1.0,,,,,57.0,43.0,,,flashscore
+2025-03-03,Sabail,Shamakhi FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4572605,20250303_Sabail_Shamakhi-FK,2.0,5.0,1.0,2.0,0.0,0.0,2.0,5.0,,,,,53.0,47.0,,,flashscore
+2025-03-03,Sumqayıt,Qarabağ FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4572611,20250303_Sumqayıt_Qarabağ-FK,2.0,6.0,,,,,2.0,5.0,,,,,42.0,58.0,,,flashscore
+2025-03-04,Turan Tovuz,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),4572604,20250304_Turan-Tovuz_Zira,6.0,4.0,1.0,1.0,0.0,0.0,0.0,4.0,,,,,51.0,49.0,,,flashscore
+2025-03-04,Sabah FK,Araz PFK,2.0,2.0,Premyer Liqa (Azerbaiyán),4572606,20250304_Sabah-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-03-05,FC Kapaz,FK Neftchi,1.0,0.0,Premyer Liqa (Azerbaiyán),4572603,20250305_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-03-08,Araz PFK,Qarabağ FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4572607,20250308_Araz-PFK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2025-03-09,Shamakhi FK,Sabah FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4572608,20250309_Shamakhi-FK_Sabah-FK,3.0,2.0,1.0,1.0,0.0,0.0,1.0,0.0,,,14.0,12.0,50.0,50.0,1.0,3.0,flashscore
+2025-03-09,Zira,Sabail,1.0,0.0,Premyer Liqa (Azerbaiyán),4572609,20250309_Zira_Sabail,8.0,4.0,0.0,1.0,0.0,1.0,5.0,1.0,,,,,62.0,38.0,,,flashscore
+2025-03-10,Sumqayıt,FC Kapaz,3.0,0.0,Premyer Liqa (Azerbaiyán),4572602,20250310_Sumqayıt_FC-Kapaz,3.0,4.0,2.0,4.0,0.0,0.0,5.0,2.0,,,,,48.0,52.0,,,flashscore
+2025-03-10,FK Neftchi,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4572610,20250310_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2025-03-14,Araz PFK,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572616,20250314_Araz-PFK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2025-03-15,FC Kapaz,Qarabağ FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4572668,20250315_FC-Kapaz_Qarabağ-FK,7.0,6.0,2.0,1.0,0.0,0.0,3.0,3.0,,,,,42.0,58.0,,,flashscore
+2025-03-15,Sabah FK,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),4572615,20250315_Sabah-FK_Zira,6.0,4.0,3.0,0.0,0.0,0.0,1.0,3.0,,,,,49.0,51.0,,,flashscore
+2025-03-16,Sabail,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),4572614,20250316_Sabail_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-03-16,Turan Tovuz,Sumqayıt,1.0,2.0,Premyer Liqa (Azerbaiyán),4572613,20250316_Turan-Tovuz_Sumqayıt,15.0,3.0,0.0,1.0,0.0,0.0,3.0,3.0,,,,,56.0,44.0,,,flashscore
+2025-03-28,Turan Tovuz,Qarabağ FK,1.0,4.0,Premyer Liqa (Azerbaiyán),4572617,20250328_Turan-Tovuz_Qarabağ-FK,5.0,4.0,4.0,1.0,0.0,0.0,3.0,7.0,,,,,41.0,59.0,,,flashscore
+2025-03-29,FK Neftchi,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572636,20250329_FK-Neftchi_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-03-29,Sumqayıt,Sabah FK,3.0,3.0,Premyer Liqa (Azerbaiyán),4572635,20250329_Sumqayıt_Sabah-FK,0.0,5.0,,,,,3.0,11.0,,,,,46.0,54.0,,,flashscore
+2025-03-30,FC Kapaz,Sabail,1.0,1.0,Premyer Liqa (Azerbaiyán),4572618,20250330_FC-Kapaz_Sabail,6.0,7.0,1.0,2.0,0.0,0.0,2.0,6.0,,,,,48.0,52.0,,,flashscore
+2025-03-30,Zira,Shamakhi FK,3.0,0.0,Premyer Liqa (Azerbaiyán),4572637,20250330_Zira_Shamakhi-FK,2.0,2.0,2.0,0.0,0.0,0.0,6.0,1.0,,,,,61.0,39.0,,,flashscore
+2025-04-05,Sabail,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),4572642,20250405_Sabail_Turan-Tovuz,0.0,3.0,1.0,3.0,0.0,0.0,0.0,1.0,,,,,51.0,49.0,,,flashscore
+2025-04-06,Sabah FK,FC Kapaz,0.0,1.0,Premyer Liqa (Azerbaiyán),4572641,20250406_Sabah-FK_FC-Kapaz,7.0,2.0,1.0,3.0,0.0,0.0,9.0,2.0,,,,,59.0,41.0,,,flashscore
+2025-04-06,Qarabağ FK,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),4572638,20250406_Qarabağ-FK_Zira,4.0,2.0,1.0,3.0,0.0,0.0,3.0,4.0,,,,,57.0,43.0,,,flashscore
+2025-04-07,Shamakhi FK,FK Neftchi,0.0,2.0,Premyer Liqa (Azerbaiyán),4572639,20250407_Shamakhi-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-04-07,Araz PFK,Sumqayıt,2.0,0.0,Premyer Liqa (Azerbaiyán),4572640,20250407_Araz-PFK_Sumqayıt,,,,,,,,,,,,,,,,,
+2025-04-11,Sabail,Qarabağ FK,1.0,4.0,Premyer Liqa (Azerbaiyán),4572643,20250411_Sabail_Qarabağ-FK,2.0,5.0,,,,,2.0,8.0,,,,,37.0,63.0,,,flashscore
+2025-04-12,Turan Tovuz,Sabah FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4572644,20250412_Turan-Tovuz_Sabah-FK,3.0,4.0,3.0,3.0,0.0,1.0,2.0,2.0,,,,,49.0,51.0,,,flashscore
+2025-04-12,Sumqayıt,Shamakhi FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4572646,20250412_Sumqayıt_Shamakhi-FK,2.0,5.0,1.0,1.0,0.0,0.0,3.0,3.0,,,,,49.0,51.0,,,flashscore
+2025-04-13,FC Kapaz,Araz PFK,0.0,0.0,Premyer Liqa (Azerbaiyán),4572645,20250413_FC-Kapaz_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-04-13,FK Neftchi,Zira,2.0,4.0,Premyer Liqa (Azerbaiyán),4572658,20250413_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2025-04-18,Araz PFK,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4572664,20250418_Araz-PFK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2025-04-19,Sabah FK,Sabail,3.0,2.0,Premyer Liqa (Azerbaiyán),4572663,20250419_Sabah-FK_Sabail,4.0,0.0,3.0,2.0,0.0,0.0,8.0,4.0,,,,,48.0,52.0,,,flashscore
+2025-04-19,Qarabağ FK,FK Neftchi,3.0,0.0,Premyer Liqa (Azerbaiyán),4572667,20250419_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-04-20,Shamakhi FK,FC Kapaz,2.0,1.0,Premyer Liqa (Azerbaiyán),4572665,20250420_Shamakhi-FK_FC-Kapaz,2.0,6.0,4.0,1.0,1.0,0.0,3.0,4.0,,,,,42.0,58.0,,,flashscore
+2025-04-20,Zira,Sumqayıt,3.0,1.0,Premyer Liqa (Azerbaiyán),4572666,20250420_Zira_Sumqayıt,5.0,6.0,2.0,1.0,0.0,0.0,6.0,4.0,,,,,55.0,45.0,,,flashscore
+2025-04-25,Turan Tovuz,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572660,20250425_Turan-Tovuz_Shamakhi-FK,5.0,4.0,2.0,1.0,0.0,0.0,3.0,2.0,,,,,51.0,49.0,,,flashscore
+2025-04-26,FC Kapaz,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4572659,20250426_FC-Kapaz_Zira,5.0,4.0,2.0,2.0,0.0,0.0,0.0,6.0,,,,,45.0,55.0,,,flashscore
+2025-04-27,Sabail,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572661,20250427_Sabail_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-04-27,Sabah FK,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572662,20250427_Sabah-FK_Qarabağ-FK,8.0,4.0,2.0,3.0,0.0,0.0,3.0,2.0,,,,,45.0,55.0,,,flashscore
+2025-04-28,Sumqayıt,FK Neftchi,2.0,2.0,Premyer Liqa (Azerbaiyán),4572647,20250428_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-05-02,Zira,Turan Tovuz,1.0,0.0,Premyer Liqa (Azerbaiyán),4572655,20250502_Zira_Turan-Tovuz,3.0,5.0,3.0,4.0,1.0,0.0,2.0,0.0,,,,,47.0,53.0,,,flashscore
+2025-05-03,Shamakhi FK,Sabail,1.0,1.0,Premyer Liqa (Azerbaiyán),4572654,20250503_Shamakhi-FK_Sabail,4.0,5.0,3.0,0.0,0.0,0.0,1.0,6.0,,,,,41.0,59.0,,,flashscore
+2025-05-03,Araz PFK,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572653,20250503_Araz-PFK_Sabah-FK,,,,,,,,,,,,,,,,,
+2025-05-04,Qarabağ FK,Sumqayıt,2.0,0.0,Premyer Liqa (Azerbaiyán),4572657,20250504_Qarabağ-FK_Sumqayıt,7.0,3.0,1.0,1.0,0.0,0.0,7.0,1.0,,,,,62.0,38.0,,,flashscore
+2025-05-04,FK Neftchi,FC Kapaz,2.0,2.0,Premyer Liqa (Azerbaiyán),4572656,20250504_FK-Neftchi_FC-Kapaz,,,,,,,,,,,,,,,,,
+2025-05-09,Sabah FK,Shamakhi FK,3.0,1.0,Premyer Liqa (Azerbaiyán),4572651,20250509_Sabah-FK_Shamakhi-FK,7.0,2.0,3.0,1.0,0.0,0.0,10.0,3.0,,,,,51.0,49.0,,,flashscore
+2025-05-10,Sabail,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4572650,20250510_Sabail_Zira,4.0,1.0,2.0,2.0,0.0,0.0,5.0,5.0,,,,,49.0,51.0,,,flashscore
+2025-05-10,Turan Tovuz,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),4572649,20250510_Turan-Tovuz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-05-11,FC Kapaz,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4572648,20250511_FC-Kapaz_Sumqayıt,5.0,2.0,6.0,2.0,0.0,0.0,9.0,2.0,,,,,55.0,45.0,,,flashscore
+2025-05-11,Qarabağ FK,Araz PFK,2.0,0.0,Premyer Liqa (Azerbaiyán),4572652,20250511_Qarabağ-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-05-17,Shamakhi FK,Araz PFK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572672,20250517_Shamakhi-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-05-17,Sumqayıt,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),4572669,20250517_Sumqayıt_Turan-Tovuz,7.0,1.0,1.0,1.0,0.0,0.0,1.0,4.0,,,,,61.0,39.0,,,flashscore
+2025-05-17,Zira,Sabah FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4572671,20250517_Zira_Sabah-FK,1.0,6.0,0.0,1.0,0.0,0.0,2.0,2.0,,,,,50.0,50.0,,,flashscore
+2025-05-18,FK Neftchi,Sabail,3.0,0.0,Premyer Liqa (Azerbaiyán),4572670,20250518_FK-Neftchi_Sabail,,,,,,,,,,,,,,,,,
+2025-05-18,Qarabağ FK,FC Kapaz,3.0,0.0,Premyer Liqa (Azerbaiyán),4572612,20250518_Qarabağ-FK_FC-Kapaz,13.0,1.0,2.0,3.0,0.0,0.0,7.0,2.0,,,,,63.0,37.0,,,flashscore
+2025-05-23,Sabail,Sumqayıt,1.0,4.0,Premyer Liqa (Azerbaiyán),4572676,20250523_Sabail_Sumqayıt,4.0,5.0,2.0,3.0,0.0,0.0,4.0,7.0,,,,,42.0,58.0,,,flashscore
+2025-05-24,Shamakhi FK,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4572673,20250524_Shamakhi-FK_Qarabağ-FK,3.0,14.0,3.0,3.0,0.0,0.0,1.0,5.0,,,,,36.0,64.0,,,flashscore
+2025-05-24,Sabah FK,FK Neftchi,1.0,0.0,Premyer Liqa (Azerbaiyán),4572675,20250524_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-05-25,Turan Tovuz,FC Kapaz,4.0,0.0,Premyer Liqa (Azerbaiyán),4572677,20250525_Turan-Tovuz_FC-Kapaz,2.0,7.0,1.0,3.0,0.0,0.0,8.0,1.0,,,,,46.0,54.0,,,flashscore
+2025-05-25,Araz PFK,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4572674,20250525_Araz-PFK_Zira,,,,,,,,,,,,,,,,,
+2025-08-15,Karvan FK,FK Qabala,1.0,1.0,Premyer Liqa (Azerbaiyán),4883476,20250815_Karvan-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-08-16,Imisli FK,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),4883475,20250816_Imisli-FK_Turan-Tovuz,3.0,3.0,2.0,3.0,0.0,0.0,2.0,3.0,,,,,46.0,54.0,,,flashscore
+2025-08-16,FK Neftchi,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4883477,20250816_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2025-08-17,Sumqayıt,FC Kapaz,3.0,0.0,Premyer Liqa (Azerbaiyán),4883479,20250817_Sumqayıt_FC-Kapaz,3.0,3.0,2.0,1.0,0.0,0.0,3.0,3.0,,,,,53.0,47.0,,,flashscore
+2025-08-19,Zira,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4883480,20250819_Zira_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-08-22,Imisli FK,FK Neftchi,0.0,0.0,Premyer Liqa (Azerbaiyán),4934276,20250822_Imisli-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-08-22,Qarabağ FK,Sumqayıt,0.0,1.0,Premyer Liqa (Azerbaiyán),4934277,20250822_Qarabağ-FK_Sumqayıt,8.0,1.0,0.0,3.0,0.0,0.0,2.0,1.0,,,,,65.0,35.0,,,flashscore
+2025-08-23,FC Kapaz,Karvan FK,2.0,3.0,Premyer Liqa (Azerbaiyán),4934278,20250823_FC-Kapaz_Karvan-FK,1.0,4.0,1.0,3.0,0.0,0.0,4.0,3.0,,,,,48.0,52.0,,,flashscore
+2025-08-24,Shamakhi FK,Sabah FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4934279,20250824_Shamakhi-FK_Sabah-FK,2.0,2.0,3.0,2.0,0.0,0.0,4.0,4.0,,,,,42.0,58.0,,,flashscore
+2025-08-24,Turan Tovuz,Araz PFK,1.0,2.0,Premyer Liqa (Azerbaiyán),4934280,20250824_Turan-Tovuz_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-08-25,FK Qabala,Zira,1.0,2.0,Premyer Liqa (Azerbaiyán),4934281,20250825_FK-Qabala_Zira,,,,,,,,,,,,,,,,,
+2025-08-29,Sumqayıt,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4934282,20250829_Sumqayıt_Shamakhi-FK,2.0,3.0,1.0,1.0,0.0,0.0,5.0,3.0,,,,,59.0,41.0,,,flashscore
+2025-08-29,FK Neftchi,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),4934283,20250829_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2025-08-30,Zira,FC Kapaz,5.0,0.0,Premyer Liqa (Azerbaiyán),4934284,20250830_Zira_FC-Kapaz,12.0,3.0,1.0,2.0,0.0,0.0,7.0,0.0,,,,,69.0,31.0,,,flashscore
+2025-08-30,Araz PFK,FK Qabala,2.0,1.0,Premyer Liqa (Azerbaiyán),4934285,20250830_Araz-PFK_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-08-31,Karvan FK,Qarabağ FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4934286,20250831_Karvan-FK_Qarabağ-FK,4.0,8.0,,,,,1.0,4.0,,,,,43.0,57.0,,,flashscore
+2025-08-31,Sabah FK,Imisli FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4934287,20250831_Sabah-FK_Imisli-FK,9.0,2.0,1.0,1.0,0.0,0.0,1.0,3.0,,,,,56.0,44.0,,,flashscore
+2025-09-12,FC Kapaz,Araz PFK,0.0,2.0,Premyer Liqa (Azerbaiyán),4946648,20250912_FC-Kapaz_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-09-12,Qarabağ FK,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),4946650,20250912_Qarabağ-FK_Zira,7.0,1.0,1.0,3.0,0.0,0.0,7.0,2.0,,,,,56.0,44.0,,,flashscore
+2025-09-13,Imisli FK,Sumqayıt,0.0,3.0,Premyer Liqa (Azerbaiyán),4946647,20250913_Imisli-FK_Sumqayıt,4.0,4.0,4.0,3.0,1.0,0.0,2.0,3.0,,,,,42.0,58.0,,,flashscore
+2025-09-13,Turan Tovuz,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4946652,20250913_Turan-Tovuz_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-09-14,Shamakhi FK,Karvan FK,3.0,0.0,Premyer Liqa (Azerbaiyán),4946651,20250914_Shamakhi-FK_Karvan-FK,3.0,0.0,3.0,1.0,0.0,0.0,5.0,5.0,,,,,50.0,50.0,,,flashscore
+2025-09-14,FK Neftchi,Sabah FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946649,20250914_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2025-09-19,Karvan FK,Imisli FK,0.0,3.0,Premyer Liqa (Azerbaiyán),4946655,20250919_Karvan-FK_Imisli-FK,1.0,3.0,3.0,0.0,0.0,0.0,0.0,8.0,,,,,55.0,45.0,,,flashscore
+2025-09-19,Zira,Shamakhi FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946658,20250919_Zira_Shamakhi-FK,4.0,3.0,2.0,3.0,0.0,0.0,7.0,2.0,,,,,59.0,41.0,,,flashscore
+2025-09-20,FK Qabala,FC Kapaz,3.0,0.0,Premyer Liqa (Azerbaiyán),4946654,20250920_FK-Qabala_FC-Kapaz,,,,,,,,,,,,,,,,,
+2025-09-20,Sabah FK,Turan Tovuz,2.0,0.0,Premyer Liqa (Azerbaiyán),4946656,20250920_Sabah-FK_Turan-Tovuz,5.0,2.0,2.0,1.0,0.0,0.0,3.0,1.0,,,,,51.0,49.0,,,flashscore
+2025-09-21,Araz PFK,Qarabağ FK,0.0,5.0,Premyer Liqa (Azerbaiyán),4946653,20250921_Araz-PFK_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2025-09-21,Sumqayıt,FK Neftchi,0.0,2.0,Premyer Liqa (Azerbaiyán),4946657,20250921_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-09-26,Imisli FK,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),4946659,20250926_Imisli-FK_Zira,1.0,6.0,2.0,2.0,0.0,0.0,2.0,6.0,,,,,38.0,62.0,,,flashscore
+2025-09-26,Qarabağ FK,FK Qabala,2.0,0.0,Premyer Liqa (Azerbaiyán),4946661,20250926_Qarabağ-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-09-27,Shamakhi FK,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946663,20250927_Shamakhi-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-09-27,FK Neftchi,Karvan FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946660,20250927_FK-Neftchi_Karvan-FK,,,,,,,,,,,,,,,,,
+2025-09-28,Turan Tovuz,FC Kapaz,3.0,0.0,Premyer Liqa (Azerbaiyán),4946664,20250928_Turan-Tovuz_FC-Kapaz,3.0,5.0,2.0,1.0,0.0,0.0,8.0,1.0,,,,,50.0,50.0,,,flashscore
+2025-09-28,Sabah FK,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4946662,20250928_Sabah-FK_Sumqayıt,5.0,1.0,2.0,3.0,0.0,0.0,5.0,5.0,,,,,46.0,54.0,,,flashscore
+2025-10-03,Araz PFK,Imisli FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4946665,20251003_Araz-PFK_Imisli-FK,,,,,,,,,,,,,,,,,
+2025-10-03,Zira,FK Neftchi,2.0,2.0,Premyer Liqa (Azerbaiyán),4946670,20251003_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-10-04,Qarabağ FK,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),4946667,20251004_Qarabağ-FK_FC-Kapaz,6.0,1.0,2.0,3.0,0.0,0.0,4.0,4.0,,,,,53.0,47.0,,,flashscore
+2025-10-04,Sumqayıt,Turan Tovuz,0.0,3.0,Premyer Liqa (Azerbaiyán),4946669,20251004_Sumqayıt_Turan-Tovuz,0.0,4.0,4.0,1.0,0.0,0.0,0.0,3.0,,,,,53.0,47.0,,,flashscore
+2025-10-05,Karvan FK,Sabah FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4946668,20251005_Karvan-FK_Sabah-FK,3.0,7.0,,,,,0.0,5.0,,,,,42.0,58.0,,,flashscore
+2025-10-05,FK Qabala,Shamakhi FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946666,20251005_FK-Qabala_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2025-10-17,Shamakhi FK,FC Kapaz,1.0,4.0,Premyer Liqa (Azerbaiyán),4946674,20251017_Shamakhi-FK_FC-Kapaz,2.0,3.0,3.0,4.0,1.0,0.0,1.0,5.0,,,,,51.0,49.0,,,flashscore
+2025-10-17,Turan Tovuz,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4946676,20251017_Turan-Tovuz_Qarabağ-FK,2.0,5.0,3.0,2.0,0.0,0.0,4.0,6.0,,,,,41.0,59.0,,,flashscore
+2025-10-18,Imisli FK,FK Qabala,2.0,2.0,Premyer Liqa (Azerbaiyán),4946671,20251018_Imisli-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-10-18,Sumqayıt,Karvan FK,4.0,1.0,Premyer Liqa (Azerbaiyán),4946675,20251018_Sumqayıt_Karvan-FK,5.0,1.0,3.0,2.0,0.0,0.0,6.0,1.0,,,,,55.0,45.0,,,flashscore
+2025-10-19,Sabah FK,Zira,3.0,0.0,Premyer Liqa (Azerbaiyán),4946673,20251019_Sabah-FK_Zira,4.0,6.0,2.0,1.0,0.0,0.0,7.0,2.0,,,,,53.0,47.0,,,flashscore
+2025-10-19,FK Neftchi,Araz PFK,2.0,2.0,Premyer Liqa (Azerbaiyán),4946672,20251019_FK-Neftchi_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-10-24,Karvan FK,Turan Tovuz,1.0,2.0,Premyer Liqa (Azerbaiyán),4946680,20251024_Karvan-FK_Turan-Tovuz,3.0,4.0,3.0,1.0,0.0,0.0,3.0,2.0,,,,,48.0,52.0,,,flashscore
+2025-10-24,FC Kapaz,Imisli FK,0.0,3.0,Premyer Liqa (Azerbaiyán),4946679,20251024_FC-Kapaz_Imisli-FK,1.0,5.0,2.0,2.0,1.0,0.0,5.0,6.0,,,,,45.0,55.0,,,flashscore
+2025-10-25,Araz PFK,Sabah FK,2.0,2.0,Premyer Liqa (Azerbaiyán),4946677,20251025_Araz-PFK_Sabah-FK,,,,,,,,,,,,,,,,,
+2025-10-25,Zira,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4946682,20251025_Zira_Sumqayıt,2.0,1.0,1.0,2.0,0.0,0.0,4.0,3.0,,,,,56.0,44.0,,,flashscore
+2025-10-26,FK Qabala,FK Neftchi,0.0,2.0,Premyer Liqa (Azerbaiyán),4946678,20251026_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-10-26,Qarabağ FK,Shamakhi FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946681,20251026_Qarabağ-FK_Shamakhi-FK,9.0,0.0,1.0,1.0,0.0,0.0,5.0,2.0,,,,,62.0,38.0,,,flashscore
+2025-10-31,Qarabağ FK,Imisli FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4946683,20251031_Qarabağ-FK_Imisli-FK,6.0,2.0,2.0,1.0,0.0,0.0,5.0,1.0,,,,,68.0,32.0,,,flashscore
+2025-11-01,Karvan FK,Zira,2.0,3.0,Premyer Liqa (Azerbaiyán),4946684,20251101_Karvan-FK_Zira,2.0,8.0,2.0,1.0,0.0,0.0,2.0,11.0,,,,,42.0,58.0,,,flashscore
+2025-11-01,FK Neftchi,FC Kapaz,5.0,1.0,Premyer Liqa (Azerbaiyán),4946685,20251101_FK-Neftchi_FC-Kapaz,,,,,,,,,,,,,,,,,
+2025-11-02,Turan Tovuz,Shamakhi FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946688,20251102_Turan-Tovuz_Shamakhi-FK,4.0,2.0,3.0,1.0,0.0,0.0,4.0,2.0,,,,,52.0,48.0,,,flashscore
+2025-11-02,Sumqayıt,Araz PFK,3.0,2.0,Premyer Liqa (Azerbaiyán),4946687,20251102_Sumqayıt_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-11-03,Sabah FK,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4946686,20251103_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-11-07,Shamakhi FK,Imisli FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4946693,20251107_Shamakhi-FK_Imisli-FK,3.0,3.0,2.0,3.0,0.0,0.0,5.0,0.0,,,,,48.0,52.0,,,flashscore
+2025-11-07,FK Qabala,Sumqayıt,0.0,2.0,Premyer Liqa (Azerbaiyán),4946690,20251107_FK-Qabala_Sumqayıt,,,,,,,,,,,,,,,,,
+2025-11-08,Araz PFK,Karvan FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946689,20251108_Araz-PFK_Karvan-FK,,,,,,,,,,,,,,,,,
+2025-11-08,Zira,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),4946694,20251108_Zira_Turan-Tovuz,7.0,2.0,4.0,4.0,0.0,1.0,3.0,0.0,,,,,57.0,43.0,,,flashscore
+2025-11-09,FC Kapaz,Sabah FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4946691,20251109_FC-Kapaz_Sabah-FK,2.0,3.0,5.0,4.0,0.0,0.0,3.0,10.0,,,,,46.0,54.0,,,flashscore
+2025-11-09,Qarabağ FK,FK Neftchi,2.0,0.0,Premyer Liqa (Azerbaiyán),4946692,20251109_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-11-21,Karvan FK,FC Kapaz,1.0,2.0,Premyer Liqa (Azerbaiyán),4946696,20251121_Karvan-FK_FC-Kapaz,4.0,2.0,5.0,0.0,0.0,0.0,2.0,5.0,,,,,48.0,52.0,,,flashscore
+2025-11-21,Sumqayıt,Qarabağ FK,2.0,4.0,Premyer Liqa (Azerbaiyán),4946699,20251121_Sumqayıt_Qarabağ-FK,5.0,7.0,3.0,3.0,1.0,0.0,3.0,10.0,,,,,51.0,49.0,,,flashscore
+2025-11-22,Araz PFK,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4946695,20251122_Araz-PFK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2025-11-22,Zira,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4946700,20251122_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-11-23,Sabah FK,Shamakhi FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946698,20251123_Sabah-FK_Shamakhi-FK,6.0,3.0,1.0,3.0,0.0,0.0,2.0,2.0,,,,,59.0,41.0,,,flashscore
+2025-11-23,FK Neftchi,Imisli FK,2.0,3.0,Premyer Liqa (Azerbaiyán),4946697,20251123_FK-Neftchi_Imisli-FK,,,,,,,,,,,,,,,,,
+2025-11-28,FC Kapaz,Zira,0.0,2.0,Premyer Liqa (Azerbaiyán),4946703,20251128_FC-Kapaz_Zira,2.0,2.0,1.0,1.0,0.0,0.0,1.0,4.0,,,,,43.0,57.0,,,flashscore
+2025-11-28,Turan Tovuz,FK Neftchi,0.0,0.0,Premyer Liqa (Azerbaiyán),4946706,20251128_Turan-Tovuz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-11-29,Imisli FK,Sabah FK,0.0,3.0,Premyer Liqa (Azerbaiyán),4946702,20251129_Imisli-FK_Sabah-FK,7.0,5.0,2.0,2.0,0.0,0.0,5.0,6.0,,,,,50.0,50.0,,,flashscore
+2025-11-29,Qarabağ FK,Karvan FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4946704,20251129_Qarabağ-FK_Karvan-FK,8.0,1.0,0.0,1.0,0.0,0.0,4.0,0.0,,,,,61.0,39.0,,,flashscore
+2025-11-30,Shamakhi FK,Sumqayıt,1.0,2.0,Premyer Liqa (Azerbaiyán),4946705,20251130_Shamakhi-FK_Sumqayıt,5.0,2.0,1.0,4.0,0.0,0.0,1.0,6.0,,,,,38.0,62.0,,,flashscore
+2025-11-30,FK Qabala,Araz PFK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946701,20251130_FK-Qabala_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-12-06,Zira,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946712,20251206_Zira_Qarabağ-FK,3.0,3.0,0.0,3.0,0.0,0.0,2.0,3.0,,,,,45.0,55.0,,,flashscore
+2025-12-07,Karvan FK,Shamakhi FK,0.0,3.0,Premyer Liqa (Azerbaiyán),4946709,20251207_Karvan-FK_Shamakhi-FK,2.0,4.0,2.0,2.0,0.0,0.0,2.0,4.0,,,,,47.0,53.0,,,flashscore
+2025-12-08,Sabah FK,FK Neftchi,2.0,0.0,Premyer Liqa (Azerbaiyán),4946710,20251208_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-12-09,Araz PFK,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),4946707,20251209_Araz-PFK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2025-12-09,Sumqayıt,Imisli FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4946711,20251209_Sumqayıt_Imisli-FK,2.0,3.0,3.0,3.0,0.0,0.0,6.0,2.0,,,,,54.0,46.0,,,flashscore
+2025-12-13,Shamakhi FK,Zira,2.0,1.0,Premyer Liqa (Azerbaiyán),4946717,20251213_Shamakhi-FK_Zira,3.0,2.0,1.0,3.0,0.0,0.0,4.0,3.0,,,,,50.0,50.0,,,flashscore
+2025-12-13,Turan Tovuz,Sabah FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4946718,20251213_Turan-Tovuz_Sabah-FK,5.0,3.0,1.0,6.0,0.0,0.0,4.0,6.0,,,,,44.0,56.0,,,flashscore
+2025-12-14,FC Kapaz,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4946714,20251214_FC-Kapaz_FK-Qabala,,,,,,,,,,,,,,,,,
+2025-12-14,Qarabağ FK,Araz PFK,5.0,1.0,Premyer Liqa (Azerbaiyán),4946716,20251214_Qarabağ-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2025-12-15,Imisli FK,Karvan FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946713,20251215_Imisli-FK_Karvan-FK,10.0,1.0,1.0,4.0,0.0,0.0,4.0,3.0,,,,,57.0,43.0,,,flashscore
+2025-12-15,FK Neftchi,Sumqayıt,2.0,2.0,Premyer Liqa (Azerbaiyán),4946715,20251215_FK-Neftchi_Sumqayıt,,,,,,,,,,,,,,,,,
+2025-12-18,Sabah FK,Qarabağ FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4883478,20251218_Sabah-FK_Qarabağ-FK,5.0,4.0,1.0,1.0,0.0,0.0,4.0,7.0,,,,,47.0,53.0,,,flashscore
+2025-12-19,FC Kapaz,Turan Tovuz,0.0,2.0,Premyer Liqa (Azerbaiyán),4946721,20251219_FC-Kapaz_Turan-Tovuz,2.0,6.0,2.0,2.0,0.0,0.0,0.0,4.0,,,,,54.0,46.0,,,flashscore
+2025-12-20,Karvan FK,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),4946722,20251220_Karvan-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2025-12-20,Zira,Imisli FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946724,20251220_Zira_Imisli-FK,7.0,1.0,0.0,1.0,0.0,0.0,5.0,0.0,,,,,67.0,33.0,,,flashscore
+2025-12-21,FK Qabala,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4946720,20251221_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2025-12-21,Araz PFK,Shamakhi FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4946719,20251221_Araz-PFK_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2025-12-22,Sumqayıt,Sabah FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4946723,20251222_Sumqayıt_Sabah-FK,5.0,5.0,5.0,0.0,0.0,0.0,2.0,6.0,,,,,43.0,57.0,,,flashscore
+2026-01-23,Imisli FK,Araz PFK,2.0,2.0,Premyer Liqa (Azerbaiyán),4946725,20260123_Imisli-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-01-23,FK Neftchi,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),4946726,20260123_FK-Neftchi_Zira,,,,,,,,,,,,,,,,,
+2026-01-24,Shamakhi FK,FK Qabala,0.0,4.0,Premyer Liqa (Azerbaiyán),4946729,20260124_Shamakhi-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-01-24,Qarabağ FK,FC Kapaz,0.0,2.0,Premyer Liqa (Azerbaiyán),4946727,20260124_Qarabağ-FK_FC-Kapaz,8.0,1.0,0.0,1.0,0.0,0.0,7.0,2.0,,,,,57.0,43.0,,,flashscore
+2026-01-25,Turan Tovuz,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),4946730,20260125_Turan-Tovuz_Sumqayıt,3.0,9.0,2.0,1.0,0.0,0.0,5.0,4.0,,,,,49.0,51.0,,,flashscore
+2026-01-25,Sabah FK,Karvan FK,4.0,1.0,Premyer Liqa (Azerbaiyán),4946728,20260125_Sabah-FK_Karvan-FK,7.0,0.0,3.0,2.0,0.0,0.0,7.0,1.0,,,,,58.0,42.0,,,flashscore
+2026-01-30,Karvan FK,Sumqayıt,0.0,2.0,Premyer Liqa (Azerbaiyán),4946734,20260130_Karvan-FK_Sumqayıt,4.0,4.0,2.0,2.0,0.0,0.0,3.0,8.0,,,,,46.0,54.0,,,flashscore
+2026-01-30,FK Qabala,Imisli FK,3.0,2.0,Premyer Liqa (Azerbaiyán),4946732,20260130_FK-Qabala_Imisli-FK,,,,,,,,,,,,,,,,,
+2026-01-31,FC Kapaz,Shamakhi FK,0.0,2.0,Premyer Liqa (Azerbaiyán),4946733,20260131_FC-Kapaz_Shamakhi-FK,12.0,3.0,2.0,3.0,0.0,0.0,3.0,8.0,,,,,58.0,42.0,,,flashscore
+2026-01-31,Zira,Sabah FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4946736,20260131_Zira_Sabah-FK,5.0,1.0,1.0,1.0,0.0,0.0,1.0,5.0,,,,,47.0,53.0,,,flashscore
+2026-02-01,Araz PFK,FK Neftchi,0.0,4.0,Premyer Liqa (Azerbaiyán),4946731,20260201_Araz-PFK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-02-01,Qarabağ FK,Turan Tovuz,1.0,0.0,Premyer Liqa (Azerbaiyán),4946735,20260201_Qarabağ-FK_Turan-Tovuz,13.0,4.0,3.0,4.0,0.0,0.0,7.0,1.0,,,,,65.0,35.0,,,flashscore
+2026-02-08,Sabah FK,Araz PFK,4.0,1.0,Premyer Liqa (Azerbaiyán),4946739,20260208_Sabah-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-02-08,Sumqayıt,Zira,2.0,3.0,Premyer Liqa (Azerbaiyán),4946741,20260208_Sumqayıt_Zira,7.0,5.0,2.0,0.0,0.0,0.0,4.0,7.0,,,,,46.0,54.0,,,flashscore
+2026-02-09,Imisli FK,FC Kapaz,0.0,0.0,Premyer Liqa (Azerbaiyán),4946737,20260209_Imisli-FK_FC-Kapaz,4.0,3.0,2.0,1.0,0.0,0.0,1.0,1.0,,,,,57.0,43.0,,,flashscore
+2026-02-09,Turan Tovuz,Karvan FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4946742,20260209_Turan-Tovuz_Karvan-FK,6.0,1.0,1.0,0.0,0.0,0.0,3.0,1.0,,,,,54.0,46.0,,,flashscore
+2026-02-10,Shamakhi FK,Qarabağ FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4946740,20260210_Shamakhi-FK_Qarabağ-FK,4.0,7.0,3.0,4.0,0.0,0.0,4.0,4.0,,,,,41.0,59.0,,,flashscore
+2026-02-10,FK Neftchi,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4946738,20260210_FK-Neftchi_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-02-14,Imisli FK,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946746,20260214_Imisli-FK_Qarabağ-FK,1.0,13.0,3.0,1.0,1.0,1.0,4.0,4.0,,,,,38.0,62.0,,,flashscore
+2026-02-14,Zira,Karvan FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4946748,20260214_Zira_Karvan-FK,6.0,2.0,0.0,2.0,0.0,0.0,2.0,0.0,,,,,56.0,44.0,,,flashscore
+2026-02-15,FC Kapaz,FK Neftchi,1.0,3.0,Premyer Liqa (Azerbaiyán),4946745,20260215_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-02-15,Araz PFK,Sumqayıt,1.0,0.0,Premyer Liqa (Azerbaiyán),4946743,20260215_Araz-PFK_Sumqayıt,,,,,,,,,,,,,,,,,
+2026-02-16,Shamakhi FK,Turan Tovuz,0.0,0.0,Premyer Liqa (Azerbaiyán),4946747,20260216_Shamakhi-FK_Turan-Tovuz,4.0,3.0,1.0,0.0,0.0,0.0,6.0,7.0,,,,,45.0,55.0,,,flashscore
+2026-02-16,FK Qabala,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946744,20260216_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2026-02-20,Turan Tovuz,Zira,2.0,0.0,Premyer Liqa (Azerbaiyán),4946754,20260220_Turan-Tovuz_Zira,2.0,6.0,2.0,3.0,0.0,0.0,2.0,0.0,,,,,47.0,53.0,,,flashscore
+2026-02-20,Sumqayıt,FK Qabala,0.0,0.0,Premyer Liqa (Azerbaiyán),4946753,20260220_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-02-21,Karvan FK,Araz PFK,0.0,2.0,Premyer Liqa (Azerbaiyán),4946750,20260221_Karvan-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-02-22,Imisli FK,Shamakhi FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946749,20260222_Imisli-FK_Shamakhi-FK,4.0,3.0,1.0,4.0,0.0,0.0,1.0,0.0,,,,,56.0,44.0,,,flashscore
+2026-02-22,Sabah FK,FC Kapaz,1.0,0.0,Premyer Liqa (Azerbaiyán),4946752,20260222_Sabah-FK_FC-Kapaz,11.0,1.0,1.0,1.0,0.0,1.0,6.0,0.0,,,,,66.0,34.0,,,flashscore
+2026-02-24,FK Qabala,Turan Tovuz,0.0,3.0,Premyer Liqa (Azerbaiyán),5198693,20260224_FK-Qabala_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2026-02-27,FC Kapaz,Sumqayıt,3.0,0.0,Premyer Liqa (Azerbaiyán),4946757,20260227_FC-Kapaz_Sumqayıt,3.0,3.0,2.0,4.0,0.0,1.0,8.0,5.0,,,,,56.0,44.0,,,flashscore
+2026-02-27,Araz PFK,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4946755,20260227_Araz-PFK_Zira,,,,,,,,,,,,,,,,,
+2026-02-28,Shamakhi FK,FK Neftchi,2.0,2.0,Premyer Liqa (Azerbaiyán),4946759,20260228_Shamakhi-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-02-28,FK Qabala,Karvan FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946756,20260228_FK-Qabala_Karvan-FK,,,,,,,,,,,,,,,,,
+2026-03-01,Turan Tovuz,Imisli FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946760,20260301_Turan-Tovuz_Imisli-FK,4.0,1.0,3.0,2.0,0.0,0.0,3.0,0.0,,,,,59.0,41.0,,,flashscore
+2026-03-01,Qarabağ FK,Sabah FK,3.0,3.0,Premyer Liqa (Azerbaiyán),4946758,20260301_Qarabağ-FK_Sabah-FK,6.0,3.0,3.0,2.0,0.0,0.0,7.0,3.0,,,,,57.0,43.0,,,flashscore
+2026-03-07,Karvan FK,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),4946761,20260307_Karvan-FK_Sumqayıt,3.0,4.0,0.0,2.0,0.0,0.0,7.0,5.0,,,,,47.0,53.0,,,flashscore
+2026-03-08,Shamakhi FK,Imisli FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946765,20260308_Shamakhi-FK_Imisli-FK,3.0,6.0,2.0,4.0,0.0,0.0,4.0,1.0,,,,,45.0,55.0,,,flashscore
+2026-03-08,Qarabağ FK,Araz PFK,6.0,0.0,Premyer Liqa (Azerbaiyán),4946763,20260308_Qarabağ-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-03-09,Zira,FC Kapaz,2.0,2.0,Premyer Liqa (Azerbaiyán),4946766,20260309_Zira_FC-Kapaz,7.0,3.0,1.0,4.0,0.0,0.0,5.0,2.0,,,,,48.0,52.0,,,flashscore
+2026-03-09,FK Neftchi,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),4946762,20260309_FK-Neftchi_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2026-03-10,Sabah FK,FK Qabala,7.0,1.0,Premyer Liqa (Azerbaiyán),4946764,20260310_Sabah-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-03-13,Araz PFK,Karvan FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946767,20260313_Araz-PFK_Karvan-FK,,,,,,,,,,,,,,,,,
+2026-03-13,Sumqayıt,Shamakhi FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946771,20260313_Sumqayıt_Shamakhi-FK,8.0,7.0,3.0,2.0,0.0,0.0,0.0,3.0,,,,,61.0,39.0,,,flashscore
+2026-03-14,Imisli FK,Sabah FK,0.0,5.0,Premyer Liqa (Azerbaiyán),4946769,20260314_Imisli-FK_Sabah-FK,1.0,2.0,1.0,0.0,0.0,0.0,1.0,7.0,,,,,32.0,68.0,,,flashscore
+2026-03-14,Zira,Qarabağ FK,1.0,3.0,Premyer Liqa (Azerbaiyán),4946772,20260314_Zira_Qarabağ-FK,4.0,5.0,1.0,0.0,0.0,0.0,3.0,7.0,,,,,40.0,60.0,,,flashscore
+2026-03-15,FC Kapaz,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4946770,20260315_FC-Kapaz_Turan-Tovuz,4.0,2.0,1.0,1.0,0.0,0.0,1.0,5.0,,,,,45.0,55.0,,,flashscore
+2026-03-15,FK Qabala,FK Neftchi,1.0,3.0,Premyer Liqa (Azerbaiyán),4946768,20260315_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-03-18,Shamakhi FK,Araz PFK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946777,20260318_Shamakhi-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-03-19,Karvan FK,Zira,0.0,1.0,Premyer Liqa (Azerbaiyán),4946773,20260319_Karvan-FK_Zira,3.0,2.0,2.0,2.0,0.0,0.0,0.0,2.0,,,,,46.0,54.0,,,flashscore
+2026-03-19,Sabah FK,Sumqayıt,3.0,1.0,Premyer Liqa (Azerbaiyán),4946776,20260319_Sabah-FK_Sumqayıt,6.0,4.0,1.0,0.0,0.0,0.0,8.0,2.0,,,,,53.0,47.0,,,flashscore
+2026-03-20,FC Kapaz,Qarabağ FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4946775,20260320_FC-Kapaz_Qarabağ-FK,4.0,9.0,3.0,2.0,0.0,0.0,4.0,15.0,,,,,41.0,59.0,,,flashscore
+2026-03-20,FK Neftchi,Imisli FK,6.0,0.0,Premyer Liqa (Azerbaiyán),4946774,20260320_FK-Neftchi_Imisli-FK,,,,,,,,,,,,,,,,,
+2026-03-21,Turan Tovuz,FK Qabala,3.0,2.0,Premyer Liqa (Azerbaiyán),4946778,20260321_Turan-Tovuz_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-04-05,FC Kapaz,FK Qabala,0.0,2.0,Premyer Liqa (Azerbaiyán),4946780,20260405_FC-Kapaz_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-04-05,Sumqayıt,FK Neftchi,1.0,3.0,Premyer Liqa (Azerbaiyán),4946782,20260405_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-04-06,Qarabağ FK,Karvan FK,7.0,0.0,Premyer Liqa (Azerbaiyán),4946781,20260406_Qarabağ-FK_Karvan-FK,5.0,4.0,1.0,0.0,0.0,0.0,11.0,3.0,,,,,62.0,38.0,,,flashscore
+2026-04-07,Imisli FK,Turan Tovuz,1.0,1.0,Premyer Liqa (Azerbaiyán),4946824,20260407_Imisli-FK_Turan-Tovuz,4.0,6.0,2.0,3.0,0.0,0.0,1.0,4.0,,,,,50.0,50.0,,,flashscore
+2026-04-07,Zira,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946783,20260407_Zira_Shamakhi-FK,2.0,0.0,2.0,2.0,0.0,1.0,3.0,1.0,,,,,59.0,41.0,,,flashscore
+2026-04-07,Araz PFK,Sabah FK,2.0,4.0,Premyer Liqa (Azerbaiyán),4946779,20260407_Araz-PFK_Sabah-FK,,,,,,,,,,,,,,,,,
+2026-04-10,Karvan FK,FC Kapaz,4.0,1.0,Premyer Liqa (Azerbaiyán),4946785,20260410_Karvan-FK_FC-Kapaz,4.0,8.0,2.0,2.0,0.0,0.0,11.0,2.0,,,,,49.0,51.0,,,flashscore
+2026-04-11,Shamakhi FK,Qarabağ FK,0.0,0.0,Premyer Liqa (Azerbaiyán),4946788,20260411_Shamakhi-FK_Qarabağ-FK,2.0,12.0,2.0,3.0,0.0,0.0,0.0,5.0,,,,,35.0,65.0,,,flashscore
+2026-04-11,Sabah FK,Zira,2.0,2.0,Premyer Liqa (Azerbaiyán),4946787,20260411_Sabah-FK_Zira,9.0,1.0,1.0,3.0,0.0,0.0,9.0,3.0,,,,,56.0,44.0,,,flashscore
+2026-04-11,FK Neftchi,Araz PFK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946786,20260411_FK-Neftchi_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-04-12,FK Qabala,Imisli FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946784,20260412_FK-Qabala_Imisli-FK,,,,,,,,,,,,,,,,,
+2026-04-12,Turan Tovuz,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),4946789,20260412_Turan-Tovuz_Sumqayıt,3.0,7.0,2.0,3.0,0.0,0.0,3.0,2.0,,,,,47.0,53.0,,,flashscore
+2026-04-17,Araz PFK,Turan Tovuz,0.0,3.0,Premyer Liqa (Azerbaiyán),4946790,20260417_Araz-PFK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2026-04-17,Zira,FK Neftchi,1.0,1.0,Premyer Liqa (Azerbaiyán),4946795,20260417_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-04-18,Karvan FK,Shamakhi FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4946792,20260418_Karvan-FK_Shamakhi-FK,2.0,5.0,2.0,2.0,0.0,0.0,5.0,10.0,,,,,46.0,54.0,,,flashscore
+2026-04-18,Qarabağ FK,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946793,20260418_Qarabağ-FK_Sabah-FK,5.0,0.0,2.0,4.0,0.0,1.0,6.0,2.0,,,,,55.0,45.0,,,flashscore
+2026-04-19,FC Kapaz,Imisli FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946791,20260419_FC-Kapaz_Imisli-FK,2.0,4.0,3.0,3.0,0.0,0.0,4.0,5.0,,,,,51.0,49.0,,,flashscore
+2026-04-19,Sumqayıt,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4946794,20260419_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-04-25,Imisli FK,Sumqayıt,0.0,2.0,Premyer Liqa (Azerbaiyán),4946797,20260425_Imisli-FK_Sumqayıt,5.0,4.0,3.0,2.0,0.0,0.0,4.0,2.0,,,,,46.0,54.0,,,flashscore
+2026-04-25,FK Qabala,Araz PFK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946796,20260425_FK-Qabala_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-04-26,Shamakhi FK,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),4946800,20260426_Shamakhi-FK_FC-Kapaz,3.0,3.0,3.0,4.0,0.0,0.0,11.0,6.0,,,,,53.0,47.0,,,flashscore
+2026-04-26,FK Neftchi,Qarabağ FK,1.0,5.0,Premyer Liqa (Azerbaiyán),4946798,20260426_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2026-04-27,Turan Tovuz,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),4946801,20260427_Turan-Tovuz_Zira,6.0,3.0,1.0,1.0,0.0,0.0,2.0,2.0,,,,,45.0,55.0,,,flashscore
+2026-04-27,Sabah FK,Karvan FK,2.0,0.0,Premyer Liqa (Azerbaiyán),4946799,20260427_Sabah-FK_Karvan-FK,10.0,0.0,1.0,2.0,1.0,1.0,13.0,0.0,,,,,83.0,17.0,,,flashscore
+2026-04-30,FK Neftchi,Qarabağ FK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946751,20260430_FK-Neftchi_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2026-05-02,FC Kapaz,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),4946803,20260502_FC-Kapaz_Sumqayıt,6.0,4.0,2.0,2.0,0.0,0.0,7.0,3.0,,,,,52.0,48.0,,,flashscore
+2026-05-02,Araz PFK,Imisli FK,0.0,1.0,Premyer Liqa (Azerbaiyán),4946802,20260502_Araz-PFK_Imisli-FK,,,,,,,,,,,,,,,,,
+2026-05-03,Shamakhi FK,Sabah FK,0.0,3.0,Premyer Liqa (Azerbaiyán),4946825,20260503_Shamakhi-FK_Sabah-FK,4.0,8.0,0.0,3.0,0.0,0.0,3.0,10.0,,,,,37.0,63.0,,,flashscore
+2026-05-03,Zira,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),4946806,20260503_Zira_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-05-04,Qarabağ FK,Turan Tovuz,2.0,1.0,Premyer Liqa (Azerbaiyán),4946805,20260504_Qarabağ-FK_Turan-Tovuz,3.0,1.0,2.0,3.0,0.0,0.0,7.0,2.0,,,,,59.0,41.0,,,flashscore
+2026-05-05,Karvan FK,FK Neftchi,0.0,3.0,Premyer Liqa (Azerbaiyán),4946804,20260505_Karvan-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-05-08,Imisli FK,Zira,0.0,0.0,Premyer Liqa (Azerbaiyán),4946808,20260508_Imisli-FK_Zira,3.0,2.0,3.0,0.0,0.0,0.0,3.0,3.0,,,,,47.0,53.0,,,flashscore
+2026-05-08,Sabah FK,FC Kapaz,0.0,1.0,Premyer Liqa (Azerbaiyán),4946809,20260508_Sabah-FK_FC-Kapaz,10.0,4.0,3.0,1.0,0.0,0.0,7.0,2.0,,,,,54.0,46.0,,,flashscore
+2026-05-09,FK Qabala,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946807,20260509_FK-Qabala_Qarabağ-FK,,,,,,,,,,,,,,,,,
+2026-05-09,Sumqayıt,Araz PFK,2.0,1.0,Premyer Liqa (Azerbaiyán),4946810,20260509_Sumqayıt_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-05-10,Turan Tovuz,Karvan FK,1.0,0.0,Premyer Liqa (Azerbaiyán),4946811,20260510_Turan-Tovuz_Karvan-FK,4.0,1.0,2.0,3.0,0.0,0.0,1.0,0.0,,,,,53.0,47.0,,,flashscore
+2026-05-10,FK Neftchi,Shamakhi FK,3.0,0.0,Premyer Liqa (Azerbaiyán),4946826,20260510_FK-Neftchi_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2026-05-15,Karvan FK,FK Qabala,1.0,2.0,Premyer Liqa (Azerbaiyán),4946827,20260515_Karvan-FK_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-05-15,Araz PFK,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),4946812,20260515_Araz-PFK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2026-05-16,Qarabağ FK,Imisli FK,3.0,0.0,Premyer Liqa (Azerbaiyán),4946813,20260516_Qarabağ-FK_Imisli-FK,10.0,1.0,2.0,2.0,0.0,0.0,6.0,0.0,,,,,56.0,44.0,,,flashscore
+2026-05-16,Shamakhi FK,Turan Tovuz,3.0,2.0,Premyer Liqa (Azerbaiyán),4946815,20260516_Shamakhi-FK_Turan-Tovuz,4.0,5.0,1.0,5.0,0.0,0.0,3.0,3.0,,,,,43.0,57.0,,,flashscore
+2026-05-17,Sabah FK,FK Neftchi,1.0,2.0,Premyer Liqa (Azerbaiyán),4946814,20260517_Sabah-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-05-17,Zira,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),4946816,20260517_Zira_Sumqayıt,11.0,2.0,2.0,1.0,0.0,0.0,4.0,1.0,,,,,59.0,41.0,,,flashscore
+2026-05-21,FK Qabala,Shamakhi FK,3.0,1.0,Premyer Liqa (Azerbaiyán),4946818,20260521_FK-Qabala_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2026-05-22,Turan Tovuz,Sabah FK,1.0,2.0,Premyer Liqa (Azerbaiyán),4946822,20260522_Turan-Tovuz_Sabah-FK,2.0,5.0,1.0,2.0,0.0,0.0,5.0,6.0,,,,,46.0,54.0,,,flashscore
+2026-05-22,Sumqayıt,Qarabağ FK,3.0,4.0,Premyer Liqa (Azerbaiyán),4946821,20260522_Sumqayıt_Qarabağ-FK,6.0,1.0,2.0,3.0,0.0,0.0,7.0,6.0,,,,,53.0,47.0,,,flashscore
+2026-05-23,FC Kapaz,FK Neftchi,0.0,1.0,Premyer Liqa (Azerbaiyán),4946820,20260523_FC-Kapaz_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-05-23,Araz PFK,Zira,3.0,2.0,Premyer Liqa (Azerbaiyán),4946817,20260523_Araz-PFK_Zira,,,,,,,,,,,,,,,,,
+2026-05-24,Imisli FK,Karvan FK,1.0,1.0,Premyer Liqa (Azerbaiyán),4946819,20260524_Imisli-FK_Karvan-FK,4.0,7.0,,,,,7.0,5.0,,,,,46.0,54.0,,,flashscore
+2026-08-14,Turan Tovuz,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),5958692,20260814_Turan-Tovuz_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-08-15,Araz PFK,Imisli FK,0.0,0.0,Premyer Liqa (Azerbaiyán),5958688,20260815_Araz-PFK_Imisli-FK,,,,,,,,,,,,,,,,,
+2026-08-15,Sabah FK,FC Kapaz,2.0,0.0,Premyer Liqa (Azerbaiyán),5987620,20260815_Sabah-FK_FC-Kapaz,6.0,3.0,2.0,2.0,0.0,0.0,4.0,2.0,,,,,56.0,44.0,,,flashscore
+2026-08-16,Sumqayıt,FK Neftchi,1.0,3.0,Premyer Liqa (Azerbaiyán),5958691,20260816_Sumqayıt_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-08-16,Zira,Shafa,2.0,0.0,Premyer Liqa (Azerbaiyán),5958693,20260816_Zira_Shafa,,,,,,,,,,,,,,,,,
+2026-08-17,Qarabağ FK,Shamakhi FK,3.0,1.0,Premyer Liqa (Azerbaiyán),5987496,20260817_Qarabağ-FK_Shamakhi-FK,7.0,4.0,0.0,4.0,0.0,0.0,11.0,3.0,,,,,60.0,40.0,,,flashscore
+2026-08-22,FK Qabala,Shafa,0.0,1.0,Premyer Liqa (Azerbaiyán),5987497,20260822_FK-Qabala_Shafa,,,,,,,,,,,,,,,,,
+2026-08-22,Zira,Imisli FK,3.0,1.0,Premyer Liqa (Azerbaiyán),5987502,20260822_Zira_Imisli-FK,5.0,1.0,1.0,5.0,0.0,0.0,8.0,2.0,,,,,53.0,47.0,,,flashscore
+2026-08-23,Turan Tovuz,Shamakhi FK,0.0,0.0,Premyer Liqa (Azerbaiyán),5987501,20260823_Turan-Tovuz_Shamakhi-FK,8.0,1.0,2.0,1.0,0.0,0.0,2.0,0.0,,,,,49.0,51.0,,,flashscore
+2026-08-23,FK Neftchi,Araz PFK,5.0,0.0,Premyer Liqa (Azerbaiyán),5987498,20260823_FK-Neftchi_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-08-29,FK Qabala,Shamakhi FK,0.0,0.0,Premyer Liqa (Azerbaiyán),5987504,20260829_FK-Qabala_Shamakhi-FK,,,,,,,,,,,,,,,,,
+2026-08-29,Shafa,Imisli FK,0.0,1.0,Premyer Liqa (Azerbaiyán),5987506,20260829_Shafa_Imisli-FK,,,,,,,,,,,,,,,,,
+2026-08-30,FC Kapaz,Turan Tovuz,1.0,0.0,Premyer Liqa (Azerbaiyán),5987505,20260830_FC-Kapaz_Turan-Tovuz,1.0,6.0,5.0,1.0,0.0,0.0,2.0,3.0,,,,,40.0,60.0,,,flashscore
+2026-08-30,Zira,FK Neftchi,1.0,0.0,Premyer Liqa (Azerbaiyán),5987508,20260830_Zira_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-08-31,Araz PFK,Sabah FK,0.0,1.0,Premyer Liqa (Azerbaiyán),5987503,20260831_Araz-PFK_Sabah-FK,,,,,,,,,,,,,,,,,
+2026-08-31,Sumqayıt,Qarabağ FK,0.0,1.0,Premyer Liqa (Azerbaiyán),5987507,20260831_Sumqayıt_Qarabağ-FK,4.0,11.0,1.0,1.0,0.0,1.0,4.0,4.0,,,,,48.0,52.0,,,flashscore
+2026-09-04,FK Qabala,Imisli FK,2.0,1.0,Premyer Liqa (Azerbaiyán),5987509,20260904_FK-Qabala_Imisli-FK,,,,,,,,,,,,,,,,,
+2026-09-04,FC Kapaz,Shamakhi FK,1.0,4.0,Premyer Liqa (Azerbaiyán),5987510,20260904_FC-Kapaz_Shamakhi-FK,2.0,5.0,6.0,4.0,0.0,0.0,2.0,9.0,,,,,59.0,41.0,,,flashscore
+2026-09-05,Sabah FK,Zira,5.0,0.0,Premyer Liqa (Azerbaiyán),5987513,20260905_Sabah-FK_Zira,1.0,4.0,2.0,1.0,0.0,0.0,7.0,4.0,,,,,49.0,51.0,,,flashscore
+2026-09-05,FK Neftchi,Shafa,4.0,1.0,Premyer Liqa (Azerbaiyán),5987511,20260905_FK-Neftchi_Shafa,,,,,,,,,,,,,,,,,
+2026-09-06,Turan Tovuz,Sumqayıt,2.0,1.0,Premyer Liqa (Azerbaiyán),5987514,20260906_Turan-Tovuz_Sumqayıt,4.0,3.0,4.0,4.0,0.0,0.0,5.0,3.0,,,,,49.0,51.0,,,flashscore
+2026-09-06,Qarabağ FK,Araz PFK,3.0,2.0,Premyer Liqa (Azerbaiyán),5987512,20260906_Qarabağ-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-09-11,Imisli FK,FK Neftchi,2.0,3.0,Premyer Liqa (Azerbaiyán),5987516,20260911_Imisli-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-09-12,FC Kapaz,FK Qabala,1.0,0.0,Premyer Liqa (Azerbaiyán),5987517,20260912_FC-Kapaz_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-09-12,Sumqayıt,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),5987519,20260912_Sumqayıt_Shamakhi-FK,1.0,8.0,3.0,0.0,0.0,0.0,4.0,4.0,,,,,55.0,45.0,,,flashscore
+2026-09-13,Araz PFK,Turan Tovuz,2.0,2.0,Premyer Liqa (Azerbaiyán),5987515,20260913_Araz-PFK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2026-09-13,Zira,Qarabağ FK,1.0,1.0,Premyer Liqa (Azerbaiyán),5987520,20260913_Zira_Qarabağ-FK,3.0,5.0,2.0,2.0,0.0,0.0,3.0,3.0,,,,,48.0,52.0,,,flashscore
+2026-09-14,Shafa,Sabah FK,0.0,3.0,Premyer Liqa (Azerbaiyán),5987518,20260914_Shafa_Sabah-FK,,,,,,,,,,,,,,,,,
+2026-09-18,FK Qabala,FK Neftchi,0.0,3.0,Premyer Liqa (Azerbaiyán),5987521,20260918_FK-Qabala_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-09-18,Qarabağ FK,Shafa,1.0,0.0,Premyer Liqa (Azerbaiyán),5987523,20260918_Qarabağ-FK_Shafa,,,,,,,,,,,,,,,,,
+2026-09-19,Turan Tovuz,Zira,1.0,0.0,Premyer Liqa (Azerbaiyán),5987526,20260919_Turan-Tovuz_Zira,8.0,0.0,1.0,4.0,0.0,0.0,5.0,2.0,,,,,57.0,43.0,,,flashscore
+2026-09-19,Sabah FK,Imisli FK,3.0,1.0,Premyer Liqa (Azerbaiyán),5987524,20260919_Sabah-FK_Imisli-FK,3.0,4.0,1.0,5.0,0.0,1.0,7.0,6.0,,,,,54.0,46.0,,,flashscore
+2026-09-20,Shamakhi FK,Araz PFK,2.0,1.0,Premyer Liqa (Azerbaiyán),5987525,20260920_Shamakhi-FK_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-09-20,FC Kapaz,Sumqayıt,1.0,1.0,Premyer Liqa (Azerbaiyán),5987522,20260920_FC-Kapaz_Sumqayıt,2.0,4.0,1.0,3.0,0.0,0.0,8.0,7.0,,,,,48.0,52.0,,,flashscore
+2026-10-09,Araz PFK,FC Kapaz,0.0,2.0,Premyer Liqa (Azerbaiyán),5987527,20261009_Araz-PFK_FC-Kapaz,,,,,,,,,,,,,,,,,
+2026-10-09,FK Neftchi,Sabah FK,0.0,0.0,Premyer Liqa (Azerbaiyán),5987529,20261009_FK-Neftchi_Sabah-FK,,,,,,,,,,,,,,,,,
+2026-10-10,Zira,Shamakhi FK,1.0,1.0,Premyer Liqa (Azerbaiyán),5987532,20261010_Zira_Shamakhi-FK,10.0,1.0,1.0,2.0,0.0,0.0,3.0,2.0,,,,,58.0,42.0,,,flashscore
+2026-10-10,Sumqayıt,FK Qabala,4.0,1.0,Premyer Liqa (Azerbaiyán),5987531,20261010_Sumqayıt_FK-Qabala,,,,,,,,,,,,,,,,,
+2026-10-11,Imisli FK,Qarabağ FK,0.0,2.0,Premyer Liqa (Azerbaiyán),5987528,20261011_Imisli-FK_Qarabağ-FK,3.0,8.0,1.0,2.0,0.0,0.0,1.0,7.0,,,,,34.0,66.0,,,flashscore
+2026-10-11,Shafa,Turan Tovuz,0.0,1.0,Premyer Liqa (Azerbaiyán),5987530,20261011_Shafa_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2026-10-16,Shamakhi FK,Shafa,3.0,2.0,Premyer Liqa (Azerbaiyán),5987536,20261016_Shamakhi-FK_Shafa,,,,,,,,,,,,,,,,,
+2026-10-16,Sumqayıt,Araz PFK,2.0,1.0,Premyer Liqa (Azerbaiyán),5987537,20261016_Sumqayıt_Araz-PFK,,,,,,,,,,,,,,,,,
+2026-10-17,FK Qabala,Sabah FK,0.0,4.0,Premyer Liqa (Azerbaiyán),5987533,20261017_FK-Qabala_Sabah-FK,,,,,,,,,,,,,,,,,
+2026-10-17,Qarabağ FK,FK Neftchi,3.0,3.0,Premyer Liqa (Azerbaiyán),5987535,20261017_Qarabağ-FK_FK-Neftchi,,,,,,,,,,,,,,,,,
+2026-10-18,Imisli FK,Turan Tovuz,1.0,0.0,Premyer Liqa (Azerbaiyán),5987594,20261018_Imisli-FK_Turan-Tovuz,,,,,,,,,,,,,,,,,
+2026-10-18,FC Kapaz,Zira,1.0,1.0,Premyer Liqa (Azerbaiyán),5987534,20261018_FC-Kapaz_Zira,,,,,,,,,,,,,,,,,

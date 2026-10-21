@@ -369,6 +369,26 @@ LIGAS_V68 = {
         'nota': 'v184: apagada en el barrido; existe para dar liga local a los '
                 'equipos israelíes de las copas UEFA.',
     },
+    # v419 — «Sabah vs Dortmund y Slavia no traen estadísticas; consigue los
+    # datos». ESPN no publica ninguna de las dos (cze.1 da 0 eventos y Azerbaiyán
+    # HTTP 400, ver arriba): sus partidos REALES vienen de FotMob (122 y 262) y
+    # sus córners/tiros/tarjetas de FotMob y Flashscore (`historico_fotmob`,
+    # `stats_flashscore`). Igual que Israel: fuera del barrido, para dar liga
+    # local a sus equipos en las copas UEFA.
+    'cze_first': {
+        'nombre': 'Chance Liga (Chequia)', 'pais': 'Czech Republic',
+        'formato': 'espn', 'espn_liga': 'cze.1', 'desde': '2022-07-01',
+        'urls': [], 'disponible': False, 'features_extra': [],
+        'fuente_v68': 'fotmob',
+        'nota': 'v419: liga local de Slavia, Sparta, Plzen… en las copas UEFA.',
+    },
+    'aze_premier': {
+        'nombre': 'Premyer Liqa (Azerbaiyán)', 'pais': 'Azerbaijan',
+        'formato': 'espn', 'espn_liga': 'aze.1', 'desde': '2022-07-01',
+        'urls': [], 'disponible': False, 'features_extra': [],
+        'fuente_v68': 'fotmob',
+        'nota': 'v419: liga local de Sabah, Qarabag… en las copas UEFA.',
+    },
 }
 
 # v144 — BÚSQUEDA DE FUENTE PARA LAS LIGAS PEDIDAS QUE NO TENÍAMOS.

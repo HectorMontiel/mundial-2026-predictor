@@ -535,6 +535,22 @@
    "equipos": 14,
    "origen": "conocido",
    "slug": "ligat-haal"
+  },
+  "cze_first": {
+   "id": 122,
+   "nombre": "1. Liga",
+   "solape": 1.0,
+   "equipos": 16,
+   "origen": "conocido",
+   "slug": "1-liga"
+  },
+  "aze_premier": {
+   "id": 262,
+   "nombre": "Premier League",
+   "solape": 1.0,
+   "equipos": 12,
+   "origen": "conocido",
+   "slug": "premier-league"
   }
  },
  "sin_resolver": {}

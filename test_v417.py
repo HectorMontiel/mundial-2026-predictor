@@ -72,7 +72,23 @@ def probar_v418():
           and "cajaMarcador('Hoy', estado.picks.filter" in app, 'la página las enseña sutiles y los marcadores siguen contando sólo picks')
 
 
+def probar_v419():
+    import pandas as pd
+    import config
+    import historico_fotmob as hf
+    import stats_flashscore as sf
+    for c, n in (('cze_first', 1000), ('aze_premier', 600)):
+        h = pd.read_csv('historico_%s.csv' % c)
+        check(c in config.LEAGUES and c in hf.LIGAS and c in sf.EXTRA and len(h) >= n and h['home_corners'].notna().sum() >= 200,
+              'v419: %s con partidos y córners REALES (%d partidos, %d con córners)' % (c, len(h), h['home_corners'].notna().sum()))
+    check(config.LEAGUES['cze_first'].get('disponible') is False and config.LEAGUES['aze_premier'].get('disponible') is False,
+          'v419: Chequia y Azerbaiyán no entran al barrido de picks (sólo dan liga local)')
+    js = leer('web', 'cuenta.js')
+    check('>= 0.75 ? linea(ico, n' in js, 'v419: los planes sólo presumen los niveles de 75 % o más')
+
+
 if __name__ == '__main__':
+    probar_v419()
     probar_v417()
     probar_v418()
     print('\n' + '=' * 40)
