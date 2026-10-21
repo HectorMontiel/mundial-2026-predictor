@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-21T20:57:02Z",
+"actualizado": "2026-10-21T22:44:54Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -11464,6 +11464,16 @@
 },
 {
 "dia": "2026-10-21",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Aston Villa vs Viking FK",
+"apuesta": "Gana Aston Villa",
+"cuota": 1.231,
+"resultado": "verde",
+"marcador": "3-1"
+},
+{
+"dia": "2026-10-21",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "BUL vs NEC FC",
@@ -11604,6 +11614,16 @@
 },
 {
 "dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Liverpool M. vs Cerro Largo",
+"apuesta": "Gana Liverpool M.",
+"cuota": 2.2,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-21",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Mosta vs Valletta",
@@ -11674,6 +11694,16 @@
 },
 {
 "dia": "2026-10-21",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Real Betis vs Feyenoord Rotterdam",
+"apuesta": "Real Betis o empate",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-21",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Real Madrid U19 vs RB Leipzig U19",
@@ -11681,6 +11711,16 @@
 "cuota": 1.26,
 "resultado": "verde",
 "marcador": "5-2"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Real Madrid vs RB Leipzig",
+"apuesta": "Gana Real Madrid",
+"cuota": 1.26,
+"resultado": "verde",
+"marcador": "4-1"
 },
 {
 "dia": "2026-10-21",
@@ -11701,6 +11741,16 @@
 "cuota": 2.5,
 "resultado": "verde",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sporting CP vs LASK",
+"apuesta": "Gana Sporting CP",
+"cuota": 1.31,
+"resultado": "rojo",
+"marcador": "2-3"
 },
 {
 "dia": "2026-10-21",
@@ -11751,6 +11801,36 @@
 "cuota": 1.5,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Warrenpoint vs Crusaders",
+"apuesta": "Gana Warrenpoint",
+"cuota": 3.1,
+"resultado": "verde",
+"marcador": "5-2"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Warrenpoint vs Crusaders",
+"apuesta": "Gana Crusaders",
+"cuota": 2.2,
+"resultado": "rojo",
+"marcador": "5-2"
+},
+{
+"dia": "2026-10-21",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Warrenpoint vs Crusaders",
+"apuesta": "Gana Crusaders",
+"cuota": 2.2,
+"resultado": "rojo",
+"marcador": "5-2"
 }
 ]
 }

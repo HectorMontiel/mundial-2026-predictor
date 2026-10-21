@@ -205,8 +205,8 @@
   },
   "Racing (Montevideo)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Montevideo City (Uru)",
-    "ratio": 0.5556,
+    "candidato": "Racing Club 2",
+    "ratio": 0.4667,
     "visto": "2026-10-21"
   },
   "Real Betis": {
@@ -329,8 +329,8 @@
   },
   "São Bernardo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Paulo W",
-    "ratio": 0.5714,
+    "candidato": "Sao Raimundo RR U20",
+    "ratio": 0.5161,
     "visto": "2026-10-21"
   },
   "Nacional Asunción": {
@@ -449,8 +449,8 @@
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sport Sebaco",
-    "ratio": 0.4,
+    "candidato": "Wiener Sport-Club",
+    "ratio": 0.64,
     "visto": "2026-10-21"
   },
   "Estudiantes (Buenos Aires)": {
@@ -1127,9 +1127,9 @@
   },
   "São Paulo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Sao Bernardo",
-    "ratio": 0.5714,
-    "visto": "2026-10-18"
+    "candidato": "Sao Raimundo RR U20",
+    "ratio": 0.5,
+    "visto": "2026-10-21"
   },
   "Qingdao Hainiu": {
     "contexto": "cuotas_mx→futbol",
@@ -1295,8 +1295,8 @@
   },
   "Deportivo Táchira": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Deportivo Mixco",
-    "ratio": 0.6875,
+    "candidato": "Deportivo Riestra 2",
+    "ratio": 0.7222,
     "visto": "2026-10-21"
   },
   "Al Ittihad": {
@@ -1463,8 +1463,8 @@
   },
   "Dinamo Moscow": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Dinamo Ferizaj",
-    "ratio": 0.5185,
+    "candidato": "NK Dinamo Zagreb 2",
+    "ratio": 0.4516,
     "visto": "2026-10-21"
   },
   "Crystal Palace": {
@@ -2323,6 +2323,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "South Melbourne",
     "ratio": 0.75,
+    "visto": "2026-10-21"
+  },
+  "East Bengal FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "East Riffa",
+    "ratio": 0.5714,
     "visto": "2026-10-21"
   }
 }
