@@ -90,7 +90,20 @@ def probar_escudos():
           'si el nombre no coincide, o la liga no es femenil, se deja el de ESPN')
 
 
+def probar_sesion():
+    js = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
+    check('if (sb) yo.user = sesionGuardada();' in js and "'-auth-token'" in js,
+          'v412: la sesión guardada en el dispositivo se lee al instante')
+    check('if (!yo.user && listo) await aTiempo(listo' in js and 'listo = refrescar();' in js,
+          'v412: «Mi cuenta» no pide entrar hasta que termina de cargar la sesión (el regreso de Stripe)')
+    check(js.count('try { pintarCabecera(); }') >= 2 and "addEventListener('visibilitychange'" in js,
+          'v412: la cabecera no enseña «Entrar» mientras carga, y se pone al día al volver a la app')
+    fn = open(os.path.join('supabase', 'functions', 'stripe', 'index.ts'), encoding='utf-8').read()
+    check('payment_method_types:' not in fn, 'v411: Stripe sin payment_method_types (la API nueva lo rechaza)')
+
+
 if __name__ == '__main__':
+    probar_sesion()
     probar_escudos()
     probar_exportar()
     probar_ia()

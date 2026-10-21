@@ -18,6 +18,21 @@
         }) : null;
   } catch (e) { sb = null; }          // un navegador que no deja guardar la sesión no rompe la página
   const yo = { user: null, perfil: null, seguidos: new Set(), desbloqueados: {}, conteo: {}, precios: {} };
+  // v412 — «cuando compré se me cerró sesión»: NO se cerraba. Al volver de
+  // Stripe, «Mi cuenta» se abría a los 1,5 s y, si el celular aún no había
+  // leído la sesión guardada, enseñaba «Entrar» (y lo mismo la cabecera al
+  // abrir la app). Ahora la sesión guardada en ESTE dispositivo se lee al
+  // instante, y nada pide entrar hasta que la primera carga termina.
+  function sesionGuardada() {
+    try {
+      const ref = String(C.SUPABASE_URL || '').split('//')[1].split('.')[0];
+      const s = JSON.parse(localStorage.getItem('sb-' + ref + '-auth-token') || 'null');
+      return (s && s.user && s.refresh_token) ? s.user : null;
+    } catch (e) { return null; }
+  }
+  if (sb) yo.user = sesionGuardada();
+  let listo = null;                       // la primera carga de la sesión
+  try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) { /* opcional */ }
   window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb };
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
@@ -82,10 +97,12 @@
     new Promise((r) => setTimeout(() => r(porDefecto), ms || 5000))]);
   async function refrescar() {
     if (!sb) return;
+    try { pintarCabecera(); } catch (e) { /* se repinta al final */ }   // v412: con la sesión guardada, sin esperar a la red
     try {
       const { data } = await aTiempo(sb.auth.getSession(), 5000, { data: { session: yo.user ? { user: yo.user } : null } });
       yo.user = data && data.session ? data.session.user : null;
     } catch (e) { /* se queda la sesión que había */ }
+    try { pintarCabecera(); } catch (e) { /* se repinta al final */ }   // v412: «Entrar» no se queda en pantalla mientras carga
     const tareas = [
       sb.from('ajustes').select('clave,valor').then(({ data }) => { (data || []).forEach((x) => { yo.precios[x.clave] = x.valor; }); }),
       sb.from('precios_cuota').select('*').order('desde').then(({ data }) => { yo.bandas = data || []; }),
@@ -210,6 +227,7 @@
   }
 
   async function abrirMiCuenta(msg) {
+    if (!yo.user && listo) await aTiempo(listo, 8000, null);
     if (!yo.user) { abrirAcceso(); return; }
     const p = yo.perfil || {};
     // se abre YA con lo básico (y «Cerrar sesión»); lo que tarda se agrega después
@@ -437,7 +455,7 @@
   if (/[?&]monedas=/.test(location.search)) {
     const ok = /monedas=ok/.test(location.search), pend = /monedas=pendiente/.test(location.search);
     history.replaceState(null, '', location.pathname);
-    setTimeout(() => abrirMiCuenta(ok ? '🎉 ¡Gracias! Tus monedas llegan en unos segundos.' : pend ? 'Tu pago está en proceso; las monedas llegan en cuanto se apruebe.' : 'El pago no se completó.'), 1500);
+    setTimeout(async () => { if (!yo.user && listo) await aTiempo(listo, 8000, null); abrirMiCuenta(ok ? '🎉 ¡Gracias! Tus monedas llegan en unos segundos.' : pend ? 'Tu pago está en proceso; las monedas llegan en cuanto se apruebe.' : 'El pago no se completó.'); }, 1500);
     if (ok || pend) { let n = 0; const t2 = setInterval(async () => { await refrescar(); if (++n > 12) clearInterval(t2); }, 5000); }
   }
   if (/[?&]cuenta=1/.test(location.search)) {
@@ -633,7 +651,9 @@
 
   if (sb) {
     sb.auth.onAuthStateChange(() => refrescar());
-    refrescar();
+    listo = refrescar();
+    // al volver a la app (otra pestaña, Stripe, el celular en reposo) se pone al día
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescar(); });
     historial();
     telegramHist();
     setInterval(() => { historial(); telegramHist(); }, 10 * 60 * 1000);
