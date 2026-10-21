@@ -192,12 +192,16 @@ def probar_v424():
 
 def probar_v425():
     js, fn = leer('web', 'cuenta.js'), leer('supabase', 'functions', 'entrar', 'index.ts')
-    check("sb.auth.onAuthStateChange(() => { setTimeout(refrescar, 0); });" in js,
+    check("sb.auth.onAuthStateChange((evento) => {" in js and "setTimeout(refrescar, 0);\n    });" in js,
           'v425: el inicio de sesión ya no espera a que se recargue todo')
     check('async function esperarCaptcha(ms = 6000)' in js and "ocupado(e.target.querySelector('button[type=submit]'), 'Entrando…')" in js
           and '.cargando::before' in leer('web', 'estilo.css'), 'v425: espera al CAPTCHA y el botón muestra que está trabajando')
-    check("accion: 'enlace'" in js and "if (accion === 'enlace') {" in fn and 'shouldCreateUser: false' in fn
+    check("accion: 'recuperar'" in js and "if (accion === 'recuperar' || accion === 'enlace') {" in fn
           and 'Si ese usuario existe' in fn, 'v425: el enlace por correo también con el usuario (el correo no sale del servidor)')
+    html = leer('web', 'index.html')
+    check('sb.auth.resetPasswordForEmail(quien' in js and 'anonE.auth.resetPasswordForEmail(correoE' in fn
+          and "evento === 'PASSWORD_RECOVERY'" in js and 'const DESDE_RECUPERACION' in js and 'sb.auth.updateUser({ password: c1 })' in js
+          and 'id="nueva-clave"' in html, 'v426: «Olvidé mi contraseña» manda el de RESTABLECER y al volver pide la nueva')
 
 
 if __name__ == '__main__':

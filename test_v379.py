@@ -109,7 +109,7 @@ def probar():
 
     js = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
     html = open(os.path.join('web', 'index.html'), encoding='utf-8').read()
-    check("sb.rpc('desbloquear'" in js and "from('seguidos')" in js and 'signInWithOtp' in js
+    check("sb.rpc('desbloquear'" in js and "from('seguidos')" in js and 'resetPasswordForEmail' in js   # v426: el enlace es el de restablecer
           and "from('historial')" in js, 'la página entra, sigue, desbloquea y enseña el historial')
     check('cuenta.js' in html and 'data-vista-ir="mios"' in html and 'id="planes"' in html
           and ('supabase-js@2.45.4' in html or 'vendor/supabase-2.45.4.js' in html), 'la página carga la cuenta, Mis picks y los planes')

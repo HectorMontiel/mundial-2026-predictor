@@ -6,6 +6,8 @@
   const C = window.CONFIG || {};
   const $ = (id) => document.getElementById(id);
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // v426 — ¿se llegó desde el enlace de «restablecer contraseña»?
+  const DESDE_RECUPERACION = /type=recovery/.test(location.hash + location.search);
   let sb = null;
   try {
     sb = (window.supabase && C.SUPABASE_URL && C.SUPABASE_ANON_KEY)
@@ -381,12 +383,15 @@
       if (!quien) { $('acceso-msg').textContent = 'Escribe arriba tu usuario o tu correo para mandarte el enlace.'; return; }
       const listo = ocupado(t, 'Enviando…');
       let msg;
+      // v426 — «cuando le pico sólo inicia sesión; no me dice que restablezca la
+      // contraseña»: era un enlace para ENTRAR. Ahora es el de restablecer.
       if (quien.includes('@')) {
-        const { error } = await sb.auth.signInWithOtp({ email: quien, options: { emailRedirectTo: location.origin + location.pathname, captchaToken: await esperarCaptcha() } });
-        msg = error ? (/captcha/i.test(error.message) ? 'Completa la verificación de abajo y vuelve a intentar.' : 'No se pudo enviar el correo. Intenta en unos minutos.') : 'Listo: revisa tu correo (también «spam»).';
+        const { error } = await sb.auth.resetPasswordForEmail(quien, { redirectTo: location.origin + location.pathname, captchaToken: await esperarCaptcha() });
+        msg = error ? (/captcha/i.test(error.message) ? 'Completa la verificación de abajo y vuelve a intentar.' : 'No se pudo enviar el correo. Intenta en unos minutos.')
+          : 'Listo: te mandamos el enlace para elegir tu contraseña nueva (revisa también «spam»).';
       } else {
         const r = await fetch(FN + 'entrar', { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: C.SUPABASE_ANON_KEY },
-          body: JSON.stringify({ usuario: quien, accion: 'enlace', captcha: await esperarCaptcha() }) }).catch(() => null);
+          body: JSON.stringify({ usuario: quien, accion: 'recuperar', captcha: await esperarCaptcha() }) }).catch(() => null);
         const d = r ? await r.json().catch(() => ({})) : {};
         msg = d.ok ? d.mensaje : (d.error && !/contraseña/.test(d.error) ? d.error : 'Escribe tu correo arriba para mandarte el enlace.');
       }
@@ -616,6 +621,28 @@
   }
 
   // ---------- historial público (verdes, rojas y porcentaje) ----------
+  // v426 — la contraseña nueva, al volver del enlace del correo
+  function abrirNuevaContra() {
+    if (!$('nueva-clave') || !$('nueva-clave').hidden) return;
+    $('acceso').hidden = true;
+    $('nc-1').value = ''; $('nc-2').value = ''; $('nc-msg').textContent = '';
+    $('nueva-clave').hidden = false;
+  }
+  $('f-nueva-clave') && $('f-nueva-clave').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const c1 = $('nc-1').value, c2 = $('nc-2').value;
+    if (contraDebil(c1)) { $('nc-msg').textContent = contraDebil(c1); return; }
+    if (c1 !== c2) { $('nc-msg').textContent = 'Las contraseñas no coinciden.'; return; }
+    const listo = ocupado(e.target.querySelector('button[type=submit]'), 'Guardando…');
+    const { error } = await sb.auth.updateUser({ password: c1 });
+    listo();
+    if (error) { $('nc-msg').textContent = /session|sesi/i.test(error.message) ? 'El enlace venció. Pide otro desde «Olvidé mi contraseña».' : 'No se pudo guardar: ' + error.message; return; }
+    $('nueva-clave').hidden = true;
+    history.replaceState(null, '', location.pathname);
+    refrescar();
+    setTimeout(() => abrirMiCuenta('🔑 ¡Listo! Tu contraseña nueva quedó guardada.'), 400);
+  });
+
   // v422 — «UN ALGORITMO QUE MUESTRE QUÉ PICK LE INTERESA AL USUARIO DE ACUERDO
   // A SUS TENDENCIAS». Las señales son suyas y se quedan en su sesión: lo que
   // sigue y lo que desbloquea (deporte, liga, nivel y la cuota que juega), y
@@ -896,7 +923,11 @@
     // v425 — «iniciar sesión tarda ~10 s». Supabase ESPERA a lo que haga este
     // aviso antes de terminar el inicio de sesión, y aquí se recargaba todo
     // (perfil, desbloqueos, la IA, las tendencias). Ahora se recarga detrás.
-    sb.auth.onAuthStateChange(() => { setTimeout(refrescar, 0); });
+    sb.auth.onAuthStateChange((evento) => {
+      if (evento === 'PASSWORD_RECOVERY') setTimeout(abrirNuevaContra, 300);      // v426
+      setTimeout(refrescar, 0);
+    });
+    if (DESDE_RECUPERACION) setTimeout(abrirNuevaContra, 1500);
     listo = refrescar();
     // al volver a la app (otra pestaña, Stripe, el celular en reposo) se pone al día
     document.addEventListener('visibilitychange', () => { if (!document.hidden) refrescar(); });

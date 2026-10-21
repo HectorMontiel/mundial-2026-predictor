@@ -26,7 +26,8 @@ Deno.serve(async (req) => {
     // v425 — EL ENLACE POR CORREO CON EL USUARIO: se busca su correo aquí (nunca
     // llega a la página) y Supabase se lo manda. La respuesta es la misma exista
     // o no el usuario, y cuenta como intento (frena que se use para mandar spam).
-    if (accion === 'enlace') {
+    // v426 — y es el de RESTABLECER CONTRASEÑA (antes era uno para entrar).
+    if (accion === 'recuperar' || accion === 'enlace') {
       if (!nombre) return json({ error: 'Escribe tu usuario o tu correo.' }, 400);
       const { data: puedeE, error: errE } = await admin.rpc('puede_entrar', { p_usuario: nombre, p_ip: ip });
       if (!errE && puedeE === false) return json({ error: 'Demasiados intentos. Espera 15 minutos e intenta de nuevo.' }, 429);
@@ -37,13 +38,13 @@ Deno.serve(async (req) => {
         const correoE = uE?.user?.email;
         if (correoE) {
           const anonE = createClient(URL_, Deno.env.get('SUPABASE_ANON_KEY')!, { auth: { persistSession: false } });
-          const { error: eOtp } = await anonE.auth.signInWithOtp({ email: correoE, options: {
-            shouldCreateUser: false, emailRedirectTo: 'https://sharpicks.pages.dev/', captchaToken: captcha ? String(captcha) : undefined } });
+          const { error: eOtp } = await anonE.auth.resetPasswordForEmail(correoE, {
+            redirectTo: 'https://sharpicks.pages.dev/', captchaToken: captcha ? String(captcha) : undefined });
           if (eOtp && /captcha/i.test(eOtp.message)) return json({ error: 'Completa la verificación de abajo y vuelve a intentar.' }, 400);
           if (eOtp) return json({ error: 'No se pudo enviar el correo. Intenta en unos minutos.' }, 502);
         }
       }
-      return json({ ok: true, mensaje: 'Si ese usuario existe, le mandamos el enlace a su correo (revisa también «spam»).' });
+      return json({ ok: true, mensaje: 'Si ese usuario existe, le mandamos a su correo el enlace para elegir una contraseña nueva (revisa también «spam»).' });
     }
     if (!usuario || !contrasena) return json({ error: 'Escribe tu usuario y tu contraseña.' }, 400);
     const { data: puede, error: errLimite } = await admin.rpc('puede_entrar', { p_usuario: nombre, p_ip: ip });

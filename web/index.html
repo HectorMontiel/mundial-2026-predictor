@@ -168,7 +168,7 @@
     <input id="e-usuario" placeholder="Usuario (o correo)" autocomplete="username" autocapitalize="off">
     <input id="e-contra" type="password" placeholder="Contraseña" autocomplete="current-password">
     <button class="ver" type="submit">Entrar</button>
-    <button class="liga-btn" type="button" data-enlace>Olvidé mi contraseña: mándame un enlace al correo</button>
+    <button class="liga-btn" type="button" data-enlace>Olvidé mi contraseña</button>
   </form>
   <form id="f-crear" data-modo="crear" hidden>
     <input id="c-usuario" placeholder="Nombre de usuario (3-20, sin espacios)" autocomplete="username" autocapitalize="off">
@@ -183,6 +183,17 @@
 </div></div>
 
 <!-- v422 — «¿Qué te interesa?» al crear la cuenta (y desde Mi cuenta) -->
+<!-- v426 — al volver del correo de «restablecer contraseña» -->
+<div class="ficha" id="nueva-clave" hidden><div class="ficha-caja acceso">
+  <h3>🔑 Elige tu contraseña nueva</h3>
+  <form id="f-nueva-clave">
+    <input id="nc-1" type="password" placeholder="Contraseña nueva (8+, letras y números)" autocomplete="new-password">
+    <input id="nc-2" type="password" placeholder="Repítela" autocomplete="new-password">
+    <button class="vip-btn" type="submit">Guardar contraseña</button>
+  </form>
+  <p class="sub" id="nc-msg"></p>
+</div></div>
+
 <div class="ficha" id="intereses" hidden><div class="ficha-caja acceso">
   <h3>🎯 ¿Qué te interesa?</h3>
   <p class="tenue">Elige tus deportes y ligas: te los ponemos primero y armamos tu «✨ Para ti».</p>
