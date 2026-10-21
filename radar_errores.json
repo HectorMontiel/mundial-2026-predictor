@@ -1,40 +1,40 @@
 {
  "activo": false,
  "medicion": {
-  "n_entrenamiento": 48627,
-  "n_juicio": 20841,
+  "n_entrenamiento": 49169,
+  "n_juicio": 21073,
   "tablero_real": {
-   "n": 18195,
+   "n": 18969,
    "suficiente": true,
-   "auc": 0.5143,
-   "tasa_base": 0.1575,
-   "top_20": 0.1748,
-   "mejora_pp": 1.73,
-   "p5_pp": 0.81
+   "auc": 0.512,
+   "tasa_base": 0.1594,
+   "top_20": 0.1769,
+   "mejora_pp": 1.77,
+   "p5_pp": 0.9
   },
-  "desde_juicio": "2025-09-20",
-  "tasa_base": 0.1521,
-  "auc": 0.5363,
+  "desde_juicio": "2025-09-28",
+  "tasa_base": 0.1552,
+  "auc": 0.5305,
   "ganancia": {
    "top_05": {
-    "n": 1042,
-    "tasa": 0.1958,
-    "veces": 1.29
+    "n": 1053,
+    "tasa": 0.1757,
+    "veces": 1.13
    },
    "top_10": {
-    "n": 2084,
-    "tasa": 0.167,
-    "veces": 1.1
+    "n": 2107,
+    "tasa": 0.168,
+    "veces": 1.08
    },
    "top_20": {
-    "n": 4168,
-    "tasa": 0.1768,
-    "veces": 1.16
+    "n": 4214,
+    "tasa": 0.183,
+    "veces": 1.18
    },
    "top_50": {
-    "n": 10420,
-    "tasa": 0.1677,
-    "veces": 1.1
+    "n": 10536,
+    "tasa": 0.1688,
+    "veces": 1.09
    }
   },
   "activo": false
