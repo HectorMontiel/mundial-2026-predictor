@@ -77,6 +77,13 @@
         (pr ? 'Desbloquear por ' + pr + ' 🪙' : 'Desbloquear gratis') + '</button>' +
         '<small class="nwnp">Si sale roja, se te devuelve</small>';
     }
+    // v428 — «➕ Combinada»: sólo lo que el usuario puede ver, pendiente y sin empezar
+    const ini = new Date(String(p.inicio || '').replace(' ', 'T') + (/[zZ]|[+-]\d\d:?\d\d$/.test(String(p.inicio)) ? '' : 'Z'));
+    const visible = !p.premium || yo.desbloqueados[p.id] || esVip();
+    if (yo.user && visible && p.estado === 'pendiente' && Number(p.cuota) > 1 && ini > new Date() && !p.solo_analisis && p.tipo !== 'combinada') {
+      const en = boleto().includes(p.id);
+      h += '<button class="seguir' + (en ? ' si' : '') + '" data-a-comb="' + esc(p.id) + '">' + (en ? '✓ En tu combinada' : '➕ Combinada') + '</button>';
+    }
     const sigo = yo.seguidos.has(p.id);
     h += '<button class="seguir' + (sigo ? ' si' : '') + '" data-seguir="' + esc(p.id) + '">' + (sigo ? '★ Siguiendo' : '☆ Seguir') + '</button>';
     const n = yo.conteo[p.id];
@@ -146,6 +153,7 @@
     await Promise.all(tareas.map((t) => aTiempo(t, 6000, null)));
     if (yo.user) await aTiempo(cargarGustos(), 6000, null);
     try { avisoRenovacion(); } catch (e) { /* el aviso nunca tumba la página */ }
+    try { pintarBoleto(); misCombinadas(); } catch (e) { /* v428: nunca tumba la página */ }
     try { pintarCabecera(); } catch (e) {
       // pase lo que pase, la cabecera dice algo (y se reintenta en 20 s)
       const c = $('cuenta');
@@ -621,6 +629,77 @@
   }
 
   // ---------- historial público (verdes, rojas y porcentaje) ----------
+  // v428 — «MIS COMBINADAS»: el usuario arma la suya con los picks de la app.
+  // El boleto vive en su dispositivo hasta que la guarda; al guardarla la base
+  // valida todo (crear_combinada) y, si acierta, le da sus monedillas
+  // (liquidar_combinadas_usuario, lo corre el servidor).
+  const PREMIO = (c) => (c >= 5 ? 5 : c >= 3 ? 3 : c >= 2 ? 2 : 0);
+  function boleto() {
+    try { return JSON.parse(localStorage.getItem('sharpicks-boleto-' + (yo.user && yo.user.id)) || '[]'); } catch (e) { return []; }
+  }
+  function guardarBoleto(ids) {
+    try { localStorage.setItem('sharpicks-boleto-' + (yo.user && yo.user.id), JSON.stringify(ids)); } catch (e) { /* nada */ }
+    pintarBoleto();
+  }
+  const pickDe = (id) => ((window.SP && window.SP.estado.picks) || []).find((x) => x.id === id);
+  function pintarBoleto() {
+    const caja = $('mi-boleto'); if (!caja) return;
+    const ids = yo.user ? boleto() : [];
+    const ps = ids.map(pickDe).filter(Boolean);
+    if (!ps.length) { caja.hidden = true; return; }
+    const cuota = ps.reduce((s, p) => s * Number(p.cuota || 1), 1), prob = ps.reduce((s, p) => s * Number(p.prob || 0), 1), pr = PREMIO(cuota);
+    caja.hidden = false;
+    caja.innerHTML = '<button class="boleto-cab" data-ver-boleto><span>🔗 <b>Tu combinada</b> · ' + ps.length + (ps.length === 1 ? ' pick' : ' picks') +
+      ' · cuota <b>' + cuota.toFixed(2) + '</b></span><small>' + (ps.length < 2 ? 'agrega otro' : (pr ? 'si acierta: +' + pr + ' 🪙' : 'premio desde cuota 2,00')) + ' ▾</small></button>' +
+      (yo.verBoleto ? '<div class="boleto-cuerpo">' + ps.map((p) => '<div class="boleto-pata"><span>' + apuesta(p) + '<small>' + esc(p.partido) + '</small></span><b>' +
+        Number(p.cuota).toFixed(2) + '</b><button class="cerrar-mini" data-quitar-comb="' + esc(p.id) + '" aria-label="Quitar">✕</button></div>').join('') +
+        '<div class="boleto-pie"><small>Probabilidad ~' + Math.round(100 * prob) + ' % · premio: 2 🪙 desde cuota 2,00, 3 🪙 desde 3,00, 5 🪙 desde 5,00 (una premiada por día)</small>' +
+        '<button class="vip-btn" data-guardar-comb' + (ps.length < 2 ? ' disabled' : '') + '>Guardar combinada</button><p class="sub" id="boleto-msg"></p></div></div>' : '');
+  }
+  async function misCombinadas() {
+    const caja = $('mis-comb'); if (!caja || !sb) return;
+    if (!yo.user) { caja.innerHTML = '<p class="tenue">Entra para armar tus combinadas y ganar 🪙 cuando aciertan.</p>'; return; }
+    const { data, error } = await sb.from('combinadas_usuario').select('*').order('creado', { ascending: false }).limit(30);
+    if (error) { caja.innerHTML = '<p class="tenue">Arma tu combinada con «➕ Combinada» en los picks.</p>'; return; }
+    if (!(data || []).length) { caja.innerHTML = '<p class="tenue">Aún no tienes combinadas. Toca «➕ Combinada» en los picks que te gusten (de 2 a 20).</p>'; return; }
+    const faltan = [...new Set(data.flatMap((c) => c.patas))].filter((id) => !pickDe(id));
+    const extra = {};
+    if (faltan.length) { const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado').in('id', faltan.slice(0, 300)); (ps || []).forEach((p) => { extra[p.id] = p; }); }
+    const v = data.filter((c) => c.estado === 'verde').length, r = data.filter((c) => c.estado === 'roja').length, mon = data.reduce((s, c) => s + (c.premio || 0), 0);
+    caja.innerHTML = '<div class="num">✅ ' + v + ' ❌ ' + r + (mon ? ' <span class="pct">+' + mon + ' 🪙 ganadas</span>' : '') + '</div>' + data.map((c) => {
+      const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>' : '<span class="et vivo">⏳ En juego</span>';
+      return '<div class="tg-item ' + c.estado + '"><div class="fila"><span>🔗 ' + c.patas.length + ' picks · <b>' + Number(c.cuota).toFixed(2) + '</b></span>' + chip + '</div>' +
+        c.patas.map((id) => { const p = pickDe(id) || extra[id] || {}; return '<div class="tg-pata">' + (p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : '⏳') + ' ' + apuesta(p.id ? p : { apuesta: '—' }) + ' <span class="tenue">· ' + esc(p.partido || '') + '</span></div>'; }).join('') + '</div>';
+    }).join('');
+  }
+  document.addEventListener('click', async (e) => {
+    const t = e.target.closest('[data-a-comb],[data-quitar-comb],[data-ver-boleto],[data-guardar-comb]');
+    if (!t) return;
+    if (t.dataset.aComb || t.dataset.quitarComb) {
+      const id = t.dataset.aComb || t.dataset.quitarComb, ids = boleto();
+      if (ids.includes(id)) guardarBoleto(ids.filter((x) => x !== id));
+      else {
+        const p = pickDe(id), otros = ids.map(pickDe).filter(Boolean);
+        if (otros.some((o) => o.partido === (p && p.partido))) { alert('Ya tienes un pick de ese partido en tu combinada.'); return; }
+        if (ids.length >= 20) { alert('Una combinada lleva hasta 20 picks.'); return; }
+        guardarBoleto(ids.concat(id)); yo.verBoleto = ids.length === 0 ? false : yo.verBoleto;
+      }
+      if (window.SP) window.SP.pintar();
+      return;
+    }
+    if (t.hasAttribute('data-ver-boleto')) { yo.verBoleto = !yo.verBoleto; pintarBoleto(); return; }
+    if (t.hasAttribute('data-guardar-comb')) {
+      const listo = ocupado(t, 'Guardando…');
+      const { error } = await sb.rpc('crear_combinada', { p_patas: boleto() });
+      listo();
+      if (error) { const m = $('boleto-msg'); if (m) m.textContent = error.message || 'No se pudo guardar.'; return; }
+      guardarBoleto([]); yo.verBoleto = false; pintarBoleto();
+      if (window.SP) window.SP.pintar();
+      misCombinadas();
+      alert('🔗 ¡Combinada guardada! La ves en «Mis picks». Si acierta te damos tus 🪙.');
+    }
+  });
+
   // v426 — la contraseña nueva, al volver del enlace del correo
   function abrirNuevaContra() {
     if (!$('nueva-clave') || !$('nueva-clave').hidden) return;

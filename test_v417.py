@@ -204,7 +204,32 @@ def probar_v425():
           and 'id="nueva-clave"' in html, 'v426: «Olvidé mi contraseña» manda el de RESTABLECER y al volver pide la nueva')
 
 
+def probar_v427():
+    app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
+    check('function cancha(v)' in app and 'fieldPositionX != null' in app and "(j.lado === 0 ? x : 100 - x) * 1.05" in app
+          and "cancha(v) : '')" in app and 'h += cancha(v);' in app, 'v427: la cancha en vivo (jugadas con lugar, el visitante reflejado) en la tarjeta y la ficha')
+    check('Presión cada 5 min' in app and '.cancha-svg .pulso' in css and 'prefers-reduced-motion' in css,
+          'v427: la presión cada 5 minutos y la última jugada que late (sin animación si el usuario la apaga)')
+
+
+def probar_v428():
+    sql = leer('supabase', 'v428_mis_combinadas.sql')
+    check('v_n < 2 or v_n > 20' in sql and 'count(distinct lower(p.partido))' in sql and "p.inicio > now() + interval '1 minute'" in sql
+          and 'public.es_pro()' in sql and 'from public.desbloqueos d where d.pick = p.id' in sql,
+          'v428: de 2 a 20 picks, partidos distintos, sin empezar y sólo lo que el usuario puede ver')
+    check("when v_cuota >= 5 then 5 when v_cuota >= 3 then 3 when v_cuota >= 2 then 2 else 0" in sql and 'o.dia = c.dia and o.premio > 0' in sql
+          and 'v_total % 5 = 0' in sql, 'v428: premio 2/3/5 🪙 por cuota, una premiada por día y +5 🪙 cada 5')
+    check('revoke all on table public.combinadas_usuario from public, anon, authenticated' in sql
+          and 'grant execute on function public.liquidar_combinadas_usuario() to service_role' in sql,
+          'v428: nadie escribe la tabla ni da monedas desde la página; sólo el servidor liquida')
+    js, xw = leer('web', 'cuenta.js'), leer('exportar_web.py')
+    check("sb.rpc('crear_combinada', { p_patas: boleto() })" in js and 'data-a-comb' in js and 'async function misCombinadas()' in js
+          and '/rest/v1/rpc/liquidar_combinadas_usuario' in xw, 'v428: el boleto, «Mis combinadas» y la liquidación en cada pasada')
+
+
 if __name__ == '__main__':
+    probar_v427()
+    probar_v428()
     probar_v425()
     probar_v424()
     probar_v423()

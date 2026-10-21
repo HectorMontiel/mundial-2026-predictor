@@ -469,6 +469,17 @@ def main() -> int:
     except Exception as e:
         logger.exception('[web] no se pudieron sincronizar las combinadas')
         raise RuntimeError('No se pudo sincronizar combinadas; se bloquea la publicación') from e
+    # v428 — las combinadas que arman los usuarios: se liquidan con lo ya
+    # calificado y, si aciertan, la base les da sus monedillas (nunca la página)
+    try:
+        import requests
+        url, key = os.environ.get('SUPABASE_URL'), os.environ.get('SUPABASE_SERVICE_KEY')
+        if url and key:
+            rr = requests.post(url.rstrip('/') + '/rest/v1/rpc/liquidar_combinadas_usuario', timeout=60,
+                               headers={'apikey': key, 'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'}, json={})
+            print('web: combinadas de usuarios liquidadas: %s' % (rr.text[:40] if rr.ok else 'HTTP %s' % rr.status_code))
+    except Exception as e:
+        logger.warning('[web] no se liquidaron las combinadas de usuarios: %s', e)
     print('web: %d picks en %s; %d subidos a Supabase; %d premium; %d combinadas'
           % (len(r['picks']), SALIDA, n, len(secretos), nc))
     return 0
