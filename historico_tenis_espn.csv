@@ -3798,6 +3798,10 @@ fecha,circuito,torneo,jugador_1,jugador_2,ganador,sets_1,sets_2,juegos_totales,i
 2026-10-17,ATP,Almaty Open,Rei Sakamoto,Amir Omarkhanov,Rei Sakamoto,2,0,15,2026-10-17T11:09:05Z
 2026-10-17,ATP,Almaty Open,Beibit Zhukayev,Adam Walton,Adam Walton,0,2,19,2026-10-17T11:09:05Z
 2026-10-17,ATP,Almaty Open,Nikoloz Basilashvili,Taro Daniel,Nikoloz Basilashvili,2,0,20,2026-10-17T11:09:05Z
+2026-10-17,ATP,Almaty Open,Ilia Simakin,Luka Pavlovic,Ilia Simakin,2,1,31,2026-10-22T11:51:47Z
+2026-10-17,ATP,Almaty Open,Ilya Ivashka,Roman Safiullin,Roman Safiullin,1,2,30,2026-10-22T11:51:47Z
+2026-10-17,ATP,Almaty Open,Stefanos Sakellaridis,Petr Bar Biryukov,Stefanos Sakellaridis,2,0,17,2026-10-22T11:51:47Z
+2026-10-17,ATP,Almaty Open,Daniil Glinka,Aleksandr Shevchenko,Aleksandr Shevchenko,1,2,34,2026-10-22T11:51:47Z
 2026-10-17,WTA,BNB Ningbo Open,Anastasia Zakharova,Yuliia Starodubtseva,Anastasia Zakharova,2,0,19,2026-10-17T11:09:05Z
 2026-10-17,WTA,BNB Ningbo Open,Katie Volynets,Katarzyna Kawa,Katarzyna Kawa,1,1,14,2026-10-17T11:09:05Z
 2026-10-17,WTA,BNB Ningbo Open,Yu Jun Lin,Daria Snigur,Daria Snigur,1,2,25,2026-10-17T11:09:05Z
@@ -3809,6 +3813,17 @@ fecha,circuito,torneo,jugador_1,jugador_2,ganador,sets_1,sets_2,juegos_totales,i
 2026-10-17,WTA,BNB Ningbo Open,Simona Waltert,Anhelina Kalinina,Anhelina Kalinina,1,2,28,2026-10-17T11:09:05Z
 2026-10-17,WTA,BNB Ningbo Open,Tatiana Prozorova,Mayar Sherif,Tatiana Prozorova,2,1,24,2026-10-17T11:09:05Z
 2026-10-17,WTA,BNB Ningbo Open,Shi Han,Magdalena Frech,Shi Han,1,1,11,2026-10-17T11:09:05Z
+2026-10-17,WTA,BNB Ningbo Open,Kamilla Rakhimova,Dayana Yastremska,Kamilla Rakhimova,2,0,18,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Federico Cina,Joel Josef Schwaerzler,Federico Cina,2,0,22,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Gauthier Onclin,Harry Wendelken,Gauthier Onclin,2,1,25,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Remy Bertola,Giovanni Mpetshi Perricard,Remy Bertola,2,1,38,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Gilles Arnaud Bailly,Clement Chidekh,Clement Chidekh,0,2,16,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Andrea Guerrieri,Kimmer Coppejans,Andrea Guerrieri,2,0,23,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Edas Butvilas,Nishesh Basavareddy,Nishesh Basavareddy,0,2,15,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Buvaysar Gadamauri,Martin Damm,Martin Damm,0,2,17,2026-10-22T11:51:47Z
+2026-10-17,ATP,BNP Paribas Fortis European Open,Tom Gentzsch,Aziz Dougaz,Aziz Dougaz,1,2,31,2026-10-22T11:51:47Z
+2026-10-17,WTA,Dongfeng Voyah Wuhan Open,Jelena Ostapenko,Sonay Kartal,Sonay Kartal,0,2,26,2026-10-22T11:51:47Z
+2026-10-17,WTA,Dongfeng Voyah Wuhan Open,Maja Chwalinska,Iga Swiatek,Maja Chwalinska,2,0,19,2026-10-22T11:51:47Z
 2026-10-17,WTA,Kinoshita Group Japan Open,Rinko Matsuda,Mary Stoiana,Mary Stoiana,0,2,22,2026-10-17T11:09:05Z
 2026-10-17,WTA,Kinoshita Group Japan Open,Kayla Day,Ena Koike,Kayla Day,2,0,21,2026-10-17T11:09:05Z
 2026-10-17,WTA,Kinoshita Group Japan Open,Elina Avanesyan,Sayaka Ishii,Sayaka Ishii,0,1,9,2026-10-17T11:09:05Z
@@ -3821,5 +3836,141 @@ fecha,circuito,torneo,jugador_1,jugador_2,ganador,sets_1,sets_2,juegos_totales,i
 2026-10-17,WTA,Kinoshita Group Japan Open,Emerson Jones,Heather Watson,Emerson Jones,2,0,18,2026-10-17T11:09:05Z
 2026-10-17,WTA,Kinoshita Group Japan Open,Sofia Kenin,Mei Yamaguchi,Sofia Kenin,2,1,21,2026-10-17T11:09:05Z
 2026-10-17,WTA,Kinoshita Group Japan Open,Maddison Inglis,Sara Sorribes Tormo,Maddison Inglis,2,0,22,2026-10-17T11:09:05Z
+2026-10-17,WTA,Lisboa Belem Open,Dalma Galfi,Leyre Romero Gormaz,Leyre Romero Gormaz,0,2,17,2026-10-22T11:51:47Z
+2026-10-17,WTA,Lisboa Belem Open,Clara Burel,Jessica Bouzas Maneiro,Clara Burel,2,0,20,2026-10-22T11:51:47Z
 2026-10-17,ATP,Rolex Shanghai Masters,Alejandro Davidovich Fokina,Alexander Zverev,Alejandro Davidovich Fokina,2,1,31,2026-10-17T11:09:05Z
+2026-10-17,ATP,Rolex Shanghai Masters,Daniil Medvedev,Rafael Jodar,Rafael Jodar,0,2,19,2026-10-22T11:51:47Z
+2026-10-17,WTA,RoveretOpen Città della Pace,Dominika Salkova,Martyna Kubka,Dominika Salkova,2,1,28,2026-10-22T11:51:47Z
+2026-10-17,WTA,RoveretOpen Città della Pace,Lucie Havlickova,Bianca Andreescu,Bianca Andreescu,0,2,16,2026-10-22T11:51:47Z
 2026-10-17,WTA,Vanda Pharmaceuticals Mallorca Women's Championships,Francesca Curmi,Ariana Geerlings,Ariana Geerlings,0,2,17,2026-10-17T11:09:05Z
+2026-10-17,WTA,Vanda Pharmaceuticals Mallorca Women's Championships,Laura Samson,Tamara Zidansek,Laura Samson,2,1,23,2026-10-22T11:51:47Z
+2026-10-18,ATP,Almaty Open,Rei Sakamoto,Gabriel Diallo,Rei Sakamoto,2,1,28,2026-10-22T11:51:47Z
+2026-10-18,ATP,Almaty Open,Nikoloz Basilashvili,Adam Walton,Nikoloz Basilashvili,2,0,23,2026-10-22T11:51:47Z
+2026-10-18,ATP,Almaty Open,Ilia Simakin,Roman Safiullin,Roman Safiullin,0,2,20,2026-10-22T11:51:47Z
+2026-10-18,ATP,Almaty Open,Stefanos Sakellaridis,Aleksandr Shevchenko,Stefanos Sakellaridis,2,0,23,2026-10-22T11:51:47Z
+2026-10-18,WTA,BNB Ningbo Open,Polina Kudermetova,Anastasia Zakharova,Polina Kudermetova,2,0,18,2026-10-22T11:51:47Z
+2026-10-18,WTA,BNB Ningbo Open,Katarzyna Kawa,Daria Snigur,Katarzyna Kawa,2,0,9,2026-10-22T11:51:47Z
+2026-10-18,WTA,BNB Ningbo Open,Yulia Putintseva,Alycia Parks,Yulia Putintseva,2,0,16,2026-10-22T11:51:47Z
+2026-10-18,WTA,BNB Ningbo Open,Aliaksandra Sasnovich,Anhelina Kalinina,Aliaksandra Sasnovich,1,0,8,2026-10-22T11:51:47Z
+2026-10-18,WTA,BNB Ningbo Open,Alina Korneeva,Shi Han,Shi Han,0,2,19,2026-10-22T11:51:47Z
+2026-10-18,WTA,BNB Ningbo Open,Kamilla Rakhimova,Tatiana Prozorova,Kamilla Rakhimova,2,1,33,2026-10-22T11:51:47Z
+2026-10-18,ATP,BNP Paribas Fortis European Open,Federico Cina,Remy Bertola,Federico Cina,2,1,35,2026-10-22T11:51:47Z
+2026-10-18,ATP,BNP Paribas Fortis European Open,Gauthier Onclin,Clement Chidekh,Clement Chidekh,0,2,21,2026-10-22T11:51:47Z
+2026-10-18,ATP,BNP Paribas Fortis European Open,Aziz Dougaz,Nishesh Basavareddy,Nishesh Basavareddy,0,2,22,2026-10-22T11:51:47Z
+2026-10-18,ATP,BNP Paribas Fortis European Open,Andrea Guerrieri,Martin Damm,Andrea Guerrieri,2,1,35,2026-10-22T11:51:47Z
+2026-10-18,WTA,Dongfeng Voyah Wuhan Open,Sonay Kartal,Maja Chwalinska,Maja Chwalinska,1,2,26,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Pierre-Hugues Herbert,Jurij Rodionov,Pierre-Hugues Herbert,2,1,31,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Vitaliy Sachko,Otto Virtanen,Vitaliy Sachko,2,0,20,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Dusan Lajovic,Maxim Mrva,Maxim Mrva,0,2,26,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Sascha Gueymard Wayenburg,Kyrian Jacquet,Kyrian Jacquet,0,2,21,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Borna Gojo,Francesco Maestrelli,Borna Gojo,2,1,32,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Clement Tabur,Valentin Royer,Clement Tabur,2,1,34,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Nicolai Budkov Kjaer,Ugo Blanchet,Nicolai Budkov Kjaer,2,1,25,2026-10-22T11:51:47Z
+2026-10-18,ATP,Grand Prix Auvergne-Rhône-Alpes,Michael Mmoh,Jan Kumstat,Michael Mmoh,2,1,29,2026-10-22T11:51:47Z
+2026-10-18,WTA,Kinoshita Group Japan Open,Sayaka Ishii,Mary Stoiana,Mary Stoiana,0,2,22,2026-10-22T11:51:47Z
+2026-10-18,WTA,Kinoshita Group Japan Open,Emerson Jones,Taylah Preston,Emerson Jones,1,0,6,2026-10-22T11:51:47Z
+2026-10-18,WTA,Kinoshita Group Japan Open,Kayla Day,Maya Joint,Maya Joint,1,2,27,2026-10-22T11:51:47Z
+2026-10-18,WTA,Kinoshita Group Japan Open,Maddison Inglis,Claire Liu,Claire Liu,0,2,19,2026-10-22T11:51:47Z
+2026-10-18,WTA,Kinoshita Group Japan Open,Aoi Ito,Harriet Dart,Harriet Dart,1,2,31,2026-10-22T11:51:47Z
+2026-10-18,WTA,Kinoshita Group Japan Open,Sofia Kenin,Sinja Kraus,Sinja Kraus,0,2,23,2026-10-22T11:51:47Z
+2026-10-18,WTA,Lisboa Belem Open,Leyre Romero Gormaz,Clara Burel,Clara Burel,0,2,19,2026-10-22T11:51:47Z
+2026-10-18,ATP,Rolex Shanghai Masters,Rafael Jodar,Alejandro Davidovich Fokina,Alejandro Davidovich Fokina,1,2,30,2026-10-22T11:51:47Z
+2026-10-18,WTA,RoveretOpen Città della Pace,Dominika Salkova,Bianca Andreescu,Bianca Andreescu,0,2,21,2026-10-22T11:51:47Z
+2026-10-18,WTA,Vanda Pharmaceuticals Mallorca Women's Championships,Laura Samson,Ariana Geerlings,Ariana Geerlings,0,2,16,2026-10-22T11:51:47Z
+2026-10-19,ATP,Almaty Open,Facundo Diaz Acosta,Thiago Agustin Tirante,Facundo Diaz Acosta,2,1,30,2026-10-22T11:51:47Z
+2026-10-19,ATP,Almaty Open,James Duckworth,Miomir Kecmanovic,James Duckworth,2,0,19,2026-10-22T11:51:47Z
+2026-10-19,ATP,Almaty Open,Aleksandar Vukic,Adrian Mannarino,Adrian Mannarino,1,2,32,2026-10-22T11:51:47Z
+2026-10-19,ATP,Almaty Open,Nikoloz Basilashvili,Marin Cilic,Nikoloz Basilashvili,2,0,20,2026-10-22T11:51:47Z
+2026-10-19,ATP,Almaty Open,Stefanos Sakellaridis,Mikhail Kukushkin,Mikhail Kukushkin,0,2,26,2026-10-22T11:51:47Z
+2026-10-19,WTA,BNB Ningbo Open,Leylah Fernandez,Elise Mertens,Leylah Fernandez,2,1,29,2026-10-22T11:51:47Z
+2026-10-19,WTA,BNB Ningbo Open,Shi Han,Sorana Cirstea,Sorana Cirstea,0,2,17,2026-10-22T11:51:47Z
+2026-10-19,WTA,BNB Ningbo Open,Aliaksandra Sasnovich,Daria Kasatkina,Aliaksandra Sasnovich,2,0,18,2026-10-22T11:51:47Z
+2026-10-19,WTA,BNB Ningbo Open,Marie Bouzkova,Kamilla Rakhimova,Marie Bouzkova,2,0,20,2026-10-22T11:51:47Z
+2026-10-19,WTA,BNB Ningbo Open,Diane Parry,Alexandra Eala,Alexandra Eala,0,2,16,2026-10-22T11:51:47Z
+2026-10-19,ATP,BNP Paribas Fortis European Open,Jaume Munar,Federico Cina,Jaume Munar,2,0,19,2026-10-22T11:51:47Z
+2026-10-19,ATP,BNP Paribas Fortis European Open,Martin Damm,Yannick Hanfmann,Martin Damm,2,0,21,2026-10-22T11:51:47Z
+2026-10-19,ATP,BNP Paribas Fortis European Open,Alex Michelsen,Andrea Guerrieri,Alex Michelsen,2,0,15,2026-10-22T11:51:47Z
+2026-10-19,ATP,Grand Prix Auvergne-Rhône-Alpes,Maxim Mrva,Pierre-Hugues Herbert,Pierre-Hugues Herbert,1,2,26,2026-10-22T11:51:47Z
+2026-10-19,ATP,Grand Prix Auvergne-Rhône-Alpes,Borna Gojo,Vitaliy Sachko,Borna Gojo,2,0,22,2026-10-22T11:51:47Z
+2026-10-19,ATP,Grand Prix Auvergne-Rhône-Alpes,Michael Mmoh,Kyrian Jacquet,Kyrian Jacquet,0,1,13,2026-10-22T11:51:47Z
+2026-10-19,ATP,Grand Prix Auvergne-Rhône-Alpes,Nicolai Budkov Kjaer,Clement Tabur,Clement Tabur,0,2,17,2026-10-22T11:51:47Z
+2026-10-19,ATP,Grand Prix Auvergne-Rhône-Alpes,Felix Balshaw,Jaime Faria,Felix Balshaw,2,1,27,2026-10-22T11:51:47Z
+2026-10-19,ATP,Grand Prix Auvergne-Rhône-Alpes,Lorenzo Musetti,Matteo Arnaldi,Lorenzo Musetti,2,0,17,2026-10-22T11:51:47Z
+2026-10-19,ATP,Grand Prix Auvergne-Rhône-Alpes,Moise Kouame,Lorenzo Sonego,Moise Kouame,2,0,23,2026-10-22T11:51:47Z
+2026-10-19,WTA,Kinoshita Group Japan Open,Kaitlin Quevedo,Lanlana Tararudee,Lanlana Tararudee,0,2,21,2026-10-22T11:51:47Z
+2026-10-19,WTA,Kinoshita Group Japan Open,Mai Hontama,Viktorija Golubic,Viktorija Golubic,0,2,16,2026-10-22T11:51:47Z
+2026-10-19,WTA,Kinoshita Group Japan Open,Liudmila Samsonova,Lilli Tagger,Lilli Tagger,0,2,18,2026-10-22T11:51:47Z
+2026-10-19,WTA,Kinoshita Group Japan Open,Sinja Kraus,Catherine McNally,Sinja Kraus,2,0,14,2026-10-22T11:51:47Z
+2026-10-19,WTA,Kinoshita Group Japan Open,Harriet Dart,Talia Gibson,Talia Gibson,0,2,25,2026-10-22T11:51:47Z
+2026-10-19,WTA,Kinoshita Group Japan Open,Janice Tjen,Ashlyn Krueger,Ashlyn Krueger,0,2,20,2026-10-22T11:51:47Z
+2026-10-20,ATP,Almaty Open,Rinky Hijikata,Terence Atmane,Terence Atmane,0,2,21,2026-10-22T11:51:47Z
+2026-10-20,ATP,Almaty Open,Roman Safiullin,Sho Shimabukuro,Sho Shimabukuro,1,2,33,2026-10-22T11:51:47Z
+2026-10-20,ATP,Almaty Open,Aleksandar Kovacevic,Stefanos Tsitsipas,Stefanos Tsitsipas,1,2,31,2026-10-22T11:51:47Z
+2026-10-20,ATP,Almaty Open,Timofey Skatov,Fabian Marozsan,Fabian Marozsan,0,2,25,2026-10-22T11:51:47Z
+2026-10-20,ATP,Almaty Open,Karen Khachanov,Rei Sakamoto,Karen Khachanov,2,0,18,2026-10-22T11:51:47Z
+2026-10-20,WTA,BNB Ningbo Open,Alycia Parks,Sara Bejlek,Sara Bejlek,1,2,28,2026-10-22T11:51:47Z
+2026-10-20,WTA,BNB Ningbo Open,Diana Shnaider,Yulia Putintseva,Diana Shnaider,2,0,25,2026-10-22T11:51:47Z
+2026-10-20,WTA,BNB Ningbo Open,Polina Kudermetova,Cristina Bucsa,Polina Kudermetova,2,0,21,2026-10-22T11:51:47Z
+2026-10-20,WTA,BNB Ningbo Open,Anhelina Kalinina,Jasmine Paolini,Jasmine Paolini,0,2,20,2026-10-22T11:51:47Z
+2026-10-20,WTA,BNB Ningbo Open,Belinda Bencic,Jelena Ostapenko,Belinda Bencic,1,0,11,2026-10-22T11:51:47Z
+2026-10-20,WTA,BNB Ningbo Open,Daria Snigur,Katarzyna Kawa,Katarzyna Kawa,1,2,25,2026-10-22T11:51:47Z
+2026-10-20,WTA,BNB Ningbo Open,Ekaterina Alexandrova,Guo Hanyu,Ekaterina Alexandrova,2,0,17,2026-10-22T11:51:47Z
+2026-10-20,ATP,BNP Paribas Fortis European Open,Juan Manuel Cerundolo,Mariano Navone,Mariano Navone,0,2,21,2026-10-22T11:51:47Z
+2026-10-20,ATP,BNP Paribas Fortis European Open,Max Schoenhaus,Tallon Griekspoor,Tallon Griekspoor,1,2,38,2026-10-22T11:51:47Z
+2026-10-20,ATP,BNP Paribas Fortis European Open,Marcos Giron,Jan-Lennard Struff,Jan-Lennard Struff,0,2,26,2026-10-22T11:51:47Z
+2026-10-20,ATP,BNP Paribas Fortis European Open,Clement Chidekh,Botic Van De Zandschulp,Clement Chidekh,2,0,17,2026-10-22T11:51:47Z
+2026-10-20,ATP,BNP Paribas Fortis European Open,Hugo Gaston,Jacob Fearnley,Jacob Fearnley,0,2,15,2026-10-22T11:51:47Z
+2026-10-20,ATP,BNP Paribas Fortis European Open,Zizou Bergs,Toby Samuel,Zizou Bergs,2,0,22,2026-10-22T11:51:47Z
+2026-10-20,ATP,BNP Paribas Fortis European Open,Raphael Collignon,Nishesh Basavareddy,Raphael Collignon,2,1,28,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Sebastian Baez,Pierre-Hugues Herbert,Pierre-Hugues Herbert,0,2,19,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Borna Gojo,Arthur Fery,Borna Gojo,2,0,22,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Corentin Moutet,Ugo Humbert,Corentin Moutet,2,1,34,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Titouan Droguet,Daniel Altmaier,Daniel Altmaier,1,2,38,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Cameron Norrie,Benjamin Bonzi,Benjamin Bonzi,1,2,27,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Clement Tabur,Luca Van Assche,Luca Van Assche,0,2,22,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Kyrian Jacquet,Matteo Berrettini,Kyrian Jacquet,2,0,25,2026-10-22T11:51:47Z
+2026-10-20,ATP,Grand Prix Auvergne-Rhône-Alpes,Brandon Nakashima,Hamad Medjedovic,Brandon Nakashima,2,1,34,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Emerson Jones,Ann Li,Ann Li,1,2,27,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Zhang Shuai,Tereza Valentova,Tereza Valentova,1,2,25,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Magda Linette,Claire Liu,Magda Linette,2,0,19,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Mary Stoiana,Oleksandra Oliynykova,Mary Stoiana,2,0,17,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Antonia Ruzic,Paula Badosa,Antonia Ruzic,2,1,28,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Himeno Sakatsume,Katie Boulter,Katie Boulter,0,2,16,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Ena Shibahara,Moyuka Uchijima,Moyuka Uchijima,1,2,32,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Zeynep Sonmez,Maya Joint,Zeynep Sonmez,2,1,28,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Sofia Kenin,Kayla Day,Kayla Day,0,2,17,2026-10-22T11:51:47Z
+2026-10-20,WTA,Kinoshita Group Japan Open,Peyton Stearns,Katerina Siniakova,Katerina Siniakova,1,2,20,2026-10-22T11:51:47Z
+2026-10-21,ATP,Almaty Open,Tomas Martin Etcheverry,Mattia Bellucci,Mattia Bellucci,1,2,31,2026-10-22T11:51:47Z
+2026-10-21,ATP,Almaty Open,Luciano Darderi,James Duckworth,James Duckworth,0,2,25,2026-10-22T11:51:47Z
+2026-10-21,ATP,Almaty Open,Tomas Machac,Zangar Nurlanuly,Tomas Machac,2,0,14,2026-10-22T11:51:47Z
+2026-10-21,ATP,Almaty Open,Nikoloz Basilashvili,Facundo Diaz Acosta,Nikoloz Basilashvili,2,0,18,2026-10-22T11:51:47Z
+2026-10-21,ATP,Almaty Open,Andrey Rublev,Adrian Mannarino,Adrian Mannarino,1,2,28,2026-10-22T11:51:47Z
+2026-10-21,ATP,Almaty Open,Mikhail Kukushkin,Stefanos Tsitsipas,Stefanos Tsitsipas,0,2,15,2026-10-22T11:51:47Z
+2026-10-21,WTA,BNB Ningbo Open,Anastasia Zakharova,Marie Bouzkova,Marie Bouzkova,0,2,20,2026-10-22T11:51:47Z
+2026-10-21,WTA,BNB Ningbo Open,Aliaksandra Sasnovich,Leylah Fernandez,Leylah Fernandez,1,2,34,2026-10-22T11:51:47Z
+2026-10-21,WTA,BNB Ningbo Open,Sara Bejlek,Sorana Cirstea,Sara Bejlek,2,0,23,2026-10-22T11:51:47Z
+2026-10-21,WTA,BNB Ningbo Open,Marta Kostyuk,Ekaterina Alexandrova,Ekaterina Alexandrova,0,1,10,2026-10-22T11:51:47Z
+2026-10-21,ATP,BNP Paribas Fortis European Open,Damir Dzumhur,Dino Prizmic,Damir Dzumhur,2,1,29,2026-10-22T11:51:47Z
+2026-10-21,ATP,BNP Paribas Fortis European Open,Francisco Cerundolo,Martin Damm,Francisco Cerundolo,2,0,23,2026-10-22T11:51:47Z
+2026-10-21,ATP,BNP Paribas Fortis European Open,Tallon Griekspoor,Mariano Navone,Tallon Griekspoor,2,0,25,2026-10-22T11:51:47Z
+2026-10-21,ATP,BNP Paribas Fortis European Open,Jacob Fearnley,Clement Chidekh,Clement Chidekh,0,2,21,2026-10-22T11:51:47Z
+2026-10-21,ATP,BNP Paribas Fortis European Open,Remy Bertola,David Goffin,David Goffin,1,2,28,2026-10-22T11:51:47Z
+2026-10-21,ATP,BNP Paribas Fortis European Open,Jan-Lennard Struff,Gauthier Onclin,Jan-Lennard Struff,2,0,18,2026-10-22T11:51:47Z
+2026-10-21,ATP,Grand Prix Auvergne-Rhône-Alpes,Martin Landaluce,Stan Wawrinka,Stan Wawrinka,1,2,35,2026-10-22T11:51:47Z
+2026-10-21,ATP,Grand Prix Auvergne-Rhône-Alpes,Felix Balshaw,Corentin Moutet,Corentin Moutet,0,2,20,2026-10-22T11:51:47Z
+2026-10-21,ATP,Grand Prix Auvergne-Rhône-Alpes,Lorenzo Musetti,Moise Kouame,Lorenzo Musetti,2,0,20,2026-10-22T11:51:47Z
+2026-10-21,ATP,Grand Prix Auvergne-Rhône-Alpes,Tommy Paul,Benjamin Bonzi,Tommy Paul,2,1,32,2026-10-22T11:51:47Z
+2026-10-21,WTA,Kinoshita Group Japan Open,Ashlyn Krueger,Lanlana Tararudee,Ashlyn Krueger,2,0,16,2026-10-22T11:51:47Z
+2026-10-21,WTA,Kinoshita Group Japan Open,Sinja Kraus,Talia Gibson,Talia Gibson,0,2,15,2026-10-22T11:51:47Z
+2026-10-21,WTA,Kinoshita Group Japan Open,Lilli Tagger,Tereza Valentova,Lilli Tagger,2,0,21,2026-10-22T11:51:47Z
+2026-10-21,WTA,Kinoshita Group Japan Open,Viktorija Golubic,Katie Boulter,Katie Boulter,0,2,15,2026-10-22T11:51:47Z
+2026-10-22,ATP,Almaty Open,Mattia Bellucci,Terence Atmane,Terence Atmane,1,2,39,2026-10-22T11:51:47Z
+2026-10-22,WTA,BNB Ningbo Open,Jasmine Paolini,Iva Jovic,Iva Jovic,0,2,19,2026-10-22T11:51:47Z
+2026-10-22,WTA,BNB Ningbo Open,Belinda Bencic,Katarzyna Kawa,Katarzyna Kawa,0,2,20,2026-10-22T11:51:47Z
+2026-10-22,WTA,BNB Ningbo Open,Diana Shnaider,Alexandra Eala,Diana Shnaider,2,0,22,2026-10-22T11:51:47Z
+2026-10-22,WTA,BNB Ningbo Open,Polina Kudermetova,Elena Rybakina,Elena Rybakina,0,1,5,2026-10-22T11:51:47Z
+2026-10-22,ATP,BNP Paribas Fortis European Open,Jaume Munar,Arthur Fils,Arthur Fils,,,,2026-10-22T11:51:47Z
+2026-10-22,WTA,Kinoshita Group Japan Open,Zeynep Sonmez,Ann Li,Ann Li,0,2,16,2026-10-22T11:51:47Z
+2026-10-22,WTA,Kinoshita Group Japan Open,Kayla Day,Antonia Ruzic,Antonia Ruzic,0,1,10,2026-10-22T11:51:47Z
+2026-10-22,WTA,Kinoshita Group Japan Open,Moyuka Uchijima,Mary Stoiana,Mary Stoiana,1,2,25,2026-10-22T11:51:47Z
+2026-10-22,WTA,Kinoshita Group Japan Open,Katerina Siniakova,Magda Linette,Katerina Siniakova,2,0,17,2026-10-22T11:51:47Z
