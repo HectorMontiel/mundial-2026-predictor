@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T06:25:26Z",
+"actualizado": "2026-10-22T11:15:07Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12031,6 +12031,16 @@
 "cuota": 2.2,
 "resultado": "rojo",
 "marcador": "5-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Queensland Lions vs Preston Lions",
+"apuesta": "Gana Preston Lions",
+"cuota": 2.7,
+"resultado": "rojo",
+"marcador": "2-1"
 }
 ]
 }
