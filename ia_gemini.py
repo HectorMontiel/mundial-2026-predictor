@@ -92,13 +92,17 @@ ESQUEMA = {
                  'prob_corners', 'prob_tarjetas', 'prob_marcador', 'total_esperado', 'linea_total', 'pred_total',
                  'prob_total', 'linea_handicap', 'pred_handicap', 'prob_handicap'],
 }
+# v447 — quién anota PRIMERO (o «nadie» si queda 0-0), con su probabilidad
+ESQUEMA['properties']['primero_anota'] = {'type': 'STRING', 'enum': ['local', 'visita', 'nadie']}
+ESQUEMA['properties']['prob_primero'] = {'type': 'NUMBER'}
+ESQUEMA['required'] += ['primero_anota', 'prob_primero']
 # v407 — los demás deportes: el mismo template sin lo que es sólo del fútbol
 _COMUNES = ['analisis', 'p_local', 'p_empate', 'p_visita', 'confianza', 'pick_ia', 'coincide', 'veredictos',
             'marcador_probable', 'goles_local_esperados', 'goles_visita_esperados', 'mejor_apuesta',
             'prob_mejor_apuesta', 'prob_marcador', 'total_esperado', 'linea_total', 'pred_total', 'prob_total',
             'linea_handicap', 'pred_handicap', 'prob_handicap']
 ESQUEMA_GEN = {'type': 'OBJECT',
-               'properties': {k: ESQUEMA['properties'][k] for k in _COMUNES + ['ambos_anotan', 'prob_ambos_anotan']},
+               'properties': {k: ESQUEMA['properties'][k] for k in _COMUNES + ['ambos_anotan', 'prob_ambos_anotan', 'primero_anota', 'prob_primero']},
                'required': list(_COMUNES)}
 ESQUEMA['properties']['partido'] = {'type': 'STRING'}
 ESQUEMA['required'] = ['partido'] + ESQUEMA['required']
@@ -137,6 +141,8 @@ INSTRUCCION = (
     '0.08-0.15). Que sean coherentes con lo demás. 13) Y SIEMPRE el TOTAL de goles del partido con TU línea .5 '
     '(total_esperado, linea_total, más o menos, prob_total) y el HÁNDICAP del local (linea_handicap: por ejemplo -1.5 '
     'si el local es favorito, +1.5 si no; pred_handicap "local" si el local lo cubre, "visita" si no; prob_handicap). '
+    '14) Di qué equipo anota PRIMERO (primero_anota: "local", "visita" o "nadie" si crees que queda 0-0) y su '
+    'probabilidad (prob_primero, 0 a 1), con todo lo que sabes: goles esperados de cada uno, forma, bajas y noticias. '
     '12) Recibes una LISTA de partidos: responde uno por cada uno, en "partidos", copiando el campo '
     '"partido" tal cual.'
 )
@@ -170,7 +176,8 @@ def instruccion(deporte: str) -> str:
            u.lower(), u.lower(), u.lower(), '1.5' if u in ('Goles', 'Carreras', 'Sets') else '5.5',
            '1.5' if u in ('Goles', 'Carreras', 'Sets') else '5.5', u, u,
            ', "Ambos anotan: Sí", "Ambos anotan: No"' if deporte == 'NHL' else '',
-           ' 12) Di si AMBOS equipos anotan (ambos_anotan, prob_ambos_anotan).' if deporte == 'NHL' else ''))
+           ' 12) Di si AMBOS equipos anotan (ambos_anotan, prob_ambos_anotan). 13) Di qué equipo anota PRIMERO '
+           '(primero_anota: "local" o "visita") y su probabilidad (prob_primero).' if deporte == 'NHL' else ''))
 
 
 def _id(fecha, partido) -> str:
@@ -420,7 +427,10 @@ def fila(m: Dict, d: Dict, mercado: Dict) -> Dict:
             'prob_mejor_apuesta': _prob(d.get('prob_mejor_apuesta')),
             'prob_goles': _prob(d.get('prob_goles')), 'prob_ambos': _prob(d.get('prob_ambos_anotan')),
             'prob_corners': _prob(d.get('prob_corners')), 'prob_tarjetas': _prob(d.get('prob_tarjetas')),
-            'prob_marcador': _prob(d.get('prob_marcador'))}
+            'prob_marcador': _prob(d.get('prob_marcador')),
+            # v447 — quién anota primero
+            'primero_anota': d.get('primero_anota') if d.get('primero_anota') in ('local', 'visita', 'nadie') else None,
+            'prob_primero': _prob(d.get('prob_primero'))}
 
 
 def _linea_h(x):
@@ -590,6 +600,26 @@ def liquidar(apuesta: str, home: str, away: str, g, corners=None, tarjetas=None)
     return None
 
 
+def _primer_gol(x: Dict, picks: List[Dict]) -> Optional[str]:
+    """v447 — 'local' o 'visita': quién anotó el primer gol, de las jugadas clave de
+    ESPN. None si no se sabe (sin ESPN, sin jugadas o fue autogol): NO se califica."""
+    import requests
+    esp = next((p.get('espn') for p in picks if p.get('partido') == x['partido'] and p.get('espn')), None)
+    if not esp or ':' not in str(esp):
+        return None
+    ruta, eid = str(esp).split(':', 1)
+    try:
+        d = requests.get('https://site.api.espn.com/apis/site/v2/sports/%s/summary' % ruta, params={'event': eid}, timeout=20).json()
+    except Exception:
+        return None
+    evs = [e for e in (d.get('keyEvents') or d.get('scoringPlays') or []) if e.get('scoringPlay', True)
+           and (e.get('team') or {}).get('displayName')]
+    if not evs or 'own' in str((evs[0].get('type') or {}).get('text') or '').lower():
+        return None
+    home, _, away = str(x['partido']).partition(' vs ')
+    return {'h': 'local', 'a': 'visita'}.get(_lado(evs[0]['team']['displayName'], home, away))
+
+
 def evaluar(sb, picks: List[Dict]) -> int:
     """✅/❌ a lo que la IA predijo de los partidos ya terminados."""
     import requests
@@ -627,10 +657,14 @@ def evaluar(sb, picks: List[Dict]) -> int:
             extra['ok_total'] = (sum(g) > float(x['linea_total'])) == (x['pred_total'] == 'mas')
         if x.get('linea_handicap') is not None and x.get('pred_handicap'):
             extra['ok_handicap'] = (g[0] + float(x['linea_handicap']) > g[1]) == (x['pred_handicap'] == 'local')
+        if x.get('primero_anota') and x.get('ok_primero') is None:     # v447 — quién anotó primero
+            real1 = 'nadie' if sum(g) == 0 else _primer_gol(x, picks)
+            if real1:
+                extra['ok_primero'] = x['primero_anota'] == real1
         if x.get('evaluado'):                 # ya evaluado: sólo faltaban córners/tarjetas o lo que metería
             falta = {k: v for k, v in extra.items()
                      if k.startswith(('corners', 'ok_corners', 'tarjetas', 'ok_tarjetas'))
-                     or (k in ('ok_mejor', 'ok_total', 'ok_handicap') and x.get(k) is None)}
+                     or (k in ('ok_mejor', 'ok_total', 'ok_handicap', 'ok_primero') and x.get(k) is None)}
             if falta:
                 u = requests.patch(sb[0], headers=sb[1], params={'id': 'eq.' + x['id']}, json=falta, timeout=30)
                 n += bool(u.ok)
@@ -641,6 +675,98 @@ def evaluar(sb, picks: List[Dict]) -> int:
                   'ok_mercado': (fav == real) if fav else None, 'evaluado': dt.datetime.now(dt.timezone.utc).isoformat()})
         u = requests.patch(sb[0], headers=sb[1], params={'id': 'eq.' + x['id']}, json=cambio, timeout=30)
         n += bool(u.ok)
+    return n
+
+
+_V447 = ('primero_anota', 'prob_primero')
+
+
+def guardar(sb, filas: List[Dict]):
+    """Sube las filas. Si la base aún no tiene columnas nuevas (migración
+    pendiente), se guarda sin ellas, quitando primero las más nuevas."""
+    import requests
+    h = dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal')
+    r = requests.post(sb[0], headers=h, json=filas, timeout=30)
+    for grupo in (_V447, _V446, _V407):
+        if r.ok or 'column' not in r.text.lower():
+            break
+        logger.warning('[ia] la base no tiene columnas nuevas: se guarda sin %s', grupo[0])
+        filas = [{k: v for k, v in f.items() if k not in grupo} for f in filas]
+        r = requests.post(sb[0], headers=h, json=filas, timeout=30)
+    return r
+
+
+def analizar(sb, lista: List[Dict], mercado: Dict, ventana: Optional[str] = None):
+    """En lotes por deporte: primero las noticias de la web, luego el análisis, y se
+    guarda. Devuelve (cuántos, si se acabó el cupo de todos los modelos)."""
+    hechos = 0
+    lotes = []
+    for dep in dict.fromkeys(m.get('deporte', 'Fútbol') for m in lista):
+        del_dep = [m for m in lista if m.get('deporte', 'Fútbol') == dep]
+        lotes += [(dep, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
+    for dep, lote in lotes:
+        web = noticias_web(lote)
+        entrada = []
+        for m in lote:
+            d = datos_del_partido(m, mercado)
+            w = web.get(m['partido'])
+            if w and w['noticias']:
+                d['noticias_recientes_web'] = w['noticias']
+                d['fuentes_de_las_noticias'] = w['fuentes']
+            entrada.append(d)
+        res = preguntar(entrada, dep)
+        if res and res.get('_limite'):
+            print('ia: todos los modelos agotaron su cupo de hoy')
+            return hechos, True
+        filas = [fila(m, res[m['partido']], mercado) for m in lote if res and m['partido'] in res]
+        for f in filas:                     # v446 — para medir si con noticias acierta más
+            w = web.get(f['partido'])
+            f['con_noticias'] = bool(w and w['noticias'])
+            f['noticias'] = ' | '.join(w['noticias'])[:900] if f['con_noticias'] else None
+            if ventana:                     # v447 — la misma fila, guardada aparte con su hora
+                f['base'], f['id'], f['ventana'] = f['id'], f['id'] + '|' + ventana, ventana
+        if filas:
+            r = guardar(sb, filas)
+            if r.ok:
+                hechos += len(filas)
+            else:
+                logger.warning('[ia] la base rechazó el lote: %s %s', r.status_code, r.text[:200])
+        time.sleep(PAUSA_S)
+    return hechos, False
+
+
+# v447 — EL USUARIO: «midamos a qué hora acierta más y, si sale bien, agarremos el
+# mejor grupo horario para cada segmento». El análisis de siempre sigue igual (es
+# el que se enseña); además, cada partido CON PICK se vuelve a analizar —con las
+# noticias de la web— en tres horas antes del inicio. Se guarda en `ia_ventanas`
+# (no lo ve el usuario), se califica igual y se compara por deporte y predicción.
+VENTANAS = [('v12', 9.0, 15.0), ('v6', 4.0, 8.0), ('v2', 1.0, 3.5)]
+MAX_VENTANA = int(os.environ.get('IA_MAX_VENTANA', '40'))
+
+
+def ventanas(sb, picks: List[Dict], ahora: dt.datetime, mercado: Dict) -> int:
+    import requests
+    sbv = (sb[0].replace('/ia_analisis', '/ia_ventanas'), sb[1])
+    desde = (dt.date.today() - dt.timedelta(days=3)).isoformat()
+    try:
+        r = requests.get(sbv[0], headers=sbv[1], params={'select': 'id', 'fecha': 'gte.' + desde, 'limit': 10000}, timeout=30)
+    except Exception:
+        return 0
+    if not r.ok:
+        return 0                            # sin la migración v447 no se mide (no pasa nada más)
+    hechos = {x['id'] for x in r.json()}
+    evaluar(sbv, picks)
+    n = 0
+    for nombre, h0, h1 in VENTANAS:
+        lista = [m for m in partidos(picks, ahora) if m['peso'] >= 0 and _utc(m['inicio'])
+                 and h0 <= (_utc(m['inicio']) - ahora).total_seconds() / 3600 < h1
+                 and m['id'] + '|' + nombre not in hechos][:MAX_VENTANA]
+        if not lista:
+            continue
+        k, sin_cupo = analizar(sbv, lista, mercado, nombre)
+        n += k
+        if sin_cupo:
+            break
     return n
 
 
@@ -683,52 +809,10 @@ def main() -> int:
             print(json.dumps(datos_del_partido(m, mercado), ensure_ascii=False, indent=1))
         print('ia (seco): %d partidos por analizar' % len(nuevos))
         return 0
-    import requests
-    hechos_ahora = 0
-    lotes = []
-    for dep in dict.fromkeys(m.get('deporte', 'Fútbol') for m in nuevos):
-        del_dep = [m for m in nuevos if m.get('deporte', 'Fútbol') == dep]
-        lotes += [(dep, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
-    for dep, lote in lotes:
-        web = noticias_web(lote)
-        entrada = []
-        for m in lote:
-            d = datos_del_partido(m, mercado)
-            w = web.get(m['partido'])
-            if w and w['noticias']:
-                d['noticias_recientes_web'] = w['noticias']
-                d['fuentes_de_las_noticias'] = w['fuentes']
-            entrada.append(d)
-        res = preguntar(entrada, dep)
-        if res and res.get('_limite'):
-            print('ia: todos los modelos agotaron su cupo de hoy')
-            break
-        filas = [fila(m, res[m['partido']], mercado) for m in lote if res and m['partido'] in res]
-        for f in filas:                     # v446 — para medir si con noticias acierta más
-            w = web.get(f['partido'])
-            f['con_noticias'] = bool(w and w['noticias'])
-            f['noticias'] = ' | '.join(w['noticias'])[:900] if f['con_noticias'] else None
-        if filas:
-            r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
-                              json=filas, timeout=30)
-            if not r.ok and 'column' in r.text.lower():
-                # v407 — si la base aún no tiene las columnas nuevas (migración
-                # `v407_ia_template.sql` pendiente), se guarda sin ellas
-                logger.warning('[ia] la base no tiene columnas nuevas (v446/v407): se guarda sin ellas')
-                # v446 — lo mismo con `v446_reportes_y_calificaciones.sql`: primero sin lo de las noticias
-                filas = [{k: v for k, v in f.items() if k not in _V446} for f in filas]
-                r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
-                                  json=filas, timeout=30)
-                if not r.ok and 'column' in r.text.lower():
-                    filas = [{k: v for k, v in f.items() if k not in _V407} for f in filas]
-                    r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
-                                      json=filas, timeout=30)
-            if r.ok:
-                hechos_ahora += len(filas)
-            else:
-                logger.warning('[ia] la base rechazó el lote: %s %s', r.status_code, r.text[:200])
-        time.sleep(PAUSA_S)
-    print('ia: %d analizados, %d evaluados' % (hechos_ahora, evaluados))
+    hechos_ahora, sin_cupo = analizar(sb, nuevos, mercado)
+    # v447 — el mismo partido otra vez ~12 h, ~6 h y ~2 h antes, SÓLO para medir
+    medidos = 0 if sin_cupo else ventanas(sb, picks, ahora, mercado)
+    print('ia: %d analizados, %d evaluados, %d en ventanas' % (hechos_ahora, evaluados, medidos))
     return 0
 
 

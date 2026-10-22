@@ -1048,6 +1048,8 @@
         // v396 — con la probabilidad que le da la IA a cada predicción
         a.marcador_ia ? ['⚽ Marcador', a.marcador_ia, a.ok_marcador, a.prob_marcador] : null,
         a.goles_esperados != null ? ['🥅 Goles esperados', String(a.goles_esperados), null, null] : null,
+        // v447 — quién anota primero
+        a.primero_anota ? ['🥇 Anota primero', a.primero_anota === 'local' ? L : a.primero_anota === 'visita' ? V : 'Nadie (0-0)', a.ok_primero, a.prob_primero] : null,
         // v407 — el total y el hándicap, en todos los deportes
         a.linea_total != null && a.pred_total ? ['📊 Total de ' + U, (a.pred_total === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_total +
           (a.total_esperado != null ? ' (~' + a.total_esperado + ')' : ''), a.ok_total, a.prob_total] : null,

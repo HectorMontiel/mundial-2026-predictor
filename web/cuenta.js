@@ -426,9 +426,7 @@
     return '<div class="ia-voto" data-ia-id="' + esc(id) + '"><span>¿Te sirvió?</span>' +
       '<button class="' + (v.voto === 1 ? 'si' : '') + '" data-ia-voto="1" aria-label="Me sirvió">👍</button>' +
       '<button class="' + (v.voto === -1 ? 'si' : '') + '" data-ia-voto="-1" aria-label="No me sirvió">👎</button>' +
-      (v.voto === -1 ? '<div class="chips">' + [['datos', 'Datos mal'], ['nada_util', 'No dice nada'], ['se_equivoco', 'Se equivocó'], ['otro', 'Otro']]
-        .map(([k, t]) => '<button class="chip' + (v.motivo === k ? ' activa' : '') + '" data-ia-motivo="' + k + '">' + t + '</button>').join('') + '</div>'
-        : v.voto === 1 ? '<small class="tenue">¡Gracias!</small>' : '') + '</div>';
+      (v.voto ? '<small class="tenue">¡Gracias!</small>' : '') + '</div>';
   }
   document.addEventListener('click', async (e) => {
     const t = e.target.closest('[data-reportar],[data-cerrar-reporte],[data-rep-tipo],[data-enviar-reporte],[data-resolver],[data-ia-voto],[data-ia-motivo]');
