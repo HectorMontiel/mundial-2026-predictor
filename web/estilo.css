@@ -661,3 +661,16 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 /* v443 — lo que gana la combinada si acierta */
 .comb-premio { font-size: 13px; margin: 2px 0 6px; color: #facc15; }
 .comb-premio.tenue { color: var(--tenue); }
+
+/* v444 — la ayuda en secciones */
+.ayuda .ay-sec { border: 1px solid var(--borde); border-radius: 12px; margin: 8px 0; background: rgba(255,255,255,.03); }
+.ayuda .ay-sec > summary { cursor: pointer; list-style: none; padding: 12px 14px; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+.ayuda .ay-sec > summary::-webkit-details-marker { display: none; }
+.ayuda .ay-sec > summary::after { content: '▾'; color: var(--tenue); transition: transform .2s; }
+.ayuda .ay-sec[open] > summary::after { transform: rotate(180deg); }
+.ayuda .ay-sec > ul, .ayuda .ay-sec > .ay-tabla { margin: 0 14px 12px; }
+.ayuda .ay-tabla { width: calc(100% - 28px); border-collapse: collapse; font-size: 14px; }
+.ayuda .ay-tabla th, .ayuda .ay-tabla td { padding: 7px 10px; text-align: left; border-bottom: 1px solid var(--borde); }
+.ayuda .ay-tabla th { color: var(--tenue); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .3px; }
+.ayuda .ay-tabla td:last-child { font-weight: 700; color: #facc15; }
+.ayuda .ay-tabla td.sin { color: var(--tenue); font-weight: 500; }

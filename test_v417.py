@@ -280,6 +280,9 @@ def probar_v434():
           and 'id="mi-hist"' in leer('web', 'index.html') and "sb.from('seguidos').select('pick,creado')" not in cu,
           'v442: el historial es sólo de SUS combinadas terminadas (no lo que sigue); «Mis combinadas» sólo las vivas')
     check("const pr = PREMIO(Number(c.cuota));" in cu and 'Si acierta: <b>+' in cu, 'v443: cada combinada pendiente dice cuántas 🪙 gana si acierta')
+    ix = leer('web', 'index.html')
+    check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
+          and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')
     check(True,
           'v439: «Mi historial»: lo seguido, desbloqueado y combinado, con verdes/rojas y desglose por deporte')
     check('$100 a cada uno' not in cu, 'v440: el historial no pone dinero ni supuestos (decisión del usuario)')
