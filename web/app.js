@@ -1027,6 +1027,39 @@
     if (!hay || (SPX.esVip && SPX.esVip())) return '';
     return '<button class="ctx ia ia-bloq" data-vista-ir="planes" data-foco="plan-vip">🤖 Análisis IA <span class="candado">🔒 VIP</span></button>';
   }
+  // v448 — PRIMER GOL Y PA1 (pago anticipado: el equipo llega a ir ganando por un gol)
+  // con los goles esperados de cada equipo: los goles caen como Poisson y cada uno es
+  // de un equipo según su parte. Medido en 237 partidos con el orden real de goles
+  // (ESPN): los dos informan (p5>0); el favorito sale algo MÁS de lo que dice.
+  const memoPa1 = new Map();
+  function primerYPa1(lh, la) {
+    const clave = lh + '|' + la;
+    if (memoPa1.has(clave)) return memoPa1.get(clave);
+    const L = Math.max(0.05, Number(lh) + Number(la)), p0 = Math.exp(-L), q = Number(la) / L;
+    const algunaVez = (qq) => {
+      let tot = 0, pn = p0;
+      for (let n = 1; n < 20; n++) {
+        pn *= L / n;
+        let f = new Map([[0, 1]]), toco = 0;
+        for (let i = 0; i < n; i++) {
+          const g = new Map();
+          f.forEach((pr, st) => { [[1, qq], [-1, 1 - qq]].forEach(([d, pd]) => { const t = st + d; if (t >= 1) toco += pr * pd; else g.set(t, (g.get(t) || 0) + pr * pd); }); });
+          f = g;
+        }
+        tot += pn * toco;
+      }
+      return tot;
+    };
+    const r = { h: (1 - q) * (1 - p0), a: q * (1 - p0), nadie: p0, pa1h: algunaVez(1 - q), pa1a: algunaVez(q) };
+    memoPa1.set(clave, r);
+    return r;
+  }
+  function pa1Html(lh, la, L, V) {
+    const r = primerYPa1(lh, la), pc = (x) => Math.round(100 * x) + ' %';
+    const fila = (n, x) => '<span><em>' + esc(n) + '</em><b>' + pc(x) + '</b></span>';
+    return '<div class="ia-pa1"><div><small>🥇 Anota primero</small>' + fila(L, r.h) + fila(V, r.a) + '</div>' +
+      '<div><small title="Pago anticipado: llega a ir ganando por un gol">🏁 PA1</small>' + fila(L, r.pa1h) + fila(V, r.pa1a) + '</div></div>';
+  }
   function iaHtml(a, L, V, ctx) {
     if (!a) return '';
     const res = { local: 'gana ' + L, empate: 'empate', visita: 'gana ' + V }[a.pred_resultado] || '';
@@ -1048,8 +1081,6 @@
         // v396 — con la probabilidad que le da la IA a cada predicción
         a.marcador_ia ? ['⚽ Marcador', a.marcador_ia, a.ok_marcador, a.prob_marcador] : null,
         a.goles_esperados != null ? ['🥅 Goles esperados', String(a.goles_esperados), null, null] : null,
-        // v447 — quién anota primero
-        a.primero_anota ? ['🥇 Anota primero', a.primero_anota === 'local' ? L : a.primero_anota === 'visita' ? V : 'Nadie (0-0)', a.ok_primero, a.prob_primero] : null,
         // v407 — el total y el hándicap, en todos los deportes
         a.linea_total != null && a.pred_total ? ['📊 Total de ' + U, (a.pred_total === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_total +
           (a.total_esperado != null ? ' (~' + a.total_esperado + ')' : ''), a.ok_total, a.prob_total] : null,
@@ -1059,6 +1090,8 @@
         a.linea_tarjetas != null ? ['🟨 Tarjetas', (a.pred_tarjetas === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_tarjetas + (a.tarjetas_esperadas != null ? ' (~' + a.tarjetas_esperadas + ')' : ''), a.ok_tarjetas, a.prob_tarjetas] : null,
       ].filter(Boolean).map(([t, v, ok, pr]) => '<div><small>' + t + '</small><b>' + esc(v) + (ok === true ? ' ✅' : ok === false ? ' ❌' : '') + '</b>' +
         (pr != null ? '<span class="ia-prob">probabilidad ' + Math.round(100 * pr) + ' %</span>' : '') + '</div>').join('') + '</div>' +
+      // v448 — primer gol y PA1 de cada equipo (sólo fútbol: es lo que se midió)
+      (fut && a.goles_local_esperados != null && a.goles_visita_esperados != null ? pa1Html(a.goles_local_esperados, a.goles_visita_esperados, L, V) : '') +
       // v394 — qué metería la IA (cualquier mercado) y los goles de cada equipo
       (a.mejor_apuesta ? '<div class="ia-meter">🧠 Lo que metería la IA: <b>' + esc(a.mejor_apuesta) + '</b>' +
         (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +

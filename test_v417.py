@@ -287,7 +287,7 @@ def probar_v434():
           and 'function pintarReportes()' in cu, 'v446: «⚠️ Reportar un error» en el partido; el admin lo revisa y el servidor paga')
     check("sb.from('ia_calificaciones').upsert(" in cu and 'SPX.votoIA(a.id)' in app and "a.noticias ? '<div class=\"ia-noti\">" in app,
           'v446: la IA enseña sus noticias y se califica con 👍/👎 (sólo para medir)')
-    check("'🥇 Anota primero'" in app and 'data-ia-motivo="' not in cu, 'v447: «quién anota primero» en la IA; 👍/👎 sin motivos')
+    check('🥇 Anota primero' in app and 'function primerYPa1(lh, la)' in app and '🏁 PA1' in app and 'data-ia-motivo="' not in cu, 'v447: «quién anota primero» en la IA; 👍/👎 sin motivos')
     ix = leer('web', 'index.html')
     check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
           and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')

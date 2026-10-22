@@ -687,3 +687,13 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .ia-voto > button { background: rgba(255,255,255,.05); border: 1px solid var(--borde); border-radius: 999px; padding: 4px 12px; font-size: 16px; cursor: pointer; }
 .ia-voto > button.si { border-color: #22c55e; background: rgba(34,197,94,.15); }
 .ia-voto .chips { width: 100%; }
+
+/* v448 — primer gol y PA1 en el análisis de la IA */
+.ia-pa1 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; margin: 8px 0; }
+.ia-pa1 > div { background: rgba(255,255,255,.04); border: 1px solid var(--borde); border-radius: 10px; padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; font-size: 13px; }
+.ia-pa1 small { color: var(--tenue); font-size: 11px; }
+.ia-pa1 span { display: flex; justify-content: space-between; gap: 6px; }
+.ia-pa1 span b { color: #facc15; }
+.ia-pa1 span em { font-style: normal; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ia-pa1 span b { white-space: nowrap; }
+.ia-pa1 > div { min-width: 0; } .ia-pa1 span { min-width: 0; }
