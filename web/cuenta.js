@@ -656,15 +656,37 @@
         '<div class="boleto-pie"><small>Probabilidad ~' + Math.round(100 * prob) + ' % · premio: 2 🪙 desde cuota 2,00, 3 🪙 desde 3,00, 5 🪙 desde 5,00 (una premiada por día)</small>' +
         '<button class="vip-btn" data-guardar-comb' + (ps.length < 2 ? ' disabled' : '') + '>Guardar combinada</button><p class="sub" id="boleto-msg"></p></div></div>' : '');
   }
-  async function misCombinadas() {
+  // v437 — el usuario: «hice una, cerré la app, volví a abrirla y mi combinada
+  // desapareció». Estaba guardada (en la base): al volver, la página la pide
+  // varias veces mientras renueva la sesión y una petición vieja SIN sesión
+  // terminaba al último y la pintaba vacía. Ahora sólo pinta la más reciente,
+  // un error nunca borra lo que ya se veía (se reintenta) y una copia en el
+  // dispositivo la enseña al instante (sólo para pintar: manda la base).
+  let turnoComb = 0;
+  const COMB_GUARDADAS = () => 'sharpicks-comb-' + (yo.user && yo.user.id);
+  async function misCombinadas(intento) {
     const caja = $('mis-comb'); if (!caja || !sb) return;
     if (!yo.user) { caja.innerHTML = '<p class="tenue">Entra para armar tus combinadas y ganar 🪙 cuando aciertan.</p>'; return; }
+    const turno = ++turnoComb;
+    let copia = null; try { copia = JSON.parse(localStorage.getItem(COMB_GUARDADAS()) || 'null'); } catch (e) { /* sin almacenamiento */ }
+    if (copia && copia.length && !caja.dataset.pintada) pintarCombinadas(caja, copia, {});
     const { data, error } = await sb.from('combinadas_usuario').select('*').order('creado', { ascending: false }).limit(30);
-    if (error) { caja.innerHTML = '<p class="tenue">Arma tu combinada con «➕ Combinada» en los picks.</p>'; return; }
-    if (!(data || []).length) { caja.innerHTML = '<p class="tenue">Aún no tienes combinadas. Toca «➕ Combinada» en los picks que te gusten (de 2 a 20).</p>'; return; }
+    if (turno !== turnoComb) return;                                  // ya hay una petición más nueva
+    if (error) {
+      if ((intento || 0) < 4) setTimeout(() => { if (turno === turnoComb) misCombinadas((intento || 0) + 1); }, 3000);
+      if (!caja.dataset.pintada) caja.innerHTML = '<p class="tenue">Cargando tus combinadas…</p>';
+      return;
+    }
+    try { localStorage.setItem(COMB_GUARDADAS(), JSON.stringify(data || [])); } catch (e) { /* sin almacenamiento */ }
+    if (!(data || []).length) { caja.dataset.pintada = ''; caja.innerHTML = '<p class="tenue">Aún no tienes combinadas. Toca «➕ Combinada» en los picks que te gusten (de 2 a 20).</p>'; return; }
     const faltan = [...new Set(data.flatMap((c) => c.patas))].filter((id) => !pickDe(id));
     const extra = {};
     if (faltan.length) { const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado').in('id', faltan.slice(0, 300)); (ps || []).forEach((p) => { extra[p.id] = p; }); }
+    if (turno !== turnoComb) return;
+    pintarCombinadas(caja, data, extra);
+  }
+  function pintarCombinadas(caja, data, extra) {
+    caja.dataset.pintada = '1';
     const v = data.filter((c) => c.estado === 'verde').length, r = data.filter((c) => c.estado === 'roja').length, mon = data.reduce((s, c) => s + (c.premio || 0), 0);
     caja.innerHTML = '<div class="num">✅ ' + v + ' ❌ ' + r + (mon ? ' <span class="pct">+' + mon + ' 🪙 ganadas</span>' : '') + '</div>' + data.map((c) => {
       const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>' : '<span class="et vivo">⏳ En juego</span>';

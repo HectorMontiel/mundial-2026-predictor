@@ -831,7 +831,7 @@
       js.forEach((q) => {
         const f = q === port ? 1 : quieto ? 0.5 : m.escena ? 0.6 : 0.38;
         q.cx += ((q.tx == null ? q.x0 : q.tx) - q.cx) * f; q.cy += ((q.ty == null ? q.y0 : q.ty) - q.cy) * f;
-        const bd = m.escena ? 1.2 : 2.2;                                  // v435: nadie fuera de la cancha
+        const bd = q === port ? 3.2 : m.escena ? 1.2 : 2.2;               // v435: nadie fuera de la cancha (v438: el portador, con su aro, tampoco)
         q.cx = Math.max(bd, Math.min(105 - bd, q.cx)); q.cy = Math.max(bd, Math.min(68 - bd, q.cy));
         m.pos[q.key] = [q.cx, q.cy];
         q.j.style.transform = 'translate(' + q.cx.toFixed(2) + 'px,' + q.cy.toFixed(2) + 'px)';
@@ -839,6 +839,9 @@
       });
       m.portador = port ? port.key : null;
       if (port && !m.escena) { bx = port.cx + port.dir * 2.8; by = port.cy + 0.6; }
+      // v438 — el balón nunca fuera de la cancha (sólo en el gol entra a la red)
+      const bb = m.escena && m.escena.tipo === 'gol' ? 0.2 : 1.2;
+      bx = Math.max(bb, Math.min(105 - bb, bx)); by = Math.max(bb, Math.min(68 - bb, by));
       m.bx = bx; m.by = by;
       const b = svg.querySelector('.balon');
       if (b) b.style.transform = 'translate(' + bx.toFixed(2) + 'px,' + by.toFixed(2) + 'px)';

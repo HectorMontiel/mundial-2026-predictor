@@ -628,3 +628,6 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 /* v436 — sin jugadas suficientes: la línea del partido con goles y tarjetas */
 .presion-svg.linea .pista { stroke: rgba(255,255,255,.12); stroke-width: 2.2; vector-effect: non-scaling-stroke; }
 .presion-svg.linea .va { stroke: var(--verde, #22c55e); stroke-width: 2.2; vector-effect: non-scaling-stroke; opacity: .8; }
+
+/* v438 — nada se dibuja fuera de la cancha */
+.cancha-svg { overflow: hidden; }

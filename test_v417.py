@@ -230,7 +230,7 @@ def probar_v428():
           and 'grant execute on function public.liquidar_combinadas_usuario() to service_role' in sql,
           'v428: nadie escribe la tabla ni da monedas desde la página; sólo el servidor liquida')
     js, xw = leer('web', 'cuenta.js'), leer('exportar_web.py')
-    check("sb.rpc('crear_combinada', { p_patas: boleto() })" in js and 'data-a-comb' in js and 'async function misCombinadas()' in js
+    check("sb.rpc('crear_combinada', { p_patas: boleto() })" in js and 'data-a-comb' in js and 'async function misCombinadas(intento)' in js
           and '/rest/v1/rpc/liquidar_combinadas_usuario' in xw, 'v428: el boleto, «Mis combinadas» y la liquidación en cada pasada')
 
 
@@ -273,6 +273,12 @@ def probar_v434():
           'v435: el balón con contorno oscuro y aro amarillo (no se pierde con el equipo de blanco)')
     check('q.cx = Math.max(bd, Math.min(105 - bd, q.cx));' in app and "prof <= 5 ? [2, 13] : prof <= 35 ? [7, 66]" in app,
           'v435: nadie se sale de la cancha ni se pega a la línea')
+    check('const bd = q === port ? 3.2 :' in app and 'bx = Math.max(bb, Math.min(105 - bb, bx));' in app and '.cancha-svg { overflow: hidden; }' in css,
+          'v438: ni el portador (con su aro) ni el balón se dibujan fuera de la cancha')
+    cu = leer('web', 'cuenta.js')
+    check('if (turno !== turnoComb) return;' in cu and 'function pintarCombinadas(caja, data, extra)' in cu and "'sharpicks-comb-' + (yo.user && yo.user.id)" in cu
+          and "caja.innerHTML = '<p class=\"tenue\">Arma tu combinada" not in cu,
+          'v437: «Mis combinadas» no desaparece al volver a la app (sólo pinta la petición más nueva; un error no borra)')
     check("const fuente = espnJ.length ? 'espn' : t365.length ? '365' : evE.length ? 'eventos' : '';" in app
           and "fuente === 'espn' ? js.map(" in app and '.concat(todos.map(' not in app,
           'v436: una fuente por cosa, sin mezclar (los goles ya no salen dos veces en la presión)')
