@@ -1,7 +1,7 @@
 {
- "generado": "2026-10-21T22:39:32Z",
- "fixtures_revisados": 106,
- "ya_casaban": 85,
+ "generado": "2026-10-22T00:11:47Z",
+ "fixtures_revisados": 304,
+ "ya_casaban": 254,
  "min_parecido": 0.82,
  "alias": {
   "sint truiden": {
@@ -84,6 +84,15 @@
    "lado_ancla": "kashima antlers",
    "ultima_vez": "2026-10-12T09:17:18Z",
    "primera_vez": "2026-10-12T09:17:18Z"
+  },
+  "boston utd": {
+   "canonico": "boston united",
+   "parecido": 0.8696,
+   "visto_en": "Eastleigh vs Boston United",
+   "liga": "eng_national",
+   "lado_ancla": "eastleigh",
+   "ultima_vez": "2026-10-22T00:11:47Z",
+   "primera_vez": "2026-10-22T00:11:47Z"
   }
  }
 }

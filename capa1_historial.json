@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-21T22:44:54Z",
+"actualizado": "2026-10-22T00:16:44Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -11526,6 +11526,16 @@
 "dia": "2026-10-21",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Estudiantes Merida vs Caracas",
+"apuesta": "Gana Estudiantes Merida",
+"cuota": 1.95,
+"resultado": "rojo",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Ghazl El Mahallah vs Al Ittihad",
 "apuesta": "Gana Al Ittihad",
 "cuota": 2.9,
@@ -11621,6 +11631,16 @@
 "cuota": 2.2,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Montevideo City Torque vs Atlético-MG",
+"apuesta": "Empate",
+"cuota": 3.35,
+"resultado": "rojo",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-21",
