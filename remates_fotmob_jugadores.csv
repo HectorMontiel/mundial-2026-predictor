@@ -16802,21 +16802,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186571,2026-08-02,china,Qingdao Hainiu,Zheng'ao Sun,432385,M,0,23,0,0,0,0.0,,2.0,257599.0
 5186571,2026-08-02,china,Qingdao Hainiu,Xinyu Liu,892859,F,0,23,1,0,0,0.0,,3.0,193767.0
 5186571,2026-08-02,china,Qingdao Hainiu,Cong Yang,1776393,M,0,11,1,1,0,0.0,,2.0,481386.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Jake McGuire,825635,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Wahab Ackwei,1059395,D,1,90,0,0,0,0.0,33.0,1.0,50000.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Ventura Alvarado,415706,D,1,61,0,0,0,0.0,35.0,1.0,
-5109867,2026-08-02,usl_championship,Sporting JAX,Danny Wilson,168308,D,1,90,0,0,0,0.0,37.0,1.0,255768.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Harvey Neville,1187155,D,1,90,0,0,0,0.0,72.0,1.0,80719.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Raheem Sommersall,855399,M,1,90,0,0,0,0.0,74.0,2.0,50000.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Jordan Rossiter,516002,M,1,90,0,0,0,0.0,76.0,2.0,50000.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Tyshawn Rose,1470132,D,1,76,0,0,0,0.0,78.0,1.0,65159.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Rafferty Pedder,1562361,M,1,76,0,0,0,0.0,103.0,2.0,98351.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Emil Jääskeläinen,1075184,F,1,90,0,0,0,0.0,105.0,3.0,
-5109867,2026-08-02,usl_championship,Sporting JAX,Kieran Sadlier,614458,F,1,76,0,0,0,0.0,107.0,3.0,56300.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Antonio Gomez,1617267,D,0,29,0,0,0,0.0,,1.0,67746.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Edgardo Rito,495686,D,0,14,0,0,0,0.0,,1.0,65794.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Jacob Evans,1348312,M,0,14,0,0,0,0.0,,2.0,50000.0
-5109867,2026-08-02,usl_championship,Sporting JAX,Jean Mota,305454,M,0,14,1,1,0,0.0,,2.0,180854.0
 1000014521,2026-08-02,liga_mx,Pachuca,Carlos Moreno,991005,G,1,90,0,0,0,0.0,11.0,0.0,2675266.0
 1000014521,2026-08-02,liga_mx,Pachuca,Alan Mozo,671944,D,1,90,0,0,0,0.0,32.0,1.0,1434531.0
 1000014521,2026-08-02,liga_mx,Pachuca,Eduardo Bauermann,641247,D,1,90,1,0,0,0.25,34.0,1.0,1039566.0
@@ -24698,22 +24683,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5844846,2026-08-09,leagues_cup,Monterrey,Omar Gálvez,1888864,M,0,24,0,0,0,0.0,,2.0,
 5844846,2026-08-09,leagues_cup,Monterrey,Ricardo Chávez,659597,D,0,14,0,0,0,0.0,,1.0,1510783.0
 5844846,2026-08-09,leagues_cup,Monterrey,Gerardo Arteaga,797924,D,0,13,0,0,0,0.0,,1.0,1830639.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Hugo Fauroux,1252620,G,1,90,0,0,0,0.0,11.0,0.0,57429.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Aiden McFadden,1250356,M,1,90,0,0,0,0.0,33.0,2.0,50000.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Sean Totsch,681621,D,1,90,0,0,0,0.0,35.0,1.0,50000.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Kyle Adams,1072318,D,1,90,0,0,0,0.0,37.0,1.0,50000.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Manny Perez,1018588,M,1,68,1,0,0,0.0,51.0,2.0,50000.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Jake Morris,1338761,M,1,78,1,1,0,0.0,59.0,2.0,98059.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Mukwelle Akale,973779,F,1,87,1,1,1,0.0,72.0,3.0,92270.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Evan Davila,1623834,F,1,90,1,0,0,0.0,74.0,3.0,98351.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Taylor Davila,1251788,M,1,68,1,0,0,0.0,76.0,2.0,150678.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Ray Serrano,1083224,M,1,90,1,0,0,0.0,78.0,2.0,75192.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Chris Donovan,1346897,F,1,87,1,0,0,0.0,115.0,3.0,160503.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Sam Gleadle,1035619,M,0,22,0,0,0,0.0,,2.0,50000.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Zachary Duncan,1030785,M,0,22,1,0,0,0.0,,2.0,76476.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Amadou Dia,621932,M,0,12,0,0,0,0.0,,2.0,50000.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Quenzi Huerman,1615750,F,0,3,0,0,0,0.0,,3.0,155400.0
-5109877,2026-08-09,usl_championship,Louisville City FC,Tola Showunmi,1448115,F,0,3,0,0,0,0.0,,3.0,129940.0
 5115920,2026-08-10,argentina,Banfield,Facundo Sanguinetti,1200037,G,1,90,0,0,0,0.0,11.0,0.0,1752847.0
 5115920,2026-08-10,argentina,Banfield,Brandon Oviedo,1695058,D,1,64,0,0,0,0.0,33.0,1.0,547429.0
 5115920,2026-08-10,argentina,Banfield,Santiago Daniele,1660382,D,1,90,2,1,0,0.56,35.0,1.0,488300.0
@@ -34679,22 +34648,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013201,2026-08-18,chi_primera,Huachipato,Álvaro Abarzúa,1944668,M,0,18,1,0,0,0.0,,2.0,
 1000013201,2026-08-18,chi_primera,Huachipato,Luciano Arriagada,1130584,F,0,18,0,0,0,0.0,,3.0,228060.0
 1000013201,2026-08-18,chi_primera,Huachipato,Carlos Herrera,951036,M,0,7,0,0,0,0.0,,2.0,114224.0
-5071278,2026-08-19,mls,DC United,Sean Johnson,198426,G,1,90,0,0,0,0.0,11.0,0.0,95024.0
-5071278,2026-08-19,mls,DC United,Silvan Hefti,678384,D,1,90,1,0,0,0.04,32.0,1.0,270847.0
-5071278,2026-08-19,mls,DC United,Lucas Bartlett,1338938,D,1,90,2,1,0,0.09,34.0,1.0,941073.0
-5071278,2026-08-19,mls,DC United,Sean Nealis,1026114,D,1,46,0,0,0,0.0,36.0,1.0,525708.0
-5071278,2026-08-19,mls,DC United,Keisuke Kurokawa,1023942,D,1,90,0,0,0,0.0,38.0,1.0,704530.0
-5071278,2026-08-19,mls,DC United,Kimito Nono,1611171,D,1,68,3,1,0,0.62,72.0,1.0,1196985.0
-5071278,2026-08-19,mls,DC United,Matti Peltola,1084535,M,1,90,2,0,0,0.1,74.0,2.0,1001260.0
-5071278,2026-08-19,mls,DC United,Andre Dozzell,729733,M,1,90,0,0,0,0.0,76.0,2.0,1351171.0
-5071278,2026-08-19,mls,DC United,Jackson Hopkins,1280734,M,1,45,2,0,0,0.12,78.0,2.0,1386035.0
-5071278,2026-08-19,mls,DC United,Tai Baribo,939140,F,1,90,2,0,0,0.12,104.0,3.0,2899520.0
-5071278,2026-08-19,mls,DC United,Louis Munteanu,1037813,F,1,68,2,0,0,0.71,106.0,3.0,4489059.0
-5071278,2026-08-19,mls,DC United,Brandon Servania,924454,M,0,44,0,0,0,0.0,,2.0,274262.0
-5071278,2026-08-19,mls,DC United,Nathan Ordaz,1328863,F,0,45,1,1,0,0.03,,3.0,1798154.0
-5071278,2026-08-19,mls,DC United,Nikola Markovic,1904329,D,0,22,0,0,0,0.0,,1.0,237542.0
-5071278,2026-08-19,mls,DC United,Hosei Kijima,1613510,M,0,22,0,0,0,0.0,,2.0,180090.0
-5071278,2026-08-19,mls,DC United,Jared Stroud,949675,M,0,1,0,0,0,0.0,,2.0,564205.0
 1000009067,2026-08-18,ecu_liga_pro,CSD Macará,Rodrigo Rodríguez,839919,G,1,90,0,0,0,0.0,11.0,0.0,178443.0
 1000009067,2026-08-18,ecu_liga_pro,CSD Macará,Juan Espinoza,1911204,D,1,75,0,0,0,0.0,32.0,1.0,221111.0
 1000009067,2026-08-18,ecu_liga_pro,CSD Macará,Jairo Jiménez,1022657,D,1,90,1,1,0,0.0,34.0,1.0,146030.0
@@ -34727,22 +34680,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000009067,2026-08-18,ecu_liga_pro,Universidad Católica,Mauricio Alonso,281241,M,0,9,0,0,0,0.0,,2.0,264285.0
 1000009067,2026-08-18,ecu_liga_pro,Universidad Católica,Álex Rodríguez,1353447,M,0,9,0,0,0,0.0,,2.0,
 1000009067,2026-08-18,ecu_liga_pro,Universidad Católica,Jimmy Evans,1335662,F,0,1,0,0,0,0.0,,3.0,218658.0
-5071276,2026-08-19,mls,FC Cincinnati,Roman Celentano,1337962,G,1,90,0,0,0,0.0,11.0,0.0,1738242.0
-5071276,2026-08-19,mls,FC Cincinnati,Miles Robinson,825623,D,1,90,0,0,0,0.0,33.0,1.0,1953195.0
-5071276,2026-08-19,mls,FC Cincinnati,Matt Miazga,458324,D,1,60,0,0,0,0.0,35.0,1.0,772517.0
-5071276,2026-08-19,mls,FC Cincinnati,Kyle Smith,754583,D,1,83,1,1,0,0.01,37.0,1.0,51903.0
-5071276,2026-08-19,mls,FC Cincinnati,Pavel Bucha,923247,M,1,90,0,0,0,0.0,71.0,2.0,1710874.0
-5071276,2026-08-19,mls,FC Cincinnati,Kenji Mboma Dem,1650499,F,1,90,4,2,1,0.25,73.0,3.0,224287.0
-5071276,2026-08-19,mls,FC Cincinnati,Obinna Nwobodo,861112,M,1,72,1,0,0,0.02,75.0,2.0,1445913.0
-5071276,2026-08-19,mls,FC Cincinnati,Gerardo Valenzuela,1362857,M,1,90,0,0,0,0.0,77.0,2.0,1317925.0
-5071276,2026-08-19,mls,FC Cincinnati,Ender Echenique,1248686,M,1,60,1,1,0,0.02,79.0,2.0,1109278.0
-5071276,2026-08-19,mls,FC Cincinnati,Kévin Denkey,820477,F,1,72,0,0,0,0.0,104.0,3.0,12292874.0
-5071276,2026-08-19,mls,FC Cincinnati,Evander Ferreira,787351,M,1,90,5,2,1,0.23,106.0,2.0,11345281.0
-5071276,2026-08-19,mls,FC Cincinnati,Teenage Lingani Hadebe,649947,D,0,30,1,0,0,0.56,,1.0,229740.0
-5071276,2026-08-19,mls,FC Cincinnati,Bryan Ramírez,1458513,M,0,30,0,0,0,0.0,,2.0,2005676.0
-5071276,2026-08-19,mls,FC Cincinnati,Samuel Gidi,1383071,M,0,18,0,0,0,0.0,,2.0,1487098.0
-5071276,2026-08-19,mls,FC Cincinnati,Tom Barlow,847753,F,0,18,1,0,0,0.11,,3.0,136027.0
-5071276,2026-08-19,mls,FC Cincinnati,Brian Anunga,841458,M,0,7,0,0,0,0.0,,2.0,226982.0
 1000013045,2026-08-19,sudamericana,Atlético-MG,Everson,268171,G,1,90,0,0,0,0.0,11.0,0.0,1092740.0
 1000013045,2026-08-19,sudamericana,Atlético-MG,Natanael,1173565,D,1,90,0,0,0,0.0,32.0,1.0,4601620.0
 1000013045,2026-08-19,sudamericana,Atlético-MG,Ruan,905494,D,1,90,1,0,0,0.0,34.0,1.0,1891253.0
@@ -37278,22 +37215,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5109901,2026-08-22,usl_championship,Tampa Bay Rowdies,Marco Micaletto,847568,M,0,30,0,0,0,0.0,,2.0,50000.0
 5109901,2026-08-22,usl_championship,Tampa Bay Rowdies,Karsen Henderlong,1615778,F,0,30,2,1,0,0.0,,3.0,133116.0
 5109901,2026-08-22,usl_championship,Tampa Bay Rowdies,Laurence Wyke,1056524,D,0,21,0,0,0,0.0,,1.0,50000.0
-5109898,2026-08-22,usl_championship,Brooklyn,Jackson Lee,928437,G,1,90,0,0,0,0.0,11.0,0.0,65115.0
-5109898,2026-08-22,usl_championship,Brooklyn,Ryan McLaughlin,388894,D,1,89,0,0,0,0.0,32.0,1.0,50000.0
-5109898,2026-08-22,usl_championship,Brooklyn,Callum Frogson,1935110,,1,90,1,1,0,0.0,34.0,,
-5109898,2026-08-22,usl_championship,Brooklyn,Vuk Latinovich,1248123,D,1,90,0,0,0,0.0,36.0,1.0,50000.0
-5109898,2026-08-22,usl_championship,Brooklyn,Gabriel Alves,1447526,D,1,89,0,0,0,0.0,38.0,1.0,157796.0
-5109898,2026-08-22,usl_championship,Brooklyn,Taimu Okiyoshi,1724754,M,1,90,0,0,0,0.0,64.0,2.0,99198.0
-5109898,2026-08-22,usl_championship,Brooklyn,Thomas Vancaeyezeele,936220,D,1,90,2,1,0,0.0,66.0,1.0,50000.0
-5109898,2026-08-22,usl_championship,Brooklyn,Stefan Stojanovic,1346904,F,1,62,0,0,0,0.0,83.0,3.0,83192.0
-5109898,2026-08-22,usl_championship,Brooklyn,Thomas McNamara,526485,M,1,70,0,0,0,0.0,85.0,2.0,
-5109898,2026-08-22,usl_championship,Brooklyn,Christopher Olney Jr.,1455583,F,1,90,1,1,0,0.0,87.0,3.0,
-5109898,2026-08-22,usl_championship,Brooklyn,Markus Anderson,1537807,F,1,88,3,1,0,0.0,115.0,3.0,
-5109898,2026-08-22,usl_championship,Brooklyn,Pierre da Silva,754584,F,0,28,0,0,0,0.0,,3.0,99532.0
-5109898,2026-08-22,usl_championship,Brooklyn,Jaden Servania,1170973,M,0,20,0,0,0,0.0,,2.0,78213.0
-5109898,2026-08-22,usl_championship,Brooklyn,So Nishikawa,1138224,D,0,1,0,0,0,0.0,,1.0,50000.0
-5109898,2026-08-22,usl_championship,Brooklyn,Malik Pinto,1440048,M,0,1,0,0,0,0.0,,2.0,82933.0
-5109898,2026-08-22,usl_championship,Brooklyn,Juan Obregón,1098593,F,0,1,0,0,0,0.0,,3.0,
 5109898,2026-08-22,usl_championship,Pittsburgh Riverhounds SC,Nico Campuzano,1348321,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5109898,2026-08-22,usl_championship,Pittsburgh Riverhounds SC,Owen Mikoy,1919812,D,1,90,0,0,0,0.0,33.0,1.0,
 5109898,2026-08-22,usl_championship,Pittsburgh Riverhounds SC,Joao Victor Souza,1500406,D,1,90,1,0,0,0.0,35.0,1.0,
@@ -41983,21 +41904,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014105,2026-08-23,col_primera_a,Deportivo Pasto,Matías Pisano,193928,M,0,26,1,0,0,0.03,,2.0,250546.0
 1000014105,2026-08-23,col_primera_a,Deportivo Pasto,Santiago Córdoba,1334882,F,0,16,0,0,0,0.0,,3.0,325582.0
 1000014105,2026-08-23,col_primera_a,Deportivo Pasto,Patrick Preciado,1766572,F,0,7,0,0,0,0.0,,3.0,425157.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Roameth Romaña,1706656,G,1,90,0,0,0,0.0,11.0,0.0,193767.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Juan Pertúz,1477855,D,1,67,2,0,0,0.03,32.0,1.0,450571.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Dennys Quintero,834670,D,1,90,0,0,0,0.0,34.0,1.0,270981.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Francisco Meza,307477,D,1,90,0,0,0,0.0,36.0,1.0,271858.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Jhojan Escobar,1634973,D,1,90,0,0,0,0.0,38.0,1.0,324656.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Kelvin Osorio,793928,M,1,90,2,0,0,0.12,64.0,2.0,264799.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Juan Castilla,1171062,M,1,90,1,0,0,0.01,66.0,2.0,591463.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Frank Castañeda,922695,F,1,70,1,1,1,0.21,83.0,3.0,686759.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Juan Ramírez,1564151,M,1,71,1,0,0,0.04,85.0,2.0,474987.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Joel Contreras,1432978,F,1,46,0,0,0,0.0,87.0,3.0,252482.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Yorleys Mena Palacios,205957,F,1,71,0,0,0,0.0,115.0,3.0,326800.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Jhon Vásquez,763962,F,0,44,0,0,0,0.0,,3.0,275537.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Luis Miranda,1021584,F,0,20,0,0,0,0.0,,3.0,275537.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Howell Mena,1332955,D,0,19,0,0,0,0.0,,1.0,334164.0
-1000014105,2026-08-23,col_primera_a,Llaneros FC,Carlos Cortés,1272260,F,0,19,2,0,0,0.2,,3.0,383995.0
 5115951,2026-08-23,argentina,Belgrano,Thiago Cardozo,643566,G,1,90,0,0,0,0.0,11.0,0.0,2106881.0
 5115951,2026-08-23,argentina,Belgrano,Agustín Falcón,1897457,D,1,51,0,0,0,0.0,32.0,1.0,705673.0
 5115951,2026-08-23,argentina,Belgrano,Leonardo Morales,795485,D,1,90,1,0,0,0.01,34.0,1.0,796500.0
@@ -44797,22 +44703,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017201,2026-08-23,per_liga1,Cusco FC,Lucas Colitto,554051,M,0,33,0,0,0,0.0,,2.0,286042.0
 1000017201,2026-08-23,per_liga1,Cusco FC,Carlos Gamarra,1605255,D,0,9,0,0,0,0.0,,1.0,430475.0
 1000017201,2026-08-23,per_liga1,Cusco FC,Joel Herrera,1451307,M,0,9,1,0,0,0.0,,2.0,289035.0
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Trevor McMullen,1804493,G,1,90,0,0,0,0.0,11.0,0.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Amir Daley,1624479,D,1,68,0,0,0,0.0,32.0,1.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Bryce Washington,1262891,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,AJ Paterson,1059682,D,1,46,0,0,0,0.0,36.0,1.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Dawson McCartney,1368657,D,1,90,1,0,0,0.0,38.0,1.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Seth Antwi,1682447,M,1,90,0,0,0,0.0,64.0,2.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Samuel Shashoua,847603,M,1,90,3,0,0,0.0,66.0,2.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Sebastian Tregarthen,1662187,F,1,90,4,2,0,0.0,83.0,3.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Serge Ngoma,1190660,M,1,68,1,1,0,0.0,85.0,2.0,670583.0
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Gevork Diarbian,1637902,F,1,80,2,2,0,0.0,87.0,3.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Ronaldo Damus,790332,F,1,80,4,1,1,0.0,115.0,3.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Phanuel Kavita,621906,D,0,45,1,0,0,0.0,,1.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Samuel McIllhatton,860928,M,0,22,0,0,0,0.0,,2.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Tyler Pasher,530617,M,0,22,0,0,0,0.0,,2.0,
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Peter-Lee Vassell,932131,M,0,10,1,0,0,0.0,,2.0,139834.0
-5109897,2026-08-23,usl_championship,Birmingham Legion FC,Romario Williams,621524,F,0,10,1,1,1,0.0,,3.0,103832.0
 5109897,2026-08-23,usl_championship,Sporting JAX,Jake McGuire,825635,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5109897,2026-08-23,usl_championship,Sporting JAX,Ventura Alvarado,415706,D,1,83,0,0,0,0.0,33.0,1.0,
 5109897,2026-08-23,usl_championship,Sporting JAX,Ryan Edwards,330468,D,1,90,1,0,0,0.0,35.0,1.0,79366.0
@@ -47805,22 +47695,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014107,2026-08-27,col_primera_a,Atlético Nacional,César Haydar,1139171,D,0,17,0,0,0,0.0,,1.0,562886.0
 1000014107,2026-08-27,col_primera_a,Atlético Nacional,Cristian Arango,452368,F,0,17,2,1,0,0.06,,3.0,1787565.0
 1000014107,2026-08-27,col_primera_a,Atlético Nacional,Ian Poveda,962075,F,0,10,0,0,0,0.0,,3.0,686760.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Pedro Gallese,116920,G,1,90,0,0,0,0.0,11.0,0.0,384634.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Keimer Sandoval,1640741,D,1,90,0,0,0,0.0,33.0,1.0,456340.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,José Caldera,1302803,D,1,90,2,0,0,0.09,35.0,1.0,470344.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Fernando Álvarez,1280284,D,1,46,0,0,0,0.0,37.0,1.0,1146970.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Fabián Viáfara,630859,M,1,85,0,0,0,0.0,72.0,2.0,267065.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Miguel Correa,2156672,M,1,38,0,0,0,0.0,74.0,2.0,
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Daniel Giraldo,282156,M,1,90,0,0,0,0.0,76.0,2.0,248857.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Edwin Velasco,496855,M,1,90,0,0,0,0.0,78.0,2.0,268404.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Avilés Hurtado,206227,F,1,65,0,0,0,0.0,103.0,3.0,350528.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Steven Rodríguez,1105327,F,1,90,1,0,0,0.02,105.0,3.0,812700.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Eduard Bello,495825,F,1,65,1,1,0,0.04,107.0,3.0,567220.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Alexis Manyoma,1332390,M,0,52,1,1,0,0.02,,2.0,1221299.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Nicolás Benedetti,658135,M,0,45,1,1,1,0.08,,2.0,880652.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Leyser Chaverra,1289117,D,0,25,2,0,0,0.06,,1.0,500932.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Carlos Bacca,166648,F,0,25,0,0,0,0.0,,3.0,311456.0
-1000014107,2026-08-27,col_primera_a,Deportivo Cali,Johan Martínez,1433044,F,0,5,0,0,0,0.0,,3.0,
 1000019463,2026-08-27,bra_copa,Palmeiras,Carlos Miguel,1043826,G,1,90,0,0,0,0.0,11.0,0.0,3135907.0
 1000019463,2026-08-27,bra_copa,Palmeiras,Agustín Giay,1358345,D,1,90,1,0,0,0.0,32.0,1.0,11256915.0
 1000019463,2026-08-27,bra_copa,Palmeiras,Murilo,851514,D,1,90,0,0,0,0.0,34.0,1.0,2598277.0
@@ -158677,98 +158551,224 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5987811,2026-08-25,champions,NEC Nijmegen,Almugera Kabar,1479919,M,0,44,0,0,0,0.0,,2.0,4670093.0
 5987811,2026-08-25,champions,NEC Nijmegen,Isak Hansen-Aarøen,1162969,M,0,28,0,0,0,0.0,,2.0,542934.0
 5987811,2026-08-25,champions,NEC Nijmegen,Willum Willumsson,774237,M,0,28,1,0,0,0.05,,2.0,1385804.0
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Franco Torgnascioli,310290,G,1,90,0,0,0,0.0,11,0,242702
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Eduardo Agüero,1463531,D,1,90,3,0,0,0.0,32,1,727149
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Kevin Silva,1372668,D,1,90,2,1,1,0.0,34,1,
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Gary Kagelmacher,57078,D,1,90,1,1,1,0.0,36,1,277204
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Facundo Silvera,1021599,D,1,70,3,1,0,0.0,38,1,288791
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Gonzalo Montes,494956,M,1,90,4,0,0,0.0,73,2,388916
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Pablo Siles,921866,M,1,59,1,0,0,0.0,75,2,270790
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Diogo Guzmán,1606901,M,1,82,1,0,0,0.0,77,2,503229
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Franco Pizzichillo,1174809,F,1,70,2,1,0,0.0,103,3,313206
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Salomón Rodríguez,1180919,F,1,82,5,1,0,0.0,105,3,1513202
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Esteban Obregón,1201585,F,1,90,6,2,0,0.0,107,3,1226691
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Nahuel Da Silva,1651114,F,0,31,1,0,0,0.0,,3,456074
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Ezequiel Busquets,1028692,D,0,20,1,0,0,0.0,,1,312307
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Luka Andrade,1710288,F,0,20,0,0,0,0.0,,3,542659
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Sebastián Cáceres,1213979,M,0,8,0,0,0,0.0,,2,292888
-1000021778,2026-10-21,sudamericana,Montevideo City Torque,Juan Quintana,1132939,F,0,8,1,0,0,0.0,,3,293992
-1000021778,2026-10-21,sudamericana,Atlético-MG,Gabriel Delfim,1412963,G,1,90,0,0,0,0.0,11,0,608558
-1000021778,2026-10-21,sudamericana,Atlético-MG,Alan Franco,832171,D,1,90,0,0,0,0.0,32,1,2691157
-1000021778,2026-10-21,sudamericana,Atlético-MG,Vitão,1804861,D,1,90,1,1,0,0.0,34,1,
-1000021778,2026-10-21,sudamericana,Atlético-MG,Lyanco,654045,D,1,90,0,0,0,0.0,36,1,2482217
-1000021778,2026-10-21,sudamericana,Atlético-MG,Renan Lodi,793876,D,1,90,0,0,0,0.0,38,1,10674850
-1000021778,2026-10-21,sudamericana,Atlético-MG,Kevin Castaño,1434853,M,1,65,0,0,0,0.0,64,2,5101356
-1000021778,2026-10-21,sudamericana,Atlético-MG,Maycon,732294,M,1,90,1,0,0,0.0,66,2,1553959
-1000021778,2026-10-21,sudamericana,Atlético-MG,Tomás Cuello,834605,F,1,82,0,0,0,0.0,83,3,6385907
-1000021778,2026-10-21,sudamericana,Atlético-MG,Victor Hugo,1363368,M,1,65,0,0,0,0.0,85,2,9321170
-1000021778,2026-10-21,sudamericana,Atlético-MG,Bernard,265116,F,1,79,0,0,0,0.0,87,3,683156
-1000021778,2026-10-21,sudamericana,Atlético-MG,Reinier,1075046,F,1,65,2,1,0,0.0,115,3,1861282
-1000021778,2026-10-21,sudamericana,Atlético-MG,Vitor Hugo,307070,D,0,25,0,0,0,0.0,,1,630082
-1000021778,2026-10-21,sudamericana,Atlético-MG,Natanael,1173565,D,0,25,0,0,0,0.0,,1,5016295
-1000021778,2026-10-21,sudamericana,Atlético-MG,Mamady Cissé,1898808,M,0,25,0,0,0,0.0,,2,1947201
-1000021778,2026-10-21,sudamericana,Atlético-MG,Alexsander,1391210,M,0,11,0,0,0,0.0,,2,6493049
-1000021778,2026-10-21,sudamericana,Atlético-MG,Igor Gomes,902694,M,0,8,0,0,0,0.0,,2,1393282
-1000022712,2026-08-25,champions,Sabah FK,Stas Pokatilov,489507,G,1,90,0,0,0,0.0,11,0,155475
-1000022712,2026-08-25,champions,Sabah FK,Akim Zedadka,542777,D,1,87,0,0,0,0.0,32,1,344557
-1000022712,2026-08-25,champions,Sabah FK,Steve Solvet,764834,D,1,90,0,0,0,0.0,34,1,560764
-1000022712,2026-08-25,champions,Sabah FK,Rəhman Daşdəmirov,1441450,D,1,120,1,0,0,0.07,36,1,263472
-1000022712,2026-08-25,champions,Sabah FK,Tymoteusz Puchacz,823121,D,1,90,0,0,0,0.0,38,1,1569335
-1000022712,2026-08-25,champions,Sabah FK,Umarali Rakhmonaliev,1429286,M,1,80,6,3,1,0.68,64,2,1058325
-1000022712,2026-08-25,champions,Sabah FK,Ivan Lepinjica,906920,M,1,90,0,0,0,0.0,66,2,1150365
-1000022712,2026-08-25,champions,Sabah FK,Kaheem Parris,876149,F,1,63,2,0,0,0.44,83,3,656640
-1000022712,2026-08-25,champions,Sabah FK,Veljko Simić,458807,M,1,87,2,1,0,0.24,85,2,544590
-1000022712,2026-08-25,champions,Sabah FK,Christian Nwachukwu,1624072,F,1,63,3,1,1,0.53,87,3,804888
-1000022712,2026-08-25,champions,Sabah FK,Joy-Lance Mickels,617465,F,1,120,8,2,1,1.07,115,3,328034
-1000022712,2026-08-25,champions,Sabah FK,Aleksey İsayev,688887,M,0,57,1,0,0,0.1,,2,558355
-1000022712,2026-08-25,champions,Sabah FK,Orphé Mbina,1197093,F,0,57,7,4,1,0.68,,3,261667
-1000022712,2026-08-25,champions,Sabah FK,Xander Severina,1239800,M,0,40,3,1,0,0.48,,2,468329
-1000022712,2026-08-25,champions,Sabah FK,Tellur Mütallimov,763300,D,0,33,2,1,1,0.08,,1,153512
-1000022712,2026-08-25,champions,Sabah FK,Abdulakh Khaybulaev,1351085,M,0,3,0,0,0,0.0,,2,249812
-1000022712,2026-08-25,champions,Sabah FK,Aden McCarthy,1337091,D,0,1,0,0,0,0.0,,1,237628
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Ofir Marciano,487334,G,1,90,0,0,0,0.0,11,0,165492
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Guy Mizrahi,1238236,D,1,78,1,1,1,0.11,32,1,1361021
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Miguel Vítor,96937,D,1,46,0,0,0,0.0,34,1,157489
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Itay Rotman,1339625,D,1,101,1,0,0,0.02,36,1,580299
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Pedro Amador,923481,D,1,90,0,0,0,0.0,38,1,493333
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Niv Yehoshua,1605895,M,1,73,2,0,0,0.29,73,2,1617881
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Lucas Ventura,846750,M,1,120,2,1,0,0.18,75,2,1580241
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Eliel Peretz,763312,M,1,117,4,0,0,0.24,77,2,925146
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Javon East,919525,F,1,78,0,0,0,0.0,103,3,361669
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Igor Zlatanović,805779,F,1,35,2,2,1,0.43,105,3,1098819
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Zahi Ahmed,1202240,F,1,90,0,0,0,0.0,107,3,533173
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Mohammed Abu Rumi,1497826,F,0,85,1,1,0,0.05,,3,1339410
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Djibril Diop,1316534,D,0,44,0,0,0,0.0,,1,467259
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Roy Levi,1214364,M,0,17,0,0,0,0.0,,2,479310
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Matan Baltaxa,809171,D,0,12,0,0,0,0.0,,1,318993
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Yonas Malede,929781,F,0,42,1,0,0,0.02,,3,361712
-1000022712,2026-08-25,champions,Hapoel Beer Sheva,Ofir Davidzada,557580,D,0,1,0,0,0,0.0,,1,181755
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Ofir Marciano,487334,G,1,90,0,0,0,0.0,11,0,165492
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Guy Mizrahi,1238236,D,1,90,1,0,0,0.04,32,1,1361021
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Miguel Vítor,96937,D,1,90,1,0,0,0.02,34,1,157489
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Itay Rotman,1339625,D,1,90,0,0,0,0.0,36,1,580299
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Pedro Amador,923481,D,1,90,1,0,0,0.11,38,1,493333
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Niv Yehoshua,1605895,M,1,85,0,0,0,0.0,73,2,1617881
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Lucas Ventura,846750,M,1,90,1,0,0,0.14,75,2,1580241
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Eliel Peretz,763312,M,1,90,0,0,0,0.0,77,2,925146
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Javon East,919525,F,1,71,1,1,1,0.44,103,3,361669
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Igor Zlatanović,805779,F,1,85,7,3,1,0.61,105,3,1098819
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Zahi Ahmed,1202240,F,1,66,0,0,0,0.0,107,3,533173
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Amir Ganah,1414052,F,0,24,2,0,0,0.16,,3,1746190
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Mohammed Abu Rumi,1497826,F,0,19,2,2,0,0.19,,3,1339410
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Mohamad Kanaan,1109151,F,0,5,2,1,0,0.31,,3,936342
-1000022715,2026-08-19,champions,Hapoel Beer Sheva,Yonas Malede,929781,F,0,5,0,0,0,0.0,,3,361712
-1000022715,2026-08-19,champions,Sabah FK,Stas Pokatilov,489507,G,1,90,0,0,0,0.0,11,0,155475
-1000022715,2026-08-19,champions,Sabah FK,Akim Zedadka,542777,D,1,90,0,0,0,0.0,32,1,344557
-1000022715,2026-08-19,champions,Sabah FK,Steve Solvet,764834,D,1,89,1,0,0,0.08,34,1,560764
-1000022715,2026-08-19,champions,Sabah FK,Rəhman Daşdəmirov,1441450,D,1,90,0,0,0,0.0,36,1,263472
-1000022715,2026-08-19,champions,Sabah FK,Tymoteusz Puchacz,823121,D,1,90,0,0,0,0.0,38,1,1569335
-1000022715,2026-08-19,champions,Sabah FK,Umarali Rakhmonaliev,1429286,M,1,90,1,1,0,0.03,64,2,1058325
-1000022715,2026-08-19,champions,Sabah FK,Ivan Lepinjica,906920,M,1,90,0,0,0,0.0,66,2,1150365
-1000022715,2026-08-19,champions,Sabah FK,Xander Severina,1239800,F,1,56,1,1,0,0.03,83,3,468329
-1000022715,2026-08-19,champions,Sabah FK,Aleksey İsayev,688887,M,1,74,0,0,0,0.0,85,2,558355
-1000022715,2026-08-19,champions,Sabah FK,Veljko Simić,458807,F,1,90,1,1,1,0.25,87,3,544590
-1000022715,2026-08-19,champions,Sabah FK,Joy-Lance Mickels,617465,F,1,90,2,1,0,0.1,115,3,328034
-1000022715,2026-08-19,champions,Sabah FK,Orphé Mbina,1197093,F,0,34,2,1,0,0.1,,3,261667
-1000022715,2026-08-19,champions,Sabah FK,Christian Nwachukwu,1624072,F,0,16,0,0,0,0.0,,3,804888
-1000022715,2026-08-19,champions,Sabah FK,Almeida,1489096,D,0,1,0,0,0,0.0,,1,464179
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Franco Torgnascioli,310290,G,1,90,0,0,0,0.0,11.0,0.0,242702.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Eduardo Agüero,1463531,D,1,90,3,0,0,0.0,32.0,1.0,727149.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Kevin Silva,1372668,D,1,90,2,1,1,0.0,34.0,1.0,
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Gary Kagelmacher,57078,D,1,90,1,1,1,0.0,36.0,1.0,277204.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Facundo Silvera,1021599,D,1,70,3,1,0,0.0,38.0,1.0,288791.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Gonzalo Montes,494956,M,1,90,4,0,0,0.0,73.0,2.0,388916.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Pablo Siles,921866,M,1,59,1,0,0,0.0,75.0,2.0,270790.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Diogo Guzmán,1606901,M,1,82,1,0,0,0.0,77.0,2.0,503229.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Franco Pizzichillo,1174809,F,1,70,2,1,0,0.0,103.0,3.0,313206.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Salomón Rodríguez,1180919,F,1,82,5,1,0,0.0,105.0,3.0,1513202.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Esteban Obregón,1201585,F,1,90,6,2,0,0.0,107.0,3.0,1226691.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Nahuel Da Silva,1651114,F,0,31,1,0,0,0.0,,3.0,456074.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Ezequiel Busquets,1028692,D,0,20,1,0,0,0.0,,1.0,312307.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Luka Andrade,1710288,F,0,20,0,0,0,0.0,,3.0,542659.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Sebastián Cáceres,1213979,M,0,8,0,0,0,0.0,,2.0,292888.0
+1000021778,2026-10-21,sudamericana,Montevideo City Torque,Juan Quintana,1132939,F,0,8,1,0,0,0.0,,3.0,293992.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Gabriel Delfim,1412963,G,1,90,0,0,0,0.0,11.0,0.0,608558.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Alan Franco,832171,D,1,90,0,0,0,0.0,32.0,1.0,2691157.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Vitão,1804861,D,1,90,1,1,0,0.0,34.0,1.0,
+1000021778,2026-10-21,sudamericana,Atlético-MG,Lyanco,654045,D,1,90,0,0,0,0.0,36.0,1.0,2482217.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Renan Lodi,793876,D,1,90,0,0,0,0.0,38.0,1.0,10674850.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Kevin Castaño,1434853,M,1,65,0,0,0,0.0,64.0,2.0,5101356.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Maycon,732294,M,1,90,1,0,0,0.0,66.0,2.0,1553959.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Tomás Cuello,834605,F,1,82,0,0,0,0.0,83.0,3.0,6385907.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Victor Hugo,1363368,M,1,65,0,0,0,0.0,85.0,2.0,9321170.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Bernard,265116,F,1,79,0,0,0,0.0,87.0,3.0,683156.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Reinier,1075046,F,1,65,2,1,0,0.0,115.0,3.0,1861282.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Vitor Hugo,307070,D,0,25,0,0,0,0.0,,1.0,630082.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Natanael,1173565,D,0,25,0,0,0,0.0,,1.0,5016295.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Mamady Cissé,1898808,M,0,25,0,0,0,0.0,,2.0,1947201.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Alexsander,1391210,M,0,11,0,0,0,0.0,,2.0,6493049.0
+1000021778,2026-10-21,sudamericana,Atlético-MG,Igor Gomes,902694,M,0,8,0,0,0,0.0,,2.0,1393282.0
+1000022712,2026-08-25,champions,Sabah FK,Stas Pokatilov,489507,G,1,90,0,0,0,0.0,11.0,0.0,155475.0
+1000022712,2026-08-25,champions,Sabah FK,Akim Zedadka,542777,D,1,87,0,0,0,0.0,32.0,1.0,344557.0
+1000022712,2026-08-25,champions,Sabah FK,Steve Solvet,764834,D,1,90,0,0,0,0.0,34.0,1.0,560764.0
+1000022712,2026-08-25,champions,Sabah FK,Rəhman Daşdəmirov,1441450,D,1,120,1,0,0,0.07,36.0,1.0,263472.0
+1000022712,2026-08-25,champions,Sabah FK,Tymoteusz Puchacz,823121,D,1,90,0,0,0,0.0,38.0,1.0,1569335.0
+1000022712,2026-08-25,champions,Sabah FK,Umarali Rakhmonaliev,1429286,M,1,80,6,3,1,0.68,64.0,2.0,1058325.0
+1000022712,2026-08-25,champions,Sabah FK,Ivan Lepinjica,906920,M,1,90,0,0,0,0.0,66.0,2.0,1150365.0
+1000022712,2026-08-25,champions,Sabah FK,Kaheem Parris,876149,F,1,63,2,0,0,0.44,83.0,3.0,656640.0
+1000022712,2026-08-25,champions,Sabah FK,Veljko Simić,458807,M,1,87,2,1,0,0.24,85.0,2.0,544590.0
+1000022712,2026-08-25,champions,Sabah FK,Christian Nwachukwu,1624072,F,1,63,3,1,1,0.53,87.0,3.0,804888.0
+1000022712,2026-08-25,champions,Sabah FK,Joy-Lance Mickels,617465,F,1,120,8,2,1,1.07,115.0,3.0,328034.0
+1000022712,2026-08-25,champions,Sabah FK,Aleksey İsayev,688887,M,0,57,1,0,0,0.1,,2.0,558355.0
+1000022712,2026-08-25,champions,Sabah FK,Orphé Mbina,1197093,F,0,57,7,4,1,0.68,,3.0,261667.0
+1000022712,2026-08-25,champions,Sabah FK,Xander Severina,1239800,M,0,40,3,1,0,0.48,,2.0,468329.0
+1000022712,2026-08-25,champions,Sabah FK,Tellur Mütallimov,763300,D,0,33,2,1,1,0.08,,1.0,153512.0
+1000022712,2026-08-25,champions,Sabah FK,Abdulakh Khaybulaev,1351085,M,0,3,0,0,0,0.0,,2.0,249812.0
+1000022712,2026-08-25,champions,Sabah FK,Aden McCarthy,1337091,D,0,1,0,0,0,0.0,,1.0,237628.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Ofir Marciano,487334,G,1,90,0,0,0,0.0,11.0,0.0,165492.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Guy Mizrahi,1238236,D,1,78,1,1,1,0.11,32.0,1.0,1361021.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Miguel Vítor,96937,D,1,46,0,0,0,0.0,34.0,1.0,157489.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Itay Rotman,1339625,D,1,101,1,0,0,0.02,36.0,1.0,580299.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Pedro Amador,923481,D,1,90,0,0,0,0.0,38.0,1.0,493333.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Niv Yehoshua,1605895,M,1,73,2,0,0,0.29,73.0,2.0,1617881.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Lucas Ventura,846750,M,1,120,2,1,0,0.18,75.0,2.0,1580241.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Eliel Peretz,763312,M,1,117,4,0,0,0.24,77.0,2.0,925146.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Javon East,919525,F,1,78,0,0,0,0.0,103.0,3.0,361669.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Igor Zlatanović,805779,F,1,35,2,2,1,0.43,105.0,3.0,1098819.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Zahi Ahmed,1202240,F,1,90,0,0,0,0.0,107.0,3.0,533173.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Mohammed Abu Rumi,1497826,F,0,85,1,1,0,0.05,,3.0,1339410.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Djibril Diop,1316534,D,0,44,0,0,0,0.0,,1.0,467259.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Roy Levi,1214364,M,0,17,0,0,0,0.0,,2.0,479310.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Matan Baltaxa,809171,D,0,12,0,0,0,0.0,,1.0,318993.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Yonas Malede,929781,F,0,42,1,0,0,0.02,,3.0,361712.0
+1000022712,2026-08-25,champions,Hapoel Beer Sheva,Ofir Davidzada,557580,D,0,1,0,0,0,0.0,,1.0,181755.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Ofir Marciano,487334,G,1,90,0,0,0,0.0,11.0,0.0,165492.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Guy Mizrahi,1238236,D,1,90,1,0,0,0.04,32.0,1.0,1361021.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Miguel Vítor,96937,D,1,90,1,0,0,0.02,34.0,1.0,157489.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Itay Rotman,1339625,D,1,90,0,0,0,0.0,36.0,1.0,580299.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Pedro Amador,923481,D,1,90,1,0,0,0.11,38.0,1.0,493333.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Niv Yehoshua,1605895,M,1,85,0,0,0,0.0,73.0,2.0,1617881.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Lucas Ventura,846750,M,1,90,1,0,0,0.14,75.0,2.0,1580241.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Eliel Peretz,763312,M,1,90,0,0,0,0.0,77.0,2.0,925146.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Javon East,919525,F,1,71,1,1,1,0.44,103.0,3.0,361669.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Igor Zlatanović,805779,F,1,85,7,3,1,0.61,105.0,3.0,1098819.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Zahi Ahmed,1202240,F,1,66,0,0,0,0.0,107.0,3.0,533173.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Amir Ganah,1414052,F,0,24,2,0,0,0.16,,3.0,1746190.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Mohammed Abu Rumi,1497826,F,0,19,2,2,0,0.19,,3.0,1339410.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Mohamad Kanaan,1109151,F,0,5,2,1,0,0.31,,3.0,936342.0
+1000022715,2026-08-19,champions,Hapoel Beer Sheva,Yonas Malede,929781,F,0,5,0,0,0,0.0,,3.0,361712.0
+1000022715,2026-08-19,champions,Sabah FK,Stas Pokatilov,489507,G,1,90,0,0,0,0.0,11.0,0.0,155475.0
+1000022715,2026-08-19,champions,Sabah FK,Akim Zedadka,542777,D,1,90,0,0,0,0.0,32.0,1.0,344557.0
+1000022715,2026-08-19,champions,Sabah FK,Steve Solvet,764834,D,1,89,1,0,0,0.08,34.0,1.0,560764.0
+1000022715,2026-08-19,champions,Sabah FK,Rəhman Daşdəmirov,1441450,D,1,90,0,0,0,0.0,36.0,1.0,263472.0
+1000022715,2026-08-19,champions,Sabah FK,Tymoteusz Puchacz,823121,D,1,90,0,0,0,0.0,38.0,1.0,1569335.0
+1000022715,2026-08-19,champions,Sabah FK,Umarali Rakhmonaliev,1429286,M,1,90,1,1,0,0.03,64.0,2.0,1058325.0
+1000022715,2026-08-19,champions,Sabah FK,Ivan Lepinjica,906920,M,1,90,0,0,0,0.0,66.0,2.0,1150365.0
+1000022715,2026-08-19,champions,Sabah FK,Xander Severina,1239800,F,1,56,1,1,0,0.03,83.0,3.0,468329.0
+1000022715,2026-08-19,champions,Sabah FK,Aleksey İsayev,688887,M,1,74,0,0,0,0.0,85.0,2.0,558355.0
+1000022715,2026-08-19,champions,Sabah FK,Veljko Simić,458807,F,1,90,1,1,1,0.25,87.0,3.0,544590.0
+1000022715,2026-08-19,champions,Sabah FK,Joy-Lance Mickels,617465,F,1,90,2,1,0,0.1,115.0,3.0,328034.0
+1000022715,2026-08-19,champions,Sabah FK,Orphé Mbina,1197093,F,0,34,2,1,0,0.1,,3.0,261667.0
+1000022715,2026-08-19,champions,Sabah FK,Christian Nwachukwu,1624072,F,0,16,0,0,0,0.0,,3.0,804888.0
+1000022715,2026-08-19,champions,Sabah FK,Almeida,1489096,D,0,1,0,0,0,0.0,,1.0,464179.0
+5071323,2026-10-21,mls,FC Cincinnati,Roman Celentano,1337962,G,1,90,0,0,0,0.0,11.0,0.0,1865184.0
+5071323,2026-10-21,mls,FC Cincinnati,Kyle Smith,754583,D,1,90,0,0,0,0.0,33.0,1.0,51702.0
+5071323,2026-10-21,mls,FC Cincinnati,Nick Hagglund,525614,D,1,90,2,1,0,0.08,35.0,1.0,165344.0
+5071323,2026-10-21,mls,FC Cincinnati,Teenage Lingani Hadebe,649947,D,1,90,1,1,1,0.74,37.0,1.0,326699.0
+5071323,2026-10-21,mls,FC Cincinnati,David Douděra,883759,M,1,69,1,1,1,0.07,71.0,2.0,1822065.0
+5071323,2026-10-21,mls,FC Cincinnati,Pavel Bucha,923247,M,1,90,1,0,0,0.11,73.0,2.0,1806529.0
+5071323,2026-10-21,mls,FC Cincinnati,Evander Ferreira,787351,M,1,89,2,0,0,0.11,75.0,2.0,13627760.0
+5071323,2026-10-21,mls,FC Cincinnati,Obinna Nwobodo,861112,M,1,90,1,1,0,0.01,77.0,2.0,1458130.0
+5071323,2026-10-21,mls,FC Cincinnati,Tyrell Malacia,865118,M,1,46,0,0,0,0.0,79.0,2.0,1872637.0
+5071323,2026-10-21,mls,FC Cincinnati,Tom Barlow,847753,F,1,80,5,2,0,0.58,104.0,3.0,136027.0
+5071323,2026-10-21,mls,FC Cincinnati,Kévin Denkey,820477,F,1,80,2,0,0,0.08,106.0,3.0,13399940.0
+5071323,2026-10-21,mls,FC Cincinnati,Bryan Ramírez,1458513,M,0,44,0,0,0,0.0,,2.0,2093367.0
+5071323,2026-10-21,mls,FC Cincinnati,Alvas Elvis Powell,464916,D,0,21,0,0,0,0.0,,1.0,50000.0
+5071323,2026-10-21,mls,FC Cincinnati,Samuel Gidi,1383071,M,0,10,0,0,0,0.0,,2.0,2159087.0
+5071323,2026-10-21,mls,FC Cincinnati,Ayoub Jabbari,1364494,F,0,10,0,0,0,0.0,,3.0,790968.0
+5071323,2026-10-21,mls,FC Cincinnati,Kenji Mboma Dem,1650499,M,0,1,0,0,0,0.0,,2.0,189858.0
+5071323,2026-10-21,mls,DC United,Sean Johnson,198426,G,1,90,0,0,0,0.0,11.0,0.0,103334.0
+5071323,2026-10-21,mls,DC United,Silvan Hefti,678384,D,1,79,0,0,0,0.0,32.0,1.0,263987.0
+5071323,2026-10-21,mls,DC United,Lucas Bartlett,1338938,D,1,90,1,0,0,0.09,34.0,1.0,984661.0
+5071323,2026-10-21,mls,DC United,Kye Rowles,825231,D,1,90,0,0,0,0.0,36.0,1.0,689926.0
+5071323,2026-10-21,mls,DC United,Keisuke Kurokawa,1023942,D,1,90,0,0,0,0.0,38.0,1.0,733886.0
+5071323,2026-10-21,mls,DC United,Kimito Nono,1611171,D,1,90,2,2,1,0.27,72.0,1.0,1155262.0
+5071323,2026-10-21,mls,DC United,Brandon Servania,924454,M,1,79,3,0,0,0.1,74.0,2.0,255172.0
+5071323,2026-10-21,mls,DC United,Andre Dozzell,729733,M,1,90,2,1,0,0.04,76.0,2.0,1510833.0
+5071323,2026-10-21,mls,DC United,Peglow,1106871,M,1,90,2,1,0,0.08,78.0,2.0,993349.0
+5071323,2026-10-21,mls,DC United,Jackson Hopkins,1280734,F,1,67,1,0,0,0.27,104.0,3.0,1404247.0
+5071323,2026-10-21,mls,DC United,Tai Baribo,939140,F,1,90,1,0,0,0.01,106.0,3.0,5196320.0
+5071323,2026-10-21,mls,DC United,Nathan Ordaz,1328863,F,0,23,1,0,0,0.06,,3.0,1790442.0
+5071323,2026-10-21,mls,DC United,Matti Peltola,1084535,M,0,11,0,0,0,0.0,,2.0,1273113.0
+5071323,2026-10-21,mls,DC United,Oscar Avilez,1904328,F,0,11,0,0,0,0.0,,3.0,
+5071323,2026-10-21,mls,DC United,Sean Nealis,1026114,D,0,1,0,0,0,0.0,,1.0,448914.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Jake McGuire,825635,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Ryan Edwards,330468,D,1,90,2,0,0,0.0,33.0,1.0,50793.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Antonio Gomez,1617267,D,1,90,0,0,0,0.0,35.0,1.0,50000.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Ventura Alvarado,415706,D,1,90,0,0,0,0.0,37.0,1.0,
+5109988,2026-10-21,usl_championship,Sporting JAX,Edgardo Rito,495686,M,1,90,1,1,0,0.0,62.0,2.0,50000.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Thomas Roberts,1026054,M,1,81,1,0,0,0.0,64.0,2.0,65556.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Jordan Rossiter,516002,M,1,90,0,0,0,0.0,66.0,2.0,50000.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Harvey Neville,1187155,D,1,90,0,0,0,0.0,68.0,1.0,82268.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Raheem Sommersall,855399,M,1,64,0,0,0,0.0,84.0,2.0,50000.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Ahmad Al-Qaq,1727104,F,1,81,3,0,0,0.0,86.0,3.0,60047.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Adam Luckhurst,1727106,F,1,69,1,0,0,0.0,105.0,3.0,93873.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Jean Mota,305454,M,0,26,0,0,0,0.0,,2.0,86064.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Emil Jääskeläinen,1075184,F,0,21,0,0,0,0.0,,3.0,165888.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Wan Kuzain,941737,M,0,9,0,0,0,0.0,,2.0,69240.0
+5109988,2026-10-21,usl_championship,Sporting JAX,Kieran Sadlier,614458,F,0,9,0,0,0,0.0,,3.0,50000.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Ryan Schewe,1642172,G,1,90,0,0,0,0.0,11.0,0.0,
+5109988,2026-10-21,usl_championship,Louisville City FC,Aiden McFadden,1250356,D,1,90,0,0,0,0.0,33.0,1.0,50000.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Kevon Lambert,822741,M,1,90,0,0,0,0.0,35.0,2.0,50000.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Kyle Adams,1072318,D,1,90,0,0,0,0.0,37.0,1.0,50000.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Manny Perez,1018588,M,1,88,0,0,0,0.0,62.0,2.0,50000.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Taylor Davila,1251788,M,1,90,1,1,0,0.0,64.0,2.0,149494.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Babacar Niang,1780447,M,1,46,0,0,0,0.0,66.0,2.0,66895.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Amadou Dia,621932,M,1,58,1,0,0,0.0,68.0,2.0,50000.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Mukwelle Akale,973779,F,1,46,0,0,0,0.0,84.0,3.0,96115.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Ray Serrano,1083224,F,1,90,4,2,0,0.0,86.0,3.0,74164.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Chris Donovan,1346897,F,1,84,1,0,0,0.0,105.0,3.0,154947.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Zachary Duncan,1030785,M,0,45,2,1,1,0.0,,2.0,60507.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Quenzi Huerman,1615750,F,0,45,2,1,0,0.0,,3.0,154259.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Jake Morris,1338761,M,0,32,0,0,0,0.0,,2.0,101743.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Sam Gleadle,1035619,M,0,6,1,0,0,0.0,,2.0,50000.0
+5109988,2026-10-21,usl_championship,Louisville City FC,Sean Totsch,681621,D,0,2,0,0,0,0.0,,1.0,50000.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Roameth Romaña,1706656,G,1,90,0,0,0,0.0,11.0,0.0,229757.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Juan Pertúz,1477855,D,1,90,0,0,0,0.0,32.0,1.0,501839.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Howell Mena,1332955,D,1,90,0,0,0,0.0,34.0,1.0,316828.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Francisco Meza,307477,D,1,90,2,0,0,0.12,36.0,1.0,302992.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Jhojan Escobar,1634973,D,1,90,0,0,0,0.0,38.0,1.0,300409.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Kevin Rincón,1765463,M,1,45,1,0,0,0.02,64.0,2.0,
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Juan Castilla,1171062,M,1,66,0,0,0,0.0,66.0,2.0,435905.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Néider Ospina,1357404,F,1,90,2,1,0,0.04,83.0,3.0,368760.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Juan Ramírez,1564151,M,1,79,1,0,0,0.03,85.0,2.0,471985.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Luis Miranda,1021584,F,1,45,1,0,0,0.08,87.0,3.0,287143.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Yorleys Mena Palacios,205957,F,1,66,3,0,0,0.35,115.0,3.0,350714.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Marlon Sierra,1641131,M,0,44,0,0,0,0.0,,2.0,249996.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Joel Contreras,1432978,F,0,44,0,0,0,0.0,,3.0,303590.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Frank Castañeda,922695,F,0,24,1,1,0,0.02,,3.0,685515.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Carlos Cortés,1272260,F,0,24,0,0,0,0.0,,3.0,259832.0
+1000014132,2026-10-21,col_primera_a,Llaneros FC,Kelvin Osorio,793928,M,0,11,0,0,0,0.0,,2.0,248656.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Pedro Gallese,116920,G,1,90,0,0,0,0.0,11.0,0.0,435521.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Keimer Sandoval,1640741,D,1,72,0,0,0,0.0,32.0,1.0,719621.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,José Caldera,1302803,D,1,90,0,0,0,0.0,34.0,1.0,542299.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Fernando Álvarez,1280284,D,1,90,0,0,0,0.0,36.0,1.0,1178201.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Edwin Velasco,496855,D,1,87,1,1,0,0.01,38.0,1.0,295327.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Daniel Giraldo,282156,M,1,90,0,0,0,0.0,64.0,2.0,264799.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Ronaldo Pájaro,1353341,M,1,85,1,1,0,0.02,66.0,2.0,1022080.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Johan Martínez,1433044,F,1,90,3,2,1,0.24,83.0,3.0,
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Nicolás Benedetti,658135,M,1,73,1,1,1,0.04,85.0,2.0,918985.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Alexis Manyoma,1332390,F,1,90,0,0,0,0.0,87.0,3.0,1187965.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Steven Rodríguez,1105327,F,1,85,2,1,1,0.1,115.0,3.0,927272.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,José Moya,281530,D,0,18,0,0,0,0.0,,1.0,248857.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Emanuel Reynoso,797871,M,0,17,1,1,0,0.04,,2.0,795484.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Miguel Correa,2156672,M,0,5,0,0,0,0.0,,2.0,
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Carlos Bacca,166648,F,0,5,0,0,0,0.0,,3.0,287766.0
+1000014132,2026-10-21,col_primera_a,Deportivo Cali,Juan Tello,1353754,D,0,3,0,0,0,0.0,,1.0,335724.0
+5109872,2026-10-21,usl_championship,Brooklyn,Jackson Lee,928437,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+5109872,2026-10-21,usl_championship,Brooklyn,Malik Pinto,1440048,M,1,77,1,1,1,0.0,32.0,2.0,68594.0
+5109872,2026-10-21,usl_championship,Brooklyn,Thomas Vancaeyezeele,936220,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+5109872,2026-10-21,usl_championship,Brooklyn,Vuk Latinovich,1248123,D,1,90,1,0,0,0.0,36.0,1.0,50000.0
+5109872,2026-10-21,usl_championship,Brooklyn,Gabriel Alves,1447526,D,1,90,0,0,0,0.0,38.0,1.0,70242.0
+5109872,2026-10-21,usl_championship,Brooklyn,Taimu Okiyoshi,1724754,M,1,90,1,0,0,0.0,64.0,2.0,66895.0
+5109872,2026-10-21,usl_championship,Brooklyn,Thomas McNamara,526485,M,1,61,1,0,0,0.0,66.0,2.0,50000.0
+5109872,2026-10-21,usl_championship,Brooklyn,Jaden Servania,1170973,M,1,90,1,1,0,0.0,83.0,2.0,65556.0
+5109872,2026-10-21,usl_championship,Brooklyn,Johnny Klein,1460074,M,1,45,1,0,0,0.0,85.0,2.0,78229.0
+5109872,2026-10-21,usl_championship,Brooklyn,Christopher Olney Jr.,1455583,F,1,90,0,0,0,0.0,87.0,3.0,639760.0
+5109872,2026-10-21,usl_championship,Brooklyn,Abdoulaye Kanté,1469822,F,1,61,0,0,0,0.0,115.0,3.0,134914.0
+5109872,2026-10-21,usl_championship,Brooklyn,Peter Mangione,1639626,M,0,45,1,0,0,0.0,,2.0,75435.0
+5109872,2026-10-21,usl_championship,Brooklyn,Ryan McLaughlin,388894,D,0,23,1,1,0,0.0,,1.0,50000.0
+5109872,2026-10-21,usl_championship,Brooklyn,Stefan Stojanovic,1346904,F,0,29,2,0,0,0.0,,3.0,83192.0
+5109872,2026-10-21,usl_championship,Brooklyn,Juan Obregón,1098593,F,0,13,0,0,0,0.0,,3.0,
+5109872,2026-10-21,usl_championship,Brooklyn,Rocco Romeo,1024286,D,0,6,0,0,0,0.0,,1.0,53479.0
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Jassem Koleilat,912343,G,1,90,0,0,0,0.0,11.0,0.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Sebastian Tregarthen,1662187,F,1,90,2,2,2,0.0,32.0,3.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Phanuel Kavita,621906,D,1,90,0,0,0,0.0,34.0,1.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Hamady Diop,1439803,D,1,74,0,0,0,0.0,36.0,1.0,58253.0
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Dawson McCartney,1368657,D,1,90,0,0,0,0.0,38.0,1.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Samuel McIllhatton,860928,M,1,90,0,0,0,0.0,64.0,2.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Seth Antwi,1682447,M,1,90,0,0,0,0.0,66.0,2.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Tyler Pasher,530617,M,1,64,0,0,0,0.0,83.0,2.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Sebastián Saucedo,622027,F,1,52,0,0,0,0.0,85.0,3.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Gevork Diarbian,1637902,F,1,74,0,0,0,0.0,87.0,3.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Ronaldo Damus,790332,F,1,64,0,0,0,0.0,115.0,3.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Serge Ngoma,1190660,M,0,38,0,0,0,0.0,,2.0,670583.0
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Peter-Lee Vassell,932131,M,0,27,2,0,0,0.0,,2.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Romario Williams,621524,F,0,26,0,0,0,0.0,,3.0,103832.0
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,AJ Paterson,1059682,D,0,16,0,0,0,0.0,,1.0,
+5109872,2026-10-21,usl_championship,Birmingham Legion FC,Samuel Shashoua,847603,M,0,16,1,0,0,0.0,,2.0,

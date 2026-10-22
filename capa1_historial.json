@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T00:16:44Z",
+"actualizado": "2026-10-22T01:52:12Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -11534,6 +11534,26 @@
 },
 {
 "dia": "2026-10-21",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "FC Cincinnati vs DC United",
+"apuesta": "FC Cincinnati o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "FC Cincinnati vs DC United",
+"apuesta": "Gana FC Cincinnati",
+"cuota": 1.61,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-21",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Ghazl El Mahallah vs Al Ittihad",
@@ -11714,6 +11734,16 @@
 },
 {
 "dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Portuguesa vs Zamora",
+"apuesta": "Gana Portuguesa",
+"cuota": 2.4,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-21",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Real Betis vs Feyenoord Rotterdam",
@@ -11746,6 +11776,36 @@
 "dia": "2026-10-21",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Real Potosi vs Bolivar",
+"apuesta": "Gana Bolivar",
+"cuota": 1.6,
+"resultado": "rojo",
+"marcador": "3-1"
+},
+{
+"dia": "2026-10-21",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Real Potosi vs Bolivar",
+"apuesta": "Gana Bolivar",
+"cuota": 1.6,
+"resultado": "rojo",
+"marcador": "3-1"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Sarasota Paradise vs FC Naples",
+"apuesta": "Gana Sarasota Paradise",
+"cuota": 2.0,
+"resultado": "rojo",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Solbiatese vs Tropical Coriano",
 "apuesta": "Gana Tropical Coriano",
 "cuota": 3.2,
@@ -11771,6 +11831,16 @@
 "cuota": 1.31,
 "resultado": "rojo",
 "marcador": "2-3"
+},
+{
+"dia": "2026-10-21",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Sporting JAX vs Louisville City FC",
+"apuesta": "Louisville City FC o empate",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "0-2"
 },
 {
 "dia": "2026-10-21",
