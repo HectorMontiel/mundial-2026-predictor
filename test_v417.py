@@ -234,7 +234,20 @@ def probar_v428():
           and '/rest/v1/rpc/liquidar_combinadas_usuario' in xw, 'v428: el boleto, «Mis combinadas» y la liquidación en cada pasada')
 
 
+def probar_v431():
+    app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
+    check('function moverCanchas()' in app and 'function dominio(k)' in app and 'async function stats365(gid)' in app
+          and 'setInterval(moverCanchas, 1500)' in app, 'v431: el balón y los 22 se mueven con quién ataca ahora (365Scores, ESPN, posesión)')
+    check("'MEDIO TIEMPO'" in app and "'FINAL'" in app and 'const quieto = m.pausa;' in app,
+          'v431: en el medio tiempo y al final todo se detiene y la cancha lo dice')
+    check('animación aproximada según el juego' in app and 'tamaño = peligro (xG)' in app and 't.gol || minuto(t.min) >= ahora - 15' in app,
+          'v431: leyenda clara, sólo los tiros recientes y dice que la animación es aproximada')
+    check("if (v && v.fase === 'pre' && !fin) return 'proximo';" in app, 'v431: si ESPN dice que aún no empieza, no se toma como en vivo (la hora rara de la MLS)')
+    check('.cancha-svg .jug { transition: transform' in css and '.cancha-svg .letrero text' in css, 'v431: el movimiento es suave')
+
+
 if __name__ == '__main__':
+    probar_v431()
     probar_v427()
     probar_v428()
     probar_v425()

@@ -585,3 +585,16 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .cancha-tit { display: flex; justify-content: space-between; align-items: center; }
 @media (prefers-reduced-motion: reduce) { .cancha-svg .balon { transition: none; } .cancha-svg .balon .halo { animation: none; } }
 .presion-svg { height: 48px; }
+
+/* v431 — el motor de la cancha */
+.cancha-svg .jug { transition: transform 1.4s cubic-bezier(.4,0,.2,1); }
+.cancha-svg .balon { transition: transform 1.3s cubic-bezier(.45,.05,.25,1); }
+.cancha-svg .tiro circle { stroke-width: .3; fill-opacity: .45; opacity: .75; }
+.cancha-svg .letrero rect { fill: rgba(6,14,26,.72); stroke: rgba(255,255,255,.25); stroke-width: .3; }
+.cancha-svg .letrero text { fill: #fff; font-size: 4.2px; font-weight: 800; letter-spacing: .25px; text-anchor: middle; }
+.cancha-ley { display: flex; flex-wrap: wrap; gap: 4px 12px; padding: 6px 10px 0; font-size: 11px; color: var(--tenue); }
+.cancha-ley i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 4px; vertical-align: -1px; }
+.cancha-ley .l-tiro { border: 1.5px solid currentColor; } .cancha-ley .l-gol { background: currentColor; }
+.chip-ult.nuevo { animation: aviso 1.2s ease-out; }
+@keyframes aviso { 0% { transform: scale(1.08); background: rgba(124,92,255,.45); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .cancha-svg .jug, .cancha-svg .balon { transition: none; } .chip-ult.nuevo { animation: none; } }
