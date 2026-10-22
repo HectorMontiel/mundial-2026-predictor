@@ -276,6 +276,9 @@ def probar_v434():
     check('const bd = q === port ? 3.2 :' in app and 'bx = Math.max(bb, Math.min(105 - bb, bx));' in app and '.cancha-svg { overflow: hidden; }' in css,
           'v438: ni el portador (con su aro) ni el balón se dibujan fuera de la cancha')
     cu = leer('web', 'cuenta.js')
+    check('async function miHistorial(intento)' in cu and "sb.from('desbloqueos').select('pick,creado,devuelto')" in cu and 'data-hist-rango' in cu
+          and 'id="mi-hist"' in leer('web', 'index.html') and 'misCombinadas(); miHistorial();' in cu,
+          'v439: «Mi historial»: lo seguido, desbloqueado y combinado, con verdes/rojas, $100 a cada uno y desglose por deporte')
     check('if (turno !== turnoComb) return;' in cu and 'function pintarCombinadas(caja, data, extra)' in cu and "'sharpicks-comb-' + (yo.user && yo.user.id)" in cu
           and "caja.innerHTML = '<p class=\"tenue\">Arma tu combinada" not in cu,
           'v437: «Mis combinadas» no desaparece al volver a la app (sólo pinta la petición más nueva; un error no borra)')

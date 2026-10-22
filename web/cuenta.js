@@ -153,7 +153,7 @@
     await Promise.all(tareas.map((t) => aTiempo(t, 6000, null)));
     if (yo.user) await aTiempo(cargarGustos(), 6000, null);
     try { avisoRenovacion(); } catch (e) { /* el aviso nunca tumba la página */ }
-    try { pintarBoleto(); misCombinadas(); } catch (e) { /* v428: nunca tumba la página */ }
+    try { pintarBoleto(); misCombinadas(); miHistorial(); } catch (e) { /* v428: nunca tumba la página */ }
     try { pintarCabecera(); } catch (e) {
       // pase lo que pase, la cabecera dice algo (y se reintenta en 20 s)
       const c = $('cuenta');
@@ -685,6 +685,71 @@
     if (turno !== turnoComb) return;
     pintarCombinadas(caja, data, extra);
   }
+  // v439 — «MI HISTORIAL»: el usuario quiere ver cuáles le salieron, de cuánto
+  // fue cada combinada y su desglose. Junta lo que SIGUIÓ (★), lo que DESBLOQUEÓ
+  // (🔓) y sus combinadas; cada pick cuenta una vez, con su resultado oficial.
+  let turnoHist = 0, rangoHist = 30;
+  const ICO_HIST = { 'Fútbol': '⚽', Tenis: '🎾', NFL: '🏈', NBA: '🏀', NHL: '🏒', MLB: '⚾', KBO: '⚾', 'Béisbol': '⚾' };
+  const DIA_MX = (f) => new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', weekday: 'short', day: 'numeric', month: 'short' }).format(f);
+  const aFechaP = (s) => new Date(String(s || '').replace(' ', 'T') + (/[zZ]|[+-]\d\d:?\d\d$/.test(String(s)) ? '' : 'Z'));
+  async function miHistorial(intento) {
+    const caja = $('mi-hist'); if (!caja || !sb) return;
+    if (!yo.user) { caja.innerHTML = '<p class="tenue">Entra para llevar el registro de tus picks.</p>'; return; }
+    const turno = ++turnoHist;
+    const [s, d, c] = await Promise.all([sb.from('seguidos').select('pick,creado'), sb.from('desbloqueos').select('pick,creado,devuelto'),
+      sb.from('combinadas_usuario').select('*').order('creado', { ascending: false }).limit(200)]);
+    if (turno !== turnoHist) return;
+    if (s.error || d.error || c.error) {                               // como en v437: un error no borra lo que se veía
+      if ((intento || 0) < 4) setTimeout(() => { if (turno === turnoHist) miHistorial((intento || 0) + 1); }, 3000);
+      if (!caja.dataset.pintada) caja.innerHTML = '<p class="tenue">Cargando tu historial…</p>';
+      return;
+    }
+    const marca = {};
+    (s.data || []).forEach((x) => { (marca[x.pick] = marca[x.pick] || {}).sigo = true; });
+    (d.data || []).forEach((x) => { (marca[x.pick] = marca[x.pick] || {}).desb = true; });
+    const ids = Object.keys(marca), picks = {};
+    for (let i = 0; i < ids.length; i += 300) {
+      const { data: ps } = await sb.from('picks').select('*').in('id', ids.slice(i, i + 300));
+      (ps || []).forEach((p) => { picks[p.id] = p; });
+    }
+    if (turno !== turnoHist) return;
+    caja.dataset.pintada = '1';
+    yo.hist = { marca, picks, combs: c.data || [] };
+    pintarHistorial(caja);
+  }
+  function pintarHistorial(caja) {
+    const h = yo.hist; if (!h) return;
+    const desde = rangoHist ? Date.now() - rangoHist * 864e5 : 0;
+    const lista = Object.keys(h.marca).map((id) => h.picks[id]).filter((p) => p && aFechaP(p.inicio).getTime() >= desde)
+      .sort((a, b) => aFechaP(b.inicio) - aFechaP(a.inicio));
+    const combs = h.combs.filter((x) => aFechaP(x.inicio).getTime() >= desde);
+    const v = lista.filter((p) => p.estado === 'verde'), r = lista.filter((p) => p.estado === 'roja');
+    const pct = v.length + r.length ? Math.round(100 * v.length / (v.length + r.length)) : null;
+    const gan = Math.round(v.reduce((a, p) => a + 100 * (Number(p.cuota) - 1), 0) - 100 * r.length);
+    const cv = combs.filter((x) => x.estado === 'verde').length, cr = combs.filter((x) => x.estado === 'roja').length;
+    // el desglose por deporte
+    const dep = {};
+    lista.forEach((p) => { if (p.estado !== 'verde' && p.estado !== 'roja') return; const k = p.deporte || 'Otro'; (dep[k] = dep[k] || [0, 0])[p.estado === 'verde' ? 0 : 1]++; });
+    const rangos = [[7, '7 días'], [30, '30 días'], [0, 'Todo']].map(([n, t]) => '<button class="chip' + (rangoHist === n ? ' activa' : '') + '" data-hist-rango="' + n + '">' + t + '</button>').join('');
+    let html = '<div class="chips">' + rangos + '</div>';
+    if (!lista.length && !combs.length) { caja.innerHTML = html + '<p class="tenue">Sigue (☆), desbloquea o combina picks y aquí queda su registro.</p>'; return; }
+    html += '<div class="num">✅ ' + v.length + ' ❌ ' + r.length + (pct != null ? ' <span class="pct">' + pct + ' %</span>' : '') + '</div>' +
+      (v.length + r.length ? '<p class="tenue chico" title="Si hubieras apostado $100 a cada pick">$100 a cada uno: <b class="' + (gan >= 0 ? 'verde-t' : 'roja-t') + '">' + (gan >= 0 ? '+' : '−') + '$' + Math.abs(gan) + '</b></p>' : '') +
+      (combs.length ? '<p class="tenue chico">🔗 Combinadas: ✅ ' + cv + ' ❌ ' + cr + '</p>' : '') +
+      (Object.keys(dep).length > 1 ? '<div class="hist-dep">' + Object.entries(dep).map(([k, [a, b]]) => '<span>' + (ICO_HIST[k] ? ICO_HIST[k] + ' ' : '') + esc(k) + ' <b>' + a + '-' + b + '</b> ' + Math.round(100 * a / (a + b)) + ' %</span>').join('') + '</div>' : '');
+    let dia = '';
+    lista.slice(0, 80).forEach((p) => {
+      const dd = DIA_MX(aFechaP(p.inicio)); if (dd !== dia) { dia = dd; html += '<div class="hist-dia">' + esc(dd) + '</div>'; }
+      const m = h.marca[p.id];
+      html += '<div class="hist-fila ' + (p.estado || '') + '"><span>' + (p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '↩️' : '⏳') + '</span>' +
+        '<span class="ht">' + apuesta(p) + '<small>' + esc(p.partido || '') + ' ' + (m.sigo ? '★' : '') + (m.desb ? '🔓' : '') + '</small></span><b>' + Number(p.cuota || 0).toFixed(2) + '</b></div>';
+    });
+    caja.innerHTML = html;
+  }
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('[data-hist-rango]'); if (!t) return;
+    rangoHist = Number(t.dataset.histRango); pintarHistorial($('mi-hist'));
+  });
   function pintarCombinadas(caja, data, extra) {
     caja.dataset.pintada = '1';
     const v = data.filter((c) => c.estado === 'verde').length, r = data.filter((c) => c.estado === 'roja').length, mon = data.reduce((s, c) => s + (c.premio || 0), 0);

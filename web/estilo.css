@@ -631,3 +631,13 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 
 /* v438 — nada se dibuja fuera de la cancha */
 .cancha-svg { overflow: hidden; }
+
+/* v439 — Mi historial */
+#mi-hist .chips { margin-bottom: 8px; }
+#mi-hist .verde-t { color: #22c55e; } #mi-hist .roja-t { color: #f87171; }
+#mi-hist .hist-dep { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--tenue); margin: 4px 0 6px; }
+#mi-hist .hist-dia { margin: 10px 0 2px; font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; color: var(--tenue); }
+#mi-hist .hist-fila { display: grid; grid-template-columns: 20px 1fr auto; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--borde); font-size: 13px; }
+#mi-hist .hist-fila .ht small { display: block; font-size: 11px; color: var(--tenue); margin-top: 1px; }
+#mi-hist .hist-fila b { font-size: 13px; }
+#mi-hist .num { font-size: 22px; }
