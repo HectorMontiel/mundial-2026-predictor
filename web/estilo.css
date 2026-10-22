@@ -605,3 +605,16 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .ola { position: relative; }
 .ola-gol { position: absolute; transform: translateX(-50%); font-size: 12px; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
 .ola-gol.arriba { top: -2px; } .ola-gol.abajo { bottom: 4px; }
+
+/* v434 — como Sofascore: puntitos; el portador, grande con su número y nombre */
+.cancha-svg .jug { transition: transform 1s linear; }
+.cancha-svg .balon { transition: transform 1s linear; }
+.cancha-svg .jug .pto { stroke: rgba(255,255,255,.85); stroke-width: .22; }
+.cancha-svg .jug .aro { opacity: 0; stroke: #fff; stroke-width: .35; transition: opacity .4s; }
+.cancha-svg .jug .num, .cancha-svg .jug .nom { opacity: 0; transition: opacity .4s; }
+.cancha-svg .jug .nom { font-size: 2.1px; font-weight: 700; fill: #fff; text-anchor: middle; paint-order: stroke; stroke: rgba(0,0,0,.55); stroke-width: .35; }
+.cancha-svg .jug.portador .aro, .cancha-svg .jug.portador .num, .cancha-svg .jug.portador .nom { opacity: 1; }
+.cancha-svg .jug.portador .pto { opacity: 0; }
+.cancha-svg .pase { stroke: rgba(255,255,255,.85); stroke-width: .35; stroke-linecap: round; opacity: 0; transition: opacity .9s; }
+.cancha-svg .pase.ve { opacity: .9; transition: none; }
+@media (prefers-reduced-motion: reduce) { .cancha-svg .jug, .cancha-svg .balon { transition: none; } }

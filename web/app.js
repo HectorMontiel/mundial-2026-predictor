@@ -468,6 +468,30 @@
     const letrero = !v || v.fase === 'pre' ? '' : v.terminado || v.fase === 'post' ? 'FINAL' : pausa ? 'MEDIO TIEMPO' : '';
     // sin ruido: los goles siempre; los demás tiros, sólo los de los últimos 15 minutos
     const tiros = todos.filter((t) => t.gol || minuto(t.min) >= ahora - 15);
+    // las jugadas REALES (ESPN y los tiros de 365Scores) para el motor
+    const reales = js.map((j) => ({ id: 'e' + j.seg + j.t, t: j.t, src: 'espn', m: j.seg / 60, lado: j.lado, x: X(j.lado, j.x), y: Y(j.lado, j.y),
+      w: (JUGADA[j.t] || [0, 0, 0])[2], txt: (JUGADA[j.t] || ['•', ''])[0] + ' <b>' + esc((JUGADA[j.t] || ['', j.t])[1]) + '</b> · ' + esc(j.equipo) + ' · ' + esc(j.min) }))
+      .concat(todos.map((t) => ({ id: 't' + t.min + t.x + t.y, t: t.gol ? 'goal' : /ataj/i.test(t.resultado) ? 'shot-on-target' : 'shot-off-target', src: '365',
+        m: minuto(t.min), lado: t.lado, x: X(t.lado, t.x), y: Y(t.lado, t.y),
+        w: 1.5 + 8 * t.xg, txt: (t.gol ? '⚽ <b>Gol</b>' : '🎯 <b>Tiro</b>') + ' · ' + esc(t.jugador) + ' · ' + esc(t.min) })))
+      .sort((a, b) => a.m - b.m);
+    if (k) {
+      // v434 — el usuario: al abrir una tarjeta en vivo, la cancha va EN EL MINUTO
+      // QUE CORRE, no desde el saque inicial. Lo ya pasado no se repite (antes, si
+      // las jugadas llegaban después de abrir, se volvían a jugar desde el minuto 1).
+      const m = estado.motor[k] = Object.assign(estado.motor[k] || { vistas: new Set() }, { gid: estado.p365[k] || null, pausa, minuto: ahora, reales });
+      if (!m.ini && reales.length) {
+        m.ini = true; m.pos = {}; m.portador = null; m.escena = null; m.cola = [];
+        reales.forEach((q) => m.vistas.add(q.id));
+        const u = reales[reales.length - 1], h = m.gid ? estado.s365[m.gid] || [] : [];
+        if (h.length) m.statsVisto = h[h.length - 1].t;
+        if (u && !pausa) {
+          const reciente = ahora - u.m <= 3, dir = u.lado === 0 ? 1 : -1;
+          m.bx = reciente ? Math.max(6, Math.min(99, Number(u.x) - dir * 8)) : 52.5 + dir * 14;
+          m.by = reciente ? Math.max(6, Math.min(62, Number(u.y))) : 34;
+        }
+      }
+    }
     let s = '<svg class="cancha-svg" viewBox="0 0 105 68" role="img" aria-label="Cancha en vivo"' + (k ? ' data-motor="' + esc(k) + '"' : '') + '>' +
       '<defs><pattern id="franjas" width="10.5" height="68" patternUnits="userSpaceOnUse"><rect width="5.25" height="68" fill="rgba(255,255,255,.025)"/></pattern>' +
       '<radialGradient id="luz" cx="50%" cy="40%" r="75%"><stop offset="0" stop-color="#1c7a45"/><stop offset="1" stop-color="#0d3b22"/></radialGradient>' +
@@ -486,27 +510,25 @@
     // los 22 en su formación; el motor los mueve con el juego (data-bx/by = su lugar)
     once.forEach((j) => {
       const x = j.lado === 0 ? 3 + j.prof * 0.45 : 102 - j.prof * 0.45, y = j.lado === 0 ? 5 + j.ancho * 0.58 : 63 - j.ancho * 0.58;
-      s += '<g class="jug" data-bx="' + x.toFixed(2) + '" data-by="' + y.toFixed(2) + '" data-pt="' + (j.prof === 0 ? 1 : 0) + '" data-prof="' + j.prof + '" data-lado="' + j.lado + '" style="transform: translate(' + x.toFixed(2) + 'px,' + y.toFixed(2) + 'px)">' +
+      const key = j.lado + '|' + (j.n || j.nombre), mo = estado.motor[k], pm = (mo && mo.pos || {})[key];
+      let tx = pm ? pm[0] : x, ty = pm ? pm[1] : y;
+      if (!pm && mo && mo.bx != null) {
+        // v434 — al abrir: cada quien ya corrido hacia donde va el balón ahora
+        const gk = j.prof <= 5;
+        tx = Math.max(2, Math.min(103, x + (mo.bx - 52.5) * (gk ? 0.08 : 0.42))); ty = Math.max(3, Math.min(65, y + (mo.by - 34) * (gk ? 0.15 : 0.28)));
+        (mo.pos = mo.pos || {})[key] = [tx, ty];
+      }
+      s += '<g class="jug' + (estado.motor[k] && estado.motor[k].portador === key ? ' portador' : '') + '" data-key="' + esc(key) + '" data-bx="' + x.toFixed(2) + '" data-by="' + y.toFixed(2) +
+        '" data-prof="' + j.prof + '" data-lado="' + j.lado + '" style="transform: translate(' + tx.toFixed(2) + 'px,' + ty.toFixed(2) + 'px)">' +
         '<title>' + esc(j.n + ' ' + j.nombre + (j.nota ? ' · ' + j.nota : '')) + '</title>' +
-        '<circle r="2.1" fill="' + col(j.lado) + '"/><text y=".75" class="num">' + esc(j.n) + '</text>' +
-        (j.nota ? '<text y="4.4" class="nota' + (j.nota >= 7.5 ? ' alta' : '') + '">' + esc(String(j.nota)) + '</text>' : '') + '</g>';
+        '<circle class="aro" r="2.4" fill="' + col(j.lado) + '"/><circle class="pto" r="1.05" fill="' + col(j.lado) + '"/>' +
+        '<text y=".75" class="num">' + esc(j.n) + '</text><text y="5" class="nom">' + esc(j.nombre) + '</text></g>';
     });
-    s += '<g class="balon" style="transform: translate(52.5px,34px)"><circle r="1.5" class="halo" fill="#fff"/><circle r="1" fill="#fff" filter="url(#brillo)"/></g>';
+    s += '<line class="pase" x1="0" y1="0" x2="0" y2="0"/>';
+    const mb = k && estado.motor[k] && estado.motor[k].bx != null ? [estado.motor[k].bx, estado.motor[k].by] : [52.5, 34];
+    s += '<g class="balon" style="transform: translate(' + mb[0].toFixed(2) + 'px,' + mb[1].toFixed(2) + 'px)"><circle r="1.5" class="halo" fill="#fff"/><circle r="1" fill="#fff" filter="url(#brillo)"/></g>';
     if (letrero) s += '<g class="letrero"><rect x="32.5" y="27" width="40" height="14" rx="3"/><text x="52.5" y="36.2">' + letrero + '</text></g>';
     s += '</svg>';
-    // las jugadas REALES (ESPN y los tiros de 365Scores) para el motor
-    const reales = js.map((j) => ({ id: 'e' + j.seg + j.t, t: j.t, src: 'espn', m: j.seg / 60, lado: j.lado, x: X(j.lado, j.x), y: Y(j.lado, j.y),
-      w: (JUGADA[j.t] || [0, 0, 0])[2], txt: (JUGADA[j.t] || ['•', ''])[0] + ' <b>' + esc((JUGADA[j.t] || ['', j.t])[1]) + '</b> · ' + esc(j.equipo) + ' · ' + esc(j.min) }))
-      .concat(todos.map((t) => ({ id: 't' + t.min + t.x + t.y, t: t.gol ? 'goal' : /ataj/i.test(t.resultado) ? 'shot-on-target' : 'shot-off-target', src: '365',
-        m: minuto(t.min), lado: t.lado, x: X(t.lado, t.x), y: Y(t.lado, t.y),
-        w: 1.5 + 8 * t.xg, txt: (t.gol ? '⚽ <b>Gol</b>' : '🎯 <b>Tiro</b>') + ' · ' + esc(t.jugador) + ' · ' + esc(t.min) })))
-      .sort((a, b) => a.m - b.m);
-    if (k) {
-      const prev = estado.motor[k];
-      // al abrir la cancha, lo ya pasado no se «anuncia» otra vez (sólo lo nuevo)
-      const vistas = prev ? prev.vistas : new Set(reales.slice(0, -1).map((q) => q.id));
-      estado.motor[k] = Object.assign(prev || {}, { gid: estado.p365[k] || null, pausa, minuto: ahora, reales, vistas });
-    }
     const ult = reales.length ? reales[reales.length - 1] : null;
     const xg = [0, 1].map((l) => todos.filter((t) => t.lado === l).reduce((a, t) => a + t.xg, 0));
     const cab = '<div class="cancha-ult"><span class="chip-ult">' + (ult ? ult.txt : '⚽ <b>En vivo</b>') + '</span>' +
@@ -517,18 +539,18 @@
     reales.forEach((q) => { const m = Math.floor(q.m); if (val[m] != null) val[m] += (q.lado === 0 ? 1 : -1) * q.w; });
     const suave = val.map((_, i) => val.slice(Math.max(0, i - 3), i + 1).reduce((a, b, kk, arr) => a + b * (kk + 1) / arr.length, 0));
     const tope = Math.max(1, ...suave.map(Math.abs)), W = 100 / (suave.length - 1);
-    const pts = (signo) => suave.map((x, i) => (i * W).toFixed(2) + ',' + (12 - signo * 11 * Math.max(0, signo * x) / tope).toFixed(2)).join(' ');
-    const ola = '<svg class="presion-svg" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Presión minuto a minuto">' +
-      '<polygon points="0,12 ' + pts(1) + ' 100,12" fill="' + c.l + '" opacity=".85"/><polygon points="0,12 ' + pts(-1) + ' 100,12" fill="' + c.r + '" opacity=".85"/>' +
+    const barras = suave.map((x, i) => { const h = 11 * Math.abs(x) / tope; return h < 0.2 ? '' : '<rect x="' + (i * W - W * 0.38).toFixed(2) + '" y="' + (x > 0 ? 12 - h : 12).toFixed(2) +
+      '" width="' + (W * 0.76).toFixed(2) + '" height="' + h.toFixed(2) + '" fill="' + (x > 0 ? c.l : c.r) + '"/>'; }).join('');
+    const ola = '<svg class="presion-svg" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Presión minuto a minuto">' + barras +
       '<line x1="50" y1="2" x2="50" y2="22" class="eje"/><line x1="0" y1="12" x2="100" y2="12" class="eje"/></svg>';
     // v432 — un ⚽ en el minuto de cada gol (arriba el local, abajo el visitante)
     const vistoGol = new Set();
     const goles = reales.filter((q) => /Gol/.test(q.txt)).filter((q) => { const g = Math.round(q.m) + '|' + q.lado; if (vistoGol.has(g)) return false; vistoGol.add(g); return true; }).map((q) => '<span class="ola-gol ' + (q.lado === 0 ? 'arriba' : 'abajo') +
       '" style="left:' + Math.min(98, 100 * q.m / fin).toFixed(1) + '%" title="' + esc(q.txt.replace(/<[^>]+>/g, '')) + '">⚽</span>').join('');
     const form = d && d.formacion && (d.formacion[0] || d.formacion[1]) ? '<small class="tenue">' + esc(d.formacion[0] || '') + ' vs ' + esc(d.formacion[1] || '') + '</small>' : '';
-    const leyenda = '<div class="cancha-ley"><span><i class="l-tiro"></i>tiro</span><span><i class="l-gol"></i>gol</span><span>tamaño = peligro (xG)</span>' +
-      '<span class="tenue">animación aproximada según el juego</span></div>';
-    return '<div class="cancha">' + cab + s + leyenda + '<div class="cancha-tit"><span>Presión minuto a minuto</span>' + form + '</div><div class="ola">' + ola + goles + '</div></div>';
+    // v434 — el usuario: «el menos texto posible»; lo demás queda en el tooltip
+    const leyenda = '<div class="cancha-ley" title="Tamaño del tiro = peligro (xG). Animación aproximada según el juego."><span><i class="l-tiro"></i>tiro</span><span><i class="l-gol"></i>gol</span></div>';
+    return '<div class="cancha">' + cab + s + leyenda + '<div class="cancha-tit"><span>Presión</span>' + form + '</div><div class="ola">' + ola + goles + '</div></div>';
   }
   // v431 — EL MOTOR: QUE LA CANCHA SE VEA COMO EL PARTIDO. El usuario: «no me
   // gusta que las bolitas se queden estáticas… no se entienden las circunferencias
@@ -668,79 +690,124 @@
     }
     return [bx, by];
   }
+  // v434 — EL MOTOR COMO SOFASCORE. El usuario mandó dos videos: el nuestro «se
+  // mueve muy rígido, todos a la par»; el de Sofascore, «más fluido y sólo van
+  // ciertos jugadores al balón». Lo que hace Sofascore y aquí se copia:
+  //   · el balón SIEMPRE lo tiene alguien (sale grande, con número y nombre); los
+  //     demás son puntitos;
+  //   · el portador conduce o PASA a un compañero bien colocado (la línea del
+  //     pase se dibuja); a veces se la roban (el que domina la pierde menos);
+  //   · cada jugador va hacia su lugar con INERCIA (nadie salta) y sólo los que
+  //     están cerca del balón se mueven de verdad: el rival más cercano presiona
+  //     entre el portador y su portería y otro cubre; los lejanos sólo se acomodan.
   function moverCanchas() {
     document.querySelectorAll('.cancha-svg[data-motor]').forEach((svg) => {
       const k = svg.dataset.motor, m = estado.motor[k];
       if (!m) return;
-      const quieto = m.pausa;                     // medio tiempo / final / aún no empieza
-      let bx = m.bx == null ? 52.5 : m.bx, by = m.by == null ? 34 : m.by;
+      const quieto = m.pausa;
       const d = quieto ? 0 : dominio(k);
+      m.pos = m.pos || {};
       const anunciar = (txt) => {
         const et = svg.parentElement && svg.parentElement.querySelector('.chip-ult');
         if (et && txt) { et.innerHTML = txt; et.classList.remove('nuevo'); void et.offsetWidth; et.classList.add('nuevo'); }
       };
-      if (quieto) { bx = 52.5; by = 34; m.escena = null; }
+      // los 22, con su lugar actual (persiste entre repintados) y su lugar de formación
+      const js = [...svg.querySelectorAll('.jug[data-bx]')].map((j) => {
+        const lado = Number(j.dataset.lado), prof = Number(j.dataset.prof), key = j.dataset.key;
+        const x0 = Number(j.dataset.bx), y0 = Number(j.dataset.by), p = m.pos[key] || [x0, y0];
+        return { j, key, lado, dir: lado === 0 ? 1 : -1, prof, x0, y0, cx: p[0], cy: p[1], x: x0, y: y0 };
+      });
+      if (!js.length) return;
+      const equipo = (l) => js.filter((q) => q.lado === l), campo = (l) => equipo(l).filter((q) => q.prof > 5);
+      const dist = (a, x, y) => Math.hypot(a.cx - x, a.cy - y);
+      let bx = m.bx == null ? 52.5 : m.bx, by = m.by == null ? 34 : m.by, pase = null;
+      let port = js.find((q) => q.key === m.portador) || null;
+      if (quieto) { m.escena = null; port = null; bx = 52.5; by = 34; }
       else if (!m.escena) {
-        // ¿llegó una jugada nueva? (si hay ESPN, sus jugadas mandan; los tiros de 365Scores sólo se dibujan)
         const hayEspn = (m.reales || []).some((q) => q.src === 'espn');
-        const nueva = (m.reales || []).find((q) => q.id && !m.vistas.has(q.id) && !(hayEspn && q.src === '365'));
-        (m.reales || []).filter((q) => !m.vistas.has(q.id) && hayEspn && q.src === '365').forEach((q) => m.vistas.add(q.id));
+        // lo que llega tarde pero ya pasó (más de 2 minutos atrás) no se juega: la cancha va en el minuto que corre
+        (m.reales || []).filter((q) => !m.vistas.has(q.id) && ((hayEspn && q.src === '365') || q.m < (m.minuto || 0) - 2)).forEach((q) => m.vistas.add(q.id));
+        const nueva = (m.reales || []).find((q) => q.id && !m.vistas.has(q.id));
         m.cola = (m.cola || []).concat(escenasDeStats(m));
         const ev = nueva || m.cola.shift();
         if (nueva) m.vistas.add(nueva.id);
         if (ev) { const e = escenaDe(ev); if (e) { m.escena = Object.assign(e, { paso: 0 }); anunciar(ev.txt); } }
       }
-      if (!quieto && !m.escena) {
-        // juego corrido: conducción hacia la portería del que ataca; a veces lo recupera el otro
-        if (m.dir == null || Math.random() < 0.12 + 0.1 * (1 - Math.abs(d))) m.dir = Math.random() < 0.5 + d / 2 ? 1 : -1;
-        bx += m.dir * (3 + Math.random() * 5) + azar() * 3;
-        by += azar() * 8 + (34 - by) * 0.12;
-        if (bx > 96 || bx < 9) { m.dir = -m.dir; bx = Math.max(9, Math.min(96, bx)); }
-        by = Math.max(5, Math.min(63, by));
-      }
-      // los 22: primero el bloque (sigue al balón a lo largo y se cierra a su lado)
-      const js = [...svg.querySelectorAll('.jug[data-bx]')].map((j) => {
-        const lado = Number(j.dataset.lado), dir = lado === 0 ? 1 : -1, prof = Number(j.dataset.prof);
-        const x0 = Number(j.dataset.bx), y0 = Number(j.dataset.by);
-        let x = x0, y = y0;
-        if (!quieto) {
-          const ataca = (m.dir || 0) === dir;
-          const empuje = (bx - 52.5) * (prof <= 5 ? 0.12 : 0.62) + dir * (ataca ? 4 : -2);
-          x = x0 + empuje + azar() * 0.8;
-          y = y0 + (by - 34) * (prof <= 5 ? 0.18 : 0.38) + (by - y0) * (prof <= 5 ? 0 : 0.12) + azar() * 0.8;
-          const [mn, mx] = FRANJA(prof);
-          const t = dir > 0 ? x : 105 - x, tc = Math.max(mn, Math.min(mx, t));
-          x = dir > 0 ? tc : 105 - tc;
-          y = Math.max(3, Math.min(65, y));
-        }
-        return { j, lado, prof, x0, y0, x, y };
-      });
       if (m.escena) {
-        // la escena manda: dónde va el balón y dónde se pone cada quien
-        [bx, by] = ponerEscena(m.escena, js, m);
-        const e = m.escena;
-        e.paso++;
+        // balón parado: la escena dice dónde va el balón y cada quien; lo tiene quien la cobra
+        [bx, by] = ponerEscena(m.escena, js.map((q) => Object.assign(q, { x0: q.x0, y0: q.y0 })), m);
+        js.forEach((q) => { q.tx = q.x; q.ty = q.y; });
+        port = campo(m.escena.atk).sort((a, b) => Math.hypot(a.x - bx, a.y - by) - Math.hypot(b.x - bx, b.y - by))[0] || null;
+        const e = m.escena; e.paso++;
         if (e.paso >= TICKS[e.tipo]) {
           if (e.luego) m.escena = { tipo: e.luego, atk: e.atk, paso: 0 };
-          else {
-            if (e.tipo === 'gol') { bx = 52.5; by = 34; m.dir = e.atk === 0 ? -1 : 1; }       // saque de media cancha
-            m.escena = null;
-          }
+          else { if (e.tipo === 'gol') { bx = 52.5; by = 34; port = campo(e.atk === 0 ? 1 : 0).sort((a, b) => a.prof - b.prof).pop() || null; } m.escena = null; }
         }
       } else if (!quieto) {
-        // juego corrido: el más cercano de cada equipo va al balón y el segundo apoya
-        [0, 1].forEach((lado) => {
-          js.filter((q) => q.lado === lado && q.prof > 5).sort((a, b2) => Math.hypot(a.x - bx, a.y - by) - Math.hypot(b2.x - bx, b2.y - by))
-            .slice(0, 2).forEach((q, i) => { const f = i === 0 ? 0.62 : 0.28; q.x += (bx - q.x) * f; q.y += (by - q.y) * f; });
+        // juego corrido: ¿quién la tiene?, ¿la pierde?, ¿conduce o pasa?
+        if (!port) port = campo(d >= 0 ? 0 : 1).sort((a, b) => dist(a, bx, by) - dist(b, bx, by))[0];
+        const contra = port.lado === 0 ? -d : d;                        // si su equipo va perdiendo el dominio, la pierde más
+        if (Math.random() < 0.08 + 0.12 * Math.max(0, contra)) {
+          const rival = campo(port.lado === 0 ? 1 : 0).sort((a, b) => dist(a, port.cx, port.cy) - dist(b, port.cx, port.cy))[0];
+          if (rival) { port = rival; anunciar(''); }
+        } else if (Math.random() < 0.55) {
+          // el pase: a un compañero a 6-28 m, de preferencia hacia adelante
+          const cands = campo(port.lado).filter((q) => q !== port).map((q) => {
+            const dd = dist(q, port.cx, port.cy), avance = (q.cx - port.cx) * port.dir;
+            return { q, w: dd < 6 || dd > 28 ? 0 : Math.max(0.2, (avance + 12) / dd) };
+          }).filter((c) => c.w > 0);
+          const tot = cands.reduce((a, c) => a + c.w, 0);
+          if (tot > 0) {
+            let r = Math.random() * tot; const elegido = cands.find((c) => (r -= c.w) <= 0) || cands[0];
+            pase = [port.cx, port.cy, elegido.q.cx, elegido.q.cy]; port = elegido.q;
+          }
+        } else {
+          // conduce: unos metros hacia la portería contraria
+          port.cx = Math.max(4, Math.min(101, port.cx + port.dir * (2 + Math.random() * 3.5)));
+          port.cy = Math.max(4, Math.min(64, port.cy + (Math.random() - 0.5) * 3));
+        }
+        bx = port.cx + port.dir * 0.9; by = port.cy;
+        // el lugar al que va cada uno: su formación corrida hacia el balón (poco) + lo cercano (mucho)
+        js.forEach((q) => {
+          const gk = q.prof <= 5;
+          let tx = q.x0 + (bx - 52.5) * (gk ? 0.08 : 0.42) + q.dir * (q.lado === port.lado ? 3 : -1.5);
+          let ty = q.y0 + (by - 34) * (gk ? 0.15 : 0.28);
+          const [mn, mx] = FRANJA(q.prof), t = q.dir > 0 ? tx : 105 - tx, tc = Math.max(mn, Math.min(mx, t));
+          tx = q.dir > 0 ? tc : 105 - tc;
+          q.tx = tx; q.ty = Math.max(3, Math.min(65, ty));
         });
+        // los cercanos: dos compañeros se ofrecen, el rival más cercano presiona y otro cubre
+        campo(port.lado).filter((q) => q !== port).sort((a, b) => dist(a, bx, by) - dist(b, bx, by)).slice(0, 2).forEach((q, i) => {
+          q.tx = bx + q.dir * (i === 0 ? 7 : 3) ; q.ty = by + (i === 0 ? 9 : -9) * (by > 34 ? -1 : 1) * 0.8;
+        });
+        campo(port.lado === 0 ? 1 : 0).sort((a, b) => dist(a, bx, by) - dist(b, bx, by)).slice(0, 2).forEach((q, i) => {
+          q.tx = bx - port.dir * (i === 0 ? 2.2 : 7); q.ty = by + (i === 0 ? 0.6 : (by > 34 ? -6 : 6));
+        });
+        port.tx = port.cx; port.ty = port.cy;
+      } else {
+        js.forEach((q) => { q.tx = q.x0; q.ty = q.y0; });
       }
+      // con inercia: cada quien avanza una parte hacia su lugar (y la transición lo suaviza)
+      js.forEach((q) => {
+        const f = q === port ? 1 : quieto ? 0.5 : m.escena ? 0.6 : 0.38;
+        q.cx += ((q.tx == null ? q.x0 : q.tx) - q.cx) * f; q.cy += ((q.ty == null ? q.y0 : q.ty) - q.cy) * f;
+        m.pos[q.key] = [q.cx, q.cy];
+        q.j.style.transform = 'translate(' + q.cx.toFixed(2) + 'px,' + q.cy.toFixed(2) + 'px)';
+        q.j.classList.toggle('portador', q === port);
+      });
+      m.portador = port ? port.key : null;
+      if (port && !m.escena) { bx = port.cx + port.dir * 0.9; by = port.cy; }
       m.bx = bx; m.by = by;
       const b = svg.querySelector('.balon');
       if (b) b.style.transform = 'translate(' + bx.toFixed(2) + 'px,' + by.toFixed(2) + 'px)';
-      js.forEach((q) => { q.j.style.transform = 'translate(' + q.x.toFixed(2) + 'px,' + q.y.toFixed(2) + 'px)'; });
+      const ln = svg.querySelector('.pase');
+      if (ln) {
+        if (pase) { ln.setAttribute('x1', pase[0].toFixed(1)); ln.setAttribute('y1', pase[1].toFixed(1)); ln.setAttribute('x2', pase[2].toFixed(1)); ln.setAttribute('y2', pase[3].toFixed(1)); ln.classList.remove('ve'); void ln.getBBox(); ln.classList.add('ve'); }
+        else ln.classList.remove('ve');
+      }
     });
   }
-  setInterval(moverCanchas, 1200);
+  setInterval(moverCanchas, 1000);
 
   function miniStats(v) {
     if (!v || !v.stats) return '';

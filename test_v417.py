@@ -237,10 +237,10 @@ def probar_v428():
 def probar_v431():
     app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
     check('function moverCanchas()' in app and 'function dominio(k)' in app and 'async function stats365(gid)' in app
-          and 'setInterval(moverCanchas, 1200)' in app, 'v431: el balón y los 22 se mueven con quién ataca ahora (365Scores, ESPN, posesión)')
+          and 'setInterval(moverCanchas, 1000)' in app, 'v431: el balón y los 22 se mueven con quién ataca ahora (365Scores, ESPN, posesión)')
     check("'MEDIO TIEMPO'" in app and "'FINAL'" in app and 'const quieto = m.pausa;' in app,
           'v431: en el medio tiempo y al final todo se detiene y la cancha lo dice')
-    check('animación aproximada según el juego' in app and 'tamaño = peligro (xG)' in app and 't.gol || minuto(t.min) >= ahora - 15' in app,
+    check('Animación aproximada según el juego' in app and 'peligro (xG)' in app and 't.gol || minuto(t.min) >= ahora - 15' in app,
           'v431: leyenda clara, sólo los tiros recientes y dice que la animación es aproximada')
     check("if (v && v.fase === 'pre' && !fin) return 'proximo';" in app, 'v431: si ESPN dice que aún no empieza, no se toma como en vivo (la hora rara de la MLS)')
     check('.cancha-svg .jug { transition: transform' in css and '.cancha-svg .letrero text' in css, 'v431: el movimiento es suave')
@@ -248,7 +248,7 @@ def probar_v431():
 
 def probar_v433():
     app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
-    check('const FRANJA = (prof) =>' in app and "data-prof=\"' + j.prof" in app and '.slice(0, 2).forEach((q, i) => { const f = i === 0 ? 0.62 : 0.28;' in app,
+    check('const FRANJA = (prof) =>' in app and "data-prof=\"' + j.prof" in app and 'const [mn, mx] = FRANJA(q.prof)' in app,
           'v432: los 22 siguen al balón con lógica (cada puesto en su franja; el más cercano va al balón)')
     check('class="ola-gol' in app and '.ola-gol.arriba' in css, 'v432: un ⚽ en la ola en el minuto de cada gol')
     check('function ponerEscena(e, js, m)' in app and "e.tipo === 'corner'" in app and "e.tipo === 'libre'" in app and "e.tipo === 'penal'" in app
@@ -258,7 +258,22 @@ def probar_v433():
           'v433: sin ESPN, córners/faltas/saques de banda salen de las estadísticas; tras el gol, saque de media cancha')
 
 
+def probar_v434():
+    app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
+    check('m.portador = port ? port.key : null;' in app and "classList.toggle('portador', q === port)" in app and '.cancha-svg .jug.portador .aro' in css,
+          'v434: el balón siempre lo tiene alguien; sólo él sale grande con número y nombre')
+    check('<line class="pase"' in app and "ln.classList.add('ve')" in app and 'dd < 6 || dd > 28' in app,
+          'v434: pases de 6 a 28 m, de preferencia hacia adelante, con su línea')
+    check('const f = q === port ? 1 : quieto ? 0.5 : m.escena ? 0.6 : 0.38;' in app and 'm.pos[q.key] = [q.cx, q.cy];' in app,
+          'v434: cada quien va a su lugar con inercia; el lugar sobrevive a los repintados')
+    check('const barras = suave.map(' in app and '<polygon points="0,12' not in app, 'v434: la presión en barras por minuto, como Sofascore')
+    check('if (!m.ini && reales.length) {' in app and 'reales.forEach((q) => m.vistas.add(q.id));' in app and 'q.m < (m.minuto || 0) - 2' in app
+          and 'reales.slice(0, -1)' not in app, 'v434: al abrir una tarjeta en vivo, la cancha va en el minuto que corre (no repite lo ya pasado)')
+    check('<span>Presión</span>' in app and 'tamaño = peligro (xG)</span>' not in app, 'v434: el menos texto posible en la cancha')
+
+
 if __name__ == '__main__':
+    probar_v434()
     probar_v433()
     probar_v431()
     probar_v427()
