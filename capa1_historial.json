@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T13:27:55Z",
+"actualizado": "2026-10-22T14:42:35Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12031,6 +12031,16 @@
 "cuota": 2.2,
 "resultado": "rojo",
 "marcador": "5-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Madura United vs Persib Bandung",
+"apuesta": "Gana Persib Bandung",
+"cuota": 1.68,
+"resultado": "rojo",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-22",
