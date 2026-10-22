@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T20:57:48Z",
+"actualizado": "2026-10-22T22:42:06Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12036,6 +12036,46 @@
 "dia": "2026-10-22",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "AFC Bournemouth vs AC Milan",
+"apuesta": "Gana AFC Bournemouth",
+"cuota": 2.07,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "AS Monaco vs SC Freiburg",
+"apuesta": "Gana SC Freiburg",
+"cuota": 3.25,
+"resultado": "rojo",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Ajax Amsterdam vs Atalanta",
+"apuesta": "Gana Ajax Amsterdam",
+"cuota": 2.15,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Ajax vs Atalanta",
+"apuesta": "Gana Ajax",
+"cuota": 2.15,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Al Talaba vs Al Quwa Al Jawiya",
 "apuesta": "Gana Al Quwa Al Jawiya",
 "cuota": 3.15,
@@ -12056,11 +12096,81 @@
 "dia": "2026-10-22",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Besiktas vs Crystal Palace",
+"apuesta": "Gana Besiktas",
+"cuota": 3.1,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Besiktas vs Crystal Palace",
+"apuesta": "Gana Crystal Palace",
+"cuota": 3.1,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Birkirkara vs Floriana",
 "apuesta": "Gana Birkirkara",
 "cuota": 2.9,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Borac Banja Luka vs KuPS",
+"apuesta": "Gana Borac Banja Luka",
+"cuota": 1.71,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Borac Banja Luka vs KuPS Kuopio",
+"apuesta": "Gana Borac Banja Luka",
+"cuota": 1.71,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Bournemouth vs AC Milan",
+"apuesta": "Gana Bournemouth",
+"cuota": 2.07,
+"resultado": "verde",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Celje vs Salzburg",
+"apuesta": "Gana Salzburg",
+"cuota": 1.63,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Celje vs Salzburg",
+"apuesta": "Gana Salzburg",
+"cuota": 1.59,
+"resultado": "rojo",
+"marcador": "2-2"
 },
 {
 "dia": "2026-10-22",
@@ -12101,6 +12211,26 @@
 "cuota": 1.4,
 "resultado": "rojo",
 "marcador": "2-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "FC Thun vs Hajduk Split",
+"apuesta": "Gana Hajduk Split",
+"cuota": 2.35,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Hoffenheim vs Lyon",
+"apuesta": "Gana Hoffenheim",
+"cuota": 2.0,
+"resultado": "verde",
+"marcador": "3-0"
 },
 {
 "dia": "2026-10-22",
@@ -12154,6 +12284,16 @@
 },
 {
 "dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Lillestrom vs Real Sociedad",
+"apuesta": "Gana Real Sociedad",
+"cuota": 1.53,
+"resultado": "verde",
+"marcador": "0-6"
+},
+{
+"dia": "2026-10-22",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Madura United vs Persib Bandung",
@@ -12166,11 +12306,51 @@
 "dia": "2026-10-22",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Monaco vs Freiburg",
+"apuesta": "Gana Freiburg",
+"cuota": 3.25,
+"resultado": "rojo",
+"marcador": "3-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "OFI Crete vs Bayer Leverkusen",
 "apuesta": "Gana Bayer Leverkusen",
 "cuota": 1.26,
 "resultado": "verde",
 "marcador": "0-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Olympiacos vs Sparta Prague",
+"apuesta": "Olympiacos o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Olympiacos vs Sparta Prague",
+"apuesta": "Gana Olympiacos",
+"cuota": 1.48,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Omonia vs Benfica",
+"apuesta": "Gana Benfica",
+"cuota": 1.41,
+"resultado": "verde",
+"marcador": "1-4"
 },
 {
 "dia": "2026-10-22",
@@ -12214,6 +12394,16 @@
 },
 {
 "dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Thun vs Hajduk Split",
+"apuesta": "Gana Hajduk Split",
+"cuota": 2.35,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-22",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Trabzonspor vs Heart of Midlothian",
@@ -12221,6 +12411,16 @@
 "cuota": 1.111,
 "resultado": "verde",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Viktoria Plzen vs Levski Sofia",
+"apuesta": "Viktoria Plzen o empate",
+"cuota": 1.182,
+"resultado": "rojo",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-22",

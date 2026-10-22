@@ -159416,3 +159416,571 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 6112289,2026-10-22,europa_league,Hapoel Beer Sheva,Mohamad Kanaan,1109151,M,0,24,0,0,0,0.0,,2,925267
 6112289,2026-10-22,europa_league,Hapoel Beer Sheva,Adrián Ugarriza,547722,F,0,24,1,1,0,0.03,,3,1108692
 6112289,2026-10-22,europa_league,Hapoel Beer Sheva,Amir Ganah,1414052,F,0,14,0,0,0,0.0,,3,1688558
+6112534,2026-10-22,conference_league,AGF,Jesper Hansen,25329,G,1,90,0,0,0,0.0,11,0,264266
+6112534,2026-10-22,conference_league,AGF,Colin Rösler,962074,D,1,90,2,0,0,0.09,33,1,1338385
+6112534,2026-10-22,conference_league,AGF,Frederik Tingager,371728,D,1,46,0,0,0,0.0,35,1,379304
+6112534,2026-10-22,conference_league,AGF,Eric Kahl,1096495,D,1,90,0,0,0,0.0,37,1,2336058
+6112534,2026-10-22,conference_league,AGF,Rasmus Carstensen,1026834,M,1,90,0,0,0,0.0,72,2,1621172
+6112534,2026-10-22,conference_league,AGF,Kristian Arnstad,1053293,M,1,90,0,0,0,0.0,74,2,6656183
+6112534,2026-10-22,conference_league,AGF,Markus Solbakken,742410,M,1,90,0,0,0,0.0,76,2,1715962
+6112534,2026-10-22,conference_league,AGF,Jacob Andersen,1258304,M,1,66,0,0,0,0.0,78,2,543533
+6112534,2026-10-22,conference_league,AGF,Sebastian Jørgensen,954929,F,1,83,3,1,0,0.11,103,3,638263
+6112534,2026-10-22,conference_league,AGF,Janni Serra,641597,F,1,46,0,0,0,0.0,105,3,328983
+6112534,2026-10-22,conference_league,AGF,Callum McCowatt,848352,M,1,12,0,0,0,0.0,107,2,1726028
+6112534,2026-10-22,conference_league,AGF,Tobias Mølgaard,586712,D,0,78,0,0,0,0.0,,1,506805
+6112534,2026-10-22,conference_league,AGF,Daníel Grétarsson,289237,D,0,44,0,0,0,0.0,,1,299207
+6112534,2026-10-22,conference_league,AGF,James Bogere,1843410,F,0,45,3,1,1,0.69,,3,987296
+6112534,2026-10-22,conference_league,AGF,Frederik Emmery,1645317,M,0,24,0,0,0,0.0,,2,1349738
+6112534,2026-10-22,conference_league,AGF,Tobias Bech,981047,F,0,7,1,0,0,0.13,,3,4085159
+6112534,2026-10-22,conference_league,Egnatia,Mario Dajsinani,761795,G,1,90,0,0,0,0.0,11,0,568667
+6112534,2026-10-22,conference_league,Egnatia,Guillem Jaime,1011895,M,1,63,0,0,0,0.0,32,2,367621
+6112534,2026-10-22,conference_league,Egnatia,Eneo Bitri,948198,D,1,90,0,0,0,0.0,34,1,312684
+6112534,2026-10-22,conference_league,Egnatia,Eljon Sota,1259208,D,1,90,0,0,0,0.0,36,1,367161
+6112534,2026-10-22,conference_league,Egnatia,Andrey Yago,1508198,M,1,54,2,1,0,0.19,38,2,
+6112534,2026-10-22,conference_league,Egnatia,Altin Kryeziu,1106841,M,1,54,1,1,0,0.03,63,2,240240
+6112534,2026-10-22,conference_league,Egnatia,Albano Aleksi,948488,M,1,90,3,1,0,0.07,65,2,454759
+6112534,2026-10-22,conference_league,Egnatia,Karim Loukili,775661,M,1,88,0,0,0,0.0,67,2,369308
+6112534,2026-10-22,conference_league,Egnatia,Alessandro Albanese,1168833,F,1,63,0,0,0,0.0,85,3,477821
+6112534,2026-10-22,conference_league,Egnatia,Daniel Adjessa,1897357,F,1,90,1,0,0,0.09,104,3,
+6112534,2026-10-22,conference_league,Egnatia,Ildi Gruda,1179624,F,1,90,5,4,1,0.35,106,3,444032
+6112534,2026-10-22,conference_league,Egnatia,Edison Ndreca,552649,M,0,36,0,0,0,0.0,,2,375022
+6112534,2026-10-22,conference_league,Egnatia,Fernando Medeiros,699693,M,0,36,1,0,0,0.06,,2,418852
+6112534,2026-10-22,conference_league,Egnatia,Numan Ajetovikj,1685339,D,0,27,0,0,0,0.0,,1,
+6112534,2026-10-22,conference_league,Egnatia,Geralb Smajli,1284353,M,0,27,0,0,0,0.0,,2,376222
+6112534,2026-10-22,conference_league,Egnatia,Ibrahim Diabaté,1785966,M,0,2,0,0,0,0.0,,2,
+6112540,2026-10-22,conference_league,Thun,Niklas Steffen,1161221,G,1,90,0,0,0,0.0,11,0,2020875
+6112540,2026-10-22,conference_league,Thun,Fabio Fehr,1166048,D,1,90,3,0,0,0.12,32,1,890196
+6112540,2026-10-22,conference_league,Thun,Jan Bamert,696435,D,1,90,0,0,0,0.0,34,1,827554
+6112540,2026-10-22,conference_league,Thun,Marco Bürki,320183,D,1,90,0,0,0,0.0,36,1,279558
+6112540,2026-10-22,conference_league,Thun,Olivier Mambwa,1803296,D,1,90,1,0,0,0.01,38,1,1687840
+6112540,2026-10-22,conference_league,Thun,Nils Reichmuth,1159063,M,1,83,1,1,0,0.13,72,2,1008963
+6112540,2026-10-22,conference_league,Thun,Justin Roth,924878,M,1,78,0,0,0,0.0,74,2,366756
+6112540,2026-10-22,conference_league,Thun,Mattias Käit,695067,M,1,90,0,0,0,0.0,76,2,829099
+6112540,2026-10-22,conference_league,Thun,Nico Maier,1062761,M,1,70,0,0,0,0.0,78,2,354102
+6112540,2026-10-22,conference_league,Thun,Furkan Dursun,1444456,F,1,70,1,0,0,0.23,104,3,649540
+6112540,2026-10-22,conference_league,Thun,Brighton Labeau,769932,F,1,78,3,1,0,0.18,106,3,479502
+6112540,2026-10-22,conference_league,Thun,Nassim Zoukit,1308521,M,0,20,0,0,0,0.0,,2,388946
+6112540,2026-10-22,conference_league,Thun,Noah Christoffersson,919515,F,0,20,1,0,0,0.5,,3,767610
+6112540,2026-10-22,conference_league,Thun,Dorian Derbaci,1646389,M,0,12,1,1,0,0.07,,2,932153
+6112540,2026-10-22,conference_league,Thun,Riccardo Braschi,1794209,F,0,12,1,1,0,0.07,,3,1594096
+6112540,2026-10-22,conference_league,Thun,Simon Lengen,2062055,F,0,7,0,0,0,0.0,,3,
+6112540,2026-10-22,conference_league,Hajduk Split,Toni Silić,1510855,G,1,90,0,0,0,0.0,11,0,1123281
+6112540,2026-10-22,conference_league,Hajduk Split,Mathieu Acapandié,1438316,D,1,90,0,0,0,0.0,32,1,552848
+6112540,2026-10-22,conference_league,Hajduk Split,Dennis Hadžikadunić,797797,D,1,90,0,0,0,0.0,34,1,865169
+6112540,2026-10-22,conference_league,Hajduk Split,Dario Marešić,764741,D,1,90,0,0,0,0.0,36,1,1290891
+6112540,2026-10-22,conference_league,Hajduk Split,Šimun Hrgović,1466684,D,1,90,1,0,0,0.06,38,1,2233617
+6112540,2026-10-22,conference_league,Hajduk Split,Khalil Fayad,1388749,M,1,85,2,1,0,0.04,64,2,1444975
+6112540,2026-10-22,conference_league,Hajduk Split,Alberto del Moral,1202029,M,1,78,0,0,0,0.0,66,2,609323
+6112540,2026-10-22,conference_league,Hajduk Split,Abdoulie Sanyang,1080763,F,1,84,0,0,0,0.0,83,3,448833
+6112540,2026-10-22,conference_league,Hajduk Split,Dalisson de Almeida,1120854,M,1,90,4,1,1,0.27,85,2,232659
+6112540,2026-10-22,conference_league,Hajduk Split,Marin Šotiček,1510950,F,1,71,1,0,0,0.02,87,3,1518254
+6112540,2026-10-22,conference_league,Hajduk Split,Michele Šego,921593,F,1,78,2,2,0,0.81,115,3,1496492
+6112540,2026-10-22,conference_league,Hajduk Split,Dario Melnjak,460004,D,0,19,0,0,0,0.0,,1,302963
+6112540,2026-10-22,conference_league,Hajduk Split,Leander Dendoncker,424129,M,0,12,0,0,0,0.0,,2,862590
+6112540,2026-10-22,conference_league,Hajduk Split,Marko Livaja,206242,F,0,12,1,0,0,0.1,,3,1463167
+6112540,2026-10-22,conference_league,Hajduk Split,Alec Van Hoorenbeeck,1020776,D,0,6,0,0,0,0.0,,1,493532
+6112540,2026-10-22,conference_league,Hajduk Split,Carlos Martín,1282015,F,0,6,0,0,0,0.0,,3,923080
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Jaylan Hankins,762381,G,1,90,0,0,0,0.0,11,0,186758
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Julliani Eersteling,1180655,D,1,90,0,0,0,0.0,32,1,238230
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Bernardo Lopes,581716,D,1,90,0,0,0,0.0,34,1,112006
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Christian Rutjens,814898,D,1,90,0,0,0,0.0,36,1,155560
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Nano,184598,D,1,90,1,1,1,0.04,38,1,102723
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Yussef Flalhi Idrissi,2068242,F,1,83,0,0,0,0.0,72,3,
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Graeme Torrilla,833690,M,1,90,0,0,0,0.0,74,2,110624
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Mandi,282673,M,1,90,1,0,0,0.01,76,2,102723
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Mula,814891,M,1,77,2,0,0,0.07,78,2,142858
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Álvaro Romero,791716,M,1,63,0,0,0,0.0,104,2,111363
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Kike Gomez,946037,F,1,63,0,0,0,0.0,106,3,
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Toni,246430,M,0,27,1,1,0,0.03,,2,112006
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Manu Toledano,1403398,F,0,27,0,0,0,0.0,,3,195466
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Facundo Álvarez,1418039,F,0,13,0,0,0,0.0,,3,
+6112484,2026-10-22,conference_league,Lincoln Red Imps FC,Nico Pinto,1804729,F,0,7,0,0,0,0.0,,3,
+6112484,2026-10-22,conference_league,FC Twente,Joël Drommel,588337,G,1,90,0,0,0,0.0,11,0,2263482
+6112484,2026-10-22,conference_league,FC Twente,Bart van Rooij,956726,D,1,90,1,0,0,0.07,32,1,10901344
+6112484,2026-10-22,conference_league,FC Twente,Robin Pröpper,298933,D,1,85,0,0,0,0.0,34,1,937283
+6112484,2026-10-22,conference_league,FC Twente,Ruud Nijstad,1709029,D,1,90,0,0,0,0.0,36,1,12120300
+6112484,2026-10-22,conference_league,FC Twente,Aske Adelgaard,1391319,D,1,90,0,0,0,0.0,38,1,1484934
+6112484,2026-10-22,conference_league,FC Twente,Ramiz Zerrouki,1074967,M,1,77,0,0,0,0.0,65,2,6444128
+6112484,2026-10-22,conference_league,FC Twente,Daan Rots,1203490,F,1,90,6,2,0,0.64,82,3,3542093
+6112484,2026-10-22,conference_league,FC Twente,Younes Taha,1298600,M,1,58,1,0,0,0.05,84,2,6500000
+6112484,2026-10-22,conference_league,FC Twente,Thomas van den Belt,955203,M,1,77,5,2,2,1.55,86,2,2346742
+6112484,2026-10-22,conference_league,FC Twente,Marko Pjaca,307235,F,1,58,2,1,0,0.11,88,3,832676
+6112484,2026-10-22,conference_league,FC Twente,Wout Weghorst,351999,F,1,90,7,2,1,1.66,115,3,1660024
+6112484,2026-10-22,conference_league,FC Twente,Kristian Hlynsson,1098086,M,0,32,2,0,0,0.18,,2,7874871
+6112484,2026-10-22,conference_league,FC Twente,Sondre Ørjasæter,1353293,F,0,32,1,0,0,0.53,,3,9290438
+6112484,2026-10-22,conference_league,FC Twente,Daouda Weidmann,1382346,M,0,13,1,1,1,0.1,,2,5250000
+6112484,2026-10-22,conference_league,FC Twente,Jordy Bawuah,1552456,M,0,13,0,0,0,0.0,,2,1023655
+6112484,2026-10-22,conference_league,FC Twente,Jip Meilink,2168463,D,0,5,0,0,0,0.0,,1,
+6112487,2026-10-22,conference_league,Borac Banja Luka,Mladen Jurkas,1726288,G,1,90,0,0,0,0.0,11,0,
+6112487,2026-10-22,conference_league,Borac Banja Luka,Branimir Cipetić,909824,D,1,90,0,0,0,0.0,32,1,145509
+6112487,2026-10-22,conference_league,Borac Banja Luka,Bart Meijers,662534,D,1,90,0,0,0,0.0,34,1,130319
+6112487,2026-10-22,conference_league,Borac Banja Luka,Siniša Saničanin,466820,D,1,90,1,0,0,0.24,36,1,65363
+6112487,2026-10-22,conference_league,Borac Banja Luka,Sebastián Herrera,653453,D,1,90,4,2,0,0.07,38,1,160126
+6112487,2026-10-22,conference_league,Borac Banja Luka,Miloš Jojić,387727,M,1,90,2,1,0,0.12,73,2,73966
+6112487,2026-10-22,conference_league,Borac Banja Luka,Matej Deket,1904713,F,1,78,3,2,1,0.44,75,3,
+6112487,2026-10-22,conference_league,Borac Banja Luka,Amer Hiroš,553775,M,1,90,4,1,0,0.14,77,2,93617
+6112487,2026-10-22,conference_league,Borac Banja Luka,Ante Roguljić,459262,M,1,71,3,2,0,0.26,103,2,166828
+6112487,2026-10-22,conference_league,Borac Banja Luka,Luka Juričić,1108600,F,1,89,4,3,0,0.74,105,3,210198
+6112487,2026-10-22,conference_league,Borac Banja Luka,Stefan Savić,259299,F,1,78,3,1,1,0.1,107,3,78384
+6112487,2026-10-22,conference_league,Borac Banja Luka,Sandi Ogrinec,752559,M,0,19,0,0,0,0.0,,2,73226
+6112487,2026-10-22,conference_league,Borac Banja Luka,Nemanja Jakšić,630017,D,0,12,0,0,0,0.0,,1,65320
+6112487,2026-10-22,conference_league,Borac Banja Luka,David Vuković,1381438,F,0,12,0,0,0,0.0,,3,396688
+6112487,2026-10-22,conference_league,Borac Banja Luka,Viktor Rogan,1284481,D,0,1,0,0,0,0.0,,1,236213
+6112487,2026-10-22,conference_league,Borac Banja Luka,Stojan Vranješ,182637,M,0,1,0,0,0,0.0,,2,50000
+6112487,2026-10-22,conference_league,KuPS,Johannes Kreidl,643731,G,1,90,0,0,0,0.0,11,0,327721
+6112487,2026-10-22,conference_league,KuPS,Akseli Puukko,1414862,D,1,78,0,0,0,0.0,32,1,223659
+6112487,2026-10-22,conference_league,KuPS,Brahima Magassa,1792391,D,1,90,0,0,0,0.0,34,1,193516
+6112487,2026-10-22,conference_league,KuPS,Arttu Lötjönen,1400535,D,1,90,0,0,0,0.0,36,1,361392
+6112487,2026-10-22,conference_league,KuPS,Niilo Kujasalo,1383478,M,1,60,2,0,0,0.11,38,2,229449
+6112487,2026-10-22,conference_league,KuPS,Saikou Touray,1068855,M,1,66,0,0,0,0.0,64,2,247174
+6112487,2026-10-22,conference_league,KuPS,Julius Eskesen,856325,M,1,90,2,2,0,0.1,66,2,436346
+6112487,2026-10-22,conference_league,KuPS,Ayman Aiki,1367621,F,1,60,2,1,0,0.24,83,3,258715
+6112487,2026-10-22,conference_league,KuPS,Tommi Jyry,835927,M,1,90,3,0,0,0.06,85,2,474198
+6112487,2026-10-22,conference_league,KuPS,Gustav Engvall,436079,F,1,65,0,0,0,0.0,87,3,153650
+6112487,2026-10-22,conference_league,KuPS,Piotr Parzyszek,243433,F,1,90,1,0,0,0.11,115,3,127153
+6112487,2026-10-22,conference_league,KuPS,Jorginho,824660,D,0,30,1,0,0,0.01,,1,103680
+6112487,2026-10-22,conference_league,KuPS,Bob Nii Armah,1560019,F,0,30,0,0,0,0.0,,3,307510
+6112487,2026-10-22,conference_league,KuPS,Jaime Moreno,495524,F,0,25,0,0,0,0.0,,3,217373
+6112487,2026-10-22,conference_league,KuPS,Petteri Pennanen,104229,M,0,24,1,0,0,0.03,,2,212903
+6112487,2026-10-22,conference_league,KuPS,Saku Heiskanen,1030625,D,0,12,0,0,0,0.0,,1,247891
+6112393,2026-10-22,conference_league,Ajax,Marc ter Stegen,184554,G,1,90,0,0,0,0.0,11,0,1878841
+6112393,2026-10-22,conference_league,Ajax,Lucas Rosa,1357723,D,1,90,3,1,0,0.16,32,1,4644457
+6112393,2026-10-22,conference_league,Ajax,Aaron Bouwman,1640681,D,1,90,0,0,0,0.0,34,1,4693867
+6112393,2026-10-22,conference_league,Ajax,Youri Baas,1214036,D,1,90,0,0,0,0.0,36,1,20891126
+6112393,2026-10-22,conference_league,Ajax,Owen Wijndal,798062,D,1,90,1,0,0,0.02,38,1,1713912
+6112393,2026-10-22,conference_league,Ajax,Sofyan Amrabat,593116,M,1,90,1,0,0,0.01,73,2,7852644
+6112393,2026-10-22,conference_league,Ajax,Davy Klaassen,298448,M,1,62,2,0,0,0.15,75,2,1222817
+6112393,2026-10-22,conference_league,Ajax,Jorthy Mokio,1617161,M,1,90,4,1,0,0.18,77,2,11638452
+6112393,2026-10-22,conference_league,Ajax,Julian Brandt,516846,M,1,89,2,1,0,0.14,103,2,15903698
+6112393,2026-10-22,conference_league,Ajax,Marcos Leonardo,1174663,F,1,66,1,0,0,0.23,105,3,23858948
+6112393,2026-10-22,conference_league,Ajax,Oscar Gloukh,1337911,M,1,62,4,2,0,0.24,107,2,17063465
+6112393,2026-10-22,conference_league,Ajax,Abdellah Ouazane,1795819,M,0,28,1,1,1,0.05,,2,1938437
+6112393,2026-10-22,conference_league,Ajax,Viktor Tsigankov,564847,F,0,28,0,0,0,0.0,,3,10621373
+6112393,2026-10-22,conference_league,Ajax,Tolu Arokodare,1072864,F,0,24,2,1,1,0.61,,3,22557487
+6112393,2026-10-22,conference_league,Ajax,Dies Janse,1531402,D,0,1,0,0,0,0.0,,1,5779111
+6112393,2026-10-22,conference_league,Atalanta,Marco Carnesecchi,1013021,G,1,90,0,0,0,0.0,11,0,32215246
+6112393,2026-10-22,conference_league,Atalanta,Raoul Bellanova,902651,M,1,90,0,0,0,0.0,32,2,16775464
+6112393,2026-10-22,conference_league,Atalanta,Thomas Kristensen,1190029,D,1,90,2,0,0,0.07,34,1,12912888
+6112393,2026-10-22,conference_league,Atalanta,Relja Obrić,1692456,D,1,90,0,0,0,0.0,36,1,1384239
+6112393,2026-10-22,conference_league,Atalanta,Davide Zappacosta,244811,M,1,90,0,0,0,0.0,38,2,2797925
+6112393,2026-10-22,conference_league,Atalanta,Gianluca Gaetano,1012842,M,1,80,2,0,0,0.11,64,2,7230126
+6112393,2026-10-22,conference_league,Atalanta,Éderson,957203,M,1,90,1,0,0,0.04,66,2,43922555
+6112393,2026-10-22,conference_league,Atalanta,Eljif Elmas,741049,M,1,80,1,0,0,0.06,83,2,13141307
+6112393,2026-10-22,conference_league,Atalanta,Charles De Ketelaere,1095432,M,1,62,0,0,0,0.0,85,2,42844691
+6112393,2026-10-22,conference_league,Atalanta,Nicola Zalewski,1053714,M,1,90,3,0,0,0.1,87,2,23228976
+6112393,2026-10-22,conference_league,Atalanta,Gianluca Scamacca,721089,F,1,72,4,0,0,0.3,115,3,20868092
+6112393,2026-10-22,conference_league,Atalanta,Lazar Samardžić,1050178,M,0,28,1,0,0,0.06,,2,17294361
+6112393,2026-10-22,conference_league,Atalanta,Nikola Krstović,833638,F,0,18,0,0,0,0.0,,3,33404241
+6112393,2026-10-22,conference_league,Atalanta,Mario Pašalić,446266,M,0,10,0,0,0,0.0,,2,4458791
+6112393,2026-10-22,conference_league,Atalanta,Jonathan Rowe,1113694,F,0,10,2,1,0,0.23,,3,32148084
+6112406,2026-10-22,conference_league,FC Midtjylland,Nordin Bakker,956176,G,1,90,0,0,0,0.0,11,0,340289
+6112406,2026-10-22,conference_league,FC Midtjylland,Rasmus Kristensen,722207,D,1,90,1,0,0,0.06,33,1,10689009
+6112406,2026-10-22,conference_league,FC Midtjylland,Ousmane Diao,1525187,D,1,90,0,0,0,0.0,35,1,10303819
+6112406,2026-10-22,conference_league,FC Midtjylland,Mads Bech,659018,D,1,90,1,0,0,0.11,37,1,3376261
+6112406,2026-10-22,conference_league,FC Midtjylland,Pedro Bravo,1272272,M,1,46,0,0,0,0.0,65,2,5308027
+6112406,2026-10-22,conference_league,FC Midtjylland,David Martínez,1354997,F,1,69,4,1,0,0.43,82,3,7374394
+6112406,2026-10-22,conference_league,FC Midtjylland,Hyun-Seok Hong,925345,M,1,45,3,1,0,0.68,84,2,1777040
+6112406,2026-10-22,conference_league,FC Midtjylland,Kjell Wätjen,1482728,M,1,90,2,0,0,0.13,86,2,3065106
+6112406,2026-10-22,conference_league,FC Midtjylland,Sofus Johannesen,1646398,F,1,90,0,0,0,0.0,88,3,
+6112406,2026-10-22,conference_league,FC Midtjylland,Mileta Rajović,960491,F,1,45,1,0,0,0.5,104,3,878849
+6112406,2026-10-22,conference_league,FC Midtjylland,Julius Emefile,1692794,F,1,79,2,0,0,0.04,106,3,
+6112406,2026-10-22,conference_league,FC Midtjylland,Friday Etim,1328716,F,0,45,1,1,0,0.61,,3,703910
+6112406,2026-10-22,conference_league,FC Midtjylland,Gue-Sung Cho,1026781,F,0,45,1,0,0,0.08,,3,2056353
+6112406,2026-10-22,conference_league,FC Midtjylland,Stanley Iheanacho,1539232,F,0,45,3,1,0,0.26,,3,539945
+6112406,2026-10-22,conference_league,FC Midtjylland,Victor Bak,1273298,M,0,21,0,0,0,0.0,,2,4889722
+6112406,2026-10-22,conference_league,FC Midtjylland,Abdou Aziz Ndiaye,1687775,D,0,11,0,0,0,0.0,,1,
+6112406,2026-10-22,conference_league,St.Truiden,Leo Kokubo,1155621,G,1,90,0,0,0,0.0,11,0,2838341
+6112406,2026-10-22,conference_league,St.Truiden,Robert-Jan Vanwesemael,1596061,D,1,90,0,0,0,0.0,32,1,2521792
+6112406,2026-10-22,conference_league,St.Truiden,Kota Takai,1308600,D,1,90,1,1,0,0.02,34,1,7522759
+6112406,2026-10-22,conference_league,St.Truiden,Visar Musliu,308469,D,1,90,1,0,0,0.01,36,1,600852
+6112406,2026-10-22,conference_league,St.Truiden,Joedrick Pupe,816397,D,1,84,0,0,0,0.0,38,1,897505
+6112406,2026-10-22,conference_league,St.Truiden,Abdoulaye Sissako,764779,M,1,90,0,0,0,0.0,73,2,1606772
+6112406,2026-10-22,conference_league,St.Truiden,Ryan Merlen,1609381,M,1,72,2,0,0,0.4,75,2,1046969
+6112406,2026-10-22,conference_league,St.Truiden,Nelson Ishiwatari,1381856,M,1,90,0,0,0,0.0,77,2,665383
+6112406,2026-10-22,conference_league,St.Truiden,Nathanaël Mbuku,1049799,F,1,85,3,1,0,0.3,103,3,1406085
+6112406,2026-10-22,conference_league,St.Truiden,Frédéric Soèllé Soèllé,1406310,F,1,72,1,1,1,0.65,105,3,549414
+6112406,2026-10-22,conference_league,St.Truiden,Ilias Sebaoui,1307959,F,1,90,5,1,0,0.35,107,3,2941433
+6112406,2026-10-22,conference_league,St.Truiden,Kaito Matsuzawa,1515636,F,0,18,2,2,0,0.06,,3,503371
+6112406,2026-10-22,conference_league,St.Truiden,Samed Baždar,1284492,F,0,18,2,1,0,0.13,,3,1266811
+6112406,2026-10-22,conference_league,St.Truiden,Taiga Hata,1134461,D,0,6,0,0,0,0.0,,1,1934938
+6112406,2026-10-22,conference_league,St.Truiden,Arbnor Muja,857141,F,0,5,1,0,0,0.05,,3,1408049
+6112406,2026-10-22,conference_league,St.Truiden,Wolke Janssens,561251,D,0,1,0,0,0,0.0,,1,317157
+6112399,2026-10-22,conference_league,Monaco,Lukás Hrádecky,66757,G,1,90,0,0,0,0.0,11,0,1026862
+6112399,2026-10-22,conference_league,Monaco,Vanderson,1207992,D,1,90,0,0,0,0.0,32,1,16456019
+6112399,2026-10-22,conference_league,Monaco,Sadibou Sané,1523208,D,1,90,0,0,0,0.0,34,1,9142071
+6112399,2026-10-22,conference_league,Monaco,Jordan Teze,890263,M,1,90,0,0,0,0.0,36,2,16750564
+6112399,2026-10-22,conference_league,Monaco,Christian Mawissa,1406428,D,1,90,0,0,0,0.0,38,1,18872626
+6112399,2026-10-22,conference_league,Monaco,Lamine Camara,1436305,M,1,90,1,1,1,0.26,64,2,43508438
+6112399,2026-10-22,conference_league,Monaco,Edan Diop,1385897,M,1,68,0,0,0,0.0,66,2,4242971
+6112399,2026-10-22,conference_league,Monaco,Mamadou Coulibaly,1524548,M,1,58,3,1,0,0.24,83,2,4446415
+6112399,2026-10-22,conference_league,Monaco,Aleksandr Golovin,586388,M,1,79,0,0,0,0.0,85,2,17069751
+6112399,2026-10-22,conference_league,Monaco,Mathys Detourbet,1709473,F,1,58,0,0,0,0.0,87,3,7006585
+6112399,2026-10-22,conference_league,Monaco,Paris Brunner,1412956,F,1,80,5,3,1,0.43,115,3,2221602
+6112399,2026-10-22,conference_league,Monaco,Anis Soubeir,2130847,M,0,32,0,0,0,0.0,,2,
+6112399,2026-10-22,conference_league,Monaco,Ansu Fati,1086012,M,0,32,2,2,1,0.38,,2,19294178
+6112399,2026-10-22,conference_league,Monaco,Denis Zakaria,598355,M,0,22,0,0,0,0.0,,2,20534240
+6112399,2026-10-22,conference_league,Monaco,Flávio Nazinho,1239590,D,0,11,0,0,0,0.0,,1,7654347
+6112399,2026-10-22,conference_league,Monaco,Matthis Abline,1250492,F,0,11,0,0,0,0.0,,3,23727069
+6112399,2026-10-22,conference_league,Freiburg,Mio Backhaus,1352996,G,1,90,0,0,0,0.0,11,0,11311985
+6112399,2026-10-22,conference_league,Freiburg,Lukas Kübler,307209,D,1,90,5,1,0,0.57,32,1,919472
+6112399,2026-10-22,conference_league,Freiburg,Matthias Ginter,303912,D,1,90,0,0,0,0.0,34,1,2235164
+6112399,2026-10-22,conference_league,Freiburg,Max Rosenfelder,1281107,D,1,90,0,0,0,0.0,36,1,4146841
+6112399,2026-10-22,conference_league,Freiburg,Jordy Makengo,1281108,D,1,62,0,0,0,0.0,38,1,5988478
+6112399,2026-10-22,conference_league,Freiburg,Maximilian Eggestein,602523,M,1,90,1,0,0,0.01,64,2,6726276
+6112399,2026-10-22,conference_league,Freiburg,Yannik Engelhardt,1269497,M,1,15,0,0,0,0.0,66,2,6006747
+6112399,2026-10-22,conference_league,Freiburg,Jan-Niklas Beste,864157,F,1,82,0,0,0,0.0,83,3,10438153
+6112399,2026-10-22,conference_league,Freiburg,Yuito Suzuki,1134467,M,1,46,0,0,0,0.0,85,2,17157038
+6112399,2026-10-22,conference_league,Freiburg,Vincenzo Grifo,400625,F,1,62,1,0,0,0.02,87,3,2240451
+6112399,2026-10-22,conference_league,Freiburg,Igor Matanović,1210893,F,1,90,1,0,0,0.11,115,3,14902025
+6112399,2026-10-22,conference_league,Freiburg,Patrick Osterhage,1075815,M,0,75,1,0,0,0.01,,2,8150228
+6112399,2026-10-22,conference_league,Freiburg,Lucas Höler,556524,F,0,45,2,0,0,0.09,,3,2143947
+6112399,2026-10-22,conference_league,Freiburg,Philipp Treu,1281090,D,0,28,0,0,0,0.0,,1,13287699
+6112399,2026-10-22,conference_league,Freiburg,Derry Scherhant,1302666,F,0,28,1,0,0,0.01,,3,6206990
+6112399,2026-10-22,conference_league,Freiburg,Cyriaque Irié,1526221,F,0,8,0,0,0,0.0,,3,7286573
+6112390,2026-10-22,conference_league,Braga,Bernardo Fontes,1362439,G,1,90,0,0,0,0.0,11,0,
+6112390,2026-10-22,conference_league,Braga,Víctor Gómez,927647,M,1,90,3,2,1,0.3,32,2,10526016
+6112390,2026-10-22,conference_league,Braga,Gustaf Lagerbielke,919848,D,1,90,0,0,0,0.0,34,1,6759871
+6112390,2026-10-22,conference_league,Braga,Adrian Barišić,1242261,D,1,88,0,0,0,0.0,36,1,2642617
+6112390,2026-10-22,conference_league,Braga,Bright Arrey-Mbi,1125232,D,1,90,0,0,0,0.0,38,1,11829087
+6112390,2026-10-22,conference_league,Braga,Pau Víctor,1159237,F,1,90,3,3,0,0.16,72,3,16780731
+6112390,2026-10-22,conference_league,Braga,João Moutinho,37549,M,1,90,1,0,0,0.05,74,2,392995
+6112390,2026-10-22,conference_league,Braga,Jean-Baptiste Gorby,1292369,M,1,71,1,0,0,0.06,76,2,11068432
+6112390,2026-10-22,conference_league,Braga,Gabriel Silva,1173684,F,1,71,5,1,0,0.22,78,3,7330386
+6112390,2026-10-22,conference_league,Braga,Ricardo Horta,432591,F,1,89,2,1,0,0.37,104,3,6012050
+6112390,2026-10-22,conference_league,Braga,Jovan Milošević,1366937,F,1,61,1,0,0,0.02,106,3,11037031
+6112390,2026-10-22,conference_league,Braga,Mario Dorgeles,1395939,M,0,29,2,0,0,0.2,,2,12428151
+6112390,2026-10-22,conference_league,Braga,Demir Tıknaz,1300653,M,0,19,0,0,0,0.0,,2,10217368
+6112390,2026-10-22,conference_league,Braga,Gabri Martínez,1287941,M,0,19,4,3,1,0.74,,2,9028669
+6112390,2026-10-22,conference_league,Braga,Sergio Barcia,1203886,D,0,2,0,0,0,0.0,,1,1330359
+6112390,2026-10-22,conference_league,Braga,Denis Huseinbašić,1235068,M,0,1,0,0,0,0.0,,2,1776557
+6112390,2026-10-22,conference_league,Gent,Davy Roef,245599,G,1,90,0,0,0,0.0,11,0,1678677
+6112390,2026-10-22,conference_league,Gent,Maksim Paskotši,1176726,D,1,82,2,0,0,0.04,32,1,3826147
+6112390,2026-10-22,conference_league,Gent,Christian Burgess,332300,D,1,90,1,0,0,0.07,34,1,1545130
+6112390,2026-10-22,conference_league,Gent,Siebe van der Heyden,768432,D,1,90,2,0,0,0.05,36,1,2136762
+6112390,2026-10-22,conference_league,Gent,Tiago Araújo,1185329,M,1,90,1,0,0,0.02,38,2,2018224
+6112390,2026-10-22,conference_league,Gent,Hyllarion Goore,1666324,F,1,63,1,0,0,0.05,73,3,5876701
+6112390,2026-10-22,conference_league,Gent,Tibe De Vlieger,1553506,M,1,90,0,0,0,0.0,75,2,4402549
+6112390,2026-10-22,conference_league,Gent,Mathias Delorge,1280741,M,1,63,0,0,0,0.0,77,2,8991787
+6112390,2026-10-22,conference_league,Gent,Michel-Ange Balikwisha,1173248,M,1,41,0,0,0,0.0,103,2,2304465
+6112390,2026-10-22,conference_league,Gent,Ibrahima Cisse,1898989,F,1,90,2,0,0,0.04,105,3,1542381
+6112390,2026-10-22,conference_league,Gent,Momodou Sonko,1355206,M,1,82,1,1,0,0.19,107,2,1786670
+6112390,2026-10-22,conference_league,Gent,Lászlo Bénes,629112,M,0,49,0,0,0,0.0,,2,1654926
+6112390,2026-10-22,conference_league,Gent,Leonardo Lopes,604396,M,0,27,0,0,0,0.0,,2,1727424
+6112390,2026-10-22,conference_league,Gent,El Hadji Seck,1798011,F,0,27,0,0,0,0.0,,3,1245988
+6112390,2026-10-22,conference_league,Gent,Gilles De Meyer,1693004,D,0,8,0,0,0,0.0,,1,1033706
+6112390,2026-10-22,conference_league,Gent,Kyrell Wilson,1580120,F,0,8,0,0,0,0.0,,3,503022
+6112350,2026-10-22,europa_league,Hoffenheim,Oliver Baumann,178778,G,1,90,0,0,0,0.0,11,0,1606435
+6112350,2026-10-22,europa_league,Hoffenheim,Vladimír Coufal,307317,D,1,61,0,0,0,0.0,32,1,1949008
+6112350,2026-10-22,europa_league,Hoffenheim,Robin Hranác,1225995,D,1,90,2,1,0,0.42,34,1,4140019
+6112350,2026-10-22,europa_league,Hoffenheim,Ozan Kabak,845990,D,1,90,0,0,0,0.0,36,1,6755019
+6112350,2026-10-22,europa_league,Hoffenheim,Mats Rots,1445416,D,1,77,1,0,0,0.02,38,1,13663184
+6112350,2026-10-22,europa_league,Hoffenheim,Bambasé Conté,1338957,M,1,65,3,0,0,0.25,72,2,2348340
+6112350,2026-10-22,europa_league,Hoffenheim,Leon Avdullahu,1478148,M,1,90,1,0,0,0.03,74,2,36984526
+6112350,2026-10-22,europa_league,Hoffenheim,Alexander Prass,1027194,F,1,90,3,2,0,0.11,76,3,9958612
+6112350,2026-10-22,europa_league,Hoffenheim,Adam Daghim,1353000,F,1,61,2,1,1,0.48,78,3,7998913
+6112350,2026-10-22,europa_league,Hoffenheim,Tim Lemperle,1124825,F,1,78,1,1,0,0.04,104,3,17059259
+6112350,2026-10-22,europa_league,Hoffenheim,Andrej Kramarić,173461,M,1,90,6,2,1,0.62,106,2,2155021
+6112350,2026-10-22,europa_league,Hoffenheim,Valentin Gendrey,1077653,M,0,29,0,0,0,0.0,,2,5301765
+6112350,2026-10-22,europa_league,Hoffenheim,Wouter Burger,947884,M,0,29,0,0,0,0.0,,2,7505639
+6112350,2026-10-22,europa_league,Hoffenheim,Adam Hložek,969870,F,0,25,2,1,1,0.1,,3,12811239
+6112350,2026-10-22,europa_league,Hoffenheim,Koki Machida,727817,D,0,13,0,0,0,0.0,,1,4793134
+6112350,2026-10-22,europa_league,Hoffenheim,Fisnik Asllani,1219540,F,0,13,0,0,0,0.0,,3,40451897
+6112350,2026-10-22,europa_league,Lyon,Dominik Greif,651910,G,1,90,0,0,0,0.0,11,0,10127497
+6112350,2026-10-22,europa_league,Lyon,Steeve Kango,1922172,D,1,32,0,0,0,0.0,32,1,1649074
+6112350,2026-10-22,europa_league,Lyon,Felix Bacher,951498,D,1,46,0,0,0,0.0,34,1,5369090
+6112350,2026-10-22,europa_league,Lyon,Clinton Mata,266105,D,1,90,0,0,0,0.0,36,1,1941108
+6112350,2026-10-22,europa_league,Lyon,Ruben Kluivert,1125076,D,1,90,1,0,0,0.1,38,1,5794015
+6112350,2026-10-22,europa_league,Lyon,Noah Nartey,1368710,M,1,90,0,0,0,0.0,73,2,15466888
+6112350,2026-10-22,europa_league,Lyon,Tanner Tessmann,1057433,M,1,46,0,0,0,0.0,75,2,11318271
+6112350,2026-10-22,europa_league,Lyon,Mads Bidstrup,1081025,M,1,60,0,0,0,0.0,77,2,15386509
+6112350,2026-10-22,europa_league,Lyon,Kaïl Boudache,1896949,F,1,75,1,1,0,0.27,103,3,7688744
+6112350,2026-10-22,europa_league,Lyon,Rémi Himbert,1793704,F,1,90,2,0,0,0.07,105,3,13307446
+6112350,2026-10-22,europa_league,Lyon,Keito Nakamura,887704,F,1,90,2,1,0,0.13,107,3,8121363
+6112350,2026-10-22,europa_league,Lyon,Noham Kamara,1744188,D,0,58,0,0,0,0.0,,1,4199618
+6112350,2026-10-22,europa_league,Lyon,Moussa Niakhaté,592102,D,0,44,0,0,0,0.0,,1,16316617
+6112350,2026-10-22,europa_league,Lyon,Tyler Morton,1113724,M,0,45,1,0,0,0.06,,2,27178044
+6112350,2026-10-22,europa_league,Lyon,Corentin Tolisso,473852,M,0,30,1,0,0,0.03,,2,8357102
+6112350,2026-10-22,europa_league,Lyon,Ernest Nuamah,1338390,F,0,15,0,0,0,0.0,,3,11956271
+6112374,2026-10-22,europa_league,Lillestrøm,Pontus Dahlberg,625168,G,1,90,0,0,0,0.0,11,0,670504
+6112374,2026-10-22,europa_league,Lillestrøm,Sturla Ottesen,1049395,D,1,72,0,0,0,0.0,32,1,515243
+6112374,2026-10-22,europa_league,Lillestrøm,Sander Moen Foss,737058,D,1,90,0,0,0,0.0,34,1,218040
+6112374,2026-10-22,europa_league,Lillestrøm,Ruben Gabrielsen,162743,D,1,90,0,0,0,0.0,36,1,330481
+6112374,2026-10-22,europa_league,Lillestrøm,Yaw Paintsil,938023,F,1,90,1,0,0,0.1,38,3,427250
+6112374,2026-10-22,europa_league,Lillestrøm,Ylldren Ibrahimaj,534764,M,1,90,2,0,0,0.13,73,2,374965
+6112374,2026-10-22,europa_league,Lillestrøm,Filip Ottosson,1016606,M,1,90,1,0,0,0.02,75,2,222566
+6112374,2026-10-22,europa_league,Lillestrøm,Gustav Kjølstad Nyheim,1280665,M,1,88,2,1,0,0.06,77,2,1345036
+6112374,2026-10-22,europa_league,Lillestrøm,Daniel Bassi,1359647,F,1,46,0,0,0,0.0,103,3,1273885
+6112374,2026-10-22,europa_league,Lillestrøm,Thomas Lehne Olsen,168832,F,1,83,5,1,0,1.43,105,3,371841
+6112374,2026-10-22,europa_league,Lillestrøm,Vá,791597,F,1,72,2,0,0,0.11,107,3,560860
+6112374,2026-10-22,europa_league,Lillestrøm,Eric Kitolano,627559,M,0,45,1,0,0,0.02,,2,237687
+6112374,2026-10-22,europa_league,Lillestrøm,Lars Mogstad Ranger,889167,D,0,18,0,0,0,0.0,,1,368030
+6112374,2026-10-22,europa_league,Lillestrøm,Fredrik Gulbrandsen,120432,F,0,18,0,0,0,0.0,,3,392815
+6112374,2026-10-22,europa_league,Lillestrøm,Gustav Nordh,1196237,F,0,7,0,0,0,0.0,,3,279307
+6112374,2026-10-22,europa_league,Lillestrøm,Henrik Melland,1263493,M,0,2,0,0,0,0.0,,2,1000884
+6112374,2026-10-22,europa_league,Real Sociedad,Unai Marrero,1217043,G,1,90,0,0,0,0.0,11,0,1061842
+6112374,2026-10-22,europa_league,Real Sociedad,Igor Zubeldia,698653,D,1,90,0,0,0,0.0,32,1,5707452
+6112374,2026-10-22,europa_league,Real Sociedad,Jon Martín,1523234,D,1,90,0,0,0,0.0,34,1,23783318
+6112374,2026-10-22,europa_league,Real Sociedad,Mamadou Sarr,1426170,D,1,46,0,0,0,0.0,36,1,29358065
+6112374,2026-10-22,europa_league,Real Sociedad,Sergio Gómez,844477,D,1,90,2,2,2,0.24,38,1,17059320
+6112374,2026-10-22,europa_league,Real Sociedad,Takefusa Kubo,848289,F,1,58,0,0,0,0.0,72,3,21480692
+6112374,2026-10-22,europa_league,Real Sociedad,Jon Gorrotxategi,1323827,M,1,66,1,0,0,0.01,74,2,11510728
+6112374,2026-10-22,europa_league,Real Sociedad,Carlos Soler,708890,M,1,90,1,0,0,0.08,76,2,6612601
+6112374,2026-10-22,europa_league,Real Sociedad,Gonçalo Guedes,536455,F,1,90,3,1,0,0.31,78,3,5011662
+6112374,2026-10-22,europa_league,Real Sociedad,Luka Sučić,959597,M,1,73,3,2,2,0.23,104,2,13731055
+6112374,2026-10-22,europa_league,Real Sociedad,Mikel Oyarzabal,678234,F,1,58,1,0,0,0.04,106,3,22588238
+6112374,2026-10-22,europa_league,Real Sociedad,Jon Pacheco,1112072,D,0,44,0,0,0,0.0,,1,5630649
+6112374,2026-10-22,europa_league,Real Sociedad,Orri Óskarsson,1097229,F,0,32,3,2,1,1.17,,3,22425770
+6112374,2026-10-22,europa_league,Real Sociedad,Pablo Marín,1293912,F,0,32,0,0,0,0.0,,3,9290438
+6112374,2026-10-22,europa_league,Real Sociedad,Beñat Turrientes,1210647,M,0,24,0,0,0,0.0,,2,11522358
+6112374,2026-10-22,europa_league,Real Sociedad,Arsen Zakharyan,1175610,F,0,17,2,1,1,0.15,,3,12295773
+6112356,2026-10-22,europa_league,Beşiktaş,Alexander Nübel,554534,G,1,90,0,0,0,0.0,11,0,13535188
+6112356,2026-10-22,europa_league,Beşiktaş,Taylan Bulut,1487872,D,1,64,0,0,0,0.0,32,1,6316081
+6112356,2026-10-22,europa_league,Beşiktaş,Tiago Djaló,866358,D,1,90,0,0,0,0.0,34,1,6232006
+6112356,2026-10-22,europa_league,Beşiktaş,Ümit Akdağ,1366373,D,1,77,1,0,0,0.03,36,1,4264916
+6112356,2026-10-22,europa_league,Beşiktaş,Kassoum Ouattara,1387194,D,1,90,0,0,0,0.0,38,1,15444255
+6112356,2026-10-22,europa_league,Beşiktaş,Wilfred Ndidi,533228,M,1,90,1,1,1,0.33,65,2,6368467
+6112356,2026-10-22,europa_league,Beşiktaş,İlhan Fakılı,1642084,F,1,75,0,0,0,0.0,82,3,1688136
+6112356,2026-10-22,europa_league,Beşiktaş,Fabio Miretti,1280080,M,1,39,0,0,0,0.0,84,2,16810620
+6112356,2026-10-22,europa_league,Beşiktaş,Kartal Yılmaz,1001348,M,1,64,0,0,0,0.0,86,2,1810558
+6112356,2026-10-22,europa_league,Beşiktaş,Leandro Trossard,318615,F,1,90,0,0,0,0.0,88,3,19006601
+6112356,2026-10-22,europa_league,Beşiktaş,Hyeon-Gyu Oh,1044299,F,1,75,1,0,0,0.12,115,3,16158162
+6112356,2026-10-22,europa_league,Beşiktaş,Salih Özcan,738064,M,0,51,0,0,0,0.0,,2,2324601
+6112356,2026-10-22,europa_league,Beşiktaş,Amir Murillo,643635,D,0,26,0,0,0,0.0,,1,4988595
+6112356,2026-10-22,europa_league,Beşiktaş,Junior Olaïtan,1264368,M,0,26,1,1,1,0.07,,2,3517668
+6112356,2026-10-22,europa_league,Beşiktaş,Dušan Vlahović,737857,F,0,15,1,0,0,0.13,,3,23093564
+6112356,2026-10-22,europa_league,Beşiktaş,Václav Cerny,623540,F,0,15,0,0,0,0.0,,3,5534429
+6112356,2026-10-22,europa_league,Crystal Palace,Walter Benítez,448897,G,1,90,0,0,0,0.0,11,0,2422453
+6112356,2026-10-22,europa_league,Crystal Palace,Chris Richards,950829,D,1,90,1,0,0,0.01,33,1,28055044
+6112356,2026-10-22,europa_league,Crystal Palace,Axel Disasi,696646,D,1,90,0,0,0,0.0,35,1,17864177
+6112356,2026-10-22,europa_league,Crystal Palace,Jaydee Canvot,1664722,D,1,90,0,0,0,0.0,37,1,40799991
+6112356,2026-10-22,europa_league,Crystal Palace,Anan Khalaili,1477878,M,1,90,0,0,0,0.0,62,2,15019793
+6112356,2026-10-22,europa_league,Crystal Palace,Adam Wharton,1296650,M,1,90,1,0,0,0.02,64,2,86631504
+6112356,2026-10-22,europa_league,Crystal Palace,Daichi Kamada,621515,M,1,90,1,0,0,0.01,66,2,9262672
+6112356,2026-10-22,europa_league,Crystal Palace,Tyrick Mitchell,1120224,M,1,90,1,0,0,0.05,68,2,20635897
+6112356,2026-10-22,europa_league,Crystal Palace,Dwight McNeil,939542,F,1,61,0,0,0,0.0,84,3,20908608
+6112356,2026-10-22,europa_league,Crystal Palace,Yéremi Pino,1047676,M,1,72,1,1,1,0.14,86,2,43499943
+6112356,2026-10-22,europa_league,Crystal Palace,Jean-Philippe Mateta,706297,F,1,61,2,2,1,0.14,105,3,26968341
+6112356,2026-10-22,europa_league,Crystal Palace,Ismaïla Sarr,771294,M,0,29,0,0,0,0.0,,2,50784510
+6112356,2026-10-22,europa_league,Crystal Palace,Jørgen Strand Larsen,821100,F,0,24,0,0,0,0.0,,3,46189340
+6112356,2026-10-22,europa_league,Crystal Palace,Darío Osorio,1329007,M,0,18,0,0,0,0.0,,2,14784381
+6112356,2026-10-22,europa_league,Crystal Palace,Edward Nketiah,860920,M,0,5,1,0,0,0.02,,2,12980227
+6112342,2026-10-22,europa_league,Omonia Nicosia,Fabiano,124127,G,1,90,0,0,0,0.0,11,0,102723
+6112342,2026-10-22,europa_league,Omonia Nicosia,Loïc Négo,179873,D,1,90,0,0,0,0.0,32,1,485003
+6112342,2026-10-22,europa_league,Omonia Nicosia,Jean-Kévin Duverne,769168,D,1,90,0,0,0,0.0,34,1,1349530
+6112342,2026-10-22,europa_league,Omonia Nicosia,Lubomír Šatka,541825,D,1,90,0,0,0,0.0,36,1,1059073
+6112342,2026-10-22,europa_league,Omonia Nicosia,Jure Balkovec,281866,D,1,90,0,0,0,0.0,38,1,244025
+6112342,2026-10-22,europa_league,Omonia Nicosia,Ewandro,535942,F,1,50,1,0,0,0.14,72,3,763262
+6112342,2026-10-22,europa_league,Omonia Nicosia,Panagiotis Andreou,1477702,M,1,81,1,1,0,0.02,74,2,710985
+6112342,2026-10-22,europa_league,Omonia Nicosia,Mateo Marić,857667,M,1,90,0,0,0,0.0,76,2,811470
+6112342,2026-10-22,europa_league,Omonia Nicosia,Jaden Montnor,1317096,F,1,81,2,2,0,0.05,78,3,998850
+6112342,2026-10-22,europa_league,Omonia Nicosia,Andronikos Kakoullis,938543,F,1,61,2,1,1,0.57,104,3,650497
+6112342,2026-10-22,europa_league,Omonia Nicosia,Florin Tănase,531047,M,1,61,0,0,0,0.0,106,2,840312
+6112342,2026-10-22,europa_league,Omonia Nicosia,Luuk Brouwers,630495,M,0,40,0,0,0,0.0,,2,833468
+6112342,2026-10-22,europa_league,Omonia Nicosia,Loïs Diony,412068,F,0,29,1,1,0,0.05,,3,518292
+6112342,2026-10-22,europa_league,Omonia Nicosia,Mihlali Mayambela,737045,F,0,29,0,0,0,0.0,,3,553130
+6112342,2026-10-22,europa_league,Omonia Nicosia,Andreas Christou,1525692,M,0,9,0,0,0,0.0,,2,
+6112342,2026-10-22,europa_league,Omonia Nicosia,Angelos Neofytou,1413301,F,0,9,0,0,0,0.0,,3,333918
+6112342,2026-10-22,europa_league,Benfica,Anatoliy Trubin,1022350,G,1,90,0,0,0,0.0,11,0,17869066
+6112342,2026-10-22,europa_league,Benfica,Alexander Bah,734287,D,1,90,2,1,0,0.77,32,1,5729840
+6112342,2026-10-22,europa_league,Benfica,Alessandro Circati,1318686,D,1,90,4,0,0,0.24,34,1,20347220
+6112342,2026-10-22,europa_league,Benfica,Tomás Araújo,1187283,D,1,90,0,0,0,0.0,36,1,33573942
+6112342,2026-10-22,europa_league,Benfica,Souffian El Karouani,1079500,D,1,90,0,0,0,0.0,38,1,14368963
+6112342,2026-10-22,europa_league,Benfica,Fredrik Aursnes,310768,M,1,90,1,1,1,0.13,64,2,14910490
+6112342,2026-10-22,europa_league,Benfica,Manu Silva,1198071,M,1,69,1,0,0,0.02,66,2,6614617
+6112342,2026-10-22,europa_league,Benfica,Rafa Silva,477023,M,1,68,0,0,0,0.0,83,2,2323617
+6112342,2026-10-22,europa_league,Benfica,Claudio Echeverri,1486264,F,1,69,5,1,0,0.42,85,3,19127847
+6112342,2026-10-22,europa_league,Benfica,Andreas Schjelderup,1228558,F,1,83,1,1,0,0.07,87,3,32134578
+6112342,2026-10-22,europa_league,Benfica,Vangelis Pavlidis,637749,F,1,77,4,3,1,0.78,115,3,31113997
+6112342,2026-10-22,europa_league,Benfica,Georgiy Sudakov,1192398,M,0,22,0,0,0,0.0,,2,20195851
+6112342,2026-10-22,europa_league,Benfica,João Palhinha,524434,M,0,21,1,0,0,0.1,,2,18165269
+6112342,2026-10-22,europa_league,Benfica,Gianluca Prestianni,1363660,F,0,21,3,2,1,0.89,,3,20492233
+6112342,2026-10-22,europa_league,Benfica,Anísio Cabral,1760687,F,0,13,1,1,0,0.02,,3,
+6112342,2026-10-22,europa_league,Benfica,Dodi Lukébakio,688876,F,0,7,0,0,0,0.0,,3,15658911
+6112335,2026-10-22,europa_league,NK Celje,Žan-Luk Leban,1239563,G,1,90,0,0,0,0.0,11,0,436304
+6112335,2026-10-22,europa_league,NK Celje,Pijus Širvys,757630,D,1,81,0,0,0,0.0,32,1,382587
+6112335,2026-10-22,europa_league,NK Celje,Łukasz Bejger,1208886,D,1,90,0,0,0,0.0,34,1,192966
+6112335,2026-10-22,europa_league,NK Celje,Artemijus Tutyškinas,1281972,D,1,90,0,0,0,0.0,36,1,828011
+6112335,2026-10-22,europa_league,NK Celje,Milot Avdyli,1252806,D,1,90,2,0,0,0.08,38,1,401610
+6112335,2026-10-22,europa_league,NK Celje,Svit Sešlar,1284555,M,1,90,1,0,0,0.23,73,2,1634169
+6112335,2026-10-22,europa_league,NK Celje,Mark Zabukovnik,1283000,M,1,90,0,0,0,0.0,75,2,368897
+6112335,2026-10-22,europa_league,NK Celje,Mario Kvesić,280262,M,1,90,0,0,0,0.0,77,2,205680
+6112335,2026-10-22,europa_league,NK Celje,Veton Tusha,1224534,F,1,60,2,0,0,0.46,103,3,259558
+6112335,2026-10-22,europa_league,NK Celje,Blaž Kramer,768118,F,1,90,1,1,1,0.33,105,3,496563
+6112335,2026-10-22,europa_league,NK Celje,Benjamin Verbič,266992,F,1,81,1,1,0,0.17,107,3,308372
+6112335,2026-10-22,europa_league,NK Celje,Yaya Dukuly,1031044,M,0,30,0,0,0,0.0,,2,511024
+6112335,2026-10-22,europa_league,NK Celje,Žan Žužek,540903,D,0,9,1,0,0,0.02,,1,229740
+6112335,2026-10-22,europa_league,NK Celje,Armandas Kučys,1312274,F,0,9,1,1,1,0.32,,3,493541
+6112335,2026-10-22,europa_league,NK Celje,Darko Hrka,1619293,D,0,1,0,0,0,0.0,,1,153737
+6112335,2026-10-22,europa_league,Salzburg,Christian Zawieschitzky,1572337,G,1,90,0,0,0,0.0,11,0,
+6112335,2026-10-22,europa_league,Salzburg,Leandro Morgalla,1290484,D,1,90,0,0,0,0.0,32,1,2379862
+6112335,2026-10-22,europa_league,Salzburg,Kévin Boma,1187644,D,1,90,0,0,0,0.0,34,1,5939564
+6112335,2026-10-22,europa_league,Salzburg,Tim Drexler,1562902,D,1,90,0,0,0,0.0,36,1,3689600
+6112335,2026-10-22,europa_league,Salzburg,Dominik Schmid,844944,D,1,90,0,0,0,0.0,38,1,1907251
+6112335,2026-10-22,europa_league,Salzburg,Abubakr Barry,1220043,M,1,90,4,0,0,0.1,64,2,2165728
+6112335,2026-10-22,europa_league,Salzburg,Umut Tohumcu,1366006,M,1,46,0,0,0,0.0,66,2,4271201
+6112335,2026-10-22,europa_league,Salzburg,Damir Redzic,1188420,F,1,83,2,0,0,0.15,83,3,3620639
+6112335,2026-10-22,europa_league,Salzburg,Sota Kitano,1338846,M,1,65,3,1,1,0.44,85,2,5624400
+6112335,2026-10-22,europa_league,Salzburg,Yorbe Vertessen,940453,F,1,46,0,0,0,0.0,87,3,5152335
+6112335,2026-10-22,europa_league,Salzburg,Haris Tabaković,388903,F,1,90,3,1,0,0.38,115,3,2465878
+6112335,2026-10-22,europa_league,Salzburg,Bartosz Mazurek,1715680,M,0,44,0,0,0,0.0,,2,2672164
+6112335,2026-10-22,europa_league,Salzburg,Jesper Lindstrøm,958335,M,0,45,3,2,1,0.49,,2,2830584
+6112335,2026-10-22,europa_league,Salzburg,Gaoussou Diakite,1607324,F,0,25,0,0,0,0.0,,3,4150417
+6112335,2026-10-22,europa_league,Salzburg,Frans Krätzig,1459265,D,0,7,0,0,0,0.0,,1,2080499
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Sławomir Abramowicz,1306211,G,1,90,0,0,0,0.0,11,0,5327139
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Rodrigo Conceição,980264,D,1,90,0,0,0,0.0,32,1,
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Bernardo Vital,1184043,D,1,90,0,0,0,0.0,34,1,1962992
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Yuki Kobayashi,934952,D,1,90,0,0,0,0.0,36,1,526507
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Guilherme Montóia,1630298,D,1,90,1,1,0,0.02,38,1,1002380
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Anders Klynge,1161870,M,1,77,2,0,0,0.08,73,2,902174
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Eryk Kozłowski,1681526,M,1,90,0,0,0,0.0,75,2,364505
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Hampus Finndell,916335,M,1,46,0,0,0,0.0,77,2,528679
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Kamil Józwiak,728478,F,1,65,0,0,0,0.0,103,3,182982
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Nik Prelec,1186446,F,1,82,1,0,0,0.05,105,3,1088559
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Kajetan Szmyt,1177738,F,1,65,1,0,0,0.06,107,3,672449
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Ousmane Sow,1673762,F,0,44,0,0,0,0.0,,3,984177
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Aleksandar Ćirković,1098041,F,0,25,1,0,0,0.04,,3,1525352
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Jeremy Agbonifo,1624587,F,0,25,0,0,0,0.0,,3,3918133
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Taras Romanczuk,560564,M,0,13,0,0,0,0.0,,2,335893
+6112339,2026-10-22,europa_league,Jagiellonia Białystok,Jesús Imaz,573756,M,0,8,0,0,0,0.0,,2,335669
+6112339,2026-10-22,europa_league,Anderlecht,Colin Coosemans,208699,G,1,90,0,0,0,0.0,11,0,856185
+6112339,2026-10-22,europa_league,Anderlecht,Kaïs Barry,1712064,D,1,90,2,1,0,0.12,32,1,569030
+6112339,2026-10-22,europa_league,Anderlecht,Giulian Biancone,990989,D,1,90,0,0,0,0.0,34,1,1767702
+6112339,2026-10-22,europa_league,Anderlecht,Léo Pétrot,708457,D,1,90,0,0,0,0.0,36,1,1172195
+6112339,2026-10-22,europa_league,Anderlecht,Oleg Reabciuk,824634,D,1,90,2,1,0,0.07,38,1,1371414
+6112339,2026-10-22,europa_league,Anderlecht,Lukás Ambros,1412656,M,1,65,1,1,0,0.03,73,2,4094068
+6112339,2026-10-22,europa_league,Anderlecht,Mario Stroeykens,1219672,M,1,78,0,0,0,0.0,75,2,5532471
+6112339,2026-10-22,europa_league,Anderlecht,Thelo Aasgaard,1184468,M,1,90,2,0,0,0.08,77,2,1693175
+6112339,2026-10-22,europa_league,Anderlecht,Marten Winkler,1255785,F,1,82,2,2,1,0.12,103,3,1740575
+6112339,2026-10-22,europa_league,Anderlecht,Mihajlo Cvetković,1480699,F,1,78,2,1,1,0.26,105,3,13680307
+6112339,2026-10-22,europa_league,Anderlecht,Tristan Degreef,1520067,F,1,65,2,1,0,0.25,107,3,3620598
+6112339,2026-10-22,europa_league,Anderlecht,Enric Llansana,1033342,M,0,25,0,0,0,0.0,,2,1609375
+6112339,2026-10-22,europa_league,Anderlecht,Jayden Seke,1898992,F,0,25,2,1,1,0.1,,3,1445994
+6112339,2026-10-22,europa_league,Anderlecht,Marco Kana,1076974,M,0,12,0,0,0,0.0,,2,2210714
+6112339,2026-10-22,europa_league,Anderlecht,Adriano Bertaccini,1073421,F,0,12,0,0,0,0.0,,3,2524835
+6112339,2026-10-22,europa_league,Anderlecht,Oliver Antman,1021082,F,0,8,0,0,0,0.0,,3,2582699
+6112326,2026-10-22,europa_league,AFC Bournemouth,Michele Di Gregorio,766062,G,1,90,0,0,0,0.0,11,0,11669778
+6112326,2026-10-22,europa_league,AFC Bournemouth,James Hill,959407,D,1,90,1,1,0,0.02,32,1,14378722
+6112326,2026-10-22,europa_league,AFC Bournemouth,Bafodé Diakité,979752,D,1,90,0,0,0,0.0,34,1,27106669
+6112326,2026-10-22,europa_league,AFC Bournemouth,António Silva,1292092,D,1,90,1,0,0,0.01,36,1,18614071
+6112326,2026-10-22,europa_league,AFC Bournemouth,Adrien Truffert,1177358,D,1,90,2,0,0,0.05,38,1,43676101
+6112326,2026-10-22,europa_league,AFC Bournemouth,Ben Gannon-Doak,1324871,M,1,90,2,0,0,0.2,72,2,21217676
+6112326,2026-10-22,europa_league,AFC Bournemouth,Ryan Christie,439369,M,1,90,4,1,0,0.2,74,2,7293946
+6112326,2026-10-22,europa_league,AFC Bournemouth,Tyler Adams,729769,M,1,62,0,0,0,0.0,76,2,21862532
+6112326,2026-10-22,europa_league,AFC Bournemouth,Marcus Tavernier,789630,F,1,62,2,1,1,0.83,78,3,28126068
+6112326,2026-10-22,europa_league,AFC Bournemouth,Justin Kluivert,794253,M,1,62,2,1,1,1.34,104,2,24480211
+6112326,2026-10-22,europa_league,AFC Bournemouth,Evanilson,1098096,F,1,66,2,1,0,0.17,106,3,43490980
+6112326,2026-10-22,europa_league,AFC Bournemouth,Alex Tóth,1449690,M,0,15,1,0,0,0.05,,2,17668187
+6112326,2026-10-22,europa_league,AFC Bournemouth,Lewis Cook,562724,M,0,28,0,0,0,0.0,,2,11455449
+6112326,2026-10-22,europa_league,AFC Bournemouth,Rayan,1478295,F,0,28,2,1,0,0.22,,3,47583920
+6112326,2026-10-22,europa_league,AFC Bournemouth,Álvaro Rodriguez,1327406,F,0,24,0,0,0,0.0,,3,12491252
+6112326,2026-10-22,europa_league,AFC Bournemouth,Amine Adli,1079557,F,0,13,1,1,1,0.03,,3,24875171
+6112326,2026-10-22,europa_league,Milan,Mike Maignan,466439,G,1,90,0,0,0,0.0,11,0,20225627
+6112326,2026-10-22,europa_league,Milan,Fikayo Tomori,749662,D,1,66,0,0,0,0.0,33,1,11392535
+6112326,2026-10-22,europa_league,Milan,Koni De Winter,1200630,D,1,90,1,0,0,0.02,35,1,24155306
+6112326,2026-10-22,europa_league,Milan,Strahinja Pavlović,1048023,D,1,90,1,0,0,0.07,37,1,37450726
+6112326,2026-10-22,europa_league,Milan,Diego Moreira,1342754,F,1,76,0,0,0,0.0,72,3,26460743
+6112326,2026-10-22,europa_league,Milan,Yunus Musah,1137272,M,1,90,1,0,0,0.02,74,2,15960702
+6112326,2026-10-22,europa_league,Milan,Ardon Jashari,1163219,M,1,90,0,0,0,0.0,76,2,25996906
+6112326,2026-10-22,europa_league,Milan,Pervis Estupinán,688278,M,1,46,0,0,0,0.0,78,2,12941535
+6112326,2026-10-22,europa_league,Milan,Omari Hutchinson,1215652,F,1,32,0,0,0,0.0,103,3,39013857
+6112326,2026-10-22,europa_league,Milan,Alphadjo Cissè,1445650,M,1,90,0,0,0,0.0,105,2,6605000
+6112326,2026-10-22,europa_league,Milan,Ruben Loftus-Cheek,604982,M,1,46,0,0,0,0.0,107,2,4033003
+6112326,2026-10-22,europa_league,Milan,Lorenzo Torriani,1642393,G,0,58,0,0,0,0.0,,0,899428
+6112326,2026-10-22,europa_league,Milan,Adrien Rabiot,352879,M,0,44,0,0,0,0.0,,2,14865100
+6112326,2026-10-22,europa_league,Milan,Davide Bartesaghi,1385856,M,0,44,0,0,0,0.0,,2,13544273
+6112326,2026-10-22,europa_league,Milan,Sankhoun Diawara,1669433,D,0,24,0,0,0,0.0,,1,2071046
+6112326,2026-10-22,europa_league,Milan,Christian Comotto,1787535,M,0,14,0,0,0,0.0,,2,6352150
+6112300,2026-10-22,europa_league,Celtic,Sam Johnstone,280287,G,1,90,0,0,0,0.0,11,0,1578007
+6112300,2026-10-22,europa_league,Celtic,Colby Donovan,1663615,D,1,90,1,1,0,0.04,32,1,1595138
+6112300,2026-10-22,europa_league,Celtic,Dane Murray,1249915,D,1,90,0,0,0,0.0,34,1,460254
+6112300,2026-10-22,europa_league,Celtic,Liam Scales,782705,D,1,90,1,0,0,0.05,36,1,4591879
+6112300,2026-10-22,europa_league,Celtic,Kieran Tierney,582499,D,1,90,1,0,0,0.02,38,1,7007057
+6112300,2026-10-22,europa_league,Celtic,Callum McGregor,111060,M,1,90,0,0,0,0.0,64,2,1556278
+6112300,2026-10-22,europa_league,Celtic,Mika Baur,1329169,M,1,79,1,1,1,0.15,66,2,3873307
+6112300,2026-10-22,europa_league,Celtic,Haissem Hassan,971787,F,1,73,0,0,0,0.0,83,3,5670266
+6112300,2026-10-22,europa_league,Celtic,Benjamin Nygren,931605,M,1,90,1,1,0,0.09,85,2,13782178
+6112300,2026-10-22,europa_league,Celtic,Callum Osmand,1416581,F,1,58,1,0,0,0.06,87,3,373248
+6112300,2026-10-22,europa_league,Celtic,Camilo Durán,1576597,F,1,80,1,1,0,0.06,115,3,1096376
+6112300,2026-10-22,europa_league,Celtic,James Forrest,185566,F,0,32,0,0,0,0.0,,3,275537
+6112300,2026-10-22,europa_league,Celtic,Kasper Waarts Høgh,934960,F,0,17,0,0,0,0.0,,3,13390882
+6112300,2026-10-22,europa_league,Celtic,Oliver Sørensen,1097009,M,0,11,1,0,0,0.03,,2,8797265
+6112300,2026-10-22,europa_league,Celtic,Sebastian Tounekti,921919,F,0,11,0,0,0,0.0,,3,5647424
+6112300,2026-10-22,europa_league,Celta Vigo,Ionuț Radu,681213,G,1,90,0,0,0,0.0,11,0,10513690
+6112300,2026-10-22,europa_league,Celta Vigo,Javi Rodríguez,1435439,D,1,90,3,2,2,0.29,33,1,
+6112300,2026-10-22,europa_league,Celta Vigo,Sebastián Cáceres,1020026,D,1,90,0,0,0,0.0,35,1,2352550
+6112300,2026-10-22,europa_league,Celta Vigo,Marcos Alonso,196169,D,1,90,0,0,0,0.0,37,1,1395159
+6112300,2026-10-22,europa_league,Celta Vigo,Javi Rueda,1310440,M,1,85,1,0,0,0.03,72,2,7371399
+6112300,2026-10-22,europa_league,Celta Vigo,Aleix Febas,671686,M,1,90,4,0,0,0.3,74,2,4141487
+6112300,2026-10-22,europa_league,Celta Vigo,Hugo Burcio,1825995,M,1,63,2,0,0,0.05,76,2,1072697
+6112300,2026-10-22,europa_league,Celta Vigo,Sergio Carreira,1106742,M,1,90,1,0,0,0.06,78,2,4299297
+6112300,2026-10-22,europa_league,Celta Vigo,Iago Aspas,174472,F,1,63,3,1,0,0.15,103,3,919077
+6112300,2026-10-22,europa_league,Celta Vigo,Ferrán Jutglà,1102732,F,1,77,4,1,0,0.15,105,3,11097926
+6112300,2026-10-22,europa_league,Celta Vigo,Hugo Álvarez,1308414,F,1,85,0,0,0,0.0,107,3,9900991
+6112300,2026-10-22,europa_league,Celta Vigo,Ilaix Moriba,1109046,M,0,27,0,0,0,0.0,,2,19176746
+6112300,2026-10-22,europa_league,Celta Vigo,Williot Swedberg,1272740,F,0,27,3,0,0,0.13,,3,6152371
+6112300,2026-10-22,europa_league,Celta Vigo,Pablo Durán,1322858,F,0,13,0,0,0,0.0,,3,4693143
+6112300,2026-10-22,europa_league,Celta Vigo,Javi Galán,695062,D,0,5,0,0,0,0.0,,1,1420097
+6112300,2026-10-22,europa_league,Celta Vigo,Andrés Antañón,1732791,F,0,5,1,0,0,0.04,,3,770932
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Florian Wiegele,1514693,G,1,90,0,0,0,0.0,11,0,1624863
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Tobiás Paliscák,1676861,D,1,74,0,0,0,0.0,32,1,2265690
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Sampson Dweh,1293671,D,1,90,1,0,0,0.19,34,1,5617686
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Denis Vavro,442602,D,1,90,0,0,0,0.0,36,1,1994808
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Cheick Souaré,1225210,M,1,90,0,0,0,0.0,38,2,2252811
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Patrik Hrošovský,351661,M,1,60,0,0,0,0.0,64,2,689128
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Lukás Červ,1151313,M,1,90,2,1,0,0.03,66,2,6444720
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Amar Memić,1300385,M,1,90,2,0,0,0.12,82,2,2568315
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Tomás Ladra,791677,M,1,74,2,0,0,0.09,88,2,841710
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Denis Višinský,1202885,F,1,60,1,0,0,0.04,104,3,2482060
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Christophe Kabongo,1184444,F,1,77,3,1,1,0.35,106,3,884352
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Stefan Pirgić,1621131,M,0,30,1,0,0,0.1,,2,1457981
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Salim Fago Lawal,1478703,F,0,30,1,0,0,0.02,,3,1520017
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Alexandr Sojka,1478281,F,0,16,0,0,0,0.0,,3,1887867
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Baboucarr Faal,1722302,F,0,16,0,0,0,0.0,,3,2110920
+6112285,2026-10-22,europa_league,Viktoria Plzeň,Matěj Vydra,196308,F,0,13,0,0,0,0.0,,3,262436
+6112285,2026-10-22,europa_league,Levski Sofia,Svetoslav Vutsov,1037768,G,1,90,0,0,0,0.0,11,0,2102164
+6112285,2026-10-22,europa_league,Levski Sofia,Aldair,1355723,D,1,90,0,0,0,0.0,32,1,1120612
+6112285,2026-10-22,europa_league,Levski Sofia,Kristian Dimitrov,702896,D,1,90,0,0,0,0.0,34,1,1063514
+6112285,2026-10-22,europa_league,Levski Sofia,Christian Makoun,839088,D,1,90,0,0,0,0.0,36,1,1873970
+6112285,2026-10-22,europa_league,Levski Sofia,Maicon,1614747,D,1,90,1,1,0,0.09,38,1,1940265
+6112285,2026-10-22,europa_league,Levski Sofia,Marko Grujić,463284,M,1,90,0,0,0,0.0,64,2,816341
+6112285,2026-10-22,europa_league,Levski Sofia,Mehdi Moubarik,1398949,M,1,82,0,0,0,0.0,66,2,837046
+6112285,2026-10-22,europa_league,Levski Sofia,Mazire Soula,842427,M,1,60,0,0,0,0.0,83,2,1352365
+6112285,2026-10-22,europa_league,Levski Sofia,Sérginho,1355837,M,1,90,1,0,0,0.06,85,2,1957192
+6112285,2026-10-22,europa_league,Levski Sofia,Everton Bala,1344892,F,1,74,1,1,1,0.36,87,3,1579133
+6112285,2026-10-22,europa_league,Levski Sofia,Reinaldo,1174631,F,1,82,3,1,1,0.64,115,3,829579
+6112285,2026-10-22,europa_league,Levski Sofia,Armstrong Oko-Flex,1023017,F,0,30,0,0,0,0.0,,3,926541
+6112285,2026-10-22,europa_league,Levski Sofia,Akram Bouras,1356338,M,0,16,0,0,0,0.0,,2,1808152
+6112285,2026-10-22,europa_league,Levski Sofia,Álex Centelles,895951,D,0,8,0,0,0,0.0,,1,588040
+6112285,2026-10-22,europa_league,Levski Sofia,Juan Perea,1435399,F,0,8,0,0,0,0.0,,3,549981
+6112267,2026-10-22,europa_league,Olympiacos,Stefan Ortega,276729,G,1,90,0,0,0,0.0,11,0,1765490
+6112267,2026-10-22,europa_league,Olympiacos,Manolis Saliakas,530197,M,1,74,1,0,0,0.04,32,2,1126114
+6112267,2026-10-22,europa_league,Olympiacos,Panagiotis Retsos,719055,D,1,90,2,0,0,0.13,34,1,5713766
+6112267,2026-10-22,europa_league,Olympiacos,Lorenzo Pirola,1050165,D,1,90,2,1,0,0.11,36,1,10802418
+6112267,2026-10-22,europa_league,Olympiacos,Bruno Onyemaechi,1287837,D,1,74,3,0,0,0.18,38,1,1485028
+6112267,2026-10-22,europa_league,Olympiacos,Remo Freuler,201704,M,1,90,3,1,0,0.76,64,2,1843406
+6112267,2026-10-22,europa_league,Olympiacos,Santiago Hezze,1131349,M,1,63,1,0,0,0.05,66,2,13292122
+6112267,2026-10-22,europa_league,Olympiacos,Jota Silva,1114798,F,1,90,8,0,0,0.39,83,3,10069738
+6112267,2026-10-22,europa_league,Olympiacos,Chiquinho,566644,M,1,83,0,0,0,0.0,85,2,2350924
+6112267,2026-10-22,europa_league,Olympiacos,Gelson Martins,575225,F,1,90,2,0,0,0.3,87,3,1576017
+6112267,2026-10-22,europa_league,Olympiacos,Roman Yaremchuk,643690,F,1,62,0,0,0,0.0,115,3,1717793
+6112267,2026-10-22,europa_league,Olympiacos,Gustavo Puerta,1331597,M,0,28,0,0,0,0.0,,2,10286920
+6112267,2026-10-22,europa_league,Olympiacos,Armando González,1456983,F,0,28,1,1,1,0.22,,3,6644832
+6112267,2026-10-22,europa_league,Olympiacos,Nair Tiknizyan,951976,D,0,16,0,0,0,0.0,,1,6211940
+6112267,2026-10-22,europa_league,Olympiacos,Marcus Holmgren Pedersen,935622,M,0,16,0,0,0,0.0,,2,2786129
+6112267,2026-10-22,europa_league,Olympiacos,Gustavo Sá,1395482,M,0,7,0,0,0,0.0,,2,18904799
+6112267,2026-10-22,europa_league,Sparta Prague,Jakub Surovcík,1390258,G,1,90,0,0,0,0.0,11,0,911463
+6112267,2026-10-22,europa_league,Sparta Prague,Ki-Jana Hoever,1010733,D,1,79,0,0,0,0.0,32,1,2278397
+6112267,2026-10-22,europa_league,Sparta Prague,Tobias Guddal,1250673,D,1,90,0,0,0,0.0,34,1,2176654
+6112267,2026-10-22,europa_league,Sparta Prague,Jaroslav Zelený,249063,D,1,90,0,0,0,0.0,36,1,188418
+6112267,2026-10-22,europa_league,Sparta Prague,Martin Suchomel,1310253,D,1,90,1,0,0,0.06,38,1,618908
+6112267,2026-10-22,europa_league,Sparta Prague,Hugo Sochůrek,1764021,M,1,46,0,0,0,0.0,73,2,
+6112267,2026-10-22,europa_league,Sparta Prague,Roman Macek,769342,M,1,67,2,0,0,0.16,75,2,181787
+6112267,2026-10-22,europa_league,Sparta Prague,Santiago Eneme,962014,M,1,90,1,1,0,0.05,77,2,1213806
+6112267,2026-10-22,europa_league,Sparta Prague,Matěj Jurásek,1202883,F,1,67,1,0,0,0.02,103,3,4639223
+6112267,2026-10-22,europa_league,Sparta Prague,Matyás Vojta,1437308,F,1,60,1,0,0,0.02,105,3,2031618
+6112267,2026-10-22,europa_league,Sparta Prague,Josimar Alcócer,1296660,F,1,90,3,0,0,0.06,107,3,3980840
+6112267,2026-10-22,europa_league,Sparta Prague,Sivert Heggheim Mannsverk,849404,M,0,44,0,0,0,0.0,,2,2136875
+6112267,2026-10-22,europa_league,Sparta Prague,Jonatan Braut Brunes,737073,F,0,30,1,0,0,0.12,,3,5418030
+6112267,2026-10-22,europa_league,Sparta Prague,Patrik Vydra,1358568,M,0,23,2,0,0,0.04,,2,5452388
+6112267,2026-10-22,europa_league,Sparta Prague,Ebrima Singhateh,1348062,F,0,23,1,0,0,0.04,,3,968057
+6112267,2026-10-22,europa_league,Sparta Prague,Pavel Kaderábek,212156,D,0,11,1,0,0,0.15,,1,475429
