@@ -923,6 +923,19 @@
     const v = a && (a.veredictos || []).find((x) => String(x.apuesta).trim() === String((SPX.yo.desbloqueados || {})[p.id] || p.apuesta).trim());
     return v && v.opinion === 'en_contra' ? '<div class="ia-aviso">🤖 La IA lo ve en contra: ' + esc(v.motivo) + '</div>' : '';
   }
+  // v453 — EL DATO REAL de cada pick terminado (sale del marcador final): «Quedó 2-1 ·
+  // 3 goles (línea 2.5)». En córners y tarjetas sólo el marcador (no se guardan por pick).
+  function realDe(p) {
+    if (!p || !p.marcador || !['verde', 'roja'].includes(p.estado)) return '';
+    const g = String(p.marcador).split('-').map((x) => Number(String(x).trim()));
+    if (g.length !== 2 || g.some((x) => Number.isNaN(x))) return '';
+    const V = lados(p)[1], a = String((window.SPX && SPX.yo.desbloqueados[p.id]) || p.apuesta || '');
+    const U = { NBA: 'puntos', NFL: 'puntos', MLB: 'carreras', KBO: 'carreras', 'Béisbol': 'carreras', Tenis: 'sets' }[p.deporte] || 'goles';
+    let m, t = 'Quedó ' + g[0] + '-' + g[1];
+    if ((m = a.match(/^(Goles|Puntos|Carreras|Sets): (Más|Menos) de ([\d.]+)/))) t += ' · ' + (g[0] + g[1]) + ' ' + U + ' (línea ' + m[3] + ')';
+    else if ((m = a.match(/^Goles (.+): (Más|Menos) de ([\d.]+)/))) t += ' · ' + m[1] + ': ' + (m[1] === V ? g[1] : g[0]) + ' (línea ' + m[3] + ')';
+    return t;
+  }
   function filaPick(p, v, varias) {
     if (p.solo_analisis) {
       return '<div class="pick-fila analisis"><small class="tenue">📊 Sin pick sugerido' +
@@ -934,7 +947,7 @@
     return '<div class="pick-fila ' + (ev === 'verde' ? 'verde' : ev === 'roja' ? 'roja' : '') + '">' +
       ((varias || ev === 'verde' || ev === 'roja') ? '<div class="fila"><span class="et nivel ' + nv.c + '">' + nv.i + ' ' + nv.n + '</span>' + estadoPick(p, v) + '</div>' : '') +
       '<div class="apuesta">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
-      (pr ? '<div class="progreso ' + pr.e + '">' + esc(pr.t) + '</div>' : '') + iaDelPick(p) +
+      (pr ? '<div class="progreso ' + pr.e + '">' + esc(pr.t) + '</div>' : realDe(p) ? '<div class="progreso ' + p.estado + '">' + esc(realDe(p)) + '</div>' : '') + iaDelPick(p) +
       '<div class="datos"><div class="dato"><small>Cuota</small><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '—') + '</b></div>' +
       '<div class="dato"><small>Probabilidad</small><b>' + pct(p.prob) + '</b></div>' +
       '<div class="dato"><small>' + (p.tipo === 'error' ? 'Paga de más' : 'Nivel') + '</small><b>' +
@@ -1482,7 +1495,7 @@
       (n === 1 ? ' partido hoy' : ' partidos hoy') + ', pero ninguno llegó a nuestro mínimo de probabilidad. Preferimos no darte un pick flojo.</div>').join(''));
   }
 
-  window.SP = { nivel, pintar, estado, estadoVisto: (p) => estadoVisto(p) };   // v452: «Mis combinadas» usa lo mismo
+  window.SP = { nivel, pintar, estado, estadoVisto: (p) => estadoVisto(p), realDe: (p) => realDe(p) };   // v452: «Mis combinadas» usa lo mismo
 
   // v440 — DESLIZAR PARA QUITAR (sólo en «Mis picks», con el dedo): la fila se
   // corre a la izquierda y deja ver «Quitar»; si el gesto es vertical, es scroll.

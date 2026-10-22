@@ -697,3 +697,15 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .ia-pa1 span em { font-style: normal; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ia-pa1 span b { white-space: nowrap; }
 .ia-pa1 > div { min-width: 0; } .ia-pa1 span { min-width: 0; }
+
+/* v453 — lo que dijimos vs lo que salió, y el dato real de cada pick terminado */
+.calib { display: flex; flex-direction: column; gap: 10px; margin: 4px 0 8px; }
+.calib-fila { display: grid; grid-template-columns: 78px 1fr; grid-template-areas: "b barra" "b n"; gap: 2px 10px; align-items: center; }
+.calib-b { grid-area: b; font-weight: 700; font-size: 13px; }
+.calib-barra { grid-area: barra; position: relative; height: 10px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: visible; }
+.calib-barra b { display: block; height: 100%; border-radius: 999px; background: linear-gradient(90deg, #16a34a, #22c55e); }
+.calib-barra .dijo { position: absolute; top: -3px; width: 2px; height: 16px; background: #facc15; border-radius: 1px; transform: translateX(-1px); }
+.calib-n { grid-area: n; font-size: 12px; color: var(--tenue); }
+.calib-n b { color: var(--texto); }
+.calib-n small { margin-left: 6px; }
+.tg-pata .real, .tg-pata + .real { display: block; font-size: 11px; color: var(--tenue); margin-left: 22px; }

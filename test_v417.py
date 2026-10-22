@@ -290,6 +290,11 @@ def probar_v434():
     check('🥇 Anota primero' in app and 'function primerYPa1(lh, la)' in app and '🏁 PA1' in app and 'data-ia-motivo="' not in cu, 'v447: «quién anota primero» en la IA; 👍/👎 sin motivos')
     check('estadoVisto: (p) => estadoVisto(p)' in app and 'window.SP.estadoVisto(pickDe(p.id))' in cu and "yaRoja ? '<span class=\"et roja\"" in cu
           and "c.estado === 'pendiente' && !yaRoja ?" in cu, 'v452: «Mis combinadas» se pone verde/roja en vivo y al pitazo, sin esperar al servidor')
+    check("sb.from('calibracion_picks').select('*').order('orden')" in cu and 'async function calibracionPicks()' in cu and 'id="calibracion"' in leer('web', 'index.html')
+          and 'create or replace view public.calibracion_picks' in leer('supabase', 'v453_calibracion.sql'),
+          'v453: «Lo que dijimos vs lo que salió» en el historial (público, rojas incluidas)')
+    check('function realDe(p)' in app and "realDe(p) ? '<div class=\"progreso ' + p.estado" in app and 'Ganaste <b>+' in cu,
+          'v453: cada pick terminado dice su dato real (marcador y goles/puntos contra la línea)')
     ix = leer('web', 'index.html')
     check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
           and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')

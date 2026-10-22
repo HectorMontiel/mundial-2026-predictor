@@ -796,7 +796,7 @@
     const faltan = [...new Set((data || []).flatMap((c) => c.patas))].filter((id) => !pickDe(id));
     const extra = {};
     for (let i = 0; i < faltan.length; i += 300) {
-      const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado,inicio,deporte,premium').in('id', faltan.slice(i, i + 300));
+      const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado,inicio,deporte,premium,marcador').in('id', faltan.slice(i, i + 300));
       (ps || []).forEach((p) => { extra[p.id] = p; });
     }
     if (turno !== turnoComb) return;
@@ -897,12 +897,13 @@
     // v443 — lo que puede ganar si acierta (la misma tabla que usa el servidor: una premiada por día)
     const pr = PREMIO(Number(c.cuota));
     const premio = c.estado === 'pendiente' && !yaRoja ? '<div class="comb-premio' + (pr ? '' : ' tenue') + '" title="Se paga una combinada premiada por día">' +
-      (pr ? '🪙 Si acierta: <b>+' + pr + '</b>' : 'Sin premio: desde cuota 2,00') + '</div>' : '';
+      (pr ? (yaVerde ? '🪙 Ganaste <b>+' + pr + '</b> · se acredita al confirmarse' : '🪙 Si acierta: <b>+' + pr + '</b>') : 'Sin premio: desde cuota 2,00') + '</div>' : '';
     return '<div class="tg-item ' + c.estado + '"><div class="fila"><span>🔗 ' + c.patas.length + ' picks · <b>' + Number(c.cuota).toFixed(2) + '</b></span>' + chip + '</div>' + premio +
       ps.map((p) => {
         const ico = p._visto === 'verde' ? '✅' : p._visto === 'roja' ? '❌' : p._visto === 'nula' ? '↩️' : empezo(p) ? '🔴' : '🕒';
         const txt = ico + ' ' + apuesta(p.id ? p : { apuesta: '—' }) + ' <span class="tenue">· ' + esc(p.partido || '') + (p.estado === 'pendiente' && !empezo(p) && p.inicio ? ' · ' + hora(p) : '') +
-          (p.cuota ? ' · ' + Number(p.cuota).toFixed(2) : '') + '</span>';
+          (p.cuota ? ' · ' + Number(p.cuota).toFixed(2) : '') + '</span>' +
+          (p.id && window.SP && window.SP.realDe && window.SP.realDe(p) ? '<small class="real">' + esc(window.SP.realDe(p)) + '</small>' : '');
         return pickDe(p.id) ? '<button class="tg-pata ir-partido" data-ficha="' + esc(p.id) + '">' + txt + ' <span class="ir">›</span></button>' : '<div class="tg-pata">' + txt + '</div>';
       }).join('') + '</div>';
   }
@@ -1059,7 +1060,20 @@
     const ganador = a ? linea('🏆', 'IA, el ganador del partido', Number(a.resultado_ok || 0), Number(a.resultado_mal || 0)) : '';
     pon('numeros-vip', nivel('Diamante', '💎') + nivel('Platino', '🔷') + nivel('Plata', '🥈') + mejores + favor + ganador);
   }
+  // v453 — «LO QUE DIJIMOS VS LO QUE SALIÓ»: por cada grupo de probabilidad, cuánto
+  // salió de verdad (con TODOS los picks terminados, rojas incluidas)
+  async function calibracionPicks() {
+    const caja = $('calibracion'); if (!caja || !sb) return;
+    const { data, error } = await aTiempo(sb.from('calibracion_picks').select('*').order('orden'), 8000, { data: null, error: true });
+    if (error || !data || !data.length) { caja.innerHTML = '<p class="tenue">Todavía no hay suficientes picks terminados.</p>'; return; }
+    const n = data.reduce((a, x) => a + x.n, 0), desde = data.map((x) => x.desde).sort()[0];
+    caja.innerHTML = '<div class="calib">' + data.map((x) => '<div class="calib-fila"><span class="calib-b">' + esc(x.banda) + '</span>' +
+      '<div class="calib-barra"><i class="dijo" style="left:' + x.dijimos + '%"></i><b style="width:' + x.salio + '%"></b></div>' +
+      '<span class="calib-n">dijimos <b>' + x.dijimos + ' %</b> · salió <b>' + x.salio + ' %</b><small>' + x.n + ' picks</small></span></div>').join('') + '</div>' +
+      '<p class="tenue chico">' + n + ' picks terminados desde el ' + esc(String(desde || '').slice(0, 10)) + ', rojas incluidas. La rayita es lo que dijimos; la barra, lo que salió.</p>';
+  }
   async function historial() {
+    calibracionPicks();
     const caja = $('historial'); if (!caja || !sb) return;
     const { data, error } = await sb.from('historial').select('*').limit(30);
     if (error) {
