@@ -641,3 +641,19 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 #mi-hist .hist-fila .ht small { display: block; font-size: 11px; color: var(--tenue); margin-top: 1px; }
 #mi-hist .hist-fila b { font-size: 13px; }
 #mi-hist .num { font-size: 22px; }
+
+/* v440 — deslizar para quitar en «Mis picks» */
+.partido-fila.deslizable { position: relative; overflow: hidden; touch-action: pan-y; }
+.partido-fila.deslizable > .pf { position: relative; z-index: 1; transition: transform .22s ease; }
+.quitar-fila { position: absolute; top: 0; right: 0; width: 92px; height: 100%; display: none; align-items: center; justify-content: center;
+  border: 0; background: #e5484d; color: #fff; font: inherit; font-weight: 700; font-size: 13px; cursor: pointer; }
+.partido-fila.desliza > .quitar-fila { display: flex; }
+.partido-fila.deslizable.abierto > .quitar-fila { height: 88px; }
+.aviso-flot { position: fixed; left: 50%; bottom: 96px; transform: translateX(-50%); z-index: 60; display: flex; gap: 14px; align-items: center;
+  background: rgba(15,23,42,.96); color: #e5e7eb; border: 1px solid var(--borde); border-radius: 999px; padding: 10px 16px; font-size: 14px; box-shadow: 0 8px 24px rgba(0,0,0,.4); }
+.aviso-flot button { background: none; border: 0; color: #22c55e; font: inherit; font-weight: 700; cursor: pointer; }
+
+/* v441 — cada pata de «Mis combinadas» abre su partido */
+.tg-pata.ir-partido { display: block; width: 100%; text-align: left; background: none; border: 0; color: inherit; font: inherit; padding: 4px 0; cursor: pointer; }
+.tg-pata.ir-partido .ir { float: right; color: var(--tenue); font-weight: 700; }
+.tg-pata.ir-partido:active { opacity: .7; }

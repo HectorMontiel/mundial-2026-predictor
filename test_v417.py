@@ -278,7 +278,12 @@ def probar_v434():
     cu = leer('web', 'cuenta.js')
     check('async function miHistorial(intento)' in cu and "sb.from('desbloqueos').select('pick,creado,devuelto')" in cu and 'data-hist-rango' in cu
           and 'id="mi-hist"' in leer('web', 'index.html') and 'misCombinadas(); miHistorial();' in cu,
-          'v439: «Mi historial»: lo seguido, desbloqueado y combinado, con verdes/rojas, $100 a cada uno y desglose por deporte')
+          'v439: «Mi historial»: lo seguido, desbloqueado y combinado, con verdes/rojas y desglose por deporte')
+    check('$100 a cada uno' not in cu, 'v440: el historial no pone dinero ni supuestos (decisión del usuario)')
+    check('.partido-fila.deslizable' in css and "document.addEventListener('touchmove'" in app and 'data-dejar=' in app and 'async function quitarSeguidos(ids, volver)' in cu,
+          'v440: en «Mis picks» se desliza la fila para quitarla, con «Deshacer»')
+    check("ps.some(empezo) ? '<span class=\"et vivo\">🔴 En juego</span>'" in cu and 'class="tg-pata ir-partido" data-ficha=' in cu,
+          'v441: la combinada dice «Por jugar» hasta que empieza alguno; cada pata abre su partido')
     check('if (turno !== turnoComb) return;' in cu and 'function pintarCombinadas(caja, data, extra)' in cu and "'sharpicks-comb-' + (yo.user && yo.user.id)" in cu
           and "caja.innerHTML = '<p class=\"tenue\">Arma tu combinada" not in cu,
           'v437: «Mis combinadas» no desaparece al volver a la app (sólo pinta la petición más nueva; un error no borra)')

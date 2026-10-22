@@ -1209,8 +1209,11 @@
     const k = clavePartido(p), abierto = estado.abiertos.has(k);
     const marc = v && v.fase !== 'pre' ? v.g : (p.marcador ? String(p.marcador).split('-').map((x) => x.trim()) : null);
     const ap = p.solo_analisis ? '<span class="sin-pick-txt">Sin pick</span>' : window.SPX ? SPX.apuesta(p) : esc(p.apuesta);
-    return '<div class="partido-fila ' + nv.c + (abierto ? ' abierto' : '') + '" data-k="' + esc(k) + '">' +
-      '<button class="pf" data-abrir="' + esc(k) + '" aria-expanded="' + abierto + '">' +
+    // v440 — en «Mis picks» se desliza a la izquierda para quitar el pick seguido
+    const mio = estado.vista === 'mios' && window.SPX && SPX.yo.user, abiertoRoce = mio && estado.deslizado === k;
+    return '<div class="partido-fila ' + nv.c + (abierto ? ' abierto' : '') + (mio ? ' deslizable' : '') + (abiertoRoce ? ' desliza' : '') + '" data-k="' + esc(k) + '">' +
+      (mio ? '<button class="quitar-fila" data-dejar="' + esc(ps.map((x) => x.id).join(',')) + '" aria-label="Quitar de Mis picks">🗑️ Quitar</button>' : '') +
+      '<button class="pf" data-abrir="' + esc(k) + '" aria-expanded="' + abierto + '"' + (abiertoRoce ? ' style="transform:translateX(-92px)"' : '') + '>' +
       relojFila(ps) +
       '<span class="pf-eqs"><span class="pf-eq">' + escudo(p.logo_h, L) + '<b>' + esc(L) + '</b>' + (marc ? '<em>' + esc(marc[0]) + '</em>' : '') + '</span>' +
       '<span class="pf-eq">' + escudo(p.logo_a, V) + '<b>' + esc(V) + '</b>' + (marc ? '<em>' + esc(marc[1]) + '</em>' : '') + '</span></span>' +
@@ -1441,6 +1444,37 @@
 
   window.SP = { nivel, pintar, estado };
 
+  // v440 — DESLIZAR PARA QUITAR (sólo en «Mis picks», con el dedo): la fila se
+  // corre a la izquierda y deja ver «Quitar»; si el gesto es vertical, es scroll.
+  let roce = null;
+  const pfDe = (f) => f && f.querySelector(':scope > .pf');
+  document.addEventListener('touchstart', (e) => {
+    const f = e.target.closest('.partido-fila.deslizable');
+    if (!f || e.target.closest('.pf-detalle, .quitar-fila')) return;
+    const t = e.touches[0], base = f.classList.contains('desliza') ? -92 : 0;
+    roce = { f, x: t.clientX, y: t.clientY, base, dx: base, horiz: null };
+  }, { passive: true });
+  document.addEventListener('touchmove', (e) => {
+    if (!roce) return;
+    const t = e.touches[0], dx = t.clientX - roce.x, dy = t.clientY - roce.y;
+    if (roce.horiz === null && Math.abs(dx) + Math.abs(dy) > 8) roce.horiz = Math.abs(dx) > Math.abs(dy) * 1.2;
+    if (!roce.horiz) return;
+    roce.dx = Math.max(-130, Math.min(0, roce.base + dx));
+    roce.f.classList.add('desliza');
+    const pf = pfDe(roce.f), bq = roce.f.querySelector(':scope > .quitar-fila');
+    if (pf) { pf.style.transition = 'none'; pf.style.transform = 'translateX(' + roce.dx + 'px)'; if (bq) bq.style.height = pf.offsetHeight + 'px'; }
+  }, { passive: true });
+  document.addEventListener('touchend', () => {
+    if (!roce) return;
+    const { f, dx, horiz } = roce; roce = null;
+    if (!horiz) return;
+    estado.sinClic = Date.now();
+    const pf = pfDe(f); if (pf) pf.style.transition = '';
+    document.querySelectorAll('.partido-fila.desliza').forEach((o) => { if (o !== f) { o.classList.remove('desliza'); const q = pfDe(o); if (q) q.style.transform = ''; } });
+    if (dx < -50) { if (pf) pf.style.transform = 'translateX(-92px)'; f.classList.add('desliza'); estado.deslizado = f.dataset.k; }
+    else { if (pf) pf.style.transform = ''; f.classList.remove('desliza'); if (estado.deslizado === f.dataset.k) estado.deslizado = null; }
+  });
+
   document.addEventListener('click', (e) => {
     const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin]');
     if (!t) return;
@@ -1461,6 +1495,8 @@
     if (t.dataset.liga) { const l = t.dataset.liga; estado.ligasCerradas.has(l) ? estado.ligasCerradas.delete(l) : estado.ligasCerradas.add(l); pintar(); return; }
     if (t.dataset.abrir) {
       const k = t.dataset.abrir;
+      if (Date.now() - (estado.sinClic || 0) < 450) return;                 // v440: fue un deslizar, no un toque
+      if (estado.deslizado) { const f = estado.deslizado; estado.deslizado = null; if (f === k || !t.dataset.ir) { pintar(); return; } }
       if (t.dataset.ir) { estado.abiertos.add(k); estado.fase = 'todos'; estado.niveles = new Set(); }
       else {
         if (estado.abiertos.has(k)) estado.abiertos.delete(k); else estado.abiertos.add(k);

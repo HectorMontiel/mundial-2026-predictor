@@ -681,7 +681,7 @@
     if (!(data || []).length) { caja.dataset.pintada = ''; caja.innerHTML = '<p class="tenue">Aún no tienes combinadas. Toca «➕ Combinada» en los picks que te gusten (de 2 a 20).</p>'; return; }
     const faltan = [...new Set(data.flatMap((c) => c.patas))].filter((id) => !pickDe(id));
     const extra = {};
-    if (faltan.length) { const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado').in('id', faltan.slice(0, 300)); (ps || []).forEach((p) => { extra[p.id] = p; }); }
+    if (faltan.length) { const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado,inicio').in('id', faltan.slice(0, 300)); (ps || []).forEach((p) => { extra[p.id] = p; }); }
     if (turno !== turnoComb) return;
     pintarCombinadas(caja, data, extra);
   }
@@ -725,7 +725,6 @@
     const combs = h.combs.filter((x) => aFechaP(x.inicio).getTime() >= desde);
     const v = lista.filter((p) => p.estado === 'verde'), r = lista.filter((p) => p.estado === 'roja');
     const pct = v.length + r.length ? Math.round(100 * v.length / (v.length + r.length)) : null;
-    const gan = Math.round(v.reduce((a, p) => a + 100 * (Number(p.cuota) - 1), 0) - 100 * r.length);
     const cv = combs.filter((x) => x.estado === 'verde').length, cr = combs.filter((x) => x.estado === 'roja').length;
     // el desglose por deporte
     const dep = {};
@@ -734,7 +733,6 @@
     let html = '<div class="chips">' + rangos + '</div>';
     if (!lista.length && !combs.length) { caja.innerHTML = html + '<p class="tenue">Sigue (☆), desbloquea o combina picks y aquí queda su registro.</p>'; return; }
     html += '<div class="num">✅ ' + v.length + ' ❌ ' + r.length + (pct != null ? ' <span class="pct">' + pct + ' %</span>' : '') + '</div>' +
-      (v.length + r.length ? '<p class="tenue chico" title="Si hubieras apostado $100 a cada pick">$100 a cada uno: <b class="' + (gan >= 0 ? 'verde-t' : 'roja-t') + '">' + (gan >= 0 ? '+' : '−') + '$' + Math.abs(gan) + '</b></p>' : '') +
       (combs.length ? '<p class="tenue chico">🔗 Combinadas: ✅ ' + cv + ' ❌ ' + cr + '</p>' : '') +
       (Object.keys(dep).length > 1 ? '<div class="hist-dep">' + Object.entries(dep).map(([k, [a, b]]) => '<span>' + (ICO_HIST[k] ? ICO_HIST[k] + ' ' : '') + esc(k) + ' <b>' + a + '-' + b + '</b> ' + Math.round(100 * a / (a + b)) + ' %</span>').join('') + '</div>' : '');
     let dia = '';
@@ -746,7 +744,29 @@
     });
     caja.innerHTML = html;
   }
+  // v440 — quitar de «Mis picks» (deslizando la fila), con «Deshacer» unos segundos
+  async function quitarSeguidos(ids, volver) {
+    ids = ids.filter(Boolean); if (!ids.length || !yo.user) return;
+    ids.forEach((id) => (volver ? yo.seguidos.add(id) : yo.seguidos.delete(id)));
+    if (window.SP) { window.SP.estado.deslizado = null; window.SP.pintar(); }
+    const q = volver ? sb.from('seguidos').upsert(ids.map((pick) => ({ pick, usuario: yo.user.id })), { onConflict: 'usuario,pick', ignoreDuplicates: true })
+      : sb.from('seguidos').delete().in('pick', ids).eq('usuario', yo.user.id);
+    const res = await aTiempo(q, 6000, { error: 'tiempo' });
+    if (res && res.error) { ids.forEach((id) => (volver ? yo.seguidos.delete(id) : yo.seguidos.add(id))); if (window.SP) window.SP.pintar(); avisoFlotante('No se pudo: revisa tu conexión.'); return; }
+    if (!volver) avisoFlotante('Quitado de Mis picks', 'Deshacer', () => quitarSeguidos(ids, true));
+    miHistorial();
+  }
+  function avisoFlotante(txt, boton, fn) {
+    document.querySelectorAll('.aviso-flot').forEach((x) => x.remove());
+    const d = document.createElement('div'); d.className = 'aviso-flot'; d.setAttribute('role', 'status');
+    d.innerHTML = '<span>' + esc(txt) + '</span>' + (boton ? '<button>' + esc(boton) + '</button>' : '');
+    if (boton) d.querySelector('button').addEventListener('click', () => { d.remove(); fn(); });
+    document.body.appendChild(d);
+    setTimeout(() => d.remove(), 5000);
+  }
   document.addEventListener('click', (e) => {
+    const q = e.target.closest('[data-dejar]');
+    if (q) { e.stopPropagation(); quitarSeguidos(q.dataset.dejar.split(',')); return; }
     const t = e.target.closest('[data-hist-rango]'); if (!t) return;
     rangoHist = Number(t.dataset.histRango); pintarHistorial($('mi-hist'));
   });
@@ -754,9 +774,20 @@
     caja.dataset.pintada = '1';
     const v = data.filter((c) => c.estado === 'verde').length, r = data.filter((c) => c.estado === 'roja').length, mon = data.reduce((s, c) => s + (c.premio || 0), 0);
     caja.innerHTML = '<div class="num">✅ ' + v + ' ❌ ' + r + (mon ? ' <span class="pct">+' + mon + ' 🪙 ganadas</span>' : '') + '</div>' + data.map((c) => {
-      const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>' : '<span class="et vivo">⏳ En juego</span>';
+      // v441 — «aparecen en juego cuando ninguno empezó»: «En juego» sólo si ya empezó
+      // alguno; si no, «Por jugar» con la hora. Y cada pata abre su partido (en vivo).
+      const ps = c.patas.map((id) => pickDe(id) || extra[id] || { id: null });
+      const empezo = (p) => p.inicio && aFechaP(p.inicio) <= new Date();
+      const hora = (p) => p.inicio ? new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit' }).format(aFechaP(p.inicio)) : '';
+      const prox = ps.filter((p) => p.inicio && !empezo(p)).sort((a, b) => aFechaP(a.inicio) - aFechaP(b.inicio))[0];
+      const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
+        : ps.some(empezo) ? '<span class="et vivo">🔴 En juego</span>' : '<span class="et">🕒 Por jugar' + (prox ? ' · ' + hora(prox) : '') + '</span>';
       return '<div class="tg-item ' + c.estado + '"><div class="fila"><span>🔗 ' + c.patas.length + ' picks · <b>' + Number(c.cuota).toFixed(2) + '</b></span>' + chip + '</div>' +
-        c.patas.map((id) => { const p = pickDe(id) || extra[id] || {}; return '<div class="tg-pata">' + (p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : '⏳') + ' ' + apuesta(p.id ? p : { apuesta: '—' }) + ' <span class="tenue">· ' + esc(p.partido || '') + '</span></div>'; }).join('') + '</div>';
+        ps.map((p) => {
+          const ico = p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '↩️' : empezo(p) ? '🔴' : '🕒';
+          const txt = ico + ' ' + apuesta(p.id ? p : { apuesta: '—' }) + ' <span class="tenue">· ' + esc(p.partido || '') + (p.estado === 'pendiente' && !empezo(p) && p.inicio ? ' · ' + hora(p) : '') + '</span>';
+          return pickDe(p.id) ? '<button class="tg-pata ir-partido" data-ficha="' + esc(p.id) + '">' + txt + ' <span class="ir">›</span></button>' : '<div class="tg-pata">' + txt + '</div>';
+        }).join('') + '</div>';
     }).join('');
   }
   document.addEventListener('click', async (e) => {
