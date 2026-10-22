@@ -4880,10 +4880,30 @@ fecha,partido,clave_liga,equipo,lado,mercado,linea,c_mas,c_menos,p_casa,p_mod,ap
 2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,4.5,1.5,2.3,0.6053,0.6148,,vivo,,2026-10-22T02:11:13Z
 2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,5.5,1.941,1.733,0.4717,0.4526,,vivo,,2026-10-22T02:11:13Z
 2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,6.5,2.6,1.4,0.35,0.3074,,vivo,,2026-10-22T02:11:13Z
-2026-10-23,Stuttgart vs M'gladbach,bundesliga,Stuttgart,local,tiros,18.5,1.846,1.818,0.4962,0.5673,,vivo,,2026-10-22T06:24:47Z
-2026-10-23,Stuttgart vs M'gladbach,bundesliga,Stuttgart,local,a_puerta,6.5,1.692,2.0,0.5417,0.6374,,vivo,,2026-10-22T06:24:47Z
-2026-10-23,Stuttgart vs M'gladbach,bundesliga,M'gladbach,visitante,tiros,11.5,1.909,1.76,0.4797,0.4914,,vivo,,2026-10-22T06:24:47Z
-2026-10-23,Stuttgart vs M'gladbach,bundesliga,M'gladbach,visitante,a_puerta,3.5,1.75,1.923,0.5236,0.5683,,vivo,,2026-10-22T06:24:47Z
-2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,0.5,1.333,3.0,0.6924,0.9999,más,vivo,,2026-10-22T06:24:47Z
-2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,1.5,2.714,1.4,0.3403,0.9989,más,vivo,,2026-10-22T06:24:47Z
-2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,2.5,6.0,1.083,0.1529,0.9953,,vivo,,2026-10-22T06:24:47Z
+2026-10-23,Stuttgart vs M'gladbach,bundesliga,Stuttgart,local,tiros,18.5,1.846,1.818,0.4962,0.5673,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Stuttgart vs M'gladbach,bundesliga,Stuttgart,local,a_puerta,6.5,1.692,2.0,0.5417,0.6374,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Stuttgart vs M'gladbach,bundesliga,M'gladbach,visitante,tiros,11.5,1.909,1.76,0.4797,0.4914,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Stuttgart vs M'gladbach,bundesliga,M'gladbach,visitante,a_puerta,3.5,1.75,1.923,0.5236,0.5683,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Brest vs Nice,ligue_1,Brest,local,tiros,14.5,1.867,1.8,0.4909,0.472,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Brest vs Nice,ligue_1,Brest,local,a_puerta,4.5,1.733,1.941,0.5283,0.5873,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Brest vs Nice,ligue_1,Nice,visitante,tiros,11.5,1.889,1.778,0.4849,0.4773,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Brest vs Nice,ligue_1,Nice,visitante,a_puerta,3.5,1.636,2.083,0.5601,0.5378,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Torino vs Monza,serie_a,Torino,local,tiros,13.5,1.714,1.96,0.5335,0.4315,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Torino vs Monza,serie_a,Torino,local,a_puerta,4.5,1.818,1.846,0.5038,0.4164,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Torino vs Monza,serie_a,Monza,visitante,tiros,11.5,1.941,1.733,0.4717,0.6478,más,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Torino vs Monza,serie_a,Monza,visitante,a_puerta,3.5,1.85,1.818,0.4956,0.5961,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Alaves vs Malaga,laliga,Alaves,local,tiros,15.5,1.95,1.727,0.4697,0.4307,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Alaves vs Malaga,laliga,Alaves,local,a_puerta,5.5,2.083,1.636,0.4399,0.4153,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Alaves vs Malaga,laliga,Malaga,visitante,tiros,10.5,1.923,1.75,0.4764,0.4794,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Alaves vs Malaga,laliga,Malaga,visitante,a_puerta,3.5,2.0,1.68,0.4565,0.4108,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Ipswich vs Nott'm Forest,premier,Ipswich,local,tiros,13.5,1.867,1.8,0.4909,0.2755,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Ipswich vs Nott'm Forest,premier,Ipswich,local,a_puerta,4.5,1.875,1.786,0.4878,0.3129,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Ipswich vs Nott'm Forest,premier,Nott'm Forest,visitante,tiros,13.5,1.714,1.96,0.5335,0.5906,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Ipswich vs Nott'm Forest,premier,Nott'm Forest,visitante,a_puerta,4.5,1.818,1.846,0.5038,0.5529,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Bolton vs Middlesbrough,eng_championship,Bolton,local,tiros,11.5,1.778,1.889,0.5151,0.4684,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Bolton vs Middlesbrough,eng_championship,Bolton,local,a_puerta,3.5,1.8,1.867,0.5091,0.523,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Bolton vs Middlesbrough,eng_championship,Middlesbrough,visitante,tiros,16.5,1.867,1.8,0.4909,0.4973,,vivo,,2026-10-22T08:06:03Z
+2026-10-23,Bolton vs Middlesbrough,eng_championship,Middlesbrough,visitante,a_puerta,5.5,1.778,1.889,0.5151,0.6159,,vivo,,2026-10-22T08:06:03Z
+2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,0.5,1.333,3.0,0.6924,0.9999,más,vivo,,2026-10-22T08:06:03Z
+2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,1.5,2.714,1.4,0.3403,0.9989,más,vivo,,2026-10-22T08:06:03Z
+2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,2.5,6.0,1.083,0.1529,0.9953,,vivo,,2026-10-22T08:06:03Z

@@ -1543,9 +1543,9 @@
   },
   "Standard Liege": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "St. Liege U23",
-    "ratio": 0.6154,
-    "visto": "2026-10-11"
+    "candidato": "RFC Liege U21",
+    "ratio": 0.5185,
+    "visto": "2026-10-22"
   },
   "Churchill Brothers": {
     "contexto": "cuotas_mx→futbol",
@@ -2355,6 +2355,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Beveren U21",
     "ratio": 0.5185,
+    "visto": "2026-10-22"
+  },
+  "KVC Westerlo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Westerlo U21",
+    "ratio": 0.6667,
     "visto": "2026-10-22"
   }
 }
