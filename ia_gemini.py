@@ -327,16 +327,20 @@ def noticias_web(lista: List[Dict]) -> Dict:
         try:
             r = requests.post('https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent' % modelo,
                               params={'key': k}, json=cuerpo, timeout=90)
-            if r.status_code == 429:
+            if r.status_code in (404, 429):   # v449 — 404: ese modelo ya no existe; 429: sin cupo hoy
+                logger.warning('[ia] búsqueda %s: %s', modelo, 'sin cupo hoy' if r.status_code == 429 else 'el modelo ya no existe')
                 _AGOTADOS_WEB.add(modelo)
                 continue
             if not r.ok:
-                logger.warning('[ia] búsqueda %s respondió %s', modelo, r.status_code)
+                logger.warning('[ia] búsqueda %s respondió %s: %s', modelo, r.status_code, r.text[:160].replace('\n', ' '))
                 continue
             cand = r.json()['candidates'][0]
             txt = ''.join(x.get('text', '') for x in cand.get('content', {}).get('parts', []))
             ini, fin = txt.find('{'), txt.rfind('}')
             datos = json.loads(txt[ini:fin + 1]) if ini >= 0 and fin > ini else {}
+            if not datos.get('partidos'):     # v449 — no vino lo pedido: se dice y se prueba el siguiente modelo
+                logger.warning('[ia] búsqueda %s: respuesta sin la lista de partidos: %s', modelo, txt[:160].replace('\n', ' '))
+                continue
             webs = [c.get('web', {}).get('title') for c in (cand.get('groundingMetadata') or {}).get('groundingChunks') or []]
             out = {}
             for d in datos.get('partidos') or []:
@@ -371,8 +375,9 @@ def preguntar(lista: List[Dict], deporte: str = 'Fútbol') -> Optional[Dict]:
                 if r.status_code != 503:
                     break
                 time.sleep(6 * (intento + 1))
-            if r.status_code == 429:
-                logger.warning('[ia] %s: límite del nivel gratis; se prueba el siguiente modelo', modelo)
+            if r.status_code in (404, 429):   # v449 — 404: el modelo ya no existe (Google retiró los 2.5)
+                logger.warning('[ia] %s: %s; se prueba el siguiente modelo', modelo,
+                               'límite del nivel gratis' if r.status_code == 429 else 'ya no existe')
                 _AGOTADOS.add(modelo)
                 continue
             if not r.ok:

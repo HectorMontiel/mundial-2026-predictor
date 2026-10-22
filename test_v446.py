@@ -64,6 +64,22 @@ def probar():
     ia._AGOTADOS_WEB.clear()
     check(ia.noticias_web(lote) == {}, 'v446: una respuesta rara no rompe nada')
 
+    turno = []
+
+    def mixto(url, params=None, json=None, timeout=None):
+        turno.append(url)
+        if len(turno) == 1:
+            return Resp(404, {'error': 'no existe'})
+        if len(turno) == 2:
+            return Resp(200, {'candidates': [{'content': {'parts': [{'text': 'Lo siento, no encontré nada.'}]}}]})
+        return Resp(200, {'candidates': [{'content': {'parts': [{'text': '{"partidos": [{"partido": "Atlas vs Club America", '
+                                                                          '"noticias": ["Baja de Henry Martín"], "fuentes": ["Récord"]}]}'}]}}]})
+    sys.modules['requests'] = types.SimpleNamespace(post=mixto)
+    ia._AGOTADOS_WEB.clear()
+    w = ia.noticias_web(lote)
+    check(len(turno) == 3 and w.get('Atlas vs Club America', {}).get('noticias') == ['Baja de Henry Martín'] and ia.MODELOS[0] in ia._AGOTADOS_WEB,
+          'v449: si un modelo ya no existe o responde algo raro, la búsqueda prueba el siguiente')
+
     os.environ['IA_BUSCAR'] = '0'
     import importlib
     ia2 = importlib.reload(ia)
