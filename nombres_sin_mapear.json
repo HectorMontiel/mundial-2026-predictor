@@ -445,8 +445,8 @@
   },
   "Helmond Sport": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Wiener Sport-Club",
-    "ratio": 0.64,
+    "candidato": "Thes Sport",
+    "ratio": 0.6957,
     "visto": "2026-10-22"
   },
   "Estudiantes (Buenos Aires)": {
@@ -1213,9 +1213,9 @@
   },
   "Port Vale": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Port MTI FC",
-    "ratio": 0.5882,
-    "visto": "2026-10-21"
+    "candidato": "Shanghai Port B",
+    "ratio": 0.4167,
+    "visto": "2026-10-22"
   },
   "Partick Thistle": {
     "contexto": "cuotas_mx→futbol",
@@ -1377,7 +1377,7 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Shanghai Port B",
     "ratio": 0.5806,
-    "visto": "2026-10-17"
+    "visto": "2026-10-22"
   },
   "West Bromwich Albion": {
     "contexto": "cuotas_mx→futbol",
@@ -1393,8 +1393,8 @@
   },
   "Sport Huancayo": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Wiener Sport-Club",
-    "ratio": 0.3846,
+    "candidato": "Thes Sport",
+    "ratio": 0.4167,
     "visto": "2026-10-22"
   },
   "Real Oruro": {
@@ -1483,8 +1483,8 @@
   },
   "Sport Boys": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Wiener Sport-Club",
-    "ratio": 0.4545,
+    "candidato": "Thes Sport",
+    "ratio": 0.5,
     "visto": "2026-10-22"
   },
   "Real Potosí": {
@@ -2331,6 +2331,30 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Racing Club 2",
     "ratio": 0.5833,
+    "visto": "2026-10-22"
+  },
+  "Dalian Yingbo": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Dalian Football School W",
+    "ratio": 0.5143,
+    "visto": "2026-10-22"
+  },
+  "Tianjin Jinmen Tiger": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Tianjin Shengde W",
+    "ratio": 0.6857,
+    "visto": "2026-10-22"
+  },
+  "OH Leuven": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Leuven II W",
+    "ratio": 0.6667,
+    "visto": "2026-10-22"
+  },
+  "Waasland-Beveren": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Beveren U21",
+    "ratio": 0.5185,
     "visto": "2026-10-22"
   }
 }

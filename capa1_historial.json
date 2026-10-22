@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T05:03:32Z",
+"actualizado": "2026-10-22T06:25:26Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -11961,6 +11961,16 @@
 "cuota": 1.29,
 "resultado": "rojo",
 "marcador": "2-2"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "MLB",
+"partido": "Tomateros vs Mayos de Navojoa",
+"apuesta": "Gana Tomateros",
+"cuota": 1.57,
+"resultado": "rojo",
+"marcador": "6-7"
 },
 {
 "dia": "2026-10-21",

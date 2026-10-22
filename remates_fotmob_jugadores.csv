@@ -15198,22 +15198,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014518,2026-08-01,liga_mx,Tijuana,Jonathan Padilla,1457724,F,0,34,0,0,0,0.0,,3.0,
 1000014518,2026-08-01,liga_mx,Tijuana,Mourad El Ghezouani,1119943,F,0,16,1,0,0,0.06,,3.0,1571723.0
 1000014518,2026-08-01,liga_mx,Tijuana,Alan Vega,1225758,D,0,4,0,0,0,0.0,,1.0,807759.0
-1000014519,2026-08-01,liga_mx,Pumas,Keylor Navas,51949,G,1,90,0,0,0,0.0,11.0,0.0,709664.0
-1000014519,2026-08-01,liga_mx,Pumas,Rodrigo López,1381368,D,1,90,0,0,0,0.0,32.0,1.0,2310573.0
-1000014519,2026-08-01,liga_mx,Pumas,Nathan Silva,754495,D,1,90,0,0,0,0.0,34.0,1.0,2283607.0
-1000014519,2026-08-01,liga_mx,Pumas,Rubén Duarte,358138,D,1,90,0,0,0,0.0,36.0,1.0,1269875.0
-1000014519,2026-08-01,liga_mx,Pumas,Álvaro Angulo,860780,D,1,90,0,0,0,0.0,38.0,1.0,2088433.0
-1000014519,2026-08-01,liga_mx,Pumas,Pedro Vite,1108611,M,1,90,1,0,0,0.04,64.0,2.0,5992813.0
-1000014519,2026-08-01,liga_mx,Pumas,Víctor Arteaga,1448133,M,1,89,1,0,0,0.02,66.0,2.0,843225.0
-1000014519,2026-08-01,liga_mx,Pumas,Uriel Antuna,767021,F,1,76,1,0,0,0.14,83.0,3.0,1934465.0
-1000014519,2026-08-01,liga_mx,Pumas,Sebastián Córdova,915602,M,1,65,2,0,0,0.04,85.0,2.0,1765181.0
-1000014519,2026-08-01,liga_mx,Pumas,Juninho,728409,F,1,65,3,3,3,1.92,87.0,3.0,2045154.0
-1000014519,2026-08-01,liga_mx,Pumas,Robert Morales,1211598,F,1,76,1,1,1,0.1,115.0,3.0,2017915.0
-1000014519,2026-08-01,liga_mx,Pumas,Adalberto Carrasquilla,643682,M,0,25,0,0,0,0.0,,2.0,2566163.0
-1000014519,2026-08-01,liga_mx,Pumas,Alan Medina,862174,F,0,25,0,0,0,0.0,,3.0,1319857.0
-1000014519,2026-08-01,liga_mx,Pumas,Guillermo Martínez,558539,F,0,14,1,1,1,0.4,,3.0,1066415.0
-1000014519,2026-08-01,liga_mx,Pumas,Luciano Herrera,892643,F,0,14,0,0,0,0.0,,3.0,870458.0
-1000014519,2026-08-01,liga_mx,Pumas,Santiago Trigos,1304418,M,0,1,0,0,0,0.0,,2.0,888489.0
 5186567,2026-08-01,china,Beijing Guoan,Sen Hou,117465,G,1,90,0,0,0,0.0,11.0,0.0,370465.0
 5186567,2026-08-01,china,Beijing Guoan,Tze-Nam Yue,1130091,D,1,78,2,0,0,0.0,32.0,1.0,284622.0
 5186567,2026-08-01,china,Beijing Guoan,Uros Spajic,435214,D,1,69,1,0,0,0.0,34.0,1.0,462929.0
@@ -15372,22 +15356,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014524,2026-08-02,liga_mx,CF América,Brian Rodríguez,941660,F,0,19,2,2,1,0.36,,3.0,6137606.0
 1000014524,2026-08-02,liga_mx,CF América,Diego Arriaga,1704909,M,0,12,2,0,0,0.05,,2.0,
 1000014524,2026-08-02,liga_mx,CF América,Alejandro Cárdenas,2090280,F,0,12,1,1,1,0.03,,3.0,
-1000014524,2026-08-02,liga_mx,Santos Laguna,Carlos Acevedo,751164,G,1,90,0,0,0,0.0,11.0,0.0,1452547.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Mauricio Cuevas,1079040,D,1,90,0,0,0,0.0,32.0,1.0,335785.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Franco Pardo,845263,D,1,90,1,0,0,0.11,34.0,1.0,1444113.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Felipe Sánchez,1436220,D,1,90,0,0,0,0.0,36.0,1.0,1241716.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Emmanuel Echeverría,1572473,D,1,90,0,0,0,0.0,38.0,1.0,1252525.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Aldo López,1138422,M,1,75,1,0,0,0.04,64.0,2.0,1572239.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Salvador Mariscal,1239856,M,1,63,0,0,0,0.0,66.0,2.0,959367.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Ezequiel Bullaude,972098,F,1,63,5,2,0,0.37,83.0,3.0,1589680.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Fran Villalba,638074,M,1,90,1,1,0,0.13,85.0,2.0,928293.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Ramiro Sordo,1201409,F,1,45,1,0,0,0.13,87.0,3.0,1793399.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Eduardo Aguirre,689693,F,1,81,2,2,0,1.03,115.0,3.0,1350943.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Diego González,1348496,F,0,44,0,0,0,0.0,,3.0,3490347.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Javier Güémez,471119,M,0,27,0,0,0,0.0,,2.0,335947.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Lucas Di Yorio,740753,F,0,27,2,1,0,0.5,,3.0,1831598.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Kevin Palacios,1300602,M,0,15,0,0,0,0.0,,2.0,1001917.0
-1000014524,2026-08-02,liga_mx,Santos Laguna,Joshua Mancha,1431197,M,0,9,0,0,0,0.0,,2.0,
 1000009049,2026-08-02,ecu_liga_pro,Barcelona SC,José Contreras,423508,G,1,90,0,0,0,0.0,11.0,0.0,589880.0
 1000009049,2026-08-02,ecu_liga_pro,Barcelona SC,Álex Rangel,1317234,D,1,90,0,0,0,0.0,33.0,1.0,977472.0
 1000009049,2026-08-02,ecu_liga_pro,Barcelona SC,Javier Báez,68512,D,1,90,0,0,0,0.0,35.0,1.0,203936.0
@@ -16679,22 +16647,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5739470,2026-08-02,dinamarca,AC Horsens,Kelvin Ehibhatiomhan,1188049,F,0,28,1,1,1,0.12,,3.0,336772.0
 5739470,2026-08-02,dinamarca,AC Horsens,Sebastian Hausner,826046,D,0,6,0,0,0,0.0,,1.0,789250.0
 5739470,2026-08-02,dinamarca,AC Horsens,Ivan Milicevic,1179167,M,0,1,0,0,0,0.0,,2.0,179373.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Andrés Gudiño,1070198,G,1,90,0,0,0,0.0,11.0,0.0,1422065.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Gonzalo Piovi,479220,D,1,57,1,0,0,0.01,33.0,1.0,1868306.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Willer Ditta,965205,D,1,90,0,0,0,0.0,35.0,1.0,3994201.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Jesús Orozco,1249286,D,1,90,0,0,0,0.0,37.0,1.0,
-1000014523,2026-08-02,liga_mx,Cruz Azul,Jeremy Márquez,1125498,D,1,90,0,0,0,0.0,51.0,1.0,3858213.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Omar Campos,1222470,D,1,90,2,1,0,0.05,59.0,1.0,3716388.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Luka Romero,1160089,M,1,61,1,1,0,0.04,73.0,2.0,3713307.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Agustín Palavecino,879858,M,1,90,3,2,1,0.22,75.0,2.0,2698927.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Andrés Montaño,1341356,M,1,57,0,0,0,0.0,77.0,2.0,1221899.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Nicolás Ibánez,996018,F,1,86,6,5,1,1.2,104.0,3.0,1822762.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Christian Ebere,692891,F,1,61,0,0,0,0.0,106.0,3.0,748423.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Carlos Rodríguez,769593,M,0,33,0,0,0,0.0,,2.0,3144075.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,José Paradela,994917,F,0,33,1,0,0,0.06,,3.0,7829253.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Érik Lira,971628,M,0,29,0,0,0,0.0,,2.0,10442843.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Gabriel Fernández,434180,F,0,29,5,1,0,1.28,,3.0,1105184.0
-1000014523,2026-08-02,liga_mx,Cruz Azul,Emiliano Castañeda,2119845,F,0,4,0,0,0,0.0,,3.0,
 5186572,2026-08-02,china,Liaoning Tieren,Yan Zhang,730899,G,1,90,0,0,0,0.0,11.0,0.0,268605.0
 5186572,2026-08-02,china,Liaoning Tieren,Ximing Pan,672018,D,1,66,0,0,0,0.0,33.0,1.0,226041.0
 5186572,2026-08-02,china,Liaoning Tieren,Hongfu Zhang,1919190,D,1,90,1,0,0,0.0,35.0,1.0,
@@ -16758,22 +16710,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186571,2026-08-02,china,Qingdao Hainiu,Zheng'ao Sun,432385,M,0,23,0,0,0,0.0,,2.0,257599.0
 5186571,2026-08-02,china,Qingdao Hainiu,Xinyu Liu,892859,F,0,23,1,0,0,0.0,,3.0,193767.0
 5186571,2026-08-02,china,Qingdao Hainiu,Cong Yang,1776393,M,0,11,1,1,0,0.0,,2.0,481386.0
-1000014521,2026-08-02,liga_mx,Pachuca,Carlos Moreno,991005,G,1,90,0,0,0,0.0,11.0,0.0,2675266.0
-1000014521,2026-08-02,liga_mx,Pachuca,Alan Mozo,671944,D,1,90,0,0,0,0.0,32.0,1.0,1434531.0
-1000014521,2026-08-02,liga_mx,Pachuca,Eduardo Bauermann,641247,D,1,90,1,0,0,0.25,34.0,1.0,1039566.0
-1000014521,2026-08-02,liga_mx,Pachuca,Sergio Barreto,907723,D,1,90,0,0,0,0.0,36.0,1.0,2030417.0
-1000014521,2026-08-02,liga_mx,Pachuca,Francisco Venegas,693677,D,1,57,0,0,0,0.0,38.0,1.0,883040.0
-1000014521,2026-08-02,liga_mx,Pachuca,Christian Rivera,732548,M,1,90,0,0,0,0.0,64.0,2.0,1370886.0
-1000014521,2026-08-02,liga_mx,Pachuca,Elías Montiel,1502909,M,1,90,1,0,0,0.03,66.0,2.0,
-1000014521,2026-08-02,liga_mx,Pachuca,Nicolás Vallejo,1388237,F,1,57,3,0,0,0.41,83.0,3.0,1290570.0
-1000014521,2026-08-02,liga_mx,Pachuca,Rodolfo Pizarro,390785,M,1,64,1,0,0,0.13,85.0,2.0,608537.0
-1000014521,2026-08-02,liga_mx,Pachuca,Oussama Idrissi,690188,F,1,75,1,1,0,0.01,87.0,3.0,2996255.0
-1000014521,2026-08-02,liga_mx,Pachuca,José Salomon Rondon,51545,F,1,75,1,0,0,0.02,115.0,3.0,994503.0
-1000014521,2026-08-02,liga_mx,Pachuca,Mauricio Isaís,1128764,D,0,33,0,0,0,0.0,,1.0,852718.0
-1000014521,2026-08-02,liga_mx,Pachuca,Gael Álvarez,1658984,F,0,33,0,0,0,0.0,,3.0,590548.0
-1000014521,2026-08-02,liga_mx,Pachuca,Alán Bautista,1292484,M,0,26,1,0,0,0.03,,2.0,
-1000014521,2026-08-02,liga_mx,Pachuca,Adrián Alcaraz,1354553,F,0,15,0,0,0,0.0,,3.0,885093.0
-1000014521,2026-08-02,liga_mx,Pachuca,Alexéi Domínguez,1510568,F,0,15,0,0,0,0.0,,3.0,3874666.0
 1000014522,2026-08-02,liga_mx,Monterrey,Luis Cárdenas,514295,G,1,90,0,0,0,0.0,11.0,0.0,530645.0
 1000014522,2026-08-02,liga_mx,Monterrey,Víctor Guzmán,1128493,D,1,90,1,0,0,0.07,33.0,1.0,5136482.0
 1000014522,2026-08-02,liga_mx,Monterrey,Carlos Salcedo,431992,D,1,90,0,0,0,0.0,35.0,1.0,963078.0
@@ -158838,3 +158774,66 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014611,2026-10-22,liga_mx,Monterrey,Roberto de la Rosa,868061,F,0,33,3,2,1,0.37,,3.0,1343336.0
 1000014611,2026-10-22,liga_mx,Monterrey,Iker Fimbres,1513010,M,0,32,1,0,0,0.13,,2.0,4126505.0
 1000014611,2026-10-22,liga_mx,Monterrey,Jesús Corona,210956,M,0,14,0,0,0,0.0,,2.0,1023794.0
+1000014614,2026-10-22,liga_mx,Pachuca,Carlos Moreno,991005,G,1,90,0,0,0,0.0,11.0,0.0,2729804.0
+1000014614,2026-10-22,liga_mx,Pachuca,Jorge Berlanga,1502906,D,1,79,1,0,0,0.07,32.0,1.0,1712892.0
+1000014614,2026-10-22,liga_mx,Pachuca,Eduardo Bauermann,641247,D,1,90,0,0,0,0.0,34.0,1.0,1062025.0
+1000014614,2026-10-22,liga_mx,Pachuca,Pedro Budib,1396770,D,1,90,0,0,0,0.0,36.0,1.0,
+1000014614,2026-10-22,liga_mx,Pachuca,Francisco Venegas,693677,D,1,85,2,2,1,0.17,38.0,1.0,964487.0
+1000014614,2026-10-22,liga_mx,Pachuca,Christian Rivera,732548,M,1,90,0,0,0,0.0,64.0,2.0,1425528.0
+1000014614,2026-10-22,liga_mx,Pachuca,Alán Bautista,1292484,M,1,90,1,0,0,0.01,66.0,2.0,4566730.0
+1000014614,2026-10-22,liga_mx,Pachuca,Nicolás Vallejo,1388237,F,1,79,1,1,0,0.12,83.0,3.0,1609670.0
+1000014614,2026-10-22,liga_mx,Pachuca,Rodolfo Pizarro,390785,M,1,67,1,0,0,0.02,85.0,2.0,972475.0
+1000014614,2026-10-22,liga_mx,Pachuca,Oussama Idrissi,690188,F,1,67,1,0,0,0.03,87.0,3.0,4342396.0
+1000014614,2026-10-22,liga_mx,Pachuca,José Salomon Rondon,51545,F,1,90,6,2,0,0.68,115.0,3.0,1074969.0
+1000014614,2026-10-22,liga_mx,Pachuca,Gael Álvarez,1658984,F,0,23,0,0,0,0.0,,3.0,661972.0
+1000014614,2026-10-22,liga_mx,Pachuca,Adrián Alcaraz,1354553,F,0,23,1,0,0,0.02,,3.0,931414.0
+1000014614,2026-10-22,liga_mx,Pachuca,Kenedy,467354,M,0,11,0,0,0,0.0,,2.0,508818.0
+1000014614,2026-10-22,liga_mx,Pachuca,Cristóbal Hernández,1888849,F,0,11,0,0,0,0.0,,3.0,
+1000014614,2026-10-22,liga_mx,Pachuca,Mauricio Isaís,1128764,D,0,5,0,0,0,0.0,,1.0,837273.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Andrés Gudiño,1070198,G,1,90,0,0,0,0.0,11.0,0.0,1408767.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Amaury García,1084523,D,1,90,0,0,0,0.0,33.0,1.0,1156897.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Alán Montes,1170826,D,1,90,1,0,0,0.02,35.0,1.0,1018181.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Gonzalo Piovi,479220,D,1,90,0,0,0,0.0,37.0,1.0,1819891.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Alan Mozo,671944,M,1,70,1,1,0,0.34,62.0,2.0,1406193.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Érik Lira,971628,M,1,90,0,0,0,0.0,64.0,2.0,15809486.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Jeremy Márquez,1125498,M,1,61,1,0,0,0.02,66.0,2.0,7133959.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Omar Campos,1222470,M,1,61,0,0,0,0.0,68.0,2.0,7361484.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Agustín Palavecino,879858,M,1,70,2,1,0,0.15,84.0,2.0,2739610.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Carlos Rodríguez,769593,M,1,82,0,0,0,0.0,86.0,2.0,3754388.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Gabriel Fernández,434180,F,1,90,2,1,1,0.43,105.0,3.0,1124519.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Rogelio González,1888854,M,0,29,0,0,0,0.0,,2.0,
+1000014614,2026-10-22,liga_mx,Cruz Azul,Luka Romero,1160089,F,0,29,1,0,0,0.02,,3.0,5362454.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Andrés Montaño,1341356,M,0,20,2,1,1,0.87,,2.0,1129944.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Carlos Rodolfo Rotondi,855911,F,0,20,1,1,0,0.01,,3.0,2460290.0
+1000014614,2026-10-22,liga_mx,Cruz Azul,Jesús Orozco,1249286,D,0,8,0,0,0,0.0,,1.0,6296294.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Carlos Acevedo,751164,G,1,90,0,0,0,0.0,11.0,0.0,1505677.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Franco Pardo,845263,D,1,90,1,1,1,0.79,33.0,1.0,1734714.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Felipe Sánchez,1436220,D,1,90,1,0,0,0.01,35.0,1.0,1267576.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Efraín Orona,823038,D,1,21,0,0,0,0.0,37.0,1.0,681591.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Mauricio Cuevas,1079040,M,1,90,0,0,0,0.0,72.0,2.0,580236.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Fran Villalba,638074,M,1,73,0,0,0,0.0,74.0,2.0,1030190.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Facundo Cáseres,1200721,M,1,90,1,0,0,0.04,76.0,2.0,2068484.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Diego González,1348496,M,1,45,2,0,0,0.08,78.0,2.0,3824673.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Eduardo Aguirre,689693,F,1,82,1,1,1,0.79,103.0,3.0,1441846.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Tahiel Jiménez,1580561,F,1,73,2,0,0,0.05,105.0,3.0,1306818.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Ezequiel Bullaude,972098,F,1,90,1,0,0,0.04,107.0,3.0,2359861.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Jonathan Pérez,1621323,D,0,69,0,0,0,0.0,,1.0,688326.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Emmanuel Echeverría,1572473,D,0,44,0,0,0,0.0,,1.0,1271808.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Aldo López,1138422,M,0,17,0,0,0,0.0,,2.0,1567597.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Esteban Lozano,1172985,F,0,17,0,0,0,0.0,,3.0,1641843.0
+1000014615,2026-10-22,liga_mx,Santos Laguna,Luis Gómez,1621326,M,0,8,0,0,0,0.0,,2.0,
+1000014615,2026-10-22,liga_mx,Pumas,Keylor Navas,51949,G,1,90,0,0,0,0.0,11.0,0.0,681085.0
+1000014615,2026-10-22,liga_mx,Pumas,Rodrigo López,1381368,D,1,77,0,0,0,0.0,33.0,1.0,2479155.0
+1000014615,2026-10-22,liga_mx,Pumas,Nathan Silva,754495,D,1,90,0,0,0,0.0,35.0,1.0,2088836.0
+1000014615,2026-10-22,liga_mx,Pumas,Rubén Duarte,358138,D,1,90,0,0,0,0.0,37.0,1.0,1273621.0
+1000014615,2026-10-22,liga_mx,Pumas,Uriel Antuna,767021,D,1,90,0,0,0,0.0,51.0,1.0,2239691.0
+1000014615,2026-10-22,liga_mx,Pumas,Pablo Bennevendo,1169770,D,1,86,0,0,0,0.0,59.0,1.0,1833654.0
+1000014615,2026-10-22,liga_mx,Pumas,Juninho,728409,M,1,86,0,0,0,0.0,72.0,2.0,3870288.0
+1000014615,2026-10-22,liga_mx,Pumas,Adalberto Carrasquilla,643682,M,1,50,0,0,0,0.0,74.0,2.0,2047405.0
+1000014615,2026-10-22,liga_mx,Pumas,Pedro Vite,1108611,M,1,90,1,0,0,0.06,76.0,2.0,9033643.0
+1000014615,2026-10-22,liga_mx,Pumas,César Huerta,977404,M,1,90,3,1,0,0.08,78.0,2.0,2045128.0
+1000014615,2026-10-22,liga_mx,Pumas,Robert Morales,1211598,F,1,90,1,0,0,0.02,115.0,3.0,4253615.0
+1000014615,2026-10-22,liga_mx,Pumas,Víctor Arteaga,1448133,M,0,40,0,0,0,0.0,,2.0,668178.0
+1000014615,2026-10-22,liga_mx,Pumas,Álvaro Angulo,860780,D,0,13,0,0,0,0.0,,1.0,2125119.0
+1000014615,2026-10-22,liga_mx,Pumas,Tony Leone,1166559,D,0,4,0,0,0,0.0,,1.0,743808.0
+1000014615,2026-10-22,liga_mx,Pumas,Santiago López,1607678,F,0,4,0,0,0,0.0,,3.0,658457.0
