@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T03:26:24Z",
+"actualizado": "2026-10-22T05:03:32Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -11531,6 +11531,16 @@
 "cuota": 1.86,
 "resultado": "verde",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-21",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Cartagines (Cos) vs Olimpia (Hon)",
+"apuesta": "Gana Olimpia (Hon)",
+"cuota": 2.9,
+"resultado": "rojo",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-21",
