@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T19:28:21Z",
+"actualizado": "2026-10-22T20:57:48Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12066,6 +12066,16 @@
 "dia": "2026-10-22",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Cuenca Juniors vs Atletico FC",
+"apuesta": "Gana Atletico FC",
+"cuota": 3.0,
+"resultado": "rojo",
+"marcador": "2-2"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Delta United vs Tanta",
 "apuesta": "Gana Delta United",
 "cuota": 3.05,
@@ -12181,6 +12191,16 @@
 "cuota": 2.7,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "San Antonio vs Nueve de Octubre",
+"apuesta": "Gana Nueve de Octubre",
+"cuota": 1.625,
+"resultado": "rojo",
+"marcador": "3-3"
 },
 {
 "dia": "2026-10-22",
