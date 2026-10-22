@@ -245,16 +245,16 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-21,Reading vs Leyton Orient,2026-10-21 19:00:00,Goles Leyton Orient: Más de 0.5,goles,equipo,visita,0.5,0.571,1.6,0.0,0.0
 2026-10-23,Dunkerque vs Metz,2026-10-23 18:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5725,1.667,,
 2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Tiros Cruz Azul: Más de 14.5,tiros,equipo,visita,14.5,0.5568,1.6,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros Puebla: Más de 10.5,tiros,equipo,local,10.5,0.6986,1.52,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros Monterrey: Más de 13.5,tiros,equipo,visita,13.5,0.6451,1.538,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6335,1.647,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros a puerta Monterrey: Más de 4.5,a_puerta,equipo,visita,4.5,0.6271,1.615,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.6215,1.636,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros a puerta Puebla: Más de 3.5,a_puerta,equipo,local,3.5,0.613,1.778,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5997,1.778,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5962,1.714,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5707,1.714,,
-2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Goles Monterrey: Más de 1.5,goles,equipo,visita,1.5,0.5641,1.769,,
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros Puebla: Más de 10.5,tiros,equipo,local,10.5,0.6986,1.52,12.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros Monterrey: Más de 13.5,tiros,equipo,visita,13.5,0.6451,1.538,14.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6335,1.647,10.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros a puerta Monterrey: Más de 4.5,a_puerta,equipo,visita,4.5,0.6271,1.615,6.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.6215,1.636,26.0,0.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Tiros a puerta Puebla: Más de 3.5,a_puerta,equipo,local,3.5,0.613,1.778,4.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5997,1.778,5.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5962,1.714,1.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5707,1.714,10.0,1.0
+2026-10-21,Puebla vs Monterrey,2026-10-22 01:00:00,Goles Monterrey: Más de 1.5,goles,equipo,visita,1.5,0.5641,1.769,4.0,1.0
 2026-10-24,Columbus Crew vs Toronto FC,2026-10-24 19:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6616,1.455,,
 2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Goles: Más de 2.5,goles,total,total,2.5,0.7065,1.615,,
 2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Ambos marcan: Sí,btts,btts,total,1.0,0.7,1.526,,
@@ -264,6 +264,9 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Córners: Más de 9.5,corners,total,total,9.5,0.5888,1.69,,
 2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Tiros a puerta Pachuca: Más de 4.5,a_puerta,equipo,local,4.5,0.5883,1.778,,
 2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Tiros Pachuca: Más de 13.5,tiros,equipo,local,13.5,0.5543,1.538,,
+2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Goles: Más de 2.5,goles,total,total,2.5,0.7065,1.583,,
+2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Ambos marcan: Sí,btts,btts,total,1.0,0.7,1.5,,
+2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Goles Cruz Azul: Más de 1.5,goles,equipo,visita,1.5,0.5891,1.8,,
 2026-10-23,Alanyaspor vs Kocaelispor,2026-10-23 17:00:00,Goles Kocaelispor: Más de 0.5,goles,equipo,visita,0.5,0.6325,1.556,,
 2026-10-23,Alanyaspor vs Kocaelispor,2026-10-23 17:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.6297,1.95,,
 2026-10-23,Go Ahead Eagles vs Telstar,2026-10-23 18:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6334,1.5,,
@@ -338,8 +341,8 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5928,1.556,,
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5822,1.571,,
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5519,1.647,,
-2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Córners: Más de 7.5,corners,total,total,7.5,0.7258,1.556,,
-2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Goles Banfield: Más de 0.5,goles,equipo,local,0.5,0.6664,1.455,,
+2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Córners: Más de 7.5,corners,total,total,7.5,0.722,1.6,,
+2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Goles Banfield: Más de 0.5,goles,equipo,local,0.5,0.6654,1.5,,
 2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Córners: Más de 8.5,corners,total,total,8.5,0.6638,1.556,,
 2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6165,1.556,,
 2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Goles Lazio: Más de 1.5,goles,equipo,local,1.5,0.6057,1.571,,
@@ -352,6 +355,3 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Columbus Crew vs Toronto FC,2026-10-24 19:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6093,1.526,,
 2026-10-24,Mirassol vs Sao Paulo,2026-10-24 19:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5864,1.5,,
 2026-10-24,Philadelphia Union vs New England Revolution,2026-10-24 23:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6087,1.526,,
-2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Goles: Más de 2.5,goles,total,total,2.5,0.7065,1.583,,
-2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Ambos marcan: Sí,btts,btts,total,1.0,0.7,1.5,,
-2026-10-21,Pachuca vs Cruz Azul,2026-10-22 03:10:00,Goles Cruz Azul: Más de 1.5,goles,equipo,visita,1.5,0.5891,1.8,,
