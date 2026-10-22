@@ -283,6 +283,10 @@ def probar_v434():
     check('async function textosPremium()' in cu and ".range(i * 1000, i * 1000 + 999)" in cu and "picks!inner(inicio)" in cu
           and "p.premium && !yo.desbloqueados[p.id] && !esVip()" in cu and "sb.from('picks_premium').select('id,apuesta').then(" not in cu,
           'v445: el VIP ve todos los premium (los textos por páginas, ya no se cortan en 1000) y nunca le sale «Desbloquear»')
+    check("sb.rpc('reportar', { p_partido: caja.dataset.partido" in cu and "sb.rpc('resolver_reporte'" in cu and 'data-reportar="' in app
+          and 'function pintarReportes()' in cu, 'v446: «⚠️ Reportar un error» en el partido; el admin lo revisa y el servidor paga')
+    check("sb.from('ia_calificaciones').upsert(" in cu and 'SPX.votoIA(a.id)' in app and "a.noticias ? '<div class=\"ia-noti\">" in app,
+          'v446: la IA enseña sus noticias y se califica con 👍/👎 (sólo para medir)')
     ix = leer('web', 'index.html')
     check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
           and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')

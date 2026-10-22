@@ -1070,6 +1070,9 @@
       (a.veredictos && a.veredictos.length ? '<div class="ia-ver">' + a.veredictos.map((v) =>
         '<div class="' + (v.opinion === 'en_contra' ? 'contra' : 'favor') + '">' + (v.opinion === 'en_contra' ? '❌ En contra' : '✅ A favor') +
         ': <b>' + esc(v.apuesta) + '</b> — ' + esc(v.motivo) + (v.estado === 'verde' ? ' · salió ✅' : v.estado === 'roja' ? ' · salió ❌' : '') + '</div>').join('') + '</div>' : '') +
+      // v446 — lo que encontró en la web (bajas, alineaciones) y «¿te sirvió?» (sólo se mide)
+      (a.noticias ? '<div class="ia-noti">📰 <b>Noticias:</b> ' + esc(String(a.noticias).split(' | ').join(' · ')) + '</div>' : '') +
+      (window.SPX && SPX.votoIA ? SPX.votoIA(a.id) : '') +
       '<p class="tenue chico">La IA es experimental y la medimos aparte (Historial → 🤖). Nuestros picks NO dependen de ella.</p></details>';
   }
   function formaHtml(f) {
@@ -1147,6 +1150,8 @@
       h += '<h3>Lo que ha pasado</h3>' + v.eventos.slice().reverse().slice(0, 25).map((e) =>
         '<div class="evento ' + (e.lado ? 'der' : '') + '"><b>' + esc(e.min) + '</b> ' + e.ico + ' ' + esc(e.texto) + '</div>').join('');
     }
+    // v446 — «⚠️ Reportar un error» (resultado mal, equipo equivocado, dato raro): si es real, +5 🪙
+    h += '<button class="reportar" data-reportar="' + esc(p.partido) + '" data-pick="' + esc(p.id) + '">⚠️ Reportar un error</button>';
     $('ficha-cuerpo').innerHTML = h;
     $('ficha-cuerpo').setAttribute('style', varsColor(v));
     $('ficha').hidden = false;

@@ -47,7 +47,7 @@
   if (yo.user) yo.perfil = perfilGuardado(yo.user.id);
   let listo = null;                       // la primera carga de la sesión
   try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) { /* opcional */ }
-  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb, esVip: () => esVip(), intereses: () => intereses() };
+  window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb, esVip: () => esVip(), intereses: () => intereses(), votoIA: (id) => votoIA(id) };
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
   // v389 — el precio de un pick premium depende de su CUOTA (tabla `precios_cuota`);
@@ -170,6 +170,9 @@
       tareas.push(sb.from('suscripciones').select('*').eq('usuario', yo.user.id).order('actualizado', { ascending: false }).limit(10)
         .then(({ data }) => { yo.subs = data || []; }));
       tareas.push(textosPremium().then((t) => { if (t) yo.desbloqueados = t; }));
+      // v446 — sus 👍/👎 a la IA (si la tabla aún no existe, no pasa nada)
+      tareas.push(sb.from('ia_calificaciones').select('analisis,voto,motivo').then(({ data, error }) => {
+        if (!error) { yo.votosIA = {}; (data || []).forEach((x) => { yo.votosIA[x.analisis] = x; }); } }));
     } else { yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; yo.subs = []; }
     await Promise.all(tareas.map((t) => aTiempo(t, 6000, null)));
     if (yo.user) await aTiempo(cargarGustos(), 6000, null);
@@ -372,13 +375,106 @@
       '" placeholder="3-20 letras, números, _ o ." autocapitalize="off"><button class="ver" data-mi-usuario>Guardar</button></div></div>';
     h += '<div class="caja"><div class="tit">🎯 Mis intereses</div><p class="tenue chico">Tus deportes y ligas van primero y arman tu «✨ Para ti».</p>' +
       '<button class="ver" data-intereses>Elegir deportes y ligas</button></div>';
+    // v446 — sus reportes de errores (y, al administrador, los que faltan por revisar)
+    h += '<div class="caja"><div class="tit">⚠️ ' + (esAdmin() ? 'Reportes' : 'Mis reportes') + '</div><div id="mis-reportes"><p class="tenue chico">Cargando…</p></div></div>';
     h += '<div class="caja"><div class="tit">🎁 Canjear código</div><div class="fila-form"><input id="codigo" placeholder="SHARP-XXXX-XXXX" autocomplete="off"><button class="ver" data-canjear>Canjear</button></div></div>' +
       '<div class="caja"><div class="tit">🔑 ' + (yo.user.app_metadata && yo.user.app_metadata.provider === 'google' ? 'Crear contraseña (para entrar con tu usuario)' : 'Cambiar contraseña') + '</div>' +
       '<div class="fila-form"><input type="password" id="nueva-contra" placeholder="8+ caracteres, letras y números" autocomplete="new-password"><button class="ver" data-contra>Guardar</button></div></div>' +
       '<button class="salir" data-salir>Cerrar sesión</button>';
     $('micuenta-cuerpo').innerHTML = h;
     $('micuenta').hidden = false;
+    pintarReportes();
   }
+
+  // ---------- v446 — LO QUE APORTAN LOS USUARIOS ----------
+  // 1) «⚠️ Reportar un error»: lo revisa el administrador y, si es real, el
+  //    servidor le da 5 🪙 (`resolver_reporte`; a lo más 3 pagados por día).
+  // 2) «¿Te sirvió el análisis de la IA? 👍/👎»: SÓLO se mide; no da monedas ni
+  //    cambia cómo trabaja la IA.
+  const TIPOS_REP = [['resultado', 'Resultado mal'], ['equipo', 'Equipo equivocado'], ['dato', 'Dato raro'], ['otro', 'Otro']];
+  const ESTADO_REP = { pendiente: '⏳ En revisión', aceptado: '✅ Era un error', rechazado: '❌ No era error' };
+  function abrirReporte(partido, pick) {
+    if (!yo.user) { abrirAcceso('Entra para reportar un error.'); return; }
+    let caja = $('reporte');
+    if (!caja) { caja = document.createElement('div'); caja.className = 'ficha'; caja.id = 'reporte'; document.body.appendChild(caja); }
+    caja.dataset.partido = partido; caja.dataset.pick = pick || '';
+    caja.innerHTML = '<div class="ficha-caja acceso"><button class="cerrar" data-cerrar-reporte>✕</button><h3>⚠️ Reportar un error</h3>' +
+      '<p class="tenue chico">' + esc(partido) + '</p><div class="chips">' +
+      TIPOS_REP.map(([k, t], i) => '<button class="chip' + (i ? '' : ' activa') + '" data-rep-tipo="' + k + '">' + t + '</button>').join('') + '</div>' +
+      '<textarea id="rep-detalle" class="rep-detalle" maxlength="400" rows="4" placeholder="¿Qué está mal? Ej.: quedó 2-1 y aquí salió 1-1."></textarea>' +
+      '<button class="vip-btn" data-enviar-reporte>Enviar</button><p class="sub" id="rep-msg">Si es real, te damos 5 🪙 cuando lo confirmemos.</p></div>';
+    caja.hidden = false;
+  }
+  async function pintarReportes() {
+    const caja = $('mis-reportes'); if (!caja || !yo.user) return;
+    const { data, error } = await aTiempo(sb.from('reportes').select('*').order('creado', { ascending: false }).limit(60), 6000, { data: null, error: true });
+    const vacio = '<p class="tenue chico">¿Viste algo mal? Toca «⚠️ Reportar un error» dentro del partido. Si es real, +5 🪙.</p>';
+    if (error || !data) { caja.innerHTML = vacio; return; }
+    const mios = data.filter((r) => r.usuario === yo.user.id), revisar = esAdmin() ? data.filter((r) => r.estado === 'pendiente') : [];
+    const item = (r, botones) => '<div class="rep-item"><div><b>' + esc(r.partido) + '</b><small>' +
+      esc((TIPOS_REP.find(([k]) => k === r.tipo) || ['', r.tipo])[1]) + ' · ' + esc(fecha(r.creado)) + (botones ? '' : ' · ' + ESTADO_REP[r.estado] + (r.monedas ? ' · +' + r.monedas + ' 🪙' : '')) +
+      '</small></div><p>' + esc(r.detalle) + '</p>' + (botones ? '<div class="fila-form"><button class="ver" data-resolver="' + esc(r.id) + '" data-aceptar="1">✅ Es real (+5 🪙)</button>' +
+      '<button class="ver" data-resolver="' + esc(r.id) + '" data-aceptar="0">❌ No</button></div>' : '') + '</div>';
+    let h = '';
+    if (esAdmin()) h += '<div class="rep-sub">Por revisar (' + revisar.length + ')</div>' + (revisar.length ? revisar.map((r) => item(r, true)).join('') : '<p class="tenue chico">Nada pendiente.</p>');
+    h += (esAdmin() ? '<div class="rep-sub">Los tuyos</div>' : '') + (mios.length ? mios.map((r) => item(r, false)).join('') : vacio);
+    caja.innerHTML = h;
+  }
+  function votoIA(id) {
+    if (!id || !yo.user) return '';
+    const v = (yo.votosIA || {})[id] || {};
+    return '<div class="ia-voto" data-ia-id="' + esc(id) + '"><span>¿Te sirvió?</span>' +
+      '<button class="' + (v.voto === 1 ? 'si' : '') + '" data-ia-voto="1" aria-label="Me sirvió">👍</button>' +
+      '<button class="' + (v.voto === -1 ? 'si' : '') + '" data-ia-voto="-1" aria-label="No me sirvió">👎</button>' +
+      (v.voto === -1 ? '<div class="chips">' + [['datos', 'Datos mal'], ['nada_util', 'No dice nada'], ['se_equivoco', 'Se equivocó'], ['otro', 'Otro']]
+        .map(([k, t]) => '<button class="chip' + (v.motivo === k ? ' activa' : '') + '" data-ia-motivo="' + k + '">' + t + '</button>').join('') + '</div>'
+        : v.voto === 1 ? '<small class="tenue">¡Gracias!</small>' : '') + '</div>';
+  }
+  document.addEventListener('click', async (e) => {
+    const t = e.target.closest('[data-reportar],[data-cerrar-reporte],[data-rep-tipo],[data-enviar-reporte],[data-resolver],[data-ia-voto],[data-ia-motivo]');
+    if (!t) return;
+    if (t.dataset.reportar) { abrirReporte(t.dataset.reportar, t.dataset.pick); return; }
+    if (t.hasAttribute('data-cerrar-reporte')) { $('reporte').hidden = true; return; }
+    if (t.dataset.repTipo) { document.querySelectorAll('[data-rep-tipo]').forEach((b) => b.classList.toggle('activa', b === t)); return; }
+    if (t.hasAttribute('data-enviar-reporte')) {
+      const caja = $('reporte'), m = $('rep-msg'), det = ($('rep-detalle').value || '').trim();
+      const tipo = (document.querySelector('[data-rep-tipo].activa') || { dataset: {} }).dataset.repTipo || 'otro';
+      if (det.length < 5) { m.textContent = 'Cuéntanos un poco más.'; return; }
+      const listo = ocupado(t, 'Enviando…');
+      const { error } = await aTiempo(sb.rpc('reportar', { p_partido: caja.dataset.partido, p_pick: caja.dataset.pick || null, p_tipo: tipo, p_detalle: det }),
+        8000, { error: { message: 'No se pudo enviar: revisa tu conexión.' } });
+      listo();
+      if (error) { m.textContent = /function|schema|exist/i.test(error.message || '') ? 'Muy pronto: estamos activando los reportes.' : error.message; return; }
+      caja.hidden = true;
+      avisoFlotante('¡Gracias! Lo revisamos y te avisamos aquí, en «Mi cuenta».');
+      return;
+    }
+    if (t.dataset.resolver) {
+      const listo = ocupado(t, '…');
+      const { data, error } = await aTiempo(sb.rpc('resolver_reporte', { p_id: t.dataset.resolver, p_aceptar: t.dataset.aceptar === '1' }), 8000, { error: { message: 'Sin conexión.' } });
+      listo();
+      if (error) { avisoFlotante(error.message || 'No se pudo.'); return; }
+      avisoFlotante(t.dataset.aceptar === '1' ? (data ? 'Aceptado: +' + data + ' 🪙 al usuario' : 'Aceptado (ya llevaba 3 pagados hoy)') : 'Rechazado');
+      pintarReportes();
+      return;
+    }
+    if (t.dataset.iaVoto || t.dataset.iaMotivo) {
+      if (!yo.user) { abrirAcceso(); return; }
+      const cont = t.closest('[data-ia-id]'), id = cont.dataset.iaId, antes = (yo.votosIA || {})[id];
+      const voto = t.dataset.iaVoto ? Number(t.dataset.iaVoto) : -1;
+      const motivo = voto === 1 ? null : (t.dataset.iaMotivo || null);
+      yo.votosIA = yo.votosIA || {};
+      yo.votosIA[id] = { analisis: id, voto, motivo };
+      cont.outerHTML = votoIA(id);
+      const { error } = await aTiempo(sb.from('ia_calificaciones').upsert({ usuario: yo.user.id, analisis: id, voto, motivo }, { onConflict: 'usuario,analisis' }),
+        6000, { error: { message: 'tiempo' } });
+      if (error) {
+        if (antes) yo.votosIA[id] = antes; else delete yo.votosIA[id];
+        const c2 = document.querySelector('[data-ia-id="' + CSS.escape(id) + '"]'); if (c2) c2.outerHTML = votoIA(id);
+        avisoFlotante('Muy pronto podrás calificar la IA.');
+      }
+    }
+  });
 
   document.addEventListener('click', async (e) => {
     const t = e.target.closest('[data-entrar],[data-salir],[data-seguir],[data-desbloquear],[data-cerrar-acceso],[data-google],[data-ir-modo],[data-mi-cuenta],[data-cerrar-cuenta],[data-canjear],[data-contra],[data-vip],[data-enlace],[data-ayuda],[data-cerrar-ayuda],[data-mi-usuario],[data-comprar],[data-metodo],[data-sus],[data-portal],[data-cerrar-aviso],[data-desb-comb]');

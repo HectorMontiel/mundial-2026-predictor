@@ -111,6 +111,8 @@ ESQUEMA_LOTE_GEN = {'type': 'OBJECT', 'properties': {'partidos': {'type': 'ARRAY
 INSTRUCCION = (
     'Eres el analista de fútbol de SharPicks, una app mexicana de pronósticos. Recibes los datos de UN partido '
     'en JSON. Reglas: 1) Usa SÓLO esos datos; no inventes jugadores, lesiones, rachas ni noticias que no estén. '
+    'Si vienen "noticias_recientes_web" (bajas, lesiones, sanciones, alineación probable, de medios), son datos: '
+    'tómalas en cuenta y menciona en el análisis la baja más importante si la hay. '
     '2) Estima TUS probabilidades de que gane el local, empaten o gane el visitante (suman 1) y si habrá más o '
     'menos de 2.5 goles. Las probabilidades del mercado son una base muy buena: muévete de ellas sólo si la '
     'forma, el H2H o las bajas lo justifican claramente. 3) Escribe un análisis de 3 o 4 frases en español '
@@ -148,7 +150,9 @@ def instruccion(deporte: str) -> str:
     return (
         'Eres el analista de %s de SharPicks, una app mexicana de pronósticos. Recibes una LISTA de partidos en '
         'JSON: responde uno por cada uno, en "partidos", copiando el campo "partido" tal cual. Reglas: 1) Usa SÓLO '
-        'esos datos; no inventes jugadores, lesiones ni noticias. 2) Estima TUS probabilidades de que gane el local, '
+        'esos datos; no inventes jugadores, lesiones ni noticias. Si vienen "noticias_recientes_web" (bajas, '
+        'lesiones, sanciones, alineación probable, de medios), son datos: tómalas en cuenta y menciona la más '
+        'importante. 2) Estima TUS probabilidades de que gane el local, '
         'el empate y el visitante (suman 1). En este deporte cuenta el GANADOR FINAL (con prórroga o penales si los '
         'hay), así que p_empate = 0. Las probabilidades de la casa y de nuestro modelo son una base muy buena: '
         'muévete de ellas sólo con motivo. 3) Análisis de 3 o 4 frases en español sencillo; nada de garantías ni de '
@@ -278,6 +282,64 @@ def _media_liga(clave, que):
 
 
 _AGOTADOS: set = set()
+_AGOTADOS_WEB: set = set()
+# v446 — EL USUARIO: «la IA tiene acceso a internet: que complemente con las
+# alineaciones, las bajas y las noticias recientes, en todos los partidos». Hasta
+# aquí sólo veía nuestros datos. Ahora, ANTES del análisis, una consulta con la
+# búsqueda de Google trae lo CONFIRMADO de cada partido del lote (con su fuente);
+# el análisis sigue igual y lo recibe como un dato más. Si la búsqueda falla o se
+# acaba su cupo, se analiza como antes (sin noticias) y queda marcado, para medir.
+_V446 = ('con_noticias', 'noticias')
+BUSCAR = os.environ.get('IA_BUSCAR', '1') != '0'
+INSTRUCCION_WEB = (
+    'Busca en la web noticias de los últimos 3 días de cada partido de la lista (deporte y liga incluidos). '
+    'Para CADA uno da sólo hechos confirmados por medios o cuentas oficiales: jugadores lesionados o '
+    'suspendidos, dudas importantes, la alineación probable o confirmada si existe, y cualquier noticia que '
+    'cambie el partido (rotaciones, cambio de entrenador, clima extremo). Nada de opiniones ni pronósticos. '
+    'Si no hay nada confirmado, di "sin novedades". Responde SÓLO con JSON, sin texto antes ni después: '
+    '{"partidos": [{"partido": "<copia el texto tal cual>", "noticias": ["<hecho breve>", ...], '
+    '"fuentes": ["<medio>", ...]}]}'
+)
+
+
+def noticias_web(lista: List[Dict]) -> Dict:
+    """{partido: {'noticias': [...], 'fuentes': [...]}} con la búsqueda de Google;
+    {} si no hay clave, se acabó el cupo o algo falla (el análisis sigue sin ellas)."""
+    import requests
+    k = os.environ.get('GEMINI_API_KEY')
+    if not k or not BUSCAR:
+        return {}
+    pide = [{'partido': m.get('partido'), 'deporte': m.get('deporte') or 'Fútbol', 'liga': m.get('liga'),
+             'inicio': str(m.get('inicio') or '')} for m in lista]
+    cuerpo = {'systemInstruction': {'parts': [{'text': INSTRUCCION_WEB}]},
+              'contents': [{'role': 'user', 'parts': [{'text': json.dumps(pide, ensure_ascii=False)}]}],
+              'tools': [{'google_search': {}}], 'generationConfig': {'temperature': 0.2}}
+    for modelo in MODELOS:
+        if modelo in _AGOTADOS_WEB:
+            continue
+        try:
+            r = requests.post('https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent' % modelo,
+                              params={'key': k}, json=cuerpo, timeout=90)
+            if r.status_code == 429:
+                _AGOTADOS_WEB.add(modelo)
+                continue
+            if not r.ok:
+                logger.warning('[ia] búsqueda %s respondió %s', modelo, r.status_code)
+                continue
+            cand = r.json()['candidates'][0]
+            txt = ''.join(x.get('text', '') for x in cand.get('content', {}).get('parts', []))
+            ini, fin = txt.find('{'), txt.rfind('}')
+            datos = json.loads(txt[ini:fin + 1]) if ini >= 0 and fin > ini else {}
+            webs = [c.get('web', {}).get('title') for c in (cand.get('groundingMetadata') or {}).get('groundingChunks') or []]
+            out = {}
+            for d in datos.get('partidos') or []:
+                ns = [str(x)[:200] for x in (d.get('noticias') or []) if str(x).strip() and 'sin novedades' not in str(x).lower()][:6]
+                fs = [str(x)[:60] for x in (d.get('fuentes') or []) if str(x).strip()][:4] or [w for w in webs if w][:4]
+                out[str(d.get('partido') or '')] = {'noticias': ns, 'fuentes': fs}
+            return out
+        except Exception as e:
+            logger.warning('[ia] búsqueda %s: %s', modelo, type(e).__name__)
+    return {}
 
 
 def preguntar(lista: List[Dict], deporte: str = 'Fútbol') -> Optional[Dict]:
@@ -628,21 +690,39 @@ def main() -> int:
         del_dep = [m for m in nuevos if m.get('deporte', 'Fútbol') == dep]
         lotes += [(dep, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
     for dep, lote in lotes:
-        res = preguntar([datos_del_partido(m, mercado) for m in lote], dep)
+        web = noticias_web(lote)
+        entrada = []
+        for m in lote:
+            d = datos_del_partido(m, mercado)
+            w = web.get(m['partido'])
+            if w and w['noticias']:
+                d['noticias_recientes_web'] = w['noticias']
+                d['fuentes_de_las_noticias'] = w['fuentes']
+            entrada.append(d)
+        res = preguntar(entrada, dep)
         if res and res.get('_limite'):
             print('ia: todos los modelos agotaron su cupo de hoy')
             break
         filas = [fila(m, res[m['partido']], mercado) for m in lote if res and m['partido'] in res]
+        for f in filas:                     # v446 — para medir si con noticias acierta más
+            w = web.get(f['partido'])
+            f['con_noticias'] = bool(w and w['noticias'])
+            f['noticias'] = ' | '.join(w['noticias'])[:900] if f['con_noticias'] else None
         if filas:
             r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
                               json=filas, timeout=30)
             if not r.ok and 'column' in r.text.lower():
                 # v407 — si la base aún no tiene las columnas nuevas (migración
                 # `v407_ia_template.sql` pendiente), se guarda sin ellas
-                logger.warning('[ia] la base no tiene las columnas del template v407: se guarda sin ellas')
-                filas = [{k: v for k, v in f.items() if k not in _V407} for f in filas]
+                logger.warning('[ia] la base no tiene columnas nuevas (v446/v407): se guarda sin ellas')
+                # v446 — lo mismo con `v446_reportes_y_calificaciones.sql`: primero sin lo de las noticias
+                filas = [{k: v for k, v in f.items() if k not in _V446} for f in filas]
                 r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
                                   json=filas, timeout=30)
+                if not r.ok and 'column' in r.text.lower():
+                    filas = [{k: v for k, v in f.items() if k not in _V407} for f in filas]
+                    r = requests.post(sb[0], headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'),
+                                      json=filas, timeout=30)
             if r.ok:
                 hechos_ahora += len(filas)
             else:
