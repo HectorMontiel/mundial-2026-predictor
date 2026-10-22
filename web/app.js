@@ -1482,7 +1482,7 @@
       (n === 1 ? ' partido hoy' : ' partidos hoy') + ', pero ninguno llegó a nuestro mínimo de probabilidad. Preferimos no darte un pick flojo.</div>').join(''));
   }
 
-  window.SP = { nivel, pintar, estado };
+  window.SP = { nivel, pintar, estado, estadoVisto: (p) => estadoVisto(p) };   // v452: «Mis combinadas» usa lo mismo
 
   // v440 — DESLIZAR PARA QUITAR (sólo en «Mis picks», con el dedo): la fila se
   // corre a la izquierda y deja ver «Quitar»; si el gesto es vertical, es scroll.

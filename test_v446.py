@@ -220,9 +220,27 @@ def probar_v447():
           'v447: la tabla de ventanas sólo la ve el servidor')
 
 
+def probar_v451():
+    import ia_gemini as ia
+    n = lambda liga, dep='Fútbol', peso=-1: ia.nivel({'partido': 'A vs B', 'liga': liga, 'deporte': dep, 'peso': peso}, {})
+    check(n('Premier League') == 0 and n('UEFA Champions League') == 0 and n('Liga MX') == 0 and n('MLS') == 0,
+          'v451: las ligas principales van primero, aunque no tengan pick')
+    check(n('Amistosos internacionales') == 0 and n('FIFA World Cup') == 0 and n('World Cup Qualification CONMEBOL') == 0
+          and n('UEFA Nations League') == 0, 'v451: los partidos de selecciones (amistosos, Mundial, eliminatorias) cuentan como principales')
+    check(n('FIFA Club World Cup') == 2 and n('Friendly U21') == 2 and n('Club Friendlies') == 2,
+          'v451: el Mundial de Clubes, los juveniles y los amistosos de clubes NO son de selecciones')
+    check(n('J1 League', peso=1) == 1 and n('J1 League') == 2 and n('Uganda: Premier League') == 2 and n('LigaPro Serie A', peso=1) == 1,
+          'v451: las demás ligas: con pick en segundo lugar, sólo análisis al final')
+    check(n('NBA', 'NBA') == 0 and n('WTA', 'Tenis', 1) == 1, 'v451: en los otros deportes, su liga grande es principal')
+    src = open('ia_gemini.py', encoding='utf-8').read()
+    check('nuevos = sorted(todos, key=lambda m: nivel(m, mercado))[:MAX_POR_PASADA]' in src,
+          'v451: el tope por pasada se corta DESPUÉS de ordenar por prioridad')
+
+
 if __name__ == '__main__':
     probar()
     probar_v447()
+    probar_v451()
     print('\n' + '=' * 40)
     print('TODO OK' if not FALLOS else '%d FALLOS' % len(FALLOS))
     raise SystemExit(1 if FALLOS else 0)

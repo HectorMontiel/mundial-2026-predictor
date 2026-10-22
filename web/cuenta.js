@@ -872,22 +872,35 @@
     caja.innerHTML = vivas.length ? vivas.map((c) => filaComb(c, h.extra)).join('')
       : '<p class="tenue">' + (h.combs.length ? 'Ninguna en juego. ' : '') + 'Toca «➕ Combinada» en los picks que te gusten (de 2 a 20).</p>';
   }
+  setInterval(() => {                                   // v452 — con el marcador en vivo, sin esperar al servidor
+    const caja = $('mis-comb');
+    if (caja && caja.offsetParent && yo.hist && !document.hidden) pintarCombinadas(caja);
+  }, 20000);
   function filaComb(c, extra) {
     // v441 — «En juego» sólo si ya empezó alguno; si no, «Por jugar» con la hora. Cada pata abre su partido.
-    const ps = c.patas.map((id) => pickDe(id) || extra[id] || { id: null });
+    // v452 — el usuario: «cuando ya se cumple algo, que se ponga en verde; no esperar al
+    // final del partido (salvo que el pick sí lo necesite)». Cada pata usa lo mismo que la
+    // pestaña Combinadas (`estadoVisto`): verde en cuanto se cumple, roja en cuanto ya no
+    // puede, y al pitazo el resultado, sin esperar al servidor (que luego lo confirma).
+    const visto = (p) => (p.id && pickDe(p.id) && window.SP && window.SP.estadoVisto ? window.SP.estadoVisto(pickDe(p.id)) : p.estado);
+    const ps = c.patas.map((id) => { const p = pickDe(id) || extra[id] || { id: null }; return Object.assign({}, p, { _visto: visto(p) }); });
     const empezo = (p) => p.inicio && aFechaP(p.inicio) <= new Date();
+    const yaRoja = c.estado === 'pendiente' && ps.some((p) => p._visto === 'roja');
+    const yaVerde = c.estado === 'pendiente' && !yaRoja && ps.length && ps.every((p) => p._visto === 'verde' || p._visto === 'nula') && ps.some((p) => p._visto === 'verde');
     const hora = (p) => p.inicio ? new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit' }).format(aFechaP(p.inicio)) : '';
     const prox = ps.filter((p) => p.inicio && !empezo(p)).sort((a, b) => aFechaP(a.inicio) - aFechaP(b.inicio))[0];
     const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
       : c.estado === 'nula' ? '<span class="et">↩️ Nula</span>'
+      : yaRoja ? '<span class="et roja" title="Al pitazo; el servidor lo confirma">❌ Roja</span>'
+      : yaVerde ? '<span class="et verde" title="Al pitazo; el servidor lo confirma y paga">✅ Verde</span>'
       : ps.some(empezo) ? '<span class="et vivo">🔴 En juego</span>' : '<span class="et">🕒 Por jugar' + (prox ? ' · ' + hora(prox) : '') + '</span>';
     // v443 — lo que puede ganar si acierta (la misma tabla que usa el servidor: una premiada por día)
     const pr = PREMIO(Number(c.cuota));
-    const premio = c.estado === 'pendiente' ? '<div class="comb-premio' + (pr ? '' : ' tenue') + '" title="Se paga una combinada premiada por día">' +
+    const premio = c.estado === 'pendiente' && !yaRoja ? '<div class="comb-premio' + (pr ? '' : ' tenue') + '" title="Se paga una combinada premiada por día">' +
       (pr ? '🪙 Si acierta: <b>+' + pr + '</b>' : 'Sin premio: desde cuota 2,00') + '</div>' : '';
     return '<div class="tg-item ' + c.estado + '"><div class="fila"><span>🔗 ' + c.patas.length + ' picks · <b>' + Number(c.cuota).toFixed(2) + '</b></span>' + chip + '</div>' + premio +
       ps.map((p) => {
-        const ico = p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '↩️' : empezo(p) ? '🔴' : '🕒';
+        const ico = p._visto === 'verde' ? '✅' : p._visto === 'roja' ? '❌' : p._visto === 'nula' ? '↩️' : empezo(p) ? '🔴' : '🕒';
         const txt = ico + ' ' + apuesta(p.id ? p : { apuesta: '—' }) + ' <span class="tenue">· ' + esc(p.partido || '') + (p.estado === 'pendiente' && !empezo(p) && p.inicio ? ' · ' + hora(p) : '') +
           (p.cuota ? ' · ' + Number(p.cuota).toFixed(2) : '') + '</span>';
         return pickDe(p.id) ? '<button class="tg-pata ir-partido" data-ficha="' + esc(p.id) + '">' + txt + ' <span class="ir">›</span></button>' : '<div class="tg-pata">' + txt + '</div>';

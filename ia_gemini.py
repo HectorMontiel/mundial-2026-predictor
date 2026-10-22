@@ -299,6 +299,59 @@ USO: Dict = {}
 LITE = [m for m in MODELOS if 'lite' in m] + [m for m in MODELOS if 'lite' not in m]
 
 
+# v451 — EL USUARIO: «priorizar las ligas principales (con y sin pick), después los
+# picks y después los de sólo análisis». Las principales del fútbol son las de
+# `modo_modelo.PRINCIPALES` (la lista corta del proyecto); en los demás deportes,
+# su liga grande (NBA, NFL, NHL, MLB).
+PRINCIPAL_OTROS = {'NBA', 'NFL', 'NHL', 'MLB'}
+_PRINC: Optional[set] = None
+
+
+def _principales() -> set:
+    global _PRINC
+    if _PRINC is None:
+        try:
+            import modo_modelo
+            import nombres_ligas
+            _PRINC = set(modo_modelo.PRINCIPALES) | {nombres_ligas.canonica('', k, 'Fútbol') for k in modo_modelo.PRINCIPALES}
+        except Exception:
+            _PRINC = set()
+    return _PRINC
+
+
+def _de_selecciones(liga: str) -> bool:
+    """v451 — el usuario: «los partidos internacionales también cuentan como principal:
+    amistosos, Mundial o cualquier partido de selecciones». Lo que `nombres_ligas` ya
+    reconoce como de selecciones absolutas, y el Mundial (no el de clubes ni juveniles)."""
+    import re
+    try:
+        import nombres_ligas as nl
+        t = nl._n(liga)
+        r = nl._de_selecciones(t)
+        if r and r != 'Amistosos de clubes':
+            return True
+        return bool(re.search(r'world cup|mundial|copa del mundo', t)) and not re.search(r'club|u-?\d{2}|sub-?\d{2}|youth|juvenil', t)
+    except Exception:
+        return False
+
+
+def nivel(m: Dict, mercado: Dict) -> int:
+    """0 = liga principal o selecciones (con o sin pick) · 1 = con pick · 2 = sólo análisis."""
+    dep = m.get('deporte') or 'Fútbol'
+    if dep != 'Fútbol':
+        principal = dep in PRINCIPAL_OTROS
+    else:
+        clave = (mercado.get(m.get('partido')) or {}).get('clave')
+        liga = str(m.get('liga') or '')
+        try:
+            import nombres_ligas
+            liga_c = nombres_ligas.canonica(liga, '', 'Fútbol')     # «Champions League» → «UEFA Champions League»
+        except Exception:
+            liga_c = liga
+        principal = clave in _principales() or liga in _principales() or liga_c in _principales() or _de_selecciones(liga)
+    return 0 if principal else 1 if m.get('peso', 0) >= 0 else 2
+
+
 def _contar(modelo: str, tipo: str, ok: bool, agotado: bool = False):
     u = USO.setdefault((modelo, tipo), {'llamadas': 0, 'ok': 0, 'agotado': False})
     u['llamadas'] += 1
@@ -722,10 +775,10 @@ def analizar(sb, lista: List[Dict], mercado: Dict, ventana: Optional[str] = None
     guarda. Devuelve (cuántos, si se acabó el cupo de todos los modelos)."""
     hechos = 0
     lotes = []
-    for con_pick in (True, False):            # v450 — TODOS los de con pick primero (y en lotes aparte)
+    for nv in (0, 1, 2):                      # v451 — principales, luego con pick, luego sólo análisis
         for dep in dict.fromkeys(m.get('deporte', 'Fútbol') for m in lista):
-            del_dep = [m for m in lista if m.get('deporte', 'Fútbol') == dep and (m.get('peso', 0) >= 0) == con_pick]
-            lotes += [(dep, con_pick, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
+            del_dep = [m for m in lista if m.get('deporte', 'Fútbol') == dep and nivel(m, mercado) == nv]
+            lotes += [(dep, nv < 2, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
     for dep, con_pick, lote in lotes:
         tipo = 'ventana' if ventana else 'analisis' if con_pick else 'solo_analisis'
         web = noticias_web(lote, 'busqueda_ventana' if ventana else 'busqueda') if con_pick else {}
@@ -862,7 +915,8 @@ def main() -> int:
     evaluados = 0 if seco else evaluar(sb, picks)
     hechos = set() if seco else (ya_hechos(sb) or set())
     mercado = _mercado()
-    nuevos = [m for m in partidos(picks, ahora) if m['id'] not in hechos][:MAX_POR_PASADA]
+    todos = [m for m in partidos(picks, ahora) if m['id'] not in hechos]
+    nuevos = sorted(todos, key=lambda m: nivel(m, mercado))[:MAX_POR_PASADA]   # v451 — el orden estable deja lo demás igual
     if seco:
         for m in nuevos[:2]:
             print(json.dumps(datos_del_partido(m, mercado), ensure_ascii=False, indent=1))
