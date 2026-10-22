@@ -145,8 +145,8 @@
   },
   "Inter Miami CF": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Inter Escaldes",
-    "ratio": 0.56,
+    "candidato": "Inter Kashi",
+    "ratio": 0.6364,
     "visto": "2026-10-22"
   },
   "Inter de San Carlos": {
@@ -373,8 +373,8 @@
   },
   "Cambridge United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Samui United",
-    "ratio": 0.7143,
+    "candidato": "Madura United",
+    "ratio": 0.6207,
     "visto": "2026-10-22"
   },
   "Peterborough United": {
@@ -403,8 +403,8 @@
   },
   "Carlisle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Samui United",
-    "ratio": 0.6667,
+    "candidato": "Madura United",
+    "ratio": 0.6429,
     "visto": "2026-10-22"
   },
   "Rotherham United": {
@@ -421,8 +421,8 @@
   },
   "Scunthorpe United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Samui United",
-    "ratio": 0.6207,
+    "candidato": "Madura United",
+    "ratio": 0.6,
     "visto": "2026-10-22"
   },
   "Hartlepool United": {
@@ -433,14 +433,14 @@
   },
   "Southend United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Samui United",
-    "ratio": 0.6667,
+    "candidato": "Delta United",
+    "ratio": 0.5926,
     "visto": "2026-10-22"
   },
   "Sutton United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Samui United",
-    "ratio": 0.72,
+    "candidato": "Delta United",
+    "ratio": 0.64,
     "visto": "2026-10-22"
   },
   "Helmond Sport": {
@@ -625,8 +625,8 @@
   },
   "New Mexico United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Samui United",
-    "ratio": 0.6207,
+    "candidato": "Delta United",
+    "ratio": 0.5517,
     "visto": "2026-10-22"
   },
   "Sacramento Republic FC": {
@@ -1753,9 +1753,9 @@
   },
   "Shandong Taishan": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Shandong SL W",
-    "ratio": 0.7407,
-    "visto": "2026-10-10"
+    "candidato": "Shandong SL B W",
+    "ratio": 0.6897,
+    "visto": "2026-10-22"
   },
   "Wuhan Three Towns": {
     "contexto": "cuotas_mx→futbol",
@@ -2361,6 +2361,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Westerlo U21",
     "ratio": 0.6667,
+    "visto": "2026-10-22"
+  },
+  "Zhejiang Professional FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Zhejiang B W",
+    "ratio": 0.5806,
     "visto": "2026-10-22"
   }
 }
