@@ -598,3 +598,10 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .chip-ult.nuevo { animation: aviso 1.2s ease-out; }
 @keyframes aviso { 0% { transform: scale(1.08); background: rgba(124,92,255,.45); } 100% { transform: scale(1); } }
 @media (prefers-reduced-motion: reduce) { .cancha-svg .jug, .cancha-svg .balon { transition: none; } .chip-ult.nuevo { animation: none; } }
+
+/* v432 — los jugadores se mueven con el balón; los goles en la ola */
+.cancha-svg .jug { transition: transform 1.15s cubic-bezier(.35,0,.25,1); }
+.cancha-svg .balon { transition: transform 1.1s cubic-bezier(.35,0,.25,1); }
+.ola { position: relative; }
+.ola-gol { position: absolute; transform: translateX(-50%); font-size: 12px; line-height: 1; filter: drop-shadow(0 1px 2px rgba(0,0,0,.5)); }
+.ola-gol.arriba { top: -2px; } .ola-gol.abajo { bottom: 4px; }

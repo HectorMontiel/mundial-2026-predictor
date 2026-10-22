@@ -237,7 +237,7 @@ def probar_v428():
 def probar_v431():
     app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
     check('function moverCanchas()' in app and 'function dominio(k)' in app and 'async function stats365(gid)' in app
-          and 'setInterval(moverCanchas, 1500)' in app, 'v431: el balón y los 22 se mueven con quién ataca ahora (365Scores, ESPN, posesión)')
+          and 'setInterval(moverCanchas, 1200)' in app, 'v431: el balón y los 22 se mueven con quién ataca ahora (365Scores, ESPN, posesión)')
     check("'MEDIO TIEMPO'" in app and "'FINAL'" in app and 'const quieto = m.pausa;' in app,
           'v431: en el medio tiempo y al final todo se detiene y la cancha lo dice')
     check('animación aproximada según el juego' in app and 'tamaño = peligro (xG)' in app and 't.gol || minuto(t.min) >= ahora - 15' in app,
@@ -246,7 +246,20 @@ def probar_v431():
     check('.cancha-svg .jug { transition: transform' in css and '.cancha-svg .letrero text' in css, 'v431: el movimiento es suave')
 
 
+def probar_v433():
+    app, css = leer('web', 'app.js'), leer('web', 'estilo.css')
+    check('const FRANJA = (prof) =>' in app and "data-prof=\"' + j.prof" in app and '.slice(0, 2).forEach((q, i) => { const f = i === 0 ? 0.62 : 0.28;' in app,
+          'v432: los 22 siguen al balón con lógica (cada puesto en su franja; el más cercano va al balón)')
+    check('class="ola-gol' in app and '.ola-gol.arriba' in css, 'v432: un ⚽ en la ola en el minuto de cada gol')
+    check('function ponerEscena(e, js, m)' in app and "e.tipo === 'corner'" in app and "e.tipo === 'libre'" in app and "e.tipo === 'penal'" in app
+          and "e.tipo === 'gol'" in app and "e.tipo === 'banda'" in app and "e.tipo === 'tiro'" in app,
+          'v433: córner, tiro libre (con barrera a 9,15 m), penal, gol con festejo, saque de banda y tiro')
+    check('function escenasDeStats(m)' in app and 'sube(15, lado)' in app and "if (e.tipo === 'gol') { bx = 52.5; by = 34;" in app,
+          'v433: sin ESPN, córners/faltas/saques de banda salen de las estadísticas; tras el gol, saque de media cancha')
+
+
 if __name__ == '__main__':
+    probar_v433()
     probar_v431()
     probar_v427()
     probar_v428()
