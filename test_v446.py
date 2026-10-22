@@ -163,8 +163,54 @@ def probar_v447():
         n = ia.ventanas(('https://x/rest/v1/ia_analisis', {}), picks, ahora, {})
     finally:
         ia.evaluar, ia.analizar = viejo_eval, viejo_an
-    check(pedidos == [('https://x/rest/v1/ia_ventanas', 'v12', ['E vs F']), ('https://x/rest/v1/ia_ventanas', 'v2', ['A vs B'])] and n == 2,
-          'v447: ~12 h, ~6 h y ~2 h antes, sólo partidos con pick, en la tabla aparte y sin repetir')
+    check(pedidos == [('https://x/rest/v1/ia_ventanas', 'v2', ['A vs B'])] and n == 1,
+          'v450: sólo ~6 h y ~2 h antes, sólo partidos con pick, en la tabla aparte y sin repetir')
+    # el tope del día: con 60 ya hechos hoy, no se mide más
+    hoy = ahora.strftime('%Y-%m-%d')
+
+    class G60:
+        ok = True
+
+        def json(self):
+            return [{'id': 'x%d' % i, 'creado': hoy + 'T01:00:00+00:00'} for i in range(60)]
+    sys.modules['requests'] = types.SimpleNamespace(get=lambda *a, **k: G60())
+    pedidos.clear()
+    ia.evaluar = lambda sb, picks: 0
+    ia.analizar = lambda sb, lista, mercado, ventana=None: (pedidos.append(ventana) or (len(lista), False))
+    try:
+        n = ia.ventanas(('https://x/rest/v1/ia_analisis', {}), picks, ahora, {})
+    finally:
+        ia.evaluar, ia.analizar = viejo_eval, viejo_an
+    check(n == 0 and pedidos == [], 'v450: con 60 mediciones hoy ya no se gasta más cupo')
+    # la prioridad: con pick → el mejor modelo y búsqueda; sólo análisis → lite y sin búsqueda
+    vistos = []
+    viejo_p, viejo_w, viejo_g, viejo_s = ia.preguntar, ia.noticias_web, ia.guardar, ia.PAUSA_S
+    ia.preguntar = lambda entrada, dep, tipo='analisis', modelos=None: (vistos.append(('p', tipo, (modelos or ia.MODELOS)[0])) or {})
+    ia.noticias_web = lambda lote, tipo='busqueda': (vistos.append(('w', tipo)) or {})
+    ia.PAUSA_S = 0
+    try:
+        ia.analizar(('u', {}), [{'partido': 'A vs B', 'peso': 1, 'deporte': 'Fútbol'}, {'partido': 'C vs D', 'peso': -1, 'deporte': 'Fútbol'}], {})
+    finally:
+        ia.preguntar, ia.noticias_web, ia.guardar, ia.PAUSA_S = viejo_p, viejo_w, viejo_g, viejo_s
+    check(vistos == [('w', 'busqueda'), ('p', 'analisis', ia.MODELOS[0]), ('p', 'solo_analisis', ia.LITE[0])] and 'lite' in ia.LITE[0],
+          'v450: con pick va primero, con búsqueda y el mejor modelo; sin pick, con el lite y sin búsqueda')
+    # la cuenta del cupo
+    ia.USO.clear()
+    ia._contar('gemini-flash-latest', 'analisis', True)
+    ia._contar('gemini-flash-latest', 'analisis', False, True)
+    subido = []
+
+    class Gu:
+        ok = True
+
+        def json(self):
+            return [{'id': '2026-10-22|gemini-flash-latest|analisis', 'llamadas': 10, 'ok': 9, 'cupo_agotado': False}]
+    sys.modules['requests'] = types.SimpleNamespace(get=lambda *a, **k: Gu(), post=lambda url, headers=None, json=None, timeout=None: subido.append((url, json)))
+    ia.guardar_uso(('https://x/rest/v1/ia_analisis', {}), dt.datetime(2026, 10, 22, 12, tzinfo=dt.timezone.utc))
+    f = subido and subido[0][1][0]
+    check(subido and subido[0][0].endswith('/ia_uso') and f['llamadas'] == 12 and f['ok'] == 10 and f['cupo_agotado'] is True and f['agotado_a'],
+          'v450: la cuenta del cupo se suma a la del día y dice cuándo se acabó')
+    ia.USO.clear()
     src = open('ia_gemini.py', encoding='utf-8').read()
     check("medidos = 0 if sin_cupo else ventanas(sb, picks, ahora, mercado)" in src and "f['base'], f['id'], f['ventana'] = f['id'], f['id'] + '|' + ventana, ventana" in src,
           'v447: las ventanas corren después del análisis de siempre y sólo si queda cupo')

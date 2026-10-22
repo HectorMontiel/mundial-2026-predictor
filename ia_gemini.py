@@ -290,6 +290,20 @@ def _media_liga(clave, que):
 
 _AGOTADOS: set = set()
 _AGOTADOS_WEB: set = set()
+# v450 — EL CUPO DE GEMINI ES EL CUELLO DE BOTELLA (el usuario: «no quiero gastarme
+# todo; midamos cuánto nos sobra»). Se cuenta cada consulta por modelo y para qué
+# (análisis, búsqueda, ventana) y se guarda en `ia_uso`. Y se reparte por prioridad:
+# los partidos CON PICK van con el mejor modelo y con búsqueda; los de «sólo
+# análisis», con el modelo lite y sin búsqueda; la medición, sólo con lo que sobra.
+USO: Dict = {}
+LITE = [m for m in MODELOS if 'lite' in m] + [m for m in MODELOS if 'lite' not in m]
+
+
+def _contar(modelo: str, tipo: str, ok: bool, agotado: bool = False):
+    u = USO.setdefault((modelo, tipo), {'llamadas': 0, 'ok': 0, 'agotado': False})
+    u['llamadas'] += 1
+    u['ok'] += int(ok)
+    u['agotado'] = u['agotado'] or agotado
 # v446 — EL USUARIO: «la IA tiene acceso a internet: que complemente con las
 # alineaciones, las bajas y las noticias recientes, en todos los partidos». Hasta
 # aquí sólo veía nuestros datos. Ahora, ANTES del análisis, una consulta con la
@@ -309,7 +323,7 @@ INSTRUCCION_WEB = (
 )
 
 
-def noticias_web(lista: List[Dict]) -> Dict:
+def noticias_web(lista: List[Dict], tipo: str = 'busqueda') -> Dict:
     """{partido: {'noticias': [...], 'fuentes': [...]}} con la búsqueda de Google;
     {} si no hay clave, se acabó el cupo o algo falla (el análisis sigue sin ellas)."""
     import requests
@@ -327,6 +341,7 @@ def noticias_web(lista: List[Dict]) -> Dict:
         try:
             r = requests.post('https://generativelanguage.googleapis.com/v1beta/models/%s:generateContent' % modelo,
                               params={'key': k}, json=cuerpo, timeout=90)
+            _contar(modelo, tipo, r.ok, r.status_code == 429)
             if r.status_code in (404, 429):   # v449 — 404: ese modelo ya no existe; 429: sin cupo hoy
                 logger.warning('[ia] búsqueda %s: %s', modelo, 'sin cupo hoy' if r.status_code == 429 else 'el modelo ya no existe')
                 _AGOTADOS_WEB.add(modelo)
@@ -353,7 +368,7 @@ def noticias_web(lista: List[Dict]) -> Dict:
     return {}
 
 
-def preguntar(lista: List[Dict], deporte: str = 'Fútbol') -> Optional[Dict]:
+def preguntar(lista: List[Dict], deporte: str = 'Fútbol', tipo: str = 'analisis', modelos: Optional[List[str]] = None) -> Optional[Dict]:
     """{partido: análisis} de un lote; {'_limite': True} si TODOS los modelos
     agotaron su cupo del día. Cada modelo tiene su propio cupo: si uno dice 429
     se pasa al siguiente (antes se paraba la pasada entera en el primero)."""
@@ -365,7 +380,7 @@ def preguntar(lista: List[Dict], deporte: str = 'Fútbol') -> Optional[Dict]:
               'contents': [{'role': 'user', 'parts': [{'text': json.dumps(lista, ensure_ascii=False)}]}],
               'generationConfig': {'temperature': 0.3, 'responseMimeType': 'application/json',
                                    'responseSchema': ESQUEMA_LOTE if deporte == 'Fútbol' else ESQUEMA_LOTE_GEN}}
-    for modelo in MODELOS:
+    for modelo in (modelos or MODELOS):
         if modelo in _AGOTADOS:
             continue
         try:
@@ -375,6 +390,7 @@ def preguntar(lista: List[Dict], deporte: str = 'Fútbol') -> Optional[Dict]:
                 if r.status_code != 503:
                     break
                 time.sleep(6 * (intento + 1))
+            _contar(modelo, tipo, r.ok, r.status_code == 429)
             if r.status_code in (404, 429):   # v449 — 404: el modelo ya no existe (Google retiró los 2.5)
                 logger.warning('[ia] %s: %s; se prueba el siguiente modelo', modelo,
                                'límite del nivel gratis' if r.status_code == 429 else 'ya no existe')
@@ -706,11 +722,13 @@ def analizar(sb, lista: List[Dict], mercado: Dict, ventana: Optional[str] = None
     guarda. Devuelve (cuántos, si se acabó el cupo de todos los modelos)."""
     hechos = 0
     lotes = []
-    for dep in dict.fromkeys(m.get('deporte', 'Fútbol') for m in lista):
-        del_dep = [m for m in lista if m.get('deporte', 'Fútbol') == dep]
-        lotes += [(dep, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
-    for dep, lote in lotes:
-        web = noticias_web(lote)
+    for con_pick in (True, False):            # v450 — TODOS los de con pick primero (y en lotes aparte)
+        for dep in dict.fromkeys(m.get('deporte', 'Fútbol') for m in lista):
+            del_dep = [m for m in lista if m.get('deporte', 'Fútbol') == dep and (m.get('peso', 0) >= 0) == con_pick]
+            lotes += [(dep, con_pick, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
+    for dep, con_pick, lote in lotes:
+        tipo = 'ventana' if ventana else 'analisis' if con_pick else 'solo_analisis'
+        web = noticias_web(lote, 'busqueda_ventana' if ventana else 'busqueda') if con_pick else {}
         entrada = []
         for m in lote:
             d = datos_del_partido(m, mercado)
@@ -719,7 +737,7 @@ def analizar(sb, lista: List[Dict], mercado: Dict, ventana: Optional[str] = None
                 d['noticias_recientes_web'] = w['noticias']
                 d['fuentes_de_las_noticias'] = w['fuentes']
             entrada.append(d)
-        res = preguntar(entrada, dep)
+        res = preguntar(entrada, dep, tipo, None if con_pick and not ventana else LITE)
         if res and res.get('_limite'):
             print('ia: todos los modelos agotaron su cupo de hoy')
             return hechos, True
@@ -745,8 +763,12 @@ def analizar(sb, lista: List[Dict], mercado: Dict, ventana: Optional[str] = None
 # el que se enseña); además, cada partido CON PICK se vuelve a analizar —con las
 # noticias de la web— en tres horas antes del inicio. Se guarda en `ia_ventanas`
 # (no lo ve el usuario), se califica igual y se compara por deporte y predicción.
-VENTANAS = [('v12', 9.0, 15.0), ('v6', 4.0, 8.0), ('v2', 1.0, 3.5)]
-MAX_VENTANA = int(os.environ.get('IA_MAX_VENTANA', '40'))
+# v450 — más chica para cuidar el cupo: sólo fútbol, ~6 h y ~2 h, 15 por pasada y
+# 60 por día, con el modelo lite (el que hace casi todos los análisis): así se
+# comparan horas con el mismo modelo, no modelos distintos.
+VENTANAS = [('v6', 4.0, 8.0), ('v2', 1.0, 3.5)]
+MAX_VENTANA = int(os.environ.get('IA_MAX_VENTANA', '15'))
+MAX_VENTANA_DIA = int(os.environ.get('IA_MAX_VENTANA_DIA', '60'))
 
 
 def ventanas(sb, picks: List[Dict], ahora: dt.datetime, mercado: Dict) -> int:
@@ -754,18 +776,23 @@ def ventanas(sb, picks: List[Dict], ahora: dt.datetime, mercado: Dict) -> int:
     sbv = (sb[0].replace('/ia_analisis', '/ia_ventanas'), sb[1])
     desde = (dt.date.today() - dt.timedelta(days=3)).isoformat()
     try:
-        r = requests.get(sbv[0], headers=sbv[1], params={'select': 'id', 'fecha': 'gte.' + desde, 'limit': 10000}, timeout=30)
+        r = requests.get(sbv[0], headers=sbv[1], params={'select': 'id,creado', 'fecha': 'gte.' + desde, 'limit': 10000}, timeout=30)
     except Exception:
         return 0
     if not r.ok:
         return 0                            # sin la migración v447 no se mide (no pasa nada más)
-    hechos = {x['id'] for x in r.json()}
+    filas_v = r.json()
+    hechos = {x['id'] for x in filas_v}
+    hoy = sum(1 for x in filas_v if str(x.get('creado') or '')[:10] == ahora.strftime('%Y-%m-%d'))
     evaluar(sbv, picks)
     n = 0
     for nombre, h0, h1 in VENTANAS:
-        lista = [m for m in partidos(picks, ahora) if m['peso'] >= 0 and _utc(m['inicio'])
+        queda = min(MAX_VENTANA - n, MAX_VENTANA_DIA - hoy - n)
+        if queda <= 0:
+            break
+        lista = [m for m in partidos(picks, ahora) if m['peso'] >= 0 and m.get('deporte', 'Fútbol') == 'Fútbol' and _utc(m['inicio'])
                  and h0 <= (_utc(m['inicio']) - ahora).total_seconds() / 3600 < h1
-                 and m['id'] + '|' + nombre not in hechos][:MAX_VENTANA]
+                 and m['id'] + '|' + nombre not in hechos][:queda]
         if not lista:
             continue
         k, sin_cupo = analizar(sbv, lista, mercado, nombre)
@@ -773,6 +800,33 @@ def ventanas(sb, picks: List[Dict], ahora: dt.datetime, mercado: Dict) -> int:
         if sin_cupo:
             break
     return n
+
+
+def guardar_uso(sb, ahora: dt.datetime):
+    """v450 — suma lo de esta pasada a `ia_uso` (por día de Google, que reinicia el
+    cupo a medianoche del Pacífico). Sin la migración v450, no hace nada."""
+    import requests
+    if not USO or not sb:
+        return
+    url = sb[0].replace('/ia_analisis', '/ia_uso')
+    dia = (ahora - dt.timedelta(hours=8)).strftime('%Y-%m-%d')
+    try:
+        r = requests.get(url, headers=sb[1], params={'select': '*', 'fecha': 'eq.' + dia}, timeout=20)
+        if not r.ok:
+            return
+        antes = {x['id']: x for x in r.json()}
+        filas = []
+        for (modelo, tipo), u in USO.items():
+            k = '%s|%s|%s' % (dia, modelo, tipo)
+            a = antes.get(k) or {}
+            filas.append({'id': k, 'fecha': dia, 'modelo': modelo, 'tipo': tipo,
+                          'llamadas': int(a.get('llamadas') or 0) + u['llamadas'], 'ok': int(a.get('ok') or 0) + u['ok'],
+                          'cupo_agotado': bool(a.get('cupo_agotado')) or u['agotado'],
+                          'agotado_a': a.get('agotado_a') or (ahora.isoformat() if u['agotado'] else None),
+                          'actualizado': ahora.isoformat()})
+        requests.post(url, headers=dict(sb[1], Prefer='resolution=merge-duplicates,return=minimal'), json=filas, timeout=20)
+    except Exception as e:
+        logger.warning('[ia] no se guardó la cuenta del cupo: %s', type(e).__name__)
 
 
 def main() -> int:
@@ -817,7 +871,9 @@ def main() -> int:
     hechos_ahora, sin_cupo = analizar(sb, nuevos, mercado)
     # v447 — el mismo partido otra vez ~12 h, ~6 h y ~2 h antes, SÓLO para medir
     medidos = 0 if sin_cupo else ventanas(sb, picks, ahora, mercado)
-    print('ia: %d analizados, %d evaluados, %d en ventanas' % (hechos_ahora, evaluados, medidos))
+    guardar_uso(sb, ahora)
+    print('ia: %d analizados, %d evaluados, %d en ventanas · consultas: %s' % (hechos_ahora, evaluados, medidos,
+          ', '.join('%s %s=%d%s' % (t, m.replace('gemini-', ''), u['llamadas'], ' (sin cupo)' if u['agotado'] else '') for (m, t), u in sorted(USO.items()))))
     return 0
 
 
