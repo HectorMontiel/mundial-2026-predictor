@@ -618,3 +618,13 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .cancha-svg .pase { stroke: rgba(255,255,255,.85); stroke-width: .35; stroke-linecap: round; opacity: 0; transition: opacity .9s; }
 .cancha-svg .pase.ve { opacity: .9; transition: none; }
 @media (prefers-reduced-motion: reduce) { .cancha-svg .jug, .cancha-svg .balon { transition: none; } }
+
+/* v435 — el balón no se pierde entre los puntitos blancos */
+.cancha-svg .balon .bola { fill: #fff; stroke: #0b1220; stroke-width: .4; }
+.cancha-svg .balon .penta { fill: #0b1220; }
+.cancha-svg .balon .sombra { fill: rgba(0,0,0,.35); }
+.cancha-svg .balon .halo { fill: none; stroke: #facc15; stroke-width: .35; opacity: .9; }
+
+/* v436 — sin jugadas suficientes: la línea del partido con goles y tarjetas */
+.presion-svg.linea .pista { stroke: rgba(255,255,255,.12); stroke-width: 2.2; vector-effect: non-scaling-stroke; }
+.presion-svg.linea .va { stroke: var(--verde, #22c55e); stroke-width: 2.2; vector-effect: non-scaling-stroke; opacity: .8; }

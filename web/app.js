@@ -136,6 +136,15 @@
   }
   const varsColor = (v) => v && v.colores ? '--c-l:' + v.colores.l + ';--c-r:' + v.colores.r + ';--t-l:' + v.colores.tl + ';--t-r:' + v.colores.tr : '';
 
+  // v436 — el puesto de ESPN («CD-L», «AM», «F»…) en la misma escala que 365Scores:
+  // prof 0 = portería propia … 100 = media cancha; ancho 0 = su izquierda … 100 = su derecha
+  const PUESTO = { G: [0, 50], GK: [0, 50], SW: [14, 50], CD: [20, 50], CB: [20, 50], LB: [24, 10], RB: [24, 90], LWB: [40, 8], RWB: [40, 92],
+    DM: [38, 50], CDM: [38, 50], CM: [50, 50], LM: [58, 10], RM: [58, 90], AM: [70, 50], CAM: [70, 50], LW: [80, 12], RW: [80, 88], SS: [80, 50],
+    LF: [86, 25], RF: [86, 75], CF: [90, 50], F: [92, 50], ST: [92, 50] };
+  function puestoEspn(a) {
+    const m = String(a || '').toUpperCase().match(/^([A-Z]+)(?:-([LR]))?$/), b = PUESTO[m && m[1]] || [50, 50];
+    return [b[0], Math.max(4, Math.min(96, b[1] + (m && m[2] ? (m[2] === 'L' ? -16 : 16) : 0)))];
+  }
   function leerResumen(d, p) {
     const comp = ((d.header || {}).competitions || [])[0] || {};
     const st = (comp.status || {}).type || {};
@@ -167,8 +176,17 @@
       x: Number(x.fieldPositionX), y: Number(x.fieldPositionY),
       x2: x.fieldPosition2X != null ? Number(x.fieldPosition2X) : null, y2: x.fieldPosition2Y != null ? Number(x.fieldPosition2Y) : null,
     })).sort((a, b) => a.seg - b.seg);
+    // v436 — la alineación de ESPN (formación y puesto de cada titular): el respaldo cuando 365Scores no la trae
+    const once = [];
+    for (const r of d.rosters || []) {
+      const lado = String((r.team || {}).id) === String((nos1.team || {}).id) ? 0 : 1;
+      (r.roster || []).filter((j) => j.starter).forEach((j) => {
+        const [prof, ancho] = puestoEspn((j.position || {}).abbreviation);
+        once.push({ lado, n: j.jersey || '', nombre: (j.athlete || {}).shortName || (j.athlete || {}).displayName || '', prof, ancho, nota: null });
+      });
+    }
     return {
-      jugadas,
+      jugadas, once, formacion: [0, 1].map((l) => ((d.rosters || []).find((r) => (String((r.team || {}).id) === String((nos1.team || {}).id) ? 0 : 1) === l) || {}).formation || ''),
       fase: st.state || 'pre', terminado: !!st.completed, detalle: ({ FT: 'Final', HT: 'Medio tiempo', AET: 'Final (prórroga)', 'FT-Pens': 'Final (penales)', Final: 'Final' })[st.shortDetail] || st.shortDetail || st.detail || '',
       reloj: (comp.status || {}).displayClock || '', g: [Number(nos1.score || 0), Number(nos2.score || 0)],
       stats, eventos, nombres: [((nos1.team || {}).displayName) || '', ((nos2.team || {}).displayName) || ''],
@@ -404,14 +422,16 @@
     if (p.deporte !== 'Fútbol') return null;
     const k = clavePartido(p);
     let gid = estado.p365[k];
-    if (gid === undefined) {
+    // v436 — si no se encontró, se vuelve a buscar cada 2 minutos (antes quedaba sin cancha para siempre)
+    if (gid === undefined || (gid === null && Date.now() - (estado.p365[k + '|t'] || 0) > 120e3)) {
+      estado.p365[k + '|t'] = Date.now();
       const [L, V] = lados(p), cr = mejorCruce(L, V, await dia365(diaDe(p)), 'home', 'away');
       gid = estado.p365[k] = cr ? cr.m.id : null;
       if (cr && cr.girado) estado.p365[k + '|girado'] = true;
     }
     if (!gid) return null;
     const viejo = estado.d365[gid];
-    if (viejo && Date.now() - viejo.ts < 30e3) return viejo;
+    if (viejo && Date.now() - viejo.ts < 15e3) return viejo;
     try {
       const r = await fetch(API365 + 'game/?' + P365 + '&gameId=' + gid);
       const g = r.ok ? (await r.json()).game : null;
@@ -441,9 +461,9 @@
     let cambio = false;
     for (const p of ps) {
       const k = clavePartido(p); if (hechos.has(k)) continue; hechos.add(k);
-      const previo = estado.d365[estado.p365[k]], antes = JSON.stringify((previo || {}).tiros || []);
+      const previo = estado.d365[estado.p365[k]], antes = JSON.stringify((previo || {}).tiros || []) + ((previo || {}).once || []).length;
       const d = await detalle365(p);
-      if (d && (!previo || JSON.stringify(d.tiros) !== antes)) cambio = true;      // v431: también al llegar por 1.ª vez
+      if (d && (!previo || JSON.stringify(d.tiros) + (d.once || []).length !== antes)) cambio = true;   // v436: también si llega la alineación      // v431: también al llegar por 1.ª vez
       const v = vivoDe([p]);
       if (estado.p365[k] && v && v.fase === 'in') await stats365(estado.p365[k]);      // v431 — quién ataca ahora
     }
@@ -453,27 +473,40 @@
   const JUGADA = { goal: ['⚽', 'Gol', 5], 'penalty---scored': ['⚽', 'Gol de penal', 5], 'shot-on-target': ['🎯', 'Tiro a puerta', 3],
     'shot-off-target': ['↗️', 'Tiro desviado', 2], 'shot-blocked': ['🧱', 'Tiro bloqueado', 1.5], 'corner-awarded': ['🚩', 'Córner', 1],
     foul: ['✋', 'Falta', 0], offside: ['🚩', 'Fuera de lugar', 0.5], 'yellow-card': ['🟨', 'Amarilla', 0], 'red-card': ['🟥', 'Roja', 0] };
+  const BASE_442 = [[0, 50], [24, 10], [20, 36], [20, 64], [24, 90], [58, 10], [50, 38], [50, 62], [58, 90], [90, 38], [90, 62]];
   const minuto = (s) => { const m = String(s || '').match(/(\d+)(?:'\s*\+\s*(\d+))?/); return m ? Number(m[1]) + (m[2] ? Number(m[2]) / 10 : 0) : 0; };
   function cancha(v, p) {
     const k = p ? clavePartido(p) : '';
     const d = p ? estado.d365[estado.p365[k]] : null;
-    const js = (v && v.jugadas) || [], todos = (d && d.tiros) || [], once = (d && d.once) || [];
-    if (!js.length && !todos.length && !once.length) return '';
+    // v436 — UNA FUENTE POR COSA, SIN MEZCLAR (el usuario: «cuando uno no funciona,
+    // agarrar el otro, pero no combinarlos»). Si la primera no trae nada, la siguiente:
+    //   · alineación: 365Scores → ESPN → (sin ninguna) puntitos en 4-4-2, sin nombres;
+    //   · jugadas: ESPN con su lugar → tiros de 365Scores → goles y tarjetas de ESPN.
+    const espnJ = (v && v.jugadas) || [], t365 = (d && d.tiros) || [], evE = ((v && v.eventos) || []).filter((e) => e.gol || /🟨|🟥/.test(e.ico));
+    const fuente = espnJ.length ? 'espn' : t365.length ? '365' : evE.length ? 'eventos' : '';
+    const js = fuente === 'espn' ? espnJ : [], todos = t365;
+    const onceReal = d && d.once && d.once.length >= 18 ? d.once : v && v.once && v.once.length >= 18 ? v.once : null;
+    if (!fuente && !onceReal) return '';
+    const once = onceReal || BASE_442.flatMap(([prof, ancho], i) => [0, 1].map((lado) => ({ lado, n: '', nombre: '', i, prof, ancho, nota: null })));
+    const dibujo = fuente === '365' ? t365 : fuente === 'espn' ? espnJ.filter((j) => /goal|scored|shot/.test(j.t)).map((j) => ({ lado: j.lado, x: j.x, y: j.y,
+      xg: /goal|scored/.test(j.t) ? 0.35 : /on-target/.test(j.t) ? 0.2 : 0.1, min: j.min, gol: /goal|scored/.test(j.t), resultado: (JUGADA[j.t] || ['', ''])[1], cuerpo: j.equipo, jugador: '' })) : [];
     const c = (v && v.colores) || { l: '#22c55e', r: '#e879f9' };
     const col = (lado) => (lado === 0 ? c.l : c.r);
     const X = (lado, x) => ((lado === 0 ? x : 100 - x) * 1.05).toFixed(2), Y = (lado, y) => ((lado === 0 ? y : 100 - y) * 0.68).toFixed(2);
     const reloj = minuto((v && (v.reloj || v.detalle)) || '');
-    const ahora = Math.max(reloj, ...js.map((j) => j.seg / 60), ...todos.map((t) => minuto(t.min)), 0);
+    const ahora = Math.max(reloj, ...js.map((j) => j.seg / 60), ...dibujo.map((t) => minuto(t.min)), ...evE.map((e) => minuto(e.min)), 0);
     const pausa = !v || v.fase !== 'in' || /medio|descanso|half|^ht$/i.test(String(v.detalle || ''));
     const letrero = !v || v.fase === 'pre' ? '' : v.terminado || v.fase === 'post' ? 'FINAL' : pausa ? 'MEDIO TIEMPO' : '';
     // sin ruido: los goles siempre; los demás tiros, sólo los de los últimos 15 minutos
-    const tiros = todos.filter((t) => t.gol || minuto(t.min) >= ahora - 15);
-    // las jugadas REALES (ESPN y los tiros de 365Scores) para el motor
-    const reales = js.map((j) => ({ id: 'e' + j.seg + j.t, t: j.t, src: 'espn', m: j.seg / 60, lado: j.lado, x: X(j.lado, j.x), y: Y(j.lado, j.y),
+    const tiros = dibujo.filter((t) => t.gol || minuto(t.min) >= ahora - 15);
+    // las jugadas REALES para el motor, de la fuente elegida
+    const reales = (fuente === 'espn' ? js.map((j) => ({ id: 'e' + j.seg + j.t, t: j.t, src: 'espn', m: j.seg / 60, lado: j.lado, x: X(j.lado, j.x), y: Y(j.lado, j.y),
       w: (JUGADA[j.t] || [0, 0, 0])[2], txt: (JUGADA[j.t] || ['•', ''])[0] + ' <b>' + esc((JUGADA[j.t] || ['', j.t])[1]) + '</b> · ' + esc(j.equipo) + ' · ' + esc(j.min) }))
-      .concat(todos.map((t) => ({ id: 't' + t.min + t.x + t.y, t: t.gol ? 'goal' : /ataj/i.test(t.resultado) ? 'shot-on-target' : 'shot-off-target', src: '365',
+      : fuente === '365' ? t365.map((t) => ({ id: 't' + t.min + t.x + t.y, t: t.gol ? 'goal' : /ataj/i.test(t.resultado) ? 'shot-on-target' : 'shot-off-target', src: '365',
         m: minuto(t.min), lado: t.lado, x: X(t.lado, t.x), y: Y(t.lado, t.y),
-        w: 1.5 + 8 * t.xg, txt: (t.gol ? '⚽ <b>Gol</b>' : '🎯 <b>Tiro</b>') + ' · ' + esc(t.jugador) + ' · ' + esc(t.min) })))
+        w: 1.5 + 8 * t.xg, txt: (t.gol ? '⚽ <b>Gol</b>' : '🎯 <b>Tiro</b>') + ' · ' + esc(t.jugador) + ' · ' + esc(t.min) }))
+      : evE.map((e) => ({ id: 'k' + e.min + e.lado + e.ico, t: e.gol ? 'goal' : '', src: 'eventos', m: minuto(e.min), lado: e.lado,
+        x: X(e.lado, 95), y: Y(e.lado, 50), w: e.gol ? 5 : 0, txt: e.ico + ' <b>' + (e.gol ? 'Gol' : 'Tarjeta') + '</b> · ' + esc(e.texto) + ' · ' + esc(e.min) })))
       .sort((a, b) => a.m - b.m);
     if (k) {
       // v434 — el usuario: al abrir una tarjeta en vivo, la cancha va EN EL MINUTO
@@ -510,7 +543,7 @@
     // los 22 en su formación; el motor los mueve con el juego (data-bx/by = su lugar)
     once.forEach((j) => {
       const x = j.lado === 0 ? 3 + j.prof * 0.45 : 102 - j.prof * 0.45, y = j.lado === 0 ? 5 + j.ancho * 0.58 : 63 - j.ancho * 0.58;
-      const key = j.lado + '|' + (j.n || j.nombre), mo = estado.motor[k], pm = (mo && mo.pos || {})[key];
+      const key = j.lado + '|' + (j.n || j.nombre || 'p' + j.i), mo = estado.motor[k], pm = (mo && mo.pos || {})[key];
       let tx = pm ? pm[0] : x, ty = pm ? pm[1] : y;
       if (!pm && mo && mo.bx != null) {
         // v434 — al abrir: cada quien ya corrido hacia donde va el balón ahora
@@ -526,7 +559,8 @@
     });
     s += '<line class="pase" x1="0" y1="0" x2="0" y2="0"/>';
     const mb = k && estado.motor[k] && estado.motor[k].bx != null ? [estado.motor[k].bx, estado.motor[k].by] : [52.5, 34];
-    s += '<g class="balon" style="transform: translate(' + mb[0].toFixed(2) + 'px,' + mb[1].toFixed(2) + 'px)"><circle r="1.5" class="halo" fill="#fff"/><circle r="1" fill="#fff" filter="url(#brillo)"/></g>';
+    s += '<g class="balon" style="transform: translate(' + mb[0].toFixed(2) + 'px,' + mb[1].toFixed(2) + 'px)"><ellipse cx=".35" cy=".75" rx="1.25" ry=".55" class="sombra"/><circle r="2" class="halo"/>' +
+      '<circle r="1.25" class="bola"/><path d="M0,-.55 L.52,-.17 L.32,.45 L-.32,.45 L-.52,-.17Z" class="penta"/></g>';
     if (letrero) s += '<g class="letrero"><rect x="32.5" y="27" width="40" height="14" rx="3"/><text x="52.5" y="36.2">' + letrero + '</text></g>';
     s += '</svg>';
     const ult = reales.length ? reales[reales.length - 1] : null;
@@ -541,16 +575,21 @@
     const tope = Math.max(1, ...suave.map(Math.abs)), W = 100 / (suave.length - 1);
     const barras = suave.map((x, i) => { const h = 11 * Math.abs(x) / tope; return h < 0.2 ? '' : '<rect x="' + (i * W - W * 0.38).toFixed(2) + '" y="' + (x > 0 ? 12 - h : 12).toFixed(2) +
       '" width="' + (W * 0.76).toFixed(2) + '" height="' + h.toFixed(2) + '" fill="' + (x > 0 ? c.l : c.r) + '"/>'; }).join('');
-    const ola = '<svg class="presion-svg" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="Presión minuto a minuto">' + barras +
-      '<line x1="50" y1="2" x2="50" y2="22" class="eje"/><line x1="0" y1="12" x2="100" y2="12" class="eje"/></svg>';
+    // v436 — si la fuente casi no trae jugadas (sólo goles y tarjetas), no se inventa la presión:
+    // queda la línea del partido hasta el minuto que va, con sus goles y tarjetas
+    const pocas = reales.filter((q) => q.w > 0).length < 4;
+    const ola = '<svg class="presion-svg' + (pocas ? ' linea' : '') + '" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="' + (pocas ? 'El partido minuto a minuto' : 'Presión minuto a minuto') + '">' +
+      (pocas ? '<line x1="0" y1="12" x2="100" y2="12" class="pista"/><line x1="0" y1="12" x2="' + Math.min(100, 100 * ahora / fin).toFixed(1) + '" y2="12" class="va"/>' : barras) +
+      '<line x1="50" y1="2" x2="50" y2="22" class="eje"/>' + (pocas ? '' : '<line x1="0" y1="12" x2="100" y2="12" class="eje"/>') + '</svg>';
     // v432 — un ⚽ en el minuto de cada gol (arriba el local, abajo el visitante)
     const vistoGol = new Set();
-    const goles = reales.filter((q) => /Gol/.test(q.txt)).filter((q) => { const g = Math.round(q.m) + '|' + q.lado; if (vistoGol.has(g)) return false; vistoGol.add(g); return true; }).map((q) => '<span class="ola-gol ' + (q.lado === 0 ? 'arriba' : 'abajo') +
-      '" style="left:' + Math.min(98, 100 * q.m / fin).toFixed(1) + '%" title="' + esc(q.txt.replace(/<[^>]+>/g, '')) + '">⚽</span>').join('');
-    const form = d && d.formacion && (d.formacion[0] || d.formacion[1]) ? '<small class="tenue">' + esc(d.formacion[0] || '') + ' vs ' + esc(d.formacion[1] || '') + '</small>' : '';
+    const goles = reales.filter((q) => /Gol|Tarjeta/.test(q.txt)).filter((q) => { const g = Math.round(q.m) + '|' + q.lado; if (vistoGol.has(g)) return false; vistoGol.add(g); return true; }).map((q) => '<span class="ola-gol ' + (q.lado === 0 ? 'arriba' : 'abajo') +
+      '" style="left:' + Math.min(98, 100 * q.m / fin).toFixed(1) + '%" title="' + esc(q.txt.replace(/<[^>]+>/g, '')) + '">' + (/Tarjeta/.test(q.txt) ? q.txt.slice(0, 2) : '⚽') + '</span>').join('');
+    const fm = onceReal && d && onceReal === d.once ? d.formacion : onceReal && v ? v.formacion : null;
+    const form = fm && (fm[0] || fm[1]) ? '<small class="tenue">' + esc(fm[0] || '') + ' vs ' + esc(fm[1] || '') + '</small>' : '';
     // v434 — el usuario: «el menos texto posible»; lo demás queda en el tooltip
     const leyenda = '<div class="cancha-ley" title="Tamaño del tiro = peligro (xG). Animación aproximada según el juego."><span><i class="l-tiro"></i>tiro</span><span><i class="l-gol"></i>gol</span></div>';
-    return '<div class="cancha">' + cab + s + leyenda + '<div class="cancha-tit"><span>Presión</span>' + form + '</div><div class="ola">' + ola + goles + '</div></div>';
+    return '<div class="cancha">' + cab + s + leyenda + '<div class="cancha-tit"><span>' + (pocas ? '' : 'Presión') + '</span>' + form + '</div><div class="ola">' + ola + goles + '</div></div>';
   }
   // v431 — EL MOTOR: QUE LA CANCHA SE VEA COMO EL PARTIDO. El usuario: «no me
   // gusta que las bolitas se queden estáticas… no se entienden las circunferencias
@@ -605,7 +644,7 @@
   // v432 — «que los jugadores se muevan conforme se mueve el balón, con lógica:
   // no un defensa hasta el fondo». Cada puesto tiene su franja (en la dirección
   // de ataque de su equipo, de 0 = su portería a 105 = la contraria):
-  const FRANJA = (prof) => (prof <= 5 ? [1, 13] : prof <= 35 ? [4, 66] : prof <= 65 ? [16, 88] : [34, 101]);
+  const FRANJA = (prof) => (prof <= 5 ? [2, 13] : prof <= 35 ? [7, 66] : prof <= 65 ? [16, 88] : [34, 97]);   // v435: nadie pegado a la línea
   // v433 — LAS JUGADAS A BALÓN PARADO. El usuario: «que tengan la lógica de cuando
   // hay un tiro de esquina, un tiro directo, un penal, cuando festejan, un saque
   // de banda». Cada jugada REAL (ESPN o 365Scores) o lo que suben las estadísticas
@@ -763,15 +802,16 @@
           }
         } else {
           // conduce: unos metros hacia la portería contraria
-          port.cx = Math.max(4, Math.min(101, port.cx + port.dir * (2 + Math.random() * 3.5)));
-          port.cy = Math.max(4, Math.min(64, port.cy + (Math.random() - 0.5) * 3));
+          port.cx = Math.max(7, Math.min(98, port.cx + port.dir * (2 + Math.random() * 3.5)));
+          port.cy = Math.max(5, Math.min(63, port.cy + (Math.random() - 0.5) * 3));
         }
-        bx = port.cx + port.dir * 0.9; by = port.cy;
+        bx = port.cx + port.dir * 2.8; by = port.cy + 0.6;
         // el lugar al que va cada uno: su formación corrida hacia el balón (poco) + lo cercano (mucho)
         js.forEach((q) => {
           const gk = q.prof <= 5;
           let tx = q.x0 + (bx - 52.5) * (gk ? 0.08 : 0.42) + q.dir * (q.lado === port.lado ? 3 : -1.5);
           let ty = q.y0 + (by - 34) * (gk ? 0.15 : 0.28);
+          if (q.lado !== port.lado && !gk) ty = 34 + (ty - 34) * 0.78;
           const [mn, mx] = FRANJA(q.prof), t = q.dir > 0 ? tx : 105 - tx, tc = Math.max(mn, Math.min(mx, t));
           tx = q.dir > 0 ? tc : 105 - tc;
           q.tx = tx; q.ty = Math.max(3, Math.min(65, ty));
@@ -791,12 +831,14 @@
       js.forEach((q) => {
         const f = q === port ? 1 : quieto ? 0.5 : m.escena ? 0.6 : 0.38;
         q.cx += ((q.tx == null ? q.x0 : q.tx) - q.cx) * f; q.cy += ((q.ty == null ? q.y0 : q.ty) - q.cy) * f;
+        const bd = m.escena ? 1.2 : 2.2;                                  // v435: nadie fuera de la cancha
+        q.cx = Math.max(bd, Math.min(105 - bd, q.cx)); q.cy = Math.max(bd, Math.min(68 - bd, q.cy));
         m.pos[q.key] = [q.cx, q.cy];
         q.j.style.transform = 'translate(' + q.cx.toFixed(2) + 'px,' + q.cy.toFixed(2) + 'px)';
         q.j.classList.toggle('portador', q === port);
       });
       m.portador = port ? port.key : null;
-      if (port && !m.escena) { bx = port.cx + port.dir * 0.9; by = port.cy; }
+      if (port && !m.escena) { bx = port.cx + port.dir * 2.8; by = port.cy + 0.6; }
       m.bx = bx; m.by = by;
       const b = svg.querySelector('.balon');
       if (b) b.style.transform = 'translate(' + bx.toFixed(2) + 'px,' + by.toFixed(2) + 'px)';
@@ -1434,8 +1476,8 @@
   setInterval(() => { $('reloj').textContent = new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, hour: '2-digit', minute: '2-digit' }).format(new Date()) + ' CDMX'; }, 1000);
   cargar();
   setInterval(cargar, 3 * 60 * 1000);   // picks nuevos y verdes/rojas oficiales
-  setInterval(vivo, 30 * 1000);         // marcador y estadísticas
+  setInterval(vivo, 20 * 1000);         // marcador y estadísticas (v436: cada 20 s)
   setInterval(vivoFs, 45 * 1000);       // v424 — y lo que ESPN no cubre
-  setInterval(vivo365, 30 * 1000);      // v429 — la alineación y los tiros de las canchas a la vista
+  setInterval(vivo365, 20 * 1000);      // v429 — la alineación y los tiros de las canchas a la vista
   setTimeout(vivoFs, 4000);
 })();

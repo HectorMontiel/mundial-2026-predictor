@@ -269,7 +269,20 @@ def probar_v434():
     check('const barras = suave.map(' in app and '<polygon points="0,12' not in app, 'v434: la presión en barras por minuto, como Sofascore')
     check('if (!m.ini && reales.length) {' in app and 'reales.forEach((q) => m.vistas.add(q.id));' in app and 'q.m < (m.minuto || 0) - 2' in app
           and 'reales.slice(0, -1)' not in app, 'v434: al abrir una tarjeta en vivo, la cancha va en el minuto que corre (no repite lo ya pasado)')
-    check('<span>Presión</span>' in app and 'tamaño = peligro (xG)</span>' not in app, 'v434: el menos texto posible en la cancha')
+    check('class="bola"' in app and 'class="penta"' in app and '.cancha-svg .balon .bola { fill: #fff; stroke: #0b1220;' in css,
+          'v435: el balón con contorno oscuro y aro amarillo (no se pierde con el equipo de blanco)')
+    check('q.cx = Math.max(bd, Math.min(105 - bd, q.cx));' in app and "prof <= 5 ? [2, 13] : prof <= 35 ? [7, 66]" in app,
+          'v435: nadie se sale de la cancha ni se pega a la línea')
+    check("const fuente = espnJ.length ? 'espn' : t365.length ? '365' : evE.length ? 'eventos' : '';" in app
+          and "fuente === 'espn' ? js.map(" in app and '.concat(todos.map(' not in app,
+          'v436: una fuente por cosa, sin mezclar (los goles ya no salen dos veces en la presión)')
+    check('function puestoEspn(a)' in app and 'v && v.once && v.once.length >= 18 ? v.once' in app and 'BASE_442.flatMap(' in app,
+          'v436: si 365Scores no trae la alineación, la de ESPN; la cancha nunca se queda sin jugadores')
+    check("const pocas = reales.filter((q) => q.w > 0).length < 4;" in app and '.presion-svg.linea .va' in css,
+          'v436: sin jugadas suficientes no se inventa la presión: la línea del partido con goles y tarjetas')
+    check("gid === null && Date.now() - (estado.p365[k + '|t'] || 0) > 120e3" in app and 'setInterval(vivo365, 20 * 1000);' in app,
+          'v436: se vuelve a buscar el partido en 365Scores y se refresca cada 20 s')
+    check("(pocas ? '' : 'Presión')" in app and 'tamaño = peligro (xG)</span>' not in app, 'v434: el menos texto posible en la cancha')
 
 
 if __name__ == '__main__':

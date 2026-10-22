@@ -51,8 +51,8 @@ def probar():
     check(ev._parecido('Ein Frankfurt', 'Eintracht Frankfurt') < 1 and ev._norm('FC Köln') == 'koln',
           'normaliza acentos y quita «FC»')
     js = open(os.path.join('web', 'app.js'), encoding='utf-8').read()
-    check('site.api.espn.com' in js and '/summary?event=' in js and 'setInterval(vivo, 30 * 1000)' in js,
-          'la página lee el en vivo de ESPN cada 30 s')
+    check('site.api.espn.com' in js and '/summary?event=' in js and 'setInterval(vivo, 20 * 1000)' in js,
+          'la página lee el en vivo de ESPN cada 20 s (v436)')
     check('function ficha(' in js and 'function filaStat(' in js and 'function posesion(' in js
           and 'function nivel(' in js and 'function simular(' not in js,
           'ficha del partido con barras tipo SofaScore y niveles (el simulador se quitó en la v382)')
