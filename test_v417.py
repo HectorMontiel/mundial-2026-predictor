@@ -280,6 +280,9 @@ def probar_v434():
           and 'id="mi-hist"' in leer('web', 'index.html') and "sb.from('seguidos').select('pick,creado')" not in cu,
           'v442: el historial es sólo de SUS combinadas terminadas (no lo que sigue); «Mis combinadas» sólo las vivas')
     check("const pr = PREMIO(Number(c.cuota));" in cu and 'Si acierta: <b>+' in cu, 'v443: cada combinada pendiente dice cuántas 🪙 gana si acierta')
+    check('async function textosPremium()' in cu and ".range(i * 1000, i * 1000 + 999)" in cu and "picks!inner(inicio)" in cu
+          and "p.premium && !yo.desbloqueados[p.id] && !esVip()" in cu and "sb.from('picks_premium').select('id,apuesta').then(" not in cu,
+          'v445: el VIP ve todos los premium (los textos por páginas, ya no se cortan en 1000) y nunca le sale «Desbloquear»')
     ix = leer('web', 'index.html')
     check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
           and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')

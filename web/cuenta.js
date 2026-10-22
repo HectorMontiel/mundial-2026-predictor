@@ -69,7 +69,7 @@
 
   function extra(p) {
     let h = '<div class="acciones">';
-    if (p.premium && !yo.desbloqueados[p.id]) {
+    if (p.premium && !yo.desbloqueados[p.id] && !esVip()) {             // v445: al VIP (y al admin) nunca se le ofrece desbloquear
       const pr = precio(p);
       // v381 — lanzamiento: con cuenta (gratis) se ven todos; sin cuenta, candado
       if (!yo.user) h += '<button class="desbloquear" data-entrar>🔓 Entra gratis y desbloquéalo</button>';
@@ -114,6 +114,27 @@
 
   function filtrarMios(lista) { return lista.filter((p) => yo.seguidos.has(p.id)); }
 
+  // v445 — el usuario (VIP y admin) veía «🔒 Pick Plata» y «Desbloquear gratis».
+  // La base tiene 1023 textos premium y Supabase entrega 1000 por petición: los
+  // más nuevos se quedaban fuera. Ahora se piden sólo los de los últimos 45 días
+  // y por páginas; si algo falla, se queda lo que ya había (nunca se borra).
+  async function textosPremium() {
+    const out = {}, desde = new Date(Date.now() - 45 * 864e5).toISOString();
+    const pagina = (i, conFecha) => (conFecha ? sb.from('picks_premium').select('id,apuesta,picks!inner(inicio)').gte('picks.inicio', desde)
+      : sb.from('picks_premium').select('id,apuesta')).order('id').range(i * 1000, i * 1000 + 999);
+    for (const conFecha of [true, false]) {
+      let ok = true;
+      for (let i = 0; i < 30; i++) {
+        const { data, error } = await pagina(i, conFecha);
+        if (error) { ok = false; break; }
+        (data || []).forEach((x) => { out[x.id] = x.apuesta; });
+        if (!data || data.length < 1000) break;
+      }
+      if (ok) return out;
+    }
+    return null;
+  }
+
   // ---------- sesión ----------
   const aTiempo = (p, ms, porDefecto) => Promise.race([Promise.resolve(p).catch(() => porDefecto),
     new Promise((r) => setTimeout(() => r(porDefecto), ms || 5000))]);
@@ -148,7 +169,7 @@
         .then(({ data }) => { yo.ia = {}; (data || []).forEach((x) => { yo.ia[x.partido] = x; }); }));
       tareas.push(sb.from('suscripciones').select('*').eq('usuario', yo.user.id).order('actualizado', { ascending: false }).limit(10)
         .then(({ data }) => { yo.subs = data || []; }));
-      tareas.push(sb.from('picks_premium').select('id,apuesta').then(({ data }) => { yo.desbloqueados = {}; (data || []).forEach((x) => { yo.desbloqueados[x.id] = x.apuesta; }); }));
+      tareas.push(textosPremium().then((t) => { if (t) yo.desbloqueados = t; }));
     } else { yo.perfil = null; yo.seguidos = new Set(); yo.desbloqueados = {}; yo.subs = []; }
     await Promise.all(tareas.map((t) => aTiempo(t, 6000, null)));
     if (yo.user) await aTiempo(cargarGustos(), 6000, null);
