@@ -4883,3 +4883,30 @@ fecha,partido,clave_liga,equipo,lado,mercado,linea,c_mas,c_menos,p_casa,p_mod,ap
 2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,0.5,1.333,3.0,0.6924,0.9999,más,vivo,,2026-10-22T01:51:32Z
 2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,1.5,2.714,1.4,0.3403,0.9989,más,vivo,,2026-10-22T01:51:32Z
 2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,2.5,6.0,1.083,0.1529,0.9953,,vivo,,2026-10-22T01:51:32Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,Santos Laguna,local,tiros,13.5,1.53,2.25,0.5952,0.6779,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,Santos Laguna,local,tiros,14.5,1.75,1.923,0.5236,0.6051,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,Santos Laguna,local,tiros,15.5,2.0,1.667,0.4546,0.5309,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,Santos Laguna,local,a_puerta,3.5,1.417,2.546,0.6424,0.7459,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,Santos Laguna,local,a_puerta,4.5,1.846,1.818,0.4962,0.5842,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,Santos Laguna,local,a_puerta,5.5,2.5,1.429,0.3637,0.4202,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,UNAM Pumas,visitante,tiros,12.5,1.6,2.1,0.5676,0.508,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,UNAM Pumas,visitante,tiros,13.5,1.85,1.818,0.4956,0.4233,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,UNAM Pumas,visitante,tiros,14.5,2.143,1.583,0.4249,0.3447,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,UNAM Pumas,visitante,a_puerta,2.5,1.25,3.333,0.7273,0.7836,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,UNAM Pumas,visitante,a_puerta,3.5,1.6,2.143,0.5725,0.6059,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Santos Laguna vs UNAM Pumas,liga_mx,UNAM Pumas,visitante,a_puerta,4.5,2.167,1.571,0.4203,0.4219,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Pachuca,local,tiros,13.5,1.538,2.222,0.591,0.5543,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Pachuca,local,tiros,14.5,1.75,1.923,0.5236,0.4744,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Pachuca,local,tiros,15.5,2.0,1.667,0.4546,0.3981,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Pachuca,local,a_puerta,3.5,1.364,2.714,0.6655,0.7491,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Pachuca,local,a_puerta,4.5,1.778,1.889,0.5151,0.5883,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Pachuca,local,a_puerta,5.5,2.4,1.462,0.3786,0.4244,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,14.5,1.6,2.1,0.5676,0.5282,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,15.5,1.846,1.818,0.4962,0.4517,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,tiros,16.5,2.1,1.6,0.4324,0.3793,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,4.5,1.5,2.3,0.6053,0.6148,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,5.5,1.941,1.733,0.4717,0.4526,,vivo,,2026-10-22T02:11:13Z
+2026-10-22,Pachuca vs Cruz Azul,liga_mx,Cruz Azul,visitante,a_puerta,6.5,2.6,1.4,0.35,0.3074,,vivo,,2026-10-22T02:11:13Z
+2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,0.5,1.333,3.0,0.6924,0.9999,más,vivo,,2026-10-22T02:11:13Z
+2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,1.5,2.714,1.4,0.3403,0.9989,más,vivo,,2026-10-22T02:11:13Z
+2026-10-24,Sudtirol vs Sampdoria,ita_serie_b,Sudtirol,local,tiros,2.5,6.0,1.083,0.1529,0.9953,,vivo,,2026-10-22T02:11:13Z
