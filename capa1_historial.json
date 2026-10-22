@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T11:15:07Z",
+"actualizado": "2026-10-22T13:27:55Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12041,6 +12041,26 @@
 "cuota": 2.7,
 "resultado": "rojo",
 "marcador": "2-1"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Xuan Thien Phu Tho vs PVF-CAND",
+"apuesta": "Gana PVF-CAND",
+"cuota": 1.57,
+"resultado": "verde",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Xuan Thien Phu Tho vs PVF-CAND",
+"apuesta": "Gana PVF-CAND",
+"cuota": 1.58,
+"resultado": "verde",
+"marcador": "2-3"
 }
 ]
 }
