@@ -15,7 +15,7 @@ def probar():
     cu = open(os.path.join('web', 'cuenta.js'), encoding='utf-8').read()
     check('lock: async (_n, _t, fn) => await fn()' in cu, 'sin el candado de sesión que se trababa en el celular')
     check('const aTiempo = ' in cu and "aTiempo(sb.rpc('enlace_vip'), 5000" in cu, 'ninguna consulta espera más de 5 s')
-    check('Cargando…</p><button class="salir" data-salir>Cerrar sesión</button>' in cu,
+    check("ESQ + '<button class=\"salir\" data-salir>Cerrar sesión</button>'" in cu,
           'Mi cuenta se abre al instante con Cerrar sesión')
     html = open(os.path.join('web', 'index.html'), encoding='utf-8').read()
     check('marca/logo-96.png' in html and 'marca/favicon.png' in html and 'og:image' in html, 'el logo, el favicon y la portada')

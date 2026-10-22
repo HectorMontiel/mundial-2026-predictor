@@ -289,7 +289,7 @@ def probar_v434():
           'v446: la IA enseña sus noticias y se califica con 👍/👎 (sólo para medir)')
     check('🥇 Anota primero' in app and 'function primerYPa1(lh, la)' in app and '🏁 PA1' in app and 'data-ia-motivo="' not in cu, 'v447: «quién anota primero» en la IA; 👍/👎 sin motivos')
     check('estadoVisto: (p) => estadoVisto(p)' in app and 'window.SP.estadoVisto(pickDe(p.id))' in cu and "yaRoja ? '<span class=\"et roja\"" in cu
-          and "c.estado === 'pendiente' && !yaRoja ?" in cu, 'v452: «Mis combinadas» se pone verde/roja en vivo y al pitazo, sin esperar al servidor')
+          and "c.estado === 'pendiente' && !yaRoja && (pr || !yaVerde) ?" in cu, 'v452: «Mis combinadas» se pone verde/roja en vivo y al pitazo, sin esperar al servidor')
     check("sb.from('calibracion_picks').select('*').order('orden')" in cu and 'async function calibracionPicks()' in cu and 'id="calibracion"' in leer('web', 'index.html')
           and 'create or replace view public.calibracion_picks' in leer('supabase', 'v453_calibracion.sql'),
           'v453: «Lo que dijimos vs lo que salió» en el historial (público, rojas incluidas)')
@@ -302,6 +302,12 @@ def probar_v434():
           and 'p instanceof SVGElement' in app, 'v455-v456: niveles con insignia (Platino = escarapela) y los emojis cambiados por íconos')
     check('(function instalarApp()' in app and "'beforeinstallprompt'" in app and 'apple-mobile-web-app-capable' in leer('web', 'index.html')
           and '"display": "standalone"' in leer('web', 'manifest.json'), 'v454: se instala como app (Android con botón; iPhone con «Agregar a inicio»)')
+    check('function ventanaApp(' in cu and 'alert(' not in cu and 'confirm(' not in cu.replace('confirmarApp(', '') and 'alert(' not in app,
+          'v457: avisos propios con el estilo de la app (sin alert/confirm del navegador ni emojis)')
+    check('class="esq-tarjeta"' in leer('web', 'index.html') and 'Cargando…' not in leer('web', 'index.html') and '.esq-tarjeta {' in css,
+          'v458: siluetas mientras carga en vez de «Cargando…»')
+    check('function estadoCombVisto(c, extra)' in cu and "estadoCombVisto(c, h.extra) !== 'pendiente'" in cu and "estadoCombVisto(c, h.extra) === 'pendiente'" in cu,
+          'v459: la combinada decidida al pitazo pasa al historial al momento (no espera al servidor)')
     ix = leer('web', 'index.html')
     check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
           and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')

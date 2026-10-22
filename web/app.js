@@ -1195,7 +1195,7 @@
       // v446 — lo que encontró en la web (bajas, alineaciones) y «¿te sirvió?» (sólo se mide)
       (a.noticias ? '<div class="ia-noti">📰 <b>Noticias:</b> ' + esc(String(a.noticias).split(' | ').join(' · ')) + '</div>' : '') +
       (window.SPX && SPX.votoIA ? SPX.votoIA(a.id) : '') +
-      '<p class="tenue chico">La IA es experimental y la medimos aparte (Historial → 🤖). Nuestros picks NO dependen de ella.</p></details>';
+      '<p class="tenue chico">Experimental: la medimos aparte en Historial y nuestros picks no dependen de ella.</p></details>';
   }
   function formaHtml(f) {
     return String(f || '').split('').map((c) => '<i class="fr ' + ({ G: 'g', E: 'e', P: 'p' }[c] || '') + '">' + c + '</i>').join('');
