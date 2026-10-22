@@ -669,8 +669,8 @@
     if (!yo.user) { caja.innerHTML = '<p class="tenue">Entra para armar tus combinadas y ganar 🪙 cuando aciertan.</p>'; return; }
     const turno = ++turnoComb;
     let copia = null; try { copia = JSON.parse(localStorage.getItem(COMB_GUARDADAS()) || 'null'); } catch (e) { /* sin almacenamiento */ }
-    if (copia && copia.length && !caja.dataset.pintada) pintarCombinadas(caja, copia, {});
-    const { data, error } = await sb.from('combinadas_usuario').select('*').order('creado', { ascending: false }).limit(30);
+    if (copia && copia.length && !caja.dataset.pintada) { yo.hist = { combs: copia, extra: {} }; pintarCombinadas(caja); pintarHistorial($('mi-hist')); }
+    const { data, error } = await sb.from('combinadas_usuario').select('*').order('creado', { ascending: false }).limit(300);
     if (turno !== turnoComb) return;                                  // ya hay una petición más nueva
     if (error) {
       if ((intento || 0) < 4) setTimeout(() => { if (turno === turnoComb) misCombinadas((intento || 0) + 1); }, 3000);
@@ -678,69 +678,50 @@
       return;
     }
     try { localStorage.setItem(COMB_GUARDADAS(), JSON.stringify(data || [])); } catch (e) { /* sin almacenamiento */ }
-    if (!(data || []).length) { caja.dataset.pintada = ''; caja.innerHTML = '<p class="tenue">Aún no tienes combinadas. Toca «➕ Combinada» en los picks que te gusten (de 2 a 20).</p>'; return; }
-    const faltan = [...new Set(data.flatMap((c) => c.patas))].filter((id) => !pickDe(id));
+    const faltan = [...new Set((data || []).flatMap((c) => c.patas))].filter((id) => !pickDe(id));
     const extra = {};
-    if (faltan.length) { const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado,inicio').in('id', faltan.slice(0, 300)); (ps || []).forEach((p) => { extra[p.id] = p; }); }
+    for (let i = 0; i < faltan.length; i += 300) {
+      const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado,inicio,deporte,premium').in('id', faltan.slice(i, i + 300));
+      (ps || []).forEach((p) => { extra[p.id] = p; });
+    }
     if (turno !== turnoComb) return;
-    pintarCombinadas(caja, data, extra);
+    yo.hist = { combs: data || [], extra };
+    pintarCombinadas(caja);
+    pintarHistorial($('mi-hist'));
   }
-  // v439 — «MI HISTORIAL»: el usuario quiere ver cuáles le salieron, de cuánto
-  // fue cada combinada y su desglose. Junta lo que SIGUIÓ (★), lo que DESBLOQUEÓ
-  // (🔓) y sus combinadas; cada pick cuenta una vez, con su resultado oficial.
-  let turnoHist = 0, rangoHist = 30;
+  // v439 — «MI HISTORIAL». v442 — el usuario: «sólo las combinadas que yo haga, no
+  // las que siga». Es el registro de SUS combinadas ya terminadas (las de «Mis
+  // combinadas» son las que están por jugar o en juego): cuántas acertó, de qué
+  // cuota fue cada una y cómo le fue a cada pick.
+  let rangoHist = 30;
   const ICO_HIST = { 'Fútbol': '⚽', Tenis: '🎾', NFL: '🏈', NBA: '🏀', NHL: '🏒', MLB: '⚾', KBO: '⚾', 'Béisbol': '⚾' };
   const DIA_MX = (f) => new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', weekday: 'short', day: 'numeric', month: 'short' }).format(f);
   const aFechaP = (s) => new Date(String(s || '').replace(' ', 'T') + (/[zZ]|[+-]\d\d:?\d\d$/.test(String(s)) ? '' : 'Z'));
-  async function miHistorial(intento) {
-    const caja = $('mi-hist'); if (!caja || !sb) return;
-    if (!yo.user) { caja.innerHTML = '<p class="tenue">Entra para llevar el registro de tus picks.</p>'; return; }
-    const turno = ++turnoHist;
-    const [s, d, c] = await Promise.all([sb.from('seguidos').select('pick,creado'), sb.from('desbloqueos').select('pick,creado,devuelto'),
-      sb.from('combinadas_usuario').select('*').order('creado', { ascending: false }).limit(200)]);
-    if (turno !== turnoHist) return;
-    if (s.error || d.error || c.error) {                               // como en v437: un error no borra lo que se veía
-      if ((intento || 0) < 4) setTimeout(() => { if (turno === turnoHist) miHistorial((intento || 0) + 1); }, 3000);
-      if (!caja.dataset.pintada) caja.innerHTML = '<p class="tenue">Cargando tu historial…</p>';
-      return;
-    }
-    const marca = {};
-    (s.data || []).forEach((x) => { (marca[x.pick] = marca[x.pick] || {}).sigo = true; });
-    (d.data || []).forEach((x) => { (marca[x.pick] = marca[x.pick] || {}).desb = true; });
-    const ids = Object.keys(marca), picks = {};
-    for (let i = 0; i < ids.length; i += 300) {
-      const { data: ps } = await sb.from('picks').select('*').in('id', ids.slice(i, i + 300));
-      (ps || []).forEach((p) => { picks[p.id] = p; });
-    }
-    if (turno !== turnoHist) return;
-    caja.dataset.pintada = '1';
-    yo.hist = { marca, picks, combs: c.data || [] };
-    pintarHistorial(caja);
-  }
+  function miHistorial() { pintarHistorial($('mi-hist')); }
   function pintarHistorial(caja) {
+    if (!caja) return;
+    if (!yo.user) { caja.innerHTML = '<p class="tenue">Entra para llevar el registro de tus combinadas.</p>'; return; }
     const h = yo.hist; if (!h) return;
     const desde = rangoHist ? Date.now() - rangoHist * 864e5 : 0;
-    const lista = Object.keys(h.marca).map((id) => h.picks[id]).filter((p) => p && aFechaP(p.inicio).getTime() >= desde)
+    const combs = h.combs.filter((c) => c.estado !== 'pendiente' && aFechaP(c.inicio).getTime() >= desde)
       .sort((a, b) => aFechaP(b.inicio) - aFechaP(a.inicio));
-    const combs = h.combs.filter((x) => aFechaP(x.inicio).getTime() >= desde);
-    const v = lista.filter((p) => p.estado === 'verde'), r = lista.filter((p) => p.estado === 'roja');
-    const pct = v.length + r.length ? Math.round(100 * v.length / (v.length + r.length)) : null;
-    const cv = combs.filter((x) => x.estado === 'verde').length, cr = combs.filter((x) => x.estado === 'roja').length;
-    // el desglose por deporte
-    const dep = {};
-    lista.forEach((p) => { if (p.estado !== 'verde' && p.estado !== 'roja') return; const k = p.deporte || 'Otro'; (dep[k] = dep[k] || [0, 0])[p.estado === 'verde' ? 0 : 1]++; });
     const rangos = [[7, '7 días'], [30, '30 días'], [0, 'Todo']].map(([n, t]) => '<button class="chip' + (rangoHist === n ? ' activa' : '') + '" data-hist-rango="' + n + '">' + t + '</button>').join('');
     let html = '<div class="chips">' + rangos + '</div>';
-    if (!lista.length && !combs.length) { caja.innerHTML = html + '<p class="tenue">Sigue (☆), desbloquea o combina picks y aquí queda su registro.</p>'; return; }
-    html += '<div class="num">✅ ' + v.length + ' ❌ ' + r.length + (pct != null ? ' <span class="pct">' + pct + ' %</span>' : '') + '</div>' +
-      (combs.length ? '<p class="tenue chico">🔗 Combinadas: ✅ ' + cv + ' ❌ ' + cr + '</p>' : '') +
-      (Object.keys(dep).length > 1 ? '<div class="hist-dep">' + Object.entries(dep).map(([k, [a, b]]) => '<span>' + (ICO_HIST[k] ? ICO_HIST[k] + ' ' : '') + esc(k) + ' <b>' + a + '-' + b + '</b> ' + Math.round(100 * a / (a + b)) + ' %</span>').join('') + '</div>' : '');
+    if (!combs.length) { caja.innerHTML = html + '<p class="tenue">Aquí quedan tus combinadas cuando terminan.</p>'; return; }
+    const cv = combs.filter((c) => c.estado === 'verde').length, cr = combs.filter((c) => c.estado === 'roja').length;
+    const pct = cv + cr ? Math.round(100 * cv / (cv + cr)) : null, mon = combs.reduce((a, c) => a + (c.premio || 0), 0);
+    // cada pick de esas combinadas, con su resultado (y por deporte)
+    const patas = combs.flatMap((c) => c.patas.map((id) => pickDe(id) || h.extra[id])).filter(Boolean);
+    const pv = patas.filter((p) => p.estado === 'verde').length, pr = patas.filter((p) => p.estado === 'roja').length;
+    const dep = {};
+    patas.forEach((p) => { if (p.estado !== 'verde' && p.estado !== 'roja') return; const k = p.deporte || 'Otro'; (dep[k] = dep[k] || [0, 0])[p.estado === 'verde' ? 0 : 1]++; });
+    html += '<div class="num">✅ ' + cv + ' ❌ ' + cr + (pct != null ? ' <span class="pct">' + pct + ' %</span>' : '') + '</div>' +
+      '<p class="tenue chico">Picks: ✅ ' + pv + ' ❌ ' + pr + (mon ? ' · +' + mon + ' 🪙 ganadas' : '') + '</p>' +
+      (Object.keys(dep).length ? '<div class="hist-dep">' + Object.entries(dep).map(([k, [a, b]]) => '<span>' + (ICO_HIST[k] ? ICO_HIST[k] + ' ' : '') + esc(k) + ' <b>' + a + '-' + b + '</b> ' + Math.round(100 * a / (a + b)) + ' %</span>').join('') + '</div>' : '');
     let dia = '';
-    lista.slice(0, 80).forEach((p) => {
-      const dd = DIA_MX(aFechaP(p.inicio)); if (dd !== dia) { dia = dd; html += '<div class="hist-dia">' + esc(dd) + '</div>'; }
-      const m = h.marca[p.id];
-      html += '<div class="hist-fila ' + (p.estado || '') + '"><span>' + (p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '↩️' : '⏳') + '</span>' +
-        '<span class="ht">' + apuesta(p) + '<small>' + esc(p.partido || '') + ' ' + (m.sigo ? '★' : '') + (m.desb ? '🔓' : '') + '</small></span><b>' + Number(p.cuota || 0).toFixed(2) + '</b></div>';
+    combs.slice(0, 60).forEach((c) => {
+      const dd = DIA_MX(aFechaP(c.inicio)); if (dd !== dia) { dia = dd; html += '<div class="hist-dia">' + esc(dd) + '</div>'; }
+      html += filaComb(c, h.extra);
     });
     caja.innerHTML = html;
   }
@@ -754,7 +735,6 @@
     const res = await aTiempo(q, 6000, { error: 'tiempo' });
     if (res && res.error) { ids.forEach((id) => (volver ? yo.seguidos.delete(id) : yo.seguidos.add(id))); if (window.SP) window.SP.pintar(); avisoFlotante('No se pudo: revisa tu conexión.'); return; }
     if (!volver) avisoFlotante('Quitado de Mis picks', 'Deshacer', () => quitarSeguidos(ids, true));
-    miHistorial();
   }
   function avisoFlotante(txt, boton, fn) {
     document.querySelectorAll('.aviso-flot').forEach((x) => x.remove());
@@ -770,25 +750,33 @@
     const t = e.target.closest('[data-hist-rango]'); if (!t) return;
     rangoHist = Number(t.dataset.histRango); pintarHistorial($('mi-hist'));
   });
-  function pintarCombinadas(caja, data, extra) {
+  function pintarCombinadas(caja) {
+    const h = yo.hist || { combs: [], extra: {} };
     caja.dataset.pintada = '1';
-    const v = data.filter((c) => c.estado === 'verde').length, r = data.filter((c) => c.estado === 'roja').length, mon = data.reduce((s, c) => s + (c.premio || 0), 0);
-    caja.innerHTML = '<div class="num">✅ ' + v + ' ❌ ' + r + (mon ? ' <span class="pct">+' + mon + ' 🪙 ganadas</span>' : '') + '</div>' + data.map((c) => {
-      // v441 — «aparecen en juego cuando ninguno empezó»: «En juego» sólo si ya empezó
-      // alguno; si no, «Por jugar» con la hora. Y cada pata abre su partido (en vivo).
-      const ps = c.patas.map((id) => pickDe(id) || extra[id] || { id: null });
-      const empezo = (p) => p.inicio && aFechaP(p.inicio) <= new Date();
-      const hora = (p) => p.inicio ? new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit' }).format(aFechaP(p.inicio)) : '';
-      const prox = ps.filter((p) => p.inicio && !empezo(p)).sort((a, b) => aFechaP(a.inicio) - aFechaP(b.inicio))[0];
-      const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
-        : ps.some(empezo) ? '<span class="et vivo">🔴 En juego</span>' : '<span class="et">🕒 Por jugar' + (prox ? ' · ' + hora(prox) : '') + '</span>';
-      return '<div class="tg-item ' + c.estado + '"><div class="fila"><span>🔗 ' + c.patas.length + ' picks · <b>' + Number(c.cuota).toFixed(2) + '</b></span>' + chip + '</div>' +
-        ps.map((p) => {
-          const ico = p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '↩️' : empezo(p) ? '🔴' : '🕒';
-          const txt = ico + ' ' + apuesta(p.id ? p : { apuesta: '—' }) + ' <span class="tenue">· ' + esc(p.partido || '') + (p.estado === 'pendiente' && !empezo(p) && p.inicio ? ' · ' + hora(p) : '') + '</span>';
-          return pickDe(p.id) ? '<button class="tg-pata ir-partido" data-ficha="' + esc(p.id) + '">' + txt + ' <span class="ir">›</span></button>' : '<div class="tg-pata">' + txt + '</div>';
-        }).join('') + '</div>';
-    }).join('');
+    const vivas = h.combs.filter((c) => c.estado === 'pendiente');
+    caja.innerHTML = vivas.length ? vivas.map((c) => filaComb(c, h.extra)).join('')
+      : '<p class="tenue">' + (h.combs.length ? 'Ninguna en juego. ' : '') + 'Toca «➕ Combinada» en los picks que te gusten (de 2 a 20).</p>';
+  }
+  function filaComb(c, extra) {
+    // v441 — «En juego» sólo si ya empezó alguno; si no, «Por jugar» con la hora. Cada pata abre su partido.
+    const ps = c.patas.map((id) => pickDe(id) || extra[id] || { id: null });
+    const empezo = (p) => p.inicio && aFechaP(p.inicio) <= new Date();
+    const hora = (p) => p.inicio ? new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit' }).format(aFechaP(p.inicio)) : '';
+    const prox = ps.filter((p) => p.inicio && !empezo(p)).sort((a, b) => aFechaP(a.inicio) - aFechaP(b.inicio))[0];
+    const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
+      : c.estado === 'nula' ? '<span class="et">↩️ Nula</span>'
+      : ps.some(empezo) ? '<span class="et vivo">🔴 En juego</span>' : '<span class="et">🕒 Por jugar' + (prox ? ' · ' + hora(prox) : '') + '</span>';
+    // v443 — lo que puede ganar si acierta (la misma tabla que usa el servidor: una premiada por día)
+    const pr = PREMIO(Number(c.cuota));
+    const premio = c.estado === 'pendiente' ? '<div class="comb-premio' + (pr ? '' : ' tenue') + '" title="Se paga una combinada premiada por día">' +
+      (pr ? '🪙 Si acierta: <b>+' + pr + '</b>' : 'Sin premio: desde cuota 2,00') + '</div>' : '';
+    return '<div class="tg-item ' + c.estado + '"><div class="fila"><span>🔗 ' + c.patas.length + ' picks · <b>' + Number(c.cuota).toFixed(2) + '</b></span>' + chip + '</div>' + premio +
+      ps.map((p) => {
+        const ico = p.estado === 'verde' ? '✅' : p.estado === 'roja' ? '❌' : p.estado === 'nula' ? '↩️' : empezo(p) ? '🔴' : '🕒';
+        const txt = ico + ' ' + apuesta(p.id ? p : { apuesta: '—' }) + ' <span class="tenue">· ' + esc(p.partido || '') + (p.estado === 'pendiente' && !empezo(p) && p.inicio ? ' · ' + hora(p) : '') +
+          (p.cuota ? ' · ' + Number(p.cuota).toFixed(2) : '') + '</span>';
+        return pickDe(p.id) ? '<button class="tg-pata ir-partido" data-ficha="' + esc(p.id) + '">' + txt + ' <span class="ir">›</span></button>' : '<div class="tg-pata">' + txt + '</div>';
+      }).join('') + '</div>';
   }
   document.addEventListener('click', async (e) => {
     const t = e.target.closest('[data-a-comb],[data-quitar-comb],[data-ver-boleto],[data-guardar-comb]');

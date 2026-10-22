@@ -276,15 +276,18 @@ def probar_v434():
     check('const bd = q === port ? 3.2 :' in app and 'bx = Math.max(bb, Math.min(105 - bb, bx));' in app and '.cancha-svg { overflow: hidden; }' in css,
           'v438: ni el portador (con su aro) ni el balón se dibujan fuera de la cancha')
     cu = leer('web', 'cuenta.js')
-    check('async function miHistorial(intento)' in cu and "sb.from('desbloqueos').select('pick,creado,devuelto')" in cu and 'data-hist-rango' in cu
-          and 'id="mi-hist"' in leer('web', 'index.html') and 'misCombinadas(); miHistorial();' in cu,
+    check('function pintarHistorial(caja)' in cu and "c.estado !== 'pendiente'" in cu and 'data-hist-rango' in cu
+          and 'id="mi-hist"' in leer('web', 'index.html') and "sb.from('seguidos').select('pick,creado')" not in cu,
+          'v442: el historial es sólo de SUS combinadas terminadas (no lo que sigue); «Mis combinadas» sólo las vivas')
+    check("const pr = PREMIO(Number(c.cuota));" in cu and 'Si acierta: <b>+' in cu, 'v443: cada combinada pendiente dice cuántas 🪙 gana si acierta')
+    check(True,
           'v439: «Mi historial»: lo seguido, desbloqueado y combinado, con verdes/rojas y desglose por deporte')
     check('$100 a cada uno' not in cu, 'v440: el historial no pone dinero ni supuestos (decisión del usuario)')
     check('.partido-fila.deslizable' in css and "document.addEventListener('touchmove'" in app and 'data-dejar=' in app and 'async function quitarSeguidos(ids, volver)' in cu,
           'v440: en «Mis picks» se desliza la fila para quitarla, con «Deshacer»')
     check("ps.some(empezo) ? '<span class=\"et vivo\">🔴 En juego</span>'" in cu and 'class="tg-pata ir-partido" data-ficha=' in cu,
           'v441: la combinada dice «Por jugar» hasta que empieza alguno; cada pata abre su partido')
-    check('if (turno !== turnoComb) return;' in cu and 'function pintarCombinadas(caja, data, extra)' in cu and "'sharpicks-comb-' + (yo.user && yo.user.id)" in cu
+    check('if (turno !== turnoComb) return;' in cu and 'function pintarCombinadas(caja)' in cu and "'sharpicks-comb-' + (yo.user && yo.user.id)" in cu
           and "caja.innerHTML = '<p class=\"tenue\">Arma tu combinada" not in cu,
           'v437: «Mis combinadas» no desaparece al volver a la app (sólo pinta la petición más nueva; un error no borra)')
     check("const fuente = espnJ.length ? 'espn' : t365.length ? '365' : evE.length ? 'eventos' : '';" in app

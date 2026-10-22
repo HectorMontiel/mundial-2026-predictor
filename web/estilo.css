@@ -657,3 +657,7 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .tg-pata.ir-partido { display: block; width: 100%; text-align: left; background: none; border: 0; color: inherit; font: inherit; padding: 4px 0; cursor: pointer; }
 .tg-pata.ir-partido .ir { float: right; color: var(--tenue); font-weight: 700; }
 .tg-pata.ir-partido:active { opacity: .7; }
+
+/* v443 — lo que gana la combinada si acierta */
+.comb-premio { font-size: 13px; margin: 2px 0 6px; color: #facc15; }
+.comb-premio.tenue { color: var(--tenue); }
