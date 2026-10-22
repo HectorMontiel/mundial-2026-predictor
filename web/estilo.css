@@ -709,3 +709,29 @@ body::after { background: radial-gradient(circle at 60% 60%, #1d4ed8 0%, rgba(29
 .calib-n b { color: var(--texto); }
 .calib-n small { margin-left: 6px; }
 .tg-pata .real, .tg-pata + .real { display: block; font-size: 11px; color: var(--tenue); margin-left: 22px; }
+
+/* v454 — los íconos (Lucide/Tabler) y el aviso para instalar la app */
+.ic { width: 1.1em; height: 1.1em; display: inline-block; vertical-align: -0.18em; fill: none; stroke: currentColor;
+  stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.instalar { position: fixed; left: 12px; right: 12px; bottom: calc(88px + env(safe-area-inset-bottom)); z-index: 70; display: flex; align-items: center; gap: 12px;
+  background: rgba(15,23,42,.97); border: 1px solid var(--borde); border-radius: 16px; padding: 10px 12px; box-shadow: 0 10px 30px rgba(0,0,0,.45); max-width: 520px; margin: 0 auto; }
+.instalar img { border-radius: 10px; }
+.instalar .ins-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; font-size: 14px; }
+.instalar .ins-txt small { color: var(--tenue); font-size: 12px; }
+.instalar .ins-si { background: #22c55e; color: #04140a; border: 0; border-radius: 999px; padding: 8px 14px; font: inherit; font-weight: 700; cursor: pointer; }
+.instalar .ins-no { background: none; border: 0; color: var(--tenue); font-size: 18px; padding: 4px; cursor: pointer; }
+
+/* v455 — los niveles y los deportes con íconos de color; la barra de abajo con íconos de línea */
+.ic.nv-diamante { color: #7dd3fc; } .ic.nv-platino { color: #a5b4fc; } .ic.nv-oro { color: #fbbf24; }
+.ic.nv-plata { color: #cbd5e1; } .ic.nv-error { color: #4ade80; } .ic.nv-analisis { color: var(--tenue); }
+.ic.dep { color: var(--tenue); }
+.et.verde .ic, .et.roja .ic { width: 1em; height: 1em; }
+.nav-abajo button .ic { width: 22px; height: 22px; stroke-width: 1.8; margin-bottom: 1px; }
+.nav-abajo button.activa .ic { stroke-width: 2.2; }
+.pf-niv .ic { width: 18px; height: 18px; }
+
+/* v456 — los colores de los íconos que reemplazan a los emojis */
+.ic.ok { color: #22c55e; } .ic.mal { color: #f87171; } .ic.moneda { color: #facc15; } .ic.acento { color: #a5b4fc; }
+.ic.aviso { color: #fbbf24; } .ic.candado { color: #fbbf24; width: .95em; height: .95em; } .ic.estrella { color: #facc15; }
+.ic.vivo { color: #f87171; } .ic.amarilla { color: #facc15; fill: #facc15; } .ic.roja-t { color: #ef4444; fill: #ef4444; }
+.desbloquear .ic.candado, .vip-btn .ic, .ins-si .ic { color: inherit; }

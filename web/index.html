@@ -11,6 +11,11 @@
 <meta property="og:image" content="https://sharpicks.pages.dev/marca/portada.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="apple-touch-icon" href="marca/apple-touch-icon.png">
+<!-- v454 — en el iPhone, que se abra a pantalla completa como app -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="SharPicks">
 <link rel="manifest" href="manifest.json">
 <link rel="icon" href="marca/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,7 +62,7 @@
       <button data-dia="ayer">Ayer</button>
     </nav>
 
-    <div class="buscador" data-vista="picks vivo mios"><select id="liga" aria-label="Liga"></select><input type="search" id="busca" placeholder="🔍 Equipo" autocomplete="off"></div>
+    <div class="buscador" data-vista="picks vivo mios"><select id="liga" aria-label="Liga"></select><input type="search" id="busca" placeholder="Buscar equipo" autocomplete="off"></div>
     <div class="chips desliza" id="niveles" data-vista="picks vivo mios"></div>
     <div class="chips desliza" id="deportes" data-vista="picks vivo mios combinadas"></div>
     <div class="segmentos" id="fases" data-vista="picks vivo mios"></div>
@@ -160,12 +165,12 @@
 </main>
 
 <nav class="nav-abajo" id="nav">
-  <button data-vista-ir="picks" class="activa"><span>🏠</span>Picks</button>
-  <button data-vista-ir="vivo"><span>🔴</span>En vivo<i id="nav-vivo-n" hidden></i></button>
-  <button data-vista-ir="combinadas"><span>🔗</span>Combinadas</button>
-  <button data-vista-ir="mios"><span>★</span>Mis picks</button>
-  <button data-vista-ir="historial"><span>📊</span>Historial</button>
-  <button data-vista-ir="planes"><span>💎</span>Planes</button>
+  <button data-vista-ir="picks" class="activa"><svg class="ic" aria-hidden="true"><use href="iconos.svg#i-house"/></svg>Picks</button>
+  <button data-vista-ir="vivo"><svg class="ic" aria-hidden="true"><use href="iconos.svg#i-radio"/></svg>En vivo<i id="nav-vivo-n" hidden></i></button>
+  <button data-vista-ir="combinadas"><svg class="ic" aria-hidden="true"><use href="iconos.svg#i-link-2"/></svg>Combinadas</button>
+  <button data-vista-ir="mios"><svg class="ic" aria-hidden="true"><use href="iconos.svg#i-star"/></svg>Mis picks</button>
+  <button data-vista-ir="historial"><svg class="ic" aria-hidden="true"><use href="iconos.svg#i-chart-column"/></svg>Historial</button>
+  <button data-vista-ir="planes"><svg class="ic" aria-hidden="true"><use href="iconos.svg#i-crown"/></svg>Planes</button>
 </nav>
 
 <div class="ficha" id="acceso" hidden><div class="ficha-caja acceso">

@@ -14,6 +14,79 @@
   const horaCdmx = (d) => d ? new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(d) : '';
   const pct = (x) => x == null ? '—' : Math.round(100 * x) + ' %';
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // v454 — ÍCONOS EN VEZ DE EMOJIS (el usuario: «los emojis hacen que se vea hecha con IA»).
+  // Lucide (ISC) y Tabler (MIT) en un solo archivo propio, `iconos.svg`.
+  const ico = (n, extra) => '<svg class="ic' + (extra ? ' ' + extra : '') + '" aria-hidden="true"><use href="iconos.svg#i-' + n + '"/></svg>';
+  const DEP_ICO = { 'Fútbol': 'ball-football', Tenis: 'ball-tennis', NFL: 'ball-american-football', NBA: 'ball-basketball', NHL: 'ice-skating',
+    MLB: 'ball-baseball', KBO: 'ball-baseball', 'Béisbol': 'ball-baseball', Mixta: 'link-2' };
+  const icoDep = (d) => (DEP_ICO[d] ? ico(DEP_ICO[d], 'dep') : '');
+  const OK = () => ico('circle-check'), MAL = () => ico('circle-x');
+  // v456 — EL RESTO DE LOS EMOJIS, de una vez: lo que se pinta en pantalla pasa por
+  // aquí y cada emoji se cambia por su ícono (con su color). No toca los avisos del
+  // navegador (alert), ni los atributos, ni el dibujo de la cancha (SVG); en las
+  // listas desplegables sólo se quita el emoji (ahí no cabe un ícono).
+  const EMOJI_ICO = {
+    '✅': ['circle-check', 'ok'], '❌': ['circle-x', 'mal'], '✓': ['circle-check', 'ok'], '✔': ['circle-check', 'ok'],
+    '⚽': ['ball-football', 'dep'], '🎾': ['ball-tennis', 'dep'], '🏀': ['ball-basketball', 'dep'], '🏈': ['ball-american-football', 'dep'],
+    '⚾': ['ball-baseball', 'dep'], '🏒': ['ice-skating', 'dep'],
+    '💎': ['gem', 'nv-diamante'], '🔷': ['award', 'nv-platino'], '🥇': ['medal', 'nv-oro'], '🥈': ['medal', 'nv-plata'],
+    '💰': ['coins', 'nv-error'], '🪙': ['coins', 'moneda'], '💳': ['credit-card'],
+    '🤖': ['bot', 'acento'], '🧠': ['lightbulb', 'acento'], '🔗': ['link-2'], '⚠': ['triangle-alert', 'aviso'], '🐞': ['bug', 'aviso'],
+    '⏳': ['hourglass'], '🕒': ['clock'], '⏰': ['timer'], '🔁': ['refresh-cw'], '♻': ['recycle'], '🌙': ['moon'],
+    '🎯': ['target'], '📊': ['chart-column'], '📒': ['book-open'], '📖': ['book-open'], '📋': ['book-open'], '📰': ['newspaper'],
+    '🔒': ['lock', 'candado'], '🔓': ['lock-open', 'candado'], '🔑': ['key-round'], '➕': ['plus'], '➖': ['minus'], '✕': ['x'],
+    '★': ['star', 'estrella'], '⭐': ['star', 'estrella'], '☆': ['star'], '👍': ['thumbs-up'], '👎': ['thumbs-down'], '🙌': ['thumbs-up'],
+    '🏆': ['trophy', 'nv-oro'], '🏅': ['trophy', 'nv-oro'], '👑': ['crown', 'nv-oro'], '🔴': ['circle-dot', 'vivo'],
+    '✨': ['sparkles', 'acento'], '🎉': ['party-popper', 'acento'], '🎁': ['gift', 'acento'], '💡': ['lightbulb', 'aviso'],
+    '🗑': ['trash-2'], '🏁': ['flag'], '🚩': ['flag'], '🥅': ['target'], '⚖': ['scale'], '📡': ['radio'], '🔀': ['link-2'],
+    '🧱': ['shield-check'], '✋': ['hand'], '↗': ['trending-up'], '👤': ['user'], '👥': ['users'], '📢': ['megaphone'],
+    '💬': ['message-circle'], '❓': ['circle-help'], '🔍': ['search'],
+    '🟨': ['square', 'amarilla'], '🟥': ['square', 'roja-t'],
+  };
+  const RE_EMOJI = new RegExp('(' + Object.keys(EMOJI_ICO).map((e) => e.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\uFE0F?', 'g');
+  function iconizar(raiz) {
+    if (!raiz || raiz.nodeType !== 1 && raiz.nodeType !== 9) return;
+    const andador = document.createTreeWalker(raiz, NodeFilter.SHOW_TEXT, {
+      acceptNode: (t) => {
+        const p = t.parentNode;
+        if (!p || !t.nodeValue || !RE_EMOJI.test(t.nodeValue)) { RE_EMOJI.lastIndex = 0; return NodeFilter.FILTER_REJECT; }
+        RE_EMOJI.lastIndex = 0;
+        if (p instanceof SVGElement || /^(SCRIPT|STYLE|TEXTAREA|TITLE)$/.test(p.nodeName)) return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      } });
+    const nodos = [];
+    while (andador.nextNode()) nodos.push(andador.currentNode);
+    nodos.forEach((t) => {
+      if (t.parentNode && t.parentNode.nodeName === 'OPTION') { t.nodeValue = t.nodeValue.replace(RE_EMOJI, '').replace(/^\s+/, ''); return; }
+      const frag = document.createDocumentFragment(), txt = t.nodeValue;
+      let ultimo = 0;
+      txt.replace(RE_EMOJI, (m, e, i) => {
+        if (i > ultimo) frag.appendChild(document.createTextNode(txt.slice(ultimo, i)));
+        const [n, c] = EMOJI_ICO[e];
+        const tmp = document.createElement('span');
+        tmp.innerHTML = ico(n, c);
+        frag.appendChild(tmp.firstChild);
+        ultimo = i + m.length;
+        return m;
+      });
+      if (ultimo < txt.length) frag.appendChild(document.createTextNode(txt.slice(ultimo)));
+      t.parentNode.replaceChild(frag, t);
+    });
+  }
+  // sólo lo que cambió (el reloj cambia cada segundo: revisar toda la página sería caro)
+  const porIconizar = new Set();
+  new MutationObserver((cambios) => {
+    cambios.forEach((c) => {
+      if (c.type === 'characterData') { if (c.target.parentNode) porIconizar.add(c.target.parentNode); }
+      else c.addedNodes.forEach((n) => porIconizar.add(n.nodeType === 3 ? n.parentNode : n));
+    });
+    if (porIconizar.size && !porIconizar._pend) {
+      porIconizar._pend = true;
+      requestAnimationFrame(() => { porIconizar._pend = false; const xs = [...porIconizar]; porIconizar.clear(); xs.forEach((n) => n && n.isConnected && iconizar(n)); });
+    }
+  }).observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+  document.addEventListener('DOMContentLoaded', () => iconizar(document.body));
+  if (document.body) iconizar(document.body);
   const lados = (p) => { const t = String(p.partido || ''); const i = t.indexOf(' vs '); return i < 0 ? [t, ''] : [t.slice(0, i), t.slice(i + 4)]; };
 
   function diaDe(p) { const d = aFecha(p.inicio); return d ? diaCdmx(d) : String(p.fecha || ''); }
@@ -22,12 +95,13 @@
 
   // Niveles (como los «stakes» de BetFlipAi), pero con lo MEDIDO de verdad
   function nivel(p) {
-    if (p.solo_analisis) return { n: 'Sólo análisis', c: 'analisis', i: '📊' };   // v418
-    if (p.tipo === 'error') return { n: 'Cuota alta', c: 'error', i: '💰' };
-    if (p.elige) return { n: 'Diamante', c: 'diamante', i: '💎' };
-    if ((p.prob || 0) >= 0.85) return { n: 'Platino', c: 'platino', i: '🔷' };
-    if ((p.prob || 0) >= 0.80) return { n: 'Oro', c: 'oro', i: '🥇' };
-    return { n: 'Plata', c: 'plata', i: '🥈' };
+    // v455 — íconos en vez de emojis; Platino lleva la escarapela (el usuario: la gema y el diamante se confundían)
+    if (p.solo_analisis) return { n: 'Sólo análisis', c: 'analisis', i: ico('chart-column', 'nv-analisis') };   // v418
+    if (p.tipo === 'error') return { n: 'Cuota alta', c: 'error', i: ico('coins', 'nv-error') };
+    if (p.elige) return { n: 'Diamante', c: 'diamante', i: ico('gem', 'nv-diamante') };
+    if ((p.prob || 0) >= 0.85) return { n: 'Platino', c: 'platino', i: ico('award', 'nv-platino') };
+    if ((p.prob || 0) >= 0.80) return { n: 'Oro', c: 'oro', i: ico('medal', 'nv-oro') };
+    return { n: 'Plata', c: 'plata', i: ico('medal', 'nv-plata') };
   }
 
   // v396 — el nivel en palabras: probabilidad, nunca «segura» ni «se cumplen 9 de 10»
@@ -355,8 +429,8 @@
   }
   function etiquetaEstado(p, v) {
     const ini = aFecha(p.inicio);
-    if (p.estado === 'verde') return '<span class="et verde">✅ Verde</span>';
-    if (p.estado === 'roja') return '<span class="et roja">❌ Roja</span>';
+    if (p.estado === 'verde') return '<span class="et verde">' + OK() + ' Verde</span>';
+    if (p.estado === 'roja') return '<span class="et roja">' + MAL() + ' Roja</span>';
     if (p.estado === 'nula') return '<span class="et">Nula</span>';
     if (v && v.fase === 'in') return '<span class="et vivo"><i class="punto"></i>' + esc(v.detalle || v.reloj || 'En vivo') + '</span>';
     if (v && v.terminado) return '<span class="et">Terminado · liquidando</span>';
@@ -911,9 +985,9 @@
   }
   function estadoPick(p, v) {
     const e = estadoVisto(p, v);
-    if (e !== p.estado) return e === 'verde' ? '<span class="et verde" title="Al pitazo; el servidor lo confirma">✅ Verde</span>' : '<span class="et roja" title="Al pitazo; el servidor lo confirma">❌ Roja</span>';
-    if (p.estado === 'verde') return '<span class="et verde">✅ Verde</span>';
-    if (p.estado === 'roja') return '<span class="et roja">❌ Roja</span>';
+    if (e !== p.estado) return e === 'verde' ? '<span class="et verde" title="Al pitazo; el servidor lo confirma">' + OK() + ' Verde</span>' : '<span class="et roja" title="Al pitazo; el servidor lo confirma">' + MAL() + ' Roja</span>';
+    if (p.estado === 'verde') return '<span class="et verde">' + OK() + ' Verde</span>';
+    if (p.estado === 'roja') return '<span class="et roja">' + MAL() + ' Roja</span>';
     if (p.estado === 'nula') return '<span class="et">Nula</span>';
     return '';
   }
@@ -956,7 +1030,7 @@
       (window.SPX ? SPX.extra(p) : '') + '</div>';
   }
   // ---------- v396: COMBINADAS ----------
-  const ICONO_DEP = { 'Fútbol': '⚽', Tenis: '🎾', NFL: '🏈', NBA: '🏀', NHL: '🏒', MLB: '⚾', KBO: '⚾', Mixta: '🔀' };
+  const ICONO_DEP = new Proxy({}, { get: (_, d) => icoDep(d) });   // v455 — íconos en vez de emojis
   const porId = () => { if (!estado._porId || estado._porIdN !== estado.picks.length) { estado._porId = new Map(estado.picks.map((p) => [p.id, p])); estado._porIdN = estado.picks.length; } return estado._porId; };
   function faseCombinada(c) {
     if (c.estado === 'verde' || c.estado === 'roja' || c.estado === 'nula') return 'terminado';
@@ -970,7 +1044,7 @@
       const ev = m.get(x.id) ? estadoVisto(p) : p.estado;          // v430 — al pitazo
       const e = ev === 'verde' ? '✅' : ev === 'roja' ? '❌' : ev === 'nula' ? '➖' : '⏳';
       const txt = window.SPX && m.get(x.id) ? SPX.apuesta(p) : esc(x.apuesta);
-      return '<div class="comb-pata"' + (m.get(x.id) ? ' data-ficha="' + esc(x.id) + '" role="button" tabindex="0"' : '') + '><span>' + e + '</span><div><b>' + txt + '</b><small>' + (ICONO_DEP[x.deporte] || '•') + ' ' + esc(x.partido || '') +
+      return '<div class="comb-pata"' + (m.get(x.id) ? ' data-ficha="' + esc(x.id) + '" role="button" tabindex="0"' : '') + '><span>' + e + '</span><div><b>' + txt + '</b><small>' + (ICONO_DEP[x.deporte] || '') + ' ' + esc(x.partido || '') +
         ' · ' + Number(x.cuota || 0).toFixed(2) + ' · ' + pct(x.prob) + (x.ia === 'a_favor' ? ' · 🤖 a favor' : '') + '</small></div>' +
         (m.get(x.id) ? '<i class="comb-ir">›</i>' : '') + '</div>';
     }).join('');
@@ -978,10 +1052,10 @@
     const ce = c.estado !== 'pendiente' && c.estado !== 'vivo' ? c.estado
       : evs.includes('roja') ? 'roja' : evs.length && evs.every((e) => e === 'verde' || e === 'nula') && evs.includes('verde') ? 'verde' : c.estado;
     c = Object.assign({}, c, { estado: ce });
-    const est = c.estado === 'verde' ? '<span class="et verde">✅ Verde</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
+    const est = c.estado === 'verde' ? '<span class="et verde">' + OK() + ' Verde</span>' : c.estado === 'roja' ? '<span class="et roja">' + MAL() + ' Roja</span>'
       : faseCombinada(c) === 'vivo' ? '<span class="et vivo"><i class="punto"></i>En juego</span>' : '<span class="et">⏳ ' + esc(horaCdmx(aFecha(c.inicio))) + '</span>';
     return '<div class="dest comb ' + (c.estado === 'verde' ? 'verde' : c.estado === 'roja' ? 'roja' : '') + '">' +
-      '<div class="fila"><span class="et nivel">' + (ICONO_DEP[c.alcance] || '🔗') + ' ' + esc(c.alcance) + (c.tipo === 'alta' ? ' · cuota alta' : '') + '</span>' + est + '</div>' +
+      '<div class="fila"><span class="et nivel">' + (ICONO_DEP[c.alcance] || ico('link-2')) + ' ' + esc(c.alcance) + (c.tipo === 'alta' ? ' · cuota alta' : '') + '</span>' + est + '</div>' +
       patas + '<div class="dest-pie"><b>' + Number(c.cuota || 0).toFixed(2) + '</b><span>probabilidad ' + pct(c.prob) + '</span></div>' +
       (window.SPX && SPX.extraComb ? SPX.extraComb(c) : '') + '</div>';
   }
@@ -1389,10 +1463,10 @@
     // varios a la vez: un conjunto (vacío = todos); lo que ya no hay hoy se suelta
     estado.deportes = new Set([...(estado.deportes || [])].filter((d) => deps.includes(d)));
     estado.niveles = estado.niveles || new Set();
-    const ICO = { 'Fútbol': '⚽', 'Tenis': '🎾', 'NBA': '🏀', 'NFL': '🏈', 'NHL': '🏒', 'MLB': '⚾', 'Béisbol': '⚾' };
+    const ICO = new Proxy({}, { get: (_, d) => icoDep(d) });
     const act = (s, v) => (v === 'Todos' ? s.size === 0 : s.has(v));
     $('deportes').innerHTML = deps.map((d) => '<button class="chip' + (act(estado.deportes, d) ? ' activa' : '') + '" data-dep="' + esc(d) + '">' + (ICO[d] ? ICO[d] + ' ' : '') + esc(d) + '</button>').join('');
-    $('niveles').innerHTML = ['Todos', 'Diamante', 'Platino', 'Oro', 'Plata', 'Cuota alta'].map((n) => '<button class="chip' + (act(estado.niveles, n) ? ' activa' : '') + '" data-niv="' + n + '">' + ({ Diamante: '💎 ', Platino: '🔷 ', Oro: '🥇 ', Plata: '🥈 ', 'Cuota alta': '💰 ' }[n] || '') + n + '</button>').join('');
+    $('niveles').innerHTML = ['Todos', 'Diamante', 'Platino', 'Oro', 'Plata', 'Cuota alta'].map((n) => '<button class="chip' + (act(estado.niveles, n) ? ' activa' : '') + '" data-niv="' + n + '">' + ({ Diamante: ico('gem', 'nv-diamante') + ' ', Platino: ico('award', 'nv-platino') + ' ', Oro: ico('medal', 'nv-oro') + ' ', Plata: ico('medal', 'nv-plata') + ' ', 'Cuota alta': ico('coins', 'nv-error') + ' ' }[n] || '') + n + '</button>').join('');
     const pasaDep = (p) => estado.deportes.size === 0 || estado.deportes.has(p.deporte);
     if (estado.deportes.size) lista = lista.filter(pasaDep);
     if (estado.niveles.size) lista = lista.filter((p) => estado.niveles.has(nivel(p).n));
@@ -1495,7 +1569,7 @@
       (n === 1 ? ' partido hoy' : ' partidos hoy') + ', pero ninguno llegó a nuestro mínimo de probabilidad. Preferimos no darte un pick flojo.</div>').join(''));
   }
 
-  window.SP = { nivel, pintar, estado, estadoVisto: (p) => estadoVisto(p), realDe: (p) => realDe(p) };   // v452: «Mis combinadas» usa lo mismo
+  window.SP = { nivel, pintar, estado, estadoVisto: (p) => estadoVisto(p), realDe: (p) => realDe(p), ico, icoDep };   // v452: «Mis combinadas» usa lo mismo
 
   // v440 — DESLIZAR PARA QUITAR (sólo en «Mis picks», con el dedo): la fila se
   // corre a la izquierda y deja ver «Quitar»; si el gesto es vertical, es scroll.
@@ -1572,4 +1646,29 @@
   setInterval(vivoFs, 45 * 1000);       // v424 — y lo que ESPN no cubre
   setInterval(vivo365, 20 * 1000);      // v429 — la alineación y los tiros de las canchas a la vista
   setTimeout(vivoFs, 4000);
+
+  // v454 — «INSTÁLALA COMO APP», sin tiendas ni licencias: en Android con el botón
+  // del navegador; en el iPhone se explica «Compartir → Agregar a inicio». Sale a los
+  // 20 s, nunca si ya está instalada, y si la cierras no vuelve en 14 días.
+  (function instalarApp() {
+    const yaApp = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && !/crios|fxios/i.test(navigator.userAgent);
+    let aviso = null, pedido = null;
+    let cerrado = 0; try { cerrado = Number(localStorage.getItem('sharpicks-instalar-no') || 0); } catch (e) { /* sin almacenamiento */ }
+    if (yaApp || Date.now() - cerrado < 14 * 864e5) return;
+    window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); pedido = e; });
+    const cerrar = () => { if (aviso) aviso.remove(); aviso = null; try { localStorage.setItem('sharpicks-instalar-no', String(Date.now())); } catch (e) { /* nada */ } };
+    setTimeout(() => {
+      if (!ios && !pedido) return;          // el navegador no la deja instalar (o ya está)
+      aviso = document.createElement('div');
+      aviso.className = 'instalar';
+      aviso.innerHTML = '<img src="marca/icon-192.png" alt="" width="40" height="40"><div class="ins-txt"><b>Instala SharPicks</b><small>' +
+        (ios ? 'Toca ' + ico('share') + ' Compartir y luego «Agregar a inicio»' : 'Ábrela como app, a pantalla completa') + '</small></div>' +
+        (ios ? '' : '<button class="ins-si">Instalar</button>') + '<button class="ins-no" aria-label="Cerrar">' + ico('x') + '</button>';
+      document.body.appendChild(aviso);
+      aviso.querySelector('.ins-no').addEventListener('click', cerrar);
+      const si = aviso.querySelector('.ins-si');
+      if (si) si.addEventListener('click', async () => { pedido.prompt(); await pedido.userChoice.catch(() => null); cerrar(); });
+    }, 20000);
+  })();
 })();

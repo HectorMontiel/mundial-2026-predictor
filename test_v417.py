@@ -295,6 +295,13 @@ def probar_v434():
           'v453: «Lo que dijimos vs lo que salió» en el historial (público, rojas incluidas)')
     check('function realDe(p)' in app and "realDe(p) ? '<div class=\"progreso ' + p.estado" in app and 'Ganaste <b>+' in cu,
           'v453: cada pick terminado dice su dato real (marcador y goles/puntos contra la línea)')
+    sprite = leer('web', 'iconos.svg')
+    check('<symbol id="i-gem"' in sprite and '<symbol id="i-award"' in sprite and '<symbol id="i-ball-football"' in sprite
+          and '<script' not in sprite and 'href=' not in sprite, 'v454: íconos Lucide/Tabler propios en iconos.svg (sólo figuras, sin scripts ni enlaces)')
+    check("ico('award', 'nv-platino')" in app and "ico('gem', 'nv-diamante')" in app and 'function iconizar(raiz)' in app
+          and 'p instanceof SVGElement' in app, 'v455-v456: niveles con insignia (Platino = escarapela) y los emojis cambiados por íconos')
+    check('(function instalarApp()' in app and "'beforeinstallprompt'" in app and 'apple-mobile-web-app-capable' in leer('web', 'index.html')
+          and '"display": "standalone"' in leer('web', 'manifest.json'), 'v454: se instala como app (Android con botón; iPhone con «Agregar a inicio»)')
     ix = leer('web', 'index.html')
     check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
           and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')

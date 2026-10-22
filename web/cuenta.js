@@ -47,6 +47,9 @@
   if (yo.user) yo.perfil = perfilGuardado(yo.user.id);
   let listo = null;                       // la primera carga de la sesión
   try { navigator.storage && navigator.storage.persist && navigator.storage.persist(); } catch (e) { /* opcional */ }
+  // v455 — los íconos de app.js (Lucide/Tabler) en vez de emojis
+  const ico = (n, x) => (window.SP && window.SP.ico ? window.SP.ico(n, x) : '');
+  const OK = () => ico('circle-check'), MAL = () => ico('circle-x');
   window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb, esVip: () => esVip(), intereses: () => intereses(), votoIA: (id) => votoIA(id) };
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
@@ -809,7 +812,7 @@
   // combinadas» son las que están por jugar o en juego): cuántas acertó, de qué
   // cuota fue cada una y cómo le fue a cada pick.
   let rangoHist = 30;
-  const ICO_HIST = { 'Fútbol': '⚽', Tenis: '🎾', NFL: '🏈', NBA: '🏀', NHL: '🏒', MLB: '⚾', KBO: '⚾', 'Béisbol': '⚾' };
+  const ICO_HIST = new Proxy({}, { get: (_, d) => (window.SP && window.SP.icoDep ? window.SP.icoDep(d) : '') });
   const DIA_MX = (f) => new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', weekday: 'short', day: 'numeric', month: 'short' }).format(f);
   const aFechaP = (s) => new Date(String(s || '').replace(' ', 'T') + (/[zZ]|[+-]\d\d:?\d\d$/.test(String(s)) ? '' : 'Z'));
   function miHistorial() { pintarHistorial($('mi-hist')); }
@@ -889,10 +892,10 @@
     const yaVerde = c.estado === 'pendiente' && !yaRoja && ps.length && ps.every((p) => p._visto === 'verde' || p._visto === 'nula') && ps.some((p) => p._visto === 'verde');
     const hora = (p) => p.inicio ? new Intl.DateTimeFormat('es-MX', { timeZone: 'America/Mexico_City', hour: '2-digit', minute: '2-digit' }).format(aFechaP(p.inicio)) : '';
     const prox = ps.filter((p) => p.inicio && !empezo(p)).sort((a, b) => aFechaP(a.inicio) - aFechaP(b.inicio))[0];
-    const chip = c.estado === 'verde' ? '<span class="et verde">✅ Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">❌ Roja</span>'
+    const chip = c.estado === 'verde' ? '<span class="et verde">' + OK() + ' Verde' + (c.premio ? ' · +' + c.premio + ' 🪙' : '') + '</span>' : c.estado === 'roja' ? '<span class="et roja">' + MAL() + ' Roja</span>'
       : c.estado === 'nula' ? '<span class="et">↩️ Nula</span>'
-      : yaRoja ? '<span class="et roja" title="Al pitazo; el servidor lo confirma">❌ Roja</span>'
-      : yaVerde ? '<span class="et verde" title="Al pitazo; el servidor lo confirma y paga">✅ Verde</span>'
+      : yaRoja ? '<span class="et roja" title="Al pitazo; el servidor lo confirma">' + MAL() + ' Roja</span>'
+      : yaVerde ? '<span class="et verde" title="Al pitazo; el servidor lo confirma y paga">' + OK() + ' Verde</span>'
       : ps.some(empezo) ? '<span class="et vivo">🔴 En juego</span>' : '<span class="et">🕒 Por jugar' + (prox ? ' · ' + hora(prox) : '') + '</span>';
     // v443 — lo que puede ganar si acierta (la misma tabla que usa el servidor: una premiada por día)
     const pr = PREMIO(Number(c.cuota));
@@ -1156,7 +1159,7 @@
     const caja = $('dep-hist'); if (!caja || !sb) return;
     const { data, error } = await sb.from('historial_deportes').select('*');
     if (error || !(data || []).length) { caja.innerHTML = ''; return; }
-    const ICO = { 'Fútbol': '⚽', Tenis: '🎾', NBA: '🏀', NFL: '🏈', NHL: '🏒', MLB: '⚾', KBO: '⚾' };
+    const ICO = new Proxy({}, { get: (_, d) => (window.SP && window.SP.icoDep ? window.SP.icoDep(d) : '') });
     const ia = {};
     (med || []).filter((m) => m.que === 'mejor').forEach((m) => { const x = ia[m.deporte] = ia[m.deporte] || [0, 0]; x[0] += m.ok; x[1] += m.total; });
     caja.innerHTML = '<table class="tabla"><tr><th>Deporte</th><th>Modelo</th><th>%</th><th>🧠 IA</th></tr>' +
@@ -1225,7 +1228,7 @@
       (comb.length ? '<div class="sub">🔗 Combinadas: ✅ ' + cv + ' ❌ ' + cr + ' · ⏳ ' + (comb.length - cv - cr) + '</div>' : '') +
       '<div class="tg-items">' + it.slice(0, 40).map((x) => {
         const hechas = x.ps.filter((p) => p.estado === 'verde').length;
-        const chip = x.est === 'verde' ? '<span class="et verde">✅ Verde</span>' : x.est === 'roja' ? '<span class="et roja">❌ Roja</span>'
+        const chip = x.est === 'verde' ? '<span class="et verde">' + OK() + ' Verde</span>' : x.est === 'roja' ? '<span class="et roja">' + MAL() + ' Roja</span>'
           : '<span class="et vivo">⏳ ' + (x.comb ? hechas + ' de ' + x.ps.length + ' ✅' : 'Pendiente') + '</span>';
         const cuota = x.ps.reduce((s, p) => s * Number(p.cuota || 1), 1);
         return '<div class="tg-item ' + x.est + '"><div class="fila"><span>' + (x.comb ? '🔗 Combinada' : (tg.canal === 'vip' ? '💎 Pick' : '🎯 Pick del día')) +
