@@ -25,15 +25,15 @@
   },
   "Atlético de San Luis": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Petro Atletico (Ang)",
-    "ratio": 0.5789,
+    "candidato": "San Giovanni",
+    "ratio": 0.3125,
     "visto": "2026-10-23"
   },
   "Barracas Central": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Rosario Central 2",
-    "ratio": 0.6061,
-    "visto": "2026-10-19"
+    "candidato": "Central Coast Mariners W",
+    "ratio": 0.3684,
+    "visto": "2026-10-23"
   },
   "Belgrano (Córdoba)": {
     "contexto": "cuotas_mx→futbol",
@@ -49,9 +49,9 @@
   },
   "Central Español Fútbol Club": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Cordoba 2",
-    "ratio": 0.5625,
-    "visto": "2026-10-21"
+    "candidato": "Central Coast Mariners W",
+    "ratio": 0.5405,
+    "visto": "2026-10-23"
   },
   "Chippa United": {
     "contexto": "cuotas_mx→futbol",
@@ -457,9 +457,9 @@
   },
   "Central Norte": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central SC",
-    "ratio": 0.7,
-    "visto": "2026-10-22"
+    "candidato": "Central Coast Mariners W",
+    "ratio": 0.5714,
+    "visto": "2026-10-23"
   },
   "Chacarita Juniors": {
     "contexto": "cuotas_mx→futbol",
@@ -799,8 +799,8 @@
   },
   "Wycombe Wanderers": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Midlands Wanderers",
-    "ratio": 0.6286,
+    "candidato": "WS Wanderers",
+    "ratio": 0.7586,
     "visto": "2026-10-23"
   },
   "Internacional de Bogotá": {
@@ -1039,8 +1039,8 @@
   },
   "Central Córdoba (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Talleres Cordoba",
-    "ratio": 0.4314,
+    "candidato": "Central Coast Mariners W",
+    "ratio": 0.5263,
     "visto": "2026-10-23"
   },
   "Raith Rovers": {
@@ -1081,9 +1081,9 @@
   },
   "Rosario Central": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "AD Rosario",
-    "ratio": 0.56,
-    "visto": "2026-10-17"
+    "candidato": "Central Coast Mariners W",
+    "ratio": 0.3784,
+    "visto": "2026-10-23"
   },
   "Vancouver Whitecaps": {
     "contexto": "cuotas_mx→futbol",
@@ -1651,8 +1651,8 @@
   },
   "Newcastle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Cambrian United",
-    "ratio": 0.5806,
+    "candidato": "Newcastle Jets",
+    "ratio": 0.7333,
     "visto": "2026-10-23"
   },
   "GV San José": {
@@ -1705,14 +1705,14 @@
   },
   "Lokomotiv Moscow": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Torpedo Moscow",
-    "ratio": 0.6,
+    "candidato": "Dynamo Moscow U19",
+    "ratio": 0.5455,
     "visto": "2026-10-23"
   },
   "Spartak Moscow": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Spartak Pleven",
-    "ratio": 0.5714,
+    "candidato": "Dynamo Moscow U19",
+    "ratio": 0.5161,
     "visto": "2026-10-23"
   },
   "CSKA Moscow": {
@@ -2197,7 +2197,7 @@
   },
   "Rodina Moscow": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Torpedo Moscow",
+    "candidato": "Dynamo Moscow U19",
     "ratio": 0.6667,
     "visto": "2026-10-23"
   },
@@ -2401,8 +2401,8 @@
   },
   "Western Sydney Wanderers FC": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Midlands Wanderers",
-    "ratio": 0.5238,
+    "candidato": "WS Wanderers",
+    "ratio": 0.6667,
     "visto": "2026-10-23"
   },
   "MELBOURNE VICTORY": {
