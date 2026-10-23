@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-22T22:42:06Z",
+"actualizado": "2026-10-23T00:30:36Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12096,6 +12096,16 @@
 "dia": "2026-10-22",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Atletico-MG U20 vs Amazonas U20",
+"apuesta": "Gana Atletico-MG U20",
+"cuota": 1.22,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Besiktas vs Crystal Palace",
 "apuesta": "Gana Besiktas",
 "cuota": 3.1,
@@ -12301,6 +12311,16 @@
 "cuota": 1.68,
 "resultado": "rojo",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Metropolitanos vs Anzoategui FC",
+"apuesta": "Gana Metropolitanos",
+"cuota": 1.8182,
+"resultado": "rojo",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-22",
