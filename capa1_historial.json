@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-23T01:53:50Z",
+"actualizado": "2026-10-23T03:28:28Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12264,6 +12264,16 @@
 },
 {
 "dia": "2026-10-22",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Flamengo vs Estudiantes de La Plata",
+"apuesta": "Flamengo o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-22",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Hoffenheim vs Lyon",
@@ -12361,6 +12371,16 @@
 "cuota": 3.25,
 "resultado": "rojo",
 "marcador": "3-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Motagua (Hon) vs Alajuelense (Cos)",
+"apuesta": "Gana Alajuelense (Cos)",
+"cuota": 2.85,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-22",
