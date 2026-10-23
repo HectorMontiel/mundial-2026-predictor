@@ -14242,22 +14242,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853455,2026-08-01,rumania,Universitatea Craiova,Monday Etim,847613,F,0,29,1,0,0,0.0,,3.0,374050.0
 5853455,2026-08-01,rumania,Universitatea Craiova,Alexandru Cicâldau,770163,M,0,21,2,1,0,0.0,,2.0,1491098.0
 5853455,2026-08-01,rumania,Universitatea Craiova,Alexandru Cretu,351043,M,0,15,0,0,0,0.0,,2.0,198434.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Lukás Zima,282114,G,1,90,0,0,0,0.0,11.0,0.0,304273.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Adam Zaian,1729336,D,1,90,0,0,0,0.0,33.0,1.0,263949.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Paul Papp,173509,D,1,46,0,0,0,0.0,35.0,1.0,103194.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Breston Malula,1108789,D,1,64,0,0,0,0.0,37.0,1.0,170233.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Tiberiu Capusa,919746,D,1,90,1,0,0,0.0,51.0,1.0,327332.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Andres Dumitrescu,1127665,D,1,90,0,0,0,0.0,59.0,1.0,366282.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Leo Teixeira,1150320,F,1,83,0,0,0,0.0,72.0,3.0,373196.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Calal Hüseynov,1306106,D,1,46,0,0,0,0.0,74.0,1.0,704840.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Alejandro Bran,1290740,M,1,90,2,1,0,0.0,76.0,2.0,185415.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,David Paraschiv,1609203,F,1,64,0,0,0,0.0,78.0,3.0,354282.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Dan Nlundulu,789599,F,1,90,3,0,0,0.0,115.0,3.0,317420.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Dele Israel,1175853,D,0,44,0,0,0,0.0,,1.0,254826.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Mario Ionita,1436510,M,0,45,1,0,0,0.0,,2.0,391136.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Robert Jerdea,1248223,F,0,26,1,1,0,0.0,,3.0,204438.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Rodrigo Martins,955822,F,0,26,0,0,0,0.0,,3.0,237247.0
-5853455,2026-08-01,rumania,Petrolul Ploiesti,Mark Tutu,1688903,D,0,7,0,0,0,0.0,,1.0,606273.0
 5804228,2026-08-01,suiza,Thun,Niklas Steffen,1161221,G,1,90,0,0,0,0.0,11.0,0.0,1740273.0
 5804228,2026-08-01,suiza,Thun,Lucien Dähler,1436393,D,1,90,0,0,0,0.0,32.0,1.0,612123.0
 5804228,2026-08-01,suiza,Thun,Nicolas Bürgy,558707,D,1,90,1,1,0,0.03,34.0,1.0,541407.0
@@ -17003,21 +16987,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853454,2026-08-03,rumania,Universitatea Cluj,Adams Friday,1392221,D,0,16,0,0,0,0.0,,1.0,247092.0
 5853454,2026-08-03,rumania,Universitatea Cluj,Atanas Trica,1258756,F,0,16,0,0,0,0.0,,3.0,409764.0
 5853454,2026-08-03,rumania,Universitatea Cluj,Alin Chintes,1508953,D,0,1,0,0,0,0.0,,1.0,526161.0
-5853454,2026-08-03,rumania,Botosani,Giannis Anestis,281573,G,1,90,0,0,0,0.0,11.0,0.0,121018.0
-5853454,2026-08-03,rumania,Botosani,Brian Bayeye,1189327,D,1,90,0,0,0,0.0,32.0,1.0,182363.0
-5853454,2026-08-03,rumania,Botosani,George Miron,571154,D,1,90,0,0,0,0.0,34.0,1.0,179433.0
-5853454,2026-08-03,rumania,Botosani,Mamadou Diarra,1670485,D,1,90,1,0,0,0.0,36.0,1.0,114883.0
-5853454,2026-08-03,rumania,Botosani,Narcis Ilas,1481328,D,1,90,0,0,0,0.0,38.0,1.0,1134659.0
-5853454,2026-08-03,rumania,Botosani,Lucas De Vega,1112757,M,1,90,0,0,0,0.0,73.0,2.0,160993.0
-5853454,2026-08-03,rumania,Botosani,Enriko Papa,950878,M,1,76,1,0,0,0.0,75.0,2.0,99560.0
-5853454,2026-08-03,rumania,Botosani,Hervin Ongenda,435960,M,1,87,2,1,0,0.0,77.0,2.0,187777.0
-5853454,2026-08-03,rumania,Botosani,Zoran Mitrov,1286538,F,1,70,2,0,0,0.0,103.0,3.0,599331.0
-5853454,2026-08-03,rumania,Botosani,Andrei Dumiter,1025626,F,1,87,3,1,1,0.0,105.0,3.0,240363.0
-5853454,2026-08-03,rumania,Botosani,Sebastian Mailat,754587,F,1,90,5,2,0,0.0,107.0,3.0,546217.0
-5853454,2026-08-03,rumania,Botosani,Stefan Bodisteanu,1169576,F,0,20,0,0,0,0.0,,3.0,587288.0
-5853454,2026-08-03,rumania,Botosani,Jovan Markovic,861209,F,0,14,0,0,0,0.0,,3.0,342628.0
-5853454,2026-08-03,rumania,Botosani,George Sorodoc,1737912,M,0,3,0,0,0,0.0,,2.0,
-5853454,2026-08-03,rumania,Botosani,Mario Preda,1688851,F,0,3,0,0,0,0.0,,3.0,264612.0
 5844823,2026-08-04,leagues_cup,Columbus Crew,Nicholas Hagen,960923,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
 5844823,2026-08-04,leagues_cup,Columbus Crew,Brooks Lennon,760725,D,1,46,0,0,0,0.0,32.0,1.0,737110.0
 5844823,2026-08-04,leagues_cup,Columbus Crew,Cesar Ruvalcaba,1727042,D,1,90,1,1,1,0.0,34.0,1.0,213502.0
@@ -26107,22 +26076,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000013058,2026-08-13,sudamericana,CSD Macará,José Klinger,1477420,F,0,6,0,0,0,0.0,,3.0,
 1000013058,2026-08-13,sudamericana,CSD Macará,Carlos Caicedo,1817855,M,0,5,0,0,0,0.0,,2.0,563012.0
 1000013058,2026-08-13,sudamericana,CSD Macará,Luca Ferro,1717440,F,0,1,0,0,0,0.0,,3.0,261528.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Nikola Vasilj,466867,G,1,90,0,0,0,0.0,11.0,0.0,2179220.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Abdulaziz Al Faraj,1377989,D,1,89,1,0,0,0.01,32.0,1.0,
-5969048,2026-08-13,ksa_pro,Al Diriyah,Chancel Mbemba,277761,D,1,77,0,0,0,0.0,34.0,1.0,1171029.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Qasem Lajami,640282,D,1,90,0,0,0,0.0,36.0,1.0,166735.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Omar Colley,440369,D,1,90,1,0,0,0.11,38.0,1.0,673208.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Hussain Al Qahtani,866656,M,1,68,0,0,0,0.0,64.0,2.0,149549.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Idrissa Gana Gueye,179410,M,1,77,0,0,0,0.0,66.0,2.0,1040791.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Clayton Diandy,1667976,F,1,77,3,1,0,0.2,83.0,3.0,1282465.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Óscar Rodríguez,863168,M,1,90,3,2,0,0.4,85.0,2.0,979215.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Georges-Kévin N'Koudou,473855,F,1,90,2,0,0,0.12,87.0,3.0,1410689.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Gaëtan Laborde,492158,F,1,90,3,0,0,0.15,115.0,3.0,2039171.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Abdulelah Al Malki,670415,M,0,22,2,0,0,0.06,,2.0,144691.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Mohamed Hameran,1911206,D,0,13,0,0,0,0.0,,1.0,130502.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Meshari Al Nemer,1363815,F,0,13,3,0,0,0.3,,3.0,354934.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Hattan Bahbri,289745,F,0,13,0,0,0,0.0,,3.0,184532.0
-5969048,2026-08-13,ksa_pro,Al Diriyah,Taher Wadi,1911207,D,0,1,0,0,0,0.0,,1.0,
 5969048,2026-08-13,ksa_pro,Al Ahli,Abdulrahman Al Sanbi,1524217,G,1,90,0,0,0,0.0,11.0,0.0,347985.0
 5969048,2026-08-13,ksa_pro,Al Ahli,Rayan Hamed,1287535,D,1,90,0,0,0,0.0,32.0,1.0,516669.0
 5969048,2026-08-13,ksa_pro,Al Ahli,Merih Demiral,823078,D,1,90,2,0,0,0.21,34.0,1.0,11495167.0
@@ -160016,99 +159969,163 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000014177,2026-10-23,col_primera_a,Deportivo Pasto,John Méndez,1393826,F,0,22,0,0,0,0.0,,3.0,492510.0
 1000014177,2026-10-23,col_primera_a,Deportivo Pasto,Joyce Rios,1308328,D,0,21,0,0,0,0.0,,1.0,269898.0
 1000014177,2026-10-23,col_primera_a,Deportivo Pasto,Santiago Córdoba,1334882,F,0,10,0,0,0,0.0,,3.0,295710.0
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,George Plusnin,1750321,G,1,90,0,0,0,0.0,11,0,
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Milorad Stajić,1787569,D,1,65,2,0,0,0.17,33,1,318717
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Tom Aldred,184449,D,1,90,0,0,0,0.0,35,1,103680
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Joel King,1017151,D,1,90,0,0,0,0.0,37,1,349706
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Tate Russell,970573,M,1,80,0,0,0,0.0,71,2,242546
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Nam Tae-Hee,180292,M,1,90,2,2,1,0.06,73,2,228129
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Noah Maieroni,1665588,M,1,90,0,0,0,0.0,75,2,333045
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Tyrese Francois,894805,M,1,75,3,1,0,0.13,77,2,249513
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Sabit James Ngor,1469770,M,1,75,2,1,0,0.25,79,2,321040
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Virgiliu Postolachi,949215,F,1,65,0,0,0,0.0,104,3,422714
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Justin Vidić,1565863,F,1,90,4,1,1,0.76,106,3,266728
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Hosine Bility,862700,D,0,25,0,0,0,0.0,,1,209095
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Marko Ilic,1409696,F,0,25,1,1,0,0.06,,3,243453
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Emmett Shaw,1883411,M,0,15,0,0,0,0.0,,2,485235
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Nathan Amanatidis,1565868,F,0,15,0,0,0,0.0,,3,329141
-1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Jacob Nasso,1899854,D,0,10,0,0,0,0.0,,1,399988
-1000017563,2026-10-23,aus_aleague,Perth Glory,Matthew Sutton,915413,G,1,90,0,0,0,0.0,11,0,320830
-1000017563,2026-10-23,aus_aleague,Perth Glory,Tadiwanashe Kuzamba,1791878,D,1,90,0,0,0,0.0,32,1,
-1000017563,2026-10-23,aus_aleague,Perth Glory,Cher Deng,1686121,D,1,90,0,0,0,0.0,34,1,
-1000017563,2026-10-23,aus_aleague,Perth Glory,Lachlan Jackson,624510,D,1,90,0,0,0,0.0,36,1,207936
-1000017563,2026-10-23,aus_aleague,Perth Glory,Andriano Lebib,1607419,D,1,46,0,0,0,0.0,38,1,
-1000017563,2026-10-23,aus_aleague,Perth Glory,Stefan Colakovski,1101904,M,1,75,2,0,0,0.35,72,2,207181
-1000017563,2026-10-23,aus_aleague,Perth Glory,Sebastian Despotovski,1752002,M,1,59,0,0,0,0.0,74,2,344061
-1000017563,2026-10-23,aus_aleague,Perth Glory,Lucas Scicluna,1686122,M,1,90,0,0,0,0.0,76,2,304946
-1000017563,2026-10-23,aus_aleague,Perth Glory,Sam Sutton,1101260,M,1,90,0,0,0,0.0,78,2,307174
-1000017563,2026-10-23,aus_aleague,Perth Glory,Pieter Jacobsz,2360187,F,1,59,1,0,0,0.1,104,3,
-1000017563,2026-10-23,aus_aleague,Perth Glory,Tom Lawrence,494435,F,1,80,1,0,0,0.14,106,3,765211
-1000017563,2026-10-23,aus_aleague,Perth Glory,Jaiden Kucharski,1409554,F,0,45,2,0,0,0.07,,3,377084
-1000017563,2026-10-23,aus_aleague,Perth Glory,Matthew Ellis,1435048,D,0,31,1,1,1,0.23,,1,194795
-1000017563,2026-10-23,aus_aleague,Perth Glory,Giovanni De Abreu,1875183,M,0,31,0,0,0,0.0,,2,586015
-1000017563,2026-10-23,aus_aleague,Perth Glory,Sebastian Kukucka,2360230,F,0,15,0,0,0,0.0,,3,
-1000017563,2026-10-23,aus_aleague,Perth Glory,Jay O'Shea,75688,M,0,10,0,0,0,0.0,,2,137130
-6362002,2026-10-23,ind_isl,Inter Kashi,Albino Gomes,855586,G,1,90,0,0,0,0.0,11,0,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Laldinliana Renthlei,965774,D,1,90,0,0,0,0.0,32,1,103680
-6362002,2026-10-23,ind_isl,Inter Kashi,Pratik Chaudhari,900408,D,1,90,0,0,0,0.0,34,1,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Nishchal Chandan,1345404,D,1,68,0,0,0,0.0,36,1,72720
-6362002,2026-10-23,ind_isl,Inter Kashi,Sajad Hussain Parray,1227419,D,1,46,0,0,0,0.0,38,1,145344
-6362002,2026-10-23,ind_isl,Inter Kashi,Wayne Vaz,898209,M,1,90,1,0,0,0.01,64,2,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Jitendra Singh,912511,M,1,90,0,0,0,0.0,66,2,116432
-6362002,2026-10-23,ind_isl,Inter Kashi,Sumeet Passi,735042,F,1,62,0,0,0,0.0,83,3,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Hitesh Sharma,889527,M,1,90,1,0,0,0.03,85,2,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Rosenberg Gabriel,1436342,F,1,45,1,0,0,0.06,87,3,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Ayush Chhikara,1224660,F,1,81,1,0,0,0.08,115,3,156456
-6362002,2026-10-23,ind_isl,Inter Kashi,Aritra Das,1403497,D,0,44,0,0,0,0.0,,1,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Thoi Singh,1314378,F,0,44,0,0,0,0.0,,3,197625
-6362002,2026-10-23,ind_isl,Inter Kashi,Sreekuttan VS,1313486,F,0,28,0,0,0,0.0,,3,
-6362002,2026-10-23,ind_isl,Inter Kashi,Gursimrat Gill,898127,D,0,22,0,0,0,0.0,,1,50000
-6362002,2026-10-23,ind_isl,Inter Kashi,Manvir Singh,1228802,F,0,9,0,0,0,0.0,,3,87371
-6362002,2026-10-23,ind_isl,East Bengal FC,Prabhsukhan Singh Gill,1104373,G,1,90,0,0,0,0.0,11,0,149818
-6362002,2026-10-23,ind_isl,East Bengal FC,Hardik Bhatt,1421510,D,1,90,0,0,0,0.0,32,1,50000
-6362002,2026-10-23,ind_isl,East Bengal FC,Lalchungnunga,1352171,D,1,90,1,0,0,0.01,34,1,106268
-6362002,2026-10-23,ind_isl,East Bengal FC,Anwar Ali,916544,D,1,90,1,0,0,0.01,36,1,145409
-6362002,2026-10-23,ind_isl,East Bengal FC,Jay Gupta,1553139,D,1,67,2,0,0,0.05,38,1,150515
-6362002,2026-10-23,ind_isl,East Bengal FC,Bipin Singh,825137,M,1,45,2,0,0,0.17,72,2,50000
-6362002,2026-10-23,ind_isl,East Bengal FC,Mohammed Rashid,1007659,M,1,45,3,0,0,0.15,74,2,50000
-6362002,2026-10-23,ind_isl,East Bengal FC,Rohit Kumar,898210,M,1,90,1,0,0,0.03,76,2,50000
-6362002,2026-10-23,ind_isl,East Bengal FC,P V Vishnu,1559643,M,1,90,3,1,1,0.45,78,2,153438
-6362002,2026-10-23,ind_isl,East Bengal FC,Aké Loba,853997,F,1,60,2,2,2,1.07,104,3,448397
-6362002,2026-10-23,ind_isl,East Bengal FC,Dani Ramírez,640133,F,1,77,4,2,1,0.41,106,3,50000
-6362002,2026-10-23,ind_isl,East Bengal FC,Jeakson Singh,887660,M,0,44,0,0,0,0.0,,2,147756
-6362002,2026-10-23,ind_isl,East Bengal FC,Christopher Ikonomidis,611224,F,0,45,2,0,0,0.05,,3,104387
-6362002,2026-10-23,ind_isl,East Bengal FC,Łukasz Zwoliński,362257,F,0,30,3,2,1,1.26,,3,161297
-6362002,2026-10-23,ind_isl,East Bengal FC,Sandip Mandi,1128100,D,0,23,1,0,0,0.01,,1,103680
-6362002,2026-10-23,ind_isl,East Bengal FC,David Lalhlansanga,1241609,F,0,13,1,1,0,0.08,,3,53288
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Fernando Pacheco,241059,G,1,90,0,0,0,0.0,11,0,254395
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Andrei Girotto,498655,D,1,90,2,0,0,0.07,33,1,1070040
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdoulaye Seck,588626,D,1,90,0,0,0,0.0,35,1,158757
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Mohammed Jahfali,618289,D,1,61,0,0,0,0.0,37,1,124617
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Yaseen Barnawi,618123,M,1,90,1,0,0,0.02,72,2,144786
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Flávio,750053,M,1,90,0,0,0,0.0,74,2,1068595
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Eid Al Muwallad,1524233,M,1,61,0,0,0,0.0,76,2,323816
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Mohammed Al Shanqiti,1054044,M,1,85,0,0,0,0.0,78,2,139696
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdulaziz Al Bishi,671261,F,1,61,1,0,0,0.02,103,3,279682
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Alexandre Mendy,560900,F,1,90,6,1,0,0.44,105,3,645764
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdullah Al Mogren,1002615,F,1,80,0,0,0,0.0,107,3,
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdullah Bin Subayt,1910725,D,0,29,1,0,0,0.32,,1,
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Jaime Seoane,792783,M,0,29,0,0,0,0.0,,2,218336
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Théo Bongonda,466132,F,0,29,1,1,1,0.34,,3,1543726
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdulrahman Al Sharif,1910842,M,0,10,0,0,0,0.0,,2,
-5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdulrahman Al Safari,1085333,M,0,5,0,0,0,0.0,,2,144691
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Bento,1043761,G,1,90,0,0,0,0.0,11,0,7913562
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Nawaf Bu Washl,1401228,D,1,90,0,0,0,0.0,32,1,764200
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Abdulelah Al Amri,848600,D,1,90,0,0,0,0.0,34,1,1037897
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Iñigo Martínez,282676,D,1,90,1,0,0,0.02,36,1,1806396
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Awad Aman,1608559,D,1,46,0,0,0,0.0,38,1,352167
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Abdullah Al Khaibari,823457,M,1,81,0,0,0,0.0,64,2,578115
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Samú,1130583,M,1,67,1,1,0,0.03,66,2,11223649
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Abdullah Al Hamddan,909198,F,1,81,1,1,1,0.04,83,3,176158
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Joao Félix,794427,M,1,90,2,0,0,0.15,85,2,19721967
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Sadio Mané,303339,F,1,86,0,0,0,0.0,87,3,4844754
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Cristiano Ronaldo,30893,F,1,90,3,2,1,0.2,115,3,5777099
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Aiman Yahya,1095207,M,0,45,1,0,0,0.01,,2,
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Ângelo,1199757,F,0,23,1,1,1,0.09,,3,15563657
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Sami Al Naji,749010,M,0,9,0,0,0,0.0,,2,140008
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Saad Haqawi,1675653,F,0,9,0,0,0,0.0,,3,343504
-5970172,2026-10-23,ksa_pro,Al Nassr FC,Salem Al Najdi,1325891,D,0,4,0,0,0,0.0,,1,465435
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,George Plusnin,1750321,G,1,90,0,0,0,0.0,11.0,0.0,
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Milorad Stajić,1787569,D,1,65,2,0,0,0.17,33.0,1.0,318717.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Tom Aldred,184449,D,1,90,0,0,0,0.0,35.0,1.0,103680.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Joel King,1017151,D,1,90,0,0,0,0.0,37.0,1.0,349706.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Tate Russell,970573,M,1,80,0,0,0,0.0,71.0,2.0,242546.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Nam Tae-Hee,180292,M,1,90,2,2,1,0.06,73.0,2.0,228129.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Noah Maieroni,1665588,M,1,90,0,0,0,0.0,75.0,2.0,333045.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Tyrese Francois,894805,M,1,75,3,1,0,0.13,77.0,2.0,249513.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Sabit James Ngor,1469770,M,1,75,2,1,0,0.25,79.0,2.0,321040.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Virgiliu Postolachi,949215,F,1,65,0,0,0,0.0,104.0,3.0,422714.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Justin Vidić,1565863,F,1,90,4,1,1,0.76,106.0,3.0,266728.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Hosine Bility,862700,D,0,25,0,0,0,0.0,,1.0,209095.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Marko Ilic,1409696,F,0,25,1,1,0,0.06,,3.0,243453.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Emmett Shaw,1883411,M,0,15,0,0,0,0.0,,2.0,485235.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Nathan Amanatidis,1565868,F,0,15,0,0,0,0.0,,3.0,329141.0
+1000017563,2026-10-23,aus_aleague,Brisbane Roar FC,Jacob Nasso,1899854,D,0,10,0,0,0,0.0,,1.0,399988.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Matthew Sutton,915413,G,1,90,0,0,0,0.0,11.0,0.0,320830.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Tadiwanashe Kuzamba,1791878,D,1,90,0,0,0,0.0,32.0,1.0,
+1000017563,2026-10-23,aus_aleague,Perth Glory,Cher Deng,1686121,D,1,90,0,0,0,0.0,34.0,1.0,
+1000017563,2026-10-23,aus_aleague,Perth Glory,Lachlan Jackson,624510,D,1,90,0,0,0,0.0,36.0,1.0,207936.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Andriano Lebib,1607419,D,1,46,0,0,0,0.0,38.0,1.0,
+1000017563,2026-10-23,aus_aleague,Perth Glory,Stefan Colakovski,1101904,M,1,75,2,0,0,0.35,72.0,2.0,207181.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Sebastian Despotovski,1752002,M,1,59,0,0,0,0.0,74.0,2.0,344061.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Lucas Scicluna,1686122,M,1,90,0,0,0,0.0,76.0,2.0,304946.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Sam Sutton,1101260,M,1,90,0,0,0,0.0,78.0,2.0,307174.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Pieter Jacobsz,2360187,F,1,59,1,0,0,0.1,104.0,3.0,
+1000017563,2026-10-23,aus_aleague,Perth Glory,Tom Lawrence,494435,F,1,80,1,0,0,0.14,106.0,3.0,765211.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Jaiden Kucharski,1409554,F,0,45,2,0,0,0.07,,3.0,377084.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Matthew Ellis,1435048,D,0,31,1,1,1,0.23,,1.0,194795.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Giovanni De Abreu,1875183,M,0,31,0,0,0,0.0,,2.0,586015.0
+1000017563,2026-10-23,aus_aleague,Perth Glory,Sebastian Kukucka,2360230,F,0,15,0,0,0,0.0,,3.0,
+1000017563,2026-10-23,aus_aleague,Perth Glory,Jay O'Shea,75688,M,0,10,0,0,0,0.0,,2.0,137130.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Albino Gomes,855586,G,1,90,0,0,0,0.0,11.0,0.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Laldinliana Renthlei,965774,D,1,90,0,0,0,0.0,32.0,1.0,103680.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Pratik Chaudhari,900408,D,1,90,0,0,0,0.0,34.0,1.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Nishchal Chandan,1345404,D,1,68,0,0,0,0.0,36.0,1.0,72720.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Sajad Hussain Parray,1227419,D,1,46,0,0,0,0.0,38.0,1.0,145344.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Wayne Vaz,898209,M,1,90,1,0,0,0.01,64.0,2.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Jitendra Singh,912511,M,1,90,0,0,0,0.0,66.0,2.0,116432.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Sumeet Passi,735042,F,1,62,0,0,0,0.0,83.0,3.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Hitesh Sharma,889527,M,1,90,1,0,0,0.03,85.0,2.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Rosenberg Gabriel,1436342,F,1,45,1,0,0,0.06,87.0,3.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Ayush Chhikara,1224660,F,1,81,1,0,0,0.08,115.0,3.0,156456.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Aritra Das,1403497,D,0,44,0,0,0,0.0,,1.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Thoi Singh,1314378,F,0,44,0,0,0,0.0,,3.0,197625.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Sreekuttan VS,1313486,F,0,28,0,0,0,0.0,,3.0,
+6362002,2026-10-23,ind_isl,Inter Kashi,Gursimrat Gill,898127,D,0,22,0,0,0,0.0,,1.0,50000.0
+6362002,2026-10-23,ind_isl,Inter Kashi,Manvir Singh,1228802,F,0,9,0,0,0,0.0,,3.0,87371.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Prabhsukhan Singh Gill,1104373,G,1,90,0,0,0,0.0,11.0,0.0,149818.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Hardik Bhatt,1421510,D,1,90,0,0,0,0.0,32.0,1.0,50000.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Lalchungnunga,1352171,D,1,90,1,0,0,0.01,34.0,1.0,106268.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Anwar Ali,916544,D,1,90,1,0,0,0.01,36.0,1.0,145409.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Jay Gupta,1553139,D,1,67,2,0,0,0.05,38.0,1.0,150515.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Bipin Singh,825137,M,1,45,2,0,0,0.17,72.0,2.0,50000.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Mohammed Rashid,1007659,M,1,45,3,0,0,0.15,74.0,2.0,50000.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Rohit Kumar,898210,M,1,90,1,0,0,0.03,76.0,2.0,50000.0
+6362002,2026-10-23,ind_isl,East Bengal FC,P V Vishnu,1559643,M,1,90,3,1,1,0.45,78.0,2.0,153438.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Aké Loba,853997,F,1,60,2,2,2,1.07,104.0,3.0,448397.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Dani Ramírez,640133,F,1,77,4,2,1,0.41,106.0,3.0,50000.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Jeakson Singh,887660,M,0,44,0,0,0,0.0,,2.0,147756.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Christopher Ikonomidis,611224,F,0,45,2,0,0,0.05,,3.0,104387.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Łukasz Zwoliński,362257,F,0,30,3,2,1,1.26,,3.0,161297.0
+6362002,2026-10-23,ind_isl,East Bengal FC,Sandip Mandi,1128100,D,0,23,1,0,0,0.01,,1.0,103680.0
+6362002,2026-10-23,ind_isl,East Bengal FC,David Lalhlansanga,1241609,F,0,13,1,1,0,0.08,,3.0,53288.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Fernando Pacheco,241059,G,1,90,0,0,0,0.0,11.0,0.0,254395.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Andrei Girotto,498655,D,1,90,2,0,0,0.07,33.0,1.0,1070040.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdoulaye Seck,588626,D,1,90,0,0,0,0.0,35.0,1.0,158757.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Mohammed Jahfali,618289,D,1,61,0,0,0,0.0,37.0,1.0,124617.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Yaseen Barnawi,618123,M,1,90,1,0,0,0.02,72.0,2.0,144786.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Flávio,750053,M,1,90,0,0,0,0.0,74.0,2.0,1068595.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Eid Al Muwallad,1524233,M,1,61,0,0,0,0.0,76.0,2.0,323816.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Mohammed Al Shanqiti,1054044,M,1,85,0,0,0,0.0,78.0,2.0,139696.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdulaziz Al Bishi,671261,F,1,61,1,0,0,0.02,103.0,3.0,279682.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Alexandre Mendy,560900,F,1,90,6,1,0,0.44,105.0,3.0,645764.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdullah Al Mogren,1002615,F,1,80,0,0,0,0.0,107.0,3.0,
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdullah Bin Subayt,1910725,D,0,29,1,0,0,0.32,,1.0,
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Jaime Seoane,792783,M,0,29,0,0,0,0.0,,2.0,218336.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Théo Bongonda,466132,F,0,29,1,1,1,0.34,,3.0,1543726.0
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdulrahman Al Sharif,1910842,M,0,10,0,0,0,0.0,,2.0,
+5970172,2026-10-23,ksa_pro,Al-Faisaly,Abdulrahman Al Safari,1085333,M,0,5,0,0,0,0.0,,2.0,144691.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Bento,1043761,G,1,90,0,0,0,0.0,11.0,0.0,7913562.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Nawaf Bu Washl,1401228,D,1,90,0,0,0,0.0,32.0,1.0,764200.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Abdulelah Al Amri,848600,D,1,90,0,0,0,0.0,34.0,1.0,1037897.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Iñigo Martínez,282676,D,1,90,1,0,0,0.02,36.0,1.0,1806396.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Awad Aman,1608559,D,1,46,0,0,0,0.0,38.0,1.0,352167.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Abdullah Al Khaibari,823457,M,1,81,0,0,0,0.0,64.0,2.0,578115.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Samú,1130583,M,1,67,1,1,0,0.03,66.0,2.0,11223649.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Abdullah Al Hamddan,909198,F,1,81,1,1,1,0.04,83.0,3.0,176158.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Joao Félix,794427,M,1,90,2,0,0,0.15,85.0,2.0,19721967.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Sadio Mané,303339,F,1,86,0,0,0,0.0,87.0,3.0,4844754.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Cristiano Ronaldo,30893,F,1,90,3,2,1,0.2,115.0,3.0,5777099.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Aiman Yahya,1095207,M,0,45,1,0,0,0.01,,2.0,
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Ângelo,1199757,F,0,23,1,1,1,0.09,,3.0,15563657.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Sami Al Naji,749010,M,0,9,0,0,0,0.0,,2.0,140008.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Saad Haqawi,1675653,F,0,9,0,0,0,0.0,,3.0,343504.0
+5970172,2026-10-23,ksa_pro,Al Nassr FC,Salem Al Najdi,1325891,D,0,4,0,0,0,0.0,,1.0,465435.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Predrag Rajković,435614,G,1,90,0,0,0,0.0,11.0,0.0,4957141.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Muhannad Al Shanqiti,873530,D,1,90,0,0,0,0.0,32.0,1.0,758298.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Saad Al Mosa,1291611,D,1,46,0,0,0,0.0,34.0,1.0,704520.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Danilo Pereira,240235,D,1,90,0,0,0,0.0,36.0,1.0,1675161.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Faris Abdi,1078013,D,1,90,3,1,0,0.11,38.0,1.0,366128.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Richard Ríos,1174630,M,1,90,2,2,0,0.06,64.0,2.0,15119438.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Mukhtar Ali,759808,M,1,90,1,1,0,0.02,66.0,2.0,435805.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Georginio Wijnaldum,108038,F,1,78,5,1,1,1.08,83.0,3.0,1067234.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Houssem Aouar,776299,M,1,89,3,0,0,0.14,85.0,2.0,7578344.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Ahmed Al Ghamdi,1066583,F,1,82,1,0,0,0.24,87.0,3.0,269038.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,George Ilenikhena,1431516,F,1,45,2,1,1,0.71,115.0,3.0,12457055.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Dion Lopy,1053685,M,0,45,1,0,0,0.05,,2.0,7581481.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Youssef En-Nesyri,788555,F,0,45,2,1,0,0.36,,3.0,10856496.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Marwan Al Sahafi,1399713,F,0,12,0,0,0,0.0,,3.0,1222730.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Muath Fagihy,1429005,D,0,8,0,0,0,0.0,,1.0,344168.0
+5970175,2026-10-23,ksa_pro,Al Ittihad,Mohammed Fallatah,1673438,M,0,1,0,0,0,0.0,,2.0,556869.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Amin Al Bukhari,670931,G,1,90,0,0,0,0.0,11.0,0.0,114083.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Taher Wadi,1911207,D,1,90,0,0,0,0.0,32.0,1.0,
+5970175,2026-10-23,ksa_pro,Al Diriyah,Berat Djimsiti,260964,D,1,90,2,0,0,0.18,34.0,1.0,2668256.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Chancel Mbemba,277761,D,1,90,0,0,0,0.0,36.0,1.0,1144556.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Hussain Al Sibyani,1305614,D,1,58,0,0,0,0.0,38.0,1.0,338149.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Hussain Al Qahtani,866656,M,1,58,0,0,0,0.0,64.0,2.0,149549.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Enzo Millot,1050859,M,1,90,2,0,0,0.09,66.0,2.0,20203612.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Lovro Chelfi,1830565,F,1,58,0,0,0,0.0,83.0,3.0,
+5970175,2026-10-23,ksa_pro,Al Diriyah,Óscar Rodríguez,863168,M,1,81,2,0,0,0.34,85.0,2.0,993207.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Adil Boulbina,1298669,F,1,90,2,1,0,0.08,87.0,3.0,2328747.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Meshari Al Nemer,1363815,F,1,58,0,0,0,0.0,115.0,3.0,357803.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Khalid Al Asiri,1524218,D,0,32,0,0,0,0.0,,1.0,226499.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Abdulelah Al Malki,670415,M,0,32,0,0,0,0.0,,2.0,144691.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Clayton Diandy,1667976,F,0,32,2,0,0,0.04,,3.0,1298779.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Darwin Núñez,950561,F,0,32,2,0,0,0.2,,3.0,17491973.0
+5970175,2026-10-23,ksa_pro,Al Diriyah,Abdulaziz Al Faraj,1377989,D,0,9,0,0,0,0.0,,1.0,
+5853533,2026-10-23,rumania,Botoșani,Giannis Anestis,281573,G,1,90,0,0,0,0.0,11.0,0.0,144925.0
+5853533,2026-10-23,rumania,Botoșani,Brian Bayeye,1189327,D,1,90,1,0,0,0.0,32.0,1.0,265598.0
+5853533,2026-10-23,rumania,Botoșani,George Miron,571154,D,1,46,0,0,0,0.0,34.0,1.0,199368.0
+5853533,2026-10-23,rumania,Botoșani,Mamadou Diarra,1670485,D,1,90,0,0,0,0.0,36.0,1.0,224499.0
+5853533,2026-10-23,rumania,Botoșani,Narcis Ilaș,1481328,D,1,90,0,0,0,0.0,38.0,1.0,1178853.0
+5853533,2026-10-23,rumania,Botoșani,Lucas De Vega,1112757,M,1,90,0,0,0,0.0,73.0,2.0,260255.0
+5853533,2026-10-23,rumania,Botoșani,Enriko Papa,950878,M,1,45,1,1,0,0.0,75.0,2.0,122913.0
+5853533,2026-10-23,rumania,Botoșani,Hervin Ongenda,435960,M,1,40,2,1,0,0.0,77.0,2.0,259317.0
+5853533,2026-10-23,rumania,Botoșani,Ștefan Bodișteanu,1169576,F,1,45,1,0,0,0.0,103.0,3.0,375864.0
+5853533,2026-10-23,rumania,Botoșani,Andrei Dumiter,1025626,F,1,90,5,4,1,0.0,105.0,3.0,276904.0
+5853533,2026-10-23,rumania,Botoșani,Zoran Mitrov,1286538,F,1,59,1,0,0,0.0,107.0,3.0,455581.0
+5853533,2026-10-23,rumania,Botoșani,Charles Petro,1089759,M,0,50,0,0,0,0.0,,2.0,704500.0
+5853533,2026-10-23,rumania,Botoșani,Rijad Sadiku,749550,D,0,44,0,0,0,0.0,,1.0,117159.0
+5853533,2026-10-23,rumania,Botoșani,Gabriel Gama,1647379,M,0,44,0,0,0,0.0,,2.0,
+5853533,2026-10-23,rumania,Botoșani,Mykola Kovtalyuk,593214,F,0,45,1,0,0,0.0,,3.0,155733.0
+5853533,2026-10-23,rumania,Botoșani,Jovan Marković,861209,F,0,31,0,0,0,0.0,,3.0,233606.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Lukás Zima,282114,G,1,90,0,0,0,0.0,11.0,0.0,194734.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Tiberiu Căpușă,919746,D,1,90,0,0,0,0.0,32.0,1.0,363962.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Paul Papp,173509,D,1,90,0,0,0,0.0,34.0,1.0,130237.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Breston Malula,1108789,D,1,90,0,0,0,0.0,36.0,1.0,267518.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Andres Dumitrescu,1127665,D,1,90,1,0,0,0.0,38.0,1.0,259059.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Lucho Vega,1285327,M,1,72,1,0,0,0.0,64.0,2.0,229651.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Sergiu Hanca,559959,M,1,57,0,0,0,0.0,66.0,2.0,97184.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Leo Teixeira,1150320,F,1,90,0,0,0,0.0,83.0,3.0,383958.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Mario Ionita,1436510,M,1,72,1,1,1,0.0,85.0,2.0,382599.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Rodrigo Martins,955822,F,1,89,3,2,2,0.0,87.0,3.0,251324.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Dan Nlundulu,789599,F,1,72,3,0,0,0.0,115.0,3.0,389191.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Adam Zaian,1729336,D,0,33,0,0,0,0.0,,1.0,310278.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Rares Leescu,1902455,D,0,18,0,0,0,0.0,,1.0,
+5853533,2026-10-23,rumania,Petrolul Ploiești,Cəlal Hüseynov,1306106,M,0,18,1,1,0,0.0,,2.0,674042.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Dele Israel,1175853,M,0,18,0,0,0,0.0,,2.0,286243.0
+5853533,2026-10-23,rumania,Petrolul Ploiești,Kilian Ludewig,950991,F,0,1,0,0,0,0.0,,3.0,171278.0
