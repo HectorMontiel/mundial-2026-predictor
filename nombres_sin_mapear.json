@@ -2404,5 +2404,17 @@
     "candidato": "Sydney Utd",
     "ratio": 0.4706,
     "visto": "2026-10-23"
+  },
+  "MELBOURNE VICTORY": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "South Melbourne",
+    "ratio": 0.5625,
+    "visto": "2026-10-23"
+  },
+  "MELBOURNE CITY FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "South Melbourne",
+    "ratio": 0.75,
+    "visto": "2026-10-23"
   }
 }
