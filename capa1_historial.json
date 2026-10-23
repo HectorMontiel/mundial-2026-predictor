@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-23T13:12:26Z",
+"actualizado": "2026-10-23T14:40:42Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12594,6 +12594,26 @@
 },
 {
 "dia": "2026-10-23",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Ahal (Tkm) vs Al Ansar (Leb)",
+"apuesta": "Gana Al Ansar (Leb)",
+"cuota": 1.5455,
+"resultado": "rojo",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-23",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Hapoel Ihud Bnei Jatt vs Hapoel Bnei Musmus",
+"apuesta": "Gana Hapoel Bnei Musmus",
+"cuota": 2.5,
+"resultado": "rojo",
+"marcador": "4-2"
+},
+{
+"dia": "2026-10-23",
 "nivel": "💰",
 "deporte": "Tenis",
 "partido": "Jovic I. vs Shnaider D.",
@@ -12631,6 +12651,26 @@
 "cuota": 1.54,
 "resultado": "rojo",
 "marcador": "2-3"
+},
+{
+"dia": "2026-10-23",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Teleoptik vs TSC",
+"apuesta": "Gana TSC",
+"cuota": 1.5556,
+"resultado": "verde",
+"marcador": "1-2"
+},
+{
+"dia": "2026-10-23",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Van vs Ararat",
+"apuesta": "Gana Van",
+"cuota": 2.55,
+"resultado": "verde",
+"marcador": "2-1"
 }
 ]
 }
