@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-23T03:28:28Z",
+"actualizado": "2026-10-23T06:41:12Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12235,6 +12235,16 @@
 {
 "dia": "2026-10-22",
 "nivel": "🏆",
+"deporte": "NHL",
+"partido": "Edmonton Oilers vs Carolina Hurricanes",
+"apuesta": "Handicap: Carolina Hurricanes +2.5",
+"cuota": 1.154,
+"resultado": "verde",
+"marcador": "6-5"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "FC Nordsjælland vs CSKA Sofia",
 "apuesta": "FC Nordsjælland o empate",
@@ -12484,6 +12494,26 @@
 },
 {
 "dia": "2026-10-22",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Seattle Kraken vs Utah Mammoth",
+"apuesta": "Handicap: Utah Mammoth +2.5",
+"cuota": 1.111,
+"resultado": "verde",
+"marcador": "5-3"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Seattle Kraken vs Utah Mammoth",
+"apuesta": "Handicap: Seattle Kraken +3.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "5-3"
+},
+{
+"dia": "2026-10-22",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Sitra vs Al Riffa",
@@ -12511,6 +12541,16 @@
 "cuota": 1.111,
 "resultado": "verde",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-22",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Vancouver Canucks vs Detroit Red Wings",
+"apuesta": "Handicap: Detroit Red Wings +2.5",
+"cuota": 1.1,
+"resultado": "verde",
+"marcador": "2-5"
 },
 {
 "dia": "2026-10-22",
