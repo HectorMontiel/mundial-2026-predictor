@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-23T06:41:12Z",
+"actualizado": "2026-10-23T09:52:50Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12295,6 +12295,16 @@
 {
 "dia": "2026-10-22",
 "nivel": "💰",
+"deporte": "Tenis",
+"partido": "Hunter S./Tjen J. vs Haverlag I./Tagger L.",
+"apuesta": "Gana Hunter S./Tjen J.",
+"cuota": 1.35,
+"resultado": "verde",
+"marcador": "2-1"
+},
+{
+"dia": "2026-10-22",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Jablonec vs Brighton",
 "apuesta": "Gana Brighton",
@@ -12580,6 +12590,16 @@
 "apuesta": "Gana PVF-CAND",
 "cuota": 1.58,
 "resultado": "verde",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-23",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Shanghai Port B vs Hangzhou Linping",
+"apuesta": "Gana Shanghai Port B",
+"cuota": 1.54,
+"resultado": "rojo",
 "marcador": "2-3"
 }
 ]
