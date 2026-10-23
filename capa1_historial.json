@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-23T09:52:50Z",
+"actualizado": "2026-10-23T11:36:38Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12591,6 +12591,16 @@
 "cuota": 1.58,
 "resultado": "verde",
 "marcador": "2-3"
+},
+{
+"dia": "2026-10-23",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "M. Kiryat Ata-Bialik vs Hapoel Umm al-Fahm",
+"apuesta": "Gana Hapoel Umm al-Fahm",
+"cuota": 3.1,
+"resultado": "verde",
+"marcador": "1-3"
 },
 {
 "dia": "2026-10-23",
