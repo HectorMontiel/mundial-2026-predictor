@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-24T04:53:55Z",
+"actualizado": "2026-10-24T08:03:12Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -13095,6 +13095,16 @@
 {
 "dia": "2026-10-23",
 "nivel": "💰",
+"deporte": "MLB",
+"partido": "Mayos de Navojoa vs Jaguares de Nayarit",
+"apuesta": "Gana Jaguares de Nayarit",
+"cuota": 1.8696,
+"resultado": "rojo",
+"marcador": "5-4"
+},
+{
+"dia": "2026-10-23",
+"nivel": "💰",
 "deporte": "Fútbol",
 "partido": "NK Bistrica vs Bilje",
 "apuesta": "Gana NK Bistrica",
@@ -13181,6 +13191,16 @@
 "cuota": 1.94,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-23",
+"nivel": "💰",
+"deporte": "Tenis",
+"partido": "Pridankina E. vs Grant T. C.",
+"apuesta": "Gana Pridankina E.",
+"cuota": 1.9,
+"resultado": "verde",
+"marcador": "2-0"
 },
 {
 "dia": "2026-10-23",
