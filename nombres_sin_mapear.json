@@ -1039,8 +1039,8 @@
   },
   "Central Córdoba (Santiago del Estero)": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Central Coast Mariners W",
-    "ratio": 0.5263,
+    "candidato": "Talleres Cordoba",
+    "ratio": 0.4314,
     "visto": "2026-10-24"
   },
   "Raith Rovers": {
@@ -1651,8 +1651,8 @@
   },
   "Newcastle United": {
     "contexto": "cuotas_mx→futbol",
-    "candidato": "Newcastle Jets",
-    "ratio": 0.7333,
+    "candidato": "Victoria United",
+    "ratio": 0.5806,
     "visto": "2026-10-24"
   },
   "GV San José": {
@@ -2439,6 +2439,12 @@
     "contexto": "cuotas_mx→futbol",
     "candidato": "Al Ahli Manama",
     "ratio": 0.5,
+    "visto": "2026-10-24"
+  },
+  "Central Coast Mariners FC": {
+    "contexto": "cuotas_mx→futbol",
+    "candidato": "Qingdao West Coast",
+    "ratio": 0.4,
     "visto": "2026-10-24"
   }
 }
