@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-24T00:08:53Z",
+"actualizado": "2026-10-24T01:48:53Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12716,6 +12716,16 @@
 "dia": "2026-10-23",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Cruzeiro vs Remo",
+"apuesta": "Gana Cruzeiro",
+"cuota": 1.4,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-23",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "De Graafschap vs RKC Waalwijk",
 "apuesta": "Gana De Graafschap",
 "cuota": 2.7,
@@ -13034,6 +13044,16 @@
 },
 {
 "dia": "2026-10-23",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Libertad vs Sportivo Luqueño",
+"apuesta": "Libertad o empate",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-23",
 "nivel": "🎯",
 "deporte": "Fútbol",
 "partido": "Llanelli vs Afan Lido",
@@ -13101,6 +13121,16 @@
 "cuota": 2.07,
 "resultado": "rojo",
 "marcador": "1-1"
+},
+{
+"dia": "2026-10-23",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Operário PR vs Athletic",
+"apuesta": "Operário PR o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-23",
