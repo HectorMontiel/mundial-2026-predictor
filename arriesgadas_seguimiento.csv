@@ -291,7 +291,6 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Tiros a puerta Lens: Más de 4.5,a_puerta,equipo,local,4.5,0.5747,1.714,,
 2026-10-24,Mirassol vs Sao Paulo,2026-10-24 19:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6005,1.87,,
 2026-10-24,Mirassol vs Sao Paulo,2026-10-24 19:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5734,2.0,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta Vancouver Whitecaps: Más de 4.5,a_puerta,equipo,visita,4.5,0.5581,1.8,,
 2026-10-25,Konyaspor vs Genclerbirligi,2026-10-25 13:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5844,1.96,,
 2026-10-25,Konyaspor vs Genclerbirligi,2026-10-25 13:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5766,1.833,,
 2026-10-25,Konyaspor vs Genclerbirligi,2026-10-25 13:00:00,Goles Konyaspor: Más de 1.5,goles,equipo,local,1.5,0.566,2.05,,
@@ -304,7 +303,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-23,Alanyaspor vs Kocaelispor,2026-10-23 17:00:00,Tiros: Más de 25.5,tiros,total,total,25.5,0.6016,1.889,28.0,1.0
 2026-10-23,Alanyaspor vs Kocaelispor,2026-10-23 17:00:00,Tiros Alanyaspor: Más de 13.5,tiros,equipo,local,13.5,0.5972,1.7,11.0,0.0
 2026-10-23,Brest vs Nice,2026-10-23 18:45:00,Tiros a puerta Brest: Más de 4.5,a_puerta,equipo,local,4.5,0.5535,1.733,7.0,1.0
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.6136,1.5,,
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.6136,1.5,18.0,1.0
 2026-10-24,Como vs Sassuolo,2026-10-24 13:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6656,1.462,,
 2026-10-24,Como vs Sassuolo,2026-10-24 13:00:00,Goles Sassuolo: Más de 0.5,goles,equipo,visita,0.5,0.6365,1.455,,
 2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Goles: Más de 2.5,goles,total,total,2.5,0.6539,1.455,,
@@ -363,9 +362,8 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Ambos marcan: No,btts,btts,total,0.0,0.5507,1.526,,
 2026-10-24,Wuhan Three Towns vs Shandong Taishan,2026-10-24 07:30:00,Goles Shandong Taishan: Más de 1.5,goles,equipo,visita,1.5,0.6277,1.455,5.0,1.0
 2026-10-24,Wuhan Three Towns vs Shandong Taishan,2026-10-24 07:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5509,1.6,6.0,0.0
-2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros Portsmouth: Más de 13.5,tiros,equipo,local,13.5,0.5727,1.667,,
-2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros: Más de 25.5,tiros,total,total,25.5,0.559,1.667,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Estrela: Más de 13.5,tiros,equipo,local,13.5,0.621,1.5,,
+2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros Portsmouth: Más de 13.5,tiros,equipo,local,13.5,0.5727,1.667,7.0,0.0
+2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros: Más de 25.5,tiros,total,total,25.5,0.559,1.667,17.0,0.0
 2026-10-24,Eyupspor vs Kasimpasa,2026-10-24 10:30:00,Tiros Eyupspor: Más de 9.5,tiros,equipo,local,9.5,0.7081,1.7,12.0,1.0
 2026-10-24,Eyupspor vs Kasimpasa,2026-10-24 10:30:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.6493,1.909,22.0,0.0
 2026-10-24,Eyupspor vs Kasimpasa,2026-10-24 10:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.6304,1.556,11.0,1.0
@@ -373,7 +371,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Eyupspor vs Kasimpasa,2026-10-24 10:30:00,Tiros Kasimpasa: Más de 13.5,tiros,equipo,visita,13.5,0.6057,1.818,10.0,0.0
 2026-10-24,Eyupspor vs Kasimpasa,2026-10-24 10:30:00,Tiros a puerta Eyupspor: Más de 3.5,a_puerta,equipo,local,3.5,0.5854,2.1,4.0,1.0
 2026-10-24,Eyupspor vs Kasimpasa,2026-10-24 10:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5511,1.933,8.0,0.0
-2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros a puerta Millwall: Más de 3.5,a_puerta,equipo,visita,3.5,0.5732,1.923,,
+2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros a puerta Millwall: Más de 3.5,a_puerta,equipo,visita,3.5,0.5732,1.923,1.0,0.0
 2026-10-24,Cagliari vs Bologna,2026-10-24 13:00:00,Ambos marcan: No,btts,btts,total,0.0,0.5582,1.8,,
 2026-10-24,Cremonese vs Juve Stabia,2026-10-24 13:00:00,Tiros a puerta Juve Stabia: Más de 3.5,a_puerta,equipo,visita,3.5,0.5537,1.923,,
 2026-10-24,Mainz vs Werder Bremen,2026-10-24 13:30:00,Tiros Mainz: Más de 15.5,tiros,equipo,local,15.5,0.5695,1.615,,
@@ -387,23 +385,22 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Philadelphia Union vs New England Revolution,2026-10-24 23:30:00,Tiros New England Revolution: Más de 8.5,tiros,equipo,visita,8.5,0.5627,1.462,,
 2026-10-24,Philadelphia Union vs New England Revolution,2026-10-24 23:30:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5587,1.7,,
 2026-10-25,Genoa vs Venezia,2026-10-25 14:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5542,1.818,,
-2026-10-25,Albacete vs Eldense,2026-10-25 15:15:00,Córners: Más de 9.5,corners,total,total,9.5,0.5621,1.7,,
 2026-10-25,Estoril vs Moreirense,2026-10-25 15:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5847,1.6,,
 2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Tiros a puerta Juventus: Más de 5.5,a_puerta,equipo,visita,5.5,0.59,1.818,,
 2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5665,1.818,,
 2026-10-25,Atlas vs Puebla,2026-10-25 23:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5578,1.8,,
-2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros a puerta Portsmouth: Más de 3.5,a_puerta,equipo,local,3.5,0.6903,1.48,,
-2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.6283,1.647,,
-2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros Millwall: Más de 10.5,tiros,equipo,visita,10.5,0.5927,1.615,,
-2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5516,1.526,,
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros a puerta Cordoba: Más de 4.5,a_puerta,equipo,local,4.5,0.7539,1.462,,
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros Cordoba: Más de 14.5,tiros,equipo,local,14.5,0.7365,1.52,,
-2026-10-24,Fakel Voronezh vs Rodina Moscow,2026-10-24 12:00:00,Goles Rodina Moscow: Más de 0.5,goles,equipo,visita,0.5,0.6497,1.455,,
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5908,1.571,,
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5839,1.571,,
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.583,1.526,,
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Goles Cordoba: Más de 1.5,goles,equipo,local,1.5,0.5686,1.667,,
-2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5537,1.667,,
+2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros a puerta Portsmouth: Más de 3.5,a_puerta,equipo,local,3.5,0.6903,1.48,2.0,0.0
+2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.6283,1.647,3.0,0.0
+2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Tiros Millwall: Más de 10.5,tiros,equipo,visita,10.5,0.5927,1.615,10.0,0.0
+2026-10-24,Portsmouth vs Millwall,2026-10-24 11:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5516,1.526,10.0,1.0
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros a puerta Cordoba: Más de 4.5,a_puerta,equipo,local,4.5,0.7539,1.462,11.0,1.0
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros Cordoba: Más de 14.5,tiros,equipo,local,14.5,0.7365,1.52,23.0,1.0
+2026-10-24,Fakel Voronezh vs Rodina Moscow,2026-10-24 12:00:00,Goles Rodina Moscow: Más de 0.5,goles,equipo,visita,0.5,0.6497,1.455,1.0,1.0
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5908,1.571,2.0,0.0
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5839,1.571,37.0,1.0
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.583,1.526,0.0,0.0
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Goles Cordoba: Más de 1.5,goles,equipo,local,1.5,0.5686,1.667,2.0,1.0
+2026-10-24,Cordoba vs Eibar,2026-10-24 12:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5537,1.667,15.0,1.0
 2026-10-24,Virtus Entella vs Mantova,2026-10-24 13:00:00,Tiros a puerta Virtus Entella: Más de 3.5,a_puerta,equipo,local,3.5,0.6739,1.462,,
 2026-10-24,Virtus Entella vs Mantova,2026-10-24 13:00:00,Tiros Virtus Entella: Más de 12.5,tiros,equipo,local,12.5,0.6249,1.5,,
 2026-10-24,Modena vs Cesena,2026-10-24 13:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5609,1.647,,
@@ -416,7 +413,6 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta Estrela: Más de 4.5,a_puerta,equipo,local,4.5,0.5546,1.714,,
 2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5525,1.87,,
 2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5524,1.96,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Ascoli: Más de 12.5,tiros,equipo,visita,12.5,0.5621,1.667,,
 2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5556,1.667,,
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Tiros Lanus: Más de 12.5,tiros,equipo,visita,12.5,0.5582,1.6,,
 2026-10-24,Como vs Sassuolo,2026-10-24 13:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.7412,1.546,,
@@ -513,14 +509,16 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.5898,1.556,,
 2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Ambos marcan: No,btts,btts,total,0.0,0.5554,1.769,,
 2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros a puerta Leganes: Más de 3.5,a_puerta,equipo,local,3.5,0.5515,1.889,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles Casa Pia: Más de 0.5,goles,equipo,visita,0.5,0.6549,1.556,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.6121,1.5,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta Casa Pia: Más de 2.5,a_puerta,equipo,visita,2.5,0.5801,1.52,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Casa Pia: Más de 8.5,tiros,equipo,visita,8.5,0.5795,1.571,,
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles Casa Pia: Más de 0.5,goles,equipo,visita,0.5,0.6354,1.5,,
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.6026,1.5,,
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Estrela: Más de 13.5,tiros,equipo,local,13.5,0.5904,1.52,,
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Casa Pia: Más de 8.5,tiros,equipo,visita,8.5,0.5762,1.5,,
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta Casa Pia: Más de 2.5,a_puerta,equipo,visita,2.5,0.5739,1.52,,
 2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.679,1.6,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta Ascoli: Más de 3.5,a_puerta,equipo,visita,3.5,0.6454,1.546,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Catanzaro: Más de 13.5,tiros,equipo,local,13.5,0.6068,1.636,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6025,1.667,,
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta Ascoli: Más de 3.5,a_puerta,equipo,visita,3.5,0.6454,1.6,,
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Ascoli: Más de 11.5,tiros,equipo,visita,11.5,0.6243,1.5,,
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Catanzaro: Más de 13.5,tiros,equipo,local,13.5,0.6068,1.615,,
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6025,1.714,,
 2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.585,1.571,,
 2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta Catanzaro: Más de 4.5,a_puerta,equipo,local,4.5,0.5539,1.833,,
 2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Goles: Más de 2.5,goles,total,total,2.5,0.5529,1.75,,
@@ -543,7 +541,7 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles CF Montreal: Más de 0.5,goles,equipo,local,0.5,0.5975,1.5,,
 2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros Arezzo: Más de 11.5,tiros,equipo,local,11.5,0.5953,1.667,,
 2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.5933,1.6,,
-2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5851,1.571,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5851,1.625,,
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.583,1.636,,
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5786,1.6,,
 2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros a puerta Arezzo: Más de 3.5,a_puerta,equipo,local,3.5,0.5527,1.75,,
@@ -623,14 +621,15 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros San Jose Earthquakes: Más de 10.5,tiros,equipo,visita,10.5,0.5594,1.583,,
 2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros FC Dallas: Más de 13.5,tiros,equipo,local,13.5,0.5565,1.615,,
 2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros Austin FC: Más de 11.5,tiros,equipo,visita,11.5,0.5502,1.615,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta Colorado Rapids: Más de 3.5,a_puerta,equipo,local,3.5,0.7294,1.68,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6634,1.76,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6625,1.556,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros Colorado Rapids: Más de 10.5,tiros,equipo,local,10.5,0.66,1.636,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6539,1.667,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros Vancouver Whitecaps: Más de 11.5,tiros,equipo,visita,11.5,0.6503,1.53,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6496,1.571,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5874,1.526,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta Colorado Rapids: Más de 3.5,a_puerta,equipo,local,3.5,0.7213,1.68,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6605,1.76,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros Colorado Rapids: Más de 10.5,tiros,equipo,local,10.5,0.6572,1.636,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros Vancouver Whitecaps: Más de 11.5,tiros,equipo,visita,11.5,0.6564,1.53,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6532,1.571,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6521,1.571,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6424,1.667,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5882,1.526,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta Vancouver Whitecaps: Más de 4.5,a_puerta,equipo,visita,4.5,0.5549,1.818,,
 2026-10-24,Nagoya Grampus vs Yokohama F. Marinos,2026-10-25 05:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6013,1.625,,
 2026-10-24,Nagoya Grampus vs Yokohama F. Marinos,2026-10-25 05:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5748,1.75,,
 2026-10-24,Nagoya Grampus vs Yokohama F. Marinos,2026-10-25 05:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5647,1.5,,
@@ -644,17 +643,18 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-25,CSKA Moscow vs Spartak Moscow,2026-10-25 13:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6216,1.7,,
 2026-10-25,Konyaspor vs Genclerbirligi,2026-10-25 13:00:00,Goles Genclerbirligi: Más de 0.5,goles,equipo,visita,0.5,0.6082,1.556,,
 2026-10-25,Konyaspor vs Genclerbirligi,2026-10-25 13:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5834,1.5,,
+2026-10-25,Palermo vs Carrarese,2026-10-25 14:00:00,Goles Palermo: Más de 1.5,goles,equipo,local,1.5,0.658,1.455,,
 2026-10-25,Atalanta vs Frosinone,2026-10-25 14:00:00,Goles Atalanta: Más de 1.5,goles,equipo,local,1.5,0.6547,1.526,,
-2026-10-25,Palermo vs Carrarese,2026-10-25 14:00:00,Goles Palermo: Más de 1.5,goles,equipo,local,1.5,0.6406,1.455,,
+2026-10-25,Palermo vs Carrarese,2026-10-25 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6072,1.53,,
 2026-10-25,Atalanta vs Frosinone,2026-10-25 14:00:00,Tiros a puerta Atalanta: Más de 5.5,a_puerta,equipo,local,5.5,0.6048,1.692,,
-2026-10-25,Genoa vs Venezia,2026-10-25 14:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5976,1.75,,
-2026-10-25,Palermo vs Carrarese,2026-10-25 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5881,1.53,,
-2026-10-25,Atalanta vs Frosinone,2026-10-25 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5805,1.6,,
-2026-10-25,Palermo vs Carrarese,2026-10-25 14:00:00,Goles Carrarese: Más de 0.5,goles,equipo,visita,0.5,0.5799,1.5,,
+2026-10-25,Genoa vs Venezia,2026-10-25 14:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5976,1.741,,
+2026-10-25,Palermo vs Carrarese,2026-10-25 14:00:00,Goles Carrarese: Más de 0.5,goles,equipo,visita,0.5,0.5866,1.5,,
+2026-10-25,Atalanta vs Frosinone,2026-10-25 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5805,1.625,,
 2026-10-25,Genoa vs Venezia,2026-10-25 14:00:00,Tiros a puerta Venezia: Más de 3.5,a_puerta,equipo,visita,3.5,0.5724,1.733,,
 2026-10-25,Atalanta vs Frosinone,2026-10-25 14:00:00,Tiros Frosinone: Más de 13.5,tiros,equipo,visita,13.5,0.5561,1.76,,
 2026-10-25,Cadiz vs Ceuta,2026-10-25 15:15:00,Córners: Más de 7.5,corners,total,total,7.5,0.7164,1.455,,
 2026-10-25,Cadiz vs Ceuta,2026-10-25 15:15:00,Goles Ceuta: Más de 0.5,goles,equipo,visita,0.5,0.6772,1.455,,
+2026-10-25,Albacete vs Eldense,2026-10-25 15:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.6487,1.556,,
 2026-10-25,Albacete vs Eldense,2026-10-25 15:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5531,1.645,,
 2026-10-25,Estoril vs Moreirense,2026-10-25 15:30:00,Goles Moreirense: Más de 0.5,goles,equipo,visita,0.5,0.6556,1.455,,
 2026-10-25,Toulouse vs Troyes,2026-10-25 16:15:00,Goles Toulouse: Más de 1.5,goles,equipo,local,1.5,0.6573,1.571,,
@@ -674,11 +674,11 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5627,1.5,,
 2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Goles Fredrikstad: Más de 0.5,goles,equipo,visita,0.5,0.6545,1.455,,
 2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5935,1.571,,
-2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Córners: Más de 7.5,corners,total,total,7.5,0.6884,1.455,,
 2026-10-25,Barcelona vs Real Madrid,2026-10-25 20:00:00,Goles: Más de 3.5,goles,total,total,3.5,0.6822,1.476,,
 2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Goles: Más de 1.5,goles,total,total,1.5,0.6678,1.455,,
 2026-10-25,Barcelona vs Real Madrid,2026-10-25 20:00:00,Goles Barcelona: Más de 2.5,goles,equipo,local,2.5,0.6365,1.8,,
 2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Goles Independiente: Más de 0.5,goles,equipo,local,0.5,0.5845,1.6,,
+2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5794,1.75,,
 2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Ambos marcan: No,btts,btts,total,0.0,0.5573,1.667,,
 2026-10-25,River Plate vs Racing Club,2026-10-25 22:15:00,Tiros a puerta River Plate: Más de 5.5,a_puerta,equipo,local,5.5,0.6484,1.727,,
 2026-10-25,River Plate vs Racing Club,2026-10-25 22:15:00,Tiros River Plate: Más de 16.5,tiros,equipo,local,16.5,0.633,1.857,,
@@ -695,11 +695,14 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-25,Atlas vs Puebla,2026-10-25 23:00:00,Tiros Puebla: Más de 10.5,tiros,equipo,visita,10.5,0.5773,2.0,,
 2026-10-25,Atlas vs Puebla,2026-10-25 23:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5506,1.8,,
 2026-10-25,Atlas vs Puebla,2026-10-25 23:00:00,Goles Atlas: Más de 1.5,goles,equipo,local,1.5,0.5505,1.714,,
+2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Tiros a puerta Queretaro: Más de 3.5,a_puerta,equipo,local,3.5,0.6676,1.647,,
 2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.6243,1.76,,
 2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6062,1.647,,
 2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5979,1.571,,
+2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Tiros Queretaro: Más de 12.5,tiros,equipo,local,12.5,0.5935,1.941,,
 2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Goles Cruz Azul: Más de 1.5,goles,equipo,visita,1.5,0.5751,1.769,,
 2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5713,1.6,,
+2026-10-25,Queretaro vs Cruz Azul,2026-10-26 01:00:00,Tiros a puerta Cruz Azul: Más de 5.5,a_puerta,equipo,visita,5.5,0.5647,1.867,,
 2026-10-26,Galatasaray vs Fenerbahce,2026-10-26 18:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6994,1.471,,
 2026-10-26,Galatasaray vs Fenerbahce,2026-10-26 18:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6883,1.455,,
 2026-10-26,Galatasaray vs Fenerbahce,2026-10-26 18:30:00,Goles Galatasaray: Más de 1.5,goles,equipo,local,1.5,0.6076,1.75,,

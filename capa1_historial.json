@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-24T11:04:34Z",
+"actualizado": "2026-10-24T14:18:55Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -13424,6 +13424,16 @@
 },
 {
 "dia": "2026-10-24",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Bristol Rvs vs Swindon",
+"apuesta": "Bristol Rvs o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-24",
 "nivel": "💰",
 "deporte": "Tenis",
 "partido": "Fernandez L. vs Bouzkova M.",
@@ -13431,6 +13441,16 @@
 "cuota": 2.08,
 "resultado": "verde",
 "marcador": "2-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Foshan Nanshi vs Nanjing City",
+"apuesta": "Gana Nanjing City",
+"cuota": 1.63,
+"resultado": "verde",
+"marcador": "2-5"
 },
 {
 "dia": "2026-10-24",
