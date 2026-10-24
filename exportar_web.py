@@ -122,6 +122,18 @@ def decidir_lo_que_falta(datos: Dict) -> int:
     return n
 
 
+def _dia_mx(f: Dict) -> str:
+    """v466 — el día en México de la hora de inicio, que es como la página arma «Hoy / Mañana /
+    Pasado». `fecha` sale de la hora en UTC: Tigres-Monterrey a las 18:06 del 25 decía «26» y se
+    quedaba fuera de «Pasado» (y así cualquier partido sin pick desde las 18:00)."""
+    try:
+        i = dt.datetime.fromisoformat(str(f.get('inicio')).replace(' ', 'T').replace('Z', '+00:00'))
+        i = i if i.tzinfo else i.replace(tzinfo=dt.timezone.utc)
+        return i.astimezone(dt.timezone(dt.timedelta(hours=-6))).date().isoformat()
+    except Exception:
+        return str(f.get('fecha'))
+
+
 def solo_analisis(prons: List[Dict], picks: List[Dict], terminados: List[Dict], hoy: dt.date) -> List[Dict]:
     """v418 — «quiero que me salgan TODOS los partidos con su tarjeta para
     analizarlos, con la sugerencia del modelo, la IA y las estadísticas; los
@@ -150,7 +162,7 @@ def solo_analisis(prons: List[Dict], picks: List[Dict], terminados: List[Dict], 
         if not f.get('fecha') or ' vs ' not in str(f.get('partido') or '') and ' @ ' not in str(f.get('partido') or '') \
                 and ' - ' not in str(f.get('partido') or '') and ' – ' not in str(f.get('partido') or ''):
             continue
-        if k in con_pick or k in vistos or (est == 'pendiente' and not (hoy.isoformat() <= str(f['fecha']) <= limite)):
+        if k in con_pick or k in vistos or (est == 'pendiente' and not (hoy.isoformat() <= _dia_mx(f) <= limite)):
             continue
         vistos.add(k)
         f.update(solo_analisis=True, tipo='analisis', premium=False, elige=False, cuota=None, gratis=True)

@@ -148,6 +148,19 @@
   // La base tiene 1023 textos premium y Supabase entrega 1000 por petición: los
   // más nuevos se quedaban fuera. Ahora se piden sólo los de los últimos 45 días
   // y por páginas; si algo falla, se queda lo que ya había (nunca se borra).
+  // v466 — la base entrega como máximo 1000 filas por consulta (un «.limit(3000)» no sirve):
+  // se piden por páginas. Si una página falla, error (nunca una lista a medias).
+  async function todasSb(consulta) {
+    const out = [];
+    for (let i = 0; i < 100; i++) {
+      const { data, error } = await consulta(i * 1000, i * 1000 + 999);
+      if (error) return { data: null, error };
+      out.push(...(data || []));
+      if (!data || data.length < 1000) break;
+    }
+    return { data: out, error: null };
+  }
+
   async function textosPremium() {
     const out = {}, desde = new Date(Date.now() - 45 * 864e5).toISOString();
     const pagina = (i, conFecha) => (conFecha ? sb.from('picks_premium').select('id,apuesta,picks!inner(inicio)').gte('picks.inicio', desde)
@@ -181,9 +194,9 @@
       sb.from('ajustes').select('clave,valor').then(({ data }) => { (data || []).forEach((x) => { yo.precios[x.clave] = x.valor; }); }),
       sb.from('precios_cuota').select('*').order('desde').then(({ data }) => { yo.bandas = data || []; }),
       sb.from('paquetes').select('*').order('orden').then(({ data }) => { yo.paquetes = data || []; }),
-      sb.from('seguidores').select('pick,n').then(({ data }) => { yo.conteo = {}; (data || []).forEach((x) => { yo.conteo[x.pick] = x.n; }); }),
+      todasSb((a, b) => sb.from('seguidores').select('pick,n').order('pick').range(a, b)).then(({ data }) => { yo.conteo = {}; (data || []).forEach((x) => { yo.conteo[x.pick] = x.n; }); }),
       // v417 — qué partidos tienen análisis de la IA (para el 🔒 de quien no es VIP)
-      sb.from('ia_disponibles').select('partido').limit(3000).then(({ data, error }) => { if (!error) yo.iaHay = new Set((data || []).map((x) => x.partido)); }),
+      todasSb((a, b) => sb.from('ia_disponibles').select('partido,fecha').order('partido').order('fecha').range(a, b)).then(({ data, error }) => { if (!error) yo.iaHay = new Set((data || []).map((x) => x.partido)); }),
     ];
     if (yo.user) {
       tareas.push(sb.from('perfiles').select('*').eq('id', yo.user.id).maybeSingle().then(({ data, error }) => {
@@ -195,7 +208,7 @@
         try { pintarCabecera(); } catch (e) { /* al final se repinta */ }
       }));
       tareas.push(sb.from('seguidos').select('pick').then(({ data }) => { yo.seguidos = new Set((data || []).map((x) => x.pick)); }));
-      tareas.push(sb.from('ia_analisis').select('*').gte('fecha', new Date(Date.now() - 2 * 864e5).toISOString().slice(0, 10)).limit(2000)
+      tareas.push(todasSb((a, b) => sb.from('ia_analisis').select('*').gte('fecha', new Date(Date.now() - 2 * 864e5).toISOString().slice(0, 10)).order('id').range(a, b))
         .then(({ data }) => { yo.ia = {}; (data || []).forEach((x) => { yo.ia[x.partido] = x; }); }));
       tareas.push(sb.from('suscripciones').select('*').eq('usuario', yo.user.id).order('actualizado', { ascending: false }).limit(10)
         .then(({ data }) => { yo.subs = data || []; }));
@@ -1248,7 +1261,7 @@
   async function telegramHist() {
     const caja = $('tg-hist'); if (!caja || !sb) return;
     const desde = new Date(Date.now() - 30 * 864e5).toISOString();
-    const { data } = await sb.from('telegram_publicados').select('*').gte('enviado', desde).order('enviado', { ascending: false }).limit(1000);
+    const { data } = await todasSb((x, y) => sb.from('telegram_publicados').select('*').gte('enviado', desde).order('enviado', { ascending: false }).order('clave').range(x, y));
     const filas = data || [];
     const ids = [...new Set(filas.flatMap((f) => f.clave.startsWith('comb:') ? f.clave.slice(5).split('+') : [f.clave]))];
     const picks = {};

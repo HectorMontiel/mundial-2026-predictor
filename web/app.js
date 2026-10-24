@@ -110,6 +110,34 @@
     return { Diamante: 'Muy alta', Platino: 'Muy alta', Oro: 'Alta', Plata: 'Buena' }[n] || '—';
   }
 
+  // v466 — LA BASE ENTREGA COMO MÁXIMO 1000 FILAS POR CONSULTA, aunque se pida «limit=5000».
+  // Con 1157 picks en la ventana, los 157 últimos (los de pasado mañana, el Barcelona-Real Madrid)
+  // no llegaban y nadie lo notaba. Ahora se piden por páginas hasta tener TODAS las que la base
+  // dice que hay; si faltara alguna, falla y se usa el respaldo completo (datos/hoy.json).
+  async function todasLasFilas(url) {
+    const H = { apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY };
+    const pagina = (desde, n, extra) => fetch(url + '&offset=' + desde + '&limit=' + n, { headers: Object.assign({}, H, extra || {}) })
+      .then((r) => { if (!r.ok) throw new Error('base de datos ' + r.status); return Promise.all([r.json(), r.headers.get('content-range')]); });
+    const [filas, rango] = await pagina(0, 1000, { Prefer: 'count=exact' });
+    if (!Array.isArray(filas)) throw new Error('respuesta de la base no es una lista');
+    const total = Number(String(rango || '').split('/')[1]);
+    const paso = filas.length;
+    if (!paso) return filas;
+    if (Number.isFinite(total)) {
+      const resto = [];
+      for (let i = paso; i < total; i += paso) resto.push(pagina(i, paso).then(([d]) => d));
+      (await Promise.all(resto)).forEach((d) => { if (Array.isArray(d)) filas.push(...d); });
+      if (filas.length < total) throw new Error('faltan filas: ' + filas.length + ' de ' + total);
+      return filas;
+    }
+    for (let i = paso, d = filas; d.length === paso && i < 100000; i += paso) {   // sin el total: hasta una página incompleta
+      [d] = await pagina(i, paso);
+      if (!Array.isArray(d)) throw new Error('respuesta de la base no es una lista');
+      filas.push(...d);
+    }
+    return filas;
+  }
+
   async function cargar() {
     // v384 — datos de apoyo (deportes con partidos pero sin pick)
     fetch('combinadas_simuladas.json').then((r) => r.ok ? r.json() : null).then((d) => { estado.combSim = d; }).catch(() => {});   // v421
@@ -120,11 +148,7 @@
     try {
       if (C.SUPABASE_URL && C.SUPABASE_ANON_KEY) {
         const desde = diaPestana(-2);
-        const r = await fetch(C.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/picks?select=*&fecha=gte.' + desde + '&order=inicio.asc&limit=5000',
-          { headers: { apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY } });
-        if (!r.ok) throw new Error('base de datos ' + r.status);
-        const datos = await r.json();
-        if (!Array.isArray(datos)) throw new Error('respuesta de picks no es una lista');
+        const datos = await todasLasFilas(C.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/picks?select=*&fecha=gte.' + desde + '&order=inicio.asc,id.asc');
         estado.picks = datos;
         estado.errorPicks = false;
         estado.respaldoPicks = false;
@@ -153,11 +177,7 @@
     // v396 — las combinadas (tabla pública `combinadas`)
     try {
       if (C.SUPABASE_URL && C.SUPABASE_ANON_KEY) {
-        const rc = await fetch(C.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/combinadas?select=*&fecha=gte.' + diaPestana(-30) + '&order=inicio.asc&limit=2000',
-          { headers: { apikey: C.SUPABASE_ANON_KEY, Authorization: 'Bearer ' + C.SUPABASE_ANON_KEY } });
-        if (!rc.ok) throw new Error('combinadas HTTP ' + rc.status);
-        const datosCombinadas = await rc.json();
-        if (!Array.isArray(datosCombinadas)) throw new Error('respuesta de combinadas no es una lista');
+        const datosCombinadas = await todasLasFilas(C.SUPABASE_URL.replace(/\/$/, '') + '/rest/v1/combinadas?select=*&fecha=gte.' + diaPestana(-30) + '&order=inicio.asc,id.asc');
         estado.combinadas = datosCombinadas;
         estado.errorCombinadas = false;
       } else {
