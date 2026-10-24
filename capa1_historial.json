@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-24T01:48:53Z",
+"actualizado": "2026-10-24T03:23:01Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -12714,6 +12714,16 @@
 },
 {
 "dia": "2026-10-23",
+"nivel": "🏆",
+"deporte": "NHL",
+"partido": "Chicago Blackhawks vs Montreal Canadiens",
+"apuesta": "Handicap: Montreal Canadiens +2.5",
+"cuota": 1.125,
+"resultado": "verde",
+"marcador": "1-4"
+},
+{
+"dia": "2026-10-23",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Cruzeiro vs Remo",
@@ -13114,6 +13124,16 @@
 },
 {
 "dia": "2026-10-23",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Necaxa vs Juarez",
+"apuesta": "Necaxa o empate",
+"cuota": 1.2,
+"resultado": "verde",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-23",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Offenbach vs Freiberg",
@@ -13271,6 +13291,26 @@
 "cuota": 1.5556,
 "resultado": "verde",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-23",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Tepatitlán FC vs Cancún FC",
+"apuesta": "Cancún FC o empate",
+"cuota": 1.182,
+"resultado": "verde",
+"marcador": "0-4"
+},
+{
+"dia": "2026-10-23",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Tigre vs Atl. Tucuman",
+"apuesta": "Tigre o empate",
+"cuota": 1.177,
+"resultado": "rojo",
+"marcador": "0-1"
 },
 {
 "dia": "2026-10-23",
