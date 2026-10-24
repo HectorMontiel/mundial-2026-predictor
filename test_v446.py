@@ -76,8 +76,13 @@ def probar():
                                                                           '"noticias": ["Baja de Henry Martín"], "fuentes": ["Récord"]}]}'}]}}]})
     sys.modules['requests'] = types.SimpleNamespace(post=mixto)
     ia._AGOTADOS_WEB.clear()
-    w = ia.noticias_web(lote)
-    check(len(turno) == 3 and w.get('Atlas vs Club America', {}).get('noticias') == ['Baja de Henry Martín'] and ia.MODELOS[0] in ia._AGOTADOS_WEB,
+    viejos_m = ia.MODELOS
+    ia.MODELOS = ['m-uno', 'm-dos', 'm-tres']       # v469 — tres para probar los dos fallos seguidos
+    try:
+        w = ia.noticias_web(lote)
+    finally:
+        ia.MODELOS = viejos_m
+    check(len(turno) == 3 and w.get('Atlas vs Club America', {}).get('noticias') == ['Baja de Henry Martín'] and 'm-uno' in ia._AGOTADOS_WEB,
           'v449: si un modelo ya no existe o responde algo raro, la búsqueda prueba el siguiente')
 
     os.environ['IA_BUSCAR'] = '0'
@@ -184,14 +189,15 @@ def probar_v447():
     check(n == 0 and pedidos == [], 'v450: con 60 mediciones hoy ya no se gasta más cupo')
     # la prioridad: con pick → el mejor modelo y búsqueda; sólo análisis → lite y sin búsqueda
     vistos = []
-    viejo_p, viejo_w, viejo_g, viejo_s = ia.preguntar, ia.noticias_web, ia.guardar, ia.PAUSA_S
+    viejo_p, viejo_w, viejo_g, viejo_s, viejo_r = ia.preguntar, ia.noticias_web, ia.guardar, ia.PAUSA_S, ia.noticias_rss
+    ia.noticias_rss = lambda lote: {}            # v469 — Google News sin red: vacío → respaldo de Gemini
     ia.preguntar = lambda entrada, dep, tipo='analisis', modelos=None: (vistos.append(('p', tipo, (modelos or ia.MODELOS)[0])) or {})
     ia.noticias_web = lambda lote, tipo='busqueda': (vistos.append(('w', tipo)) or {})
     ia.PAUSA_S = 0
     try:
         ia.analizar(('u', {}), [{'partido': 'A vs B', 'peso': 1, 'deporte': 'Fútbol'}, {'partido': 'C vs D', 'peso': -1, 'deporte': 'Fútbol'}], {})
     finally:
-        ia.preguntar, ia.noticias_web, ia.guardar, ia.PAUSA_S = viejo_p, viejo_w, viejo_g, viejo_s
+        ia.preguntar, ia.noticias_web, ia.guardar, ia.PAUSA_S, ia.noticias_rss = viejo_p, viejo_w, viejo_g, viejo_s, viejo_r
     check(vistos == [('w', 'busqueda'), ('p', 'analisis', ia.MODELOS[0]), ('p', 'solo_analisis', ia.LITE[0])] and 'lite' in ia.LITE[0],
           'v450: con pick va primero, con búsqueda y el mejor modelo; sin pick, con el lite y sin búsqueda')
     # la cuenta del cupo

@@ -32,7 +32,7 @@ def probar_v417():
     check('select distinct partido, fecha from public.ia_analisis' in sql,
           'ia_disponibles sólo dice QUÉ partidos tienen IA, nunca el contenido')
     app, js, html = leer('web', 'app.js'), leer('web', 'cuenta.js'), leer('web', 'index.html')
-    check('function iaBloque(p, L, V, ctx)' in app and 'data-vista-ir="planes" data-foco="plan-vip"' in app
+    check('function iaBloque(p, L, V, ctx, jug)' in app and 'data-vista-ir="planes" data-foco="plan-vip"' in app
           and 'SPX.esVip && SPX.esVip()' in app, 'quien no es VIP ve «🤖 Análisis IA 🔒 VIP» y lo lleva al plan VIP')
     check('t.dataset.foco && document.getElementById(t.dataset.foco)' in app, 'el candado aterriza en el plan VIP')
     check("esVip: () => esVip()" in js and "from('ia_disponibles')" in js, 'la página sabe qué partidos tienen IA')

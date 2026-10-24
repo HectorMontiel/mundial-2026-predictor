@@ -89,8 +89,8 @@ def _puntos(h: str, a: str, mh: str, ma: str, misma_hora: bool) -> float:
     return s
 
 
-def buscar(partido: str, inicio, cache: Dict, liga: str = '') -> Optional[tuple]:
-    """(logo local, logo visita) de nuestro «A vs B», o None si el partido no casa entero."""
+def _mejor(partido: str, inicio, cache: Dict, liga: str = '') -> Optional[tuple]:
+    """(partido de FotMob, girado) que casa ENTERO con nuestro «A vs B», o None."""
     import espn_vivo as ev
     lados, ini = ev._lados(partido), _utc(inicio)
     if not lados or ini is None:
@@ -107,11 +107,27 @@ def buscar(partido: str, inicio, cache: Dict, liga: str = '') -> Optional[tuple]
             s, s2 = _puntos(h, a, m['home'], m['away'], mh), _puntos(h, a, m['away'], m['home'], mh)
             if max(s, s2) > puntos:
                 mejor, puntos = (m, s2 > s), max(s, s2)
-    if not mejor or puntos < 0.6:
+    return mejor if mejor and puntos >= 0.6 else None
+
+
+def buscar(partido: str, inicio, cache: Dict, liga: str = '') -> Optional[tuple]:
+    """(logo local, logo visita) de nuestro «A vs B», o None si el partido no casa entero."""
+    r = _mejor(partido, inicio, cache, liga)
+    if not r:
         return None
-    m, girado = mejor
+    m, girado = r
     lh, la = LOGO.format(id=m['hid']), LOGO.format(id=m['aid'])
     return (la, lh) if girado else (lh, la)
+
+
+def fixture(partido: str, inicio, cache: Dict, liga: str = '') -> Optional[tuple]:
+    """v469 — (nombre de FotMob de NUESTRO local, el de nuestra visita): con él se buscan sus
+    jugadores en la base de FotMob (`jugadores_prob`)."""
+    r = _mejor(partido, inicio, cache, liga)
+    if not r:
+        return None
+    m, girado = r
+    return (m['away'], m['home']) if girado else (m['home'], m['away'])
 
 
 # FLASHSCORE: el tercer recurso del fútbol (ligas que FotMob no tiene, como la League Two china).

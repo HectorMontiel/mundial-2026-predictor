@@ -35,8 +35,8 @@ from typing import Dict, List, Optional
 logger = logging.getLogger('ia_gemini')
 DATOS = os.environ.get('WEB_DATOS', os.path.join('web', 'datos', 'hoy.json'))
 PRIVADO = os.environ.get('WEB_PRIVADO', os.path.join('datos_privados', 'premium.json'))
-MODELOS = [m for m in (os.environ.get('GEMINI_MODELO'), 'gemini-flash-latest', 'gemini-2.5-flash',
-                        'gemini-flash-lite-latest', 'gemini-2.5-flash-lite') if m]
+# v469 — sin los 2.5: Google los retiró y cada pasada gastaba consultas en un 404 (ia_uso: ok=0 siempre)
+MODELOS = [m for m in (os.environ.get('GEMINI_MODELO'), 'gemini-flash-latest', 'gemini-flash-lite-latest') if m]
 # v394 — VARIOS PARTIDOS POR CONSULTA. El nivel gratis cuenta CONSULTAS por día y
 # por modelo, no partidos: con una por partido se agotaba a media mañana y la
 # mayoría de los partidos se quedaban sin análisis (el usuario lo vio el 17-oct).
@@ -268,6 +268,13 @@ def datos_del_partido(m: Dict, mercado: Dict) -> Dict:
                           'cor=córners propios por partido, tap=tiros a puerta, tar=amarillas propias, pos=posesión %',
         'media_corners_liga_por_partido': _media_liga(mk.get('clave'), 'corners'),
         'media_tarjetas_liga_por_partido': _media_liga(mk.get('clave'), 'tarjetas'),
+        # v469 — quién puede anotar y tirar a puerta (nuestro modelo, medido y calibrado)
+        'jugadores_probables': [{'jugador': j.get('n'), 'equipo': home if lado == 'h' else away,
+                                 'prob_anota': j.get('gol'), 'prob_1_o_mas_tiros_a_puerta': j.get('p1'),
+                                 'prob_2_o_mas_tiros_a_puerta': j.get('p2')}
+                                for lado in ('h', 'a') for j in ((m.get('jug') or {}).get(lado) or [])] or None,
+        'nota_jugadores': 'probabilidades medidas de nuestro modelo (ya cuentan que puede no jugar); si las '
+                          'noticias dicen que uno está lesionado o suspendido, dilo en el análisis',
     }
 
 
@@ -374,6 +381,80 @@ INSTRUCCION_WEB = (
     '{"partidos": [{"partido": "<copia el texto tal cual>", "noticias": ["<hecho breve>", ...], '
     '"fuentes": ["<medio>", ...]}]}'
 )
+
+
+# v469 — LAS NOTICIAS DE VERDAD. La búsqueda de Gemini NUNCA funcionó: en ia_uso, todos los días,
+# «busqueda» con ok=0 (su cupo gratis se acaba al empezar el día) y los análisis con
+# con_noticias=false. Ahora los titulares salen de Google News (RSS): gratis, sin clave, de los
+# últimos 3 días y SÓLO los publicados antes del inicio. La búsqueda de Gemini queda de respaldo.
+RSS = os.environ.get('IA_RSS', '1') != '0'
+RSS_URL = 'https://news.google.com/rss/search'
+_SIN_INFO = __import__('re').compile(r'd[oó]nde ver|hora y (canal|d[oó]nde)|canal y hora|en (vivo|directo)|comentarios en directo|'
+                                     r'resultados? en vivo|minuto a minuto|live stream', __import__('re').I)
+
+
+def _nombre_busqueda(equipo: str) -> str:
+    """El nombre más largo que conocen los alias («Ath Madrid» → «Atlético Madrid»)."""
+    try:
+        import name_mapper as nm
+        al = nm._cargar_alias().get(nm.normalizar(equipo)) or []
+        return max([equipo] + [a for a in al if isinstance(a, str)], key=len)
+    except Exception:
+        return equipo
+
+
+def noticias_rss(lista: List[Dict]) -> Dict:
+    """{partido: {'noticias': [titulares], 'fuentes': [medios]}} de Google News; {} si falla."""
+    import email.utils
+    import xml.etree.ElementTree as ET
+    import requests
+    if not RSS:
+        return {}
+    out = {}
+    for m in lista:
+        lados = str(m.get('partido') or '')
+        sep = ' vs ' if ' vs ' in lados else (' @ ' if ' @ ' in lados else None)
+        if not sep:
+            continue
+        a, b = [_nombre_busqueda(x.strip()) for x in lados.split(sep, 1)]
+        try:
+            ini = dt.datetime.fromisoformat(str(m.get('inicio')).replace(' ', 'T').replace('Z', '+00:00'))
+            ini = ini if ini.tzinfo else ini.replace(tzinfo=dt.timezone.utc)
+        except Exception:
+            ini = None
+        items = []
+        for q in ('"%s" "%s" when:3d' % (a, b), '%s %s when:3d' % (a, b)):
+            try:
+                r = requests.get(RSS_URL, params={'q': q, 'hl': 'es-419', 'gl': 'MX', 'ceid': 'MX:es-419'},
+                                 timeout=15, headers={'User-Agent': 'Mozilla/5.0'})
+                items = ET.fromstring(r.text).findall('.//item') if r.ok else []
+            except Exception as e:
+                logger.debug('[ia] noticias %s: %s', lados, e)
+                items = []
+            if items:
+                break
+        ns, fs = [], []
+        for it in items:
+            try:
+                pub = email.utils.parsedate_to_datetime(it.findtext('pubDate') or '')
+            except Exception:
+                pub = None
+            if ini and pub and pub >= ini:              # lo publicado después del inicio no cuenta
+                continue
+            t, _, fuente = (it.findtext('title') or '').rpartition(' - ')
+            t = (t or it.findtext('title') or '').strip()
+            if _SIN_INFO.search(t):                     # «dónde ver», «hora y canal», «en directo»: no dicen nada
+                continue
+            if t and t not in ns:
+                ns.append(t[:200])
+                if fuente and fuente not in fs:
+                    fs.append(fuente[:60])
+            if len(ns) >= 6:
+                break
+        if ns:
+            out[lados] = {'noticias': ns, 'fuentes': fs[:4]}
+        time.sleep(0.3)
+    return out
 
 
 def noticias_web(lista: List[Dict], tipo: str = 'busqueda') -> Dict:
@@ -781,7 +862,10 @@ def analizar(sb, lista: List[Dict], mercado: Dict, ventana: Optional[str] = None
             lotes += [(dep, nv < 2, del_dep[i:i + LOTE]) for i in range(0, len(del_dep), LOTE)]
     for dep, con_pick, lote in lotes:
         tipo = 'ventana' if ventana else 'analisis' if con_pick else 'solo_analisis'
-        web = noticias_web(lote, 'busqueda_ventana' if ventana else 'busqueda') if con_pick else {}
+        # v469 — Google News para TODOS (es gratis); la búsqueda de Gemini sólo de respaldo con pick
+        web = noticias_rss(lote) if dep == 'Fútbol' else {}
+        if not web and con_pick:
+            web = noticias_web(lote, 'busqueda_ventana' if ventana else 'busqueda')
         entrada = []
         for m in lote:
             d = datos_del_partido(m, mercado)

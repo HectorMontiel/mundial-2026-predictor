@@ -1201,7 +1201,7 @@
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V, p.deporte) + '</div></div>' +
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
-      iaBloque(p, L, V, (ps.find((x) => x.ctx) || {}).ctx) +
+      iaBloque(p, L, V, (ps.find((x) => x.ctx) || {}).ctx, (ps.find((x) => x.jug) || {}).jug) +
       compensacion(p, v) + miniStats(v, p) + (v && (v.fase === 'in' || v.fase === 'post') ? cancha(v, p) : '') +   // v460: también al terminar
       ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
       (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
@@ -1214,11 +1214,28 @@
   // v417 — quien no es VIP VE que el partido tiene análisis de la IA, pero
   // bloqueado: al tocarlo va a Planes, al VIP. Sólo se enseña si de verdad hay
   // análisis (`ia_disponibles`: nombre del partido, nunca el contenido).
-  function iaBloque(p, L, V, ctx) {
+  // v469 — QUIÉN PUEDE ANOTAR Y TIRAR A PUERTA (dentro del análisis IA, como pidió el usuario).
+  // Nuestro modelo con la base de FotMob, medido en 121 mil jugador-partido y calibrado: «anota»,
+  // «1+» y «2+» a puerta ganan a la media de su posición en las dos mitades (p5>0). Ya cuentan
+  // que el jugador puede no salir. El 3+ no ganó: no se enseña.
+  function jugadoresHtml(jug, L, V) {
+    if (!jug || !((jug.h || []).length || (jug.a || []).length)) return '';
+    const pc = (x) => Math.round(100 * (x || 0)) + '%';
+    // en el teléfono no caben nombres largos: «Lamine Yamal» → «L. Yamal»
+    const corto = (n) => { const w = String(n || '').trim().split(/\s+/); return n.length > 11 && w.length > 1 ? w[0][0] + '. ' + w.slice(1).join(' ') : n; };
+    const eq = (n, xs) => !(xs || []).length ? '' : '<div class="jug-eq"><div class="jug-nom">' + esc(n) + '</div>' +
+      xs.map((j) => '<div class="jug-fila"><span class="jug-n" title="' + esc(j.n) + '">' + esc(corto(j.n)) + '</span><b>' + pc(j.gol) + '</b><b>' + pc(j.p1) + '</b><b>' + pc(j.p2) + '</b></div>').join('') + '</div>';
+    return '<div class="ia-jug"><div class="jug-cab"><span>' + ico('ball-football') + ' Jugadores</span><small>Anota</small><small>A puerta 1+</small><small>2+</small></div>' +
+      eq(L, jug.h) + eq(V, jug.a) + '</div>';
+  }
+  function iaBloque(p, L, V, ctx, jug) {
     const a = window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null;
-    if (a) return iaHtml(a, L, V, ctx);
-    const hay = window.SPX && SPX.yo.iaHay && SPX.yo.iaHay.has(p.partido);
-    if (!hay || (SPX.esVip && SPX.esVip())) return '';
+    const vip = window.SPX && SPX.esVip && SPX.esVip();
+    if (a) return iaHtml(a, L, V, ctx, jug);
+    // VIP y aún sin análisis de la IA: el apartado sale igual, con los jugadores
+    if (vip && jugadoresHtml(jug, L, V)) return '<details class="ctx ia"><summary>🤖 Análisis IA</summary>' + jugadoresHtml(jug, L, V) + '</details>';
+    const hay = (window.SPX && SPX.yo.iaHay && SPX.yo.iaHay.has(p.partido)) || !!jugadoresHtml(jug, L, V);
+    if (!hay || vip) return '';
     return '<button class="ctx ia ia-bloq" data-vista-ir="planes" data-foco="plan-vip">🤖 Análisis IA <span class="candado">🔒 VIP</span></button>';
   }
   // v448 — PRIMER GOL Y PA1 (pago anticipado: el equipo llega a ir ganando por un gol)
@@ -1254,7 +1271,7 @@
     return '<div class="ia-pa1"><div><small>🥇 Anota primero</small>' + fila(L, r.h) + fila(V, r.a) + '</div>' +
       '<div><small title="Pago anticipado: llega a ir ganando por un gol">🏁 PA1</small>' + fila(L, r.pa1h) + fila(V, r.pa1a) + '</div></div>';
   }
-  function iaHtml(a, L, V, ctx) {
+  function iaHtml(a, L, V, ctx, jug) {
     if (!a) return '';
     const res = { local: 'gana ' + L, empate: 'empate', visita: 'gana ' + V }[a.pred_resultado] || '';
     // v407 — el mismo template para todos los deportes, con su unidad
@@ -1286,6 +1303,7 @@
         (pr != null ? '<span class="ia-prob">probabilidad ' + Math.round(100 * pr) + ' %</span>' : '') + '</div>').join('') + '</div>' +
       // v448 — primer gol y PA1 de cada equipo (sólo fútbol: es lo que se midió)
       (fut && a.goles_local_esperados != null && a.goles_visita_esperados != null ? pa1Html(a.goles_local_esperados, a.goles_visita_esperados, L, V) : '') +
+      (fut ? jugadoresHtml(jug, L, V) : '') +
       // v394 — qué metería la IA (cualquier mercado) y los goles de cada equipo
       (a.mejor_apuesta ? '<div class="ia-meter">🧠 Lo que metería la IA: <b>' + esc(a.mejor_apuesta) + '</b>' +
         (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +

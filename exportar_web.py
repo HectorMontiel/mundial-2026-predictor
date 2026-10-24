@@ -42,7 +42,9 @@ CAMPOS = ('partido', 'inicio', 'fecha', 'deporte', 'liga', 'apuesta', 'cuota', '
           # v379 — el modo de pago (`premium`)
           'premium',
           # v384 — errores de cuota (`errores_web`) y el contexto del partido
-          'tipo', 'casa', 'ventaja', 'gratis', 'ctx')
+          'tipo', 'casa', 'ventaja', 'gratis', 'ctx',
+          # v469 — quién puede anotar y tirar a puerta (`jugadores_prob`; columna de supabase/v469_jugadores.sql)
+          'jug')
 
 
 def _id(p: Dict) -> str:
@@ -292,6 +294,12 @@ def construir() -> Dict:
         print('web: escudos %s' % st)
     except Exception as e:
         logger.warning('[web] sin escudos: %s', e)
+    # v469 — qué jugador puede anotar y tirar a puerta 1+/2+ (medido y calibrado; va en el análisis IA)
+    try:
+        import jugadores_prob
+        print('web: jugadores en %d partidos' % jugadores_prob.poner(picks + analisis))
+    except Exception as e:
+        logger.warning('[web] sin jugadores: %s', e)
     return {'generado': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'),
             'precalculo': doc.get('generado'), 'picks': picks, 'analisis': analisis}
 
