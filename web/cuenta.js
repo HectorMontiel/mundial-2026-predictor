@@ -826,11 +826,18 @@
     const faltan = [...new Set((data || []).flatMap((c) => c.patas))].filter((id) => !pickDe(id));
     const extra = {};
     for (let i = 0; i < faltan.length; i += 300) {
-      const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado,inicio,deporte,premium,marcador').in('id', faltan.slice(i, i + 300));
+      const { data: ps } = await sb.from('picks').select('id,partido,apuesta,cuota,estado,inicio,deporte,premium,marcador,espn,girado').in('id', faltan.slice(i, i + 300));
       (ps || []).forEach((p) => { extra[p.id] = p; });
     }
     if (turno !== turnoComb) return;
     yo.hist = { combs: data || [], extra };
+    // v463 — lo que ya terminó y el servidor aún no cerró: el resultado final a ESPN, al momento
+    const viejos = Object.values(extra).filter((p) => p.estado === 'pendiente' && p.espn && aFechaP(p.inicio) < new Date(Date.now() - 2.5 * 3600e3));
+    if (viejos.length && window.SP && window.SP.pedirResumen) {
+      Promise.all(viejos.slice(0, 30).map((p) => window.SP.pedirResumen(p))).then(() => {
+        if (turno === turnoComb) { pintarCombinadas(caja); pintarHistorial($('mi-hist')); }
+      });
+    }
     pintarCombinadas(caja);
     pintarHistorial($('mi-hist'));
   }
@@ -847,7 +854,7 @@
   // El historial sólo contaba lo que el servidor ya liquidó (pasa cada ~2 h). Ahora
   // «Mis combinadas» y «Mi historial» usan el MISMO resultado al pitazo: en cuanto se
   // decide, pasa al historial (y el servidor después lo confirma y paga las monedas).
-  const vistoPick = (p) => (p && p.id && pickDe(p.id) && window.SP && window.SP.estadoVisto ? window.SP.estadoVisto(pickDe(p.id)) : p && p.estado);
+  const vistoPick = (p) => (!p ? null : window.SP && window.SP.estadoVisto && (pickDe(p.id) || p.espn) ? window.SP.estadoVisto(pickDe(p.id) || p) : p.estado);
   function estadoCombVisto(c, extra) {
     if (c.estado !== 'pendiente') return c.estado;
     const es = c.patas.map((id) => vistoPick(pickDe(id) || (extra || {})[id]));
@@ -924,7 +931,7 @@
     // final del partido (salvo que el pick sí lo necesite)». Cada pata usa lo mismo que la
     // pestaña Combinadas (`estadoVisto`): verde en cuanto se cumple, roja en cuanto ya no
     // puede, y al pitazo el resultado, sin esperar al servidor (que luego lo confirma).
-    const visto = (p) => (p.id && pickDe(p.id) && window.SP && window.SP.estadoVisto ? window.SP.estadoVisto(pickDe(p.id)) : p.estado);
+    const visto = (p) => (!p ? null : window.SP && window.SP.estadoVisto && (pickDe(p.id) || p.espn) ? window.SP.estadoVisto(pickDe(p.id) || p) : p.estado);
     const ps = c.patas.map((id) => { const p = pickDe(id) || extra[id] || { id: null }; return Object.assign({}, p, { _visto: visto(p) }); });
     const empezo = (p) => p.inicio && aFechaP(p.inicio) <= new Date();
     const yaRoja = c.estado === 'pendiente' && ps.some((p) => p._visto === 'roja');

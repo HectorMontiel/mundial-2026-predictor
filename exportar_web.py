@@ -247,13 +247,14 @@ def construir() -> Dict:
         analisis += [b for b in beisbol_invierno(hoy) if (b['fecha'], b['partido']) not in ya]   # v423
     except Exception as e:
         logger.warning('[web] sin tarjetas de sólo análisis: %s', e)
-    # v384 — el contexto (forma, H2H, bajas) de cada partido de fútbol que aún no empieza
+    # v384 — el contexto (forma, H2H, bajas) de cada partido de fútbol. v464 — TAMBIÉN de los que ya
+    # empezaron o terminaron (el usuario los veía en vivo sin estadísticas: sólo se hacía a los pendientes)
     try:
         import errores_web
         memo = {}
         claves = {p.get('partido'): p.get('clave_liga') for p in prons if p.get('clave_liga')}
         for f in picks + analisis:
-            if f.get('estado') == 'pendiente' and f.get('deporte') == 'Fútbol':
+            if f.get('deporte') == 'Fútbol':
                 k = f.get('partido')
                 if k not in memo:
                     memo[k] = errores_web.contexto(dict(f, clave_liga=f.get('clave_liga') or claves.get(k)))
@@ -419,6 +420,13 @@ def main() -> int:
     except Exception:
         pass
     r = construir()
+    # v463 — los pendientes que ya terminaron se cierran con su resultado final (ESPN y,
+    # si no, Flashscore) ANTES de escribir y subir: si no, se quedaban pendientes para siempre
+    try:
+        import liquidar_pendientes
+        print('web: %d pendientes cerrados con su resultado final' % liquidar_pendientes.cerrar(r['picks']))
+    except Exception as e:
+        logger.warning('[web] no se cerraron los pendientes: %s', e)
     secretos = premium(r['picks'])
     os.makedirs(os.path.dirname(SALIDA), exist_ok=True)
     analisis = r.pop('analisis', [])

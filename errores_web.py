@@ -238,9 +238,35 @@ def _promedios(h, eq, antes, n=10) -> Optional[Dict]:
             a, _ = lado(col)
             if a.notna().sum() >= 3:
                 out[k] = round(float(a.mean()), 1)
+    # v464 — el usuario: «tenemos tiros a puerta, pero hacen falta los tiros»: a puerta + desviados
+    if 'home_shots_on' in m.columns and 'home_shots_off' in m.columns:
+        on, _ = lado('shots_on')
+        off, _ = lado('shots_off')
+        tot = on + off
+        if tot.notna().sum() >= 3:
+            out['tir'] = round(float(tot.mean()), 1)
     res = ['G' if a > b else ('E' if a == b else 'P') for a, b in zip(gf, gc)]
     out['forma'] = ''.join(res[-5:])
     return out
+
+
+def _promedios_fs(df, idx, eq, antes, n=10) -> Optional[Dict]:
+    """v464 — cuando la liga no tiene histórico propio (4.ª checa, Copa Santa Catarina…):
+    lo de sus últimos `n` partidos en los resultados de Flashscore (sólo goles: es lo que hay)."""
+    filas = idx.get(eq, []) if idx else []
+    if not filas:
+        return None
+    m = df.iloc[filas]
+    m = m[m['date'] < antes].tail(n)
+    if len(m) < 3:
+        return None
+    gf = [gh if h == eq else ga for h, gh, ga in zip(m['home'], m['gh'], m['ga'])]
+    gc = [ga if h == eq else gh for h, gh, ga in zip(m['home'], m['gh'], m['ga'])]
+    k = len(gf)
+    return {'n': k, 'gf': round(sum(gf) / k, 2), 'gc': round(sum(gc) / k, 2),
+            'o25': round(sum(1 for a, b in zip(gf, gc) if a + b > 2.5) / k, 2),
+            'btts': round(sum(1 for a, b in zip(gf, gc) if a > 0 and b > 0) / k, 2),
+            'forma': ''.join('G' if a > b else ('E' if a == b else 'P') for a, b in zip(gf, gc))[-5:]}
 
 
 def _con_sus_ligas(h, clave: str, equipos) -> 'pd.DataFrame':
@@ -336,6 +362,11 @@ def contexto(p: Dict) -> Optional[Dict]:
                 ctx['fl'] = _forma(df, idx, hf, antes)
             if not ctx.get('fv'):
                 ctx['fv'] = _forma(df, idx, af, antes)
+            # v464 — el usuario: «que TODOS tengan estadísticas, aunque no se hayan enfrentado»
+            if not ctx.get('sl'):
+                ctx['sl'] = _promedios_fs(df, idx, hf, antes)
+            if not ctx.get('sv'):
+                ctx['sv'] = _promedios_fs(df, idx, af, antes)
             comun = sorted(set(idx.get(hf, [])) & set(idx.get(af, []))) if len(ctx.get('h2h') or []) < 2 else []
             if comun:
                 m = df.iloc[comun]

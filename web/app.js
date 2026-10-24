@@ -6,7 +6,7 @@
   const ZONA = 'America/Mexico_City';
   const ESPN = 'https://site.api.espn.com/apis/site/v2/sports/';
   const $ = (id) => document.getElementById(id);
-  const estado = { dia: 'hoy', deporte: 'Todos', nivel: 'Todos', soloElige: false, orden: 'hora', picks: [], vivo: {}, vivoCursor: 0, errorPicks: false, respaldoPicks: false, errorCombinadas: false };
+  const estado = { pfm: {}, dia: 'hoy', deporte: 'Todos', nivel: 'Todos', soloElige: false, orden: 'hora', picks: [], vivo: {}, vivoCursor: 0, errorPicks: false, respaldoPicks: false, errorCombinadas: false };
 
   const diaCdmx = (d) => new Intl.DateTimeFormat('en-CA', { timeZone: ZONA }).format(d);
   // v402 — parser ISO aislado y cubierto por test_web_v402.cjs. Reconoce Z y offsets ±HH:MM/±HHMM.
@@ -245,7 +245,7 @@
     // ataque de quien la hizo (los dos atacan hacia X=100): el visitante se refleja.
     const n1 = ((nos1.team || {}).displayName) || '';
     const jugadas = (d.commentary || []).map((c) => c.play).filter((x) => x && x.fieldPositionX != null).map((x) => ({
-      t: ((x.type || {}).type) || '', min: ((x.clock || {}).displayValue) || '', seg: Number((x.clock || {}).value || 0),
+      t: ((x.type || {}).type) || '', min: ((x.clock || {}).displayValue) || '', seg: Number((x.clock || {}).value || 0), per: Number((x.period || {}).number || 0),
       lado: ((x.team || {}).displayName) === n1 ? 0 : 1, equipo: ((x.team || {}).displayName) || '',
       x: Number(x.fieldPositionX), y: Number(x.fieldPositionY),
       x2: x.fieldPosition2X != null ? Number(x.fieldPosition2X) : null, y2: x.fieldPosition2Y != null ? Number(x.fieldPosition2Y) : null,
@@ -276,15 +276,25 @@
       if (!p.espn || !ini) continue;
       const desde = ini.getTime() - 10 * 60e3, hasta = ini.getTime() + 4 * 3600e3;
       const yaFin = (estado.vivo[p.espn] || {}).terminado;
-      if (ahora >= desde && ahora <= hasta && !yaFin) ids[p.espn] = p;
+      // v463 — el usuario: «salen partidos de ayer como en juego». Lo que ya terminó y el servidor aún no
+      // cerró (hasta 10 días) se pide UNA vez a ESPN y se pone verde o rojo al momento, sin esperar
+      const atrasado = p.estado === 'pendiente' && !p.solo_analisis && ahora > hasta && ahora - ini.getTime() < 10 * 864e5 && !estado.vivo[p.espn];
+      if ((ahora >= desde && ahora <= hasta && !yaFin) || atrasado) ids[p.espn] = p;
     }
     const entradas = Object.entries(ids);
     if (estado.vivoCorriendo || !entradas.length) return;
-    // v402 — ventana rotatoria: un límite de 40 por pasada no debe excluir siempre a los mismos partidos.
-    const n = Math.min(40, entradas.length);
-    const cursor = estado.vivoCursor % entradas.length;
-    const lista = Array.from({ length: n }, (_, i) => entradas[(cursor + i) % entradas.length]);
-    estado.vivoCursor = (cursor + n) % entradas.length;
+    // v465 — el usuario: «se traba y se calienta el teléfono». Se pedían hasta 40 resúmenes de ESPN
+    // (cientos de KB cada uno) cada 20 s, aunque la app estuviera en segundo plano. Ahora: nada en
+    // segundo plano; los partidos ABIERTOS siempre; de los demás, 8 por vuelta (se turnan).
+    if (document.hidden && estado.vivoPrimera) return;
+    estado.vivoPrimera = true;
+    const visibles = new Set([...estado.abiertos].concat(fichaId ? [clavePartido(estado.picks.concat(estado.analisis || []).find((x) => x.id === fichaId) || {})] : []));
+    const abiertos = entradas.filter(([, p]) => visibles.has(clavePartido(p)));
+    const resto = entradas.filter(([, p]) => !visibles.has(clavePartido(p)));
+    const n = Math.min(8, resto.length);
+    const cursor = resto.length ? estado.vivoCursor % resto.length : 0;
+    const lista = abiertos.concat(Array.from({ length: n }, (_, i) => resto[(cursor + i) % resto.length]));
+    estado.vivoCursor = resto.length ? (cursor + n) % resto.length : 0;
     estado.vivoCorriendo = true;
     let cambio = false;
     try {
@@ -527,6 +537,18 @@
     } catch (e) { return viejo || null; }
   }
   // sólo de los partidos cuya cancha está a la vista (tarjeta abierta o ficha)
+  // v460 — la presión de FotMob (por /presion, nuestra función de Cloudflare): cada 30 s en vivo; al terminar, una vez
+  async function presionFM(p) {
+    const k = clavePartido(p), prev = estado.pfm[k], v = vivoDe([p]);
+    if (!v || v.fase === 'pre') return false;
+    if (prev && ((prev.terminado && prev.momentum !== undefined) || Date.now() - prev.ts < 30e3)) return false;
+    const ini = aFecha(p.inicio); if (!ini) return false;
+    const f = ini.toISOString().slice(0, 10).replace(/-/g, ''), [L, V] = lados(p);
+    let j = null;
+    try { const r = await fetch('/presion?f=' + f + '&l=' + encodeURIComponent(L) + '&v=' + encodeURIComponent(V)); j = r.ok ? await r.json() : null; } catch (e) { /* sin red */ }
+    estado.pfm[k] = Object.assign({}, j || {}, { ts: Date.now() });
+    return !!(j && (j.momentum || j.mitades)) && JSON.stringify([j.momentum, j.mitades, j.eventos]) !== JSON.stringify(prev ? [prev.momentum, prev.mitades, prev.eventos] : null);
+  }
   async function vivo365() {
     if (document.hidden) return;
     const vistos = new Set([...estado.abiertos].concat(fichaId ? [clavePartido(estado.picks.find((x) => x.id === fichaId) || {})] : []));
@@ -540,6 +562,7 @@
       if (d && (!previo || JSON.stringify(d.tiros) + (d.once || []).length !== antes)) cambio = true;   // v436: también si llega la alineación      // v431: también al llegar por 1.ª vez
       const v = vivoDe([p]);
       if (estado.p365[k] && v && v.fase === 'in') await stats365(estado.p365[k]);      // v431 — quién ataca ahora
+      if (await presionFM(p)) cambio = true;                                           // v460
     }
     if (cambio) { pintar(); refrescarFicha(); }
   }
@@ -560,7 +583,8 @@
     const fuente = espnJ.length ? 'espn' : t365.length ? '365' : evE.length ? 'eventos' : '';
     const js = fuente === 'espn' ? espnJ : [], todos = t365;
     const onceReal = d && d.once && d.once.length >= 18 ? d.once : v && v.once && v.once.length >= 18 ? v.once : null;
-    if (!fuente && !onceReal) return '';
+    const pfm = k ? estado.pfm[k] : null;                     // v460 — la presión de FotMob
+    if (!fuente && !onceReal && !(pfm && (pfm.momentum || pfm.mitades))) return '';
     const once = onceReal || BASE_442.flatMap(([prof, ancho], i) => [0, 1].map((lado) => ({ lado, n: '', nombre: '', i, prof, ancho, nota: null })));
     const dibujo = fuente === '365' ? t365 : fuente === 'espn' ? espnJ.filter((j) => /goal|scored|shot/.test(j.t)).map((j) => ({ lado: j.lado, x: j.x, y: j.y,
       xg: /goal|scored/.test(j.t) ? 0.35 : /on-target/.test(j.t) ? 0.2 : 0.1, min: j.min, gol: /goal|scored/.test(j.t), resultado: (JUGADA[j.t] || ['', ''])[1], cuerpo: j.equipo, jugador: '' })) : [];
@@ -574,7 +598,8 @@
     // sin ruido: los goles siempre; los demás tiros, sólo los de los últimos 15 minutos
     const tiros = dibujo.filter((t) => t.gol || minuto(t.min) >= ahora - 15);
     // las jugadas REALES para el motor, de la fuente elegida
-    const reales = (fuente === 'espn' ? js.map((j) => ({ id: 'e' + j.seg + j.t, t: j.t, src: 'espn', m: j.seg / 60, lado: j.lado, x: X(j.lado, j.x), y: Y(j.lado, j.y),
+    const enTiempo = (m, per) => (per === 1 ? Math.min(m, 45.5) : per === 2 ? Math.max(m, 45.5) : m);   // v460
+    const reales = (fuente === 'espn' ? js.map((j) => ({ id: 'e' + j.seg + j.t, t: j.t, src: 'espn', m: enTiempo(j.seg / 60, j.per), lado: j.lado, x: X(j.lado, j.x), y: Y(j.lado, j.y),
       w: (JUGADA[j.t] || [0, 0, 0])[2], txt: (JUGADA[j.t] || ['•', ''])[0] + ' <b>' + esc((JUGADA[j.t] || ['', j.t])[1]) + '</b> · ' + esc(j.equipo) + ' · ' + esc(j.min) }))
       : fuente === '365' ? t365.map((t) => ({ id: 't' + t.min + t.x + t.y, t: t.gol ? 'goal' : /ataj/i.test(t.resultado) ? 'shot-on-target' : 'shot-off-target', src: '365',
         m: minuto(t.min), lado: t.lado, x: X(t.lado, t.x), y: Y(t.lado, t.y),
@@ -642,28 +667,54 @@
     const cab = '<div class="cancha-ult"><span class="chip-ult">' + (ult ? ult.txt : '⚽ <b>En vivo</b>') + '</span>' +
       (todos.length ? '<span class="xg"><i style="background:' + c.l + '"></i>xG ' + xg[0].toFixed(2) + ' · ' + xg[1].toFixed(2) + '<i style="background:' + c.r + '"></i></span>' : '') + '</div>';
     // la ola de presión: minuto a minuto, suavizada
-    const fin = Math.max(90, ahora);
-    const val = new Array(Math.ceil(fin) + 1).fill(0);
-    reales.forEach((q) => { const m = Math.floor(q.m); if (val[m] != null) val[m] += (q.lado === 0 ? 1 : -1) * q.w; });
-    const suave = val.map((_, i) => val.slice(Math.max(0, i - 3), i + 1).reduce((a, b, kk, arr) => a + b * (kk + 1) / arr.length, 0));
-    const tope = Math.max(1, ...suave.map(Math.abs)), W = 100 / (suave.length - 1);
-    const barras = suave.map((x, i) => { const h = 11 * Math.abs(x) / tope; return h < 0.2 ? '' : '<rect x="' + (i * W - W * 0.38).toFixed(2) + '" y="' + (x > 0 ? 12 - h : 12).toFixed(2) +
-      '" width="' + (W * 0.76).toFixed(2) + '" height="' + h.toFixed(2) + '" fill="' + (x > 0 ? c.l : c.r) + '"/>'; }).join('');
-    // v436 — si la fuente casi no trae jugadas (sólo goles y tarjetas), no se inventa la presión:
-    // queda la línea del partido hasta el minuto que va, con sus goles y tarjetas
-    const pocas = reales.filter((q) => q.w > 0).length < 4;
-    const ola = '<svg class="presion-svg' + (pocas ? ' linea' : '') + '" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="' + (pocas ? 'El partido minuto a minuto' : 'Presión minuto a minuto') + '">' +
-      (pocas ? '<line x1="0" y1="12" x2="100" y2="12" class="pista"/><line x1="0" y1="12" x2="' + Math.min(100, 100 * ahora / fin).toFixed(1) + '" y2="12" class="va"/>' : barras) +
-      '<line x1="50" y1="2" x2="50" y2="22" class="eje"/>' + (pocas ? '' : '<line x1="0" y1="12" x2="100" y2="12" class="eje"/>') + '</svg>';
-    // v432 — un ⚽ en el minuto de cada gol (arriba el local, abajo el visitante)
+    // v460 — LA PRESIÓN DE TODOS LOS PARTIDOS (el usuario: «todos tienen que tener su barra,
+    // dividida en 1.er y 2.º tiempo, con sus goles y tarjetas, también al terminar»). En este
+    // orden y SIEMPRE con datos reales: 1) FotMob minuto a minuto («momentum»); 2) las jugadas
+    // de ESPN o los tiros de 365Scores; 3) FotMob por tiempo: quién dominó el 1T y el 2T (tiros,
+    // a puerta, córners, ocasiones claras y toques en el área); 4) si no hay nada, la línea.
+    const mom = pfm && Array.isArray(pfm.momentum) && pfm.momentum.length >= 5 ? pfm.momentum : null;
+    const fin = Math.max(90, ahora, mom ? mom.length - 1 : 0), xm = (m) => Math.max(0, Math.min(100, 100 * m / fin));
+    const pocasJugadas = reales.filter((q) => q.w > 0).length < 4;
+    const dominio = (x) => { if (!x) return null; const t = (i) => (x.tiros || [0, 0])[i] + 2 * (x.puerta || [0, 0])[i] + (x.corners || [0, 0])[i] + 3 * (x.ocasiones || [0, 0])[i] + 0.3 * (x.area || [0, 0])[i];
+      const a = t(0), b = t(1); return a + b > 0 ? (a - b) / (a + b) : null; };
+    const mits = pfm && pfm.mitades ? pfm.mitades.map(dominio) : null;
+    const modo = mom ? 'momentum' : !pocasJugadas ? 'jugadas' : mits && mits.some((x) => x != null) ? 'mitades' : 'linea';
+    const barra = (x0, x1, valor, tope) => { const h = 11 * Math.abs(valor) / tope; return h < 0.2 ? '' : '<rect x="' + x0.toFixed(2) + '" y="' + (valor > 0 ? 12 - h : 12).toFixed(2) +
+      '" width="' + Math.max(0.3, x1 - x0).toFixed(2) + '" height="' + h.toFixed(2) + '" fill="' + (valor > 0 ? c.l : c.r) + '"/>'; };
+    let barras = '';
+    if (modo === 'momentum') {
+      const tope = Math.max(1, ...mom.map(Math.abs)), W = 100 / fin;
+      barras = mom.map((x, i) => barra(xm(i) - W * 0.38, xm(i) + W * 0.38, x, tope)).join('');
+    } else if (modo === 'jugadas') {
+      const val = new Array(Math.ceil(fin) + 1).fill(0);
+      reales.forEach((q) => { const m = Math.floor(q.m); if (val[m] != null) val[m] += (q.lado === 0 ? 1 : -1) * q.w; });
+      const suave = val.map((_, i) => val.slice(Math.max(0, i - 3), i + 1).reduce((a, b, kk, arr) => a + b * (kk + 1) / arr.length, 0));
+      const tope = Math.max(1, ...suave.map(Math.abs)), W = 100 / fin;
+      barras = suave.map((x, i) => barra(xm(i) - W * 0.38, xm(i) + W * 0.38, x, tope)).join('');
+    } else if (modo === 'mitades') {
+      // una barra ancha por tiempo, hasta el minuto que va
+      const hasta = Math.min(ahora || fin, fin);
+      barras = [[0, 45, mits[0]], [45.5, fin, mits[1]]].map(([a, b, x]) => (x == null || hasta <= a ? '' : barra(xm(a) + 0.4, xm(Math.min(b, hasta)) - 0.4, x || 0.05, 1))).join('');
+    }
+    const ola = '<svg class="presion-svg' + (modo === 'linea' ? ' linea' : '') + '" viewBox="0 0 100 24" preserveAspectRatio="none" aria-label="' +
+      ({ momentum: 'Presión minuto a minuto', jugadas: 'Presión minuto a minuto', mitades: 'Presión por tiempo', linea: 'El partido minuto a minuto' }[modo]) + '">' +
+      (modo === 'linea' ? '<line x1="0" y1="12" x2="100" y2="12" class="pista"/><line x1="0" y1="12" x2="' + xm(ahora).toFixed(1) + '" y2="12" class="va"/>' : barras) +
+      '<line x1="' + xm(45.5).toFixed(2) + '" y1="1" x2="' + xm(45.5).toFixed(2) + '" y2="23" class="eje medio"/>' + (modo === 'linea' ? '' : '<line x1="0" y1="12" x2="100" y2="12" class="eje"/>') + '</svg>';
+    const tiempos = '<div class="ola-tiempos"><span style="width:' + xm(45.5).toFixed(1) + '%">1.er tiempo</span><span>2.º tiempo</span></div>';
+    // v432/v460 — un ⚽ en el minuto de cada gol y las tarjetas (arriba el local, abajo el visitante):
+    // de la fuente elegida y, si ésta no los trae, de FotMob
+    const marcas = reales.filter((q) => /Gol|Tarjeta/.test(q.txt)).map((q) => ({ m: q.m, lado: q.lado, tipo: /Tarjeta/.test(q.txt) ? q.txt.slice(0, 2) : 'gol', txt: q.txt.replace(/<[^>]+>/g, '') }));
+    if (!marcas.length && pfm && Array.isArray(pfm.eventos)) pfm.eventos.forEach((e) => marcas.push({ m: e.m <= 45 && e.extra ? 45 : e.m, lado: e.local ? 0 : 1,
+      tipo: e.tipo === 'gol' ? 'gol' : e.tipo === 'roja' ? '🟥' : '🟨', txt: (e.tipo === 'gol' ? 'Gol' : 'Tarjeta') + ' · ' + e.m + (e.extra ? '+' + e.extra : '') + "'" }));
     const vistoGol = new Set();
-    const goles = reales.filter((q) => /Gol|Tarjeta/.test(q.txt)).filter((q) => { const g = Math.round(q.m) + '|' + q.lado; if (vistoGol.has(g)) return false; vistoGol.add(g); return true; }).map((q) => '<span class="ola-gol ' + (q.lado === 0 ? 'arriba' : 'abajo') +
-      '" style="left:' + Math.min(98, 100 * q.m / fin).toFixed(1) + '%" title="' + esc(q.txt.replace(/<[^>]+>/g, '')) + '">' + (/Tarjeta/.test(q.txt) ? q.txt.slice(0, 2) : '⚽') + '</span>').join('');
+    const goles = marcas.filter((q) => { const g = Math.round(q.m) + '|' + q.lado + '|' + q.tipo; if (vistoGol.has(g)) return false; vistoGol.add(g); return true; })
+      .map((q) => '<span class="ola-gol ' + (q.lado === 0 ? 'arriba' : 'abajo') + '" style="left:' + Math.min(98, xm(q.m)).toFixed(1) + '%" title="' + esc(q.txt) + '">' + (q.tipo === 'gol' ? '⚽' : q.tipo) + '</span>').join('');
+    const pocas = modo === 'linea';
     const fm = onceReal && d && onceReal === d.once ? d.formacion : onceReal && v ? v.formacion : null;
     const form = fm && (fm[0] || fm[1]) ? '<small class="tenue">' + esc(fm[0] || '') + ' vs ' + esc(fm[1] || '') + '</small>' : '';
     // v434 — el usuario: «el menos texto posible»; lo demás queda en el tooltip
     const leyenda = '<div class="cancha-ley" title="Tamaño del tiro = peligro (xG). Animación aproximada según el juego."><span><i class="l-tiro"></i>tiro</span><span><i class="l-gol"></i>gol</span></div>';
-    return '<div class="cancha">' + cab + s + leyenda + '<div class="cancha-tit"><span>' + (pocas ? '' : 'Presión') + '</span>' + form + '</div><div class="ola">' + ola + goles + '</div></div>';
+    return '<div class="cancha">' + cab + s + leyenda + '<div class="cancha-tit"><span>' + ({ momentum: 'Presión', jugadas: 'Presión', mitades: 'Presión por tiempo', linea: '' }[modo]) + '</span>' + form + '</div><div class="ola">' + ola + goles + '</div>' + tiempos + '</div>';
   }
   // v431 — EL MOTOR: QUE LA CANCHA SE VEA COMO EL PARTIDO. El usuario: «no me
   // gusta que las bolitas se queden estáticas… no se entienden las circunferencias
@@ -814,7 +865,10 @@
   //     están cerca del balón se mueven de verdad: el rival más cercano presiona
   //     entre el portador y su portería y otro cubre; los lejanos sólo se acomodan.
   function moverCanchas() {
+    if (document.hidden) return;                       // v465 — en segundo plano no se mueve nada
     document.querySelectorAll('.cancha-svg[data-motor]').forEach((svg) => {
+      const rc = svg.getBoundingClientRect();
+      if (rc.bottom < 0 || rc.top > window.innerHeight || !rc.height) return;   // v465 — fuera de la pantalla, quieta
       const k = svg.dataset.motor, m = estado.motor[k];
       if (!m) return;
       const quieto = m.pausa;
@@ -928,7 +982,33 @@
   }
   setInterval(moverCanchas, 1000);
 
-  function miniStats(v) {
+  // v462 — el usuario: «a veces las barras de estadísticas en vivo no se muestran (Al Nassr)»:
+  // ESPN no las publica en vivo en algunas ligas. Respaldo, en este orden: 365Scores (se
+  // pide cada 20 s para los partidos abiertos) y FotMob (por /presion). Nunca se mezclan.
+  function statsRespaldo(p) {
+    if (!p || p.deporte !== 'Fútbol') return null;
+    const k = clavePartido(p), gid = estado.p365[k], h = gid ? estado.s365[gid] : null, gir = !!estado.p365[k + '|girado'];
+    const u = h && h.length ? h[h.length - 1].v : null;
+    const par = (a, voltea) => (a ? { v: (voltea ? [a[1], a[0]] : [a[0], a[1]]).map(String) } : null);
+    const limpia = (o) => { const r = Object.fromEntries(Object.entries(o).filter(([, x]) => x)); return Object.keys(r).length ? r : null; };
+    if (u && (u[3] || u[10])) return limpia({ possessionPct: par(u[10], gir), totalShots: par(u[3], gir), shotsOnTarget: par(u[4], gir), wonCorners: par(u[8], gir) });
+    const t = estado.pfm[k] && estado.pfm[k].todo;
+    if (t) return limpia({ possessionPct: par(t.pos), totalShots: par(t.tiros), shotsOnTarget: par(t.puerta), wonCorners: par(t.corners),
+      yellowCards: par(t.amarillas), foulsCommitted: par(t.faltas) });
+    return null;
+  }
+  const conRespaldo = (v, p) => {
+    if (!v || (v.stats && Object.keys(v.stats).length && !statsVacias(v))) return v;
+    const r = statsRespaldo(p);
+    return r ? Object.assign({}, v, { stats: r }) : v;
+  };
+  // v462 — la compensación anunciada (FotMob): «+4 min de compensación»
+  function compensacion(p, v) {
+    const c = p && estado.pfm[clavePartido(p)] && estado.pfm[clavePartido(p)].compensacion;
+    return c && v && v.fase === 'in' ? '<div class="compen">' + ico('timer') + ' +' + c.min + ' min de compensación' + (c.tiempo === 1 ? ' en el 1.er tiempo' : '') + '</div>' : '';
+  }
+  function miniStats(v, p) {
+    v = conRespaldo(v, p);
     if (!v || !v.stats) return '';
     if (v.fase === 'in' && statsVacias(v)) return AVISO_SIN_STATS;
     const q = [['totalShots', 'Tiros'], ['shotsOnTarget', 'A puerta'], ['wonCorners', 'Córners']].filter(([k]) => v.stats[k]);
@@ -1095,7 +1175,7 @@
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
       iaBloque(p, L, V, (ps.find((x) => x.ctx) || {}).ctx) +
-      miniStats(v) + (v && v.fase === 'in' ? cancha(v, p) : '') +
+      compensacion(p, v) + miniStats(v, p) + (v && (v.fase === 'in' || v.fase === 'post') ? cancha(v, p) : '') +   // v460: también al terminar
       ps.map((x) => filaPick(x, v, ps.length > 1)).join('') +
       (ps.some((x) => x.espn) ? '<button class="ver" data-ficha="' + esc((ps.find((x) => x.espn) || p).id) + '">Ver partido →</button>' : '') +
       '</article>';
@@ -1185,7 +1265,7 @@
       (a.goles_local_esperados != null && a.goles_visita_esperados != null
         ? filaStat(U.charAt(0).toUpperCase() + U.slice(1) + ' esperados', a.goles_local_esperados, a.goles_visita_esperados, true) : '') +
       (ctx && ctx.sl && ctx.sv ? '<div class="ctx-tit">📊 Lo que usó (promedio de sus últimos partidos)</div>' +
-        [['gf', 'Goles a favor'], ['gc', 'Goles en contra'], ['cor', 'Córners'], ['tap', 'Tiros a puerta'], ['tar', 'Amarillas']]
+        [['gf', 'Goles a favor'], ['gc', 'Goles en contra'], ['tir', 'Tiros'], ['cor', 'Córners'], ['tap', 'Tiros a puerta'], ['tar', 'Amarillas']]
           .filter(([k]) => ctx.sl[k] != null && ctx.sv[k] != null)
           .map(([k, et]) => filaStat(et, ctx.sl[k], ctx.sv[k], true)).join('') : '') +
       (a.pick_ia && a.pick_ia !== 'ninguno' ? '<div class="ia-pred">Su pick favorito: <b>' + esc(a.pick_ia) + '</b> ' + (a.coincide ? '✅ coincide con nuestro análisis' : '⚠️ ve el partido distinto') + '</div>' : '') +
@@ -1212,7 +1292,7 @@
     if (ctx.sl && ctx.sv) {
       const pc = (x) => (x == null ? '-' : Math.round(100 * x) + ' %');
       const filas = [['gf', 'Goles a favor', (x) => x], ['gc', 'Goles en contra', (x) => x], ['o25', 'Partidos con +2.5 goles', pc],
-        ['btts', 'Ambos anotan', pc], ['cor', 'Córners', (x) => x], ['tap', 'Tiros a puerta', (x) => x], ['tar', 'Amarillas', (x) => x], ['pos', 'Posesión %', (x) => x]]
+        ['btts', 'Ambos anotan', pc], ['tir', 'Tiros', (x) => x], ['cor', 'Córners', (x) => x], ['tap', 'Tiros a puerta', (x) => x], ['tar', 'Amarillas', (x) => x], ['pos', 'Posesión %', (x) => x]]
         .filter(([k]) => ctx.sl[k] != null && ctx.sv[k] != null);
       h += '<div class="ctx-tit">Promedio de sus últimos ' + Math.min(ctx.sl.n, ctx.sv.n) + ' partidos</div><div class="leyenda"><span class="l">' + esc(L) + '</span><span class="r">' + esc(V) + '</span></div>' +
         filas.map(([k, et, f]) => filaStat(et, f(ctx.sl[k]), f(ctx.sv[k]), true)).join('');
@@ -1246,25 +1326,29 @@
     } catch (e) { /* sin red: la ficha queda sin estadísticas */ }
   }
   function ficha(id) {
-    const p = estado.picks.find((x) => x.id === id); if (!p) return;
+    // v461 — el usuario: «a veces le pongo Ver partido y no me lleva a ningún lado»: sólo buscaba en
+    // los picks; las tarjetas de «sólo análisis» viven aparte. Ahora busca en las dos.
+    const todos = estado.picks.concat(estado.analisis || []);
+    const p = todos.find((x) => x.id === id); if (!p) return;
     fichaId = id;
     if (p.espn && !estado.vivo[p.espn]) { pedirResumen(p).then(() => { if (fichaId === id) ficha(id); pintar(); }); }
     const v = estado.vivo[p.espn];
     const [L, V] = lados(p);
-    const otras = (agrupar(estado.picks.filter((x) => clavePartido(x) === clavePartido(p)))[0]) || [p];
+    const otras = (agrupar(todos.filter((x) => clavePartido(x) === clavePartido(p) && !x.solo_analisis))[0]) || [];
     let h = '<button class="cerrar" data-cerrar>✕</button>' +
       '<div class="equipos grande"><div class="eq">' + escudo(p.logo_h, L) + '<span>' + esc(L) + '</span></div>' +
       '<div class="marc">' + (v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : 'vs') + '<small>' + esc(v ? v.detalle : horaCdmx(aFecha(p.inicio))) + '</small></div>' +
       '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>';
     h += cancha(v, p);                   // v427/v429 — la cancha en vivo
     setTimeout(vivo365, 50);
-    h += '<h3>Nuestras apuestas en este partido</h3>' + otras.map((x) => {
+    h += (otras.length ? '<h3>Nuestras apuestas en este partido</h3>' : '') + otras.map((x) => {
       const pr = progreso(x, v);
       return '<div class="linea-ap"><span>' + nivel(x).i + ' ' + (window.SPX ? SPX.apuesta(x) : esc(x.apuesta)) + ' · ' + (x.cuota ? Number(x.cuota).toFixed(2) : '') + '</span>' +
         (pr ? '<span class="progreso ' + pr.e + '">' + esc(pr.t) + '</span>' : '<span class="tenue">' + pct(x.prob) + '</span>') + '</div>';
     }).join('');
-    if (v && Object.keys(v.stats).length) {
-      h += '<h3>Estadísticas</h3><div class="leyenda"><span class="l">' + esc(L) + '</span><span class="r">' + esc(V) + '</span></div>' + estadisticas(p, v);
+    const vs = conRespaldo(v, p);                                      // v462 — con respaldo si ESPN no las trae
+    if (vs && Object.keys(vs.stats || {}).length) {
+      h += compensacion(p, v) + '<h3>Estadísticas</h3><div class="leyenda"><span class="l">' + esc(L) + '</span><span class="r">' + esc(V) + '</span></div>' + estadisticas(p, vs);
     } else {
       h += '<p class="tenue">Las estadísticas aparecen aquí en cuanto empieza el partido.</p>';
     }
@@ -1294,6 +1378,7 @@
   estado.liga = '';
   estado.abiertos = new Set();
   estado.ligasCerradas = new Set();
+  estado.ligasAbiertas = new Set();     // v461 — el usuario: «que cada liga salga minimizada para que no ocupe tanto»
   estado.verFinales = false;
 
   function vivoDe(ps) {
@@ -1325,7 +1410,9 @@
     return '<span class="rl">' + (d ? new Intl.DateTimeFormat('es-MX', { timeZone: ZONA, hour: '2-digit', minute: '2-digit' }).format(d) : '') + '</span>';
   }
   function resumenPicks(ps) {
-    const v = ps.filter((x) => x.estado === 'verde').length, r = ps.filter((x) => x.estado === 'roja').length;
+    // v463 — con el resultado al pitazo (no sólo el del servidor) y dicho en la tarjeta: «Verde» / «Roja»
+    const es = ps.map((x) => estadoVisto(x)), v = es.filter((e) => e === 'verde').length, r = es.filter((e) => e === 'roja').length;
+    if (ps.length === 1 && (v || r)) return v ? '<span class="ok res">✅ Verde</span>' : '<span class="ko res">❌ Roja</span>';
     if (v || r) return (v ? '<span class="ok">✅' + (v > 1 ? v : '') + '</span>' : '') + (r ? '<span class="ko">❌' + (r > 1 ? r : '') + '</span>' : '');
     return '';
   }
@@ -1429,6 +1516,10 @@
       abiertas.add(c.dataset.k + '|' + d.className + '|' + i);
     });
     let ancla = null;
+    // v461 — el usuario: «al abrir la app se baja sola». Hasta arriba no hay nada que
+    // sostener: si se anclaba a la 1.ª tarjeta y luego aparecían Destacados o «Para ti»
+    // encima, la página «la seguía» hacia abajo. Sólo se ancla si el usuario ya bajó.
+    if (window.scrollY < 40) return { abiertas, ancla };
     for (const c of document.querySelectorAll('[data-k]')) {
       const r = c.getBoundingClientRect();
       if (r.bottom > 0 && r.height) { ancla = { k: c.dataset.k, top: r.top }; break; }
@@ -1461,6 +1552,14 @@
     let lista = listaConAnalisis();
     const deps = ['Todos'].concat([...new Set(lista.map((p) => p.deporte).filter(Boolean))].sort());
     // varios a la vez: un conjunto (vacío = todos); lo que ya no hay hoy se suelta
+    // v461 — el usuario: «que la primera opción sea fútbol (o el deporte que escogieron al inicio);
+    // en Todos tarda». Mientras el usuario no toque el filtro, se elige solo.
+    if (!estado.depTocado && deps.length > 1) {
+      const it = window.SPX && SPX.intereses ? SPX.intereses() : null;
+      const pref = it && it.deportes ? [...it.deportes].find((d) => deps.includes(d)) : null;
+      const ini = pref || (deps.includes('Fútbol') ? 'Fútbol' : null);
+      if (ini) estado.deportes = new Set([ini]);
+    }
     estado.deportes = new Set([...(estado.deportes || [])].filter((d) => deps.includes(d)));
     estado.niveles = estado.niveles || new Set();
     const ICO = new Proxy({}, { get: (_, d) => icoDep(d) });
@@ -1544,7 +1643,7 @@
     }
     $('tarjetas').innerHTML = pintarLigas(ligas) + finHtml;
     function pintarLigas(mapa) { return [...mapa.entries()].map(([l, gs]) => {
-      const cerrada = estado.ligasCerradas.has(l);
+      const cerrada = !(estado.busca || '').trim() && !estado.ligasAbiertas.has(l);
       const dia = gs.filter((g) => g[0].elige).length;
       return '<section class="liga-bloque"><button class="liga-cab" data-liga="' + esc(l) + '"><span>' + esc(l) + '</span>' +
         '<small>' + (dia ? '💎 ' + dia + ' · ' : '') + gs.length + ' ' + (gs.length === 1 ? 'partido' : 'partidos') + ' ' + (cerrada ? '▸' : '▾') + '</small></button>' +
@@ -1569,7 +1668,7 @@
       (n === 1 ? ' partido hoy' : ' partidos hoy') + ', pero ninguno llegó a nuestro mínimo de probabilidad. Preferimos no darte un pick flojo.</div>').join(''));
   }
 
-  window.SP = { nivel, pintar, estado, estadoVisto: (p) => estadoVisto(p), realDe: (p) => realDe(p), ico, icoDep };   // v452: «Mis combinadas» usa lo mismo
+  window.SP = { nivel, pintar, estado, estadoVisto: (p) => estadoVisto(p), realDe: (p) => realDe(p), ico, icoDep, pedirResumen: (p) => pedirResumen(p) };   // v452: «Mis combinadas» usa lo mismo
 
   // v440 — DESLIZAR PARA QUITAR (sólo en «Mis picks», con el dedo): la fila se
   // corre a la izquierda y deja ver «Quitar»; si el gesto es vertical, es scroll.
@@ -1615,16 +1714,23 @@
     if (t.dataset.dia) { estado.dia = t.dataset.dia; document.querySelectorAll('#pestanas button').forEach((x) => x.classList.toggle('activa', x === t)); pintar(); return; }
     // tocar uno lo prende o lo apaga; «Todos» limpia
     const alterna = (s, v) => { if (v === 'Todos') s.clear(); else if (s.has(v)) s.delete(v); else s.add(v); };
-    if (t.dataset.dep) { alterna(estado.deportes, t.dataset.dep); pintar(); return; }
+    if (t.dataset.dep) { estado.depTocado = true; alterna(estado.deportes, t.dataset.dep); pintar(); return; }
     if (t.dataset.niv) { alterna(estado.niveles, t.dataset.niv); pintar(); return; }
     if (t.dataset.fase) { estado.fase = t.dataset.fase; pintar(); return; }
     if (t.dataset.ficha) { ficha(t.dataset.ficha); return; }
-    if (t.dataset.liga) { const l = t.dataset.liga; estado.ligasCerradas.has(l) ? estado.ligasCerradas.delete(l) : estado.ligasCerradas.add(l); pintar(); return; }
+    if (t.dataset.liga) { const l = t.dataset.liga; estado.ligasAbiertas.has(l) ? estado.ligasAbiertas.delete(l) : estado.ligasAbiertas.add(l); pintar(); return; }
     if (t.dataset.abrir) {
       const k = t.dataset.abrir;
       if (Date.now() - (estado.sinClic || 0) < 450) return;                 // v440: fue un deslizar, no un toque
       if (estado.deslizado) { const f = estado.deslizado; estado.deslizado = null; if (f === k || !t.dataset.ir) { pintar(); return; } }
-      if (t.dataset.ir) { estado.abiertos.add(k); estado.fase = 'todos'; estado.niveles = new Set(); }
+      if (t.dataset.ir) {
+        estado.abiertos.add(k); estado.fase = 'todos'; estado.niveles = new Set();
+        const g = estado.grupos && estado.grupos.get(k), p0 = g && g[0];
+        if (p0) {
+          estado.ligasAbiertas.add((p0.deporte === 'Tenis' ? '🎾 ' : '') + (p0.liga || p0.deporte || 'Otros'));
+          if (estado.deportes && estado.deportes.size && !estado.deportes.has(p0.deporte)) estado.deportes.add(p0.deporte);
+        }
+      }
       else {
         if (estado.abiertos.has(k)) estado.abiertos.delete(k); else estado.abiertos.add(k);
         const fila = t.closest('.partido-fila'), g = estado.grupos && estado.grupos.get(k);

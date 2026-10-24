@@ -266,7 +266,7 @@ def probar_v434():
           'v434: pases de 6 a 28 m, de preferencia hacia adelante, con su línea')
     check('const f = q === port ? 1 : quieto ? 0.5 : m.escena ? 0.6 : 0.38;' in app and 'm.pos[q.key] = [q.cx, q.cy];' in app,
           'v434: cada quien va a su lugar con inercia; el lugar sobrevive a los repintados')
-    check('const barras = suave.map(' in app and '<polygon points="0,12' not in app, 'v434: la presión en barras por minuto, como Sofascore')
+    check('barras = suave.map((x, i) => barra(' in app and '<polygon points="0,12' not in app, 'v434: la presión en barras por minuto, como Sofascore')
     check('if (!m.ini && reales.length) {' in app and 'reales.forEach((q) => m.vistas.add(q.id));' in app and 'q.m < (m.minuto || 0) - 2' in app
           and 'reales.slice(0, -1)' not in app, 'v434: al abrir una tarjeta en vivo, la cancha va en el minuto que corre (no repite lo ya pasado)')
     check('class="bola"' in app and 'class="penta"' in app and '.cancha-svg .balon .bola { fill: #fff; stroke: #0b1220;' in css,
@@ -288,7 +288,7 @@ def probar_v434():
     check("sb.from('ia_calificaciones').upsert(" in cu and 'SPX.votoIA(a.id)' in app and "a.noticias ? '<div class=\"ia-noti\">" in app,
           'v446: la IA enseña sus noticias y se califica con 👍/👎 (sólo para medir)')
     check('🥇 Anota primero' in app and 'function primerYPa1(lh, la)' in app and '🏁 PA1' in app and 'data-ia-motivo="' not in cu, 'v447: «quién anota primero» en la IA; 👍/👎 sin motivos')
-    check('estadoVisto: (p) => estadoVisto(p)' in app and 'window.SP.estadoVisto(pickDe(p.id))' in cu and "yaRoja ? '<span class=\"et roja\"" in cu
+    check('estadoVisto: (p) => estadoVisto(p)' in app and 'window.SP.estadoVisto(pickDe(p.id) || p)' in cu and "yaRoja ? '<span class=\"et roja\"" in cu
           and "c.estado === 'pendiente' && !yaRoja && (pr || !yaVerde) ?" in cu, 'v452: «Mis combinadas» se pone verde/roja en vivo y al pitazo, sin esperar al servidor')
     check("sb.from('calibracion_picks').select('*').order('orden')" in cu and 'async function calibracionPicks()' in cu and 'id="calibracion"' in leer('web', 'index.html')
           and 'create or replace view public.calibracion_picks' in leer('supabase', 'v453_calibracion.sql'),
@@ -308,6 +308,19 @@ def probar_v434():
           'v458: siluetas mientras carga en vez de «Cargando…»')
     check('function estadoCombVisto(c, extra)' in cu and "estadoCombVisto(c, h.extra) !== 'pendiente'" in cu and "estadoCombVisto(c, h.extra) === 'pendiente'" in cu,
           'v459: la combinada decidida al pitazo pasa al historial al momento (no espera al servidor)')
+    check("const modo = mom ? 'momentum' : !pocasJugadas ? 'jugadas' : mits && mits.some((x) => x != null) ? 'mitades' : 'linea';" in app
+          and "fetch('/presion?f='" in app and 'class="ola-tiempos"' in app and "(v.fase === 'in' || v.fase === 'post') ? cancha(v, p)" in app,
+          'v460: presión en todos (FotMob minuto a minuto → jugadas → por tiempo → línea), partida en 1T|2T y también al terminar')
+    check('enTiempo(j.seg / 60, j.per)' in app, 'v460: lo del tiempo agregado del 1T no cae en el 2T')
+    check('if (window.scrollY < 40) return { abiertas, ancla };' in app, 'v461: al abrir, la página no se baja sola')
+    check('estado.ligasAbiertas' in app and 'const todos = estado.picks.concat(estado.analisis || []);' in app and 'estado.depTocado' in app,
+          'v461: ligas plegadas, «Ver partido» también en sólo análisis, Fútbol (o su deporte) de entrada')
+    check('function statsRespaldo(p)' in app and 'function compensacion(p, v)' in app, 'v462: estadísticas en vivo con respaldo (365Scores/FotMob) y la compensación')
+    check('const atrasado = p.estado' in app and "'<span class=\"ok res\">✅ Verde</span>'" in app and "window.SP.pedirResumen(p)" in cu,
+          'v463: lo que ya terminó se pone verde/rojo al momento (también las patas de días pasados)')
+    check("['tir', 'Tiros']" in app, 'v464: los tiros en «Antes del partido» y en lo que usó la IA')
+    check('if (document.hidden && estado.vivoPrimera) return;' in app and 'const n = Math.min(8, resto.length);' in app
+          and 'body::before, body::after { animation: none !important; }' in css, 'v465: menos carga (ESPN por turnos, nada en segundo plano, fondo quieto)')
     ix = leer('web', 'index.html')
     check(ix.count('<details class="ay-sec"') == 5 and '🔗 Mis combinadas y sus monedas' in ix and '<td>5.00 o más</td><td>+5 🪙</td>' in ix
           and 'Se premia <b>una combinada por día</b>' in ix, 'v444: la Ayuda en secciones, con la tabla de monedas de las combinadas')
@@ -326,11 +339,11 @@ def probar_v434():
           'v436: una fuente por cosa, sin mezclar (los goles ya no salen dos veces en la presión)')
     check('function puestoEspn(a)' in app and 'v && v.once && v.once.length >= 18 ? v.once' in app and 'BASE_442.flatMap(' in app,
           'v436: si 365Scores no trae la alineación, la de ESPN; la cancha nunca se queda sin jugadores')
-    check("const pocas = reales.filter((q) => q.w > 0).length < 4;" in app and '.presion-svg.linea .va' in css,
+    check("const pocasJugadas = reales.filter((q) => q.w > 0).length < 4;" in app and '.presion-svg.linea .va' in css,
           'v436: sin jugadas suficientes no se inventa la presión: la línea del partido con goles y tarjetas')
     check("gid === null && Date.now() - (estado.p365[k + '|t'] || 0) > 120e3" in app and 'setInterval(vivo365, 20 * 1000);' in app,
           'v436: se vuelve a buscar el partido en 365Scores y se refresca cada 20 s')
-    check("(pocas ? '' : 'Presión')" in app and 'tamaño = peligro (xG)</span>' not in app, 'v434: el menos texto posible en la cancha')
+    check("mitades: 'Presión por tiempo', linea: '' }[modo]" in app and 'tamaño = peligro (xG)</span>' not in app, 'v434: el menos texto posible en la cancha')
 
 
 if __name__ == '__main__':
