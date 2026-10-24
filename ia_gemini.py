@@ -390,7 +390,8 @@ INSTRUCCION_WEB = (
 RSS = os.environ.get('IA_RSS', '1') != '0'
 RSS_URL = 'https://news.google.com/rss/search'
 _SIN_INFO = __import__('re').compile(r'd[oó]nde ver|hora y (canal|d[oó]nde)|canal y hora|en (vivo|directo)|comentarios en directo|'
-                                     r'resultados? en vivo|minuto a minuto|live stream', __import__('re').I)
+                                     r'resultados? en vivo|minuto a minuto|live stream|^watch |how to watch|where to watch|'
+                                     r'live score|tv channel|kick-?off time', __import__('re').I)
 
 
 def _nombre_busqueda(equipo: str) -> str:
