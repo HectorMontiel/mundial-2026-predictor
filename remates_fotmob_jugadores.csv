@@ -13981,22 +13981,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5847129,2026-08-01,rus_premier,Baltika,Vladislav Pospelov,1685407,F,0,22,0,0,0,0.0,,3.0,
 5847129,2026-08-01,rus_premier,Baltika,Eldar Civic,564840,M,0,20,0,0,0,0.0,,2.0,727466.0
 5847129,2026-08-01,rus_premier,Baltika,Ivan Belikov,1804835,M,0,2,0,0,0,0.0,,2.0,1503462.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Kurban Rasulov,1524203,G,1,90,0,0,0,0.0,11.0,0.0,1151529.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Leon Zaydenzal,1463770,D,1,65,0,0,0,0.0,32.0,1.0,
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Maksim Osipenko,731584,D,1,90,1,0,0,0.03,34.0,1.0,1949173.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,David Ricardo,1373118,D,1,90,1,0,0,0.03,36.0,1.0,7896872.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Dmitriy Skopintsev,658455,D,1,82,0,0,0,0.0,38.0,1.0,1814291.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Daniil Fomin,741084,M,1,90,0,0,0,0.0,73.0,2.0,5859555.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Danil Glebov,926228,M,1,65,0,0,0,0.0,75.0,2.0,7269800.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Bitello,1248665,M,1,90,0,0,0,0.0,77.0,2.0,13864761.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Yaroslav Gladyshev,1203519,F,1,65,1,0,0,0.08,103.0,3.0,4422602.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Konstantin Tyukavin,1136015,F,1,90,3,1,0,0.17,105.0,3.0,17108963.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Arthur,689051,F,1,90,5,2,1,0.34,107.0,3.0,2041160.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Juan Cáceres,1133495,D,0,25,1,0,0,0.01,,1.0,2456969.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Timofey Marinkin,1839136,M,0,25,1,0,0,0.04,,2.0,1290184.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Ivan Sergeyev,658510,F,0,25,1,0,0,0.05,,3.0,1976496.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Rubens,1213750,M,0,8,1,0,0,0.02,,2.0,7624777.0
-5847129,2026-08-01,rus_premier,Dinamo Moscow,Anton Miranchuk,467232,M,0,1,0,0,0,0.0,,2.0,1143547.0
 5793900,2026-08-01,sco_premiership,Aberdeen,Marius Müller,308237,G,1,90,0,0,0,0.0,11.0,0.0,765398.0
 5793900,2026-08-01,sco_premiership,Aberdeen,Lewis Mayo,1067881,D,1,90,2,1,1,1.23,33.0,1.0,383299.0
 5793900,2026-08-01,sco_premiership,Aberdeen,Nesta Guinness-Walker,981179,M,1,83,0,0,0,0.0,35.0,2.0,319269.0
@@ -14657,22 +14641,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5186568,2026-08-01,china,Shandong Taishan,Wenneng Xie,1248506,M,0,44,0,0,0,0.0,,2.0,822153.0
 5186568,2026-08-01,china,Shandong Taishan,Raphaël Merkies,1717016,M,0,23,1,0,0,0.0,,2.0,482964.0
 5186568,2026-08-01,china,Shandong Taishan,Pedro Álvaro,822258,D,0,12,0,0,0,0.0,,1.0,1581928.0
-5803928,2026-08-01,polonia,Piast Gliwice,Domen Gril,1122644,G,1,90,0,0,0,0.0,11.0,0.0,407372.0
-5803928,2026-08-01,polonia,Piast Gliwice,Filip Borowski,1215026,D,1,58,0,0,0,0.0,32.0,1.0,282606.0
-5803928,2026-08-01,polonia,Piast Gliwice,Juan Rivas,989449,D,1,90,0,0,0,0.0,34.0,1.0,409636.0
-5803928,2026-08-01,polonia,Piast Gliwice,Igor Drapinski,1277126,D,1,90,0,0,0,0.0,36.0,1.0,1553265.0
-5803928,2026-08-01,polonia,Piast Gliwice,Jakub Lewicki,1385828,D,1,90,0,0,0,0.0,38.0,1.0,913634.0
-5803928,2026-08-01,polonia,Piast Gliwice,Oskar Lesniak,1393110,M,1,90,0,0,0,0.0,72.0,2.0,399155.0
-5803928,2026-08-01,polonia,Piast Gliwice,Quentin Boisgard,708012,M,1,58,3,0,0,0.5,74.0,2.0,180788.0
-5803928,2026-08-01,polonia,Piast Gliwice,Jakub Labojko,851429,M,1,90,3,2,1,0.88,76.0,2.0,186099.0
-5803928,2026-08-01,polonia,Piast Gliwice,Hugo Vallejo,1000854,M,1,74,1,1,1,0.1,78.0,2.0,552996.0
-5803928,2026-08-01,polonia,Piast Gliwice,Samuel Ntamack,1435842,F,1,45,2,2,1,0.22,104.0,3.0,
-5803928,2026-08-01,polonia,Piast Gliwice,Ivan Lima,1367046,F,1,45,3,0,0,0.15,106.0,3.0,
-5803928,2026-08-01,polonia,Piast Gliwice,Andreas Katsantonis,843042,F,0,44,0,0,0,0.0,,3.0,254980.0
-5803928,2026-08-01,polonia,Piast Gliwice,Szczepan Mucha,1415323,F,0,45,1,1,0,0.18,,3.0,258394.0
-5803928,2026-08-01,polonia,Piast Gliwice,Ema Twumasi,924451,D,0,32,0,0,0,0.0,,1.0,285147.0
-5803928,2026-08-01,polonia,Piast Gliwice,Jorge Félix,638080,F,0,32,0,0,0,0.0,,3.0,208761.0
-5803928,2026-08-01,polonia,Piast Gliwice,Leandro Sanca,1165261,F,0,16,2,2,1,0.16,,3.0,376430.0
 5803928,2026-08-01,polonia,Wisła Kraków,Marcel Lubik,1525382,G,1,90,0,0,0,0.0,11.0,0.0,1830345.0
 5803928,2026-08-01,polonia,Wisła Kraków,Raoul Giger,746515,D,1,34,0,0,0,0.0,32.0,1.0,72640.0
 5803928,2026-08-01,polonia,Wisła Kraków,Alan Uryga,312585,D,1,90,1,1,0,0.3,34.0,1.0,60000.0
@@ -14689,22 +14657,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5803928,2026-08-01,polonia,Wisła Kraków,Ángel Rodado,792640,F,0,45,6,1,0,1.39,,3.0,1153752.0
 5803928,2026-08-01,polonia,Wisła Kraków,Thody Élie Youan,989959,F,0,17,0,0,0,0.0,,3.0,928008.0
 5803928,2026-08-01,polonia,Wisła Kraków,Marc Carbó,802336,M,0,4,1,0,0,0.02,,2.0,60000.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Vitali Gudiev,360081,G,1,90,0,0,0,0.0,11.0,0.0,717287.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Yomar Rocha,1368559,D,1,62,0,0,0,0.0,32.0,1.0,1270429.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Rodrigo Escoval,704917,D,1,90,0,0,0,0.0,34.0,1.0,446224.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Marat Bokoev,1106894,D,1,90,0,0,0,0.0,36.0,1.0,1159575.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Roberto Fernández,921025,D,1,90,0,0,0,0.0,38.0,1.0,1311103.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Aleksa Durasovic,1323537,M,1,81,0,0,0,0.0,65.0,2.0,1525191.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Arseniy Dmitriev,1652652,F,1,84,1,1,1,0.03,82.0,3.0,1034896.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Konstantin Maradishvili,1035315,M,1,62,1,0,0,0.02,84.0,2.0,430463.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Stefan Loncar,557044,M,1,90,2,2,0,0.09,86.0,2.0,896460.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Gilson Benchimol,1241302,F,1,84,3,0,0,0.08,88.0,3.0,976940.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Slobodan Tedic,857469,F,1,90,1,1,0,0.35,115.0,3.0,1651868.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Vyacheslav Bardybahin,862859,D,0,28,1,0,0,0.04,,1.0,528174.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Kristijan Bistrovic,645576,M,0,28,0,0,0,0.0,,2.0,1129915.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Khetag Khosonov,807043,M,0,9,0,0,0,0.0,,2.0,911419.0
-5847128,2026-08-01,rus_premier,Akron Togliatti,Kevin Arévalo,1759904,F,0,6,0,0,0,0.0,,3.0,
-5847128,2026-08-01,rus_premier,Akron Togliatti,Yuri Zheleznov,1178827,F,0,6,1,0,0,0.02,,3.0,708058.0
 5847128,2026-08-01,rus_premier,Rubin Kazan,Evgeni Staver,949473,G,1,90,0,0,0,0.0,11.0,0.0,1467057.0
 5847128,2026-08-01,rus_premier,Rubin Kazan,Anderson Arroyo,1034755,D,1,82,1,1,1,0.35,32.0,1.0,1340906.0
 5847128,2026-08-01,rus_premier,Rubin Kazan,Yegor Teslenko,936922,D,1,90,0,0,0,0.0,34.0,1.0,2262687.0
@@ -16248,22 +16200,6 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 5853451,2026-08-03,rumania,FCV Farul Constanta,Ionut Larie,70583,D,0,25,0,0,0,0.0,,1.0,105261.0
 5853451,2026-08-03,rumania,FCV Farul Constanta,Nicolae Luca Banu,1410950,M,0,17,1,1,0,0.0,,2.0,
 5853451,2026-08-03,rumania,FCV Farul Constanta,Alexandru Goncear,1861021,M,0,1,0,0,0,0.0,,2.0,
-5803923,2026-08-03,polonia,Cracovia,Sebastian Madejski,539585,G,1,90,0,0,0,0.0,11.0,0.0,445958.0
-5803923,2026-08-03,polonia,Cracovia,Otar Kakabadze,463993,D,1,84,0,0,0,0.0,32.0,1.0,704448.0
-5803923,2026-08-03,polonia,Cracovia,Gustav Henriksson,957086,D,1,54,0,0,0,0.0,34.0,1.0,502468.0
-5803923,2026-08-03,polonia,Cracovia,Brahim Traoré,1243568,D,1,90,0,0,0,0.0,36.0,1.0,
-5803923,2026-08-03,polonia,Cracovia,Mauro Perkovic,1298565,D,1,90,2,0,0,0.09,38.0,1.0,2254948.0
-5803923,2026-08-03,polonia,Cracovia,Mateusz Klich,159342,M,1,83,2,1,0,0.16,73.0,2.0,202753.0
-5803923,2026-08-03,polonia,Cracovia,Beno Selan,1636001,M,1,55,1,1,0,0.05,75.0,2.0,767745.0
-5803923,2026-08-03,polonia,Cracovia,Amir Al-Ammari,858340,M,1,90,0,0,0,0.0,77.0,2.0,551886.0
-5803923,2026-08-03,polonia,Cracovia,Ajdin Hasic,1130070,F,1,90,4,2,0,0.1,103.0,3.0,1832479.0
-5803923,2026-08-03,polonia,Cracovia,Kahveh Zahiroleslam,1557028,F,1,67,6,2,0,0.77,105.0,3.0,319636.0
-5803923,2026-08-03,polonia,Cracovia,Dijon Kameri,1276631,M,1,90,2,1,0,0.09,107.0,2.0,949055.0
-5803923,2026-08-03,polonia,Cracovia,Vincent Burlet,1640211,F,0,36,2,0,0,0.14,,3.0,1280872.0
-5803923,2026-08-03,polonia,Cracovia,Martin Minchev,841180,F,0,35,0,0,0,0.0,,3.0,821536.0
-5803923,2026-08-03,polonia,Cracovia,Wiktor Bogacz,1461000,F,0,23,0,0,0,0.0,,3.0,1607963.0
-5803923,2026-08-03,polonia,Cracovia,Kacper Smiglewski,1436164,F,0,7,0,0,0,0.0,,3.0,328376.0
-5803923,2026-08-03,polonia,Cracovia,Dominik Pila,1116699,M,0,6,0,0,0,0.0,,2.0,485761.0
 5803923,2026-08-03,polonia,Pogoń Szczecin,Valentin Cojocaru,289211,G,1,90,0,0,0,0.0,11.0,0.0,325707.0
 5803923,2026-08-03,polonia,Pogoń Szczecin,Linus Wahlqvist Egnell,406506,D,1,60,1,0,0,0.04,32.0,1.0,822073.0
 5803923,2026-08-03,polonia,Pogoń Szczecin,Dimitrios Keramitsis,1329535,D,1,90,0,0,0,0.0,34.0,1.0,1553631.0
@@ -160933,3 +160869,211 @@ match_id,fecha,liga,equipo,jugador,jugador_id,posicion,titular,minutos,tiros,a_p
 1000017565,2026-10-24,aus_aleague,Auckland FC,Van Fitzharris,1863534,M,0,19,0,0,0,0.0,,2.0,
 1000017565,2026-10-24,aus_aleague,Auckland FC,Callan Elliot,1013276,D,0,8,0,0,0,0.0,,1.0,143622.0
 1000017565,2026-10-24,aus_aleague,Auckland FC,Jonty Bidois,1580225,F,0,4,0,0,0,0.0,,3.0,210735.0
+5977784,2026-10-24,fem_italia,Milan,Sandra Estévez,1546594,G,1,90,0,0,0,0.0,11.0,0.0,
+5977784,2026-10-24,fem_italia,Milan,Emma Koivisto,961617,D,1,90,1,0,0,0.0,32.0,1.0,
+5977784,2026-10-24,fem_italia,Milan,Julie Piga,1259181,D,1,90,0,0,0,0.0,34.0,1.0,
+5977784,2026-10-24,fem_italia,Milan,Angelica Soffia,1184915,D,1,90,1,1,1,0.0,36.0,1.0,
+5977784,2026-10-24,fem_italia,Milan,Nerea Nevado,1044488,D,1,87,1,0,0,0.0,38.0,1.0,
+5977784,2026-10-24,fem_italia,Milan,Soo-Jeong Park,1782454,F,1,66,1,0,0,0.0,73.0,3.0,
+5977784,2026-10-24,fem_italia,Milan,Marta Mascarello,1091718,M,1,90,2,2,0,0.0,75.0,2.0,
+5977784,2026-10-24,fem_italia,Milan,Christy Grimshaw,1102718,M,1,90,3,2,0,0.0,77.0,2.0,
+5977784,2026-10-24,fem_italia,Milan,Thea Kyvåg,1167460,F,1,65,2,0,0,0.0,103.0,3.0,
+5977784,2026-10-24,fem_italia,Milan,Mawa Sesay,1404118,F,1,80,1,0,0,0.0,105.0,3.0,
+5977784,2026-10-24,fem_italia,Milan,Sara Stokić,1671226,F,1,90,7,3,2,0.0,107.0,3.0,
+5977784,2026-10-24,fem_italia,Milan,Giorgia Arrigoni,1340649,M,0,24,1,0,0,0.0,,2.0,
+5977784,2026-10-24,fem_italia,Milan,Monica Renzotti,1350130,F,0,25,1,0,0,0.0,,3.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Gloria Ciccioli,1185024,G,1,90,0,0,0,0.0,11.0,0.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Cíntia Martins,1684280,D,1,62,1,0,0,0.0,32.0,1.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Eleonora Pacioni,1290580,D,1,90,0,0,0,0.0,34.0,1.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Marika Massimino,1329053,D,1,90,0,0,0,0.0,36.0,1.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Martina Toniolo,1184932,D,1,90,1,0,0,0.0,38.0,1.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Lucia Pastrenge,1213691,M,1,90,0,0,0,0.0,73.0,2.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Stephanie Breitner,879855,M,1,90,0,0,0,0.0,75.0,2.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Maria Petrara,1329065,F,1,90,0,0,0,0.0,77.0,3.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Sofie Hornemann,1076480,F,1,63,1,0,0,0.0,103.0,3.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Alice Regazzoli,1184902,M,1,90,0,0,0,0.0,105.0,2.0,
+5977784,2026-10-24,fem_italia,Ternana Femminile,Courtney Strode,1807421,F,1,90,0,0,0,0.0,107.0,3.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Stina Johannes,896085,G,1,90,0,0,0,0.0,11.0,0.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Thea Bjelde,784540,D,1,90,0,0,0,0.0,32.0,1.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Lieske Carleer,1684317,D,1,90,0,0,0,0.0,34.0,1.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Camilla Küver,1195311,D,1,90,3,1,1,0.0,36.0,1.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Sarai Linder,884218,D,1,90,0,0,0,0.0,38.0,1.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Janina Minge,896372,M,1,66,1,0,0,0.0,65.0,2.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Svenja Huth,294952,F,1,80,1,1,0,0.0,82.0,3.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Kessya Bussy,1192872,F,1,67,2,1,0,0.0,84.0,3.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Ella Peddemors,1091627,M,1,90,5,2,2,0.0,86.0,2.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Lena Lattwein,889551,M,1,90,1,0,0,0.0,88.0,2.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Lara Prašnikar,898505,F,1,90,0,0,0,0.0,115.0,3.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Joelle Wedemeyer,734709,D,0,16,1,1,0,0.0,,1.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Katharina Piljić,1345245,M,0,24,1,0,0,0.0,,2.0,
+5934555,2026-10-24,fem_alemania,VfL Wolfsburg,Cora Zicai,1238107,F,0,23,2,0,0,0.0,,3.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Lisa Schmitz,898494,G,1,90,0,0,0,0.0,11.0,0.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Celina Degen,1301448,D,1,90,1,0,0,0.0,33.0,1.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Amelie Bohnen,1638297,D,1,90,0,0,0,0.0,35.0,1.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Marina Hegering,881818,D,1,90,0,0,0,0.0,37.0,1.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Carlotta Imping,1544532,D,1,81,3,1,0,0.0,71.0,1.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Laura Feiersinger,856553,M,1,67,1,1,0,0.0,73.0,2.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Laura Vogt,1406574,M,1,90,0,0,0,0.0,75.0,2.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Carolin Elsen,1680148,M,1,90,1,0,0,0.0,77.0,2.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Vanessa Leimenstoll,1301452,M,1,90,0,0,0,0.0,79.0,2.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Pauline Bremer,646017,F,1,90,2,0,0,0.0,104.0,3.0,
+5934555,2026-10-24,fem_alemania,FC Köln,Lydia Andrade,1091496,F,1,67,1,0,0,0.0,106.0,3.0,
+5904777,2026-10-24,turquia,Eyüpspor,Emre Bilgin,1178124,G,1,90,0,0,0,0.0,11.0,0.0,509637.0
+5904777,2026-10-24,turquia,Eyüpspor,Talha Ülvan,1393698,D,1,90,2,1,0,0.08,32.0,1.0,546821.0
+5904777,2026-10-24,turquia,Eyüpspor,Jawad El Yamiq,798736,D,1,90,1,0,0,0.02,34.0,1.0,286552.0
+5904777,2026-10-24,turquia,Eyüpspor,Zak Jules,708872,D,1,90,2,0,0,0.03,36.0,1.0,324901.0
+5904777,2026-10-24,turquia,Eyüpspor,Simone Giordano,1346625,D,1,90,0,0,0,0.0,38.0,1.0,651822.0
+5904777,2026-10-24,turquia,Eyüpspor,Taşkın İlter,589567,M,1,66,0,0,0,0.0,64.0,2.0,246510.0
+5904777,2026-10-24,turquia,Eyüpspor,Chandrel Massanga,1120319,M,1,90,1,0,0,0.02,66.0,2.0,281878.0
+5904777,2026-10-24,turquia,Eyüpspor,Konrad Michalak,815981,F,1,46,0,0,0,0.0,83.0,3.0,294981.0
+5904777,2026-10-24,turquia,Eyüpspor,David Costa,1523340,M,1,73,0,0,0,0.0,85.0,2.0,299813.0
+5904777,2026-10-24,turquia,Eyüpspor,Lenny Pintor,889626,F,1,73,3,2,0,0.17,87.0,3.0,352059.0
+5904777,2026-10-24,turquia,Eyüpspor,Yusuf Barası,1125999,F,1,84,1,0,0,0.05,115.0,3.0,974604.0
+5904777,2026-10-24,turquia,Eyüpspor,Mete Kaan Demir,872726,M,0,44,0,0,0,0.0,,2.0,258431.0
+5904777,2026-10-24,turquia,Eyüpspor,Abdelhamid Sabiri,769644,M,0,24,0,0,0,0.0,,2.0,449016.0
+5904777,2026-10-24,turquia,Eyüpspor,Charles-André Raux Yao,1668290,M,0,17,0,0,0,0.0,,2.0,440349.0
+5904777,2026-10-24,turquia,Eyüpspor,Bilal Boutobba,605858,F,0,17,1,0,0,0.03,,3.0,706382.0
+5904777,2026-10-24,turquia,Eyüpspor,Anıl Yaşar,1210344,D,0,6,1,1,0,0.04,,1.0,353349.0
+5904777,2026-10-24,turquia,Kasımpaşa,Andreas Gianniotis,380858,G,1,90,0,0,0,0.0,11.0,0.0,385966.0
+5904777,2026-10-24,turquia,Kasımpaşa,Cláudio Winck,267368,D,1,90,0,0,0,0.0,32.0,1.0,438913.0
+5904777,2026-10-24,turquia,Kasımpaşa,Adem Arous,1797902,D,1,90,0,0,0,0.0,34.0,1.0,3264877.0
+5904777,2026-10-24,turquia,Kasımpaşa,Matei Cristian Ilie,1197741,D,1,90,1,0,0,0.07,36.0,1.0,2116796.0
+5904777,2026-10-24,turquia,Kasımpaşa,Ayberk Karapo,1403468,D,1,90,0,0,0,0.0,38.0,1.0,1495417.0
+5904777,2026-10-24,turquia,Kasımpaşa,Kerem Demirbay,331540,M,1,90,2,0,0,0.06,65.0,2.0,978337.0
+5904777,2026-10-24,turquia,Kasımpaşa,Jesurun Rak-Sakyi,1226789,F,1,89,2,0,0,0.08,82.0,3.0,4909909.0
+5904777,2026-10-24,turquia,Kasımpaşa,Haris Hajradinović,384343,M,1,62,0,0,0,0.0,84.0,2.0,576464.0
+5904777,2026-10-24,turquia,Kasımpaşa,Elson Mendes Da Silva,1595606,M,1,79,2,2,0,0.16,86.0,2.0,1176462.0
+5904777,2026-10-24,turquia,Kasımpaşa,Ali Kol,997497,F,1,89,1,0,0,0.05,88.0,3.0,353069.0
+5904777,2026-10-24,turquia,Kasımpaşa,Adrian Benedyczak,920861,F,1,79,2,2,1,0.18,115.0,3.0,3817436.0
+5904777,2026-10-24,turquia,Kasımpaşa,Andri Fannar Baldursson,937034,M,0,28,0,0,0,0.0,,2.0,1793893.0
+5904777,2026-10-24,turquia,Kasımpaşa,Güven Yalcin,950417,F,0,11,0,0,0,0.0,,3.0,1052501.0
+5904777,2026-10-24,turquia,Kasımpaşa,Marcus Rafferty,1505429,F,0,11,0,0,0,0.0,,3.0,1130373.0
+5904777,2026-10-24,turquia,Kasımpaşa,Atakan Müjde,1210346,M,0,1,0,0,0,0.0,,2.0,366690.0
+5904777,2026-10-24,turquia,Kasımpaşa,Thiemoko Diarra,1540435,F,0,1,0,0,0,0.0,,3.0,1512722.0
+5804017,2026-10-24,polonia,Piast Gliwice,Domen Gril,1122644,G,1,90,0,0,0,0.0,11.0,0.0,731413.0
+5804017,2026-10-24,polonia,Piast Gliwice,Ema Twumasi,924451,D,1,90,2,0,0,0.12,32.0,1.0,189061.0
+5804017,2026-10-24,polonia,Piast Gliwice,Juan Rivas,989449,D,1,90,0,0,0,0.0,34.0,1.0,615306.0
+5804017,2026-10-24,polonia,Piast Gliwice,Jakub Czerwiński,309900,D,1,45,1,1,1,0.11,36.0,1.0,281463.0
+5804017,2026-10-24,polonia,Piast Gliwice,Jakub Lewicki,1385828,D,1,90,1,1,0,0.04,38.0,1.0,806826.0
+5804017,2026-10-24,polonia,Piast Gliwice,Szczepan Mucha,1415323,F,1,45,1,0,0,0.03,72.0,3.0,242949.0
+5804017,2026-10-24,polonia,Piast Gliwice,Jakub Łabojko,851429,M,1,72,0,0,0,0.0,74.0,2.0,281463.0
+5804017,2026-10-24,polonia,Piast Gliwice,Quentin Boisgard,708012,M,1,90,0,0,0,0.0,76.0,2.0,165708.0
+5804017,2026-10-24,polonia,Piast Gliwice,Hugo Vallejo,1000854,M,1,90,1,1,1,0.07,78.0,2.0,614637.0
+5804017,2026-10-24,polonia,Piast Gliwice,Samuel Ntamack,1435842,F,1,85,2,1,0,0.17,104.0,3.0,413314.0
+5804017,2026-10-24,polonia,Piast Gliwice,Leandro Sanca,1165261,F,1,89,5,1,0,0.48,106.0,3.0,412073.0
+5804017,2026-10-24,polonia,Piast Gliwice,Francisco Sierralta,632305,D,0,44,0,0,0,0.0,,1.0,1071337.0
+5804017,2026-10-24,polonia,Piast Gliwice,Oskar Leśniak,1393110,M,0,45,2,0,0,0.1,,2.0,327015.0
+5804017,2026-10-24,polonia,Piast Gliwice,Ivan Lima,1367046,F,0,18,1,0,0,0.04,,3.0,
+5804017,2026-10-24,polonia,Piast Gliwice,Maciej Kucharski,2090857,F,0,5,1,1,0,0.51,,3.0,
+5804017,2026-10-24,polonia,Piast Gliwice,Andreas Katsantonis,843042,F,0,1,1,1,1,0.06,,3.0,226743.0
+5804017,2026-10-24,polonia,Cracovia,Sebastian Madejski,539585,G,1,90,0,0,0,0.0,11.0,0.0,478470.0
+5804017,2026-10-24,polonia,Cracovia,Otar Kakabadze,463993,D,1,90,2,0,0,0.08,32.0,1.0,547379.0
+5804017,2026-10-24,polonia,Cracovia,Gustav Henriksson,957086,D,1,90,0,0,0,0.0,34.0,1.0,321579.0
+5804017,2026-10-24,polonia,Cracovia,Brahim Traoré,1243568,D,1,90,0,0,0,0.0,36.0,1.0,
+5804017,2026-10-24,polonia,Cracovia,Vincent Burlet,1640211,F,1,89,1,1,0,0.07,38.0,3.0,1096132.0
+5804017,2026-10-24,polonia,Cracovia,Dijon Kameri,1276631,M,1,45,1,0,0,0.18,72.0,2.0,668156.0
+5804017,2026-10-24,polonia,Cracovia,Karol Knap,1229528,M,1,90,2,1,1,0.33,74.0,2.0,368616.0
+5804017,2026-10-24,polonia,Cracovia,Amir Al-Ammari,858340,M,1,78,1,0,0,0.04,76.0,2.0,853845.0
+5804017,2026-10-24,polonia,Cracovia,Martin Minchev,841180,F,1,90,3,2,0,0.16,78.0,3.0,568779.0
+5804017,2026-10-24,polonia,Cracovia,Mohamed Berte,1257872,F,1,79,0,0,0,0.0,104.0,3.0,693306.0
+5804017,2026-10-24,polonia,Cracovia,Lasse Nordås,1137726,F,1,90,1,0,0,0.56,106.0,3.0,2226381.0
+5804017,2026-10-24,polonia,Cracovia,Mateusz Klich,159342,M,0,44,0,0,0,0.0,,2.0,167352.0
+5804017,2026-10-24,polonia,Cracovia,Kahveh Zahiroleslam,1557028,F,0,12,0,0,0,0.0,,3.0,306588.0
+5804017,2026-10-24,polonia,Cracovia,Ajdin Hasić,1130070,F,0,11,2,1,0,0.05,,3.0,1857086.0
+5804017,2026-10-24,polonia,Cracovia,Kamil Glik,150670,D,0,1,0,0,0,0.0,,1.0,118398.0
+5804017,2026-10-24,polonia,Cracovia,Mauro Perković,1298565,D,0,1,0,0,0,0.0,,1.0,2258825.0
+5882330,2026-10-24,fem_espana,Real Sociedad,Alazne Estensoro,1447756,G,1,90,0,0,0,0.0,11.0,0.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Laura Camino,1546575,D,1,71,1,0,0,0.0,32.0,1.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Nahia Aparicio,1345407,D,1,90,0,0,0,0.0,34.0,1.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Claudia,1050217,D,1,90,0,0,0,0.0,36.0,1.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Ainhoa Vicente,1044156,D,1,90,0,0,0,0.0,38.0,1.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Ainhoa Marín,1122046,F,1,90,4,2,0,0.0,72.0,3.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Klára Cahynová,734692,M,1,61,0,0,0,0.0,74.0,2.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Ainoa Campo,1195378,M,1,90,3,2,1,0.0,76.0,2.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Cecilia Marcos,1130798,F,1,61,0,0,0,0.0,78.0,3.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Intza Eguiguren,1652283,F,1,81,0,0,0,0.0,104.0,3.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Ava Seelenfreund,1610959,F,1,46,0,0,0,0.0,106.0,3.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Nerea Eizagirre,1043815,M,0,45,4,1,0,0.0,,2.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Arola Aparicio,1213654,M,0,29,0,0,0,0.0,,2.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Maren Lezeta,1688653,M,0,29,0,0,0,0.0,,2.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Esther Laborde,1349774,M,0,19,0,0,0,0.0,,2.0,
+5882330,2026-10-24,fem_espana,Real Sociedad,Sonya Keefe,1701699,F,0,9,0,0,0,0.0,,3.0,
+5882330,2026-10-24,fem_espana,Espanyol,Meri Muñoz,1236788,G,1,90,0,0,0,0.0,11.0,0.0,
+5882330,2026-10-24,fem_espana,Espanyol,Ariadna Doménech,1751849,D,1,90,0,0,0,0.0,32.0,1.0,
+5882330,2026-10-24,fem_espana,Espanyol,Raquel García,1044486,D,1,90,2,1,0,0.0,34.0,1.0,
+5882330,2026-10-24,fem_espana,Espanyol,Júlia Guerra,1676742,D,1,90,0,0,0,0.0,36.0,1.0,
+5882330,2026-10-24,fem_espana,Espanyol,Lucía Vallejo,1676743,D,1,90,0,0,0,0.0,38.0,1.0,
+5882330,2026-10-24,fem_espana,Espanyol,Ona Baradad,1302358,F,1,90,0,0,0,0.0,73.0,3.0,
+5882330,2026-10-24,fem_espana,Espanyol,Bicho,1234851,M,1,90,0,0,0,0.0,75.0,2.0,
+5882330,2026-10-24,fem_espana,Espanyol,Paula Gutiérrez,1678490,M,1,88,0,0,0,0.0,77.0,2.0,
+5882330,2026-10-24,fem_espana,Espanyol,Natalia Escot,1423577,F,1,73,2,2,1,0.0,103.0,3.0,
+5882330,2026-10-24,fem_espana,Espanyol,Ana Marcos,887338,F,1,73,3,0,0,0.0,105.0,3.0,
+5882330,2026-10-24,fem_espana,Espanyol,Iara Lacosta,1638306,M,1,60,0,0,0,0.0,107.0,2.0,
+5882330,2026-10-24,fem_espana,Espanyol,Paula Arana,1345267,F,0,30,1,0,0,0.0,,3.0,
+5882330,2026-10-24,fem_espana,Espanyol,Mar Torras,1676745,M,0,17,0,0,0,0.0,,2.0,
+5882330,2026-10-24,fem_espana,Espanyol,Phoenetia Browne,1235054,F,0,17,1,1,0,0.0,,3.0,
+5882330,2026-10-24,fem_espana,Espanyol,Patri Ojeda,1044290,D,0,2,0,0,0,0.0,,1.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Adriana Nanclares,1345395,G,1,90,0,0,0,0.0,11.0,0.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Naia Landaluze,1345259,D,1,61,0,0,0,0.0,32.0,1.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Maddi,1044180,D,1,90,1,1,0,0.0,34.0,1.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Eider Arana,1546581,D,1,90,0,0,0,0.0,36.0,1.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Nerea Benito,1807363,D,1,76,0,0,0,0.0,38.0,1.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Ane Elexpuru,1345261,D,1,90,1,0,0,0.0,72.0,1.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Clara Pinedo,1345264,M,1,90,0,0,0,0.0,74.0,2.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Maite Valero,1678394,M,1,90,2,1,0,0.0,76.0,2.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Jone Amezaga,1406568,F,1,61,2,0,0,0.0,78.0,3.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Sara Ortega,1345269,F,1,88,4,1,0,0.0,104.0,3.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Ane Azkona,1044328,F,1,76,1,0,0,0.0,106.0,3.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Elene Gurtubay,1724528,M,0,29,1,0,0,0.0,,2.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Daniela Agote,1680088,F,0,29,0,0,0,0.0,,3.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Garazi Fácila,1345284,D,0,14,1,0,0,0.0,,1.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Ane Campos,1345302,F,0,14,0,0,0,0.0,,3.0,
+5882324,2026-10-24,fem_espana,Athletic Club,Amaia Iribarren,1679322,M,0,2,0,0,0,0.0,,2.0,
+5882324,2026-10-24,fem_espana,Sevilla,Esther Sullastres,1345651,G,1,90,0,0,0,0.0,11.0,0.0,
+5882324,2026-10-24,fem_espana,Sevilla,Alba López,1573124,D,1,80,1,0,0,0.0,32.0,1.0,
+5882324,2026-10-24,fem_espana,Sevilla,Alice Marques,1544656,D,1,90,0,0,0,0.0,34.0,1.0,
+5882324,2026-10-24,fem_espana,Sevilla,Iris Arnaiz,1248438,D,1,90,0,0,0,0.0,36.0,1.0,
+5882324,2026-10-24,fem_espana,Sevilla,Raquel Morcillo,1402694,F,1,90,1,1,0,0.0,38.0,3.0,
+5882324,2026-10-24,fem_espana,Sevilla,Alicia Redondo,1546614,M,1,90,1,0,0,0.0,64.0,2.0,
+5882324,2026-10-24,fem_espana,Sevilla,Sandra Castelló,1057182,M,1,73,0,0,0,0.0,66.0,2.0,
+5882324,2026-10-24,fem_espana,Sevilla,Rosa Márquez,1049847,M,1,90,0,0,0,0.0,83.0,2.0,
+5882324,2026-10-24,fem_espana,Sevilla,Clau Blanco,1406208,D,1,89,1,1,0,0.0,85.0,1.0,
+5882324,2026-10-24,fem_espana,Sevilla,Esther,1130804,D,1,73,0,0,0,0.0,87.0,1.0,
+5882324,2026-10-24,fem_espana,Sevilla,Andrea Álvarez,1546576,F,1,73,2,0,0,0.0,115.0,3.0,
+5882324,2026-10-24,fem_espana,Sevilla,Gemma Gili,887404,M,0,17,1,0,0,0.0,,2.0,
+5882324,2026-10-24,fem_espana,Sevilla,Jassina Blom,1298865,F,0,17,0,0,0,0.0,,3.0,
+5882324,2026-10-24,fem_espana,Sevilla,Xenia Barrios,1700555,F,0,17,0,0,0,0.0,,3.0,
+5882324,2026-10-24,fem_espana,Sevilla,Laura Pérez,1546644,F,0,10,0,0,0,0.0,,3.0,
+5882324,2026-10-24,fem_espana,Sevilla,Isabel Álvarez,1345716,D,0,1,0,0,0,0.0,,1.0,
+5847208,2026-10-24,rus_premier,Akron Togliatti,Vitali Gudiev,360081,G,1,90,0,0,0,0.0,11.0,0.0,774897.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Vyacheslav Bardybahin,862859,D,1,90,0,0,0,0.0,32.0,1.0,846660.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Rodrigo Escoval,704917,D,1,90,0,0,0,0.0,34.0,1.0,382366.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Marat Bokoev,1106894,D,1,90,1,0,0,0.04,36.0,1.0,1167034.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Roberto Fernández,921025,D,1,89,0,0,0,0.0,38.0,1.0,1314718.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Karlen Hovhannisyan,1784995,M,1,71,2,0,0,0.06,73.0,2.0,101167.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Kristijan Bistrović,645576,M,1,89,1,1,1,0.04,75.0,2.0,1127952.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Stefan Lončar,557044,M,1,90,1,1,0,0.23,77.0,2.0,927473.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Dmitriy Pestryakov,1516669,F,1,59,0,0,0,0.0,103.0,3.0,7004181.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Slobodan Tedić,857469,F,1,71,2,2,0,0.16,105.0,3.0,2090709.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Artem Shumanskiy,1359265,F,1,90,1,1,1,0.03,107.0,3.0,1358182.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Dudu,1641261,F,0,31,1,0,0,0.03,,3.0,
+5847208,2026-10-24,rus_premier,Akron Togliatti,Khetag Khosonov,807043,M,0,19,1,0,0,0.03,,2.0,927788.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Maxim Boldyrev,1396693,F,0,19,1,1,1,0.16,,3.0,1336316.0
+5847208,2026-10-24,rus_premier,Akron Togliatti,Denis Popenkov,1680352,D,0,1,0,0,0,0.0,,1.0,
+5847208,2026-10-24,rus_premier,Akron Togliatti,Ionuț Nedelcearu,586629,D,0,1,0,0,0,0.0,,1.0,856737.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Andrey Lunev,561561,G,1,90,0,0,0,0.0,11.0,0.0,382567.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Nicolás Marichal,1248976,D,1,31,0,0,0,0.0,32.0,1.0,6769697.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Maksim Osipenko,731584,D,1,90,2,0,0,0.28,34.0,1.0,1984422.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,David Ricardo,1373118,D,1,90,2,0,0,0.15,36.0,1.0,7850242.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Rubens,1213750,M,1,89,1,0,0,0.02,38.0,2.0,8951545.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Daniil Fomin,741084,M,1,45,3,0,0,0.25,64.0,2.0,6861061.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Danil Glebov,926228,M,1,90,1,0,0,0.02,66.0,2.0,6626276.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Yaroslav Gladyshev,1203519,F,1,73,3,1,1,0.17,83.0,3.0,5055304.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Bitello,1248665,M,1,90,3,1,0,0.18,85.0,2.0,16343937.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Arthur,689051,F,1,73,1,1,0,0.03,87.0,3.0,2028198.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Konstantin Tyukavin,1136015,F,1,90,5,2,0,0.61,115.0,3.0,18849722.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Juan Cáceres,1133495,D,0,59,0,0,0,0.0,,1.0,6955132.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Ivan Sergeyev,658510,F,0,45,3,0,0,0.34,,3.0,1917734.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Viktor Okishor,1557053,M,0,17,0,0,0,0.0,,2.0,1024616.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Maximiliano Gutiérrez,1404859,F,0,17,1,0,0,0.04,,3.0,2148945.0
+5847208,2026-10-24,rus_premier,Dinamo Moscow,Josué Casimir,1199382,M,0,1,0,0,0,0.0,,2.0,2119848.0
