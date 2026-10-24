@@ -283,6 +283,15 @@ def construir() -> Dict:
             f['girado'] = bool(f.get('girado'))
     except Exception as e:
         logger.warning('[web] sin ESPN: %s', e)
+    # v467 — cada escudo validado uno por uno; los que faltan, de FotMob/Flashscore (fútbol) y
+    # 365Scores (la foto del tenista)
+    try:
+        import escudos
+        st = escudos.poner(picks + analisis)
+        logger.info('[web] escudos: %s', st)
+        print('web: escudos %s' % st)
+    except Exception as e:
+        logger.warning('[web] sin escudos: %s', e)
     return {'generado': dt.datetime.now(dt.timezone.utc).isoformat(timespec='seconds'),
             'precalculo': doc.get('generado'), 'picks': picks, 'analisis': analisis}
 

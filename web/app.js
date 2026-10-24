@@ -448,9 +448,16 @@
   }
 
   // ---------- TARJETAS ----------
-  function escudo(url, nombre) {
-    return url ? '<img class="escudo" loading="lazy" src="' + esc(url) + '" alt="">' : '<span class="escudo letra">' + esc(String(nombre || '?').slice(0, 1)) + '</span>';
+  // v467 — sin escudo (o si la imagen no carga) va una silueta neutra, nunca una letra suelta:
+  // el usuario veía «A» y «L» en el Atlético-Deportivo. El tenista sin foto lleva la persona.
+  const SILUETA = (dep) => '<span class="escudo silueta">' + ico(dep === 'Tenis' ? 'user' : 'ball-football') + '</span>';
+  function escudo(url, nombre, dep) {
+    return url ? '<img class="escudo" loading="lazy" src="' + esc(url) + '" alt="" data-dep="' + esc(dep || '') + '">' : SILUETA(dep);
   }
+  document.addEventListener('error', (e) => {
+    const im = e.target;
+    if (im && im.tagName === 'IMG' && im.classList.contains('escudo')) im.outerHTML = SILUETA(im.dataset.dep);
+  }, true);
   function cuentaAtras(ini) {
     const s = Math.floor((ini - Date.now()) / 1000);
     if (s <= 0) return '';
@@ -1189,9 +1196,9 @@
     return '<article class="' + clase + '" data-id="' + esc(p.id) + '">' +
       '<div class="fila"><div class="etiquetas"><span class="et nivel ' + nv.c + '">' + nv.i + ' ' + nv.n + '</span>' +
       '<span class="et">' + esc(p.deporte || '') + '</span>' + (ps.length > 1 ? '<span class="et">' + ps.length + ' apuestas</span>' : '') + '</div>' + cab + '</div>' +
-      '<div class="equipos"><div class="eq">' + escudo(p.logo_h, L) + '<span>' + esc(L) + '</span></div>' +
+      '<div class="equipos"><div class="eq">' + escudo(p.logo_h, L, p.deporte) + '<span>' + esc(L) + '</span></div>' +
       '<div class="marc">' + (marc ? esc(marc) : 'vs') + '</div>' +
-      '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>' +
+      '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V, p.deporte) + '</div></div>' +
       '<div class="liga">' + esc(p.liga || '') + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</div>' +
       contextoHtml((ps.find((x) => x.ctx) || {}).ctx, L, V) +
       iaBloque(p, L, V, (ps.find((x) => x.ctx) || {}).ctx) +
@@ -1356,9 +1363,9 @@
     const [L, V] = lados(p);
     const otras = (agrupar(todos.filter((x) => clavePartido(x) === clavePartido(p) && !x.solo_analisis))[0]) || [];
     let h = '<button class="cerrar" data-cerrar>✕</button>' +
-      '<div class="equipos grande"><div class="eq">' + escudo(p.logo_h, L) + '<span>' + esc(L) + '</span></div>' +
+      '<div class="equipos grande"><div class="eq">' + escudo(p.logo_h, L, p.deporte) + '<span>' + esc(L) + '</span></div>' +
       '<div class="marc">' + (v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : 'vs') + '<small>' + esc(v ? v.detalle : horaCdmx(aFecha(p.inicio))) + '</small></div>' +
-      '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V) + '</div></div>';
+      '<div class="eq der"><span>' + esc(V) + '</span>' + escudo(p.logo_a, V, p.deporte) + '</div></div>';
     h += cancha(v, p);                   // v427/v429 — la cancha en vivo
     setTimeout(vivo365, 50);
     h += (otras.length ? '<h3>Nuestras apuestas en este partido</h3>' : '') + otras.map((x) => {
@@ -1449,8 +1456,8 @@
       (mio ? '<button class="quitar-fila" data-dejar="' + esc(ps.map((x) => x.id).join(',')) + '" aria-label="Quitar de Mis picks">🗑️ Quitar</button>' : '') +
       '<button class="pf" data-abrir="' + esc(k) + '" aria-expanded="' + abierto + '"' + (abiertoRoce ? ' style="transform:translateX(-92px)"' : '') + '>' +
       relojFila(ps) +
-      '<span class="pf-eqs"><span class="pf-eq">' + escudo(p.logo_h, L) + '<b>' + esc(L) + '</b>' + (marc ? '<em>' + esc(marc[0]) + '</em>' : '') + '</span>' +
-      '<span class="pf-eq">' + escudo(p.logo_a, V) + '<b>' + esc(V) + '</b>' + (marc ? '<em>' + esc(marc[1]) + '</em>' : '') + '</span></span>' +
+      '<span class="pf-eqs"><span class="pf-eq">' + escudo(p.logo_h, L, p.deporte) + '<b>' + esc(L) + '</b>' + (marc ? '<em>' + esc(marc[0]) + '</em>' : '') + '</span>' +
+      '<span class="pf-eq">' + escudo(p.logo_a, V, p.deporte) + '<b>' + esc(V) + '</b>' + (marc ? '<em>' + esc(marc[1]) + '</em>' : '') + '</span></span>' +
       '<span class="pf-pick"><span class="pf-niv">' + nv.i + '</span><span class="pf-ap">' + ap + '</span>' +
       '<span class="pf-cu">' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</span>' +
       (ps.length > 1 ? '<span class="pf-mas">+' + (ps.length - 1) + '</span>' : '') + resumenPicks(ps) + '</span>' +
@@ -1493,7 +1500,7 @@
     const marc = v && v.fase !== 'pre' ? v.g[0] + ' - ' + v.g[1] : '';
     return '<button class="dest" data-abrir="' + esc(clavePartido(p)) + '" data-ir="1">' +
       '<div class="fila">' + (etiqueta || '<span class="et nivel diamante">💎 Diamante</span>') + relojFila(ps) + '</div>' +
-      '<div class="dest-eqs">' + escudo(p.logo_h, L) + '<span>' + esc(marc || 'vs') + '</span>' + escudo(p.logo_a, V) + '</div>' +
+      '<div class="dest-eqs">' + escudo(p.logo_h, L, p.deporte) + '<span>' + esc(marc || 'vs') + '</span>' + escudo(p.logo_a, V, p.deporte) + '</div>' +
       '<div class="dest-nom">' + esc(L) + ' – ' + esc(V) + '</div>' +
       '<div class="dest-ap">' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</div>' +
       '<div class="dest-pie"><b>' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</b><span>probabilidad ' + pct(p.prob) + '</span></div></button>';

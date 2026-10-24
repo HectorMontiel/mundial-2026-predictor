@@ -78,7 +78,8 @@ footer { border-top: 1px solid var(--borde); padding: 18px 16px; text-align: cen
 .eq span { overflow-wrap: break-word; word-break: normal; hyphens: auto; }
 .eq.der { flex-direction: column-reverse; }
 .escudo { width: 30px; height: 30px; object-fit: contain; flex: none; }
-.escudo.letra { display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.08); font-size: 13px; }
+.escudo.letra, .escudo.silueta { display: grid; place-items: center; border-radius: 50%; background: rgba(255,255,255,.08); font-size: 13px; }
+.escudo.silueta .ic { width: 58%; height: 58%; color: rgba(255,255,255,.45); }
 .marc { font-size: 24px; font-weight: 800; text-align: center; white-space: nowrap; }
 .marc small { display: block; font-size: 12px; color: var(--tenue); font-weight: 600; }
 .mini { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; font-size: 12px; text-align: center; }
