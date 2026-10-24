@@ -278,8 +278,8 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Kashima Antlers vs Kashiwa Reysol,2026-10-24 06:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5666,1.556,11.0,1.0
 2026-10-24,Eyupspor vs Kasimpasa,2026-10-24 10:30:00,Tiros a puerta Kasimpasa: Más de 4.5,a_puerta,equipo,visita,4.5,0.5527,1.636,4.0,0.0
 2026-10-24,Modena vs Cesena,2026-10-24 13:00:00,Goles Cesena: Más de 0.5,goles,equipo,visita,0.5,0.5593,1.556,0.0,0.0
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Goles: Más de 3.5,goles,total,total,3.5,0.5669,1.471,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles Estrela: Más de 1.5,goles,equipo,local,1.5,0.5632,1.833,,
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Goles: Más de 3.5,goles,total,total,3.5,0.5669,1.471,1.0,0.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles Estrela: Más de 1.5,goles,equipo,local,1.5,0.5632,1.833,0.0,0.0
 2026-10-23,Alaves vs Malaga,2026-10-23 19:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5533,2.05,2.0,0.0
 2026-10-23,Alaves vs Malaga,2026-10-23 19:00:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5516,1.546,25.0,1.0
 2026-10-23,Cruzeiro vs Remo,2026-10-23 23:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.7163,1.48,1.0,0.0
@@ -355,8 +355,6 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-23,Sanfrecce Hiroshima vs Shimizu S-Pulse,2026-10-24 05:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.5661,1.7,,
 2026-10-24,Kashima Antlers vs Kashiwa Reysol,2026-10-24 06:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5611,1.625,1.0,1.0
 2026-10-24,Valencia vs Villarreal,2026-10-24 16:30:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.5522,1.667,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros a puerta Lazio: Más de 5.5,a_puerta,equipo,local,5.5,0.5574,1.75,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Goles Lazio: Más de 1.5,goles,equipo,local,1.5,0.5555,1.571,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Goles: Más de 1.5,goles,total,total,1.5,0.6859,1.5,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Ambos marcan: No,btts,btts,total,0.0,0.5507,1.526,,
 2026-10-24,Wuhan Three Towns vs Shandong Taishan,2026-10-24 07:30:00,Goles Shandong Taishan: Más de 1.5,goles,equipo,visita,1.5,0.6277,1.455,5.0,1.0
@@ -374,11 +372,11 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Cagliari vs Bologna,2026-10-24 13:00:00,Ambos marcan: No,btts,btts,total,0.0,0.5582,1.8,0.0,1.0
 2026-10-24,Cremonese vs Juve Stabia,2026-10-24 13:00:00,Tiros a puerta Juve Stabia: Más de 3.5,a_puerta,equipo,visita,3.5,0.5537,1.923,2.0,0.0
 2026-10-24,Mainz vs Werder Bremen,2026-10-24 13:30:00,Tiros Mainz: Más de 15.5,tiros,equipo,local,15.5,0.5695,1.615,18.0,1.0
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Córners: Más de 10.5,corners,total,total,10.5,0.587,1.5,,
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros: Más de 30.5,tiros,total,total,30.5,0.5685,1.7,,
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Córners: Más de 10.5,corners,total,total,10.5,0.587,1.5,13.0,1.0
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros: Más de 30.5,tiros,total,total,30.5,0.5685,1.7,39.0,1.0
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Tiros Falkirk: Más de 14.5,tiros,equipo,local,14.5,0.5613,1.538,18.0,1.0
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.5548,1.571,28.0,1.0
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5505,1.952,,
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5505,1.952,0.0,0.0
 2026-10-24,Columbus Crew vs Toronto FC,2026-10-24 19:30:00,Tiros a puerta Columbus Crew: Más de 5.5,a_puerta,equipo,local,5.5,0.5896,1.727,,
 2026-10-24,Vitoria vs Athletico-PR,2026-10-24 19:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5587,1.69,,
 2026-10-24,Philadelphia Union vs New England Revolution,2026-10-24 23:30:00,Tiros New England Revolution: Más de 8.5,tiros,equipo,visita,8.5,0.5627,1.462,,
@@ -407,12 +405,12 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.6094,1.455,,
 2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Tiros St Johnstone: Más de 7.5,tiros,equipo,visita,7.5,0.5574,1.7,,
 2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5502,1.667,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.5661,1.538,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.5586,1.615,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta Estrela: Más de 4.5,a_puerta,equipo,local,4.5,0.5546,1.714,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5525,1.87,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5524,1.96,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5556,1.667,,
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.5661,1.538,28.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.5586,1.615,10.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta Estrela: Más de 4.5,a_puerta,equipo,local,4.5,0.5546,1.714,6.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5525,1.87,0.0,0.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5524,1.96,2.0,0.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5556,1.667,41.0,1.0
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Tiros Lanus: Más de 12.5,tiros,equipo,visita,12.5,0.5582,1.6,,
 2026-10-24,Como vs Sassuolo,2026-10-24 13:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.7412,1.546,6.0,0.0
 2026-10-24,Cremonese vs Juve Stabia,2026-10-24 13:00:00,Tiros Juve Stabia: Más de 9.5,tiros,equipo,visita,9.5,0.7243,1.5,13.0,1.0
@@ -452,77 +450,76 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Mainz vs Werder Bremen,2026-10-24 13:30:00,Tiros a puerta Mainz: Más de 5.5,a_puerta,equipo,local,5.5,0.588,1.733,8.0,1.0
 2026-10-24,Mainz vs Werder Bremen,2026-10-24 13:30:00,Tiros Werder Bremen: Más de 10.5,tiros,equipo,visita,10.5,0.5746,1.6,17.0,1.0
 2026-10-24,Mainz vs Werder Bremen,2026-10-24 13:30:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.558,1.692,16.0,1.0
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros Everton: Más de 6.5,tiros,equipo,visita,6.5,0.817,1.455,,
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros Bodo/Glimt: Más de 19.5,tiros,equipo,local,19.5,0.7288,1.615,,
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.7106,1.48,,
-2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros Dundee: Más de 10.5,tiros,equipo,visita,10.5,0.7015,1.5,,
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6858,1.667,,
-2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros a puerta Dundee: Más de 3.5,a_puerta,equipo,visita,3.5,0.6717,1.714,,
-2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6633,1.5,,
-2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6627,1.7,,
-2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.657,1.571,,
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.653,1.526,,
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros Arsenal: Más de 14.5,tiros,equipo,local,14.5,0.6513,1.538,,
-2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros a puerta Dundee United: Más de 4.5,a_puerta,equipo,local,4.5,0.6501,1.667,,
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros a puerta Bodo/Glimt: Más de 7.5,a_puerta,equipo,local,7.5,0.6417,1.714,,
-2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.6288,1.455,,
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Goles Arsenal: Más de 1.5,goles,equipo,local,1.5,0.6267,1.526,,
-2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6264,1.6,,
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros Everton: Más de 6.5,tiros,equipo,visita,6.5,0.817,1.455,8.0,1.0
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros Bodo/Glimt: Más de 19.5,tiros,equipo,local,19.5,0.7288,1.615,26.0,1.0
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.7106,1.48,7.0,0.0
+2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros Dundee: Más de 10.5,tiros,equipo,visita,10.5,0.7015,1.5,17.0,1.0
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6858,1.667,28.0,1.0
+2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros a puerta Dundee: Más de 3.5,a_puerta,equipo,visita,3.5,0.6717,1.714,4.0,1.0
+2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6633,1.5,4.0,1.0
+2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6627,1.7,9.0,1.0
+2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros: Más de 26.5,tiros,total,total,26.5,0.657,1.571,26.0,0.0
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.653,1.526,15.0,1.0
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros Arsenal: Más de 14.5,tiros,equipo,local,14.5,0.6513,1.538,20.0,1.0
+2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros a puerta Dundee United: Más de 4.5,a_puerta,equipo,local,4.5,0.6501,1.667,6.0,1.0
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros a puerta Bodo/Glimt: Más de 7.5,a_puerta,equipo,local,7.5,0.6417,1.714,8.0,1.0
+2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.6288,1.455,11.0,1.0
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Goles Arsenal: Más de 1.5,goles,equipo,local,1.5,0.6267,1.526,2.0,1.0
+2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6264,1.6,9.0,1.0
 2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6263,1.556,1.0,1.0
-2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros St Mirren: Más de 14.5,tiros,equipo,local,14.5,0.6157,1.667,,
+2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros St Mirren: Más de 14.5,tiros,equipo,local,14.5,0.6157,1.667,9.0,0.0
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Tiros Kilmarnock: Más de 10.5,tiros,equipo,visita,10.5,0.6139,1.667,10.0,0.0
-2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros a puerta St Mirren: Más de 4.5,a_puerta,equipo,local,4.5,0.6129,1.7,,
+2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Tiros a puerta St Mirren: Más de 4.5,a_puerta,equipo,local,4.5,0.6129,1.7,5.0,1.0
 2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6115,1.647,3.0,1.0
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Goles Everton: Más de 0.5,goles,equipo,visita,0.5,0.6063,1.741,,
-2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.6058,1.5,,
-2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.6048,1.455,,
-2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6016,1.455,,
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros a puerta Everton: Más de 2.5,a_puerta,equipo,visita,2.5,0.598,1.889,,
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Goles Everton: Más de 0.5,goles,equipo,visita,0.5,0.6063,1.741,0.0,0.0
+2026-10-24,St Mirren vs Dundee,2026-10-24 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.6058,1.5,7.0,0.0
+2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Córners: Más de 9.5,corners,total,total,9.5,0.6048,1.455,13.0,1.0
+2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6016,1.455,3.0,1.0
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros a puerta Everton: Más de 2.5,a_puerta,equipo,visita,2.5,0.598,1.889,3.0,1.0
 2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Tiros a puerta Rangers: Más de 6.5,a_puerta,equipo,local,6.5,0.595,1.667,,
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Tiros a puerta Falkirk: Más de 4.5,a_puerta,equipo,local,4.5,0.5901,1.5,8.0,1.0
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5901,1.75,,
-2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros a puerta Arsenal: Más de 5.5,a_puerta,equipo,local,5.5,0.5891,1.76,,
-2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Goles Reading: Más de 1.5,goles,equipo,local,1.5,0.5886,1.455,,
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5901,1.75,2.0,0.0
+2026-10-24,Arsenal vs Everton,2026-10-24 14:00:00,Tiros a puerta Arsenal: Más de 5.5,a_puerta,equipo,local,5.5,0.5891,1.76,4.0,0.0
+2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Goles Reading: Más de 1.5,goles,equipo,local,1.5,0.5886,1.455,2.0,1.0
 2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5846,1.615,,
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5845,1.48,8.0,0.0
-2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.584,1.526,,
-2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5811,1.625,,
+2026-10-24,Reading vs Barnsley,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.584,1.526,1.0,1.0
+2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5811,1.625,1.0,1.0
 2026-10-24,Rangers vs St Johnstone,2026-10-24 14:00:00,Tiros Rangers: Más de 19.5,tiros,equipo,local,19.5,0.581,1.667,,
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Tiros a puerta Kilmarnock: Más de 3.5,a_puerta,equipo,visita,3.5,0.5808,1.615,0.0,0.0
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5789,1.571,0.0,0.0
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Goles Valerenga: Más de 0.5,goles,equipo,visita,0.5,0.5757,1.5,,
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros a puerta: Más de 10.5,a_puerta,total,total,10.5,0.5745,1.571,,
-2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros a puerta Aberdeen: Más de 3.5,a_puerta,equipo,visita,3.5,0.5738,1.6,,
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Goles Valerenga: Más de 0.5,goles,equipo,visita,0.5,0.5757,1.5,1.0,1.0
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Tiros a puerta: Más de 10.5,a_puerta,total,total,10.5,0.5745,1.571,14.0,1.0
+2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros a puerta Aberdeen: Más de 3.5,a_puerta,equipo,visita,3.5,0.5738,1.6,3.0,0.0
 2026-10-24,Falkirk vs Kilmarnock,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.571,1.625,3.0,1.0
-2026-10-24,Livingston vs Arbroath,2026-10-24 14:00:00,Goles Livingston: Más de 1.5,goles,equipo,local,1.5,0.57,1.455,,
-2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros Dundee United: Más de 14.5,tiros,equipo,local,14.5,0.5684,1.667,,
-2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5664,1.714,,
-2026-10-24,Livingston vs Arbroath,2026-10-24 14:00:00,Ambos marcan: No,btts,btts,total,0.0,0.5645,1.75,,
-2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5549,1.526,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros Mallorca: Más de 11.5,tiros,equipo,visita,11.5,0.6822,1.538,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros a puerta Mallorca: Más de 3.5,a_puerta,equipo,visita,3.5,0.6756,1.546,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6474,1.571,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.6258,1.692,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros Leganes: Más de 10.5,tiros,equipo,local,10.5,0.6213,1.615,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Goles Leganes: Más de 0.5,goles,equipo,local,0.5,0.619,1.5,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.5898,1.556,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Ambos marcan: No,btts,btts,total,0.0,0.5554,1.769,,
-2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros a puerta Leganes: Más de 3.5,a_puerta,equipo,local,3.5,0.5515,1.889,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles Casa Pia: Más de 0.5,goles,equipo,visita,0.5,0.6354,1.5,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.6026,1.5,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Estrela: Más de 13.5,tiros,equipo,local,13.5,0.5904,1.52,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Casa Pia: Más de 8.5,tiros,equipo,visita,8.5,0.5762,1.5,,
-2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta Casa Pia: Más de 2.5,a_puerta,equipo,visita,2.5,0.5739,1.52,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.679,1.6,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta Ascoli: Más de 3.5,a_puerta,equipo,visita,3.5,0.6454,1.6,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Ascoli: Más de 11.5,tiros,equipo,visita,11.5,0.6243,1.5,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Catanzaro: Más de 13.5,tiros,equipo,local,13.5,0.6068,1.615,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6025,1.714,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.585,1.571,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta Catanzaro: Más de 4.5,a_puerta,equipo,local,4.5,0.5539,1.833,,
-2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Goles: Más de 2.5,goles,total,total,2.5,0.5529,1.75,,
+2026-10-24,Livingston vs Arbroath,2026-10-24 14:00:00,Goles Livingston: Más de 1.5,goles,equipo,local,1.5,0.57,1.455,1.0,0.0
+2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Tiros Dundee United: Más de 14.5,tiros,equipo,local,14.5,0.5684,1.667,14.0,0.0
+2026-10-24,Dundee United vs Aberdeen,2026-10-24 14:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5664,1.714,5.0,1.0
+2026-10-24,Livingston vs Arbroath,2026-10-24 14:00:00,Ambos marcan: No,btts,btts,total,0.0,0.5645,1.75,0.0,1.0
+2026-10-24,Bodo/Glimt vs Valerenga,2026-10-24 14:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5549,1.526,0.0,0.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros Mallorca: Más de 11.5,tiros,equipo,visita,11.5,0.6822,1.538,10.0,0.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros a puerta Mallorca: Más de 3.5,a_puerta,equipo,visita,3.5,0.6756,1.546,3.0,0.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6474,1.571,23.0,0.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.6258,1.692,7.0,0.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros Leganes: Más de 10.5,tiros,equipo,local,10.5,0.6213,1.615,13.0,1.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Goles Leganes: Más de 0.5,goles,equipo,local,0.5,0.619,1.5,1.0,1.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.5898,1.556,10.0,1.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Ambos marcan: No,btts,btts,total,0.0,0.5554,1.769,1.0,0.0
+2026-10-24,Leganes vs Mallorca,2026-10-24 14:15:00,Tiros a puerta Leganes: Más de 3.5,a_puerta,equipo,local,3.5,0.5515,1.889,4.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Goles Casa Pia: Más de 0.5,goles,equipo,visita,0.5,0.6354,1.5,2.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.6026,1.5,12.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Estrela: Más de 13.5,tiros,equipo,local,13.5,0.5904,1.52,18.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros Casa Pia: Más de 8.5,tiros,equipo,visita,8.5,0.5762,1.5,10.0,1.0
+2026-10-24,Estrela vs Casa Pia,2026-10-24 14:30:00,Tiros a puerta Casa Pia: Más de 2.5,a_puerta,equipo,visita,2.5,0.5739,1.52,4.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.679,1.6,14.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta Ascoli: Más de 3.5,a_puerta,equipo,visita,3.5,0.6454,1.6,10.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Ascoli: Más de 11.5,tiros,equipo,visita,11.5,0.6243,1.5,24.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros Catanzaro: Más de 13.5,tiros,equipo,local,13.5,0.6068,1.615,17.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6025,1.714,18.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.585,1.571,1.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Tiros a puerta Catanzaro: Más de 4.5,a_puerta,equipo,local,4.5,0.5539,1.833,8.0,1.0
+2026-10-24,Catanzaro vs Ascoli,2026-10-24 15:15:00,Goles: Más de 2.5,goles,total,total,2.5,0.5529,1.75,7.0,1.0
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.583,1.636,,
-2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5786,1.6,,
 2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5506,1.571,,
 2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta Vancouver Whitecaps: Más de 4.5,a_puerta,equipo,visita,4.5,0.5549,1.818,,
 2026-10-25,Albacete vs Eldense,2026-10-25 15:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5531,1.645,,
@@ -538,16 +535,19 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Alverca vs Arouca,2026-10-24 17:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5868,1.556,,
 2026-10-24,Alverca vs Arouca,2026-10-24 17:00:00,Tiros Arouca: Más de 9.5,tiros,equipo,visita,9.5,0.5695,1.5,,
 2026-10-24,Alverca vs Arouca,2026-10-24 17:00:00,Ambos marcan: No,btts,btts,total,0.0,0.5563,2.0,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros CF Montreal: Más de 9.5,tiros,equipo,local,9.5,0.5704,1.583,,
+2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5842,1.462,,
 2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Córners: Más de 7.5,corners,total,total,7.5,0.7163,1.455,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles Nashville SC: Más de 1.5,goles,equipo,visita,1.5,0.6177,1.455,,
 2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros Arezzo: Más de 11.5,tiros,equipo,local,11.5,0.6151,1.667,,
 2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros a puerta Benevento: Más de 3.5,a_puerta,equipo,visita,3.5,0.614,1.538,,
-2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.595,1.6,,
-2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles CF Montreal: Más de 0.5,goles,equipo,local,0.5,0.5894,1.526,,
-2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles Nashville SC: Más de 1.5,goles,equipo,visita,1.5,0.5886,1.5,,
-2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5807,1.625,,
-2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros a puerta Arezzo: Más de 3.5,a_puerta,equipo,local,3.5,0.5758,1.75,,
-2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros CF Montreal: Más de 9.5,tiros,equipo,local,9.5,0.5704,1.583,,
-2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros Nashville SC: Más de 13.5,tiros,equipo,visita,13.5,0.569,1.636,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros Nashville SC: Más de 13.5,tiros,equipo,visita,13.5,0.6057,1.636,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Tiros a puerta CF Montreal: Más de 2.5,a_puerta,equipo,local,2.5,0.6009,1.455,,
+2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.595,1.583,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles CF Montreal: Más de 0.5,goles,equipo,local,0.5,0.5811,1.571,,
+2026-10-24,Arezzo vs Benevento,2026-10-24 17:30:00,Tiros a puerta Arezzo: Más de 3.5,a_puerta,equipo,local,3.5,0.5758,1.714,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5719,1.571,,
+2026-10-24,CF Montreal vs Nashville SC,2026-10-24 17:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.5685,1.6,,
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Córners: Más de 7.5,corners,total,total,7.5,0.6985,1.5,,
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Tiros Banfield: Más de 11.5,tiros,equipo,local,11.5,0.6798,1.571,,
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Tiros a puerta Lanus: Más de 3.5,a_puerta,equipo,visita,3.5,0.6691,1.5,,
@@ -555,19 +555,21 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Goles Banfield: Más de 0.5,goles,equipo,local,0.5,0.643,1.5,,
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Tiros a puerta Banfield: Más de 3.5,a_puerta,equipo,local,3.5,0.6042,1.778,,
 2026-10-24,Banfield vs Lanus,2026-10-24 17:45:00,Tiros: Más de 25.5,tiros,total,total,25.5,0.5942,1.571,,
-2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Tiros Paris FC: Más de 10.5,tiros,equipo,visita,10.5,0.7119,1.583,,
-2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Tiros a puerta Paris FC: Más de 3.5,a_puerta,equipo,visita,3.5,0.6711,1.462,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.6633,1.462,,
-2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Ambos marcan: Sí,btts,btts,total,1.0,0.639,1.526,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Córners: Más de 8.5,corners,total,total,8.5,0.6374,1.556,,
-2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Goles: Más de 2.5,goles,total,total,2.5,0.6259,1.636,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros Parma: Más de 8.5,tiros,equipo,visita,8.5,0.622,1.615,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros a puerta Parma: Más de 2.5,a_puerta,equipo,visita,2.5,0.6203,1.846,,
-2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.6105,1.52,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros Lazio: Más de 15.5,tiros,equipo,local,15.5,0.5898,1.583,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Goles Parma: Más de 0.5,goles,equipo,visita,0.5,0.5769,1.769,,
-2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros: Más de 25.5,tiros,total,total,25.5,0.5765,1.615,,
-2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Córners: Más de 8.5,corners,total,total,8.5,0.5751,1.526,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.7011,1.462,,
+2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Tiros Paris FC: Más de 10.5,tiros,equipo,visita,10.5,0.6907,1.583,,
+2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Tiros a puerta Paris FC: Más de 3.5,a_puerta,equipo,visita,3.5,0.6477,1.462,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Córners: Más de 8.5,corners,total,total,8.5,0.638,1.556,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros a puerta Parma: Más de 2.5,a_puerta,equipo,visita,2.5,0.63,1.846,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros Parma: Más de 8.5,tiros,equipo,visita,8.5,0.6264,1.615,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros Lazio: Más de 15.5,tiros,equipo,local,15.5,0.5938,1.583,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Goles Parma: Más de 0.5,goles,equipo,visita,0.5,0.5849,1.8,,
+2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5843,1.526,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros: Más de 25.5,tiros,total,total,25.5,0.5825,1.615,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Goles Lazio: Más de 1.5,goles,equipo,local,1.5,0.5669,1.571,,
+2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5656,1.52,,
+2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Córners: Más de 8.5,corners,total,total,8.5,0.5645,1.526,,
+2026-10-24,Lens vs Paris FC,2026-10-24 18:45:00,Goles: Más de 2.5,goles,total,total,2.5,0.5552,1.667,,
+2026-10-24,Lazio vs Parma,2026-10-24 18:45:00,Tiros a puerta Lazio: Más de 5.5,a_puerta,equipo,local,5.5,0.552,1.75,,
 2026-10-24,Vitoria vs Athletico-PR,2026-10-24 19:30:00,Tiros Vitoria: Más de 12.5,tiros,equipo,local,12.5,0.6864,1.53,,
 2026-10-24,Columbus Crew vs Toronto FC,2026-10-24 19:30:00,Tiros Columbus Crew: Más de 13.5,tiros,equipo,local,13.5,0.6846,1.5,,
 2026-10-24,Vitoria vs Athletico-PR,2026-10-24 19:30:00,Tiros a puerta Athletico-PR: Más de 3.5,a_puerta,equipo,visita,3.5,0.6824,1.52,,
@@ -601,16 +603,15 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Santos vs Bahia,2026-10-25 00:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5839,1.68,,
 2026-10-24,Santos vs Bahia,2026-10-25 00:00:00,Goles Santos: Más de 1.5,goles,equipo,local,1.5,0.5677,1.645,,
 2026-10-24,Santos vs Bahia,2026-10-25 00:00:00,Tiros a puerta Bahia: Más de 3.5,a_puerta,equipo,visita,3.5,0.5627,1.636,,
+2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros Sporting Kansas City: Más de 13.5,tiros,equipo,local,13.5,0.7003,1.5,,
 2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6848,1.462,,
 2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros a puerta Sporting Kansas City: Más de 4.5,a_puerta,equipo,local,4.5,0.6604,1.583,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Tiros Huracan: Más de 8.5,tiros,equipo,visita,8.5,0.6514,1.546,,
-2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros Sporting Kansas City: Más de 14.5,tiros,equipo,local,14.5,0.6296,1.692,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Tiros a puerta Huracan: Más de 2.5,a_puerta,equipo,visita,2.5,0.6268,1.667,,
 2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros a puerta FC Dallas: Más de 4.5,a_puerta,equipo,local,4.5,0.6241,1.462,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Goles Huracan: Más de 0.5,goles,equipo,visita,0.5,0.6067,1.8,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.6031,1.636,,
 2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Goles Sporting Kansas City: Más de 1.5,goles,equipo,local,1.5,0.594,1.69,,
-2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros a puerta: Más de 8.5,a_puerta,total,total,8.5,0.5842,1.462,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Tiros a puerta Rosario Central: Más de 4.5,a_puerta,equipo,local,4.5,0.5825,1.636,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5811,1.556,,
 2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Córners: Más de 9.5,corners,total,total,9.5,0.5801,1.645,,
@@ -618,16 +619,16 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5743,1.692,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Tiros: Más de 24.5,tiros,total,total,24.5,0.5711,1.615,,
 2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Goles FC Dallas: Más de 1.5,goles,equipo,local,1.5,0.5706,1.526,,
-2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5703,1.667,,
+2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros: Más de 27.5,tiros,total,total,27.5,0.5703,1.692,,
 2026-10-24,Rosario Central vs Huracan,2026-10-25 00:30:00,Tiros Rosario Central: Más de 14.5,tiros,equipo,local,14.5,0.5617,1.636,,
-2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros San Jose Earthquakes: Más de 10.5,tiros,equipo,visita,10.5,0.5594,1.583,,
-2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros FC Dallas: Más de 13.5,tiros,equipo,local,13.5,0.5565,1.615,,
+2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros San Jose Earthquakes: Más de 10.5,tiros,equipo,visita,10.5,0.5594,1.546,,
+2026-10-24,FC Dallas vs San Jose Earthquakes,2026-10-25 00:30:00,Tiros FC Dallas: Más de 13.5,tiros,equipo,local,13.5,0.5565,1.667,,
 2026-10-24,Sporting Kansas City vs Austin FC,2026-10-25 00:30:00,Tiros Austin FC: Más de 11.5,tiros,equipo,visita,11.5,0.5502,1.615,,
 2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta: Más de 7.5,a_puerta,total,total,7.5,0.7402,1.462,,
 2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros a puerta Colorado Rapids: Más de 3.5,a_puerta,equipo,local,3.5,0.6986,1.714,,
 2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros Colorado Rapids: Más de 10.5,tiros,equipo,local,10.5,0.649,1.667,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros Vancouver Whitecaps: Más de 11.5,tiros,equipo,visita,11.5,0.6426,1.53,,
-2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6362,1.583,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros Vancouver Whitecaps: Más de 11.5,tiros,equipo,visita,11.5,0.6426,1.538,,
+2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Tiros: Más de 23.5,tiros,total,total,23.5,0.6362,1.6,,
 2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Ambos marcan: Sí,btts,btts,total,1.0,0.627,1.625,,
 2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Goles: Más de 2.5,goles,total,total,2.5,0.6089,1.75,,
 2026-10-24,Colorado Rapids vs Vancouver Whitecaps,2026-10-25 01:30:00,Córners: Más de 8.5,corners,total,total,8.5,0.5786,1.526,,
@@ -640,8 +641,8 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-25,Hibernian vs Celtic,2026-10-25 12:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6261,1.625,,
 2026-10-25,Hibernian vs Celtic,2026-10-25 12:00:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.5904,1.7,,
 2026-10-25,Hibernian vs Celtic,2026-10-25 12:00:00,Tiros Hibernian: Más de 11.5,tiros,equipo,local,11.5,0.5588,1.778,,
-2026-10-25,CSKA Moscow vs Spartak Moscow,2026-10-25 13:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.634,1.571,,
-2026-10-25,CSKA Moscow vs Spartak Moscow,2026-10-25 13:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6216,1.7,,
+2026-10-25,CSKA Moscow vs Spartak Moscow,2026-10-25 13:00:00,Ambos marcan: Sí,btts,btts,total,1.0,0.6696,1.546,,
+2026-10-25,CSKA Moscow vs Spartak Moscow,2026-10-25 13:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.6652,1.667,,
 2026-10-25,Konyaspor vs Genclerbirligi,2026-10-25 13:00:00,Goles Genclerbirligi: Más de 0.5,goles,equipo,visita,0.5,0.6082,1.556,,
 2026-10-25,Konyaspor vs Genclerbirligi,2026-10-25 13:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5834,1.5,,
 2026-10-25,Palermo vs Carrarese,2026-10-25 14:00:00,Goles Palermo: Más de 1.5,goles,equipo,local,1.5,0.658,1.455,,
@@ -666,8 +667,8 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-25,Angers vs Lorient,2026-10-25 16:15:00,Tiros Angers: Más de 11.5,tiros,equipo,local,11.5,0.6403,1.85,,
 2026-10-25,Toulouse vs Troyes,2026-10-25 16:15:00,Goles: Más de 2.5,goles,total,total,2.5,0.628,1.625,,
 2026-10-25,Toulouse vs Troyes,2026-10-25 16:15:00,Goles Troyes: Más de 0.5,goles,equipo,visita,0.5,0.6266,1.455,,
-2026-10-25,Toulouse vs Troyes,2026-10-25 16:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.6253,1.556,,
-2026-10-25,Angers vs Lorient,2026-10-25 16:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.625,1.455,,
+2026-10-25,Toulouse vs Troyes,2026-10-25 16:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.6253,1.625,,
+2026-10-25,Angers vs Lorient,2026-10-25 16:15:00,Córners: Más de 8.5,corners,total,total,8.5,0.625,1.5,,
 2026-10-25,Toulouse vs Troyes,2026-10-25 16:15:00,Tiros Troyes: Más de 10.5,tiros,equipo,visita,10.5,0.5982,1.846,,
 2026-10-25,Angers vs Lorient,2026-10-25 16:15:00,Tiros a puerta Angers: Más de 3.5,a_puerta,equipo,local,3.5,0.5765,1.714,,
 2026-10-25,Toulouse vs Troyes,2026-10-25 16:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.561,1.667,,
@@ -675,15 +676,17 @@ dia,partido,inicio,apuesta,obj,tipo,lado,linea,prob,cuota,real,cumple
 2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Goles Juventus: Más de 1.5,goles,equipo,visita,1.5,0.6031,1.571,,
 2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Goles Lecce: Más de 0.5,goles,equipo,local,0.5,0.6015,1.741,,
 2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Tiros a puerta Lecce: Más de 2.5,a_puerta,equipo,local,2.5,0.575,1.778,,
-2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5671,1.8,,
-2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5627,1.5,,
+2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Goles: Más de 2.5,goles,total,total,2.5,0.5671,1.857,,
+2026-10-25,Lecce vs Juventus,2026-10-25 17:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5627,1.526,,
 2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Goles Fredrikstad: Más de 0.5,goles,equipo,visita,0.5,0.6545,1.455,,
-2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5935,1.571,,
+2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Tiros a puerta: Más de 9.5,a_puerta,total,total,9.5,0.6236,1.68,,
+2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Ambos marcan: Sí,btts,btts,total,1.0,0.5938,1.571,,
+2026-10-25,Molde vs Fredrikstad,2026-10-25 18:15:00,Tiros Fredrikstad: Más de 9.5,tiros,equipo,visita,9.5,0.5625,1.692,,
+2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Córners: Más de 7.5,corners,total,total,7.5,0.6884,1.455,,
 2026-10-25,Barcelona vs Real Madrid,2026-10-25 20:00:00,Goles: Más de 3.5,goles,total,total,3.5,0.6822,1.476,,
 2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Goles: Más de 1.5,goles,total,total,1.5,0.6678,1.455,,
 2026-10-25,Barcelona vs Real Madrid,2026-10-25 20:00:00,Goles Barcelona: Más de 2.5,goles,equipo,local,2.5,0.6365,1.8,,
 2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Goles Independiente: Más de 0.5,goles,equipo,local,0.5,0.5845,1.6,,
-2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Córners: Más de 8.5,corners,total,total,8.5,0.5794,1.75,,
 2026-10-25,Independiente vs Boca Juniors,2026-10-25 20:00:00,Ambos marcan: No,btts,btts,total,0.0,0.5573,1.667,,
 2026-10-25,River Plate vs Racing Club,2026-10-25 22:15:00,Tiros a puerta River Plate: Más de 5.5,a_puerta,equipo,local,5.5,0.6484,1.727,,
 2026-10-25,River Plate vs Racing Club,2026-10-25 22:15:00,Tiros River Plate: Más de 16.5,tiros,equipo,local,16.5,0.633,1.857,,

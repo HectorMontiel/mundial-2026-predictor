@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-24T15:53:17Z",
+"actualizado": "2026-10-24T17:24:47Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -13416,11 +13416,31 @@
 "dia": "2026-10-24",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "ASM Oran vs Sidi Benali",
+"apuesta": "Gana ASM Oran",
+"cuota": 1.39,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Admira vs Wacker Innsbruck",
 "apuesta": "Gana Admira",
 "cuota": 2.15,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Barnet vs Oldham",
+"apuesta": "Barnet o empate",
+"cuota": 1.177,
+"resultado": "verde",
+"marcador": "1-1"
 },
 {
 "dia": "2026-10-24",
@@ -13464,6 +13484,16 @@
 },
 {
 "dia": "2026-10-24",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Estrela vs Casa Pia",
+"apuesta": "Estrela o empate",
+"cuota": 1.167,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-24",
 "nivel": "💰",
 "deporte": "Tenis",
 "partido": "Fernandez L. vs Bouzkova M.",
@@ -13484,6 +13514,16 @@
 },
 {
 "dia": "2026-10-24",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Grossklein vs Koflach",
+"apuesta": "Gana Koflach",
+"cuota": 1.52,
+"resultado": "verde",
+"marcador": "0-5"
+},
+{
+"dia": "2026-10-24",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Lac Inter vs Kagran",
@@ -13491,6 +13531,16 @@
 "cuota": 1.53,
 "resultado": "verde",
 "marcador": "1-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Lackenbach vs Deutschkreutz",
+"apuesta": "Gana Deutschkreutz",
+"cuota": 1.59,
+"resultado": "verde",
+"marcador": "1-2"
 },
 {
 "dia": "2026-10-24",
@@ -13524,6 +13574,26 @@
 },
 {
 "dia": "2026-10-24",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Neom SC vs Abha",
+"apuesta": "Neom SC o empate",
+"cuota": 1.133,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Neom SC vs Abha",
+"apuesta": "Gana Neom SC",
+"cuota": 1.5,
+"resultado": "verde",
+"marcador": "2-0"
+},
+{
+"dia": "2026-10-24",
 "nivel": "💰",
 "deporte": "Fútbol",
 "partido": "Neratovice vs Chrudim",
@@ -13554,6 +13624,16 @@
 },
 {
 "dia": "2026-10-24",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Shirak Gyumri vs Alashkert",
+"apuesta": "Gana Alashkert",
+"cuota": 1.625,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-24",
 "nivel": "🏆",
 "deporte": "Fútbol",
 "partido": "Sirius vs AIK",
@@ -13561,6 +13641,26 @@
 "cuota": 1.167,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "WA Mostaganem vs Mostaganem",
+"apuesta": "Gana Mostaganem",
+"cuota": 3.1,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "West Ham vs Southampton",
+"apuesta": "West Ham o empate",
+"cuota": 1.2,
+"resultado": "rojo",
+"marcador": "2-3"
 }
 ]
 }
