@@ -1237,18 +1237,34 @@
     const lin = ctx && ctx.lin;
     if (!lin) return '';
     const fila = (n, xs) => !(xs || []).length ? '' : '<div class="lin-fila"><span class="lin-n">' + esc(n) + '</span><span class="lin-chips">' +
-      xs.map(([t, l, p]) => '<span class="lin-x">' + (t === 'mas' ? 'Más ' : 'Menos ') + l + ' <b>' + Math.round(100 * p) + '%</b></span>').join('') + '</span></div>';
+      xs.map(([t, l, p, cu]) => '<span class="lin-x">' + (t === 'mas' ? 'Más ' : 'Menos ') + l + ' <b>' + Math.round(100 * p) + '%</b>' +
+        (cu ? '<i>' + Number(cu).toFixed(2) + '</i>' : '') + '</span>').join('') + '</span></div>';
     const html = Object.keys(LIN_NOM).filter((k) => lin[k]).map((k) =>
       '<div class="lin-st"><div class="lin-tit">' + LIN_NOM[k] + '</div>' + fila(L, lin[k].h) + fila(V, lin[k].a) + fila('Total', lin[k].t) + '</div>').join('');
-    return html ? html + '<p class="tenue chico">Probabilidad medida en partidos pasados con los mismos promedios. Información, no un pick.</p>' : '';
+    // v474 — sincronizado con lo que se puede meter: con Playdoit, sólo SUS líneas (y su cuota)
+    return html ? html + '<p class="tenue chico">' + (lin.casa ? 'Sólo las líneas que ofrece Playdoit, con su cuota. ' : 'Playdoit no cotiza estas estadísticas en este partido: líneas de referencia. ') +
+      'La probabilidad está medida en partidos pasados. Información, no un pick.</p>' : '';
   }
   // v472 — «ARMA TU PARLEY DE ESTE PARTIDO»: con las líneas que Playdoit SÍ ofrece, la más alta de cada
   // estadística con nuestra probabilidad >= 75 %. Las patas del mismo partido van juntas: el producto se
   // queda corto y se corrige con lo medido (2 patas ×1,04 · 3 ×1,067 · 4 ×1,13; 29.571 partidos).
   const PAR_CORR = { 2: 1.04, 3: 1.067, 4: 1.13 };
+  // v474 — el usuario: «¿dónde está el botón para que la IA arme el parley?». Siempre sale el botón; el
+  // pozo son las líneas de Playdoit (la más alta de cada estadística con >= 75 %, o >= 60 %).
+  estado.parley = estado.parley || {};
   function parleyHtml(ctx, L, V) {
-    const par = ctx && ctx.lin && ctx.lin.par;
-    if (!par || par.length < 2) return '';
+    const lin = ctx && ctx.lin;
+    if (!lin) return '';
+    const k = L + '|' + V, n = estado.parley[k];
+    if (!lin.casa) return '<p class="tenue">Playdoit no cotiza las estadísticas de este partido: no hay líneas que se puedan meter.</p>';
+    const par = lin.par || [];
+    if (!n) return '<button class="vip-btn par-ir" data-par-k="' + esc(k) + '" data-par-n="3">' + ico('target') + ' Armar parley</button>';
+    const chips = '<div class="par-chips">' + [2, 3, 4].map((x) => '<button class="chip' + (x === n ? ' activa' : '') + '" data-par-k="' + esc(k) + '" data-par-n="' + x + '">' + x + ' patas</button>').join('') + '</div>';
+    if (par.length < 2) return chips + '<p class="aviso">Playdoit no ofrece líneas con buena probabilidad para armar un parley en este partido.</p>';
+    return chips + parleyDe(par, Math.min(n, par.length), L, V) + (par.length < n ? '<p class="tenue chico">Sólo hay ' + par.length + ' líneas de la casa que valgan.</p>' : '') +
+      '<p class="tenue chico">Líneas y cuotas de Playdoit. En combinadas del mismo partido la casa puede ajustar la cuota.</p>';
+  }
+  function parleyDe(par, n, L, V) {
     const nom = (lado) => (lado === 'h' ? L : lado === 'a' ? V : 'Total');
     const una = (n) => {
       const ps = par.slice(0, n), prod = ps.reduce((x, y) => x * y[3], 1), cuota = ps.reduce((x, y) => x * y[4], 1);
@@ -1257,8 +1273,7 @@
         ps.map(([st, lado, lin, pr, cu]) => '<div class="par-pata"><span>' + esc(LIN_NOM[st] || st) + ' ' + esc(nom(lado)) + ': <b>más de ' + lin + '</b></span>' +
           '<span class="par-n"><b>' + Math.round(100 * pr) + '%</b><small>' + Number(cu).toFixed(2) + '</small></span></div>').join('') + '</div>';
     };
-    return una(Math.min(3, par.length)) + (par.length >= 3 ? una(2) : '') +
-      '<p class="tenue chico">Líneas y cuotas de Playdoit. En combinadas del mismo partido la casa puede ajustar la cuota.</p>';
+    return una(n);
   }
   function iaBloque(p, L, V, ctx, jug) {
     const a = window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null;
@@ -1873,7 +1888,7 @@
   });
 
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin],[data-ord],[data-fav],[data-arm-niv],[data-arm-n],[data-arm-ir],[data-arm-boleto]');
+    const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin],[data-ord],[data-fav],[data-arm-niv],[data-arm-n],[data-arm-ir],[data-arm-boleto],[data-par-k]');
     if (!t) return;
     if (t.hasAttribute('data-ver-fin')) { estado.verFinales = !estado.verFinales; pintar(); return; }
     if (t.dataset.vistaIr) {
@@ -1889,6 +1904,7 @@
     if (t.dataset.niv) { alterna(estado.niveles, t.dataset.niv); pintar(); return; }
     if (t.dataset.fase) { estado.fase = t.dataset.fase; pintar(); return; }
     if (t.dataset.ficha) { ficha(t.dataset.ficha); return; }
+    if (t.dataset.parK) { estado.parley[t.dataset.parK] = Number(t.dataset.parN) || 3; pintar(); return; }
     if (t.dataset.armNiv) { const n = t.dataset.armNiv; if (!armVip() && n !== 'Oro') return; estado.arm.niv.has(n) ? estado.arm.niv.delete(n) : estado.arm.niv.add(n); estado.arm.res = null; pintar(); return; }
     if (t.dataset.armN) { estado.arm.n = Math.max(2, Math.min(20, estado.arm.n + Number(t.dataset.armN))); estado.arm.res = null; pintar(); return; }
     if (t.dataset.armIr) {

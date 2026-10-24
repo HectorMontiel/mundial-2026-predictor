@@ -323,6 +323,29 @@ def _con_sus_ligas(h, clave: str, equipos) -> 'pd.DataFrame':
     return out.drop_duplicates(subset=['date', 'home_team', 'away_team'])
 
 
+def casa_del_partido(home: str, away: str, clave: Optional[str]) -> Dict:
+    """v474 — el tablero de Playdoit del partido. Primero por la llave de los nombres; si la casa lo
+    llama distinto («1. FC Nurnberg» / «Nurnberg»), se busca en SU MISMA liga con el emparejador de los
+    escudos (alias del proyecto y parecido, nunca «contiene»). {} si no lo cotiza."""
+    try:
+        import mercado_implicito as mi
+        t = mi.del_partido(home, away)
+        if t:
+            return t
+        import escudos
+        mejor, pts = None, 0.0
+        for v in (mi.cargar().get('partidos') or {}).values():
+            if clave and v.get('clave_liga') and v.get('clave_liga') != clave:
+                continue
+            x = escudos._puntos(home, away, str(v.get('home') or ''), str(v.get('away') or ''), True)
+            if x > pts:
+                mejor, pts = v, x
+        return dict(mejor) if mejor and pts >= 0.8 else {}
+    except Exception as e:
+        logger.debug('[errores] casa %s-%s: %s', home, away, e)
+        return {}
+
+
 def contexto(p: Dict) -> Optional[Dict]:
     """{'fl': 'GGEPG', 'fv': ..., 'sl'/'sv': promedios de los últimos 10, 'h2h': [[fecha, local, marcador, visita], …], 'bl': [...], 'bv': [...]}"""
     try:
@@ -351,11 +374,7 @@ def contexto(p: Dict) -> Optional[Dict]:
                     # v470 — líneas por estadística con su probabilidad medida (va en el análisis IA)
                     try:
                         import lineas_stats
-                        try:
-                            import mercado_implicito as mi
-                            casa = mi.del_partido(home, away)        # las líneas que Playdoit ofrece (v472)
-                        except Exception:
-                            casa = None
+                        casa = casa_del_partido(home, away, clave)   # las líneas que Playdoit ofrece (v472/v474)
                         lin = lineas_stats.calcular(h, home, away, antes, casa)
                         if lin:
                             ctx['lin'] = lin

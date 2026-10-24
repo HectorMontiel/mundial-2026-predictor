@@ -65,13 +65,25 @@ def probar():
             'goles_home': {'0.5': {'mas': 1.1}}, 'remates': {'20.5': {'mas': 1.3}}, 'tarjetas_home': {'0.5': {'mas': 1.05}}}
     lin2 = ls.calcular(h, 'A', 'B', pd.Timestamp('2026-06-01'), casa)
     par = (lin2 or {}).get('par') or []
-    check(par and all(x[3] >= ls.P_PATA for x in par) and all(x[2] % 1 == 0.5 for x in par)
-          and not any(x[0] == 'amarillas' for x in par), 'v472: patas sólo con líneas de la casa (medias), nuestra prob >= 75 %%, sin tarjetas: %s' % par)
+    check(par and all(x[3] >= ls.P_POZO for x in par) and all(x[2] % 1 == 0.5 for x in par)
+          and not any(x[0] == 'amarillas' for x in par), 'v472: patas sólo con líneas de la casa (medias), prob >= 60 %%, sin tarjetas: %s' % par)
+    # v474 — las líneas, SINCRONIZADAS con lo que la casa deja meter
+    ofrecidas = {('corners', 'h'): {3.5, 5.5, 9.5}, ('goles', 'h'): {0.5}}
+    check(lin2.get('casa') is True and all(x[1] in ofrecidas[(st, 'h')] and len(x) == 4
+                                           for st in ('corners', 'goles') for x in (lin2.get(st) or {}).get('h', [])),
+          'v474: con Playdoit, sólo SUS líneas (con su cuota); nada de «más de 2.5» si la casa empieza en 4')
+    check(not (lin2.get('corners') or {}).get('a') and not (lin2.get('tiros_puerta') or {}).get('h'),
+          'v474: lo que la casa no ofrece no se enseña')
+    check(lin.get('casa') is False, 'v474: sin Playdoit, nuestras líneas como referencia (y se dice)')
+    check("data-par-n=\"3\">' + ico('target') + ' Armar parley</button>'" in app and "estado.parley[t.dataset.parK] = Number(t.dataset.parN) || 3" in app
+          and "[2, 3, 4].map" in app, 'v474: el botón «Armar parley» (2, 3 o 4 patas) siempre sale')
+    check("def casa_del_partido(home: str, away: str, clave: Optional[str]) -> Dict:" in ew and 'escudos._puntos(home, away' in ew,
+          'v474: el tablero de la casa se encuentra aunque lo llame distinto («1. FC Nurnberg»)')
     cor = [x for x in par if x[0] == 'corners']
     check(cor and cor[0][2] in (3.5, 5.5) and cor[0][4] in (1.25, 1.6), 'v472: de cada estadística, la línea MÁS ALTA de la casa que pasa el 75 %%, con su cuota')
     check(ls.CORR == {2: 1.04, 3: 1.067, 4: 1.13} and 'const PAR_CORR = { 2: 1.04, 3: 1.067, 4: 1.13 }' in app,
           'v472: la probabilidad conjunta con la corrección medida (las patas del mismo partido van juntas)')
-    check("sub('Arma tu parley de este partido', parleyHtml(ctx, L, V))" in app and 'mi.del_partido(home, away)' in ew,
+    check("sub('Arma tu parley de este partido', parleyHtml(ctx, L, V))" in app and 'casa_del_partido(home, away, clave)' in ew,
           'v472: «Arma tu parley de este partido» dentro del análisis IA, con Playdoit')
     check("const armNiveles = () => (armVip() ? estado.arm.niv : new Set(['Oro']));" in app and "if (!armVip() && n !== 'Oro') return;" in app,
           'v473: el gratis arma sólo con Oro; los demás niveles con candado (VIP)')

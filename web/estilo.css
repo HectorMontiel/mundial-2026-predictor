@@ -877,3 +877,8 @@ body::before, body::after { animation: none !important; }
 /* v473 — niveles con candado en «Arma tu combinada» (plan gratis: sólo Oro) */
 .armador .chip.bloq { opacity: .55; }
 .armador .chip.bloq .ic { width: 12px; height: 12px; margin-left: 2px; }
+
+/* v474 — botón «Armar parley» y la cuota de la casa en cada línea */
+.par-ir { width: 100%; display: inline-flex; justify-content: center; align-items: center; gap: 6px; margin: 4px 0; }
+.par-chips { display: flex; gap: 6px; margin: 2px 0 6px; }
+.lin-x i { font-style: normal; color: var(--tenue); margin-left: 5px; padding-left: 5px; border-left: 1px solid var(--borde); }
