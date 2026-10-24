@@ -12,8 +12,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2021-09-04,Reims,Guingamp,0.0,0.0,"Première Ligue (Francia, femenil)",3663970,20210904_Reims_Guingamp,,,,,,,,,,,,,,,,,
 2021-09-05,OL Lyonnes,Saint-Étienne,6.0,0.0,"Première Ligue (Francia, femenil)",3663971,20210905_OL-Lyonnes_Saint-Étienne,,,,,,,,,,,,,,,,,
 2021-09-10,Guingamp,Montpellier FC,2.0,1.0,"Première Ligue (Francia, femenil)",3663974,20210910_Guingamp_Montpellier-FC,,,,,,,,,,,,,,,,,
-2021-09-11,Saint-Étienne,GPSO 92 Issy,0.0,1.0,"Première Ligue (Francia, femenil)",3663977,20210911_Saint-Étienne_GPSO-92-Issy,,,,,,,,,,,,,,,,,
 2021-09-11,Paris FC,Reims,3.0,0.0,"Première Ligue (Francia, femenil)",3663976,20210911_Paris-FC_Reims,,,,,,,,,,,,,,,,,
+2021-09-11,Saint-Étienne,GPSO 92 Issy,0.0,1.0,"Première Ligue (Francia, femenil)",3663977,20210911_Saint-Étienne_GPSO-92-Issy,,,,,,,,,,,,,,,,,
 2021-09-12,ASJ Soyaux,Paris Saint Germain,0.0,2.0,"Première Ligue (Francia, femenil)",3663975,20210912_ASJ-Soyaux_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
 2021-09-12,Bordeaux,Fleury Merogis U.S,1.0,2.0,"Première Ligue (Francia, femenil)",3663973,20210912_Bordeaux_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2021-09-12,OL Lyonnes,Dijon Foot,6.0,0.0,"Première Ligue (Francia, femenil)",3663978,20210912_OL-Lyonnes_Dijon-Foot,,,,,,,,,,,,,,,,,
@@ -29,16 +29,16 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2021-10-02,GPSO 92 Issy,Reims,1.0,3.0,"Première Ligue (Francia, femenil)",3664267,20211002_GPSO-92-Issy_Reims,,,,,,,,,,,,,,,,,
 2021-10-02,Saint-Étienne,Paris FC,1.0,3.0,"Première Ligue (Francia, femenil)",3664264,20211002_Saint-Étienne_Paris-FC,,,,,,,,,,,,,,,,,
 2021-10-10,Paris Saint Germain,Guingamp,6.0,0.0,"Première Ligue (Francia, femenil)",3664265,20211010_Paris-Saint-Germain_Guingamp,,,,,,,,,,,,,,,,,
+2021-10-16,Paris FC,ASJ Soyaux,4.0,0.0,"Première Ligue (Francia, femenil)",3664270,20211016_Paris-FC_ASJ-Soyaux,,,,,,,,,,,,,,,,,
 2021-10-16,Reims,Bordeaux,5.0,2.0,"Première Ligue (Francia, femenil)",3664271,20211016_Reims_Bordeaux,,,,,,,,,,,,,,,,,
 2021-10-16,Fleury Merogis U.S,Dijon Foot,0.0,1.0,"Première Ligue (Francia, femenil)",3664268,20211016_Fleury-Merogis-U.S_Dijon-Foot,,,,,,,,,,,,,,,,,
 2021-10-16,Guingamp,GPSO 92 Issy,1.0,1.0,"Première Ligue (Francia, femenil)",3664273,20211016_Guingamp_GPSO-92-Issy,,,,,,,,,,,,,,,,,
-2021-10-16,Paris FC,ASJ Soyaux,4.0,0.0,"Première Ligue (Francia, femenil)",3664270,20211016_Paris-FC_ASJ-Soyaux,,,,,,,,,,,,,,,,,
 2021-10-17,Paris Saint Germain,Saint-Étienne,2.0,0.0,"Première Ligue (Francia, femenil)",3664272,20211017_Paris-Saint-Germain_Saint-Étienne,,,,,,,,,,,,,,,,,
 2021-10-17,OL Lyonnes,Montpellier FC,5.0,0.0,"Première Ligue (Francia, femenil)",3664269,20211017_OL-Lyonnes_Montpellier-FC,,,,,,,,,,,,,,,,,
-2021-10-30,Fleury Merogis U.S,Reims,1.0,0.0,"Première Ligue (Francia, femenil)",3664274,20211030_Fleury-Merogis-U.S_Reims,,,,,,,,,,,,,,,,,
 2021-10-30,Saint-Étienne,Montpellier FC,1.0,2.0,"Première Ligue (Francia, femenil)",3664275,20211030_Saint-Étienne_Montpellier-FC,,,,,,,,,,,,,,,,,
-2021-10-30,Bordeaux,Guingamp,3.0,0.0,"Première Ligue (Francia, femenil)",3664279,20211030_Bordeaux_Guingamp,,,,,,,,,,,,,,,,,
+2021-10-30,Fleury Merogis U.S,Reims,1.0,0.0,"Première Ligue (Francia, femenil)",3664274,20211030_Fleury-Merogis-U.S_Reims,,,,,,,,,,,,,,,,,
 2021-10-30,GPSO 92 Issy,Paris FC,0.0,5.0,"Première Ligue (Francia, femenil)",3664277,20211030_GPSO-92-Issy_Paris-FC,,,,,,,,,,,,,,,,,
+2021-10-30,Bordeaux,Guingamp,3.0,0.0,"Première Ligue (Francia, femenil)",3664279,20211030_Bordeaux_Guingamp,,,,,,,,,,,,,,,,,
 2021-10-31,ASJ Soyaux,OL Lyonnes,1.0,6.0,"Première Ligue (Francia, femenil)",3664276,20211031_ASJ-Soyaux_OL-Lyonnes,,,,,,,,,,,,,,,,,
 2021-10-31,Dijon Foot,Paris Saint Germain,0.0,3.0,"Première Ligue (Francia, femenil)",3664278,20211031_Dijon-Foot_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
 2021-11-12,Paris FC,Bordeaux,1.0,3.0,"Première Ligue (Francia, femenil)",3664284,20211112_Paris-FC_Bordeaux,,,,,,,,,,,,,,,,,
@@ -47,9 +47,9 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2021-11-13,Reims,Dijon Foot,1.0,1.0,"Première Ligue (Francia, femenil)",3664283,20211113_Reims_Dijon-Foot,,,,,,,,,,,,,,,,,
 2021-11-13,Saint-Étienne,Fleury Merogis U.S,0.0,4.0,"Première Ligue (Francia, femenil)",3664280,20211113_Saint-Étienne_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2021-11-14,OL Lyonnes,Paris Saint Germain,6.0,1.0,"Première Ligue (Francia, femenil)",3664285,20211114_OL-Lyonnes_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
+2021-11-20,Dijon Foot,Paris FC,0.0,2.0,"Première Ligue (Francia, femenil)",3664290,20211120_Dijon-Foot_Paris-FC,,,,,,,,,,,,,,,,,
 2021-11-20,Bordeaux,Montpellier FC,0.0,1.0,"Première Ligue (Francia, femenil)",3664287,20211120_Bordeaux_Montpellier-FC,,,,,,,,,,,,,,,,,
 2021-11-20,Fleury Merogis U.S,Guingamp,6.0,2.0,"Première Ligue (Francia, femenil)",3664286,20211120_Fleury-Merogis-U.S_Guingamp,,,,,,,,,,,,,,,,,
-2021-11-20,Dijon Foot,Paris FC,0.0,2.0,"Première Ligue (Francia, femenil)",3664290,20211120_Dijon-Foot_Paris-FC,,,,,,,,,,,,,,,,,
 2021-11-20,ASJ Soyaux,Saint-Étienne,2.0,1.0,"Première Ligue (Francia, femenil)",3664288,20211120_ASJ-Soyaux_Saint-Étienne,,,,,,,,,,,,,,,,,
 2021-11-21,GPSO 92 Issy,OL Lyonnes,0.0,4.0,"Première Ligue (Francia, femenil)",3664291,20211121_GPSO-92-Issy_OL-Lyonnes,,,,,,,,,,,,,,,,,
 2021-11-21,Paris Saint Germain,Reims,7.0,0.0,"Première Ligue (Francia, femenil)",3664289,20211121_Paris-Saint-Germain_Reims,,,,,,,,,,,,,,,,,
@@ -61,9 +61,9 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2021-12-05,OL Lyonnes,Fleury Merogis U.S,4.0,0.0,"Première Ligue (Francia, femenil)",3664292,20211205_OL-Lyonnes_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2021-12-12,Paris FC,OL Lyonnes,1.0,2.0,"Première Ligue (Francia, femenil)",3664301,20211212_Paris-FC_OL-Lyonnes,,,,,,,,,,,,,,,,,
 2021-12-12,Fleury Merogis U.S,GPSO 92 Issy,1.0,0.0,"Première Ligue (Francia, femenil)",3664298,20211212_Fleury-Merogis-U.S_GPSO-92-Issy,,,,,,,,,,,,,,,,,
-2021-12-12,ASJ Soyaux,Montpellier FC,0.0,1.0,"Première Ligue (Francia, femenil)",3664299,20211212_ASJ-Soyaux_Montpellier-FC,,,,,,,,,,,,,,,,,
-2021-12-12,Paris Saint Germain,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",3664300,20211212_Paris-Saint-Germain_Bordeaux,,,,,,,,,,,,,,,,,
 2021-12-12,Dijon Foot,Guingamp,1.0,1.0,"Première Ligue (Francia, femenil)",3664303,20211212_Dijon-Foot_Guingamp,,,,,,,,,,,,,,,,,
+2021-12-12,Paris Saint Germain,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",3664300,20211212_Paris-Saint-Germain_Bordeaux,,,,,,,,,,,,,,,,,
+2021-12-12,ASJ Soyaux,Montpellier FC,0.0,1.0,"Première Ligue (Francia, femenil)",3664299,20211212_ASJ-Soyaux_Montpellier-FC,,,,,,,,,,,,,,,,,
 2021-12-12,Saint-Étienne,Reims,0.0,1.0,"Première Ligue (Francia, femenil)",3664302,20211212_Saint-Étienne_Reims,,,,,,,,,,,,,,,,,
 2022-01-15,Paris FC,GPSO 92 Issy,1.0,0.0,"Première Ligue (Francia, femenil)",3664307,20220115_Paris-FC_GPSO-92-Issy,,,,,,,,,,,,,,,,,
 2022-01-15,Reims,Fleury Merogis U.S,0.0,1.0,"Première Ligue (Francia, femenil)",3664304,20220115_Reims_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
@@ -77,18 +77,18 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2022-02-04,Fleury Merogis U.S,Montpellier FC,1.0,0.0,"Première Ligue (Francia, femenil)",3664316,20220204_Fleury-Merogis-U.S_Montpellier-FC,,,,,,,,,,,,,,,,,
 2022-02-05,Reims,GPSO 92 Issy,4.0,3.0,"Première Ligue (Francia, femenil)",3664321,20220205_Reims_GPSO-92-Issy,,,,,,,,,,,,,,,,,
 2022-02-05,Paris FC,Saint-Étienne,2.0,1.0,"Première Ligue (Francia, femenil)",3664318,20220205_Paris-FC_Saint-Étienne,,,,,,,,,,,,,,,,,
-2022-02-05,Dijon Foot,ASJ Soyaux,0.0,1.0,"Première Ligue (Francia, femenil)",3664317,20220205_Dijon-Foot_ASJ-Soyaux,,,,,,,,,,,,,,,,,
 2022-02-05,Guingamp,Paris Saint Germain,2.0,6.0,"Première Ligue (Francia, femenil)",3664319,20220205_Guingamp_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
+2022-02-05,Dijon Foot,ASJ Soyaux,0.0,1.0,"Première Ligue (Francia, femenil)",3664317,20220205_Dijon-Foot_ASJ-Soyaux,,,,,,,,,,,,,,,,,
 2022-02-06,OL Lyonnes,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",3664320,20220206_OL-Lyonnes_Bordeaux,,,,,,,,,,,,,,,,,
 2022-02-08,Dijon Foot,Fleury Merogis U.S,0.0,0.0,"Première Ligue (Francia, femenil)",3664310,20220208_Dijon-Foot_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2022-02-11,OL Lyonnes,ASJ Soyaux,8.0,0.0,"Première Ligue (Francia, femenil)",3664306,20220211_OL-Lyonnes_ASJ-Soyaux,,,,,,,,,,,,,,,,,
 2022-02-11,Paris Saint Germain,Dijon Foot,5.0,0.0,"Première Ligue (Francia, femenil)",3664308,20220211_Paris-Saint-Germain_Dijon-Foot,,,,,,,,,,,,,,,,,
-2022-02-26,Guingamp,Paris FC,2.0,5.0,"Première Ligue (Francia, femenil)",3664327,20220226_Guingamp_Paris-FC,,,,,,,,,,,,,,,,,
 2022-02-26,Bordeaux,Saint-Étienne,3.0,0.0,"Première Ligue (Francia, femenil)",3664325,20220226_Bordeaux_Saint-Étienne,,,,,,,,,,,,,,,,,
 2022-02-26,GPSO 92 Issy,ASJ Soyaux,5.0,1.0,"Première Ligue (Francia, femenil)",3664324,20220226_GPSO-92-Issy_ASJ-Soyaux,,,,,,,,,,,,,,,,,
+2022-02-26,Guingamp,Paris FC,2.0,5.0,"Première Ligue (Francia, femenil)",3664327,20220226_Guingamp_Paris-FC,,,,,,,,,,,,,,,,,
 2022-02-26,Montpellier FC,Dijon Foot,2.0,0.0,"Première Ligue (Francia, femenil)",3664323,20220226_Montpellier-FC_Dijon-Foot,,,,,,,,,,,,,,,,,
-2022-02-27,Fleury Merogis U.S,Paris Saint Germain,0.0,4.0,"Première Ligue (Francia, femenil)",3664322,20220227_Fleury-Merogis-U.S_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
 2022-02-27,Reims,OL Lyonnes,0.0,2.0,"Première Ligue (Francia, femenil)",3664326,20220227_Reims_OL-Lyonnes,,,,,,,,,,,,,,,,,
+2022-02-27,Fleury Merogis U.S,Paris Saint Germain,0.0,4.0,"Première Ligue (Francia, femenil)",3664322,20220227_Fleury-Merogis-U.S_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
 2022-03-11,Paris FC,Fleury Merogis U.S,3.0,1.0,"Première Ligue (Francia, femenil)",3664328,20220311_Paris-FC_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2022-03-11,Paris Saint Germain,Montpellier FC,0.0,0.0,"Première Ligue (Francia, femenil)",3664329,20220311_Paris-Saint-Germain_Montpellier-FC,,,,,,,,,,,,,,,,,
 2022-03-12,Saint-Étienne,OL Lyonnes,1.0,1.0,"Première Ligue (Francia, femenil)",3664332,20220312_Saint-Étienne_OL-Lyonnes,,,,,,,,,,,,,,,,,
@@ -101,23 +101,23 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2022-03-19,Montpellier FC,Guingamp,6.0,0.0,"Première Ligue (Francia, femenil)",3664335,20220319_Montpellier-FC_Guingamp,,,,,,,,,,,,,,,,,
 2022-03-19,Reims,Paris FC,1.0,2.0,"Première Ligue (Francia, femenil)",3664337,20220319_Reims_Paris-FC,,,,,,,,,,,,,,,,,
 2022-03-20,Fleury Merogis U.S,Bordeaux,2.0,0.0,"Première Ligue (Francia, femenil)",3664334,20220320_Fleury-Merogis-U.S_Bordeaux,,,,,,,,,,,,,,,,,
-2022-04-02,Montpellier FC,Reims,1.0,2.0,"Première Ligue (Francia, femenil)",3664341,20220402_Montpellier-FC_Reims,,,,,,,,,,,,,,,,,
 2022-04-02,Bordeaux,GPSO 92 Issy,3.0,0.0,"Première Ligue (Francia, femenil)",3664344,20220402_Bordeaux_GPSO-92-Issy,,,,,,,,,,,,,,,,,
+2022-04-02,Montpellier FC,Reims,1.0,2.0,"Première Ligue (Francia, femenil)",3664341,20220402_Montpellier-FC_Reims,,,,,,,,,,,,,,,,,
 2022-04-02,ASJ Soyaux,Fleury Merogis U.S,0.0,1.0,"Première Ligue (Francia, femenil)",3664340,20220402_ASJ-Soyaux_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2022-04-03,Guingamp,OL Lyonnes,0.0,2.0,"Première Ligue (Francia, femenil)",3664343,20220403_Guingamp_OL-Lyonnes,,,,,,,,,,,,,,,,,
 2022-04-03,Paris FC,Paris Saint Germain,0.0,0.0,"Première Ligue (Francia, femenil)",3664345,20220403_Paris-FC_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
 2022-04-15,Paris FC,Montpellier FC,3.0,1.0,"Première Ligue (Francia, femenil)",3664347,20220415_Paris-FC_Montpellier-FC,,,,,,,,,,,,,,,,,
-2022-04-16,Paris Saint Germain,GPSO 92 Issy,6.0,1.0,"Première Ligue (Francia, femenil)",3664349,20220416_Paris-Saint-Germain_GPSO-92-Issy,,,,,,,,,,,,,,,,,
 2022-04-16,ASJ Soyaux,Reims,1.0,2.0,"Première Ligue (Francia, femenil)",3664348,20220416_ASJ-Soyaux_Reims,,,,,,,,,,,,,,,,,
 2022-04-16,Dijon Foot,Bordeaux,0.0,2.0,"Première Ligue (Francia, femenil)",3664351,20220416_Dijon-Foot_Bordeaux,,,,,,,,,,,,,,,,,
 2022-04-16,Saint-Étienne,Guingamp,1.0,3.0,"Première Ligue (Francia, femenil)",3664350,20220416_Saint-Étienne_Guingamp,,,,,,,,,,,,,,,,,
+2022-04-16,Paris Saint Germain,GPSO 92 Issy,6.0,1.0,"Première Ligue (Francia, femenil)",3664349,20220416_Paris-Saint-Germain_GPSO-92-Issy,,,,,,,,,,,,,,,,,
 2022-04-17,Fleury Merogis U.S,OL Lyonnes,1.0,2.0,"Première Ligue (Francia, femenil)",3664346,20220417_Fleury-Merogis-U.S_OL-Lyonnes,,,,,,,,,,,,,,,,,
 2022-04-23,Saint-Étienne,Dijon Foot,2.0,2.0,"Première Ligue (Francia, femenil)",3664342,20220423_Saint-Étienne_Dijon-Foot,,,,,,,,,,,,,,,,,
-2022-05-07,Bordeaux,Paris Saint Germain,1.0,5.0,"Première Ligue (Francia, femenil)",3664354,20220507_Bordeaux_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
-2022-05-07,Reims,Saint-Étienne,1.0,0.0,"Première Ligue (Francia, femenil)",3664356,20220507_Reims_Saint-Étienne,,,,,,,,,,,,,,,,,
 2022-05-07,Montpellier FC,ASJ Soyaux,3.0,0.0,"Première Ligue (Francia, femenil)",3664353,20220507_Montpellier-FC_ASJ-Soyaux,,,,,,,,,,,,,,,,,
-2022-05-07,GPSO 92 Issy,Fleury Merogis U.S,0.0,5.0,"Première Ligue (Francia, femenil)",3664352,20220507_GPSO-92-Issy_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2022-05-07,Guingamp,Dijon Foot,4.0,0.0,"Première Ligue (Francia, femenil)",3664357,20220507_Guingamp_Dijon-Foot,,,,,,,,,,,,,,,,,
+2022-05-07,Reims,Saint-Étienne,1.0,0.0,"Première Ligue (Francia, femenil)",3664356,20220507_Reims_Saint-Étienne,,,,,,,,,,,,,,,,,
+2022-05-07,Bordeaux,Paris Saint Germain,1.0,5.0,"Première Ligue (Francia, femenil)",3664354,20220507_Bordeaux_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
+2022-05-07,GPSO 92 Issy,Fleury Merogis U.S,0.0,5.0,"Première Ligue (Francia, femenil)",3664352,20220507_GPSO-92-Issy_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2022-05-08,OL Lyonnes,Paris FC,2.0,0.0,"Première Ligue (Francia, femenil)",3664355,20220508_OL-Lyonnes_Paris-FC,,,,,,,,,,,,,,,,,
 2022-05-27,Bordeaux,Paris FC,1.0,4.0,"Première Ligue (Francia, femenil)",3664362,20220527_Bordeaux_Paris-FC,,,,,,,,,,,,,,,,,
 2022-05-28,ASJ Soyaux,Guingamp,2.0,0.0,"Première Ligue (Francia, femenil)",3664360,20220528_ASJ-Soyaux_Guingamp,,,,,,,,,,,,,,,,,
@@ -156,19 +156,19 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2022-10-01,Reims,Guingamp,3.0,0.0,"Première Ligue (Francia, femenil)",3990134,20221001_Reims_Guingamp,2.0,4.0,2.0,2.0,0.0,0.0,5.0,3.0,3.0,10.0,11.0,16.0,41.3,58.7,1.0,4.0,espn
 2022-10-02,Le Havre,Paris Saint Germain,2.0,2.0,"Première Ligue (Francia, femenil)",3990149,20221002_Le-Havre_Paris-Saint-Germain,3.0,2.0,3.0,1.0,0.0,0.0,3.0,5.0,2.0,5.0,16.0,12.0,31.8,68.2,2.0,4.0,espn
 2022-10-14,Paris FC,Reims,2.0,2.0,"Première Ligue (Francia, femenil)",3990118,20221014_Paris-FC_Reims,5.0,4.0,1.0,3.0,0.0,0.0,6.0,6.0,16.0,3.0,7.0,12.0,61.6,38.4,2.0,2.0,espn
-2022-10-15,Guingamp,Montpellier FC,1.0,4.0,"Première Ligue (Francia, femenil)",3990116,20221015_Guingamp_Montpellier-FC,,,,,,,,,,,,,,,,,
 2022-10-15,Paris Saint Germain,Dijon Foot,3.0,1.0,"Première Ligue (Francia, femenil)",3990132,20221015_Paris-Saint-Germain_Dijon-Foot,14.0,2.0,2.0,3.0,0.0,0.0,8.0,1.0,16.0,3.0,7.0,11.0,68.2,31.8,0.0,1.0,espn
+2022-10-15,Guingamp,Montpellier FC,1.0,4.0,"Première Ligue (Francia, femenil)",3990116,20221015_Guingamp_Montpellier-FC,,,,,,,,,,,,,,,,,
 2022-10-15,ASJ Soyaux,Le Havre,1.0,4.0,"Première Ligue (Francia, femenil)",3990119,20221015_ASJ-Soyaux_Le-Havre,3.0,4.0,0.0,2.0,0.0,0.0,4.0,12.0,5.0,7.0,9.0,11.0,56.1,43.9,4.0,9.0,espn
-2022-10-16,Rodez Aveyron,Fleury Merogis U.S,2.0,1.0,"Première Ligue (Francia, femenil)",3990117,20221016_Rodez-Aveyron_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2022-10-16,Bordeaux,OL Lyonnes,1.0,3.0,"Première Ligue (Francia, femenil)",3990115,20221016_Bordeaux_OL-Lyonnes,2.0,4.0,0.0,3.0,0.0,0.0,1.0,9.0,4.0,9.0,10.0,16.0,33.4,66.6,1.0,1.0,espn
+2022-10-16,Rodez Aveyron,Fleury Merogis U.S,2.0,1.0,"Première Ligue (Francia, femenil)",3990117,20221016_Rodez-Aveyron_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2022-10-28,Montpellier FC,Paris FC,1.0,3.0,"Première Ligue (Francia, femenil)",3990112,20221028_Montpellier-FC_Paris-FC,8.0,5.0,2.0,0.0,1.0,1.0,2.0,7.0,3.0,8.0,4.0,14.0,51.9,48.1,1.0,1.0,espn
 2022-10-29,Bordeaux,Guingamp,3.0,1.0,"Première Ligue (Francia, femenil)",3990114,20221029_Bordeaux_Guingamp,4.0,7.0,3.0,1.0,0.0,0.0,9.0,4.0,5.0,8.0,17.0,11.0,46.1,53.9,0.0,2.0,espn
 2022-10-29,Dijon Foot,ASJ Soyaux,1.0,0.0,"Première Ligue (Francia, femenil)",3990111,20221029_Dijon-Foot_ASJ-Soyaux,2.0,4.0,2.0,1.0,0.0,0.0,7.0,1.0,4.0,9.0,16.0,11.0,64.8,35.2,5.0,0.0,espn
 2022-10-29,Le Havre,Rodez Aveyron,2.0,1.0,"Première Ligue (Francia, femenil)",3990113,20221029_Le-Havre_Rodez-Aveyron,10.0,3.0,2.0,1.0,1.0,0.0,5.0,4.0,12.0,9.0,21.0,9.0,56.0,44.0,3.0,2.0,espn
 2022-10-29,Reims,Paris Saint Germain,0.0,2.0,"Première Ligue (Francia, femenil)",3990120,20221029_Reims_Paris-Saint-Germain,1.0,7.0,1.0,2.0,0.0,0.0,2.0,12.0,6.0,13.0,5.0,12.0,31.0,69.0,0.0,1.0,espn
 2022-10-30,OL Lyonnes,Fleury Merogis U.S,1.0,0.0,"Première Ligue (Francia, femenil)",3990121,20221030_OL-Lyonnes_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
-2022-11-04,Rodez Aveyron,Dijon Foot,1.0,1.0,"Première Ligue (Francia, femenil)",3990129,20221104_Rodez-Aveyron_Dijon-Foot,10.0,5.0,1.0,1.0,0.0,0.0,8.0,4.0,18.0,6.0,10.0,14.0,44.9,55.1,3.0,1.0,espn
 2022-11-04,Paris FC,Bordeaux,1.0,1.0,"Première Ligue (Francia, femenil)",3990130,20221104_Paris-FC_Bordeaux,3.0,2.0,1.0,2.0,0.0,0.0,7.0,3.0,9.0,2.0,9.0,12.0,61.5,38.5,1.0,0.0,espn
+2022-11-04,Rodez Aveyron,Dijon Foot,1.0,1.0,"Première Ligue (Francia, femenil)",3990129,20221104_Rodez-Aveyron_Dijon-Foot,10.0,5.0,1.0,1.0,0.0,0.0,8.0,4.0,18.0,6.0,10.0,14.0,44.9,55.1,3.0,1.0,espn
 2022-11-05,Guingamp,OL Lyonnes,0.0,0.0,"Première Ligue (Francia, femenil)",3990128,20221105_Guingamp_OL-Lyonnes,1.0,2.0,2.0,3.0,0.0,0.0,2.0,5.0,3.0,14.0,19.0,17.0,34.5,65.5,2.0,1.0,espn
 2022-11-05,Fleury Merogis U.S,Le Havre,3.0,0.0,"Première Ligue (Francia, femenil)",3990127,20221105_Fleury-Merogis-U.S_Le-Havre,,,,,,,,,,,,,,,,,
 2022-11-05,ASJ Soyaux,Reims,1.0,4.0,"Première Ligue (Francia, femenil)",3990131,20221105_ASJ-Soyaux_Reims,3.0,6.0,1.0,1.0,0.0,0.0,4.0,7.0,8.0,4.0,6.0,10.0,39.0,61.0,1.0,3.0,espn
@@ -177,12 +177,12 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2022-11-19,Guingamp,Paris FC,0.0,3.0,"Première Ligue (Francia, femenil)",3990126,20221119_Guingamp_Paris-FC,2.0,6.0,0.0,1.0,0.0,0.0,5.0,7.0,3.0,7.0,7.0,11.0,46.6,53.4,1.0,0.0,espn
 2022-11-19,Montpellier FC,ASJ Soyaux,2.0,2.0,"Première Ligue (Francia, femenil)",3990124,20221119_Montpellier-FC_ASJ-Soyaux,6.0,1.0,1.0,3.0,0.0,0.0,5.0,3.0,7.0,6.0,15.0,7.0,60.5,39.5,3.0,2.0,espn
 2022-11-19,Reims,Rodez Aveyron,0.0,0.0,"Première Ligue (Francia, femenil)",3990110,20221119_Reims_Rodez-Aveyron,2.0,2.0,3.0,3.0,0.0,0.0,3.0,1.0,7.0,4.0,15.0,17.0,52.3,47.7,2.0,3.0,espn
-2022-11-20,Bordeaux,Paris Saint Germain,0.0,3.0,"Première Ligue (Francia, femenil)",3990125,20221120_Bordeaux_Paris-Saint-Germain,4.0,4.0,3.0,2.0,0.0,0.0,3.0,4.0,6.0,6.0,15.0,18.0,29.8,70.2,2.0,3.0,espn
 2022-11-20,OL Lyonnes,Le Havre,1.0,0.0,"Première Ligue (Francia, femenil)",3990161,20221120_OL-Lyonnes_Le-Havre,7.0,1.0,0.0,2.0,0.0,0.0,8.0,1.0,18.0,1.0,11.0,10.0,69.9,30.1,1.0,4.0,espn
+2022-11-20,Bordeaux,Paris Saint Germain,0.0,3.0,"Première Ligue (Francia, femenil)",3990125,20221120_Bordeaux_Paris-Saint-Germain,4.0,4.0,3.0,2.0,0.0,0.0,3.0,4.0,6.0,6.0,15.0,18.0,29.8,70.2,2.0,3.0,espn
 2022-11-25,Fleury Merogis U.S,Reims,1.0,0.0,"Première Ligue (Francia, femenil)",3990162,20221125_Fleury-Merogis-U.S_Reims,,,,,,,,,,,,,,,,,
 2022-11-26,ASJ Soyaux,Bordeaux,0.0,1.0,"Première Ligue (Francia, femenil)",3990159,20221126_ASJ-Soyaux_Bordeaux,3.0,3.0,3.0,3.0,0.0,0.0,1.0,7.0,7.0,5.0,14.0,15.0,45.0,55.0,3.0,7.0,espn
-2022-11-26,Le Havre,Dijon Foot,5.0,0.0,"Première Ligue (Francia, femenil)",3990163,20221126_Le-Havre_Dijon-Foot,5.0,5.0,1.0,3.0,0.0,0.0,7.0,2.0,11.0,7.0,13.0,7.0,45.1,54.9,1.0,0.0,espn
 2022-11-26,Montpellier FC,Rodez Aveyron,2.0,1.0,"Première Ligue (Francia, femenil)",3990157,20221126_Montpellier-FC_Rodez-Aveyron,2.0,4.0,4.0,0.0,0.0,0.0,7.0,2.0,7.0,7.0,19.0,9.0,56.2,43.8,4.0,0.0,espn
+2022-11-26,Le Havre,Dijon Foot,5.0,0.0,"Première Ligue (Francia, femenil)",3990163,20221126_Le-Havre_Dijon-Foot,5.0,5.0,1.0,3.0,0.0,0.0,7.0,2.0,11.0,7.0,13.0,7.0,45.1,54.9,1.0,0.0,espn
 2022-11-26,Paris Saint Germain,Guingamp,1.0,0.0,"Première Ligue (Francia, femenil)",3990160,20221126_Paris-Saint-Germain_Guingamp,7.0,3.0,1.0,2.0,0.0,0.0,6.0,1.0,7.0,4.0,8.0,11.0,70.7,29.3,0.0,2.0,espn
 2022-11-27,Paris FC,OL Lyonnes,2.0,3.0,"Première Ligue (Francia, femenil)",3990158,20221127_Paris-FC_OL-Lyonnes,1.0,10.0,1.0,1.0,0.0,0.0,3.0,9.0,6.0,6.0,7.0,8.0,44.4,55.6,2.0,1.0,espn
 2022-12-02,Montpellier FC,Fleury Merogis U.S,1.0,1.0,"Première Ligue (Francia, femenil)",3990184,20221202_Montpellier-FC_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
@@ -195,8 +195,8 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2022-12-10,ASJ Soyaux,Paris FC,0.0,6.0,"Première Ligue (Francia, femenil)",3990188,20221210_ASJ-Soyaux_Paris-FC,5.0,4.0,2.0,0.0,0.0,0.0,5.0,7.0,7.0,5.0,9.0,8.0,40.6,59.4,3.0,6.0,espn
 2022-12-10,Dijon Foot,Reims,0.0,4.0,"Première Ligue (Francia, femenil)",3990192,20221210_Dijon-Foot_Reims,2.0,6.0,0.0,1.0,0.0,0.0,4.0,14.0,5.0,7.0,12.0,13.0,52.1,47.9,1.0,2.0,espn
 2022-12-10,Rodez Aveyron,Guingamp,1.0,2.0,"Première Ligue (Francia, femenil)",3990189,20221210_Rodez-Aveyron_Guingamp,5.0,2.0,2.0,2.0,0.0,0.0,3.0,7.0,7.0,4.0,10.0,14.0,51.8,48.2,1.0,7.0,espn
-2022-12-11,Le Havre,Montpellier FC,0.0,1.0,"Première Ligue (Francia, femenil)",3990191,20221211_Le-Havre_Montpellier-FC,4.0,2.0,1.0,3.0,0.0,0.0,0.0,6.0,16.0,10.0,10.0,17.0,53.7,46.3,2.0,3.0,espn
 2022-12-11,OL Lyonnes,Paris Saint Germain,0.0,1.0,"Première Ligue (Francia, femenil)",3990187,20221211_OL-Lyonnes_Paris-Saint-Germain,3.0,7.0,0.0,2.0,0.0,0.0,5.0,3.0,15.0,3.0,8.0,9.0,37.2,62.8,1.0,0.0,espn
+2022-12-11,Le Havre,Montpellier FC,0.0,1.0,"Première Ligue (Francia, femenil)",3990191,20221211_Le-Havre_Montpellier-FC,4.0,2.0,1.0,3.0,0.0,0.0,0.0,6.0,16.0,10.0,10.0,17.0,53.7,46.3,2.0,3.0,espn
 2023-01-13,Paris Saint Germain,Rodez Aveyron,1.0,0.0,"Première Ligue (Francia, femenil)",3990193,20230113_Paris-Saint-Germain_Rodez-Aveyron,5.0,3.0,0.0,3.0,0.0,0.0,9.0,0.0,4.0,4.0,13.0,14.0,63.9,36.1,3.0,3.0,espn
 2023-01-14,ASJ Soyaux,OL Lyonnes,0.0,3.0,"Première Ligue (Francia, femenil)",3990164,20230114_ASJ-Soyaux_OL-Lyonnes,4.0,7.0,0.0,1.0,0.0,0.0,0.0,10.0,2.0,16.0,10.0,12.0,32.2,67.8,0.0,8.0,espn
 2023-01-14,Bordeaux,Dijon Foot,2.0,0.0,"Première Ligue (Francia, femenil)",3990179,20230114_Bordeaux_Dijon-Foot,7.0,1.0,1.0,2.0,0.0,0.0,7.0,1.0,14.0,4.0,12.0,13.0,54.4,45.6,1.0,2.0,espn
@@ -209,10 +209,10 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-01-21,Reims,Bordeaux,6.0,1.0,"Première Ligue (Francia, femenil)",3990169,20230121_Reims_Bordeaux,3.0,5.0,2.0,5.0,0.0,0.0,10.0,6.0,3.0,1.0,19.0,14.0,52.4,47.6,7.0,2.0,espn
 2023-01-21,OL Lyonnes,Montpellier FC,2.0,0.0,"Première Ligue (Francia, femenil)",3990170,20230121_OL-Lyonnes_Montpellier-FC,10.0,1.0,1.0,0.0,0.0,0.0,6.0,1.0,12.0,2.0,9.0,16.0,61.9,38.1,3.0,0.0,espn
 2023-02-03,Bordeaux,Montpellier FC,0.0,2.0,"Première Ligue (Francia, femenil)",3990173,20230203_Bordeaux_Montpellier-FC,1.0,6.0,0.0,3.0,0.0,0.0,2.0,11.0,3.0,4.0,9.0,7.0,45.8,54.2,1.0,2.0,espn
-2023-02-04,Rodez Aveyron,OL Lyonnes,0.0,5.0,"Première Ligue (Francia, femenil)",3990176,20230204_Rodez-Aveyron_OL-Lyonnes,0.0,9.0,0.0,0.0,0.0,0.0,0.0,7.0,2.0,13.0,10.0,8.0,34.3,65.7,0.0,7.0,espn
-2023-02-04,Guingamp,Reims,2.0,0.0,"Première Ligue (Francia, femenil)",3990175,20230204_Guingamp_Reims,3.0,2.0,2.0,2.0,0.0,0.0,3.0,7.0,2.0,12.0,12.0,10.0,44.0,56.0,1.0,0.0,espn
 2023-02-04,Paris FC,Dijon Foot,2.0,0.0,"Première Ligue (Francia, femenil)",3990174,20230204_Paris-FC_Dijon-Foot,10.0,6.0,0.0,2.0,0.0,0.0,9.0,2.0,8.0,4.0,10.0,7.0,59.5,40.5,3.0,0.0,espn
 2023-02-04,ASJ Soyaux,Fleury Merogis U.S,0.0,4.0,"Première Ligue (Francia, femenil)",3990171,20230204_ASJ-Soyaux_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
+2023-02-04,Guingamp,Reims,2.0,0.0,"Première Ligue (Francia, femenil)",3990175,20230204_Guingamp_Reims,3.0,2.0,2.0,2.0,0.0,0.0,3.0,7.0,2.0,12.0,12.0,10.0,44.0,56.0,1.0,0.0,espn
+2023-02-04,Rodez Aveyron,OL Lyonnes,0.0,5.0,"Première Ligue (Francia, femenil)",3990176,20230204_Rodez-Aveyron_OL-Lyonnes,0.0,9.0,0.0,0.0,0.0,0.0,0.0,7.0,2.0,13.0,10.0,8.0,34.3,65.7,0.0,7.0,espn
 2023-02-05,Paris Saint Germain,Le Havre,3.0,1.0,"Première Ligue (Francia, femenil)",3990172,20230205_Paris-Saint-Germain_Le-Havre,6.0,1.0,2.0,1.0,0.0,0.0,5.0,2.0,11.0,3.0,10.0,8.0,73.4,26.6,5.0,3.0,espn
 2023-02-10,Rodez Aveyron,ASJ Soyaux,1.0,0.0,"Première Ligue (Francia, femenil)",3990166,20230210_Rodez-Aveyron_ASJ-Soyaux,7.0,3.0,3.0,2.0,0.0,0.0,3.0,2.0,10.0,4.0,14.0,19.0,52.0,48.0,6.0,4.0,espn
 2023-02-25,Fleury Merogis U.S,Rodez Aveyron,6.0,0.0,"Première Ligue (Francia, femenil)",3990214,20230225_Fleury-Merogis-U.S_Rodez-Aveyron,,,,,,,,,,,,,,,,,
@@ -223,9 +223,9 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-02-26,OL Lyonnes,Bordeaux,3.0,0.0,"Première Ligue (Francia, femenil)",3990212,20230226_OL-Lyonnes_Bordeaux,8.0,1.0,2.0,1.0,0.0,0.0,7.0,0.0,16.0,1.0,12.0,6.0,70.9,29.1,5.0,2.0,espn
 2023-03-10,Paris FC,Montpellier FC,2.0,0.0,"Première Ligue (Francia, femenil)",3990197,20230310_Paris-FC_Montpellier-FC,10.0,6.0,1.0,2.0,0.0,0.0,5.0,0.0,11.0,3.0,9.0,8.0,55.1,44.9,2.0,4.0,espn
 2023-03-10,Fleury Merogis U.S,OL Lyonnes,1.0,2.0,"Première Ligue (Francia, femenil)",3990200,20230310_Fleury-Merogis-U.S_OL-Lyonnes,,,,,,,,,,,,,,,,,
-2023-03-11,Rodez Aveyron,Le Havre,1.0,2.0,"Première Ligue (Francia, femenil)",3990210,20230311_Rodez-Aveyron_Le-Havre,10.0,3.0,1.0,1.0,0.0,0.0,5.0,5.0,4.0,5.0,15.0,19.0,49.5,50.5,2.0,8.0,espn
 2023-03-11,ASJ Soyaux,Dijon Foot,1.0,1.0,"Première Ligue (Francia, femenil)",3990198,20230311_ASJ-Soyaux_Dijon-Foot,3.0,5.0,0.0,2.0,0.0,0.0,5.0,5.0,8.0,5.0,9.0,16.0,50.6,49.4,2.0,4.0,espn
 2023-03-11,Guingamp,Bordeaux,2.0,0.0,"Première Ligue (Francia, femenil)",3990211,20230311_Guingamp_Bordeaux,4.0,3.0,2.0,0.0,0.0,0.0,4.0,3.0,2.0,6.0,12.0,9.0,46.4,53.6,2.0,0.0,espn
+2023-03-11,Rodez Aveyron,Le Havre,1.0,2.0,"Première Ligue (Francia, femenil)",3990210,20230311_Rodez-Aveyron_Le-Havre,10.0,3.0,1.0,1.0,0.0,0.0,5.0,5.0,4.0,5.0,15.0,19.0,49.5,50.5,2.0,8.0,espn
 2023-03-12,Paris Saint Germain,Reims,4.0,0.0,"Première Ligue (Francia, femenil)",3990199,20230312_Paris-Saint-Germain_Reims,4.0,0.0,2.0,2.0,0.0,0.0,5.0,3.0,9.0,2.0,6.0,6.0,69.1,30.9,4.0,1.0,espn
 2023-03-24,Le Havre,Fleury Merogis U.S,1.0,1.0,"Première Ligue (Francia, femenil)",3990206,20230324_Le-Havre_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2023-03-25,Bordeaux,Paris FC,0.0,0.0,"Première Ligue (Francia, femenil)",3990203,20230325_Bordeaux_Paris-FC,8.0,3.0,0.0,0.0,0.0,0.0,5.0,4.0,7.0,9.0,5.0,7.0,44.7,55.3,1.0,0.0,espn
@@ -233,23 +233,23 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-03-25,Reims,ASJ Soyaux,3.0,1.0,"Première Ligue (Francia, femenil)",3990202,20230325_Reims_ASJ-Soyaux,3.0,2.0,3.0,2.0,0.0,0.0,6.0,1.0,7.0,4.0,12.0,20.0,59.5,40.5,3.0,0.0,espn
 2023-03-25,OL Lyonnes,Guingamp,6.0,0.0,"Première Ligue (Francia, femenil)",3990205,20230325_OL-Lyonnes_Guingamp,6.0,1.0,1.0,0.0,0.0,0.0,15.0,2.0,12.0,1.0,7.0,8.0,60.7,39.3,3.0,0.0,espn
 2023-03-26,Montpellier FC,Paris Saint Germain,0.0,1.0,"Première Ligue (Francia, femenil)",3990201,20230326_Montpellier-FC_Paris-Saint-Germain,6.0,7.0,1.0,1.0,1.0,1.0,1.0,5.0,8.0,7.0,14.0,11.0,35.3,64.7,3.0,2.0,espn
-2023-03-31,Rodez Aveyron,Reims,1.0,2.0,"Première Ligue (Francia, femenil)",3990216,20230331_Rodez-Aveyron_Reims,6.0,6.0,1.0,2.0,0.0,0.0,4.0,7.0,13.0,9.0,10.0,14.0,49.6,50.4,0.0,4.0,espn
 2023-03-31,Paris FC,Guingamp,2.0,2.0,"Première Ligue (Francia, femenil)",3990207,20230331_Paris-FC_Guingamp,8.0,2.0,2.0,1.0,0.0,0.0,8.0,4.0,20.0,6.0,11.0,7.0,59.4,40.6,0.0,1.0,espn
+2023-03-31,Rodez Aveyron,Reims,1.0,2.0,"Première Ligue (Francia, femenil)",3990216,20230331_Rodez-Aveyron_Reims,6.0,6.0,1.0,2.0,0.0,0.0,4.0,7.0,13.0,9.0,10.0,14.0,49.6,50.4,0.0,4.0,espn
 2023-04-01,Fleury Merogis U.S,Dijon Foot,1.0,0.0,"Première Ligue (Francia, femenil)",3990196,20230401_Fleury-Merogis-U.S_Dijon-Foot,,,,,,,,,,,,,,,,,
 2023-04-01,ASJ Soyaux,Montpellier FC,1.0,5.0,"Première Ligue (Francia, femenil)",3990209,20230401_ASJ-Soyaux_Montpellier-FC,1.0,5.0,1.0,2.0,0.0,0.0,2.0,7.0,6.0,8.0,9.0,13.0,47.9,52.1,0.0,1.0,espn
-2023-04-02,Le Havre,OL Lyonnes,0.0,7.0,"Première Ligue (Francia, femenil)",3990232,20230402_Le-Havre_OL-Lyonnes,0.0,12.0,1.0,0.0,0.0,0.0,4.0,14.0,0.0,11.0,7.0,8.0,32.1,67.9,1.0,6.0,espn
 2023-04-02,Paris Saint Germain,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",3990208,20230402_Paris-Saint-Germain_Bordeaux,6.0,4.0,1.0,0.0,0.0,0.0,4.0,1.0,11.0,4.0,10.0,12.0,71.5,28.5,2.0,0.0,espn
+2023-04-02,Le Havre,OL Lyonnes,0.0,7.0,"Première Ligue (Francia, femenil)",3990232,20230402_Le-Havre_OL-Lyonnes,0.0,12.0,1.0,0.0,0.0,0.0,4.0,14.0,0.0,11.0,7.0,8.0,32.1,67.9,1.0,6.0,espn
 2023-04-15,Bordeaux,ASJ Soyaux,3.0,0.0,"Première Ligue (Francia, femenil)",3990230,20230415_Bordeaux_ASJ-Soyaux,4.0,1.0,1.0,2.0,0.0,0.0,5.0,4.0,5.0,7.0,16.0,10.0,52.1,47.9,3.0,2.0,espn
 2023-04-15,Dijon Foot,Le Havre,0.0,2.0,"Première Ligue (Francia, femenil)",3990226,20230415_Dijon-Foot_Le-Havre,6.0,12.0,1.0,1.0,1.0,0.0,5.0,6.0,5.0,10.0,12.0,17.0,45.2,54.8,1.0,1.0,espn
 2023-04-15,Reims,Fleury Merogis U.S,1.0,3.0,"Première Ligue (Francia, femenil)",3990227,20230415_Reims_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
-2023-04-16,Rodez Aveyron,Montpellier FC,2.0,3.0,"Première Ligue (Francia, femenil)",3990228,20230416_Rodez-Aveyron_Montpellier-FC,2.0,2.0,2.0,3.0,0.0,1.0,4.0,7.0,7.0,8.0,10.0,23.0,32.1,67.9,1.0,2.0,espn
 2023-04-16,Guingamp,Paris Saint Germain,0.0,1.0,"Première Ligue (Francia, femenil)",3990231,20230416_Guingamp_Paris-Saint-Germain,0.0,12.0,2.0,1.0,0.0,0.0,0.0,4.0,1.0,13.0,9.0,13.0,25.6,74.4,2.0,4.0,espn
 2023-04-16,OL Lyonnes,Paris FC,2.0,0.0,"Première Ligue (Francia, femenil)",3990229,20230416_OL-Lyonnes_Paris-FC,4.0,8.0,3.0,1.0,0.0,0.0,6.0,4.0,11.0,7.0,11.0,7.0,57.1,42.9,3.0,0.0,espn
-2023-05-06,Le Havre,Reims,0.0,5.0,"Première Ligue (Francia, femenil)",3990221,20230506_Le-Havre_Reims,6.0,1.0,2.0,2.0,0.0,0.0,3.0,5.0,9.0,7.0,12.0,8.0,51.2,48.8,1.0,3.0,espn
-2023-05-06,Fleury Merogis U.S,Montpellier FC,1.0,2.0,"Première Ligue (Francia, femenil)",3990222,20230506_Fleury-Merogis-U.S_Montpellier-FC,,,,,,,,,,,,,,,,,
-2023-05-06,Rodez Aveyron,Bordeaux,1.0,1.0,"Première Ligue (Francia, femenil)",3990223,20230506_Rodez-Aveyron_Bordeaux,0.0,0.0,0.0,1.0,0.0,0.0,2.0,2.0,2.0,5.0,7.0,9.0,31.8,68.2,1.0,3.0,espn
+2023-04-16,Rodez Aveyron,Montpellier FC,2.0,3.0,"Première Ligue (Francia, femenil)",3990228,20230416_Rodez-Aveyron_Montpellier-FC,2.0,2.0,2.0,3.0,0.0,1.0,4.0,7.0,7.0,8.0,10.0,23.0,32.1,67.9,1.0,2.0,espn
 2023-05-06,ASJ Soyaux,Guingamp,1.0,2.0,"Première Ligue (Francia, femenil)",3990224,20230506_ASJ-Soyaux_Guingamp,2.0,6.0,1.0,3.0,0.0,0.0,3.0,4.0,8.0,8.0,8.0,17.0,40.0,60.0,1.0,2.0,espn
 2023-05-06,Dijon Foot,OL Lyonnes,0.0,3.0,"Première Ligue (Francia, femenil)",3990220,20230506_Dijon-Foot_OL-Lyonnes,0.0,8.0,0.0,0.0,0.0,0.0,0.0,8.0,3.0,9.0,7.0,8.0,34.5,65.5,0.0,0.0,espn
+2023-05-06,Fleury Merogis U.S,Montpellier FC,1.0,2.0,"Première Ligue (Francia, femenil)",3990222,20230506_Fleury-Merogis-U.S_Montpellier-FC,,,,,,,,,,,,,,,,,
+2023-05-06,Le Havre,Reims,0.0,5.0,"Première Ligue (Francia, femenil)",3990221,20230506_Le-Havre_Reims,6.0,1.0,2.0,2.0,0.0,0.0,3.0,5.0,9.0,7.0,12.0,8.0,51.2,48.8,1.0,3.0,espn
+2023-05-06,Rodez Aveyron,Bordeaux,1.0,1.0,"Première Ligue (Francia, femenil)",3990223,20230506_Rodez-Aveyron_Bordeaux,0.0,0.0,0.0,1.0,0.0,0.0,2.0,2.0,2.0,5.0,7.0,9.0,31.8,68.2,1.0,3.0,espn
 2023-05-07,Paris Saint Germain,Paris FC,0.0,0.0,"Première Ligue (Francia, femenil)",3990225,20230507_Paris-Saint-Germain_Paris-FC,2.0,3.0,2.0,1.0,0.0,0.0,3.0,1.0,4.0,6.0,13.0,5.0,70.2,29.8,1.0,0.0,espn
 2023-05-21,Paris Saint Germain,OL Lyonnes,0.0,1.0,"Première Ligue (Francia, femenil)",3990219,20230521_Paris-Saint-Germain_OL-Lyonnes,8.0,3.0,1.0,1.0,0.0,0.0,0.0,5.0,11.0,6.0,8.0,9.0,65.0,35.0,1.0,0.0,espn
 2023-05-21,Paris FC,ASJ Soyaux,5.0,2.0,"Première Ligue (Francia, femenil)",3990218,20230521_Paris-FC_ASJ-Soyaux,3.0,3.0,1.0,1.0,0.0,0.0,8.0,2.0,5.0,2.0,10.0,3.0,53.3,46.7,5.0,0.0,espn
@@ -257,11 +257,11 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-05-21,Guingamp,Rodez Aveyron,2.0,1.0,"Première Ligue (Francia, femenil)",3990217,20230521_Guingamp_Rodez-Aveyron,6.0,4.0,2.0,2.0,0.0,0.0,7.0,4.0,6.0,7.0,11.0,12.0,57.7,42.3,2.0,2.0,espn
 2023-05-21,Bordeaux,Fleury Merogis U.S,1.0,1.0,"Première Ligue (Francia, femenil)",3990233,20230521_Bordeaux_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2023-05-21,Montpellier FC,Le Havre,2.0,1.0,"Première Ligue (Francia, femenil)",3990234,20230521_Montpellier-FC_Le-Havre,8.0,5.0,0.0,3.0,0.0,0.0,4.0,4.0,17.0,10.0,9.0,12.0,57.8,42.2,4.0,1.0,espn
-2023-05-27,OL Lyonnes,Reims,7.0,1.0,"Première Ligue (Francia, femenil)",3990241,20230527_OL-Lyonnes_Reims,6.0,0.0,1.0,3.0,0.0,0.0,11.0,5.0,14.0,7.0,6.0,10.0,57.2,42.8,3.0,3.0,espn
 2023-05-27,ASJ Soyaux,Paris Saint Germain,0.0,3.0,"Première Ligue (Francia, femenil)",3990236,20230527_ASJ-Soyaux_Paris-Saint-Germain,3.0,2.0,1.0,0.0,0.0,0.0,3.0,9.0,5.0,10.0,7.0,6.0,35.2,64.8,1.0,4.0,espn
 2023-05-27,Dijon Foot,Montpellier FC,2.0,1.0,"Première Ligue (Francia, femenil)",3990240,20230527_Dijon-Foot_Montpellier-FC,0.0,5.0,2.0,2.0,0.0,0.0,8.0,7.0,7.0,5.0,13.0,14.0,34.0,66.0,1.0,0.0,espn
 2023-05-27,Fleury Merogis U.S,Guingamp,6.0,0.0,"Première Ligue (Francia, femenil)",3990238,20230527_Fleury-Merogis-U.S_Guingamp,,,,,,,,,,,,,,,,,
 2023-05-27,Le Havre,Bordeaux,2.0,4.0,"Première Ligue (Francia, femenil)",3990239,20230527_Le-Havre_Bordeaux,4.0,2.0,3.0,2.0,0.0,0.0,5.0,5.0,7.0,6.0,9.0,13.0,38.7,61.3,1.0,4.0,espn
+2023-05-27,OL Lyonnes,Reims,7.0,1.0,"Première Ligue (Francia, femenil)",3990241,20230527_OL-Lyonnes_Reims,6.0,0.0,1.0,3.0,0.0,0.0,11.0,5.0,14.0,7.0,6.0,10.0,57.2,42.8,3.0,3.0,espn
 2023-05-27,Rodez Aveyron,Paris FC,0.0,4.0,"Première Ligue (Francia, femenil)",3990237,20230527_Rodez-Aveyron_Paris-FC,4.0,6.0,2.0,1.0,0.0,0.0,1.0,8.0,3.0,12.0,8.0,10.0,37.4,62.6,0.0,3.0,espn
 2023-09-15,Le Havre,OL Lyonnes,0.0,4.0,"Première Ligue (Francia, femenil)",4247546,20230915_Le-Havre_OL-Lyonnes,1.0,12.0,1.0,0.0,0.0,0.0,0.0,12.0,5.0,18.0,12.0,5.0,31.6,68.4,0.0,2.0,espn
 2023-09-16,Reims,Saint-Étienne,2.0,0.0,"Première Ligue (Francia, femenil)",4247545,20230916_Reims_Saint-Étienne,3.0,5.0,1.0,1.0,0.0,0.0,2.0,5.0,5.0,5.0,10.0,16.0,46.0,54.0,3.0,2.0,espn
@@ -271,37 +271,37 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-09-17,Bordeaux,Paris Saint Germain,0.0,3.0,"Première Ligue (Francia, femenil)",4247547,20230917_Bordeaux_Paris-Saint-Germain,3.0,4.0,0.0,1.0,0.0,0.0,0.0,8.0,4.0,3.0,9.0,7.0,25.5,74.5,5.0,4.0,espn
 2023-09-29,Paris FC,Fleury Merogis U.S,3.0,1.0,"Première Ligue (Francia, femenil)",4247550,20230929_Paris-FC_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2023-09-30,Dijon Foot,Lille,3.0,3.0,"Première Ligue (Francia, femenil)",4247555,20230930_Dijon-Foot_Lille,1.0,5.0,2.0,2.0,0.0,0.0,3.0,6.0,7.0,9.0,12.0,6.0,48.7,51.3,1.0,2.0,espn
-2023-09-30,Bordeaux,Le Havre,1.0,1.0,"Première Ligue (Francia, femenil)",4247552,20230930_Bordeaux_Le-Havre,3.0,10.0,1.0,2.0,0.0,0.0,2.0,6.0,4.0,10.0,15.0,7.0,30.6,69.4,4.0,4.0,espn
-2023-09-30,Guingamp,Reims,0.0,0.0,"Première Ligue (Francia, femenil)",4247551,20230930_Guingamp_Reims,5.0,4.0,1.0,4.0,0.0,0.0,1.0,2.0,8.0,1.0,8.0,16.0,56.5,43.5,1.0,2.0,espn
 2023-09-30,Saint-Étienne,Montpellier FC,1.0,1.0,"Première Ligue (Francia, femenil)",4247554,20230930_Saint-Étienne_Montpellier-FC,1.0,5.0,3.0,2.0,0.0,0.0,2.0,2.0,4.0,3.0,24.0,14.0,35.5,64.5,1.0,4.0,espn
+2023-09-30,Guingamp,Reims,0.0,0.0,"Première Ligue (Francia, femenil)",4247551,20230930_Guingamp_Reims,5.0,4.0,1.0,4.0,0.0,0.0,1.0,2.0,8.0,1.0,8.0,16.0,56.5,43.5,1.0,2.0,espn
+2023-09-30,Bordeaux,Le Havre,1.0,1.0,"Première Ligue (Francia, femenil)",4247552,20230930_Bordeaux_Le-Havre,3.0,10.0,1.0,2.0,0.0,0.0,2.0,6.0,4.0,10.0,15.0,7.0,30.6,69.4,4.0,4.0,espn
 2023-10-01,Paris Saint Germain,OL Lyonnes,0.0,1.0,"Première Ligue (Francia, femenil)",4247553,20231001_Paris-Saint-Germain_OL-Lyonnes,9.0,9.0,1.0,3.0,0.0,0.0,6.0,8.0,4.0,6.0,8.0,13.0,49.2,50.8,1.0,1.0,espn
-2023-10-06,Saint-Étienne,Paris Saint Germain,0.0,1.0,"Première Ligue (Francia, femenil)",4247585,20231006_Saint-Étienne_Paris-Saint-Germain,2.0,7.0,4.0,1.0,0.0,0.0,3.0,3.0,4.0,7.0,17.0,11.0,29.5,70.5,0.0,4.0,espn
 2023-10-06,Le Havre,Paris FC,1.0,4.0,"Première Ligue (Francia, femenil)",4247556,20231006_Le-Havre_Paris-FC,1.0,4.0,2.0,1.0,0.0,0.0,8.0,7.0,2.0,7.0,13.0,14.0,52.1,47.9,0.0,0.0,espn
+2023-10-06,Saint-Étienne,Paris Saint Germain,0.0,1.0,"Première Ligue (Francia, femenil)",4247585,20231006_Saint-Étienne_Paris-Saint-Germain,2.0,7.0,4.0,1.0,0.0,0.0,3.0,3.0,4.0,7.0,17.0,11.0,29.5,70.5,0.0,4.0,espn
 2023-10-07,Montpellier FC,Guingamp,3.0,1.0,"Première Ligue (Francia, femenil)",4247582,20231007_Montpellier-FC_Guingamp,9.0,2.0,2.0,4.0,0.0,0.0,5.0,3.0,12.0,4.0,17.0,15.0,51.6,48.4,3.0,1.0,espn
-2023-10-07,Lille,Fleury Merogis U.S,2.0,1.0,"Première Ligue (Francia, femenil)",4247583,20231007_Lille_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2023-10-07,Reims,Dijon Foot,1.0,0.0,"Première Ligue (Francia, femenil)",4247557,20231007_Reims_Dijon-Foot,5.0,7.0,0.0,1.0,0.0,0.0,6.0,4.0,8.0,6.0,9.0,12.0,42.4,57.6,1.0,0.0,espn
+2023-10-07,Lille,Fleury Merogis U.S,2.0,1.0,"Première Ligue (Francia, femenil)",4247583,20231007_Lille_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2023-10-08,OL Lyonnes,Bordeaux,4.0,0.0,"Première Ligue (Francia, femenil)",4247584,20231008_OL-Lyonnes_Bordeaux,6.0,1.0,0.0,0.0,0.0,0.0,6.0,0.0,15.0,1.0,4.0,9.0,70.6,29.4,4.0,0.0,espn
 2023-10-13,Bordeaux,Montpellier FC,1.0,1.0,"Première Ligue (Francia, femenil)",4247587,20231013_Bordeaux_Montpellier-FC,3.0,6.0,3.0,1.0,0.0,0.0,5.0,4.0,6.0,11.0,11.0,13.0,39.8,60.2,2.0,3.0,espn
-2023-10-14,Le Havre,Lille,2.0,2.0,"Première Ligue (Francia, femenil)",4247579,20231014_Le-Havre_Lille,4.0,3.0,3.0,0.0,0.0,1.0,11.0,4.0,18.0,4.0,14.0,8.0,58.6,41.4,1.0,1.0,espn
-2023-10-14,Paris FC,Guingamp,2.0,0.0,"Première Ligue (Francia, femenil)",4247581,20231014_Paris-FC_Guingamp,8.0,0.0,0.0,2.0,0.0,0.0,13.0,1.0,10.0,2.0,9.0,11.0,62.8,37.2,1.0,2.0,espn
-2023-10-14,Fleury Merogis U.S,Dijon Foot,2.0,1.0,"Première Ligue (Francia, femenil)",4247586,20231014_Fleury-Merogis-U.S_Dijon-Foot,,,,,,,,,,,,,,,,,
 2023-10-14,OL Lyonnes,Saint-Étienne,6.0,0.0,"Première Ligue (Francia, femenil)",4247578,20231014_OL-Lyonnes_Saint-Étienne,8.0,2.0,3.0,1.0,0.0,1.0,9.0,2.0,10.0,0.0,7.0,17.0,71.0,29.0,5.0,1.0,espn
+2023-10-14,Fleury Merogis U.S,Dijon Foot,2.0,1.0,"Première Ligue (Francia, femenil)",4247586,20231014_Fleury-Merogis-U.S_Dijon-Foot,,,,,,,,,,,,,,,,,
+2023-10-14,Paris FC,Guingamp,2.0,0.0,"Première Ligue (Francia, femenil)",4247581,20231014_Paris-FC_Guingamp,8.0,0.0,0.0,2.0,0.0,0.0,13.0,1.0,10.0,2.0,9.0,11.0,62.8,37.2,1.0,2.0,espn
+2023-10-14,Le Havre,Lille,2.0,2.0,"Première Ligue (Francia, femenil)",4247579,20231014_Le-Havre_Lille,4.0,3.0,3.0,0.0,0.0,1.0,11.0,4.0,18.0,4.0,14.0,8.0,58.6,41.4,1.0,1.0,espn
 2023-10-20,Montpellier FC,Fleury Merogis U.S,1.0,1.0,"Première Ligue (Francia, femenil)",4247591,20231020_Montpellier-FC_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
-2023-10-21,Guingamp,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",4247590,20231021_Guingamp_Bordeaux,3.0,7.0,1.0,3.0,1.0,0.0,3.0,2.0,10.0,12.0,14.0,11.0,50.1,49.9,2.0,0.0,espn
 2023-10-21,Saint-Étienne,Le Havre,1.0,2.0,"Première Ligue (Francia, femenil)",4247593,20231021_Saint-Étienne_Le-Havre,4.0,5.0,1.0,0.0,0.0,0.0,4.0,6.0,2.0,2.0,23.0,10.0,40.5,59.5,3.0,4.0,espn
+2023-10-21,Guingamp,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",4247590,20231021_Guingamp_Bordeaux,3.0,7.0,1.0,3.0,1.0,0.0,3.0,2.0,10.0,12.0,14.0,11.0,50.1,49.9,2.0,0.0,espn
 2023-10-21,Lille,Paris Saint Germain,0.0,4.0,"Première Ligue (Francia, femenil)",4247592,20231021_Lille_Paris-Saint-Germain,3.0,4.0,1.0,2.0,0.0,0.0,3.0,6.0,3.0,7.0,10.0,11.0,30.4,69.6,2.0,2.0,espn
-2023-10-22,Dijon Foot,Paris FC,0.0,6.0,"Première Ligue (Francia, femenil)",4247595,20231022_Dijon-Foot_Paris-FC,2.0,7.0,0.0,0.0,0.0,0.0,4.0,9.0,6.0,4.0,9.0,8.0,41.4,58.6,2.0,2.0,espn
 2023-10-22,Reims,OL Lyonnes,1.0,5.0,"Première Ligue (Francia, femenil)",4247594,20231022_Reims_OL-Lyonnes,3.0,6.0,0.0,0.0,0.0,0.0,2.0,11.0,3.0,15.0,12.0,13.0,30.7,69.3,1.0,0.0,espn
+2023-10-22,Dijon Foot,Paris FC,0.0,6.0,"Première Ligue (Francia, femenil)",4247595,20231022_Dijon-Foot_Paris-FC,2.0,7.0,0.0,0.0,0.0,0.0,4.0,9.0,6.0,4.0,9.0,8.0,41.4,58.6,2.0,2.0,espn
 2023-11-03,Lille,Montpellier FC,0.0,0.0,"Première Ligue (Francia, femenil)",4247564,20231103_Lille_Montpellier-FC,3.0,2.0,1.0,3.0,0.0,0.0,1.0,1.0,9.0,12.0,9.0,12.0,44.8,55.2,1.0,4.0,espn
-2023-11-04,Le Havre,Dijon Foot,3.0,3.0,"Première Ligue (Francia, femenil)",4247577,20231104_Le-Havre_Dijon-Foot,5.0,1.0,0.0,0.0,0.0,0.0,6.0,5.0,4.0,2.0,12.0,7.0,66.8,33.2,0.0,2.0,espn
 2023-11-04,Bordeaux,Reims,0.0,2.0,"Première Ligue (Francia, femenil)",4247588,20231104_Bordeaux_Reims,6.0,5.0,2.0,1.0,0.0,0.0,1.0,5.0,10.0,8.0,15.0,10.0,57.1,42.9,1.0,1.0,espn
 2023-11-04,Fleury Merogis U.S,Saint-Étienne,2.0,1.0,"Première Ligue (Francia, femenil)",4247565,20231104_Fleury-Merogis-U.S_Saint-Étienne,,,,,,,,,,,,,,,,,
+2023-11-04,Le Havre,Dijon Foot,3.0,3.0,"Première Ligue (Francia, femenil)",4247577,20231104_Le-Havre_Dijon-Foot,5.0,1.0,0.0,0.0,0.0,0.0,6.0,5.0,4.0,2.0,12.0,7.0,66.8,33.2,0.0,2.0,espn
 2023-11-05,Paris FC,OL Lyonnes,1.0,6.0,"Première Ligue (Francia, femenil)",4247589,20231105_Paris-FC_OL-Lyonnes,8.0,4.0,0.0,1.0,0.0,0.0,7.0,7.0,10.0,12.0,8.0,7.0,50.7,49.3,2.0,4.0,espn
 2023-11-10,OL Lyonnes,Montpellier FC,5.0,0.0,"Première Ligue (Francia, femenil)",4247560,20231110_OL-Lyonnes_Montpellier-FC,9.0,2.0,0.0,2.0,0.0,0.0,13.0,4.0,15.0,3.0,11.0,11.0,62.9,37.1,0.0,1.0,espn
 2023-11-11,Saint-Étienne,Paris FC,1.0,6.0,"Première Ligue (Francia, femenil)",4247563,20231111_Saint-Étienne_Paris-FC,5.0,3.0,3.0,3.0,0.0,0.0,2.0,8.0,6.0,2.0,14.0,17.0,40.7,59.3,1.0,4.0,espn
-2023-11-11,Guingamp,Lille,4.0,3.0,"Première Ligue (Francia, femenil)",4247558,20231111_Guingamp_Lille,4.0,3.0,1.0,1.0,0.0,0.0,8.0,5.0,7.0,7.0,7.0,10.0,42.0,58.0,2.0,0.0,espn
 2023-11-11,Fleury Merogis U.S,Bordeaux,2.0,1.0,"Première Ligue (Francia, femenil)",4247559,20231111_Fleury-Merogis-U.S_Bordeaux,,,,,,,,,,,,,,,,,
 2023-11-11,Reims,Le Havre,0.0,0.0,"Première Ligue (Francia, femenil)",4247562,20231111_Reims_Le-Havre,2.0,2.0,2.0,1.0,0.0,1.0,2.0,7.0,6.0,2.0,7.0,12.0,41.0,59.0,2.0,1.0,espn
+2023-11-11,Guingamp,Lille,4.0,3.0,"Première Ligue (Francia, femenil)",4247558,20231111_Guingamp_Lille,4.0,3.0,1.0,1.0,0.0,0.0,8.0,5.0,7.0,7.0,7.0,10.0,42.0,58.0,2.0,0.0,espn
 2023-11-12,Dijon Foot,Paris Saint Germain,2.0,5.0,"Première Ligue (Francia, femenil)",4247561,20231112_Dijon-Foot_Paris-Saint-Germain,0.0,2.0,1.0,0.0,0.0,0.0,5.0,8.0,2.0,10.0,5.0,6.0,24.9,75.1,0.0,0.0,espn
 2023-11-17,OL Lyonnes,Dijon Foot,4.0,1.0,"Première Ligue (Francia, femenil)",4247573,20231117_OL-Lyonnes_Dijon-Foot,12.0,0.0,1.0,1.0,0.0,0.0,11.0,1.0,15.0,1.0,8.0,6.0,75.8,24.2,1.0,0.0,espn
 2023-11-18,Le Havre,Guingamp,2.0,0.0,"Première Ligue (Francia, femenil)",4247575,20231118_Le-Havre_Guingamp,9.0,1.0,2.0,2.0,0.0,0.0,9.0,4.0,13.0,0.0,12.0,9.0,52.7,47.3,3.0,1.0,espn
@@ -312,28 +312,28 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2023-11-24,Fleury Merogis U.S,Le Havre,3.0,0.0,"Première Ligue (Francia, femenil)",4247570,20231124_Fleury-Merogis-U.S_Le-Havre,,,,,,,,,,,,,,,,,
 2023-11-25,Bordeaux,Lille,3.0,0.0,"Première Ligue (Francia, femenil)",4247596,20231125_Bordeaux_Lille,3.0,4.0,3.0,1.0,0.0,0.0,6.0,4.0,5.0,6.0,19.0,15.0,44.2,55.8,1.0,0.0,espn
 2023-11-25,Dijon Foot,Saint-Étienne,3.0,2.0,"Première Ligue (Francia, femenil)",4247642,20231125_Dijon-Foot_Saint-Étienne,7.0,3.0,3.0,3.0,0.0,0.0,7.0,6.0,10.0,3.0,8.0,11.0,48.3,51.7,4.0,1.0,espn
-2023-11-26,Reims,Paris FC,1.0,1.0,"Première Ligue (Francia, femenil)",4247571,20231126_Reims_Paris-FC,2.0,10.0,2.0,2.0,0.0,0.0,1.0,5.0,1.0,22.0,13.0,15.0,30.3,69.7,1.0,1.0,espn
 2023-11-26,Guingamp,OL Lyonnes,1.0,5.0,"Première Ligue (Francia, femenil)",4247568,20231126_Guingamp_OL-Lyonnes,0.0,17.0,1.0,1.0,0.0,0.0,1.0,17.0,0.0,14.0,7.0,12.0,33.4,66.6,1.0,2.0,espn
+2023-11-26,Reims,Paris FC,1.0,1.0,"Première Ligue (Francia, femenil)",4247571,20231126_Reims_Paris-FC,2.0,10.0,2.0,2.0,0.0,0.0,1.0,5.0,1.0,22.0,13.0,15.0,30.3,69.7,1.0,1.0,espn
 2023-11-26,Paris Saint Germain,Montpellier FC,4.0,1.0,"Première Ligue (Francia, femenil)",4247569,20231126_Paris-Saint-Germain_Montpellier-FC,5.0,5.0,1.0,0.0,0.0,0.0,8.0,7.0,13.0,6.0,9.0,12.0,58.5,41.5,3.0,1.0,espn
 2023-12-08,OL Lyonnes,Lille,5.0,0.0,"Première Ligue (Francia, femenil)",4247626,20231208_OL-Lyonnes_Lille,9.0,0.0,1.0,0.0,0.0,0.0,14.0,0.0,14.0,1.0,8.0,10.0,64.0,36.0,5.0,0.0,espn
-2023-12-09,Reims,Fleury Merogis U.S,2.0,0.0,"Première Ligue (Francia, femenil)",4247628,20231209_Reims_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2023-12-09,Montpellier FC,Paris FC,1.0,4.0,"Première Ligue (Francia, femenil)",4247629,20231209_Montpellier-FC_Paris-FC,8.0,6.0,3.0,1.0,0.0,0.0,5.0,12.0,4.0,7.0,14.0,8.0,42.0,58.0,1.0,3.0,espn
+2023-12-09,Reims,Fleury Merogis U.S,2.0,0.0,"Première Ligue (Francia, femenil)",4247628,20231209_Reims_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2023-12-09,Dijon Foot,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",4247625,20231209_Dijon-Foot_Bordeaux,12.0,2.0,1.0,0.0,0.0,1.0,5.0,3.0,13.0,4.0,7.0,8.0,54.7,45.3,4.0,1.0,espn
 2023-12-09,Saint-Étienne,Guingamp,2.0,1.0,"Première Ligue (Francia, femenil)",4247624,20231209_Saint-Étienne_Guingamp,4.0,6.0,1.0,2.0,0.0,0.0,4.0,5.0,3.0,3.0,9.0,13.0,44.8,55.2,1.0,3.0,espn
 2023-12-10,Le Havre,Paris Saint Germain,1.0,1.0,"Première Ligue (Francia, femenil)",4247627,20231210_Le-Havre_Paris-Saint-Germain,1.0,7.0,2.0,1.0,0.0,0.0,2.0,4.0,1.0,14.0,11.0,14.0,30.9,69.1,1.0,1.0,espn
 2023-12-15,Montpellier FC,Le Havre,2.0,1.0,"Première Ligue (Francia, femenil)",4247621,20231215_Montpellier-FC_Le-Havre,2.0,1.0,2.0,0.0,0.0,0.0,6.0,6.0,4.0,4.0,17.0,12.0,53.1,46.9,2.0,0.0,espn
-2023-12-16,Bordeaux,Saint-Étienne,1.0,4.0,"Première Ligue (Francia, femenil)",4247631,20231216_Bordeaux_Saint-Étienne,6.0,3.0,2.0,5.0,0.0,0.0,3.0,10.0,8.0,4.0,13.0,10.0,52.8,47.2,8.0,2.0,espn
 2023-12-16,Lille,Reims,2.0,5.0,"Première Ligue (Francia, femenil)",4247622,20231216_Lille_Reims,1.0,6.0,3.0,1.0,0.0,0.0,7.0,11.0,2.0,6.0,14.0,12.0,59.7,40.3,1.0,1.0,espn
-2023-12-16,Guingamp,Dijon Foot,1.0,1.0,"Première Ligue (Francia, femenil)",4247632,20231216_Guingamp_Dijon-Foot,6.0,8.0,2.0,2.0,0.0,0.0,2.0,2.0,9.0,6.0,12.0,13.0,48.8,51.2,2.0,4.0,espn
+2023-12-16,Bordeaux,Saint-Étienne,1.0,4.0,"Première Ligue (Francia, femenil)",4247631,20231216_Bordeaux_Saint-Étienne,6.0,3.0,2.0,5.0,0.0,0.0,3.0,10.0,8.0,4.0,13.0,10.0,52.8,47.2,8.0,2.0,espn
 2023-12-16,Fleury Merogis U.S,OL Lyonnes,1.0,3.0,"Première Ligue (Francia, femenil)",4247630,20231216_Fleury-Merogis-U.S_OL-Lyonnes,,,,,,,,,,,,,,,,,
+2023-12-16,Guingamp,Dijon Foot,1.0,1.0,"Première Ligue (Francia, femenil)",4247632,20231216_Guingamp_Dijon-Foot,6.0,8.0,2.0,2.0,0.0,0.0,2.0,2.0,9.0,6.0,12.0,13.0,48.8,51.2,2.0,4.0,espn
 2023-12-17,Paris FC,Paris Saint Germain,1.0,2.0,"Première Ligue (Francia, femenil)",4247623,20231217_Paris-FC_Paris-Saint-Germain,6.0,3.0,1.0,0.0,0.0,0.0,5.0,4.0,12.0,7.0,9.0,8.0,50.6,49.4,0.0,2.0,espn
 2024-01-09,Paris Saint Germain,Lille,6.0,0.0,"Première Ligue (Francia, femenil)",4247638,20240109_Paris-Saint-Germain_Lille,3.0,3.0,1.0,2.0,0.0,0.0,8.0,6.0,10.0,7.0,6.0,10.0,64.9,35.1,5.0,0.0,espn
+2024-01-10,OL Lyonnes,Paris FC,1.0,0.0,"Première Ligue (Francia, femenil)",4247641,20240110_OL-Lyonnes_Paris-FC,5.0,3.0,1.0,0.0,0.0,0.0,5.0,1.0,10.0,4.0,7.0,5.0,56.5,43.5,2.0,1.0,espn
 2024-01-10,Dijon Foot,Fleury Merogis U.S,0.0,5.0,"Première Ligue (Francia, femenil)",4247637,20240110_Dijon-Foot_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2024-01-10,Guingamp,Montpellier FC,0.0,1.0,"Première Ligue (Francia, femenil)",4247636,20240110_Guingamp_Montpellier-FC,2.0,9.0,1.0,2.0,1.0,1.0,5.0,5.0,4.0,6.0,11.0,14.0,40.2,59.8,1.0,3.0,espn
-2024-01-10,OL Lyonnes,Paris FC,1.0,0.0,"Première Ligue (Francia, femenil)",4247641,20240110_OL-Lyonnes_Paris-FC,5.0,3.0,1.0,0.0,0.0,0.0,5.0,1.0,10.0,4.0,7.0,5.0,56.5,43.5,2.0,1.0,espn
 2024-01-17,Paris Saint Germain,Reims,4.0,0.0,"Première Ligue (Francia, femenil)",4247580,20240117_Paris-Saint-Germain_Reims,9.0,0.0,1.0,2.0,0.0,0.0,11.0,0.0,14.0,3.0,3.0,5.0,74.3,25.7,0.0,0.0,espn
-2024-01-20,Reims,Guingamp,1.0,0.0,"Première Ligue (Francia, femenil)",4247634,20240120_Reims_Guingamp,9.0,8.0,1.0,2.0,0.0,0.0,7.0,2.0,11.0,10.0,12.0,16.0,47.1,52.9,1.0,1.0,espn
 2024-01-20,Lille,Dijon Foot,2.0,2.0,"Première Ligue (Francia, femenil)",4247606,20240120_Lille_Dijon-Foot,3.0,5.0,0.0,3.0,1.0,0.0,5.0,9.0,4.0,4.0,12.0,13.0,56.2,43.8,2.0,3.0,espn
+2024-01-20,Reims,Guingamp,1.0,0.0,"Première Ligue (Francia, femenil)",4247634,20240120_Reims_Guingamp,9.0,8.0,1.0,2.0,0.0,0.0,7.0,2.0,11.0,10.0,12.0,16.0,47.1,52.9,1.0,1.0,espn
 2024-01-20,Paris Saint Germain,Bordeaux,8.0,1.0,"Première Ligue (Francia, femenil)",4247633,20240120_Paris-Saint-Germain_Bordeaux,7.0,0.0,0.0,0.0,0.0,0.0,22.0,1.0,11.0,3.0,8.0,6.0,68.9,31.1,5.0,0.0,espn
 2024-01-21,Saint-Étienne,Fleury Merogis U.S,1.0,0.0,"Première Ligue (Francia, femenil)",4247619,20240121_Saint-Étienne_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2024-01-21,Montpellier FC,OL Lyonnes,1.0,2.0,"Première Ligue (Francia, femenil)",4247620,20240121_Montpellier-FC_OL-Lyonnes,1.0,6.0,2.0,1.0,0.0,0.0,6.0,8.0,1.0,8.0,8.0,15.0,35.8,64.2,1.0,0.0,espn
@@ -344,31 +344,31 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2024-02-03,OL Lyonnes,Reims,4.0,1.0,"Première Ligue (Francia, femenil)",4247604,20240203_OL-Lyonnes_Reims,7.0,3.0,0.0,1.0,0.0,0.0,12.0,3.0,16.0,0.0,10.0,10.0,74.4,25.6,2.0,0.0,espn
 2024-02-04,Paris FC,Lille,3.0,2.0,"Première Ligue (Francia, femenil)",4247605,20240204_Paris-FC_Lille,16.0,3.0,3.0,0.0,0.0,0.0,11.0,3.0,10.0,4.0,9.0,15.0,66.3,33.7,2.0,1.0,espn
 2024-02-09,Reims,Montpellier FC,0.0,3.0,"Première Ligue (Francia, femenil)",4247598,20240209_Reims_Montpellier-FC,4.0,5.0,2.0,1.0,0.0,0.0,2.0,6.0,3.0,15.0,11.0,12.0,42.5,57.5,0.0,1.0,espn
+2024-02-10,Saint-Étienne,Dijon Foot,2.0,0.0,"Première Ligue (Francia, femenil)",4247618,20240210_Saint-Étienne_Dijon-Foot,6.0,1.0,3.0,2.0,0.0,0.0,6.0,2.0,9.0,3.0,11.0,13.0,48.9,51.1,1.0,9.0,espn
 2024-02-10,Bordeaux,Paris FC,2.0,6.0,"Première Ligue (Francia, femenil)",4247599,20240210_Bordeaux_Paris-FC,7.0,4.0,1.0,1.0,0.0,0.0,3.0,9.0,4.0,9.0,10.0,12.0,39.7,60.3,1.0,0.0,espn
 2024-02-10,Guingamp,Fleury Merogis U.S,3.0,1.0,"Première Ligue (Francia, femenil)",4247609,20240210_Guingamp_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2024-02-10,Lille,Le Havre,3.0,3.0,"Première Ligue (Francia, femenil)",4247607,20240210_Lille_Le-Havre,2.0,2.0,3.0,1.0,0.0,0.0,5.0,10.0,2.0,4.0,15.0,5.0,44.4,55.6,0.0,2.0,espn
-2024-02-10,Saint-Étienne,Dijon Foot,2.0,0.0,"Première Ligue (Francia, femenil)",4247618,20240210_Saint-Étienne_Dijon-Foot,6.0,1.0,3.0,2.0,0.0,0.0,6.0,2.0,9.0,3.0,11.0,13.0,48.9,51.1,1.0,9.0,espn
 2024-02-11,OL Lyonnes,Paris Saint Germain,1.0,1.0,"Première Ligue (Francia, femenil)",4247608,20240211_OL-Lyonnes_Paris-Saint-Germain,5.0,0.0,1.0,3.0,0.0,0.0,6.0,2.0,6.0,2.0,16.0,13.0,45.2,54.8,0.0,1.0,espn
-2024-02-17,Paris Saint Germain,Guingamp,5.0,0.0,"Première Ligue (Francia, femenil)",4247576,20240217_Paris-Saint-Germain_Guingamp,6.0,2.0,1.0,0.0,0.0,0.0,9.0,1.0,14.0,2.0,10.0,7.0,71.5,28.5,3.0,0.0,espn
 2024-02-17,Saint-Étienne,Reims,4.0,3.0,"Première Ligue (Francia, femenil)",4247640,20240217_Saint-Étienne_Reims,1.0,3.0,2.0,1.0,0.0,0.0,6.0,5.0,7.0,5.0,15.0,8.0,57.4,42.6,0.0,5.0,espn
+2024-02-17,Paris Saint Germain,Guingamp,5.0,0.0,"Première Ligue (Francia, femenil)",4247576,20240217_Paris-Saint-Germain_Guingamp,6.0,2.0,1.0,0.0,0.0,0.0,9.0,1.0,14.0,2.0,10.0,7.0,71.5,28.5,3.0,0.0,espn
 2024-02-17,Le Havre,Bordeaux,1.0,1.0,"Première Ligue (Francia, femenil)",4247639,20240217_Le-Havre_Bordeaux,7.0,2.0,1.0,1.0,0.0,0.0,11.0,4.0,8.0,6.0,11.0,7.0,58.6,41.4,1.0,0.0,espn
-2024-03-02,Fleury Merogis U.S,Reims,1.0,0.0,"Première Ligue (Francia, femenil)",4247616,20240302_Fleury-Merogis-U.S_Reims,,,,,,,,,,,,,,,,,
 2024-03-02,Lille,Guingamp,0.0,2.0,"Première Ligue (Francia, femenil)",4247612,20240302_Lille_Guingamp,7.0,3.0,1.0,1.0,0.0,0.0,7.0,6.0,10.0,6.0,12.0,8.0,55.4,44.6,2.0,0.0,espn
-2024-03-02,Paris Saint Germain,Le Havre,4.0,0.0,"Première Ligue (Francia, femenil)",4247615,20240302_Paris-Saint-Germain_Le-Havre,5.0,3.0,3.0,0.0,0.0,0.0,11.0,2.0,10.0,2.0,10.0,9.0,70.8,29.2,1.0,0.0,espn
 2024-03-02,Montpellier FC,Bordeaux,2.0,1.0,"Première Ligue (Francia, femenil)",4247613,20240302_Montpellier-FC_Bordeaux,5.0,1.0,1.0,0.0,0.0,0.0,4.0,1.0,10.0,7.0,8.0,10.0,64.3,35.7,0.0,1.0,espn
+2024-03-02,Paris Saint Germain,Le Havre,4.0,0.0,"Première Ligue (Francia, femenil)",4247615,20240302_Paris-Saint-Germain_Le-Havre,5.0,3.0,3.0,0.0,0.0,0.0,11.0,2.0,10.0,2.0,10.0,9.0,70.8,29.2,1.0,0.0,espn
+2024-03-02,Fleury Merogis U.S,Reims,1.0,0.0,"Première Ligue (Francia, femenil)",4247616,20240302_Fleury-Merogis-U.S_Reims,,,,,,,,,,,,,,,,,
 2024-03-03,Dijon Foot,OL Lyonnes,1.0,3.0,"Première Ligue (Francia, femenil)",4247614,20240303_Dijon-Foot_OL-Lyonnes,2.0,7.0,0.0,1.0,0.0,0.0,3.0,9.0,2.0,16.0,5.0,7.0,24.4,75.6,0.0,5.0,espn
 2024-03-06,Paris FC,Le Havre,3.0,2.0,"Première Ligue (Francia, femenil)",4247635,20240306_Paris-FC_Le-Havre,6.0,2.0,1.0,1.0,0.0,0.0,6.0,7.0,4.0,10.0,11.0,5.0,51.0,49.0,1.0,1.0,espn
 2024-03-15,OL Lyonnes,Fleury Merogis U.S,4.0,0.0,"Première Ligue (Francia, femenil)",4247644,20240315_OL-Lyonnes_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
+2024-03-16,Reims,Lille,3.0,1.0,"Première Ligue (Francia, femenil)",4247610,20240316_Reims_Lille,8.0,0.0,2.0,1.0,0.0,0.0,6.0,6.0,3.0,11.0,16.0,4.0,41.2,58.8,2.0,3.0,espn
 2024-03-16,Guingamp,Paris FC,0.0,4.0,"Première Ligue (Francia, femenil)",4247611,20240316_Guingamp_Paris-FC,2.0,5.0,1.0,0.0,0.0,0.0,3.0,8.0,3.0,8.0,8.0,7.0,44.6,55.4,2.0,5.0,espn
 2024-03-16,Bordeaux,Dijon Foot,0.0,2.0,"Première Ligue (Francia, femenil)",4247645,20240316_Bordeaux_Dijon-Foot,9.0,3.0,1.0,1.0,0.0,0.0,4.0,3.0,6.0,4.0,15.0,11.0,50.5,49.5,2.0,2.0,espn
 2024-03-16,Paris Saint Germain,Saint-Étienne,5.0,0.0,"Première Ligue (Francia, femenil)",4247643,20240316_Paris-Saint-Germain_Saint-Étienne,12.0,0.0,1.0,0.0,0.0,0.0,15.0,1.0,10.0,1.0,6.0,9.0,67.0,33.0,9.0,0.0,espn
-2024-03-16,Reims,Lille,3.0,1.0,"Première Ligue (Francia, femenil)",4247610,20240316_Reims_Lille,8.0,0.0,2.0,1.0,0.0,0.0,6.0,6.0,3.0,11.0,16.0,4.0,41.2,58.8,2.0,3.0,espn
 2024-03-17,Le Havre,Montpellier FC,3.0,3.0,"Première Ligue (Francia, femenil)",4247597,20240317_Le-Havre_Montpellier-FC,6.0,7.0,0.0,1.0,0.0,0.0,6.0,5.0,9.0,6.0,7.0,11.0,50.6,49.4,2.0,2.0,espn
 2024-03-22,Fleury Merogis U.S,Paris FC,2.0,1.0,"Première Ligue (Francia, femenil)",4247646,20240322_Fleury-Merogis-U.S_Paris-FC,,,,,,,,,,,,,,,,,
-2024-03-23,Lille,OL Lyonnes,0.0,7.0,"Première Ligue (Francia, femenil)",4247664,20240323_Lille_OL-Lyonnes,0.0,6.0,1.0,3.0,0.0,0.0,1.0,13.0,1.0,9.0,6.0,14.0,37.3,62.7,0.0,7.0,espn
-2024-03-23,Le Havre,Reims,0.0,2.0,"Première Ligue (Francia, femenil)",4247662,20240323_Le-Havre_Reims,7.0,3.0,2.0,1.0,1.0,0.0,7.0,5.0,12.0,5.0,7.0,12.0,56.9,43.1,2.0,1.0,espn
-2024-03-23,Dijon Foot,Guingamp,2.0,0.0,"Première Ligue (Francia, femenil)",4247666,20240323_Dijon-Foot_Guingamp,3.0,2.0,2.0,1.0,0.0,0.0,4.0,0.0,18.0,4.0,13.0,10.0,46.1,53.9,1.0,1.0,espn
 2024-03-23,Saint-Étienne,Bordeaux,1.0,0.0,"Première Ligue (Francia, femenil)",4247665,20240323_Saint-Étienne_Bordeaux,3.0,3.0,2.0,2.0,0.0,1.0,4.0,2.0,5.0,3.0,15.0,13.0,49.4,50.6,1.0,4.0,espn
+2024-03-23,Lille,OL Lyonnes,0.0,7.0,"Première Ligue (Francia, femenil)",4247664,20240323_Lille_OL-Lyonnes,0.0,6.0,1.0,3.0,0.0,0.0,1.0,13.0,1.0,9.0,6.0,14.0,37.3,62.7,0.0,7.0,espn
+2024-03-23,Dijon Foot,Guingamp,2.0,0.0,"Première Ligue (Francia, femenil)",4247666,20240323_Dijon-Foot_Guingamp,3.0,2.0,2.0,1.0,0.0,0.0,4.0,0.0,18.0,4.0,13.0,10.0,46.1,53.9,1.0,1.0,espn
+2024-03-23,Le Havre,Reims,0.0,2.0,"Première Ligue (Francia, femenil)",4247662,20240323_Le-Havre_Reims,7.0,3.0,2.0,1.0,1.0,0.0,7.0,5.0,12.0,5.0,7.0,12.0,56.9,43.1,2.0,1.0,espn
 2024-03-24,Montpellier FC,Paris Saint Germain,1.0,3.0,"Première Ligue (Francia, femenil)",4247663,20240324_Montpellier-FC_Paris-Saint-Germain,3.0,4.0,1.0,1.0,0.0,0.0,4.0,5.0,9.0,5.0,10.0,7.0,30.9,69.1,1.0,0.0,espn
 2024-03-29,Paris FC,Montpellier FC,3.0,0.0,"Première Ligue (Francia, femenil)",4247667,20240329_Paris-FC_Montpellier-FC,8.0,2.0,2.0,2.0,0.0,0.0,5.0,4.0,9.0,8.0,11.0,6.0,53.6,46.4,3.0,4.0,espn
 2024-03-30,Guingamp,Saint-Étienne,3.0,4.0,"Première Ligue (Francia, femenil)",4247672,20240330_Guingamp_Saint-Étienne,4.0,3.0,1.0,2.0,0.0,0.0,7.0,4.0,9.0,8.0,12.0,13.0,41.6,58.4,5.0,1.0,espn
@@ -377,24 +377,24 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2024-03-31,Paris Saint Germain,Dijon Foot,3.0,0.0,"Première Ligue (Francia, femenil)",4247670,20240331_Paris-Saint-Germain_Dijon-Foot,3.0,3.0,0.0,1.0,0.0,0.0,6.0,0.0,14.0,3.0,4.0,9.0,72.4,27.6,1.0,1.0,espn
 2024-03-31,OL Lyonnes,Le Havre,3.0,0.0,"Première Ligue (Francia, femenil)",4247669,20240331_OL-Lyonnes_Le-Havre,5.0,0.0,1.0,3.0,0.0,0.0,4.0,0.0,10.0,0.0,11.0,10.0,69.1,30.9,5.0,1.0,espn
 2024-04-12,Paris FC,Reims,2.0,2.0,"Première Ligue (Francia, femenil)",4247673,20240412_Paris-FC_Reims,10.0,1.0,2.0,2.0,0.0,0.0,12.0,3.0,19.0,5.0,8.0,6.0,64.4,35.6,1.0,2.0,espn
+2024-04-13,Guingamp,Paris Saint Germain,3.0,3.0,"Première Ligue (Francia, femenil)",4247661,20240413_Guingamp_Paris-Saint-Germain,1.0,6.0,2.0,3.0,0.0,0.0,5.0,5.0,2.0,8.0,9.0,14.0,28.0,72.0,0.0,0.0,espn
 2024-04-13,Montpellier FC,Lille,1.0,2.0,"Première Ligue (Francia, femenil)",4247648,20240413_Montpellier-FC_Lille,5.0,2.0,1.0,4.0,2.0,0.0,4.0,8.0,4.0,6.0,18.0,10.0,41.8,58.2,4.0,3.0,espn
 2024-04-13,Dijon Foot,Le Havre,1.0,2.0,"Première Ligue (Francia, femenil)",4247674,20240413_Dijon-Foot_Le-Havre,6.0,3.0,3.0,1.0,0.0,0.0,5.0,7.0,8.0,2.0,16.0,12.0,44.8,55.2,1.0,2.0,espn
-2024-04-13,Guingamp,Paris Saint Germain,3.0,3.0,"Première Ligue (Francia, femenil)",4247661,20240413_Guingamp_Paris-Saint-Germain,1.0,6.0,2.0,3.0,0.0,0.0,5.0,5.0,2.0,8.0,9.0,14.0,28.0,72.0,0.0,0.0,espn
-2024-04-14,Bordeaux,Fleury Merogis U.S,0.0,3.0,"Première Ligue (Francia, femenil)",4247647,20240414_Bordeaux_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2024-04-14,Saint-Étienne,OL Lyonnes,1.0,6.0,"Première Ligue (Francia, femenil)",4247660,20240414_Saint-Étienne_OL-Lyonnes,1.0,10.0,2.0,0.0,0.0,0.0,3.0,12.0,1.0,18.0,10.0,12.0,40.1,59.9,0.0,4.0,espn
+2024-04-14,Bordeaux,Fleury Merogis U.S,0.0,3.0,"Première Ligue (Francia, femenil)",4247647,20240414_Bordeaux_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2024-04-19,Paris FC,Saint-Étienne,0.0,1.0,"Première Ligue (Francia, femenil)",4247617,20240419_Paris-FC_Saint-Étienne,6.0,2.0,3.0,3.0,0.0,0.0,7.0,2.0,10.0,1.0,11.0,14.0,56.8,43.2,5.0,1.0,espn
-2024-04-24,Paris Saint Germain,Paris FC,1.0,1.0,"Première Ligue (Francia, femenil)",4247649,20240424_Paris-Saint-Germain_Paris-FC,2.0,7.0,2.0,3.0,1.0,0.0,2.0,9.0,3.0,9.0,11.0,7.0,55.5,44.5,2.0,0.0,espn
-2024-04-24,OL Lyonnes,Guingamp,2.0,1.0,"Première Ligue (Francia, femenil)",4247652,20240424_OL-Lyonnes_Guingamp,6.0,3.0,3.0,0.0,0.0,0.0,5.0,3.0,14.0,5.0,13.0,7.0,55.5,44.5,2.0,3.0,espn
-2024-04-24,Lille,Bordeaux,1.0,2.0,"Première Ligue (Francia, femenil)",4247654,20240424_Lille_Bordeaux,4.0,2.0,2.0,4.0,0.0,0.0,8.0,4.0,11.0,6.0,13.0,13.0,56.8,43.2,1.0,6.0,espn
 2024-04-24,Le Havre,Fleury Merogis U.S,1.0,3.0,"Première Ligue (Francia, femenil)",4247651,20240424_Le-Havre_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
-2024-04-24,Dijon Foot,Reims,1.0,1.0,"Première Ligue (Francia, femenil)",4247650,20240424_Dijon-Foot_Reims,6.0,6.0,0.0,2.0,1.0,0.0,5.0,9.0,6.0,10.0,14.0,10.0,52.1,47.9,0.0,0.0,espn
+2024-04-24,Lille,Bordeaux,1.0,2.0,"Première Ligue (Francia, femenil)",4247654,20240424_Lille_Bordeaux,4.0,2.0,2.0,4.0,0.0,0.0,8.0,4.0,11.0,6.0,13.0,13.0,56.8,43.2,1.0,6.0,espn
 2024-04-24,Montpellier FC,Saint-Étienne,4.0,0.0,"Première Ligue (Francia, femenil)",4247653,20240424_Montpellier-FC_Saint-Étienne,3.0,1.0,2.0,4.0,0.0,0.0,8.0,2.0,6.0,3.0,17.0,13.0,48.1,51.9,4.0,1.0,espn
-2024-05-08,Bordeaux,OL Lyonnes,2.0,1.0,"Première Ligue (Francia, femenil)",4247658,20240508_Bordeaux_OL-Lyonnes,7.0,4.0,1.0,0.0,0.0,0.0,11.0,2.0,6.0,9.0,14.0,13.0,39.0,61.0,2.0,2.0,espn
-2024-05-08,Fleury Merogis U.S,Montpellier FC,2.0,3.0,"Première Ligue (Francia, femenil)",4247659,20240508_Fleury-Merogis-U.S_Montpellier-FC,,,,,,,,,,,,,,,,,
-2024-05-08,Guingamp,Le Havre,3.0,4.0,"Première Ligue (Francia, femenil)",4247657,20240508_Guingamp_Le-Havre,2.0,6.0,0.0,1.0,0.0,0.0,7.0,12.0,2.0,9.0,8.0,9.0,43.8,56.2,1.0,4.0,espn
+2024-04-24,OL Lyonnes,Guingamp,2.0,1.0,"Première Ligue (Francia, femenil)",4247652,20240424_OL-Lyonnes_Guingamp,6.0,3.0,3.0,0.0,0.0,0.0,5.0,3.0,14.0,5.0,13.0,7.0,55.5,44.5,2.0,3.0,espn
+2024-04-24,Paris Saint Germain,Paris FC,1.0,1.0,"Première Ligue (Francia, femenil)",4247649,20240424_Paris-Saint-Germain_Paris-FC,2.0,7.0,2.0,3.0,1.0,0.0,2.0,9.0,3.0,9.0,11.0,7.0,55.5,44.5,2.0,0.0,espn
+2024-04-24,Dijon Foot,Reims,1.0,1.0,"Première Ligue (Francia, femenil)",4247650,20240424_Dijon-Foot_Reims,6.0,6.0,0.0,2.0,1.0,0.0,5.0,9.0,6.0,10.0,14.0,10.0,52.1,47.9,0.0,0.0,espn
+2024-05-08,Saint-Étienne,Lille,1.0,1.0,"Première Ligue (Francia, femenil)",4247675,20240508_Saint-Étienne_Lille,1.0,1.0,2.0,2.0,0.0,0.0,2.0,4.0,7.0,5.0,12.0,7.0,52.5,47.5,8.0,5.0,espn
 2024-05-08,Paris FC,Dijon Foot,0.0,1.0,"Première Ligue (Francia, femenil)",4247655,20240508_Paris-FC_Dijon-Foot,2.0,3.0,2.0,1.0,0.0,0.0,1.0,6.0,5.0,5.0,9.0,8.0,57.3,42.7,2.0,4.0,espn
 2024-05-08,Reims,Paris Saint Germain,2.0,1.0,"Première Ligue (Francia, femenil)",4247656,20240508_Reims_Paris-Saint-Germain,6.0,3.0,0.0,2.0,0.0,0.0,8.0,5.0,13.0,1.0,9.0,8.0,42.3,57.7,1.0,1.0,espn
-2024-05-08,Saint-Étienne,Lille,1.0,1.0,"Première Ligue (Francia, femenil)",4247675,20240508_Saint-Étienne_Lille,1.0,1.0,2.0,2.0,0.0,0.0,2.0,4.0,7.0,5.0,12.0,7.0,52.5,47.5,8.0,5.0,espn
+2024-05-08,Fleury Merogis U.S,Montpellier FC,2.0,3.0,"Première Ligue (Francia, femenil)",4247659,20240508_Fleury-Merogis-U.S_Montpellier-FC,,,,,,,,,,,,,,,,,
+2024-05-08,Bordeaux,OL Lyonnes,2.0,1.0,"Première Ligue (Francia, femenil)",4247658,20240508_Bordeaux_OL-Lyonnes,7.0,4.0,1.0,0.0,0.0,0.0,11.0,2.0,6.0,9.0,14.0,13.0,39.0,61.0,2.0,2.0,espn
+2024-05-08,Guingamp,Le Havre,3.0,4.0,"Première Ligue (Francia, femenil)",4247657,20240508_Guingamp_Le-Havre,2.0,6.0,0.0,1.0,0.0,0.0,7.0,12.0,2.0,9.0,8.0,9.0,43.8,56.2,1.0,4.0,espn
 2024-05-11,Paris Saint Germain,Paris FC,2.0,2.0,"Première Ligue (Francia, femenil)",4470235,20240511_Paris-Saint-Germain_Paris-FC,7.0,5.0,1.0,1.0,0.0,0.0,9.0,7.0,11.0,6.0,9.0,7.0,70.1,29.9,1.0,0.0,espn
 2024-05-12,OL Lyonnes,Reims,6.0,0.0,"Première Ligue (Francia, femenil)",4475924,20240512_OL-Lyonnes_Reims,13.0,2.0,1.0,0.0,0.0,0.0,13.0,1.0,18.0,3.0,4.0,3.0,69.5,30.5,1.0,2.0,espn
 2024-05-17,Paris FC,Reims,1.0,1.0,"Première Ligue (Francia, femenil)",4478147,20240517_Paris-FC_Reims,7.0,6.0,1.0,2.0,0.0,0.0,5.0,3.0,14.0,6.0,10.0,8.0,56.7,43.3,3.0,2.0,espn
@@ -415,19 +415,19 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2024-10-05,OL Lyonnes,Montpellier FC,4.0,0.0,"Première Ligue (Francia, femenil)",4563735,20241005_OL-Lyonnes_Montpellier-FC,11.0,0.0,1.0,2.0,0.0,0.0,14.0,0.0,16.0,2.0,11.0,9.0,67.7,32.3,0.0,0.0,espn
 2024-10-05,Strasbourg,Fleury Merogis U.S,0.0,2.0,"Première Ligue (Francia, femenil)",4563731,20241005_Strasbourg_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2024-10-05,Reims,Dijon Foot,0.0,2.0,"Première Ligue (Francia, femenil)",4563732,20241005_Reims_Dijon-Foot,4.0,5.0,2.0,4.0,0.0,0.0,3.0,10.0,5.0,4.0,11.0,12.0,57.3,42.7,0.0,0.0,espn
-2024-10-05,Saint-Étienne,Paris FC,1.0,0.0,"Première Ligue (Francia, femenil)",4563718,20241005_Saint-Étienne_Paris-FC,4.0,6.0,4.0,3.0,0.0,0.0,1.0,5.0,6.0,13.0,7.0,14.0,39.0,61.0,0.0,0.0,espn
 2024-10-05,Guingamp,Nantes,0.0,1.0,"Première Ligue (Francia, femenil)",4563730,20241005_Guingamp_Nantes,0.0,6.0,4.0,1.0,1.0,1.0,5.0,3.0,2.0,5.0,9.0,17.0,42.4,57.6,0.0,0.0,espn
+2024-10-05,Saint-Étienne,Paris FC,1.0,0.0,"Première Ligue (Francia, femenil)",4563718,20241005_Saint-Étienne_Paris-FC,4.0,6.0,4.0,3.0,0.0,0.0,1.0,5.0,6.0,13.0,7.0,14.0,39.0,61.0,0.0,0.0,espn
 2024-10-11,Le Havre,Saint-Étienne,5.0,1.0,"Première Ligue (Francia, femenil)",4563724,20241011_Le-Havre_Saint-Étienne,2.0,7.0,3.0,2.0,0.0,0.0,9.0,2.0,9.0,8.0,20.0,8.0,44.9,55.1,0.0,0.0,espn
-2024-10-12,Paris FC,Reims,3.0,2.0,"Première Ligue (Francia, femenil)",4563727,20241012_Paris-FC_Reims,7.0,0.0,0.0,1.0,0.0,0.0,11.0,4.0,8.0,4.0,8.0,7.0,63.2,36.8,0.0,0.0,espn
 2024-10-12,Dijon Foot,OL Lyonnes,0.0,3.0,"Première Ligue (Francia, femenil)",4563729,20241012_Dijon-Foot_OL-Lyonnes,1.0,13.0,0.0,0.0,0.0,0.0,2.0,8.0,5.0,19.0,7.0,8.0,29.3,70.7,0.0,0.0,espn
 2024-10-12,Fleury Merogis U.S,Guingamp,4.0,1.0,"Première Ligue (Francia, femenil)",4563726,20241012_Fleury-Merogis-U.S_Guingamp,,,,,,,,,,,,,,,,,
 2024-10-12,Montpellier FC,Strasbourg,0.0,0.0,"Première Ligue (Francia, femenil)",4563725,20241012_Montpellier-FC_Strasbourg,8.0,1.0,1.0,1.0,0.0,0.0,3.0,2.0,10.0,3.0,7.0,13.0,57.1,42.9,0.0,0.0,espn
+2024-10-12,Paris FC,Reims,3.0,2.0,"Première Ligue (Francia, femenil)",4563727,20241012_Paris-FC_Reims,7.0,0.0,0.0,1.0,0.0,0.0,11.0,4.0,8.0,4.0,8.0,7.0,63.2,36.8,0.0,0.0,espn
 2024-10-12,Nantes,Paris Saint Germain,0.0,1.0,"Première Ligue (Francia, femenil)",4563728,20241012_Nantes_Paris-Saint-Germain,4.0,3.0,0.0,3.0,0.0,0.0,2.0,5.0,6.0,6.0,8.0,12.0,43.5,56.5,0.0,0.0,espn
 2024-10-18,Le Havre,Montpellier FC,0.0,1.0,"Première Ligue (Francia, femenil)",4563720,20241018_Le-Havre_Montpellier-FC,1.0,6.0,2.0,5.0,0.0,0.0,2.0,5.0,7.0,9.0,10.0,12.0,44.2,55.8,0.0,0.0,espn
 2024-10-18,Paris Saint Germain,Fleury Merogis U.S,2.0,1.0,"Première Ligue (Francia, femenil)",4563722,20241018_Paris-Saint-Germain_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
+2024-10-19,Reims,Nantes,1.0,3.0,"Première Ligue (Francia, femenil)",4563721,20241019_Reims_Nantes,4.0,4.0,0.0,1.0,0.0,0.0,6.0,6.0,11.0,7.0,10.0,12.0,56.1,43.9,0.0,0.0,espn
 2024-10-19,Saint-Étienne,Dijon Foot,0.0,2.0,"Première Ligue (Francia, femenil)",4563747,20241019_Saint-Étienne_Dijon-Foot,3.0,5.0,3.0,2.0,0.0,0.0,2.0,7.0,6.0,6.0,16.0,9.0,50.9,49.1,0.0,0.0,espn
 2024-10-19,Guingamp,Strasbourg,3.0,2.0,"Première Ligue (Francia, femenil)",4563719,20241019_Guingamp_Strasbourg,4.0,3.0,2.0,1.0,0.0,0.0,6.0,6.0,2.0,8.0,12.0,11.0,41.5,58.5,0.0,0.0,espn
-2024-10-19,Reims,Nantes,1.0,3.0,"Première Ligue (Francia, femenil)",4563721,20241019_Reims_Nantes,4.0,4.0,0.0,1.0,0.0,0.0,6.0,6.0,11.0,7.0,10.0,12.0,56.1,43.9,0.0,0.0,espn
 2024-10-20,Paris FC,OL Lyonnes,0.0,0.0,"Première Ligue (Francia, femenil)",4563723,20241020_Paris-FC_OL-Lyonnes,2.0,8.0,1.0,0.0,0.0,0.0,3.0,7.0,5.0,11.0,9.0,10.0,42.1,57.9,0.0,0.0,espn
 2024-11-02,Nantes,Paris FC,0.0,0.0,"Première Ligue (Francia, femenil)",4563794,20241102_Nantes_Paris-FC,1.0,4.0,1.0,1.0,0.0,0.0,2.0,5.0,5.0,13.0,6.0,5.0,31.5,68.5,0.0,0.0,espn
 2024-11-02,Montpellier FC,Guingamp,7.0,0.0,"Première Ligue (Francia, femenil)",4563792,20241102_Montpellier-FC_Guingamp,10.0,0.0,0.0,0.0,0.0,0.0,10.0,4.0,16.0,2.0,12.0,3.0,59.3,40.7,0.0,0.0,espn
@@ -478,28 +478,28 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2025-01-18,Paris FC,Guingamp,6.0,0.0,"Première Ligue (Francia, femenil)",4563832,20250118_Paris-FC_Guingamp,9.0,1.0,0.0,0.0,0.0,1.0,14.0,3.0,12.0,2.0,7.0,7.0,64.7,35.3,0.0,0.0,espn
 2025-01-18,Paris Saint Germain,OL Lyonnes,0.0,2.0,"Première Ligue (Francia, femenil)",4563817,20250118_Paris-Saint-Germain_OL-Lyonnes,4.0,6.0,1.0,2.0,0.0,0.0,1.0,5.0,6.0,10.0,8.0,10.0,49.2,50.8,0.0,0.0,espn
 2025-01-31,Montpellier FC,OL Lyonnes,1.0,4.0,"Première Ligue (Francia, femenil)",4563805,20250131_Montpellier-FC_OL-Lyonnes,2.0,8.0,1.0,0.0,0.0,0.0,1.0,11.0,2.0,10.0,8.0,6.0,26.1,73.9,0.0,0.0,espn
-2025-02-01,Saint-Étienne,Nantes,2.0,2.0,"Première Ligue (Francia, femenil)",4563800,20250201_Saint-Étienne_Nantes,2.0,5.0,0.0,2.0,0.0,0.0,9.0,5.0,8.0,11.0,5.0,5.0,40.6,59.4,0.0,0.0,espn
-2025-02-01,Reims,Paris FC,0.0,3.0,"Première Ligue (Francia, femenil)",4563807,20250201_Reims_Paris-FC,6.0,5.0,4.0,2.0,0.0,0.0,1.0,13.0,4.0,9.0,15.0,7.0,43.0,57.0,0.0,0.0,espn
-2025-02-01,Guingamp,Dijon Foot,0.0,3.0,"Première Ligue (Francia, femenil)",4563810,20250201_Guingamp_Dijon-Foot,3.0,1.0,2.0,2.0,0.0,0.0,0.0,7.0,3.0,3.0,17.0,10.0,45.8,54.2,0.0,0.0,espn
-2025-02-01,Le Havre,Fleury Merogis U.S,0.0,0.0,"Première Ligue (Francia, femenil)",4563808,20250201_Le-Havre_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2025-02-01,Strasbourg,Paris Saint Germain,1.0,2.0,"Première Ligue (Francia, femenil)",4563806,20250201_Strasbourg_Paris-Saint-Germain,0.0,6.0,1.0,3.0,0.0,0.0,1.0,3.0,2.0,6.0,16.0,11.0,34.1,65.9,0.0,0.0,espn
+2025-02-01,Saint-Étienne,Nantes,2.0,2.0,"Première Ligue (Francia, femenil)",4563800,20250201_Saint-Étienne_Nantes,2.0,5.0,0.0,2.0,0.0,0.0,9.0,5.0,8.0,11.0,5.0,5.0,40.6,59.4,0.0,0.0,espn
+2025-02-01,Guingamp,Dijon Foot,0.0,3.0,"Première Ligue (Francia, femenil)",4563810,20250201_Guingamp_Dijon-Foot,3.0,1.0,2.0,2.0,0.0,0.0,0.0,7.0,3.0,3.0,17.0,10.0,45.8,54.2,0.0,0.0,espn
+2025-02-01,Reims,Paris FC,0.0,3.0,"Première Ligue (Francia, femenil)",4563807,20250201_Reims_Paris-FC,6.0,5.0,4.0,2.0,0.0,0.0,1.0,13.0,4.0,9.0,15.0,7.0,43.0,57.0,0.0,0.0,espn
+2025-02-01,Le Havre,Fleury Merogis U.S,0.0,0.0,"Première Ligue (Francia, femenil)",4563808,20250201_Le-Havre_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2025-02-14,Paris FC,Saint-Étienne,4.0,0.0,"Première Ligue (Francia, femenil)",4563813,20250214_Paris-FC_Saint-Étienne,5.0,3.0,0.0,0.0,0.0,0.0,7.0,1.0,11.0,2.0,5.0,5.0,62.9,37.1,0.0,0.0,espn
 2025-02-15,Dijon Foot,Reims,2.0,1.0,"Première Ligue (Francia, femenil)",4563814,20250215_Dijon-Foot_Reims,6.0,3.0,4.0,0.0,0.0,0.0,7.0,1.0,8.0,6.0,8.0,12.0,57.5,42.5,0.0,0.0,espn
 2025-02-15,Fleury Merogis U.S,Strasbourg,1.0,1.0,"Première Ligue (Francia, femenil)",4563815,20250215_Fleury-Merogis-U.S_Strasbourg,,,,,,,,,,,,,,,,,
 2025-02-15,Nantes,Le Havre,2.0,2.0,"Première Ligue (Francia, femenil)",4563816,20250215_Nantes_Le-Havre,6.0,7.0,2.0,0.0,0.0,0.0,4.0,4.0,7.0,6.0,10.0,6.0,56.8,43.2,0.0,0.0,espn
 2025-02-15,OL Lyonnes,Guingamp,7.0,0.0,"Première Ligue (Francia, femenil)",4563811,20250215_OL-Lyonnes_Guingamp,14.0,1.0,1.0,0.0,0.0,0.0,18.0,0.0,21.0,0.0,9.0,7.0,67.2,32.8,0.0,0.0,espn
 2025-02-15,Paris Saint Germain,Montpellier FC,4.0,1.0,"Première Ligue (Francia, femenil)",4563812,20250215_Paris-Saint-Germain_Montpellier-FC,9.0,1.0,2.0,2.0,0.0,0.0,10.0,2.0,5.0,2.0,11.0,12.0,68.9,31.1,0.0,0.0,espn
+2025-03-01,Reims,Montpellier FC,2.0,4.0,"Première Ligue (Francia, femenil)",4563863,20250301_Reims_Montpellier-FC,2.0,3.0,3.0,2.0,0.0,0.0,4.0,5.0,5.0,4.0,10.0,21.0,49.0,51.0,0.0,0.0,espn
 2025-03-01,Dijon Foot,Paris Saint Germain,0.0,1.0,"Première Ligue (Francia, femenil)",4563834,20250301_Dijon-Foot_Paris-Saint-Germain,0.0,7.0,2.0,0.0,0.0,0.0,0.0,2.0,1.0,13.0,15.0,12.0,31.2,68.8,0.0,0.0,espn
 2025-03-01,Saint-Étienne,Le Havre,1.0,2.0,"Première Ligue (Francia, femenil)",4563856,20250301_Saint-Étienne_Le-Havre,2.0,6.0,2.0,3.0,0.0,0.0,1.0,5.0,6.0,5.0,5.0,16.0,62.6,37.4,0.0,0.0,espn
 2025-03-01,Guingamp,Fleury Merogis U.S,0.0,6.0,"Première Ligue (Francia, femenil)",4563855,20250301_Guingamp_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2025-03-01,Paris FC,Nantes,0.0,0.0,"Première Ligue (Francia, femenil)",4563835,20250301_Paris-FC_Nantes,9.0,7.0,0.0,0.0,0.0,0.0,11.0,4.0,12.0,3.0,4.0,4.0,60.6,39.4,0.0,0.0,espn
-2025-03-01,Reims,Montpellier FC,2.0,4.0,"Première Ligue (Francia, femenil)",4563863,20250301_Reims_Montpellier-FC,2.0,3.0,3.0,2.0,0.0,0.0,4.0,5.0,5.0,4.0,10.0,21.0,49.0,51.0,0.0,0.0,espn
 2025-03-01,Strasbourg,OL Lyonnes,0.0,4.0,"Première Ligue (Francia, femenil)",4563833,20250301_Strasbourg_OL-Lyonnes,3.0,9.0,0.0,1.0,0.0,0.0,2.0,13.0,6.0,17.0,6.0,8.0,36.2,63.8,0.0,0.0,espn
 2025-03-14,OL Lyonnes,Reims,8.0,1.0,"Première Ligue (Francia, femenil)",4563857,20250314_OL-Lyonnes_Reims,9.0,2.0,0.0,1.0,0.0,0.0,10.0,2.0,11.0,1.0,10.0,9.0,73.3,26.7,0.0,0.0,espn
-2025-03-15,Paris Saint Germain,Paris FC,0.0,0.0,"Première Ligue (Francia, femenil)",4563858,20250315_Paris-Saint-Germain_Paris-FC,5.0,5.0,2.0,0.0,0.0,0.0,2.0,5.0,1.0,2.0,4.0,9.0,56.8,43.2,0.0,0.0,espn
 2025-03-15,Le Havre,Guingamp,2.0,1.0,"Première Ligue (Francia, femenil)",4563861,20250315_Le-Havre_Guingamp,6.0,2.0,2.0,1.0,0.0,0.0,5.0,1.0,10.0,7.0,8.0,14.0,44.4,55.6,0.0,0.0,espn
-2025-03-15,Fleury Merogis U.S,Dijon Foot,0.0,0.0,"Première Ligue (Francia, femenil)",4563859,20250315_Fleury-Merogis-U.S_Dijon-Foot,,,,,,,,,,,,,,,,,
 2025-03-15,Nantes,Strasbourg,0.0,0.0,"Première Ligue (Francia, femenil)",4563862,20250315_Nantes_Strasbourg,5.0,4.0,0.0,1.0,0.0,0.0,4.0,7.0,7.0,6.0,9.0,11.0,38.3,61.7,0.0,0.0,espn
+2025-03-15,Fleury Merogis U.S,Dijon Foot,0.0,0.0,"Première Ligue (Francia, femenil)",4563859,20250315_Fleury-Merogis-U.S_Dijon-Foot,,,,,,,,,,,,,,,,,
+2025-03-15,Paris Saint Germain,Paris FC,0.0,0.0,"Première Ligue (Francia, femenil)",4563858,20250315_Paris-Saint-Germain_Paris-FC,5.0,5.0,2.0,0.0,0.0,0.0,2.0,5.0,1.0,2.0,4.0,9.0,56.8,43.2,0.0,0.0,espn
 2025-03-16,Montpellier FC,Saint-Étienne,1.0,0.0,"Première Ligue (Francia, femenil)",4563860,20250316_Montpellier-FC_Saint-Étienne,8.0,5.0,4.0,1.0,0.0,0.0,9.0,4.0,9.0,10.0,16.0,11.0,54.2,45.8,0.0,0.0,espn
 2025-03-21,Guingamp,Paris Saint Germain,2.0,6.0,"Première Ligue (Francia, femenil)",4563864,20250321_Guingamp_Paris-Saint-Germain,4.0,5.0,1.0,0.0,0.0,0.0,4.0,12.0,7.0,10.0,10.0,5.0,37.9,62.1,0.0,0.0,espn
 2025-03-22,Le Havre,Dijon Foot,0.0,2.0,"Première Ligue (Francia, femenil)",4563868,20250322_Le-Havre_Dijon-Foot,5.0,7.0,2.0,2.0,0.0,0.0,4.0,6.0,2.0,12.0,12.0,6.0,41.3,58.7,0.0,0.0,espn
@@ -510,14 +510,14 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2025-03-29,Reims,Le Havre,1.0,1.0,"Première Ligue (Francia, femenil)",4563845,20250329_Reims_Le-Havre,6.0,5.0,0.0,2.0,0.0,0.0,1.0,3.0,7.0,3.0,11.0,12.0,58.1,41.9,0.0,0.0,espn
 2025-03-29,Dijon Foot,Nantes,3.0,0.0,"Première Ligue (Francia, femenil)",4563837,20250329_Dijon-Foot_Nantes,7.0,6.0,0.0,0.0,0.0,0.0,9.0,3.0,8.0,10.0,3.0,5.0,43.2,56.8,0.0,0.0,espn
 2025-03-29,Montpellier FC,Paris FC,2.0,0.0,"Première Ligue (Francia, femenil)",4563871,20250329_Montpellier-FC_Paris-FC,3.0,10.0,2.0,1.0,0.0,0.0,4.0,5.0,9.0,10.0,12.0,5.0,35.3,64.7,0.0,0.0,espn
-2025-03-29,Strasbourg,Guingamp,6.0,0.0,"Première Ligue (Francia, femenil)",4563838,20250329_Strasbourg_Guingamp,2.0,3.0,2.0,3.0,0.0,0.0,7.0,2.0,9.0,10.0,12.0,12.0,55.6,44.4,0.0,0.0,espn
 2025-03-29,Paris Saint Germain,Saint-Étienne,6.0,0.0,"Première Ligue (Francia, femenil)",4563870,20250329_Paris-Saint-Germain_Saint-Étienne,13.0,1.0,0.0,1.0,0.0,1.0,8.0,0.0,20.0,2.0,14.0,4.0,70.0,30.0,0.0,0.0,espn
+2025-03-29,Strasbourg,Guingamp,6.0,0.0,"Première Ligue (Francia, femenil)",4563838,20250329_Strasbourg_Guingamp,2.0,3.0,2.0,3.0,0.0,0.0,7.0,2.0,9.0,10.0,12.0,12.0,55.6,44.4,0.0,0.0,espn
 2025-03-30,OL Lyonnes,Fleury Merogis U.S,4.0,0.0,"Première Ligue (Francia, femenil)",4563869,20250330_OL-Lyonnes_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2025-04-11,Paris Saint Germain,Reims,6.0,0.0,"Première Ligue (Francia, femenil)",4563840,20250411_Paris-Saint-Germain_Reims,8.0,4.0,1.0,1.0,0.0,0.0,11.0,3.0,7.0,5.0,7.0,6.0,73.0,27.0,0.0,0.0,espn
+2025-04-12,Dijon Foot,Saint-Étienne,1.0,0.0,"Première Ligue (Francia, femenil)",4563843,20250412_Dijon-Foot_Saint-Étienne,6.0,2.0,2.0,2.0,0.0,0.0,5.0,2.0,10.0,0.0,14.0,9.0,64.1,35.9,0.0,0.0,espn
 2025-04-12,Fleury Merogis U.S,Nantes,4.0,0.0,"Première Ligue (Francia, femenil)",4563841,20250412_Fleury-Merogis-U.S_Nantes,,,,,,,,,,,,,,,,,
 2025-04-12,Guingamp,Montpellier FC,3.0,1.0,"Première Ligue (Francia, femenil)",4563842,20250412_Guingamp_Montpellier-FC,1.0,8.0,1.0,3.0,0.0,0.0,5.0,2.0,0.0,4.0,11.0,18.0,39.4,60.6,0.0,0.0,espn
 2025-04-12,OL Lyonnes,Paris FC,2.0,2.0,"Première Ligue (Francia, femenil)",4563839,20250412_OL-Lyonnes_Paris-FC,5.0,4.0,1.0,0.0,0.0,0.0,3.0,2.0,6.0,13.0,9.0,6.0,59.5,40.5,0.0,0.0,espn
-2025-04-12,Dijon Foot,Saint-Étienne,1.0,0.0,"Première Ligue (Francia, femenil)",4563843,20250412_Dijon-Foot_Saint-Étienne,6.0,2.0,2.0,2.0,0.0,0.0,5.0,2.0,10.0,0.0,14.0,9.0,64.1,35.9,0.0,0.0,espn
 2025-04-13,Strasbourg,Le Havre,1.0,1.0,"Première Ligue (Francia, femenil)",4563844,20250413_Strasbourg_Le-Havre,6.0,6.0,2.0,1.0,0.0,0.0,2.0,2.0,10.0,10.0,6.0,8.0,69.7,30.3,0.0,0.0,espn
 2025-04-23,Le Havre,Paris Saint Germain,2.0,2.0,"Première Ligue (Francia, femenil)",4563846,20250423_Le-Havre_Paris-Saint-Germain,2.0,10.0,2.0,0.0,0.0,0.0,5.0,4.0,4.0,9.0,7.0,10.0,35.9,64.1,0.0,0.0,espn
 2025-04-23,Montpellier FC,Dijon Foot,0.0,0.0,"Première Ligue (Francia, femenil)",4563849,20250423_Montpellier-FC_Dijon-Foot,6.0,4.0,0.0,2.0,0.0,0.0,3.0,2.0,8.0,7.0,13.0,7.0,47.9,52.1,0.0,0.0,espn
@@ -526,19 +526,19 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2025-04-23,Reims,Guingamp,1.0,0.0,"Première Ligue (Francia, femenil)",4563848,20250423_Reims_Guingamp,5.0,5.0,2.0,5.0,0.0,1.0,4.0,2.0,7.0,2.0,9.0,10.0,46.4,53.6,0.0,0.0,espn
 2025-04-23,Saint-Étienne,Strasbourg,1.0,1.0,"Première Ligue (Francia, femenil)",4563850,20250423_Saint-Étienne_Strasbourg,2.0,4.0,1.0,1.0,0.0,0.0,6.0,4.0,7.0,8.0,10.0,9.0,46.0,54.0,0.0,0.0,espn
 2025-05-07,Strasbourg,Reims,2.0,1.0,"Première Ligue (Francia, femenil)",4563872,20250507_Strasbourg_Reims,2.0,0.0,2.0,3.0,1.0,0.0,6.0,3.0,6.0,8.0,13.0,12.0,62.2,37.8,0.0,0.0,espn
-2025-05-07,Dijon Foot,Paris FC,6.0,0.0,"Première Ligue (Francia, femenil)",4563853,20250507_Dijon-Foot_Paris-FC,7.0,0.0,0.0,1.0,0.0,0.0,17.0,0.0,9.0,5.0,5.0,6.0,62.4,37.6,0.0,0.0,espn
 2025-05-07,Fleury Merogis U.S,Montpellier FC,1.0,2.0,"Première Ligue (Francia, femenil)",4563873,20250507_Fleury-Merogis-U.S_Montpellier-FC,,,,,,,,,,,,,,,,,
 2025-05-07,Paris Saint Germain,Nantes,1.0,0.0,"Première Ligue (Francia, femenil)",4563852,20250507_Paris-Saint-Germain_Nantes,8.0,4.0,1.0,1.0,0.0,0.0,5.0,1.0,16.0,3.0,4.0,9.0,60.7,39.3,0.0,0.0,espn
 2025-05-07,OL Lyonnes,Le Havre,2.0,0.0,"Première Ligue (Francia, femenil)",4563851,20250507_OL-Lyonnes_Le-Havre,13.0,0.0,1.0,1.0,0.0,0.0,8.0,1.0,15.0,4.0,9.0,7.0,69.7,30.3,0.0,0.0,espn
 2025-05-07,Guingamp,Saint-Étienne,3.0,2.0,"Première Ligue (Francia, femenil)",4563874,20250507_Guingamp_Saint-Étienne,6.0,2.0,1.0,1.0,0.0,0.0,8.0,3.0,15.0,6.0,5.0,1.0,51.8,48.2,0.0,0.0,espn
+2025-05-07,Dijon Foot,Paris FC,6.0,0.0,"Première Ligue (Francia, femenil)",4563853,20250507_Dijon-Foot_Paris-FC,7.0,0.0,0.0,1.0,0.0,0.0,17.0,0.0,9.0,5.0,5.0,6.0,62.4,37.6,0.0,0.0,espn
 2025-05-11,Paris Saint Germain,Paris FC,3.0,0.0,"Première Ligue (Francia, femenil)",4785110,20250511_Paris-Saint-Germain_Paris-FC,,,,,,,,,,,,,,,,,
 2025-05-11,OL Lyonnes,Dijon Foot,4.0,1.0,"Première Ligue (Francia, femenil)",4785109,20250511_OL-Lyonnes_Dijon-Foot,,,,,,,,,,,,,,,,,
 2025-05-16,OL Lyonnes,Paris Saint Germain,3.0,0.0,"Première Ligue (Francia, femenil)",4787597,20250516_OL-Lyonnes_Paris-Saint-Germain,,,,,,,,,,,,,,,,,
+2025-09-06,Le Havre,Strasbourg,2.0,2.0,"Première Ligue (Francia, femenil)",4871156,20250906_Le-Havre_Strasbourg,7.0,2.0,3.0,0.0,0.0,0.0,10.0,4.0,10.0,8.0,12.0,8.0,42.3,57.7,0.0,0.0,espn
 2025-09-06,Montpellier FC,Fleury Merogis U.S,1.0,2.0,"Première Ligue (Francia, femenil)",4871155,20250906_Montpellier-FC_Fleury-Merogis-U.S,3.0,2.0,3.0,2.0,0.0,0.0,6.0,8.0,7.0,7.0,13.0,7.0,61.0,39.0,4.0,2.0,fotmob
 2025-09-06,Nantes,Saint-Étienne,2.0,1.0,"Première Ligue (Francia, femenil)",4871159,20250906_Nantes_Saint-Étienne,3.0,5.0,2.0,0.0,0.0,1.0,5.0,5.0,9.0,7.0,7.0,10.0,54.4,45.6,0.0,0.0,espn
 2025-09-06,Paris FC,Dijon Foot,2.0,0.0,"Première Ligue (Francia, femenil)",4871154,20250906_Paris-FC_Dijon-Foot,4.0,6.0,0.0,0.0,0.0,0.0,4.0,2.0,5.0,7.0,7.0,11.0,60.0,40.0,0.0,0.0,espn
 2025-09-06,Lens,Paris Saint Germain,0.0,3.0,"Première Ligue (Francia, femenil)",4871157,20250906_Lens_Paris-Saint-Germain,3.0,7.0,2.0,2.0,0.0,0.0,2.0,5.0,5.0,11.0,10.0,10.0,36.3,63.7,0.0,0.0,espn
-2025-09-06,Le Havre,Strasbourg,2.0,2.0,"Première Ligue (Francia, femenil)",4871156,20250906_Le-Havre_Strasbourg,7.0,2.0,3.0,0.0,0.0,0.0,10.0,4.0,10.0,8.0,12.0,8.0,42.3,57.7,0.0,0.0,espn
 2025-09-07,OL Lyonnes,Marseille,3.0,1.0,"Première Ligue (Francia, femenil)",4871158,20250907_OL-Lyonnes_Marseille,4.0,0.0,2.0,1.0,0.0,0.0,6.0,2.0,8.0,1.0,13.0,8.0,68.5,31.5,0.0,0.0,espn
 2025-09-19,Marseille,Le Havre,1.0,2.0,"Première Ligue (Francia, femenil)",4871162,20250919_Marseille_Le-Havre,4.0,5.0,3.0,5.0,0.0,0.0,2.0,4.0,9.0,4.0,12.0,12.0,66.5,33.5,0.0,0.0,espn
 2025-09-20,Saint-Étienne,OL Lyonnes,0.0,2.0,"Première Ligue (Francia, femenil)",4871164,20250920_Saint-Étienne_OL-Lyonnes,0.0,5.0,2.0,1.0,0.0,0.0,1.0,5.0,3.0,14.0,18.0,13.0,21.0,79.0,0.0,0.0,espn
@@ -584,10 +584,10 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2025-11-23,Saint-Étienne,Paris Saint Germain,1.0,4.0,"Première Ligue (Francia, femenil)",4875645,20251123_Saint-Étienne_Paris-Saint-Germain,2.0,7.0,2.0,1.0,1.0,0.0,1.0,11.0,4.0,8.0,12.0,7.0,33.0,67.0,0.0,0.0,espn
 2025-12-05,Marseille,Paris Saint Germain,1.0,5.0,"Première Ligue (Francia, femenil)",4875650,20251205_Marseille_Paris-Saint-Germain,2.0,9.0,1.0,3.0,0.0,0.0,3.0,10.0,1.0,5.0,5.0,11.0,21.7,78.3,0.0,0.0,espn
 2025-12-05,Lens,Saint-Étienne,1.0,0.0,"Première Ligue (Francia, femenil)",4875649,20251205_Lens_Saint-Étienne,6.0,8.0,1.0,2.0,0.0,0.0,9.0,2.0,5.0,13.0,12.0,10.0,41.9,58.1,0.0,0.0,espn
-2025-12-06,Dijon Foot,OL Lyonnes,0.0,3.0,"Première Ligue (Francia, femenil)",4875646,20251206_Dijon-Foot_OL-Lyonnes,3.0,10.0,1.0,1.0,0.0,0.0,0.0,8.0,1.0,9.0,6.0,11.0,26.3,73.7,0.0,0.0,espn
-2025-12-06,Montpellier FC,Nantes,1.0,2.0,"Première Ligue (Francia, femenil)",4875651,20251206_Montpellier-FC_Nantes,4.0,3.0,1.0,1.0,0.0,0.0,5.0,7.0,15.0,12.0,8.0,9.0,49.9,50.1,0.0,0.0,espn
-2025-12-06,Strasbourg,Fleury Merogis U.S,0.0,3.0,"Première Ligue (Francia, femenil)",4875647,20251206_Strasbourg_Fleury-Merogis-U.S,4.0,5.0,2.0,0.0,0.0,0.0,0.0,7.0,1.0,6.0,14.0,5.0,54.0,46.0,3.0,4.0,fotmob
 2025-12-06,Paris FC,Le Havre,3.0,0.0,"Première Ligue (Francia, femenil)",4875648,20251206_Paris-FC_Le-Havre,8.0,1.0,0.0,1.0,0.0,0.0,7.0,1.0,22.0,2.0,9.0,11.0,67.8,32.2,0.0,0.0,espn
+2025-12-06,Dijon Foot,OL Lyonnes,0.0,3.0,"Première Ligue (Francia, femenil)",4875646,20251206_Dijon-Foot_OL-Lyonnes,3.0,10.0,1.0,1.0,0.0,0.0,0.0,8.0,1.0,9.0,6.0,11.0,26.3,73.7,0.0,0.0,espn
+2025-12-06,Strasbourg,Fleury Merogis U.S,0.0,3.0,"Première Ligue (Francia, femenil)",4875647,20251206_Strasbourg_Fleury-Merogis-U.S,4.0,5.0,2.0,0.0,0.0,0.0,0.0,7.0,1.0,6.0,14.0,5.0,54.0,46.0,3.0,4.0,fotmob
+2025-12-06,Montpellier FC,Nantes,1.0,2.0,"Première Ligue (Francia, femenil)",4875651,20251206_Montpellier-FC_Nantes,4.0,3.0,1.0,1.0,0.0,0.0,5.0,7.0,15.0,12.0,8.0,9.0,49.9,50.1,0.0,0.0,espn
 2025-12-12,Paris Saint Germain,Montpellier FC,2.0,2.0,"Première Ligue (Francia, femenil)",4875656,20251212_Paris-Saint-Germain_Montpellier-FC,5.0,3.0,4.0,4.0,0.0,0.0,6.0,2.0,10.0,3.0,13.0,16.0,62.6,37.4,0.0,0.0,espn
 2025-12-13,Fleury Merogis U.S,Saint-Étienne,0.0,0.0,"Première Ligue (Francia, femenil)",4875653,20251213_Fleury-Merogis-U.S_Saint-Étienne,5.0,3.0,4.0,1.0,0.0,0.0,2.0,3.0,5.0,2.0,14.0,8.0,65.0,35.0,2.0,1.0,fotmob
 2025-12-13,Le Havre,OL Lyonnes,0.0,7.0,"Première Ligue (Francia, femenil)",4875654,20251213_Le-Havre_OL-Lyonnes,2.0,4.0,2.0,0.0,0.0,0.0,3.0,11.0,0.0,10.0,4.0,12.0,36.9,63.1,0.0,0.0,espn
@@ -644,9 +644,9 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2026-03-22,Montpellier FC,Paris Saint Germain,2.0,3.0,"Première Ligue (Francia, femenil)",4875703,20260322_Montpellier-FC_Paris-Saint-Germain,5.0,7.0,3.0,1.0,0.0,0.0,2.0,6.0,4.0,13.0,9.0,12.0,39.0,61.0,0.0,0.0,espn
 2026-03-28,Nantes,Paris Saint Germain,1.0,2.0,"Première Ligue (Francia, femenil)",4875711,20260328_Nantes_Paris-Saint-Germain,8.0,2.0,2.0,2.0,0.0,0.0,10.0,10.0,9.0,10.0,12.0,13.0,46.7,53.3,0.0,0.0,espn
 2026-03-28,Marseille,Montpellier FC,1.0,2.0,"Première Ligue (Francia, femenil)",4875709,20260328_Marseille_Montpellier-FC,4.0,3.0,1.0,4.0,0.0,0.0,6.0,1.0,10.0,2.0,10.0,13.0,61.6,38.4,0.0,0.0,espn
-2026-03-28,Paris FC,Fleury Merogis U.S,2.0,1.0,"Première Ligue (Francia, femenil)",4875707,20260328_Paris-FC_Fleury-Merogis-U.S,6.0,0.0,2.0,5.0,0.0,0.0,8.0,2.0,6.0,1.0,12.0,14.0,57.0,43.0,1.0,4.0,fotmob
-2026-03-28,Dijon Foot,Le Havre,2.0,1.0,"Première Ligue (Francia, femenil)",4875706,20260328_Dijon-Foot_Le-Havre,5.0,6.0,1.0,1.0,0.0,0.0,5.0,3.0,5.0,7.0,9.0,10.0,67.8,32.2,0.0,0.0,espn
 2026-03-28,Strasbourg,OL Lyonnes,2.0,2.0,"Première Ligue (Francia, femenil)",4875710,20260328_Strasbourg_OL-Lyonnes,1.0,10.0,1.0,0.0,0.0,0.0,2.0,11.0,1.0,15.0,3.0,13.0,27.3,72.7,0.0,0.0,espn
+2026-03-28,Dijon Foot,Le Havre,2.0,1.0,"Première Ligue (Francia, femenil)",4875706,20260328_Dijon-Foot_Le-Havre,5.0,6.0,1.0,1.0,0.0,0.0,5.0,3.0,5.0,7.0,9.0,10.0,67.8,32.2,0.0,0.0,espn
+2026-03-28,Paris FC,Fleury Merogis U.S,2.0,1.0,"Première Ligue (Francia, femenil)",4875707,20260328_Paris-FC_Fleury-Merogis-U.S,6.0,0.0,2.0,5.0,0.0,0.0,8.0,2.0,6.0,1.0,12.0,14.0,57.0,43.0,1.0,4.0,fotmob
 2026-03-28,Saint-Étienne,Lens,2.0,1.0,"Première Ligue (Francia, femenil)",4875708,20260328_Saint-Étienne_Lens,5.0,0.0,1.0,3.0,0.0,0.0,4.0,3.0,10.0,9.0,12.0,14.0,45.0,55.0,0.0,0.0,espn
 2026-04-22,Paris Saint Germain,Saint-Étienne,2.0,0.0,"Première Ligue (Francia, femenil)",4875717,20260422_Paris-Saint-Germain_Saint-Étienne,10.0,1.0,1.0,0.0,0.0,0.0,6.0,0.0,14.0,2.0,10.0,5.0,76.4,23.6,0.0,0.0,espn
 2026-04-22,Fleury Merogis U.S,Strasbourg,3.0,1.0,"Première Ligue (Francia, femenil)",4875713,20260422_Fleury-Merogis-U.S_Strasbourg,2.0,6.0,0.0,0.0,0.0,0.0,6.0,7.0,6.0,9.0,9.0,11.0,40.0,60.0,1.0,1.0,fotmob
@@ -677,26 +677,28 @@ date,home_team,away_team,home_goals,away_goals,tournament,fotmob_id,MATCH_ID,hom
 2026-09-06,Paris FC,Nantes,2.0,0.0,"Première Ligue (Francia, femenil)",5901162,20260906_Paris-FC_Nantes,9.0,3.0,2.0,3.0,0.0,0.0,3.0,2.0,19.0,4.0,7.0,10.0,54.8,45.2,0.0,2.0,espn
 2026-09-11,Paris Saint Germain,Strasbourg,2.0,0.0,"Première Ligue (Francia, femenil)",5901165,20260911_Paris-Saint-Germain_Strasbourg,5.0,3.0,2.0,1.0,0.0,0.0,11.0,1.0,11.0,5.0,11.0,9.0,54.5,45.5,1.0,3.0,espn
 2026-09-12,Marseille,Lens,2.0,1.0,"Première Ligue (Francia, femenil)",5908449,20260912_Marseille_Lens,6.0,1.0,3.0,1.0,0.0,0.0,6.0,3.0,10.0,4.0,9.0,15.0,61.2,38.8,7.0,0.0,espn
-2026-09-12,Nantes,Fleury Merogis U.S,1.0,1.0,"Première Ligue (Francia, femenil)",5901164,20260912_Nantes_Fleury-Merogis-U.S,0.0,11.0,1.0,0.0,0.0,0.0,3.0,7.0,6.0,5.0,6.0,3.0,50.0,50.0,1.0,0.0,fotmob
 2026-09-12,Saint Malo,Montpellier FC,1.0,0.0,"Première Ligue (Francia, femenil)",5901166,20260912_Saint-Malo_Montpellier-FC,1.0,7.0,0.0,2.0,0.0,0.0,3.0,7.0,3.0,10.0,10.0,15.0,41.1,58.9,0.0,1.0,espn
 2026-09-12,Toulouse,Le Havre,1.0,2.0,"Première Ligue (Francia, femenil)",5901167,20260912_Toulouse_Le-Havre,3.0,7.0,1.0,4.0,0.0,0.0,3.0,3.0,3.0,7.0,8.0,7.0,56.8,43.2,1.0,2.0,espn
+2026-09-12,Nantes,Fleury Merogis U.S,1.0,1.0,"Première Ligue (Francia, femenil)",5901164,20260912_Nantes_Fleury-Merogis-U.S,0.0,11.0,1.0,0.0,0.0,0.0,3.0,7.0,6.0,5.0,6.0,3.0,50.0,50.0,1.0,0.0,fotmob
 2026-09-12,OL Lyonnes,Paris FC,7.0,1.0,"Première Ligue (Francia, femenil)",5901163,20260912_OL-Lyonnes_Paris-FC,10.0,6.0,3.0,1.0,0.0,0.0,12.0,7.0,11.0,6.0,9.0,7.0,72.2,27.8,2.0,1.0,espn
 2026-09-18,Le Havre,OL Lyonnes,1.0,8.0,"Première Ligue (Francia, femenil)",5901168,20260918_Le-Havre_OL-Lyonnes,0.0,6.0,3.0,0.0,0.0,0.0,1.0,9.0,0.0,24.0,11.0,8.0,29.3,70.7,2.0,1.0,espn
 2026-09-18,Strasbourg,Paris FC,0.0,2.0,"Première Ligue (Francia, femenil)",5901172,20260918_Strasbourg_Paris-FC,3.0,5.0,1.0,0.0,0.0,0.0,0.0,9.0,4.0,16.0,9.0,6.0,57.7,42.3,2.0,2.0,espn
 2026-09-18,Paris Saint Germain,Nantes,1.0,0.0,"Première Ligue (Francia, femenil)",5901170,20260918_Paris-Saint-Germain_Nantes,10.0,1.0,1.0,3.0,1.0,0.0,3.0,2.0,9.0,1.0,10.0,8.0,57.7,42.3,0.0,1.0,espn
-2026-09-19,Saint Malo,Fleury Merogis U.S,0.0,2.0,"Première Ligue (Francia, femenil)",5901171,20260919_Saint-Malo_Fleury-Merogis-U.S,4.0,4.0,3.0,2.0,1.0,0.0,2.0,6.0,5.0,8.0,7.0,12.0,40.0,60.0,1.0,10.0,fotmob
 2026-09-19,Lens,Toulouse,2.0,2.0,"Première Ligue (Francia, femenil)",5908450,20260919_Lens_Toulouse,2.0,2.0,3.0,0.0,0.0,0.0,5.0,5.0,15.0,6.0,14.0,13.0,58.6,41.4,0.0,3.0,espn
 2026-09-19,Montpellier FC,Marseille,0.0,0.0,"Première Ligue (Francia, femenil)",5901169,20260919_Montpellier-FC_Marseille,1.0,3.0,3.0,0.0,0.0,0.0,0.0,5.0,4.0,10.0,13.0,6.0,32.7,67.3,1.0,1.0,espn
+2026-09-19,Saint Malo,Fleury Merogis U.S,0.0,2.0,"Première Ligue (Francia, femenil)",5901171,20260919_Saint-Malo_Fleury-Merogis-U.S,4.0,4.0,3.0,2.0,1.0,0.0,2.0,6.0,5.0,8.0,7.0,12.0,40.0,60.0,1.0,10.0,fotmob
 2026-10-03,Le Havre,Saint Malo,2.0,0.0,"Première Ligue (Francia, femenil)",5901174,20261003_Le-Havre_Saint-Malo,2.0,9.0,2.0,0.0,1.0,0.0,3.0,0.0,4.0,8.0,20.0,5.0,41.9,58.1,4.0,3.0,espn
-2026-10-03,OL Lyonnes,Toulouse,5.0,0.0,"Première Ligue (Francia, femenil)",5901175,20261003_OL-Lyonnes_Toulouse,8.0,1.0,0.0,4.0,0.0,0.0,9.0,2.0,14.0,3.0,5.0,11.0,69.3,30.7,3.0,1.0,espn
 2026-10-03,Nantes,Montpellier FC,1.0,1.0,"Première Ligue (Francia, femenil)",5901176,20261003_Nantes_Montpellier-FC,2.0,8.0,2.0,4.0,0.0,0.0,3.0,2.0,6.0,7.0,12.0,14.0,60.3,39.7,3.0,2.0,espn
 2026-10-03,Strasbourg,Marseille,3.0,3.0,"Première Ligue (Francia, femenil)",5901177,20261003_Strasbourg_Marseille,5.0,4.0,0.0,1.0,0.0,0.0,4.0,9.0,2.0,10.0,8.0,11.0,49.0,51.0,0.0,2.0,espn
 2026-10-03,Paris FC,Lens,4.0,1.0,"Première Ligue (Francia, femenil)",5908451,20261003_Paris-FC_Lens,9.0,4.0,0.0,4.0,0.0,0.0,11.0,1.0,14.0,8.0,6.0,12.0,63.0,37.0,5.0,4.0,espn
+2026-10-03,OL Lyonnes,Toulouse,5.0,0.0,"Première Ligue (Francia, femenil)",5901175,20261003_OL-Lyonnes_Toulouse,8.0,1.0,0.0,4.0,0.0,0.0,9.0,2.0,14.0,3.0,5.0,11.0,69.3,30.7,3.0,1.0,espn
 2026-10-04,Fleury Merogis U.S,Paris Saint Germain,1.0,3.0,"Première Ligue (Francia, femenil)",5901173,20261004_Fleury-Merogis-U.S_Paris-Saint-Germain,1.0,8.0,2.0,0.0,0.0,0.0,2.0,9.0,3.0,5.0,15.0,12.0,40.0,60.0,0.0,3.0,fotmob
-2026-10-17,Paris Saint Germain,OL Lyonnes,0.0,4.0,"Première Ligue (Francia, femenil)",5901180,20261017_Paris-Saint-Germain_OL-Lyonnes,3.0,7.0,1.0,1.0,0.0,0.0,0.0,8.0,6.0,6.0,11.0,11.0,33.4,66.6,1.0,2.0,espn
+2026-10-17,Toulouse,Paris FC,0.0,4.0,"Première Ligue (Francia, femenil)",5901182,20261017_Toulouse_Paris-FC,1.0,8.0,3.0,1.0,0.0,0.0,3.0,6.0,2.0,15.0,12.0,9.0,39.0,61.0,2.0,1.0,espn
 2026-10-17,Lens,Strasbourg,1.0,3.0,"Première Ligue (Francia, femenil)",5908452,20261017_Lens_Strasbourg,2.0,11.0,1.0,0.0,1.0,0.0,2.0,9.0,4.0,11.0,10.0,5.0,33.3,66.7,1.0,2.0,espn
 2026-10-17,Montpellier FC,Le Havre,1.0,1.0,"Première Ligue (Francia, femenil)",5901179,20261017_Montpellier-FC_Le-Havre,4.0,3.0,2.0,1.0,0.0,0.0,8.0,5.0,7.0,3.0,9.0,9.0,47.6,52.4,0.0,2.0,espn
-2026-10-17,Toulouse,Paris FC,0.0,4.0,"Première Ligue (Francia, femenil)",5901182,20261017_Toulouse_Paris-FC,1.0,8.0,3.0,1.0,0.0,0.0,3.0,6.0,2.0,15.0,12.0,9.0,39.0,61.0,2.0,1.0,espn
 2026-10-17,Saint Malo,Nantes,0.0,2.0,"Première Ligue (Francia, femenil)",5901181,20261017_Saint-Malo_Nantes,4.0,6.0,2.0,3.0,1.0,0.0,2.0,8.0,6.0,7.0,9.0,14.0,47.3,52.7,0.0,1.0,espn
+2026-10-17,Paris Saint Germain,OL Lyonnes,0.0,4.0,"Première Ligue (Francia, femenil)",5901180,20261017_Paris-Saint-Germain_OL-Lyonnes,3.0,7.0,1.0,1.0,0.0,0.0,0.0,8.0,6.0,6.0,11.0,11.0,33.4,66.6,1.0,2.0,espn
 2026-10-18,Marseille,Fleury Merogis U.S,2.0,2.0,"Première Ligue (Francia, femenil)",5901178,20261018_Marseille_Fleury-Merogis-U.S,,,,,,,,,,,,,,,,,
 2026-10-23,Paris Saint Germain,Montpellier FC,1.0,0.0,"Première Ligue (Francia, femenil)",5901186,20261023_Paris-Saint-Germain_Montpellier-FC,,,,,,,,,,,,,,,,,
+2026-10-24,Nantes,Strasbourg,3.0,2.0,"Première Ligue (Francia, femenil)",5901185,20261024_Nantes_Strasbourg,,,,,,,,,,,,,,,,,
+2026-10-24,Le Havre,Lens,0.0,0.0,"Première Ligue (Francia, femenil)",5908453,20261024_Le-Havre_Lens,,,,,,,,,,,,,,,,,

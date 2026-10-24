@@ -1,6 +1,6 @@
 {
 "version": 1,
-"actualizado": "2026-10-24T17:24:47Z",
+"actualizado": "2026-10-24T18:55:19Z",
 "filas": [
 {
 "dia": "2026-10-03",
@@ -13486,6 +13486,46 @@
 "dia": "2026-10-24",
 "nivel": "🏆",
 "deporte": "Fútbol",
+"partido": "Dortmund vs Ein Frankfurt",
+"apuesta": "Dortmund o empate",
+"cuota": 1.143,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🔷",
+"deporte": "Fútbol",
+"partido": "Dortmund vs Ein Frankfurt",
+"apuesta": "Gana Dortmund",
+"cuota": 1.462,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Dortmund vs Ein Frankfurt",
+"apuesta": "Gana Dortmund",
+"cuota": 1.53,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Dortmund vs Eintracht Frankfurt",
+"apuesta": "Gana Dortmund",
+"cuota": 1.53,
+"resultado": "verde",
+"marcador": "1-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🏆",
+"deporte": "Fútbol",
 "partido": "Estrela vs Casa Pia",
 "apuesta": "Estrela o empate",
 "cuota": 1.167,
@@ -13526,6 +13566,66 @@
 "dia": "2026-10-24",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Iraklis 1908 vs Kifisia",
+"apuesta": "Gana Iraklis 1908",
+"cuota": 2.65,
+"resultado": "rojo",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Iraklis vs Kifisia",
+"apuesta": "Empate",
+"cuota": 3.3334,
+"resultado": "rojo",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Iraklis vs Kifisia",
+"apuesta": "Gana Iraklis",
+"cuota": 2.65,
+"resultado": "rojo",
+"marcador": "2-3"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🎯",
+"deporte": "Fútbol",
+"partido": "Ironi Tiberias vs Netanya",
+"apuesta": "Gana Netanya",
+"cuota": 1.61,
+"resultado": "rojo",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Karlovac vs Orijent",
+"apuesta": "Gana Karlovac",
+"cuota": 1.97,
+"resultado": "rojo",
+"marcador": "0-2"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🏆",
+"deporte": "Fútbol",
+"partido": "Krasnodar vs Baltika",
+"apuesta": "Krasnodar o empate",
+"cuota": 1.167,
+"resultado": "verde",
+"marcador": "1-1"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Lac Inter vs Kagran",
 "apuesta": "Gana Lac Inter",
 "cuota": 1.53,
@@ -13546,6 +13646,16 @@
 "dia": "2026-10-24",
 "nivel": "💰",
 "deporte": "Fútbol",
+"partido": "Le Havre W vs Lens W",
+"apuesta": "Gana Lens W",
+"cuota": 3.15,
+"resultado": "rojo",
+"marcador": "0-0"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
 "partido": "Liberec B vs Horni Redice",
 "apuesta": "Gana Liberec B",
 "cuota": 1.48,
@@ -13561,6 +13671,16 @@
 "cuota": 2.5,
 "resultado": "rojo",
 "marcador": "2-2"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Maccabi Tel Aviv vs Hapoel Haifa",
+"apuesta": "Gana Maccabi Tel Aviv",
+"cuota": 1.31,
+"resultado": "verde",
+"marcador": "6-2"
 },
 {
 "dia": "2026-10-24",
@@ -13626,11 +13746,31 @@
 "dia": "2026-10-24",
 "nivel": "🎯",
 "deporte": "Fútbol",
+"partido": "Shabab Al Ordon vs Al Wehdat",
+"apuesta": "Gana Al Wehdat",
+"cuota": 1.53,
+"resultado": "verde",
+"marcador": "0-1"
+},
+{
+"dia": "2026-10-24",
+"nivel": "🎯",
+"deporte": "Fútbol",
 "partido": "Shirak Gyumri vs Alashkert",
 "apuesta": "Gana Alashkert",
 "cuota": 1.625,
 "resultado": "verde",
 "marcador": "0-1"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Shturmi vs Bolnisi",
+"apuesta": "Gana Shturmi",
+"cuota": 1.84,
+"resultado": "verde",
+"marcador": "1-0"
 },
 {
 "dia": "2026-10-24",
@@ -13641,6 +13781,16 @@
 "cuota": 1.167,
 "resultado": "rojo",
 "marcador": "1-2"
+},
+{
+"dia": "2026-10-24",
+"nivel": "💰",
+"deporte": "Fútbol",
+"partido": "Vejle vs Aarhus Fremad",
+"apuesta": "Gana Vejle",
+"cuota": 1.53,
+"resultado": "rojo",
+"marcador": "0-0"
 },
 {
 "dia": "2026-10-24",
