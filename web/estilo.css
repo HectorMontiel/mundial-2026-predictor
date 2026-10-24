@@ -793,3 +793,18 @@ body::before, body::after { animation: none !important; }
 .mini, .seccion, .ctx, .segmentos { background: rgba(255,255,255,.05); }
 .chip, .pestanas button, .buscador input, .buscador select { background: rgba(255,255,255,.07); }
 .chip.activa, .pestanas button.activa { background: linear-gradient(135deg, #22c55e, #16a34a); }
+
+/* v468 — cerrar la tarjeta desde abajo, «Por liga / Por hora» y la liga en cada fila */
+.pf-cerrar { position: sticky; bottom: calc(92px + env(safe-area-inset-bottom)); display: flex; justify-content: flex-end; margin-top: 10px; pointer-events: none; z-index: 3; }
+.pf-cerrar button { pointer-events: auto; display: inline-flex; align-items: center; gap: 6px; font: inherit; font-size: 13px; font-weight: 700;
+  color: var(--texto); background: rgba(21,25,52,.92); border: 1px solid var(--borde); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0,0,0,.35); }
+.pf-cerrar .ic.arriba { transform: rotate(180deg); width: 16px; height: 16px; }
+.orden-tog { display: flex; gap: 6px; justify-content: flex-end; margin: -4px 0 10px; }
+.orden-tog button { display: inline-flex; align-items: center; gap: 5px; font: inherit; font-size: 12px; font-weight: 600; color: var(--tenue);
+  background: rgba(255,255,255,.05); border: 1px solid var(--borde); border-radius: 999px; padding: 5px 11px; cursor: pointer; }
+.orden-tog button.activa { color: var(--texto); border-color: rgba(34,197,94,.55); background: rgba(34,197,94,.14); }
+.orden-tog .ic { width: 14px; height: 14px; }
+.pf-lig { display: block; font-size: 11px; color: var(--tenue); margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* v468 — «clip» recorta igual que «hidden» pero deja que «Cerrar» se quede pegado abajo (sticky) */
+.liga-bloque, .partido-fila.deslizable { overflow: clip; }

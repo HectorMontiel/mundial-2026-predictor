@@ -1291,10 +1291,9 @@
         (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +
       (a.goles_local_esperados != null && a.goles_visita_esperados != null
         ? filaStat(U.charAt(0).toUpperCase() + U.slice(1) + ' esperados', a.goles_local_esperados, a.goles_visita_esperados, true) : '') +
-      (ctx && ctx.sl && ctx.sv ? '<div class="ctx-tit">📊 Lo que usó (promedio de sus últimos partidos)</div>' +
-        [['gf', 'Goles a favor'], ['gc', 'Goles en contra'], ['tir', 'Tiros'], ['cor', 'Córners'], ['tap', 'Tiros a puerta'], ['tar', 'Amarillas']]
-          .filter(([k]) => ctx.sl[k] != null && ctx.sv[k] != null)
-          .map(([k, et]) => filaStat(et, ctx.sl[k], ctx.sv[k], true)).join('') : '') +
+      // v468 — el bloque de promedios de la IA se quitó: eran los MISMOS de «Antes del partido», justo arriba
+      // (el usuario: «estamos siendo redundantes»)
+
       (a.pick_ia && a.pick_ia !== 'ninguno' ? '<div class="ia-pred">Su pick favorito: <b>' + esc(a.pick_ia) + '</b> ' + (a.coincide ? '✅ coincide con nuestro análisis' : '⚠️ ve el partido distinto') + '</div>' : '') +
       (a.veredictos && a.veredictos.length ? '<div class="ia-ver">' + a.veredictos.map((v) =>
         '<div class="' + (v.opinion === 'en_contra' ? 'contra' : 'favor') + '">' + (v.opinion === 'en_contra' ? '❌ En contra' : '✅ A favor') +
@@ -1405,7 +1404,8 @@
   estado.liga = '';
   estado.abiertos = new Set();
   estado.ligasCerradas = new Set();
-  estado.ligasAbiertas = new Set();     // v461 — el usuario: «que cada liga salga minimizada para que no ocupe tanto»
+  estado.ligasAbiertas = new Set();
+  try { estado.porHora = localStorage.getItem('sp_orden') === 'hora'; } catch (e) { estado.porHora = false; }   // v468     // v461 — el usuario: «que cada liga salga minimizada para que no ocupe tanto»
   estado.verFinales = false;
 
   function vivoDe(ps) {
@@ -1456,12 +1456,15 @@
       (mio ? '<button class="quitar-fila" data-dejar="' + esc(ps.map((x) => x.id).join(',')) + '" aria-label="Quitar de Mis picks">🗑️ Quitar</button>' : '') +
       '<button class="pf" data-abrir="' + esc(k) + '" aria-expanded="' + abierto + '"' + (abiertoRoce ? ' style="transform:translateX(-92px)"' : '') + '>' +
       relojFila(ps) +
-      '<span class="pf-eqs"><span class="pf-eq">' + escudo(p.logo_h, L, p.deporte) + '<b>' + esc(L) + '</b>' + (marc ? '<em>' + esc(marc[0]) + '</em>' : '') + '</span>' +
+      '<span class="pf-eqs">' + (estado.porHora ? '<span class="pf-lig">' + esc(ligaDe(p)) + '</span>' : '') +
+      '<span class="pf-eq">' + escudo(p.logo_h, L, p.deporte) + '<b>' + esc(L) + '</b>' + (marc ? '<em>' + esc(marc[0]) + '</em>' : '') + '</span>' +
       '<span class="pf-eq">' + escudo(p.logo_a, V, p.deporte) + '<b>' + esc(V) + '</b>' + (marc ? '<em>' + esc(marc[1]) + '</em>' : '') + '</span></span>' +
       '<span class="pf-pick"><span class="pf-niv">' + nv.i + '</span><span class="pf-ap">' + ap + '</span>' +
       '<span class="pf-cu">' + (p.cuota ? Number(p.cuota).toFixed(2) : '') + '</span>' +
       (ps.length > 1 ? '<span class="pf-mas">+' + (ps.length - 1) + '</span>' : '') + resumenPicks(ps) + '</span>' +
-      '</button>' + (abierto ? '<div class="pf-detalle">' + tarjeta(ps) + '</div>' : '') + '</div>';
+      '</button>' + (abierto ? '<div class="pf-detalle">' + tarjeta(ps) +
+        // v468 — «hace falta algo para cerrar la tarjeta sin subir hasta arriba»: va pegado abajo mientras se lee
+        '<div class="pf-cerrar"><button data-abrir="' + esc(k) + '" data-cerrar-pf="1">' + ico('chevron-down', 'arriba') + ' Cerrar</button></div></div>' : '') + '</div>';
   }
   // v422 — «✨ PARA TI». Cada pick que aún no empieza (hoy y mañana) se puntúa
   // con lo que el usuario eligió (deportes y ligas) y con sus tendencias (lo que
@@ -1489,6 +1492,10 @@
     return [...mejor.values()].filter((x) => x.s >= umbral).sort((a, b) => b.s - a.s).slice(0, 8).map((x) => [x.p]);
   }
   // y sus ligas van primero en la lista
+  const ligaDe = (p) => (p.deporte === 'Tenis' ? '🎾 ' : '') + (p.liga || p.deporte || 'Otros');
+  // v468 — las ligas de la A a la Z (el usuario); las que eligió en sus intereses, arriba
+  const alfabetico = (mapa) => new Map([...mapa.entries()].sort((a, b) =>
+    a[0].replace(/^🎾 /, '').localeCompare(b[0].replace(/^🎾 /, ''), 'es', { sensitivity: 'base' })));
   function ordenPreferido(mapa) {
     if (!window.SPX || !SPX.intereses) return mapa;
     const it = SPX.intereses(), g = (it.gustos && it.gustos.liga) || {};
@@ -1658,8 +1665,8 @@
     if (plegar) grupos = grupos.filter((g) => faseDe(g) !== 'terminado');
     const porLiga = (gs0) => {
       const m = new Map();
-      gs0.forEach((g) => { const l = (g[0].deporte === 'Tenis' ? '🎾 ' : '') + (g[0].liga || g[0].deporte || 'Otros'); if (!m.has(l)) m.set(l, []); m.get(l).push(g); });
-      return m;
+      gs0.forEach((g) => { const l = ligaDe(g[0]); if (!m.has(l)) m.set(l, []); m.get(l).push(g); });
+      return alfabetico(m);
     };
     const ligas = ordenPreferido(porLiga(grupos));
     let finHtml = '';
@@ -1668,7 +1675,12 @@
       finHtml = '<button class="fin-cab" data-ver-fin>' + (estado.verFinales ? '▾' : '▸') + ' Terminados · ' + fin.length + ' partidos · <b>✅ ' + v + ' ❌ ' + r + '</b></button>' +
         (estado.verFinales ? '<div class="fin-lista">' + pintarLigas(porLiga(fin)) + '</div>' : '');
     }
-    $('tarjetas').innerHTML = pintarLigas(ligas) + finHtml;
+    const tog = estado.vista === 'picks' || estado.vista === 'mios'
+      ? '<div class="orden-tog"><button class="' + (estado.porHora ? '' : 'activa') + '" data-ord="liga">Por liga</button>' +
+        '<button class="' + (estado.porHora ? 'activa' : '') + '" data-ord="hora">' + ico('clock') + ' Por hora</button></div>' : '';
+    $('tarjetas').innerHTML = tog + (estado.porHora
+      ? '<section class="liga-bloque por-hora">' + grupos.map(seguro(filaPartido)).join('') + '</section>'
+      : pintarLigas(ligas)) + finHtml;
     function pintarLigas(mapa) { return [...mapa.entries()].map(([l, gs]) => {
       const cerrada = !(estado.busca || '').trim() && !estado.ligasAbiertas.has(l);
       const dia = gs.filter((g) => g[0].elige).length;
@@ -1729,7 +1741,7 @@
   });
 
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin]');
+    const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin],[data-ord]');
     if (!t) return;
     if (t.hasAttribute('data-ver-fin')) { estado.verFinales = !estado.verFinales; pintar(); return; }
     if (t.dataset.vistaIr) {
@@ -1745,7 +1757,16 @@
     if (t.dataset.niv) { alterna(estado.niveles, t.dataset.niv); pintar(); return; }
     if (t.dataset.fase) { estado.fase = t.dataset.fase; pintar(); return; }
     if (t.dataset.ficha) { ficha(t.dataset.ficha); return; }
-    if (t.dataset.liga) { const l = t.dataset.liga; estado.ligasAbiertas.has(l) ? estado.ligasAbiertas.delete(l) : estado.ligasAbiertas.add(l); pintar(); return; }
+    if (t.dataset.ord) { estado.porHora = t.dataset.ord === 'hora'; try { localStorage.setItem('sp_orden', t.dataset.ord); } catch (er) { /* sin almacenamiento */ } pintar(); return; }
+    if (t.dataset.liga) {
+      const l = t.dataset.liga;
+      if (estado.ligasAbiertas.has(l)) {
+        estado.ligasAbiertas.delete(l);
+        // v468 — al cerrar la liga se cierran TODAS sus tarjetas (antes algunas seguían abiertas)
+        (estado.grupos ? [...estado.grupos.entries()] : []).forEach(([k, g]) => { if (ligaDe(g[0]) === l) estado.abiertos.delete(k); });
+      } else estado.ligasAbiertas.add(l);
+      pintar(); return;
+    }
     if (t.dataset.abrir) {
       const k = t.dataset.abrir;
       if (Date.now() - (estado.sinClic || 0) < 450) return;                 // v440: fue un deslizar, no un toque
@@ -1761,7 +1782,14 @@
       else {
         if (estado.abiertos.has(k)) estado.abiertos.delete(k); else estado.abiertos.add(k);
         const fila = t.closest('.partido-fila'), g = estado.grupos && estado.grupos.get(k);
-        if (fila && g) { try { fila.outerHTML = filaPartido(g); setTimeout(vivo365, 50); return; } catch (e) { /* abajo, repinta todo */ } }
+        if (fila && g) {
+          try {
+            fila.outerHTML = filaPartido(g); setTimeout(vivo365, 50);
+            // v468 — cerrada desde abajo: la fila vuelve a la vista (si no, se queda uno a media lista)
+            if (t.dataset.cerrarPf) { const f2 = document.querySelector('.partido-fila[data-k="' + CSS.escape(k) + '"]'); if (f2 && f2.getBoundingClientRect().top < 70) f2.scrollIntoView({ block: 'start' }); }
+            return;
+          } catch (e) { /* abajo, repinta todo */ }
+        }
       }
       pintar();
       const el = [...document.querySelectorAll('.pf')].find((x) => x.dataset.abrir === k);

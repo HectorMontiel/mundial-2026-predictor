@@ -318,7 +318,7 @@ def probar_v434():
     check('function statsRespaldo(p)' in app and 'function compensacion(p, v)' in app, 'v462: estadísticas en vivo con respaldo (365Scores/FotMob) y la compensación')
     check('const atrasado = p.estado' in app and "'<span class=\"ok res\">✅ Verde</span>'" in app and "window.SP.pedirResumen(p)" in cu,
           'v463: lo que ya terminó se pone verde/rojo al momento (también las patas de días pasados)')
-    check("['tir', 'Tiros']" in app, 'v464: los tiros en «Antes del partido» y en lo que usó la IA')
+    check("['tir', 'Tiros', (x) => x]" in app, 'v464: los tiros en «Antes del partido» (v468: la IA ya no repite esos promedios)')
     check('if (document.hidden && estado.vivoPrimera) return;' in app and 'const n = Math.min(8, resto.length);' in app
           and 'body::before, body::after { animation: none !important; }' in css, 'v465: menos carga (ESPN por turnos, nada en segundo plano, fondo quieto)')
     ix = leer('web', 'index.html')
