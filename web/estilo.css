@@ -820,3 +820,60 @@ body::before, body::after { animation: none !important; }
 .jug-fila { font-size: 14px; padding: 3px 0; }
 .jug-n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .jug-fila b { font-weight: 700; color: #fcd34d; }
+
+/* v470 — pestañas dentro de «Antes del partido» y del «Análisis IA»; ⭐ de las ligas; líneas */
+.ctx details.sub { border-top: 1px solid var(--borde); margin: 6px -2px 0; padding: 6px 2px 0; }
+.ctx details.sub > summary { font-size: 13px; font-weight: 700; color: var(--tenue); list-style: none; display: flex; align-items: center; gap: 6px; padding: 4px 0; }
+.ctx details.sub > summary::-webkit-details-marker { display: none; }
+.ctx details.sub > summary::before { content: '▸'; font-size: 11px; transition: transform .15s; }
+.ctx details.sub[open] > summary { color: var(--texto); }
+.ctx details.sub[open] > summary::before { transform: rotate(90deg); }
+.sub-c { padding: 4px 0 6px; }
+.liga-nom { display: inline-flex; align-items: center; gap: 8px; min-width: 0; }
+.fav { display: inline-grid; place-items: center; width: 26px; height: 26px; margin: -4px 0 -4px -6px; border-radius: 50%; color: rgba(255,255,255,.28); flex: none; }
+.fav .ic { width: 16px; height: 16px; }
+.fav.si { color: #fbbf24; }
+.fav.si .ic { fill: #fbbf24; }
+.lin-st { margin: 4px 0 10px; }
+.lin-tit { font-size: 12px; font-weight: 700; color: var(--tenue); text-transform: uppercase; letter-spacing: .03em; margin-bottom: 2px; }
+.lin-fila { padding: 4px 0; font-size: 13px; }
+.lin-n { display: block; font-weight: 600; margin-bottom: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lin-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.lin-x { background: rgba(255,255,255,.05); border: 1px solid var(--borde); border-radius: 999px; padding: 3px 9px; font-size: 12px; color: var(--tenue); white-space: nowrap; }
+.lin-x b { color: #fcd34d; margin-left: 2px; }
+
+/* v471 — Arma tu combinada */
+.armador { margin-bottom: 14px; }
+.armador .tit { display: flex; align-items: center; gap: 6px; }
+.arm-fila { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 8px 0; }
+.arm-et { font-size: 12px; color: var(--tenue); min-width: 52px; }
+.arm-fila .chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.arm-n { display: inline-flex; align-items: center; gap: 4px; background: rgba(255,255,255,.05); border: 1px solid var(--borde); border-radius: 999px; padding: 2px; }
+.arm-n button { width: 32px; height: 32px; border-radius: 50%; border: 0; background: rgba(255,255,255,.08); color: var(--texto); font: inherit; font-size: 18px; cursor: pointer; }
+.arm-n b { min-width: 26px; text-align: center; }
+.arm-ir { margin-left: auto; }
+.arm-res { margin-top: 10px; border-top: 1px solid var(--borde); padding-top: 8px; }
+.arm-pata { display: grid; grid-template-columns: 22px minmax(0, 1fr) auto; grid-template-areas: 'niv txt num' 'niv ia num'; gap: 2px 8px; padding: 7px 0; border-bottom: 1px solid rgba(255,255,255,.06); }
+.arm-niv { grid-area: niv; padding-top: 2px; }
+.arm-txt { grid-area: txt; display: flex; flex-direction: column; min-width: 0; }
+.arm-txt b { font-size: 14px; }
+.arm-txt small, .arm-num small { color: var(--tenue); font-size: 12px; }
+.arm-num { grid-area: num; display: flex; flex-direction: column; align-items: flex-end; }
+.arm-ia { grid-area: ia; font-size: 11px; color: var(--tenue); display: inline-flex; align-items: center; gap: 4px; }
+.arm-ia.favor { color: #4ade80; }
+.arm-fuera { font-size: 12px; color: #fca5a5; margin: 8px 0; display: flex; gap: 6px; align-items: flex-start; flex-wrap: wrap; }
+.arm-pie { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-top: 10px; font-size: 14px; }
+
+/* v472 — parley del mismo partido */
+.par-caja { background: rgba(255,255,255,.04); border: 1px solid var(--borde); border-radius: 10px; padding: 8px 10px; margin: 6px 0; }
+.par-cab { display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; font-size: 13px; margin-bottom: 4px; }
+.par-cab span { color: var(--tenue); }
+.par-cab span b { color: #fcd34d; }
+.par-pata { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 0; border-top: 1px solid rgba(255,255,255,.06); font-size: 13px; }
+.par-n { display: flex; flex-direction: column; align-items: flex-end; line-height: 1.1; }
+.par-n b { color: #fcd34d; }
+.par-n small { color: var(--tenue); font-size: 11px; }
+
+/* v473 — niveles con candado en «Arma tu combinada» (plan gratis: sólo Oro) */
+.armador .chip.bloq { opacity: .55; }
+.armador .chip.bloq .ic { width: 12px; height: 12px; margin-left: 2px; }

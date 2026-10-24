@@ -1,0 +1,188 @@
+# -*- coding: utf-8 -*-
+"""
+v470 — LÍNEAS POR ESTADÍSTICA DESDE LOS PROMEDIOS DEL PARTIDO.
+
+El usuario: «si en el análisis del partido un equipo tiene una media de 7 córners, que me diga que me
+vaya por córners de ese equipo +5, +4, +6, y así con cada estadística, por equipo y en general».
+
+λ del equipo = media de la liga en su lado (local/visita) × su ataque (lo suyo en sus últimos 10) ×
+la defensa del rival (lo que concede en sus últimos 10), los dos encogidos a la media con 3
+partidos. Total = suma. Conteo binomial negativa con la dispersión medida y calibración isotónica.
+
+MEDIDO (D:/Claude/mediciones/medir_lineas.py, 48.762 partidos de 63 ligas, 2025-2026, líneas fijas
+alrededor de la media de la liga, calibrado en una mitad y medido en la otra y al revés):
+  · ganan a la media de la liga en las dos mitades (p5 > 0): goles, córners, tiros y tiros a puerta
+    DE CADA EQUIPO (más y menos), y los tiros TOTALES (más y menos) y los tiros a puerta totales (menos).
+  · NO ganan (no se enseñan): goles totales, córners totales, amarillas (de equipo y totales) y tiros a
+    puerta totales «más de». Ahí la media de la liga sabe lo mismo que los promedios.
+Es información, no un pick.
+"""
+from __future__ import annotations
+
+import json
+import logging
+from typing import Dict, List, Optional
+
+logger = logging.getLogger(__name__)
+
+CAL = 'lineas_calibracion.json'
+K = 3.0
+N = 10
+COLS = {'goles': ('home_goals', 'away_goals'), 'corners': ('home_corners', 'away_corners'),
+        'tiros_puerta': ('home_shots_on', 'away_shots_on'), 'tiros': ('home_tiros', 'away_tiros')}
+# lo que pasó la medición: (estadística, equipo|total, mas|menos)
+VALE = {('goles', 'equipo', 'mas'), ('goles', 'equipo', 'menos'), ('corners', 'equipo', 'mas'), ('corners', 'equipo', 'menos'),
+        ('tiros_puerta', 'equipo', 'mas'), ('tiros_puerta', 'equipo', 'menos'), ('tiros', 'equipo', 'mas'), ('tiros', 'equipo', 'menos'),
+        ('tiros', 'total', 'mas'), ('tiros', 'total', 'menos'), ('tiros_puerta', 'total', 'menos')}
+P_MIN, P_MAX = 0.60, 0.93
+_MEM: Dict = {}
+
+
+def _cal() -> Dict:
+    if 'cal' not in _MEM:
+        try:
+            _MEM['cal'] = json.load(open(CAL, encoding='utf-8'))
+        except Exception:
+            _MEM['cal'] = {}
+    return _MEM['cal']
+
+
+def _p_mas(lam: float, linea: float, alpha: float) -> float:
+    """P(X > linea), linea = k + 0,5."""
+    from scipy.stats import nbinom, poisson
+    k = int(linea)
+    if alpha <= 1e-6:
+        return float(1 - poisson.cdf(k, lam))
+    r = 1 / alpha
+    return float(1 - nbinom.cdf(k, r, r / (r + lam)))
+
+
+def _calibrada(clave: str, p: float) -> Optional[float]:
+    import numpy as np
+    t = _cal().get(clave)
+    return float(np.interp(p, t['x'], t['y'])) if t else None
+
+
+def _lineas(stat: str, tipo: str, lam: float) -> List[list]:
+    """Hasta 2 «más de» (las más cercanas a λ con 60-93 %) y 1 «menos de»: [[tipo, línea, prob], …]."""
+    cal = _cal()
+    alpha = (cal.get('alpha') or {}).get('%s_%s' % (stat, tipo), 0.05)
+    out = []
+    if (stat, tipo, 'mas') in VALE:
+        mas = []
+        for k in range(0, int(lam) + 1):
+            p = _calibrada('%s_%s_mas' % (stat, tipo), _p_mas(lam, k + 0.5, alpha))
+            if p is not None and P_MIN <= p <= P_MAX:
+                mas.append(['mas', k + 0.5, round(p, 3)])
+        out += sorted(mas, key=lambda x: -x[1])[:2][::-1]
+    if (stat, tipo, 'menos') in VALE:
+        for k in range(int(lam) + 1, int(lam) + 15):
+            p = _calibrada('%s_%s_menos' % (stat, tipo), 1 - _p_mas(lam, k + 0.5, alpha))
+            if p is not None and P_MIN <= p <= P_MAX:
+                out.append(['menos', k + 0.5, round(p, 3)])
+                break
+    return out
+
+
+# v472 — EL PARLEY DEL MISMO PARTIDO con las líneas que Playdoit SÍ ofrece (mercado_dia.json).
+# Por estadística y equipo: la línea «más de» MÁS ALTA de la casa con nuestra probabilidad >= 75 %.
+# MEDIDO (D:/Claude/mediciones/medir_parlay.py, 29.571 partidos): las patas del mismo partido van
+# juntas (más tiros, más córners), así que el producto se queda CORTO: 2 patas dice 72,9 % y fue
+# 75,8 %; 3 patas 59,5 → 63,5; 4 patas 47,4 → 53,7, igual en las dos mitades. Se corrige con eso.
+P_PATA = 0.75
+CORR = {2: 1.04, 3: 1.067, 4: 1.13}
+CASA = {'goles': ('goles_home', 'goles_away', None), 'corners': ('corners_home', 'corners_away', None),
+        'tiros': ('remates_home', 'remates_away', 'remates'), 'tiros_puerta': ('remates_on_home', 'remates_on_away', None)}
+
+
+def _parley(lams: Dict, mercado: Dict) -> List[list]:
+    """[[stat, 'h'|'a'|'t', línea, prob, cuota de la casa], …] de la más probable a la menos."""
+    alpha = (_cal().get('alpha') or {})
+    patas = []
+    for stat, (ch, ca, ct) in CASA.items():
+        if stat not in lams:
+            continue
+        lh, la = lams[stat]
+        for lado, col, lam, tipo in (('h', ch, lh, 'equipo'), ('a', ca, la, 'equipo'), ('t', ct, lh + la, 'total')):
+            tabla = (mercado or {}).get(col) if col else None
+            if not tabla or (stat, tipo, 'mas') not in VALE:
+                continue
+            mejor = None
+            for k, v in tabla.items():
+                try:
+                    linea, cuota = float(k), float((v or {}).get('mas') or 0)
+                except Exception:
+                    continue
+                if linea % 1 != 0.5 or cuota <= 1:
+                    continue
+                pr = _calibrada('%s_%s_mas' % (stat, tipo), _p_mas(lam, linea, alpha.get('%s_%s' % (stat, tipo), 0.05)))
+                if pr is not None and pr >= P_PATA and (not mejor or linea > mejor[2]):
+                    mejor = [stat, lado, linea, round(pr, 3), round(cuota, 3)]
+            if mejor:
+                patas.append(mejor)
+    return sorted(patas, key=lambda x: -x[3])
+
+
+def calcular(h, home: str, away: str, antes, mercado: Optional[Dict] = None) -> Optional[Dict]:
+    """{stat: {'h': [...], 'a': [...], 't': [...]}} con el histórico de la liga `h` (el de «Antes del
+    partido»); None si alguno tiene menos de 5 partidos. Con `mercado` (Playdoit), también
+    'par': el parley del mismo partido."""
+    import pandas as pd
+    h = h[h['date'] < antes].sort_values('date')
+    if 'home_shots_on' in h.columns and 'home_shots_off' in h.columns:
+        h = h.assign(home_tiros=pd.to_numeric(h.home_shots_on, errors='coerce') + pd.to_numeric(h.home_shots_off, errors='coerce'),
+                     away_tiros=pd.to_numeric(h.away_shots_on, errors='coerce') + pd.to_numeric(h.away_shots_off, errors='coerce'))
+    out = {}
+    for stat, (hc, ac) in COLS.items():
+        if hc not in h.columns:
+            continue
+        d = h[['home_team', 'away_team', hc, ac]].copy()
+        d[hc], d[ac] = pd.to_numeric(d[hc], errors='coerce'), pd.to_numeric(d[ac], errors='coerce')
+        d = d.dropna()
+        if len(d) < 60:
+            continue
+        ult = d.tail(600)
+        m_h, m_a = float(ult[hc].mean()), float(ult[ac].mean())
+        m = (m_h + m_a) / 2
+        if m <= 0:
+            continue
+
+        def lado(eq):
+            x = d[(d.home_team == eq) | (d.away_team == eq)].tail(N)
+            f = x[hc].where(x.home_team == eq, x[ac])
+            c = x[ac].where(x.home_team == eq, x[hc])
+            return len(x), float(f.sum()), float(c.sum())
+        nh, fh, ch = lado(home)
+        na, fa, ca = lado(away)
+        if nh < 5 or na < 5:
+            continue
+        F = lambda s, n: (s + K * m) / (n + K) / m
+        lam_h = m_h * F(fh, nh) * F(ca, na)
+        lam_a = m_a * F(fa, na) * F(ch, nh)
+        r = {'h': _lineas(stat, 'equipo', lam_h), 'a': _lineas(stat, 'equipo', lam_a), 't': _lineas(stat, 'total', lam_h + lam_a),
+             'lam': [round(lam_h, 2), round(lam_a, 2)]}
+        if r['h'] or r['a'] or r['t']:
+            out[stat] = r
+    if out and mercado:
+        par = _parley({k: v['lam'] for k, v in out.items()}, mercado)
+        if len(par) >= 2:
+            out['par'] = par[:6]
+    return out or None
+
+
+def calibrar(carpeta: str, alphas: Dict[str, float]) -> Dict:
+    """La calibración isotónica de cada (estadística, equipo|total, más|menos) que pasó, con los
+    backtests de `medir_lineas.py`; se guarda en `lineas_calibracion.json`."""
+    import os
+    import pandas as pd
+    from sklearn.isotonic import IsotonicRegression
+    out = {'alpha': alphas}
+    for stat, tipo, sent in sorted(VALE):
+        R = pd.read_pickle(os.path.join(carpeta, 'lineas_%s_%s.pkl' % (stat, tipo)))
+        R = R[R.tipo == sent]
+        iso = IsotonicRegression(out_of_bounds='clip', y_min=0, y_max=1).fit(R.p.values, R.y.values)
+        out['%s_%s_%s' % (stat, tipo, sent)] = {'x': [round(float(v), 5) for v in iso.X_thresholds_],
+                                                'y': [round(float(v), 5) for v in iso.y_thresholds_]}
+    with open(CAL, 'w', encoding='utf-8') as fh:
+        json.dump(out, fh)
+    return out

@@ -348,6 +348,19 @@ def contexto(p: Dict) -> Optional[Dict]:
                         ctx['sl'], ctx['fl'] = pl, pl['forma']
                     if pv:
                         ctx['sv'], ctx['fv'] = pv, pv['forma']
+                    # v470 — líneas por estadística con su probabilidad medida (va en el análisis IA)
+                    try:
+                        import lineas_stats
+                        try:
+                            import mercado_implicito as mi
+                            casa = mi.del_partido(home, away)        # las líneas que Playdoit ofrece (v472)
+                        except Exception:
+                            casa = None
+                        lin = lineas_stats.calcular(h, home, away, antes, casa)
+                        if lin:
+                            ctx['lin'] = lin
+                    except Exception as ex:
+                        logger.debug('[errores] líneas %s: %s', p.get('partido'), ex)
                     c = h[(((h.home_team == home) & (h.away_team == away)) | ((h.home_team == away) & (h.away_team == home))) & (h['date'] < antes)]
                     c = c.sort_values('date').tail(5)
                     if len(c):

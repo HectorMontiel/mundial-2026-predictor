@@ -1228,13 +1228,46 @@
     return '<div class="ia-jug"><div class="jug-cab"><span>' + ico('ball-football') + ' Jugadores</span><small>Anota</small><small>A puerta 1+</small><small>2+</small></div>' +
       eq(L, jug.h) + eq(V, jug.a) + '</div>';
   }
+  // v470 — LÍNEAS POR ESTADÍSTICA (el usuario: «si un equipo promedia 7 córners, que me diga córners de
+  // ese equipo +5, +4, +6…»). Salen de los mismos promedios de «Antes del partido» con el rival, y la
+  // probabilidad está medida y calibrada (exportar_web → lineas_stats). ctx.lin = {stat: {h, a, t}}.
+  // (sólo las que ganaron a la media de la liga: las amarillas, los goles totales y los córners totales no)
+  const LIN_NOM = { goles: 'Goles', corners: 'Córners', tiros: 'Tiros', tiros_puerta: 'Tiros a puerta' };
+  function lineasHtml(ctx, L, V) {
+    const lin = ctx && ctx.lin;
+    if (!lin) return '';
+    const fila = (n, xs) => !(xs || []).length ? '' : '<div class="lin-fila"><span class="lin-n">' + esc(n) + '</span><span class="lin-chips">' +
+      xs.map(([t, l, p]) => '<span class="lin-x">' + (t === 'mas' ? 'Más ' : 'Menos ') + l + ' <b>' + Math.round(100 * p) + '%</b></span>').join('') + '</span></div>';
+    const html = Object.keys(LIN_NOM).filter((k) => lin[k]).map((k) =>
+      '<div class="lin-st"><div class="lin-tit">' + LIN_NOM[k] + '</div>' + fila(L, lin[k].h) + fila(V, lin[k].a) + fila('Total', lin[k].t) + '</div>').join('');
+    return html ? html + '<p class="tenue chico">Probabilidad medida en partidos pasados con los mismos promedios. Información, no un pick.</p>' : '';
+  }
+  // v472 — «ARMA TU PARLEY DE ESTE PARTIDO»: con las líneas que Playdoit SÍ ofrece, la más alta de cada
+  // estadística con nuestra probabilidad >= 75 %. Las patas del mismo partido van juntas: el producto se
+  // queda corto y se corrige con lo medido (2 patas ×1,04 · 3 ×1,067 · 4 ×1,13; 29.571 partidos).
+  const PAR_CORR = { 2: 1.04, 3: 1.067, 4: 1.13 };
+  function parleyHtml(ctx, L, V) {
+    const par = ctx && ctx.lin && ctx.lin.par;
+    if (!par || par.length < 2) return '';
+    const nom = (lado) => (lado === 'h' ? L : lado === 'a' ? V : 'Total');
+    const una = (n) => {
+      const ps = par.slice(0, n), prod = ps.reduce((x, y) => x * y[3], 1), cuota = ps.reduce((x, y) => x * y[4], 1);
+      const prob = Math.min(Math.min(...ps.map((x) => x[3])), prod * (PAR_CORR[n] || 1));
+      return '<div class="par-caja"><div class="par-cab"><b>' + n + ' patas</b><span>se cumplen todas ~<b>' + Math.round(100 * prob) + '%</b> · cuota ~' + cuota.toFixed(2) + '</span></div>' +
+        ps.map(([st, lado, lin, pr, cu]) => '<div class="par-pata"><span>' + esc(LIN_NOM[st] || st) + ' ' + esc(nom(lado)) + ': <b>más de ' + lin + '</b></span>' +
+          '<span class="par-n"><b>' + Math.round(100 * pr) + '%</b><small>' + Number(cu).toFixed(2) + '</small></span></div>').join('') + '</div>';
+    };
+    return una(Math.min(3, par.length)) + (par.length >= 3 ? una(2) : '') +
+      '<p class="tenue chico">Líneas y cuotas de Playdoit. En combinadas del mismo partido la casa puede ajustar la cuota.</p>';
+  }
   function iaBloque(p, L, V, ctx, jug) {
     const a = window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null;
     const vip = window.SPX && SPX.esVip && SPX.esVip();
     if (a) return iaHtml(a, L, V, ctx, jug);
     // VIP y aún sin análisis de la IA: el apartado sale igual, con los jugadores
-    if (vip && jugadoresHtml(jug, L, V)) return '<details class="ctx ia"><summary>🤖 Análisis IA</summary>' + jugadoresHtml(jug, L, V) + '</details>';
-    const hay = (window.SPX && SPX.yo.iaHay && SPX.yo.iaHay.has(p.partido)) || !!jugadoresHtml(jug, L, V);
+    if (vip && (jugadoresHtml(jug, L, V) || lineasHtml(ctx, L, V))) return '<details class="ctx ia"><summary>🤖 Análisis IA</summary>' +
+      sub('Jugadores', jugadoresHtml(jug, L, V)) + sub('Líneas por estadística', lineasHtml(ctx, L, V)) + sub('Arma tu parley de este partido', parleyHtml(ctx, L, V)) + '</details>';
+    const hay = (window.SPX && SPX.yo.iaHay && SPX.yo.iaHay.has(p.partido)) || !!jugadoresHtml(jug, L, V) || !!lineasHtml(ctx, L, V);
     if (!hay || vip) return '';
     return '<button class="ctx ia ia-bloq" data-vista-ir="planes" data-foco="plan-vip">🤖 Análisis IA <span class="candado">🔒 VIP</span></button>';
   }
@@ -1287,8 +1320,11 @@
       (a.p_empate ? ' · empate ' + Math.round(100 * a.p_empate) + ' %' : '') + ' · ' + V.slice(0, 14) + ' ' + Math.round(100 * (a.p_visita || 0)) + ' %</div>' +
       '<div class="ia-pred">' + (fut && a.pred_goles ? 'Goles: <b>' + (a.pred_goles === 'mas' ? 'más de 2.5' : 'menos de 2.5') + '</b>' + pp(a.prob_goles) + ' · ' : '') +
       'confianza ' + '★'.repeat(a.confianza || 0) + '☆'.repeat(5 - (a.confianza || 0)) + '</div>' +
+      // v470 — lo principal a la vista; lo demás en pestañas que se abren
+      (a.mejor_apuesta ? '<div class="ia-meter">🧠 Lo que metería la IA: <b>' + esc(a.mejor_apuesta) + '</b>' +
+        (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +
       // v392 — más precisa: marcador, goles esperados, ambos anotan, córners, tarjetas (con ✅/❌ al terminar)
-      '<div class="ia-grid">' + [
+      sub('Predicciones', '<div class="ia-grid">' + [
         // v396 — con la probabilidad que le da la IA a cada predicción
         a.marcador_ia ? ['⚽ Marcador', a.marcador_ia, a.ok_marcador, a.prob_marcador] : null,
         a.goles_esperados != null ? ['🥅 Goles esperados', String(a.goles_esperados), null, null] : null,
@@ -1301,36 +1337,40 @@
         a.linea_tarjetas != null ? ['🟨 Tarjetas', (a.pred_tarjetas === 'mas' ? 'Más' : 'Menos') + ' de ' + a.linea_tarjetas + (a.tarjetas_esperadas != null ? ' (~' + a.tarjetas_esperadas + ')' : ''), a.ok_tarjetas, a.prob_tarjetas] : null,
       ].filter(Boolean).map(([t, v, ok, pr]) => '<div><small>' + t + '</small><b>' + esc(v) + (ok === true ? ' ✅' : ok === false ? ' ❌' : '') + '</b>' +
         (pr != null ? '<span class="ia-prob">probabilidad ' + Math.round(100 * pr) + ' %</span>' : '') + '</div>').join('') + '</div>' +
+        // v394 — los goles de cada equipo
+        (a.goles_local_esperados != null && a.goles_visita_esperados != null
+          ? filaStat(U.charAt(0).toUpperCase() + U.slice(1) + ' esperados', a.goles_local_esperados, a.goles_visita_esperados, true) : '')) +
+      // v468 — el bloque de promedios de la IA se quitó: eran los MISMOS de «Antes del partido» (redundante)
       // v448 — primer gol y PA1 de cada equipo (sólo fútbol: es lo que se midió)
-      (fut && a.goles_local_esperados != null && a.goles_visita_esperados != null ? pa1Html(a.goles_local_esperados, a.goles_visita_esperados, L, V) : '') +
-      (fut ? jugadoresHtml(jug, L, V) : '') +
-      // v394 — qué metería la IA (cualquier mercado) y los goles de cada equipo
-      (a.mejor_apuesta ? '<div class="ia-meter">🧠 Lo que metería la IA: <b>' + esc(a.mejor_apuesta) + '</b>' +
-        (a.prob_mejor_apuesta != null ? ' · ' + Math.round(100 * a.prob_mejor_apuesta) + ' %' : '') + '</div>' : '') +
-      (a.goles_local_esperados != null && a.goles_visita_esperados != null
-        ? filaStat(U.charAt(0).toUpperCase() + U.slice(1) + ' esperados', a.goles_local_esperados, a.goles_visita_esperados, true) : '') +
-      // v468 — el bloque de promedios de la IA se quitó: eran los MISMOS de «Antes del partido», justo arriba
-      // (el usuario: «estamos siendo redundantes»)
-
-      (a.pick_ia && a.pick_ia !== 'ninguno' ? '<div class="ia-pred">Su pick favorito: <b>' + esc(a.pick_ia) + '</b> ' + (a.coincide ? '✅ coincide con nuestro análisis' : '⚠️ ve el partido distinto') + '</div>' : '') +
-      (a.veredictos && a.veredictos.length ? '<div class="ia-ver">' + a.veredictos.map((v) =>
-        '<div class="' + (v.opinion === 'en_contra' ? 'contra' : 'favor') + '">' + (v.opinion === 'en_contra' ? '❌ En contra' : '✅ A favor') +
-        ': <b>' + esc(v.apuesta) + '</b> — ' + esc(v.motivo) + (v.estado === 'verde' ? ' · salió ✅' : v.estado === 'roja' ? ' · salió ❌' : '') + '</div>').join('') + '</div>' : '') +
+      (fut && a.goles_local_esperados != null && a.goles_visita_esperados != null ? sub('Primer gol y PA1', pa1Html(a.goles_local_esperados, a.goles_visita_esperados, L, V)) : '') +
+      (fut ? sub('Jugadores', jugadoresHtml(jug, L, V)) : '') +
+      (fut ? sub('Líneas por estadística', lineasHtml(ctx, L, V)) : '') +
+      (fut ? sub('Arma tu parley de este partido', parleyHtml(ctx, L, V)) : '') +
+      sub('Nuestros picks según la IA',
+        (a.pick_ia && a.pick_ia !== 'ninguno' ? '<div class="ia-pred">Su pick favorito: <b>' + esc(a.pick_ia) + '</b> ' + (a.coincide ? '✅ coincide con nuestro análisis' : '⚠️ ve el partido distinto') + '</div>' : '') +
+        (a.veredictos && a.veredictos.length ? '<div class="ia-ver">' + a.veredictos.map((v) =>
+          '<div class="' + (v.opinion === 'en_contra' ? 'contra' : 'favor') + '">' + (v.opinion === 'en_contra' ? '❌ En contra' : '✅ A favor') +
+          ': <b>' + esc(v.apuesta) + '</b> — ' + esc(v.motivo) + (v.estado === 'verde' ? ' · salió ✅' : v.estado === 'roja' ? ' · salió ❌' : '') + '</div>').join('') + '</div>' : '')) +
       // v446 — lo que encontró en la web (bajas, alineaciones) y «¿te sirvió?» (sólo se mide)
-      (a.noticias ? '<div class="ia-noti">📰 <b>Noticias:</b> ' + esc(String(a.noticias).split(' | ').join(' · ')) + '</div>' : '') +
+      (a.noticias ? sub('Noticias', '<div class="ia-noti">' + String(a.noticias).split(' | ').map((n) => '<div>· ' + esc(n) + '</div>').join('') + '</div>') : '') +
       (window.SPX && SPX.votoIA ? SPX.votoIA(a.id) : '') +
       '<p class="tenue chico">Experimental: la medimos aparte en Historial y nuestros picks no dependen de ella.</p></details>';
   }
   function formaHtml(f) {
     return String(f || '').split('').map((c) => '<i class="fr ' + ({ G: 'g', E: 'e', P: 'p' }[c] || '') + '">' + c + '</i>').join('');
   }
+  // v470 — una pestaña plegada dentro de otra (Antes del partido, Análisis IA)
+  const sub = (titulo, cuerpo) => !cuerpo ? '' : '<details class="sub"><summary>' + titulo + '</summary><div class="sub-c">' + cuerpo + '</div></details>';
   function contextoHtml(ctx, L, V) {
     if (!ctx) return '';
-    let h = '<details class="ctx"><summary>📋 Antes del partido: forma y H2H</summary>';
+    // v470 — el usuario: «está muy grande; que tenga secciones que yo pueda abrir». Cada parte es
+    // una pestaña plegada dentro de la general (se recuerdan abiertas al repintar: memoriaVista).
+    let h = '<details class="ctx"><summary>📋 Antes del partido</summary>';
     if (ctx.fl || ctx.fv) {
-      h += '<div class="ctx-tit">Últimos 5 partidos (el más reciente a la derecha)</div>' +
+      h += sub('Forma · últimos 5', '<div class="ctx-tit">El más reciente a la derecha</div>' +
         '<div class="ctx-f"><span>' + esc(L) + '</span><span>' + formaHtml(ctx.fl) + '</span></div>' +
-        '<div class="ctx-f"><span>' + esc(V) + '</span><span>' + formaHtml(ctx.fv) + '</span></div>';
+        '<div class="ctx-f"><span>' + esc(V) + '</span><span>' + formaHtml(ctx.fv) + '</span></div>' +
+        '<p class="tenue chico">G = ganó · E = empató · P = perdió.</p>');
     }
     // v391 — promedios de los últimos 10 de cada uno, con barras (como SofaScore)
     if (ctx.sl && ctx.sv) {
@@ -1338,22 +1378,21 @@
       const filas = [['gf', 'Goles a favor', (x) => x], ['gc', 'Goles en contra', (x) => x], ['o25', 'Partidos con +2.5 goles', pc],
         ['btts', 'Ambos anotan', pc], ['tir', 'Tiros', (x) => x], ['cor', 'Córners', (x) => x], ['tap', 'Tiros a puerta', (x) => x], ['tar', 'Amarillas', (x) => x], ['pos', 'Posesión %', (x) => x]]
         .filter(([k]) => ctx.sl[k] != null && ctx.sv[k] != null);
-      h += '<div class="ctx-tit">Promedio de sus últimos ' + Math.min(ctx.sl.n, ctx.sv.n) + ' partidos</div><div class="leyenda"><span class="l">' + esc(L) + '</span><span class="r">' + esc(V) + '</span></div>' +
-        filas.map(([k, et, f]) => filaStat(et, f(ctx.sl[k]), f(ctx.sv[k]), true)).join('');
+      h += sub('Promedios · últimos ' + Math.min(ctx.sl.n, ctx.sv.n), '<div class="leyenda"><span class="l">' + esc(L) + '</span><span class="r">' + esc(V) + '</span></div>' +
+        filas.map(([k, et, f]) => filaStat(et, f(ctx.sl[k]), f(ctx.sv[k]), true)).join(''));
     }
     if (ctx.h2h && ctx.h2h.length) {
-      h += '<div class="ctx-tit">Últimos enfrentamientos</div>' + ctx.h2h.map((x) =>
-        '<div class="ctx-h"><small>' + esc(x[0]) + '</small><span>' + esc(x[1]) + '</span><b>' + esc(x[2]) + '</b><span>' + esc(x[3]) + '</span></div>').join('');
+      h += sub('Enfrentamientos · ' + ctx.h2h.length, ctx.h2h.map((x) =>
+        '<div class="ctx-h"><small>' + esc(x[0]) + '</small><span>' + esc(x[1]) + '</span><b>' + esc(x[2]) + '</b><span>' + esc(x[3]) + '</span></div>').join(''));
     } else if (ctx.sl || ctx.sv) {
       // v415 — sin H2H se dice (antes la sección desaparecía y parecía un fallo)
-      h += '<div class="ctx-tit">Últimos enfrentamientos</div><p class="tenue">No se han enfrentado en nuestros registros.</p>';
+      h += sub('Enfrentamientos', '<p class="tenue">No se han enfrentado en nuestros registros.</p>');
     }
     if (ctx.bl || ctx.bv) {
-      h += '<div class="ctx-tit">Bajas</div>' +
-        (ctx.bl ? '<div class="ctx-b"><b>' + esc(L) + ':</b> ' + ctx.bl.map(esc).join(', ') + '</div>' : '') +
-        (ctx.bv ? '<div class="ctx-b"><b>' + esc(V) + ':</b> ' + ctx.bv.map(esc).join(', ') + '</div>' : '');
+      h += sub('Bajas', (ctx.bl ? '<div class="ctx-b"><b>' + esc(L) + ':</b> ' + ctx.bl.map(esc).join(', ') + '</div>' : '') +
+        (ctx.bv ? '<div class="ctx-b"><b>' + esc(V) + ':</b> ' + ctx.bv.map(esc).join(', ') + '</div>' : ''));
     }
-    return h + '<p class="tenue chico">G = ganó · E = empató · P = perdió. Es información para que analices; el pick ya la toma en cuenta a través del mercado.</p></details>';
+    return h + '<p class="tenue chico">Es información para que analices; el pick ya la toma en cuenta a través del mercado.</p></details>';
   }
 
   // ---------- FICHA DEL PARTIDO (tipo SofaScore) ----------
@@ -1423,7 +1462,8 @@
   estado.abiertos = new Set();
   estado.ligasCerradas = new Set();
   estado.ligasAbiertas = new Set();
-  try { estado.porHora = localStorage.getItem('sp_orden') === 'hora'; } catch (e) { estado.porHora = false; }   // v468     // v461 — el usuario: «que cada liga salga minimizada para que no ocupe tanto»
+  try { estado.porHora = localStorage.getItem('sp_orden') === 'hora'; } catch (e) { estado.porHora = false; }   // v468
+  try { estado.ligasFav = new Set(JSON.parse(localStorage.getItem('sp_ligas_fav') || '[]')); } catch (e) { estado.ligasFav = new Set(); }   // v470     // v461 — el usuario: «que cada liga salga minimizada para que no ocupe tanto»
   estado.verFinales = false;
 
   function vivoDe(ps) {
@@ -1514,11 +1554,11 @@
   // v468 — las ligas de la A a la Z (el usuario); las que eligió en sus intereses, arriba
   const alfabetico = (mapa) => new Map([...mapa.entries()].sort((a, b) =>
     a[0].replace(/^🎾 /, '').localeCompare(b[0].replace(/^🎾 /, ''), 'es', { sensitivity: 'base' })));
+  // v470 — el usuario: «de la A a la Z, y una estrellita para marcar la liga como favorita y que salga
+  // al inicio». Antes subían solas las ligas de sus intereses y parecía que no estaba en orden.
   function ordenPreferido(mapa) {
-    if (!window.SPX || !SPX.intereses) return mapa;
-    const it = SPX.intereses(), g = (it.gustos && it.gustos.liga) || {};
-    const peso = (l) => (it.ligas.has(l.replace(/^🎾 /, '')) ? 2 : 0) + (g[l.replace(/^🎾 /, '')] ? 1 : 0);
-    return new Map([...mapa.entries()].map((e, i) => [e, i]).sort((a, b) => (peso(b[0][0]) - peso(a[0][0])) || (a[1] - b[1])).map((x) => x[0]));
+    const fav = (l) => estado.ligasFav.has(l) ? 1 : 0;
+    return new Map([...mapa.entries()].map((e, i) => [e, i]).sort((a, b) => (fav(b[0][0]) - fav(a[0][0])) || (a[1] - b[1])).map((x) => x[0]));
   }
   function destacado(ps, etiqueta) {
     const p = ps[0], [L, V] = lados(p), v = vivoDe(ps);
@@ -1547,6 +1587,77 @@
     const dia = diaPestana(OFFS[estado.dia] || 0);
     const enVivo = (p) => faseDe([p]) === 'vivo';
     return base.concat(estado.analisis.filter((a) => !ya.has(clavePartido(a)) && (estado.vista === 'vivo' ? enVivo(a) && a.estado !== 'final' : diaDe(a) === dia)));
+  }
+  // v471 — «ARMA TU COMBINADA». El usuario: «que pueda armar una combinada con los diamantes, los oros o
+  // las platas, juntas o separadas, de 2 a 20 patas; que la arme primero el modelo con las más
+  // probables y luego la IA le dé un doble chequeo: cuál se mete, cuál se descarta y por cuál cambiarla».
+  //   1. el modelo: de cada partido que aún no empieza (del día y los deportes elegidos) su pick más
+  //      probable de los niveles elegidos; se toman los N más probables (un partido, una pata).
+  //   2. la IA: la pata que ve «en contra» se descarta y entra la siguiente más probable; la que ve
+  //      «a favor» lo dice. Sin análisis de la IA (o sin VIP) la pata queda «sin revisar».
+  // La probabilidad de la combinada es el producto (partidos distintos): baja con cada pata y se dice.
+  estado.arm = { niv: new Set(['Diamante', 'Platino']), n: 3, res: null };
+  const normTxt = (t) => String(t || '').toLowerCase().replace(/[^a-z0-9áéíóúñü.]+/g, ' ').trim();
+  function veredictoIA(p) {
+    const a = window.SPX && SPX.yo.ia ? SPX.yo.ia[p.partido] : null;
+    if (!a || !(a.veredictos || []).length) return null;
+    const txt = normTxt((SPX.yo.desbloqueados || {})[p.id] || p.apuesta);
+    const v = a.veredictos.find((x) => normTxt(x.apuesta) === txt);
+    return v ? (v.opinion === 'en_contra' ? 'contra' : 'favor') : null;
+  }
+  // v473 — el usuario: «sólo el VIP arma con todos los niveles; el gratis, sólo con Oro (es lo que
+  // trae su plan)». Los demás niveles salen con candado y llevan a Planes.
+  const armVip = () => !!(window.SPX && SPX.esVip && SPX.esVip());
+  const armNiveles = () => (armVip() ? estado.arm.niv : new Set(['Oro']));
+  function armarCombinada(pasaDep) {
+    const ahora = Date.now() + 10 * 60e3, sel = armNiveles();
+    const mejor = new Map();
+    listaBase().filter((p) => pasaDep(p) && p.estado === 'pendiente' && p.tipo !== 'error' && !p.solo_analisis && Number(p.cuota) > 1 &&
+      (aFecha(p.inicio) || 0) > ahora && sel.has(nivel(p).n)).forEach((p) => {
+      const k = clavePartido(p), o = mejor.get(k);
+      if (!o || Number(p.prob) > Number(o.prob)) mejor.set(k, p);
+    });
+    const cands = [...mejor.values()].sort((a, b) => Number(b.prob) - Number(a.prob));
+    const patas = [], fuera = [];
+    for (const p of cands) {
+      if (patas.length >= estado.arm.n) break;
+      const v = veredictoIA(p);
+      if (v === 'contra') { fuera.push(p); continue; }
+      patas.push({ p, v });
+    }
+    return { patas, fuera, disponibles: cands.length };
+  }
+  function pintarArmador(pasaDep) {
+    const caja = $('armador'); if (!caja) return;
+    const A = estado.arm, r = A.res;
+    const NIV = [['Diamante', ico('gem', 'nv-diamante')], ['Platino', ico('award', 'nv-platino')], ['Oro', ico('medal', 'nv-oro')], ['Plata', ico('medal', 'nv-plata')]];
+    const vipA = armVip(), sel = armNiveles();
+    let h = '<div class="tit">' + ico('target') + ' Arma tu combinada</div>' +
+      '<div class="arm-fila"><span class="arm-et">Niveles</span><div class="chips">' + NIV.map(([n, i]) => vipA || n === 'Oro'
+        ? '<button class="chip' + (sel.has(n) ? ' activa' : '') + '" data-arm-niv="' + n + '">' + i + ' ' + n + '</button>'
+        : '<button class="chip bloq" data-vista-ir="planes" data-foco="plan-vip">' + i + ' ' + n + ' ' + ico('lock') + '</button>').join('') + '</div></div>' +
+      (vipA ? '' : '<p class="tenue chico">Con tu plan gratis armas con 🥇 Oro. Con VIP, con todos los niveles.</p>') +
+      '<div class="arm-fila"><span class="arm-et">Patas</span><div class="arm-n"><button data-arm-n="-1" aria-label="Menos patas">−</button><b>' + A.n +
+      '</b><button data-arm-n="1" aria-label="Más patas">+</button></div><button class="vip-btn arm-ir" data-arm-ir="1">Armar</button></div>';
+    if (r) {
+      if (!r.patas.length) h += '<p class="aviso">No hay picks de esos niveles por jugar este día. Prueba con otros niveles u otro día.</p>';
+      else {
+        const prob = r.patas.reduce((x, y) => x * Number(y.p.prob || 0), 1), cuota = r.patas.reduce((x, y) => x * Number(y.p.cuota || 1), 1);
+        const vip = window.SPX && SPX.esVip && SPX.esVip();
+        h += '<div class="arm-res">' + r.patas.map(({ p, v }) => {
+          const [L, V] = lados(p), nv = nivel(p);
+          return '<div class="arm-pata"><span class="arm-niv">' + nv.i + '</span><span class="arm-txt"><b>' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</b><small>' +
+            esc(L) + ' vs ' + esc(V) + ' · ' + esc(horaCdmx(aFecha(p.inicio))) + '</small></span><span class="arm-num"><b>' + Number(p.cuota).toFixed(2) + '</b><small>' + pct(p.prob) + '</small></span>' +
+            '<span class="arm-ia ' + (v || 'nada') + '">' + (v === 'favor' ? OK() + ' IA a favor' : vip ? 'IA sin opinión' : 'IA: VIP') + '</span></div>';
+        }).join('') +
+          (r.fuera.length ? '<div class="arm-fuera">' + MAL() + ' La IA descartó: ' + r.fuera.map((p) => '<b>' + (window.SPX ? SPX.apuesta(p) : esc(p.apuesta)) + '</b> (' + esc(lados(p).join(' vs ')) + ')').join(', ') + ' · entró la siguiente más probable</div>' : '') +
+          (r.patas.length < A.n ? '<p class="aviso">Sólo hay ' + r.patas.length + ' patas que cumplan (de partidos distintos y que aún no empiezan).</p>' : '') +
+          '<div class="arm-pie"><span>Cuota <b>' + cuota.toFixed(2) + '</b> · se cumplen todas ~<b>' + Math.round(100 * prob) + ' %</b></span>' +
+          (r.patas.length >= 2 ? '<button class="vip-btn" data-arm-boleto="' + esc(r.patas.map((x) => x.p.id).join(',')) + '">Pasar a mi combinada</button>' : '') + '</div>' +
+          '<p class="tenue chico">Cada pata de más baja la probabilidad de la combinada: con 3 patas de 85 % queda en ~61 %.</p></div>';
+      }
+    }
+    caja.innerHTML = h;
   }
   function listaBase() {
     if (estado.vista === 'mios') return window.SPX ? SPX.filtrarMios(estado.picks) : [];
@@ -1662,6 +1773,7 @@
     $('comb-tira').innerHTML = combs.length ? '<button class="tira comb-tira" data-vista-ir="combinadas"><em>🔗 <b>' + combs.length + '</b> ' +
       (combs.length === 1 ? 'combinada' : 'combinadas') + (vivas ? '' : ' (ya jugadas)') + '</em><span>Ver ›</span></button>' : '';
     if (estado.vista === 'combinadas') {
+      try { pintarArmador(pasaDep); } catch (e) { console.warn('[sharpicks] armador', e); }
       const orden = { vivo: 0, proximo: 1, terminado: 2 };
       $('combinadas-lista').innerHTML = combs.length ? combs.sort((a, b) => orden[faseCombinada(a)] - orden[faseCombinada(b)] ||
         (a.alcance === 'Mixta') - (b.alcance === 'Mixta') || String(a.alcance).localeCompare(b.alcance) || (a.tipo === 'alta') - (b.tipo === 'alta'))
@@ -1702,7 +1814,9 @@
     function pintarLigas(mapa) { return [...mapa.entries()].map(([l, gs]) => {
       const cerrada = !(estado.busca || '').trim() && !estado.ligasAbiertas.has(l);
       const dia = gs.filter((g) => g[0].elige).length;
-      return '<section class="liga-bloque"><button class="liga-cab" data-liga="' + esc(l) + '"><span>' + esc(l) + '</span>' +
+      const fav = estado.ligasFav.has(l);
+      return '<section class="liga-bloque"><button class="liga-cab" data-liga="' + esc(l) + '"><span class="liga-nom">' +
+        '<span class="fav' + (fav ? ' si' : '') + '" data-fav="' + esc(l) + '" role="button" aria-label="' + (fav ? 'Quitar de favoritas' : 'Marcar como favorita') + '">' + ico('star') + '</span>' + esc(l) + '</span>' +
         '<small>' + (dia ? '💎 ' + dia + ' · ' : '') + gs.length + ' ' + (gs.length === 1 ? 'partido' : 'partidos') + ' ' + (cerrada ? '▸' : '▾') + '</small></button>' +
         (cerrada ? '' : gs.map(seguro(filaPartido)).join('')) + '</section>';
     }).join(''); }
@@ -1759,7 +1873,7 @@
   });
 
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin],[data-ord]');
+    const t = e.target.closest('[data-vista-ir],[data-dia],[data-dep],[data-niv],[data-fase],[data-abrir],[data-liga],[data-ficha],[data-ver-fin],[data-ord],[data-fav],[data-arm-niv],[data-arm-n],[data-arm-ir],[data-arm-boleto]');
     if (!t) return;
     if (t.hasAttribute('data-ver-fin')) { estado.verFinales = !estado.verFinales; pintar(); return; }
     if (t.dataset.vistaIr) {
@@ -1775,6 +1889,24 @@
     if (t.dataset.niv) { alterna(estado.niveles, t.dataset.niv); pintar(); return; }
     if (t.dataset.fase) { estado.fase = t.dataset.fase; pintar(); return; }
     if (t.dataset.ficha) { ficha(t.dataset.ficha); return; }
+    if (t.dataset.armNiv) { const n = t.dataset.armNiv; if (!armVip() && n !== 'Oro') return; estado.arm.niv.has(n) ? estado.arm.niv.delete(n) : estado.arm.niv.add(n); estado.arm.res = null; pintar(); return; }
+    if (t.dataset.armN) { estado.arm.n = Math.max(2, Math.min(20, estado.arm.n + Number(t.dataset.armN))); estado.arm.res = null; pintar(); return; }
+    if (t.dataset.armIr) {
+      const pasaDep = (p) => estado.deportes.size === 0 || estado.deportes.has(p.deporte);
+      estado.arm.res = armarCombinada(pasaDep); pintar(); return;
+    }
+    if (t.dataset.armBoleto) {
+      if (!(window.SPX && SPX.yo.user)) { if (window.SPX && SPX.avisoApp) SPX.avisoApp('Entra con tu correo para guardar tus combinadas.', 'aviso', 'Hace falta entrar'); return; }
+      SPX.ponerBoleto(t.dataset.armBoleto.split(','));
+      if (SPX.avisoApp) SPX.avisoApp('Ya está en «Tu combinada»: revísala y guárdala.', 'ok', 'Combinada lista');
+      return;
+    }
+    if (t.dataset.fav) {
+      const l = t.dataset.fav;
+      estado.ligasFav.has(l) ? estado.ligasFav.delete(l) : estado.ligasFav.add(l);
+      try { localStorage.setItem('sp_ligas_fav', JSON.stringify([...estado.ligasFav])); } catch (er) { /* sin almacenamiento */ }
+      pintar(); return;
+    }
     if (t.dataset.ord) { estado.porHora = t.dataset.ord === 'hora'; try { localStorage.setItem('sp_orden', t.dataset.ord); } catch (er) { /* sin almacenamiento */ } pintar(); return; }
     if (t.dataset.liga) {
       const l = t.dataset.liga;

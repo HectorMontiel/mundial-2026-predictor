@@ -285,7 +285,7 @@ def probar_v434():
           'v445: el VIP ve todos los premium (los textos por páginas, ya no se cortan en 1000) y nunca le sale «Desbloquear»')
     check("sb.rpc('reportar', { p_partido: caja.dataset.partido" in cu and "sb.rpc('resolver_reporte'" in cu and 'data-reportar="' in app
           and 'function pintarReportes()' in cu, 'v446: «⚠️ Reportar un error» en el partido; el admin lo revisa y el servidor paga')
-    check("sb.from('ia_calificaciones').upsert(" in cu and 'SPX.votoIA(a.id)' in app and "a.noticias ? '<div class=\"ia-noti\">" in app,
+    check("sb.from('ia_calificaciones').upsert(" in cu and 'SPX.votoIA(a.id)' in app and "a.noticias ? sub('Noticias', '<div class=\"ia-noti\">'" in app,
           'v446: la IA enseña sus noticias y se califica con 👍/👎 (sólo para medir)')
     check('🥇 Anota primero' in app and 'function primerYPa1(lh, la)' in app and '🏁 PA1' in app and 'data-ia-motivo="' not in cu, 'v447: «quién anota primero» en la IA; 👍/👎 sin motivos')
     check('estadoVisto: (p) => estadoVisto(p)' in app and 'window.SP.estadoVisto(pickDe(p.id) || p)' in cu and "yaRoja ? '<span class=\"et roja\"" in cu

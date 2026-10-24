@@ -78,6 +78,7 @@
   const confirmarApp = (titulo, texto, si, no) => ventanaApp({ tipo: 'pregunta', titulo, texto, si, no: no || 'No', peligro: true });
   window.SPX = { yo, sb, extra, apuesta, filtrarMios, refrescar, extraComb, esVip: () => esVip(), intereses: () => intereses(), votoIA: (id) => votoIA(id) };
   window.SPX.avisoApp = avisoApp; window.SPX.confirmarApp = confirmarApp;   // v457
+  window.SPX.ponerBoleto = (ids) => { yo.verBoleto = true; guardarBoleto(ids.slice(0, 20)); };   // v471 — «Arma tu combinada»
 
   // ---------- precios (de la base; 0 = gratis en el lanzamiento) ----------
   // v389 — el precio de un pick premium depende de su CUOTA (tabla `precios_cuota`);

@@ -93,7 +93,7 @@ def probar():
     ia_js = app[app.index('function iaHtml('):app.index('function iaHtml(') + 7000]
     check('jugadoresHtml(jug, L, V)' in ia_js and 'function jugadoresHtml(jug, L, V)' in app and '<small>2+</small>' in app and '3+' not in ia_js,
           'v469: los jugadores van DENTRO del análisis IA (anota, a puerta 1+ y 2+)')
-    check("if (vip && jugadoresHtml(jug, L, V))" in app, 'v469: el VIP los ve aunque la IA aún no analice el partido; los demás, con candado')
+    check("if (vip && (jugadoresHtml(jug, L, V) || lineasHtml(ctx, L, V)))" in app, 'v469: el VIP los ve aunque la IA aún no analice el partido; los demás, con candado')
 
 
 if __name__ == '__main__':
